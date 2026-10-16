@@ -57,3 +57,11 @@ Limits:
 - **Two small libraries, one stack of packages.** E2 should be repeated with larger trait-world code (more of Base used) and other stacks.
 - **"Hot" here means sampled time in the demonstrators' workloads,** not per-element loops in general.
 - **Under R, the abstract sites of the machinery would be dynamic calls.** The entries already are dynamic for untyped callers, so this changes little.
+
+## hunt/: the adversarial G1 suite (session 24, 2026-10-17)
+
+`batch1.jl` … `batch6.jl` hold 48 cases (about 125 checks), written by an adversarial subagent. Each compares plain Julia with `TraitWorld._facts_call` (dynamic, and inlined into a native wrapper) before and after redefinitions, added methods and deleted methods. `h.jl` is the harness. Two failure classes were found and fixed in TraitWorld f558180; the reproducers are `repro_*.jl`.
+
+On f558180 everything passes except:
+- **C16** (`promote_op` at `Type{Int}`): plain Julia gives `DataType` when the call is folded into compiled code and `Type{Int64}` at run time. Inference-dependent values have no single plain answer (G1 carve-out).
+- **C24b**: a harness bug (the calls use different arguments); C24c is the corrected case and passes.
