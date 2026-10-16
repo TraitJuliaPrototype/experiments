@@ -276,5 +276,26 @@ toplevel(:(Cyc.h(x::Int) = 2))
 c1 = (cyc(), wcyc(), Cyc.g(4))
 check("G1.15 a cycle's callee redefined deep inside", c0 == (1, 1, 1) && c1 == (2, 2, 2), "before $c0, after $c1 (plain, policy, native partner)")
 
+# --- G2.1: a trait function of a package called on type values; another module extends it ---------
+# (review of 2026-10-17, R1: kind-typed facts only for closures)
+toplevel(quote
+    module Pk
+    trt(::Type{T}) where {T} = false
+    trt(::Type{Int}) = true
+    end
+    kt(v::Vector{DataType}) = count(T -> Pk.trt(T), v)
+end)
+cikt = TraitWorld.facts_codeinstance(Tuple{typeof(kt), Vector{DataType}})
+r0 = TraitWorld._facts_call(kt, DataType[Int, Float64])
+toplevel(quote
+    module Qk
+    struct QT end
+    Main.Pk.trt(::Type{QT}) = true
+    end
+end)
+r1 = TraitWorld._facts_call(kt, DataType[Int, Float64, Qk.QT]); p1 = kt(DataType[Int, Float64, Qk.QT])
+check("G2.1 an unrelated module extending a function called on type values invalidates nothing", cikt.max_world == typemax(UInt) && r0 == 1 && r1 == p1 == 2,
+      "still valid: $(cikt.max_world == typemax(UInt)), results $r0, $r1 (plain $p1)")
+
 println()
 println(count(x -> x[2], results), " of ", length(results), " checks pass")
