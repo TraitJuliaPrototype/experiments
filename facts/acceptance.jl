@@ -106,5 +106,68 @@ d = try AccLib.cdet(m) catch e; sprint(showerror, e)[1:min(end, 90)] end
 f = try AccLib.cfmt(m) catch e; sprint(showerror, e)[1:min(end, 90)] end
 check("G1.5 calls into Base, LinearAlgebra and Printf from trait code", d == 6.0 && f == "1.000", "det $d, fmt $(repr(f))")
 
+# --- G1.6: a more specific method at the call signature, added later (review of 2026-10-17) ---
+# The entry's hop to the worker, tested on the policy's call itself: the callee gains a method more
+# specific at the call's signature. (A trait module's worker added later by `@eval` would not be
+# rewritten to a bound, so the hop is tested directly.)
+toplevel(quote
+    module Hop
+    h(x::Integer) = 1
+    end
+    hop(x) = TraitWorld._facts_call(Hop.h, x)
+end)
+h0 = hop(1)
+toplevel(:(Hop.h(x::Int) = 2))
+h1 = hop(1)
+check("G1.6 a more specific method at the call signature, added later, is followed", h0 == 1 && h1 == 2 == Hop.h(1), "before $h0, after $h1, plain $(Hop.h(1))")
+
+# --- G1.7: recursion through an entry (a worker calls its function's entry at the same types) -----
+toplevel(quote
+    @trait_module module AccRec
+    using TraitWorld
+    export Cnt, cval, depth
+    @trait Cnt begin
+        cval(c::Cnt)::Int
+    end
+    @implement Cnt Int begin
+        cval(c) = c
+    end
+    depth(c::Cnt) = cval(c) <= 0 ? 0 : 1 + depth(cval(c) - 1)    # the entry again, with an Int
+    end
+end)
+using .AccRec
+d7 = try AccRec.depth(5) catch e; sprint(showerror, e)[1:min(end, 120)] end
+check("G1.7 recursion through an entry", d7 == 5, "depth(5) = $d7")
+
+# --- G1.8: return_type at abstract argument types (map over an abstractly typed array) -----------
+toplevel(quote
+    @trait_module module AccMap
+    using TraitWorld, ..AccRec
+    export ones_like
+    ones_like(c::Cnt) = map(x -> cval(c), Integer[])        # an empty map over an abstract element type
+    end
+end)
+using .AccMap
+e8 = try AccMap.ones_like(3) catch e; sprint(showerror, e)[1:min(end, 120)] end
+p8 = map(x -> 1, Integer[])
+check("G1.8 return_type at abstract types (an empty map's element type)", typeof(e8) == typeof(p8), "trait $(typeof(e8)), plain $(typeof(p8))")
+
+# --- G1.9: plain Julia's return type changes after a redefinition; the trait code follows ---------
+toplevel(quote
+    module RTH
+    k(x) = 1
+    end
+    @trait_module module AccMap2
+    using TraitWorld, ..AccRec, ..RTH
+    export kmap
+    kmap(c::Cnt) = map(x -> RTH.k(x), Int[])        # empty: the element type is return_type's
+    end
+end)
+using .AccMap2
+r0 = eltype(AccMap2.kmap(1))
+toplevel(:(RTH.k(x) = 1.5))
+r1 = eltype(AccMap2.kmap(1)); p9 = eltype(map(x -> RTH.k(x), Int[]))
+check("G1.9 return_type follows a redefinition", r0 == Int && r1 == p9 == Float64, "before $r0, after $r1, plain $p9")
+
 println()
 println(count(x -> x[2], results), " of ", length(results), " checks pass")
