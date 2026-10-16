@@ -20,6 +20,10 @@ toplevel(quote
         nc(t::Tab)::Int
         colv(t::Tab, i::Int)::Vector{Float64}
     end
+    @implement Tab Vector{Vector{Float64}} begin
+        nc(t) = length(t)
+        colv(t, i) = t[i]
+    end
     cmean(t::Tab, i::Int) = (c = colv(t, i); sum(c) / length(c))
     cdet(t::Tab) = det(reduce(hcat, [colv(t, i) for i in 1:nc(t)]))     # Base + LinearAlgebra
     cfmt(t::Tab) = @sprintf("%.3f", cmean(t, 1))                          # Printf
@@ -98,7 +102,6 @@ toplevel(:(Base.delete_method(only(methods(Base.sum, Tuple{Vector{Float64}})))))
 
 # --- G1.5: calls into code written without traits work, and compute plain Julia's values -------
 m = [[2.0, 0.0], [0.0, 3.0]]
-toplevel(:(@implement AccLib.Tab Vector{Vector{Float64}} begin nc(t) = length(t); colv(t, i) = t[i] end))
 d = try AccLib.cdet(m) catch e; sprint(showerror, e)[1:min(end, 90)] end
 f = try AccLib.cfmt(m) catch e; sprint(showerror, e)[1:min(end, 90)] end
 check("G1.5 calls into Base, LinearAlgebra and Printf from trait code", d == 6.0 && f == "1.000", "det $d, fmt $(repr(f))")
