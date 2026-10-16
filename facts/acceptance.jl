@@ -212,5 +212,69 @@ using .AccNest
 n12 = try AccNest.nest(3, 1) catch e; sprint(showerror, e)[1:min(end, 120)] end
 check("G1.12 recursion through an entry with growing types", n12 == (((1,),),), "nest(3, 1) = $n12")
 
+# --- G1.13: a plain redefinition changes a generic conformance's predicate (final review, 2) --------
+toplevel(quote
+    @trait_module module AccCaps
+    using TraitWorld
+    export HasLen, Idx
+    @trait HasLen{R} begin
+        Base.length(r::R)::Int
+    end
+    @trait Idx{R} <: HasLen begin
+        Base.getindex(r::R, i::Int)::eltype(R)
+    end
+    end
+    @trait_module module AccGen
+    using TraitWorld, ..AccCaps
+    export GT, gfirstsum
+    @trait GT{R} begin
+        gcol(r::R, i::Int)::Vector{Float64}
+    end
+    @implement GT{R} where {R: Idx, eltype(R) == Vector{Float64}} begin
+        gcol(r, i) = r[i]
+    end
+    gfirstsum(t::GT) = sum(gcol(t, 1))
+    end
+    struct WrapG; v::Vector{Vector{Float64}}; end
+    @implement AccCaps.HasLen{WrapG} begin length(r) = length(r.v) end
+    @implement AccCaps.Idx{WrapG} begin getindex(r, i) = r.v[i] end
+    Base.eltype(::Type{WrapG}) = Vector{Float64}
+end)
+wg = WrapG([[1.0, 2.0]])
+g0 = AccGen.gfirstsum(wg)
+toplevel(:(Base.eltype(::Type{WrapG}) = Vector{Int}))          # Revise-style: no @implement, no load
+g1 = try AccGen.gfirstsum(wg) catch e; e end
+check("G1.13 a redefinition that changes a generic conformance's predicate is followed", g0 == 3.0 && g1 isa MethodError,
+      "before $g0, after $(g1 isa Exception ? typeof(g1) : g1) (a fresh session: no conformance, MethodError)")
+
+# --- G1.14: a task in an older world sees that world's conformances (final review, 2) --------------
+toplevel(quote
+    struct Late; v::Vector{Vector{Float64}}; end
+    AccLib.nc(r::Late) = length(r.v)
+    AccLib.colv(r::Late, i::Int) = r.v[i]
+end)
+w0 = Base.get_world_counter()
+toplevel(:(@implement AccLib.Tab Late))
+lt = Late([[1.0, 3.0]])
+o_old = try Base.invoke_in_world(w0, AccLib.cmean, lt, 1) catch e; e end
+o_new = AccLib.cmean(lt, 1)
+check("G1.14 a call in an older world does not see a later conformance", o_old isa Exception && o_new == 2.0,
+      "old world: $(o_old isa Exception ? typeof(o_old) : o_old), latest: $o_new")
+
+# --- G1.15: a bare edge to a cycle partner, with native code of the same instances (review 3a) ------
+toplevel(quote
+    module Cyc
+    h(x::Int) = 1
+    f(n::Int) = n <= 0 ? h(n) : g(n - 1)
+    g(n::Int) = n <= 0 ? h(n) : f(n - 1)
+    end
+    cyc() = Cyc.f(5)
+    wcyc() = TraitWorld._facts_call(cyc)
+end)
+c0 = (cyc(), wcyc(), Cyc.g(4))
+toplevel(:(Cyc.h(x::Int) = 2))
+c1 = (cyc(), wcyc(), Cyc.g(4))
+check("G1.15 a cycle's callee redefined deep inside", c0 == (1, 1, 1) && c1 == (2, 2, 2), "before $c0, after $c1 (plain, policy, native partner)")
+
 println()
 println(count(x -> x[2], results), " of ", length(results), " checks pass")
