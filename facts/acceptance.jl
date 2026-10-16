@@ -169,5 +169,48 @@ toplevel(:(RTH.k(x) = 1.5))
 r1 = eltype(AccMap2.kmap(1)); p9 = eltype(map(x -> RTH.k(x), Int[]))
 check("G1.9 return_type follows a redefinition", r0 == Int && r1 == p9 == Float64, "before $r0, after $r1, plain $p9")
 
+# --- G1.10: compile-time evaluation of a callee with asserted effects over a run-time site --------
+# (the adversarial hunt of 2026-10-17, FAIL 1)
+toplevel(quote
+    module Fold
+    g(x) = 1
+    Base.@assume_effects :foldable h(x::Int) = g(Base.inferencebarrier(x))
+    end
+    kfold() = Fold.h(1)
+    wfold() = TraitWorld._facts_call(kfold)
+end)
+f0 = (kfold(), wfold())
+toplevel(:(Fold.g(x) = 2))
+f1 = (kfold(), wfold())
+check("G1.10 a fold over a run-time site with asserted effects follows a redefinition", f0 == (1, 1) && f1 == (2, 2), "before $f0, after $f1 (plain, policy)")
+
+# --- G1.11: return_type at signatures a method's compilation signature widens (FAIL 2) -----------
+toplevel(quote
+    module Wide
+    ns(@nospecialize x) = x
+    passf(f) = f
+    pass(t) = t
+    vaa(xs...) = xs
+    end
+    # (not `promote_op(pass, Type{Int})`: plain Julia gives `DataType` folded and `Type{Int64}` at run
+    # time, so inference-dependent values have no single plain answer; see wrapping-by-facts.md, G1)
+    kwide() = (Base.promote_op(Wide.ns, Int), Base.promote_op(Wide.passf, typeof(sin)),
+               Base.promote_op(Wide.vaa, ntuple(_ -> Int, 10)...), typeof(Wide.ns.(Int[])))
+end)
+pw = kwide(); qw = TraitWorld._facts_call(kwide)
+check("G1.11 return_type at widened compilation signatures", pw == qw, "plain $pw, policy $qw")
+
+# --- G1.12: recursion through an entry with growing types (review C1) -----------------------------
+toplevel(quote
+    @trait_module module AccNest
+    using TraitWorld, ..AccRec
+    export nest
+    nest(c::Cnt, x) = cval(c) <= 0 ? x : nest(cval(c) - 1, (x,))       # the entry again, a bigger type each level
+    end
+end)
+using .AccNest
+n12 = try AccNest.nest(3, 1) catch e; sprint(showerror, e)[1:min(end, 120)] end
+check("G1.12 recursion through an entry with growing types", n12 == (((1,),),), "nest(3, 1) = $n12")
+
 println()
 println(count(x -> x[2], results), " of ", length(results), " checks pass")
