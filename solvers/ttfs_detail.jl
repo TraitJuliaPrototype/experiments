@@ -1,0 +1,31 @@
+# The steps of ttfs_baseline.jl with compile, recompile and GC time per step (Base.@timed), one fresh session.
+#   julia +1.13.2 --startup-file=no --project=experiments/solvers/env experiments/solvers/ttfs_detail.jl
+using Printf
+Base.cumulative_compile_timing(true)
+row(label, s) = @printf("%-50s %7.3f s  compile %6.3f (recompile %6.3f)  gc %6.3f  alloc %7.1f MB\n",
+                        label, s.time, s.compile_time, s.recompile_time, s.gctime, s.bytes / 2^20)
+row("using OrdinaryDiffEq", @timed @eval using OrdinaryDiffEq)
+const ROS = Base.loaded_modules[only(k for k in keys(Base.loaded_modules) if k.name == "OrdinaryDiffEqRosenbrock")]
+const FD = Base.require(Base.PkgId(Base.UUID("f6369f11-7733-5829-9624-2563aa707210"), "ForwardDiff"))
+lorenz!(du, u, p, t) = (du[1] = p[1] * (u[2] - u[1]); du[2] = u[1] * (p[2] - u[3]) - u[2]; du[3] = u[1] * u[2] - p[3] * u[3]; nothing)
+rossler!(du, u, p, t) = (du[1] = -u[2] - u[3]; du[2] = u[1] + p[1] * u[2]; du[3] = p[2] + u[3] * (u[1] - p[3]); nothing)
+p = [10.0, 28.0, 8 / 3]; u0 = [1.0, 0.0, 0.0]; ts = (0.0, 1.0)
+row("Tsit5, lorenz!, Vector{Float64} (first)", @timed solve(ODEProblem(lorenz!, u0, ts, p), Tsit5()))
+row("Tsit5, lorenz! again", @timed solve(ODEProblem(lorenz!, u0, ts, p), Tsit5()))
+row("Tsit5, rossler! (new function type)", @timed solve(ODEProblem(rossler!, u0, ts, [0.2, 0.2, 5.7]), Tsit5()))
+row("Tsit5, lorenz!, Vector{Float32} (new state type)", @timed solve(ODEProblem(lorenz!, Float32.(u0), Float32.(ts), Float32.(p)), Tsit5()))
+cb1 = DiscreteCallback((u, t, i) -> t > 0.5, i -> (i.u[1] += 1.0))
+row("Tsit5 + DiscreteCallback (new callback type)", @timed solve(ODEProblem(lorenz!, u0, ts, p), Tsit5(); callback = cb1))
+cb2 = ContinuousCallback((u, t, i) -> u[1] - 5.0, i -> (i.p[1] = 9.0))
+row("Tsit5 + ContinuousCallback (new callback type)", @timed solve(ODEProblem(lorenz!, u0, ts, p), Tsit5(); callback = cb2))
+row("Rodas5, lorenz! (first)", @timed solve(ODEProblem(lorenz!, u0, ts, p), ROS.Rodas5()))
+row("Rodas5, lorenz! again", @timed solve(ODEProblem(lorenz!, u0, ts, p), ROS.Rodas5()))
+row("Rodas5, rossler! (new function type)", @timed solve(ODEProblem(rossler!, u0, ts, [0.2, 0.2, 5.7]), ROS.Rodas5()))
+prob = ODEProblem(lorenz!, u0, ts, p)
+loss(q) = sum(solve(remake(prob; p = q, u0 = eltype(q).(prob.u0)), Tsit5(); saveat = 0.5)[end])
+loss2(q) = sum(abs2, solve(remake(prob; p = q, u0 = eltype(q).(prob.u0)), Tsit5(); saveat = 0.5)[end])
+row("ForwardDiff.gradient through Tsit5 (first)", @timed FD.gradient(loss, p))
+row("ForwardDiff.gradient, a second loss closure", @timed FD.gradient(loss2, p))
+row("ForwardDiff.gradient through Tsit5 again", @timed FD.gradient(loss, p))
+row("full GC at the end", @timed GC.gc(true))
+@printf("process: maxrss %.0f MB, total GC %.3f s\n", Sys.maxrss() / 2^20, Base.gc_time_ns() / 1e9)
