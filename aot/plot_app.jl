@@ -2,7 +2,7 @@
 # calling Cairo directly. Built with julia-1.13's test/trimming juliac script (build.sh).
 using TraitWorld, TraitMakie
 
-function main(args::Vector{String})::Cint
+function (@main)(args::Vector{String})::Cint
     xs = collect(range(0.0, 10.0; length = 200))
     f = TraitMakie.lines(xs, sin.(xs); color = :blue)
     TraitMakie.scatter!(f, xs[1:10:end], cos.(xs[1:10:end]); color = :red)
@@ -11,7 +11,13 @@ function main(args::Vector{String})::Cint
     return 0
 end
 
-let r = verify_main(main, (Vector{String},); entrypoints = true)
+# A hole outside main's walk, in plain code: JLLWrappers' `__init__` (Pango_jll, GettextRuntime_jll, …)
+# calls `unique!(::Vector{String})`, whose `issorted` builds its ordering with `lt::Function`, so
+# trim cannot resolve the call; at run time it is one of these two (plain Julia's trim limitation)
+Base.Experimental.entrypoint(Tuple{typeof(issorted), Vector{String}, Base.Order.ForwardOrdering})
+Base.Experimental.entrypoint(Tuple{typeof(issorted), Vector{String}, Base.Order.ReverseOrdering{Base.Order.ForwardOrdering}})
+
+let r = verify_main(main, (Vector{String},); entrypoints = get(ENV, "AOT_SESSION", "0") != "1")
     nh = count(h -> !h.errorpath, r.holes)
     println(Core.stdout, "verify_main: ", nh == 0 ? "no normal-path holes" : "OPEN: $nh normal-path holes",
             ", ", length(r.targets), " targets registered as entry points, ", length(r.holes), " holes in all")
