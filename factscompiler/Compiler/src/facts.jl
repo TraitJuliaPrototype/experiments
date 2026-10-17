@@ -72,10 +72,30 @@ end
 
 const FACTS_ABSTRACT_SITE = FailedMethodMatch("facts mode: argument types not concrete, dispatched at run time")
 
+"""
+A call of a *sealed* function: one whose methods only its owner adds, so a call at abstract types is
+inferred as usual, with its edges (only the owner can change its dispatch). For the prototype the
+sealed functions are TraitWorld's (as TraitWorld's own interpreter exempts its machinery,
+`_machinery_call`); the general form is a declaration a module makes for its functions.
+"""
+function sealed_call(argtypes::Vector{Any})
+    isempty(argtypes) && return false
+    ft = widenconst(argtypes[1])
+    if ft === typeof(Core.kwcall) && length(argtypes) >= 3
+        ft = widenconst(argtypes[3])
+    end
+    ft isa DataType || return false
+    return nameof(Base.moduleroot(ft.name.module)) === :TraitWorld
+end
+
 "`find_method_matches` under the facts mode: every split must be a fact signature."
 function facts_find_method_matches(interp::AbstractInterpreter, argtypes::Vector{Any}, @nospecialize(atype),
                                    max_union_splitting::Int, max_methods::Int)
     𝕃 = typeinf_lattice(interp)
+    if sealed_call(argtypes)
+        is_union_split_eligible(𝕃, argtypes, max_union_splitting) && return find_union_split_method_matches(interp, argtypes, max_methods)
+        return find_simple_method_matches(interp, atype, max_methods)
+    end
     if is_union_split_eligible(𝕃, argtypes, max_union_splitting)
         for arg_n in switchtupleunion(𝕃, argtypes)
             sig_n = argtypes_to_type(arg_n)

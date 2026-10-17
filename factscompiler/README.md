@@ -57,3 +57,38 @@ more than 20% (mostly `scalar`, ns-scale). The tails:
 - `array/index` sums over ranges, 3 → 25 ns: to be looked at (probably a fold plain Julia makes).
 
 Limitation (plan R4): Base's code in the system image was compiled plainly and is used as it is.
+
+## Next steps of plan §3 (session 28)
+
+**`return_type` step 2** (plain inference in its own cache owner, `PlainRTInterp`, merged over the
+concrete splits of the signature, folded with an edge per split when every answer rests on facts):
+`Union{Missing, Int8}` broadcast `x .* x` (1000 elements) 148 ns plain, 33.9 µs facts before,
+**162 ns** after; `combine_eltypes` and `copy` infer exactly as plain.
+
+**`array/index` range sums** (3 → 25 ns in the suite): harness overhead, not kernel cost. Called
+directly, `perf_sumelt(1:100000)` takes 2.0 ns plain and 2.0–2.7 ns facts.
+
+**Recovery** (`recovery/recovery.jl`, `recovery/RTTrait.jl`; best of 5 or 200 runs):
+
+| benchmark | variant | plain | facts |
+|---|---|---|---|
+| raytrace | original | 249 ms | 881 ms |
+| | `::Hit` on the three `intersect` results | 251 ms | 586 ms |
+| | `objs::Vector{Union{Sphere, Group}}` (a sealed set, written out) | 268 ms | **273 ms** |
+| | `Scene` as a trait, `objs::Vector{Dynamic{Scene}}` | 801 ms | 776 ms |
+| parse_json | original | 303 µs | 1394 µs |
+| | values in a concrete wrapper (`Dynamic`'s analogue) | 303 µs | 1361 µs |
+| | `local pos::Int = 1` (julia#15276's standard fix) | 152 µs | **178 µs** |
+
+- The assertion recovers half of raytrace: plain Julia turns `intersect(j::Scene, …)` with its
+  two methods into `isa` branches with direct calls; facts mode refuses that split, since the set of
+  methods is open.
+- The trait version costs nothing under facts (776 against 801 ms), but `Dynamic` dispatch at
+  about 15–20 ns per call makes it 3× slower than plain's `isa` branches in this hot recursion.
+- The trait version needed TraitWorld's functions exempted as *sealed* (`sealed_call` in
+  `src/facts.jl`): the entry on a `Dynamic` calls the machinery at abstract types, which
+  TraitWorld's own interpreter exempts (`_machinery_call`). The general form: a function whose
+  methods only its owner may add is sealed, and calls of it at abstract types are facts.
+- `parse_json` is a captured, reassigned variable (`Core.Box`): every call has an `Any`
+  argument, and plain Julia still types the single-method ones. Plain Julia's own fix removes it
+  under facts too.
