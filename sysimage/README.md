@@ -21,3 +21,10 @@ Session 26 (2026-10-17), decided by the user (open-issues §1.3): the facts poli
 - The demonstrators' rows on this image.
 - A cleaner form: the policy as part of Julia's Compiler (the upstream proposal) rather than TraitWorld whole in the image.
 - Whether the machinery's native code in the image is invalidated by later loads: `@implement` after loads.
+
+## Session 27: the demonstrators' rows on it
+
+Rebuilt for TraitWorld a19ba7e (105 s, 248 MB). View caches off, one fresh process per cell (`demos/rows.sh` with `JFLAGS="-J $TMPDIR/systw/systw.so"`):
+- **TraitMakie:** a new data or colour key after CSV, DataFrames and CairoMakie loaded first: 104–107 ms, against 6.4 s on the patched build without the image. First PNG 18–22 ms in every order (the same without the image). `using TraitMakie` 0.14–0.15 s (0.24–0.28 s without), 17 ms after CairoMakie.
+- **TraitDifferentialEquations:** `using` 0.11–0.13 s (0.27–0.32 s without); rows 1–5 as without the image (row 1 6.5–7.0 ms, row 5 34–42 ms then 17–21 ms), in every order.
+- So the image removes the one load-order dependence left in the rows: new trait code compiled after loads that invalidate the policy's compiler code (open-issues §1.3).
