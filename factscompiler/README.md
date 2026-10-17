@@ -92,3 +92,21 @@ directly, `perf_sumelt(1:100000)` takes 2.0 ns plain and 2.0–2.7 ns facts.
 - `parse_json` is a captured, reassigned variable (`Core.Box`): every call has an `Any`
   argument, and plain Julia still types the single-method ones. Plain Julia's own fix removes it
   under facts too.
+
+## Witness tables for `Dynamic` (TraitWorld, session 28)
+
+`recovery/dynmicro.jl`: sum of `area` over a vector of shapes, ns per element (`N` elements);
+`JULIA_TW_WITNESS=0` is the old path (two dynamic dispatches per call).
+
+| | N = 10⁶ | N = 1000 |
+|---|---|---|
+| plain `Vector{QShape}`, 2 methods (`isa` branches, inlined) | 3.8 | 0.87 |
+| plain `Vector{PShape}`, 4 methods (dynamic dispatch) | 32–35 | 25.5 |
+| `Vector{Dynamic{Shape}}`, old path | 23–26 | |
+| `Vector{Dynamic{Shape}}`, witness tables | 14–17 | **6.6** |
+| `Erased` call (a function pointer, for scale) | 4.1 | |
+
+Trait raytrace (`recovery/RTTrait.jl`, TraitWorld's policy): 801 → 669 ms; plain original 249 ms.
+About 80 million `intersect` calls per run, so 5–6 ns per call is the whole remaining gap: plain
+Julia's two-method `isa` branches are inlined, a witness call cannot be. At 10⁶ values a second
+pointer to chase (the boxed trait object, then the user's object) adds about 8 ns.
