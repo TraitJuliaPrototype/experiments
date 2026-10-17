@@ -4,7 +4,8 @@ OUT=${OUT:-$TMPDIR/systw}; mkdir -p "$OUT"; SRC=$(cd "$(dirname "$0")" && pwd); 
 R=/home/hellmann/Repos/julia-trait-bound/julia-1.13
 export JULIA_LOAD_PATH="$TMPDIR/twtestenv13p:@stdlib" JULIA_NUM_THREADS=1 JULIA_PKG_OFFLINE=true
 s=$(date +%s)
-setsid nice -n 10 $R/julia --startup-file=no --sysimage $R/usr/lib/julia/sys.so -C native --output-o systw-o.a.tmp $SRC/build.jl > build.log 2>&1 &
+: > build.log
+setsid nice -n 10 $R/julia --startup-file=no --sysimage $R/usr/lib/julia/sys.so -C native --output-o systw-o.a.tmp $SRC/build.jl >> build.log 2>&1 &
 pid=$!
 peak=0
 while kill -0 $pid 2>/dev/null; do
