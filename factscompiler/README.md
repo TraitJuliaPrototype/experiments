@@ -146,3 +146,24 @@ Pitfalls met on the way:
   inference took the call as throwing (`Unreachable reached` at run time); it now reads registries only;
 - in a recursion cycle every TraitWorld function on the path was a separate call, and the varargs
   splat into `_dispatch` boxed every argument (4.6 GB): the direct branch avoids that machinery.
+
+## Raytrace with an open set of primitives (session 28)
+
+`recovery/rtvariants.jl`: plain Julia written idiomatically (concrete children; immutable `Hit`) is
+only 8% faster than the original (208–232 against 226 ms): the benchmark is compute-bound, about
+3 ns of arithmetic per `intersect` call, and closed (users cannot add primitives).
+
+`recovery/rtopen.jl`: users may add primitive types; two more are defined but not in the scene, so
+the work is the same (TraitWorld's policy; best of 5):
+
+| design | time |
+|---|---|
+| plain `Vector{Scene}`, 2 types (≤ `max_methods`: `isa` branches) | 240 ms |
+| plain `Vector{Scene}`, 4 types (dynamic dispatch) | 693 ms |
+| `Vector{Dynamic{Scene}}`, 2 conformances | 470 ms |
+| `Vector{Dynamic{Scene}}`, 4 conformances | 484 ms |
+| grouped by key (`Vector{Dynamic{Bucket}}`, a `Vector{T}` per type; `RTBucket.jl`), 4 conformances | 395 ms |
+
+The trait versions do not depend on how many types exist; plain Julia's fast path does, and it
+invalidates code compiled for the existing types when a package adds one. Not optimized further
+for this benchmark's shape (agreed with the user, session 28).
