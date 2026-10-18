@@ -110,3 +110,39 @@ Trait raytrace (`recovery/RTTrait.jl`, TraitWorld's policy): 801 → 669 ms; pla
 About 80 million `intersect` calls per run, so 5–6 ns per call is the whole remaining gap: plain
 Julia's two-method `isa` branches are inlined, a witness call cannot be. At 10⁶ values a second
 pointer to chase (the boxed trait object, then the user's object) adds about 8 ns.
+
+## Key branches at `Dynamic` call sites (TraitWorld, session 28)
+
+A call on a `Dynamic` tests the keys known when the caller is compiled: the trait-object types of
+the conformances declared so far (noted at each declaration and package load) and of values made.
+Each is an exact type test, then the user's method called with the representation, inlined. Other
+keys take the witness call. Definition checks now infer in their own cache owner, so they no longer
+fix callers' code before conformances exist.
+
+| | N = 10⁶ | N = 1000 |
+|---|---|---|
+| plain, 2 methods (`isa` branches) | 3.8 | 0.89 |
+| plain, 4 methods (dynamic dispatch) | 31 | 27.6 |
+| `Dynamic`, before witness tables | 23–26 | |
+| `Dynamic`, witness tables | 14–17 | 6.6 |
+| `Dynamic`, key branches | **10.9** | **2.05** |
+
+Trait raytrace: 801 ms (old path), 669 (witness), **498–505 ms** (key branches) in all three
+configurations (TraitWorld's policy; compiler copy with facts off or on); plain original 249 ms;
+allocations equal to plain (3.7 against 3.2 MB at a small size, from 51 MB). What is left is one
+call per element: Julia does not inline members of a recursion cycle into each other, and the
+branches sit in a TraitWorld function on the recursion's path (plain Julia's branches sit in the
+caller). In the compiler version, the inliner can split a call on a `Dynamic` at the call site, as it
+splits unions.
+
+Pitfalls met on the way:
+- a generated function's expansion is cached once per signature: keys read inside one were fixed
+  at the first expansion (TraitWorld's definition check). The keys now enter the signature
+  (`_dyn_call_keyed`), read by `_dyn_keys_now` at compile time;
+- constant propagation re-infers a callee per call site only for constant arguments, so a call
+  `intersect(j, i, ray)` keeps the callee's first inference; hence keys from *declarations*, which
+  exist when the call tree is compiled, not from values, which are made while it runs;
+- `_dyn_keys_now` is asserted foldable: when it threw at compile time (nested inference),
+  inference took the call as throwing (`Unreachable reached` at run time); it now reads registries only;
+- in a recursion cycle every TraitWorld function on the path was a separate call, and the varargs
+  splat into `_dispatch` boxed every argument (4.6 GB): the direct branch avoids that machinery.

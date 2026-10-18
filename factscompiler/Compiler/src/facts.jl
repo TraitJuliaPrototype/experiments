@@ -120,6 +120,9 @@ function facts_eval_refused(result::MethodCallResult)
     m = get_ci_mi(edge).def
     m isa Method || return false
     m.purity == 0 && return false                 # effects inferred, not asserted
+    # TraitWorld's read of the keys of dynamic values known at the caller's compile time:
+    # deliberately without an edge (prototype: named, as `sealed_call`; open-issues §2.26)
+    m.name === :_dyn_keys_now && nameof(Base.moduleroot(m.module)) === :TraitWorld && return false
     r = Base.moduleroot(m.module)
     return !(r === Base || r === Core)
 end
