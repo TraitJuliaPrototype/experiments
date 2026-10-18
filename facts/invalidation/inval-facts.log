@@ -1,0 +1,24 @@
+Compiling the compiler. This may take several minutes ...
+Base.Compiler ──── 23.070611000061035 seconds
+mode = facts  julia 1.13.2  /home/hellmann/Repos/julia-trait-bound/julia-1.13/usr/bin/julia
+S1 inferred result of caller: Any
+S1 before                                                      CodeInstances: 1  valid: 1
+S1 after Other1 adds foo(::Other1.T)                           CodeInstances: 1  valid: 1
+S2 inferred result of total: Any
+S2 before                                                      CodeInstances: 1  valid: 1
+S2 after Other2 adds area(::Other2.C)                          CodeInstances: 1  valid: 1
+S3 f3(Real[]) returns Vector{Any}
+S3 before                                                      CodeInstances: 1  valid: 1
+S3 after Other3 adds w(::Other3.NR)                            CodeInstances: 1  valid: 1
+S3 f3(Real[]) now returns Vector{Any}
+S4 before                                                      CodeInstances: 1  valid: 1
+S4 after Lib4 adds bar(::Int) (stakeholder)                    CodeInstances: 1  valid: 0   <-- INVALIDATED
+S5 before                                                      CodeInstances: 1  valid: 1
+S5 after Pirate5 adds baz(::Signed) (winning pirate)           CodeInstances: 1  valid: 0   <-- INVALIDATED
+S6 recompiled                                                  CodeInstances: 2  valid: 1
+S6 after Pirate6 adds baz(::Real) (losing pirate)              CodeInstances: 2  valid: 1
+S7 before                                                      CodeInstances: 1  valid: 1
+S7 after Lib7 redefines const K                                CodeInstances: 1  valid: 0   <-- INVALIDATED
+S8 inferred result of c8: Any
+S8 before                                                      CodeInstances: 1  valid: 1
+S8 after Other8 adds make(::Type{Other8.U})                    CodeInstances: 1  valid: 1
