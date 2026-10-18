@@ -314,5 +314,46 @@ r1 = FactsCall.call(kt, DataType[Int, Float64, Qk.QT]); p1 = kt(DataType[Int, Fl
 check("G2.1 an unrelated module extending a function called on type values invalidates nothing", cikt.max_world == typemax(UInt) && r0 == 1 && r1 == p1 == 2,
       "still valid: $(cikt.max_world == typemax(UInt)), results $r0, $r1 (plain $p1)")
 
+# --- G1.17: a call site split over dynamic values' candidates (part D) takes a later conformance -----
+# (the wrong-code bug of session 29: the split dropped its last check and its fallback)
+toplevel(quote
+    @trait_module module AccDyn
+    using TraitWorld
+    export Shp, sarea, stotal
+    @trait Shp{R} begin
+        sarea(r::R)::Float64
+    end
+    struct Sq; a::Float64; end
+    struct Ci; r::Float64; end
+    @implement Shp{Sq} begin sarea(s) = s.a^2 end
+    @implement Shp{Ci} begin sarea(c) = 3.0 * c.r^2 end
+    function stotal(v::Vector{Dynamic{Shp}})
+        s = 0.0
+        for d in v
+            s += sarea(d)
+        end
+        return s
+    end
+    end
+end)
+dv = Dynamic{AccDyn.Shp}[Dynamic{AccDyn.Shp}(AccDyn.Sq(2.0)), Dynamic{AccDyn.Shp}(AccDyn.Ci(1.0))]
+t0 = AccDyn.stotal(dv)
+fcis() = [ci for m in methods(AccDyn.stotal) for mi in Base.specializations(m) if mi isa Core.MethodInstance
+          for ci in (let out = Any[]; c = isdefined(mi, :cache) ? mi.cache : nothing; while c !== nothing; push!(out, c); c = isdefined(c, :next) ? c.next : nothing; end; out end)
+          if ci.owner === :facts]
+held = fcis()
+toplevel(quote
+    module AccDyn2
+    using TraitWorld, ..AccDyn
+    import ..AccDyn: sarea
+    struct Tri; b::Float64; end
+    @implement AccDyn.Shp{Tri} begin sarea(t) = t.b / 2 end
+    end
+end)
+push!(dv, Dynamic{AccDyn.Shp}(AccDyn2.Tri(4.0)))
+t1 = AccDyn.stotal(dv)
+check("G1.17 a dynamic value of a later conformance at a split call site", t0 == 7.0 && t1 == 9.0 && !isempty(held) && all(ci -> ci.max_world == typemax(UInt), held),
+      "before $t0, after $t1 (9.0), facts code still valid: $(all(ci -> ci.max_world == typemax(UInt), held))")
+
 println()
 println(count(x -> x[2], results), " of ", length(results), " checks pass")
