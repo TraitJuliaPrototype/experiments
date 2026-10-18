@@ -257,7 +257,10 @@ function facts_plain_return_type(interp::AbstractInterpreter, @nospecialize(sig)
         nci isa CodeInstance || return nothing
         rests_on_facts(nci) || return nothing
         valid = intersect(valid, WorldRange(max(lo[], nci.min_world), min(hi[], nci.max_world)))
-        rt_s = isdefined(nci, :rettype_const) ? Core.Typeof(nci.rettype_const) : nci.rettype
+        # decoded as the compiler decodes it: `rettype_const` may hold a lattice element
+        # (an `InterConditional` for a `Bool` predicate), not a constant
+        r = cached_return_type(nci)
+        rt_s = r isa Const ? Core.Typeof(r.val) : widenconst(r)
         rt = tmerge(fallback_lattice, rt, rt_s)
         push!(sigs, s); push!(cis, nci)
     end
