@@ -1,0 +1,10 @@
+julia 1.13.2  tier: strict  order: after
+PASS     after/strict the first gradient is finite
+PASS     after/strict the gradient is unchanged
+PASS     after/strict the definition raises a PirateError  (TraitWorld.PirateError)
+     message: PirateError: strict mode refuses +(a::ForwardDiff.Dual{ForwardDiff.Tag{TraitDifferentialEquations.Sig{Tuple{Vector{Float64}}, Float64}, Float64}, Float64, 3}, b::ForwardDiff.Dual{ForwardDiff.Tag{TraitDifferentialEquations.Sig{Tuple{Vector{Float64}}, Float64}, Float64}, Float64, 3}) @ Main.Pirate ~/Repos/julia-trait-bound/experiments/examples/strict/dual_pirate.jl:48, defined by Main.Pirate: it would change what trait-world code computes at Tuple{typeof(+), ForwardDiff.Dual{ForwardDiff.Tag{TraitDifferentialEquations.Sig{Tuple{Vector{Float64}}, Float64}, Float64}, Float64, 3}, ForwardDiff.Dual{ForwardDiff.Tag{TraitDifferentialEquations.Sig{Tuple{Vector{Float64}}, Float64}, Float64}, Float64, 3}} (CodeInstance for MethodInstance for Base.afoldl(::typeof(+), ::ForwardDiff.Dual{ForwardDiff.Tag{TraitDifferentialEquations.Sig{Tuple{Vector{Float64}}, Float64}, Float64}, Float64, 3}, ::ForwardDiff.Dual{ForwardDiff.Tag{TraitDifferentialEquations.Sig{Tuple{Vector{Float64}}, Float64}, Float64}, Float64, 3})), and Main.Pirate owns neither the function nor a type in that signature. Turn strict mode off (`TraitWorld.strict!(false)`) to follow it as plain Julia does, or declare the package a delegate of the owner it implements (`TraitWorld.delegate!(Core => Impl)`).
+PASS     after/strict the message names `+` and the solver's code  (PirateError: strict mode refuses +(a::ForwardDiff.Dual{ForwardDiff.Tag{TraitDifferentialEquations.Sig{Tuple{Vector{Float64}}, Float64}, Float64}, Float64, 3}, b::ForwardDiff.Dual{ForwardDiff.Tag{TraitDifferentialEquations.Sig{Tuple{Vector{Float64}}, Float64}, Float64}, Float64, 3}) @ Main.Pirate ~/R)
+PASS     after/strict the message says how to proceed
+PASS     after/strict the pirate never runs (solver and plain code)  (solver 0, plain 0)
+
+6 pass, 0 fail, 0 pending

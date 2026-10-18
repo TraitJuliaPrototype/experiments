@@ -1,0 +1,10 @@
+julia 1.13.2  facts mode (all): false  tier: strict  order: after
+PASS     after/strict before the pirate: wtotal = 3.0
+PASS     after/strict the pirate is refused where it is defined  (load log: ┌ Error: strict mode left a package's winning pirates inactive at its load:
+│   PirateError: strict mode refuses weight(x::Float64) @ XPirate ~/Repos/julia-trait-bound/experiments/examples/pkgs/XPirate/src/XPirate.jl:4, defined by XPirate: it would change what trait-world code computes at Tuple{type)
+PASS     after/strict the message names the method and the code  (┌ Error: strict mode left a package's winning pirates inactive at its load:
+│   PirateError: strict mode refuses weight(x::Float64) @ XPirate ~/Repos/julia-trait-bound/experiments/examples/pkgs/XPirate/src/XPirate.jl:4, defined by XPirate: it would change what trait-world code computes at Tuple{typeof(XFun.weight), Float64} (CodeInstance for MethodInstance for wtotal(::Vals at Vector{Float64})), a)
+PASS     after/strict trait code unchanged and identical to plain Julia  (trait 3.0, plain 3.0)
+PASS     after/strict no compiled code of XLib lost  (0 lost)
+
+5 pass, 0 fail, 0 pending

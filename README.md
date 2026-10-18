@@ -12,6 +12,8 @@ Until 2026-10-16 this was the `poc/` directory of the design repository; its his
 | `lens/` | the cost of a field reference against a held value | design-findings §18 |
 | `solvers/` | stock SciML baselines: time to first solve, callbacks, automatic differentiation | `../writeup/explorations/solvers.md` |
 | `runtime-injection/` | the load-time invalidation filter injected into stock Julia 1.12.2 and 1.13.2 | `runtime-injection/README.md`; `../writeup/explorations/runtime.md` |
+| `examples/` | small cases that stress-test the design (session 29): strict mode on real pirates and split-core pairs, a glue extension, heterogeneous collections, errors at definition, warnings that teach, redefinition at the prompt | `examples/README.md` |
+| `facts/framing/` | the framing's acceptance cases: S1–S10, a Vararg splat, a pirate in each order under both tiers, G1.16 | `facts/framing/README.md` |
 
 **Environments.** The environments under `world/env` and `interfaces/env` develop TraitWorld from `../../../TraitWorld`, the sibling repository.
 
