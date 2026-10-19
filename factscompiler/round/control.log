@@ -1,0 +1,24 @@
+== plain plaintables
+mode: plain  loads: OffsetArrays StatsBase Unitful IntervalArithmetic Distributions Interpolations StaticArrays CairoMakie REPL
+work: first 102.4 ms, again 28.5 ms; after the loads 95.2 ms
+valid before the loads: PlainTables 77, TraitMakie 179
+valid after the loads:  PlainTables 63, TraitMakie 179
+lost: 14 of 256  (PlainTables 14)
+== plain upstream
+mode: plain  loads: OffsetArrays StatsBase Unitful IntervalArithmetic Distributions Interpolations StaticArrays CairoMakie REPL
+work: first 3233.5 ms, again 0.6 ms; after the loads 3916.5 ms
+valid before the loads: CSV 1315, DataFrames 1973, Tables 317, Parsers 830, InlineStrings 1, PooledArrays 194, SentinelArrays 84
+valid after the loads:  CSV 1192, DataFrames 1576, Tables 301, Parsers 994, InlineStrings 1, PooledArrays 170, SentinelArrays 76
+lost: 571 of 4714  (SentinelArrays 8, Parsers 3, CSV 123, Tables 16, PooledArrays 24, DataFrames 397)
+== all plaintables
+mode: all (facts)  loads: OffsetArrays StatsBase Unitful IntervalArithmetic Distributions Interpolations StaticArrays CairoMakie REPL
+work: first 137.2 ms, again 27.7 ms; after the loads 27.9 ms
+valid before the loads: PlainTables 65, TraitMakie 179
+valid after the loads:  PlainTables 65, TraitMakie 179
+lost: 0 of 244  ()
+== all upstream
+mode: all (facts)  loads: OffsetArrays StatsBase Unitful IntervalArithmetic Distributions Interpolations StaticArrays CairoMakie REPL
+work: first 724.5 ms, again 0.9 ms; after the loads 683.9 ms
+valid before the loads: CSV 1009, DataFrames 1221, Tables 171, Parsers 823, InlineStrings 1, PooledArrays 95, SentinelArrays 17
+valid after the loads:  CSV 1007, DataFrames 1221, Tables 171, Parsers 926, InlineStrings 1, PooledArrays 95, SentinelArrays 17
+lost: 2 of 3337  (CSV 2)

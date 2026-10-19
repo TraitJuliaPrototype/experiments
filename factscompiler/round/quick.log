@@ -1,0 +1,81 @@
+image: julia  label: q-plain-final  148 benchmarks
+done in 78.5 s
+image: facts  label: q-all-final  148 benchmarks
+done in 114.9 s
+array           28  geomean 3.070  min 1.00  max 9.73
+broadcast        4  geomean 1.018  min 1.01  max 1.02
+collection      21  geomean 4.922  min 0.66  max 26.42
+find             4  geomean 0.969  min 0.90  max 1.01
+io               6  geomean 1.172  min 0.99  max 1.68
+micro            4  geomean 1.007  min 1.00  max 1.01
+misc             4  geomean 0.973  min 0.91  max 1.01
+problem          6  geomean 1.542  min 0.95  max 4.02
+scalar          15  geomean 1.088  min 0.60  max 4.62
+shootout         4  geomean 1.007  min 1.00  max 1.02
+simd             4  geomean 0.948  min 0.93  max 0.98
+sort            11  geomean 1.645  min 0.93  max 8.22
+sparse           5  geomean 0.959  min 0.92  max 1.00
+string           4  geomean 0.971  min 0.96  max 1.00
+tuple            1  geomean 0.977  min 0.98  max 0.98
+union           27  geomean 1.296  min 0.87  max 4.05
+ALL            148  geomean 1.734
+
+slower by more than 20% (ratio, benchmark, off ns, on ns):
+   26.42  collection/deletion/("Vector", "Any", "filter!")                                       1137      30039
+   20.46  collection/deletion/("IdDict", "Any", "filter!")                                      11208     229343
+   18.80  collection/iteration/("IdDict", "Any", "iterate second")                                  7        131
+   18.32  collection/deletion/("IdDict", "Any", "filter")                                       11632     213144
+   17.92  collection/deletion/("Vector", "Any", "filter")                                        1709      30627
+   17.73  collection/iteration/("Dict", "Any", "iterate second")                                    7        124
+   17.56  collection/iteration/("Dict", "Any", "iterate")                                           7        123
+   16.95  collection/iteration/("IdDict", "Any", "iterate")                                         7        125
+   15.49  collection/initialization/("Vector", "Any", "loop", "sizehint!")                       1214      18816
+    9.87  collection/initialization/("Vector", "Any", "loop")                                    1926      19003
+    9.73  array/index/("sumrange_view", "1:100000")                                                 2         23
+    9.15  collection/initialization/("IdDict", "Any", "iterator")                               79220     724570
+    8.49  array/index/("sumcolon_view", "1:100000")                                                 2         20
+    8.22  sort/issorted/("reverse", "random")                                                      17        142
+    4.98  collection/queries & updates/("Vector", "Any", "pop!", "unspecified")                     3         14
+    4.62  scalar/acos/("0.5 <= abs(x) < 1", "negative argument", "Float64")                        75        346
+    4.44  array/index/("sumlinear_view", "1:100000")                                                7         31
+    4.36  array/index/("sumeach", "1:100000")                                                       7         31
+    4.31  array/index/("sumrange_view", "100000:-1:1")                                              7         32
+    4.26  array/index/("sumlinear", "1:100000")                                                     7         30
+    4.13  collection/initialization/("Dict", "Any", "loop")                                     72558     299712
+    4.05  union/array/("map", "identity", "Int8", 1)                                             1147       4648
+    4.02  problem/raytrace/raytrace                                                         262687640 1056426587
+    4.01  array/index/("sumeach_view", "1:100000")                                                  7         28
+    4.00  array/index/("sumcartesian", "1:100000")                                                  7         28
+    3.95  array/index/("sumelt", "1:100000")                                                        7         28
+    3.88  array/index/("sumlinear_view", "100000:-1:1")                                             8         33
+    3.85  array/index/("sumlinear", "100000:-1:1")                                                  8         31
+    3.75  union/array/("collect", "all", "Int8", 1)                                              1156       4334
+    3.69  array/index/("sumcartesian", "100000:-1:1")                                               9         32
+    3.61  union/array/("map", "abs", "Bool", 1)                                                  1118       4040
+    3.61  array/index/("sumcartesian_view", "100000:-1:1")                                          8         31
+    3.57  array/index/("sumeach_view", "100000:-1:1")                                               8         30
+    3.55  union/array/("collect", "all", "Bool", 1)                                              1107       3933
+    3.55  union/array/("map", "identity", "Bool", 1)                                             1137       4036
+    3.52  array/index/("sumcartesian_view", "1:100000")                                             7         24
+    3.50  array/index/("sumcolon_view", "1.0:1.0:100000.0")                                         9         30
+    3.49  array/index/("sumcolon_view", "100000:-1:1")                                              7         25
+    3.43  union/array/("map", "abs", "Int8", 1)                                                  1154       3956
+    3.31  array/index/("sumeach", "100000:-1:1")                                                    8         26
+    3.25  array/index/("sumcolon_view", "1.0:0.00010001000100010001:2.0")                           9         28
+    3.22  array/index/("sumrange_view", "1.0:0.00010001000100010001:2.0")                           9         27
+    3.13  problem/json/parse_json                                                              410733    1285831
+    2.96  array/index/("sumrange_view", "1.0:1.0:100000.0")                                         9         25
+    2.36  scalar/asin/("0.5 <= abs(x) < 0.975", "negative argument", "Float32")                    67        159
+    2.25  array/index/("sumvector_view", "1.0:0.00010001000100010001:2.0")                         20         45
+    2.13  sort/length = 30/mixed eltype with by order                                            2337       4978
+    2.13  array/index/("sumvector_view", "1.0:1.0:100000.0")                                       21         44
+    1.99  sort/length = 3/mixed eltype with by order                                               26         52
+    1.85  sort/length = 100/mixed eltype with by order                                          16041      29692
+    1.75  sort/length = 10000/mixed eltype with by order                                      4546523    7939186
+    1.68  io/serialization/("deserialize", "Vector{String}")                                    45704      76871
+    1.66  sort/length = 1000/mixed eltype with by order                                        304538     506583
+    1.50  scalar/arithmetic/("rem type", "Int64", "Int64")                                        153        229
+    1.48  sort/length = 3/sort(rand(2n, 2n, n); dims=1)                                            63         93
+    1.46  io/serialization/("serialize", "Vector{String}")                                      71152     104188
+    1.35  scalar/arithmetic/("rem type", "Int64", "UInt64")                                       114        153
+    1.30  array/index/("sumlogical_view", "Base.ReinterpretArray{BaseBenchmarks.ArrayBench      51144      66565

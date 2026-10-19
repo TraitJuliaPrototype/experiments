@@ -1,0 +1,137 @@
+### calls 19:16:23
+DynamicCall pointer   4.06 ns/call
+direct call           0.87 ns/call
+dynamic call (Any)    19.11 ns/call
+old world: 2.0 (expect 2.0), latest: 101.0 (expect 101.0)
+alternating worlds, 100 calls each way: 4.3 ns/call (incl. invoke_in_world)
+untyped plain
+untyped, trait   28.6 ns/call
+untyped, plain   17.2 ns/call
+typed, trait     0.8 ns/call
+typed, plain     0.8 ns/call
+allocations per untyped trait call: 16.0 bytes
+plain  monomorphic, asserted        13.9 ns/call    16.0 bytes/call
+plain  4 types, asserted            17.8 ns/call    16.0 bytes/call
+plain  4 types, result untyped      34.7 ns/call    32.0 bytes/call
+plain  push!(::Vector{Any}, x)       1.6 ns/call    17.0 bytes/call
+untyped all
+untyped, trait   59.9 ns/call
+untyped, plain   19.1 ns/call
+typed, trait     0.8 ns/call
+typed, plain     0.8 ns/call
+allocations per untyped trait call: 32.0 bytes
+all    monomorphic, asserted        15.1 ns/call    16.0 bytes/call
+all    4 types, asserted            16.7 ns/call    16.0 bytes/call
+all    4 types, result untyped      33.5 ns/call    32.0 bytes/call
+all    push!(::Vector{Any}, x)      14.5 ns/call    17.1 bytes/call
+### quick 19:18:18
+array           28  geomean 3.070  min 1.00  max 9.73
+broadcast        4  geomean 1.018  min 1.01  max 1.02
+collection      21  geomean 4.922  min 0.66  max 26.42
+find             4  geomean 0.969  min 0.90  max 1.01
+io               6  geomean 1.172  min 0.99  max 1.68
+micro            4  geomean 1.007  min 1.00  max 1.01
+misc             4  geomean 0.973  min 0.91  max 1.01
+problem          6  geomean 1.542  min 0.95  max 4.02
+scalar          15  geomean 1.088  min 0.60  max 4.62
+shootout         4  geomean 1.007  min 1.00  max 1.02
+simd             4  geomean 0.948  min 0.93  max 0.98
+sort            11  geomean 1.645  min 0.93  max 8.22
+sparse           5  geomean 0.959  min 0.92  max 1.00
+string           4  geomean 0.971  min 0.96  max 1.00
+tuple            1  geomean 0.977  min 0.98  max 0.98
+union           27  geomean 1.296  min 0.87  max 4.05
+ALL            148  geomean 1.734
+### control 19:21:35
+precompile 422.4 s
+precompile /home/hellmann/Repos/julia-trait-bound/TraitReport/env_loads 200.5 s
+== plain plaintables
+mode: plain  loads: OffsetArrays StatsBase Unitful IntervalArithmetic Distributions Interpolations StaticArrays CairoMakie REPL
+work: first 102.4 ms, again 28.5 ms; after the loads 95.2 ms
+valid before the loads: PlainTables 77, TraitMakie 179
+valid after the loads:  PlainTables 63, TraitMakie 179
+lost: 14 of 256  (PlainTables 14)
+== plain upstream
+mode: plain  loads: OffsetArrays StatsBase Unitful IntervalArithmetic Distributions Interpolations StaticArrays CairoMakie REPL
+work: first 3233.5 ms, again 0.6 ms; after the loads 3916.5 ms
+valid before the loads: CSV 1315, DataFrames 1973, Tables 317, Parsers 830, InlineStrings 1, PooledArrays 194, SentinelArrays 84
+valid after the loads:  CSV 1192, DataFrames 1576, Tables 301, Parsers 994, InlineStrings 1, PooledArrays 170, SentinelArrays 76
+lost: 571 of 4714  (SentinelArrays 8, Parsers 3, CSV 123, Tables 16, PooledArrays 24, DataFrames 397)
+== all plaintables
+mode: all (facts)  loads: OffsetArrays StatsBase Unitful IntervalArithmetic Distributions Interpolations StaticArrays CairoMakie REPL
+work: first 137.2 ms, again 27.7 ms; after the loads 27.9 ms
+valid before the loads: PlainTables 65, TraitMakie 179
+valid after the loads:  PlainTables 65, TraitMakie 179
+lost: 0 of 244  ()
+== all upstream
+mode: all (facts)  loads: OffsetArrays StatsBase Unitful IntervalArithmetic Distributions Interpolations StaticArrays CairoMakie REPL
+work: first 724.5 ms, again 0.9 ms; after the loads 683.9 ms
+valid before the loads: CSV 1009, DataFrames 1221, Tables 171, Parsers 823, InlineStrings 1, PooledArrays 95, SentinelArrays 17
+valid after the loads:  CSV 1007, DataFrames 1221, Tables 171, Parsers 926, InlineStrings 1, PooledArrays 95, SentinelArrays 17
+lost: 2 of 3337  (CSV 2)
+### makie 19:33:54
+precompile /home/hellmann/Repos/julia-trait-bound/TraitMakie/scripts/env 0.2 s
+-- rows none
+row 1 using TraitMakie 489.1 ms
+row 1 first PNG: lines, scatter, save 21.0 ms
+row 4 a new data type: @implement (forwarding) 22.0 ms
+row 4 a new data type: first PNG 85.2 ms
+row 4 a new colour type: @implement 49.5 ms
+row 4 a new colour type: first PNG 55.8 ms
+row 6 render 8.9 ms
+row 6 recolor to a vector, render 78.9 ms
+row 6 recolor to :purple, render 8.9 ms
+row 6 recolor plot 1 to a Gradient, render 17.5 ms
+-- rows after
+row 1 using TraitMakie 482.0 ms
+row 1 first PNG: lines, scatter, save 20.4 ms
+loads 3.33 s
+row 4 a new data type: @implement (forwarding) 40.1 ms
+row 4 a new data type: first PNG 72.9 ms
+row 4 a new colour type: @implement 49.0 ms
+row 4 a new colour type: first PNG 55.6 ms
+row 6 render 8.8 ms
+row 6 recolor to a vector, render 77.0 ms
+row 6 recolor to :purple, render 8.4 ms
+row 6 recolor plot 1 to a Gradient, render 16.1 ms
+### tde 19:34:01
+precompile /home/hellmann/Repos/julia-trait-bound/TraitDifferentialEquations/scripts/env 4.3 s
+-- rows none
+using TraitDifferentialEquations 0.47 s
+row 1 first Tsit5 solve, a plain function 10.1 ms
+row 2 a second model function 10.0 ms
+row 2 a new model type: @implement 59.5 ms
+row 2 a new model type: first solve 42.1 ms
+row 3 first Rodas5 solve 16.6 ms
+row 4 a new callback closure 12.4 ms
+row 4 a second callback closure 5.2 ms
+row 5 first gradient (Tsit5, 3 parameters) 30.0 ms
+row 5 a second loss closure 17.6 ms
+row 5 a third loss, another model function 66.3 ms
+row 5 ForwardDiff's own tag (the loss's type), for comparison 578.9 ms
+row 6 a Float32 state, first solve 363.8 ms
+-- rows after
+using TraitDifferentialEquations 0.47 s
+row 1 first Tsit5 solve, a plain function 10.2 ms
+loads 10.34 s
+row 2 a second model function 27.8 ms
+row 2 a new model type: @implement 65.0 ms
+row 2 a new model type: first solve 46.2 ms
+row 3 first Rodas5 solve 17.1 ms
+row 4 a new callback closure 24.1 ms
+row 4 a second callback closure 5.4 ms
+row 5 first gradient (Tsit5, 3 parameters) 35.3 ms
+row 5 a second loss closure 18.2 ms
+row 5 a third loss, another model function 63.8 ms
+row 5 ForwardDiff's own tag (the loss's type), for comparison 620.0 ms
+row 6 a Float32 state, first solve 362.2 ms
+### report 19:34:22
+precompile /home/hellmann/Repos/julia-trait-bound/TraitReport/env_t 0.2 s
+precompile /home/hellmann/Repos/julia-trait-bound/TraitReport/env_pt 0.2 s
+-- python (pandas + matplotlib)
+scripts/measure.sh: line 32: /tmp/claude-1000/pyenv/bin/python: No such file or directory | wall .001835269
+-- julia /home/hellmann/Repos/julia-trait-bound/julia-1.13/julia, form (t)
+startup 0.121 | imports 0.536 | read 0.007 | summarize 0.000 | plot+PNG 0.094 | exit 0.066 | wall 0.824
+-- julia /home/hellmann/Repos/julia-trait-bound/julia-1.13/julia, form (pt)
+startup 0.109 | imports 0.523 | read 0.004 | summarize 0.000 | plot+PNG 0.063 | exit 0.089 | wall 0.789
+### done 19:34:24
