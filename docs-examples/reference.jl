@@ -157,7 +157,7 @@ Columns.ncols(r::Ramp) = r.n
 Columns.col(r::Ramp, i::Int) = r.base .* i
 @implement ColTable Ramp           # Ramp has methods of ncols and col
 struct Measurements; label::String; data::Vector{Vector{Float64}}; end
-@implement ColTable Measurements   # Measurements has a field that conforms
+@implement ColTable Measurements by data   # forwards to its field `data`
 check("§5.2 own methods", colmean(Ramp([1.0, 3.0], 2), 2) == 4.0)
 check("§5.2 forwarding inferred", colmean(Measurements("m", [[1.0, 2.0]]), 1) == 1.5)
 e = thrown(quote struct Nested; data::Measurements; end; @implement ColTable Nested end)
@@ -180,7 +180,7 @@ e === nothing || println("      error: ", first(msg(e), 300))
 struct Grid; data::Matrix{Float64}; end
 @implement (ColTable, RowTable) Grid by data
 struct Grid2; data::Matrix{Float64}; end
-@implement (ColTable, RowTable) Grid2             # one line, the field inferred
+@implement (ColTable, RowTable) Grid2 by data     # one field for both traits
 check("§5.5 several traits by one field", overview(Grid([1.0 2.0; 3.0 4.0])) == (2.0, [1.0, 2.0]))
 check("§5.5 one line", overview(Grid2([1.0 2.0; 3.0 4.0])) == (2.0, [1.0, 2.0]))
 check("§3.6 a bundle as a bound", overview2(Grid([1.0 2.0; 3.0 4.0])) == (2.0, [1.0, 2.0]))
@@ -262,7 +262,7 @@ check("§6.5 the fallback", describe(42) == "something else")
 # §7
 m = Measurements("run", [[1.0, 2.0], [4.0]])
 struct KMeas; label::String; data::Vector{Vector{Float64}}; end
-@implement KTable KMeas
+@implement KTable KMeas by data
 s = kscaled(KMeas("run", [[1.0, 2.0], [4.0]]), 2.0)
 check("§7 Like{t}: the caller's type, the label kept", s isa KMeas && s.label == "run" && s.data == [[2.0, 4.0], [8.0]])
 struct LBox; u::Vector{Float64}; label::String; end

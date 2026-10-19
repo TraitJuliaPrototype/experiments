@@ -16,16 +16,17 @@ WARNING: Detected access to binding `Main.NoK` in a world prior to its definitio
   !!! This code will error in future versions of Julia.
 Hint: Add an appropriate `invokelatest` around the access to this binding.
 To make this warning an error, and hence obtain a stack trace, use `julia --depwarn=error`.
-     1 missing operation (trait)                 conformance: ImplementError, 24 lines, 10 frames; first line: ImplementError: Decay1 does not conform to Main.Mini.Model: it does not implement the operations, and no field
+     1 missing operation (trait)                 conformance: ImplementError, 24 lines, 10 frames; first line: ImplementError: Decay1 does not conform to Main.Mini.Model: it does not implement the operations. Required:
      1 missing operation (plain)                 runtime: MethodError, 17 lines, 7 frames; first line: MethodError: no method matching prhs!(::Decay1, ::Vector{Float64}, ::Vector{Float64}, ::Float64)
 PASS     1 trait: caught at the conformance, naming rhs! and the trait
-PASS     1 trait: names the declared signature of what is missing  (ImplementError: Decay1 does not conform to Main.Mini.Model: it does not implement the operations, and no field of it conforms (fields: k::Float64). Required:
-  `rhs!(::Decay1, ::Vector{Float64}, ::Vec)
+PASS     1 trait: names the declared signature of what is missing  (ImplementError: Decay1 does not conform to Main.Mini.Model: it does not implement the operations. Required:
+  `rhs!(::Decay1, ::Vector{Float64}, ::Vector{Float64}, ::Float64)::Nothing`: no method
+Impl)
      2 wrong result type (trait)                 conformance: ImplementError, 23 lines, 10 frames; first line: ImplementError: the implementation of Main.Mini.Model for Decay2 does not conform:
      2 wrong result type (plain)                 no error
 PASS     2 trait: caught at the conformance or the first call, naming the declared result Nothing  (where conformance)
 PASS     2 plain: accepted silently (nothing checks a result)
-     3 wrong argument types (trait)              conformance: ImplementError, 24 lines, 10 frames; first line: ImplementError: Decay3 does not conform to Main.Mini.Model: it does not implement the operations, and no field
+     3 wrong argument types (trait)              conformance: ImplementError, 24 lines, 10 frames; first line: ImplementError: Decay3 does not conform to Main.Mini.Model: it does not implement the operations. Required:
      3 wrong argument types (plain)              runtime: MethodError, 24 lines, 7 frames; first line: MethodError: no method matching prhs!(::Decay3, ::Vector{Float64}, ::Vector{Float64}, ::Float64)
 PASS     3 trait: caught at the conformance, naming rhs! and the declared argument types
      4 undeclared field (trait library)          entry: TraitUseError, 19 lines, 8 frames; first line: TraitUseError: library code breaks a rule of the trait world:

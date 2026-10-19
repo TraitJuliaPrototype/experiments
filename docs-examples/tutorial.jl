@@ -112,7 +112,7 @@ struct Tile
     label::String
     shape::Rect
 end
-@implement Shape Tile              # `shape` is the one field whose type conforms
+@implement Shape Tile by shape     # forwards to its field `shape`
 
 struct Window
     frame::Rect
@@ -123,11 +123,13 @@ end
 check("§5 area(Tile(…)) from plain code has no method", outcome(() -> area(Tile("door", Rect(1.0, 2.0)))) isa MethodError)
 check("§5 ratio(Tile(…))", ratio(Tile("door", Rect(1.0, 2.0))) == 0.3333333333333333)
 check("§5 ratio(Window(…)) by pane", ratio(Window(Rect(3.0, 3.0), Rect(1.0, 2.0))) == 0.3333333333333333)
+e = thrown(quote struct Tile2; label::String; shape::Rect; end; @implement Shape Tile2 end)
+check("§5 without by, no field is chosen: the error names `by shape`", e isa ImplementError && occursin("by shape", msg(e)))
 e = thrown(quote
     struct TwoRects; a::Rect; b::Rect; end
     @implement Shape TwoRects
 end)
-check("§5 several conforming fields without `data` or `by`: ImplementError", e isa ImplementError && occursin("several fields", msg(e)))
+check("§5 two conforming fields without `by`: the error names both `by` lines", e isa ImplementError && occursin("by a", msg(e)) && occursin("by b", msg(e)))
 
 # --- §6 -----------------------------------------------------------------------------------------
 
@@ -154,7 +156,7 @@ check("§6 greet(Book), a mapped field", greet(Book("Julia", 300)) == "hello, Ju
 
 # --- §7 -----------------------------------------------------------------------------------------
 
-@implement Shape Sprite            # forwards to `body`, a Circle
+@implement Shape Sprite by body    # forwards to `body`, a Circle
 check("§7 report(sp)", report(sp) == "a shape of area 0.7853981633974483 at (1.0, 2.0)")
 
 # --- §8 -----------------------------------------------------------------------------------------
@@ -194,7 +196,7 @@ end
 @implement Scalable Rect begin
     scale(r, k) = Rect(k * r.w, k * r.h)
 end
-@implement Scalable Tile           # forwards to its `shape` field, a Rect
+@implement Scalable Tile by shape  # forwards to its `shape` field, a Rect
 
 check("§11 doubled(Circle(1.0))", doubled(Circle(1.0)) == Circle(2.0))
 t2 = doubled(Tile("door", Rect(1.0, 2.0)))
@@ -391,7 +393,7 @@ e = thrown(quote
     struct Crate
         data::AbstractVector{Float64}      # an abstract field type
     end
-    @implement Weighted Crate
+    @implement Weighted Crate by data
 end)
 check("§17 an abstract key under @concrete_only: ImplementError", e isa ImplementError && occursin("@concrete_only", msg(e)))
 println("      message: ", first(msg(e), 300))
@@ -399,7 +401,7 @@ e = thrown(quote
     struct Box
         data::Vector{Float64}
     end
-    @implement Weighted Box                # fine
+    @implement Weighted Box by data        # fine
 end)
 check("§17 a concrete key: accepted", e === nothing && wscaled(Main.Box([1.0, 2.0]), Any[2.0]) == 6.0)
 check("§17 totalarea is fully typed", isfullytyped(fully_typed(Geometry.totalarea, (Geometry.Scene,))))
