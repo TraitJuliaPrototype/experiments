@@ -1,0 +1,88 @@
+-- rows none run 1
+using TraitDifferentialEquations 0.82 s
+row 1 first Tsit5 solve, a plain function 10.2 ms
+row 2 a second model function 9.9 ms
+row 2 a new model type: @implement 241.8 ms
+row 2 a new model type: first solve 173.2 ms
+row 3 first Rodas5 solve 16.8 ms
+row 4 a new callback closure 12.6 ms
+row 4 a second callback closure 5.3 ms
+row 5 first gradient (Tsit5, 3 parameters) 29.6 ms
+row 5 a second loss closure 17.4 ms
+row 5 a third loss, another model function 62.3 ms
+row 5 ForwardDiff's own tag (the loss's type), for comparison 813.2 ms
+row 6 a Float32 state, first solve 484.0 ms
+-- rows none run 2
+using TraitDifferentialEquations 0.82 s
+row 1 first Tsit5 solve, a plain function 10.1 ms
+row 2 a second model function 9.9 ms
+row 2 a new model type: @implement 243.7 ms
+row 2 a new model type: first solve 170.5 ms
+row 3 first Rodas5 solve 16.5 ms
+row 4 a new callback closure 12.6 ms
+row 4 a second callback closure 5.2 ms
+row 5 first gradient (Tsit5, 3 parameters) 29.6 ms
+row 5 a second loss closure 17.8 ms
+row 5 a third loss, another model function 61.7 ms
+row 5 ForwardDiff's own tag (the loss's type), for comparison 803.6 ms
+row 6 a Float32 state, first solve 479.3 ms
+-- rows before run 1
+loads 3.46 s
+using TraitDifferentialEquations 8.21 s
+row 1 first Tsit5 solve, a plain function 23.2 ms
+row 2 a second model function 10.1 ms
+row 2 a new model type: @implement 1998.9 ms
+row 2 a new model type: first solve 2186.5 ms
+row 3 first Rodas5 solve 17.1 ms
+row 4 a new callback closure 24.5 ms
+row 4 a second callback closure 5.4 ms
+row 5 first gradient (Tsit5, 3 parameters) 215.8 ms
+row 5 a second loss closure 18.0 ms
+row 5 a third loss, another model function 63.3 ms
+row 5 ForwardDiff's own tag (the loss's type), for comparison 824.1 ms
+row 6 a Float32 state, first solve 494.0 ms
+-- rows before run 2
+loads 3.4 s
+using TraitDifferentialEquations 1.39 s
+row 1 first Tsit5 solve, a plain function 23.2 ms
+row 2 a second model function 10.2 ms
+row 2 a new model type: @implement 1922.7 ms
+row 2 a new model type: first solve 2145.8 ms
+row 3 first Rodas5 solve 16.8 ms
+row 4 a new callback closure 24.2 ms
+row 4 a second callback closure 5.3 ms
+row 5 first gradient (Tsit5, 3 parameters) 34.6 ms
+row 5 a second loss closure 17.8 ms
+row 5 a third loss, another model function 62.7 ms
+row 5 ForwardDiff's own tag (the loss's type), for comparison 840.5 ms
+row 6 a Float32 state, first solve 480.7 ms
+-- rows after run 1
+using TraitDifferentialEquations 0.81 s
+row 1 first Tsit5 solve, a plain function 9.9 ms
+loads 3.97 s
+row 2 a second model function 23.7 ms
+row 2 a new model type: @implement 2174.4 ms
+row 2 a new model type: first solve 2147.7 ms
+row 3 first Rodas5 solve 17.4 ms
+row 4 a new callback closure 23.9 ms
+row 4 a second callback closure 5.3 ms
+row 5 first gradient (Tsit5, 3 parameters) 35.4 ms
+row 5 a second loss closure 18.0 ms
+row 5 a third loss, another model function 62.8 ms
+row 5 ForwardDiff's own tag (the loss's type), for comparison 798.8 ms
+row 6 a Float32 state, first solve 513.7 ms
+-- rows after run 2
+using TraitDifferentialEquations 0.8 s
+row 1 first Tsit5 solve, a plain function 9.8 ms
+loads 3.97 s
+row 2 a second model function 22.2 ms
+row 2 a new model type: @implement 2163.8 ms
+row 2 a new model type: first solve 2138.2 ms
+row 3 first Rodas5 solve 17.4 ms
+row 4 a new callback closure 23.8 ms
+row 4 a second callback closure 5.4 ms
+row 5 first gradient (Tsit5, 3 parameters) 34.9 ms
+row 5 a second loss closure 17.9 ms
+row 5 a third loss, another model function 62.3 ms
+row 5 ForwardDiff's own tag (the loss's type), for comparison 796.4 ms
+row 6 a Float32 state, first solve 509.6 ms

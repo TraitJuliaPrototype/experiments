@@ -1,0 +1,47 @@
+CHECK sample: (t) and (pt) print the same summary and draw the same PNG ok
+    x      mean 10.0729  std 2.1199  min 3.8746  max 15.6967  sum 2014.5881
+    y      mean 6.6177  std 1.3638  min 3.4647  max 9.6038  sum 1323.5325
+    z      mean 51.7144  std 29.9059  min 0.6563  max 99.7924  sum 10342.8816
+CHECK sensors: (t) and (pt) print the same summary and draw the same PNG ok
+    t      mean 25.05  std 14.4482  min 0.1  max 50.0  sum 12525.0
+    s1     mean 0.9784  std 0.9682  min -1.6124  max 4.5138  sum 473.538  missing 16
+    s2     mean 1.9214  std 1.009  min -1.1198  max 4.692  sum 920.3683  missing 21
+    s3     mean 3.0382  std 1.0391  min 0.2092  max 6.2186  sum 1470.5003  missing 16
+    n      mean 9.2156  std 5.6892  min 0.0  max 19.0  sum 4488.0  missing 13
+    tag    String, 4 distinct of 500
+CHECK items: (t) and (pt) print the same summary and draw the same PNG ok
+    name   String15, 200 distinct of 200
+    x      mean 50.25  std 28.9396  min 0.5  max 100.0  sum 10050.0
+    n      mean 100.5  std 57.8792  min 1.0  max 200.0  sum 20100.0
+check rc=0
+CHECK the report's plot ok
+CHECK a changed attribute ok
+CHECK a second shape ok
+CHECK missing cells left out ok
+CHECK a new column type ok
+CHECK a strings column (String15) ok
+CHECK a plot of another type ok
+CHECK session done ok
+errors shown at the prompt (expected: the deliberate mistakes):
+ERROR: ArgumentError: cell 20 is missing: pass skipmissing = true to leave missing cells out
+session: 8 checks ok, 0 failed (transcript: /tmp/claude-1000/traitreport_session.out)
+CHECK first PNG ok
+CHECK a new data type ok
+CHECK changed attributes ok
+CHECK a refused colour keeps the old one ok
+CHECK a new colour type ok
+CHECK a new plot type ok
+CHECK its attributes changed ok
+CHECK a recipe's attributes ok
+CHECK live data ok
+CHECK session done ok
+errors shown at the prompt (expected: the deliberate mistakes):
+ERROR: ArgumentError: unknown colour :magenta. The named colours are :black, :blue, :gray, :green, :orange, :purple, :red, :white; a colour may also be an RGB or RGBA tuple, a vector of colours (one p
+session: 10 checks ok, 0 failed (transcript: /tmp/claude-1000/traitmakie_session.out)
+baseline.jl
+env
+errors.jl
+pirate.jl
+rows.jl
+runtime.jl
+session.jl

@@ -1,0 +1,45 @@
+### probe3 stock
+visit (runtime-compiled) over 100000 kids: 23269.1 us, 16800000 bytes allocated
+specializations of wrap:
+   Tuple{typeof(wrap), typeof(visit), S, Float64, Int64}
+   Tuple{typeof(wrap), typeof(visit), A, Float64, Vararg{Any}}
+### probe3 patched
+visit (runtime-compiled) over 100000 kids: 362.0 us, 0 bytes allocated
+specializations of wrap:
+   Tuple{typeof(wrap), typeof(visit), S, Float64, Int64}
+invoke target (code_typed after run): Tuple{typeof(visit), G, Float64, Int64}
+### suites
+tw rc=0
+acc rc=0
+PASS  G1.19 a Base method's assertion over a run-time site does not fold a dispatch no edge records  (before (1, 1), after (2, 2) (plain, facts))
+
+19 of 19 checks pass
+plain 4.7 ms, 3291 kB
+trait 5.3 ms, 3816 kB
+plain, 2 Scene types (closed by accident)   259.0 ms
+plain, 4 Scene types                        882.3 ms
+trait Dynamic{Scene}, 2 conformances        325.9 ms
+trait Dynamic{Scene}, 4 conformances        336.2 ms
+trait, grouped by key, 4 conformances       508.9 ms
+### micro
+plain, 2 methods  4.01 ns per element
+plain, 4 methods  36.21 ns per element
+Dynamic, 2 types  5.72 ns per element
+Dynamic, 4 types  4.48 ns per element
+plain, 2 methods  0.91 ns per element
+plain, 4 methods  33.02 ns per element
+Dynamic, 2 types  0.96 ns per element
+Dynamic, 4 types  1.4 ns per element
+Vector                   typed 37.7 ns (0 bytes/1000 calls), untyped 126.8 ns
+Meas (immutable, fwd)    typed 37.6 ns (0 bytes/1000 calls), untyped 125.5 ns
+MeasM (mutable, fwd)     typed 38.6 ns (0 bytes/1000 calls), untyped 128.7 ns
+plain loop               29.4 ns
+plain, len an argument   34.5 ns
+### demo suites
+TraitTables rc=0 0 failures
+TraitCSV rc=0 0 failures
+TraitMakie rc=0 0 failures
+TraitDifferentialEquations rc=0 0 failures
+examples rc=0
+37 pass, 0 fail, 1 pending   warnings
+15 pass, 0 fail, 1 pending   redefinition

@@ -1,0 +1,19 @@
+== plain plaintables
+mode: plain  loads: OffsetArrays StatsBase Unitful IntervalArithmetic Distributions Interpolations StaticArrays CairoMakie REPL
+work: first 70.5 ms, again 27.5 ms; after the loads 96.1 ms
+valid before the loads: PlainTables 77, TraitMakie 141
+valid after the loads:  PlainTables 63, TraitMakie 141
+lost: 14 of 218  (PlainTables 14)
+== plain upstream
+mode: plain  loads: OffsetArrays StatsBase Unitful IntervalArithmetic Distributions Interpolations StaticArrays CairoMakie REPL
+work: first 3626.7 ms, again 0.6 ms; after the loads 4008.8 ms
+valid before the loads: CSV 1315, DataFrames 1972, Tables 317, Parsers 830, InlineStrings 1, PooledArrays 194, SentinelArrays 83
+valid after the loads:  CSV 1192, DataFrames 1576, Tables 301, Parsers 994, InlineStrings 1, PooledArrays 170, SentinelArrays 75
+lost: 570 of 4712  (SentinelArrays 8, Parsers 3, CSV 123, Tables 16, PooledArrays 24, DataFrames 396)
+== all plaintables
+ERROR: LoadError: ArgumentError: Package PrecompileTools [aea7be01-6a6a-4083-8856-8a6e6704d82a] is required but does not seem to be installed:
+ERROR: LoadError: The following 3 packages failed to precompile:
+Error: Missing source file for Base.PkgId(Base.UUID("21216c6a-2e73-6563-6e65-726566657250"), "Preferences")
+Error: Missing source file for Base.PkgId(Base.UUID("aea7be01-6a6a-4083-8856-8a6e6704d82a"), "PrecompileTools")
+== all upstream
+ERROR: LoadError: ArgumentError: Package CSV [336ed68f-0bac-5ca0-87d4-7b16caf5d00b] is required but does not seem to be installed:

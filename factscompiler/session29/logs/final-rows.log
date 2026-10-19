@@ -1,0 +1,104 @@
+  4 dependencies successfully precompiled in 5 seconds. 24 already precompiled.
+  1 dependency successfully precompiled in 1 seconds. 48 already precompiled.
+  201 dependencies successfully precompiled in 208 seconds. 120 already precompiled.
+### tde
+-- rows none
+using TraitDifferentialEquations 0.47 s
+row 1 first Tsit5 solve, a plain function 10.0 ms
+row 2 a second model function 9.8 ms
+row 2 a new model type: @implement 142.5 ms
+row 2 a new model type: first solve 81.6 ms
+row 3 first Rodas5 solve 16.6 ms
+row 4 a new callback closure 12.4 ms
+row 4 a second callback closure 5.2 ms
+row 5 first gradient (Tsit5, 3 parameters) 29.1 ms
+row 5 a second loss closure 17.1 ms
+row 5 a third loss, another model function 61.5 ms
+row 5 ForwardDiff's own tag (the loss's type), for comparison 697.5 ms
+row 6 a Float32 state, first solve 462.5 ms
+-- rows before
+loads 3.1 s
+using TraitDifferentialEquations 7.28 s
+row 1 first Tsit5 solve, a plain function 27.8 ms
+row 2 a second model function 11.2 ms
+row 2 a new model type: @implement 164.3 ms
+row 2 a new model type: first solve 133.1 ms
+row 3 first Rodas5 solve 17.0 ms
+row 4 a new callback closure 24.0 ms
+row 4 a second callback closure 5.4 ms
+row 5 first gradient (Tsit5, 3 parameters) 34.2 ms
+row 5 a second loss closure 17.8 ms
+row 5 a third loss, another model function 62.9 ms
+row 5 ForwardDiff's own tag (the loss's type), for comparison 725.7 ms
+row 6 a Float32 state, first solve 454.6 ms
+-- rows after
+using TraitDifferentialEquations 0.47 s
+row 1 first Tsit5 solve, a plain function 9.9 ms
+loads 3.35 s
+row 2 a second model function 27.6 ms
+row 2 a new model type: @implement 148.5 ms
+row 2 a new model type: first solve 89.0 ms
+row 3 first Rodas5 solve 16.8 ms
+row 4 a new callback closure 170.7 ms
+row 4 a second callback closure 5.2 ms
+row 5 first gradient (Tsit5, 3 parameters) 34.0 ms
+row 5 a second loss closure 17.2 ms
+row 5 a third loss, another model function 62.4 ms
+row 5 ForwardDiff's own tag (the loss's type), for comparison 715.9 ms
+row 6 a Float32 state, first solve 448.7 ms
+-- runtime
+Lorenz, n = 3         per step: plain function 193 ns, model type 158 ns, OrdinaryDiffEq 346 ns; steps 103 / 102; function/model 1.22, model/OrdinaryDiffEq 0.46
+chain, n = 1,000      per step: plain function 7853 ns, model type 7855 ns, OrdinaryDiffEq 6143 ns; steps 95 / 99; function/model 1.0, model/OrdinaryDiffEq 1.28
+### makie
+-- rows none
+row 1 using TraitMakie 476.1 ms
+row 1 first PNG: lines, scatter, save 20.5 ms
+row 4 a new data type: @implement (forwarding) 76.7 ms
+row 4 a new data type: first PNG 107.3 ms
+row 4 a new colour type: @implement 171.2 ms
+row 4 a new colour type: first PNG 96.2 ms
+row 6 render 8.8 ms
+row 6 recolor to a vector, render 102.0 ms
+row 6 recolor to :purple, render 9.0 ms
+row 6 recolor plot 1 to a Gradient, render 18.1 ms
+-- rows before
+loads 3.1 s
+row 1 using TraitMakie 538.4 ms
+row 1 first PNG: lines, scatter, save 20.9 ms
+row 4 a new data type: @implement (forwarding) 96.7 ms
+row 4 a new data type: first PNG 88.5 ms
+row 4 a new colour type: @implement 310.5 ms
+row 4 a new colour type: first PNG 97.6 ms
+row 6 render 8.8 ms
+row 6 recolor to a vector, render 83.8 ms
+row 6 recolor to :purple, render 9.0 ms
+row 6 recolor plot 1 to a Gradient, render 18.1 ms
+-- rows after
+row 1 using TraitMakie 474.0 ms
+row 1 first PNG: lines, scatter, save 20.8 ms
+loads 3.29 s
+row 4 a new data type: @implement (forwarding) 96.2 ms
+row 4 a new data type: first PNG 160.6 ms
+row 4 a new colour type: @implement 158.7 ms
+row 4 a new colour type: first PNG 101.2 ms
+row 6 render 9.0 ms
+row 6 recolor to a vector, render 231.1 ms
+row 6 recolor to :purple, render 8.6 ms
+row 6 recolor plot 1 to a Gradient, render 18.6 ms
+### report loads
+Plain       (none)                                                                 loads 0.01 s, using 0.97 s, work 237.2 ms
+Trait       (none)                                                                 loads 0.01 s, using 1.15 s, work 41.2 ms
+Plain       REPL                                                                   loads 0.14 s, using 0.91 s, work 237.1 ms
+Trait       REPL                                                                   loads 0.14 s, using 1.09 s, work 40.6 ms
+Plain       OffsetArrays,StatsBase,Unitful                                         loads 0.3 s, using 0.93 s, work 2556.8 ms
+Trait       OffsetArrays,StatsBase,Unitful                                         loads 0.3 s, using 1.12 s, work 410.0 ms
+Plain       IntervalArithmetic,Distributions,Interpolations,StaticArrays           loads 0.6 s, using 0.98 s, work 2584.0 ms
+Trait       IntervalArithmetic,Distributions,Interpolations,StaticArrays           loads 0.6 s, using 1.16 s, work 338.4 ms
+Plain       REPL,CairoMakie,OffsetArrays,StatsBase,Unitful,IntervalArithmetic,Distributions,Interpolations,StaticArrays loads 2.73 s, using 0.96 s, work 3075.9 ms
+Trait       REPL,CairoMakie,OffsetArrays,StatsBase,Unitful,IntervalArithmetic,Distributions,Interpolations,StaticArrays loads 2.74 s, using 1.16 s, work 338.5 ms
+### forks imports
+using CSV: 0.717020 seconds (626.02 k allocations: 41.195 MiB, 38.36% compilation time: 9% of which was recompilation)
+using DataFrames: 0.532064 seconds (670.11 k allocations: 44.540 MiB, 8.69% gc time, 1.54% compilation time: <1% of which was recompilation)
+using CSV: 0.716368 seconds (625.45 k allocations: 41.145 MiB, 38.29% compilation time: 9% of which was recompilation)
+using DataFrames: 0.530633 seconds (668.84 k allocations: 44.438 MiB, 8.60% gc time, 1.53% compilation time: <1% of which was recompilation)
+### done
