@@ -27,3 +27,14 @@
 - The `all`/plain geomean of the subset is 1.85 (it was 1.97). The remaining tails: `filter!` on `Vector{Any}` 27×, on `IdDict` 21×, and the `sumrange_view` family (an inlining question, not dispatch).
 - One `sort` outlier (33 ms) was a single noisy sample: rerun alone it measured 110–2,816 ns, against 658. The quick subset's short budget gives single samples for some benchmarks.
 - Acceptance G1.22: a site cached for a `@nospecialize` method, then a redefinition. The older world sees the old method, the latest the new one.
+
+## The direct check (the review proposed another cause)
+
+The review (`writeup/reviews/2026-10-19-inline-caches-review.md`) suggested a different cause: a per-call normalization in `jl_compile_method_internal_owner`, which does not cache the facts owner's result on a narrow method instance. The check:
+- **Stage 1 off,** libraries rebuilt; `push!(d, pop!(d))` on a `Vector{Any}` of `Int` and `String`, under `all`: 61.7 ns.
+- **Profile:** 769 of about 856 samples in `jl_apply_generic`, all in the lookup:
+  - `lookup_arg_type_tuple` (hashing the arguments into a type tuple): 362;
+  - `jl_typemap_assoc_exact` (the method-cache search): about 480.
+- **No frame of normalization or `jl_compile_method_internal_owner`.**
+
+The tail was the lookup, which stage 1 removes. With stage 1 back the same loop takes 12.9 ns (61.7 without it). The review's path is real code, and a latent per-call cost where a call arrives with a narrow method instance. It has its own small fix (a memo), but it is not what these tails paid.
