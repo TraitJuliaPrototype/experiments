@@ -72,7 +72,8 @@ s1 = seen(() -> toplevel(:(@implement Mini.Model{Float64} Decay1)), :conformance
 p1 = seen(() -> Main.PlainMini.peuler(Main.Decay1(1.0), [1.0], 10, 0.1), :runtime)
 show1("1 missing operation (trait)", s1); show1("1 missing operation (plain)", p1)
 check("1 trait: caught at the conformance, naming rhs! and the trait", s1.where === :conformance && occursin("rhs!", s1.msg) && occursin("Model", s1.msg))
-check("1 trait: no longer than plain's run-time error", s1.lines <= p1.lines, "trait $(s1.lines) lines, plain $(p1.lines)")
+# (a conformance error lists what is required, so it may be longer than plain's MethodError; it must say more)
+check("1 trait: names the declared signature of what is missing", occursin("rhs!(::", s1.msg) && occursin("Vector{Float64}", s1.msg), first(s1.msg, 200))
 
 # 2. a wrong result type: rhs! returns du instead of nothing
 toplevel(quote

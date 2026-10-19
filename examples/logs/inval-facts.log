@@ -1,0 +1,25 @@
+julia 1.13.2  facts mode: true
+PASS     S1 facts: invalidated = false  (CodeInstances 1, valid 1)
+PASS     S1b facts: invalidated = false  (CodeInstances 1, valid 1)
+PASS     S1b the hook is used by the caller
+PASS     S1c facts: invalidated = false  (CodeInstances 1, valid 1)
+PASS     S2 facts: invalidated = false  (CodeInstances 1, valid 1)
+PASS     S2 the new subtype is used
+PASS     S3 facts: invalidated = false  (CodeInstances 1, valid 1)
+     S3 map(w, Real[]) :: Vector{Float64} before, Vector{Any} after
+PASS     S4 facts: invalidated = true  (CodeInstances 1, valid 0)
+PASS     S4 the stakeholder's method is followed
+PASS     S5 facts: invalidated = true  (CodeInstances 1, valid 0)
+PASS     S5 the winning pirate is followed (rule P)
+PASS     S6 facts: invalidated = false  (CodeInstances 2, valid 1)
+PASS     S6 the losing pirate changes nothing
+PASS     S7 facts: invalidated = true  (CodeInstances 1, valid 0)
+PASS     S7 the new value is read
+PASS     S8 facts: invalidated = false  (CodeInstances 1, valid 1)
+PASS     S8 the new type's method is used
+PASS     S10 facts: invalidated = true  (CodeInstances 1, valid 0)
+PASS     S10 the new value is read
+PENDING  S10 strict tier: a binding changed by a non-owner is refused or named  [waits on: a rule for bindings and a hook that sees them (design.md §3.2; open-issues §1.10)]  today: nothing sees it; see strict_tiers.jl for the trait-code variant
+PASS     values: map(f2, Real[]) is Vector{Float64} in both modes  (got Vector{Float64})
+
+20 pass, 0 fail, 1 pending

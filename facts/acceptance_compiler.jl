@@ -355,5 +355,42 @@ t1 = AccDyn.stotal(dv)
 check("G1.17 a dynamic value of a later conformance at a split call site", t0 == 7.0 && t1 == 9.0 && !isempty(held) && all(ci -> ci.max_world == typemax(UInt), held),
       "before $t0, after $t1 (9.0), facts code still valid: $(all(ci -> ci.max_world == typemax(UInt), held))")
 
+# --- G1.18: an operation on a Dynamic value whose type inference knows (the implementation review of
+# 2026-10-19, finding 1: the call was inlined with dynamic_call's own arguments) ------------------
+toplevel(quote
+    @trait_module module AccDynK
+    using TraitWorld
+    export KCol, kdata
+    @trait KCol{R} begin
+        kdata(r::R)::Vector{Float64}
+    end
+    struct KA; v::Vector{Float64}; end
+    struct KB; w::Vector{Float64}; end
+    @implement KCol{KA} begin kdata(a) = a.v end
+    @implement KCol{KB} begin kdata(b) = b.w end
+    const KD = Dynamic{KCol}(KA([1.0, 2.0]))
+    kconst() = sum(kdata(KD))                                   # a constant Dynamic, an operation that is not folded
+    klocal() = (d = Dynamic{KCol}(KB([3.0])); sum(kdata(d)))     # made and used in one body
+    karg(d::Dynamic{KCol}) = sum(kdata(d))
+    end
+end)
+g18 = (try (AccDynK.kconst(), AccDynK.klocal(), AccDynK.karg(AccDynK.KD)) catch e; sprint(showerror, e)[1:min(end, 120)] end)
+check("G1.18 an operation on a Dynamic value of a type inference knows", g18 == (3.0, 3.0, 3.0), "got $g18 (expected (3.0, 3.0, 3.0))")
+
+# --- G1.19: a Base method asserted :foldable over a run-time site (the review, finding 2) -------
+toplevel(quote
+    module Fold19
+    g19(x) = 1
+    end
+    Core.eval(Base, :(Base.@assume_effects :foldable bfold19(x::Int) = Main.Fold19.g19(Base.inferencebarrier(x))))
+    k19() = Base.bfold19(1)
+    w19() = FactsCall.call(k19)
+end)
+f190 = (k19(), w19())
+toplevel(:(Fold19.g19(x) = 2))
+f191 = (k19(), w19())
+check("G1.19 a Base method's assertion over a run-time site does not fold a dispatch no edge records", f190 == (1, 1) && f191 == (2, 2),
+      "before $f190, after $f191 (plain, facts)")
+
 println()
 println(count(x -> x[2], results), " of ", length(results), " checks pass")

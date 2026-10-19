@@ -39,7 +39,8 @@ check("1 the old value keeps the old type", typeof(old) !== typeof(new))
 o1 = outcome(() -> Base.invokelatest(RD.describe, old))
 check("1 the old value still conforms, with the old method", o1 == "shape of area 4.0", "got $(o1 isa Exception ? typeof(o1) : o1)")
 n1 = outcome(() -> Base.invokelatest(RD.describe, new))
-check("1 the new type does not conform yet: a TraitBoundError naming the bound", n1 isa TraitBoundError && occursin("Sh", sprint(showerror, n1)),
+# (decided in session 27: a MethodError at an entry, its hint naming the bound the argument fails)
+check("1 the new type does not conform yet: an error naming the bound", (n1 isa TraitBoundError || n1 isa MethodError) && occursin("Sh", sprint(showerror, n1)),
       n1 isa Exception ? first(sprint(showerror, n1), 200) : "got $n1")
 r = outcome(() -> (toplevel(quote
     RD.area(s::Sq) = s.a * s.b
