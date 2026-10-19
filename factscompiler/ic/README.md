@@ -38,3 +38,15 @@ The review (`writeup/reviews/2026-10-19-inline-caches-review.md`) suggested a di
 - **No frame of normalization or `jl_compile_method_internal_owner`.**
 
 The tail was the lookup, which stage 1 removes. With stage 1 back the same loop takes 12.9 ns (61.7 without it). The review's path is real code, and a latent per-call cost where a call arrives with a narrow method instance. It has its own small fix (a memo), but it is not what these tails paid.
+
+## Experiment 3: sites that see many types (`poly.jl`)
+
+- **Before:** `setindex!(::Array{Any}, @nospecialize(x), ::Int)` at one site, under `all`, took 16–20 ns with up to 4 value types and 163 ns with 16. The site's four exact entries thrashed (the profiler showed 8–21% of the calls through the method cache's search).
+- **Resizing `call_cache` would not help:** a site's slots all hash from the call site.
+- **The change (`gf.c`, `call_cache_any_ok`, `sig_match_any`):**
+  - A method-cache entry with only concrete types and `Any`, no guards, and a simple signature implied by it holds for every type at its `Any` positions. The per-site cache holds that entry itself, matched with `Any` as a wildcard.
+  - The shared entry's `max_world` stays open, and invalidation lowers it.
+- **Results:**
+  - 16 types: 163 → 16.4 ns (`push!` 137 → 14.2).
+  - The quick subset: plain geomean 0.92 (`collection` 0.73), `all` 0.95 (`collection` 0.80); `all`/plain 1.79.
+  - Acceptance G1.23: a site cached this way, then a more specific method for one type: the new world reaches it, the older does not. 23 of 23 checks pass in both modes.

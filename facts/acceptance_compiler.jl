@@ -452,5 +452,22 @@ c22 = (Base.invoke_in_world(w22, Ic22.run22), Ic22.run22(), Base.invoke_in_world
 check("G1.22 a dynamic call site cached for exact types runs in the caller's world", c22 == (3, 300, 3),
       "old world $(c22[1]), latest $(c22[2]), old again $(c22[3]) (expected (3, 300, 3))")
 
+# --- G1.23: a site cached for every type at an `Any` position (the method cache's entry itself, a
+# wildcard), then a more specific method for one type: the new world reaches it, the older does not
+toplevel(quote
+    module Ic23
+    k23(@nospecialize(x)) = 1
+    k23(x::String) = 2                     # two methods: the call at `Any` dispatches at run time
+    const V23 = Any[1, 2.0, :a, 0x01, 'c', 1//2, (1,), nothing, Int32(1), 3.0f0]
+    run23() = (s = 0; for x in V23; s += k23(x)::Int; end; s)
+    end
+end)
+Ic23.run23(); Ic23.run23()
+w23 = Base.get_world_counter()
+toplevel(:(Ic23.k23(x::Float64) = 100))
+c23 = (Base.invoke_in_world(w23, Ic23.run23), Ic23.run23(), Base.invoke_in_world(w23, Ic23.run23))
+check("G1.23 a site cached for every type at an Any position sees a later, more specific method", c23 == (10, 109, 10),
+      "old world $(c23[1]), latest $(c23[2]), old again $(c23[3]) (expected (10, 109, 10))")
+
 println()
 println(count(x -> x[2], results), " of ", length(results), " checks pass")
