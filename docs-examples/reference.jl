@@ -1,5 +1,5 @@
-# The examples of writeup/intro/reference.md that the tutorial does not run, with checks of what
-# the page states, including the statements about what is not built yet. Run from TraitWorld/:
+# The examples of writeup/reference/traits.md that the tutorial does not run, with checks of what
+# the page states, including its Deviations (checks named by their ID, T-n). Run from TraitWorld/:
 #   JULIA_PKG_OFFLINE=true nice -n 19 ../julia-1.13/julia --project=. --startup-file=no ../experiments/docs-examples/reference.jl
 include(joinpath(@__DIR__, "common.jl"))
 using TraitWorld
@@ -159,11 +159,11 @@ Columns.col(r::Ramp, i::Int) = r.base .* i
 struct Measurements; label::String; data::Vector{Vector{Float64}}; end
 @implement ColTable Measurements by data   # forwards to its field `data`
 check("§5.2 own methods", colmean(Ramp([1.0, 3.0], 2), 2) == 4.0)
-check("§5.2 forwarding inferred", colmean(Measurements("m", [[1.0, 2.0]]), 1) == 1.5)
-e = thrown(quote struct Nested; data::Measurements; end; @implement ColTable Nested end)
+check("§5.3 forwarding with by", colmean(Measurements("m", [[1.0, 2.0]]), 1) == 1.5)
+e = thrown(quote struct Nested; data::Measurements; end; @implement ColTable Nested by data end)
 check("§5.3 forwarding does not chain: ImplementError", e isa ImplementError)
 e = thrown(quote struct LRamp; n::Int; end; @implement ColTable LRamp project(r) = [collect(1.0:r.n)] end)
-check("§5.2 a computed value is refused", e isa ImplementError && occursin("computes a value", msg(e)))
+check("T-15 the internal project(t) = … form: a computed value is refused", e isa ImplementError && occursin("computes a value", msg(e)))
 
 # §5.3
 struct Halves; left::Vector{Vector{Float64}}; right::Vector{Vector{Float64}}; end
@@ -199,7 +199,7 @@ struct StrVec; v::Vector{String}; end
 Columns.alen(m::StrVec) = length(m.v)
 Columns.firstof(m::StrVec) = m.v[1]
 e = thrown(:(@implement ArrayLike{String, 1} StrVec))
-check("§3.4 a parameter's bound is not checked today (T = String accepted for T <: Real)", e === nothing)
+check("T-1 a parameter's bound is not checked (T = String accepted for T <: Real)", e === nothing)
 
 # §5.7 families
 check("§5.7 a family by its own methods", d2(Columns.S{Int}(1, 2)) == 4)
@@ -252,7 +252,7 @@ check("§5.10 redeclaration is refused", e isa ImplementError && occursin("redec
 
 # §6.1
 check("§6.1 an ordinary where variable on an ordinary argument", both_len([[1.0]], [1, 2]) == 3)
-check("§6.1 planned: a shared where parameter never applies today", outcome(() -> kpair([1.0], [2.0])) isa MethodError)
+check("T-16 a shared where parameter in bounds: the method never applies", outcome(() -> kpair([1.0], [2.0])) isa MethodError)
 
 # §6.5
 check("§6.5 the AbstractMatrix method wins", describe([1.0 2.0]) == "a matrix")
@@ -300,7 +300,7 @@ end
 using .CB
 callback(f) = FunctionCallback(dynamic_fn(Tuple{Vector{Float64}, Float64}, Bool, f))   # in plain code
 check("§9 a stored DynamicFn", fire(callback((u, t) -> u[1] > t), [1.0]) === true)
-check("§9 planned: an open result type is no bound today", outcome(() -> apply_open(x -> 2x, 1.0)) isa MethodError)
+check("T-18 an open Callable result type is no bound: MethodError", outcome(() -> apply_open(x -> 2x, 1.0)) isa MethodError)
 
 # §10
 @trait_module module DynSolv
@@ -372,7 +372,7 @@ end
 VMain.main(String[]); VMain.main(["m"])
 check("§15 verify_main", isclosed(verify_main(VMain.main, (Vector{String},))))
 
-# §3.2 limit: a trait parameter in a default's body
+# T-2: a trait parameter in a default's body (planned: in scope)
 e = thrown(quote
     @trait_module module DefParam
     using TraitWorld
@@ -389,7 +389,7 @@ e = thrown(quote
     end
 end)
 r = e === nothing ? outcome(() -> Main.DefParam.usestate([2.0])) : e
-check("§3.2 limit: T is not in scope in a default's body (an error)", r isa Exception)
+check("T-2 a trait parameter in a default's body: an error", r isa Exception)
 println("      outcome: ", r isa Exception ? first(msg(r), 200) : r)
 
 summary()
