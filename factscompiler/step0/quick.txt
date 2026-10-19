@@ -1,0 +1,148 @@
+array/cat/("catnd", 5)
+array/index/("sumcartesian", "100000:-1:1")
+array/index/("sumcartesian", "1:100000")
+array/index/("sumcartesian", "Base.ReinterpretArray{BaseBenchmarks.ArrayBenchmarks.PairVals{Float32}, 2, Float64, Matrix{Float64}, false}")
+array/index/("sumcartesian_view", "100000:-1:1")
+array/index/("sumcartesian_view", "1:100000")
+array/index/("sumcolon_view", "1.0:0.00010001000100010001:2.0")
+array/index/("sumcolon_view", "1.0:1.0:100000.0")
+array/index/("sumcolon_view", "100000:-1:1")
+array/index/("sumcolon_view", "1:100000")
+array/index/("sumeach", "100000:-1:1")
+array/index/("sumeach", "1:100000")
+array/index/("sumeach_view", "100000:-1:1")
+array/index/("sumeach_view", "1:100000")
+array/index/("sumelt", "1:100000")
+array/index/("sumelt", "SubArray{Float32, 2, BaseBenchmarks.ArrayBenchmarks.ArrayLS{Float32, 3}, Tuple{Int64, Base.Slice{Base.OneTo{Int64}}, Base.Slice{Base.OneTo{Int64}}}, false}")
+array/index/("sumlinear", "100000:-1:1")
+array/index/("sumlinear", "1:100000")
+array/index/("sumlinear_view", "100000:-1:1")
+array/index/("sumlinear_view", "1:100000")
+array/index/("sumlinear_view", "SubArray{Int32, 2, BaseBenchmarks.ArrayBenchmarks.ArrayLS{Int32, 3}, Tuple{Int64, Base.Slice{Base.OneTo{Int64}}, Base.Slice{Base.OneTo{Int64}}}, false}")
+array/index/("sumlogical_view", "Base.ReinterpretArray{BaseBenchmarks.ArrayBenchmarks.PairVals{Int32}, 2, Int64, Matrix{Int64}, false}")
+array/index/("sumrange_view", "1.0:0.00010001000100010001:2.0")
+array/index/("sumrange_view", "1.0:1.0:100000.0")
+array/index/("sumrange_view", "100000:-1:1")
+array/index/("sumrange_view", "1:100000")
+array/index/("sumvector_view", "1.0:0.00010001000100010001:2.0")
+array/index/("sumvector_view", "1.0:1.0:100000.0")
+broadcast/fusion/("Float64", "(1000, 1000)", 2)
+broadcast/fusion/("Float64", "(1000000,)", 2)
+broadcast/sparse/("(1000, 1000)", 2)
+broadcast/sparse/("(10000000,)", 2)
+collection/deletion/("IdDict", "Any", "filter!")
+collection/deletion/("IdDict", "Any", "filter")
+collection/deletion/("Vector", "Any", "filter!")
+collection/deletion/("Vector", "Any", "filter")
+collection/initialization/("Dict", "Any", "iterator")
+collection/initialization/("Dict", "Any", "loop")
+collection/initialization/("IdDict", "Any", "iterator")
+collection/initialization/("Vector", "Any", "loop")
+collection/initialization/("Vector", "Any", "loop", "sizehint!")
+collection/initialization/("Vector", "String", "loop", "sizehint!")
+collection/iteration/("Dict", "Any", "iterate second")
+collection/iteration/("Dict", "Any", "iterate")
+collection/iteration/("IdDict", "Any", "iterate second")
+collection/iteration/("IdDict", "Any", "iterate")
+collection/queries & updates/("Vector", "Any", "pop!", "unspecified")
+collection/set operations/("BitSet", "Int", "symdiff", "BitSet", "BitSet")
+collection/set operations/("BitSet", "Int", "symdiff", "Set", "Set")
+collection/set operations/("BitSet", "Int", "symdiff", "Vector", "Vector")
+collection/set operations/("Set", "Int", "union", "BitSet", "BitSet")
+collection/set operations/("Vector", "Int", "setdiff", "Set")
+collection/set operations/("Vector", "Int", "union")
+find/findall/("Vector{Bool}", "10-90")
+find/findnext/("Vector{Bool}", "50-50")
+find/findprev/("BitVector", "50-50")
+find/findprev/("Vector{Bool}", "50-50")
+io/read/read
+io/serialization/("deserialize", "Matrix{Float64}")
+io/serialization/("deserialize", "Vector{String}")
+io/serialization/("serialize", "Matrix{Float64}")
+io/serialization/("serialize", "Vector{String}")
+io/skipchars
+micro/mandel
+micro/printfd
+micro/quicksort
+micro/randmatmul
+misc/18129
+misc/foldl/foldl(+, filter(...); init = 0.0)
+misc/parse/Float64
+misc/parse/Int
+problem/fem/sparse_fem
+problem/json/parse_json
+problem/laplacian/laplace_iter_devec
+problem/monte carlo/euro_option_vec
+problem/raytrace/raytrace
+problem/ziggurat/ziggurat
+scalar/acos/("0.5 <= abs(x) < 1", "negative argument", "Float64")
+scalar/arithmetic/("rem type", "BigInt", "Bool")
+scalar/arithmetic/("rem type", "BigInt", "UInt64")
+scalar/arithmetic/("rem type", "Bool", "Bool")
+scalar/arithmetic/("rem type", "Bool", "Int64")
+scalar/arithmetic/("rem type", "Char", "Bool")
+scalar/arithmetic/("rem type", "Char", "UInt64")
+scalar/arithmetic/("rem type", "Int64", "BigInt")
+scalar/arithmetic/("rem type", "Int64", "Int64")
+scalar/arithmetic/("rem type", "Int64", "UInt64")
+scalar/arithmetic/("rem type", "UInt64", "BigInt")
+scalar/asin/("0.5 <= abs(x) < 0.975", "negative argument", "Float32")
+scalar/tan/("large", "positive argument", "Float32")
+scalar/tan/("large", "positive argument", "Float64")
+scalar/tan/("medium", "positive argument", "Float32")
+shootout/fannkuch
+shootout/mandelbrot
+shootout/nbody
+shootout/revcomp
+simd/("Cartesian", "manual_example!", "Int32", 3, 63)
+simd/("CartesianPartition", "conditional_loop!", "Float32", 3, 31)
+simd/("CartesianPartition", "manual_example!", "Int32", 4, 63)
+simd/("Linear", "auto_two_reductions", "Int32", 4096)
+sort/insertionsort/sortperm! reverse
+sort/issorted/("reverse", "random")
+sort/length = 100/mixed eltype with by order
+sort/length = 1000/mixed eltype with by order
+sort/length = 1000/sort(rand(2n, 2n, n); dims=3)
+sort/length = 10000/mixed eltype with by order
+sort/length = 10000/sort(rand(2n, 2n, n); dims=1)
+sort/length = 3/mixed eltype with by order
+sort/length = 3/sort(rand(2n, 2n, n); dims=1)
+sort/length = 30/mixed eltype with by order
+sort/mergesort/sort forwards
+sparse/arithmetic/("unary minus", "(20000, 20000)")
+sparse/matmul/("A_mul_Bt", "sparse 5x5, dense 500x5 -> dense 5x500")
+sparse/matmul/("Ac_mul_Bc!", "sparse 20x200, dense 200x20 -> dense 200x200")
+sparse/matmul/("Ac_mul_Bc!", "sparse 20x2000, dense 20x20 -> dense 2000x20")
+sparse/matmul/("At_mul_B!", "dense 400x400, sparse 400x40 -> dense 400x40")
+string/==(::AbstractString, ::AbstractString)/different length
+string/==(::AbstractString, ::AbstractString)/equal
+string/readuntil/target length 50000
+string/replace
+tuple/misc/longtuple
+union/array/("broadcast", "*", "Bool", "(false, true)")
+union/array/("broadcast", "*", "Bool", "(true, true)")
+union/array/("broadcast", "*", "Float32", "(false, false)")
+union/array/("broadcast", "*", "Float32", "(false, true)")
+union/array/("broadcast", "*", "Float32", "(true, true)")
+union/array/("broadcast", "*", "Float64", "(false, false)")
+union/array/("broadcast", "*", "Float64", "(false, true)")
+union/array/("broadcast", "*", "Float64", "(true, true)")
+union/array/("broadcast", "*", "Int8", "(false, false)")
+union/array/("broadcast", "*", "Int8", "(false, true)")
+union/array/("broadcast", "*", "Int8", "(true, true)")
+union/array/("broadcast", "abs", "Bool", 1)
+union/array/("broadcast", "abs", "Float32", 1)
+union/array/("broadcast", "abs", "Int8", 1)
+union/array/("broadcast", "identity", "Bool", 1)
+union/array/("broadcast", "identity", "Float32", 1)
+union/array/("broadcast", "identity", "Int8", 1)
+union/array/("collect", "all", "Bool", 1)
+union/array/("collect", "all", "Int8", 1)
+union/array/("map", "abs", "Bool", 1)
+union/array/("map", "abs", "Int8", 1)
+union/array/("map", "identity", "Bool", 1)
+union/array/("map", "identity", "Int8", 1)
+union/array/("perf_binaryop", "*", "Int8", "(false, false)")
+union/array/("perf_simplecopy", "ComplexF64", 0)
+union/array/("perf_sum2", "BigFloat", 0)
+union/array/("skipmissing", "collect", "ComplexF64", 0)

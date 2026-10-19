@@ -1,0 +1,220 @@
+== all 13:17:19
+mode: all (facts)
+work: first 768.3 ms, again 0.8 ms
+valid before the loads: 106790; lost by the loads: 1616
+lost by module: [:Base => 780, :Compiler => 773, :DataFrames => 24, :Statistics => 18, :SentinelArrays => 12, :PooledArrays => 4, :InvertedIndices => 3, :CSV => 2]
+invalidation log entries: 6932; winning methods with invalidations: 66
+    733  Unitful.Colon  Tuple{Colon, Any, Quantity}  /home/hellmann/.julia/packages/Unitful/ikxOk/src/range.jl:127
+    418  DelaunayTriangulation.==  Tuple{typeof(==), DelaunayTriangulation.CatmullRomSpline, DelaunayTriangulation.CatmullRomSpline}  /home/hellmann/.julia/packages/DelaunayTriangulation/iZKpa/src/data_structures/mesh_refinement/curves/catmullromspline.jl:238
+    338  FilePathsBase.write  Tuple{typeof(write), FilePathsBase.FileBuffer, String}  /home/hellmann/.julia/packages/FilePathsBase/NV2We/src/buffer.jl:85
+    210  IntervalArithmetic.promote_rule  Tuple{typeof(promote_rule), Type{T}, Type{ExactReal{S}}} where {T<:Real, S<:Real}  /home/hellmann/.julia/packages/IntervalArithmetic/mlFMS/src/intervals/exact_literals.jl:145
+    180  REPL.REPLCompletions.InferenceParams  Tuple{Type{Compiler.InferenceParams}, REPL.REPLCompletions.REPLInterpreter}  /home/hellmann/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/REPL/src/REPLCompletions.jl:536
+    168  REPL.REPLCompletions.cache_owner  Tuple{typeof(Compiler.cache_owner), REPL.REPLCompletions.REPLInterpreter}  /home/hellmann/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/REPL/src/REPLCompletions.jl:540
+    164  GeometryBasics.convert  Tuple{typeof(convert), Type{IT}, GeometryBasics.OffsetInteger} where IT<:Integer  /home/hellmann/.julia/packages/GeometryBasics/J6kyK/src/offsetintegers.jl:53
+    137  REPL.REPLCompletions.OptimizationParams  Tuple{Type{Compiler.OptimizationParams}, REPL.REPLCompletions.REPLInterpreter}  /home/hellmann/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/REPL/src/REPLCompletions.jl:537
+    113  GeometryBasics.>  Tuple{typeof(>), GeometryBasics.OffsetInteger, GeometryBasics.OffsetInteger}  /home/hellmann/.julia/packages/GeometryBasics/J6kyK/src/offsetintegers.jl:81
+     80  GeometryBasics.convert  Tuple{typeof(convert), Type{O}, Integer} where O<:GeometryBasics.OffsetInteger  /home/hellmann/.julia/packages/GeometryBasics/J6kyK/src/offsetintegers.jl:55
+     74  REPL.REPLCompletions.get_inference_world  Tuple{typeof(Compiler.get_inference_world), REPL.REPLCompletions.REPLInterpreter}  /home/hellmann/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/REPL/src/REPLCompletions.jl:538
+     60  ChainRulesCore.*  Tuple{typeof(*), ChainRulesCore.NotImplemented, Any}  /home/hellmann/.julia/packages/ChainRulesCore/IZ7FD/src/tangent_arithmetic.jl:37
+     53  FillArrays.mapreduce  Tuple{typeof(mapreduce), Any, Any, FillArrays.AbstractFill}  /home/hellmann/.julia/packages/FillArrays/n8fAM/src/fillbroadcast.jl:102
+     44  SparseArrays._simple_count  Tuple{typeof(Base._simple_count), Any, SparseArrays.AbstractCompressedVector, T} where T  /home/hellmann/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/SparseArrays/src/sparsevector.jl:109
+     37  OffsetArrays.isempty  Tuple{typeof(isempty), OffsetArrays.IdOffsetRange}  /home/hellmann/.julia/packages/OffsetArrays/b7qpm/src/axes.jl:180
+     31  Unitful.Colon  Tuple{Colon, Quantity, Any}  /home/hellmann/.julia/packages/Unitful/ikxOk/src/range.jl:128
+     29  OffsetArrays.to_index  Tuple{typeof(Base.to_index), OffsetVector{var"#s10", <:AbstractUnitRange{var"#s10"}} where var"#s10"<:Union{Int64, BigInt}}  /home/hellmann/.julia/packages/OffsetArrays/b7qpm/src/OffsetArrays.jl:533
+     29  OffsetArrays.similar  Tuple{typeof(similar), Type{A}, Tuple{Vararg{Int64}}} where A<:OffsetArray  /home/hellmann/.julia/packages/OffsetArrays/b7qpm/src/OffsetArrays.jl:330
+     27  REPL.REPLCompletions.may_optimize  Tuple{typeof(Compiler.may_optimize), REPL.REPLCompletions.REPLInterpreter}  /home/hellmann/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/REPL/src/REPLCompletions.jl:543
+     25  GeometryBasics.promote_rule  Tuple{typeof(promote_rule), Type{IT}, Type{<:GeometryBasics.OffsetInteger}} where IT<:Integer  /home/hellmann/.julia/packages/GeometryBasics/J6kyK/src/offsetintegers.jl:85
+     24  Unitful.isunordered  Tuple{typeof(isunordered), Unitful.AbstractQuantity}  /home/hellmann/.julia/packages/Unitful/ikxOk/src/quantities.jl:430
+     22  ChainRulesCore.tail  Tuple{typeof(Base.tail), ChainRulesCore.Tangent{<:NamedTuple{<:Any, <:Tuple{}}}}  /home/hellmann/.julia/packages/ChainRulesCore/IZ7FD/src/tangent_types/structural_tangent.jl:371
+     18  FillArrays.rest  Tuple{typeof(Base.Iterators.rest), FillArrays.AbstractFill, Any}  /home/hellmann/.julia/packages/FillArrays/n8fAM/src/FillArrays.jl:230
+     15  SparseArrays._mapreduce  Tuple{typeof(Base._mapreduce), F, G, IndexCartesian, Union{SparseArrays.AbstractCompressedVector{Tv, Ti}, SubArray{Tv, 1, <:SparseArrays.AbstractSparseMatrixCSC{Tv, Ti}, Tuple{Base.Slice{Base.OneTo{Int64}}, Int64}, false}, SubArray{Tv, 1, <:SparseArrays.AbstractSparseVector{Tv, Ti}, Tuple{Base.Slice{Base.OneTo{Int64}}}, false}} where {Tv, Ti}} where {F, G}  /home/hellmann/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/SparseArrays/src/sparsevector.jl:1667
+     15  CEnum.&  Tuple{typeof(&), T, CEnum.Cenum{S}} where {T<:Integer, S<:Integer}  /home/hellmann/.julia/packages/CEnum/B6ahP/src/operators.jl:13
+     15  IntervalArithmetic.convert  Tuple{typeof(convert), Type{T}, ExactReal} where T<:Real  /home/hellmann/.julia/packages/IntervalArithmetic/mlFMS/src/intervals/exact_literals.jl:143
+     14  FixedPointNumbers.reduce_first  Tuple{typeof(Base.reduce_first), typeof(Base.mul_prod), FixedPointNumbers.FixedPoint}  /home/hellmann/.julia/packages/FixedPointNumbers/1T7Qh/src/FixedPointNumbers.jl:299
+     13  OffsetArrays.similar  Tuple{typeof(similar), Type{T}, Tuple{Union{Integer, AbstractUnitRange}, Vararg{Union{Integer, AbstractUnitRange}}}} where T<:AbstractArray  /home/hellmann/.julia/packages/OffsetArrays/b7qpm/src/OffsetArrays.jl:331
+     12  FastInterpolations.size  Tuple{typeof(size), FastInterpolations._CachedRange}  /home/hellmann/.julia/packages/FastInterpolations/78UHT/src/core/cached_range.jl:22
+     12  FillArrays.mapreduce  Tuple{typeof(Core.kwcall), NamedTuple, typeof(mapreduce), Any, Any, FillArrays.AbstractFill}  /home/hellmann/.julia/packages/FillArrays/n8fAM/src/fillbroadcast.jl:102
+     11  FillArrays.Array  Tuple{Type{Array{T, N}}, FillArrays.AbstractZeros{V, N}} where {T, V, N}  /home/hellmann/.julia/packages/FillArrays/n8fAM/src/FillArrays.jl:559
+     11  Unitful.rtoldefault  Tuple{typeof(Base.rtoldefault), Type{<:Unitful.AbstractQuantity{T, D, U}}} where {T, D, U}  /home/hellmann/.julia/packages/Unitful/ikxOk/src/quantities.jl:250
+     11  SparseArrays._cat  Tuple{typeof(Base._cat), Any, Union{Number, AbstractVecOrMat{<:Number}}, Vararg{Union{Number, AbstractVecOrMat{<:Number}}}}  /home/hellmann/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/SparseArrays/src/sparsevector.jl:1262
+     10  GeometryBasics.>=  Tuple{typeof(>=), GeometryBasics.OffsetInteger, GeometryBasics.OffsetInteger}  /home/hellmann/.julia/packages/GeometryBasics/J6kyK/src/offsetintegers.jl:81
+     10  MappedArrays.IndexStyle  Tuple{Type{IndexStyle}, MappedArrays.AbstractMultiMappedArray}  /home/hellmann/.julia/packages/MappedArrays/WoTkJ/src/MappedArrays.jl:135
+      9  Unitful.floor  Tuple{typeof(floor), Type{T}, Unitful.AbstractQuantity} where T<:Number  /home/hellmann/.julia/packages/Unitful/ikxOk/src/quantities.jl:377
+      8  REPL.REPLCompletions.get_inference_cache  Tuple{typeof(Compiler.get_inference_cache), REPL.REPLCompletions.REPLInterpreter}  /home/hellmann/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/REPL/src/REPLCompletions.jl:539
+      8  FillArrays.reduce_first  Tuple{typeof(Base.reduce_first), typeof(+), FillArrays.AbstractOnes}  /home/hellmann/.julia/packages/FillArrays/n8fAM/src/fillalgebra.jl:432
+      8  SparseArrays.IteratorSize  Tuple{Type{Base.IteratorSize}, Type{SparseArrays.ReadOnly{T, N, V}}} where {T, N, V}  /home/hellmann/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/SparseArrays/src/readonly.jl:34
+      8  SparseArrays.CHOLMOD.pointer  Tuple{typeof(pointer), SparseArrays.CHOLMOD.Dense{Tv}} where Tv  /home/hellmann/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/SparseArrays/src/solvers/cholmod.jl:310
+work after the loads: 982.0 ms; compile 994.1 ms, of it recompile 683.4 ms
+new CodeInstances in the work after the loads: 623  [:Base => 530, :Core => 36, :Statistics => 17, :FillArrays => 10, :Main => 5, :ColorTypes => 5, :StaticArraysCore => 4, :StaticArrays => 3, :SparseArrays => 3, :DataFrames => 3, :FillArraysStatisticsExt => 2, :Compiler => 2, :CSV => 1, :ColorVectorSpace => 1, :MappedArrays => 1]
+  of them again for a lost MethodInstance: 62  [:Base => 41, :Statistics => 17, :DataFrames => 3, :CSV => 1]
+  the rest, new specializations: 561  [:Base => 489, :Core => 36, :FillArrays => 10, :Main => 5, :ColorTypes => 5, :StaticArraysCore => 4, :StaticArrays => 3, :SparseArrays => 3, :FillArraysStatisticsExt => 2, :Compiler => 2, :ColorVectorSpace => 1, :MappedArrays => 1]
+    Base  Tuple{Base.Fix1{Type{Base.MappingRF}, Base.var"#_bool##0#_bool##1"{Base.Fix2{typeof(>), Int64}}}, Base.BottomRF{typeof(Base.add_sum)}}
+    Base  Tuple{Base.MappingRF{Base.var"#_bool##0#_bool##1"{Base.Fix2{typeof(>), Int64}}, Base.BottomRF{typeof(Base.add_sum)}}, Int64, Int64}
+    Base  Tuple{Base.Sort.var"##_sort!#20", Nothing, Nothing, Bool, Bool, typeof(Base.Sort._sort!), Vector{Pair{Any, Int64}}, Base.Sort.ScratchQuickSort{Missing, Missing, Base.Sort.InsertionSortAlg}, Base.Order.By{var"#10#11", Base.Order.ForwardOrdering}, @NamedTuple{scratch::Nothing, lo::Int64, hi::Int64}}
+    Base  Tuple{Base.Sort.var"##_sort!#20", Nothing, Nothing, Bool, Bool, typeof(Base.Sort._sort!), Vector{Pair{Symbol, Int64}}, Base.Sort.ScratchQuickSort{Missing, Missing, Base.Sort.InsertionSortAlg}, Base.Order.By{var"#bymod##0#bymod##1", Base.Order.ForwardOrdering}, @NamedTuple{scratch::Nothing, lo::Int64, hi::Int64}}
+    Base  Tuple{Base.Sort.var"##_sort!#20", Vector{Pair{Any, Int64}}, Int64, Bool, Bool, typeof(Base.Sort._sort!), Vector{Pair{Any, Int64}}, Base.Sort.ScratchQuickSort{Missing, Missing, Base.Sort.InsertionSortAlg}, Base.Order.By{var"#10#11", Base.Order.ForwardOrdering}, @NamedTuple{scratch::Vector{Pair{Any, Int64}}, lo::Int64, hi::Int64}}
+    Base  Tuple{Base.Sort.var"##_sort!#20", Vector{Pair{Symbol, Int64}}, Int64, Bool, Bool, typeof(Base.Sort._sort!), Vector{Pair{Symbol, Int64}}, Base.Sort.ScratchQuickSort{Missing, Missing, Base.Sort.InsertionSortAlg}, Base.Order.By{var"#bymod##0#bymod##1", Base.Order.ForwardOrdering}, @NamedTuple{scratch::Vector{Pair{Symbol, Int64}}, lo::Int64, hi::Int64}}
+    Base  Tuple{Base.Sort.var"##sort!#24", Base.Sort.DefaultStable, typeof(isless), var"#10#11", Nothing, Base.Order.ForwardOrdering, Nothing, typeof(sort!), Vector{Pair{Any, Int64}}}
+    Base  Tuple{Base.Sort.var"##sort!#24", Base.Sort.DefaultStable, typeof(isless), var"#bymod##0#bymod##1", Nothing, Base.Order.ForwardOrdering, Nothing, typeof(sort!), Vector{Pair{Symbol, Int64}}}
+    Base  Tuple{Base.Sort.var"#_sort!##10#_sort!##11"{Base.Order.By{var"#10#11", Base.Order.ForwardOrdering}}, Pair{Any, Int64}, Pair{Any, Int64}}
+    Base  Tuple{Base.Sort.var"#_sort!##10#_sort!##11"{Base.Order.By{var"#bymod##0#bymod##1", Base.Order.ForwardOrdering}}, Pair{Symbol, Int64}, Pair{Symbol, Int64}}
+    Base  Tuple{Base.var"##_#55", Base.Pairs{Symbol, Union{}, Nothing, @NamedTuple{}}, ComposedFunction{typeof(identity), Base.Fix1{Type{Base.MappingRF}, Base.var"#_bool##0#_bool##1"{Base.Fix2{typeof(>), Int64}}}}, Base.BottomRF{typeof(Base.add_sum)}}
+    Base  Tuple{Base.var"##_#58", Base.Pairs{Symbol, Union{}, Nothing, @NamedTuple{}}, Base.Fix1{Type{Base.MappingRF}, Base.var"#_bool##0#_bool##1"{Base.Fix2{typeof(>), Int64}}}, Base.BottomRF{typeof(Base.add_sum)}}
+    Base  Tuple{Base.var"##count#295", Int64, typeof(count), Function, Base.ValueIterator{Dict{Any, Int64}}}
+    Base  Tuple{Base.var"##mapfoldl#271", Int64, typeof(mapfoldl), Function, Function, Base.ValueIterator{Dict{Any, Int64}}}
+    Base  Tuple{Base.var"##mapreduce#275", Base.Pairs{Symbol, Int64, Nothing, @NamedTuple{init::Int64}}, typeof(mapreduce), Function, Function, Base.ValueIterator{Dict{Any, Int64}}}
+    Base  Tuple{Base.var"##show_sym#493", Bool, typeof(Base.show_sym), IOStream, Symbol}
+    Base  Tuple{Base.var"##sprint#429", IOStream, Int64, typeof(sprint), typeof(print), Type{Pair{Symbol, Int64}}}
+    Base  Tuple{Base.var"##sum#278", Base.Pairs{Symbol, Int64, Nothing, @NamedTuple{init::Int64}}, typeof(sum), Function, Base.ValueIterator{Dict{Any, Int64}}}
+    Base  Tuple{Base.var"#_bool##0#_bool##1"{Base.Fix2{typeof(>), Int64}}, Int64}
+    Base  Tuple{Base.var"#show_bound#show##0", IOContext{IOStream}, Any}
+    Compiler  Tuple{Compiler.var"#abstract_eval_splatnew##0#abstract_eval_splatnew##1"{Type{@NamedTuple{by::var"#10#11"}}, Core.Const}, Int64}
+    Compiler  Tuple{Compiler.var"#abstract_eval_splatnew##0#abstract_eval_splatnew##1"{Type{@NamedTuple{by::var"#bymod##0#bymod##1"}}, Core.Const}, Int64}
+    Base  Tuple{ComposedFunction{typeof(identity), Base.Fix1{Type{Base.MappingRF}, Base.var"#_bool##0#_bool##1"{Base.Fix2{typeof(>), Int64}}}}, Base.BottomRF{typeof(Base.add_sum)}}
+    FillArraysStatisticsExt  Tuple{FillArraysStatisticsExt.var"##var#6", Bool, Any, Colon, typeof(var), FillArrays.AbstractFill{T, 1} where T<:AbstractFloat}  owner=:facts_plain_return_type
+    StaticArrays  Tuple{StaticArrays.var"##any#303", Colon, typeof(any), Statistics.var"#_quantilesort!##0#_quantilesort!##1", StaticArray{S, T, 1} where {T, S<:Tuple}}  owner=:facts_plain_return_type
+    Base  Tuple{Type{Base.Fix1}, Type{Base.MappingRF}, Base.var"#_bool##0#_bool##1"{Base.Fix2{typeof(>), Int64}}}
+    Base  Tuple{Type{Base.Generator}, Base.var"#_bool##0#_bool##1"{Base.Fix2{typeof(>), Int64}}, Base.ValueIterator{Dict{Any, Int64}}}
+    Base  Tuple{Type{Base.Generator}, typeof(identity), Base.Iterators.Filter{var"#7#8", Set{Core.CodeInstance}}}
+    Base  Tuple{Type{Base.ImmutableDict{Symbol, Any}}, Base.ImmutableDict{Symbol, Any}, Symbol, Vector{Pair{Symbol, Int64}}}
+    Base  Tuple{Type{Base.IteratorEltype}, Dict{Any, Int64}}
+    Base  Tuple{Type{Base.IteratorEltype}, Dict{Symbol, Int64}}
+    Base  Tuple{Type{Base.IteratorEltype}, Type{Dict{Any, Int64}}}
+    Base  Tuple{Type{Base.IteratorEltype}, Type{Dict{Symbol, Int64}}}
+    Base  Tuple{Type{Base.IteratorSize}, Base.Iterators.Filter{var"#7#8", Set{Core.CodeInstance}}}
+    Base  Tuple{Type{Base.IteratorSize}, Dict{Any, Int64}}
+    Base  Tuple{Type{Base.IteratorSize}, Type{Base.Iterators.Filter{var"#7#8", Set{Core.CodeInstance}}}}
+    Base  Tuple{Type{Base.IteratorSize}, Type{Dict{Any, Int64}}}
+    Base  Tuple{Type{Base.Iterators.Filter}, var"#7#8", Set{Core.CodeInstance}}
+    Base  Tuple{Type{Base.Iterators.Rest}, Base.ValueIterator{Dict{Any, Int64}}, Int64}
+    Base  Tuple{Type{Base.KeySet}, Dict{Core.CodeInstance, Nothing}}
+    Base  Tuple{Type{Base.MappingRF}, Base.var"#_bool##0#_bool##1"{Base.Fix2{typeof(>), Int64}}, Base.BottomRF{typeof(Base.add_sum)}}
+    Base  Tuple{Type{Base.Order.By}, var"#10#11", Base.Order.ForwardOrdering}
+    Base  Tuple{Type{Base.Order.By}, var"#bymod##0#bymod##1", Base.Order.ForwardOrdering}
+    Base  Tuple{Type{Base.Order.Lt}, Base.Sort.var"#_sort!##10#_sort!##11"{Base.Order.By{var"#10#11", Base.Order.ForwardOrdering}}}
+    Base  Tuple{Type{Base.Order.Lt}, Base.Sort.var"#_sort!##10#_sort!##11"{Base.Order.By{var"#bymod##0#bymod##1", Base.Order.ForwardOrdering}}}
+    Base  Tuple{Type{Base.ValueIterator}, Dict{Any, Int64}}
+    Core  Tuple{Type{BoundsError}, Vector{Pair{Any, Int64}}, Int64}
+    Core  Tuple{Type{BoundsError}, Vector{Pair{Any, Int64}}, Tuple{Int64}}
+    Core  Tuple{Type{BoundsError}, Vector{Pair{Any, Int64}}, Tuple{UnitRange{Int64}}}
+    Core  Tuple{Type{BoundsError}, Vector{Pair{Symbol, Int64}}, Int64}
+    Core  Tuple{Type{BoundsError}, Vector{Pair{Symbol, Int64}}, Tuple{Int64}}
+    Core  Tuple{Type{BoundsError}, Vector{Pair{Symbol, Int64}}, Tuple{UnitRange{Int64}}}
+    ColorTypes  Tuple{Type{ColorTypes.ComponentIterator}, Union{ColorTypes.TransparentColor{C, T}, C} where {T, C<:Union{ColorTypes.AbstractGray{T}, ColorTypes.AbstractRGB{T}}}}  owner=:facts_plain_return_type
+    Base  Tuple{Type{ComposedFunction}, typeof(identity), Base.Fix1{Type{Base.MappingRF}, Base.var"#_bool##0#_bool##1"{Base.Fix2{typeof(>), Int64}}}}
+    FillArrays  Tuple{Type{FillArrays.Fill{T, 0, Tuple{}}}, Any, Tuple{}} where T  owner=:facts_plain_return_type
+    FillArrays  Tuple{Type{FillArrays.Fill{T, 0, Tuple{}}}, T, Tuple{}} where T  owner=:facts_plain_return_type
+    FillArrays  Tuple{Type{FillArrays.Fill{T, 0}}, Any, Tuple{}} where T  owner=:facts_plain_return_type
+    FillArrays  Tuple{Type{FillArrays.Fill{T, N}}, Any, SZ} where {T, N, SZ<:NTuple{N, Integer}}  owner=:facts_plain_return_type
+    FillArrays  Tuple{Type{FillArrays.Fill{_A, 0, Tuple{}}} where _A, Any, Tuple{}}  owner=:facts_plain_return_type
+    FillArrays  Tuple{Type{FillArrays.Fill}, T, NTuple{N, Any}} where {T, N}  owner=:facts_plain_return_type
+== plain 13:17:48
+mode: plain
+work: first 3319.7 ms, again 0.6 ms
+valid before the loads: 117655; lost by the loads: 3626
+lost by module: [:Base => 2125, :Compiler => 801, :DataFrames => 390, :CSV => 123, :Statistics => 52, :PooledArrays => 24, :PrettyTables => 21, :Tables => 16, :Artifacts => 15, :Printf => 10, :Downloads => 8, :LinearAlgebra => 8, :StyledStrings => 7, :ArgTools => 7, :SentinelArrays => 6, :Main => 4, :InvertedIndices => 3, :Parsers => 3, :PrecompileTools => 2, :OrderedCollections => 1]
+invalidation log entries: 15534; winning methods with invalidations: 136
+   1071  Unitful.Colon  Tuple{Colon, Any, Quantity}  /home/hellmann/.julia/packages/Unitful/ikxOk/src/range.jl:127
+    981  FilePathsBase.write  Tuple{typeof(write), FilePathsBase.FileBuffer, String}  /home/hellmann/.julia/packages/FilePathsBase/NV2We/src/buffer.jl:85
+    629  DelaunayTriangulation.==  Tuple{typeof(==), DelaunayTriangulation.EllipticalArc, DelaunayTriangulation.EllipticalArc}  /home/hellmann/.julia/packages/DelaunayTriangulation/iZKpa/src/data_structures/mesh_refinement/curves/ellipticalarc.jl:35
+    447  GeometryBasics.convert  Tuple{typeof(convert), Type{IT}, GeometryBasics.OffsetInteger} where IT<:Integer  /home/hellmann/.julia/packages/GeometryBasics/J6kyK/src/offsetintegers.jl:53
+    413  IntervalArithmetic.promote_rule  Tuple{typeof(promote_rule), Type{T}, Type{ExactReal{S}}} where {T<:Real, S<:Real}  /home/hellmann/.julia/packages/IntervalArithmetic/mlFMS/src/intervals/exact_literals.jl:145
+    299  ChainRulesCore.*  Tuple{typeof(*), Any, ChainRulesCore.ZeroTangent}  /home/hellmann/.julia/packages/ChainRulesCore/IZ7FD/src/tangent_arithmetic.jl:105
+    222  GeometryBasics.>  Tuple{typeof(>), GeometryBasics.OffsetInteger, GeometryBasics.OffsetInteger}  /home/hellmann/.julia/packages/GeometryBasics/J6kyK/src/offsetintegers.jl:81
+    219  SparseArrays.eachindex  Tuple{typeof(eachindex), IndexLinear, SparseArrays.ReadOnly}  /home/hellmann/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/SparseArrays/src/readonly.jl:23
+    206  FillArrays.reduce_first  Tuple{typeof(Base.reduce_first), typeof(+), FillArrays.AbstractOnes}  /home/hellmann/.julia/packages/FillArrays/n8fAM/src/fillalgebra.jl:432
+    180  REPL.REPLCompletions.InferenceParams  Tuple{Type{Compiler.InferenceParams}, REPL.REPLCompletions.REPLInterpreter}  /home/hellmann/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/REPL/src/REPLCompletions.jl:536
+    161  REPL.REPLCompletions.cache_owner  Tuple{typeof(Compiler.cache_owner), REPL.REPLCompletions.REPLInterpreter}  /home/hellmann/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/REPL/src/REPLCompletions.jl:540
+    142  REPL.REPLCompletions.OptimizationParams  Tuple{Type{Compiler.OptimizationParams}, REPL.REPLCompletions.REPLInterpreter}  /home/hellmann/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/REPL/src/REPLCompletions.jl:537
+    131  GeometryBasics.convert  Tuple{typeof(convert), Type{O}, Integer} where O<:GeometryBasics.OffsetInteger  /home/hellmann/.julia/packages/GeometryBasics/J6kyK/src/offsetintegers.jl:55
+    127  OffsetArrays.isempty  Tuple{typeof(isempty), OffsetArrays.IdOffsetRange}  /home/hellmann/.julia/packages/OffsetArrays/b7qpm/src/axes.jl:180
+    121  ChainRulesCore.*  Tuple{typeof(*), ChainRulesCore.NoTangent, Any}  /home/hellmann/.julia/packages/ChainRulesCore/IZ7FD/src/tangent_arithmetic.jl:64
+    120  OffsetArrays.to_index  Tuple{typeof(Base.to_index), OffsetVector{var"#s10", <:AbstractUnitRange{var"#s10"}} where var"#s10"<:Union{Int64, BigInt}}  /home/hellmann/.julia/packages/OffsetArrays/b7qpm/src/OffsetArrays.jl:533
+    107  CairoMakie.delete!  Tuple{typeof(delete!), CairoMakie.Screen, Scene, AbstractPlot}  /home/hellmann/.julia/packages/CairoMakie/wf7sU/src/screen.jl:233
+    106  FixedPointNumbers.reduce_first  Tuple{typeof(Base.reduce_first), typeof(Base.mul_prod), FixedPointNumbers.FixedPoint}  /home/hellmann/.julia/packages/FixedPointNumbers/1T7Qh/src/FixedPointNumbers.jl:299
+     98  SparseArrays.IteratorSize  Tuple{Type{Base.IteratorSize}, Type{SparseArrays.ReadOnly{T, N, V}}} where {T, N, V}  /home/hellmann/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/SparseArrays/src/readonly.jl:34
+     89  ChainRulesCore.tail  Tuple{typeof(Base.tail), ChainRulesCore.AbstractZero}  /home/hellmann/.julia/packages/ChainRulesCore/IZ7FD/src/tangent_types/abstract_zero.jl:20
+     76  OffsetArrays.length  Tuple{typeof(length), OffsetArrays.IdOffsetRange}  /home/hellmann/.julia/packages/OffsetArrays/b7qpm/src/axes.jl:179
+     73  REPL.REPLCompletions.get_inference_world  Tuple{typeof(Compiler.get_inference_world), REPL.REPLCompletions.REPLInterpreter}  /home/hellmann/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/REPL/src/REPLCompletions.jl:538
+     72  SparseArrays.vcat  Tuple{typeof(vcat), Union{Number, AbstractVecOrMat{<:Number}}, Vararg{Union{Number, AbstractVecOrMat{<:Number}}}}  /home/hellmann/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/SparseArrays/src/sparsevector.jl:1275
+     54  Unitful.Colon  Tuple{Colon, Quantity, Any}  /home/hellmann/.julia/packages/Unitful/ikxOk/src/range.jl:128
+     54  GeometryBasics.to_index  Tuple{typeof(Base.to_index), GeometryBasics.OffsetInteger}  /home/hellmann/.julia/packages/GeometryBasics/J6kyK/src/offsetintegers.jl:51
+     50  SparseArrays.reverse!  Tuple{typeof(reverse!), SparseArrays.AbstractSparseVector, Integer, Integer}  /home/hellmann/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/SparseArrays/src/sparsevector.jl:2452
+     47  StaticArrays.instantiate  Tuple{typeof(Base.Broadcast.instantiate), Base.Broadcast.Broadcasted{StaticArraysCore.StaticArrayStyle{M}}} where M  /home/hellmann/.julia/packages/StaticArrays/8YQoh/src/broadcast.jl:28
+     40  OffsetArrays.similar  Tuple{typeof(similar), Type{T}, Tuple{Union{Integer, AbstractUnitRange}, Vararg{Union{Integer, AbstractUnitRange}}}} where T<:AbstractArray  /home/hellmann/.julia/packages/OffsetArrays/b7qpm/src/OffsetArrays.jl:331
+     39  FillArrays.any  Tuple{typeof(any), Function, FillArrays.AbstractFill}  /home/hellmann/.julia/packages/FillArrays/n8fAM/src/FillArrays.jl:685
+     35  Observables.print  Tuple{typeof(print), IO, Observables.ObserverFunction}  /home/hellmann/.julia/packages/Observables/YdEbO/src/Observables.jl:302
+     35  FillArrays.print_matrix_row  Tuple{typeof(Base.print_matrix_row), IO, Union{FillArrays.AbstractFill{T, 1} where T, FillArrays.AbstractFill{T, 2} where T, FillArrays.OffDiagonal, FillArrays.RectDiagonal, LinearAlgebra.Diagonal{<:Any, <:FillArrays.AbstractFill{T, 1} where T}, LinearAlgebra.LowerTriangular{<:Any, <:FillArrays.AbstractFill{T, 2} where T}, LinearAlgebra.UnitLowerTriangular{<:Any, <:FillArrays.AbstractFill{T, 2} where T}, LinearAlgebra.UnitUpperTriangular{<:Any, <:FillArrays.AbstractFill{T, 2} where T}, LinearAlgebra.UpperTriangular{<:Any, <:FillArrays.AbstractFill{T, 2} where T}}, Vector, Integer, AbstractVector, AbstractString, Integer}  /home/hellmann/.julia/packages/FillArrays/n8fAM/src/FillArrays.jl:735
+     32  OffsetArrays.axes  Tuple{typeof(axes), OffsetArray, Any}  /home/hellmann/.julia/packages/OffsetArrays/b7qpm/src/OffsetArrays.jl:296
+     31  SparseArrays._any  Tuple{typeof(Base._any), Any, Union{SparseArrays.AbstractCompressedVector{Tv, Ti}, SubArray{Tv, 1, <:SparseArrays.AbstractSparseMatrixCSC{Tv, Ti}, Tuple{Base.Slice{Base.OneTo{Int64}}, Int64}, false}, SubArray{Tv, 1, <:SparseArrays.AbstractSparseVector{Tv, Ti}, Tuple{Base.Slice{Base.OneTo{Int64}}}, false}} where {Tv, Ti}, Colon}  /home/hellmann/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/SparseArrays/src/sparsevector.jl:1679
+     30  OffsetArrays.similar  Tuple{typeof(similar), AbstractArray, Type{T}, Tuple{Union{Integer, AbstractUnitRange}, Vararg{Union{Integer, AbstractUnitRange}}}} where T  /home/hellmann/.julia/packages/OffsetArrays/b7qpm/src/OffsetArrays.jl:320
+     28  FastInterpolations.size  Tuple{typeof(size), FastInterpolations._CachedRange}  /home/hellmann/.julia/packages/FastInterpolations/78UHT/src/core/cached_range.jl:22
+     28  Makie.deepcopy  Tuple{typeof(deepcopy), Attributes}  /home/hellmann/.julia/packages/Makie/dVJIx/src/attributes.jl:55
+     27  FillArrays.rest  Tuple{typeof(Base.Iterators.rest), FillArrays.AbstractFill, Any}  /home/hellmann/.julia/packages/FillArrays/n8fAM/src/FillArrays.jl:230
+     27  ChainRulesCore.-  Tuple{typeof(-), Any, ChainRulesCore.ZeroTangent}  /home/hellmann/.julia/packages/ChainRulesCore/IZ7FD/src/tangent_arithmetic.jl:102
+     27  REPL.REPLCompletions.may_optimize  Tuple{typeof(Compiler.may_optimize), REPL.REPLCompletions.REPLInterpreter}  /home/hellmann/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/REPL/src/REPLCompletions.jl:543
+     26  SparseArrays._mapreduce  Tuple{typeof(Base._mapreduce), F, G, IndexCartesian, Union{SparseArrays.AbstractCompressedVector{Tv, Ti}, SubArray{Tv, 1, <:SparseArrays.AbstractSparseMatrixCSC{Tv, Ti}, Tuple{Base.Slice{Base.OneTo{Int64}}, Int64}, false}, SubArray{Tv, 1, <:SparseArrays.AbstractSparseVector{Tv, Ti}, Tuple{Base.Slice{Base.OneTo{Int64}}}, false}} where {Tv, Ti}} where {F, G}  /home/hellmann/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/SparseArrays/src/sparsevector.jl:1667
+work after the loads: 4044.3 ms; compile 4053.9 ms, of it recompile 4042.8 ms
+new CodeInstances in the work after the loads: 1410  [:Base => 1008, :CSV => 118, :DataFrames => 90, :Core => 44, :Statistics => 17, :StaticArrays => 16, :OffsetArrays => 16, :Printf => 13, :StructArrays => 13, :PooledArrays => 10, :Unitful => 9, :SparseArrays => 7, :Main => 6, :FixedPointNumbers => 5, :StaticArraysCore => 4, :Tables => 4, :PrintfExt => 3, :FillArrays => 3, :Downloads => 3, :Parsers => 3, :InvertedIndices => 3, :ColorTypes => 3, :MappedArrays => 3, :FillArraysStatisticsExt => 2, :FilePathsBase => 2, :Observables => 2, :CSVFilePathsBaseExt => 1, :ColorVectorSpace => 1, :GeometryBasics => 1]
+  of them again for a lost MethodInstance: 580  [:Base => 321, :CSV => 118, :DataFrames => 90, :Statistics => 17, :Printf => 10, :PooledArrays => 10, :Tables => 4, :Downloads => 3, :Parsers => 3, :InvertedIndices => 3, :Main => 1]
+  the rest, new specializations: 830  [:Base => 687, :Core => 44, :StaticArrays => 16, :OffsetArrays => 16, :StructArrays => 13, :Unitful => 9, :SparseArrays => 7, :FixedPointNumbers => 5, :Main => 5, :StaticArraysCore => 4, :Printf => 3, :PrintfExt => 3, :FillArrays => 3, :ColorTypes => 3, :MappedArrays => 3, :FillArraysStatisticsExt => 2, :FilePathsBase => 2, :Observables => 2, :CSVFilePathsBaseExt => 1, :ColorVectorSpace => 1, :GeometryBasics => 1]
+    Base  Tuple{Base.Fix1{Type{Base.MappingRF}, Base.var"#_bool##0#_bool##1"{Base.Fix2{typeof(>), Int64}}}, Base.BottomRF{typeof(Base.add_sum)}}
+    Base  Tuple{Base.MappingRF{Base.var"#_bool##0#_bool##1"{Base.Fix2{typeof(>), Int64}}, Base.BottomRF{typeof(Base.add_sum)}}, Int64, Int64}
+    Base  Tuple{Base.Sort.var"##_sort!#20", Nothing, Nothing, Bool, Bool, typeof(Base.Sort._sort!), Vector{Pair{Any, Int64}}, Base.Sort.ScratchQuickSort{Missing, Missing, Base.Sort.InsertionSortAlg}, Base.Order.By{var"#10#11", Base.Order.ForwardOrdering}, @NamedTuple{scratch::Nothing, lo::Int64, hi::Int64}}
+    Base  Tuple{Base.Sort.var"##_sort!#20", Nothing, Nothing, Bool, Bool, typeof(Base.Sort._sort!), Vector{Pair{Symbol, Int64}}, Base.Sort.ScratchQuickSort{Missing, Missing, Base.Sort.InsertionSortAlg}, Base.Order.By{var"#bymod##0#bymod##1", Base.Order.ForwardOrdering}, @NamedTuple{scratch::Nothing, lo::Int64, hi::Int64}}
+    Base  Tuple{Base.Sort.var"##_sort!#20", Vector{Pair{Any, Int64}}, Int64, Bool, Bool, typeof(Base.Sort._sort!), Vector{Pair{Any, Int64}}, Base.Sort.ScratchQuickSort{Missing, Missing, Base.Sort.InsertionSortAlg}, Base.Order.By{var"#10#11", Base.Order.ForwardOrdering}, @NamedTuple{scratch::Vector{Pair{Any, Int64}}, lo::Int64, hi::Int64}}
+    Base  Tuple{Base.Sort.var"##_sort!#20", Vector{Pair{Symbol, Int64}}, Int64, Bool, Bool, typeof(Base.Sort._sort!), Vector{Pair{Symbol, Int64}}, Base.Sort.ScratchQuickSort{Missing, Missing, Base.Sort.InsertionSortAlg}, Base.Order.By{var"#bymod##0#bymod##1", Base.Order.ForwardOrdering}, @NamedTuple{scratch::Vector{Pair{Symbol, Int64}}, lo::Int64, hi::Int64}}
+    Base  Tuple{Base.Sort.var"##send_to_end!#13", Int64, Int64, typeof(Base.Sort.send_to_end!), Base.Sort.var"#_sort!##4#_sort!##5"{Base.Order.Perm{Base.Order.ForwardOrdering, V}} where V<:(Base.Sort.WithoutMissingVector{_A, Vector{T}} where {_A, T}), Vector{Int64}}
+    Base  Tuple{Base.Sort.var"##send_to_end!#13", Int64, Int64, typeof(Base.Sort.send_to_end!), Base.Sort.var"#_sort!##4#_sort!##5"{Base.Order.Perm{Base.Order.ForwardOrdering, V}} where V<:(Vector), Vector{Int64}}
+    Base  Tuple{Base.Sort.var"##send_to_end!#14", Int64, Int64, typeof(Base.Sort.send_to_end!), Base.Sort.var"#_sort!##4#_sort!##5"{Base.Order.Perm{Base.Order.ForwardOrdering, V}} where V<:(Base.Sort.WithoutMissingVector{_A, Vector{T}} where {_A, T}), Vector{Int64}, Base.Order.ForwardOrdering, Bool}
+    Base  Tuple{Base.Sort.var"##send_to_end!#14", Int64, Int64, typeof(Base.Sort.send_to_end!), Base.Sort.var"#_sort!##4#_sort!##5"{Base.Order.Perm{Base.Order.ForwardOrdering, V}} where V<:(Vector), Vector{Int64}, Base.Order.ForwardOrdering, Bool}
+    Base  Tuple{Base.Sort.var"##sort!#24", Base.Sort.DefaultStable, typeof(isless), var"#10#11", Nothing, Base.Order.ForwardOrdering, Nothing, typeof(sort!), Vector{Pair{Any, Int64}}}
+    Base  Tuple{Base.Sort.var"##sort!#24", Base.Sort.DefaultStable, typeof(isless), var"#bymod##0#bymod##1", Nothing, Base.Order.ForwardOrdering, Nothing, typeof(sort!), Vector{Pair{Symbol, Int64}}}
+    Base  Tuple{Base.Sort.var"#_sort!##10#_sort!##11"{Base.Order.By{var"#10#11", Base.Order.ForwardOrdering}}, Pair{Any, Int64}, Pair{Any, Int64}}
+    Base  Tuple{Base.Sort.var"#_sort!##10#_sort!##11"{Base.Order.By{var"#bymod##0#bymod##1", Base.Order.ForwardOrdering}}, Pair{Symbol, Int64}, Pair{Symbol, Int64}}
+    Base  Tuple{Base.Sort.var"#_sort!##4#_sort!##5"{Base.Order.Perm{Base.Order.ForwardOrdering, V}} where V<:(Base.Sort.WithoutMissingVector{_A, Vector{T}} where {_A, T}), Int64}
+    Base  Tuple{Base.Sort.var"#_sort!##4#_sort!##5"{Base.Order.Perm{Base.Order.ForwardOrdering, V}} where V<:(Vector), Int64}
+    Base  Tuple{Base.var"##_#55", Base.Pairs{Symbol, Union{}, Nothing, @NamedTuple{}}, ComposedFunction{typeof(identity), Base.Fix1{Type{Base.MappingRF}, Base.var"#_bool##0#_bool##1"{Base.Fix2{typeof(>), Int64}}}}, Base.BottomRF{typeof(Base.add_sum)}}
+    Base  Tuple{Base.var"##_#58", Base.Pairs{Symbol, Union{}, Nothing, @NamedTuple{}}, Base.Fix1{Type{Base.MappingRF}, Base.var"#_bool##0#_bool##1"{Base.Fix2{typeof(>), Int64}}}, Base.BottomRF{typeof(Base.add_sum)}}
+    Base  Tuple{Base.var"##count#295", Int64, typeof(count), Function, Base.ValueIterator{Dict{Any, Int64}}}
+    Base  Tuple{Base.var"##mapfoldl#271", Int64, typeof(mapfoldl), Base.var"#_bool##0#_bool##1"{<:Function}, typeof(Base.add_sum), Base.ValueIterator{Dict{Any, Int64}}}
+    Base  Tuple{Base.var"##mapfoldl#271", Int64, typeof(mapfoldl), Function, Function, Base.ValueIterator{Dict{Any, Int64}}}
+    Base  Tuple{Base.var"##mapreduce#275", Base.Pairs{Symbol, Int64, Nothing, @NamedTuple{init::Int64}}, typeof(mapreduce), Base.var"#_bool##0#_bool##1"{<:Function}, typeof(Base.add_sum), Base.ValueIterator{Dict{Any, Int64}}}
+    Base  Tuple{Base.var"##mapreduce#739", Colon, Any, typeof(mapreduce), typeof(identity), typeof(vcat), Vector{AbstractVector}}
+    Base  Tuple{Base.var"##reduce#741", Base.Pairs{Symbol, _A, Nothing, A} where {_A, A<:(NamedTuple{(:init,), <:Tuple{Any}})}, typeof(reduce), typeof(vcat), Vector{AbstractVector}}
+    Base  Tuple{Base.var"##round#726", Union{Nothing, Integer}, Nothing, Nothing, typeof(round), Float64, RoundingMode{:Nearest}}
+    Base  Tuple{Base.var"##show_sym#493", Bool, typeof(Base.show_sym), IOStream, Symbol}
+    Base  Tuple{Base.var"##sprint#429", IO, Int64, typeof(sprint), typeof(print), Type{Pair{Symbol, Int64}}}
+    Base  Tuple{Base.var"##sprint#429", IOStream, Int64, typeof(sprint), typeof(print), Type{Pair{Symbol, Int64}}}
+    Base  Tuple{Base.var"##sum#278", Base.Pairs{Symbol, Int64, Nothing, @NamedTuple{init::Int64}}, typeof(sum), Base.var"#_bool##0#_bool##1"{<:Function}, Base.ValueIterator{Dict{Any, Int64}}}
+    Base  Tuple{Base.var"#_bool##0#_bool##1"{Base.Fix2{typeof(>), Int64}}, Int64}
+    Base  Tuple{Base.var"#show_bound#show##0", IOStream, Any}
+    Base  Tuple{Base.var"#view##0#view##1"{SubArray{T, N, P, I, L}} where {T, N, P, I, L}, Any}
+    Base  Tuple{Base.var"#view##0#view##1"{Vector{Symbol}}, Any}
+    Base  Tuple{ComposedFunction{typeof(identity), Base.Fix1{Type{Base.MappingRF}, Base.var"#_bool##0#_bool##1"{Base.Fix2{typeof(>), Int64}}}}, Base.BottomRF{typeof(Base.add_sum)}}
+    FillArraysStatisticsExt  Tuple{FillArraysStatisticsExt.var"##var#6", Bool, Any, Colon, typeof(var), FillArrays.AbstractFill{T, 1} where T<:AbstractFloat}
+    StaticArrays  Tuple{StaticArrays.var"##all#298", Colon, typeof(all), DataFrames.var"#2#3", StaticArray{S, T, 1} where {T, S<:Tuple}}
+    StaticArrays  Tuple{StaticArrays.var"##any#303", Colon, typeof(any), DataFrames.var"#expand_res_astable##6#expand_res_astable##7", StaticArray{S, T, 1} where {T, S<:Tuple}}
+    StaticArrays  Tuple{StaticArrays.var"##any#303", Colon, typeof(any), Statistics.var"#_quantilesort!##0#_quantilesort!##1", StaticArray{S, T, 1} where {T, S<:Tuple}}
+    OffsetArrays  Tuple{Type{<:OffsetArrays.IdOffsetRange}, UnitRange{T} where T<:Integer, Integer}
+    Base  Tuple{Type{Base.Broadcast.Broadcasted{_A}} where _A, Any, Tuple, Any}
+    Base  Tuple{Type{Base.Broadcast.Broadcasted{_A}} where _A, Any, Tuple{}, Any}
+    Base  Tuple{Type{Base.Broadcast.Broadcasted{_A}} where _A, StructArrays.Instantiator, Tuple, Any}
+    Base  Tuple{Type{Base.Fix1}, Type{Base.MappingRF}, Base.var"#_bool##0#_bool##1"{Base.Fix2{typeof(>), Int64}}}
+    Base  Tuple{Type{Base.Generator}, Base.var"#_bool##0#_bool##1"{<:Function}, Base.ValueIterator{Dict{Any, Int64}}}
+    Base  Tuple{Type{Base.Generator}, Base.var"#_bool##0#_bool##1"{Base.Fix2{typeof(>), Int64}}, Base.ValueIterator{Dict{Any, Int64}}}
+    Base  Tuple{Type{Base.Generator}, Function, Base.ValueIterator{Dict{Any, Int64}}}
+    Base  Tuple{Type{Base.Generator}, typeof(identity), Base.Iterators.Filter{var"#7#8", Set{Core.CodeInstance}}}
+    Base  Tuple{Type{Base.ImmutableDict{Symbol, Any}}, Base.ImmutableDict{Symbol, Any}, Symbol, Vector{Pair{Symbol, Int64}}}
+    Base  Tuple{Type{Base.IteratorEltype}, Base.ValueIterator{Dict{Any, Int64}}}
+    Base  Tuple{Type{Base.IteratorEltype}, Dict{Any, Int64}}
+    Base  Tuple{Type{Base.IteratorEltype}, Dict{Symbol, Int64}}
+    Base  Tuple{Type{Base.IteratorEltype}, Type{Base.ValueIterator{Dict{Any, Int64}}}}
+    Base  Tuple{Type{Base.IteratorEltype}, Type{Dict{Any, Int64}}}
+    Base  Tuple{Type{Base.IteratorEltype}, Type{Dict{Symbol, Int64}}}
+    Base  Tuple{Type{Base.IteratorEltype}, Type{Vector{AbstractVector}}}
+    Base  Tuple{Type{Base.IteratorEltype}, Vector{AbstractVector}}
+    Base  Tuple{Type{Base.IteratorSize}, Base.Iterators.Filter{var"#7#8", Set{Core.CodeInstance}}}
+    Base  Tuple{Type{Base.IteratorSize}, Dict{Any, Int64}}
+    Base  Tuple{Type{Base.IteratorSize}, Type{Base.Iterators.Filter{var"#7#8", Set{Core.CodeInstance}}}}
+    Base  Tuple{Type{Base.IteratorSize}, Type{Dict{Any, Int64}}}

@@ -410,5 +410,29 @@ c20 = (Base.invoke_in_world(w20, Cw20.calld, 1.0), Base.invoke_in_world(w20, Cw2
 check("G1.20 a Callable in DynamicCall mode runs in the caller's world", c20 == (2.0, 2.0, 101.0),
       "old world: Callable $(c20[1]), plain $(c20[2]); latest world: Callable $(c20[3]) (expected (2.0, 2.0, 101.0))")
 
+# --- G1.21: the same pointer, alternating worlds, and a function that does not exist in the older
+# world: as a direct call, the older world sees its own methods (a MethodError where none exists) -
+toplevel(quote
+    module Cw21
+    using TraitWorld
+    g21(x::Float64) = x + 1.0
+    const D21 = TraitWorld.dynamic_fn(Tuple{Float64}, Float64, g21)
+    calld(x) = D21(x)
+    function h21 end
+    const DH21 = TraitWorld.dynamic_fn(Tuple{Float64}, Float64, h21)
+    callh(x) = DH21(x)
+    end
+end)
+w21a = Base.get_world_counter()
+toplevel(:(Cw21.g21(x::Float64) = x + 100.0))
+w21b = Base.get_world_counter()
+alt = [isodd(i) ? Base.invoke_in_world(w21a, Cw21.calld, 1.0) : Base.invoke_in_world(w21b, Cw21.calld, 1.0) for i in 1:6]
+w21c = Base.get_world_counter()
+toplevel(:(Cw21.h21(x::Float64) = 3x))
+early = try Base.invoke_in_world(w21c, Cw21.callh, 1.0) catch e; e isa MethodError ? :MethodError : e end
+late = Cw21.callh(1.0)
+check("G1.21 a DynamicCall pointer in alternating worlds, and before its method exists", alt == [2.0, 101.0, 2.0, 101.0, 2.0, 101.0] && early === :MethodError && late == 3.0,
+      "alternating: $alt; before the method: $early; after: $late")
+
 println()
 println(count(x -> x[2], results), " of ", length(results), " checks pass")

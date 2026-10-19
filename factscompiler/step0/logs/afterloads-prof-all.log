@@ -1,0 +1,218 @@
+work after the loads: 1554.8 ms
+ Count  Overhead File                                                                                        Line Function
+ =====  ======== ====                                                                                        ==== ========
+    60         1 @julialib/julia/facts/sys.so                                                                  ? jfptr_stmt_effect_flags_84957
+    60         0 @Compiler/src/ssair/irinterp.jl                                                             377 (::Compiler.var"#228#229"{Nothing, Compiler.PlainRTInterp, Compiler.IRInterpretationState, Compiler.var"#check_ret!#227"{Vector{Int64}}…
+    60         1 @julialib/julia/facts/sys.so                                                                  ? jfptr_semi_concrete_eval_call_90095
+    61         0 @Compiler/src/ssair/inlining.jl                                                            1275 add_inst_flag!
+    61         0 @Compiler/src/ssair/inlining.jl                                                            1278 add_inst_flag!
+    62         0 @julialib/libLLVM.so.20.1jl                                                                   ? _ZN4llvm16SelectionDAGISel17CodeGenAndEmitDAGEv
+    63         0 @Compiler/src/ssair/inlining.jl                                                            1474 handle_call!(todo::Vector{Pair{Int64, Any}}, ir::Compiler.IRCode, idx::Int64, stmt::Expr, info::Compiler.CallInfo, flag::UInt32, sig::C…
+    63         0 @juliasrc/gc-stock.c                                                                        355 maybe_collect
+    63         0 @juliasrc/gc-stock.c                                                                       3563 ijl_gc_collect
+    63         0 @julialib/julia/facts/sys.so                                                                  ? tojlinvoke93125
+    63         0 @julialib/julia/facts/sys.so                                                                  ? jfptr_process_simpleNOT._84947
+    64         0 @Compiler/src/abstractinterpretation.jl                                                    2773 abstract_call_known(interp::Compiler.PlainRTInterp, f::Any, arginfo::Compiler.ArgInfo, si::Compiler.StmtInfo, sv::Compiler.InferenceSta…
+    64         1 @julialib/julia/facts/sys.so                                                                  ? j_process_simpleNOT._84938
+    65         0 @julialib/julia/facts/sys.so                                                                  ? j_process_simpleNOT._85226
+    65         0 @julialib/julia/facts/sys.so                                                                  ? tojlinvoke93110
+    65         1 @julialib/julia/facts/sys.so                                                                  ? jfptr_process_simpleNOT._85235
+    65         0 @Compiler/src/ssair/irinterp.jl                                                             345 ir_abstract_constant_propagation(interp::Compiler.PlainRTInterp, irsv::Compiler.IRInterpretationState; externally_refined::Nothing)
+    66         0 @juliasrc/gc-stock.c                                                                        734 jl_gc_small_alloc_inner
+    67         0 @Compiler/src/abstractinterpretation.jl                                                    2071 abstract_call_builtin(interp::Compiler.PlainRTInterp, f::Core.Builtin, ::Compiler.ArgInfo, sv::Compiler.InferenceState)
+    67         0 @Compiler/src/abstractinterpretation.jl                                                     358 (::Compiler.var"#infercalls#abstract_call_gf_by_type##0"{Compiler.ArgInfo, Compiler.StmtInfo, Compiler.CallInferenceState, Compiler.Fut…
+    69         0 @Compiler/src/abstractinterpretation.jl                                                    2771 abstract_call_known(interp::Compiler.PlainRTInterp, f::Any, arginfo::Compiler.ArgInfo, si::Compiler.StmtInfo, sv::Compiler.InferenceSta…
+    69         0 @Compiler/src/ssair/irinterp.jl                                                             299 scan!(callback::Compiler.var"#228#229"{Nothing, Compiler.PlainRTInterp, Compiler.IRInterpretationState, Compiler.var"#check_ret!#227"{V…
+    71         0 @Compiler/src/abstractinterpretation.jl                                                    1292 semi_concrete_eval_call(interp::Compiler.PlainRTInterp, mi::Core.MethodInstance, result::Compiler.MethodCallResult, arginfo::Compiler.A…
+    71         0 @Compiler/src/ssair/irinterp.jl                                                             331 ir_abstract_constant_propagation
+    73         0 @julialib/libLLVM.so.20.1jl                                                                   ? _ZN4llvm22SelectionDAGISelLegacy20runOnMachineFunctionERNS_15MachineFunctionE
+    73         0 @julialib/libLLVM.so.20.1jl                                                                   ? _ZN4llvm16SelectionDAGISel20runOnMachineFunctionERNS_15MachineFunctionE
+    73         0 @julialib/libLLVM.so.20.1jl                                                                   ? _ZN4llvm16SelectionDAGISel20SelectAllBasicBlocksERKNS_8FunctionE
+    76         1 @julialib/libLLVM.so.20.1jl                                                                   ? _ZN4llvm9AAResults5aliasERKNS_14MemoryLocationES3_RNS_11AAQueryInfoEPKNS_11InstructionE
+    76         0 @julialib/libLLVM.so.20.1jl                                                                   ? _ZN4llvm13BasicAAResult5aliasERKNS_14MemoryLocationES3_RNS_11AAQueryInfoEPKNS_11InstructionE
+    76         6 @julialib/libLLVM.so.20.1jl                                                                   ? _ZN4llvm13BasicAAResult10aliasCheckEPKNS_5ValueENS_12LocationSizeES3_S4_RNS_11AAQueryInfoEPKNS_11InstructionE
+    78         0 @Compiler/src/optimize.jl                                                                   469 recompute_effects_flags
+    81         0 @Compiler/src/ssair/inlining.jl                                                            1752 assemble_inline_todo!(ir::Compiler.IRCode, state::Compiler.InliningState{Compiler.PlainRTInterp})
+    82         2 @juliasrc/julia_internal.h                                                                 1874 jl_typemap_assoc_exact
+    84         0 @Compiler/src/optimize.jl                                                                  1350 slot2reg
+    86         0 @juliasrc/gc-stock.c                                                                        783 ijl_gc_small_alloc
+    90         0 @julialib/libLLVM.so.20.1jl                                                                   ? _ZN4llvm23MemoryDependenceResults23getNonLocalInfoForBlockEPNS_11InstructionERKNS_14MemoryLocationEbPNS_10BasicBlockEPSt6vectorINS_16No…
+    91         1 @Compiler/src/abstractinterpretation.jl                                                     919 abstract_call_method_with_const_args(interp::Compiler.PlainRTInterp, result::Compiler.MethodCallResult, f::Any, arginfo::Compiler.ArgIn…
+    94         1 @Compiler/src/tfuncs.jl                                                                    2657 builtin_effects(𝕃::Compiler.PartialsLattice{Compiler.ConstsLattice}, f::Core.Builtin, argtypes::Vector{Any}, rt::Any)
+    95         0 @juliasrc/typemap.c                                                                        1196 jl_typemap_level_assoc_exact
+    96         9 @julialib/libLLVM.so.20.1jl                                                                   ? _ZN4llvm23MemoryDependenceResults30getSimplePointerDependencyFromERKNS_14MemoryLocationEbNS_21ilist_iterator_w_bitsINS_12ilist_detail12…
+    98         5 @julialib/libLLVM.so.20.1jl                                                                   ? _ZN4llvm23MemoryDependenceResults27getNonLocalPointerDepFromBBEPNS_11InstructionERKNS_12PHITransAddrERKNS_14MemoryLocationEbPNS_10Basic…
+    98         1 @julialib/libLLVM.so.20.1jl                                                                   ? _ZN4llvm23MemoryDependenceResults24getPointerDependencyFromERKNS_14MemoryLocationEbNS_21ilist_iterator_w_bitsINS_12ilist_detail12node_o…
+    99         0 @julialib/libLLVM.so.20.1jl                                                                   ? _ZN4llvm23MemoryDependenceResults28getNonLocalPointerDependencyEPNS_11InstructionERNS_15SmallVectorImplINS_17NonLocalDepResultEEE
+   104         0 @julialib/julia/facts/sys.so                                                                  ? jfptr_const_prop_call_88014
+   121         0 @Compiler/src/ssair/ir.jl                                                                  1361 renumber_ssa2!(stmt::Any, ssanums::Vector{Any}, used_ssas::Vector{Int64}, new_new_used_ssas::Vector{Int64}, late_fixup::Vector{Int64}, …
+   125         0 @julialib/libLLVM.so.20.1jl                                                                   ? _ZN4llvm7GVNPass12processBlockEPNS_10BasicBlockE
+   125         0 @julialib/libLLVM.so.20.1jl                                                                   ? _ZN4llvm7GVNPass18processInstructionEPNS_11InstructionE
+   129         0 @Compiler/src/ssair/inlining.jl                                                            1719 assemble_inline_todo!(ir::Compiler.IRCode, state::Compiler.InliningState{Compiler.PlainRTInterp})
+   130         0 @julialib/libLLVM.so.20.1jl                                                                   ? _ZN4llvm7GVNPass3runERNS_8FunctionERNS_15AnalysisManagerIS1_JEEE
+   130         0 @julialib/libLLVM.so.20.1jl                                                                   ? _ZN4llvm7GVNPass7runImplERNS_8FunctionERNS_15AssumptionCacheERNS_13DominatorTreeERKNS_17TargetLibraryInfoERNS_9AAResultsEPNS_23MemoryDe…
+   132         0 @Base/operators.jl                                                                         1374 in(x::Function, itr::Vector{Any})
+   133         0 @julialib/julia/facts/sys.so                                                                  ? jfptr_in_38297
+   136         0 @julialib/julia/facts/sys.so                                                                  ? jfptr_abstract_call_method_with_const_args_90017
+   136         0 @julialib/julia/facts/sys.so                                                                  ? j_abstract_call_method_with_const_args_90018
+   136         0 @julialib/julia/facts/sys.so                                                                  ? tojlinvoke92758
+   136         0 @julialib/julia/facts/sys.so                                                                  ? jfptr_abstract_call_method_with_const_args_74080
+   148         5 @juliasrc/julia_internal.h                                                                 1878 jl_typemap_assoc_exact
+   151         0 @juliasrc/gf.c                                                                             4481 jl_lookup_generic_
+   152         0 @julialib/julia/facts/sys.so                                                                  ? jfptr_handle1_84264
+   155         0 @Compiler/src/ssair/inlining.jl                                                             674 batch_inline!(ir::Compiler.IRCode, todo::Vector{Pair{Int64, Any}}, propagate_inbounds::Bool, interp::Compiler.PlainRTInterp)
+   156         0 @Compiler/src/ssair/ir.jl                                                                  1550 process_node!(compact::Compiler.IncrementalCompact, result_idx::Int64, inst::Compiler.Instruction, idx::Int64, processed_idx::Int64, ac…
+   183         0 @Compiler/src/ssair/inlining.jl                                                              82 ssa_inlining_pass!
+   190         0 @Compiler/src/ssair/ir.jl                                                                  1967 iterate_compact(compact::Compiler.IncrementalCompact)
+   196         0 @Compiler/src/ssair/ir.jl                                                                  1889 iterate
+   211         0 @Compiler/src/ssair/inlining.jl                                                              79 ssa_inlining_pass!
+   237         0 @julialib/libLLVM.so.20.1jl                                                                   ? _ZN4llvm13FPPassManager11runOnModuleERNS_6ModuleE
+   237         0 @julialib/libLLVM.so.20.1jl                                                                   ? _ZN4llvm13FPPassManager13runOnFunctionERNS_8FunctionE
+   242         0 @juliasrc/jitlayers.cpp                                                                    1627 operator()
+   242         0 @julialib/libLLVM.so.20.1jl                                                                   ? _ZN4llvm6legacy15PassManagerImpl3runERNS_6ModuleE
+   251         0 @julialib/julia/facts/sys.so                                                                  ? jfptr_infercalls_83774
+   256         0 @juliasrc/jitlayers.cpp                                                                    2130 addModule
+   264         0 @julialib/julia/facts/sys.so                                                                  ? j_abstract_call_83589
+   264         0 @julialib/julia/facts/sys.so                                                                  ? tojlinvoke93197
+   265         0 @julialib/julia/facts/sys.so                                                                  ? jfptr_infercalls_83583
+   270         1 @julialib/julia/facts/sys.so                                                                  ? jfptr_doworkloop_61958
+   281         0 @julialib/julia/facts/sys.so                                                                  ? jfptr_abstract_call_gf_by_type_86186
+   283         0 @Compiler/src/abstractinterpretation.jl                                                    1940 (::Compiler.var"#infercalls#abstract_apply##0"{Compiler.StmtInfo, Compiler.Future{Compiler.CallMeta}, Compiler.UnionSplitApplyCallInfo,…
+   284         0 @Compiler/src/abstractinterpretation.jl                                                    2736 abstract_call_known(interp::Compiler.PlainRTInterp, f::Any, arginfo::Compiler.ArgInfo, si::Compiler.StmtInfo, sv::Compiler.InferenceSta…
+   284         0 @Compiler/src/abstractinterpretation.jl                                                    1960 abstract_apply(interp::Compiler.PlainRTInterp, argtypes::Vector{Any}, si::Compiler.StmtInfo, sv::Compiler.InferenceState)
+   296         0 @Compiler/src/inferencestate.jl                                                            1222 doworkloop(interp::Compiler.PlainRTInterp, sv::Compiler.InferenceState)
+   298         1 @Compiler/src/abstractinterpretation.jl                                                    4575 typeinf(interp::Compiler.PlainRTInterp, frame::Compiler.InferenceState)
+   301         0 @julialib/julia/facts/sys.so                                                                  ? jfptr_optimize_88376
+   315         0 @julialib/libLLVM.so.20.1jl                                                                   ? _ZN4llvm27ModuleToFunctionPassAdaptor3runERNS_6ModuleERNS_15AnalysisManagerIS1_JEEE
+   315         0 @julialib/libLLVM.so.20.1jl                                                                   ? _ZN4llvm11PassManagerINS_8FunctionENS_15AnalysisManagerIS1_JEEEJEE3runERS1_RS3_
+   324         0 @julialib/julia/facts/sys.so                                                                  ? jfptr_abstract_call_known_89337
+   330         0 …ome/hellmann/Repos/julia-trait-bound/julia-1.13/usr/include/llvm/IR/PassManagerInternal.h   91 run
+   332         0 @julialib/julia/facts/sys.so                                                                  ? tojlinvoke93061
+   332         1 @julialib/julia/facts/sys.so                                                                  ? jfptr_abstract_call_7191
+   332         0 @juliasrc/pipeline.cpp                                                                      792 run
+   332         0 @julialib/libLLVM.so.20.1jl                                                                   ? _ZN4llvm11PassManagerINS_6ModuleENS_15AnalysisManagerIS1_JEEEJEE3runERS1_RS3_
+   333         1 @julialib/julia/facts/sys.so                                                                  ? j_abstract_call_86124
+   337         0 @juliasrc/jitlayers.cpp                                                                    2117 addModule
+   337         0 @juliasrc/jitlayers.cpp                                                                    1648 operator()
+   337         0 @juliasrc/jitlayers.cpp                                                                    1473 operator()
+   337         0 …epos/julia-trait-bound/julia-1.13/usr/include/llvm/ExecutionEngine/Orc/ThreadSafeModule.h  136 withModuleDo<(anonymous namespace)::sizedOptimizerT<4>::operator()(llvm::orc::ThreadSafeModule)::<lambda(llvm::Module&)> >
+   337         0 @juliasrc/jitlayers.cpp                                                                    1512 operator()
+   339         0 @julialib/julia/facts/sys.so                                                                  ? jfptr_finish_nocycle_75818
+   341         0 @julialib/julia/facts/sys.so                                                                  ? jfptr_abstract_eval_basic_statement_87962
+   341         0 @Compiler/src/abstractinterpretation.jl                                                    3917 abstract_eval_basic_statement
+   370         0 @julialib/julia/facts/sys.so                                                                  ? jfptr_typeinf_local_86252
+   412         0 @julialib/julia/facts/sys.so                                                                  ? jfptr_optimize_88403
+   466         0 @julialib/julia/facts/sys.so                                                                  ? jfptr_const_prop_call_88150
+   473         0 @julialib/julia/facts/sys.so                                                                  ? jfptr_finish_nocycle_75825
+   477         0 @julialib/julia/facts/sys.so                                                                  ? jfptr_infercalls_83814
+   480       466 @juliasrc/jltypes.c                                                                        1074 lookup_type_setvalue
+   480         0 @julialib/julia/facts/sys.so                                                                  ? jfptr_abstract_call_method_with_const_args_90020
+   480         0 @julialib/julia/facts/sys.so                                                                  ? j_abstract_call_method_with_const_args_90021
+   480         0 @julialib/julia/facts/sys.so                                                                  ? tojlinvoke92756
+   480         0 @julialib/julia/facts/sys.so                                                                  ? jfptr_abstract_call_method_with_const_args_74092
+   484         0 @julialib/julia/facts/sys.so                                                                  ? jfptr_handle1_84280
+   492         0 @julialib/julia/facts/sys.so                                                                  ? jfptr_abstract_call_gf_by_type_86193
+   510         0 @julialib/julia/facts/sys.so                                                                  ? jfptr_abstract_call_known_89291
+   512         0 @julialib/julia/facts/sys.so                                                                  ? j_abstract_call_86179
+   512         0 @julialib/julia/facts/sys.so                                                                  ? tojlinvoke93052
+   512         0 @julialib/julia/facts/sys.so                                                                  ? jfptr_abstract_call_7288
+   513         0 @julialib/julia/facts/sys.so                                                                  ? jfptr_abstract_eval_basic_statement_57387
+   513         0 @Compiler/src/abstractinterpretation.jl                                                    3917 abstract_eval_basic_statement(interp::Compiler.NativeInterpreter, stmt::Any, sstate::Compiler.StatementState, frame::Compiler.Inference…
+   517         0 @julialib/julia/facts/sys.so                                                                  ? jfptr_typeinf_local_86280
+   527         0 @juliasrc/jltypes.c                                                                        1146 lookup_typevalue
+   554       186 @julialib/libLLVM.so.20.1jl                                                                   ? .plt
+   563         0 @Compiler/src/abstractinterpretation.jl                                                    1380 const_prop_call(interp::Compiler.PlainRTInterp, mi::Core.MethodInstance, result::Compiler.MethodCallResult, arginfo::Compiler.ArgInfo, …
+   570         0 @juliasrc/gf.c                                                                             4475 jl_lookup_generic_
+   570         1 @juliasrc/gf.c                                                                             3390 lookup_arg_type_tuple
+   570         0 @Compiler/src/abstractinterpretation.jl                                                     925 abstract_call_method_with_const_args(interp::Compiler.PlainRTInterp, result::Compiler.MethodCallResult, f::Any, arginfo::Compiler.ArgIn…
+   592         0 @juliasrc/jitlayers.cpp                                                                     681 jl_compile_codeinst_now
+   603         0 @juliasrc/gf.c                                                                             3873 jl_compile_method_internal_owner
+   603         0 @juliasrc/jitlayers.cpp                                                                     875 jl_compile_codeinst_impl
+   616         1 @Compiler/src/abstractinterpretation.jl                                                     893 abstract_call_method_with_const_args(interp::Compiler.PlainRTInterp, result::Compiler.MethodCallResult, f::Any, arginfo::Compiler.ArgIn…
+   618         1 @Compiler/src/abstractinterpretation.jl                                                     276 (::Compiler.var"#infercalls#abstract_call_gf_by_type##0"{Compiler.ArgInfo, Compiler.StmtInfo, Compiler.CallInferenceState, Compiler.Fut…
+   623         0 @Compiler/src/abstractinterpretation.jl                                                     202 (::Compiler.var"#handle1#abstract_call_gf_by_type##1"{Int64, Compiler.Future{Compiler.MethodCallResult}, Int64, Vector{Union{Nothing, C…
+   673         0 @Base/array.jl                                                                              815 collect(itr::Base.Generator{DataFrames.DataFrameColumns{DataFrame}, DataFrames.var"#_describe##12#_describe##13"{Vector{Symbol}, Vector…
+   673         0 @julialib/julia/facts/sys.so                                                                  ? jfptr_return_type_46997
+   673         0 @Compiler/src/typeinfer.jl                                                                 1785 return_type(f::Any, t::DataType)
+   673         0 @juliasrc/gf.c                                                                              591 ijl_call_in_typeinf_world
+   673         0 @julialib/julia/facts/sys.so                                                                  ? jfptr__return_type_89027
+   673         0 @Compiler/src/typeinfer.jl                                                                 1812 _return_type(interp::Compiler.PlainRTInterp, t::DataType)
+   673         0 @Compiler/src/typeinfer.jl                                                                 1439 typeinf_type
+   673         0 @Compiler/src/typeinfer.jl                                                                 1442 typeinf_type
+   673         0 @julialib/julia/facts/sys.so                                                                  ? j_typeinf_ext_89030
+   673         0 @julialib/julia/facts/sys.so                                                                  ? tojlinvoke92858
+   673         0 @julialib/julia/facts/sys.so                                                                  ? jfptr_typeinf_ext_87428
+   674         0 @DataFrames/src/abstractdataframe/abstractdataframe.jl                                      741 _describe(df::DataFrame, stats::Vector{Any})
+   674         0 @Base/abstractarray.jl                                                                     3426 map
+   675         0 /tmp/claude-1000/depot-facts/compiled/v1.13/DataFrames/AR9oZ_z8ivW.so                         ? jfptr_describe_21338
+   675         0 @DataFrames/src/abstractdataframe/abstractdataframe.jl                                      695 describe(df::DataFrame)
+   675         0 @DataFrames/src/abstractdataframe/abstractdataframe.jl                                      695 #describe#69
+   700         0 @Compiler/src/optimize.jl                                                                  1039 optimize(interp::Compiler.PlainRTInterp, opt::Compiler.OptimizationState{Compiler.PlainRTInterp}, caller::Compiler.InferenceResult)
+   700         0 @Compiler/src/optimize.jl                                                                  1066 run_passes_ipo_safe
+   700         0 @Compiler/src/optimize.jl                                                                  1053 run_passes_ipo_safe(ci::Core.CodeInfo, sv::Compiler.OptimizationState{Compiler.PlainRTInterp}, optimize_until::Nothing)
+   711         0 @Compiler/src/typeinfer.jl                                                                  231 finish_nocycle(::Compiler.PlainRTInterp, frame::Compiler.InferenceState, time_before::UInt64)
+   718         0 @Compiler/src/typeinfer.jl                                                                 1647 typeinf_ext_toplevel
+   732         0 @Compiler/src/abstractinterpretation.jl                                                     362 abstract_call_gf_by_type(interp::Compiler.PlainRTInterp, func::Any, arginfo::Compiler.ArgInfo, si::Compiler.StmtInfo, atype::Any, sv::C…
+   740         0 @juliasrc/gf.c                                                                             3861 jl_compile_method_internal_owner
+   740         0 @juliasrc/gf.c                                                                              498 jl_type_infer_owner
+   740         0 @julialib/julia/facts/sys.so                                                                  ? jfptr_typeinf_ext_toplevel_89899
+   740         0 @Compiler/src/typeinfer.jl                                                                 1658 typeinf_ext_toplevel(mi::Core.MethodInstance, world::UInt64, source_mode::UInt8, trim_mode::UInt8, owner::Any)
+   770         1 @Compiler/src/abstractinterpretation.jl                                                    2887 abstract_call_known(interp::Compiler.PlainRTInterp, f::Any, arginfo::Compiler.ArgInfo, si::Compiler.StmtInfo, sv::Compiler.InferenceSta…
+   811         0 @Compiler/src/abstractinterpretation.jl                                                    4591 typeinf(interp::Compiler.PlainRTInterp, frame::Compiler.InferenceState)
+   839         0 @Compiler/src/abstractinterpretation.jl                                                       ? abstract_call(interp::Compiler.PlainRTInterp, arginfo::Compiler.ArgInfo, si::Compiler.StmtInfo, sv::Compiler.InferenceState, max_method…
+   845         0 @Compiler/src/abstractinterpretation.jl                                                    3146 abstract_call(interp::Compiler.PlainRTInterp, arginfo::Compiler.ArgInfo, sstate::Compiler.StatementState, sv::Compiler.InferenceState)
+   845         0 @Compiler/src/abstractinterpretation.jl                                                    2986 abstract_call
+   847         0 @Compiler/src/abstractinterpretation.jl                                                    3164 abstract_eval_call
+   853         5 @juliasrc/gf.c                                                                             4545 ijl_apply_generic
+   854         0 @Compiler/src/abstractinterpretation.jl                                                    3874 abstract_eval_basic_statement(interp::Compiler.PlainRTInterp, stmt::Any, sstate::Compiler.StatementState, frame::Compiler.InferenceStat…
+   854         0 @Compiler/src/abstractinterpretation.jl                                                    3520 abstract_eval_statement_expr(interp::Compiler.PlainRTInterp, e::Expr, sstate::Compiler.StatementState, sv::Compiler.InferenceState)
+   856         0 @Compiler/src/abstractinterpretation.jl                                                    4423 typeinf_local(interp::Compiler.PlainRTInterp, frame::Compiler.InferenceState, nextresult::Compiler.CurrentState)
+   888         0 @Compiler/src/abstractinterpretation.jl                                                    4584 typeinf(interp::Compiler.PlainRTInterp, frame::Compiler.InferenceState)
+  1270         0 @CSV/src/api.jl                                                                            2301 read
+  1270         0 @CSV/src/api.jl                                                                            2301 read(source::String, sink::Type{DataFrame}; kw::Base.Pairs{Symbol, Union{}, Nothing, @NamedTuple{}})
+  1270         0 @CSV/src/api.jl                                                                            1179 File
+  1270         0 @CSV/src/api.jl                                                                            1193 #File#118
+  1270         0 @CSV/src/api.jl                                                                            1240 _file(source::Any, types::Any, select::Any, drop::Any, scan::Any, pool::Any, downcast::Bool, transpose::Bool, stringtype::Type, on_erro…
+  1270         0 /tmp/claude-1000/depot-facts/compiled/v1.13/CSV/HHBkp_iJxwa.so                                ? jfptr__filefromprepared_12866
+  1270         0 @CSV/src/api.jl                                                                            1256 kwcall(::@NamedTuple{types::Nothing, select::Nothing, drop::Nothing, pool::Bool, downcast::Bool, stringtype::DataType, on_error::Symbol…
+  1270         0 @CSV/src/api.jl                                                                            1263 _filefromprepared(s::CSV.IndexedSource, nm::String; types::Nothing, select::Nothing, drop::Nothing, pool::Bool, downcast::Bool, stringt…
+  1270         0 /tmp/claude-1000/depot-facts/compiled/v1.13/CSV/HHBkp_iJxwa.so                                ? jfptr__filefromprepared_12337
+  1270         0 @CSV/src/api.jl                                                                            1285 _filefromprepared(s::CSV.IndexedSource, nm::String, types::Any, select::Any, drop::Any, pool::Any, downcast::Bool, stringtype::Type, on…
+  1270         0 /tmp/claude-1000/depot-facts/compiled/v1.13/CSV/HHBkp_iJxwa.so                                ? jfptr__parseprepared_12525
+  1270         0 @CSV/src/api.jl                                                                            1124 kwcall(::@NamedTuple{parallel::Bool, ntasks::Nothing, validate::Bool, maxproblems::Int64}, ::typeof(CSV._parseprepared), s::CSV.Indexed…
+  1270         0 @CSV/src/api.jl                                                                            1135 _parseprepared(s::CSV.IndexedSource, plan::CSV.ColumnPlan; parallel::Bool, ntasks::Nothing, validate::Bool, maxproblems::Int64, limit::…
+  1332         0 @juliasrc/gf.c                                                                             4335 _jl_invoke_owner
+  1364         0 @juliasrc/gf.c                                                                             4549 ijl_apply_generic
+  1366         1 @juliasrc/gf.c                                                                             4349 _jl_invoke
+  1386         0 @Compiler/src/typeinfer.jl                                                                 1420 typeinf_ext(interp::Compiler.PlainRTInterp, mi::Core.MethodInstance, source_mode::UInt8)
+  1946         0 ../../../julia-1.13/julia                                                                     ? _start
+  1946         0 /lib/x86_64-linux-gnu/libc.so.6                                                               ? __libc_start_main
+  1946         0 /home/hellmann/Repos/julia-trait-bound/julia-1.13/cli/loader_exe.c                           58 main
+  1946         0 @juliasrc/jlapi.c                                                                          1152 jl_repl_entrypoint
+  1946         0 @juliasrc/jlapi.c                                                                           985 true_main
+  1946         0 @julialib/julia/facts/sys.so                                                                  ? jfptr__start_80379
+  1946         0 @Base/client.jl                                                                             577 _start()
+  1946         0 @Base/client.jl                                                                             344 exec_options(opts::Base.JLOptions)
+  1946         0 @Base/Base.jl                                                                               309 include(mod::Module, _path::String)
+  1946         0 @Base/loading.jl                                                                           3105 _include(mapexpr::Function, mod::Module, _path::String)
+  1946         0 @Base/loading.jl                                                                           3045 include_string(mapexpr::typeof(identity), mod::Module, code::String, filename::String)
+  1946         0 @Base/boot.jl                                                                               489 eval(m::Module, e::Any)
+  1946         0 @juliasrc/toplevel.c                                                                        799 ijl_toplevel_eval_in
+  1946         0 @juliasrc/toplevel.c                                                                        754 ijl_toplevel_eval
+  1946         0 @juliasrc/toplevel.c                                                                        683 jl_toplevel_eval_flex
+  1946         0 @juliasrc/toplevel.c                                                                        585 jl_eval_toplevel_stmts
+  1946         0 @juliasrc/toplevel.c                                                                        731 jl_toplevel_eval_flex
+  1946         0 @Base/timing.jl                                                                             463 top-level scope
+  1946         0 @Profile/src/Profile.jl                                                                      60 macro expansion
+  1946         0 [any unknown stackframes]
+  1946         0 …llmann/Repos/julia-trait-bound/experiments/factscompiler/step0/scripts/afterloads_prof.jl    4 (::var"#2#3")()
+  1946         0 @juliasrc/task.c                                                                           1287 start_task
+  1946         0 @julialib/julia/facts/sys.so                                                                  ? jfptr_wait_forever_46430
+  1946         0 @Base/task.jl                                                                              1196 wait_forever()
+  1946         0 @Base/task.jl                                                                              1297 wait()
+  1946         0 @juliasrc/scheduler.c                                                                       614 ijl_task_get_next
+  1946         0 /workspace/srcdir/libuv/src/unix/thread.c                                                   822 uv_cond_wait
+  1946         0 /lib/x86_64-linux-gnu/libc.so.6                                                               ? pthread_cond_wait
+  3892      1987 /lib/x86_64-linux-gnu/libc.so.6                                                               ? [unknown function]
+  3892         0 @juliasrc/julia.h                                                                          2332 jl_apply
+Total snapshots: 3892. Utilization: 50% across all threads and tasks. Use the `groupby` kwarg to break down by thread and/or task.
