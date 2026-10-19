@@ -25,3 +25,10 @@ for (name, x) in (("Vector", v16), ("Meas (immutable, fwd)", Meas("a", v16)), ("
     xs = Any[x]; benchany(xs, 10); ta = minimum(@elapsed(benchany(xs, 10^5)) for _ in 1:5) / 10^5 * 1e9
     println(rpad(name, 24), " typed ", round(t, digits = 1), " ns (", a, " bytes/1000 calls), untyped ", round(ta, digits = 1), " ns")
 end
+benchp(v16, 10); tp = minimum(@elapsed(benchp(v16, 10^5)) for _ in 1:5) / 10^5 * 1e9
+println(rpad("plain loop", 24), " ", round(tp, digits = 1), " ns")
+# the same loop as the worker: `len` an argument of a function not inlined into the caller
+@noinline plainlen(v, len) = (s = 0.0; for i in 1:length(v), j in 1:len; s += v[i][j]; end; s)
+function benchpl(v, n); s = 0.0; for _ in 1:n; s += plainlen(v, 16); end; s; end
+benchpl(v16, 10); tpl = minimum(@elapsed(benchpl(v16, 10^5)) for _ in 1:5) / 10^5 * 1e9
+println(rpad("plain, len an argument", 24), " ", round(tpl, digits = 1), " ns")
