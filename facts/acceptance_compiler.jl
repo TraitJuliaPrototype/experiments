@@ -392,5 +392,23 @@ f191 = (k19(), w19())
 check("G1.19 a Base method's assertion over a run-time site does not fold a dispatch no edge records", f190 == (1, 1) && f191 == (2, 2),
       "before $f190, after $f191 (plain, facts)")
 
+# --- G1.20: a Callable in DynamicCall mode, called in an older world (session 29: its `@cfunction`
+# pointer runs the function in the latest world, as the witness tables did) -----------------------
+toplevel(quote
+    module Cw20
+    using TraitWorld
+    f20(x::Float64) = x + 1.0
+    const D20 = TraitWorld.dynamic_fn(Tuple{Float64}, Float64, f20)
+    calld(x) = D20(x)
+    plain(x) = f20(x)
+    end
+end)
+Cw20.calld(1.0); Cw20.plain(1.0)
+w20 = Base.get_world_counter()
+toplevel(:(Cw20.f20(x::Float64) = x + 100.0))
+c20 = (Base.invoke_in_world(w20, Cw20.calld, 1.0), Base.invoke_in_world(w20, Cw20.plain, 1.0), Cw20.calld(1.0))
+check("G1.20 a Callable in DynamicCall mode runs in the caller's world", c20 == (2.0, 2.0, 101.0),
+      "old world: Callable $(c20[1]), plain $(c20[2]); latest world: Callable $(c20[3]) (expected (2.0, 2.0, 101.0))")
+
 println()
 println(count(x -> x[2], results), " of ", length(results), " checks pass")
