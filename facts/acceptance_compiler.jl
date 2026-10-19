@@ -434,5 +434,23 @@ late = Cw21.callh(1.0)
 check("G1.21 a DynamicCall pointer in alternating worlds, and before its method exists", alt == [2.0, 101.0, 2.0, 101.0, 2.0, 101.0] && early === :MethodError && late == 3.0,
       "alternating: $alt; before the method: $early; after: $late")
 
+# --- G1.22: a dynamic call site cached for exact argument types (inline caches, stage 1): a
+# `@nospecialize` method's cache entry is no leaf signature, so the site keeps an entry of its own;
+# after a redefinition the older world sees the old method, the latest the new one ---------------
+toplevel(quote
+    module Ic22
+    k22(@nospecialize(x)) = 1
+    k22(x::String) = 2                    # two methods: the call at `Any` dispatches at run time
+    const V22 = Any[1.0, 2.0, 3.0]
+    run22() = (s = 0; for x in V22; s += k22(x)::Int; end; s)
+    end
+end)
+Ic22.run22(); Ic22.run22()
+w22 = Base.get_world_counter()
+toplevel(:(Ic22.k22(@nospecialize(x)) = 100))
+c22 = (Base.invoke_in_world(w22, Ic22.run22), Ic22.run22(), Base.invoke_in_world(w22, Ic22.run22))
+check("G1.22 a dynamic call site cached for exact types runs in the caller's world", c22 == (3, 300, 3),
+      "old world $(c22[1]), latest $(c22[2]), old again $(c22[3]) (expected (3, 300, 3))")
+
 println()
 println(count(x -> x[2], results), " of ", length(results), " checks pass")
