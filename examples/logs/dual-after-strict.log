@@ -2,14 +2,14 @@ julia 1.13.2  tier: strict  order: after
 PASS     after/strict the first gradient is finite
 PASS     after/strict the gradient is unchanged
 PASS     after/strict the definition raises a PirateError  (TraitWorld.PirateError)
-     message: PirateError: strict mode refuses `+` for svec(Dual{Tag{Sig{Tuple{Vector{Float64}}, Float64}, Float64}, Float64, 3}, Dual{Tag{Sig{Tuple{Vector{Float64}}, Float64}, Float64}, Float64…, defined by Main.Pirate.
-  It would change what trait-world code computes in `afoldl` (Tuple{typeof(afoldl), typeof(+), Dual{Tag{Sig{Tuple{Vector{Float64}}, Float64}, Float64}, Float64, 3}, Dual{Tag{Sig{Tuple{Vector{Float64}},…), through the call at Tuple{typeof(+), Dual{Tag{Sig{Tuple{Vector{Float64}}, Float64}, Float64}, Float64, 3}, Dual{Tag{Sig{Tuple{Vector{Float64}}, Float64}, Float….
+     message: PirateError: strict mode refuses `+(Dual{Tag{Sig{Tuple{Vector{Float64}}, Fl…, Dual{Tag{Sig{Tuple{Vector{Float64}}, Fl…)`, defined by Main.Pirate.
+  It would change what trait-world code computes in `TraitDifferentialEquations.ODECore.tsit5_step!`, at the call `Tuple{typeof(+), Dual{Tag{Sig{Tuple{Vector{Float64}}, Float64}, Float64}, Float…`.
   Main.Pirate owns neither the function nor a type in that signature (a pirate).
   Turn strict mode off (`TraitWorld.strict!(false)`) to follow the method as plain Julia does, or define it where a type it is for is owned.
-FAIL     after/strict the message names `+`
-FAIL     after/strict the message names the solver's code (not a Base function under it)  (names ``)
-FAIL     after/strict the message is short enough to read (< 600 characters)  (795 characters)
+PASS     after/strict the message names `+`
+PASS     after/strict the message names the solver's code (not a Base function under it)  (names `TraitDifferentialEquations.ODECore.tsit5_step!`)
+PASS     after/strict the message is short enough to read (< 600 characters)  (565 characters)
 PASS     after/strict the message says how to proceed
 PASS     after/strict the pirate never runs (solver and plain code)  (solver 0, plain 0)
 
-5 pass, 3 fail, 0 pending
+8 pass, 0 fail, 0 pending

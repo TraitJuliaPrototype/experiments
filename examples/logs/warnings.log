@@ -22,13 +22,12 @@ PASS     c non-const global: same value as the fixed twin  (bad 12.0, fixed 12.0
 PASS     c non-const global: the flawed worker warns at its first call
 PASS     c non-const global: the fixed twin is silent
 PASS     c non-const global: the warning names the line  (@warn_on_abstract: `c_bad` at Col at Vector{Float64} uses abstract types on its normal path; 1 root cause:
-  1. a value of type Any (teach.jl:36)
-       3 uses, 2 in loops; first in a loop: teach.jl:3)
-FAIL     c non-const global: the warning names the root cause  (@warn_on_abstract: `c_bad` at Col at Vector{Float64} uses abstract types on its normal path; 1 root cause:
-  1. a value of type Any (teach.jl:36)
+  1. `Main.Teach.SCALE` is a non-constant global: declare it `const` (or pass it as an argume)
+PASS     c non-const global: the warning names the root cause  (@warn_on_abstract: `c_bad` at Col at Vector{Float64} uses abstract types on its normal path; 1 root cause:
+  1. `Main.Teach.SCALE` is a non-constant global: declare it `const` (or pass it as an argument)
        3 uses, 2 in loops; first in a loop: teach.jl:36  *(::Any, ::Float64)
-@warn_on_abstract: not fully typed: Tuple{typeof(Main.Teach.c_bad), Main.Teac)
-PASS     c non-const global: the warning says how to fix it  (@warn_on_abstract: `c_bad` at Col at Vector{Float64} uses abstract types on its normal path; 1 root cause: |   1. a value of type Any (teach.jl:36) |        3 uses, 2 in loops; first in a loop: teach.)
+@warn_on_abstract: )
+PASS     c non-const global: the warning says how to fix it  (@warn_on_abstract: `c_bad` at Col at Vector{Float64} uses abstract types on its normal path; 1 root cause: |   1. `Main.Teach.SCALE` is a non-constant global: declare it `const` (or pass it as an argu)
 PASS     d boxed capture: same value as the fixed twin  (bad 6.0, fixed 6.0)
 PASS     d boxed capture: the flawed worker warns at its first call
 PASS     d boxed capture: the fixed twin is silent
@@ -69,4 +68,4 @@ PASS     certificate, f flawed: run-time sites listed  (not fully typed: Tuple{t
   1 run-time site on normal paths; each pays the facts rule's cost:
   none:0: TraitWorld.checked_call(typeof(Main.Teach.f_ba)
 
-36 pass, 1 fail, 1 pending
+37 pass, 0 fail, 1 pending

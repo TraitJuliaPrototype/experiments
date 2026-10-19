@@ -2,13 +2,8 @@ julia 1.13.2  facts mode: true
 PASS     vcat(xs...) with 3000 arguments computes plain Julia's value
      compiled at Tuple{typeof(vcat), Int64, Int64, Int64, Vararg{Int64}}
 PASS     the specialization is at a Vararg signature (widened, not concrete)
-     result Any; generic calls in the optimized code: 10
-        Base.eachindex(_2)
-        Base.IteratorSize(%1)
-        Base._array_for(Int64, %1, %2)
-        Base.LinearIndices(%4)
-        Base.first(%5)
-PASS     plain inference: no run-time sites inside the Vararg specialization  (10 generic calls)
-PENDING  facts mode: no run-time sites inside the Vararg specialization  [waits on: a design decision: a Vararg tail of a concrete element type (`Tuple{Vararg{Int}}`) as a fact signature (rule 1)]  today: 10 run-time sites, result Any
+     result Vector{Int64}; generic calls in the optimized code: 0
+PASS     plain inference: no run-time sites inside the Vararg specialization  (0 generic calls)
+PASS     facts mode: no run-time sites (a Vararg tail of a concrete element type is a fact signature)
 
-3 pass, 0 fail, 1 pending
+4 pass, 0 fail, 0 pending

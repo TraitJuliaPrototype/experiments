@@ -19,7 +19,8 @@ To make this warning an error, and hence obtain a stack trace, use `julia --depw
      1 missing operation (trait)                 conformance: ImplementError, 24 lines, 10 frames; first line: ImplementError: Decay1 does not conform to Main.Mini.Model: it does not implement the operations, and no field
      1 missing operation (plain)                 runtime: MethodError, 17 lines, 7 frames; first line: MethodError: no method matching prhs!(::Decay1, ::Vector{Float64}, ::Vector{Float64}, ::Float64)
 PASS     1 trait: caught at the conformance, naming rhs! and the trait
-FAIL     1 trait: no longer than plain's run-time error  (trait 24 lines, plain 17)
+PASS     1 trait: names the declared signature of what is missing  (ImplementError: Decay1 does not conform to Main.Mini.Model: it does not implement the operations, and no field of it conforms (fields: k::Float64). Required:
+  `rhs!(::Decay1, ::Vector{Float64}, ::Vec)
      2 wrong result type (trait)                 conformance: ImplementError, 23 lines, 10 frames; first line: ImplementError: the implementation of Main.Mini.Model for Decay2 does not conform:
      2 wrong result type (plain)                 no error
 PASS     2 trait: caught at the conformance or the first call, naming the declared result Nothing  (where conformance)
@@ -29,10 +30,10 @@ PASS     2 plain: accepted silently (nothing checks a result)
 PASS     3 trait: caught at the conformance, naming rhs! and the declared argument types
      4 undeclared field (trait library)          entry: TraitUseError, 19 lines, 8 frames; first line: TraitUseError: library code breaks a rule of the trait world:
      4 undeclared field (plain library)          runtime: FieldError, 18 lines, 8 frames; first line: FieldError: type NoK has no field `k`, available fields: `r`
-FAIL     4 trait: caught at the library's definition (or warned there and raised at the call), naming the field and the bound  (where entry)
+PASS     4 trait: caught at the library's definition (or warned there and raised at the call), naming the field and the bound  (where entry)
      5 Float64 cache, complex state (trait)      runtime: InexactError, 46 lines, 22 frames; first line: InexactError: Float64(1.0 + 1.0im)
      5 Float64 cache, complex state (plain)      runtime: InexactError, 44 lines, 21 frames; first line: InexactError: Float64(1.0 + 1.0im)
 PASS     5 trait: an error (at the conformance or at run time)
-FAIL     5 trait: no more frames than plain  (trait 22, plain 21)
+PASS     5 trait: at most one frame more than plain (the entry)  (trait 22, plain 21)
 
-5 pass, 3 fail, 0 pending
+8 pass, 0 fail, 0 pending

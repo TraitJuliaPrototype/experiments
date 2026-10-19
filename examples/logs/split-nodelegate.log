@@ -3,10 +3,10 @@ PASS     nodelegate before: n1 = 10.0
 PASS     nodelegate loading ImplP raises nothing
 PASS     nodelegate trait code identical to plain Julia  (trait 10.0, plain 10.0)
 PASS     nodelegate ImplP's winning method left inactive at load, with an error naming it  (┌ Error: strict mode left a package's winning pirates inactive at its load:
-│   PirateError: strict mode refuses `norm1` for svec(P2), defined by ImplP.
-│   It would change what trait-world code computes in `n1` (Tuple{typeof(n1), PS at Vector{P2}}), through the call at Tuple{typeof(norm1), P2}.
+│   PirateError: strict mode refuses `norm1(P2)`, defined by ImplP.
+│   It would change what trait-world code computes in `Main.PLib.n1`, at the call `Tuple{typeof(norm1), P2}`.
 │   ImplP owns neither the function nor a type in that signature (a pirate).
-│   Turn strict mode off ()
+│   Turn strict mode off (`TraitWorld.strict!(false)`) to follow the )
 PASS     nodelegate ImplP's next definition at the fact is refused (PirateError)  (TraitWorld.PirateError)
 PASS     nodelegate values unchanged, trait and plain  (trait 10.0, plain 10.0)
 

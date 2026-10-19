@@ -1,12 +1,14 @@
 julia 1.13.2  facts mode (all): false  tier: strict  order: after
 PASS     after/strict before the pirate: wtotal = 3.0
 PASS     after/strict the pirate is refused where it is defined  (load log: ┌ Error: strict mode left a package's winning pirates inactive at its load:
-│   PirateError: strict mode refuses `weight` for svec(Float64), defined by XPirate.
-│   It would change what trait-world code computes in `wtotal` (Tuple{typeof(wtotal), Vals at Vector{Float64}}), through the call at Tuple{)
+│   PirateError: strict mode refuses `weight(Float64)`, defined by XPirate.
+│   It would change what trait-world code computes in `XLib.XCore.wtotal`, at the call `Tuple{typeof(weight), Float64}`.
+│   XPirate owns neither th)
 PASS     after/strict the message names the method and the code  (┌ Error: strict mode left a package's winning pirates inactive at its load:
-│   PirateError: strict mode refuses `weight` for svec(Float64), defined by XPirate.
-│   It would change what trait-world code computes in `wtotal` (Tuple{typeof(wtotal), Vals at Vector{Float64}}), through the call at Tuple{typeof(weight), Float64}.
-│   XPirate owns neither the function nor a type in that signature (a pira)
+│   PirateError: strict mode refuses `weight(Float64)`, defined by XPirate.
+│   It would change what trait-world code computes in `XLib.XCore.wtotal`, at the call `Tuple{typeof(weight), Float64}`.
+│   XPirate owns neither the function nor a type in that signature (a pirate).
+│   Turn strict mode off (`TraitWorld.strict!(fa)
 PASS     after/strict trait code unchanged and identical to plain Julia  (trait 3.0, plain 3.0)
 PASS     after/strict no compiled code of XLib lost  (0 lost)
 

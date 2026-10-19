@@ -57,7 +57,7 @@ if order == "after"
         println("     message: ", msg)
         # the code named: the CodeInstance after "computes at <sig> (", which should be the solver's
         # (a function of TraitDifferentialEquations or ODECore), not a Base function it reached
-        caller = (m = match(r"computes in `([\w.]+)`", msg); m === nothing ? "" : m.captures[1])
+        caller = (m = match(r"computes in `([\w.!]+)`", msg); m === nothing ? "" : m.captures[1])
         check("after/strict the message names `+`", startswith(msg, "PirateError: strict mode refuses `+("))
         check("after/strict the message names the solver's code (not a Base function under it)",
               occursin(r"ODECore|TraitDifferentialEquations|solve_ode|^step", caller), "names `$caller`")

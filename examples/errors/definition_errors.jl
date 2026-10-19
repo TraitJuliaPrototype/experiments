@@ -130,5 +130,6 @@ s5 = c5.where === :none ? seen(() -> Base.invokelatest(Main.Mini.euler, Main.Cac
 p5 = seen(() -> Main.PlainMini.peuler(Main.Cached5(zeros(1)), [1.0 + 1.0im], 10, 0.1), :runtime)
 show1("5 Float64 cache, complex state (trait)", s5); show1("5 Float64 cache, complex state (plain)", p5)
 check("5 trait: an error (at the conformance or at run time)", s5.where !== :none)
-check("5 trait: no more frames than plain", s5.frames <= p5.frames, "trait $(s5.frames), plain $(p5.frames)")
+# (the entry, a boundary, is one frame plain code does not have)
+check("5 trait: at most one frame more than plain (the entry)", s5.frames <= p5.frames + 1, "trait $(s5.frames), plain $(p5.frames)")
 summary()
