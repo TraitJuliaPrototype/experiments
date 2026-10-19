@@ -294,6 +294,7 @@ struct Series{T}
 end
 Signals.nsamples(s::Series) = length(s.data)
 Signals.sample(s::Series, i::Int) = s.data[i]
+Base.eltype(::Type{Series{T}}) where {T} = T      # so the trait's equation gives T
 @implement Samples{T} Series{T} where {T}
 
 check("§13 total([1.0, 2.0, 3.5])", total([1.0, 2.0, 3.5]) == 6.5)

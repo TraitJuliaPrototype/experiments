@@ -1,5 +1,10 @@
-# G2, fuller: both trait libraries work, then stacks load one package at a time, interleaved with
-# work; after each load, every policy-compiled (FactsOwner) CodeInstance lost in any module is counted.
+# G2 across package loads (facts reference §2.2, deviation F-11): both trait libraries work, then
+# stacks load one package at a time, interleaved with work; after each load, every valid
+# CodeInstance of the facts owner (`:facts`, the code of trait modules) that was lost is counted,
+# by module. Expected: none. Run from the repository root with the demonstrators' environments and
+# the big loads' environment, one Julia process:
+#   JULIA_LOAD_PATH="TraitMakie/scripts/env:TraitDifferentialEquations/scripts/env:TraitReport/env_loads:@stdlib" \
+#     julia-1.13/julia --startup-file=no experiments/facts/g2all.jl interleaved      # or: before, none
 order = ARGS[1]                     # "interleaved" or "before" or "none"
 const STACK2 = [
     ("OffsetArrays", "6fe1bfb0-de20-5000-8ca7-80f57d26f881"),
@@ -12,10 +17,8 @@ const STACK2 = [
 ]
 loadpkg(n, u) = Base.require(Base.PkgId(Base.UUID(u), n))
 if order == "before"
-    using CSV, DataFrames, CairoMakie, ChurnStorm, BasePirate
+    using CSV, DataFrames, CairoMakie
     for (n, u) in STACK2; loadpkg(n, u); end
-elseif order == "before_churn"
-    using ChurnStorm
 elseif order == "before_stack1"
     using CSV, DataFrames, CairoMakie
 end
@@ -35,7 +38,7 @@ function allcis()
     end
     out
 end
-facts_valid() = filter(ci -> ci.owner isa TW.FactsOwner && ci.max_world == typemax(UInt), allcis())
+facts_valid() = filter(ci -> ci.owner === :facts && ci.max_world == typemax(UInt), allcis())
 lorenz!(du, u, p, t) = (du[1] = p[1] * (u[2] - u[1]); du[2] = u[1] * (p[2] - u[3]) - u[2]; du[3] = u[1] * u[2] - p[3] * u[3]; nothing)
 xs = collect(range(0.0, 10.0; length = 200))
 function work()
@@ -56,15 +59,14 @@ if get(ENV, "NEWCIS", "0") == "1"
     for ci in allcis()
         ci in before_set && continue
         mi = ci.def isa Core.MethodInstance ? ci.def : ci.def.def
-        k = (mi.def isa Method ? nameof(Base.moduleroot(mi.def.module)) : :top, ci.owner === nothing ? :native : nameof(typeof(ci.owner)))
+        k = (mi.def isa Method ? nameof(Base.moduleroot(mi.def.module)) : :top, ci.owner === nothing ? :native : ci.owner)
         d[k] = get(d, k, 0) + 1
     end
     println("  new CodeInstances in the first work: ", sort(collect(d); by = x -> -x[2])[1:min(end, 12)])
 end
 if order == "interleaved"
     pre = facts_valid()
-    steps = Any[(:CSV, () -> @eval(using CSV)), (:DataFrames, () -> @eval(using DataFrames)), (:CairoMakie, () -> @eval(using CairoMakie)),
-                (:ChurnStorm, () -> @eval(using ChurnStorm)), (:BasePirate, () -> @eval(using BasePirate))]
+    steps = Any[(:CSV, () -> @eval(using CSV)), (:DataFrames, () -> @eval(using DataFrames)), (:CairoMakie, () -> @eval(using CairoMakie))]
     for (n, u) in STACK2; push!(steps, (Symbol(n), () -> loadpkg(n, u))); end
     for (name, f) in steps
         tl = @elapsed f()
@@ -75,7 +77,7 @@ if order == "interleaved"
             k = mi.def isa Method ? nameof(Base.moduleroot(mi.def.module)) : :toplevel
             mods[k] = get(mods, k, 0) + 1
         end
-        println("  after ", rpad(name, 18), " load ", lpad(round(tl, digits = 2), 6), " s; facts-owned lost ", length(lost), " ", collect(mods), "; work ", work(), " ms")
+        println("  after ", rpad(name, 18), " load ", lpad(round(tl, digits = 2), 6), " s; facts-owned lost ", length(lost), " of ", length(pre), " ", collect(mods), "; work ", work(), " ms")
     end
 end
 rossler!(du, u, p, t) = (du[1] = -u[2] - u[3]; du[2] = u[1] + p[1] * u[2]; du[3] = p[2] + u[3] * (u[1] - p[3]); nothing)

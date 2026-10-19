@@ -6,7 +6,7 @@
 #   julia --project=<env with TraitWorld> acceptance.jl
 # G1: the trait world computes what plain Julia computes (or raises), under redefinitions, late
 #     methods by owners, winning pirates, and calls into code written without traits.
-# G2: unrelated loads invalidate no trait-world code (counted separately: acceptance_loads.jl).
+# G2: unrelated loads invalidate no trait-world code (G2.1 here; across package loads: g2all.jl).
 using TraitWorld, Test
 
 results = Tuple{String,Bool,String}[]

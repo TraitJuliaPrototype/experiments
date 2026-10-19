@@ -7,7 +7,7 @@ t = @elapsed Core.Compiler.return_type(sin, Tuple{Float64})
 println("second return_type(sin, Tuple{Float64}): ", round(1000t; digits = 2), " ms")
 if isdefined(Base.Compiler, :FACTS_OWNER)
     CC = Base.Compiler
-    m = only(methods(CC.dynamic_call))
+    m = only(methods(CC.split_call))
     println("dynamic_call method is_plain (never-by-facts module): ", ccall(:jl_method_is_plain, Cint, (Any,), m))
     println("Compiler module facts flag: ", ccall(:jl_get_module_facts, Cint, (Any,), CC))
     println("is_fact_sig(Tuple{typeof(+), Vararg{Int}}) = ", CC.is_fact_sig(Tuple{typeof(+), Vararg{Int}}),
