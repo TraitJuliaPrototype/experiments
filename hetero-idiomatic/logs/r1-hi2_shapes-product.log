@@ -1,0 +1,51 @@
+== hi2_shapes  julia 1.13.2 (f13117cd74*)  setting product  TraitWorld bed3782+changes  load 1.02 1.00 0.93
+candidates the split of S64 covers: P1, P2, P3, P4
+-- n = 2 implementations
+product  plain        Σ parea2(x) over Vector{AShape}                                 0.91 ns/elt     0.0 B/elt  (median of 2000 samples)
+product  interop      the same in a trait module                                     38.55 ns/elt    32.0 B/elt  (median of 2000 samples)
+product  copy         Σ area2(x) over Vector{Dynamic{S2}}                             1.00 ns/elt     0.1 B/elt  (median of 2000 samples)
+product  view         Σ area2(x) over DynamicItems{S2}(Vector{AShape})                1.04 ns/elt     0.1 B/elt  (median of 2000 samples)
+product  view         Σ area2(x) over DynamicItems{S2}(Vector{Any})                   1.04 ns/elt     0.1 B/elt  (median of 2000 samples)
+product  make         collect(DynamicItems{S2}(v)): the copy                          1.83 ns/elt     8.1 B/elt  (median of 2000 samples)
+-- n = 4 implementations
+product  plain        Σ parea4(x) over Vector{AShape}                                34.40 ns/elt    32.0 B/elt  (median of 2000 samples)
+product  interop      the same in a trait module                                     41.88 ns/elt    32.0 B/elt  (median of 2000 samples)
+product  copy         Σ area4(x) over Vector{Dynamic{S4}}                             1.23 ns/elt     0.1 B/elt  (median of 2000 samples)
+product  view         Σ area4(x) over DynamicItems{S4}(Vector{AShape})                1.69 ns/elt     0.1 B/elt  (median of 2000 samples)
+product  view         Σ area4(x) over DynamicItems{S4}(Vector{Any})                   1.93 ns/elt     0.1 B/elt  (median of 2000 samples)
+product  make         collect(DynamicItems{S4}(v)): the copy                          2.35 ns/elt     8.1 B/elt  (median of 2000 samples)
+-- n = 5 implementations
+product  plain        Σ parea5(x) over Vector{AShape}                                88.03 ns/elt    32.0 B/elt  (median of 2000 samples)
+product  interop      the same in a trait module                                     75.38 ns/elt    32.0 B/elt  (median of 2000 samples)
+product  copy         Σ area5(x) over Vector{Dynamic{S5}}                             5.26 ns/elt     3.3 B/elt  (median of 2000 samples)
+product  view         Σ area5(x) over DynamicItems{S5}(Vector{AShape})                8.29 ns/elt     3.3 B/elt  (median of 2000 samples)
+product  view         Σ area5(x) over DynamicItems{S5}(Vector{Any})                   8.70 ns/elt     3.3 B/elt  (median of 2000 samples)
+product  make         collect(DynamicItems{S5}(v)): the copy                          4.63 ns/elt     8.1 B/elt  (median of 2000 samples)
+-- n = 8 implementations
+product  plain        Σ parea8(x) over Vector{AShape}                               102.17 ns/elt    32.0 B/elt  (median of 2000 samples)
+product  interop      the same in a trait module                                    109.77 ns/elt    32.0 B/elt  (median of 2000 samples)
+product  copy         Σ area8(x) over Vector{Dynamic{S8}}                            11.66 ns/elt     8.1 B/elt  (median of 2000 samples)
+product  view         Σ area8(x) over DynamicItems{S8}(Vector{AShape})               38.65 ns/elt     8.1 B/elt  (median of 2000 samples)
+product  view         Σ area8(x) over DynamicItems{S8}(Vector{Any})                  37.86 ns/elt     8.1 B/elt  (median of 2000 samples)
+product  make         collect(DynamicItems{S8}(v)): the copy                          9.84 ns/elt     8.1 B/elt  (median of 2000 samples)
+-- n = 64 implementations
+product  plain        Σ parea64(x) over Vector{AShape}                               99.28 ns/elt    32.0 B/elt  (median of 2000 samples)
+product  interop      the same in a trait module                                    107.87 ns/elt    32.0 B/elt  (median of 2000 samples)
+product  copy         Σ area64(x) over Vector{Dynamic{S64}}                          77.89 ns/elt    15.0 B/elt  (median of 2000 samples)
+product  view         Σ area64(x) over DynamicItems{S64}(Vector{AShape})            161.95 ns/elt    15.0 B/elt  (median of 2000 samples)
+product  view         Σ area64(x) over DynamicItems{S64}(Vector{Any})               160.62 ns/elt    15.0 B/elt  (median of 2000 samples)
+product  make         collect(DynamicItems{S64}(v)): the copy                        72.46 ns/elt     8.1 B/elt  (median of 2000 samples)
+-- n = 64, one type only
+product  copy         only P1: Vector{Dynamic{S64}}                                   1.37 ns/elt     0.1 B/elt  (median of 2000 samples)
+product  view         only P1: DynamicItems{S64}(Vector{AShape})                      1.37 ns/elt     0.1 B/elt  (median of 2000 samples)
+product  plain        only P1: plain, 64 methods                                     33.79 ns/elt    32.0 B/elt  (median of 2000 samples)
+product  copy         only P4: Vector{Dynamic{S64}}                                   1.59 ns/elt     0.1 B/elt  (median of 2000 samples)
+product  view         only P4: DynamicItems{S64}(Vector{AShape})                      1.49 ns/elt     0.1 B/elt  (median of 2000 samples)
+product  plain        only P4: plain, 64 methods                                     33.36 ns/elt    32.0 B/elt  (median of 2000 samples)
+product  copy         only P5: Vector{Dynamic{S64}}                                  22.22 ns/elt    16.1 B/elt  (median of 2000 samples)
+product  view         only P5: DynamicItems{S64}(Vector{AShape})                     40.46 ns/elt    16.1 B/elt  (median of 2000 samples)
+product  plain        only P5: plain, 64 methods                                     35.49 ns/elt    32.0 B/elt  (median of 2000 samples)
+product  copy         only P64: Vector{Dynamic{S64}}                                 24.04 ns/elt    16.1 B/elt  (median of 2000 samples)
+product  view         only P64: DynamicItems{S64}(Vector{AShape})                    39.71 ns/elt    16.1 B/elt  (median of 2000 samples)
+product  plain        only P64: plain, 64 methods                                    36.44 ns/elt    32.0 B/elt  (median of 2000 samples)
+== done  load 1.00 1.00 0.94

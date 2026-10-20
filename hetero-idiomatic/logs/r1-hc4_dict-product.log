@@ -1,0 +1,107 @@
+== hc4_dict product  load 0.99 0.97 0.91
+plain  iterate(Dict{Any,Any})        7.1 ns  32 B
+plain  iterate(Dict{Any,Any}, st)    8.1 ns  32 B
+plain  for (k, v) in Dict{Any,Any}   2.2 ns/elt  0.0 B/elt
+plain  for (k, v) in Dict{Int,String} 2.0 ns/elt  0.0 B/elt
+---- generic (non-invoke) calls in iterate(::Dict{Any,Any}, ::Int), plain
+  33: :($(Expr(:invoke, CodeInstance for MethodInstance for Base.throw_boundserror(::Memory{UInt8}, ::Tuple{Int64}), :(Base.th  :: Union{}
+  74: :($(Expr(:invoke, CodeInstance for MethodInstance for Base.throw_boundserror(::Memory{Any}, ::Tuple{Int64}), :(Base.thro  :: Union{}
+  91: :($(Expr(:invoke, CodeInstance for MethodInstance for Base.throw_boundserror(::Memory{Any}, ::Tuple{Int64}), :(Base.thro  :: Union{}
+---- generic (non-invoke) calls in sumkeys(::Dict{Any,Any}), plain
+  1: :(Base.getfield(_2, :idxfloor))  :: Int64
+  2: :(Base.getfield(_2, :slots))  :: Memory{UInt8}
+  3: :(Base.getfield(%2, :length))  :: Int64
+  4: :(Base.sle_int(%1, %3))  :: Bool
+  7: :(Base.sub_int(%1, 1))  :: Int64
+  12: :(Base.slt_int(%9, %1))  :: Bool
+  19: :(Base.not_int(%16))  :: Bool
+  23: :(Base.getfield(_2, :slots))  :: Memory{UInt8}
+  26: :(Base.sub_int(%21, 1))  :: Int64
+  27: :(Base.bitcast(Base.UInt, %26))  :: UInt64
+  28: :(Base.getfield(%23, :length))  :: Int64
+  29: :(Base.bitcast(Base.UInt, %28))  :: UInt64
+  30: :(Base.ult_int(%27, %29))  :: Bool
+  33: :(Core.tuple(%21))  :: Tuple{Int64}
+  37: :(Base.memoryrefnew(%23, %21, false))  :: MemoryRef{UInt8}
+  38: :(Base.memoryrefget(%37, :not_atomic, false))  :: UInt8
+  40: :(Base.and_int(%38, 0x80))  :: UInt8
+  41: :(Core.zext_int(Core.UInt64, %40))  :: UInt64
+  42: :(%41 === 0x0000000000000000)  :: Bool
+  43: :(Base.and_int(true, %42))  :: Bool
+  44: :(Base.not_int(%43))  :: Bool
+  48: :(%22 === %9)  :: Bool
+  51: :(Base.add_int(%22, 1))  :: Int64
+  56: :(Base.not_int(%55))  :: Bool
+  61: :(%60 === 0)  :: Bool
+  64: :(Base.getfield(_2, :keys))  :: Memory{Any}
+  67: :(Base.sub_int(%60, 1))  :: Int64
+  68: :(Base.bitcast(Base.UInt, %67))  :: UInt64
+  69: :(Base.getfield(%64, :length))  :: Int64
+  70: :(Base.bitcast(Base.UInt, %69))  :: UInt64
+  71: :(Base.ult_int(%68, %70))  :: Bool
+  74: :(Core.tuple(%60))  :: Tuple{Int64}
+  78: :(Base.memoryrefnew(%64, %60, false))  :: MemoryRef{Any}
+  79: :(Base.memoryrefget(%78, :not_atomic, false))  :: Any
+  81: :(Base.getfield(_2, :vals))  :: Memory{Any}
+  84: :(Base.sub_int(%60, 1))  :: Int64
+  85: :(Base.bitcast(Base.UInt, %84))  :: UInt64
+  86: :(Base.getfield(%81, :length))  :: Int64
+  87: :(Base.bitcast(Base.UInt, %86))  :: UInt64
+  88: :(Base.ult_int(%85, %87))  :: Bool
+  91: :(Core.tuple(%60))  :: Tuple{Int64}
+  95: :(Base.memoryrefnew(%81, %60, false))  :: MemoryRef{Any}
+  96: :(Base.memoryrefget(%95, :not_atomic, false))  :: Any
+  98: :(%60 === 9223372036854775807)  :: Bool
+  101: :(Base.add_int(%60, 1))  :: Int64
+  108: :(Base.not_int(%104))  :: Bool
+  113: :(%110 isa Main.Int)  :: Bool
+  116: :(Base.add_int(%112, %115))  :: Int64
+  118: :(Base.getfield(_2, :slots))  :: Memory{UInt8}
+  119: :(Base.getfield(%118, :length))  :: Int64
+  120: :(Base.sle_int(%111, %119))  :: Bool
+  123: :(Base.sub_int(%111, 1))  :: Int64
+  128: :(Base.slt_int(%125, %111))  :: Bool
+  135: :(Base.not_int(%132))  :: Bool
+  139: :(Base.getfield(_2, :slots))  :: Memory{UInt8}
+  142: :(Base.sub_int(%137, 1))  :: Int64
+  143: :(Base.bitcast(Base.UInt, %142))  :: UInt64
+  144: :(Base.getfield(%139, :length))  :: Int64
+  145: :(Base.bitcast(Base.UInt, %144))  :: UInt64
+  146: :(Base.ult_int(%143, %145))  :: Bool
+  149: :(Core.tuple(%137))  :: Tuple{Int64}
+  153: :(Base.memoryrefnew(%139, %137, false))  :: MemoryRef{UInt8}
+  154: :(Base.memoryrefget(%153, :not_atomic, false))  :: UInt8
+  156: :(Base.and_int(%154, 0x80))  :: UInt8
+  157: :(Core.zext_int(Core.UInt64, %156))  :: UInt64
+  158: :(%157 === 0x0000000000000000)  :: Bool
+  159: :(Base.and_int(true, %158))  :: Bool
+  160: :(Base.not_int(%159))  :: Bool
+  164: :(%138 === %125)  :: Bool
+  167: :(Base.add_int(%138, 1))  :: Int64
+  172: :(Base.not_int(%171))  :: Bool
+  177: :(%176 === 0)  :: Bool
+  180: :(Base.getfield(_2, :keys))  :: Memory{Any}
+  183: :(Base.sub_int(%176, 1))  :: Int64
+  184: :(Base.bitcast(Base.UInt, %183))  :: UInt64
+  185: :(Base.getfield(%180, :length))  :: Int64
+  186: :(Base.bitcast(Base.UInt, %185))  :: UInt64
+  187: :(Base.ult_int(%184, %186))  :: Bool
+  190: :(Core.tuple(%176))  :: Tuple{Int64}
+  194: :(Base.memoryrefnew(%180, %176, false))  :: MemoryRef{Any}
+  195: :(Base.memoryrefget(%194, :not_atomic, false))  :: Any
+  197: :(Base.getfield(_2, :vals))  :: Memory{Any}
+  200: :(Base.sub_int(%176, 1))  :: Int64
+  201: :(Base.bitcast(Base.UInt, %200))  :: UInt64
+  202: :(Base.getfield(%197, :length))  :: Int64
+  203: :(Base.bitcast(Base.UInt, %202))  :: UInt64
+  204: :(Base.ult_int(%201, %203))  :: Bool
+  207: :(Core.tuple(%176))  :: Tuple{Int64}
+  211: :(Base.memoryrefnew(%197, %176, false))  :: MemoryRef{Any}
+  212: :(Base.memoryrefget(%211, :not_atomic, false))  :: Any
+  214: :(%176 === 9223372036854775807)  :: Bool
+  217: :(Base.add_int(%176, 1))  :: Int64
+  224: :(Base.not_int(%222))  :: Bool
+plain  sum over Vector{Any} of Int    17.8 ns/elt  15.504 B/elt
+plain  sum over Vector{Any} of Float64 16.1 ns/elt  16.0 B/elt
+plain  Float64(x) over Vector{Real}   103.0 ns/elt  24.0 B/elt
+== end  load 0.99 0.97 0.91

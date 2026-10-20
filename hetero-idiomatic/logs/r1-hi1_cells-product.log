@@ -1,0 +1,42 @@
+== hi1_cells  julia 1.13.2 (f13117cd74*)  setting product  TraitWorld bed3782+changes  load 1.06 1.00 0.93
+-- W1 filter!: keep the Ints of a Vector{Any}
+product  plain        Base.filter!(x -> isa(x, Int), v)                               2.12 ns/elt     4.1 B/elt  (median of 2000 samples)
+product  interop      Base.filter! from a trait module (hc7)                         42.91 ns/elt     4.2 B/elt  (median of 2000 samples)
+product  view         retain!(isnum, ·) over DynamicItems{Cell}(v)                    2.75 ns/elt     0.4 B/elt  (median of 2000 samples)
+product  copy         retain!(isnum, ·) over Vector{Dynamic{Cell}}                    1.74 ns/elt     0.5 B/elt  (median of 2000 samples)
+product  view         retain!(f::Callable{…}) over the view, DynamicCall             17.23 ns/elt    16.4 B/elt  (median of 2000 samples)
+product  view         retain!(f::Callable{…}) over the view, compiled_call            4.42 ns/elt     0.4 B/elt  (median of 2000 samples)
+-- W2 count, an operation on each element
+product  plain        n += isa(x, Int)                                                0.69 ns/elt     0.0 B/elt  (median of 2000 samples)
+product  interop      n += isa(x, Int) in a trait module (hc7)                        0.69 ns/elt     0.0 B/elt  (median of 2000 samples)
+product  view         n += isnum(c) over DynamicItems{Cell}(v)                        1.68 ns/elt     0.0 B/elt  (median of 2000 samples)
+product  copy         n += isnum(c) over Vector{Dynamic{Cell}}                        1.17 ns/elt     0.0 B/elt  (median of 2000 samples)
+-- W3 count with a caller's predicate
+product  plain        n += f(x)::Bool, f a closure                                    0.69 ns/elt     0.0 B/elt  (median of 2000 samples)
+product  interop      f::Callable{Tuple{Any}, Bool} (hc7)                            71.31 ns/elt    36.0 B/elt  (median of 2000 samples)
+product  view         f::Callable{Tuple{Dynamic{Cell}}, Bool} over the view          15.95 ns/elt    16.1 B/elt  (median of 2000 samples)
+product  view         the same, compiled_call(f)                                      2.75 ns/elt     0.1 B/elt  (median of 2000 samples)
+product  copy         Callable{…, CompiledCall} over the copy                         2.39 ns/elt     0.1 B/elt  (median of 2000 samples)
+-- W4 a Dict{String,Any}'s pairs
+product  plain        for (k, v) in d; n += v isa Int                                 2.41 ns/elt     0.0 B/elt  (median of 2000 samples)
+product  interop      the same in a trait module (hc7)                              269.23 ns/elt    99.9 B/elt  (median of 2000 samples)
+product  view         for (k, c) in DynamicValues{Cell}(d); n += isnum(c)             4.87 ns/elt     0.0 B/elt  (median of 2000 samples)
+product  copy         the same over a Dict{String, Dynamic{Cell}}                     2.68 ns/elt     0.0 B/elt  (median of 2000 samples)
+-- W5 keyed lookup, 1000 keys
+product  plain        s += d[k] (isa Int, else length)                               10.71 ns/elt     0.0 B/elt  (median of 2000 samples)
+product  interop      the same in a trait module                                     10.74 ns/elt     0.0 B/elt  (median of 2000 samples)
+product  view         s += weight(d[k]) over DynamicValues{Cell}(d)                  13.18 ns/elt     0.2 B/elt  (median of 2000 samples)
+product  copy         the same over a Dict{String, Dynamic{Cell}}                    10.87 ns/elt     0.2 B/elt  (median of 2000 samples)
+-- W6 sums over numbers of mixed types (hc4's controls)
+product  plain        s += x over Vector{Any} of Int                                 16.94 ns/elt    16.0 B/elt  (median of 2000 samples)
+product  interop      the same in a trait module                                     20.58 ns/elt    16.0 B/elt  (median of 2000 samples)
+product  view         s += value(x) over DynamicItems{Num}(Vector{Any})               1.54 ns/elt     0.1 B/elt  (median of 2000 samples)
+product  plain        s += Float64(x) over Vector{Real}                             115.19 ns/elt    24.0 B/elt  (median of 2000 samples)
+product  interop      the same in a trait module                                    121.18 ns/elt    24.0 B/elt  (median of 2000 samples)
+product  view         s += value(x) over DynamicItems{Num}(Vector{Real})              1.53 ns/elt     0.1 B/elt  (median of 2000 samples)
+product  copy         the same over a copy, Vector{Dynamic{Num}}                      1.19 ns/elt     0.1 B/elt  (median of 2000 samples)
+-- the copy itself
+product  copy         collect(DynamicItems{Cell}(v)): Vector{Dynamic{Cell}}           1.80 ns/elt     8.1 B/elt  (median of 2000 samples)
+product  copy         Dynamic{Cell}[Dynamic{Cell}(x) for x in v], in Main           106.85 ns/elt    28.0 B/elt  (median of 2000 samples)
+product  make         Dynamic{Cell}(x), x::Int known                                  8.02 ns/elt    16.0 B/elt  (median of 2000 samples)
+== done  load 1.02 1.00 0.93

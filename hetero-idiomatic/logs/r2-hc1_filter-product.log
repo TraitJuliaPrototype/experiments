@@ -1,0 +1,22 @@
+== hc1_filter product  load 1.45 1.36 1.24
+plain  filter!           1.2 ns/elt
+plain  filt! (copy)      1.2 ns/elt
+plain  only_pred         0.6 ns/elt
+plain  pred_typed        0.6 ns/elt
+plain  only_store        0.7 ns/elt
+plain  store_invoke      0.7 ns/elt
+---- code_typed of filt!(pred, ::Vector{Any}), plain
+  7: :(goto %28 if not %6)  :: Any
+  9: :(goto %22 if not %8)  :: Any
+  16: :(goto %18 if not %15)  :: Any
+  17: :(goto %21)  :: Any
+  19: :($(Expr(:invoke, CodeInstance for MethodInstance for Base.throw_boundserror(::Vector{Any}, ::Tuple{Int64}), :  :: Union{}
+  22: :(Base.getfield(_3, :ref))  :: MemoryRef{Any}
+  23: :(Base.memoryrefnew(%22, 1, false))  :: MemoryRef{Any}
+  24: :(Base.memoryrefget(%23, :not_atomic, false))  :: Any
+  50: :($(Expr(:invoke, CodeInstance for MethodInstance for Base.throw_boundserror(::Vector{Any}, ::Tuple{Int64}), :  :: Union{}
+  57: :(%36 isa Main.Int)  :: Bool
+  78: :($(Expr(:invoke, CodeInstance for MethodInstance for Base.throw_boundserror(::Vector{Any}, ::Tuple{Int64}), :  :: Union{}
+  103: :($(Expr(:invoke, CodeInstance for MethodInstance for resize!(::Vector{Any}, ::Int64), :(Main.resize!), Core.A  :: Any
+  105: :($(Expr(:invoke, CodeInstance for MethodInstance for Base.var"#sizehint!#81"(::Bool, ::Bool, ::typeof(sizehin  :: Vector{Any}
+== end  load 1.38 1.35 1.24

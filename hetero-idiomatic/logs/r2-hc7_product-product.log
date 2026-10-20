@@ -1,0 +1,10 @@
+== hc7_product product  load 1.42 1.36 1.25
+julia 1.13.2  facts default (all): false
+trait module  filter!(pred, ::Vector{Any})   38.2 ns/elt
+plain         filter!(pred, ::Vector{Any})   1.2 ns/elt
+trait module  isa on each element            0.6 ns/elt
+trait module  Callable{Tuple{Any},Bool} pred  63.5 ns/elt  35.984 B/elt
+plain         the same closure, dynamic     0.6 ns/elt
+trait module  for (k, v) in Dict{String,Any}  233.5 ns/elt  99.904 B/elt
+plain         for (k, v) in Dict{String,Any}  2.2 ns/elt  0.0 B/elt
+== end  load 1.30 1.34 1.24
