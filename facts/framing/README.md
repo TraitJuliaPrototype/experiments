@@ -1,16 +1,13 @@
 # The framing's acceptance cases (session 29)
 
 Steps 1–3 of `writeup/design.md` §3 as runnable files, each stating its expected outcome and
-checking it (PASS / FAIL / PENDING; a pending check waits on a part not built and does not fail
-the run). Helpers: `../../examples/common.jl`. Run all: `../../examples/run_all.sh` (logs in
-`../../examples/logs/`). Every run: patched 1.13.2, `JULIA_TW_VIEWCACHE=0`, and
-`JULIA_TW_COMPILER_FACTS=0` until parts (B)+(C) are validated (`../../examples/jl.sh`).
+checking it (PASS / FAIL / PENDING; a pending check waits on a part not built or a decision and
+does not fail the run). Helpers: `../../examples/common.jl`. Run all: `../../examples/run_all.sh`
+(logs in `../../examples/logs/`). Every run: patched 1.13.2, one process at a time under the lock
+(`../../examples/jl.sh`).
 
-Julia runs stopped by the user's instruction mid-suite; every file here ran at least once except
-`pirate_tiers.jl binding` in the default tier.
-
-"Today" is session 29, julia-1.13 at 880ae49dad plus the parent's (B)+(C) work in progress,
-TraitWorld c6e3f64 plus uncommitted changes, TraitWorld's own policy on.
+Every file has run. "Today" below is the run of 2026-10-20 (00:45, the patched 1.13.2 of that
+night; logs in `../../examples/logs/`): no check fails.
 
 ## `inval_cases.jl`: which definitions invalidate (S1–S8, S1b, S1c, S10)
 
@@ -44,19 +41,23 @@ methods match". (A first version of S1b put the call behind `sprint(show, x)`: t
 `vcat(xs...)` with 3,000 arguments. Julia compiles `vcat` at its widened signature
 `Tuple{typeof(vcat), Int, Int, Int, Vararg{Int}}`, not concrete.
 - Expected if a Vararg tail of a concrete element type is a fact signature: the same code in both modes.
-- Today: plain has no run-time sites (result `Vector{Int64}`); facts mode has 10 (`eachindex`,
-  `IteratorSize`, `_array_for`, …; result `Any`). Each run-time dispatch looks at the whole tuple,
-  so core.jl's 2·10^6 arguments do not finish.
-- **Pending on a design decision** (rule 1: is `Tuple{Vararg{T}}` with concrete `T` a fact signature?).
-- To measure after the decision: time per argument at 10^3–10^5 in both modes; core.jl #10981 in facts mode.
+- Decided: a concrete `Vararg` tail is a fact signature (`writeup/reference/facts.md` §3,
+  Fact signatures).
+- Today (`vararg-plain.log` 3/3, `vararg-facts.log` 4/4): no run-time sites in either mode, result
+  `Vector{Int64}`. (In session 29, before the decision, facts mode had 10 run-time sites and
+  result `Any`.)
+- To measure: time per argument at 10^3–10^5 in both modes; core.jl #10981 in facts mode.
 
 ## `s9_extension.jl`: the extension exception (S9)
 
 XFun owns `score`; XLib's worker (in its image) calls `score(::Float64)`. XFun's extension on the
 unrelated XTrig defines `score(::Float64)`.
 - Expected: followed (identical to plain Julia), XLib's code invalidated, in both tiers (the
-  extension counts as XFun, a stakeholder). Whether strict mode should refuse it: open (§1.10).
-- Today: as expected in both tiers (1 of 23 XLib CodeInstances lost); the strict-tier rule pending.
+  extension counts as XFun, a stakeholder). In strict mode a warning names the method and the trait
+  code it affects (decided 2026-10-20, `writeup/reference/traits.md` §12.3).
+- Today (`s9-default.log`, `s9-strict.log`, 6/6 each): as expected in both tiers (2 of 28 XLib
+  CodeInstances lost). The default tier is silent; strict mode warns, naming `XFunXTrigExt`, the
+  signature and the trait code.
 
 ## `pirate_tiers.jl`: a winning pirate in each order, both tiers
 
@@ -64,16 +65,19 @@ XLib's `wtotal` calls `XFun.weight(::Float64)`; the pirate `XFun.weight(::Float6
 
 | order | default tier (expected: followed) | strict tier (expected) | strict today |
 |---|---|---|---|
-| after (package image) | followed, 1 CodeInstance lost | left inactive at load, error names method and worker | as expected |
+| after (package image) | followed, 2 of 28 CodeInstances lost | left inactive at load, error names method and worker | as expected |
 | prompt-after | followed | `PirateError` at the definition | as expected |
 | before (package image) | followed | an error at XLib's load (piece 15) | **pending**: followed silently |
 | prompt-before | followed | an error at XLib's load (piece 15) | **pending**: followed silently |
-| binding (S10 for trait code) | followed, code invalidated (**untested**: the run failed on a missing `using TraitWorld`, since fixed) | refused or named | **pending**: accepted silently (value followed, 1 of 19 CodeInstances lost) |
+| binding (S10 for trait code) | followed, code invalidated (as expected: 2 of 22 lost) | refused or named | **pending**: accepted silently (value followed, 2 of 22 CodeInstances lost); waits on a rule for bindings and a hook that sees them (`writeup/open-issues.md` §1.1) |
 
-The strict message today: "strict mode refuses weight(x::Float64) @ XPirate …: it would change
-what trait-world code computes at Tuple{typeof(XFun.weight), Float64} (CodeInstance for
-MethodInstance for wtotal(::Vals at Vector{Float64})), and XPirate owns neither …".
-It names the method, the signature and the worker, by bound and key. At the prompt the definer is "Main".
+The before orders wait on piece 15 (image validation reports the winning method).
+
+The strict message today: "PirateError: strict mode refuses `weight(Float64)`, defined by XPirate.
+It would change what trait-world code computes in `XLib.XCore.wtotal`, at the call
+`Tuple{typeof(weight), Float64}`. XPirate owns neither the function nor a type in that signature
+(a pirate). Turn strict mode off (`TraitWorld.strict!(false)`) …". It names the method, the
+definer, the trait code and the call. At the prompt the definer is "Main".
 
 ## `g1_16_dynamic_world.jl`: a `Dynamic` operation in an older world (G1.16)
 
@@ -81,4 +85,4 @@ Five conformances, `tsum` over `Vector{Dynamic{Shape}}`; two implementations red
 pinned to the older world; a conformance declared later.
 - Expected: the older world sees the old methods (15.0), the latest the new (609.0); a later
   conformance is seen in the latest world only.
-- Today: 6/6 pass (witness tables off by default). Part (D) must keep it passing.
+- Today: 6/6 pass, with part (D) built (witness tables are deleted).

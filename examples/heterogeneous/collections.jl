@@ -1,7 +1,7 @@
 # Heterogeneous collections at scale (the review's example 8): a `Vector{Dynamic{Shape}}` holding
 # values of 2, 4, 16 and 64 conforming types, from a package image (HShapes) and from the prompt,
-# against the plain twin (an abstract type with 64 subtypes). Code and correctness now; the
-# numbers after part (D).
+# against the plain twin (an abstract type with 64 subtypes). Code and correctness here; no timing
+# (the current numbers for `Dynamic` values: writeup/design/evidence.md).
 #
 #     julia --project=../env collections.jl
 #
@@ -52,10 +52,12 @@ pmix = Base.invokelatest(() -> vcat(HShapes.plainvals(64), HShapes.PlainShapes.P
 t = Base.invokelatest(total, mix); p = Base.invokelatest(PS.ptotal, pmix)
 check("128 types mixed, image and prompt: total = plain", t == p == 100.0 * 64 + 2tri(64), "trait $t, plain $p")
 check("still one set of compiled `total` code", nspec() == spec[end], "$(nspec()) against $(spec[end])")
-# The call-site split of part (D): `area(d)` in `total` should become `isa` branches over the
-# declared conformances, then a dynamic fallback, with no edge to the candidate list.
-pending("the call-site split: `area(d)` in `total` split over declared conformances", "part (D)")
-# To measure after (D) (not run here):
+# The call-site split of part (D), which is built (writeup/state.md): `area(d)` in `total` becomes
+# `isa` branches over the first four registered implementations, then a dynamic fallback, with no
+# edge to the candidate list (writeup/reference/compiler.md §4.2). Not checked here yet.
+pending("the call-site split: `area(d)` in `total` split over declared conformances",
+        "a check that reads the split from `total`'s compiled code (part (D) is built)")
+# To measure (not run here):
 #   - time per element of `total` at 10^3 and 10^6 elements for n = 2, 4, 16, 64, 128 (image,
 #     prompt, mixed) against `ptotal` (plain: fast for n <= max_methods, dynamic dispatch above);
 #   - CodeInstances and image bytes per added conformance in HShapes (the "explosion" volume);
