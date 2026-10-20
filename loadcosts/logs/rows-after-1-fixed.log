@@ -1,0 +1,99 @@
+#=   10.0 ms =# precompile(Tuple{typeof(Base.issorted), Array{String, 1}, Base.Order.ReverseOrdering{Base.Order.ForwardOrdering}})
+#=    0.0 ms =# precompile(Tuple{typeof(JLLWrappers.get_julia_libpaths)})
+[33m#=    5.1 ms =# precompile(Tuple{typeof(Base.Compiler._findall_matches), Base.Compiler.NativeInterpreter, Any}) # recompile[0m
+[33m#=    2.5 ms =# precompile(Tuple{typeof(Base.findall), Type, Base.Compiler.CachedMethodTable{Base.Compiler.InternalMethodTable}}) # recompile[0m
+#=    6.3 ms =# precompile(Tuple{typeof(Base.Compiler.typeinf_type), Base.Compiler.NativeInterpreter, Core.MethodMatch})
+#=    2.9 ms =# precompile(Tuple{typeof(Core.kwcall), NamedTuple{(:digits,), Tuple{Int64}}, typeof(Base.round), Float64})
+#=    5.7 ms =# precompile(Tuple{typeof(Base.println), String, Float64, String})
+#=   13.7 ms =# precompile(Tuple{typeof(Base.print), Base.PipeEndpoint, String, Float64, Vararg{Any}})
+#=    2.3 ms =# precompile(Tuple{typeof(Base.print), Base.PipeEndpoint, String})
+using TraitDifferentialEquations #=   13.9 ms =# precompile(Tuple{typeof(Base.print), Base.PipeEndpoint, Float64})
+0.56 s
+#=    2.7 ms =# precompile(Tuple{Type{TraitDifferentialEquations.ODEProblem{F, U, P} where P where U where F}, typeof(Main.lorenz!), Array{Float64, 1}, Tuple{Float64, Float64}, Array{Float64, 1}})
+#=    4.7 ms =# precompile(Tuple{typeof(Base.getproperty), TraitDifferentialEquations.ODEProblem{typeof(Main.lorenz!), Float64, Array{Float64, 1}}, Symbol})
+#=   11.9 ms =# precompile(Tuple{Main.var"#2#3"})
+#=    7.0 ms =# precompile(Tuple{Type{TraitWorld.Erased{Tuple{Array{Float64, 1}, Array{Float64, 1}, Array{Float64, 1}, Float64}, Nothing}}, typeof(Main.lorenz!)})
+#=   10.6 ms =# precompile(Tuple{typeof(Main.row), Int64, String, Float64})
+#=   16.4 ms =# precompile(Tuple{typeof(Base.print), Base.PipeEndpoint, String, Int64, Vararg{Any}})
+row #=    8.6 ms =# precompile(Tuple{typeof(Base.print), Base.PipeEndpoint, Int64})
+1 first Tsit5 solve, a plain function 26.6 ms
+#=    4.3 ms =# precompile(Tuple{typeof(Main.load_big)})
+[33m#=   90.1 ms =# precompile(Tuple{typeof(TraitWorld._on_package_load), Base.PkgId}) # recompile[0m
+[33m#=   84.9 ms =# precompile(Tuple{typeof(TraitWorld._on_package_load), Base.PkgId}) # recompile[0m
+#=    4.2 ms =# precompile(Tuple{BaseDirs.Internals.var"##resolvedirpaths#7", Bool, Bool, typeof(BaseDirs.Internals.resolvedirpaths), Array{String, 1}, Tuple{}})
+#=    3.9 ms =# precompile(Tuple{typeof(Base.keys), Makie.Attributes})
+#=   12.3 ms =# precompile(Tuple{typeof(Base.in), Module, Array{Any, 1}})
+loads 3.96 s
+#=  100.7 ms =# precompile(Tuple{Main.var"#5#6"})
+#=    7.6 ms =# precompile(Tuple{Type{TraitWorld.Erased{Tuple{Array{Float64, 1}, Array{Float64, 1}, Array{Float64, 1}, Float64}, Nothing}}, typeof(Main.rossler!)})
+[33m#=    9.6 ms =# precompile(Tuple{typeof(Main.row), Int64, String, Float64}) # recompile[0m
+row 2 a second model function 116.1 ms
+[33m#=   50.0 ms =# precompile(Tuple{typeof(Base.Compiler.typeinf_code), Base.Compiler.NativeInterpreter, Core.MethodMatch, Bool}) # recompile[0m
+[33m#=    7.1 ms =# precompile(Tuple{typeof(Base.Compiler.findsup_mt), Any, UInt64, Nothing}) # recompile[0m
+[33m#=    2.1 ms =# precompile(Tuple{typeof(Base.in), Symbol, Tuple{Symbol}}) # recompile[0m
+#=    4.3 ms =# precompile(Tuple{typeof(Base.getproperty), NamedTuple{(:b, :recs), Tuple{TraitWorld.Builder{Tuple{TraitWorld.VSpec{TraitDifferentialEquations.ODECore.ODEModel{Float64, Main.Lorenz}, TraitWorld.Impl{(:jacobian!,)}, Main.Lorenz, 0, Tuple{Main.Lorenz}, true}}}, Tuple{Tuple{UnionAll, typeof(DataType), Tuple{Symbol}}}}}, Symbol})
+row 2 a new model type: @implement 73.8 ms
+#=    2.8 ms =# precompile(Tuple{Type{Main.Lorenz}, Float64, Float64, Float64})
+#=    3.9 ms =# precompile(Tuple{typeof(TraitWorld.enter), TraitWorld.EntryPos{typeof(TraitDifferentialEquations.ODECore.solve_ode), 1, 7}, Main.Lorenz})
+#=  292.9 ms =# precompile(Tuple{Main.var"#8#9"})
+#=    2.7 ms =# precompile(Tuple{typeof(TraitWorld._keyfield), Type{TraitWorld.Key{Nothing, NamedTuple{(:u, :t, :p, :u_modified, :terminated), Tuple{Array{Float64, 1}, Float64, Main.Lorenz, Bool, Bool}}}}, Symbol})
+row 2 a new model type: first solve 356.1 ms
+#=   10.6 ms =# precompile(Tuple{Main.var"#11#12"})
+#=    7.0 ms =# precompile(Tuple{Type{TraitWorld.Erased{Tuple{Array{ForwardDiff.Dual{TraitDifferentialEquations.ODECore.ODETag, Float64, 3}, 1}, Array{ForwardDiff.Dual{TraitDifferentialEquations.ODECore.ODETag, Float64, 3}, 1}, Array{Float64, 1}, Float64}, Nothing}}, typeof(Main.lorenz!)})
+row 3 first Rodas5 solve 31.3 ms
+#=    6.3 ms =# precompile(Tuple{Type{TraitWorld.Erased{Tuple{Array{Float64, 1}, Float64, TraitWorld.Dynamic{TraitDifferentialEquations.ODECore.IntegratorView{T, P, Self} where Self where P where T}}, Bool}}, Main.var"#15#16"})
+#=    5.7 ms =# precompile(Tuple{Type{TraitWorld.Erased{Tuple{TraitWorld.Dynamic{TraitDifferentialEquations.ODECore.IntegratorView{T, P, Self} where Self where P where T}}, Nothing}}, Main.var"#17#18"})
+#=    9.7 ms =# precompile(Tuple{Main.var"#20#21"})
+[33m#=    3.0 ms =# precompile(Tuple{typeof(Base.getindex), Array{Float64, 1}, Int64}) # recompile[0m
+[33m#=    2.9 ms =# precompile(Tuple{typeof(Base.setindex!), Array{Float64, 1}, Float64, Int64}) # recompile[0m
+row 4 a new callback closure 26.1 ms
+#=    6.7 ms =# precompile(Tuple{Type{TraitWorld.Erased{Tuple{Array{Float64, 1}, Float64, TraitWorld.Dynamic{TraitDifferentialEquations.ODECore.IntegratorView{T, P, Self} where Self where P where T}}, Bool}}, Main.var"#24#25"})
+#=    5.6 ms =# precompile(Tuple{Type{TraitWorld.Erased{Tuple{TraitWorld.Dynamic{TraitDifferentialEquations.ODECore.IntegratorView{T, P, Self} where Self where P where T}}, Nothing}}, Main.var"#26#27"})
+#=    4.2 ms =# precompile(Tuple{Main.var"#29#30"})
+row 4 a second callback closure 10.6 ms
+#=  232.9 ms =# precompile(Tuple{Main.var"#32#33"})
+#=    7.2 ms =# precompile(Tuple{Type{TraitWorld.Erased{Tuple{Array{ForwardDiff.Dual{ForwardDiff.Tag{TraitDifferentialEquations.Sig{Tuple{Array{Float64, 1}}, Float64}, Float64}, Float64, 3}, 1}}, ForwardDiff.Dual{ForwardDiff.Tag{TraitDifferentialEquations.Sig{Tuple{Array{Float64, 1}}, Float64}, Float64}, Float64, 3}}}, typeof(Main.loss1)})
+#=    6.5 ms =# precompile(Tuple{Type{TraitWorld.Erased{Tuple{Array{ForwardDiff.Dual{ForwardDiff.Tag{TraitDifferentialEquations.Sig{Tuple{Array{Float64, 1}}, Float64}, Float64}, Float64, 3}, 1}, Array{ForwardDiff.Dual{ForwardDiff.Tag{TraitDifferentialEquations.Sig{Tuple{Array{Float64, 1}}, Float64}, Float64}, Float64, 3}, 1}, Array{ForwardDiff.Dual{ForwardDiff.Tag{TraitDifferentialEquations.Sig{Tuple{Array{Float64, 1}}, Float64}, Float64}, Float64, 3}, 1}, Float64}, Nothing}}, typeof(Main.lorenz!)})
+row 5 first gradient (Tsit5, 3 parameters) 267.1 ms
+#=   22.4 ms =# precompile(Tuple{Main.var"#35#36"})
+#=    6.0 ms =# precompile(Tuple{Type{TraitWorld.Erased{Tuple{Array{ForwardDiff.Dual{ForwardDiff.Tag{TraitDifferentialEquations.Sig{Tuple{Array{Float64, 1}}, Float64}, Float64}, Float64, 3}, 1}}, ForwardDiff.Dual{ForwardDiff.Tag{TraitDifferentialEquations.Sig{Tuple{Array{Float64, 1}}, Float64}, Float64}, Float64, 3}}}, typeof(Main.loss2)})
+[33m#=    4.5 ms =# precompile(Tuple{typeof(Base.getindex), Array{ForwardDiff.Dual{ForwardDiff.Tag{TraitDifferentialEquations.Sig{Tuple{Array{Float64, 1}}, Float64}, Float64}, Float64, 3}, 1}, Int64}) # recompile[0m
+[33m#=    4.4 ms =# precompile(Tuple{typeof(Base.:(*)), Float64, ForwardDiff.Dual{ForwardDiff.Tag{TraitDifferentialEquations.Sig{Tuple{Array{Float64, 1}}, Float64}, Float64}, Float64, 3}}) # recompile[0m
+row 5 a second loss closure 46.1 ms
+#=   23.7 ms =# precompile(Tuple{Main.var"#38#39"})
+#=    6.8 ms =# precompile(Tuple{Type{TraitWorld.Erased{Tuple{Array{ForwardDiff.Dual{ForwardDiff.Tag{TraitDifferentialEquations.Sig{Tuple{Array{Float64, 1}}, Float64}, Float64}, Float64, 3}, 1}}, ForwardDiff.Dual{ForwardDiff.Tag{TraitDifferentialEquations.Sig{Tuple{Array{Float64, 1}}, Float64}, Float64}, Float64, 3}}}, typeof(Main.loss3)})
+#=    6.4 ms =# precompile(Tuple{Type{TraitWorld.Erased{Tuple{Array{ForwardDiff.Dual{ForwardDiff.Tag{TraitDifferentialEquations.Sig{Tuple{Array{Float64, 1}}, Float64}, Float64}, Float64, 3}, 1}, Array{ForwardDiff.Dual{ForwardDiff.Tag{TraitDifferentialEquations.Sig{Tuple{Array{Float64, 1}}, Float64}, Float64}, Float64, 3}, 1}, Array{ForwardDiff.Dual{ForwardDiff.Tag{TraitDifferentialEquations.Sig{Tuple{Array{Float64, 1}}, Float64}, Float64}, Float64, 3}, 1}, Float64}, Nothing}}, typeof(Main.rossler!)})
+#=    9.9 ms =# precompile(Tuple{typeof(Base.sum), Function, Array{ForwardDiff.Dual{ForwardDiff.Tag{TraitDifferentialEquations.Sig{Tuple{Array{Float64, 1}}, Float64}, Float64}, Float64, 3}, 1}})
+#=    2.9 ms =# precompile(Tuple{typeof(Base.abs2), ForwardDiff.Dual{ForwardDiff.Tag{TraitDifferentialEquations.Sig{Tuple{Array{Float64, 1}}, Float64}, Float64}, Float64, 3}})
+#=   29.5 ms =# precompile(Tuple{typeof(Base._mapreduce), typeof(Base.abs2), typeof(Base.add_sum), Base.IndexLinear, Array{ForwardDiff.Dual{ForwardDiff.Tag{TraitDifferentialEquations.Sig{Tuple{Array{Float64, 1}}, Float64}, Float64}, Float64, 3}, 1}})
+row 5 a third loss, another model function 96.9 ms
+#=   30.7 ms =# precompile(Tuple{Main.var"#41#42"})
+#=    5.7 ms =# precompile(Tuple{Type{ForwardDiff.GradientConfig{T, V, N, D} where D where N where V where T}, typeof(Main.loss4), Array{Float64, 1}, ForwardDiff.Chunk{3}})
+#=   66.3 ms =# precompile(Tuple{typeof(ForwardDiff.gradient), typeof(Main.loss4), Array{Float64, 1}, ForwardDiff.GradientConfig{ForwardDiff.Tag{typeof(Main.loss4), Float64}, Float64, 3, Array{ForwardDiff.Dual{ForwardDiff.Tag{typeof(Main.loss4), Float64}, Float64, 3}, 1}}})
+#=   60.2 ms =# precompile(Tuple{typeof(TraitDifferentialEquations._solve_tsit5), Any, Array{Float64, 1}, Tuple{Float64, Float64}, TraitDifferentialEquations.ODECore.Tsit5, Array{ForwardDiff.Dual{ForwardDiff.Tag{typeof(Main.loss4), Float64}, Float64, 3}, 1}, Array{TraitWorld.Dynamic{TraitDifferentialEquations.ODECore.Callback{Self} where Self}, 1}, TraitDifferentialEquations.ODECore.SolverOptions})
+#=    3.7 ms =# precompile(Tuple{typeof(TraitWorld.dynamic_fn), Type{Tuple{Array{ForwardDiff.Dual{ForwardDiff.Tag{typeof(Main.loss4), Float64}, Float64, 3}, 1}, Array{ForwardDiff.Dual{ForwardDiff.Tag{typeof(Main.loss4), Float64}, Float64, 3}, 1}, Array{ForwardDiff.Dual{ForwardDiff.Tag{typeof(Main.loss4), Float64}, Float64, 3}, 1}, Float64}}, Type{Nothing}, Function})
+#=    8.2 ms =# precompile(Tuple{Type{TraitWorld.Erased{Tuple{Array{ForwardDiff.Dual{ForwardDiff.Tag{typeof(Main.loss4), Float64}, Float64, 3}, 1}, Array{ForwardDiff.Dual{ForwardDiff.Tag{typeof(Main.loss4), Float64}, Float64, 3}, 1}, Array{ForwardDiff.Dual{ForwardDiff.Tag{typeof(Main.loss4), Float64}, Float64, 3}, 1}, Float64}, Nothing}}, typeof(Main.lorenz!)})
+#=    2.5 ms =# precompile(Tuple{Type{ForwardDiff.Dual{ForwardDiff.Tag{typeof(Main.loss4), Float64}, V, N} where N where V}, Float64, ForwardDiff.Partials{3, Float64}})
+#=  344.2 ms =# precompile(Tuple{typeof(TraitWorld.checked_call), typeof(TraitDifferentialEquations.ODECore.solve_ode), TraitWorld.TObj{Union{TraitWorld.PTag{TraitDifferentialEquations.ODECore.ODEModel{T, Self} where Self where T, 1, ForwardDiff.Dual{ForwardDiff.Tag{typeof(Main.loss4), Float64}, Float64, 3}}, TraitDifferentialEquations.ODECore.ODEModel{T, Self} where Self where T}, Tuple{TraitWorld.Held{TraitDifferentialEquations.ODECore.ODEModel{ForwardDiff.Dual{ForwardDiff.Tag{typeof(Main.loss4), Float64}, Float64, 3}, TraitDifferentialEquations.ODECore.FunctionModel{Array{ForwardDiff.Dual{ForwardDiff.Tag{typeof(Main.loss4), Float64}, Float64, 3}, 1}, ForwardDiff.Dual{ForwardDiff.Tag{typeof(Main.loss4), Float64}, Float64, 3}, TraitWorld.CObj{Tuple{Array{ForwardDiff.Dual{ForwardDiff.Tag{typeof(Main.loss4), Float64}, Float64, 3}, 1}, Array{ForwardDiff.Dual{ForwardDiff.Tag{typeof(Main.loss4), Float64}, Float64, 3}, 1}, Array{ForwardDiff.Dual{ForwardDiff.Tag{typeof(Main.loss4), Float64}, Float64, 3}, 1}, Float64}, Nothing, TraitWorld.Erased{Tuple{Array{ForwardDiff.Dual{ForwardDiff.Tag{typeof(Main.loss4), Float64}, Float64, 3}, 1}, Array{ForwardDiff.Dual{ForwardDiff.Tag{typeof(Main.loss4), Float64}, Float64, 3}, 1}, Array{ForwardDiff.Dual{ForwardDiff.Tag{typeof(Main.loss4), Float64}, Float64, 3}, 1}, Float64}, Nothing}}}}, TraitWorld.Impl{(:jacobian!,)}, TraitDifferentialEquations.ODECore.FunctionModel{Array{ForwardDiff.Dual{ForwardDiff.Tag{typeof(Main.loss4), Float64}, Float64, 3}, 1}, ForwardDiff.Dual{ForwardDiff.Tag{typeof(Main.loss4), Float64}, Float64, 3}, TraitWorld.CObj{Tuple{Array{ForwardDiff.Dual{ForwardDiff.Tag{typeof(Main.loss4), Float64}, Float64, 3}, 1}, Array{ForwardDiff.Dual{ForwardDiff.Tag{typeof(Main.loss4), Float64}, Float64, 3}, 1}, Array{ForwardDiff.Dual{ForwardDiff.Tag{typeof(Main.loss4), Float64}, Float64, 3}, 1}, Float64}, Nothing, TraitWorld.Erased{Tuple{Array{ForwardDiff.Dual{ForwardDiff.Tag{typeof(Main.loss4), Float64}, Float64, 3}, 1}, Array{ForwardDiff.Dual{ForwardDiff.Tag{typeof(Main.loss4), Float64}, Float64, 3}, 1}, Array{ForwardDiff.Dual{ForwardDiff.Tag{typeof(Main.loss4), Float64}, Float64, 3}, 1}, Float64}, Nothing}}}, 0, Tuple{TraitDifferentialEquations.ODECore.FunctionModel{Array{ForwardDiff.Dual{ForwardDiff.Tag{typeof(Main.loss4), Float64}, Float64, 3}, 1}, ForwardDiff.Dual{ForwardDiff.Tag{typeof(Main.loss4), Float64}, Float64, 3}, TraitWorld.CObj{Tuple{Array{ForwardDiff.Dual{ForwardDiff.Tag{typeof(Main.loss4), Float64}, Float64, 3}, 1}, Array{ForwardDiff.Dual{ForwardDiff.Tag{typeof(Main.loss4), Float64}, Float64, 3}, 1}, Array{ForwardDiff.Dual{ForwardDiff.Tag{typeof(Main.loss4), Float64}, Float64, 3}, 1}, Float64}, Nothing, TraitWorld.Erased{Tuple{Array{ForwardDiff.Dual{ForwardDiff.Tag{typeof(Main.loss4), Float64}, Float64, 3}, 1}, Array{ForwardDiff.Dual{ForwardDiff.Tag{typeof(Main.loss4), Float64}, Float64, 3}, 1}, Array{ForwardDiff.Dual{ForwardDiff.Tag{typeof(Main.loss4), Float64}, Float64, 3}, 1}, Float64}, Nothing}}}}}}}, Array{ForwardDiff.Dual{ForwardDiff.Tag{typeof(Main.loss4), Float64}, Float64, 3}, 1}, Tuple{Float64, Float64}, TraitDifferentialEquations.ODECore.Tsit5, Array{ForwardDiff.Dual{ForwardDiff.Tag{typeof(Main.loss4), Float64}, Float64, 3}, 1}, Array{TraitWorld.Dynamic{TraitDifferentialEquations.ODECore.Callback{Self} where Self}, 1}, TraitDifferentialEquations.ODECore.SolverOptions})
+#=    2.2 ms =# precompile(Tuple{typeof(TraitWorld._keyfield), Type{TraitWorld.Key{Nothing, NamedTuple{(:u, :t, :p, :u_modified, :terminated), Tuple{Array{ForwardDiff.Dual{ForwardDiff.Tag{typeof(Main.loss4), Float64}, Float64, 3}, 1}, Float64, Array{ForwardDiff.Dual{ForwardDiff.Tag{typeof(Main.loss4), Float64}, Float64, 3}, 1}, Bool, Bool}}}}, Symbol})
+#=    4.2 ms =# precompile(Tuple{typeof(Base.getproperty), TraitDifferentialEquations.ODECore.ODESolution{ForwardDiff.Dual{ForwardDiff.Tag{typeof(Main.loss4), Float64}, Float64, 3}}, Symbol})
+#=    3.0 ms =# precompile(Tuple{typeof(Base.lastindex), Array{Array{ForwardDiff.Dual{ForwardDiff.Tag{typeof(Main.loss4), Float64}, Float64, 3}, 1}, 1}})
+#=    5.6 ms =# precompile(Tuple{typeof(Base.getindex), Array{Array{ForwardDiff.Dual{ForwardDiff.Tag{typeof(Main.loss4), Float64}, Float64, 3}, 1}, 1}, Int64})
+#=   28.3 ms =# precompile(Tuple{typeof(Base.sum), Array{ForwardDiff.Dual{ForwardDiff.Tag{typeof(Main.loss4), Float64}, Float64, 3}, 1}})
+#=    8.1 ms =# precompile(Tuple{ForwardDiff.var"##44#45", Vararg{Any, 4}})
+#=   22.8 ms =# precompile(Tuple{typeof(ForwardDiff.tupexpr), ForwardDiff.var"#47#48", Int64})
+#=   41.0 ms =# precompile(Tuple{typeof(Base.:(/)), ForwardDiff.Dual{ForwardDiff.Tag{typeof(Main.loss4), Float64}, Float64, 3}, Int64})
+[33m#=    3.9 ms =# precompile(Tuple{Type{Array{Float64, 1}}, UndefInitializer, Int64}) # recompile[0m
+#=    8.8 ms =# precompile(Tuple{typeof(ForwardDiff.extract_gradient!), Type{ForwardDiff.Tag{typeof(Main.loss4), Float64}}, Array{Float64, 1}, ForwardDiff.Dual{ForwardDiff.Tag{typeof(Main.loss4), Float64}, Float64, 3}})
+row 5 ForwardDiff's own tag (the loss's type), for comparison 748.6 ms
+#=   12.3 ms =# precompile(Tuple{Main.var"#44#45"})
+#=   30.1 ms =# precompile(Tuple{typeof(TraitDifferentialEquations._solve_tsit5), Any, Array{Float32, 1}, Tuple{Float64, Float64}, TraitDifferentialEquations.ODECore.Tsit5, Array{Float32, 1}, Array{TraitWorld.Dynamic{TraitDifferentialEquations.ODECore.Callback{Self} where Self}, 1}, TraitDifferentialEquations.ODECore.SolverOptions})
+#=    4.8 ms =# precompile(Tuple{typeof(TraitWorld.dynamic_fn), Type{Tuple{Array{Float32, 1}, Array{Float32, 1}, Array{Float32, 1}, Float64}}, Type{Nothing}, Function})
+#=    8.5 ms =# precompile(Tuple{Type{TraitWorld.Erased{Tuple{Array{Float32, 1}, Array{Float32, 1}, Array{Float32, 1}, Float64}, Nothing}}, typeof(Main.lorenz!)})
+#=  357.1 ms =# precompile(Tuple{typeof(TraitWorld.checked_call), typeof(TraitDifferentialEquations.ODECore.solve_ode), TraitWorld.TObj{Union{TraitWorld.PTag{TraitDifferentialEquations.ODECore.ODEModel{T, Self} where Self where T, 1, Float32}, TraitDifferentialEquations.ODECore.ODEModel{T, Self} where Self where T}, Tuple{TraitWorld.Held{TraitDifferentialEquations.ODECore.ODEModel{Float32, TraitDifferentialEquations.ODECore.FunctionModel{Array{Float32, 1}, Float32, TraitWorld.CObj{Tuple{Array{Float32, 1}, Array{Float32, 1}, Array{Float32, 1}, Float64}, Nothing, TraitWorld.Erased{Tuple{Array{Float32, 1}, Array{Float32, 1}, Array{Float32, 1}, Float64}, Nothing}}}}, TraitWorld.Impl{(:jacobian!,)}, TraitDifferentialEquations.ODECore.FunctionModel{Array{Float32, 1}, Float32, TraitWorld.CObj{Tuple{Array{Float32, 1}, Array{Float32, 1}, Array{Float32, 1}, Float64}, Nothing, TraitWorld.Erased{Tuple{Array{Float32, 1}, Array{Float32, 1}, Array{Float32, 1}, Float64}, Nothing}}}, 0, Tuple{TraitDifferentialEquations.ODECore.FunctionModel{Array{Float32, 1}, Float32, TraitWorld.CObj{Tuple{Array{Float32, 1}, Array{Float32, 1}, Array{Float32, 1}, Float64}, Nothing, TraitWorld.Erased{Tuple{Array{Float32, 1}, Array{Float32, 1}, Array{Float32, 1}, Float64}, Nothing}}}}}}}, Array{Float32, 1}, Tuple{Float64, Float64}, TraitDifferentialEquations.ODECore.Tsit5, Array{Float32, 1}, Array{TraitWorld.Dynamic{TraitDifferentialEquations.ODECore.Callback{Self} where Self}, 1}, TraitDifferentialEquations.ODECore.SolverOptions})
+#=    2.3 ms =# precompile(Tuple{typeof(TraitWorld._keyfield), Type{TraitWorld.Key{Nothing, NamedTuple{(:u, :t, :p, :u_modified, :terminated), Tuple{Array{Float32, 1}, Float64, Array{Float32, 1}, Bool, Bool}}}}, Symbol})
+row 6 a Float32 state, first solve 530.9 ms
+[33m#=   27.3 ms =# precompile(Tuple{typeof(Base._atexit), Int32}) # recompile[0m
+#=   10.1 ms =# precompile(Tuple{typeof(AdaptiveArrayPools.disable_auto_manage!)})
+#=   11.1 ms =# precompile(Tuple{Base.var"#645#646"{typeof(AdaptiveArrayPools._safe_auto_manage_sweep!), Base.Timer}})
+#=   10.6 ms =# precompile(Tuple{typeof(FreeTypeAbstraction.ft_done)})

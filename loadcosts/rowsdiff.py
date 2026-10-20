@@ -8,7 +8,7 @@ import re, sys
 from collections import defaultdict, OrderedDict
 ansi = re.compile(r'\x1b\[[0-9;]*m')
 ent = re.compile(r'#=\s*([0-9.]+) ms =# precompile\((.*?)\)( # recompile)?\n')
-rowre = re.compile(r'^row (\d+) (.*) ([0-9.]+) ms$')
+rowre = re.compile(r'^row (\d+) (.*?) ([0-9.]+) ms(?:, gc [0-9.]+ ms)?$')
 PRINT = ('typeof(Base.print)', 'typeof(Base.println)', 'typeof(Base.round)', 'PipeEndpoint')
 def parse(p):
     text = ansi.sub('', open(p, errors='replace').read())

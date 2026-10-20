@@ -94,3 +94,39 @@ No CodeInstance of the facts owner `:facts` was lost in any run (`tde-*.log`, "l
 | Date | Build | Result |
 |---|---|---|
 | 2026-10-20 | julia-1.13 3b8085c222, TraitWorld bed3782 | E-141: the four TDE slowdowns are three plain compilations each (the `_tw_type` recompile, the `_carries_static` generator compiled anew, the TDE `solve` front end recompile); with rows.jl unchanged, the trace accounts for each difference to ±3 ms. E-142: 369–386 ms = `CSV._parse` recompiled 320–334 ms (SparseArrays' `vcat`) + plain `return_type` inference 45–63 ms |
+
+## E-146: the fixes, measured (2026-10-20)
+
+The fixes of E-141, built and measured: TraitWorld 226db6a, TraitDifferentialEquations 99393b9, julia-1.13 3b8085c222, product setting, the round's environment.
+
+**The fixes:**
+- TraitWorld: `_tw_type` is `@machinery` (compiled by facts). The generators' code is written fully typed: the types they reflect on are asserted (`(P::DataType).parameters`, `::Int`), so the image's generators hold no edge at an abstract signature.
+- TraitDifferentialEquations: `solve(::ODEProblem, ::Tsit5)` calls `_solve_tsit5` behind a function barrier, compiled at the concrete state and parameter types.
+- `rows.jl` times each first call whole (`@first`), and reports the garbage collector's time per row.
+
+**Two lessons on the way** (`logs/rowswhole-after-fixes-gc.log`, `logs/snoop-*.log`, `logs/rows-none-1-*.log`):
+- **The garbage collector.** After the big loads, the first full collection over the larger heap (90–190 ms) falls into whichever row triggers it: the second model function or the first gradient. The tables below subtract it (`rowscompare.py --nogc`).
+- **Generator helpers compiled by facts were slower.** The first attempt marked the generators' helpers (`_carries`, `_decode_traits`, `_encode_traits`, the generator bodies) `@machinery`. That removed the invalidation, but the `Float32` row's worker compiled 36 ms slower: the helpers run many times while a large worker is inferred, and under facts each operation on an untyped value is a run-time site. Fully typed plain code removes the invalidation and keeps plain speed: step 1 of the argument (`../../writeup/design.md` §2.1).
+
+**Result** (ms, whole first calls, the garbage collector's time subtracted; two runs per order; `logs/rowswhole-before-fixes-gc.log` at load 1.3 against `logs/rowswhole-after-fixes4-gc.log` at load 1.1):
+
+| Row | Before: none / before / after | After: none / before / after |
+|---|---|---|
+| first Tsit5 solve | 39–41 / 57–61 / 36–37 | 25–26 / 25–26 / 24–26 |
+| a second model function | 30–31 / 29–30 / 56–57 | 19–21 / 19 / 23–25 |
+| a new model type: `@implement` | 63–66 / 254–259 / 68–70 | 66 / 69–70 / 70–74 |
+| a new model type: first solve | 334–358 / 376–402 / 331–336 | 340–371 / 335–338 / 338–350 |
+| first Rodas5 solve | 30 / 32–36 / 28–30 | 27–28 / 30–32 / 29–32 |
+| a new callback closure | 21 / 33–38 / 34–37 | 21 / 21–23 / 22–23 |
+| first gradient | 82–90 / 103–110 / 108 | 68–70 / 82–89 / 85–88 |
+| a second loss closure | 58 / 60–62 / 56 | 45–48 / 44–48 / 41–43 |
+| a third loss, another model function | 108 / 109–116 / 113–114 | 89–94 / 97 / 91–92 |
+| ForwardDiff's own tag | 707–711 / 730–878 / 706–710 | 671–678 / 696–703 / 686–689 |
+| a `Float32` state, first solve | 435 / 427–437 / 430–442 | 439–441 / 446–448 / 449–461 |
+
+- Every row but one is now the same in every load order, within the runs' spread.
+- What remains: the first gradient with loads, 82–89 against 68–70 ms (+15 ms); not diagnosed.
+- `Float32`'s first solve is 5–20 ms slower than before: the barrier compiles `_solve_tsit5` for each new state type.
+- The whole-call numbers are larger than `@elapsed`'s (evidence §3 before 2026-10-20): a new model type's first solve is 335–371 ms whole, against 44–46 ms inside `@elapsed`'s window.
+
+Scripts: `run_rows_whole.sh <tag>`, `rowscompare.py [--nogc] <logs…>`, `snoop_rows.jl` (inference per row with SnoopCompile, from an environment of its own in the scratch directory).
