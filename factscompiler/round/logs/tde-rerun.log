@@ -1,0 +1,105 @@
+### tde 02:30:34
+  1 dependency successfully precompiled in 2 seconds. 27 already precompiled.
+precompile /home/hellmann/Repos/julia-trait-bound/TraitDifferentialEquations/scripts/env 2.4 s
+-- rows none run 1
+using TraitDifferentialEquations 0.48 s
+row 1 first Tsit5 solve, a plain function 10.5 ms
+row 2 a second model function 10.3 ms
+row 2 a new model type: @implement 60.2 ms
+row 2 a new model type: first solve 46.1 ms
+row 3 first Rodas5 solve 17.9 ms
+row 4 a new callback closure 12.6 ms
+row 4 a second callback closure 5.4 ms
+row 5 first gradient (Tsit5, 3 parameters) 32.9 ms
+row 5 a second loss closure 18.0 ms
+row 5 a third loss, another model function 64.8 ms
+row 5 ForwardDiff's own tag (the loss's type), for comparison 609.3 ms
+row 6 a Float32 state, first solve 360.6 ms
+-- rows none run 2
+using TraitDifferentialEquations 0.49 s
+row 1 first Tsit5 solve, a plain function 10.7 ms
+row 2 a second model function 10.5 ms
+row 2 a new model type: @implement 62.5 ms
+row 2 a new model type: first solve 44.1 ms
+row 3 first Rodas5 solve 17.9 ms
+row 4 a new callback closure 12.8 ms
+row 4 a second callback closure 5.4 ms
+row 5 first gradient (Tsit5, 3 parameters) 33.5 ms
+row 5 a second loss closure 19.4 ms
+row 5 a third loss, another model function 66.7 ms
+row 5 ForwardDiff's own tag (the loss's type), for comparison 613.9 ms
+row 6 a Float32 state, first solve 367.1 ms
+-- rows before run 1
+loads 3.23 s
+using TraitDifferentialEquations 0.63 s
+row 1 first Tsit5 solve, a plain function 29.1 ms
+row 2 a second model function 11.6 ms
+row 2 a new model type: @implement 83.3 ms
+row 2 a new model type: first solve 96.6 ms
+row 3 first Rodas5 solve 19.2 ms
+row 4 a new callback closure 24.2 ms
+row 4 a second callback closure 5.5 ms
+row 5 first gradient (Tsit5, 3 parameters) 35.9 ms
+row 5 a second loss closure 20.1 ms
+row 5 a third loss, another model function 65.8 ms
+row 5 ForwardDiff's own tag (the loss's type), for comparison 790.6 ms
+row 6 a Float32 state, first solve 370.2 ms
+-- rows before run 2
+loads 3.21 s
+using TraitDifferentialEquations 0.63 s
+row 1 first Tsit5 solve, a plain function 29.0 ms
+row 2 a second model function 10.6 ms
+row 2 a new model type: @implement 80.7 ms
+row 2 a new model type: first solve 94.5 ms
+row 3 first Rodas5 solve 18.8 ms
+row 4 a new callback closure 23.8 ms
+row 4 a second callback closure 5.4 ms
+row 5 first gradient (Tsit5, 3 parameters) 37.3 ms
+row 5 a second loss closure 18.7 ms
+row 5 a third loss, another model function 65.8 ms
+row 5 ForwardDiff's own tag (the loss's type), for comparison 662.2 ms
+row 6 a Float32 state, first solve 368.4 ms
+-- rows after run 1
+using TraitDifferentialEquations 0.49 s
+row 1 first Tsit5 solve, a plain function 11.8 ms
+loads 3.65 s
+row 2 a second model function 30.7 ms
+row 2 a new model type: @implement 66.6 ms
+row 2 a new model type: first solve 47.2 ms
+row 3 first Rodas5 solve 18.6 ms
+row 4 a new callback closure 24.7 ms
+row 4 a second callback closure 5.5 ms
+row 5 first gradient (Tsit5, 3 parameters) 38.5 ms
+row 5 a second loss closure 18.4 ms
+row 5 a third loss, another model function 67.0 ms
+row 5 ForwardDiff's own tag (the loss's type), for comparison 632.7 ms
+row 6 a Float32 state, first solve 402.4 ms
+-- rows after run 2
+using TraitDifferentialEquations 0.49 s
+row 1 first Tsit5 solve, a plain function 10.7 ms
+loads 3.57 s
+row 2 a second model function 30.8 ms
+row 2 a new model type: @implement 67.0 ms
+row 2 a new model type: first solve 47.9 ms
+row 3 first Rodas5 solve 18.2 ms
+row 4 a new callback closure 24.6 ms
+row 4 a second callback closure 5.5 ms
+row 5 first gradient (Tsit5, 3 parameters) 36.7 ms
+row 5 a second loss closure 18.4 ms
+row 5 a third loss, another model function 66.8 ms
+row 5 ForwardDiff's own tag (the loss's type), for comparison 631.8 ms
+row 6 a Float32 state, first solve 400.7 ms
+-- runtime
+    @ ./module.jl:36 [inlined]
+  [6] _eval_import(imported::Bool, to::Module, from::Nothing, paths::Expr)
+    @ Base ./module.jl:111
+  [7] top-level scope
+    @ ~/Repos/julia-trait-bound/TraitDifferentialEquations/scripts/runtime.jl:6
+  [8] include(mod::Module, _path::String)
+    @ Base ./Base.jl:309
+  [9] exec_options(opts::Base.JLOptions)
+    @ Base ./client.jl:344
+ [10] _start()
+    @ Base ./client.jl:577
+in expression starting at /home/hellmann/Repos/julia-trait-bound/TraitDifferentialEquations/scripts/runtime.jl:6
+### done 02:31:11
