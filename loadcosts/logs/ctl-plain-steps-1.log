@@ -1,0 +1,15 @@
+mode: plain; loads: OffsetArrays StatsBase Unitful IntervalArithmetic Distributions Interpolations StaticArrays CairoMakie REPL
+work: first 3202.2 ms, again 0.6 ms
+loads 2.58 s; valid before 117591, lost 3616
+  lost by owner: nothing=3616
+  lost by module and owner: (:Base, "nothing")=2110 (:Compiler, "nothing")=803 (:DataFrames, "nothing")=389 (:CSV, "nothing")=123 (:Statistics, "nothing")=52 (:PooledArrays, "nothing")=24 (:PrettyTables, "nothing")=21 (:Tables, "nothing")=16 (:Artifacts, "nothing")=15 (:Printf, "nothing")=10 (:Main, "nothing")=8 (:LinearAlgebra, "nothing")=8 (:Downloads, "nothing")=8 (:ArgTools, "nothing")=7 (:StyledStrings, "nothing")=7 (:SentinelArrays, "nothing")=6 (:InvertedIndices, "nothing")=3 (:Parsers, "nothing")=3 (:PrecompileTools, "nothing")=2 (:OrderedCollections, "nothing")=1
+after the loads, step CSV.read: 2565.4 ms; compile 2564.9 ms, of it recompile 2564.9 ms; gc 63.6 ms
+after the loads, step describe: 312.9 ms; compile 312.6 ms, of it recompile 312.6 ms; gc 0.0 ms
+after the loads, step sort: 296.4 ms; compile 296.2 ms, of it recompile 296.2 ms; gc 156.6 ms
+after the loads, step combine: 656.1 ms; compile 793.1 ms, of it recompile 655.5 ms; gc 0.0 ms
+work again: 11.5 ms; compile 11.0 ms, of it recompile 11.0 ms; gc 0.0 ms
+new CodeInstances in the work after the loads: 919; again (their owner's CodeInstance was lost): 585
+  new by owner: nothing=919
+  again by owner: nothing=585
+  new, not again, by owner and module: ("nothing", :Base)=226 ("nothing", :StructArrays)=16 ("nothing", :StaticArrays)=16 ("nothing", :OffsetArrays)=16 ("nothing", :Core)=12 ("nothing", :Unitful)=9 ("nothing", :SparseArrays)=7 ("nothing", :FixedPointNumbers)=5 ("nothing", :StaticArraysCore)=4 ("nothing", :MappedArrays)=3 ("nothing", :ColorTypes)=3 ("nothing", :Printf)=3 ("nothing", :PrintfExt)=3 ("nothing", :Observables)=2 ("nothing", :FillArraysStatisticsExt)=2 ("nothing", :FilePathsBase)=2 ("nothing", :Main)=2 ("nothing", :ColorVectorSpace)=1 ("nothing", :GeometryBasics)=1 ("nothing", :CSVFilePathsBaseExt)=1
+  again by owner and module: ("nothing", :Base)=323 ("nothing", :CSV)=118 ("nothing", :DataFrames)=90 ("nothing", :Statistics)=17 ("nothing", :Printf)=10 ("nothing", :PooledArrays)=10 ("nothing", :Main)=4 ("nothing", :Tables)=4 ("nothing", :InvertedIndices)=3 ("nothing", :Parsers)=3 ("nothing", :Downloads)=3

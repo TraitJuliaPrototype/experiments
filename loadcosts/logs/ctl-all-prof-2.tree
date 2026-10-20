@@ -1,0 +1,465 @@
+Overhead ╎ [+additional indent] Count File:Line  Function
+=========================================================
+   ╎764  /home/hellmann/Repos/julia-trait-bound/julia-1.13/julia:?  _start
+   ╎ 764  /lib/x86_64-linux-gnu/libc.so.6:?  __libc_start_main
+   ╎  764  /lib/x86_64-linux-gnu/libc.so.6:?  
+   ╎   764  /home/hellmann/Repos/julia-trait-bound/julia-1.13/cli/loader_exe.c:58  main
+   ╎    764  @juliasrc/jlapi.c:1152  jl_repl_entrypoint
+   ╎     764  @juliasrc/jlapi.c:985  true_main
+   ╎    ╎ 764  @juliasrc/julia.h:2332  jl_apply
+   ╎    ╎  764  @julialib/julia/facts/sys.so:?  jfptr__start_70141
+   ╎    ╎   764  @Base/client.jl:577  _start()
+   ╎    ╎    764  @Base/client.jl:344  exec_options(opts::Base.JLOptions)
+   ╎    ╎     764  @Base/Base.jl:309  include(mod::Module, _path::String)
+   ╎    ╎    ╎ 764  @Base/loading.jl:3105  _include(mapexpr::Function, mod::Module, _path::String)
+   ╎    ╎    ╎  764  @Base/loading.jl:3045  include_string(mapexpr::typeof(identity), mod::Module, code::String, filename::String)
+   ╎    ╎    ╎   764  @Base/boot.jl:489  eval(m::Module, e::Any)
+   ╎    ╎    ╎    764  @juliasrc/toplevel.c:799  ijl_toplevel_eval_in
+   ╎    ╎    ╎     764  @juliasrc/toplevel.c:754  ijl_toplevel_eval
+   ╎    ╎    ╎    ╎ 764  @juliasrc/toplevel.c:683  jl_toplevel_eval_flex
+   ╎    ╎    ╎    ╎  763  @juliasrc/toplevel.c:585  jl_eval_toplevel_stmts
+   ╎    ╎    ╎    ╎   755  @juliasrc/toplevel.c:731  jl_toplevel_eval_flex
+   ╎    ╎    ╎    ╎    737  /home/hellmann/Repos/julia-trait-bound/experiments/loadcosts/ctl_diag.jl:116  top-level scope
+   ╎    ╎    ╎    ╎     25   @juliasrc/gf.c:4797  ijl_apply_generic
+   ╎    ╎    ╎    ╎    ╎ 25   @juliasrc/gf.c:4368  _jl_invoke
+   ╎    ╎    ╎    ╎    ╎  25   @juliasrc/gf.c:4354  _jl_invoke_owner
+   ╎    ╎    ╎    ╎    ╎   20   @juliasrc/gf.c:3873  jl_compile_method_internal_owner
+   ╎    ╎    ╎    ╎    ╎    20   @juliasrc/jitlayers.cpp:875  jl_compile_codeinst_impl
+   ╎    ╎    ╎    ╎    ╎     17   @juliasrc/jitlayers.cpp:681  jl_compile_codeinst_now
+   ╎    ╎    ╎    ╎    ╎    ╎ 11   @juliasrc/jitlayers.cpp:2130  addModule
+   ╎    ╎    ╎    ╎    ╎    ╎  11   @juliasrc/jitlayers.cpp:1627  operator()
+   ╎    ╎    ╎    ╎    ╎    ╎   11   @julialib/libLLVM.so.20.1jl:?  _ZN4llvm6legacy15PassManagerImpl3runERNS_6ModuleE
+   ╎    ╎    ╎    ╎    ╎    ╎    11   @julialib/libLLVM.so.20.1jl:?  _ZN4llvm13FPPassManager11runOnModuleERNS_6ModuleE
+   ╎    ╎    ╎    ╎    ╎    ╎     11   @julialib/libLLVM.so.20.1jl:?  _ZN4llvm13FPPassManager13runOnFunctionERNS_8FunctionE
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎ 10   @julialib/libLLVM.so.20.1jl:?  .plt
+   ╎    ╎    ╎    ╎     712  [unknown stackframe]
+   ╎    ╎    ╎    ╎    ╎ 712  /home/hellmann/Repos/julia-trait-bound/experiments/loadcosts/ctl_diag.jl:102  measured(::String, ::Function)
+   ╎    ╎    ╎    ╎    ╎  712  @Base/timing.jl:463  macro expansion
+   ╎    ╎    ╎    ╎    ╎   712  [unknown stackframe]
+   ╎    ╎    ╎    ╎    ╎    712  /home/hellmann/Repos/julia-trait-bound/experiments/loadcosts/ctl_diag.jl:49  (::var"#20#21")()
+   ╎    ╎    ╎    ╎    ╎     594  @CSV/src/api.jl:2301  read
+   ╎    ╎    ╎    ╎    ╎    ╎ 594  @CSV/src/api.jl:2301  read(source::String, sink::Type{DataFrame}; kw::Base.Pairs{Symbol, Union{}, Nothing, @NamedTuple{}})
+   ╎    ╎    ╎    ╎    ╎    ╎  594  @CSV/src/api.jl:1179  File
+   ╎    ╎    ╎    ╎    ╎    ╎   594  @CSV/src/api.jl:1193  #File#118
+   ╎    ╎    ╎    ╎    ╎    ╎    593  @CSV/src/api.jl:1240  _file(source::Any, types::Any, select::Any, drop::Any, scan::Any, pool::Any, downcast::Bool, transpose::Bool, stringtype::Type, on_error::Symbol, maxproblems::Int64, ntasks::Union{Nothing, Int64}, parallel::Bool, validate::Bool, kw::Any)
+   ╎    ╎    ╎    ╎    ╎    ╎     593  /tmp/claude-1000/depot-facts/compiled/v1.13/CSV/HHBkp_iJxwa.so:?  jfptr__filefromprepared_12252
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎ 593  @CSV/src/api.jl:1256  kwcall(::@NamedTuple{types::Nothing, select::Nothing, drop::Nothing, pool::Bool, downcast::Bool, stringtype::DataType, on_error::Symbol, maxproblems::Int64, parallel::Bool, ntasks::Nothing, validate::Bool}, ::typeof(CSV._filefromprepared…
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎  593  @CSV/src/api.jl:1263  _filefromprepared(s::CSV.IndexedSource, nm::String; types::Nothing, select::Nothing, drop::Nothing, pool::Bool, downcast::Bool, stringtype::Type, on_error::Symbol, maxproblems::Int64, parallel::Bool, validate::Bool, ntasks::Nothing, ava…
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎   593  /tmp/claude-1000/depot-facts/compiled/v1.13/CSV/HHBkp_iJxwa.so:?  jfptr__filefromprepared_12922
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    593  @CSV/src/api.jl:1285  _filefromprepared(s::CSV.IndexedSource, nm::String, types::Any, select::Any, drop::Any, pool::Any, downcast::Bool, stringtype::Type, on_error::Symbol, maxproblems::Int64, parallel::Bool, validate::Bool, ntasks::Union{Nothing, Int64}, …
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎     593  /tmp/claude-1000/depot-facts/compiled/v1.13/CSV/HHBkp_iJxwa.so:?  jfptr__parseprepared_12273
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎ 593  @CSV/src/api.jl:1124  kwcall(::@NamedTuple{parallel::Bool, ntasks::Nothing, validate::Bool, maxproblems::Int64}, ::typeof(CSV._parseprepared), s::CSV.IndexedSource, plan::CSV.ColumnPlan)
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎  593  @CSV/src/api.jl:1135  _parseprepared(s::CSV.IndexedSource, plan::CSV.ColumnPlan; parallel::Bool, ntasks::Nothing, validate::Bool, maxproblems::Int64, limit::Nothing, rowmask::Nothing, reportstructural::Bool)
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎   592  @juliasrc/gf.c:4797  ijl_apply_generic
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    592  @juliasrc/gf.c:4368  _jl_invoke
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎     592  @juliasrc/gf.c:4354  _jl_invoke_owner
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎ 110  @juliasrc/gf.c:3861  jl_compile_method_internal_owner
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎  110  @juliasrc/gf.c:498  jl_type_infer_owner
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎   110  @juliasrc/julia.h:2332  jl_apply
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    110  @julialib/julia/facts/sys.so:?  jfptr_typeinf_ext_toplevel_88250
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎     110  @Compiler/src/typeinfer.jl:1658  typeinf_ext_toplevel(mi::Core.MethodInstance, world::UInt64, source_mode::UInt8, trim_mode::UInt8, owner::Any)
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎ 91   @Compiler/src/typeinfer.jl:1647  typeinf_ext_toplevel
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎  90   @Compiler/src/typeinfer.jl:1420  typeinf_ext(interp::Compiler.NativeInterpreter, mi::Core.MethodInstance, source_mode::UInt8)
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎   35   @Compiler/src/abstractinterpretation.jl:4578  typeinf(interp::Compiler.NativeInterpreter, frame::Compiler.InferenceState)
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    35   @julialib/julia/facts/sys.so:?  jfptr_doworkloop_28350
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎     35   @Compiler/src/inferencestate.jl:1222  doworkloop(interp::Compiler.NativeInterpreter, sv::Compiler.InferenceState)
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎ 35   @julialib/julia/facts/sys.so:?  jfptr_handle1_86871
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎  35   @Compiler/src/abstractinterpretation.jl:202  (::Compiler.var"#handle1#abstract_call_gf_by_type##1"{Int64, Compiler.Future{Compiler.MethodCallResult}, Int64, Vector{Union{Nothing, Core.CodeInstance}}, Core.MethodMatch, Compiler.ArgInfo, Co…
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎   35   @Compiler/src/abstractinterpretation.jl:893  abstract_call_method_with_const_args
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    35   @Compiler/src/abstractinterpretation.jl:925  abstract_call_method_with_const_args(interp::Compiler.NativeInterpreter, result::Compiler.MethodCallResult, f::Any, arginfo::Compiler.ArgInfo, si::Compiler.StmtInfo, match::Core.MethodMatch, …
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎     35   @Compiler/src/abstractinterpretation.jl:1380  const_prop_call(interp::Compiler.NativeInterpreter, mi::Core.MethodInstance, result::Compiler.MethodCallResult, arginfo::Compiler.ArgInfo, sv::Compiler.InferenceState, concrete_eval_result:…
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎ 35   @Compiler/src/abstractinterpretation.jl:4587  typeinf(interp::Compiler.NativeInterpreter, frame::Compiler.InferenceState)
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎  35   @julialib/julia/facts/sys.so:?  jfptr_typeinf_local_93279
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎   35   @Compiler/src/abstractinterpretation.jl:4426  typeinf_local(interp::Compiler.NativeInterpreter, frame::Compiler.InferenceState, nextresult::Compiler.CurrentState)
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    35   @Compiler/src/abstractinterpretation.jl:3877  abstract_eval_basic_statement
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎     35   @Compiler/src/abstractinterpretation.jl:3920  abstract_eval_basic_statement
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎ 35   @Compiler/src/abstractinterpretation.jl:3523  abstract_eval_statement_expr(interp::Compiler.NativeInterpreter, e::Expr, sstate::Compiler.StatementState, sv::Compiler.InferenceState)
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎  35   @Compiler/src/abstractinterpretation.jl:3167  abstract_eval_call
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎   35   @Compiler/src/abstractinterpretation.jl:3149  abstract_call(interp::Compiler.NativeInterpreter, arginfo::Compiler.ArgInfo, sstate::Compiler.StatementState, sv::Compiler.InferenceState)
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    35   @Compiler/src/abstractinterpretation.jl:2989  abstract_call
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎     35   @Compiler/src/abstractinterpretation.jl:2996  abstract_call(interp::Compiler.NativeInterpreter, arginfo::Compiler.ArgInfo, si::Compiler.StmtInfo, sv::Compiler.InferenceState, max_methods::Int64)
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎ 35   @Compiler/src/abstractinterpretation.jl:2736  abstract_call_known(interp::Compiler.NativeInterpreter, f::Any, arginfo::Compiler.ArgInfo, si::Compiler.StmtInfo, sv::Compiler.InferenceState, max_methods::Int64)
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎  35   @Compiler/src/abstractinterpretation.jl:1960  abstract_apply(interp::Compiler.NativeInterpreter, argtypes::Vector{Any}, si::Compiler.StmtInfo, sv::Compiler.InferenceState)
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎   35   @Compiler/src/abstractinterpretation.jl:1940  (::Compiler.var"#infercalls#abstract_apply##0"{Compiler.StmtInfo, Compiler.Future{Compiler.CallMeta}, Compiler.UnionSplitApplyCallInfo, Vector{Compiler.ApplyCallInfo}, Bool, Ve…
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    35   @Compiler/src/abstractinterpretation.jl:2989  abstract_call
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎     35   @Compiler/src/abstractinterpretation.jl:2996  abstract_call(interp::Compiler.NativeInterpreter, arginfo::Compiler.ArgInfo, si::Compiler.StmtInfo, sv::Compiler.InferenceState, max_methods::Int64)
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎ 35   @Compiler/src/abstractinterpretation.jl:2890  abstract_call_known(interp::Compiler.NativeInterpreter, f::Any, arginfo::Compiler.ArgInfo, si::Compiler.StmtInfo, sv::Compiler.InferenceState, max_methods::Int64)
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎  35   @Compiler/src/abstractinterpretation.jl:362  abstract_call_gf_by_type(interp::Compiler.NativeInterpreter, func::Any, arginfo::Compiler.ArgInfo, si::Compiler.StmtInfo, atype::Any, sv::Compiler.InferenceState, max_method…
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎   35   @Compiler/src/abstractinterpretation.jl:276  (::Compiler.var"#infercalls#abstract_call_gf_by_type##0"{Compiler.ArgInfo, Compiler.StmtInfo, Compiler.CallInferenceState, Compiler.Future{Compiler.CallMeta}, Vector{Compil…
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    35   @Compiler/src/abstractinterpretation.jl:202  (::Compiler.var"#handle1#abstract_call_gf_by_type##1"{Int64, Compiler.Future{Compiler.MethodCallResult}, Int64, Vector{Union{Nothing, Core.CodeInstance}}, Core.MethodMatch…
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎     35   @Compiler/src/abstractinterpretation.jl:893  abstract_call_method_with_const_args
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎ 35   @Compiler/src/abstractinterpretation.jl:925  abstract_call_method_with_const_args(interp::Compiler.NativeInterpreter, result::Compiler.MethodCallResult, f::Any, arginfo::Compiler.ArgInfo, si::Compiler.StmtInfo, mat…
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎  35   @Compiler/src/abstractinterpretation.jl:1380  const_prop_call(interp::Compiler.NativeInterpreter, mi::Core.MethodInstance, result::Compiler.MethodCallResult, arginfo::Compiler.ArgInfo, sv::Compiler.InferenceState,…
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎   35   @Compiler/src/abstractinterpretation.jl:4587  typeinf(interp::Compiler.NativeInterpreter, frame::Compiler.InferenceState)
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    35   @julialib/julia/facts/sys.so:?  jfptr_typeinf_local_93279
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎     35   @Compiler/src/abstractinterpretation.jl:4426  typeinf_local(interp::Compiler.NativeInterpreter, frame::Compiler.InferenceState, nextresult::Compiler.CurrentState)
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎ 35   @Compiler/src/abstractinterpretation.jl:3877  abstract_eval_basic_statement
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎  35   @Compiler/src/abstractinterpretation.jl:3920  abstract_eval_basic_statement
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎   35   @Compiler/src/abstractinterpretation.jl:3523  abstract_eval_statement_expr(interp::Compiler.NativeInterpreter, e::Expr, sstate::Compiler.StatementState, sv::Compiler.InferenceState)
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    35   @Compiler/src/abstractinterpretation.jl:3167  abstract_eval_call
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎     35   @Compiler/src/abstractinterpretation.jl:3149  abstract_call(interp::Compiler.NativeInterpreter, arginfo::Compiler.ArgInfo, sstate::Compiler.StatementState, sv::Compiler.InferenceState)
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎ 35   @Compiler/src/abstractinterpretation.jl:2989  abstract_call
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎  35   @Compiler/src/abstractinterpretation.jl:2996  abstract_call(interp::Compiler.NativeInterpreter, arginfo::Compiler.ArgInfo, si::Compiler.StmtInfo, sv::Compiler.InferenceState, max_methods::Int64)
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎   35   @Compiler/src/abstractinterpretation.jl:2736  abstract_call_known(interp::Compiler.NativeInterpreter, f::Any, arginfo::Compiler.ArgInfo, si::Compiler.StmtInfo, sv::Compiler.InferenceState, max_methods::…
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    35   @Compiler/src/abstractinterpretation.jl:1960  abstract_apply(interp::Compiler.NativeInterpreter, argtypes::Vector{Any}, si::Compiler.StmtInfo, sv::Compiler.InferenceState)
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎     35   @Compiler/src/abstractinterpretation.jl:1940  (::Compiler.var"#infercalls#abstract_apply##0"{Compiler.StmtInfo, Compiler.Future{Compiler.CallMeta}, Compiler.UnionSplitApplyCallInfo, Vector{Compiler.Ap…
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎ 35   @Compiler/src/abstractinterpretation.jl:2989  abstract_call
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎  35   @Compiler/src/abstractinterpretation.jl:2996  abstract_call(interp::Compiler.NativeInterpreter, arginfo::Compiler.ArgInfo, si::Compiler.StmtInfo, sv::Compiler.InferenceState, max_methods::Int64)
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎   35   @Compiler/src/abstractinterpretation.jl:2890  abstract_call_known(interp::Compiler.NativeInterpreter, f::Any, arginfo::Compiler.ArgInfo, si::Compiler.StmtInfo, sv::Compiler.InferenceState, max_meth…
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    35   @Compiler/src/abstractinterpretation.jl:362  abstract_call_gf_by_type(interp::Compiler.NativeInterpreter, func::Any, arginfo::Compiler.ArgInfo, si::Compiler.StmtInfo, atype::Any, sv::Compiler.Infe…
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎     35   @Compiler/src/abstractinterpretation.jl:276  (::Compiler.var"#infercalls#abstract_call_gf_by_type##0"{Compiler.ArgInfo, Compiler.StmtInfo, Compiler.CallInferenceState, Compiler.Future{Compiler.Ca…
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎ 35   @Compiler/src/abstractinterpretation.jl:202  (::Compiler.var"#handle1#abstract_call_gf_by_type##1"{Int64, Compiler.Future{Compiler.MethodCallResult}, Int64, Vector{Union{Nothing, Core.CodeInstan…
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎  35   @Compiler/src/abstractinterpretation.jl:893  abstract_call_method_with_const_args
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎   35   @Compiler/src/abstractinterpretation.jl:925  abstract_call_method_with_const_args(interp::Compiler.NativeInterpreter, result::Compiler.MethodCallResult, f::Any, arginfo::Compiler.ArgInfo, si::…
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    35   @Compiler/src/abstractinterpretation.jl:1380  const_prop_call(interp::Compiler.NativeInterpreter, mi::Core.MethodInstance, result::Compiler.MethodCallResult, arginfo::Compiler.ArgInfo, sv::Co…
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎     18   @Compiler/src/abstractinterpretation.jl:4578  typeinf(interp::Compiler.NativeInterpreter, frame::Compiler.InferenceState)
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎ 18   @julialib/julia/facts/sys.so:?  jfptr_doworkloop_28350
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎  18   @Compiler/src/inferencestate.jl:1222  doworkloop(interp::Compiler.NativeInterpreter, sv::Compiler.InferenceState)
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎   18   @julialib/julia/facts/sys.so:?  jfptr_handle1_86871
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    18   @Compiler/src/abstractinterpretation.jl:202  (::Compiler.var"#handle1#abstract_call_gf_by_type##1"{Int64, Compiler.Future{Compiler.MethodCallResult}, Int64, Vector{Union{Nothing, Core.Co…
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎     18   @Compiler/src/abstractinterpretation.jl:893  abstract_call_method_with_const_args
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎ 18   @Compiler/src/abstractinterpretation.jl:925  abstract_call_method_with_const_args(interp::Compiler.NativeInterpreter, result::Compiler.MethodCallResult, f::Any, arginfo::Compiler.ArgIn…
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎  18   @Compiler/src/abstractinterpretation.jl:1380  const_prop_call(interp::Compiler.NativeInterpreter, mi::Core.MethodInstance, result::Compiler.MethodCallResult, arginfo::Compiler.ArgInfo…
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎   16   @Compiler/src/abstractinterpretation.jl:4587  typeinf(interp::Compiler.NativeInterpreter, frame::Compiler.InferenceState)
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    16   @julialib/julia/facts/sys.so:?  jfptr_typeinf_local_93279
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎     16   @Compiler/src/abstractinterpretation.jl:4426  typeinf_local(interp::Compiler.NativeInterpreter, frame::Compiler.InferenceState, nextresult::Compiler.CurrentState)
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎ 16   @Compiler/src/abstractinterpretation.jl:3877  abstract_eval_basic_statement
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎  16   @Compiler/src/abstractinterpretation.jl:3920  abstract_eval_basic_statement
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎   16   @Compiler/src/abstractinterpretation.jl:3523  abstract_eval_statement_expr(interp::Compiler.NativeInterpreter, e::Expr, sstate::Compiler.StatementState, sv::Compiler.InferenceSt…
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    16   @Compiler/src/abstractinterpretation.jl:3167  abstract_eval_call
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎     16   @Compiler/src/abstractinterpretation.jl:3149  abstract_call(interp::Compiler.NativeInterpreter, arginfo::Compiler.ArgInfo, sstate::Compiler.StatementState, sv::Compiler.Infere…
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎ 16   @Compiler/src/abstractinterpretation.jl:2989  abstract_call
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎  16   @Compiler/src/abstractinterpretation.jl:2996  abstract_call(interp::Compiler.NativeInterpreter, arginfo::Compiler.ArgInfo, si::Compiler.StmtInfo, sv::Compiler.InferenceState…
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎   9    @Compiler/src/abstractinterpretation.jl:2736  abstract_call_known(interp::Compiler.NativeInterpreter, f::Any, arginfo::Compiler.ArgInfo, si::Compiler.StmtInfo, sv::Compiler…
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    9    @Compiler/src/abstractinterpretation.jl:1960  abstract_apply(interp::Compiler.NativeInterpreter, argtypes::Vector{Any}, si::Compiler.StmtInfo, sv::Compiler.InferenceState)
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎     9    @Compiler/src/abstractinterpretation.jl:1940  (::Compiler.var"#infercalls#abstract_apply##0"{Compiler.StmtInfo, Compiler.Future{Compiler.CallMeta}, Compiler.UnionSplitApp…
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎ 9    @Compiler/src/abstractinterpretation.jl:2989  abstract_call
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎  9    @Compiler/src/abstractinterpretation.jl:2996  abstract_call(interp::Compiler.NativeInterpreter, arginfo::Compiler.ArgInfo, si::Compiler.StmtInfo, sv::Compiler.Inference…
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎   9    @Compiler/src/abstractinterpretation.jl:2890  abstract_call_known(interp::Compiler.NativeInterpreter, f::Any, arginfo::Compiler.ArgInfo, si::Compiler.StmtInfo, sv::Com…
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    9    @Compiler/src/abstractinterpretation.jl:362  abstract_call_gf_by_type(interp::Compiler.NativeInterpreter, func::Any, arginfo::Compiler.ArgInfo, si::Compiler.StmtInfo,…
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎     9    @Compiler/src/abstractinterpretation.jl:276  (::Compiler.var"#infercalls#abstract_call_gf_by_type##0"{Compiler.ArgInfo, Compiler.StmtInfo, Compiler.CallInferenceStat…
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎ 9    @Compiler/src/abstractinterpretation.jl:202  (::Compiler.var"#handle1#abstract_call_gf_by_type##1"{Int64, Compiler.Future{Compiler.MethodCallResult}, Int64, Vector{…
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎  9    @Compiler/src/abstractinterpretation.jl:893  abstract_call_method_with_const_args
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎   9    @Compiler/src/abstractinterpretation.jl:925  abstract_call_method_with_const_args(interp::Compiler.NativeInterpreter, result::Compiler.MethodCallResult, f::Any, a…
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    9    @Compiler/src/abstractinterpretation.jl:1380  const_prop_call(interp::Compiler.NativeInterpreter, mi::Core.MethodInstance, result::Compiler.MethodCallResult, arg…
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎     8    @Compiler/src/abstractinterpretation.jl:4587  typeinf(interp::Compiler.NativeInterpreter, frame::Compiler.InferenceState)
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎ 8    @julialib/julia/facts/sys.so:?  jfptr_typeinf_local_93279
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎  8    @Compiler/src/abstractinterpretation.jl:4426  typeinf_local(interp::Compiler.NativeInterpreter, frame::Compiler.InferenceState, nextresult::Compiler.CurrentSt…
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎   8    @Compiler/src/abstractinterpretation.jl:3877  abstract_eval_basic_statement
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    8    @Compiler/src/abstractinterpretation.jl:3920  abstract_eval_basic_statement
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎     8    @Compiler/src/abstractinterpretation.jl:3523  abstract_eval_statement_expr(interp::Compiler.NativeInterpreter, e::Expr, sstate::Compiler.StatementState, sv…
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎ 8    @Compiler/src/abstractinterpretation.jl:3167  abstract_eval_call
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎  8    @Compiler/src/abstractinterpretation.jl:3149  abstract_call(interp::Compiler.NativeInterpreter, arginfo::Compiler.ArgInfo, sstate::Compiler.StatementStat…
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎   8    @Compiler/src/abstractinterpretation.jl:2989  abstract_call
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    8    @Compiler/src/abstractinterpretation.jl:2996  abstract_call(interp::Compiler.NativeInterpreter, arginfo::Compiler.ArgInfo, si::Compiler.StmtInfo, sv::C…
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎     10   @Compiler/src/abstractinterpretation.jl:4587  typeinf(interp::Compiler.NativeInterpreter, frame::Compiler.InferenceState)
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎ 10   @julialib/julia/facts/sys.so:?  jfptr_typeinf_local_93279
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎  10   @Compiler/src/abstractinterpretation.jl:4426  typeinf_local(interp::Compiler.NativeInterpreter, frame::Compiler.InferenceState, nextresult::Compiler.CurrentState)
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎   10   @Compiler/src/abstractinterpretation.jl:3877  abstract_eval_basic_statement
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    10   @Compiler/src/abstractinterpretation.jl:3920  abstract_eval_basic_statement
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎     10   @Compiler/src/abstractinterpretation.jl:3523  abstract_eval_statement_expr(interp::Compiler.NativeInterpreter, e::Expr, sstate::Compiler.StatementState, sv::Compiler.InferenceState)
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎ 10   @Compiler/src/abstractinterpretation.jl:3167  abstract_eval_call
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎  10   @Compiler/src/abstractinterpretation.jl:3149  abstract_call(interp::Compiler.NativeInterpreter, arginfo::Compiler.ArgInfo, sstate::Compiler.StatementState, sv::Compiler.InferenceState)
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎   10   @Compiler/src/abstractinterpretation.jl:2989  abstract_call
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎   36   @Compiler/src/abstractinterpretation.jl:4587  typeinf(interp::Compiler.NativeInterpreter, frame::Compiler.InferenceState)
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    36   @julialib/julia/facts/sys.so:?  jfptr_typeinf_local_93279
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎     36   @Compiler/src/abstractinterpretation.jl:4426  typeinf_local(interp::Compiler.NativeInterpreter, frame::Compiler.InferenceState, nextresult::Compiler.CurrentState)
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎ 36   @Compiler/src/abstractinterpretation.jl:3877  abstract_eval_basic_statement
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎  36   @Compiler/src/abstractinterpretation.jl:3920  abstract_eval_basic_statement
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎   36   @Compiler/src/abstractinterpretation.jl:3523  abstract_eval_statement_expr(interp::Compiler.NativeInterpreter, e::Expr, sstate::Compiler.StatementState, sv::Compiler.InferenceState)
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    35   @Compiler/src/abstractinterpretation.jl:3167  abstract_eval_call
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎     35   @Compiler/src/abstractinterpretation.jl:3149  abstract_call(interp::Compiler.NativeInterpreter, arginfo::Compiler.ArgInfo, sstate::Compiler.StatementState, sv::Compiler.InferenceState)
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎ 35   @Compiler/src/abstractinterpretation.jl:2989  abstract_call
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎  35   @Compiler/src/abstractinterpretation.jl:2996  abstract_call(interp::Compiler.NativeInterpreter, arginfo::Compiler.ArgInfo, si::Compiler.StmtInfo, sv::Compiler.InferenceState, max_methods::Int64)
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎   31   @Compiler/src/abstractinterpretation.jl:2890  abstract_call_known(interp::Compiler.NativeInterpreter, f::Any, arginfo::Compiler.ArgInfo, si::Compiler.StmtInfo, sv::Compiler.InferenceState, max_methods::Int64)
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    28   @Compiler/src/abstractinterpretation.jl:362  abstract_call_gf_by_type(interp::Compiler.NativeInterpreter, func::Any, arginfo::Compiler.ArgInfo, si::Compiler.StmtInfo, atype::Any, sv::Compiler.InferenceState, max_methods::Int64)
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎     28   @Compiler/src/abstractinterpretation.jl:276  (::Compiler.var"#infercalls#abstract_call_gf_by_type##0"{Compiler.ArgInfo, Compiler.StmtInfo, Compiler.CallInferenceState, Compiler.Future{Compiler.CallMeta}, Vector{Compiler.MethodMatc…
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎ 28   @Compiler/src/abstractinterpretation.jl:202  (::Compiler.var"#handle1#abstract_call_gf_by_type##1"{Int64, Compiler.Future{Compiler.MethodCallResult}, Int64, Vector{Union{Nothing, Core.CodeInstance}}, Core.MethodMatch, Compiler.Ar…
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎  28   @Compiler/src/abstractinterpretation.jl:893  abstract_call_method_with_const_args
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎   26   @Compiler/src/abstractinterpretation.jl:925  abstract_call_method_with_const_args(interp::Compiler.NativeInterpreter, result::Compiler.MethodCallResult, f::Any, arginfo::Compiler.ArgInfo, si::Compiler.StmtInfo, match::Core.Meth…
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    26   @Compiler/src/abstractinterpretation.jl:1380  const_prop_call(interp::Compiler.NativeInterpreter, mi::Core.MethodInstance, result::Compiler.MethodCallResult, arginfo::Compiler.ArgInfo, sv::Compiler.InferenceState, concrete_eva…
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎     21   @Compiler/src/abstractinterpretation.jl:4587  typeinf(interp::Compiler.NativeInterpreter, frame::Compiler.InferenceState)
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎ 21   @julialib/julia/facts/sys.so:?  jfptr_typeinf_local_93279
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎  20   @Compiler/src/abstractinterpretation.jl:4426  typeinf_local(interp::Compiler.NativeInterpreter, frame::Compiler.InferenceState, nextresult::Compiler.CurrentState)
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎   20   @Compiler/src/abstractinterpretation.jl:3877  abstract_eval_basic_statement
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    20   @Compiler/src/abstractinterpretation.jl:3920  abstract_eval_basic_statement
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎     20   @Compiler/src/abstractinterpretation.jl:3523  abstract_eval_statement_expr(interp::Compiler.NativeInterpreter, e::Expr, sstate::Compiler.StatementState, sv::Compiler.InferenceState)
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎ 20   @Compiler/src/abstractinterpretation.jl:3167  abstract_eval_call
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎  20   @Compiler/src/abstractinterpretation.jl:3149  abstract_call(interp::Compiler.NativeInterpreter, arginfo::Compiler.ArgInfo, sstate::Compiler.StatementState, sv::Compiler.InferenceState)
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎   20   @Compiler/src/abstractinterpretation.jl:2989  abstract_call
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    20   @Compiler/src/abstractinterpretation.jl:2996  abstract_call(interp::Compiler.NativeInterpreter, arginfo::Compiler.ArgInfo, si::Compiler.StmtInfo, sv::Compiler.InferenceState, max_methods::Int64)
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎     20   @Compiler/src/abstractinterpretation.jl:2890  abstract_call_known(interp::Compiler.NativeInterpreter, f::Any, arginfo::Compiler.ArgInfo, si::Compiler.StmtInfo, sv::Compiler.InferenceState, max_methods::Int64)
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎ 19   @Compiler/src/abstractinterpretation.jl:362  abstract_call_gf_by_type(interp::Compiler.NativeInterpreter, func::Any, arginfo::Compiler.ArgInfo, si::Compiler.StmtInfo, atype::Any, sv::Compiler.InferenceState, max_me…
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎  19   @Compiler/src/abstractinterpretation.jl:276  (::Compiler.var"#infercalls#abstract_call_gf_by_type##0"{Compiler.ArgInfo, Compiler.StmtInfo, Compiler.CallInferenceState, Compiler.Future{Compiler.CallMeta}, Vector{Co…
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎   19   @Compiler/src/abstractinterpretation.jl:202  (::Compiler.var"#handle1#abstract_call_gf_by_type##1"{Int64, Compiler.Future{Compiler.MethodCallResult}, Int64, Vector{Union{Nothing, Core.CodeInstance}}, Core.MethodM…
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    19   @Compiler/src/abstractinterpretation.jl:893  abstract_call_method_with_const_args
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎     16   @Compiler/src/abstractinterpretation.jl:925  abstract_call_method_with_const_args(interp::Compiler.NativeInterpreter, result::Compiler.MethodCallResult, f::Any, arginfo::Compiler.ArgInfo, si::Compiler.StmtInfo,…
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎ 16   @Compiler/src/abstractinterpretation.jl:1380  const_prop_call(interp::Compiler.NativeInterpreter, mi::Core.MethodInstance, result::Compiler.MethodCallResult, arginfo::Compiler.ArgInfo, sv::Compiler.InferenceSt…
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎  16   @Compiler/src/abstractinterpretation.jl:4587  typeinf(interp::Compiler.NativeInterpreter, frame::Compiler.InferenceState)
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎   16   @julialib/julia/facts/sys.so:?  jfptr_typeinf_local_93279
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    16   @Compiler/src/abstractinterpretation.jl:4426  typeinf_local(interp::Compiler.NativeInterpreter, frame::Compiler.InferenceState, nextresult::Compiler.CurrentState)
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎     16   @Compiler/src/abstractinterpretation.jl:3877  abstract_eval_basic_statement
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎ 16   @Compiler/src/abstractinterpretation.jl:3920  abstract_eval_basic_statement
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎  16   @Compiler/src/abstractinterpretation.jl:3523  abstract_eval_statement_expr(interp::Compiler.NativeInterpreter, e::Expr, sstate::Compiler.StatementState, sv::Compiler.InferenceState)
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎   16   @Compiler/src/abstractinterpretation.jl:3167  abstract_eval_call
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    16   @Compiler/src/abstractinterpretation.jl:3149  abstract_call(interp::Compiler.NativeInterpreter, arginfo::Compiler.ArgInfo, sstate::Compiler.StatementState, sv::Compiler.InferenceState)
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎     16   @Compiler/src/abstractinterpretation.jl:2989  abstract_call
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎ 16   @Compiler/src/abstractinterpretation.jl:2996  abstract_call(interp::Compiler.NativeInterpreter, arginfo::Compiler.ArgInfo, si::Compiler.StmtInfo, sv::Compiler.InferenceState, max_methods::Int64)
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎  16   @Compiler/src/abstractinterpretation.jl:2890  abstract_call_known(interp::Compiler.NativeInterpreter, f::Any, arginfo::Compiler.ArgInfo, si::Compiler.StmtInfo, sv::Compiler.InferenceState, max_metho…
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎   16   @Compiler/src/abstractinterpretation.jl:362  abstract_call_gf_by_type(interp::Compiler.NativeInterpreter, func::Any, arginfo::Compiler.ArgInfo, si::Compiler.StmtInfo, atype::Any, sv::Compiler.Infer…
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    16   @Compiler/src/abstractinterpretation.jl:276  (::Compiler.var"#infercalls#abstract_call_gf_by_type##0"{Compiler.ArgInfo, Compiler.StmtInfo, Compiler.CallInferenceState, Compiler.Future{Compiler.Cal…
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎     16   @Compiler/src/abstractinterpretation.jl:202  (::Compiler.var"#handle1#abstract_call_gf_by_type##1"{Int64, Compiler.Future{Compiler.MethodCallResult}, Int64, Vector{Union{Nothing, Core.CodeInstanc…
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎ 16   @Compiler/src/abstractinterpretation.jl:893  abstract_call_method_with_const_args
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎  16   @Compiler/src/abstractinterpretation.jl:925  abstract_call_method_with_const_args(interp::Compiler.NativeInterpreter, result::Compiler.MethodCallResult, f::Any, arginfo::Compiler.ArgInfo, si::C…
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎   16   @Compiler/src/abstractinterpretation.jl:1380  const_prop_call(interp::Compiler.NativeInterpreter, mi::Core.MethodInstance, result::Compiler.MethodCallResult, arginfo::Compiler.ArgInfo, sv::Com…
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    10   @Compiler/src/abstractinterpretation.jl:4587  typeinf(interp::Compiler.NativeInterpreter, frame::Compiler.InferenceState)
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎     10   @julialib/julia/facts/sys.so:?  jfptr_typeinf_local_93279
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎ 10   @Compiler/src/abstractinterpretation.jl:4426  typeinf_local(interp::Compiler.NativeInterpreter, frame::Compiler.InferenceState, nextresult::Compiler.CurrentState)
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎  10   @Compiler/src/abstractinterpretation.jl:3877  abstract_eval_basic_statement
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎   10   @Compiler/src/abstractinterpretation.jl:3920  abstract_eval_basic_statement
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    10   @Compiler/src/abstractinterpretation.jl:3523  abstract_eval_statement_expr(interp::Compiler.NativeInterpreter, e::Expr, sstate::Compiler.StatementState, sv::Compiler.InferenceState)
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎     10   @Compiler/src/abstractinterpretation.jl:3167  abstract_eval_call
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎ 10   @Compiler/src/abstractinterpretation.jl:3149  abstract_call(interp::Compiler.NativeInterpreter, arginfo::Compiler.ArgInfo, sstate::Compiler.StatementState, sv::Compiler.InferenceState)
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎  10   @Compiler/src/abstractinterpretation.jl:2989  abstract_call
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎   10   @Compiler/src/abstractinterpretation.jl:2996  abstract_call(interp::Compiler.NativeInterpreter, arginfo::Compiler.ArgInfo, si::Compiler.StmtInfo, sv::Compiler.InferenceState, max_met…
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    10   @Compiler/src/abstractinterpretation.jl:2890  abstract_call_known(interp::Compiler.NativeInterpreter, f::Any, arginfo::Compiler.ArgInfo, si::Compiler.StmtInfo, sv::Compiler.Inferenc…
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎     10   @Compiler/src/abstractinterpretation.jl:362  abstract_call_gf_by_type(interp::Compiler.NativeInterpreter, func::Any, arginfo::Compiler.ArgInfo, si::Compiler.StmtInfo, atype::Any, s…
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎ 10   @Compiler/src/abstractinterpretation.jl:276  (::Compiler.var"#infercalls#abstract_call_gf_by_type##0"{Compiler.ArgInfo, Compiler.StmtInfo, Compiler.CallInferenceState, Compiler.Fu…
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎  10   @Compiler/src/abstractinterpretation.jl:202  (::Compiler.var"#handle1#abstract_call_gf_by_type##1"{Int64, Compiler.Future{Compiler.MethodCallResult}, Int64, Vector{Union{Nothing,…
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎   10   @Compiler/src/abstractinterpretation.jl:893  abstract_call_method_with_const_args
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    10   @Compiler/src/abstractinterpretation.jl:925  abstract_call_method_with_const_args(interp::Compiler.NativeInterpreter, result::Compiler.MethodCallResult, f::Any, arginfo::Compil…
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎     10   @Compiler/src/abstractinterpretation.jl:1380  const_prop_call(interp::Compiler.NativeInterpreter, mi::Core.MethodInstance, result::Compiler.MethodCallResult, arginfo::Compiler…
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎   19   @Compiler/src/abstractinterpretation.jl:4594  typeinf(interp::Compiler.NativeInterpreter, frame::Compiler.InferenceState)
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    19   @julialib/julia/facts/sys.so:?  jfptr_finish_nocycle_89017
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎     17   @Compiler/src/typeinfer.jl:231  finish_nocycle(::Compiler.NativeInterpreter, frame::Compiler.InferenceState, time_before::UInt64)
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎ 17   @julialib/julia/facts/sys.so:?  jfptr_optimize_90770
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎  17   @Compiler/src/optimize.jl:1039  optimize(interp::Compiler.NativeInterpreter, opt::Compiler.OptimizationState{Compiler.NativeInterpreter}, caller::Compiler.InferenceResult)
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎   17   @Compiler/src/optimize.jl:1066  run_passes_ipo_safe
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    17   @Compiler/src/optimize.jl:1053  run_passes_ipo_safe(ci::Core.CodeInfo, sv::Compiler.OptimizationState{Compiler.NativeInterpreter}, optimize_until::Nothing)
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎ 19   @Compiler/src/typeinfer.jl:1648  typeinf_ext_toplevel
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎  19   @Compiler/src/typeinfer.jl:1641  add_codeinsts_to_jit!(interp::Compiler.NativeInterpreter, ci::Core.CodeInstance, source_mode::UInt8)
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎   18   @juliasrc/jitlayers.cpp:819  jl_emit_codeinst_to_jit_impl
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    18   @juliasrc/codegen.cpp:10265  jl_emit_codeinst
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎     18   @juliasrc/codegen.cpp:10194  jl_emit_code
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎ 8    @juliasrc/codegen.cpp:9814  emit_function
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎  8    @juliasrc/codegen.cpp:6124  emit_ssaval_assign
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎ 482  @juliasrc/gf.c:3873  jl_compile_method_internal_owner
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎  482  @juliasrc/jitlayers.cpp:875  jl_compile_codeinst_impl
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎   479  @juliasrc/jitlayers.cpp:681  jl_compile_codeinst_now
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    289  @juliasrc/jitlayers.cpp:2117  addModule
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎     289  @juliasrc/jitlayers.cpp:1648  operator()
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎ 289  @juliasrc/jitlayers.cpp:1473  operator()
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎  289  …Repos/julia-trait-bound/julia-1.13/usr/include/llvm/ExecutionEngine/Orc/ThreadSafeModule.h:136  withModuleDo<(anonymous namespace)::sizedOptimizerT<4>::operator()(llvm::orc::ThreadSafeModule)::<lambda(llvm::Module&)> >
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎   289  @juliasrc/jitlayers.cpp:1512  operator()
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    289  @juliasrc/pipeline.cpp:792  run
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎     289  @julialib/libLLVM.so.20.1jl:?  _ZN4llvm11PassManagerINS_6ModuleENS_15AnalysisManagerIS1_JEEEJEE3runERS1_RS3_
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎ 289  …ome/hellmann/Repos/julia-trait-bound/julia-1.13/usr/include/llvm/IR/PassManagerInternal.h:91  run
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎  8    @juliasrc/llvm-remove-addrspaces.cpp:456  run
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎   8    @juliasrc/llvm-remove-addrspaces.cpp:430  run
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎  278  @julialib/libLLVM.so.20.1jl:?  _ZN4llvm27ModuleToFunctionPassAdaptor3runERNS_6ModuleERNS_15AnalysisManagerIS1_JEEE
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎   278  …me/hellmann/Repos/julia-trait-bound/julia-1.13/usr/include/llvm/IR/PassManagerInternal.h:91  run
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    278  @julialib/libLLVM.so.20.1jl:?  _ZN4llvm11PassManagerINS_8FunctionENS_15AnalysisManagerIS1_JEEEJEE3runERS1_RS3_
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎     277  …e/hellmann/Repos/julia-trait-bound/julia-1.13/usr/include/llvm/IR/PassManagerInternal.h:91  run
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎ 9    @julialib/libLLVM.so.20.1jl:?  _ZN4llvm12EarlyCSEPass3runERNS_8FunctionERNS_15AnalysisManagerIS1_JEEE
+  1╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎  8    @julialib/libLLVM.so.20.1jl:?  .plt
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎ 34   @julialib/libLLVM.so.20.1jl:?  _ZN4llvm15InstCombinePass3runERNS_8FunctionERNS_15AnalysisManagerIS1_JEEE
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎  34   @julialib/libLLVM.so.20.1jl:?  .plt
+  6╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎   32   @julialib/libLLVM.so.20.1jl:?  .plt
+  1╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    22   @julialib/libLLVM.so.20.1jl:?  .plt
+  2╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎     15   @julialib/libLLVM.so.20.1jl:?  .plt
+  1╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎ 10   @julialib/libLLVM.so.20.1jl:?  .plt
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎ 8    @julialib/libLLVM.so.20.1jl:?  _ZN4llvm15SimplifyCFGPass3runERNS_8FunctionERNS_15AnalysisManagerIS1_JEEE
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎  8    @julialib/libLLVM.so.20.1jl:?  .plt
+  1╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎   8    @julialib/libLLVM.so.20.1jl:?  .plt
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎ 23   @julialib/libLLVM.so.20.1jl:?  _ZN4llvm25FunctionToLoopPassAdaptor3runERNS_8FunctionERNS_15AnalysisManagerIS1_JEEE
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎  19   …/hellmann/Repos/julia-trait-bound/julia-1.13/usr/include/llvm/IR/PassManagerInternal.h:91  run
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎   18   @julialib/libLLVM.so.20.1jl:?  _ZN4llvm11PassManagerINS_4LoopENS_15AnalysisManagerIS1_JRNS_27LoopStandardAnalysisResultsEEEEJS4_RNS_10LPMUpdaterEEE3runERS1_RS5_S4_S7_
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    18   @julialib/libLLVM.so.20.1jl:?  _ZN4llvm11PassManagerINS_4LoopENS_15AnalysisManagerIS1_JRNS_27LoopStandardAnalysisResultsEEEEJS4_RNS_10LPMUpdaterEEE24runWithoutLoopNestPassesERS1_RS5_S4_S7_
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎     18   @julialib/libLLVM.so.20.1jl:?  .plt
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎ 18   …hellmann/Repos/julia-trait-bound/julia-1.13/usr/include/llvm/IR/PassManagerInternal.h:91  run
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎  8    @julialib/libLLVM.so.20.1jl:?  _ZN4llvm18IndVarSimplifyPass3runERNS_4LoopERNS_15AnalysisManagerIS1_JRNS_27LoopStandardAnalysisResultsEEEES5_RNS_10LPMUpdaterE
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎ 25   @julialib/libLLVM.so.20.1jl:?  _ZN4llvm7DSEPass3runERNS_8FunctionERNS_15AnalysisManagerIS1_JEEE
+  1╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎  23   @julialib/libLLVM.so.20.1jl:?  .plt
+  2╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎   21   @julialib/libLLVM.so.20.1jl:?  .plt
+  1╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    16   @julialib/libLLVM.so.20.1jl:?  .plt
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎     9    @julialib/libLLVM.so.20.1jl:?  _ZN4llvm9AAResults5aliasERKNS_14MemoryLocationES3_RNS_11AAQueryInfoEPKNS_11InstructionE
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎ 9    @julialib/libLLVM.so.20.1jl:?  _ZN4llvm13BasicAAResult5aliasERKNS_14MemoryLocationES3_RNS_11AAQueryInfoEPKNS_11InstructionE
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎  9    @julialib/libLLVM.so.20.1jl:?  _ZN4llvm13BasicAAResult10aliasCheckEPKNS_5ValueENS_12LocationSizeES3_S4_RNS_11AAQueryInfoEPKNS_11InstructionE
+  4╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎   8    @julialib/libLLVM.so.20.1jl:?  .plt
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎ 119  @julialib/libLLVM.so.20.1jl:?  _ZN4llvm7GVNPass3runERNS_8FunctionERNS_15AnalysisManagerIS1_JEEE
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎  119  @julialib/libLLVM.so.20.1jl:?  _ZN4llvm7GVNPass7runImplERNS_8FunctionERNS_15AssumptionCacheERNS_13DominatorTreeERKNS_17TargetLibraryInfoERNS_9AAResultsEPNS_23MemoryDependenceResultsERNS_8LoopInfoEPNS_25OptimizationRemarkEmitterEPNS_9…
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎   115  @julialib/libLLVM.so.20.1jl:?  _ZN4llvm7GVNPass12processBlockEPNS_10BasicBlockE
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    115  @julialib/libLLVM.so.20.1jl:?  _ZN4llvm7GVNPass18processInstructionEPNS_11InstructionE
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎     95   @julialib/libLLVM.so.20.1jl:?  .plt
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎ 91   @julialib/libLLVM.so.20.1jl:?  _ZN4llvm23MemoryDependenceResults28getNonLocalPointerDependencyEPNS_11InstructionERNS_15SmallVectorImplINS_17NonLocalDepResultEEE
+  1╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎  91   @julialib/libLLVM.so.20.1jl:?  _ZN4llvm23MemoryDependenceResults27getNonLocalPointerDepFromBBEPNS_11InstructionERKNS_12PHITransAddrERKNS_14MemoryLocationEbPNS_10BasicBlockERNS_15SmallVectorImplINS_17NonLocalDepResultEEERNS_13Sma…
+  1╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎   51   @julialib/libLLVM.so.20.1jl:?  _ZN4llvm23MemoryDependenceResults23getNonLocalInfoForBlockEPNS_11InstructionERKNS_14MemoryLocationEbPNS_10BasicBlockEPSt6vectorINS_16NonLocalDepEntryESaIS9_EEjRNS_14BatchAAResultsE
+  1╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    49   @julialib/libLLVM.so.20.1jl:?  _ZN4llvm23MemoryDependenceResults24getPointerDependencyFromERKNS_14MemoryLocationEbNS_21ilist_iterator_w_bitsINS_12ilist_detail12node_optionsINS_11InstructionELb0ELb0EvLb1ENS_10BasicBlockEEELb0EL…
+  4╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎     47   @julialib/libLLVM.so.20.1jl:?  _ZN4llvm23MemoryDependenceResults30getSimplePointerDependencyFromERKNS_14MemoryLocationEbNS_21ilist_iterator_w_bitsINS_12ilist_detail12node_optionsINS_11InstructionELb0ELb0EvLb1ENS_10BasicBlockE…
+  1╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎ 11   @julialib/libLLVM.so.20.1jl:?  _ZN4llvm9AAResults13getModRefInfoEPKNS_11InstructionERKSt8optionalINS_14MemoryLocationEERNS_11AAQueryInfoE
+  1╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎ 25   @julialib/libLLVM.so.20.1jl:?  _ZN4llvm9AAResults5aliasERKNS_14MemoryLocationES3_RNS_11AAQueryInfoEPKNS_11InstructionE
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎  20   @julialib/libLLVM.so.20.1jl:?  _ZN4llvm13BasicAAResult5aliasERKNS_14MemoryLocationES3_RNS_11AAQueryInfoEPKNS_11InstructionE
+  1╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎   20   @julialib/libLLVM.so.20.1jl:?  _ZN4llvm13BasicAAResult10aliasCheckEPKNS_5ValueENS_12LocationSizeES3_S4_RNS_11AAQueryInfoEPKNS_11InstructionE
+  6╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    9    @julialib/libLLVM.so.20.1jl:?  .plt
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    8    @julialib/libLLVM.so.20.1jl:?  _ZN4llvm13BasicAAResult19aliasCheckRecursiveEPKNS_5ValueENS_12LocationSizeES3_S4_RNS_11AAQueryInfoES3_S3_
+  2╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎   38   @julialib/libLLVM.so.20.1jl:?  _ZN4llvm23MemoryDependenceResults27getNonLocalPointerDepFromBBEPNS_11InstructionERKNS_12PHITransAddrERKNS_14MemoryLocationEbPNS_10BasicBlockERNS_15SmallVectorImplINS_17NonLocalDepResultEEERNS_13Sm…
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    33   @julialib/libLLVM.so.20.1jl:?  _ZN4llvm23MemoryDependenceResults23getNonLocalInfoForBlockEPNS_11InstructionERKNS_14MemoryLocationEbPNS_10BasicBlockEPSt6vectorINS_16NonLocalDepEntryESaIS9_EEjRNS_14BatchAAResultsE
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎     32   @julialib/libLLVM.so.20.1jl:?  _ZN4llvm23MemoryDependenceResults24getPointerDependencyFromERKNS_14MemoryLocationEbNS_21ilist_iterator_w_bitsINS_12ilist_detail12node_optionsINS_11InstructionELb0ELb0EvLb1ENS_10BasicBlockEEELb0E…
+  1╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎ 30   @julialib/libLLVM.so.20.1jl:?  _ZN4llvm23MemoryDependenceResults30getSimplePointerDependencyFromERKNS_14MemoryLocationEbNS_21ilist_iterator_w_bitsINS_12ilist_detail12node_optionsINS_11InstructionELb0ELb0EvLb1ENS_10BasicBlock…
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎  17   @julialib/libLLVM.so.20.1jl:?  _ZN4llvm9AAResults5aliasERKNS_14MemoryLocationES3_RNS_11AAQueryInfoEPKNS_11InstructionE
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎   13   @julialib/libLLVM.so.20.1jl:?  _ZN4llvm13BasicAAResult5aliasERKNS_14MemoryLocationES3_RNS_11AAQueryInfoEPKNS_11InstructionE
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    13   @julialib/libLLVM.so.20.1jl:?  _ZN4llvm13BasicAAResult10aliasCheckEPKNS_5ValueENS_12LocationSizeES3_S4_RNS_11AAQueryInfoEPKNS_11InstructionE
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎     9    @julialib/libLLVM.so.20.1jl:?  _ZN4llvm13BasicAAResult19aliasCheckRecursiveEPKNS_5ValueENS_12LocationSizeES3_S4_RNS_11AAQueryInfoES3_S3_
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎ 8    @julialib/libLLVM.so.20.1jl:?  _ZN4llvm13BasicAAResult8aliasGEPEPKNS_11GEPOperatorENS_12LocationSizeEPKNS_5ValueES4_S7_S7_RNS_11AAQueryInfoE
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎ 14   @julialib/libLLVM.so.20.1jl:?  _ZN4llvm8IRCEPass3runERNS_8FunctionERNS_15AnalysisManagerIS1_JEEE
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎  12   @julialib/libLLVM.so.20.1jl:?  .plt
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎   10   @julialib/libLLVM.so.20.1jl:?  _ZN4llvm15AnalysisManagerINS_8FunctionEJEE13getResultImplEPNS_11AnalysisKeyERS1_
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    10   @julialib/libLLVM.so.20.1jl:?  .plt
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎     10   @julialib/libLLVM.so.20.1jl:?  _ZN4llvm22BlockFrequencyAnalysis3runERNS_8FunctionERNS_15AnalysisManagerIS1_JEEE
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎ 10   @julialib/libLLVM.so.20.1jl:?  _ZN4llvm18BlockFrequencyInfo9calculateERKNS_8FunctionERKNS_21BranchProbabilityInfoERKNS_8LoopInfoE
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎  10   @julialib/libLLVM.so.20.1jl:?  _ZN4llvm22BlockFrequencyInfoImplINS_10BasicBlockEE9calculateERKNS_8FunctionERKNS_21BranchProbabilityInfoERKNS_8LoopInfoE
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    188  @juliasrc/jitlayers.cpp:2130  addModule
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎     186  @juliasrc/jitlayers.cpp:1627  operator()
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎ 186  @julialib/libLLVM.so.20.1jl:?  _ZN4llvm6legacy15PassManagerImpl3runERNS_6ModuleE
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎  184  @julialib/libLLVM.so.20.1jl:?  _ZN4llvm13FPPassManager11runOnModuleERNS_6ModuleE
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎   184  @julialib/libLLVM.so.20.1jl:?  _ZN4llvm13FPPassManager13runOnFunctionERNS_8FunctionE
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    166  @julialib/libLLVM.so.20.1jl:?  .plt
+  1╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎     78   @julialib/libLLVM.so.20.1jl:?  .plt
+  5╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎ 29   @julialib/libLLVM.so.20.1jl:?  .plt
+  1╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎  14   @julialib/libLLVM.so.20.1jl:?  .plt
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎ 33   @julialib/libLLVM.so.20.1jl:?  _ZN4llvm12RegAllocBase16allocatePhysRegsEv
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎  31   @julialib/libLLVM.so.20.1jl:?  .plt
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎   31   @julialib/libLLVM.so.20.1jl:?  .plt
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    31   @julialib/libLLVM.so.20.1jl:?  .plt
+  2╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎     29   @julialib/libLLVM.so.20.1jl:?  .plt
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎ 23   @julialib/libLLVM.so.20.1jl:?  .plt
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎  20   @julialib/libLLVM.so.20.1jl:?  .plt
+  2╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎   17   @julialib/libLLVM.so.20.1jl:?  .plt
+  2╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    12   @julialib/libLLVM.so.20.1jl:?  .plt
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎     16   @julialib/libLLVM.so.20.1jl:?  _ZN15LiveDebugValues16InstrRefBasedLDV12ExtendRangesERN4llvm15MachineFunctionEPNS1_20MachineDominatorTreeEPNS1_16TargetPassConfigEjj
+  2╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎ 9    @julialib/libLLVM.so.20.1jl:?  _ZN15LiveDebugValues16InstrRefBasedLDV17buildMLocValueMapERN4llvm15MachineFunctionERNS_14FuncValueTableES5_RNS1_15SmallVectorImplINS1_13SmallDenseMapINS_6LocIdxENS_10ValueIDNumELj4ENS1_12DenseMapInfoIS8_vEENS…
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎     58   @julialib/libLLVM.so.20.1jl:?  _ZN4llvm22SelectionDAGISelLegacy20runOnMachineFunctionERNS_15MachineFunctionE
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎ 58   @julialib/libLLVM.so.20.1jl:?  _ZN4llvm16SelectionDAGISel20runOnMachineFunctionERNS_15MachineFunctionE
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎  57   @julialib/libLLVM.so.20.1jl:?  _ZN4llvm16SelectionDAGISel20SelectAllBasicBlocksERKNS_8FunctionE
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎   13   @julialib/libLLVM.so.20.1jl:?  _ZN4llvm16SelectionDAGISel16SelectBasicBlockENS_21ilist_iterator_w_bitsINS_12ilist_detail12node_optionsINS_11InstructionELb0ELb0EvLb1ENS_10BasicBlockEEELb0ELb1EEES7_Rb
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    13   @julialib/libLLVM.so.20.1jl:?  _ZN4llvm19SelectionDAGBuilder5visitERKNS_11InstructionE
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎   43   @julialib/libLLVM.so.20.1jl:?  _ZN4llvm16SelectionDAGISel17CodeGenAndEmitDAGEv
+  7╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    21   @julialib/libLLVM.so.20.1jl:?  _ZN4llvm12SelectionDAG7CombineENS_12CombineLevelEPNS_14BatchAAResultsENS_15CodeGenOptLevelE
+  1╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎     14   @julialib/libLLVM.so.20.1jl:?  .plt
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎ 13   @julialib/libLLVM.so.20.1jl:?  .plt
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    9    @julialib/libLLVM.so.20.1jl:?  _ZN4llvm16SelectionDAGISel22DoInstructionSelectionEv
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎     9    @julialib/libLLVM.so.20.1jl:?  .plt
+  2╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎ 9    @julialib/libLLVM.so.20.1jl:?  _ZN4llvm16SelectionDAGISel16SelectCodeCommonEPNS_6SDNodeEPKhj
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    15   @julialib/libLLVM.so.20.1jl:?  _ZN4llvm13LPPassManager13runOnFunctionERNS_8FunctionE
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎     14   @julialib/libLLVM.so.20.1jl:?  .plt
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎ 14   @julialib/libLLVM.so.20.1jl:?  .plt
+  1╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎  10   @julialib/libLLVM.so.20.1jl:?  .plt
+  1╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎   8    @julialib/libLLVM.so.20.1jl:?  .plt
+   ╎    ╎    ╎    ╎    ╎     117  /tmp/claude-1000/depot-facts/compiled/v1.13/DataFrames/AR9oZ_z8ivW.so:?  jfptr_describe_21197
+   ╎    ╎    ╎    ╎    ╎    ╎ 117  @DataFrames/src/abstractdataframe/abstractdataframe.jl:695  describe(df::DataFrame)
+   ╎    ╎    ╎    ╎    ╎    ╎  117  @DataFrames/src/abstractdataframe/abstractdataframe.jl:695  #describe#69
+   ╎    ╎    ╎    ╎    ╎    ╎   116  @DataFrames/src/abstractdataframe/abstractdataframe.jl:741  _describe(df::DataFrame, stats::Vector{Any})
+   ╎    ╎    ╎    ╎    ╎    ╎    116  @Base/abstractarray.jl:3426  map
+   ╎    ╎    ╎    ╎    ╎    ╎     116  @Base/array.jl:815  collect(itr::Base.Generator{DataFrames.DataFrameColumns{DataFrame}, DataFrames.var"#_describe##12#_describe##13"{Vector{Symbol}, Vector{Any}}})
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎ 116  @julialib/julia/facts/sys.so:?  jfptr_return_type_24602
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎  116  @Compiler/src/typeinfer.jl:1785  return_type(f::Any, t::DataType)
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎   116  @juliasrc/gf.c:591  ijl_call_in_typeinf_world
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    116  @juliasrc/julia.h:2332  jl_apply
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎     116  @julialib/julia/facts/sys.so:?  jfptr__return_type_89258
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎ 116  @Compiler/src/typeinfer.jl:1812  _return_type(interp::Compiler.PlainRTInterp, t::DataType)
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎  116  @Compiler/src/typeinfer.jl:1439  typeinf_type
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎   116  @Compiler/src/typeinfer.jl:1442  typeinf_type
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    116  @Compiler/src/typeinfer.jl:1420  typeinf_ext(interp::Compiler.PlainRTInterp, mi::Core.MethodInstance, source_mode::UInt8)
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎     51   @Compiler/src/abstractinterpretation.jl:4587  typeinf(interp::Compiler.PlainRTInterp, frame::Compiler.InferenceState)
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎ 51   @julialib/julia/facts/sys.so:?  jfptr_typeinf_local_93236
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎  48   @Compiler/src/abstractinterpretation.jl:4426  typeinf_local(interp::Compiler.PlainRTInterp, frame::Compiler.InferenceState, nextresult::Compiler.CurrentState)
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎   48   @Compiler/src/abstractinterpretation.jl:3877  abstract_eval_basic_statement
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    48   @Compiler/src/abstractinterpretation.jl:3920  abstract_eval_basic_statement
+  1╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎     48   @Compiler/src/abstractinterpretation.jl:3523  abstract_eval_statement_expr(interp::Compiler.PlainRTInterp, e::Expr, sstate::Compiler.StatementState, sv::Compiler.InferenceState)
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎ 47   @Compiler/src/abstractinterpretation.jl:3167  abstract_eval_call
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎  47   @Compiler/src/abstractinterpretation.jl:3149  abstract_call(interp::Compiler.PlainRTInterp, arginfo::Compiler.ArgInfo, sstate::Compiler.StatementState, sv::Compiler.InferenceState)
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎   47   @Compiler/src/abstractinterpretation.jl:2989  abstract_call
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    44   @Compiler/src/abstractinterpretation.jl:2996  abstract_call(interp::Compiler.PlainRTInterp, arginfo::Compiler.ArgInfo, si::Compiler.StmtInfo, sv::Compiler.InferenceState, max_methods::Int64)
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎     8    @Compiler/src/abstractinterpretation.jl:2736  abstract_call_known(interp::Compiler.PlainRTInterp, f::Any, arginfo::Compiler.ArgInfo, si::Compiler.StmtInfo, sv::Compiler.InferenceState, max_methods::Int64)
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎     11   @Compiler/src/abstractinterpretation.jl:2889  abstract_call_known(interp::Compiler.PlainRTInterp, f::Any, arginfo::Compiler.ArgInfo, si::Compiler.StmtInfo, sv::Compiler.InferenceState, max_methods::Int64)
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎ 11   @Compiler/src/typeutils.jl:55  argtypes_to_type(argtypes::Vector{Any})
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎  11   @juliasrc/builtins.c:876  jl_f__apply_iterate
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎   11   @juliasrc/julia.h:2332  jl_apply
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    9    @juliasrc/gf.c:4793  ijl_apply_generic
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎     9    @juliasrc/gf.c:4708  jl_lookup_generic_
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎ 9    @juliasrc/gf.c:3390  lookup_arg_type_tuple
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎  9    @juliasrc/jltypes.c:1146  lookup_typevalue
+  9╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎   9    @juliasrc/jltypes.c:1074  lookup_type_setvalue
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎     24   @Compiler/src/abstractinterpretation.jl:2890  abstract_call_known(interp::Compiler.PlainRTInterp, f::Any, arginfo::Compiler.ArgInfo, si::Compiler.StmtInfo, sv::Compiler.InferenceState, max_methods::Int64)
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎ 10   @Compiler/src/abstractinterpretation.jl:132  abstract_call_gf_by_type(interp::Compiler.PlainRTInterp, func::Any, arginfo::Compiler.ArgInfo, si::Compiler.StmtInfo, atype::Any, sv::Compiler.InferenceState, max_methods::Int64)
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎  10   @Compiler/src/abstractinterpretation.jl:366  find_method_matches
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎   9    @Compiler/src/abstractinterpretation.jl:373  #find_method_matches#137
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    9    @Compiler/src/abstractinterpretation.jl:411  find_simple_method_matches(interp::Compiler.PlainRTInterp, atype::Any, max_methods::Int64)
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎     9    @Compiler/src/methodtable.jl:70  findall
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎ 9    @Compiler/src/methodtable.jl:70  #findall#5
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎  9    @Compiler/src/methodtable.jl:105  _findall
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎   9    @Base/runtime_internals.jl:1607  _methods_by_ftype
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    9    @juliasrc/gf.c:3431  ijl_matching_methods
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎     9    @juliasrc/gf.c:3444  ijl_matching_methods
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎ 9    @juliasrc/gf.c:5361  ml_matches
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎  9    @juliasrc/gf.c:5480  ml_matches
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎   8    @juliasrc/typemap.c:726  jl_typemap_intersection_visitor
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎ 13   @Compiler/src/abstractinterpretation.jl:362  abstract_call_gf_by_type(interp::Compiler.PlainRTInterp, func::Any, arginfo::Compiler.ArgInfo, si::Compiler.StmtInfo, atype::Any, sv::Compiler.InferenceState, max_methods::Int64)
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎  12   @Compiler/src/abstractinterpretation.jl:276  (::Compiler.var"#infercalls#abstract_call_gf_by_type##0"{Compiler.ArgInfo, Compiler.StmtInfo, Compiler.CallInferenceState, Compiler.Future{Compiler.CallMeta}, Vector{Compiler.MethodMatchTarget}…
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎   12   @Compiler/src/abstractinterpretation.jl:202  (::Compiler.var"#handle1#abstract_call_gf_by_type##1"{Int64, Compiler.Future{Compiler.MethodCallResult}, Int64, Vector{Union{Nothing, Core.CodeInstance}}, Core.MethodMatch, Compiler.ArgInfo, C…
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    12   @Compiler/src/abstractinterpretation.jl:893  abstract_call_method_with_const_args
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎     10   @Compiler/src/abstractinterpretation.jl:925  abstract_call_method_with_const_args(interp::Compiler.PlainRTInterp, result::Compiler.MethodCallResult, f::Any, arginfo::Compiler.ArgInfo, si::Compiler.StmtInfo, match::Core.MethodMatch, sv:…
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎ 9    @Compiler/src/abstractinterpretation.jl:1380  const_prop_call(interp::Compiler.PlainRTInterp, mi::Core.MethodInstance, result::Compiler.MethodCallResult, arginfo::Compiler.ArgInfo, sv::Compiler.InferenceState, concrete_eval_result::No…
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎     59   @Compiler/src/abstractinterpretation.jl:4594  typeinf(interp::Compiler.PlainRTInterp, frame::Compiler.InferenceState)
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎ 59   @julialib/julia/facts/sys.so:?  jfptr_finish_nocycle_89011
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎  57   @Compiler/src/typeinfer.jl:231  finish_nocycle(::Compiler.PlainRTInterp, frame::Compiler.InferenceState, time_before::UInt64)
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎   57   @julialib/julia/facts/sys.so:?  jfptr_optimize_90103
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    56   @Compiler/src/optimize.jl:1039  optimize(interp::Compiler.PlainRTInterp, opt::Compiler.OptimizationState{Compiler.PlainRTInterp}, caller::Compiler.InferenceResult)
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎     56   @Compiler/src/optimize.jl:1066  run_passes_ipo_safe
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎ 56   @Compiler/src/optimize.jl:1053  run_passes_ipo_safe(ci::Core.CodeInfo, sv::Compiler.OptimizationState{Compiler.PlainRTInterp}, optimize_until::Nothing)
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎  34   @Compiler/src/ssair/passes.jl:2162  adce_pass!(ir::Compiler.IRCode, inlining::Compiler.InliningState{Compiler.PlainRTInterp})
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎   34   @Compiler/src/ssair/ir.jl:1889  iterate
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    34   @Compiler/src/ssair/ir.jl:1967  iterate_compact(compact::Compiler.IncrementalCompact)
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎     33   @Compiler/src/ssair/ir.jl:1682  process_node!(compact::Compiler.IncrementalCompact, result_idx::Int64, inst::Compiler.Instruction, idx::Int64, processed_idx::Int64, active_bb::Int64, do_rename_ssa::Bool)
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎ 33   @Base/array.jl:459  getindex
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎  33   @Base/boot.jl:673  Array
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎   33   @Base/boot.jl:649  Array
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    33   @juliasrc/gc-stock.c:783  ijl_gc_small_alloc
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎     33   @juliasrc/gc-stock.c:734  jl_gc_small_alloc_inner
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎ 33   @juliasrc/gc-stock.c:355  maybe_collect
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎  33   @juliasrc/gc-stock.c:3563  ijl_gc_collect
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎   22   @juliasrc/gc-stock.c:3123  _jl_gc_collect
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    22   @juliasrc/gc-stock.c:2753  gc_mark_loop
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎     9    @juliasrc/gc-stock.c:2553  gc_drain_own_chunkqueue
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎ 9    @juliasrc/gc-stock.c:2035  gc_mark_chunk
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎  9    @juliasrc/gc-stock.c:1852  gc_mark_objarray
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎   9    @juliasrc/gc-stock.c:1698  gc_try_claim_and_push
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    9    @juliasrc/gc-stock.c:241  gc_try_setmark_tag
+  9╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎     9    @juliasrc/gc-common.h:144  gc_marked
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎     13   @juliasrc/gc-stock.c:2565  gc_mark_loop_serial
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎ 13   @juliasrc/gc-stock.c:2542  gc_mark_loop_serial_
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎   10   @juliasrc/gc-stock.c:3255  _jl_gc_collect
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    10   @juliasrc/gc-stock.c:1399  gc_sweep_pool
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎     10   @juliasrc/gc-stock.c:1294  gc_sweep_pool_parallel
+   ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎ 10   @juliasrc/gc-stock.c:1002  gc_sweep_pool_page
+   ╎    ╎    ╎    ╎    18   @juliasrc/gf.c:3958  jl_fptr_wait_for_compiled
+   ╎    ╎    ╎    ╎     18   @juliasrc/jitlayers.cpp:875  jl_compile_codeinst_impl
+   ╎    ╎    ╎    ╎    ╎ 17   @juliasrc/jitlayers.cpp:681  jl_compile_codeinst_now
+   ╎    ╎    ╎    ╎    ╎  12   @juliasrc/jitlayers.cpp:2130  addModule
+   ╎    ╎    ╎    ╎    ╎   11   @juliasrc/jitlayers.cpp:1627  operator()
+   ╎    ╎    ╎    ╎    ╎    11   @julialib/libLLVM.so.20.1jl:?  _ZN4llvm6legacy15PassManagerImpl3runERNS_6ModuleE
+   ╎    ╎    ╎    ╎    ╎     11   @julialib/libLLVM.so.20.1jl:?  _ZN4llvm13FPPassManager11runOnModuleERNS_6ModuleE
+   ╎    ╎    ╎    ╎    ╎    ╎ 11   @julialib/libLLVM.so.20.1jl:?  _ZN4llvm13FPPassManager13runOnFunctionERNS_8FunctionE
+   ╎    ╎    ╎    ╎    ╎    ╎  11   @julialib/libLLVM.so.20.1jl:?  .plt
+   ╎764  @juliasrc/task.c:1287  start_task
+   ╎ 764  @juliasrc/julia.h:2332  jl_apply
+   ╎  764  @julialib/julia/facts/sys.so:?  jfptr_wait_forever_72071
+   ╎   764  @Base/task.jl:1196  wait_forever()
+   ╎    764  @Base/task.jl:1297  wait()
+   ╎     764  @juliasrc/scheduler.c:614  ijl_task_get_next
+   ╎    ╎ 764  /workspace/srcdir/libuv/src/unix/thread.c:822  uv_cond_wait
+   ╎    ╎  764  /lib/x86_64-linux-gnu/libc.so.6:?  pthread_cond_wait
+   ╎    ╎   764  /lib/x86_64-linux-gnu/libc.so.6:?  
+   ╎    ╎    764  /lib/x86_64-linux-gnu/libc.so.6:?  
+763╎    ╎     764  /lib/x86_64-linux-gnu/libc.so.6:?  
+Total snapshots: 1528. Utilization: 50% across all threads and tasks. Use the `groupby` kwarg to break down by thread and/or task.

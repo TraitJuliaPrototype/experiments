@@ -1,0 +1,20 @@
+mode: all (facts); loads: OffsetArrays StatsBase Unitful IntervalArithmetic Distributions Interpolations StaticArrays CairoMakie REPL
+work: first 520.0 ms, again 0.8 ms
+loads 5.8 s; valid before 106855, lost 1758
+  lost by owner: nothing=1251 :facts_plain_return_type=507
+  lost by module and owner: (:Compiler, "nothing")=825 (:Base, ":facts_plain_return_type")=446 (:Base, "nothing")=424 (:DataFrames, ":facts_plain_return_type")=24 (:Statistics, ":facts_plain_return_type")=18 (:SentinelArrays, ":facts_plain_return_type")=12 (:PooledArrays, ":facts_plain_return_type")=4 (:InvertedIndices, ":facts_plain_return_type")=3 (:CSV, "nothing")=2
+work after the loads: 522.8 ms; compile 518.8 ms, of it recompile 433.6 ms; gc 18.9 ms
+work again: 1.0 ms; compile 0.0 ms, of it recompile 0.0 ms; gc 0.0 ms
+new CodeInstances in the work after the loads: 138; again (their owner's CodeInstance was lost): 62
+  new by owner: :facts_plain_return_type=100 nothing=38
+  again by owner: :facts_plain_return_type=61 nothing=1
+  new, not again, by owner and module: ("nothing", :Base)=22 (":facts_plain_return_type", :Base)=11 (":facts_plain_return_type", :FillArrays)=10 ("nothing", :Profile)=9 (":facts_plain_return_type", :ColorTypes)=5 (":facts_plain_return_type", :StaticArraysCore)=4 (":facts_plain_return_type", :StaticArrays)=3 ("nothing", :SparseArrays)=3 ("nothing", :Core)=2 (":facts_plain_return_type", :Core)=2 (":facts_plain_return_type", :FillArraysStatisticsExt)=2 (":facts_plain_return_type", :ColorVectorSpace)=1 (":facts_plain_return_type", :MappedArrays)=1 ("nothing", :Main)=1
+  again by owner and module: (":facts_plain_return_type", :Base)=41 (":facts_plain_return_type", :Statistics)=17 (":facts_plain_return_type", :DataFrames)=3 ("nothing", :CSV)=1
+profile: 1528 samples
+     549  35.9%  LLVM
+     233  15.2%  a typeinf frame
+     117  7.7%  NativeInterpreter (compilation)
+     116  7.6%  PlainRTInterp (run-time return_type)
+     116  7.6%  a return_type frame
+      44  2.9%  GC
+      15  1.0%  jl_matching_methods

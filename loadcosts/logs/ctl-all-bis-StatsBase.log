@@ -1,0 +1,15 @@
+mode: all (facts); loads: StatsBase
+work: first 508.9 ms, again 0.8 ms
+loads 0.35 s; valid before 106624, lost 88
+  lost by owner: :facts_plain_return_type=83 nothing=5
+  lost by module and owner: (:Base, ":facts_plain_return_type")=64 (:DataFrames, ":facts_plain_return_type")=12 (:SentinelArrays, ":facts_plain_return_type")=4 (:Base, "nothing")=3 (:Statistics, ":facts_plain_return_type")=3 (:CSV, "nothing")=2
+after the loads, step CSV.read: 330.8 ms; compile 329.8 ms, of it recompile 329.8 ms; gc 9.7 ms
+after the loads, step describe: 80.3 ms; compile 69.7 ms, of it recompile 0.0 ms; gc 10.1 ms
+after the loads, step sort: 0.1 ms; compile 0.0 ms, of it recompile 0.0 ms; gc 0.0 ms
+after the loads, step combine: 0.5 ms; compile 0.0 ms, of it recompile 0.0 ms; gc 0.0 ms
+work again: 1.0 ms; compile 0.0 ms, of it recompile 0.0 ms; gc 0.0 ms
+new CodeInstances in the work after the loads: 365; again (their owner's CodeInstance was lost): 56
+  new by owner: :facts_plain_return_type=343 nothing=22
+  again by owner: :facts_plain_return_type=55 nothing=1
+  new, not again, by owner and module: (":facts_plain_return_type", :Base)=242 (":facts_plain_return_type", :SparseArrays)=21 ("nothing", :Base)=15 (":facts_plain_return_type", :Core)=13 (":facts_plain_return_type", :Missings)=7 (":facts_plain_return_type", :LinearAlgebra)=5 ("nothing", :SparseArrays)=4 ("nothing", :Main)=2
+  again by owner and module: (":facts_plain_return_type", :Base)=45 (":facts_plain_return_type", :SentinelArrays)=4 (":facts_plain_return_type", :Statistics)=3 (":facts_plain_return_type", :DataFrames)=3 ("nothing", :CSV)=1

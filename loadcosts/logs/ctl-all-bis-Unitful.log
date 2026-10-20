@@ -1,0 +1,15 @@
+mode: all (facts); loads: Unitful
+work: first 529.7 ms, again 0.8 ms
+loads 0.11 s; valid before 106624, lost 487
+  lost by owner: nothing=404 :facts_plain_return_type=83
+  lost by module and owner: (:Compiler, "nothing")=404 (:Base, ":facts_plain_return_type")=60 (:DataFrames, ":facts_plain_return_type")=14 (:Statistics, ":facts_plain_return_type")=9
+after the loads, step CSV.read: 0.9 ms; compile 0.0 ms, of it recompile 0.0 ms; gc 0.0 ms
+after the loads, step describe: 22.9 ms; compile 22.5 ms, of it recompile 0.0 ms; gc 0.0 ms
+after the loads, step sort: 0.1 ms; compile 0.0 ms, of it recompile 0.0 ms; gc 0.0 ms
+after the loads, step combine: 0.5 ms; compile 0.0 ms, of it recompile 0.0 ms; gc 0.0 ms
+work again: 0.9 ms; compile 0.0 ms, of it recompile 0.0 ms; gc 0.0 ms
+new CodeInstances in the work after the loads: 59; again (their owner's CodeInstance was lost): 23
+  new by owner: :facts_plain_return_type=55 nothing=4
+  again by owner: :facts_plain_return_type=23
+  new, not again, by owner and module: (":facts_plain_return_type", :Unitful)=17 (":facts_plain_return_type", :Base)=15 ("nothing", :Base)=2 ("nothing", :Main)=2
+  again by owner and module: (":facts_plain_return_type", :Base)=11 (":facts_plain_return_type", :Statistics)=9 (":facts_plain_return_type", :DataFrames)=3

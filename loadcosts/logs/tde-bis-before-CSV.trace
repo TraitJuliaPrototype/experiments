@@ -1,0 +1,29 @@
+#### row 1 0 warm-up
+#=    4.0 ms =# precompile(Tuple{typeof(Base.getindex), Base.RefValue{Any}})
+#=    4.7 ms =# precompile(Tuple{typeof(Base.getproperty), Base.Order.By{Main.var"#tally##0#tally##1", Base.Order.ForwardOrdering}, Symbol})
+#=    2.8 ms =# precompile(Tuple{typeof(Base.getproperty), Base.Order.Lt{Base.Sort.var"#_sort!##10#_sort!##11"{Base.Order.By{Main.var"#tally##0#tally##1", Base.Order.ForwardOrdering}}}, Symbol})
+#=    5.0 ms =# precompile(Tuple{typeof(Base.getproperty), Base.Order.By{Main.var"#post##8#post##9", Base.Order.ForwardOrdering}, Symbol})
+#=    3.1 ms =# precompile(Tuple{typeof(Base.getproperty), Base.Order.Lt{Base.Sort.var"#_sort!##10#_sort!##11"{Base.Order.By{Main.var"#post##8#post##9", Base.Order.ForwardOrdering}}}, Symbol})
+#=  413.3 ms =# precompile(Tuple{typeof(Main.post), Int64, String, Any})
+#### row 1 1 first Tsit5 solve, a plain function
+#=    4.3 ms =# precompile(Tuple{Type{TraitDifferentialEquations.ODEProblem{F, U, P} where P where U where F}, typeof(Main.lorenz!), Array{Float64, 1}, Tuple{Float64, Float64}, Array{Float64, 1}})
+#=    6.2 ms =# precompile(Tuple{typeof(Base.getproperty), TraitDifferentialEquations.ODEProblem{typeof(Main.lorenz!), Float64, Array{Float64, 1}}, Symbol})
+[33m#=   21.1 ms =# precompile(Tuple{typeof(TraitWorld._tw_type), Any, Base.IdSet{Any}}) # recompile[0m
+#=    5.5 ms =# precompile(Tuple{Type{TraitWorld.Erased{Tuple{Array{Float64, 1}, Array{Float64, 1}, Array{Float64, 1}, Float64}, Nothing}}, typeof(Main.lorenz!)})
+#### row 2 2 a second model function
+#=    5.7 ms =# precompile(Tuple{Type{TraitWorld.Erased{Tuple{Array{Float64, 1}, Array{Float64, 1}, Array{Float64, 1}, Float64}, Nothing}}, typeof(Main.rossler!)})
+#### row 3 2 a new model type: @implement
+[33m#=    2.1 ms =# precompile(Tuple{typeof(Base.in), Symbol, Tuple{Symbol}}) # recompile[0m
+#=    4.5 ms =# precompile(Tuple{typeof(Base.getproperty), NamedTuple{(:b, :recs), Tuple{TraitWorld.Builder{Tuple{TraitWorld.VSpec{TraitDifferentialEquations.ODECore.ODEModel{Float64, Main.Lorenz}, TraitWorld.Impl{(:jacobian!,)}, Main.Lorenz, 0, Tuple{Main.Lorenz}, true}}}, Tuple{Tuple{UnionAll, typeof(DataType), Tuple{Symbol}}}}}, Symbol})
+#=    2.8 ms =# precompile(Tuple{Type{NamedTuple{(:time, :compile_time, :recompile_time, :gctime), T} where T<:Tuple}, NTuple{4, Float64}})
+#=    3.1 ms =# precompile(Tuple{typeof(Main.rec), NamedTuple{(:time, :compile_time, :recompile_time, :gctime), NTuple{4, Float64}}})
+#### row 4 2 a new model type: first solve
+#=    3.7 ms =# precompile(Tuple{Type{Main.Lorenz}, Float64, Float64, Float64})
+#=    3.6 ms =# precompile(Tuple{typeof(TraitWorld.enter), TraitWorld.EntryPos{typeof(TraitDifferentialEquations.ODECore.solve_ode), 1, 7}, Main.Lorenz})
+#=    3.1 ms =# precompile(Tuple{typeof(TraitWorld._keyfield), Type{TraitWorld.Key{Nothing, NamedTuple{(:u, :t, :p, :u_modified, :terminated), Tuple{Array{Float64, 1}, Float64, Main.Lorenz, Bool, Bool}}}}, Symbol})
+#### row 5 3 first Rodas5 solve
+#=    7.4 ms =# precompile(Tuple{Type{TraitWorld.Erased{Tuple{Array{ForwardDiff.Dual{TraitDifferentialEquations.ODECore.ODETag, Float64, 3}, 1}, Array{ForwardDiff.Dual{TraitDifferentialEquations.ODECore.ODETag, Float64, 3}, 1}, Array{Float64, 1}, Float64}, Nothing}}, typeof(Main.lorenz!)})
+#### row 6 4 a new callback closure
+[33m#=    3.1 ms =# precompile(Tuple{typeof(Base.getindex), Array{Float64, 1}, Int64}) # recompile[0m
+[33m#=    2.6 ms =# precompile(Tuple{typeof(Base.setindex!), Array{Float64, 1}, Float64, Int64}) # recompile[0m
+#### row 7 4 a second callback closure

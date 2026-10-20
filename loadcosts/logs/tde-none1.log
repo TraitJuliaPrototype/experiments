@@ -1,0 +1,28 @@
+row 0 warm-up 0.0 ms  [inner: compile 0.0 recompile 0.0 gc 0.0 | outer 416.2 ms, compile 413.8 recompile 0.0 | new CIs 395 again 0]
+    by owner: nothing=395
+    by module: Base=352 Core=24 Main=19
+mode none loads CSV DataFrames CairoMakie  facts=false
+using TraitDifferentialEquations 0.52 s; valid CIs before 67262, lost 508 (by owner: nothing=508)
+    lost by module: (:Compiler, "nothing")=397 (:Base, "nothing")=111
+    image-validation log: 0 entries; tags 
+row 1 first Tsit5 solve, a plain function 12.8 ms  [inner: compile 10.6 recompile 0.0 gc 0.0 | outer 44.2 ms, compile 40.2 recompile 0.0 | new CIs 31 again 0]
+    by owner: nothing=31
+    by module: Base=15 TraitWorld=10 TraitDifferentialEquations=5 Main=1
+row 2 a second model function 12.5 ms  [inner: compile 10.5 recompile 0.0 gc 0.0 | outer 34.0 ms, compile 29.9 recompile 0.0 | new CIs 28 again 0]
+    by owner: nothing=28
+    by module: Base=12 TraitWorld=10 TraitDifferentialEquations=5 Main=1
+row 2 a new model type: @implement 71.7 ms  [inner: compile 66.0 recompile 2.0 gc 0.0 | outer 96.9 ms, compile 89.9 recompile 2.0 | new CIs 69 again 0]
+    by owner: nothing=37 :facts=32
+    by module: Base=33 TraitWorld=24 Main=5 Core=4 TraitDifferentialEquations=3
+row 2 a new model type: first solve 49.1 ms  [inner: compile 38.3 recompile 0.1 gc 0.0 | outer 335.1 ms, compile 310.2 recompile 0.1 | new CIs 127 again 0]
+    by owner: :facts=113 nothing=14
+    by module: Base=75 TraitWorld=30 TraitDifferentialEquations=15 Main=3 Core=3 Compiler=1
+row 3 first Rodas5 solve 19.2 ms  [inner: compile 16.7 recompile 0.0 gc 0.0 | outer 34.2 ms, compile 30.0 recompile 0.0 | new CIs 23 again 0]
+    by owner: nothing=21 :facts=2
+    by module: TraitWorld=13 TraitDifferentialEquations=7 Base=2 Main=1
+row 4 a new callback closure 14.5 ms  [inner: compile 12.7 recompile 5.7 gc 0.0 | outer 24.8 ms, compile 21.2 recompile 5.7 | new CIs 0 again 0]
+    by owner: 
+    by module: 
+row 4 a second callback closure 6.2 ms  [inner: compile 4.6 recompile 0.0 gc 0.0 | outer 16.8 ms, compile 13.4 recompile 0.0 | new CIs 0 again 0]
+    by owner: 
+    by module: 

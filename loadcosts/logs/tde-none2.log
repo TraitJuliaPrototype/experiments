@@ -1,0 +1,28 @@
+row 0 warm-up 0.0 ms  [inner: compile 0.0 recompile 0.0 gc 0.0 | outer 1631.2 ms, compile 1629.2 recompile 0.0 gc 49.0 | new CIs 456 again 0]
+    by owner: nothing=456
+    by module: Base=380 Profile=29 Core=26 Main=21
+mode none loads CSV DataFrames CairoMakie  facts=false
+using TraitDifferentialEquations 0.48 s; valid CIs before 71999, lost 513 (by owner: nothing=513)
+    lost by module: (:Compiler, "nothing")=397 (:Base, "nothing")=114 (:StyledStrings, "nothing")=2
+    image-validation log: 0 entries; tags 
+row 1 first Tsit5 solve, a plain function 11.1 ms  [inner: compile 9.2 recompile 0.0 gc 0.0 | outer 41.8 ms, compile 38.2 recompile 0.0 gc 0.0 | new CIs 31 again 0]
+    by owner: nothing=31
+    by module: Base=15 TraitWorld=10 TraitDifferentialEquations=5 Main=1
+row 2 a second model function 11.0 ms  [inner: compile 9.2 recompile 0.0 gc 0.0 | outer 31.7 ms, compile 28.1 recompile 0.0 gc 0.0 | new CIs 28 again 0]
+    by owner: nothing=28
+    by module: Base=12 TraitWorld=10 TraitDifferentialEquations=5 Main=1
+row 2 a new model type: @implement 68.5 ms  [inner: compile 63.0 recompile 2.4 gc 0.0 | outer 92.7 ms, compile 85.9 recompile 2.4 gc 0.0 | new CIs 69 again 0]
+    by owner: nothing=37 :facts=32
+    by module: Base=33 TraitWorld=24 Main=5 Core=4 TraitDifferentialEquations=3
+row 2 a new model type: first solve 47.7 ms  [inner: compile 36.8 recompile 0.1 gc 0.0 | outer 326.8 ms, compile 302.4 recompile 0.1 gc 0.0 | new CIs 127 again 0]
+    by owner: :facts=113 nothing=14
+    by module: Base=75 TraitWorld=30 TraitDifferentialEquations=15 Main=3 Core=3 Compiler=1
+row 3 first Rodas5 solve 20.6 ms  [inner: compile 17.8 recompile 0.0 gc 0.0 | outer 34.5 ms, compile 30.0 recompile 0.0 gc 0.0 | new CIs 23 again 0]
+    by owner: nothing=21 :facts=2
+    by module: TraitWorld=13 TraitDifferentialEquations=7 Base=2 Main=1
+row 4 a new callback closure 13.3 ms  [inner: compile 11.7 recompile 5.1 gc 0.0 | outer 22.9 ms, compile 19.5 recompile 5.1 gc 0.0 | new CIs 0 again 0]
+    by owner: 
+    by module: 
+row 4 a second callback closure 5.7 ms  [inner: compile 4.2 recompile 0.0 gc 0.0 | outer 15.4 ms, compile 12.2 recompile 0.0 gc 0.0 | new CIs 0 again 0]
+    by owner: 
+    by module: 

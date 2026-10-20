@@ -1,0 +1,15 @@
+mode: all (facts); loads: Interpolations
+work: first 544.1 ms, again 0.8 ms
+loads 0.56 s; valid before 106624, lost 854
+  lost by owner: nothing=506 :facts_plain_return_type=348
+  lost by module and owner: (:Compiler, "nothing")=404 (:Base, ":facts_plain_return_type")=299 (:Base, "nothing")=100 (:DataFrames, ":facts_plain_return_type")=18 (:Statistics, ":facts_plain_return_type")=12 (:SentinelArrays, ":facts_plain_return_type")=12 (:PooledArrays, ":facts_plain_return_type")=4 (:InvertedIndices, ":facts_plain_return_type")=3 (:CSV, "nothing")=2
+after the loads, step CSV.read: 336.2 ms; compile 335.1 ms, of it recompile 335.1 ms; gc 8.8 ms
+after the loads, step describe: 28.8 ms; compile 28.4 ms, of it recompile 0.0 ms; gc 0.0 ms
+after the loads, step sort: 0.1 ms; compile 0.0 ms, of it recompile 0.0 ms; gc 0.0 ms
+after the loads, step combine: 0.6 ms; compile 0.0 ms, of it recompile 0.0 ms; gc 0.0 ms
+work again: 0.9 ms; compile 0.0 ms, of it recompile 0.0 ms; gc 0.0 ms
+new CodeInstances in the work after the loads: 115; again (their owner's CodeInstance was lost): 46
+  new by owner: :facts_plain_return_type=93 nothing=22
+  again by owner: :facts_plain_return_type=45 nothing=1
+  new, not again, by owner and module: (":facts_plain_return_type", :StaticArrays)=19 ("nothing", :Base)=15 (":facts_plain_return_type", :StaticArraysCore)=12 (":facts_plain_return_type", :Base)=8 (":facts_plain_return_type", :StaticArraysStatisticsExt)=6 ("nothing", :SparseArrays)=4 (":facts_plain_return_type", :Core)=2 ("nothing", :Main)=2 (":facts_plain_return_type", :SparseArrays)=1
+  again by owner and module: (":facts_plain_return_type", :Base)=31 (":facts_plain_return_type", :Statistics)=11 (":facts_plain_return_type", :DataFrames)=3 ("nothing", :CSV)=1

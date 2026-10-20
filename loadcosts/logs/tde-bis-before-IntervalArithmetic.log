@@ -1,0 +1,34 @@
+row 0 warm-up 0.0 ms  [inner: compile 0.0 recompile 0.0 gc 0.0 | outer 441.3 ms, compile 438.5 recompile 0.0 | new CIs 395 again 0]
+    by owner: nothing=395
+    by module: Base=352 Core=24 Main=19
+mode before loads IntervalArithmetic  facts=false
+loads IntervalArithmetic 0.07 s; valid CIs before 66863, lost 514 (by owner: nothing=514)
+    lost by module: (:Compiler, "nothing")=397 (:Base, "nothing")=116 (:Main, "nothing")=1
+    image-validation log: 0 entries; tags 
+using TraitDifferentialEquations 0.56 s; valid CIs before 68491, lost 0 (by owner: )
+    lost by module: 
+    image-validation log: 287 entries; tags verify_methods=93 insert_backedges_callee=2
+row 1 first Tsit5 solve, a plain function 14.3 ms  [inner: compile 11.7 recompile 0.0 gc 0.0 | outer 89.5 ms, compile 84.9 recompile 39.7 | new CIs 34 again 2]
+    by owner: nothing=34
+    by module: Base=16 TraitWorld=10 TraitDifferentialEquations=5 Main=2 IntervalArithmetic=1
+    again by module: (:Base, "nothing")=1 (:Main, "nothing")=1
+row 2 a second model function 15.2 ms  [inner: compile 12.4 recompile 0.0 gc 0.0 | outer 39.4 ms, compile 33.9 recompile 0.0 | new CIs 28 again 0]
+    by owner: nothing=28
+    by module: Base=12 TraitWorld=10 TraitDifferentialEquations=5 Main=1
+row 2 a new model type: @implement 97.3 ms  [inner: compile 91.0 recompile 2.7 gc 0.0 | outer 127.7 ms, compile 120.0 recompile 2.7 | new CIs 70 again 1]
+    by owner: nothing=38 :facts=32
+    by module: Base=33 TraitWorld=25 Main=5 Core=4 TraitDifferentialEquations=3
+    again by module: (:TraitWorld, "nothing")=1
+row 2 a new model type: first solve 55.9 ms  [inner: compile 43.8 recompile 0.1 gc 0.0 | outer 369.9 ms, compile 342.6 recompile 0.1 | new CIs 127 again 0]
+    by owner: :facts=113 nothing=14
+    by module: Base=75 TraitWorld=30 TraitDifferentialEquations=15 Main=3 Core=3 Compiler=1
+row 3 first Rodas5 solve 26.7 ms  [inner: compile 23.2 recompile 0.0 gc 0.0 | outer 43.4 ms, compile 37.5 recompile 0.0 | new CIs 23 again 0]
+    by owner: nothing=21 :facts=2
+    by module: TraitWorld=13 TraitDifferentialEquations=7 Base=2 Main=1
+row 4 a new callback closure 42.6 ms  [inner: compile 40.2 recompile 31.4 gc 9.7 | outer 53.6 ms, compile 49.3 recompile 31.4 | new CIs 17 again 16]
+    by owner: nothing=17
+    by module: Base=9 ForwardDiff=4 TraitDifferentialEquations=3 IntervalArithmeticForwardDiffExt=1
+    again by module: (:Base, "nothing")=9 (:ForwardDiff, "nothing")=4 (:TraitDifferentialEquations, "nothing")=3
+row 4 a second callback closure 8.2 ms  [inner: compile 6.1 recompile 0.0 gc 0.0 | outer 19.5 ms, compile 15.4 recompile 0.0 | new CIs 0 again 0]
+    by owner: 
+    by module: 
