@@ -1,9 +1,49 @@
-# demonstrators' tests against TraitWorld branch basetraits, product setting, julia-1.13 3b8085c222
+# demonstrators' test suites against TraitWorld branch basetraits (9fd18db), product setting, julia-1.13 3b8085c222; own depot
 == TraitTables
+exit 0
 Test Summary: | Pass  Total  Time
 TraitTables   |   14     14  0.4s
 Test Summary:              | Pass  Total  Time
-TraitTables: missing cells |   10     10  7.0s
+TraitTables: missing cells |   10     10  6.9s
 == TraitCSV
+exit 0
 Test Summary: | Pass  Total  Time
 TraitCSV      |   14     14  0.6s
+== TraitDifferentialEquations
+exit 0
+Test Summary:                     | Pass  Total  Time
+TraitDifferentialEquations: Tsit5 |    6      6  0.8s
+Test Summary:                         | Pass  Total  Time
+TraitDifferentialEquations: callbacks |    5      5  0.1s
+Test Summary:                                               | Pass  Total  Time
+TraitDifferentialEquations: Rodas5 with the library's duals |    4      4  0.7s
+Test Summary:                                               | Pass  Total  Time
+TraitDifferentialEquations: gradients through Tsit5 (row 5) |    8      8  1.1s
+Test Summary:                                       | Pass  Total  Time
+TraitDifferentialEquations: a Float32 state (row 6) |    2      2  0.5s
+Test Summary:                                           | Pass  Total  Time
+Route A: a model type with its own cache (LorenzModels) |    5      5  1.3s
+Test Summary:                                | Pass  Total  Time
+Route A: callback types (Bounce, RaiseSigma) |    4      4  0.2s
+Test Summary:                    | Pass  Total  Time
+Route A: gradients through Tsit5 |    3      3  0.7s
+Test Summary:                      | Pass  Total  Time
+Route A: errors at the conformance |   10     10  9.5s
+Test Summary:                                             | Pass  Total  Time
+CompiledCall: a right-hand side with a declared signature |    8      8  0.8s
+Test Summary:                              | Pass  Broken  Total  Time
+CompiledCall: a wrong signature is refused |    7       1      8  0.8s
+== TraitMakie
+exit 0
+Test Summary:                               | Pass  Total  Time
+TraitMakie: PlotCore with lines and scatter |    6      6  0.7s
+Test Summary:                                | Pass  Total  Time
+TraitMakie: bars, histograms, vertical lines |    4      4  1.1s
+Test Summary:                     | Pass  Total  Time
+TraitMakie: recipes with children |   14     14  0.3s
+Test Summary:                                              | Pass  Total  Time
+TraitMakie: attributes changed at the prompt (p.color = x) |   26     26  0.5s
+Test Summary:            | Pass  Total  Time
+TraitMakie: live sources |    6      6  0.1s
+Test Summary:                                         | Pass  Total  Time
+TraitMakie: reference images, and PlainPlots the same |   10     10  1.4s

@@ -14,6 +14,8 @@ export Shape, area, total
     area(s::Shape)::Float64
 end
 total(shapes::Iterable{Shape}) = (s = 0.0; for x in shapes; s += area(x); end; s)
+area_of(d::Keyed{String, Shape}, k::String) = area(d[k])
+kwtotal(; shapes::Iterable{Shape}) = total(shapes)
 end
 
 struct Circle; r::Float64; end
@@ -37,13 +39,18 @@ using .Cells
 @testset "traits reference §10.1–10.4" begin
     @test Stats.mean([1.0, 2.0, 6.0]) == 3.0                                       # §10.1
     v = Any[Circle(1.0), Square(2.0)]                                              # §10.3
-    @test Geometry.total(DynamicItems{Geometry.Shape}(v)) == 7.0
+    @test Geometry.total(v) == 7.0                                                # taken as it is
+    @test Geometry.total(DynamicItems{Geometry.Shape}(v)) == 7.0                  # the view written out
     w = collect(DynamicItems{Geometry.Shape}(v))
     @test w isa Vector{Dynamic{Geometry.Shape}} && Geometry.total(w) == 7.0         # §10.2: a Vector{Dynamic{Shape}} conforms
     d = Dict{String, Any}("c" => Circle(1.0), "s" => Square(1.0))
     @test conforms(typeof(DynamicValues{Geometry.Shape}(d)), Keyed{String, Dynamic{Geometry.Shape}})
+    @test Geometry.area_of(d, "s") == 1.0
+    @test_throws MethodError Geometry.kwtotal(shapes = v)                         # T-39: a keyword with a fixed-parameter bound fails
+    @test_throws MethodError Geometry.kwtotal(shapes = DynamicItems{Geometry.Shape}(v))   # (also without the crossing)
     u = Any[1, "a", 2]
-    retain!(isnum, DynamicItems{Cell}(u))                                          # §10.4
+    retain!(isnum, u)                                                              # §10.4, the user's vector
     @test u == Any[1, 2]
-    @test_throws TraitBoundError Geometry.total(DynamicItems{Geometry.Shape}(Any[Circle(1.0), 2.5]))   # §10.3: fails when read
+    @test_throws TraitBoundError Geometry.total(Any[Circle(1.0), 2.5])           # §10.3: fails when read
+    @test_throws TraitBoundError Geometry.total([1.5, 2.5])                      # items that cannot conform: at the call
 end

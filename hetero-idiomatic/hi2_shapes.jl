@@ -1,7 +1,8 @@
 # E-144: `Dynamic{X}` with exactly 2, 4, 5, 8 and 64 implementations, in idiomatic trait code.
 # For each n: a sum of areas over 1000 shapes cycling through the n types, as
 #   - Vector{Dynamic{Sn}} (a copy),
-#   - a lazy view of the user's Vector{AShape} and of a Vector{Any} holding the same objects,
+#   - the user's Vector{AShape} and a Vector{Any} holding the same objects, passed directly (the entry
+#     translates them into the view) and through the view written out,
 #   - plain Julia over the Vector{AShape} (one function with n methods),
 #   - interop: a trait module calling that plain function on the Vector{AShape} (hc2's `Vector{Sh}`),
 # and the cost of the copy. Then, for n = 64, vectors of one type only: which types the split
@@ -25,13 +26,15 @@ for n in NS
     v = cycle(n); va = Vector{Any}(v)
     c = collect(DynamicItems{S}(v))
     dv = DynamicItems{S}(v); dva = DynamicItems{S}(va)
-    @assert tot(c) == tot(dv) == tot(dva) == ptot(v) == itot(v)
+    @assert tot(c) == tot(dv) == tot(dva) == tot(v) == tot(va) == ptot(v) == itot(v)
     println("-- n = $n implementations")
     @row "Σ parea$n(x) over Vector{AShape}" "plain" N $ptot($v)
     @row "the same in a trait module" "interop" N $itot($v)
     @row "Σ area$n(x) over Vector{Dynamic{S$n}}" "copy" N $tot($c)
     @row "Σ area$n(x) over DynamicItems{S$n}(Vector{AShape})" "view" N $tot($dv)
     @row "Σ area$n(x) over DynamicItems{S$n}(Vector{Any})" "view" N $tot($dva)
+    @row "Σ area$n(x), total$n(v) with the user's Vector{AShape}" "direct" N $tot($v)
+    @row "Σ area$n(x), total$n(v) with the user's Vector{Any}" "direct" N $tot($va)
     @row "collect(DynamicItems{S$n}(v)): the copy" "make" N collect(DynamicItems{$S}($v))
 end
 println("-- n = 64, one type only")
@@ -41,6 +44,7 @@ let S = ShapeCore.S64
         c = collect(DynamicItems{S}(v)); dv = DynamicItems{S}(v)
         @row "only P$i: Vector{Dynamic{S64}}" "copy" N total64($c)
         @row "only P$i: DynamicItems{S64}(Vector{AShape})" "view" N total64($dv)
+        @row "only P$i: total64(v), the user's Vector{AShape}" "direct" N total64($v)
         @row "only P$i: plain, 64 methods" "plain" N ptotal64($v)
     end
 end

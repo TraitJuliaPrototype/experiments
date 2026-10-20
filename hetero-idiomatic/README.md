@@ -1,18 +1,19 @@
 # Heterogeneous collections as idiomatic trait code (E-134, E-143, E-144; 2026-10-20)
 
-The loops of the review of heterogeneous collections (`writeup/reviews/2026-10-20-heterogeneous-collections.md`, scripts in `../hetero/`) written as trait code the way Rust or Swift code would be written: functions bounded by BaseTraits' collection traits (`writeup/reference/traits.md` §10.1–10.4), items `Dynamic{X}`, over a lazy view of the user's `Vector{Any}`, `Vector{AShape}` or `Dict{String,Any}`, and over a copy into `Vector{Dynamic{X}}`. Each against plain Julia (the stock idiom, in `Main`) and against interop (a trait module calling Base's generic algorithms on the user's containers, as `../hetero/hc7_product.jl` did), in the product setting and in the test bed `all`.
+The loops of the review of heterogeneous collections (`writeup/reviews/2026-10-20-heterogeneous-collections.md`, scripts in `../hetero/`) written as trait code the way Rust or Swift code would be written: functions bounded by BaseTraits' collection traits (`writeup/reference/traits.md` §10.1–10.4), items `Dynamic{X}`, called with the user's `Vector{Any}`, `Vector{AShape}` or `Dict{String,Any}` directly (the function's entry translates the container by its bound into a view that wraps each element when it is read), with that view written out, and over a copy into `Vector{Dynamic{X}}`. Each against plain Julia (the stock idiom, in `Main`) and against interop (a trait module calling Base's generic algorithms on the user's containers, as `../hetero/hc7_product.jl` did), in the product setting and in the test bed `all`.
 
 Rust and Swift are not installed; they are compared by shape only: `impl Iterator<Item = &dyn Shape>` and `some Sequence<any Shape>` are what `xs::Iterable{Shape}` says.
 
 ## What was built for it
 
 - **BaseTraits**, a module of TraitWorld (`TraitWorld-basetraits/src/BaseTraits.jl`, branch `basetraits`): `HasLength`, `Iterable{T}`, `Indexable{T}`, `MutableIndexable{T}`, `Resizable`, `Keyed{K, V}`, Base's containers' conformance by Base's methods, the views `DynamicItems{X}(v)` and `DynamicValues{X}(d)`, and `retain!`. `using TraitWorld` exports them.
+- **The crossing** (TraitWorld 8799aea, 9fd18db): a function bounded with dynamic items (`Iterable{Shape}`, `Indexable{Shape}`, `MutableIndexable{Shape}`, `Keyed{K, Shape}`, `Iterable{Pair{K, Shape}}`) takes the user's `AbstractVector` or `AbstractDict` as it is; its entry translates it into the view where the container does not meet the bounds as it is. Items declared `Any`, abstract, a `Union`, or a concrete type that conforms cross; a container whose item type cannot hold a conforming value is refused at the call; any other non-conforming item fails when it is read (traits reference §10.3, lowering §13.1).
 - **In TraitWorld** (same branch):
   - a `Dynamic` holds the user's object; the split's candidates are the implementations' types, registered in declaration order; making one registers its type once per session (a flag) instead of searching the registry (157 ns before, E-125);
   - `@dynamic_of X x`: wrapping a value of unknown type is a check split over the candidates, and the value keeps its box;
   - a trait's name in a bound's parameters means its `Dynamic` (`Iterable{Shape}`);
   - the records of `@implement` carry the declaration's line, so a session that loads a package image registers the candidates in the order the image's code was compiled for (E-130: HShapes' split is now H1–H4 in every session; it was H22, H37, H30, H18 in run r1, before this change).
-- Tests: `TraitWorld-basetraits/test/basetraits.jl` (26 checks); TraitWorld's whole suite passes (424 checks, `logs/traitworld-tests-product.log`); TraitTables' and TraitCSV's suites pass against the branch (`logs/demonstrator-tests-product.log`); the reference's examples run (`reference_examples.jl`, `logs/reference-examples-product.log`).
+- Tests: `TraitWorld-basetraits/test/basetraits.jl` (45 checks, product and `all`: `logs/basetraits-tests-*.log`); TraitWorld's whole suite passes (443 checks, `logs/traitworld-tests-product.log`); TraitTables', TraitCSV's, TraitDifferentialEquations' and TraitMakie's suites pass against the branch (`logs/demonstrator-tests-product.log`, `logs/demo-*.full.log`); the reference's examples run (`reference_examples.jl`, 11 checks, `logs/reference-examples-product.log`).
 
 ## How to run
 
@@ -21,6 +22,7 @@ From this directory, one job at a time (the shared lock, `nice -n 19`; depots of
     ./run.sh product --project=. hi1_cells.jl
     ./run.sh all --project=. hi2_shapes.jl
     ./runall.sh r2          # the four interop scripts of ../hetero and hi1, hi2, in both settings; logs/r2-*.log
+    ./runhi.sh r6           # hi1, hi2 only, in both settings
     python3 tables.py r2 r3 # the tables below
 
 - `hi1_cells.jl` (E-134): the `Vector{Any}` of 1000 Ints and Strings of hc1/hc7, the `Dict{String,Any}` of hc7, hc4's sums.
@@ -31,102 +33,128 @@ From this directory, one job at a time (the shared lock, `nice -n 19`; depots of
 ## The build and the runs
 
 - julia-1.13 3b8085c222 (the round of 2026-10-20); the test bed `all` with `-J julia-1.13/usr/lib/julia/facts/sys.so`; strict mode off.
-- TraitWorld: branch `basetraits` (worktree `TraitWorld-basetraits/`, from bed3782, uncommitted changes; the logs say `bed3782+changes`).
+- TraitWorld: branch `basetraits` (worktree `TraitWorld-basetraits/`); each log names its commit.
 - The code is defined in the scripts (trait modules at the top level of a script, as hc7), not loaded from package images; HShapes (hc3) is loaded from its image.
-- Two processes per setting: **r2** and **r3**, each row "r2 / r3". The load average is printed at the start and end of each log. Five logs of r2/r3 were taken at a load average above 2; they were run again, and the first attempts are kept as `*.loadhigh.log`. **r1** is an earlier full run, before the declaration-order change (its hc3 split over other types); kept, not used in the tables.
-- `using TraitWorld` in a fresh process: 143 ms (bed3782) against 145 ms (the branch, with BaseTraits), medians of five (`logs/loadtime-product.log`).
+- Two processes per setting per build, each row "first / second". The load average is printed at the start and end of each log; logs started above 2 were run again, the first attempts kept as `*.loadhigh.log`.
+- **The runs:**
+  - **r6, r7** (TraitWorld 9fd18db, the crossing): the tables below. **Indicative only:** the machine was noisy with other simulations (load averages 1.3–1.9 over one minute, 2.1–2.6 over fifteen); the like-for-like comparison of the implicit crossing against the explicit view is to be run again on a quiet machine.
+  - r4, r5 (8799aea, the crossing before the fix of 9fd18db: a `Dict{String,Any}` crossing under `all` cost 2.7 µs per element, because it was assembled as it is at each call and fails the `Iterable` family's check there); kept, not used.
+  - r2, r3 (8863ea0, the explicit view only; and the interop scripts, E-143): the table of the interop numbers below.
+  - r1: before the declaration-order change; kept, not used.
+- `using TraitWorld` in a fresh process: 143 ms (bed3782) against 145 ms (the branch at 8863ea0, with BaseTraits), medians of five (`logs/loadtime-product.log`).
 
 ## Results
 
-Per element, 1000 elements. "view": over `DynamicItems{X}`/`DynamicValues{X}` of the user's container; "copy": over `Vector{Dynamic{X}}` or `Dict{String, Dynamic{X}}`; "interop": a trait module calling Base or plain code on the user's container; "plain": the same code in `Main`. Under `all`, plain code is compiled by facts too.
+Per element, 1000 elements. "direct": the user's container passed as it is (it crosses); "view": over `DynamicItems{X}`/`DynamicValues{X}` of the user's container, written out; "copy": over `Vector{Dynamic{X}}` or `Dict{String, Dynamic{X}}`; "interop": a trait module calling Base or plain code on the user's container; "plain": the same code in `Main`. Under `all`, plain code is compiled by facts too.
 
-### hi1_cells
+### hi1_cells (r6, r7; indicative)
 
-| Workload | Kind | Code | product, ns/elt (r2, r3) | B/elt | all, ns/elt (r2, r3) | B/elt |
+| Workload | Kind | Code | product, ns/elt (r6, r7) | B/elt | all, ns/elt (r6, r7) | B/elt |
 |---|---|---|---|---|---|---|
-| W1 filter!: keep the Ints of a Vector{Any} | plain | Base.filter!(x -> isa(x, Int), v) | 2.24 / 2.37 | 4.1 | 36.97 / 40.82 | 4.2 |
-| W1 filter!: keep the Ints of a Vector{Any} | interop | Base.filter! from a trait module (hc7) | 40.76 / 43.19 | 4.2 | 40.67 / 44.37 | 4.2 |
-| W1 filter!: keep the Ints of a Vector{Any} | view | retain!(isnum, ·) over DynamicItems{Cell}(v) | 3.83 / 3.27 | 0.4 | 3.74 / 3.70 | 0.4 |
-| W1 filter!: keep the Ints of a Vector{Any} | copy | retain!(isnum, ·) over Vector{Dynamic{Cell}} | 1.55 / 1.61 | 0.5 | 1.68 / 1.75 | 0.5 |
-| W1 filter!: keep the Ints of a Vector{Any} | view | retain!(f::Callable{…}) over the view, DynamicCall | 17.58 / 17.65 | 16.4 | 22.95 / 21.52 | 17.1 |
-| W1 filter!: keep the Ints of a Vector{Any} | view | retain!(f::Callable{…}) over the view, compiled_call | 4.42 / 4.67 | 0.4 | 8.79 / 9.27 | 1.1 |
-| W2 count, an operation on each element | plain | n += isa(x, Int) | 0.70 / 0.72 | 0.0 | 0.72 / 0.69 | 0.0 |
-| W2 count, an operation on each element | interop | n += isa(x, Int) in a trait module (hc7) | 0.69 / 0.71 | 0.0 | 0.70 / 0.67 | 0.0 |
-| W2 count, an operation on each element | view | n += isnum(c) over DynamicItems{Cell}(v) | 1.24 / 1.68 | 0.0 | 1.68 / 1.77 | 0.0 |
-| W2 count, an operation on each element | copy | n += isnum(c) over Vector{Dynamic{Cell}} | 1.22 / 1.12 | 0.0 | 1.15 / 0.94 | 0.0 |
-| W3 count with a caller's predicate | plain | n += f(x)::Bool, f a closure | 0.72 / 0.69 | 0.0 | 19.06 / 19.76 | 0.0 |
-| W3 count with a caller's predicate | interop | f::Callable{Tuple{Any}, Bool} (hc7) | 72.24 / 71.76 | 36.0 | 76.34 / 78.47 | 36.7 |
-| W3 count with a caller's predicate | view | f::Callable{Tuple{Dynamic{Cell}}, Bool} over the view | 14.97 / 14.39 | 16.1 | 19.58 / 18.74 | 16.8 |
-| W3 count with a caller's predicate | view | the same, compiled_call(f) | 2.44 / 2.67 | 0.1 | 8.08 / 7.53 | 0.8 |
-| W3 count with a caller's predicate | copy | Callable{…, CompiledCall} over the copy | 2.17 / 2.32 | 0.1 | 6.40 / 6.45 | 0.8 |
-| W4 a Dict{String,Any}'s pairs | plain | for (k, v) in d; n += v isa Int | 2.47 / 2.41 | 0.0 | 273.18 / 262.86 | 99.9 |
-| W4 a Dict{String,Any}'s pairs | interop | the same in a trait module (hc7) | 276.17 / 274.26 | 99.9 | 272.98 / 268.40 | 99.9 |
-| W4 a Dict{String,Any}'s pairs | view | for (k, c) in DynamicValues{Cell}(d); n += isnum(c) | 4.08 / 5.01 | 0.0 | 5.00 / 4.72 | 0.0 |
-| W4 a Dict{String,Any}'s pairs | copy | the same over a Dict{String, Dynamic{Cell}} | 2.87 / 2.55 | 0.0 | 2.85 / 2.50 | 0.0 |
-| W5 keyed lookup, 1000 keys | plain | s += d[k] (isa Int, else length) | 10.18 / 11.27 | 0.0 | 10.42 / 10.48 | 0.0 |
-| W5 keyed lookup, 1000 keys | interop | the same in a trait module | 11.67 / 9.95 | 0.0 | 10.52 / 10.12 | 0.0 |
-| W5 keyed lookup, 1000 keys | view | s += weight(d[k]) over DynamicValues{Cell}(d) | 12.97 / 12.13 | 0.2 | 13.26 / 12.24 | 0.2 |
-| W5 keyed lookup, 1000 keys | copy | the same over a Dict{String, Dynamic{Cell}} | 10.48 / 10.03 | 0.2 | 11.34 / 11.25 | 0.2 |
-| W6 sums over numbers of mixed types (hc4's controls) | plain | s += x over Vector{Any} of Int | 17.34 / 16.08 | 16.0 | 18.62 / 16.67 | 16.0 |
-| W6 sums over numbers of mixed types (hc4's controls) | interop | the same in a trait module | 20.20 / 20.47 | 16.0 | 21.31 / 19.72 | 16.0 |
-| W6 sums over numbers of mixed types (hc4's controls) | view | s += value(x) over DynamicItems{Num}(Vector{Any}) | 1.51 / 1.58 | 0.1 | 1.62 / 1.51 | 0.1 |
-| W6 sums over numbers of mixed types (hc4's controls) | plain | s += Float64(x) over Vector{Real} | 108.97 / 112.13 | 24.0 | 117.50 / 107.61 | 24.0 |
-| W6 sums over numbers of mixed types (hc4's controls) | interop | the same in a trait module | 116.26 / 132.75 | 24.0 | 121.95 / 107.86 | 24.0 |
-| W6 sums over numbers of mixed types (hc4's controls) | view | s += value(x) over DynamicItems{Num}(Vector{Real}) | 1.56 / 1.50 | 0.1 | 1.57 / 1.56 | 0.1 |
-| W6 sums over numbers of mixed types (hc4's controls) | copy | the same over a copy, Vector{Dynamic{Num}} | 1.19 / 1.16 | 0.1 | 1.10 / 1.18 | 0.1 |
-| the copy itself | copy | collect(DynamicItems{Cell}(v)): Vector{Dynamic{Cell}} | 1.95 / 1.81 | 8.1 | 1.93 / 1.79 | 8.1 |
-| the copy itself | copy | Dynamic{Cell}[Dynamic{Cell}(x) for x in v], in Main | 108.26 / 102.12 | 28.0 | 135.14 / 126.56 | 35.8 |
-| the copy itself | make | Dynamic{Cell}(x), x::Int known | 8.10 / 8.11 | 16.0 | 8.23 / 8.09 | 16.0 |
+| W1 filter!: keep the Ints of a Vector{Any} | plain | Base.filter!(x -> isa(x, Int), v) | 1.34 / 2.31 | 4.1 | 37.17 / 36.38 | 4.2 |
+| W1 filter!: keep the Ints of a Vector{Any} | interop | Base.filter! from a trait module (hc7) | 38.76 / 41.68 | 4.2 | 43.33 / 41.55 | 4.2 |
+| W1 filter!: keep the Ints of a Vector{Any} | view | retain!(isnum, ·) over DynamicItems{Cell}(v) | 2.77 / 2.79 | 0.4 | 2.78 / 3.34 | 0.4 |
+| W1 filter!: keep the Ints of a Vector{Any} | direct | retain!(isnum, v), v the user's Vector{Any} | 2.75 / 2.88 | 0.4 | 2.73 / 3.24 | 0.4 |
+| W1 filter!: keep the Ints of a Vector{Any} | copy | retain!(isnum, ·) over Vector{Dynamic{Cell}} | 1.83 / 1.79 | 0.5 | 1.50 / 1.62 | 0.5 |
+| W1 filter!: keep the Ints of a Vector{Any} | view | retain!(f::Callable{…}) over the view, DynamicCall | 17.66 / 17.04 | 16.4 | 23.20 / 21.44 | 17.1 |
+| W1 filter!: keep the Ints of a Vector{Any} | view | retain!(f::Callable{…}) over the view, compiled_call | 4.17 / 4.15 | 0.4 | 8.89 / 9.00 | 1.1 |
+| W1 filter!: keep the Ints of a Vector{Any} | direct | retain!(compiled_call(f), v), v the user's vector | 9.35 / 4.12 | 0.4 | 8.93 / 8.79 | 1.1 |
+| W2 count, an operation on each element | plain | n += isa(x, Int) | 0.65 / 0.67 | 0.0 | 0.67 / 0.67 | 0.0 |
+| W2 count, an operation on each element | interop | n += isa(x, Int) in a trait module (hc7) | 0.66 / 0.66 | 0.0 | 0.68 / 0.67 | 0.0 |
+| W2 count, an operation on each element | view | n += isnum(c) over DynamicItems{Cell}(v) | 1.64 / 1.68 | 0.0 | 1.59 / 1.38 | 0.1 |
+| W2 count, an operation on each element | direct | n += isnum(c), countnums(v) with the user's Vector{Any} | 1.64 / 1.68 | 0.0 | 1.35 / 1.38 | 0.0 |
+| W2 count, an operation on each element | copy | n += isnum(c) over Vector{Dynamic{Cell}} | 1.11 / 1.14 | 0.0 | 1.18 / 1.21 | 0.0 |
+| W3 count with a caller's predicate | plain | n += f(x)::Bool, f a closure | 0.66 / 0.66 | 0.0 | 18.41 / 20.96 | 0.0 |
+| W3 count with a caller's predicate | interop | f::Callable{Tuple{Any}, Bool} (hc7) | 71.43 / 71.65 | 36.0 | 77.88 / 77.42 | 36.7 |
+| W3 count with a caller's predicate | view | f::Callable{Tuple{Dynamic{Cell}}, Bool} over the view | 14.55 / 15.10 | 16.1 | 19.24 / 20.38 | 16.8 |
+| W3 count with a caller's predicate | view | the same, compiled_call(f) | 2.83 / 2.67 | 0.1 | 7.50 / 7.49 | 0.8 |
+| W3 count with a caller's predicate | direct | the same, compiled_call(f), the user's vector | 2.66 / 2.73 | 0.1 | 7.44 / 7.34 | 0.8 |
+| W3 count with a caller's predicate | copy | Callable{…, CompiledCall} over the copy | 2.20 / 2.27 | 0.1 | 6.64 / 6.68 | 0.8 |
+| W4 a Dict{String,Any}'s pairs | plain | for (k, v) in d; n += v isa Int | 2.31 / 2.36 | 0.0 | 261.22 / 264.97 | 99.9 |
+| W4 a Dict{String,Any}'s pairs | interop | the same in a trait module (hc7) | 263.95 / 260.45 | 99.9 | 263.14 / 265.08 | 99.9 |
+| W4 a Dict{String,Any}'s pairs | view | for (k, c) in DynamicValues{Cell}(d); n += isnum(c) | 4.02 / 4.10 | 0.0 | 4.69 / 4.57 | 0.1 |
+| W4 a Dict{String,Any}'s pairs | direct | the same, countvals(d) with the user's Dict{String,Any} | 4.10 / 4.04 | 0.0 | 4.59 / 4.51 | 0.0 |
+| W4 a Dict{String,Any}'s pairs | copy | the same over a Dict{String, Dynamic{Cell}} | 2.51 / 2.51 | 0.0 | 2.65 / 2.50 | 0.0 |
+| W5 keyed lookup, 1000 keys | plain | s += d[k] (isa Int, else length) | 10.11 / 10.26 | 0.0 | 10.58 / 10.27 | 0.0 |
+| W5 keyed lookup, 1000 keys | interop | the same in a trait module | 10.14 / 10.34 | 0.0 | 10.46 / 10.15 | 0.0 |
+| W5 keyed lookup, 1000 keys | view | s += weight(d[k]) over DynamicValues{Cell}(d) | 12.97 / 12.91 | 0.2 | 13.46 / 13.54 | 0.2 |
+| W5 keyed lookup, 1000 keys | direct | the same, the user's Dict{String,Any} | 12.85 / 12.93 | 0.2 | 13.36 / 13.61 | 0.2 |
+| W5 keyed lookup, 1000 keys | copy | the same over a Dict{String, Dynamic{Cell}} | 10.45 / 10.69 | 0.2 | 10.79 / 11.00 | 0.2 |
+| W6 sums over numbers of mixed types (hc4's controls) | plain | s += x over Vector{Any} of Int | 16.79 / 17.50 | 16.0 | 17.49 / 18.43 | 16.0 |
+| W6 sums over numbers of mixed types (hc4's controls) | interop | the same in a trait module | 19.58 / 20.06 | 16.0 | 19.69 / 20.68 | 16.0 |
+| W6 sums over numbers of mixed types (hc4's controls) | view | s += value(x) over DynamicItems{Num}(Vector{Any}) | 1.50 / 1.51 | 0.1 | 1.57 / 1.57 | 0.1 |
+| W6 sums over numbers of mixed types (hc4's controls) | direct | the same, total(v) with the user's Vector{Any} | 1.51 / 1.51 | 0.1 | 1.54 / 1.50 | 0.1 |
+| W6 sums over numbers of mixed types (hc4's controls) | plain | s += Float64(x) over Vector{Real} | 101.44 / 101.47 | 24.0 | 109.59 / 105.73 | 24.0 |
+| W6 sums over numbers of mixed types (hc4's controls) | interop | the same in a trait module | 106.31 / 109.17 | 24.0 | 113.44 / 110.98 | 24.0 |
+| W6 sums over numbers of mixed types (hc4's controls) | view | s += value(x) over DynamicItems{Num}(Vector{Real}) | 1.46 / 1.49 | 0.1 | 1.55 / 1.51 | 0.1 |
+| W6 sums over numbers of mixed types (hc4's controls) | direct | the same, total(v) with the user's Vector{Real} | 1.47 / 1.51 | 0.1 | 1.53 / 1.50 | 0.1 |
+| W6 sums over numbers of mixed types (hc4's controls) | copy | the same over a copy, Vector{Dynamic{Num}} | 1.13 / 1.13 | 0.1 | 1.18 / 1.15 | 0.1 |
+| the copy itself | copy | collect(DynamicItems{Cell}(v)): Vector{Dynamic{Cell}} | 1.76 / 1.83 | 8.1 | 2.08 / 1.79 | 8.1 |
+| the copy itself | copy | Dynamic{Cell}[Dynamic{Cell}(x) for x in v], in Main | 103.63 / 101.00 | 28.0 | 119.47 / 117.31 | 35.8 |
+| the copy itself | make | Dynamic{Cell}(x), x::Int known | 7.67 / 7.79 | 16.0 | 8.19 / 7.64 | 16.0 |
 
-### hi2_shapes
+### hi2_shapes (r6, r7; indicative)
 
-| Workload | Kind | Code | product, ns/elt (r2, r3) | B/elt | all, ns/elt (r2, r3) | B/elt |
+| Workload | Kind | Code | product, ns/elt (r6, r7) | B/elt | all, ns/elt (r6, r7) | B/elt |
 |---|---|---|---|---|---|---|
-| n = 2 implementations | plain | Σ parea2(x) over Vector{AShape} | 0.97 / 0.95 | 0.0 | 34.58 / 38.87 | 32.0 |
-| n = 2 implementations | interop | the same in a trait module | 40.47 / 40.56 | 32.0 | 40.68 / 41.10 | 32.0 |
-| n = 2 implementations | copy | Σ area2(x) over Vector{Dynamic{S2}} | 1.01 / 0.99 | 0.1 | 1.16 / 1.07 | 0.1 |
-| n = 2 implementations | view | Σ area2(x) over DynamicItems{S2}(Vector{AShape}) | 1.05 / 1.03 | 0.1 | 1.31 / 1.33 | 0.1 |
-| n = 2 implementations | view | Σ area2(x) over DynamicItems{S2}(Vector{Any}) | 1.08 / 1.01 | 0.1 | 1.35 / 1.40 | 0.1 |
-| n = 2 implementations | make | collect(DynamicItems{S2}(v)): the copy | 1.97 / 1.86 | 8.1 | 2.12 / 2.14 | 8.1 |
-| n = 4 implementations | plain | Σ parea4(x) over Vector{AShape} | 43.13 / 38.75 | 32.0 | 36.40 / 38.07 | 32.0 |
-| n = 4 implementations | interop | the same in a trait module | 49.74 / 43.81 | 32.0 | 48.02 / 42.89 | 32.0 |
-| n = 4 implementations | copy | Σ area4(x) over Vector{Dynamic{S4}} | 1.25 / 1.32 | 0.1 | 1.43 / 1.61 | 0.1 |
-| n = 4 implementations | view | Σ area4(x) over DynamicItems{S4}(Vector{AShape}) | 2.00 / 1.79 | 0.1 | 1.77 / 1.81 | 0.1 |
-| n = 4 implementations | view | Σ area4(x) over DynamicItems{S4}(Vector{Any}) | 2.04 / 1.76 | 0.1 | 1.79 / 1.69 | 0.1 |
-| n = 4 implementations | make | collect(DynamicItems{S4}(v)): the copy | 2.68 / 2.48 | 8.1 | 2.30 / 2.79 | 8.1 |
-| n = 5 implementations | plain | Σ parea5(x) over Vector{AShape} | 94.93 / 81.85 | 32.0 | 74.27 / 79.20 | 32.0 |
-| n = 5 implementations | interop | the same in a trait module | 73.59 / 74.17 | 32.0 | 74.56 / 83.42 | 32.0 |
-| n = 5 implementations | copy | Σ area5(x) over Vector{Dynamic{S5}} | 4.98 / 5.17 | 3.3 | 5.14 / 5.05 | 3.3 |
-| n = 5 implementations | view | Σ area5(x) over DynamicItems{S5}(Vector{AShape}) | 8.37 / 8.59 | 3.3 | 9.25 / 8.68 | 3.3 |
-| n = 5 implementations | view | Σ area5(x) over DynamicItems{S5}(Vector{Any}) | 9.06 / 8.53 | 3.3 | 8.59 / 8.79 | 3.3 |
-| n = 5 implementations | make | collect(DynamicItems{S5}(v)): the copy | 4.65 / 4.43 | 8.1 | 5.11 / 4.98 | 8.1 |
-| n = 8 implementations | plain | Σ parea8(x) over Vector{AShape} | 104.16 / 96.28 | 32.0 | 84.18 / 87.08 | 32.0 |
-| n = 8 implementations | interop | the same in a trait module | 116.69 / 102.97 | 32.0 | 89.85 / 93.92 | 32.0 |
-| n = 8 implementations | copy | Σ area8(x) over Vector{Dynamic{S8}} | 12.08 / 11.88 | 8.1 | 13.09 / 11.70 | 8.1 |
-| n = 8 implementations | view | Σ area8(x) over DynamicItems{S8}(Vector{AShape}) | 42.62 / 37.49 | 8.1 | 34.80 / 34.44 | 8.1 |
-| n = 8 implementations | view | Σ area8(x) over DynamicItems{S8}(Vector{Any}) | 34.90 / 39.61 | 8.1 | 35.60 / 34.15 | 8.1 |
-| n = 8 implementations | make | collect(DynamicItems{S8}(v)): the copy | 9.44 / 9.59 | 8.1 | 9.83 / 9.47 | 8.1 |
-| n = 64 implementations | plain | Σ parea64(x) over Vector{AShape} | 101.74 / 98.76 | 32.0 | 105.87 / 104.32 | 32.0 |
-| n = 64 implementations | interop | the same in a trait module | 114.79 / 109.00 | 32.0 | 120.43 / 111.80 | 32.0 |
-| n = 64 implementations | copy | Σ area64(x) over Vector{Dynamic{S64}} | 81.96 / 80.68 | 15.0 | 83.86 / 78.35 | 15.0 |
-| n = 64 implementations | view | Σ area64(x) over DynamicItems{S64}(Vector{AShape}) | 165.20 / 162.37 | 15.0 | 170.75 / 164.92 | 15.0 |
-| n = 64 implementations | view | Σ area64(x) over DynamicItems{S64}(Vector{Any}) | 181.00 / 164.67 | 15.0 | 172.34 / 163.98 | 15.0 |
-| n = 64 implementations | make | collect(DynamicItems{S64}(v)): the copy | 80.96 / 77.01 | 8.1 | 78.06 / 74.00 | 8.1 |
-| n = 64, one type only | copy | only P1: Vector{Dynamic{S64}} | 1.55 / 1.43 | 0.1 | 1.41 / 1.34 | 0.1 |
-| n = 64, one type only | view | only P1: DynamicItems{S64}(Vector{AShape}) | 1.40 / 1.40 | 0.1 | 1.43 / 1.44 | 0.1 |
-| n = 64, one type only | plain | only P1: plain, 64 methods | 37.72 / 36.34 | 32.0 | 30.66 / 30.52 | 32.0 |
-| n = 64, one type only | copy | only P4: Vector{Dynamic{S64}} | 1.72 / 1.62 | 0.1 | 1.68 / 1.60 | 0.1 |
-| n = 64, one type only | view | only P4: DynamicItems{S64}(Vector{AShape}) | 1.60 / 1.44 | 0.1 | 1.45 / 1.49 | 0.1 |
-| n = 64, one type only | plain | only P4: plain, 64 methods | 37.35 / 36.16 | 32.0 | 34.13 / 32.69 | 32.0 |
-| n = 64, one type only | copy | only P5: Vector{Dynamic{S64}} | 23.52 / 23.14 | 16.1 | 20.76 / 22.10 | 16.1 |
-| n = 64, one type only | view | only P5: DynamicItems{S64}(Vector{AShape}) | 40.17 / 39.85 | 16.1 | 42.98 / 36.38 | 16.1 |
-| n = 64, one type only | plain | only P5: plain, 64 methods | 31.76 / 31.24 | 32.0 | 36.96 / 35.66 | 32.0 |
-| n = 64, one type only | copy | only P64: Vector{Dynamic{S64}} | 24.83 / 18.48 | 16.1 | 24.47 / 24.20 | 16.1 |
-| n = 64, one type only | view | only P64: DynamicItems{S64}(Vector{AShape}) | 47.04 / 45.95 | 16.1 | 36.46 / 42.58 | 16.1 |
-| n = 64, one type only | plain | only P64: plain, 64 methods | 41.87 / 33.52 | 32.0 | 35.29 / 32.72 | 32.0 |
+| n = 2 implementations | plain | Σ parea2(x) over Vector{AShape} | 0.88 / 0.95 | 0.0 | 36.77 / 34.09 | 32.0 |
+| n = 2 implementations | interop | the same in a trait module | 38.52 / 41.87 | 32.0 | 39.58 / 41.23 | 32.0 |
+| n = 2 implementations | copy | Σ area2(x) over Vector{Dynamic{S2}} | 0.96 / 1.03 | 0.1 | 1.07 / 1.12 | 0.1 |
+| n = 2 implementations | view | Σ area2(x) over DynamicItems{S2}(Vector{AShape}) | 1.01 / 1.08 | 0.1 | 1.30 / 1.34 | 0.1 |
+| n = 2 implementations | view | Σ area2(x) over DynamicItems{S2}(Vector{Any}) | 1.01 / 1.09 | 0.1 | 1.27 / 1.34 | 0.1 |
+| n = 2 implementations | direct | Σ area2(x), total2(v) with the user's Vector{AShape} | 1.02 / 1.09 | 0.1 | 1.25 / 1.35 | 0.1 |
+| n = 2 implementations | direct | Σ area2(x), total2(v) with the user's Vector{Any} | 1.03 / 1.10 | 0.1 | 1.26 / 1.31 | 0.1 |
+| n = 2 implementations | make | collect(DynamicItems{S2}(v)): the copy | 1.75 / 1.92 | 8.1 | 1.92 / 1.97 | 8.1 |
+| n = 4 implementations | plain | Σ parea4(x) over Vector{AShape} | 36.56 / 39.86 | 32.0 | 36.26 / 36.78 | 32.0 |
+| n = 4 implementations | interop | the same in a trait module | 43.41 / 44.17 | 32.0 | 40.44 / 43.11 | 32.0 |
+| n = 4 implementations | copy | Σ area4(x) over Vector{Dynamic{S4}} | 1.21 / 1.61 | 0.1 | 1.17 / 1.25 | 0.1 |
+| n = 4 implementations | view | Σ area4(x) over DynamicItems{S4}(Vector{AShape}) | 1.77 / 1.87 | 0.1 | 1.84 / 1.79 | 0.1 |
+| n = 4 implementations | view | Σ area4(x) over DynamicItems{S4}(Vector{Any}) | 1.81 / 1.89 | 0.1 | 2.16 / 1.98 | 0.1 |
+| n = 4 implementations | direct | Σ area4(x), total4(v) with the user's Vector{AShape} | 1.83 / 1.87 | 0.1 | 1.76 / 1.83 | 0.1 |
+| n = 4 implementations | direct | Σ area4(x), total4(v) with the user's Vector{Any} | 1.77 / 1.77 | 0.1 | 2.09 / 1.95 | 0.1 |
+| n = 4 implementations | make | collect(DynamicItems{S4}(v)): the copy | 2.27 / 2.53 | 8.1 | 2.78 / 2.38 | 8.1 |
+| n = 5 implementations | plain | Σ parea5(x) over Vector{AShape} | 79.72 / 86.69 | 32.0 | 82.94 / 60.82 | 32.0 |
+| n = 5 implementations | interop | the same in a trait module | 116.57 / 79.43 | 32.0 | 87.13 / 81.12 | 32.0 |
+| n = 5 implementations | copy | Σ area5(x) over Vector{Dynamic{S5}} | 5.22 / 5.75 | 3.3 | 4.94 / 4.74 | 3.3 |
+| n = 5 implementations | view | Σ area5(x) over DynamicItems{S5}(Vector{AShape}) | 8.40 / 9.01 | 3.3 | 8.65 / 8.24 | 3.3 |
+| n = 5 implementations | view | Σ area5(x) over DynamicItems{S5}(Vector{Any}) | 8.48 / 8.81 | 3.3 | 9.18 / 8.78 | 3.3 |
+| n = 5 implementations | direct | Σ area5(x), total5(v) with the user's Vector{AShape} | 8.44 / 9.09 | 3.3 | 8.81 / 8.24 | 3.3 |
+| n = 5 implementations | direct | Σ area5(x), total5(v) with the user's Vector{Any} | 8.55 / 8.82 | 3.3 | 9.28 / 8.76 | 3.3 |
+| n = 5 implementations | make | collect(DynamicItems{S5}(v)): the copy | 4.66 / 5.10 | 8.1 | 5.12 / 4.49 | 8.1 |
+| n = 8 implementations | plain | Σ parea8(x) over Vector{AShape} | 85.56 / 84.27 | 32.0 | 86.66 / 86.68 | 32.0 |
+| n = 8 implementations | interop | the same in a trait module | 95.36 / 92.10 | 32.0 | 94.21 / 91.65 | 32.0 |
+| n = 8 implementations | copy | Σ area8(x) over Vector{Dynamic{S8}} | 12.52 / 11.79 | 8.1 | 11.87 / 12.25 | 8.1 |
+| n = 8 implementations | view | Σ area8(x) over DynamicItems{S8}(Vector{AShape}) | 33.76 / 30.67 | 8.1 | 32.43 / 37.68 | 8.1 |
+| n = 8 implementations | view | Σ area8(x) over DynamicItems{S8}(Vector{Any}) | 34.36 / 31.79 | 8.1 | 36.33 / 36.11 | 8.1 |
+| n = 8 implementations | direct | Σ area8(x), total8(v) with the user's Vector{AShape} | 35.22 / 31.02 | 8.1 | 35.02 / 33.76 | 8.1 |
+| n = 8 implementations | direct | Σ area8(x), total8(v) with the user's Vector{Any} | 32.20 / 32.06 | 8.1 | 32.96 / 38.03 | 8.1 |
+| n = 8 implementations | make | collect(DynamicItems{S8}(v)): the copy | 10.07 / 9.42 | 8.1 | 9.67 / 10.19 | 8.1 |
+| n = 64 implementations | plain | Σ parea64(x) over Vector{AShape} | 101.55 / 98.34 | 32.0 | 103.95 / 100.15 | 32.0 |
+| n = 64 implementations | interop | the same in a trait module | 111.50 / 106.98 | 32.0 | 110.15 / 109.08 | 32.0 |
+| n = 64 implementations | copy | Σ area64(x) over Vector{Dynamic{S64}} | 80.84 / 78.31 | 15.0 | 82.82 / 80.24 | 15.0 |
+| n = 64 implementations | view | Σ area64(x) over DynamicItems{S64}(Vector{AShape}) | 175.79 / 160.16 | 15.0 | 165.27 / 167.85 | 15.1 |
+| n = 64 implementations | view | Σ area64(x) over DynamicItems{S64}(Vector{Any}) | 166.99 / 161.46 | 15.0 | 165.62 / 169.62 | 15.1 |
+| n = 64 implementations | direct | Σ area64(x), total64(v) with the user's Vector{AShape} | 165.93 / 160.07 | 15.1 | 166.74 / 167.88 | 15.1 |
+| n = 64 implementations | direct | Σ area64(x), total64(v) with the user's Vector{Any} | 165.87 / 162.12 | 15.0 | 164.91 / 167.52 | 15.0 |
+| n = 64 implementations | make | collect(DynamicItems{S64}(v)): the copy | 76.82 / 74.09 | 8.1 | 77.96 / 78.16 | 8.1 |
+| n = 64, one type only | copy | only P1: Vector{Dynamic{S64}} | 1.41 / 1.37 | 0.1 | 1.14 / 1.17 | 0.1 |
+| n = 64, one type only | view | only P1: DynamicItems{S64}(Vector{AShape}) | 1.41 / 1.37 | 0.1 | 1.45 / 1.48 | 0.1 |
+| n = 64, one type only | direct | only P1: total64(v), the user's Vector{AShape} | 1.42 / 1.38 | 0.1 | 1.43 / 1.50 | 0.1 |
+| n = 64, one type only | plain | only P1: plain, 64 methods | 36.38 / 34.89 | 32.0 | 32.53 / 34.91 | 32.0 |
+| n = 64, one type only | copy | only P4: Vector{Dynamic{S64}} | 1.62 / 1.67 | 0.1 | 1.24 / 1.27 | 0.1 |
+| n = 64, one type only | view | only P4: DynamicItems{S64}(Vector{AShape}) | 1.52 / 1.55 | 0.1 | 1.54 / 1.58 | 0.1 |
+| n = 64, one type only | direct | only P4: total64(v), the user's Vector{AShape} | 1.53 / 1.56 | 0.1 | 1.52 / 1.57 | 0.1 |
+| n = 64, one type only | plain | only P4: plain, 64 methods | 37.15 / 37.34 | 32.0 | 35.58 / 39.96 | 32.0 |
+| n = 64, one type only | copy | only P5: Vector{Dynamic{S64}} | 21.76 / 25.42 | 16.1 | 18.07 / 22.07 | 16.1 |
+| n = 64, one type only | view | only P5: DynamicItems{S64}(Vector{AShape}) | 41.32 / 41.32 | 16.1 | 38.31 / 40.33 | 16.1 |
+| n = 64, one type only | direct | only P5: total64(v), the user's Vector{AShape} | 41.26 / 39.71 | 16.1 | 38.42 / 40.43 | 16.1 |
+| n = 64, one type only | plain | only P5: plain, 64 methods | 37.91 / 35.79 | 32.0 | 36.29 / 36.41 | 32.0 |
+| n = 64, one type only | copy | only P64: Vector{Dynamic{S64}} | 23.67 / 24.62 | 16.1 | 22.29 / 24.84 | 16.1 |
+| n = 64, one type only | view | only P64: DynamicItems{S64}(Vector{AShape}) | 46.23 / 38.26 | 16.1 | 44.41 / 43.78 | 16.1 |
+| n = 64, one type only | direct | only P64: total64(v), the user's Vector{AShape} | 46.30 / 38.00 | 16.1 | 44.56 / 43.58 | 16.1 |
+| n = 64, one type only | plain | only P64: plain, 64 methods | 39.41 / 38.36 | 32.0 | 40.19 / 38.88 | 32.0 |
 
-
-### The interop numbers again (E-143), same build
+### The interop numbers again (E-143), runs r2 and r3
 
 | Loop (script) | product: trait module / plain | `all`: trait module / plain | the review (E-121 to E-125) |
 |---|---|---|---|
@@ -142,7 +170,9 @@ Per element, 1000 elements. "view": over `DynamicItems{X}`/`DynamicValues{X}` of
 
 ## What the numbers say
 
-**Where the item types are among the split's candidates (up to four implementations), idiomatic trait code recovers the tails, in both settings:**
+**The implicit crossing costs what the explicit view costs** (r6, r7, indicative): every "direct" row is within the run-to-run spread of its "view" row, in both settings: `retain!` 2.7–2.9 against 2.8–3.3 ns, counting 1.4–1.7 against 1.4–1.7, the `Dict{String,Any}` loop 4.0–4.6 against 4.0–4.7, keyed lookup 12.9–13.6 against 12.9–13.5, 64 types 160–168 against 160–176 ns. The decision is made once per container type and kept in a flag; the entry's work per call is the view's construction. To confirm on a quiet machine.
+
+**Where the item types are among the split's candidates (up to four implementations), idiomatic trait code recovers the tails, in both settings** (r2, r3, through the explicit view; r6 and r7 give the same with the crossing):
 - `filter!` on the user's `Vector{Any}`: `retain!(isnum, DynamicItems{Cell}(v))` 3.3–3.8 ns, in place, against 41–43 ns interop (38 ns in hc7) and 2.2–2.4 ns plain (product); under `all` plain is 37–41 ns and the trait code stays at 3.7.
 - The `Dict{String,Any}` loop: 4–5 ns over the view, 2.5–2.9 over a copy, against 274–276 ns interop and 2.4 ns plain; under `all` plain is 263–273 ns.
 - Counting with an operation per item: 1.2–1.8 ns over the view, 0.9–1.2 over the copy, against 0.7 for plain's `isa` (no call).

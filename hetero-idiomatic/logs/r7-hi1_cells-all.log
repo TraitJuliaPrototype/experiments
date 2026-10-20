@@ -1,0 +1,53 @@
+┌ Warning: Dict{String, Any} is declared Iterable through a family, but does not conform:
+│   `iterate` at Tuple{Dict{String, Any}} returns `Union{Nothing, Tuple{Any, Int64}}`, declared `Union{Nothing, Tuple{Pair{String, Any}, Any}}`
+└ @ TraitWorld ~/Repos/julia-trait-bound/TraitWorld-basetraits/src/implement.jl:348
+== hi1_cells  julia 1.13.2 (f13117cd74*)  setting all  TraitWorld 9fd18db  load 1.85 1.70 2.18
+-- W1 filter!: keep the Ints of a Vector{Any}
+all      plain        Base.filter!(x -> isa(x, Int), v)                              36.38 ns/elt     4.2 B/elt  (median of 2000 samples)
+all      interop      Base.filter! from a trait module (hc7)                         41.55 ns/elt     4.2 B/elt  (median of 2000 samples)
+all      view         retain!(isnum, ·) over DynamicItems{Cell}(v)                    3.34 ns/elt     0.4 B/elt  (median of 2000 samples)
+all      direct       retain!(isnum, v), v the user's Vector{Any}                     3.24 ns/elt     0.4 B/elt  (median of 2000 samples)
+all      copy         retain!(isnum, ·) over Vector{Dynamic{Cell}}                    1.62 ns/elt     0.5 B/elt  (median of 2000 samples)
+all      view         retain!(f::Callable{…}) over the view, DynamicCall             21.44 ns/elt    17.1 B/elt  (median of 2000 samples)
+all      view         retain!(f::Callable{…}) over the view, compiled_call            9.00 ns/elt     1.1 B/elt  (median of 2000 samples)
+all      direct       retain!(compiled_call(f), v), v the user's vector               8.79 ns/elt     1.1 B/elt  (median of 2000 samples)
+-- W2 count, an operation on each element
+all      plain        n += isa(x, Int)                                                0.67 ns/elt     0.0 B/elt  (median of 2000 samples)
+all      interop      n += isa(x, Int) in a trait module (hc7)                        0.67 ns/elt     0.0 B/elt  (median of 2000 samples)
+all      view         n += isnum(c) over DynamicItems{Cell}(v)                        1.38 ns/elt     0.1 B/elt  (median of 2000 samples)
+all      direct       n += isnum(c), countnums(v) with the user's Vector{Any}         1.38 ns/elt     0.0 B/elt  (median of 2000 samples)
+all      copy         n += isnum(c) over Vector{Dynamic{Cell}}                        1.21 ns/elt     0.0 B/elt  (median of 2000 samples)
+-- W3 count with a caller's predicate
+all      plain        n += f(x)::Bool, f a closure                                   20.96 ns/elt     0.0 B/elt  (median of 2000 samples)
+all      interop      f::Callable{Tuple{Any}, Bool} (hc7)                            77.42 ns/elt    36.7 B/elt  (median of 2000 samples)
+all      view         f::Callable{Tuple{Dynamic{Cell}}, Bool} over the view          20.38 ns/elt    16.8 B/elt  (median of 2000 samples)
+all      view         the same, compiled_call(f)                                      7.49 ns/elt     0.8 B/elt  (median of 2000 samples)
+all      direct       the same, compiled_call(f), the user's vector                   7.34 ns/elt     0.8 B/elt  (median of 2000 samples)
+all      copy         Callable{…, CompiledCall} over the copy                         6.68 ns/elt     0.8 B/elt  (median of 2000 samples)
+-- W4 a Dict{String,Any}'s pairs
+all      plain        for (k, v) in d; n += v isa Int                               264.97 ns/elt    99.9 B/elt  (median of 2000 samples)
+all      interop      the same in a trait module (hc7)                              265.08 ns/elt    99.9 B/elt  (median of 2000 samples)
+all      view         for (k, c) in DynamicValues{Cell}(d); n += isnum(c)             4.57 ns/elt     0.1 B/elt  (median of 2000 samples)
+all      direct       the same, countvals(d) with the user's Dict{String,Any}         4.51 ns/elt     0.0 B/elt  (median of 2000 samples)
+all      copy         the same over a Dict{String, Dynamic{Cell}}                     2.50 ns/elt     0.0 B/elt  (median of 2000 samples)
+-- W5 keyed lookup, 1000 keys
+all      plain        s += d[k] (isa Int, else length)                               10.27 ns/elt     0.0 B/elt  (median of 2000 samples)
+all      interop      the same in a trait module                                     10.15 ns/elt     0.0 B/elt  (median of 2000 samples)
+all      view         s += weight(d[k]) over DynamicValues{Cell}(d)                  13.54 ns/elt     0.2 B/elt  (median of 2000 samples)
+all      direct       the same, the user's Dict{String,Any}                          13.61 ns/elt     0.2 B/elt  (median of 2000 samples)
+all      copy         the same over a Dict{String, Dynamic{Cell}}                    11.00 ns/elt     0.2 B/elt  (median of 2000 samples)
+-- W6 sums over numbers of mixed types (hc4's controls)
+all      plain        s += x over Vector{Any} of Int                                 18.43 ns/elt    16.0 B/elt  (median of 2000 samples)
+all      interop      the same in a trait module                                     20.68 ns/elt    16.0 B/elt  (median of 2000 samples)
+all      view         s += value(x) over DynamicItems{Num}(Vector{Any})               1.57 ns/elt     0.1 B/elt  (median of 2000 samples)
+all      direct       the same, total(v) with the user's Vector{Any}                  1.50 ns/elt     0.1 B/elt  (median of 2000 samples)
+all      plain        s += Float64(x) over Vector{Real}                             105.73 ns/elt    24.0 B/elt  (median of 2000 samples)
+all      interop      the same in a trait module                                    110.98 ns/elt    24.0 B/elt  (median of 2000 samples)
+all      view         s += value(x) over DynamicItems{Num}(Vector{Real})              1.51 ns/elt     0.1 B/elt  (median of 2000 samples)
+all      direct       the same, total(v) with the user's Vector{Real}                 1.50 ns/elt     0.1 B/elt  (median of 2000 samples)
+all      copy         the same over a copy, Vector{Dynamic{Num}}                      1.15 ns/elt     0.1 B/elt  (median of 2000 samples)
+-- the copy itself
+all      copy         collect(DynamicItems{Cell}(v)): Vector{Dynamic{Cell}}           1.79 ns/elt     8.1 B/elt  (median of 2000 samples)
+all      copy         Dynamic{Cell}[Dynamic{Cell}(x) for x in v], in Main           117.31 ns/elt    35.8 B/elt  (median of 2000 samples)
+all      make         Dynamic{Cell}(x), x::Int known                                  7.64 ns/elt    16.0 B/elt  (median of 2000 samples)
+== done  load 1.88 1.72 2.15
