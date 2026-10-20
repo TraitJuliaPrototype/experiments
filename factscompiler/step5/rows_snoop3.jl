@@ -17,7 +17,7 @@ row(1, "first PNG: lines, scatter, save", @timed (f = TM.lines(xs, sin.(xs); tit
 LOADS == "after" && load_big()
 
 @eval struct Trajectory; name::String; pts::Vector{NTuple{2,Float64}}; end
-row(4, "a new data type: @implement (forwarding)", @timed @eval @implement TM.Positions Trajectory)
+row(4, "a new data type: @implement (forwarding)", @timed @eval @implement TM.Positions Trajectory by pts)
 tr = Trajectory("w", [(Float64(i), Float64(i)^2) for i in 1:20])
 using SnoopCompileCore
 tinf = @snoop_inference TM.save(joinpath(OUT, "b.png"), TM.lines(tr))

@@ -1,1 +1,152 @@
-### calls 19:15:38
+### calls 00:56:11
+DynamicCall pointer   3.95 ns/call
+direct call           0.87 ns/call
+dynamic call (Any)    20.31 ns/call
+old world: 2.0 (expect 2.0), latest: 101.0 (expect 101.0)
+alternating worlds, 100 calls each way: 4.46 ns/call (incl. invoke_in_world)
+untyped plain
+untyped, trait   28.8 ns/call
+untyped, plain   18.9 ns/call
+typed, trait     0.8 ns/call
+typed, plain     0.8 ns/call
+allocations per untyped trait call: 16.0 bytes
+plain  monomorphic, asserted        14.2 ns/call    16.0 bytes/call
+plain  4 types, asserted            17.5 ns/call    16.0 bytes/call
+plain  4 types, result untyped      34.7 ns/call    32.0 bytes/call
+plain  push!(::Vector{Any}, x)       1.6 ns/call    17.0 bytes/call
+untyped all
+untyped, trait   30.8 ns/call
+untyped, plain   17.6 ns/call
+typed, trait     0.8 ns/call
+typed, plain     0.8 ns/call
+allocations per untyped trait call: 16.0 bytes
+all    monomorphic, asserted        14.2 ns/call    16.0 bytes/call
+all    4 types, asserted            17.2 ns/call    16.0 bytes/call
+all    4 types, result untyped      34.8 ns/call    32.0 bytes/call
+all    push!(::Vector{Any}, x)      13.6 ns/call    17.0 bytes/call
+### quick 00:58:21
+array           28  geomean 2.844  min 0.97  max 8.59
+broadcast        4  geomean 1.015  min 1.00  max 1.02
+collection      21  geomean 5.164  min 0.98  max 28.84
+find             4  geomean 0.999  min 0.99  max 1.01
+io               6  geomean 1.184  min 1.00  max 1.68
+micro            4  geomean 1.006  min 0.99  max 1.02
+misc             4  geomean 0.990  min 0.96  max 1.01
+problem          6  geomean 1.529  min 0.89  max 4.46
+scalar          15  geomean 0.964  min 0.56  max 2.06
+shootout         4  geomean 0.997  min 0.98  max 1.00
+simd             4  geomean 0.979  min 0.92  max 1.01
+sort            11  geomean 1.884  min 0.97  max 9.55
+sparse           5  geomean 1.022  min 1.00  max 1.06
+string           4  geomean 0.998  min 0.99  max 1.00
+tuple            1  geomean 1.013  min 1.01  max 1.01
+union           27  geomean 1.229  min 0.96  max 2.86
+ALL            148  geomean 1.710
+### demonstrators 01:02:07
+Plain       OffsetArrays,StatsBase,Unitful                                         loads 0.3 s, using 0.97 s, work 2575.3 ms
+Trait       OffsetArrays,StatsBase,Unitful                                         loads 0.31 s, using 1.17 s, work 416.7 ms
+Plain       IntervalArithmetic,Distributions,Interpolations,StaticArrays           loads 0.61 s, using 0.99 s, work 2559.9 ms
+Trait       IntervalArithmetic,Distributions,Interpolations,StaticArrays           loads 0.6 s, using 1.19 s, work 344.4 ms
+Plain       REPL,CairoMakie,OffsetArrays,StatsBase,Unitful,IntervalArithmetic,Distributions,Interpolations,StaticArrays loads 2.76 s, using 0.97 s, work 3105.5 ms
+Trait       REPL,CairoMakie,OffsetArrays,StatsBase,Unitful,IntervalArithmetic,Distributions,Interpolations,StaticArrays loads 2.76 s, using 1.17 s, work 344.0 ms
+### forks 01:10:37
+  7 dependencies successfully precompiled in 104 seconds. 54 already precompiled.
+precompile /home/hellmann/Repos/julia-trait-bound/forks/env_forks 103.6 s
+precompile /home/hellmann/Repos/julia-trait-bound/forks/env_upstream 0.2 s
+fk-patched 2 load 4.89 | start 0.574 | imports 1.924 | read 0.077 | show 0.175 | describe 0.147 | select_filter 0.211 | sort 0.007 | groupby_combine 0.023 | user_function 0.209 | join 0.233 | add_column 0.006 | write 0.083 | 2_read_show 0.076 | 2_describe 0.032 | 2_sort 0.005 | 2_groupby_combine 0.018 | 3_using 0.001 | 3_read_show 0.062 | 3_describe 0.004 | 3_groupby_combine 0.005 | exit 0.115 | wall 3.989
+fk-patched 3 load 4.58 | start 0.325 | imports 1.888 | read 0.082 | show 0.170 | describe 0.144 | select_filter 0.210 | sort 0.007 | groupby_combine 0.022 | user_function 0.203 | join 0.224 | add_column 0.006 | write 0.081 | 2_read_show 0.073 | 2_describe 0.031 | 2_sort 0.005 | 2_groupby_combine 0.018 | 3_using 0.001 | 3_read_show 0.060 | 3_describe 0.004 | 3_groupby_combine 0.005 | exit 0.115 | wall 3.675
+up-patched 1 load 4.58 | start 0.325 | imports 1.191 | read 3.608 | show 1.015 | describe 1.064 | select_filter 0.184 | sort 1.204 | groupby_combine 0.751 | user_function 0.257 | join 1.297 | add_column 0.110 | write 0.188 | 2_read_show 0.007 | 2_describe 0.030 | 2_sort 0.415 | 2_groupby_combine 0.128 | 3_using 0.001 | 3_read_show 0.213 | 3_describe 0.147 | 3_groupby_combine 0.116 | exit 0.095 | wall 12.347
+up-patched 2 load 3.78 | start 0.325 | imports 0.690 | read 3.948 | show 0.975 | describe 1.066 | select_filter 0.178 | sort 1.140 | groupby_combine 0.742 | user_function 0.304 | join 1.247 | add_column 0.100 | write 0.163 | 2_read_show 0.007 | 2_describe 0.029 | 2_sort 0.401 | 2_groupby_combine 0.143 | 3_using 0.001 | 3_read_show 0.206 | 3_describe 0.139 | 3_groupby_combine 0.112 | exit 0.099 | wall 12.014
+up-patched 3 load 3.36 | start 0.323 | imports 1.142 | read 3.455 | show 0.980 | describe 1.052 | select_filter 0.185 | sort 1.126 | groupby_combine 0.769 | user_function 0.253 | join 1.282 | add_column 0.117 | write 0.162 | 2_read_show 0.006 | 2_describe 0.029 | 2_sort 0.403 | 2_groupby_combine 0.128 | 3_using 0.001 | 3_read_show 1.028 | 3_describe 0.125 | 3_groupby_combine 0.128 | exit 0.100 | wall 12.797
+== up-patched: 2 runs (1 dropped for load)
+  start                min   0.323  median   0.324
+  imports              min   0.690  median   0.916
+  read                 min   3.455  median   3.702
+  show                 min   0.975  median   0.978
+  describe             min   1.052  median   1.059
+  select_filter        min   0.178  median   0.181
+  sort                 min   1.126  median   1.133
+  groupby_combine      min   0.742  median   0.756
+  user_function        min   0.253  median   0.278
+  join                 min   1.247  median   1.264
+  add_column           min   0.100  median   0.109
+  write                min   0.162  median   0.163
+  2_read_show          min   0.006  median   0.007
+  2_describe           min   0.029  median   0.029
+  2_sort               min   0.401  median   0.402
+  2_groupby_combine    min   0.128  median   0.136
+  3_using              min   0.001  median   0.001
+  3_read_show          min   0.206  median   0.617
+  3_describe           min   0.125  median   0.132
+  3_groupby_combine    min   0.112  median   0.120
+  exit                 min   0.099  median   0.100
+  wall                 min  12.014  median  12.405
+  session (no imports) min  10.900  median  11.066
+### done 01:13:11
+### basebenchmarks 01:13:11
+== plain 01:13:11
+image: /home/hellmann/Repos/julia-trait-bound/julia-1.13/usr/lib/julia/sys.so  label: s0-plain
+array       756 benchmarks, 406.7 s
+broadcast   27 benchmarks, 10.7 s
+collection  345 benchmarks, 141.9 s
+dates       50 benchmarks, 14.0 s
+find        63 benchmarks, 42.6 s
+io          10 benchmarks, 14.8 s
+micro       8 benchmarks, 6.7 s
+misc        42 benchmarks, 28.1 s
+problem     19 benchmarks, 42.7 s
+scalar      1363 benchmarks, 427.8 s
+shootout    12 benchmarks, 17.3 s
+simd        680 benchmarks, 185.8 s
+sort        135 benchmarks, 145.2 s
+sparse      326 benchmarks, 274.2 s
+string      22 benchmarks, 21.9 s
+tuple       50 benchmarks, 11.8 s
+union       434 benchmarks, 366.6 s
+== all 01:49:32
+image: /home/hellmann/Repos/julia-trait-bound/julia-1.13/usr/lib/julia/facts/sys.so  label: s0-all
+array       756 benchmarks, 405.8 s
+broadcast   27 benchmarks, 11.6 s
+collection  345 benchmarks, 147.5 s
+dates       50 benchmarks, 13.9 s
+find        63 benchmarks, 41.5 s
+io          10 benchmarks, 14.1 s
+micro       8 benchmarks, 6.5 s
+misc        42 benchmarks, 27.9 s
+problem     19 benchmarks, 51.7 s
+scalar      1363 benchmarks, 439.4 s
+shootout    12 benchmarks, 19.9 s
+simd        680 benchmarks, 185.3 s
+sort        135 benchmarks, 141.2 s
+sparse      326 benchmarks, 265.9 s
+string      22 benchmarks, 21.1 s
+tuple       50 benchmarks, 11.6 s
+union       434 benchmarks, 357.7 s
+== done 02:26:01
+array          756  geomean 1.043  min 0.40  max 11.09
+broadcast       27  geomean 1.008  min 0.88  max 1.18
+collection     345  geomean 1.123  min 0.78  max 27.83
+dates           50  geomean 1.016  min 0.80  max 1.37
+find            63  geomean 1.104  min 0.98  max 1.86
+io              10  geomean 1.231  min 0.98  max 1.69
+micro            8  geomean 1.004  min 0.98  max 1.04
+misc            42  geomean 1.019  min 0.85  max 1.24
+problem         19  geomean 1.167  min 0.80  max 4.44
+scalar        1363  geomean 1.027  min 0.77  max 2.82
+shootout        12  geomean 1.067  min 0.84  max 1.80
+simd           680  geomean 1.002  min 0.79  max 1.42
+sort           135  geomean 1.056  min 0.73  max 8.86
+sparse         326  geomean 1.001  min 0.72  max 2.78
+string          22  geomean 1.005  min 0.93  max 1.22
+tuple           50  geomean 1.001  min 0.90  max 1.14
+union          434  geomean 1.060  min 0.91  max 2.93
+ALL           4342  geomean 1.037
+
+slower by more than 20% (ratio, benchmark, off ns, on ns):
+   27.83  collection/deletion/("Vector", "Any", "filter!")                                       1151      32030
+   20.18  collection/deletion/("IdDict", "Any", "filter!")                                      11187     225729
+   18.20  collection/deletion/("Vector", "Any", "filter")                                        1649      30012
+   17.63  collection/deletion/("IdDict", "Any", "filter")                                       12068     212778
+   16.69  collection/iteration/("Dict", "Any", "iterate second")                                    7        120
+ALL           4342  geomean 0.943
+### done 02:26:04

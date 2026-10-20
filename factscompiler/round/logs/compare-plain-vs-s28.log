@@ -1,0 +1,80 @@
+array          756  geomean 0.845  min 0.32  max 3.11
+broadcast       27  geomean 0.983  min 0.86  max 1.12
+collection     345  geomean 1.000  min 0.49  max 1.28
+dates           50  geomean 0.992  min 0.88  max 1.05
+find            63  geomean 1.035  min 0.89  max 1.28
+io              10  geomean 1.007  min 0.94  max 1.05
+micro            8  geomean 1.000  min 0.96  max 1.02
+misc            42  geomean 0.927  min 0.03  max 1.35
+problem         19  geomean 1.059  min 0.94  max 1.58
+scalar        1363  geomean 0.897  min 0.11  max 1.21
+shootout        12  geomean 1.020  min 0.92  max 1.26
+simd           680  geomean 1.011  min 0.62  max 1.43
+sort           135  geomean 1.012  min 0.87  max 1.44
+sparse         326  geomean 1.028  min 0.77  max 3.31
+string          22  geomean 1.019  min 0.24  max 1.89
+tuple           50  geomean 0.988  min 0.82  max 1.11
+union          434  geomean 1.007  min 0.94  max 1.90
+ALL           4342  geomean 0.943
+
+slower by more than 20% (ratio, benchmark, off ns, on ns):
+    3.31  sparse/matmul/("At_mul_B!", "sparse 40x4000, dense 40x40 -> dense 4000x40")          268101     886345
+    3.11  array/comprehension/("comprehension_collect", "StepRangeLen{Float64, Base.TwiceP    6406035   19947566
+    3.10  array/comprehension/("collect", "StepRangeLen{Float64, Base.TwicePrecision{Float    6449353   20016517
+    2.09  sparse/matmul/("A_mul_B!", "dense 40x40, sparse 40x4000 -> dense 40x4000")           277404     578941
+    1.99  sparse/matmul/("Ac_mul_B!", "dense 2000x20, sparse 2000x200 -> dense 20x200")         36432      72452
+    1.94  sparse/matmul/("A_mul_B!", "dense 40x400, sparse 400x4000 -> dense 40x4000")         323198     627465
+    1.90  union/array/("broadcast", "identity", "ComplexF64", 0)                                 4946       9422
+    1.89  string/repeat/repeat char 1                                                              22         42
+    1.83  string/repeat/repeat str len 1                                                           23         42
+    1.77  sparse/matmul/("A_mul_Bc!", "dense 2000x20, sparse 20x20 -> dense 2000x20")          186331     329567
+    1.58  problem/spellcheck/spellcheck                                                    1374800808 2169813781
+    1.57  string/repeat/repeat char 2                                                              52         82
+    1.55  sparse/matmul/("Ac_mul_B!", "dense 2000x20, sparse 2000x2000 -> dense 20x2000")      386592     598791
+    1.50  string/repeat/repeat str len 16                                                         439        659
+    1.45  sparse/matmul/("A_mul_Bc!", "sparse 2000x2000, dense 20x2000 -> dense 2000x20")      392998     567933
+    1.44  sort/length = 30/sort!(fill(missing, length))                                             9         12
+    1.43  sparse/matmul/("A_mul_Bc!", "dense 20x2000, sparse 200x2000 -> dense 20x200")         24869      35560
+    1.43  simd/("CartesianPartition", "conditional_loop!", "Int32", 3, 64)                        383        546
+    1.40  sparse/matmul/("At_mul_Bt!", "dense 4000x40, sparse 4000x4000 -> dense 40x4000")     817711    1147888
+    1.36  problem/json/parse_json                                                              304510     415091
+    1.35  sparse/matmul/("Ac_mul_B!", "sparse 20x20, dense 20x2000 -> dense 20x2000")          403329     545731
+    1.35  misc/iterators/zip(1:1, 1:1)                                                             25         33
+    1.32  sparse/matmul/("At_mul_Bt!", "dense 400x400, sparse 40x400 -> dense 400x40")         118567     156835
+    1.32  simd/("CartesianPartition", "conditional_loop!", "Int64", 4, 31)                        433        573
+    1.30  array/index/("sumcolon_view", "SubArray{Float32, 2, Base.ReshapedArray{Float32,         952       1239
+    1.29  array/setindex!/("setindex!", 5)                                                         14         17
+    1.28  misc/iterators/zip(1:1, 1:1, 1:1)                                                        23         30
+    1.28  collection/queries & updates/("IdDict", "Int", "length")                                  2          2
+    1.28  find/findnext/("ispos", "Vector{UInt64}")                                             14822      18920
+    1.27  sparse/matmul/("At_mul_B!", "sparse 400x400, dense 400x400 -> dense 400x400")       2502664    3178002
+    1.27  sparse/matmul/("A_mul_Bt!", "sparse 400x400, dense 400x400 -> dense 400x400")       3171592    4025319
+    1.27  simd/("Linear", "manual_example!", "Float32", 4095)                                     208        264
+    1.26  shootout/binary_trees                                                               9416052   11909714
+    1.26  simd/("CartesianPartition", "conditional_loop!", "Int32", 4, 64)                        421        531
+    1.26  sort/issorted/("reverse", "ascending")                                                   13         16
+    1.26  simd/("CartesianPartition", "conditional_loop!", "Int64", 2, 63)                        281        353
+    1.25  sort/issorted/("reverse", "random")                                                      14         18
+    1.25  misc/bitshift/("UInt", "UInt")                                                            2          2
+    1.25  sparse/index/("spmat", "row", "array", 1000)                                           4029       5020
+    1.24  sparse/index/("spvec", "integer", 100000)                                                 6          8
+    1.24  sparse/matmul/("At_mul_B!", "sparse 40x40, dense 40x4000 -> dense 40x4000")         2367823    2936869
+    1.24  simd/("Cartesian", "manual_example!", "Int32", 4, 63)                                  1402       1735
+    1.23  find/findnext/("ispos", "Vector{Float64}")                                            14863      18342
+    1.23  find/findprev/("ispos", "Vector{UInt8}")                                              15063      18487
+    1.22  array/subarray/("lucompletepivCopy!", 1000)                                      2186707309 2675103790
+    1.22  sort/length = 10000/mixed eltype with by order                                      3706795    4530700
+    1.22  simd/("Linear", "axpy!", "Int32", 4095)                                                 170        207
+    1.22  simd/("Cartesian", "manual_example!", "Int32", 2, 63)                                  1314       1600
+    1.22  sort/length = 1000/mixed eltype with by order                                        250685     304887
+    1.21  scalar/tan/("large", "positive argument", "Float64")                                     55         67
+    1.21  sparse/index/("spmat", "row", "array", 100)                                             408        493
+    1.21  array/setindex!/("setindex!", 3)                                                         16         20
+    1.21  find/findprev/("ispos", "Vector{Float64}")                                            14970      18068
+    1.21  array/setindex!/("setindex!", 4)                                                         13         15
+    1.21  collection/deletion/("Set", "Any", "filter")                                          14561      17561
+    1.21  simd/("Linear", "auto_axpy!", "Int32", 4095)                                            169        204
+    1.21  scalar/arithmetic/("rem type", "Bool", "BigInt")                                         94        114
+    1.20  find/findnext/("ispos", "Vector{Int8}")                                               11506      13861
+    1.20  find/findnext/("ispos", "Vector{UInt8}")                                              15083      18168
+    1.20  scalar/arithmetic/("rem type", "Char", "Int64")                                          69         83

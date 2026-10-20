@@ -17,7 +17,7 @@ row(1, "first PNG: lines, scatter, save", @timed (f = TM.lines(xs, sin.(xs); tit
 LOADS == "after" && load_big()
 
 @eval struct Trajectory; name::String; pts::Vector{NTuple{2,Float64}}; end
-using Profile; Profile.init(n = 10^7, delay = 0.0002); @profile @eval @implement TM.Positions Trajectory; open(io -> Profile.print(IOContext(io, :displaysize => (2000, 250)); format = :tree, maxdepth = 60, mincount = 25, C = false, noisefloor = 1), joinpath(ENV["TMPDIR"], "impl_prof.txt"), "w"); exit()
+using Profile; Profile.init(n = 10^7, delay = 0.0002); @profile @eval @implement TM.Positions Trajectory by pts; open(io -> Profile.print(IOContext(io, :displaysize => (2000, 250)); format = :tree, maxdepth = 60, mincount = 25, C = false, noisefloor = 1), joinpath(ENV["TMPDIR"], "impl_prof.txt"), "w"); exit()
 tr = Trajectory("w", [(Float64(i), Float64(i)^2) for i in 1:20])
 row(4, "a new data type: first PNG", @timed TM.save(joinpath(OUT, "b.png"), TM.lines(tr)))
 @eval struct Gradient; from::NTuple{4,Float64}; to::NTuple{4,Float64}; n::Int; end

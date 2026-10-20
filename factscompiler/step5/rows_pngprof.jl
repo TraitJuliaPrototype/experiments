@@ -17,7 +17,7 @@ using Profile; Profile.init(n = 10^7, delay = 0.0002); @profile (f = TM.lines(xs
 LOADS == "after" && load_big()
 
 @eval struct Trajectory; name::String; pts::Vector{NTuple{2,Float64}}; end
-row(4, "a new data type: @implement (forwarding)", @timed @eval @implement TM.Positions Trajectory)
+row(4, "a new data type: @implement (forwarding)", @timed @eval @implement TM.Positions Trajectory by pts)
 tr = Trajectory("w", [(Float64(i), Float64(i)^2) for i in 1:20])
 row(4, "a new data type: first PNG", @timed TM.save(joinpath(OUT, "b.png"), TM.lines(tr)))
 @eval struct Gradient; from::NTuple{4,Float64}; to::NTuple{4,Float64}; n::Int; end

@@ -18,7 +18,7 @@ LOADS == "after" && load_big()
 
 @eval struct Trajectory; name::String; pts::Vector{NTuple{2,Float64}}; end
 invs = ccall(:jl_debug_method_invalidation, Any, (Cint,), 1)
-r4 = @timed @eval @implement TM.Positions Trajectory
+r4 = @timed @eval @implement TM.Positions Trajectory by pts
 ccall(:jl_debug_method_invalidation, Any, (Cint,), 0)
 row(4, "a new data type: @implement (forwarding)", r4)
 sh(x) = x isa Core.MethodInstance ? "MI " * first(string(x.specTypes), 150) : x isa Core.CodeInstance ? "CI " * first(string((x.def isa Core.MethodInstance ? x.def : x.def.def).specTypes), 150) * " owner=" * repr(x.owner) : x isa Method ? "METHOD " * string(x.module) * "." * string(x.name) * " " * first(string(x.sig), 150) : first(repr(x), 150)

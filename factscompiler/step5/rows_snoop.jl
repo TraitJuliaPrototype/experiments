@@ -18,7 +18,7 @@ LOADS == "after" && load_big()
 
 @eval struct Trajectory; name::String; pts::Vector{NTuple{2,Float64}}; end
 using SnoopCompileCore
-tinf = @snoop_inference @eval @implement TM.Positions Trajectory
+tinf = @snoop_inference @eval @implement TM.Positions Trajectory by pts
 rows = Tuple{Float64,Float64,Any}[]
 walk(n) = (for c in n.children; push!(rows, (SnoopCompileCore.exclusive(c), SnoopCompileCore.inclusive(c), c.ci)); walk(c); end)
 walk(tinf)

@@ -1,0 +1,222 @@
+### control 01:02:07
+  285 dependencies successfully precompiled in 272 seconds. 36 already precompiled.
+precompile 272.3 s
+  33 dependencies successfully precompiled in 55 seconds. 288 already precompiled.
+precompile /home/hellmann/Repos/julia-trait-bound/TraitReport/env_loads 55.5 s
+== plain plaintables
+mode: plain  loads: OffsetArrays StatsBase Unitful IntervalArithmetic Distributions Interpolations StaticArrays CairoMakie REPL
+work: first 104.3 ms, again 28.6 ms; after the loads 96.2 ms
+valid before the loads: PlainTables 77, TraitMakie 179
+valid after the loads:  PlainTables 63, TraitMakie 179
+lost: 14 of 256  (PlainTables 14)
+== plain upstream
+mode: plain  loads: OffsetArrays StatsBase Unitful IntervalArithmetic Distributions Interpolations StaticArrays CairoMakie REPL
+work: first 3308.2 ms, again 0.6 ms; after the loads 4021.4 ms
+valid before the loads: CSV 1315, DataFrames 1956, Tables 317, Parsers 830, InlineStrings 1, PooledArrays 194, SentinelArrays 71
+valid after the loads:  CSV 1192, DataFrames 1567, Tables 301, Parsers 994, InlineStrings 1, PooledArrays 170, SentinelArrays 65
+lost: 561 of 4684  (SentinelArrays 6, Parsers 3, CSV 123, PooledArrays 24, Tables 16, DataFrames 389)
+== all plaintables
+mode: all (facts)  loads: OffsetArrays StatsBase Unitful IntervalArithmetic Distributions Interpolations StaticArrays CairoMakie REPL
+work: first 80.2 ms, again 28.8 ms; after the loads 28.3 ms
+valid before the loads: PlainTables 65, TraitMakie 179
+valid after the loads:  PlainTables 65, TraitMakie 179
+lost: 0 of 244  ()
+== all upstream
+mode: all (facts)  loads: OffsetArrays StatsBase Unitful IntervalArithmetic Distributions Interpolations StaticArrays CairoMakie REPL
+work: first 516.1 ms, again 0.9 ms; after the loads 435.0 ms
+valid before the loads: CSV 1009, DataFrames 1221, Tables 171, Parsers 823, InlineStrings 1, PooledArrays 95, SentinelArrays 17
+valid after the loads:  CSV 1007, DataFrames 1221, Tables 171, Parsers 926, InlineStrings 1, PooledArrays 95, SentinelArrays 17
+lost: 2 of 3337  (CSV 2)
+### tde 01:08:15
+  4 dependencies successfully precompiled in 4 seconds. 24 already precompiled.
+precompile /home/hellmann/Repos/julia-trait-bound/TraitDifferentialEquations/scripts/env 4.5 s
+-- rows none run 1
+using TraitDifferentialEquations 0.48 s
+row 1 first Tsit5 solve, a plain function 10.7 ms
+row 2 a second model function 10.5 ms
+row 2 a new model type: @implement 80.9 ms
+row 2 a new model type: first solve 43.6 ms
+row 3 first Rodas5 solve 17.5 ms
+row 4 a new callback closure 12.7 ms
+row 4 a second callback closure 5.3 ms
+row 5 first gradient (Tsit5, 3 parameters) 31.3 ms
+row 5 a second loss closure 18.2 ms
+row 5 a third loss, another model function 76.1 ms
+row 5 ForwardDiff's own tag (the loss's type), for comparison 604.6 ms
+row 6 a Float32 state, first solve 386.7 ms
+-- rows none run 2
+using TraitDifferentialEquations 0.47 s
+row 1 first Tsit5 solve, a plain function 10.3 ms
+row 2 a second model function 10.2 ms
+row 2 a new model type: @implement 77.7 ms
+row 2 a new model type: first solve 42.6 ms
+row 3 first Rodas5 solve 20.1 ms
+row 4 a new callback closure 12.3 ms
+row 4 a second callback closure 5.2 ms
+row 5 first gradient (Tsit5, 3 parameters) 30.1 ms
+row 5 a second loss closure 17.6 ms
+row 5 a third loss, another model function 75.0 ms
+row 5 ForwardDiff's own tag (the loss's type), for comparison 586.1 ms
+row 6 a Float32 state, first solve 382.3 ms
+-- rows before run 1
+loads 3.16 s
+using TraitDifferentialEquations 0.62 s
+row 1 first Tsit5 solve, a plain function 28.2 ms
+row 2 a second model function 10.2 ms
+row 2 a new model type: @implement 98.8 ms
+row 2 a new model type: first solve 95.7 ms
+row 3 first Rodas5 solve 17.0 ms
+row 4 a new callback closure 23.1 ms
+row 4 a second callback closure 5.3 ms
+row 5 first gradient (Tsit5, 3 parameters) 34.7 ms
+row 5 a second loss closure 18.2 ms
+row 5 a third loss, another model function 64.1 ms
+row 5 ForwardDiff's own tag (the loss's type), for comparison 636.0 ms
+row 6 a Float32 state, first solve 350.7 ms
+-- rows before run 2
+loads 3.2 s
+using TraitDifferentialEquations 0.63 s
+row 1 first Tsit5 solve, a plain function 28.6 ms
+row 2 a second model function 10.4 ms
+row 2 a new model type: @implement 100.8 ms
+row 2 a new model type: first solve 92.0 ms
+row 3 first Rodas5 solve 18.0 ms
+row 4 a new callback closure 23.6 ms
+row 4 a second callback closure 5.3 ms
+row 5 first gradient (Tsit5, 3 parameters) 35.0 ms
+row 5 a second loss closure 18.2 ms
+row 5 a third loss, another model function 65.0 ms
+row 5 ForwardDiff's own tag (the loss's type), for comparison 639.3 ms
+row 6 a Float32 state, first solve 353.8 ms
+-- rows after run 1
+using TraitDifferentialEquations 0.48 s
+row 1 first Tsit5 solve, a plain function 10.5 ms
+loads 3.49 s
+row 2 a second model function 28.1 ms
+row 2 a new model type: @implement 84.6 ms
+row 2 a new model type: first solve 46.3 ms
+row 3 first Rodas5 solve 17.5 ms
+row 4 a new callback closure 23.9 ms
+row 4 a second callback closure 5.3 ms
+row 5 first gradient (Tsit5, 3 parameters) 35.1 ms
+row 5 a second loss closure 18.0 ms
+row 5 a third loss, another model function 63.3 ms
+row 5 ForwardDiff's own tag (the loss's type), for comparison 604.5 ms
+row 6 a Float32 state, first solve 354.7 ms
+-- rows after run 2
+using TraitDifferentialEquations 0.48 s
+row 1 first Tsit5 solve, a plain function 10.4 ms
+loads 3.52 s
+row 2 a second model function 28.4 ms
+row 2 a new model type: @implement 85.3 ms
+row 2 a new model type: first solve 46.4 ms
+row 3 first Rodas5 solve 17.7 ms
+row 4 a new callback closure 24.1 ms
+row 4 a second callback closure 5.3 ms
+row 5 first gradient (Tsit5, 3 parameters) 35.3 ms
+row 5 a second loss closure 18.2 ms
+row 5 a third loss, another model function 63.5 ms
+row 5 ForwardDiff's own tag (the loss's type), for comparison 606.8 ms
+row 6 a Float32 state, first solve 358.4 ms
+-- runtime
+    @ ./module.jl:36 [inlined]
+  [6] _eval_import(imported::Bool, to::Module, from::Nothing, paths::Expr)
+    @ Base ./module.jl:111
+  [7] top-level scope
+    @ ~/Repos/julia-trait-bound/TraitDifferentialEquations/scripts/runtime.jl:6
+  [8] include(mod::Module, _path::String)
+    @ Base ./Base.jl:309
+  [9] exec_options(opts::Base.JLOptions)
+    @ Base ./client.jl:344
+ [10] _start()
+    @ Base ./client.jl:577
+in expression starting at /home/hellmann/Repos/julia-trait-bound/TraitDifferentialEquations/scripts/runtime.jl:6
+### makie 01:08:53
+precompile /home/hellmann/Repos/julia-trait-bound/TraitMakie/scripts/env 0.2 s
+-- rows none run 1
+row 1 using TraitMakie 500.6 ms
+row 1 first PNG: lines, scatter, save 20.7 ms
+ERROR: LoadError: ImplementError: Trajectory does not conform to Positions: it does not implement the operations. Required:
+-- rows none run 2
+row 1 using TraitMakie 492.1 ms
+row 1 first PNG: lines, scatter, save 21.0 ms
+ERROR: LoadError: ImplementError: Trajectory does not conform to Positions: it does not implement the operations. Required:
+-- rows before run 1
+loads 3.2 s
+row 1 using TraitMakie 575.2 ms
+row 1 first PNG: lines, scatter, save 21.4 ms
+ERROR: LoadError: ImplementError: Trajectory does not conform to Positions: it does not implement the operations. Required:
+-- rows before run 2
+loads 3.19 s
+row 1 using TraitMakie 573.7 ms
+row 1 first PNG: lines, scatter, save 21.3 ms
+ERROR: LoadError: ImplementError: Trajectory does not conform to Positions: it does not implement the operations. Required:
+-- rows after run 1
+row 1 using TraitMakie 489.8 ms
+row 1 first PNG: lines, scatter, save 20.2 ms
+loads 3.41 s
+ERROR: LoadError: ImplementError: Trajectory does not conform to Positions: it does not implement the operations. Required:
+-- rows after run 2
+row 1 using TraitMakie 488.5 ms
+row 1 first PNG: lines, scatter, save 20.7 ms
+loads 3.41 s
+ERROR: LoadError: ImplementError: Trajectory does not conform to Positions: it does not implement the operations. Required:
+### report 01:09:58
+precompile /home/hellmann/Repos/julia-trait-bound/TraitReport/env_t 0.2 s
+precompile /home/hellmann/Repos/julia-trait-bound/TraitReport/env_pt 0.2 s
+-- python (pandas + matplotlib)
+imports 0.393 s; read 0.001 s; summarize+print 0.001 s; plot+PNG 0.098 s | wall .578114935
+imports 0.405 s; read 0.001 s; summarize+print 0.001 s; plot+PNG 0.095 s | wall .588990830
+imports 0.396 s; read 0.001 s; summarize+print 0.001 s; plot+PNG 0.099 s | wall .580927744
+-- julia /home/hellmann/Repos/julia-trait-bound/julia-1.13/julia, form (t)
+startup 0.098 | imports 0.537 | read 0.007 | summarize 0.000 | plot+PNG 0.092 | exit 0.059 | wall 0.794
+startup 0.100 | imports 0.545 | read 0.007 | summarize 0.000 | plot+PNG 0.092 | exit 0.061 | wall 0.805
+startup 0.099 | imports 0.542 | read 0.006 | summarize 0.000 | plot+PNG 0.091 | exit 0.060 | wall 0.799
+-- julia /home/hellmann/Repos/julia-trait-bound/julia-1.13/julia, form (pt)
+startup 0.099 | imports 0.519 | read 0.004 | summarize 0.000 | plot+PNG 0.062 | exit 0.089 | wall 0.772
+startup 0.103 | imports 0.517 | read 0.004 | summarize 0.000 | plot+PNG 0.062 | exit 0.089 | wall 0.775
+startup 0.102 | imports 0.515 | read 0.004 | summarize 0.000 | plot+PNG 0.061 | exit 0.090 | wall 0.771
+Plain       (none)                                                                 loads 0.01 s, using 1.01 s, work 247.7 ms
+Trait       (none)                                                                 loads 0.01 s, using 1.2 s, work 41.2 ms
+Plain       REPL                                                                   loads 0.15 s, using 0.95 s, work 246.7 ms
+Trait       REPL                                                                   loads 0.15 s, using 1.15 s, work 41.5 ms
+Plain       OffsetArrays,StatsBase,Unitful                                         loads 0.3 s, using 0.97 s, work 2575.3 ms
+Trait       OffsetArrays,StatsBase,Unitful                                         loads 0.31 s, using 1.17 s, work 416.7 ms
+Plain       IntervalArithmetic,Distributions,Interpolations,StaticArrays           loads 0.61 s, using 0.99 s, work 2559.9 ms
+Trait       IntervalArithmetic,Distributions,Interpolations,StaticArrays           loads 0.6 s, using 1.19 s, work 344.4 ms
+Plain       REPL,CairoMakie,OffsetArrays,StatsBase,Unitful,IntervalArithmetic,Distributions,Interpolations,StaticArrays loads 2.76 s, using 0.97 s, work 3105.5 ms
+Trait       REPL,CairoMakie,OffsetArrays,StatsBase,Unitful,IntervalArithmetic,Distributions,Interpolations,StaticArrays loads 2.76 s, using 1.17 s, work 344.0 ms
+### forks 01:10:37
+  7 dependencies successfully precompiled in 104 seconds. 54 already precompiled.
+precompile /home/hellmann/Repos/julia-trait-bound/forks/env_forks 103.6 s
+precompile /home/hellmann/Repos/julia-trait-bound/forks/env_upstream 0.2 s
+fk-patched 2 load 4.89 | start 0.574 | imports 1.924 | read 0.077 | show 0.175 | describe 0.147 | select_filter 0.211 | sort 0.007 | groupby_combine 0.023 | user_function 0.209 | join 0.233 | add_column 0.006 | write 0.083 | 2_read_show 0.076 | 2_describe 0.032 | 2_sort 0.005 | 2_groupby_combine 0.018 | 3_using 0.001 | 3_read_show 0.062 | 3_describe 0.004 | 3_groupby_combine 0.005 | exit 0.115 | wall 3.989
+fk-patched 3 load 4.58 | start 0.325 | imports 1.888 | read 0.082 | show 0.170 | describe 0.144 | select_filter 0.210 | sort 0.007 | groupby_combine 0.022 | user_function 0.203 | join 0.224 | add_column 0.006 | write 0.081 | 2_read_show 0.073 | 2_describe 0.031 | 2_sort 0.005 | 2_groupby_combine 0.018 | 3_using 0.001 | 3_read_show 0.060 | 3_describe 0.004 | 3_groupby_combine 0.005 | exit 0.115 | wall 3.675
+up-patched 1 load 4.58 | start 0.325 | imports 1.191 | read 3.608 | show 1.015 | describe 1.064 | select_filter 0.184 | sort 1.204 | groupby_combine 0.751 | user_function 0.257 | join 1.297 | add_column 0.110 | write 0.188 | 2_read_show 0.007 | 2_describe 0.030 | 2_sort 0.415 | 2_groupby_combine 0.128 | 3_using 0.001 | 3_read_show 0.213 | 3_describe 0.147 | 3_groupby_combine 0.116 | exit 0.095 | wall 12.347
+up-patched 2 load 3.78 | start 0.325 | imports 0.690 | read 3.948 | show 0.975 | describe 1.066 | select_filter 0.178 | sort 1.140 | groupby_combine 0.742 | user_function 0.304 | join 1.247 | add_column 0.100 | write 0.163 | 2_read_show 0.007 | 2_describe 0.029 | 2_sort 0.401 | 2_groupby_combine 0.143 | 3_using 0.001 | 3_read_show 0.206 | 3_describe 0.139 | 3_groupby_combine 0.112 | exit 0.099 | wall 12.014
+up-patched 3 load 3.36 | start 0.323 | imports 1.142 | read 3.455 | show 0.980 | describe 1.052 | select_filter 0.185 | sort 1.126 | groupby_combine 0.769 | user_function 0.253 | join 1.282 | add_column 0.117 | write 0.162 | 2_read_show 0.006 | 2_describe 0.029 | 2_sort 0.403 | 2_groupby_combine 0.128 | 3_using 0.001 | 3_read_show 1.028 | 3_describe 0.125 | 3_groupby_combine 0.128 | exit 0.100 | wall 12.797
+== up-patched: 2 runs (1 dropped for load)
+  start                min   0.323  median   0.324
+  imports              min   0.690  median   0.916
+  read                 min   3.455  median   3.702
+  show                 min   0.975  median   0.978
+  describe             min   1.052  median   1.059
+  select_filter        min   0.178  median   0.181
+  sort                 min   1.126  median   1.133
+  groupby_combine      min   0.742  median   0.756
+  user_function        min   0.253  median   0.278
+  join                 min   1.247  median   1.264
+  add_column           min   0.100  median   0.109
+  write                min   0.162  median   0.163
+  2_read_show          min   0.006  median   0.007
+  2_describe           min   0.029  median   0.029
+  2_sort               min   0.401  median   0.402
+  2_groupby_combine    min   0.128  median   0.136
+  3_using              min   0.001  median   0.001
+  3_read_show          min   0.206  median   0.617
+  3_describe           min   0.125  median   0.132
+  3_groupby_combine    min   0.112  median   0.120
+  exit                 min   0.099  median   0.100
+  wall                 min  12.014  median  12.405
+  session (no imports) min  10.900  median  11.066
+### done 01:13:11

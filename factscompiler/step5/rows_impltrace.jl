@@ -17,7 +17,7 @@ row(1, "first PNG: lines, scatter, save", @timed (f = TM.lines(xs, sin.(xs); tit
 LOADS == "after" && load_big()
 
 @eval struct Trajectory; name::String; pts::Vector{NTuple{2,Float64}}; end
-println(stderr, "--IMPL1"); ccall(:jl_force_trace_compile_timing_enable, Cvoid, ()); r4 = @timed @eval @implement TM.Positions Trajectory; ccall(:jl_force_trace_compile_timing_disable, Cvoid, ()); println(stderr, "--END1"); row(4, "a new data type: @implement (forwarding)", r4)
+println(stderr, "--IMPL1"); ccall(:jl_force_trace_compile_timing_enable, Cvoid, ()); r4 = @timed @eval @implement TM.Positions Trajectory by pts; ccall(:jl_force_trace_compile_timing_disable, Cvoid, ()); println(stderr, "--END1"); row(4, "a new data type: @implement (forwarding)", r4)
 tr = Trajectory("w", [(Float64(i), Float64(i)^2) for i in 1:20])
 row(4, "a new data type: first PNG", @timed TM.save(joinpath(OUT, "b.png"), TM.lines(tr)))
 @eval struct Gradient; from::NTuple{4,Float64}; to::NTuple{4,Float64}; n::Int; end
