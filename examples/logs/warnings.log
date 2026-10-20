@@ -1,57 +1,53 @@
 PASS     a abstract field: same value as the fixed twin  (bad 12.0, fixed 12.0)
 PASS     a abstract field: the flawed worker warns at its first call
 PASS     a abstract field: the fixed twin is silent
-PASS     a abstract field: the warning names the line  (@warn_on_abstract: `a_bad` at Col at Vector{Float64} uses abstract types on its normal path; 1 root cause:
-  1. field `scale` of `Main.Teach.OptsAny` is declared `Any` (teach.jl:28)
-       3 uses, 2 i)
-PASS     a abstract field: the warning names the root cause  (@warn_on_abstract: `a_bad` at Col at Vector{Float64} uses abstract types on its normal path; 1 root cause:
+PASS     a abstract field: the warning names the line  (@warn_on_abstract: `a_bad` at Col at TraitWorld.ErasedKey{Tuple{}, Nothing} uses abstract types on its normal path; 1 root cause:
+  1. field `scale` of `Main.Teach.OptsAny` is declared `Any` (teach.jl)
+PASS     a abstract field: the warning names the root cause  (@warn_on_abstract: `a_bad` at Col at TraitWorld.ErasedKey{Tuple{}, Nothing} uses abstract types on its normal path; 1 root cause:
   1. field `scale` of `Main.Teach.OptsAny` is declared `Any` (teach.jl:28)
        3 uses, 2 in loops; first in a loop: teach.jl:28  *(::Any, ::Float64)
-@warn_on_abstract: not fully typed: Tuple)
-PASS     a abstract field: the warning says how to fix it  (@warn_on_abstract: `a_bad` at Col at Vector{Float64} uses abstract types on its normal path; 1 root cause: |   1. field `scale` of `Main.Teach.OptsAny` is declared `Any` (teach.jl:28) |        3 uses,)
+@warn_on_abstract:)
+PASS     a abstract field: the warning says how to fix it  (@warn_on_abstract: `a_bad` at Col at TraitWorld.ErasedKey{Tuple{}, Nothing} uses abstract types on its normal path; 1 root cause: |   1. field `scale` of `Main.Teach.OptsAny` is declared `Any` (teach.)
 PASS     b Dict{Symbol,Any}: same value as the fixed twin  (bad 12.0, fixed 12.0)
 PASS     b Dict{Symbol,Any}: the flawed worker warns at its first call
 PASS     b Dict{Symbol,Any}: the fixed twin is silent
-PASS     b Dict{Symbol,Any}: the warning names the line  (@warn_on_abstract: `b_bad` at Col at Vector{Float64} uses abstract types on its normal path; 1 root cause:
-  1. a container with an abstract element type: `memoryrefget` reads `Any` from `MemoryRef{An)
-PASS     b Dict{Symbol,Any}: the warning names the root cause  (@warn_on_abstract: `b_bad` at Col at Vector{Float64} uses abstract types on its normal path; 1 root cause:
+PASS     b Dict{Symbol,Any}: the warning names the line  (@warn_on_abstract: `b_bad` at Col at TraitWorld.ErasedKey{Tuple{}, Nothing} uses abstract types on its normal path; 1 root cause:
+  1. a container with an abstract element type: `memoryrefget` reads `)
+PASS     b Dict{Symbol,Any}: the warning names the root cause  (@warn_on_abstract: `b_bad` at Col at TraitWorld.ErasedKey{Tuple{}, Nothing} uses abstract types on its normal path; 1 root cause:
   1. a container with an abstract element type: `memoryrefget` reads `Any` from `MemoryRef{Any}` (essentials.jl:401)
-       3 uses, 2 in loops; first in a loop: teach.jl:31  *(::Any, ::Float64))
-PASS     b Dict{Symbol,Any}: the warning says how to fix it  (@warn_on_abstract: `b_bad` at Col at Vector{Float64} uses abstract types on its normal path; 1 root cause: |   1. a container with an abstract element type: `memoryrefget` reads `Any` from `MemoryRef{)
+       3 uses, 2 in loops; first in a loop: teach.jl:)
+PASS     b Dict{Symbol,Any}: the warning says how to fix it  (@warn_on_abstract: `b_bad` at Col at TraitWorld.ErasedKey{Tuple{}, Nothing} uses abstract types on its normal path; 1 root cause: |   1. a container with an abstract element type: `memoryrefget` reads)
 PASS     c non-const global: same value as the fixed twin  (bad 12.0, fixed 12.0)
 PASS     c non-const global: the flawed worker warns at its first call
 PASS     c non-const global: the fixed twin is silent
-PASS     c non-const global: the warning names the line  (@warn_on_abstract: `c_bad` at Col at Vector{Float64} uses abstract types on its normal path; 1 root cause:
-  1. `Main.Teach.SCALE` is a non-constant global: declare it `const` (or pass it as an argume)
-PASS     c non-const global: the warning names the root cause  (@warn_on_abstract: `c_bad` at Col at Vector{Float64} uses abstract types on its normal path; 1 root cause:
+PASS     c non-const global: the warning names the line  (@warn_on_abstract: `c_bad` at Col at TraitWorld.ErasedKey{Tuple{}, Nothing} uses abstract types on its normal path; 1 root cause:
+  1. `Main.Teach.SCALE` is a non-constant global: declare it `const` ()
+PASS     c non-const global: the warning names the root cause  (@warn_on_abstract: `c_bad` at Col at TraitWorld.ErasedKey{Tuple{}, Nothing} uses abstract types on its normal path; 1 root cause:
   1. `Main.Teach.SCALE` is a non-constant global: declare it `const` (or pass it as an argument)
-       3 uses, 2 in loops; first in a loop: teach.jl:36  *(::Any, ::Float64)
-@warn_on_abstract: )
-PASS     c non-const global: the warning says how to fix it  (@warn_on_abstract: `c_bad` at Col at Vector{Float64} uses abstract types on its normal path; 1 root cause: |   1. `Main.Teach.SCALE` is a non-constant global: declare it `const` (or pass it as an argu)
+       3 uses, 2 in loops; first in a loop: teach.jl:36  *(::Any, ::Float)
+PASS     c non-const global: the warning says how to fix it  (@warn_on_abstract: `c_bad` at Col at TraitWorld.ErasedKey{Tuple{}, Nothing} uses abstract types on its normal path; 1 root cause: |   1. `Main.Teach.SCALE` is a non-constant global: declare it `const`)
 PASS     d boxed capture: same value as the fixed twin  (bad 6.0, fixed 6.0)
 PASS     d boxed capture: the flawed worker warns at its first call
 PASS     d boxed capture: the fixed twin is silent
-PASS     d boxed capture: the warning names the line  (@warn_on_abstract: `d_bad` at Col at Vector{Float64} uses abstract types on its normal path; 2 root causes:
-  1. variable `s` is boxed: a closure captures it and it is reassigned (teach.jl:41)
-       )
-PASS     d boxed capture: the warning names the root cause  (@warn_on_abstract: `d_bad` at Col at Vector{Float64} uses abstract types on its normal path; 2 root causes:
+PASS     d boxed capture: the warning names the line  (@warn_on_abstract: `d_bad` at Col at TraitWorld.ErasedKey{Tuple{}, Nothing} uses abstract types on its normal path; 2 root causes:
+  1. variable `s` is boxed: a closure captures it and it is reassigne)
+PASS     d boxed capture: the warning names the root cause  (@warn_on_abstract: `d_bad` at Col at TraitWorld.ErasedKey{Tuple{}, Nothing} uses abstract types on its normal path; 2 root causes:
   1. variable `s` is boxed: a closure captures it and it is reassigned (teach.jl:41)
        2 uses; first: teach.jl:41  +(::Any, ::Float64)
-  2. variable `s` is boxed: a closure captures it an)
-PASS     d boxed capture: the warning says how to fix it  (@warn_on_abstract: `d_bad` at Col at Vector{Float64} uses abstract types on its normal path; 2 root causes: |   1. variable `s` is boxed: a closure captures it and it is reassigned (teach.jl:41) |    )
+  2. variable `s` is boxed: a)
+PASS     d boxed capture: the warning says how to fix it  (@warn_on_abstract: `d_bad` at Col at TraitWorld.ErasedKey{Tuple{}, Nothing} uses abstract types on its normal path; 2 root causes: |   1. variable `s` is boxed: a closure captures it and it is reassig)
 PASS     e type changes: same value as the fixed twin  (bad 6.0, fixed 6.0)
 PENDING  e type changes: the flawed worker warns at its first call  [waits on: a design decision: a variable of a small Union is fully typed (union splits are facts); whether concrete mode warns about it]  today: silent today
 PASS     f kind argument: same value as the fixed twin  (bad 6.0, fixed 6.0)
 PASS     f kind argument: the flawed worker warns at its first call
 PASS     f kind argument: the fixed twin is silent
-PASS     f kind argument: the warning names the line  (@warn_on_abstract: `f_bad` at Col at Vector{Float64} uses abstract types on its normal path; 1 root cause:
-  1. dynamic call convert(::DataType, ::Float64) returns Any (teach.jl:50)
-       2 uses, 1 i)
-PASS     f kind argument: the warning names the root cause  (@warn_on_abstract: `f_bad` at Col at Vector{Float64} uses abstract types on its normal path; 1 root cause:
+PASS     f kind argument: the warning names the line  (@warn_on_abstract: `f_bad` at Col at TraitWorld.ErasedKey{Tuple{}, Nothing} uses abstract types on its normal path; 1 root cause:
+  1. dynamic call convert(::DataType, ::Float64) returns Any (teach.jl)
+PASS     f kind argument: the warning names the root cause  (@warn_on_abstract: `f_bad` at Col at TraitWorld.ErasedKey{Tuple{}, Nothing} uses abstract types on its normal path; 1 root cause:
   1. dynamic call convert(::DataType, ::Float64) returns Any (teach.jl:50)
        2 uses, 1 in loops; first in a loop: teach.jl:50  +(::Any, ::Any)
-       ← dynamic call +(::Any, ::Any) returns)
-PASS     f kind argument: the warning says how to fix it  (@warn_on_abstract: `f_bad` at Col at Vector{Float64} uses abstract types on its normal path; 1 root cause: |   1. dynamic call convert(::DataType, ::Float64) returns Any (teach.jl:50) |        2 uses,)
+       ← dynamic call )
+PASS     f kind argument: the warning says how to fix it  (@warn_on_abstract: `f_bad` at Col at TraitWorld.ErasedKey{Tuple{}, Nothing} uses abstract types on its normal path; 1 root cause: |   1. dynamic call convert(::DataType, ::Float64) returns Any (teach.)
 PASS     certificate, a fixed: fully typed  (fully typed: Tuple{typeof(Main.Teach.a_fix), Vector{Float64}, Main.Teach.OptsF}
   every call on a normal path is at a fact signature)
 PASS     certificate, a flawed: run-time sites listed  (not fully typed: Tuple{typeof(Main.Teach.a_bad), Vector{Float64}, Main.Teach.OptsAny}

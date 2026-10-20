@@ -524,5 +524,40 @@ p24 = (Pl24.run(Any[1, 2.0, "a", :b, 'c', 'd']), try Pl24.run(Any[1//2]); :none 
 check("G1.24 beyond a split's candidates, the table of targets: results, worlds, no allocation, a missing method", a24 == (21.0, 21.0) && al24 == 0 && r24 == (75.0, 21.0, 75.0) && p24 == (20, :MethodError),
       "total $(a24), allocated $al24 B, after the redefinition / older world / again $(r24) (expected (75.0, 21.0, 75.0)), plain split $(p24) (expected (20, :MethodError))")
 
+# --- G1.25: `compiled_for` from a caller that does not know the type, through the table of declared
+# implementations (lowering §9.3): a redefinition is followed in the new world and not in the old,
+# and a type declared after the older world is not found there
+toplevel(quote
+    @trait_module module AccUT
+    using TraitWorld
+    export UTw, uval, utwice
+    @trait UTw begin
+        uval(u::UTw)::Float64
+    end
+    utwice(u::UTw) = 2 * uval(u)
+    end
+end)
+toplevel(quote
+    struct UT1; x::Float64; end
+    AccUT.uval(u::UT1) = u.x
+    @implement AccUT.UTw UT1
+    ucall(v::Vector{Any}) = (s = 0.0; for x in v; s += AccUT.utwice(compiled_for(x))::Float64; end; s)
+end)
+v25 = Any[UT1(1.5)]
+u0 = ucall(v25)
+w25 = Base.get_world_counter()
+toplevel(:(AccUT.uval(u::UT1) = 10 * u.x))
+u1 = (Base.invokelatest(ucall, v25), Base.invoke_in_world(w25, ucall, v25))
+toplevel(quote
+    struct UT2; x::Float64; end
+    AccUT.uval(u::UT2) = u.x + 1
+end)
+w25b = Base.get_world_counter()
+toplevel(:(@implement AccUT.UTw UT2))
+v25b = Any[Base.invokelatest(getglobal(Main, :UT2), 1.0)]
+u2 = (Base.invokelatest(ucall, v25b), try Base.invoke_in_world(w25b, ucall, v25b); :none catch e; nameof(typeof(e)) end)
+check("G1.25 compiled_for from an untyped caller through the table: worlds and a later type", u0 == 3.0 && u1 == (30.0, 3.0) && u2 == (4.0, :MethodError),
+      "before $u0, after / older world $u1 (expected (30.0, 3.0)), a later type / before its declaration $u2 (expected (4.0, :MethodError))")
+
 println()
 println(count(x -> x[2], results), " of ", length(results), " checks pass")

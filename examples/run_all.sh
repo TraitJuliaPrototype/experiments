@@ -40,3 +40,5 @@ run warnings           $E/warnings X=1 -- --project=$E/env teach.jl
 run redefinition       $E/redefinition X=1 -- --project=$E/env prompt.jl
 run ahead              $E/ahead X=1 -- --project=$E/ahead/env check.jl
 run imageptr           $E/imageptr X=1 -- --project=$E/imageptr/env check.jl
+run imageptr-split     $E/imageptr X=1 -- --project=$E/env split_table.jl
+run threads-split      $E/threads X=1 -- -t 4 --project=$E/env split_tables.jl

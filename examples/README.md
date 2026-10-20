@@ -21,9 +21,11 @@ The framing's acceptance cases (S1–S10, the vararg splat, the pirate tiers, G1
 - `pkgs/`: XFun, XTrig, XLib, XPirate (S9 and the pirate tiers), GShapes, GGeom (the glue
   extension), CoreP, ImplP (a split-core pair), HShapes (64 conformances and a plain twin).
 
-**Status.** Every file has run. The logs in `logs/` are from the run of 2026-10-20 (00:45, the
-patched 1.13.2 of that night, the product setting, not `all`): no file has a failing check. The
-checks still pending are listed with each file, with what they wait on.
+**Status.** Every file has run. The logs in `logs/` are from the run of 2026-10-21 (julia-1.13
+711484a23e, TraitWorld 8d29f20, the product setting, not `all`): no file has a failing check, after
+two stale examples were brought to the current design (`pkgs/ErasedP` in the spelling of
+`Dynamic{Callable}`; `ahead/check.jl` expecting no entry method per type). The checks still pending
+are listed with each file, with what they wait on.
 
 ## strict/dual_pirate.jl: strict mode on a real pirate (`+(::Dual)`), both orders
 
@@ -123,3 +125,13 @@ changes, a type passed as a value.
 - Run of 2026-10-20 (`logs/redefinition.log`): 15 pass, 1 pending.
 - **Pending:** 4, a redeclaration built like struct redefinition. Redeclaration is Planned
   (`writeup/reference/traits.md` §5.10); today a second declaration is refused in every form.
+
+## imageptr/: values kept in a package image
+
+- `check.jl`: a `Dynamic{Callable}` kept as a constant in a package image (`pkgs/ErasedP`), called in a new session: its pointer is made again, not called (`_PtrCell`).
+- `split_table.jl` (2026-10-21): a split's table kept in a package image. HShapes' `total` is compiled in its workload over 64 implementations, so the table of its split's last branch is filled while the image is built (julia-1.13 711484a23e, compiler §4.3). Expected: in a new session the table counts as empty, fills again, and gives the right sum; the session makes no table of its own for the signature (the image's code is the one that runs); once filled, a call allocates nothing.
+- Run of 2026-10-21 (`logs/imageptr-split.log`): 3 pass.
+
+## threads/split_tables.jl: the tables under threads
+
+Several threads meet 24 implementations for the first time at the same call sites: a split beyond its four (its table's misses race to add entries) and `compiled_for` from an untyped caller (the table of declared implementations). Expected: every sum right, and each split table holding every type beyond the split once. Run with `-t 4`.
