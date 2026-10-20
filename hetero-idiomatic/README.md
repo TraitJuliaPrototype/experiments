@@ -1,5 +1,7 @@
 # Heterogeneous collections as idiomatic trait code (E-134, E-143, E-144; 2026-10-20)
 
+*Written in the spelling before the language of `Compiled` and `Dynamic` (TraitWorld ≤ 5b172e1): `DynamicCall`, `CompiledCall`, `compiled_call` are now `Dynamic`, `Compiled`, `compiled_for` (`../../writeup/reference/traits.md` §6.6, §9).*
+
 The loops of the review of heterogeneous collections (`writeup/reviews/2026-10-20-heterogeneous-collections.md`, scripts in `../hetero/`) written as trait code the way Rust or Swift code would be written: functions bounded by BaseTraits' collection traits (`writeup/reference/traits.md` §10.1–10.4), items `Dynamic{X}`, called with the user's `Vector{Any}`, `Vector{AShape}` or `Dict{String,Any}` directly (the function's entry translates the container by its bound into a view that wraps each element when it is read), with that view written out, and over a copy into `Vector{Dynamic{X}}`. Each against plain Julia (the stock idiom, in `Main`) and against interop (a trait module calling Base's generic algorithms on the user's containers, as `../hetero/hc7_product.jl` did), in the product setting and in the test bed `all`.
 
 Rust and Swift are not installed; they are compared by shape only: `impl Iterator<Item = &dyn Shape>` and `some Sequence<any Shape>` are what `xs::Iterable{Shape}` says.

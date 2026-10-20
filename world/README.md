@@ -1,5 +1,7 @@
 # poc/world — the new design on stock Julia (TraitWorld)
 
+*Written in the spelling before the language of `Compiled` and `Dynamic` (TraitWorld ≤ 5b172e1): `DynamicCall`, `CompiledCall`, `compiled_call` are now `Dynamic`, `Compiled`, `compiled_for` (`../../writeup/reference/traits.md` §6.6, §9).*
+
 The proof of concept of the design note "Traits for better Julia" (rev 101),
 planned in `writeup/poc2-plan.md`. The machinery is the package
 `TraitWorld/`; the packages here use it.
