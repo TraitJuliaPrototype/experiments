@@ -4,6 +4,8 @@ The smaller experiments of the trait-bound Julia design: prototypes around Trait
 
 Until 2026-10-16 this was the `poc/` directory of the design repository; its history came along. Paths in older session notes and findings that start with `poc/` now start with `experiments/`.
 
+**The registry of experiments** (questions, statuses and outcomes, by ID) is in the design repository: `../writeup/record/experiments.md`. Add a row there before running a new experiment.
+
 | Directory | What | Write-up |
 |---|---|---|
 | `world/` | TraitWorld's first prototype libraries (Columns, Stats, Rows, UserTypes, App), benchmarks, concrete mode, the trimmed binary, the definition-checking demo | `world/README.md` |
@@ -12,6 +14,7 @@ Until 2026-10-16 this was the `poc/` directory of the design repository; its his
 | `lens/` | the cost of a field reference against a held value | design-findings §18 |
 | `solvers/` | stock SciML baselines: time to first solve, callbacks, automatic differentiation | `../writeup/explorations/solvers.md` |
 | `runtime-injection/` | the load-time invalidation filter injected into stock Julia 1.12.2 and 1.13.2 | `runtime-injection/README.md`; `../writeup/explorations/runtime.md` |
+| `plotwork/` | a plotting session with upstream packages only (CSV, DataFrames, CairoMakie, no trait code), plain against the test bed `all`: what the facts mode saves on recompilation against what it costs per round of work (E-140) | `plotwork/README.md` |
 | `examples/` | small cases that stress-test the design (session 29): strict mode on real pirates and split-core pairs, a glue extension, heterogeneous collections, errors at definition, warnings that teach, redefinition at the prompt | `examples/README.md` |
 | `facts/framing/` | the framing's acceptance cases: S1–S10, a Vararg splat, a pirate in each order under both tiers, G1.16 | `facts/framing/README.md` |
 | `facts/` | wrapping by facts: the acceptance suite (`acceptance_compiler.jl`, 19 checks on the facts compiler), the hunt, `g2all` (no compiled code lost over twelve loads), `g2strict` (strict mode on a real stack), `typedbench` (typed against untyped calls) | `facts/README.md` |
