@@ -392,13 +392,13 @@ f191 = (k19(), w19())
 check("G1.19 a Base method's assertion over a run-time site does not fold a dispatch no edge records", f190 == (1, 1) && f191 == (2, 2),
       "before $f190, after $f191 (plain, facts)")
 
-# --- G1.20: a Callable in DynamicCall mode, called in an older world (session 29: its `@cfunction`
+# --- G1.20: a Dynamic Callable (until W-4: a Callable in DynamicCall mode), called in an older world (session 29: its `@cfunction`
 # pointer runs the function in the latest world, as the witness tables did) -----------------------
 toplevel(quote
     module Cw20
     using TraitWorld
     f20(x::Float64) = x + 1.0
-    const D20 = TraitWorld.dynamic_fn(Tuple{Float64}, Float64, f20)
+    const D20 = Dynamic{TraitWorld.Callable{Tuple{Float64},Float64}}(f20)
     calld(x) = D20(x)
     plain(x) = f20(x)
     end
@@ -407,7 +407,7 @@ Cw20.calld(1.0); Cw20.plain(1.0)
 w20 = Base.get_world_counter()
 toplevel(:(Cw20.f20(x::Float64) = x + 100.0))
 c20 = (Base.invoke_in_world(w20, Cw20.calld, 1.0), Base.invoke_in_world(w20, Cw20.plain, 1.0), Cw20.calld(1.0))
-check("G1.20 a Callable in DynamicCall mode runs in the caller's world", c20 == (2.0, 2.0, 101.0),
+check("G1.20 a Dynamic Callable runs in the caller's world", c20 == (2.0, 2.0, 101.0),
       "old world: Callable $(c20[1]), plain $(c20[2]); latest world: Callable $(c20[3]) (expected (2.0, 2.0, 101.0))")
 
 # --- G1.21: the same pointer, alternating worlds, and a function that does not exist in the older
@@ -416,10 +416,10 @@ toplevel(quote
     module Cw21
     using TraitWorld
     g21(x::Float64) = x + 1.0
-    const D21 = TraitWorld.dynamic_fn(Tuple{Float64}, Float64, g21)
+    const D21 = Dynamic{TraitWorld.Callable{Tuple{Float64},Float64}}(g21)
     calld(x) = D21(x)
     function h21 end
-    const DH21 = TraitWorld.dynamic_fn(Tuple{Float64}, Float64, h21)
+    const DH21 = Dynamic{TraitWorld.Callable{Tuple{Float64},Float64}}(h21)
     callh(x) = DH21(x)
     end
 end)
@@ -431,7 +431,7 @@ w21c = Base.get_world_counter()
 toplevel(:(Cw21.h21(x::Float64) = 3x))
 early = try Base.invoke_in_world(w21c, Cw21.callh, 1.0) catch e; e isa MethodError ? :MethodError : e end
 late = Cw21.callh(1.0)
-check("G1.21 a DynamicCall pointer in alternating worlds, and before its method exists", alt == [2.0, 101.0, 2.0, 101.0, 2.0, 101.0] && early === :MethodError && late == 3.0,
+check("G1.21 a Dynamic Callable's pointer in alternating worlds, and before its method exists", alt == [2.0, 101.0, 2.0, 101.0, 2.0, 101.0] && early === :MethodError && late == 3.0,
       "alternating: $alt; before the method: $early; after: $late")
 
 # --- G1.22: a dynamic call site cached for exact argument types (inline caches, stage 1): a

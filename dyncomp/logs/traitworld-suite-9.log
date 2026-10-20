@@ -1,0 +1,221 @@
+┌ Warning: The active manifest file has dependencies that were resolved with a different julia version (1.12.2). Unexpected behavior may occur.
+└ @ ~/Repos/julia-trait-bound/TraitWorld-dyncomp/Manifest.toml:0
+     Testing TraitWorld
+      Status `/tmp/claude-1000/jl_wmgO9x/Project.toml`
+  [aea7be01] PrecompileTools v1.3.4
+  [7a3c1e52] TraitWorld v0.1.0 `~/Repos/julia-trait-bound/TraitWorld-dyncomp`
+  [9e88b42a] Serialization v1.11.0
+  [8dfed614] Test v1.11.0
+      Status `/tmp/claude-1000/jl_wmgO9x/Manifest.toml`
+  [aea7be01] PrecompileTools v1.3.4
+⌃ [21216c6a] Preferences v1.6.0
+  [7a3c1e52] TraitWorld v0.1.0 `~/Repos/julia-trait-bound/TraitWorld-dyncomp`
+  [2a0f44e3] Base64 v1.11.0
+  [ade2ca70] Dates v1.11.0
+  [b77e0a4c] InteractiveUtils v1.11.0
+  [ac6e5ff7] JuliaSyntaxHighlighting v1.12.0
+  [56ddb016] Logging v1.11.0
+  [d6f4376e] Markdown v1.11.0
+  [de0858da] Printf v1.11.0
+  [9a3f8284] Random v1.11.0
+  [ea8e919c] SHA v1.0.0
+  [9e88b42a] Serialization v1.11.0
+  [f489334b] StyledStrings v1.11.0
+  [fa267f1f] TOML v1.0.3
+  [8dfed614] Test v1.11.0
+  [4ec0a83e] Unicode v1.11.0
+        Info Packages marked with ⌃ have new versions available and may be upgradable.
+     Testing Running tests...
+WARNING: Method definition needed(TraitWorld.EntryPos{typeof(Columns.colmean), 1, 2}) in module Columns at /home/hellmann/Repos/julia-trait-bound/TraitWorld-dyncomp/src/trait_module.jl:856 overwritten in module RowsX on the same line (check for duplicate calls to `include`).
+┌ Warning: trait module Bad: library code breaks a rule of the trait world:
+│   bad_field (runtests.jl:98): runtests.jl:98: `t.views`: the user's data is reached only through the operations and the writable fields its traits declare (`ColTable` declares ncols, col, value)
+│   bad_ordinary (runtests.jl:97): runtests.jl:97: a trait object carrying ColTable is passed to `sum`, an ordinary function: it can do only what its traits declare. Declare `sum` as an operation, or use the operations
+│   bad_rule3 (runtests.jl:96): runtests.jl:96: a trait object carrying ColTable is passed to `firstrow`, whose methods need other traits at argument 1. Declare the bounds it needs, so the caller projects each (rule 2)
+│   bad_typeof (runtests.jl:99): runtests.jl:99: `typeof(t)`: code must not depend on the user's type
+│   helper (runtests.jl:100): runtests.jl:97: a trait object carrying ColTable is passed to `sum`, an ordinary function: it can do only what its traits declare. Declare `sum` as an operation, or use the operations
+└ @ TraitWorld ~/Repos/julia-trait-bound/TraitWorld-dyncomp/src/trait_module.jl:895
+┌ Warning: trait module Clo: library code breaks a rule of the trait world:
+│   bad (runtests.jl:214): runtests.jl:214: a trait object carrying ColTable is passed to `sum`, an ordinary function: it can do only what its traits declare. Declare `sum` as an operation, or use the operations
+└ @ TraitWorld ~/Repos/julia-trait-bound/TraitWorld-dyncomp/src/trait_module.jl:895
+┌ Warning: trait module RHelp: library code breaks a rule of the trait world:
+│   helper2 (runtests.jl:490): runtests.jl:490: a trait object carrying Iterable is passed to `sum`, an ordinary function: it can do only what its traits declare. Declare `sum` as an operation, or use the operations
+│   outer2 (runtests.jl:491): runtests.jl:490: a trait object carrying Iterable is passed to `sum`, an ordinary function: it can do only what its traits declare. Declare `sum` as an operation, or use the operations
+└ @ TraitWorld ~/Repos/julia-trait-bound/TraitWorld-dyncomp/src/trait_module.jl:895
+┌ Warning: trait module Leak: library code breaks a rule of the trait world:
+│   leak (runtests.jl:499): runtests.jl:499: returns a trait object to ordinary code: a trait object is a handle, not a value
+│   leak_cond (runtests.jl:500): runtests.jl:500: returns a trait object to ordinary code: a trait object is a handle, not a value
+└ @ TraitWorld ~/Repos/julia-trait-bound/TraitWorld-dyncomp/src/trait_module.jl:895
+┌ Warning: trait module BadDef: library code breaks a rule of the trait world:
+│   def_ordinary (runtests.jl:802): runtests.jl:802: a trait object carrying ColTable is passed to `sum`, an ordinary function: it can do only what its traits declare. Declare `sum` as an operation, or use the operations
+│   def_rule3 (runtests.jl:804): runtests.jl:804: a trait object carrying ColTable is passed to `firstrow`, whose methods need other traits at argument 1. Declare the bounds it needs, so the caller projects each (rule 2)
+│   def_typeof (runtests.jl:803): runtests.jl:803: `typeof(t)`: code must not depend on the user's type
+└ @ TraitWorld ~/Repos/julia-trait-bound/TraitWorld-dyncomp/src/trait_module.jl:895
+┌ Warning: trait module DynBad: library code breaks a rule of the trait world:
+│   keepany (dynamic.jl:57): dynamic.jl:57: a trait object carrying Hook is passed to `push!`, an ordinary function: it can do only what its traits declare. Declare `push!` as an operation, or use the operations
+└ @ TraitWorld ~/Repos/julia-trait-bound/TraitWorld-dyncomp/src/trait_module.jl:895
+┌ Warning: trait module FieldBad: library code breaks a rule of the trait world:
+│   readsecret (fields.jl:46): fields.jl:46: `t.secret`: the user's data is reached only through the operations and the writable fields its traits declare (`Stepper` declares advance!; fields t, dt)
+│   writeconst! (fields.jl:45): fields.jl:45: `t.t` = …: the user's data is reached only through the operations and the writable fields its traits declare (`Stepper` declares advance!; fields t, dt)
+└ @ TraitWorld ~/Repos/julia-trait-bound/TraitWorld-dyncomp/src/trait_module.jl:895
+┌ Warning: trait module ParamBad: library code breaks a rule of the trait world:
+│   badsize (params.jl:38): params.jl:38: `size` has no method for a trait object carrying StateVector
+└ @ TraitWorld ~/Repos/julia-trait-bound/TraitWorld-dyncomp/src/trait_module.jl:895
+┌ Warning: trait module LikeBad: library code breaks a rule of the trait world:
+│   leak (like.jl:57): like.jl:57: returns a trait object to ordinary code: a trait object is a handle, not a value
+└ @ TraitWorld ~/Repos/julia-trait-bound/TraitWorld-dyncomp/src/trait_module.jl:895
+ERROR: LoadError: Some tests did not pass: 8 passed, 2 failed, 0 errored, 0 broken.
+in expression starting at /home/hellmann/Repos/julia-trait-bound/TraitWorld-dyncomp/test/untyped.jl:39
+in expression starting at /home/hellmann/Repos/julia-trait-bound/TraitWorld-dyncomp/test/runtests.jl:833
+Test Summary:          | Pass  Total  Time
+M1: the note's example |    9      9  1.0s
+Test Summary:                                     | Pass  Total  Time
+M1: rule 2 and escapes, reported with their lines |    6      6  0.8s
+Test Summary:                                                   | Pass  Total  Time
+M1: ownership (rule 3); a trait module may import ordinary code |    7      7  0.1s
+Test Summary:                                | Pass  Total  Time
+M1: implementations are checked when defined |    4      4  0.4s
+Test Summary:                                | Pass  Total  Time
+dispatch: types first, then traits; fallback |    5      5  0.1s
+Test Summary: | Pass  Total  Time
+Callable      |    6      6  0.2s
+Test Summary:                                 | Pass  Total  Time
+closures capturing a trait object are checked |    2      2  0.2s
+Test Summary:                                          | Pass  Total  Time
+M2: Base capability traits and generic implementations |   16     16  0.9s
+Test Summary:                   | Pass  Total  Time
+M3: views and joint projections |    6      6  0.2s
+Test Summary: | Pass  Total  Time
+M4: dispatch  |    7      7  0.4s
+Test Summary:                                    | Pass  Total  Time
+M4: adopting a trait method keeps existing calls |    7      7  0.2s
+Test Summary:                  | Pass  Total  Time
+M5: Callable at two signatures |    3      3  0.1s
+Test Summary:                                              | Pass  Total  Time
+M6: calls into ordinary code; a winning pirate is followed |    4      4  0.1s
+Test Summary:     | Pass  Total  Time
+M7: concrete mode |    6      6  4.7s
+Test Summary:   | Pass  Total  Time
+M7: verify_main |    3      3  1.8s
+Test Summary:       | Pass  Total  Time
+review: correctness |   15     15  1.0s
+Test Summary:                                                | Pass  Total  Time
+review: a pirate behind a catch; a closed world in a session |    4      4  0.1s
+Test Summary:                                    | Pass  Total  Time
+review: unrelated bounds added by another module |    1      1  0.1s
+Test Summary:                                    | Pass  Total  Time
+poc3 M1: keyword, default and variable arguments |   11     11  0.6s
+Test Summary:                           | Pass  Total  Time
+poc3 M2: Callable, Compiled and Dynamic |   11     11  0.2s
+Test Summary:                                             | Pass  Total  Time
+poc3 M4: the one-line conformance, and forwarding with by |   13     13  1.6s
+Test Summary:                         | Pass  Total  Time
+poc3 M8: verify_main, keyword entries |    2      2  0.1s
+Test Summary:                                               | Pass  Total  Time
+ownership of methods outside trait modules (rule 3 lookups) |    6      6  0.1s
+1
+Test Summary:                                            | Pass  Total  Time
+wrapping by facts: trait-world code calls any Julia code |    6      6  0.2s
+Test Summary:                                                                  | Pass  Total  Time
+return types read from CodeInstances: a predicate's conditional is no constant |    2      2  0.0s
+Test Summary:                                                                    | Pass  Total  Time
+facts at tuples with unions of concrete elements (iteration with missing values) |    7      7  0.2s
+Test Summary:                     | Pass  Total  Time
+definition checking at archetypes |   10     10  0.2s
+Test Summary:  | Pass  Total  Time
+Dynamic values |   15     15  0.7s
+Test Summary:                                      | Pass  Total  Time
+Dynamic: containers in functions, supertrait views |    4      4  0.3s
+Test Summary:           | Pass  Total  Time
+Trait fields and lenses |   17     17  0.4s
+Test Summary:                       | Pass  Total  Time
+Trait parameters (associated types) |   18     18  1.2s
+Test Summary:                                       | Pass  Total  Time
+a stated parameter agrees with the trait's equation |    4      4  0.0s
+Test Summary:          | Pass  Total  Time
+Results like the input |   15     15  1.0s
+Test Summary:                                       | Pass  Total  Time
+TraitWorld adds no method of show at types of types |    1      1  0.0s
+Test Summary:                        | Pass  Total  Time
+Printing by bound and representation |    7      7  0.9s
+Test Summary:                            | Pass  Total  Time
+conforms(T, X): membership as a function |    6      6  0.1s
+Test Summary:                            | Pass  Total  Time
+Stack traces hide the machinery's frames |    2      2  0.1s
+Test Summary:                   | Pass  Total  Time
+Keys: the design's trait syntax |   18     18  0.7s
+Test Summary:                           | Pass  Total  Time
+Keys: late overrides for family members |    4      4  0.4s
+Test Summary:                  | Pass  Total  Time
+Concreteness: opt-in per trait |   10     10  0.3s
+Test Summary:                                   | Pass  Total  Time
+runtime as methods: conformances, entries, keys |   12     12  0.2s
+Test Summary:                          | Pass  Total  Time
+a new conformance invalidates no entry |    7      7  0.1s
+Test Summary:                                            | Pass  Total  Time
+no implementing type when defaults serve every operation |    6      6  0.2s
+Test Summary:                        | Pass  Total  Time
+fields define parameters by matching |    6      6  0.2s
+Test Summary:                              | Pass  Total  Time
+an override after a conformance is refused |    4      4  0.0s
+
+untyped calls: the table of declared implementations: Test Failed at /home/hellmann/Repos/julia-trait-bound/TraitWorld-dyncomp/test/untyped.jl:48
+  Expression: count((mi->begin
+                #= /home/hellmann/Repos/julia-trait-bound/TraitWorld-dyncomp/test/untyped.jl:48 =#
+                isconcretetype(mi.specTypes.parameters[2])
+            end), companions(UTab.sfirst)) == 1
+   Evaluated: 0 == 1
+  Stacktrace:
+   [1] top-level scope
+     @ ~/Repos/julia-trait-bound/TraitWorld-dyncomp/test/untyped.jl:40
+   [2] macro expansion
+     @ ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:1967 [inlined]
+   [3] macro expansion
+     @ ~/Repos/julia-trait-bound/TraitWorld-dyncomp/test/untyped.jl:48 [inlined]
+   [4] macro expansion
+     @ ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:758 [inlined]
+
+untyped calls: the table of declared implementations: Test Failed at /home/hellmann/Repos/julia-trait-bound/TraitWorld-dyncomp/test/untyped.jl:63
+  Expression: count((mi->begin
+                #= /home/hellmann/Repos/julia-trait-bound/TraitWorld-dyncomp/test/untyped.jl:63 =#
+                isconcretetype(mi.specTypes.parameters[2])
+            end), companions(UTab.sfirst)) == 1
+   Evaluated: 0 == 1
+  Stacktrace:
+   [1] top-level scope
+     @ ~/Repos/julia-trait-bound/TraitWorld-dyncomp/test/untyped.jl:40
+   [2] macro expansion
+     @ ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:1967 [inlined]
+   [3] macro expansion
+     @ ~/Repos/julia-trait-bound/TraitWorld-dyncomp/test/untyped.jl:63 [inlined]
+   [4] macro expansion
+     @ ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:758 [inlined]
+Test Summary:                                        | Pass  Fail  Total  Time
+untyped calls: the table of declared implementations |    8     2     10  1.2s
+RNG of the outermost testset: Random.Xoshiro(0xb3ef9f38ced830c9, 0xca3ae4bf847e1c42, 0x2b06d8b5b5959666, 0xd30629ab4c881651, 0xaeedacb2fff711c4)
+ERROR: Package TraitWorld errored during testing
+Stacktrace:
+  [1] pkgerror(msg::String)
+    @ Pkg.Types ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Pkg/src/Types.jl:68
+  [2] test(ctx::Pkg.Types.Context, pkgs::Vector{PackageSpec}; coverage::Bool, julia_args::Cmd, test_args::Cmd, test_fn::Nothing, force_latest_compatible_version::Bool, allow_earlier_backwards_compatible_versions::Bool, allow_reresolve::Bool)
+    @ Pkg.Operations ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Pkg/src/Operations.jl:3319
+  [3] test
+    @ ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Pkg/src/Operations.jl:3197 [inlined]
+  [4] test(ctx::Pkg.Types.Context, pkgs::Vector{PackageSpec}; coverage::Bool, test_fn::Nothing, julia_args::Cmd, test_args::Cmd, force_latest_compatible_version::Bool, allow_earlier_backwards_compatible_versions::Bool, allow_reresolve::Bool, kwargs::@Kwargs{io::IOContext{IO}})
+    @ Pkg.API ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Pkg/src/API.jl:587
+  [5] test(pkgs::Vector{PackageSpec}; io::IOContext{IO}, kwargs::@Kwargs{})
+    @ Pkg.API ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Pkg/src/API.jl:172
+  [6] test(pkgs::Vector{PackageSpec})
+    @ Pkg.API ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Pkg/src/API.jl:161
+  [7] test(; name::Nothing, uuid::Nothing, version::Nothing, url::Nothing, rev::Nothing, path::Nothing, mode::PackageMode, subdir::Nothing, kwargs::@Kwargs{})
+    @ Pkg.API ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Pkg/src/API.jl:189
+  [8] test()
+    @ Pkg.API ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Pkg/src/API.jl:178
+  [9] top-level scope
+    @ none:1
+ [10] eval(m::Module, e::Any)
+    @ Core ./boot.jl:489
+ [11] exec_options(opts::Base.JLOptions)
+    @ Base ./client.jl:310
+ [12] _start()
+    @ Base ./client.jl:577
+rc=1

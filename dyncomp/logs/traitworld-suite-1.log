@@ -1,0 +1,71 @@
+┌ Warning: The active manifest file has dependencies that were resolved with a different julia version (1.12.2). Unexpected behavior may occur.
+└ @ ~/Repos/julia-trait-bound/TraitWorld-dyncomp/Manifest.toml:0
+     Testing TraitWorld
+      Status `/tmp/claude-1000/jl_cxFqk4/Project.toml`
+  [aea7be01] PrecompileTools v1.3.4
+  [7a3c1e52] TraitWorld v0.1.0 `~/Repos/julia-trait-bound/TraitWorld-dyncomp`
+  [9e88b42a] Serialization v1.11.0
+  [8dfed614] Test v1.11.0
+      Status `/tmp/claude-1000/jl_cxFqk4/Manifest.toml`
+  [aea7be01] PrecompileTools v1.3.4
+⌃ [21216c6a] Preferences v1.6.0
+  [7a3c1e52] TraitWorld v0.1.0 `~/Repos/julia-trait-bound/TraitWorld-dyncomp`
+  [2a0f44e3] Base64 v1.11.0
+  [ade2ca70] Dates v1.11.0
+  [b77e0a4c] InteractiveUtils v1.11.0
+  [ac6e5ff7] JuliaSyntaxHighlighting v1.12.0
+  [56ddb016] Logging v1.11.0
+  [d6f4376e] Markdown v1.11.0
+  [de0858da] Printf v1.11.0
+  [9a3f8284] Random v1.11.0
+  [ea8e919c] SHA v1.0.0
+  [9e88b42a] Serialization v1.11.0
+  [f489334b] StyledStrings v1.11.0
+  [fa267f1f] TOML v1.0.3
+  [8dfed614] Test v1.11.0
+  [4ec0a83e] Unicode v1.11.0
+        Info Packages marked with ⌃ have new versions available and may be upgradable.
+     Testing Running tests...
+ERROR: LoadError: UndefVarError: `CompiledCall` not defined in `Main.Columns`
+Suggestion: check for spelling errors or missing imports.
+Stacktrace:
+ [1] top-level scope
+   @ ~/Repos/julia-trait-bound/TraitWorld-dyncomp/test/runtests.jl:45
+ [2] include(mapexpr::Function, mod::Module, _path::String)
+   @ Base ./Base.jl:310
+ [3] top-level scope
+   @ none:6
+ [4] eval(m::Module, e::Any)
+   @ Core ./boot.jl:489
+ [5] exec_options(opts::Base.JLOptions)
+   @ Base ./client.jl:310
+ [6] _start()
+   @ Base ./client.jl:577
+in expression starting at /home/hellmann/Repos/julia-trait-bound/TraitWorld-dyncomp/test/runtests.jl:20
+ERROR: Package TraitWorld errored during testing
+Stacktrace:
+  [1] pkgerror(msg::String)
+    @ Pkg.Types ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Pkg/src/Types.jl:68
+  [2] test(ctx::Pkg.Types.Context, pkgs::Vector{PackageSpec}; coverage::Bool, julia_args::Cmd, test_args::Cmd, test_fn::Nothing, force_latest_compatible_version::Bool, allow_earlier_backwards_compatible_versions::Bool, allow_reresolve::Bool)
+    @ Pkg.Operations ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Pkg/src/Operations.jl:3319
+  [3] test
+    @ ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Pkg/src/Operations.jl:3197 [inlined]
+  [4] test(ctx::Pkg.Types.Context, pkgs::Vector{PackageSpec}; coverage::Bool, test_fn::Nothing, julia_args::Cmd, test_args::Cmd, force_latest_compatible_version::Bool, allow_earlier_backwards_compatible_versions::Bool, allow_reresolve::Bool, kwargs::@Kwargs{io::IOContext{IO}})
+    @ Pkg.API ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Pkg/src/API.jl:587
+  [5] test(pkgs::Vector{PackageSpec}; io::IOContext{IO}, kwargs::@Kwargs{})
+    @ Pkg.API ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Pkg/src/API.jl:172
+  [6] test(pkgs::Vector{PackageSpec})
+    @ Pkg.API ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Pkg/src/API.jl:161
+  [7] test(; name::Nothing, uuid::Nothing, version::Nothing, url::Nothing, rev::Nothing, path::Nothing, mode::PackageMode, subdir::Nothing, kwargs::@Kwargs{})
+    @ Pkg.API ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Pkg/src/API.jl:189
+  [8] test()
+    @ Pkg.API ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Pkg/src/API.jl:178
+  [9] top-level scope
+    @ none:1
+ [10] eval(m::Module, e::Any)
+    @ Core ./boot.jl:489
+ [11] exec_options(opts::Base.JLOptions)
+    @ Base ./client.jl:310
+ [12] _start()
+    @ Base ./client.jl:577
+rc=1

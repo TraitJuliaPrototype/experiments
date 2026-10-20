@@ -1,0 +1,121 @@
+┌ Warning: The active manifest file has dependencies that were resolved with a different julia version (1.12.2). Unexpected behavior may occur.
+└ @ ~/Repos/julia-trait-bound/TraitWorld-dyncomp/Manifest.toml:0
+     Testing TraitWorld
+      Status `/tmp/claude-1000/jl_iJr9St/Project.toml`
+  [aea7be01] PrecompileTools v1.3.4
+  [7a3c1e52] TraitWorld v0.1.0 `~/Repos/julia-trait-bound/TraitWorld-dyncomp`
+  [9e88b42a] Serialization v1.11.0
+  [8dfed614] Test v1.11.0
+      Status `/tmp/claude-1000/jl_iJr9St/Manifest.toml`
+  [aea7be01] PrecompileTools v1.3.4
+⌃ [21216c6a] Preferences v1.6.0
+  [7a3c1e52] TraitWorld v0.1.0 `~/Repos/julia-trait-bound/TraitWorld-dyncomp`
+  [2a0f44e3] Base64 v1.11.0
+  [ade2ca70] Dates v1.11.0
+  [b77e0a4c] InteractiveUtils v1.11.0
+  [ac6e5ff7] JuliaSyntaxHighlighting v1.12.0
+  [56ddb016] Logging v1.11.0
+  [d6f4376e] Markdown v1.11.0
+  [de0858da] Printf v1.11.0
+  [9a3f8284] Random v1.11.0
+  [ea8e919c] SHA v1.0.0
+  [9e88b42a] Serialization v1.11.0
+  [f489334b] StyledStrings v1.11.0
+  [fa267f1f] TOML v1.0.3
+  [8dfed614] Test v1.11.0
+  [4ec0a83e] Unicode v1.11.0
+        Info Packages marked with ⌃ have new versions available and may be upgradable.
+Precompiling for configuration --code-coverage=none --color=auto --warn-overwrite=yes --depwarn=yes --inline=yes --startup-file=no --track-allocation=none
+  20.0 s  ✓ TraitWorld
+  1 dependency successfully precompiled in 20 seconds. 14 already precompiled.
+     Testing Running tests...
+┌ Warning: trait module Bad: library code breaks a rule of the trait world:
+│   bad_field (runtests.jl:98): runtests.jl:98: `t.views`: the user's data is reached only through the operations and the writable fields its traits declare (`ColTable` declares ncols, col, value)
+│   bad_ordinary (runtests.jl:97): runtests.jl:97: a trait object carrying ColTable is passed to `sum`, an ordinary function: it can do only what its traits declare. Declare `sum` as an operation, or use the operations
+│   bad_rule3 (runtests.jl:96): runtests.jl:96: a trait object carrying ColTable is passed to `firstrow`, whose methods need other traits at argument 1. Declare the bounds it needs, so the caller projects each (rule 2)
+│   bad_typeof (runtests.jl:99): runtests.jl:99: `typeof(t)`: code must not depend on the user's type
+│   helper (runtests.jl:100): runtests.jl:97: a trait object carrying ColTable is passed to `sum`, an ordinary function: it can do only what its traits declare. Declare `sum` as an operation, or use the operations
+└ @ TraitWorld ~/Repos/julia-trait-bound/TraitWorld-dyncomp/src/trait_module.jl:895
+┌ Warning: trait module Clo: library code breaks a rule of the trait world:
+│   bad (runtests.jl:214): runtests.jl:214: a trait object carrying ColTable is passed to `sum`, an ordinary function: it can do only what its traits declare. Declare `sum` as an operation, or use the operations
+└ @ TraitWorld ~/Repos/julia-trait-bound/TraitWorld-dyncomp/src/trait_module.jl:895
+ERROR: LoadError: Some tests did not pass: 5 passed, 0 failed, 1 errored, 0 broken.
+in expression starting at /home/hellmann/Repos/julia-trait-bound/TraitWorld-dyncomp/test/runtests.jl:445
+Test Summary:          | Pass  Total  Time
+M1: the note's example |    9      9  1.0s
+Test Summary:                                     | Pass  Total  Time
+M1: rule 2 and escapes, reported with their lines |    6      6  0.8s
+Test Summary:                                                   | Pass  Total  Time
+M1: ownership (rule 3); a trait module may import ordinary code |    7      7  0.1s
+Test Summary:                                | Pass  Total  Time
+M1: implementations are checked when defined |    4      4  0.5s
+Test Summary:                                | Pass  Total  Time
+dispatch: types first, then traits; fallback |    5      5  0.1s
+Test Summary: | Pass  Total  Time
+Callable      |    6      6  0.2s
+Test Summary:                                 | Pass  Total  Time
+closures capturing a trait object are checked |    2      2  0.1s
+Test Summary:                                          | Pass  Total  Time
+M2: Base capability traits and generic implementations |   16     16  0.9s
+Test Summary:                   | Pass  Total  Time
+M3: views and joint projections |    6      6  0.2s
+Test Summary: | Pass  Total  Time
+M4: dispatch  |    7      7  0.4s
+Test Summary:                                    | Pass  Total  Time
+M4: adopting a trait method keeps existing calls |    7      7  0.3s
+Test Summary:                  | Pass  Total  Time
+M5: Callable at two signatures |    3      3  0.1s
+Test Summary:                                              | Pass  Total  Time
+M6: calls into ordinary code; a winning pirate is followed |    4      4  0.1s
+
+M7: concrete mode: Error During Test at /home/hellmann/Repos/julia-trait-bound/TraitWorld-dyncomp/test/runtests.jl:446
+  Test threw exception
+  Expression: Hot.hot([[1.0, 2.0]], 2.0) == 6.0
+  AbstractTypeError: `hot` at ColTable at TraitWorld.ErasedKey{Tuple{}} uses abstract types on its normal path; 1 root cause:
+    1. field `o` of `TraitWorld.View{ColTable{TraitWorld.ErasedKey{Tuple{}}}, TraitWorld.ErasedWit, TraitWorld.ErasedKey{Tuple{}}, 0, Tuple{}}` is declared `Any` (runtests.jl:438)
+         1 use; first: runtests.jl:438  col(::Any, ::Int64)
+         ← dynamic call Dynamic{ColTable}(::Val{:checked}, ::Any) returns Any (runtests.jl:438)
+  Fix the root causes, or relax `@error_on_abstract` to `@warn_on_abstract`.
+  Stacktrace:
+    [1] _check_concrete(sig::Any)
+      @ TraitWorld ~/Repos/julia-trait-bound/TraitWorld-dyncomp/src/concrete.jl:538
+    [2] hot(t::Any, k::Float64)
+      @ Main.Hot ./none:-1
+    [3] top-level scope
+      @ ~/Repos/julia-trait-bound/TraitWorld-dyncomp/test/runtests.jl:446
+    [4] macro expansion
+      @ ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:1967 [inlined]
+    [5] macro expansion
+      @ ~/Repos/julia-trait-bound/TraitWorld-dyncomp/test/runtests.jl:446 [inlined]
+    [6] macro expansion
+      @ ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:755 [inlined]
+Test Summary:     | Pass  Error  Total  Time
+M7: concrete mode |    5      1      6  5.3s
+RNG of the outermost testset: Random.Xoshiro(0x6acedfd481177bdb, 0x7872f95a6605f7d7, 0x2fd887495cc71b26, 0x2e1114b8d5d526f9, 0x05da01605be0fbed)
+ERROR: Package TraitWorld errored during testing
+Stacktrace:
+  [1] pkgerror(msg::String)
+    @ Pkg.Types ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Pkg/src/Types.jl:68
+  [2] test(ctx::Pkg.Types.Context, pkgs::Vector{PackageSpec}; coverage::Bool, julia_args::Cmd, test_args::Cmd, test_fn::Nothing, force_latest_compatible_version::Bool, allow_earlier_backwards_compatible_versions::Bool, allow_reresolve::Bool)
+    @ Pkg.Operations ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Pkg/src/Operations.jl:3319
+  [3] test
+    @ ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Pkg/src/Operations.jl:3197 [inlined]
+  [4] test(ctx::Pkg.Types.Context, pkgs::Vector{PackageSpec}; coverage::Bool, test_fn::Nothing, julia_args::Cmd, test_args::Cmd, force_latest_compatible_version::Bool, allow_earlier_backwards_compatible_versions::Bool, allow_reresolve::Bool, kwargs::@Kwargs{io::IOContext{IO}})
+    @ Pkg.API ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Pkg/src/API.jl:587
+  [5] test(pkgs::Vector{PackageSpec}; io::IOContext{IO}, kwargs::@Kwargs{})
+    @ Pkg.API ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Pkg/src/API.jl:172
+  [6] test(pkgs::Vector{PackageSpec})
+    @ Pkg.API ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Pkg/src/API.jl:161
+  [7] test(; name::Nothing, uuid::Nothing, version::Nothing, url::Nothing, rev::Nothing, path::Nothing, mode::PackageMode, subdir::Nothing, kwargs::@Kwargs{})
+    @ Pkg.API ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Pkg/src/API.jl:189
+  [8] test()
+    @ Pkg.API ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Pkg/src/API.jl:178
+  [9] top-level scope
+    @ none:1
+ [10] eval(m::Module, e::Any)
+    @ Core ./boot.jl:489
+ [11] exec_options(opts::Base.JLOptions)
+    @ Base ./client.jl:310
+ [12] _start()
+    @ Base ./client.jl:577
+rc=1
