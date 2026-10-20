@@ -67,8 +67,8 @@ From this directory, one job at a time (the shared lock, `nice -n 19`, a depot o
 | phases 64 | 57.5 / 72.5 | 60.7 / 69.2 | 20.7 / 26.7 | 18.0 / 21.0 | 16.1 / 18.8 | 8.7 / 21.4 |
 
 - **Allocation:** `tw` and `s4+dyn` allocate 3 to 16 bytes per element (the dispatched call's boxed result). Every table and witness row allocates nothing.
-- **The emulation is faithful:** `s4+dyn` is within 15 % of `tw` in every row.
-- **`sall` for `work` from 16 types:** the hand-written split (542 statements at 16 types) is no longer inlined, although declared `@inline`, and its call boxes the result (16 B per element). Its speed falls to the dispatch's. This is a limit of the emulation's longer split, and a sign of what any long split meets.
+- **The emulation is faithful:** `s4+dyn` is within 15 % of `tw` on data in the cache, and 17 to 20 % on large data.
+- **`sall` for `work` from 16 types:** the hand-written split (542 statements at 16 types) is no longer inlined, although declared `@inline`, and its call boxes the result (16 B per element). Its speed falls to the dispatch's. This is an artifact of emulating the split as a Julia function. The compiler's split builds each case into the caller (`ir_inline_unionsplit!`) and would not meet it.
 
 **e145c, the table per call signature (one probe) against the carried witness, `area`, ns per element, 1000 / 131072 values:**
 
@@ -80,7 +80,7 @@ From this directory, one job at a time (the shared lock, `nice -n 19`, a depot o
 | skewed 64 | 8.2 / 12.8 | 7.0 / 11.0 | 7.0 / 12.3 | 6.8 / 11.5 | 6.5 / 11.6 |
 | cyclic 64 | 9.1 / 20.8 | 6.6 / 16.2 | 6.5 / 16.8 | 6.5 / 17.4 | 6.3 / 16.7 |
 
-- **The table per signature equals the carried witness on data in the cache.** On 131072 values of 16 or 64 types the witness is up to 1.5× faster: its pointer comes with the value, so the indirect call need not wait for the object's header.
+- **The table per signature equals the carried witness on data in the cache.** (`s4+tab` has no session check, which the `wit` rows have: one load and compare in its favour.) On 131072 values of 16 or 64 types the witness is up to 1.5× faster: its pointer comes with the value, so the indirect call need not wait for the object's header.
 - **A pointer for a type met the first time:** 3.8 to 4.9 ms to make it (the callable compiled at the type, and the thunk), then 4.2 to 4.7 ms for its first call. Paid once per signature and type.
 
 **The longer split, compile time and native code of the loop (e145b, `area`):**
@@ -99,7 +99,7 @@ From this directory, one job at a time (the shared lock, `nice -n 19`, a depot o
 
 1. **A split over the observed hot types at least 3× faster than the table and the witness?**
    - Only for `area` on data in the cache, in the skewed and phase mixes: 2.4 against 7.4 ns, 4.8 against 15.3 ns.
-   - For `work`, 1.4× to 2.1×. On 131072 values, 1.0× to 1.8×, and slower than the witness at uniform 64 (28.8 against 22.4 ns).
+   - For `work`, 1.4× to 2.1×. On 131072 values, 0.8× to 1.8×: slower than the witness at uniform 16, uniform 64 and phases, where a split over random types costs.
    - Not met in general. Recompiling in the background is not justified by these numbers.
 2. **The table or the witness within 1.5× of that split?**
    - Yes for `work`, and for every mix on 131072 values.
@@ -107,9 +107,32 @@ From this directory, one job at a time (the shared lock, `nice -n 19`, a depot o
    - The table and the witness are equal on data in the cache, and the witness is up to 1.5× faster on large mixes.
 3. **A split over all implementations at most 2 ns per element up to 16, with acceptable compile time and code size?**
    - Met only for `area` on data in the cache.
-   - `work` loses inlining at 16 types.
+   - `work` loses inlining at 16 types in the emulation (an artifact, above).
    - The code grows to 19 KB per loop at 16 types and 190 KB at 64.
-   - Not met.
-4. **Today's fallback against the table:** 40 to 90 ns and an allocation per element at 16 to 64 types, against 7 to 20 ns and none. It is 3× to 6× slower, and with more than four types it dominates the cost of the loop.
+   - Not met, on code size and compile time.
+4. **Today's fallback against the table:** 40 to 90 ns and an allocation per element at 16 to 64 types in the cache, against 7 to 20 ns and none: 3× to 6× slower. On 131072 values 63 to 84 ns against 27 to 35: 2.3× to 2.4×. With more than four types it dominates the cost of the loop.
+5. **The indirect call's misprediction:** on random mixes of many types it dominates the table's cost (`tab` 35 ns at uniform 64 against 17 at cyclic 64, on large data). No table removes it; the branch-predictor caveat above applies to it as to the splits.
+6. **The conformance check** of a value of unknown type (`collect(DynamicItems{S}(v))` from a `Vector{Any}`, e145 "make") takes the same fallback: 72 ns per element at 64 types.
 
 What was decided from this, and the reasoning, is in `writeup/plans/2026-10-21-what-follows-the-split.md`.
+
+## As built (2026-10-21): the split's last branch through the table
+
+julia-1.13 `split-table` 711484a23e (the binary reports df0ef465b3, the same content before the commits were squashed); TraitWorld 1c45999. Product setting. Load 1.5 to 2.1: another process ran. One process each.
+
+**e145d, TraitWorld's own `Dynamic` with 64 implementations** (`logs/r4-product-asbuilt.log`):
+
+| Row | Before (`tw`, e145b r2, 1000 values) | As built |
+|---|---|---|
+| uniform 5 | 4.5 ns, 3 B | 2.5 ns, 0 B |
+| uniform 8 | 11.8 ns, 7.6 B | 5.1 ns, 0 B |
+| uniform 16 | 46.8 ns, 11.3 B | 9.2 ns, 0 B |
+| uniform 64 | 77.0 ns, 15.2 B | 18.5 ns, 0 B |
+| `collect(DynamicItems{S}(v))` from a `Vector{Any}`, 64 types | 72 ns (e145 r1) | 19.4 ns, 8 B (the vector) |
+| first call with a type outside the split | — | 9.9 to 10.6 ms, then 0.3 to 0.9 µs |
+
+**e145b once more** (`logs/r4-product-n1000.log`): the `tw` row (as built) is within 0.8× to 1.2× of the emulated table `s4+hash` in every mix, and 1.0× to 1.3× of the carried witness `s4+wit` (uniform 64: 18.4 against 15.0 ns for `area`, 23.8 against 18.2 for `work`).
+
+- The as-built path matches the emulation: a probe per value outside the split, no allocation.
+- The first use of a type costs about 10 ms at each call signature, a little more than e145c's 8 ms: compiling the pointers ahead (compiler C-14) is the remedy.
+- After any method definition every pointer looks its target up once (compiler C-3; acceptance G1.24 measures in one world).

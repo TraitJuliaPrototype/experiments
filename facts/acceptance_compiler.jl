@@ -469,5 +469,60 @@ c23 = (Base.invoke_in_world(w23, Ic23.run23), Ic23.run23(), Base.invoke_in_world
 check("G1.23 a site cached for every type at an Any position sees a later, more specific method", c23 == (10, 109, 10),
       "old world $(c23[1]), latest $(c23[2]), old again $(c23[3]) (expected (10, 109, 10))")
 
+# --- G1.24: beyond a split's candidates, the table of the call's targets (E-145): results, a
+# redefinition followed in the new world and not in the old, no allocation; a plain split whose
+# function has no method for a type raises as the call would
+toplevel(quote
+    @trait_module module AccTab
+    using TraitWorld
+    export TShp, tarea, ttotal
+    @trait TShp begin
+        tarea(s::TShp)::Float64
+    end
+    function ttotal(v::Vector{Dynamic{TShp}})
+        s = 0.0
+        for d in v
+            s += tarea(d)
+        end
+        return s
+    end
+    end
+end)
+toplevel(quote
+    struct AT1; a::Float64; end
+    struct AT2; a::Float64; end
+    struct AT3; a::Float64; end
+    struct AT4; a::Float64; end
+    struct AT5; a::Float64; end
+    struct AT6; a::Float64; end
+    @implement AccTab.TShp AT1 begin tarea(s) = 1.0 * s.a end
+    @implement AccTab.TShp AT2 begin tarea(s) = 2.0 * s.a end
+    @implement AccTab.TShp AT3 begin tarea(s) = 3.0 * s.a end
+    @implement AccTab.TShp AT4 begin tarea(s) = 4.0 * s.a end
+    @implement AccTab.TShp AT5 begin tarea(s) = 5.0 * s.a end
+    @implement AccTab.TShp AT6 begin tarea(s) = 6.0 * s.a end
+end)
+v24 = Dynamic{AccTab.TShp}[Dynamic{AccTab.TShp}(T(1.0)) for T in (AT1, AT2, AT3, AT4, AT5, AT6)]
+a24 = (AccTab.ttotal(v24), AccTab.ttotal(v24))
+# the steady state, in one world: after a world bump each pointer looks its target up once (compiler C-3)
+alloc24(v) = (AccTab.ttotal(v); @allocated AccTab.ttotal(v))
+al24 = alloc24(v24)
+w24 = Base.get_world_counter()
+toplevel(:(AccTab.tarea(s::AT6) = 60.0 * s.a))
+r24 = (AccTab.ttotal(v24), Base.invoke_in_world(w24, AccTab.ttotal, v24), AccTab.ttotal(v24))
+toplevel(quote
+    module Pl24
+    struct K end
+    g(x::Int) = 1; g(x::Float64) = 2; g(x::String) = 3; g(x::Symbol) = 4; g(x::Char) = 5
+    for T in (Int, Float64, String, Symbol)
+        Base.Compiler.register_dynamic_candidate!(K, T)
+    end
+    run(v::Vector{Any}) = (s = 0; for x in v; s += Base.Compiler.split_call(K, Int, g, x)::Int; end; s)
+    end
+end)
+p24 = (Pl24.run(Any[1, 2.0, "a", :b, 'c', 'd']), try Pl24.run(Any[1//2]); :none catch e; nameof(typeof(e)) end)
+check("G1.24 beyond a split's candidates, the table of targets: results, worlds, no allocation, a missing method", a24 == (21.0, 21.0) && al24 == 0 && r24 == (75.0, 21.0, 75.0) && p24 == (20, :MethodError),
+      "total $(a24), allocated $al24 B, after the redefinition / older world / again $(r24) (expected (75.0, 21.0, 75.0)), plain split $(p24) (expected (20, :MethodError))")
+
 println()
 println(count(x -> x[2], results), " of ", length(results), " checks pass")

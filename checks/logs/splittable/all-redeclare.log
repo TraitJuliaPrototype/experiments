@@ -1,0 +1,23 @@
+ERROR: LoadError: Some tests did not pass: 0 passed, 0 failed, 1 errored, 0 broken.
+in expression starting at /home/hellmann/Repos/julia-trait-bound/TraitWorld/test/redeclare.jl:12
+
+a redeclaration is refused in every form: Error During Test at /home/hellmann/Repos/julia-trait-bound/TraitWorld/test/redeclare.jl:12
+  Got exception outside of a @test
+  UndefVarError: `toplevel` not defined in `Main`
+  Suggestion: check for spelling errors or missing imports.
+  Stacktrace:
+   [1] top-level scope
+     @ ~/Repos/julia-trait-bound/TraitWorld/test/redeclare.jl:13
+   [2] macro expansion
+     @ ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:1967 [inlined]
+   [3] macro expansion
+     @ ~/Repos/julia-trait-bound/TraitWorld/test/redeclare.jl:13 [inlined]
+   [4] include(mod::Module, _path::String)
+     @ Base ./Base.jl:310
+   [5] exec_options(opts::Base.JLOptions)
+     @ Base ./client.jl:344
+   [6] _start()
+     @ Base ./client.jl:577
+Test Summary:                            | Error  Total  Time
+a redeclaration is refused in every form |     1      1  1.1s
+RNG of the outermost testset: Random.Xoshiro(0x2b4b582f48bdb4d0, 0xaf25eb0192c3dfbb, 0x791c82340e96d871, 0xf17ed1fa834ea985, 0x30c36211e12230d9)
