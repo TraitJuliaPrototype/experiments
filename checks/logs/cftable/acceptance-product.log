@@ -1,0 +1,27 @@
+┌ Warning: `karg` has a `Dynamic` attribute on a bound, but it is neither exported nor public in Main.AccDynK: no value from plain code enters there, so the attribute decides nothing. Convert at the call instead: `compiled_for(x)`, `with_dynamic(x)`.
+└ @ Main.AccDynK ~/Repos/julia-trait-bound/TraitWorld/src/attributes.jl:272
+PASS  G1.1 redefinition by the implementing type's owner is followed  (before 4.0, after 40.0, plain 4.0 then 40.0)
+PASS  G1.2 redefinition of a helper the implementation calls is followed  (before 4.0, after 400.0)
+PASS  G1.3 an unrelated method of the conforming type leaves a field default alone  (before 5.0, after 5.0 (default reads the field: unchanged is right))
+PASS  G1.4 a winning pirate is followed as plain Julia follows it  (before 2.0, after -0.3333333333333333, plain now -0.3333333333333333)
+PASS  G1.5 calls into Base, LinearAlgebra and Printf from trait code  (det 6.0, fmt "1.000")
+PASS  G1.6 a more specific method at the call signature, added later, is followed  (before 1, after 2, plain 2)
+PASS  G1.7 recursion through an entry  (depth(5) = 5)
+PASS  G1.8 return_type at abstract types (an empty map's element type)  (trait Vector{Int64}, plain Vector{Int64})
+PASS  G1.9 return_type follows a redefinition  (before Int64, after Float64, plain Float64)
+PASS  G1.10 a fold over a run-time site with asserted effects follows a redefinition  (before (1, 1), after (2, 2) (plain, policy))
+PASS  G1.11 return_type at widened compilation signatures  (plain (Int64, typeof(sin), NTuple{10, Int64}, Vector{Int64}), policy (Int64, typeof(sin), NTuple{10, Int64}, Vector{Int64}))
+PASS  G1.12 recursion through an entry with growing types  (nest(3, 1) = (((1,),),))
+PASS  G1.13 a redefinition that changes a generic conformance's predicate is followed  (before 3.0, after MethodError (a fresh session: no conformance, MethodError))
+PASS  G1.14 a call in an older world does not see a later conformance  (old world: MethodError, latest: 2.0)
+PASS  G1.15 a cycle's callee redefined deep inside  (before (1, 1, 1), after (2, 2, 2) (plain, policy, native partner))
+PASS  G2.1 an unrelated module extending a function called on type values invalidates nothing  (still valid: true, results 1, 2 (plain 2))
+PASS  G1.17 a dynamic value of a later conformance at a split call site  (before 7.0, after 9.0 (9.0), facts code still valid: true)
+PASS  G1.18 an operation on a Dynamic value of a type inference knows  (got (3.0, 3.0, 3.0) (expected (3.0, 3.0, 3.0)))
+PASS  G1.19 a Base method's assertion over a run-time site does not fold a dispatch no edge records  (before (1, 1), after (2, 2) (plain, facts))
+PASS  G1.20 a Dynamic Callable runs in the caller's world  (old world: Callable 2.0, plain 2.0; latest world: Callable 101.0 (expected (2.0, 2.0, 101.0)))
+PASS  G1.21 a Dynamic Callable's pointer in alternating worlds, and before its method exists  (alternating: [2.0, 101.0, 2.0, 101.0, 2.0, 101.0]; before the method: MethodError; after: 3.0)
+PASS  G1.22 a dynamic call site cached for exact types runs in the caller's world  (old world 3, latest 300, old again 3 (expected (3, 300, 3)))
+PASS  G1.23 a site cached for every type at an Any position sees a later, more specific method  (old world 10, latest 109, old again 10 (expected (10, 109, 10)))
+
+23 of 23 checks pass

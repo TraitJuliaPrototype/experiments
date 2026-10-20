@@ -1,0 +1,43 @@
+elements per mix: 1000
+TraitWorld's split covers: T1, T2, T3, T4
+== e145c  elements per mix 1000  load 0.35 0.47 0.60
+-- uniform n=8
+product  uniform n=8  area s4+hash: split 4 + e145b's table                           7.50 ns/elt     0.0 B/elt  (median of 1000 samples)
+product  uniform n=8  area s4+tab: split 4 + table per signature, one probe           5.91 ns/elt     0.0 B/elt  (median of 1000 samples)
+product  uniform n=8  area s4+wit: split 4 + carried witness                          5.82 ns/elt     0.0 B/elt  (median of 1000 samples)
+product  uniform n=8  area tab: table per signature only                             14.80 ns/elt     0.0 B/elt  (median of 1000 samples)
+product  uniform n=8  area wit: carried witness only                                 12.66 ns/elt     0.0 B/elt  (median of 1000 samples)
+-- uniform n=16
+product  uniform n=16 area s4+hash: split 4 + e145b's table                          12.03 ns/elt     0.0 B/elt  (median of 1000 samples)
+product  uniform n=16 area s4+tab: split 4 + table per signature, one probe           9.08 ns/elt     0.0 B/elt  (median of 1000 samples)
+product  uniform n=16 area s4+wit: split 4 + carried witness                          9.93 ns/elt     0.0 B/elt  (median of 1000 samples)
+product  uniform n=16 area tab: table per signature only                             14.58 ns/elt     0.0 B/elt  (median of 1000 samples)
+product  uniform n=16 area wit: carried witness only                                 13.01 ns/elt     0.0 B/elt  (median of 1000 samples)
+-- uniform n=64
+product  uniform n=64 area s4+hash: split 4 + e145b's table                          20.49 ns/elt     0.0 B/elt  (median of 1000 samples)
+product  uniform n=64 area s4+tab: split 4 + table per signature, one probe          14.62 ns/elt     0.0 B/elt  (median of 1000 samples)
+product  uniform n=64 area s4+wit: split 4 + carried witness                         14.90 ns/elt     0.0 B/elt  (median of 1000 samples)
+product  uniform n=64 area tab: table per signature only                             14.78 ns/elt     0.0 B/elt  (median of 1000 samples)
+product  uniform n=64 area wit: carried witness only                                 14.96 ns/elt     0.0 B/elt  (median of 1000 samples)
+-- skewed n=64
+product  skewed n=64  area s4+hash: split 4 + e145b's table                           8.15 ns/elt     0.0 B/elt  (median of 1000 samples)
+product  skewed n=64  area s4+tab: split 4 + table per signature, one probe           7.00 ns/elt     0.0 B/elt  (median of 1000 samples)
+product  skewed n=64  area s4+wit: split 4 + carried witness                          6.97 ns/elt     0.0 B/elt  (median of 1000 samples)
+product  skewed n=64  area tab: table per signature only                              6.80 ns/elt     0.0 B/elt  (median of 1000 samples)
+product  skewed n=64  area wit: carried witness only                                  6.52 ns/elt     0.0 B/elt  (median of 1000 samples)
+-- cyclic n=64
+product  cyclic n=64  area s4+hash: split 4 + e145b's table                           9.11 ns/elt     0.0 B/elt  (median of 1000 samples)
+product  cyclic n=64  area s4+tab: split 4 + table per signature, one probe           6.64 ns/elt     0.0 B/elt  (median of 1000 samples)
+product  cyclic n=64  area s4+wit: split 4 + carried witness                          6.50 ns/elt     0.0 B/elt  (median of 1000 samples)
+product  cyclic n=64  area tab: table per signature only                              6.52 ns/elt     0.0 B/elt  (median of 1000 samples)
+product  cyclic n=64  area wit: carried witness only                                  6.27 ns/elt     0.0 B/elt  (median of 1000 samples)
+-- a pointer for a type met late: time to make it
+product  first        T65: pointer made in   3.99 ms, first call through it  4.339 ms
+product  first        T66: pointer made in   4.70 ms, first call through it  4.486 ms
+product  first        T67: pointer made in   3.90 ms, first call through it  4.229 ms
+product  first        T68: pointer made in   3.83 ms, first call through it  4.172 ms
+product  first        T69: pointer made in   3.89 ms, first call through it  4.257 ms
+product  first        T70: pointer made in   3.78 ms, first call through it  4.222 ms
+product  first        T71: pointer made in   3.81 ms, first call through it  4.358 ms
+product  first        T72: pointer made in   3.89 ms, first call through it  4.250 ms
+== done  load 0.71 0.55 0.62
