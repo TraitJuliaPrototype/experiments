@@ -72,8 +72,8 @@ ncols_sum(ts::ColTable...) = sum(ncols(t) for t in ts; init = 0)
 kwrest(t::ColTable; kws...) = (ncols(t), length(kws))
 
 # §9
-colmap(f::Callable{Tuple{Float64}, Float64}, t::ColTable, i::Int) = map(f, col(t, i))                # default mode: DynamicCall
-colsum(f::Callable{Tuple{Float64}, Float64, CompiledCall}, t::ColTable, i::Int) = sum(f, col(t, i))  # default mode: CompiledCall
+colmap(f::Callable{Tuple{Float64}, Float64}, t::ColTable, i::Int) = map(f, col(t, i))                # Callable's default: Dynamic
+colsum(f::Compiled{Callable{Tuple{Float64}, Float64}}, t::ColTable, i::Int) = sum(f, col(t, i))     # compiled per function
 both(f::(Callable{Tuple{Float64}, Float64}, Callable{Tuple{Int}, Int}), x::Float64, n::Int) = (f(x), f(n))
 
 # §3.1
@@ -233,13 +233,15 @@ check("§5.8 a generic implementation", gmean([[1.0, 3.0]]) == 2.0)
 check("§5.8 more specific beats generic", gmean([1.0 9.0; 3.0 9.0]) == 2.0)
 check("§5.8 the condition refuses Vector{Int}", outcome(() -> gmean([1, 2])) isa MethodError)
 
-# §5.9 dynamic operations (open)
-struct Reversed; cols::Vector{Vector{Float64}}; end
-@implement ColTable Reversed dynamic by cols begin
-    ncols(r) = length(r)
-    col(r, i) = r[end - i + 1]
-end
-check("§5.9 `dynamic by cols` is accepted", colmean(Reversed([[1.0, 2.0], [3.0, 5.0]]), 1) == 4.0)
+# §5.9 dynamic operations: removed, the form is refused
+e = thrown(quote
+    struct Reversed; cols::Vector{Vector{Float64}}; end
+    @implement ColTable Reversed dynamic by cols begin
+        ncols(r) = length(r)
+        col(r, i) = r[end - i + 1]
+    end
+end)
+check("§5.9 `dynamic by cols` is refused", e isa ImplementError)
 
 # §5.10 redeclaration
 e = thrown(quote
@@ -282,24 +284,24 @@ check("§8 a vararg keyword passes on", kwrest(m; a = 1, b = 2) == (2, 2))
 
 # §9
 check("§9 colmap", colmap(x -> 2x, m, 1) == [2.0, 4.0])
-check("§9 compiled_call", colmap(compiled_call(x -> 2x), m, 1) == [2.0, 4.0])
-check("§9 dynamic_call", colsum(dynamic_call(x -> 2x), m, 1) == 6.0)
+check("§9 compiled_for", colmap(compiled_for(x -> 2x), m, 1) == [2.0, 4.0])
+check("§9 with_dynamic", colsum(with_dynamic(x -> 2x), m, 1) == 6.0)
 check("§9 abs2", colsum(abs2, m, 1) == 5.0)
-check("§9 Callable{A, S, M}(f)", colmap(Callable{Tuple{Float64}, Float64, CompiledCall}(x -> x + 1), m, 1) == [2.0, 3.0])
+check("§9 a stored Dynamic{Callable}", colmap(Dynamic{Callable{Tuple{Float64}, Float64}}(x -> x + 1), m, 1) == [2.0, 3.0])
 check("§9 several signatures", both(x -> x + one(x), 1.5, 2) == (2.5, 3))
 check("§9 a result of another type: TypeError", outcome(() -> colmap(x -> 1, m, 1)) isa TypeError)
 @trait_module module CB
 using TraitWorld
 export FunctionCallback, fire, apply_open
 struct FunctionCallback
-    cond::DynamicFn{Tuple{Vector{Float64}, Float64}, Bool}
+    cond::Dynamic{Callable{Tuple{Vector{Float64}, Float64}, Bool}}
 end
 fire(cb::FunctionCallback, u::Vector{Float64}) = cb.cond(u, 0.0)
 apply_open(f::Callable{Tuple{Float64}, S}, x::Float64) where {S} = f(x)    # planned: an open result type
 end
 using .CB
-callback(f) = FunctionCallback(dynamic_fn(Tuple{Vector{Float64}, Float64}, Bool, f))   # in plain code
-check("§9 a stored DynamicFn", fire(callback((u, t) -> u[1] > t), [1.0]) === true)
+callback(f) = FunctionCallback(Dynamic{Callable{Tuple{Vector{Float64}, Float64}, Bool}}(f))   # in plain code
+check("§9 a stored Dynamic{Callable}", fire(callback((u, t) -> u[1] > t), [1.0]) === true)
 check("T-18 an open Callable result type is no bound: MethodError", outcome(() -> apply_open(x -> 2x, 1.0)) isa MethodError)
 
 # §10

@@ -250,7 +250,7 @@ function transform(f::Callable{Tuple{Float64}, Float64}, s::Samples{Float64})
     end
     return out
 end
-function sumby(f::Callable{Tuple{Float64}, Float64, CompiledCall}, s::Samples{Float64})
+function sumby(f::Compiled{Callable{Tuple{Float64}, Float64}}, s::Samples{Float64})
     acc = 0.0
     for i in 1:nsamples(s)
         acc += f(sample(s, i))
@@ -259,7 +259,7 @@ function sumby(f::Callable{Tuple{Float64}, Float64, CompiledCall}, s::Samples{Fl
 end
 
 struct Threshold
-    test::DynamicFn{Tuple{Float64}, Bool}
+    test::Dynamic{Callable{Tuple{Float64}, Bool}}
 end
 function countif(th::Threshold, s::Samples{Float64})
     n = 0
@@ -305,12 +305,12 @@ check("§13 mean64([1, 2]): TraitBoundError", outcome(() -> mean64([1, 2])) isa 
 
 # §14
 check("§14 transform(x -> 2x, …)", transform(x -> 2x, [1.0, 2.0]) == [2.0, 4.0])
-check("§14 transform(compiled_call(…), …)", transform(compiled_call(x -> x / 2), [1.0]) == [0.5])
+check("§14 transform(compiled_for(…), …)", transform(compiled_for(x -> x / 2), [1.0]) == [0.5])
 check("§14 sumby(abs2, …)", sumby(abs2, [1.0, 2.0]) == 5.0)
-check("§14 sumby(dynamic_call(…), …)", sumby(dynamic_call(x -> x + 1), [1.0, 2.0]) == 5.0)
+check("§14 sumby(with_dynamic(…), …)", sumby(with_dynamic(x -> x + 1), [1.0, 2.0]) == 5.0)
 check("§14 a result of the wrong type: TypeError", outcome(() -> transform(x -> 1, [1.0])) isa TypeError)
-th = Threshold(dynamic_fn(Tuple{Float64}, Bool, x -> x > 1.0))
-check("§14 countif with a stored DynamicFn", countif(th, [0.5, 1.5, 2.5]) == 2)
+th = Threshold(Dynamic{Callable{Tuple{Float64}, Bool}}(x -> x > 1.0))
+check("§14 countif with a stored Dynamic{Callable}", countif(th, [0.5, 1.5, 2.5]) == 2)
 
 # §15
 struct Ring
