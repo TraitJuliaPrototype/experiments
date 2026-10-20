@@ -1,0 +1,29 @@
+-- TraitDifferentialEquations rows none, load 1.14
+using TraitDifferentialEquations 0.46 s
+row 1 first Tsit5 solve, a plain function 22.5 ms, gc 0.0 ms
+row 2 a second model function 17.6 ms, gc 0.0 ms
+row 2 a new model type: @implement 61.2 ms, gc 0.0 ms
+row 2 a new model type: first solve 317.6 ms, gc 16.9 ms
+row 3 first Rodas5 solve 24.2 ms, gc 0.0 ms
+row 4 a new callback closure 20.8 ms, gc 0.0 ms
+row 4 a second callback closure 13.1 ms, gc 0.0 ms
+row 5 first gradient (Tsit5, 3 parameters) 55.8 ms, gc 0.0 ms
+row 5 a second loss closure 60.5 ms, gc 20.1 ms
+row 5 a third loss, another model function 82.2 ms, gc 0.0 ms
+row 5 ForwardDiff's own tag (the loss's type), for comparison 597.7 ms, gc 9.9 ms
+row 6 a Float32 state, first solve 396.3 ms, gc 11.3 ms
+-- TraitMakie rows, load 1.13
+row 1 using TraitMakie 7360.6 ms
+row 1 first PNG: lines, scatter, save 21.7 ms
+row 4 a new data type: @implement (forwarding) 33.4 ms
+row 4 a new data type: first PNG 86.9 ms
+row 4 a new colour type: @implement 28.8 ms
+row 4 a new colour type: first PNG 84.0 ms
+row 6 render 9.0 ms
+row 6 recolor to a vector, render 63.8 ms
+row 6 recolor to :purple, render 9.0 ms
+row 6 recolor plot 1 to a Gradient, render 13.1 ms
+done
+row 1 using TraitMakie 482.2 ms
+row 1 first PNG: lines, scatter, save 21.3 ms
+row 4 a new data type: @implement (forwarding) 33.9 ms
