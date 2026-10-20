@@ -1,0 +1,338 @@
+== E4 plain
+plain  iterate(Dict{Any,Any})        6.8 ns  32 B
+plain  iterate(Dict{Any,Any}, st)    7.2 ns  32 B
+plain  for (k, v) in Dict{Any,Any}   2.1 ns/elt  0.0 B/elt
+plain  for (k, v) in Dict{Int,String} 1.9 ns/elt  0.0 B/elt
+---- generic (non-invoke) calls in iterate(::Dict{Any,Any}, ::Int), plain
+  33: :($(Expr(:invoke, CodeInstance for MethodInstance for Base.throw_boundserror(::Memory{UInt8}, ::Tuple{Int64}), :(Base.th  :: Union{}
+  74: :($(Expr(:invoke, CodeInstance for MethodInstance for Base.throw_boundserror(::Memory{Any}, ::Tuple{Int64}), :(Base.thro  :: Union{}
+  91: :($(Expr(:invoke, CodeInstance for MethodInstance for Base.throw_boundserror(::Memory{Any}, ::Tuple{Int64}), :(Base.thro  :: Union{}
+---- generic (non-invoke) calls in sumkeys(::Dict{Any,Any}), plain
+  1: :(Base.getfield(_2, :idxfloor))  :: Int64
+  2: :(Base.getfield(_2, :slots))  :: Memory{UInt8}
+  3: :(Base.getfield(%2, :length))  :: Int64
+  4: :(Base.sle_int(%1, %3))  :: Bool
+  7: :(Base.sub_int(%1, 1))  :: Int64
+  12: :(Base.slt_int(%9, %1))  :: Bool
+  19: :(Base.not_int(%16))  :: Bool
+  23: :(Base.getfield(_2, :slots))  :: Memory{UInt8}
+  26: :(Base.sub_int(%21, 1))  :: Int64
+  27: :(Base.bitcast(Base.UInt, %26))  :: UInt64
+  28: :(Base.getfield(%23, :length))  :: Int64
+  29: :(Base.bitcast(Base.UInt, %28))  :: UInt64
+  30: :(Base.ult_int(%27, %29))  :: Bool
+  33: :(Core.tuple(%21))  :: Tuple{Int64}
+  37: :(Base.memoryrefnew(%23, %21, false))  :: MemoryRef{UInt8}
+  38: :(Base.memoryrefget(%37, :not_atomic, false))  :: UInt8
+  40: :(Base.and_int(%38, 0x80))  :: UInt8
+  41: :(Core.zext_int(Core.UInt64, %40))  :: UInt64
+  42: :(%41 === 0x0000000000000000)  :: Bool
+  43: :(Base.and_int(true, %42))  :: Bool
+  44: :(Base.not_int(%43))  :: Bool
+  48: :(%22 === %9)  :: Bool
+  51: :(Base.add_int(%22, 1))  :: Int64
+  56: :(Base.not_int(%55))  :: Bool
+  61: :(%60 === 0)  :: Bool
+  64: :(Base.getfield(_2, :keys))  :: Memory{Any}
+  67: :(Base.sub_int(%60, 1))  :: Int64
+  68: :(Base.bitcast(Base.UInt, %67))  :: UInt64
+  69: :(Base.getfield(%64, :length))  :: Int64
+  70: :(Base.bitcast(Base.UInt, %69))  :: UInt64
+  71: :(Base.ult_int(%68, %70))  :: Bool
+  74: :(Core.tuple(%60))  :: Tuple{Int64}
+  78: :(Base.memoryrefnew(%64, %60, false))  :: MemoryRef{Any}
+  79: :(Base.memoryrefget(%78, :not_atomic, false))  :: Any
+  81: :(Base.getfield(_2, :vals))  :: Memory{Any}
+  84: :(Base.sub_int(%60, 1))  :: Int64
+  85: :(Base.bitcast(Base.UInt, %84))  :: UInt64
+  86: :(Base.getfield(%81, :length))  :: Int64
+  87: :(Base.bitcast(Base.UInt, %86))  :: UInt64
+  88: :(Base.ult_int(%85, %87))  :: Bool
+  91: :(Core.tuple(%60))  :: Tuple{Int64}
+  95: :(Base.memoryrefnew(%81, %60, false))  :: MemoryRef{Any}
+  96: :(Base.memoryrefget(%95, :not_atomic, false))  :: Any
+  98: :(%60 === 9223372036854775807)  :: Bool
+  101: :(Base.add_int(%60, 1))  :: Int64
+  108: :(Base.not_int(%104))  :: Bool
+  113: :(%110 isa Main.Int)  :: Bool
+  116: :(Base.add_int(%112, %115))  :: Int64
+  118: :(Base.getfield(_2, :slots))  :: Memory{UInt8}
+  119: :(Base.getfield(%118, :length))  :: Int64
+  120: :(Base.sle_int(%111, %119))  :: Bool
+  123: :(Base.sub_int(%111, 1))  :: Int64
+  128: :(Base.slt_int(%125, %111))  :: Bool
+  135: :(Base.not_int(%132))  :: Bool
+  139: :(Base.getfield(_2, :slots))  :: Memory{UInt8}
+  142: :(Base.sub_int(%137, 1))  :: Int64
+  143: :(Base.bitcast(Base.UInt, %142))  :: UInt64
+  144: :(Base.getfield(%139, :length))  :: Int64
+  145: :(Base.bitcast(Base.UInt, %144))  :: UInt64
+  146: :(Base.ult_int(%143, %145))  :: Bool
+  149: :(Core.tuple(%137))  :: Tuple{Int64}
+  153: :(Base.memoryrefnew(%139, %137, false))  :: MemoryRef{UInt8}
+  154: :(Base.memoryrefget(%153, :not_atomic, false))  :: UInt8
+  156: :(Base.and_int(%154, 0x80))  :: UInt8
+  157: :(Core.zext_int(Core.UInt64, %156))  :: UInt64
+  158: :(%157 === 0x0000000000000000)  :: Bool
+  159: :(Base.and_int(true, %158))  :: Bool
+  160: :(Base.not_int(%159))  :: Bool
+  164: :(%138 === %125)  :: Bool
+  167: :(Base.add_int(%138, 1))  :: Int64
+  172: :(Base.not_int(%171))  :: Bool
+  177: :(%176 === 0)  :: Bool
+  180: :(Base.getfield(_2, :keys))  :: Memory{Any}
+  183: :(Base.sub_int(%176, 1))  :: Int64
+  184: :(Base.bitcast(Base.UInt, %183))  :: UInt64
+  185: :(Base.getfield(%180, :length))  :: Int64
+  186: :(Base.bitcast(Base.UInt, %185))  :: UInt64
+  187: :(Base.ult_int(%184, %186))  :: Bool
+  190: :(Core.tuple(%176))  :: Tuple{Int64}
+  194: :(Base.memoryrefnew(%180, %176, false))  :: MemoryRef{Any}
+  195: :(Base.memoryrefget(%194, :not_atomic, false))  :: Any
+  197: :(Base.getfield(_2, :vals))  :: Memory{Any}
+  200: :(Base.sub_int(%176, 1))  :: Int64
+  201: :(Base.bitcast(Base.UInt, %200))  :: UInt64
+  202: :(Base.getfield(%197, :length))  :: Int64
+  203: :(Base.bitcast(Base.UInt, %202))  :: UInt64
+  204: :(Base.ult_int(%201, %203))  :: Bool
+  207: :(Core.tuple(%176))  :: Tuple{Int64}
+  211: :(Base.memoryrefnew(%197, %176, false))  :: MemoryRef{Any}
+  212: :(Base.memoryrefget(%211, :not_atomic, false))  :: Any
+  214: :(%176 === 9223372036854775807)  :: Bool
+  217: :(Base.add_int(%176, 1))  :: Int64
+  224: :(Base.not_int(%222))  :: Bool
+plain  sum over Vector{Any} of Int    16.9 ns/elt  15.504 B/elt
+plain  sum over Vector{Any} of Float64 15.3 ns/elt  16.0 B/elt
+plain  Float64(x) over Vector{Real}   95.5 ns/elt  24.0 B/elt
+== E4 all
+all    iterate(Dict{Any,Any})        111.6 ns  64 B
+all    iterate(Dict{Any,Any}, st)    122.7 ns  64 B
+all    for (k, v) in Dict{Any,Any}   222.9 ns/elt  103.824 B/elt
+all    for (k, v) in Dict{Int,String} 1.9 ns/elt  0.0 B/elt
+---- generic (non-invoke) calls in iterate(::Dict{Any,Any}, ::Int), all  
+  33: :($(Expr(:invoke, CodeInstance for MethodInstance for Base.throw_boundserror(::Memory{UInt8}, ::Tuple{Int64}), :(Base.th  :: Union{}
+  74: :($(Expr(:invoke, CodeInstance for MethodInstance for Base.throw_boundserror(::Memory{Any}, ::Tuple{Int64}), :(Base.thro  :: Union{}
+  91: :($(Expr(:invoke, CodeInstance for MethodInstance for Base.throw_boundserror(::Memory{Any}, ::Tuple{Int64}), :(Base.thro  :: Union{}
+---- generic (non-invoke) calls in sumkeys(::Dict{Any,Any}), all  
+  1: :(Base.getfield(_2, :idxfloor))  :: Int64
+  2: :(Base.getfield(_2, :slots))  :: Memory{UInt8}
+  3: :(Base.getfield(%2, :length))  :: Int64
+  4: :(Base.sle_int(%1, %3))  :: Bool
+  7: :(Base.sub_int(%1, 1))  :: Int64
+  12: :(Base.slt_int(%9, %1))  :: Bool
+  19: :(Base.not_int(%16))  :: Bool
+  23: :(Base.getfield(_2, :slots))  :: Memory{UInt8}
+  26: :(Base.sub_int(%21, 1))  :: Int64
+  27: :(Base.bitcast(Base.UInt, %26))  :: UInt64
+  28: :(Base.getfield(%23, :length))  :: Int64
+  29: :(Base.bitcast(Base.UInt, %28))  :: UInt64
+  30: :(Base.ult_int(%27, %29))  :: Bool
+  33: :(Core.tuple(%21))  :: Tuple{Int64}
+  37: :(Base.memoryrefnew(%23, %21, false))  :: MemoryRef{UInt8}
+  38: :(Base.memoryrefget(%37, :not_atomic, false))  :: UInt8
+  40: :(Base.and_int(%38, 0x80))  :: UInt8
+  41: :(Core.zext_int(Core.UInt64, %40))  :: UInt64
+  42: :(%41 === 0x0000000000000000)  :: Bool
+  43: :(Base.and_int(true, %42))  :: Bool
+  44: :(Base.not_int(%43))  :: Bool
+  48: :(%22 === %9)  :: Bool
+  51: :(Base.add_int(%22, 1))  :: Int64
+  56: :(Base.not_int(%55))  :: Bool
+  61: :(%60 === 0)  :: Bool
+  64: :(Base.getfield(_2, :keys))  :: Memory{Any}
+  67: :(Base.sub_int(%60, 1))  :: Int64
+  68: :(Base.bitcast(Base.UInt, %67))  :: UInt64
+  69: :(Base.getfield(%64, :length))  :: Int64
+  70: :(Base.bitcast(Base.UInt, %69))  :: UInt64
+  71: :(Base.ult_int(%68, %70))  :: Bool
+  74: :(Core.tuple(%60))  :: Tuple{Int64}
+  78: :(Base.memoryrefnew(%64, %60, false))  :: MemoryRef{Any}
+  79: :(Base.memoryrefget(%78, :not_atomic, false))  :: Any
+  81: :(Base.getfield(_2, :vals))  :: Memory{Any}
+  84: :(Base.sub_int(%60, 1))  :: Int64
+  85: :(Base.bitcast(Base.UInt, %84))  :: UInt64
+  86: :(Base.getfield(%81, :length))  :: Int64
+  87: :(Base.bitcast(Base.UInt, %86))  :: UInt64
+  88: :(Base.ult_int(%85, %87))  :: Bool
+  91: :(Core.tuple(%60))  :: Tuple{Int64}
+  95: :(Base.memoryrefnew(%81, %60, false))  :: MemoryRef{Any}
+  96: :(Base.memoryrefget(%95, :not_atomic, false))  :: Any
+  98: :((Pair{Any, Any})(%79, %96))  :: Any
+  99: :(%60 === 9223372036854775807)  :: Bool
+  102: :(Base.add_int(%60, 1))  :: Int64
+  109: :(Base.not_int(%105))  :: Bool
+  114: :(Base.indexed_iterate(%111, 1))  :: Any
+  115: :(Core.getfield(%114, 1))  :: Any
+  116: :(Core.getfield(%114, 2))  :: Any
+  117: :(Base.indexed_iterate(%111, 2, %116))  :: Any
+  118: :(Core.getfield(%117, 1))  :: Any
+  119: :(%115 isa Main.Int)  :: Bool
+  122: :(Base.add_int(%113, %121))  :: Int64
+  124: :(Base.getfield(_2, :slots))  :: Memory{UInt8}
+  125: :(Base.getfield(%124, :length))  :: Int64
+  126: :(Base.sle_int(%112, %125))  :: Bool
+  129: :(Base.sub_int(%112, 1))  :: Int64
+  134: :(Base.slt_int(%131, %112))  :: Bool
+  141: :(Base.not_int(%138))  :: Bool
+  145: :(Base.getfield(_2, :slots))  :: Memory{UInt8}
+  148: :(Base.sub_int(%143, 1))  :: Int64
+  149: :(Base.bitcast(Base.UInt, %148))  :: UInt64
+  150: :(Base.getfield(%145, :length))  :: Int64
+  151: :(Base.bitcast(Base.UInt, %150))  :: UInt64
+  152: :(Base.ult_int(%149, %151))  :: Bool
+  155: :(Core.tuple(%143))  :: Tuple{Int64}
+  159: :(Base.memoryrefnew(%145, %143, false))  :: MemoryRef{UInt8}
+  160: :(Base.memoryrefget(%159, :not_atomic, false))  :: UInt8
+  162: :(Base.and_int(%160, 0x80))  :: UInt8
+  163: :(Core.zext_int(Core.UInt64, %162))  :: UInt64
+  164: :(%163 === 0x0000000000000000)  :: Bool
+  165: :(Base.and_int(true, %164))  :: Bool
+  166: :(Base.not_int(%165))  :: Bool
+  170: :(%144 === %131)  :: Bool
+  173: :(Base.add_int(%144, 1))  :: Int64
+  178: :(Base.not_int(%177))  :: Bool
+  183: :(%182 === 0)  :: Bool
+  186: :(Base.getfield(_2, :keys))  :: Memory{Any}
+  189: :(Base.sub_int(%182, 1))  :: Int64
+  190: :(Base.bitcast(Base.UInt, %189))  :: UInt64
+  191: :(Base.getfield(%186, :length))  :: Int64
+  192: :(Base.bitcast(Base.UInt, %191))  :: UInt64
+  193: :(Base.ult_int(%190, %192))  :: Bool
+  196: :(Core.tuple(%182))  :: Tuple{Int64}
+  200: :(Base.memoryrefnew(%186, %182, false))  :: MemoryRef{Any}
+  201: :(Base.memoryrefget(%200, :not_atomic, false))  :: Any
+  203: :(Base.getfield(_2, :vals))  :: Memory{Any}
+  206: :(Base.sub_int(%182, 1))  :: Int64
+  207: :(Base.bitcast(Base.UInt, %206))  :: UInt64
+  208: :(Base.getfield(%203, :length))  :: Int64
+  209: :(Base.bitcast(Base.UInt, %208))  :: UInt64
+  210: :(Base.ult_int(%207, %209))  :: Bool
+  213: :(Core.tuple(%182))  :: Tuple{Int64}
+  217: :(Base.memoryrefnew(%203, %182, false))  :: MemoryRef{Any}
+  218: :(Base.memoryrefget(%217, :not_atomic, false))  :: Any
+  220: :((Pair{Any, Any})(%201, %218))  :: Any
+  221: :(%182 === 9223372036854775807)  :: Bool
+  224: :(Base.add_int(%182, 1))  :: Int64
+  231: :(Base.not_int(%229))  :: Bool
+all    sum over Vector{Any} of Int    17.3 ns/elt  15.504 B/elt
+all    sum over Vector{Any} of Float64 15.3 ns/elt  16.0 B/elt
+all    Float64(x) over Vector{Real}   111.7 ns/elt  24.0 B/elt
+== E6 plain
+unionsplitcost of (ar, Union of 6): 2;  of (two, Union of 2, Union of 3): 4;  of (two, Union of 3, Union of 3): 6
+plain  one Union of 4: generic `ar` calls in site 0,   0.85 ns/elt, 0.0 B/elt
+plain  one Union of 5: generic `ar` calls in site 0,   0.87 ns/elt, 0.0 B/elt
+plain  one Union of 6: generic `ar` calls in site 0,    1.2 ns/elt, 0.0 B/elt
+plain  one Union of 8: generic `ar` calls in site 0,   0.91 ns/elt, 0.0 B/elt
+plain  two Unions of 2 x 2: generic calls in `two` 0,   0.89 ns/elt, 0.0 B/elt
+plain  two Unions of 2 x 3: generic calls in `two` 0,   1.49 ns/elt, 0.0 B/elt
+plain  two Unions of 3 x 3: generic calls in `two` 0,   0.98 ns/elt, 0.0 B/elt
+plain  two Unions of 4 x 4: generic calls in `two` 0,   0.91 ns/elt, 0.0 B/elt
+== E6 all
+unionsplitcost of (ar, Union of 6): 2;  of (two, Union of 2, Union of 3): 4;  of (two, Union of 3, Union of 3): 6
+all    one Union of 4: generic `ar` calls in site 0,   0.85 ns/elt, 0.0 B/elt
+all    one Union of 5: generic `ar` calls in site 0,   0.89 ns/elt, 0.0 B/elt
+all    one Union of 6: generic `ar` calls in site 0,   1.25 ns/elt, 0.0 B/elt
+all    one Union of 8: generic `ar` calls in site 0,   1.14 ns/elt, 0.0 B/elt
+all    two Unions of 2 x 2: generic calls in `two` 0,   0.93 ns/elt, 0.0 B/elt
+all    two Unions of 2 x 3: generic calls in `two` 0,    1.6 ns/elt, 0.0 B/elt
+all    two Unions of 3 x 3: generic calls in `two` 0,  43.79 ns/elt, 64.0 B/elt
+all    two Unions of 4 x 4: generic calls in `two` 0,  47.71 ns/elt, 64.0 B/elt
+== E5 all, dispatch profile
+100 x filter! over 1000 elements = 100000 element visits
+
+-- dynamic calls by callee method (owner :facts: site/leaf/assoc/full | default owner: site/leaf/assoc/full)
+      100193  Base.setindex!  essentials.jl:978   :facts 0/0/0/0 | default 100193/0/0/0
+      100000  Main.#5  /tmp/claude-1000/-home-hellmann-Repos-julia-trait-bound/e0c44133-0ba1-4a71-abd7-4611822ff738/scratchpad/hc5_profile.jl:9   :facts 0/0/0/0 | default 100000/0/0/0
+         550  Compiler.maybe_erase_unused!  ../usr/share/julia/Compiler/src/ssair/ir.jl:1985   :facts 0/0/0/0 | default 550/0/0/0
+         520  Compiler.widenconst  ../usr/share/julia/Compiler/src/typelattice.jl:707   :facts 0/0/0/0 | default 0/0/520/0
+         497  Base.==  Base_compiler.jl:301   :facts 0/0/0/0 | default 123/0/374/0
+         497  Base.ismissing  essentials.jl:1183   :facts 0/0/0/0 | default 497/0/0/0
+         434  Base.trypoptask  task.jl:1253   :facts 0/0/0/0 | default 432/2/0/0
+         432  Partr.multiq_check_empty  partr.jl:249   :facts 0/0/0/0 | default 431/1/0/0
+         148  Base.length  essentials.jl:11   :facts 0/0/0/0 | default 148/0/0/0
+         140  Compiler.widenconst  ../usr/share/julia/Compiler/src/typelattice.jl:703   :facts 0/0/0/0 | default 137/0/3/0
+         127  Compiler.#argtypes_to_type##2  ../usr/share/julia/Compiler/src/typeutils.jl:53   :facts 0/0/0/0 | default 127/0/0/0
+         103  Compiler.doworkloop  ../usr/share/julia/Compiler/src/inferencestate.jl:1216   :facts 0/0/0/0 | default 103/0/0/0
+         100  Base.filter!  array.jl:3040   :facts 0/0/0/0 | default 99/0/1/0
+          59  Core.apply_type  :0   :facts 0/0/0/0 | default 0/0/59/0
+          52  Compiler.#78  ../usr/share/julia/Compiler/src/inferencestate.jl:1199   :facts 0/0/0/0 | default 50/2/0/0
+          52  Base.in  operators.jl:1371   :facts 0/0/0/0 | default 44/0/8/0
+          34  Compiler.typeinf_local  ../usr/share/julia/Compiler/src/abstractinterpretation.jl:4252   :facts 0/0/0/0 | default 34/0/0/0
+          33  Compiler.widenconst  ../usr/share/julia/Compiler/src/typelattice.jl:705   :facts 0/0/0/0 | default 33/0/0/0
+          31  Base.getindex  essentials.jl:990   :facts 0/0/0/0 | default 29/2/0/0
+          27  Core.typename  boot.jl:1130   :facts 0/0/0/0 | default 0/0/27/0
+          25  Base.getproperty  Base_compiler.jl:51   :facts 0/0/0/0 | default 0/0/25/0
+          22  Base.getindex  array.jl:451   :facts 0/0/0/0 | default 0/0/22/0
+          18  Base.length  essentials.jl:991   :facts 0/0/0/0 | default 16/0/2/0
+          16  Base.==  promotion.jl:641   :facts 0/0/0/0 | default 15/1/0/0
+          16  Compiler.getfield_tfunc  ../usr/share/julia/Compiler/src/tfuncs.jl:1104   :facts 0/0/0/0 | default 14/0/2/0
+          15  Base.get  iddict.jl:91   :facts 0/0/0/0 | default 13/0/2/0
+          15  Base.getproperty  Base_compiler.jl:57   :facts 0/0/0/0 | default 15/0/0/0
+          14  Base.iterate  range.jl:926   :facts 0/0/0/0 | default 13/0/1/0
+          13  Base.>  operators.jl:425   :facts 0/0/0/0 | default 13/0/0/0
+          12  Base.setindex!  essentials.jl:984   :facts 0/0/0/0 | default 12/0/0/0
+          11  Compiler.getresult_impl  ../usr/share/julia/Compiler/src/stmtinfo.jl:149   :facts 0/0/0/0 | default 11/0/0/0
+          11  Compiler.getsplit_impl  ../usr/share/julia/Compiler/src/stmtinfo.jl:148   :facts 0/0/0/0 | default 11/0/0/0
+          11  Compiler.nsplit_impl  ../usr/share/julia/Compiler/src/stmtinfo.jl:147   :facts 0/0/0/0 | default 11/0/0/0
+          10  Compiler.add_edges_impl  ../usr/share/julia/Compiler/src/stmtinfo.jl:47   :facts 0/0/0/0 | default 10/0/0/0
+          10  Base.iterate  essentials.jl:996   :facts 0/0/0/0 | default 9/0/1/0
+          10  Base.iterate  range.jl:924   :facts 0/0/0/0 | default 9/0/1/0
+          10  Base.setindex!  iddict.jl:76   :facts 0/0/0/0 | default 9/0/1/0
+           9  Compiler.nsplit_impl  ../usr/share/julia/Compiler/src/stmtinfo.jl:212   :facts 0/0/0/0 | default 9/0/0/0
+           9  Base.lastindex  essentials.jl:995   :facts 0/0/0/0 | default 7/0/2/0
+           9  Compiler.getsplit_impl  ../usr/share/julia/Compiler/src/stmtinfo.jl:213   :facts 0/0/0/0 | default 9/0/0/0
+
+-- dynamic calls by call site (the calling code, innermost frame first; the callee)
+       99900  filter! at ./array.jl:3044  ->  Main.#5
+       99900  filter! at ./array.jl:3043  ->  Base.setindex!
+         546  simple_dce! at ./../usr/share/julia/Compiler/src/ssair/ir.jl:2113  ->  Compiler.maybe_erase_unused!
+         445  in at ./operators.jl:1375  ->  Base.ismissing
+         445  in at ./operators.jl:1374  ->  Base.==
+         433  ijl_task_get_next at /home/hellmann/Repos/julia-trait-bound/julia-1.13/src/scheduler.c:447 (in get_next_task at /home/hellmann/Repos/julia-trait-bound/julia-1.13/src/scheduler.c:385)  ->  Base.trypoptask
+         431  ijl_task_get_next at /home/hellmann/Repos/julia-trait-bound/julia-1.13/src/scheduler.c:453 (in check_empty at /home/hellmann/Repos/julia-trait-bound/julia-1.13/src/scheduler.c:396)  ->  Partr.multiq_check_empty
+         302  widen_all_consts! at ./../usr/share/julia/Compiler/src/optimize.jl:330  ->  Compiler.widenconst
+         103  typeinf at ./../usr/share/julia/Compiler/src/abstractinterpretation.jl:4578  ->  Compiler.doworkloop
+         103  doworkloop at ./../usr/share/julia/Compiler/src/inferencestate.jl:1219  ->  Base.length
+         100  filter! at ./array.jl:3043  ->  Base.setindex!
+         100  top-level scope at /tmp/claude-1000/-home-hellmann-Repos-julia-trait-bound/e0c44133-0ba1-4a71-abd7-4611822ff738/scratchpad/hc5_profile.jl:13  ->  Base.filter!
+         100  filter! at ./array.jl:3044  ->  Main.#5
+          75  filter! at ./array.jl:3043  ->  Base.setindex!
+          75  filter! at ./array.jl:3044  ->  Compiler.#argtypes_to_type##2
+          68  #argtypes_to_type##0 at ./../usr/share/julia/Compiler/src/typeutils.jl:52  ->  Compiler.widenconst
+          59  jl_f__apply_iterate at /home/hellmann/Repos/julia-trait-bound/julia-1.13/src/builtins.c:876 (in jl_apply at /home/hellmann/Repos/julia-trait-bound/julia-1.13/src/julia.h:2332)  ->  Core.apply_type
+          53  #argtypes_to_type##0 at ./../usr/share/julia/Compiler/src/typeutils.jl:52  ->  Compiler.widenconst
+          52  in at ./operators.jl:1374  ->  Base.==
+          52  filter! at ./array.jl:3044  ->  Compiler.#argtypes_to_type##2
+          52  filter! at ./array.jl:3043  ->  Base.setindex!
+          52  doworkloop at ./../usr/share/julia/Compiler/src/inferencestate.jl:1222  ->  Compiler.#78
+          52  in at ./operators.jl:1375  ->  Base.ismissing
+          37  sroa_pass! at ./../usr/share/julia/Compiler/src/ssair/passes.jl:1441  ->  Compiler.widenconst
+          34  typeinf at ./../usr/share/julia/Compiler/src/abstractinterpretation.jl:4587  ->  Compiler.typeinf_local
+== E3 product setting (examples env stacked with benv)
+┌ Warning: attempting to remove probably stale pidfile
+│   path = "/home/hellmann/.julia/compiled/v1.13/HShapes/k5X8K_MO759.ji.pidfile"
+└ @ FileWatching.Pidfile ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/FileWatching/src/pidfile.jl:251
+┌ Warning: attempting to remove probably stale pidfile
+│   path = "/home/hellmann/.julia/compiled/v1.13/TraitWorld/dBtoR_MO759.ji.pidfile"
+└ @ FileWatching.Pidfile ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/FileWatching/src/pidfile.jl:251
+julia 1.13.2  mode plain
+registered candidates split over (first four): 4
+   Shape at HShapes.ShapeCore.H10
+   Shape at HShapes.ShapeCore.H42
+   Shape at HShapes.ShapeCore.H64
+   Shape at HShapes.ShapeCore.H14
+plain  n =  1  Dynamic   0.91 ns/elt   0.0 B/elt   plain  32.36 ns/elt  32.0 B/elt
+plain  n =  2  Dynamic   0.94 ns/elt   0.0 B/elt   plain  33.21 ns/elt  32.0 B/elt
+plain  n =  3  Dynamic   0.94 ns/elt   0.0 B/elt   plain   33.1 ns/elt  32.0 B/elt
+plain  n =  4  Dynamic   0.94 ns/elt   0.0 B/elt   plain  35.08 ns/elt  32.0 B/elt
+plain  n =  5  Dynamic   4.41 ns/elt   3.2 B/elt   plain  73.53 ns/elt  32.0 B/elt
+plain  n =  8  Dynamic  10.56 ns/elt   8.0 B/elt   plain  75.41 ns/elt  32.0 B/elt
+plain  n = 16  Dynamic  47.75 ns/elt  12.0 B/elt   plain  77.71 ns/elt  32.0 B/elt
+plain  n = 64  Dynamic   65.2 ns/elt  15.0 B/elt   plain  89.14 ns/elt  32.0 B/elt
+plain  only H1:  Dynamic   0.91 ns/elt  0.0 B/elt
+plain  only H4:  Dynamic   1.01 ns/elt  0.0 B/elt
+plain  only H5:  Dynamic  19.53 ns/elt  16.0 B/elt
+plain  only H64:  Dynamic  21.91 ns/elt  16.0 B/elt
+sizeof(Dynamic{Shape}) = 8; kept object type size = 16.04 B/elt (summarysize), plain 16.04
+total's code: 123 statements, isa checks 4, invokes 2, generic area calls 1
+Dynamic{Shape}(H1) construction: 156.6 ns, 32 B

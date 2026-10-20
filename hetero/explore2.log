@@ -1,0 +1,189 @@
+┌ Warning: TraitDifferentialEquations.ODECore.FunctionModel{Vector{Float64}, Float64, Callable{Tuple{Vector{Float64}, Vector{Float64}, Vector{Float64}, Float64}, Nothing} at typeof(oop)} is declared ODEModel through a family, but does not conform:
+│   `rhs!` at Tuple{TraitDifferentialEquations.ODECore.FunctionModel{Vector{Float64}, Float64, Callable{Tuple{Vector{Float64}, Vector{Float64}, Vector{Float64}, Float64}, Nothing} at typeof(oop)}, Vector{Float64}, Vector{Float64}, Float64} always throws (inferred `Union{}`): a fallback, not an implementation
+└ @ TraitWorld ~/Repos/julia-trait-bound/TraitWorld/src/implement.jl:297
+┌ Warning: TraitDifferentialEquations.ODECore.FunctionModel{Vector{Float64}, Float64, Callable{Tuple{Vector{Float64}, Vector{Float64}, Vector{Float64}, Float64}, Nothing} at typeof(ret!)} is declared ODEModel through a family, but does not conform:
+│   `rhs!` at Tuple{TraitDifferentialEquations.ODECore.FunctionModel{Vector{Float64}, Float64, Callable{Tuple{Vector{Float64}, Vector{Float64}, Vector{Float64}, Float64}, Nothing} at typeof(ret!)}, Vector{Float64}, Vector{Float64}, Float64} always throws (inferred `Union{}`): a fallback, not an implementation
+└ @ TraitWorld ~/Repos/julia-trait-bound/TraitWorld/src/implement.jl:297
+dynamic == compiled: true [-9.395403827685145, -9.09341641916903, 28.553652142533046]
+compiled, no params: 1.4155343563970746e-12
+=== out-of-place, dynamic
+MethodError: no method matching oop(::Vector{Float64}, ::Vector{Float64}, ::Vector{Float64}, ::Float64)
+The function `oop` exists, but no method is defined for this combination of argument types.
+
+Closest candidates are:
+  oop(::Any, ::Any, ::Any)
+   @ Main /tmp/claude-1000/-home-hellmann-Repos-julia-trait-bound/e0c44133-0ba1-4a71-abd7-4611822ff738/scratchpad/explore2.jl:30
+
+Stacktrace:
+  [1] (::TraitWorld._CallWrap{Nothing})(o::typeof(oop), a::Vector{Float64}, b::Vector{Float64}, c::Vector{Float64}, d::Float64)
+    @ TraitWorld ~/Repos/julia-trait-bound/TraitWorld/src/core.jl:820
+  [2] rhs!
+    @ ~/Repos/julia-trait-bound/TraitDifferentialEquations/src/ODECore.jl:82 [inlined]
+  [3] solve_ode(m::ODEModel{Float64} at TraitDifferentialEquations.ODECore.FunctionModel{Vector{Float64}, Float64, Callable{Tuple{Vector{Float64}, Vector{Float64}, Vector{Float64}, Float64}, Nothing} at DynamicCall}, u0::Vector{Float64}, tspan::Tuple{Float64, Float64}, alg::Tsit5, p::Vector{Float64}, callbacks::Vector{Dynamic{Callback}}, opts::TraitDifferentialEquations.ODECore.SolverOptions)
+    @ TraitDifferentialEquations.ODECore ~/Repos/julia-trait-bound/TraitDifferentialEquations/src/ODECore.jl:278
+... MethodError: lines 38, frames 15, longest 395
+=== out-of-place, compiled
+MethodError: no method matching oop(::Vector{Float64}, ::Vector{Float64}, ::Vector{Float64}, ::Float64)
+The function `oop` exists, but no method is defined for this combination of argument types.
+
+Closest candidates are:
+  oop(::Any, ::Any, ::Any)
+   @ Main /tmp/claude-1000/-home-hellmann-Repos-julia-trait-bound/e0c44133-0ba1-4a71-abd7-4611822ff738/scratchpad/explore2.jl:30
+
+Stacktrace:
+  [1] CObj
+    @ ~/Repos/julia-trait-bound/TraitWorld/src/core.jl:858 [inlined]
+  [2] rhs!(m::TraitDifferentialEquations.ODECore.FunctionModel{Vector{Float64}, Float64, Callable{Tuple{Vector{Float64}, Vector{Float64}, Vector{Float64}, Float64}, Nothing} at typeof(oop)}, du::Vector{Float64}, u::Vector{Float64}, t::Float64)
+    @ TraitDifferentialEquations.ODECore ~/Repos/julia-trait-bound/TraitDifferentialEquations/src/ODECore.jl:82
+  [3] solve_ode(m::ODEModel{Float64} at TraitDifferentialEquations.ODECore.FunctionModel{Vector{Float64}, Float64, Callable{Tuple{Vector{Float64}, Vector{Float64}, Vector{Float64}, Float64}, Nothing} at typeof(oop)}, u0::Vector{Float64}, tspan::Tuple{Float64, Float64}, alg::Tsit5, p::Vector{Float64}, callbacks::Vector{Dynamic{Callback}}, opts::TraitDifferentialEquations.ODECore.SolverOptions)
+    @ TraitDifferentialEquations.ODECore ~/Repos/julia-trait-bound/TraitDifferentialEquations/src/ODECore.jl:278
+... MethodError: lines 38, frames 15, longest 395
+=== returns du, dynamic
+TypeError: in typeassert, expected Nothing, got a value of type Vector{Float64}
+Stacktrace:
+  [1] (::TraitWorld._CallWrap{Nothing})(o::typeof(ret!), a::Vector{Float64}, b::Vector{Float64}, c::Vector{Float64}, d::Float64)
+    @ TraitWorld ~/Repos/julia-trait-bound/TraitWorld/src/core.jl:820
+  [2] rhs!
+    @ ~/Repos/julia-trait-bound/TraitDifferentialEquations/src/ODECore.jl:82 [inlined]
+  [3] solve_ode(m::ODEModel{Float64} at TraitDifferentialEquations.ODECore.FunctionModel{Vector{Float64}, Float64, Callable{Tuple{Vector{Float64}, Vector{Float64}, Vector{Float64}, Float64}, Nothing} at DynamicCall}, u0::Vector{Float64}, tspan::Tuple{Float64, Float64}, alg::Tsit5, p::Vector{Float64}, callbacks::Vector{Dynamic{Callback}}, opts::TraitDifferentialEquations.ODECore.SolverOptions)
+    @ TraitDifferentialEquations.ODECore ~/Repos/julia-trait-bound/TraitDifferentialEquations/src/ODECore.jl:278
+  [4] solve_rhs(f::Callable{Tuple{Vector{Float64}, Vector{Float64}, Vector{Float64}, Float64}, Nothing} at DynamicCall, u0::Vector{Float64}, tspan::Tuple{Float64, Float64}, alg::Tsit5, p::Vector{Float64}, callbacks::Vector{Dynamic{Callback}}, opts::TraitDifferentialEquations.ODECore.SolverOptions)
+    @ TraitDifferentialEquations.ODECore ~/Repos/julia-trait-bound/TraitDifferentialEquations/src/ODECore.jl:356
+  [5] solve_rhs(f::Any, u0::Vector{Float64}, tspan::Tuple{Float64, Float64}, alg::Tsit5, p::Vector{Float64}, callbacks::Vector{Dynamic{Callback}}, opts::TraitDifferentialEquations.ODECore.SolverOptions)
+    @ TraitDifferentialEquations.ODECore ./none:-1
+  [6] _solve_rhs(f::Any, u0::Vector{Float64}, tspan::Tuple{Float64, Float64}, alg::Tsit5, p::Vector{Float64}, cbs::Vector{Dynamic{Callback}}, opts::TraitDifferentialEquations.ODECore.SolverOptions)
+    @ TraitDifferentialEquations ~/Repos/julia-trait-bound/TraitDifferentialEquations/src/TraitDifferentialEquations.jl:63
+... TypeError: lines 32, frames 15, longest 395
+=== returns du, compiled
+TypeError: in typeassert, expected Nothing, got a value of type Vector{Float64}
+Stacktrace:
+  [1] CObj
+    @ ~/Repos/julia-trait-bound/TraitWorld/src/core.jl:858 [inlined]
+  [2] rhs!(m::TraitDifferentialEquations.ODECore.FunctionModel{Vector{Float64}, Float64, Callable{Tuple{Vector{Float64}, Vector{Float64}, Vector{Float64}, Float64}, Nothing} at typeof(ret!)}, du::Vector{Float64}, u::Vector{Float64}, t::Float64)
+    @ TraitDifferentialEquations.ODECore ~/Repos/julia-trait-bound/TraitDifferentialEquations/src/ODECore.jl:82
+  [3] solve_ode(m::ODEModel{Float64} at TraitDifferentialEquations.ODECore.FunctionModel{Vector{Float64}, Float64, Callable{Tuple{Vector{Float64}, Vector{Float64}, Vector{Float64}, Float64}, Nothing} at typeof(ret!)}, u0::Vector{Float64}, tspan::Tuple{Float64, Float64}, alg::Tsit5, p::Vector{Float64}, callbacks::Vector{Dynamic{Callback}}, opts::TraitDifferentialEquations.ODECore.SolverOptions)
+    @ TraitDifferentialEquations.ODECore ~/Repos/julia-trait-bound/TraitDifferentialEquations/src/ODECore.jl:278
+  [4] solve_rhs(f::Callable{Tuple{Vector{Float64}, Vector{Float64}, Vector{Float64}, Float64}, Nothing} at typeof(ret!), u0::Vector{Float64}, tspan::Tuple{Float64, Float64}, alg::Tsit5, p::Vector{Float64}, callbacks::Vector{Dynamic{Callback}}, opts::TraitDifferentialEquations.ODECore.SolverOptions)
+    @ TraitDifferentialEquations.ODECore ~/Repos/julia-trait-bound/TraitDifferentialEquations/src/ODECore.jl:356
+  [5] solve_rhs(f::Any, u0::Vector{Float64}, tspan::Tuple{Float64, Float64}, alg::Tsit5, p::Vector{Float64}, callbacks::Vector{Dynamic{Callback}}, opts::TraitDifferentialEquations.ODECore.SolverOptions)
+    @ TraitDifferentialEquations.ODECore ./none:-1
+  [6] _solve_rhs(f::Any, u0::Vector{Float64}, tspan::Tuple{Float64, Float64}, alg::Tsit5, p::Vector{Float64}, cbs::Vector{Dynamic{Callback}}, opts::TraitDifferentialEquations.ODECore.SolverOptions)
+    @ TraitDifferentialEquations ~/Repos/julia-trait-bound/TraitDifferentialEquations/src/TraitDifferentialEquations.jl:63
+... TypeError: lines 32, frames 15, longest 396
+=== explicit wrong Callable
+TraitBoundError: a function wrapped for the signature Tuple{Vector{Float64}} -> Nothing was passed where Callable{Tuple{Vector{Float64}, Vector{Float64}, Vector{Float64}, Float64}, Nothing} is expected
+Stacktrace:
+  [1] _callas_mismatch(FA::Any, FS::Any, A::Any, S::Any)
+    @ TraitWorld ~/Repos/julia-trait-bound/TraitWorld/src/entry.jl:583
+  [2] solve_rhs(f::Any, u0::Vector{Float64}, tspan::Tuple{Float64, Float64}, alg::Tsit5, p::Vector{Float64}, callbacks::Vector{Dynamic{Callback}}, opts::TraitDifferentialEquations.ODECore.SolverOptions)
+    @ TraitDifferentialEquations.ODECore ./none:-1
+  [3] _solve_rhs(f::Any, u0::Vector{Float64}, tspan::Tuple{Float64, Float64}, alg::Tsit5, p::Vector{Float64}, cbs::Vector{Dynamic{Callback}}, opts::TraitDifferentialEquations.ODECore.SolverOptions)
+    @ TraitDifferentialEquations ~/Repos/julia-trait-bound/TraitDifferentialEquations/src/TraitDifferentialEquations.jl:63
+  [4] #solve#2
+    @ ~/Repos/julia-trait-bound/TraitDifferentialEquations/src/TraitDifferentialEquations.jl:61 [inlined]
+  [5] solve
+    @ ~/Repos/julia-trait-bound/TraitDifferentialEquations/src/TraitDifferentialEquations.jl:58 [inlined]
+  [6] (::var"#24#25")()
+    @ Main /tmp/claude-1000/-home-hellmann-Repos-julia-trait-bound/e0c44133-0ba1-4a71-abd7-4611822ff738/scratchpad/explore2.jl:36
+... TraitBoundError: lines 26, frames 12, longest 202
+=== explicit right Callable
+no error: [-9.395403827685145, -9.09341641916903, 28.553652142533046]
+=== compiled, Float32
+no error: Float32[-9.395594, -9.093932, 28.553417]
+=== compiled, Rodas5
+no error: [-9.40648077642111, -9.094688370946312, 28.578607380298784]
+=== compiled, gradient
+no error: [-1.256711001886306, 1.358450387987896, 4.4469801696844105]
+=== dynamic, gradient
+no error: [-1.256711001886306, 1.358450387987896, 4.4469801696844105]
+=== route A solve
+no error: [-9.395403827685145, -9.09341641916903, 28.553652142533046]
+=== route A gradient
+no error: [-1.256711001886306, 1.358450387987896, 4.4469801696844105]
+=== route B gradient
+no error: [-1.256711001886306, 1.358450387987896, 4.4469801696844105]
+=== route A Float32
+no error: Float32[-9.395594, -9.093932, 28.553417]
+=== route A, u0 not promoted
+TraitArgumentError: operation `rhs!` of trait ODEModel at representation LorenzC{ForwardDiff.Dual{ForwardDiff.Tag{TraitDifferentialEquations.Sig{Tuple{Vector{Float64}}, Float64}, Float64}, Float64, 3}} is declared for arguments Tuple{Vector{ForwardDiff.Dual{ForwardDiff.Tag{TraitDifferentialEquations.Sig{Tuple{Vector{Float64}}, Float64}, Float64}, Float64, 3}}, Vector{ForwardDiff.Dual{ForwardDiff.Tag{TraitDifferentialEquations.Sig{Tuple{Vector{Float64}}, Float64}, Float64}, Float64, 3}}, Float64}, got Tuple{Vector{Float64}, Vector{Float64}, Float64}
+Stacktrace:
+  [1] opcall
+    @ ~/Repos/julia-trait-bound/TraitWorld/src/core.jl:776 [inlined]
+... TraitWorld.TraitArgumentError: lines 34, frames 16, longest 596
+=== (a) Float64 cache under gradient
+MethodError: no method matching Float64(::ForwardDiff.Dual{ForwardDiff.Tag{TraitDifferentialEquations.Sig{Tuple{Vector{Float64}}, Float64}, Float64}, Float64, 3})
+The type `Float64` exists, but no method is defined for this combination of argument types when trying to construct it.
+
+Closest candidates are:
+  (::Type{T})(::Real, !Matched::RoundingMode) where T<:AbstractFloat
+   @ Base rounding.jl:265
+  (::Type{T})(::T) where T<:Number
+   @ Core boot.jl:1018
+  Float64(!Matched::IrrationalConstants.Invπ)
+   @ IrrationalConstants ~/.julia/packages/IrrationalConstants/RokwY/src/macro.jl:111
+  ...
+
+Stacktrace:
+  [1] convert(::Type{Float64}, x::ForwardDiff.Dual{ForwardDiff.Tag{TraitDifferentialEquations.Sig{Tuple{Vector{Float64}}, Float64}, Float64}, Float64, 3})
+    @ Base ./number.jl:7
+  [2] setindex!
+    @ ./genericmemory.jl:266 [inlined]
+  [3] unsafe_copyto!(dest::Memory{Float64}, doffs::Int64, src::Memory{ForwardDiff.Dual{ForwardDiff.Tag{TraitDifferentialEquations.Sig{Tuple{Vector{Float64}}, Float64}, Float64}, Float64, 3}}, soffs::Int64, n::Int64)
+    @ Base ./genericmemory.jl:172
+  [4] unsafe_copyto!
+    @ ./genericmemory.jl:151 [inlined]
+  [5] _copyto_impl!
+    @ ./array.jl:300 [inlined]
+  [6] copyto!
+    @ ./array.jl:286 [inlined]
+  [7] _copyto2arg!
+    @ ./array.jl:311 [inlined]
+  [8] copyto!
+    @ ./array.jl:313 [inlined]
+  [9] copyto!
+    @ ./broadcast.jl:993 [inlined]
+ [10] copyto!
+    @ ./broadcast.jl:952 [inlined]
+ [11] materialize!
+    @ ./broadcast.jl:910 [inlined]
+ [12] materialize!
+    @ ./broadcast.jl:907 [inlined]
+ [13] rhs!(m::LorenzF{ForwardDiff.Dual{ForwardDiff.Tag{TraitDifferentialEquations.Sig{Tuple{Vector{Float64}}, Float64}, Float64}, Float64, 3}}, du::Vector{ForwardDiff.Dual{ForwardDiff.Tag{TraitDifferentialEquations.Sig{Tuple{Vector{Float64}}, Float64}, Float64}, Float64, 3}}, u::Vector{ForwardDiff.Dual{ForwardDiff.Tag{TraitDifferentialEquations.Sig{Tuple{Vector{Float64}}, Float64}, Float64}, Float64, 3}}, t::Float64)
+    @ Main /tmp/claude-1000/-home-hellmann-Repos-julia-trait-bound/e0c44133-0ba1-4a71-abd7-4611822ff738/scratchpad/explore2.jl:70
+ [14] solve_ode(m::ODEModel{ForwardDiff.Dual{ForwardDiff.Tag{TraitDifferentialEquations.Sig{Tuple{Vector{Float64}}, Float64}, Float64}, Float64, 3}} at LorenzF{ForwardDiff.Dual{ForwardDiff.Tag{TraitDifferentialEquations.Sig{Tuple{Vector{Float64}}, Float64}, Float64}, Float64, 3}}, u0::Vector{ForwardDiff.Dual{ForwardDiff.Tag{TraitDifferentialEquations.Sig{Tuple{Vector{Float64}}, Float64}, Float64}, Float64, 3}}, tspan::Tuple{Float64, Float64}, alg::Tsit5, p::LorenzF{ForwardDiff.Dual{ForwardDiff.Tag{TraitDifferentialEquations.Sig{Tuple{Vector{Float64}}, Float64}, Float64}, Float64, 3}}, callbacks::Vector{Dynamic{Callback}}, opts::TraitDifferentialEquations.ODECore.SolverOptions)
+... MethodError: lines 69, frames 28, longest 685
+=== (a') implement at the dual type
+no error: nothing
+infer: Nothing
+=== (b') rhs! missing, jacobian! present
+LoadError: ImplementError: OnlyJac has methods for some operations of ODEModel but not for rhs!: define them, so that OnlyJac is its own representation, or remove them and conform through a field
+Stacktrace:
+  [1] _implement_oneline(mod::Module, traits::Vector{Any}, Tex::Any, Rdecl::Any; pexs::Any, fmap::Any)
+    @ TraitWorld ~/Repos/julia-trait-bound/TraitWorld/src/implement.jl:1124
+  [2] fl_lower(ex::Expr, mod::Module, filename::String, lineno::UInt64, world::UInt64, warn::Bool)
+    @ Base ./flfrontend.jl:24
+  [3] eval(m::Module, e::Any)
+    @ Core ./boot.jl:489
+  [4] toplevel
+    @ /tmp/claude-1000/-home-hellmann-Repos-julia-trait-bound/e0c44133-0ba1-4a71-abd7-4611822ff738/scratchpad/explore2.jl:19 [inlined]
+  [5] (::var"#84#85")()
+    @ Main /tmp/claude-1000/-home-hellmann-Repos-julia-trait-bound/e0c44133-0ba1-4a71-abd7-4611822ff738/scratchpad/explore2.jl:97
+  [6] show_err(name::String, thunk::var"#84#85"; n::Int64)
+    @ Main /tmp/claude-1000/-home-hellmann-Repos-julia-trait-bound/e0c44133-0ba1-4a71-abd7-4611822ff738/scratchpad/explore2.jl:9
+... LoadError: lines 25, frames 11, longest 195
+=== (c'') block form, wrong result
+LoadError: ImplementError: Main may not implement `rhs!` of ODEModel for BlockBad: `rhs!` belongs to TraitDifferentialEquations.ODECore, and Main does not own BlockBad, so the method would change `rhs!` for everyone (rule 3). Declare the existing methods instead (`@implement ODEModel{BlockBad}` without a block), or let the owner of BlockBad implement it.
+Stacktrace:
+  [1] _op_method(mod::Module, X::Any, d::Any, Rex::Any; precheck::Bool)
+    @ TraitWorld ~/Repos/julia-trait-bound/TraitWorld/src/implement.jl:765
+  [2] fl_lower(ex::Expr, mod::Module, filename::String, lineno::UInt64, world::UInt64, warn::Bool)
+    @ Base ./flfrontend.jl:24
+  [3] eval(m::Module, e::Any)
+    @ Core ./boot.jl:489
+  [4] toplevel
+    @ /tmp/claude-1000/-home-hellmann-Repos-julia-trait-bound/e0c44133-0ba1-4a71-abd7-4611822ff738/scratchpad/explore2.jl:19 [inlined]
+  [5] (::var"#87#88")()
+    @ Main /tmp/claude-1000/-home-hellmann-Repos-julia-trait-bound/e0c44133-0ba1-4a71-abd7-4611822ff738/scratchpad/explore2.jl:99
+  [6] show_err(name::String, thunk::var"#87#88"; n::Int64)
+    @ Main /tmp/claude-1000/-home-hellmann-Repos-julia-trait-bound/e0c44133-0ba1-4a71-abd7-4611822ff738/scratchpad/explore2.jl:9
+... LoadError: lines 25, frames 11, longest 356

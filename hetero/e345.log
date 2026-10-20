@@ -1,0 +1,115 @@
+== E4 plain
+ERROR: LoadError: ParseError:
+# Error @ /tmp/claude-1000/-home-hellmann-Repos-julia-trait-bound/e0c44133-0ba1-4a71-abd7-4611822ff738/scratchpad/hc4_dict.jl:31:15
+    str = sprint(show, s)
+    if isexpr = (s isa Expr && s.head === :call)
+#             ╙ ── unexpected `=`
+Stacktrace:
+ [1] top-level scope
+   @ /tmp/claude-1000/-home-hellmann-Repos-julia-trait-bound/e0c44133-0ba1-4a71-abd7-4611822ff738/scratchpad/hc4_dict.jl:31
+ [2] include(mod::Module, _path::String)
+   @ Base ./Base.jl:309
+ [3] exec_options(opts::Base.JLOptions)
+   @ Base ./client.jl:344
+ [4] _start()
+   @ Base ./client.jl:577
+in expression starting at /tmp/claude-1000/-home-hellmann-Repos-julia-trait-bound/e0c44133-0ba1-4a71-abd7-4611822ff738/scratchpad/hc4_dict.jl:31
+plain  iterate(Dict{Any,Any})        6.8 ns  32 B
+plain  iterate(Dict{Any,Any}, st)    7.2 ns  32 B
+plain  for (k, v) in Dict{Any,Any}   2.0 ns/elt  0.0 B/elt
+plain  for (k, v) in Dict{Int,String} 1.8 ns/elt  0.0 B/elt
+---- generic (non-invoke) calls in iterate(::Dict{Any,Any}, ::Int), plain
+  33: :($(Expr(:invoke, CodeInstance for MethodInstance for Base.throw_boundserror(::Memory{UInt8}, ::Tuple{Int64}), :(Base.th  :: Union{}
+  74: :($(Expr(:invoke, CodeInstance for MethodInstance for Base.throw_boundserror(::Memory{Any}, ::Tuple{Int64}), :(Base.thro  :: Union{}
+  91: :($(Expr(:invoke, CodeInstance for MethodInstance for Base.throw_boundserror(::Memory{Any}, ::Tuple{Int64}), :(Base.thro  :: Union{}
+---- generic (non-invoke) calls in sumkeys(::Dict{Any,Any}), plain
+== E4 all
+ERROR: LoadError: ParseError:
+# Error @ /tmp/claude-1000/-home-hellmann-Repos-julia-trait-bound/e0c44133-0ba1-4a71-abd7-4611822ff738/scratchpad/hc4_dict.jl:31:15
+    str = sprint(show, s)
+    if isexpr = (s isa Expr && s.head === :call)
+#             ╙ ── unexpected `=`
+Stacktrace:
+ [1] top-level scope
+   @ /tmp/claude-1000/-home-hellmann-Repos-julia-trait-bound/e0c44133-0ba1-4a71-abd7-4611822ff738/scratchpad/hc4_dict.jl:31
+ [2] include(mod::Module, _path::String)
+   @ Base ./Base.jl:309
+ [3] exec_options(opts::Base.JLOptions)
+   @ Base ./client.jl:344
+ [4] _start()
+   @ Base ./client.jl:577
+in expression starting at /tmp/claude-1000/-home-hellmann-Repos-julia-trait-bound/e0c44133-0ba1-4a71-abd7-4611822ff738/scratchpad/hc4_dict.jl:31
+all    iterate(Dict{Any,Any})        117.7 ns  64 B
+all    iterate(Dict{Any,Any}, st)    115.2 ns  64 B
+all    for (k, v) in Dict{Any,Any}   228.3 ns/elt  103.824 B/elt
+all    for (k, v) in Dict{Int,String} 1.8 ns/elt  0.0 B/elt
+---- generic (non-invoke) calls in iterate(::Dict{Any,Any}, ::Int), all  
+  33: :($(Expr(:invoke, CodeInstance for MethodInstance for Base.throw_boundserror(::Memory{UInt8}, ::Tuple{Int64}), :(Base.th  :: Union{}
+  74: :($(Expr(:invoke, CodeInstance for MethodInstance for Base.throw_boundserror(::Memory{Any}, ::Tuple{Int64}), :(Base.thro  :: Union{}
+  91: :($(Expr(:invoke, CodeInstance for MethodInstance for Base.throw_boundserror(::Memory{Any}, ::Tuple{Int64}), :(Base.thro  :: Union{}
+---- generic (non-invoke) calls in sumkeys(::Dict{Any,Any}), all  
+== E5 all, dispatch profile
+100 x filter! over 1000 elements = 100000 element visits
+
+-- dynamic calls by callee method (owner :facts: site/leaf/assoc/full | default owner: site/leaf/assoc/full)
+      100193  Base.setindex!  essentials.jl:978   :facts 0/0/0/0 | default 100193/0/0/0
+      100000  Main.#5  /tmp/claude-1000/-home-hellmann-Repos-julia-trait-bound/e0c44133-0ba1-4a71-abd7-4611822ff738/scratchpad/hc5_profile.jl:9   :facts 0/0/0/0 | default 100000/0/0/0
+         550  Compiler.maybe_erase_unused!  ../usr/share/julia/Compiler/src/ssair/ir.jl:1985   :facts 0/0/0/0 | default 550/0/0/0
+         520  Compiler.widenconst  ../usr/share/julia/Compiler/src/typelattice.jl:707   :facts 0/0/0/0 | default 0/0/520/0
+         497  Base.==  Base_compiler.jl:301   :facts 0/0/0/0 | default 123/0/374/0
+         497  Base.ismissing  essentials.jl:1183   :facts 0/0/0/0 | default 497/0/0/0
+         410  Base.trypoptask  task.jl:1253   :facts 0/0/0/0 | default 408/2/0/0
+         408  Partr.multiq_check_empty  partr.jl:249   :facts 0/0/0/0 | default 407/1/0/0
+         148  Base.length  essentials.jl:11   :facts 0/0/0/0 | default 148/0/0/0
+         140  Compiler.widenconst  ../usr/share/julia/Compiler/src/typelattice.jl:703   :facts 0/0/0/0 | default 137/0/3/0
+         127  Compiler.#argtypes_to_type##2  ../usr/share/julia/Compiler/src/typeutils.jl:53   :facts 0/0/0/0 | default 127/0/0/0
+         103  Compiler.doworkloop  ../usr/share/julia/Compiler/src/inferencestate.jl:1216   :facts 0/0/0/0 | default 103/0/0/0
+         100  Base.filter!  array.jl:3040   :facts 0/0/0/0 | default 99/0/1/0
+          59  Core.apply_type  :0   :facts 0/0/0/0 | default 0/0/59/0
+          52  Compiler.#78  ../usr/share/julia/Compiler/src/inferencestate.jl:1199   :facts 0/0/0/0 | default 46/6/0/0
+          52  Base.in  operators.jl:1371   :facts 0/0/0/0 | default 46/0/6/0
+          34  Compiler.typeinf_local  ../usr/share/julia/Compiler/src/abstractinterpretation.jl:4252   :facts 0/0/0/0 | default 34/0/0/0
+          33  Compiler.widenconst  ../usr/share/julia/Compiler/src/typelattice.jl:705   :facts 0/0/0/0 | default 33/0/0/0
+          31  Base.getindex  essentials.jl:990   :facts 0/0/0/0 | default 29/2/0/0
+          27  Core.typename  boot.jl:1130   :facts 0/0/0/0 | default 0/0/27/0
+          25  Base.getproperty  Base_compiler.jl:51   :facts 0/0/0/0 | default 0/0/25/0
+          22  Base.getindex  array.jl:451   :facts 0/0/0/0 | default 0/0/22/0
+          18  Base.length  essentials.jl:991   :facts 0/0/0/0 | default 16/0/2/0
+          16  Base.==  promotion.jl:641   :facts 0/0/0/0 | default 15/1/0/0
+          16  Compiler.getfield_tfunc  ../usr/share/julia/Compiler/src/tfuncs.jl:1104   :facts 0/0/0/0 | default 14/0/2/0
+          15  Base.get  iddict.jl:91   :facts 0/0/0/0 | default 13/0/2/0
+          15  Base.getproperty  Base_compiler.jl:57   :facts 0/0/0/0 | default 15/0/0/0
+          14  Base.iterate  range.jl:926   :facts 0/0/0/0 | default 13/0/1/0
+          13  Base.>  operators.jl:425   :facts 0/0/0/0 | default 13/0/0/0
+          12  Base.setindex!  essentials.jl:984   :facts 0/0/0/0 | default 12/0/0/0
+          11  Compiler.getresult_impl  ../usr/share/julia/Compiler/src/stmtinfo.jl:149   :facts 0/0/0/0 | default 11/0/0/0
+          11  Compiler.getsplit_impl  ../usr/share/julia/Compiler/src/stmtinfo.jl:148   :facts 0/0/0/0 | default 11/0/0/0
+          11  Compiler.nsplit_impl  ../usr/share/julia/Compiler/src/stmtinfo.jl:147   :facts 0/0/0/0 | default 11/0/0/0
+          10  Compiler.add_edges_impl  ../usr/share/julia/Compiler/src/stmtinfo.jl:47   :facts 0/0/0/0 | default 10/0/0/0
+          10  Base.iterate  essentials.jl:996   :facts 0/0/0/0 | default 9/0/1/0
+          10  Base.iterate  range.jl:924   :facts 0/0/0/0 | default 9/0/1/0
+          10  Base.setindex!  iddict.jl:76   :facts 0/0/0/0 | default 9/0/1/0
+           9  Compiler.nsplit_impl  ../usr/share/julia/Compiler/src/stmtinfo.jl:212   :facts 0/0/0/0 | default 9/0/0/0
+           9  Base.lastindex  essentials.jl:995   :facts 0/0/0/0 | default 7/0/2/0
+           9  Compiler.getsplit_impl  ../usr/share/julia/Compiler/src/stmtinfo.jl:213   :facts 0/0/0/0 | default 9/0/0/0
+
+-- dynamic calls by call site (the calling code, innermost frame first; the callee)
+       99900  filter! at ./array.jl:3044  ->  Main.#5
+       99900  filter! at ./array.jl:3043  ->  Base.setindex!
+         546  simple_dce! at ./../usr/share/julia/Compiler/src/ssair/ir.jl:2113  ->  Compiler.maybe_erase_unused!
+         445  in at ./operators.jl:1374  ->  Base.==
+         445  in at ./operators.jl:1375  ->  Base.ismissing
+         409  ijl_task_get_next at /home/hellmann/Repos/julia-trait-bound/julia-1.13/src/scheduler.c:447 (in get_next_task at /home/hellmann/Repos/julia-trait-bound/julia-1.13/src/scheduler.c:385)  ->  Base.trypoptask
+         407  ijl_task_get_next at /home/hellmann/Repos/julia-trait-bound/julia-1.13/src/scheduler.c:453 (in check_empty at /home/hellmann/Repos/julia-trait-bound/julia-1.13/src/scheduler.c:396)  ->  Partr.multiq_check_empty
+         302  widen_all_consts! at ./../usr/share/julia/Compiler/src/optimize.jl:330  ->  Compiler.widenconst
+         103  typeinf at ./../usr/share/julia/Compiler/src/abstractinterpretation.jl:4578  ->  Compiler.doworkloop
+         103  doworkloop at ./../usr/share/julia/Compiler/src/inferencestate.jl:1219  ->  Base.length
+         100  filter! at ./array.jl:3043  ->  Base.setindex!
+         100  filter! at ./array.jl:3044  ->  Main.#5
+         100  top-level scope at /tmp/claude-1000/-home-hellmann-Repos-julia-trait-bound/e0c44133-0ba1-4a71-abd7-4611822ff738/scratchpad/hc5_profile.jl:13  ->  Base.filter!
+          75  filter! at ./array.jl:3043  ->  Base.setindex!
+          75  filter! at ./array.jl:3044  ->  Compiler.#argtypes_to_type##2
+== E3 product setting (examples env)
+┌ Warning: could not download https://pkg.julialang.org/registries
+│   exception = RequestError: HTTP/1.1 403 Forbidden (CONNECT tunnel failed, response 403) while requesting https://pkg.julialang.org/registries
+└ @ Pkg.Registry ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Pkg/src/Registry/Registry.jl:121
