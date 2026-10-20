@@ -1,0 +1,38 @@
+== untyped-first
+facts untyped, alone:          untyped
+facts typed, after:            typed
+facts untyped, again:          untyped
+  specialization: Tuple{typeof(e_pos), Any, Int64}
+  specialization: Tuple{typeof(e_pos), Circle, Int64}
+== typed-first
+facts typed, first:            typed
+facts untyped, after typed:    untyped
+  specialization: Tuple{typeof(e_pos), Any, Int64}
+  specialization: Tuple{typeof(e_pos), Circle, Int64}
+== plain-typed-first
+plain typed, first:            typed
+facts untyped, after:          untyped
+  specialization: Tuple{typeof(e_pos), Any, Int64}
+  specialization: Tuple{typeof(e_pos), Circle, Int64}
+== plain-untyped-first
+plain untyped, first:          untyped
+facts untyped, after:          untyped
+  specialization: Tuple{typeof(e_pos), Any, Int64}
+== plain-both-first
+plain typed, first:            typed
+plain untyped, second:         untyped
+facts untyped, after:          untyped
+  specialization: Tuple{typeof(e_pos), Any, Int64}
+  specialization: Tuple{typeof(e_pos), Circle, Int64}
+== plain-untyped-facts-typed-first
+plain untyped, first:          untyped
+facts typed, second:           typed
+facts untyped, after:          untyped
+  specialization: Tuple{typeof(e_pos), Any, Int64}
+  specialization: Tuple{typeof(e_pos), Circle, Int64}
+== facts-typed-plain-untyped-first
+facts typed, first:            typed
+plain untyped, second:         untyped
+facts untyped, after:          untyped
+  specialization: Tuple{typeof(e_pos), Any, Int64}
+  specialization: Tuple{typeof(e_pos), Circle, Int64}
