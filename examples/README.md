@@ -99,7 +99,7 @@ operation, a wrong result type, wrong argument types, a library reading an undec
   both, with one frame more in the trait form (22 against 21).
 - Not TraitDifferentialEquations' route A: the solvers agent writes that one.
 
-## warnings/teach.jl: warnings that teach (concrete mode on badly written code)
+## warnings/teach.jl: warnings that teach (fully typed mode on badly written code)
 
 Six flawed workers under `@warn_not_fully_typed`, each beside its fixed twin: an abstract field, a
 `Dict{Symbol,Any}` read in a loop, a non-const global, a boxed capture, a variable whose type
@@ -110,9 +110,10 @@ changes, a type passed as a value.
 - Run of 2026-10-20 (`logs/warnings.log`): 37 pass, 1 pending. Cases a, b, c, d and f warn at the
   first call, naming the line, the root cause and a fix; each twin is silent. The certificate
   reports the fixed workers fully typed and lists the flawed workers' run-time sites.
-- **Pending:** case e (a variable whose type changes) is silent. It waits on a design decision:
-  a variable of a small `Union` is fully typed, since the union's splits are facts; whether
-  concrete mode should warn about it (`writeup/open-issues.md` §1.18).
+- **Case e** (a variable whose type changes) is silent, by decision (2026-10-21, open issue 18
+  closed): a variable of a small `Union` is fully typed, since the union's splits are facts. The
+  check asserts the silence.
+- Run of 2026-10-21 (after the decision): 38 pass, 0 pending.
 
 ## redefinition/prompt.jl: struct redefinition and conformance redeclaration
 

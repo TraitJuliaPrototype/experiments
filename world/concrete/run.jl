@@ -16,6 +16,6 @@ tc = best(() -> scaled_sum_typed(v, TypedConfig(0.5)))
         1e3ta, 1e9ta / 10^6, 1e3tc, 1e9tc / 10^6, ta / tc)
 W = TraitWorld
 sig = Tuple{typeof(scaled_sum), typeof(W.TObj((W.View{Series}(W.Impl{()}(), v),))), Config}
-t = @elapsed fs = check_concrete(sig)
-@printf("check_concrete: %d finding(s), %.0f ms\n", length(fs), 1e3t)
+t = @elapsed fs = check_fully_typed(sig)
+@printf("check_fully_typed: %d finding(s), %.0f ms\n", length(fs), 1e3t)
 println(sprint(W._print_findings, :scaled_sum, "Series at Vector{Float64}", fs))

@@ -1,5 +1,5 @@
 # Warnings that teach (the review's example 4 and §2.6 item 4; the user's criterion: "badly written
-# code may run slower if the compiler says how to make it fast"). Concrete mode
+# code may run slower if the compiler says how to make it fast"). Fully typed mode
 # (`@warn_not_fully_typed`) on six common ways of writing slow Julia, each beside its fixed twin.
 # What is the user told: is there a warning, does it name the line, the root cause, and the fix?
 #
@@ -73,9 +73,9 @@ for (name, bad, fix, cause, hint) in cases
     check("$name: same value as the fixed twin", vb == vf, "bad $vb, fixed $vf")
     warned = !isempty(mb)
     if name == "e type changes"
-        # a variable of a small Union is fully typed (its splits are facts): concrete mode is silent
+        # a variable of a small Union is fully typed (its splits are facts): fully typed mode is silent
         # about it, by design (traits reference §11; open issues, closed item 18)
-        check("$name: a small union is fully typed, so concrete mode is silent", !warned, first(mb, 200))
+        check("$name: a small union is fully typed, so fully typed mode is silent", !warned, first(mb, 200))
         continue
     end
     check("$name: the flawed worker warns at its first call", warned)
