@@ -1,0 +1,66 @@
+┌ Warning: trait module BadDef: library code breaks a rule of the trait world:
+│   leak (reference.jl:360): reference.jl:360: `typeof(t)`: code must not depend on the user's type
+│   spread (reference.jl:359): reference.jl:359: `size` has no method for a trait object carrying ColTable
+└ @ TraitWorld ~/Repos/julia-trait-bound/TraitWorld/src/trait_module.jl:1037
+PASS  §2 @trait_module begin … end inside a module
+PASS  §5.1 a block for the library's own type
+PASS  §3.2 a default through trait code
+PASS  §5.2 own methods
+PASS  §5.3 forwarding with by
+PASS  §5.3 forwarding does not chain: ImplementError
+PASS  T-15 the internal project(t) = … form: a computed value is refused
+PASS  §5.3 by right
+PASS  §5.4 `by data, t => time`
+PASS  §5.5 several traits by one field
+PASS  §5.5 one line
+PASS  §3.6 a bundle as a bound
+PASS  §5.5 each trait through its own field
+PASS  §5.6 stated parameters
+PASS  T-1 a parameter's bound is not checked (T = String accepted for T <: Real)
+PASS  §5.7 a family by its own methods
+PASS  §12.1 an existing function's methods declared
+PASS  §5.8 a generic implementation
+PASS  §5.8 more specific beats generic
+PASS  §5.8 the condition refuses Vector{Int}
+PASS  §5.9 `dynamic by cols` is refused
+PASS  §5.10 redeclaration is refused
+PASS  §6.1 an ordinary where variable on an ordinary argument
+PASS  T-16 a shared where parameter in bounds: the method never applies
+PASS  §6.5 the AbstractMatrix method wins
+PASS  §6.5 a table
+PASS  §6.5 the fallback
+PASS  §7 Like{t}: the caller's type, the label kept
+PASS  §7 withfields
+PASS  §8 colz defaults
+PASS  §8 a bounded keyword
+PASS  §8 tol = 1: TypeError
+PASS  §8 baseline = 42: TraitBoundError
+PASS  §8 positional default
+PASS  §8 a keyword default calling an operation
+PASS  §8 vararg of trait objects
+PASS  §8 a vararg keyword passes on
+PASS  §9 colmap
+PASS  §9 compiled_for
+PASS  §9 with_dynamic
+PASS  §9 abs2
+PASS  §9 a stored Dynamic{Callable}
+PASS  §9 several signatures
+PASS  §9 a result of another type: TypeError
+PASS  §9 a stored Dynamic{Callable}
+PASS  T-18 an open Callable result type is no bound: MethodError
+PASS  §10 fields mean Kept
+PASS  §10 a value keeps its attribute when stored
+PASS  §10 step! over a Dynamic model and hooks
+PASS  §10 a trait object of another trait: ArgumentError
+PASS  §10 equality
+      print: Kept{Model}: Dynamic at Decay
+PASS  §16 conforms
+PASS  §16 x isa X is false today
+PASS  §11 check_definitions raises TraitUseError listing both
+PASS  §11 check_definitions of a clean module is empty
+PASS  §15 verify_main
+PASS  T-2 a trait parameter in a default's body: an error
+      outcome: UndefVarError: `T` not defined in `Main.DefParam`
+Suggestion: check for spelling errors or missing imports.
+
+57 pass, 0 fail

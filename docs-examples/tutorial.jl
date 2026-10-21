@@ -57,7 +57,7 @@ nudged(p::Placed)::Like{p} = withfields(p; x = p.x + 1.0)
 
 # §12
 struct Scene
-    shapes::Vector{Shape}       # in a trait module: Vector{Dynamic{Shape}}
+    shapes::Vector{Shape}       # in a trait module: Vector{Kept{Shape}}, each shape with its attribute
 end
 Scene() = Scene(Shape[])
 add!(sc::Scene, s::Shape) = (push!(sc.shapes, s); sc)
@@ -72,7 +72,7 @@ end
 
 using .Geometry
 
-check("§12 a trait's name in a field means its Dynamic", fieldtype(Geometry.Scene, :shapes) === Vector{Dynamic{Geometry.Shape}})
+check("§12 a trait's name in a field means Kept", fieldtype(Geometry.Scene, :shapes) === Vector{Kept{Geometry.Shape}})
 
 # --- §3 -----------------------------------------------------------------------------------------
 

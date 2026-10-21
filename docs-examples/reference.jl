@@ -317,10 +317,10 @@ end
 mutable struct State                 # in a trait module
     const u::Vector{Float64}
     t::Float64
-    model::Model                     # means Dynamic{Model}
-    hooks::Vector{Hook}              # means Vector{Dynamic{Hook}}
+    model::Model                     # means Kept{Model}: each value with its attribute
+    hooks::Vector{Hook}              # means Vector{Kept{Hook}}
 end
-start(m::Model, u0::Vector{Float64}) = State(copy(u0), 0.0, Dynamic{Model}(m), Dynamic{Hook}[])
+start(m::Model, u0::Vector{Float64}) = State(copy(u0), 0.0, m, Hook[])   # the model kept as it came: Compiled or Dynamic
 function step!(s::State, dt::Float64)
     du = similar(s.u)
     rhs!(s.model, du, s.u, s.t)
@@ -342,7 +342,8 @@ DynSolv.fire!(::Always, u, t) = true
 @implement Hook Always
 st = start(Decay(1.0), [1.0])
 append!(st.hooks, Dynamic{Hook}[Dynamic{Hook}(Below(0.95)), Dynamic{Hook}(Always())])   # in plain code
-check("§10 fields mean Dynamic", fieldtype(DynSolv.State, :hooks) === Vector{Dynamic{DynSolv.Hook}})
+check("§10 fields mean Kept", fieldtype(DynSolv.State, :hooks) === Vector{Kept{DynSolv.Hook}})
+check("§10 a value keeps its attribute when stored", getfield(st.model, :compiled) === false && getfield((m -> start(m, [1.0]))(Decay(1.0)).model, :compiled))
 check("§10 step! over a Dynamic model and hooks", step!(st, 0.1) == 2 && st.u ≈ [0.9])
 check("§10 a trait object of another trait: ArgumentError", outcome(() -> keepwrong(Always())) isa ArgumentError)
 check("§10 equality", st.hooks[1] == st.hooks[1] && st.hooks[1] != st.hooks[2])
