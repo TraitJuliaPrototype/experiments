@@ -399,7 +399,7 @@ check("§16 a Kept prints as `Kept{Shape}: Compiled at Circle`", sprint(show, Ke
 using TraitWorld
 export Weighted, weight, wscaled
 @trait Weighted begin
-    @concrete_only
+    @enforce_concrete_only Self
     weight(w::Weighted)::Float64
 end
 @implement Weighted A where {A <: AbstractVector{Float64}} begin
@@ -415,8 +415,17 @@ e = thrown(quote
     end
     @implement Weighted Crate by data
 end)
-check("§17 an abstract key under @concrete_only: ImplementError", e isa ImplementError && occursin("@concrete_only", msg(e)))
+check("§17 an abstract Self under @enforce_concrete_only: ImplementError", e isa ImplementError && occursin("@enforce_concrete_only", msg(e)))
 println("      message: ", first(msg(e), 300))
+@trait_module module Strictly
+using TraitWorld, ..Signals
+export firstsample
+@enforce_concrete_only T firstsample(s::Samples{T}) where {T} = sample(s, 1)
+end
+using .Strictly
+check("§17 a function's concrete parameter: a concrete T runs", firstsample([1.5, 2.0]) == 1.5)
+e = thrown(:(firstsample(Real[1.5, 2.0])))
+check("§17 a function's concrete parameter: T = Real is a TraitBoundError", e isa TraitBoundError && occursin("`T` is Real", msg(e)))
 e = thrown(quote
     struct Box
         data::Vector{Float64}

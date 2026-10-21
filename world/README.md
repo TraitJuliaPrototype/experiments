@@ -265,7 +265,7 @@ compiled per arity at the first call; now a loop), and Stats' workload did not
 cover `weighted` at Columns' representation.
 
 **Concrete mode** (`poc/world/concrete/`), ported. CBottom, CMid1 and CMid2
-are trait modules now (rule 1); CTop is `@warn_on_abstract @trait_module`:
+are trait modules now (rule 1); CTop is `@warn_on_abstract @trait_module` (concrete mode, spelled `@warn_not_fully_typed` since 2026-10-21):
 
 - The warning appears while CTop is built and names
   `field scale of CBottom.Config is declared Real (CBottom.jl:8)` with the

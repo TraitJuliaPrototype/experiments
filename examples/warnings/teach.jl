@@ -1,6 +1,6 @@
 # Warnings that teach (the review's example 4 and §2.6 item 4; the user's criterion: "badly written
 # code may run slower if the compiler says how to make it fast"). Concrete mode
-# (`@warn_on_abstract`) on six common ways of writing slow Julia, each beside its fixed twin.
+# (`@warn_not_fully_typed`) on six common ways of writing slow Julia, each beside its fixed twin.
 # What is the user told: is there a warning, does it name the line, the root cause, and the fix?
 #
 #     julia --project=../env teach.jl        (SHOW=1 prints every warning)
@@ -13,7 +13,7 @@ include(joinpath(@__DIR__, "..", "common.jl"))
 using TraitWorld, Logging, Test
 SHOW = get(ENV, "SHOW", "0") == "1"
 toplevel(quote
-    @warn_on_abstract @trait_module module Teach
+    @warn_not_fully_typed @trait_module module Teach
     using TraitWorld
     export Col, cv
     @trait Col begin

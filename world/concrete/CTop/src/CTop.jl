@@ -1,7 +1,7 @@
 "Top layer: a trait module in concrete mode whose hot loop calls down the stack."
 module CTop
 using TraitWorld
-@warn_on_abstract @trait_module begin
+@warn_not_fully_typed @trait_module begin
 import CBottom, CMid2
 export Series, vals, scaled_sum, scaled_sum_typed
 

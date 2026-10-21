@@ -101,7 +101,7 @@ operation, a wrong result type, wrong argument types, a library reading an undec
 
 ## warnings/teach.jl: warnings that teach (concrete mode on badly written code)
 
-Six flawed workers under `@warn_on_abstract`, each beside its fixed twin: an abstract field, a
+Six flawed workers under `@warn_not_fully_typed`, each beside its fixed twin: an abstract field, a
 `Dict{Symbol,Any}` read in a loop, a non-const global, a boxed capture, a variable whose type
 changes, a type passed as a value.
 - Expected: each flawed worker warns at its first call, naming the line and the root cause. Each
