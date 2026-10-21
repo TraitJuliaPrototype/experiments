@@ -124,7 +124,7 @@ end
 end
 kpair(a::KVec{T}, b::KVec{T}) where {T} = kget(a, 1) + kget(b, 1)      # a shared parameter: equal values
 
-@trait ArrayLike{T <: Real, N} begin       # a bounded parameter: accepted, not checked
+@trait ArrayLike{T <: Real, N} begin       # a bounded parameter: checked at every implementation
     alen(a::ArrayLike)::Int
     firstof(a::ArrayLike{T})::T
 end
@@ -199,7 +199,7 @@ struct StrVec; v::Vector{String}; end
 Columns.alen(m::StrVec) = length(m.v)
 Columns.firstof(m::StrVec) = m.v[1]
 e = thrown(:(@implement ArrayLike{String, 1} StrVec))
-check("T-1 a parameter's bound is not checked (T = String accepted for T <: Real)", e === nothing)
+check("§3.4 a parameter outside its bound is refused (T = String for T <: Real)", e isa ImplementError && occursin("outside its bound", msg(e)))
 
 # §5.7 families
 check("§4.7 a family by its own methods", d2(Columns.S{Int}(1, 2)) == 4)
