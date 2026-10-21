@@ -1,0 +1,48 @@
+# G0 (b) the member table; TraitWorld /home/hellmann/Repos/julia-trait-bound/TraitWorld-fix Graphs 1.15.0 at /home/hellmann/Repos/julia-trait-bound/ndport/pkgs/Graphs-p4
+b SimpleGraph{Int64} conforms: V=Int64 nv::Int64 el::Vector{Graphs.SimpleGraphs.SimpleEdge{Int64}} nb::Vector{Int64} equal to the plain reads=true first call 0.534 s
+b SimpleDiGraph{Int64} conforms: V=Int64 nv::Int64 el::Vector{Graphs.SimpleGraphs.SimpleEdge{Int64}} nb::Vector{Int64} equal to the plain reads=true first call 0.151 s
+b SimpleGraph{Int32} conforms: V=Int32 nv::Int32 el::Vector{Graphs.SimpleGraphs.SimpleEdge{Int32}} nb::Vector{Int32} equal to the plain reads=true first call 0.192 s
+b GenericGraph conforms: V=Int64 nv::Int64 el::Vector{Graphs.SimpleGraphs.SimpleEdge{Int64}} nb::Vector{Int64} equal to the plain reads=true first call 0.147 s
+b GenericDiGraph conforms: V=Int64 nv::Int64 el::Vector{Graphs.SimpleGraphs.SimpleEdge{Int64}} nb::Vector{Int64} equal to the plain reads=true first call 0.213 s
+b ReverseView conforms: V=Int64 nv::Int64 el::Vector{Graphs.SimpleGraphs.SimpleEdge{Int64}} nb::Vector{Int64} equal to the plain reads=true first call 0.211 s
+b UndirectedView conforms: V=Int64 nv::Int64 el::Vector{Graphs.SimpleGraphs.SimpleEdge{Int64}} nb::Vector{Int64} equal to the plain reads=true first call 0.158 s
+b WrongNv REFUSED: ImplementError
+b WrongNv   message: ImplementError: WrongNv is a member of a family implementation of Main.GDecl.GraphInterface, but does not conform: |   `nv` at Tuple{WrongNv} returns `Int64`, declared `Int32`
+b WrongNv   frames: _check_member@implement.jl:859 < _conf_family_slow@implement.jl:810 < _conf_family@implement.jl:805 < macro expansion@entry.jl:-1
+b WrongNv second call: names WrongNv; operations named: ["nv"]; Int64 true; Int32 true
+# G0 (c) traits §5.2: with_dynamic(g) at a bound
+c Int64 GraphInterface: compiled (40, 3, 40)::Tuple{Int64, Int64, Int64}
+c Int64 GraphInterface: dynamic (40, 3, 40)::Tuple{Int64, Int64, Int64} compiled (40, 3, 40) same=true; fully_typed: false sites=3 in the probe's own body=3 declared dynamic=0
+c     site /home/hellmann/Repos/julia-trait-bound/TraitWorld-fix/src/entry.jl:217 _enter_erased in pc1
+c     site /home/hellmann/Repos/julia-trait-bound/TraitWorld-fix/src/trait_module.jl:976 _like_return in pc1
+c     site /home/hellmann/Repos/julia-trait-bound/TraitWorld-fix/src/trait_module.jl:976 checked_call in pc1
+c Int64 GraphInterface{V} where V: compiled (21, 2, 40)::Tuple{Int64, Int64, Int64}
+c Int64 GraphInterface{V} where V: dynamic (21, 2, 40)::Tuple{Int64, Int64, Int64} compiled (21, 2, 40) same=true; fully_typed: false sites=3 in the probe's own body=3 declared dynamic=0
+c     site /home/hellmann/Repos/julia-trait-bound/TraitWorld-fix/src/entry.jl:217 _enter_erased in pc2
+c     site /home/hellmann/Repos/julia-trait-bound/TraitWorld-fix/src/trait_module.jl:976 _like_return in pc2
+c     site /home/hellmann/Repos/julia-trait-bound/TraitWorld-fix/src/trait_module.jl:976 checked_call in pc2
+c Int64 GraphInterface{Int}: compiled (21, 2, 40)::Tuple{Int64, Int64, Int64}
+c Int64 GraphInterface{Int}: dynamic (21, 2, 40)::Tuple{Int64, Int64, Int64} compiled (21, 2, 40) same=true; fully_typed: false sites=3 in the probe's own body=3 declared dynamic=0
+c     site /home/hellmann/Repos/julia-trait-bound/TraitWorld-fix/src/entry.jl:217 _enter_erased in pc3
+c     site /home/hellmann/Repos/julia-trait-bound/TraitWorld-fix/src/trait_module.jl:976 _like_return in pc3
+c     site /home/hellmann/Repos/julia-trait-bound/TraitWorld-fix/src/trait_module.jl:976 checked_call in pc3
+c Int64 GraphInterface{V}, no edge_list: compiled (21, 41, 3, 5)::NTuple{4, Int64}
+c Int64 GraphInterface{V}, no edge_list: dynamic (21, 41, 3, 5)::NTuple{4, Int64} compiled (21, 41, 3, 5) same=true; fully_typed: false sites=3 in the probe's own body=3 declared dynamic=0
+c     site /home/hellmann/Repos/julia-trait-bound/TraitWorld-fix/src/entry.jl:217 _enter_erased in pc4
+c     site /home/hellmann/Repos/julia-trait-bound/TraitWorld-fix/src/trait_module.jl:976 _like_return in pc4
+c     site /home/hellmann/Repos/julia-trait-bound/TraitWorld-fix/src/trait_module.jl:976 checked_call in pc4
+c Int32 GraphInterface: compiled (40, 3, 40)::Tuple{Int32, Int32, Int64}
+c Int32 GraphInterface: dynamic (40, 3, 40)::Tuple{Int32, Int32, Int64} compiled (40, 3, 40) same=true; fully_typed: false sites=3 in the probe's own body=3 declared dynamic=0
+c     site /home/hellmann/Repos/julia-trait-bound/TraitWorld-fix/src/entry.jl:217 _enter_erased in pc1
+c     site /home/hellmann/Repos/julia-trait-bound/TraitWorld-fix/src/trait_module.jl:976 _like_return in pc1
+c     site /home/hellmann/Repos/julia-trait-bound/TraitWorld-fix/src/trait_module.jl:976 checked_call in pc1
+c Int32 GraphInterface{V} where V: compiled (21, 2, 40)::Tuple{Int32, Int32, Int64}
+c Int32 GraphInterface{V} where V: dynamic (21, 2, 40)::Tuple{Int32, Int32, Int64} compiled (21, 2, 40) same=true; fully_typed: false sites=3 in the probe's own body=3 declared dynamic=0
+c     site /home/hellmann/Repos/julia-trait-bound/TraitWorld-fix/src/entry.jl:217 _enter_erased in pc2
+c     site /home/hellmann/Repos/julia-trait-bound/TraitWorld-fix/src/trait_module.jl:976 _like_return in pc2
+c     site /home/hellmann/Repos/julia-trait-bound/TraitWorld-fix/src/trait_module.jl:976 checked_call in pc2
+c Int32 GraphInterface{V}, no edge_list: compiled (21, 41, 3, 5)::Tuple{Int32, Int64, Int32, Int64}
+c Int32 GraphInterface{V}, no edge_list: dynamic (21, 41, 3, 5)::Tuple{Int32, Int64, Int32, Int64} compiled (21, 41, 3, 5) same=true; fully_typed: false sites=3 in the probe's own body=3 declared dynamic=0
+c     site /home/hellmann/Repos/julia-trait-bound/TraitWorld-fix/src/entry.jl:217 _enter_erased in pc4
+c     site /home/hellmann/Repos/julia-trait-bound/TraitWorld-fix/src/trait_module.jl:976 _like_return in pc4
+c     site /home/hellmann/Repos/julia-trait-bound/TraitWorld-fix/src/trait_module.jl:976 checked_call in pc4
