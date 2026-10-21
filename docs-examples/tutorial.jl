@@ -417,6 +417,16 @@ e = thrown(quote
 end)
 check("§17 an abstract Self under @enforce_concrete_only: ImplementError", e isa ImplementError && occursin("@enforce_concrete_only", msg(e)))
 println("      message: ", first(msg(e), 300))
+@trait_module module Dots
+using TraitWorld, ..Signals
+export dotp
+dotp(a::Samples{T}, b::Samples{T}) where {T} = sum(sample(a, i) * sample(b, i) for i in 1:nsamples(a); init = zero(T))
+end
+using .Dots
+check("§13 a where variable shared between bounds", dotp([1.0, 2.0], [3.0, 4.0]) == 11.0)
+e = thrown(:(dotp([1.0], [1])))
+check("§13 unequal values of a shared variable: TraitBoundError", e isa TraitBoundError)
+println("      message: ", first(msg(e), 200))
 @trait_module module Strictly
 using TraitWorld, ..Signals
 export firstsample
