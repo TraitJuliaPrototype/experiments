@@ -83,11 +83,10 @@ end
 rossler!(du, u, p, t) = (du[1] = -u[2] - u[3]; du[2] = u[1] + p[1] * u[2]; du[3] = p[2] + u[3] * (u[1] - p[3]); nothing)
 t2 = @elapsed TraitDifferentialEquations.solve(TraitDifferentialEquations.ODEProblem(rossler!, [1.0, 0.0, 0.0], (0.0, 1.0), [0.2, 0.2, 5.7]), Tsit5())
 t3 = @elapsed TraitDifferentialEquations.solve(TraitDifferentialEquations.ODEProblem(rossler!, [1.0, 0.0, 0.0], (0.0, 1.0), [0.2, 0.2, 5.7]), Rodas5())
-println("  a new model function: Tsit5 ", round(t2 * 1000, digits = 1), " ms, Rodas5 ", round(t3 * 1000, digits = 1), " ms")
-# a new key: a user's own model type (route A: the solver compiles for it, under the policy)
-struct MyLorenz; p::Vector{Float64}; end
+println("  a new right-hand side function: Tsit5 ", round(t2 * 1000, digits = 1), " ms, Rodas5 ", round(t3 * 1000, digits = 1), " ms")
+# a new key: a user's own problem type (the solver compiles for it, by facts)
+struct MyLorenz; u0::Vector{Float64}; tspan::Tuple{Float64,Float64}; p::Vector{Float64}; end
 TraitDifferentialEquations.rhs!(m::MyLorenz, du::Vector{Float64}, u::Vector{Float64}, t::Float64) = (lorenz!(du, u, m.p, t); nothing)
-@eval TraitDifferentialEquations.TraitWorld.@implement TraitDifferentialEquations.ODEModel{Float64} MyLorenz
-t4 = @elapsed TraitDifferentialEquations.ODECore.solve_ode(MyLorenz([10.0, 28.0, 8 / 3]), [1.0, 0.0, 0.0], (0.0, 1.0), Tsit5(), nothing,
-        TraitDifferentialEquations.TraitWorld.Dynamic{TraitDifferentialEquations.Callback}[], TraitDifferentialEquations.ODECore.SolverOptions(1e-6, 1e-3, Inf, 10^6, Float64[]))
-println("  a new model type (a new key, compiled under the policy): ", round(t4 * 1000, digits = 1), " ms")
+@eval TraitDifferentialEquations.TraitWorld.@implement TraitDifferentialEquations.ODEProblemTrait MyLorenz
+t4 = @elapsed Base.invokelatest(TraitDifferentialEquations.solve, MyLorenz([1.0, 0.0, 0.0], (0.0, 1.0), [10.0, 28.0, 8 / 3]), Tsit5())
+println("  a new problem type (a new key, compiled by facts): ", round(t4 * 1000, digits = 1), " ms")
