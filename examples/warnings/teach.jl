@@ -72,11 +72,10 @@ for (name, bad, fix, cause, hint) in cases
     SHOW && println("---- ", name, "\n", isempty(mb) ? "(silent)" : mb, "\n----")
     check("$name: same value as the fixed twin", vb == vf, "bad $vb, fixed $vf")
     warned = !isempty(mb)
-    if !warned && name == "e type changes"
-        # a small union is fully typed under the facts rule (its splits are facts): no run-time site
-        pending("$name: the flawed worker warns at its first call",
-                "a design decision: a variable of a small Union is fully typed (union splits are facts); whether concrete mode warns about it",
-                "silent today")
+    if name == "e type changes"
+        # a variable of a small Union is fully typed (its splits are facts): concrete mode is silent
+        # about it, by design (traits reference §11; open issues, closed item 18)
+        check("$name: a small union is fully typed, so concrete mode is silent", !warned, first(mb, 200))
         continue
     end
     check("$name: the flawed worker warns at its first call", warned)

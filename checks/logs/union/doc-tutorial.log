@@ -1,0 +1,86 @@
+PASS  §12 a trait's name in a field means Kept
+PASS  §3 area(Circle(1.0))
+PASS  §3 describe(Rect(2.0, 3.0)), Rect's own method
+PASS  §3 describe(Circle(1.0)) from plain code: MethodError (the default serves trait code)
+PASS  §3 conforms(Circle, Shape)
+PASS  §4 ratio(Circle(1.0))
+PASS  §4 ratio(Rect(2.0, 3.0))
+PASS  §4 bigger(Rect, Circle)
+PASS  §4 title(Circle(1.0)), the default
+PASS  §4 title(Rect(2.0, 3.0)), the override
+PASS  §5 area(Tile(…)) from plain code has no method
+PASS  §5 ratio(Tile(…))
+PASS  §5 ratio(Window(…)) by pane
+PASS  §5 without by, no field is chosen: the error names `by shape`
+PASS  §5 two conforming fields without `by`: the error names both `by` lines
+PASS  §6 move! writes the user's object
+PASS  §6 greet(sp)
+PASS  §6 greet(Book), a mapped field
+PASS  §7 report(sp)
+PASS  §8 a later override of a default is refused (ImplementError)
+PASS  §8 the default still serves Circle
+PASS  §9 fits(Circle; within = Rect)
+PASS  §9 fits(Rect; within = Circle)
+PASS  §9 scaled_area(Rect(2.0, 3.0)), a positional default
+PASS  §9 largest(…), a vararg of mixed types
+PASS  §9 margin = 1: TypeError
+PASS  §9 within = 42: TraitBoundError
+PASS  §10 kind([1.0, 2.0])
+PASS  §10 kind(Circle(1.0))
+PASS  §10 kind(42), the fallback
+PASS  §10 unrelated bounds without a joint method: TraitBoundError
+PASS  §11 doubled(Circle(1.0))
+PASS  §11 doubled(Tile(…)) keeps the label
+PASS  §11 nudged(sp): a new Sprite, sp unchanged
+PASS  §12 totalarea(sc)
+PASS  §12 added at the prompt: Kept, Dynamic
+PASS  §12 a cast is kept in storage
+PASS  §12 area(d)
+PASS  §12 ratio(d): opened at a bound
+PASS  §12 Dynamic{X}(x) of a Compiled value: TraitBoundError (constructors never cast)
+PASS  §12 totalarea compiled once
+      print(d): Dynamic{Shape} at Circle
+PASS  §13 total([1.0, 2.0, 3.5])
+PASS  §13 total([1, 2, 3]) is an Int
+PASS  §13 total(Series(Float32[1, 2]))
+PASS  §13 mean64(Series([1.0, 4.0]))
+PASS  §13 mean64([1, 2]): TraitBoundError
+PASS  §14 transform(x -> 2x, …)
+PASS  §14 transform(compiled_for(…), …)
+PASS  §14 sumby(abs2, …)
+PASS  §14 sumby(with_dynamic(…), …)
+PASS  §14 a result of the wrong type: TypeError
+PASS  §14 a Callable in a field means Kept
+PASS  §14 countif with a kept function
+PASS  §14 a plain closure stored: Dynamic (Callable's default)
+PASS  §14 compiled_for(f) stored: Compiled, the cast is kept
+PASS  §14 Gate(f): the parameter is Dynamic{Callable{…}}
+PASS  §14 Gate(compiled_for(f)): the parameter is the function's type
+PASS  §14 countgate(Gate(…), …)
+PASS  §14 countgate(Gate(compiled_for(…)), …)
+PASS  §15 energy([1.0, 2.0])
+PASS  §15 energy(Ring([3.0, 4.0])), through the generic implementation
+PASS  §16 a result of the wrong type: ImplementError
+      message: ImplementError: the implementation of Shape for Square does not conform:
+PASS  §16 a missing operation: ImplementError naming perimeter
+      message: ImplementError: Dot has methods for some operations of Shape but not for perimeter: define them
+PASS  §16 ratio(42): MethodError
+      message: MethodError: no method matching ratio(::Int64) | This error has been manually thrown, explicitly, so the method may exist but be intentionally marked as unimplemented. | Argument 1 of `ratio` is bounded by Shape; a Int64 conforms to none of them (declare an implementation with `@implement`, or convert i
+PASS  §16 the library's mistake: a warning at the module's definition
+PASS  §16 Sloppy.halfarea works
+PASS  §16 Sloppy.outline: TraitUseError
+      message: TraitUseError: library code breaks a rule of the trait world: |   tutorial.jl:373: `length` has no method for a trait object carrying Shape
+PASS  §16 a pirate in a trait module: OwnershipError
+      message: OwnershipError: sum(x::Vector{Int8}) @ Main.Meddler ~/Repos/julia-trait-bound/experiments/docs-examples/tutorial.jl:385 is defined by Main.Meddler, which owns neither its function nor its types in every signature it applies to (rule 3)
+PASS  §16 a trait object's type prints as `Shape at Circle`
+PASS  §16 a Dynamic prints as `Dynamic{Shape} at Circle`
+PASS  §16 a Kept prints as `Kept{Shape}: Compiled at Circle`
+PASS  §17 an abstract Self under @enforce_concrete_only: ImplementError
+      message: ImplementError: field `data` of Crate is declared `AbstractVector{Float64}`, which is not concrete, and Weighted asks for a concrete Self (`@enforce_concrete_only`): declare a concrete field type
+PASS  §17 a function's concrete parameter: a concrete T runs
+PASS  §17 a function's concrete parameter: T = Real is a TraitBoundError
+PASS  §17 a concrete key: accepted
+PASS  §17 totalarea is fully typed
+PASS  §17 wscaled is not fully typed
+
+77 pass, 0 fail
