@@ -559,5 +559,36 @@ u2 = (Base.invokelatest(ucall, v25b), try Base.invoke_in_world(w25b, ucall, v25b
 check("G1.25 compiled_for from an untyped caller through the table: worlds and a later type", u0 == 3.0 && u1 == (30.0, 3.0) && u2 == (4.0, :MethodError),
       "before $u0, after / older world $u1 (expected (30.0, 3.0)), a later type / before its declaration $u2 (expected (4.0, :MethodError))")
 
+# --- G1.26: beyond a split's candidates, values that must not be copied (the review of 2026-10-21,
+# finding 1): a mutable argument keeps its identity and the callee's change reaches the caller, a
+# mutable result is the object itself, a result with a reference field arrives, a `Dynamic` argument
+toplevel(quote
+    module Pl26
+    struct K end
+    mutable struct Box; v::Float64; end
+    struct W1 end; struct W2 end; struct W3 end; struct W4 end
+    struct W5; a::Int; end
+    for T in (W1, W2, W3, W4)
+        Base.Compiler.register_dynamic_candidate!(K, T)
+    end
+    bump!(x, b::Box) = (b.v += 1.0; b)
+    bump!(x::W5, b::Box) = (b.v += 10.0; b)
+    pair(x, s::String) = (s, 0)
+    pair(x::W5, s::String) = (s * "!", x.a)
+    darea(x, d) = 0.0
+    darea(x::W5, d) = Main.AccTab.tarea(d)
+    box(v::Vector{Any}, b::Box) = Base.Compiler.split_call(K, Box, bump!, v[1], b)::Box
+    tup(v::Vector{Any}, s::String) = Base.Compiler.split_call(K, Tuple{String,Int}, pair, v[1], s)::Tuple{String,Int}
+    dyn(v::Vector{Any}, d) = Base.Compiler.split_call(K, Float64, darea, v[1], d)::Float64
+    end
+end)
+b26 = Pl26.Box(1.0); v26 = Any[Pl26.W5(7)]
+r26 = Pl26.box(v26, b26)
+t26 = Pl26.tup(v26, "a")
+d26 = Pl26.dyn(v26, Dynamic{AccTab.TShp}(AT6(2.0)))
+check("G1.26 beyond a split's candidates: a mutable argument and result keep their identity, a result with a reference arrives, a Dynamic argument",
+      r26 === b26 && b26.v == 11.0 && t26 == ("a!", 7) && d26 == 120.0,
+      "same object $(r26 === b26), caller sees $(b26.v) (11.0), tuple $t26, Dynamic argument $d26 (120.0)")
+
 println()
 println(count(x -> x[2], results), " of ", length(results), " checks pass")
