@@ -209,9 +209,13 @@ check("§11 nudged(sp): a new Sprite, sp unchanged", n2 isa Sprite && n2 !== sp 
 sc = Scene()
 add!(sc, Circle(1.0)); add!(sc, Rect(2.0, 3.0)); add!(sc, Tile("door", Rect(1.0, 2.0)))
 check("§12 totalarea(sc)", totalarea(sc) == 11.141592653589793)
+check("§12 added at the prompt: Kept, Dynamic", sprint(show, sc.shapes[1]) == "Kept{Shape}: Dynamic at Circle")
+add!(sc, compiled_for(Circle(1.0)))
+check("§12 a cast is kept in storage", sprint(show, sc.shapes[4]) == "Kept{Shape}: Compiled at Circle")
 d = Dynamic{Shape}(Circle(2.0))   # in plain code, write Dynamic out
 check("§12 area(d)", area(d) == 12.566370614359172)
 check("§12 ratio(d): opened at a bound", ratio(d) == 1.0)
+check("§12 Dynamic{X}(x) of a Compiled value: TraitBoundError (constructors never cast)", outcome(() -> Dynamic{Shape}(compiled_for(Circle(1.0)))) isa TraitBoundError)
 check("§12 totalarea compiled once", length(Base.specializations(only(methods(Geometry.totalarea)))) == 1)
 println("      print(d): ", sprint(show, d))
 
@@ -219,7 +223,7 @@ println("      print(d): ", sprint(show, d))
 
 @trait_module module Signals
 using TraitWorld
-export Samples, nsamples, sample, total, mean64, transform, sumby, Threshold, countif,
+export Samples, nsamples, sample, total, mean64, transform, sumby, Threshold, countif, Gate, countgate,
        Sequence, Signal, nvalues, value, energy
 
 # §13
@@ -259,7 +263,7 @@ function sumby(f::Compiled{Callable{Tuple{Float64}, Float64}}, s::Samples{Float6
 end
 
 struct Threshold
-    test::Dynamic{Callable{Tuple{Float64}, Bool}}
+    test::Callable{Tuple{Float64}, Bool}      # in a trait module: Kept{Callable{…}}
 end
 function countif(th::Threshold, s::Samples{Float64})
     n = 0
@@ -268,6 +272,11 @@ function countif(th::Threshold, s::Samples{Float64})
     end
     return n
 end
+
+struct Gate{F <: Callable{Tuple{Float64}, Bool}}
+    test::F
+end
+countgate(g::Gate, s::Samples{Float64}) = count(i -> g.test(sample(s, i)), 1:nsamples(s))
 
 # §15
 @trait Sequence begin
@@ -309,8 +318,17 @@ check("§14 transform(compiled_for(…), …)", transform(compiled_for(x -> x / 
 check("§14 sumby(abs2, …)", sumby(abs2, [1.0, 2.0]) == 5.0)
 check("§14 sumby(with_dynamic(…), …)", sumby(with_dynamic(x -> x + 1), [1.0, 2.0]) == 5.0)
 check("§14 a result of the wrong type: TypeError", outcome(() -> transform(x -> 1, [1.0])) isa TypeError)
-th = Threshold(Dynamic{Callable{Tuple{Float64}, Bool}}(x -> x > 1.0))
-check("§14 countif with a stored Dynamic{Callable}", countif(th, [0.5, 1.5, 2.5]) == 2)
+const TestSig = Callable{Tuple{Float64}, Bool}
+check("§14 a Callable in a field means Kept", fieldtype(Signals.Threshold, :test) === Kept{TestSig})
+th = Threshold(x -> x > 1.0)                       # Callable's default: Dynamic
+check("§14 countif with a kept function", countif(th, [0.5, 1.5, 2.5]) == 2)
+check("§14 a plain closure stored: Dynamic (Callable's default)", sprint(show, th.test) == "Kept{Callable{Tuple{Float64}, Bool}}: Dynamic")
+check("§14 compiled_for(f) stored: Compiled, the cast is kept", startswith(sprint(show, Threshold(compiled_for(x -> x > 1.0)).test), "Kept{Callable{Tuple{Float64}, Bool}}: Compiled at "))
+check("§14 Gate(f): the parameter is Dynamic{Callable{…}}", typeof(Gate(x -> x > 1.0)).parameters[1] === Dynamic{TestSig})
+gc = x -> x > 1.0
+check("§14 Gate(compiled_for(f)): the parameter is the function's type", typeof(Gate(compiled_for(gc))).parameters[1] === typeof(gc))
+check("§14 countgate(Gate(…), …)", countgate(Gate(x -> x > 1.0), [0.5, 1.5, 2.5]) == 2)
+check("§14 countgate(Gate(compiled_for(…)), …)", countgate(Gate(compiled_for(gc)), [0.5, 1.5, 2.5]) == 2)
 
 # §15
 struct Ring
@@ -373,6 +391,7 @@ println("      message: ", first(msg(e), 300))
 # printing by bound and key
 check("§16 a trait object's type prints as `Shape at Circle`", sprint(show, typeof(TraitWorld.opened(Dynamic{Shape}(Circle(1.0))))) == "Shape at Circle")
 check("§16 a Dynamic prints as `Dynamic{Shape} at Circle`", sprint(show, Dynamic{Shape}(Circle(1.0))) == "Dynamic{Shape} at Circle")
+check("§16 a Kept prints as `Kept{Shape}: Compiled at Circle`", sprint(show, Kept{Shape}(Circle(1.0))) == "Kept{Shape}: Compiled at Circle")
 
 # --- §17 ----------------------------------------------------------------------------------------
 

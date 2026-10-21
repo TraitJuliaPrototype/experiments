@@ -122,7 +122,7 @@ end
     klen(v) = length(v)
     kget(v, i) = v[i]
 end
-kpair(a::KVec{T}, b::KVec{T}) where {T} = kget(a, 1) + kget(b, 1)      # planned: a shared parameter
+kpair(a::KVec{T}, b::KVec{T}) where {T} = kget(a, 1) + kget(b, 1)      # a shared parameter: equal values
 
 @trait ArrayLike{T <: Real, N} begin       # a bounded parameter: accepted, not checked
     alen(a::ArrayLike)::Int
@@ -148,7 +148,7 @@ d2(x::Fam) = dbl(x)
 end
 using .Columns
 
-check("§5.1 a block for the library's own type", colmean([[1.0, 3.0]], 1) == 2.0)
+check("§4.1 a block for the library's own type", colmean([[1.0, 3.0]], 1) == 2.0)
 check("§3.2 a default through trait code", fc([[5.0], [1.0]]) == [5.0])
 
 # §5.2 one line, own methods; forwarding
@@ -158,22 +158,22 @@ Columns.col(r::Ramp, i::Int) = r.base .* i
 @implement ColTable Ramp           # Ramp has methods of ncols and col
 struct Measurements; label::String; data::Vector{Vector{Float64}}; end
 @implement ColTable Measurements by data   # forwards to its field `data`
-check("§5.2 own methods", colmean(Ramp([1.0, 3.0], 2), 2) == 4.0)
-check("§5.3 forwarding with by", colmean(Measurements("m", [[1.0, 2.0]]), 1) == 1.5)
+check("§4.2 own methods", colmean(Ramp([1.0, 3.0], 2), 2) == 4.0)
+check("§4.3 forwarding with by", colmean(Measurements("m", [[1.0, 2.0]]), 1) == 1.5)
 e = thrown(quote struct Nested; data::Measurements; end; @implement ColTable Nested by data end)
-check("§5.3 forwarding does not chain: ImplementError", e isa ImplementError)
+check("§4.3 forwarding does not chain: ImplementError", e isa ImplementError)
 e = thrown(quote struct LRamp; n::Int; end; @implement ColTable LRamp project(r) = [collect(1.0:r.n)] end)
 check("T-15 the internal project(t) = … form: a computed value is refused", e isa ImplementError && occursin("computes a value", msg(e)))
 
 # §5.3
 struct Halves; left::Vector{Vector{Float64}}; right::Vector{Vector{Float64}}; end
 @implement ColTable Halves by right
-check("§5.3 by right", colmean(Halves([[0.0]], [[6.0]]), 1) == 6.0)
+check("§4.3 by right", colmean(Halves([[0.0]], [[6.0]]), 1) == 6.0)
 
 # §5.4
 struct Clock; time::Float64; data::Vector{Float64}; end
 e = thrown(:(@implement Stepper Clock by data, t => time))
-check("§5.4 `by data, t => time`", e === nothing && Base.invokelatest(elapsed, Clock(0.5, [1.0, 2.0])) == 1.0)
+check("§4.4 `by data, t => time`", e === nothing && Base.invokelatest(elapsed, Clock(0.5, [1.0, 2.0])) == 1.0)
 e === nothing || println("      error: ", first(msg(e), 300))
 
 # §5.5
@@ -181,20 +181,20 @@ struct Grid; data::Matrix{Float64}; end
 @implement (ColTable, RowTable) Grid by data
 struct Grid2; data::Matrix{Float64}; end
 @implement (ColTable, RowTable) Grid2 by data     # one field for both traits
-check("§5.5 several traits by one field", overview(Grid([1.0 2.0; 3.0 4.0])) == (2.0, [1.0, 2.0]))
-check("§5.5 one line", overview(Grid2([1.0 2.0; 3.0 4.0])) == (2.0, [1.0, 2.0]))
+check("§4.5 several traits by one field", overview(Grid([1.0 2.0; 3.0 4.0])) == (2.0, [1.0, 2.0]))
+check("§4.5 one line", overview(Grid2([1.0 2.0; 3.0 4.0])) == (2.0, [1.0, 2.0]))
 check("§3.6 a bundle as a bound", overview2(Grid([1.0 2.0; 3.0 4.0])) == (2.0, [1.0, 2.0]))
 struct Sep; cols::Vector{Vector{Float64}}; rows::Matrix{Float64}; end
 @implement ColTable Sep by cols
 @implement RowTable Sep by rows
-check("§5.5 each trait through its own field", overview(Sep([[1.0, 3.0]], [1.0 2.0; 3.0 4.0])) == (2.0, [1.0, 2.0]))
+check("§4.5 each trait through its own field", overview(Sep([[1.0, 3.0]], [1.0 2.0; 3.0 4.0])) == (2.0, [1.0, 2.0]))
 
 # §5.6
 struct MyVec; v::Vector{Float32}; end
 Columns.alen(m::MyVec) = length(m.v)
 Columns.firstof(m::MyVec) = m.v[1]
 @implement ArrayLike{Float32, 1} MyVec
-check("§5.6 stated parameters", TraitWorld.param(ArrayLike, Val(:T), MyVec) === Float32 && TraitWorld.param(ArrayLike, Val(:N), MyVec) === 1)
+check("§4.6 stated parameters", TraitWorld.param(ArrayLike, Val(:T), MyVec) === Float32 && TraitWorld.param(ArrayLike, Val(:N), MyVec) === 1)
 struct StrVec; v::Vector{String}; end
 Columns.alen(m::StrVec) = length(m.v)
 Columns.firstof(m::StrVec) = m.v[1]
@@ -202,8 +202,8 @@ e = thrown(:(@implement ArrayLike{String, 1} StrVec))
 check("T-1 a parameter's bound is not checked (T = String accepted for T <: Real)", e === nothing)
 
 # §5.7 families
-check("§5.7 a family by its own methods", d2(Columns.S{Int}(1, 2)) == 4)
-check("§12.1 an existing function's methods declared", sizes(Float32[1, 2, 3]) == 3)
+check("§4.7 a family by its own methods", d2(Columns.S{Int}(1, 2)) == 4)
+check("§10.1 an existing function's methods declared", sizes(Float32[1, 2, 3]) == 3)
 
 # §5.8 generic implementations, in the design's syntax
 @trait_module module Gen
@@ -229,9 +229,9 @@ end
 gmean(t::GTable) = sum(gcol(t, 1)) / length(gcol(t, 1))
 end
 using .Gen
-check("§5.8 a generic implementation", gmean([[1.0, 3.0]]) == 2.0)
-check("§5.8 more specific beats generic", gmean([1.0 9.0; 3.0 9.0]) == 2.0)
-check("§5.8 the condition refuses Vector{Int}", outcome(() -> gmean([1, 2])) isa MethodError)
+check("§4.8 a generic implementation", gmean([[1.0, 3.0]]) == 2.0)
+check("§4.8 more specific beats generic", gmean([1.0 9.0; 3.0 9.0]) == 2.0)
+check("§4.8 the condition refuses Vector{Int}", outcome(() -> gmean([1, 2])) isa MethodError)
 
 # §5.9 dynamic operations: removed, the form is refused
 e = thrown(quote
@@ -241,7 +241,7 @@ e = thrown(quote
         col(r, i) = r[end - i + 1]
     end
 end)
-check("§5.9 `dynamic by cols` is refused", e isa ImplementError)
+check("§4.9 `dynamic by cols` is refused", e isa ImplementError)
 
 # §5.10 redeclaration
 e = thrown(quote
@@ -250,46 +250,47 @@ e = thrown(quote
         col(r, i) = r.base
     end
 end)
-check("§5.10 redeclaration is refused", e isa ImplementError && occursin("redeclar", msg(e)))
+check("§4.10 redeclaration is refused", e isa ImplementError && occursin("redeclar", msg(e)))
 
 # §6.1
-check("§6.1 an ordinary where variable on an ordinary argument", both_len([[1.0]], [1, 2]) == 3)
-check("T-16 a shared where parameter in bounds: the method never applies", outcome(() -> kpair([1.0], [2.0])) isa MethodError)
+check("§5.1 an ordinary where variable on an ordinary argument", both_len([[1.0]], [1, 2]) == 3)
+check("§5.1 a shared where parameter in bounds: equal values", kpair([1.0], [2.0]) == 3.0)
+check("§5.1 a shared where parameter in bounds: unequal values refused", outcome(() -> kpair([1.0], [2])) isa TraitBoundError)
 
 # §6.5
-check("§6.5 the AbstractMatrix method wins", describe([1.0 2.0]) == "a matrix")
-check("§6.5 a table", describe([[1.0], [2.0]]) == "a table with 2 columns")
-check("§6.5 the fallback", describe(42) == "something else")
+check("§5.5 the AbstractMatrix method wins", describe([1.0 2.0]) == "a matrix")
+check("§5.5 a table", describe([[1.0], [2.0]]) == "a table with 2 columns")
+check("§5.5 the fallback", describe(42) == "something else")
 
 # §7
 m = Measurements("run", [[1.0, 2.0], [4.0]])
 struct KMeas; label::String; data::Vector{Vector{Float64}}; end
 @implement KTable KMeas by data
 s = kscaled(KMeas("run", [[1.0, 2.0], [4.0]]), 2.0)
-check("§7 Like{t}: the caller's type, the label kept", s isa KMeas && s.label == "run" && s.data == [[2.0, 4.0], [8.0]])
+check("§5.6 Like{t}: the caller's type, the label kept", s isa KMeas && s.label == "run" && s.data == [[2.0, 4.0], [8.0]])
 struct LBox; u::Vector{Float64}; label::String; end
 @implement LRec LBox
 b = shifted(LBox([1.0, 2.0], "b"))
-check("§7 withfields", b isa LBox && b.u == [2.0, 3.0] && b.label == "b")
+check("§5.6 withfields", b isa LBox && b.u == [2.0, 3.0] && b.label == "b")
 
 # §8
-check("§8 colz defaults", colz(m, 1) == [-0.5, 0.5])
-check("§8 a bounded keyword", colz(m, 1; baseline = Ramp([2.0, 4.0], 2)) == colz(m, 1; baseline = [[2.0, 4.0]]))
-check("§8 tol = 1: TypeError", outcome(() -> colz(m, 1; tol = 1)) isa TypeError)
-check("§8 baseline = 42: TraitBoundError", outcome(() -> colz(m, 1; baseline = 42)) isa TraitBoundError)
-check("§8 positional default", colmean_or(m) == 1.5 && colmean_or(m, 2) == 4.0)
-check("§8 a keyword default calling an operation", cm_all(m) == [1.5, 4.0])
-check("§8 vararg of trait objects", ncols_sum(m, Ramp([1.0], 3), [[1.0]]) == 6 && ncols_sum() == 0)
-check("§8 a vararg keyword passes on", kwrest(m; a = 1, b = 2) == (2, 2))
+check("§5.7 colz defaults", colz(m, 1) == [-0.5, 0.5])
+check("§5.7 a bounded keyword", colz(m, 1; baseline = Ramp([2.0, 4.0], 2)) == colz(m, 1; baseline = [[2.0, 4.0]]))
+check("§5.7 tol = 1: TypeError", outcome(() -> colz(m, 1; tol = 1)) isa TypeError)
+check("§5.7 baseline = 42: TraitBoundError", outcome(() -> colz(m, 1; baseline = 42)) isa TraitBoundError)
+check("§5.7 positional default", colmean_or(m) == 1.5 && colmean_or(m, 2) == 4.0)
+check("§5.7 a keyword default calling an operation", cm_all(m) == [1.5, 4.0])
+check("§5.7 vararg of trait objects", ncols_sum(m, Ramp([1.0], 3), [[1.0]]) == 6 && ncols_sum() == 0)
+check("§5.7 a vararg keyword passes on", kwrest(m; a = 1, b = 2) == (2, 2))
 
 # §9
-check("§9 colmap", colmap(x -> 2x, m, 1) == [2.0, 4.0])
-check("§9 compiled_for", colmap(compiled_for(x -> 2x), m, 1) == [2.0, 4.0])
-check("§9 with_dynamic", colsum(with_dynamic(x -> 2x), m, 1) == 6.0)
-check("§9 abs2", colsum(abs2, m, 1) == 5.0)
-check("§9 a stored Dynamic{Callable}", colmap(Dynamic{Callable{Tuple{Float64}, Float64}}(x -> x + 1), m, 1) == [2.0, 3.0])
-check("§9 several signatures", both(x -> x + one(x), 1.5, 2) == (2.5, 3))
-check("§9 a result of another type: TypeError", outcome(() -> colmap(x -> 1, m, 1)) isa TypeError)
+check("§5.8 colmap", colmap(x -> 2x, m, 1) == [2.0, 4.0])
+check("§5.8 compiled_for", colmap(compiled_for(x -> 2x), m, 1) == [2.0, 4.0])
+check("§5.8 with_dynamic", colsum(with_dynamic(x -> 2x), m, 1) == 6.0)
+check("§5.8 abs2", colsum(abs2, m, 1) == 5.0)
+check("§5.8 a stored Dynamic{Callable}", colmap(Dynamic{Callable{Tuple{Float64}, Float64}}(x -> x + 1), m, 1) == [2.0, 3.0])
+check("§5.8 several signatures", both(x -> x + one(x), 1.5, 2) == (2.5, 3))
+check("§5.8 a result of another type: TypeError", outcome(() -> colmap(x -> 1, m, 1)) isa TypeError)
 @trait_module module CB
 using TraitWorld
 export FunctionCallback, fire, apply_open
@@ -301,7 +302,7 @@ apply_open(f::Callable{Tuple{Float64}, S}, x::Float64) where {S} = f(x)    # pla
 end
 using .CB
 callback(f) = FunctionCallback(Dynamic{Callable{Tuple{Vector{Float64}, Float64}, Bool}}(f))   # in plain code
-check("§9 a stored Dynamic{Callable}", fire(callback((u, t) -> u[1] > t), [1.0]) === true)
+check("§5.8 a stored Dynamic{Callable}", fire(callback((u, t) -> u[1] > t), [1.0]) === true)
 check("T-18 an open Callable result type is no bound: MethodError", outcome(() -> apply_open(x -> 2x, 1.0)) isa MethodError)
 
 # §10
@@ -342,16 +343,16 @@ DynSolv.fire!(::Always, u, t) = true
 @implement Hook Always
 st = start(Decay(1.0), [1.0])
 append!(st.hooks, Dynamic{Hook}[Dynamic{Hook}(Below(0.95)), Dynamic{Hook}(Always())])   # in plain code
-check("§10 fields mean Kept", fieldtype(DynSolv.State, :hooks) === Vector{Kept{DynSolv.Hook}})
-check("§10 a value keeps its attribute when stored", getfield(st.model, :compiled) === false && getfield((m -> start(m, [1.0]))(Decay(1.0)).model, :compiled))
-check("§10 step! over a Dynamic model and hooks", step!(st, 0.1) == 2 && st.u ≈ [0.9])
-check("§10 a trait object of another trait: ArgumentError", outcome(() -> keepwrong(Always())) isa ArgumentError)
-check("§10 equality", st.hooks[1] == st.hooks[1] && st.hooks[1] != st.hooks[2])
+check("§7 fields mean Kept", fieldtype(DynSolv.State, :hooks) === Vector{Kept{DynSolv.Hook}})
+check("§7 a value keeps its attribute when stored", getfield(st.model, :compiled) === false && getfield((m -> start(m, [1.0]))(Decay(1.0)).model, :compiled))
+check("§7 step! over a Dynamic model and hooks", step!(st, 0.1) == 2 && st.u ≈ [0.9])
+check("§7 a trait object of another trait: ArgumentError", outcome(() -> keepwrong(Always())) isa ArgumentError)
+check("§7 equality", st.hooks[1] == st.hooks[1] && st.hooks[1] != st.hooks[2])
 println("      print: ", sprint(show, st.model))
 
 # §16
-check("§16 conforms", conforms(Vector{Float64}, KVec) && conforms(Vector{Float64}, KVec{Float64}) && !conforms(Vector{Int}, KVec{Float64}))
-check("§16 x isa X is false today", !(Ramp([1.0], 1) isa ColTable))
+check("§14 conforms", conforms(Vector{Float64}, KVec) && conforms(Vector{Float64}, KVec{Float64}) && !conforms(Vector{Int}, KVec{Float64}))
+check("§14 x isa X is false today", !(Ramp([1.0], 1) isa ColTable))
 
 # §11
 @trait_module module BadDef
@@ -360,8 +361,8 @@ spread(t::ColTable) = size(t)    # `size` is not an operation of ColTable
 leak(t::ColTable) = typeof(t)    # code must not depend on the user's type
 end
 e = try check_definitions(BadDef); nothing; catch err; err; end
-check("§11 check_definitions raises TraitUseError listing both", e isa TraitUseError && occursin("spread", join(e.problems)) && occursin("leak", join(e.problems)))
-check("§11 check_definitions of a clean module is empty", isempty(check_definitions(Columns)))
+check("§9 check_definitions raises TraitUseError listing both", e isa TraitUseError && occursin("spread", join(e.problems)) && occursin("leak", join(e.problems)))
+check("§9 check_definitions of a clean module is empty", isempty(check_definitions(Columns)))
 
 # §15
 module VMain
@@ -373,7 +374,7 @@ function main(args::Vector{String})
 end
 end
 VMain.main(String[]); VMain.main(["m"])
-check("§15 verify_main", isclosed(verify_main(VMain.main, (Vector{String},))))
+check("§13 verify_main", isclosed(verify_main(VMain.main, (Vector{String},))))
 
 # T-2: a trait parameter in a default's body (planned: in scope)
 e = thrown(quote
