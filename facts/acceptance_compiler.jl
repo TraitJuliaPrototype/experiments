@@ -590,5 +590,77 @@ check("G1.26 beyond a split's candidates: a mutable argument and result keep the
       r26 === b26 && b26.v == 11.0 && t26 == ("a!", 7) && d26 == 120.0,
       "same object $(r26 === b26), caller sees $(b26.v) (11.0), tuple $t26, Dynamic argument $d26 (120.0)")
 
+# --- G1.27-G1.29: constant propagation from plain code into code compiled by facts (facts §6.3,
+# W-33): a plain caller's constant `Symbol` reaches a facts `getproperty` switch, as plain callers of
+# an interface package's overloads do (pushback P6-1). The callee is inferred again for the constant
+# by the facts rules; the caller keeps that inference's result and edges, and no CodeInstance of the
+# facts owner is made by it.
+toplevel(quote
+    module CP
+    Base.Experimental.@compiler_options facts=true
+    struct S; a::Float64; b::Int; c::String; end
+    pa(s::S) = getfield(s, :a)
+    pb(s::S) = getfield(s, :b)
+    Base.getproperty(s::S, f::Symbol) = f === :a ? pa(s) : f === :b ? pb(s) : getfield(s, f)
+    end
+    module CPU               # plain callers
+    using ..CP
+    ua(s::CP.S) = s.a
+    ub(s::CP.S) = s.b
+    ug(s::CP.S, f::Symbol) = getproperty(s, f)
+    end
+end)
+"The CodeInstances of `owner` cached for `f` at `types`."
+function cis_of(owner, f, types)
+    mi = ccall(:jl_method_lookup_by_tt, Any, (Any, Csize_t, Any), Tuple{typeof(f), types...}, Base.get_world_counter(), nothing)
+    out = Core.CodeInstance[]
+    mi isa Core.MethodInstance && isdefined(mi, :cache) || return out
+    ci = mi.cache
+    while true
+        ci.owner === owner && push!(out, ci)
+        isdefined(ci, :next) || break
+        ci = ci.next
+    end
+    return out
+end
+"The number of CodeInstances of the facts owner cached for the methods of module CP."
+function facts_cis_cp()
+    n = 0
+    for f in (getproperty, CP.pa, CP.pb), m in methods(f)
+        m.module === CP || continue
+        for mi in Base.specializations(m)
+            isdefined(mi, :cache) || continue
+            ci = mi.cache
+            while true
+                ci.owner === :facts && (n += 1)
+                isdefined(ci, :next) || break
+                ci = ci.next
+            end
+        end
+    end
+    return n
+end
+s27 = CP.S(1.5, 2, "x")
+g27 = CPU.ug(s27, :c)                               # the facts CodeInstances, made by the plain inference of `ug`
+n27 = facts_cis_cp()
+v27 = (CPU.ua(s27), CPU.ub(s27))
+n27b = facts_cis_cp()
+rt27 = (only(Base.return_types(CPU.ua, (CP.S,))), only(Base.return_types(CPU.ub, (CP.S,))))
+ua27 = only(cis_of(nothing, CPU.ua, (CP.S,))); ub27 = only(cis_of(nothing, CPU.ub, (CP.S,)))
+check("G1.27 a plain caller's constant reaches a facts getproperty switch: the field's type, plain values",
+      v27 == (getfield(s27, :a), getfield(s27, :b)) && g27 == "x" && rt27 == (Float64, Int) && (ua27.rettype, ub27.rettype) == (Float64, Int),
+      "values $v27, inferred $rt27, cached $((ua27.rettype, ub27.rettype)) (expected (Float64, Int64))")
+Core.eval(CP, :(pb(s::S) = 10 * getfield(s, :b)))  # the owner changes the other branch's method
+w28 = (ua27.max_world == typemax(UInt), ub27.max_world == typemax(UInt))
+v28 = (CPU.ua(s27), CPU.ub(s27), CPU.ug(s27, :b))
+Core.eval(CP, :(pa(s::S) = 2 * getfield(s, :a)))   # the owner changes the method on `ua`'s constant path
+w28b = ua27.max_world == typemax(UInt)
+v28b = (CPU.ua(s27), CPU.ug(s27, :a))
+check("G1.28 a change on the constant's path invalidates the plain caller, a change on another branch does not",
+      w28 == (true, false) && v28 == (1.5, 20, 20) && !w28b && v28b == (3.0, 3.0),
+      "after the other branch's change: (ua, ub) still valid $w28 (expected (true, false)), values $v28; after the path's change: ua valid $w28b, values $v28b")
+check("G1.29 constant propagation into code compiled by facts makes no CodeInstance of the facts owner",
+      n27 >= 1 && n27b == n27, "facts CodeInstances of CP before the constant callers $n27, after $n27b")
+
 println()
 println(count(x -> x[2], results), " of ", length(results), " checks pass")
