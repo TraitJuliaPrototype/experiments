@@ -662,5 +662,44 @@ check("G1.28 a change on the constant's path invalidates the plain caller, a cha
 check("G1.29 constant propagation into code compiled by facts makes no CodeInstance of the facts owner",
       n27 >= 1 && n27b == n27, "facts CodeInstances of CP before the constant callers $n27, after $n27b")
 
+# --- G1.30: concrete evaluation from plain code into code compiled by facts (facts §6.3, W-41): a
+# pure helper with a loop (asserted to terminate) folds in a plain caller, which constant propagation
+# alone cannot do; the plain caller rests on the facts CodeInstance, so the helper's redefinition
+# invalidates it.
+toplevel(quote
+    module CE
+    Base.Experimental.@compiler_options facts=true
+    Base.@assume_effects :terminates_locally function tri(n::Int)
+        s = 0
+        for i in 1:n
+            s += i
+        end
+        return s
+    end
+    end
+    module CEU               # a plain caller
+    using ..CE
+    ut() = CE.tri(10)
+    end
+end)
+v30 = CEU.ut()
+ci30 = only(cis_of(nothing, CEU.ut, ()))
+c30 = isdefined(ci30, :rettype_const) ? ci30.rettype_const : nothing
+Core.eval(CE, :(Base.@assume_effects :terminates_locally function tri(n::Int); s = 0; for i in 1:n; s += 2i; end; return s; end))
+w30 = ci30.max_world == typemax(UInt)
+v30b = CEU.ut()
+check("G1.30 a plain caller concretely evaluates a facts callee (a loop folds), and the callee's redefinition invalidates it",
+      v30 == 55 && c30 == 55 && !w30 && v30b == 110,
+      "value $v30, cached constant $(repr(c30)) (expected 55); after the redefinition: still valid $w30, value $v30b")
+
+# --- G1.31: union splitting in tuple arguments by Julia's cost (facts §3, W-43): one union of any
+# length splits; two unions of three do not; two of two do (cost 4).
+U8 = Union{Int8, Int16, Int32, Int64, UInt8, UInt16, UInt32, UInt64}
+fs31 = (Base.Compiler.is_fact_sig(Tuple{typeof(identity), Tuple{U8, Float64}}),
+        Base.Compiler.is_fact_sig(Tuple{typeof(identity), Tuple{Union{Int8, Int16, Int32}, Union{UInt8, UInt16, UInt32}}}),
+        Base.Compiler.is_fact_sig(Tuple{typeof(identity), Tuple{Union{Int8, Int16}}, Tuple{Union{UInt8, UInt16}}}))
+check("G1.31 unions in tuple arguments split by Julia's cost: one of eight yes, two of three no, two of two yes",
+      fs31 == (true, false, true), "is_fact_sig: $fs31 (expected (true, false, true))")
+
 println()
 println(count(x -> x[2], results), " of ", length(results), " checks pass")
