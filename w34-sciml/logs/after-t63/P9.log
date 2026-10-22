@@ -1,0 +1,65 @@
+== E-156 probe P9
+   julia 1.13.2 (6d480d0753*)  TraitWorld f06b82d+changes  setting product  strict off  threads 1
+   load (cut -d' ' -f1-3 /proc/loadavg) at start: 2.73 1.29 0.99
+   form: @implement IntegratorView DEInt{U, T, P} where {U, T, P} u => u, t => _t, p => p (own getproperty)
+
+declarations: no exception
+the family without mappings: no exception
+control, one concrete type with its own getproperty, no mappings: ImplementError: ImplementError: Main.Others.OneGP does not have the fields Main.TraitPkg.IntegratorView declares:
+        Main.Others.OneGP defines its own `getproperty`, so field `u` of Main.TraitPkg.IntegratorView must be mapped explicitly (`u => storedfield`); it is read with `getfield`, and plain `x.u` may differ
+        Main.Others.OneGP defines its own `getproperty`, so field `t` of Main.TraitPkg.IntegratorView must be mapped explicitly (`t => storedfield`); it is read with `getfield`, and plain `x.t` may differ
+      …
+family GoodF (u_modified::Bool)     declaration: no exception
+        first use (setflag!): returned (1, true)
+family BadF (u_modified::Int)       declaration: no exception
+        first use (setflag!): ImplementError: ImplementError: Main.Others.BadF{Int64} is a member of a family implementation of Main.TraitPkg.Flagged, but does not conform:
+        field `u_modified` is writable in Main.TraitPkg.Flagged with type `Bool`, so Main.Others.BadF{Int64}'s field `u_modified` must have exactly that type, not `Int64`
+family ConstF (const u_modified)    declaration: no exception
+        first use (setflag!): ImplementError: ImplementError: Main.Others.ConstF{Int64} is a member of a family implementation of Main.TraitPkg.Flagged, but does not conform:
+        field `u_modified` is writable in Main.TraitPkg.Flagged, but Main.Others.ConstF{Int64}'s field `u_modified` cannot be written (an immutable type or a `const` field)
+family MissF (no field)             declaration: no exception
+        first use (setflag!): ImplementError: ImplementError: Main.Others.MissF{Int64} is a member of a family implementation of Main.TraitPkg.Flagged, but does not conform:
+        Main.Others.MissF{Int64} has no field `u_modified`, which Main.TraitPkg.Flagged declares
+readall, typed:          returned (Vector{Float64}, Float64, @NamedTuple{a::Int64}, 1.0, 0.5, (a = 2,))
+readall, top level:      returned (Vector{Float64}, Float64, @NamedTuple{a::Int64}, 1.0, 0.5, (a = 2,))
+bump! (write t, add_tstop!), typed: returned (0.75, 1)
+plain getproperty still serves plain code: x.p = :not_the_stored_p, x.t_alias = 0.5
+NoMap member at its first use: ImplementError: ImplementError: Main.SolverPkg.NoMap{Vector{Float64}, Float64, Int64} is a member of a family implementation of Main.TraitPkg.IntegratorView, but does not conform:
+        Main.SolverPkg.NoMap{Vector{Float64}, Float64, Int64} defines its own `getproperty`, so field `u` of Main.TraitPkg.IntegratorView must be mapped explicitly (`u => storedfield`); it is read with `getfield`, and plain `x.u` may differ
+        Main.SolverPkg.NoMap{Vector{Float64}, Float64, Int64} defines its own `getproperty`, so field `t` of Main.TraitPkg.IntegratorView must be mapped explicitly (`t => storedfield`); it is read with `getfield`, and plain `x.t` may differ
+        Main.SolverPkg.NoMap{Vector{Float64}, Float64, Int64} defines its own `getproperty`, so field `p` of Main.TraitPkg.IntegratorView must be mapped explicitly (`p => storedfield`); it is read with `getfield`, and plain `x.p` may differ
+
+  [ok  ] the family with every field mapped is accepted
+         no exception
+  [ok  ] declared fields read from the stored fields (t from _t, p the stored p, not getproperty's), typed
+         returned (Vector{Float64}, Float64, @NamedTuple{a::Int64}, 1.0, 0.5, (a = 2,))
+  [ok  ] the same at the top level (Dynamic)
+         returned (Vector{Float64}, Float64, @NamedTuple{a::Int64}, 1.0, 0.5, (a = 2,))
+  [ok  ] a write of t through the trait reaches the stored _t; add_tstop! by the existing method
+         returned (0.75, 1)
+  [ok  ] a family member with its own getproperty and no mappings is refused (at the declaration or its first use)
+         declaration: no exception; first use: ImplementError: ImplementError: Main.SolverPkg.NoMap{Vector{Float64}, Float64, Int64} is a member of a family implementation of Main.TraitPkg.IntegratorView, but does not conform:
+                 Main.SolverPkg.NoMap{Vector{Float64}, Float64, Int64} defines its own `getproperty`, so field `u` of Main.TraitPkg.IntegratorView must be mapped explicitly (`u => storedfield`); it is read with `getfield`, and plain `x.u` may differ
+                 Main.SolverPkg.NoMap{Vector{Float64}, Float64, Int64} defines its own `getproperty`, so field `t` of Main.TraitPkg.IntegratorView must be mapped explicitly (`t => storedfield`); it is read with `getfield`, and plain `x.t` may differ
+                 Main.SolverPkg.NoMap{Vector{Float64}, Float64, Int64} defines its own `getproperty`, so field `p` of Main.TraitPkg.IntegratorView must be mapped explicitly (`p => storedfield`); it is read with `getfield`, and plain `x.p` may differ
+  [ok  ] control: one concrete type with its own getproperty and no mappings is refused at the declaration
+         ImplementError: ImplementError: Main.Others.OneGP does not have the fields Main.TraitPkg.IntegratorView declares:
+                 Main.Others.OneGP defines its own `getproperty`, so field `u` of Main.TraitPkg.IntegratorView must be mapped explicitly (`u => storedfield`); it is read with `getfield`, and plain `x.u` may differ
+               …
+  [ok  ] family GoodF{T}: works
+         no exception; (true, (1, true))
+  [ok  ] family BadF{T}: refused (ImplementError at the declaration or the first use)
+         declaration: no exception; first use: ImplementError: ImplementError: Main.Others.BadF{Int64} is a member of a family implementation of Main.TraitPkg.Flagged, but does not conform:
+                 field `u_modified` is writable in Main.TraitPkg.Flagged with type `Bool`, so Main.Others.BadF{Int64}'s field `u_modified` must have exactly that type, not `Int64`
+  [ok  ] family ConstF{T}: refused (ImplementError at the declaration or the first use)
+         declaration: no exception; first use: ImplementError: ImplementError: Main.Others.ConstF{Int64} is a member of a family implementation of Main.TraitPkg.Flagged, but does not conform:
+                 field `u_modified` is writable in Main.TraitPkg.Flagged, but Main.Others.ConstF{Int64}'s field `u_modified` cannot be written (an immutable type or a `const` field)
+  [ok  ] family MissF{T}: refused (ImplementError at the declaration or the first use)
+         declaration: no exception; first use: ImplementError: ImplementError: Main.Others.MissF{Int64} is a member of a family implementation of Main.TraitPkg.Flagged, but does not conform:
+                 Main.Others.MissF{Int64} has no field `u_modified`, which Main.TraitPkg.Flagged declares
+
+predicted (plan §2.1): works
+reference says:        traits §3.3, §4.4, §4.7: Implemented; a type with its own getproperty must map every declared field
+matches the prediction: see the checks: yes where every check is ok
+load at end: 2.59 1.29 0.99
+RESULT P9 PASS
