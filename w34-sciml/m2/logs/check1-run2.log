@@ -1,0 +1,46 @@
+== E-158 check 1: event times and states against the typed control (PlainODE), bit for bit
+   julia 1.13.2 (6d480d0753*)  TraitWorld 2e9ed68  TDE cccc517 (w34)  setting product  strict off  threads 1
+   load (cut -d' ' -f1-3 /proc/loadavg) at start: 2.12 2.02 1.67
+
+Stage 1: discrete callbacks (oscillator, u0 = [1, 0], 0 ≤ t ≤ 10)
+  every step saved: 42 saved points, retcode Terminated, naccept 41, nreject 0, nf 258, final p (4.0, 0.5, 9.0)
+    10 events: kick@1.250056225460251 kick@2.0 kick@3.0 kick@4.0 damp@4.0 kick@5.0 kick@6.0 kick@7.0 kick@8.0 stop@8.504968739264251
+    TDE (compiled_for f)              identical (t, u, retcode, counts, event log with states, final p)
+    control: PlainODE typed callbacks identical (t, u, retcode, counts, event log with states, final p)
+    PlainODE Vector{Any} callbacks    identical (t, u, retcode, counts, event log with states, final p)
+  saveat 0:0.25:10: 35 saved points, retcode Terminated, naccept 41, nreject 0, nf 258, final p (4.0, 0.5, 9.0)
+    10 events: kick@1.250056225460251 kick@2.0 kick@3.0 kick@4.0 damp@4.0 kick@5.0 kick@6.0 kick@7.0 kick@8.0 stop@8.504968739264251
+    TDE (compiled_for f)              identical (t, u, retcode, counts, event log with states, final p)
+    control: PlainODE typed callbacks identical (t, u, retcode, counts, event log with states, final p)
+    PlainODE Vector{Any} callbacks    identical (t, u, retcode, counts, event log with states, final p)
+  abstol = reltol = 1e-10: 450 saved points, retcode Terminated, naccept 449, nreject 0, nf 2706, final p (4.0, 0.5, 9.0)
+    10 events: kick@1.0177708586831589 kick@2.0 kick@3.0 kick@4.0 damp@4.0 kick@5.0 kick@6.0 kick@7.0 kick@8.0 stop@8.501909004000847
+    TDE (compiled_for f)              identical (t, u, retcode, counts, event log with states, final p)
+    control: PlainODE typed callbacks identical (t, u, retcode, counts, event log with states, final p)
+    PlainODE Vector{Any} callbacks    identical (t, u, retcode, counts, event log with states, final p)
+  PASS  the callbacks change the solution (control against no callbacks)
+  PASS  kicks after the first land exactly on the tstops (2.0, 3.0, …)  [[1.250056225460251, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0]]
+
+Stage 2: continuous callbacks (bouncing ball, u0 = [1, 0], 0 ≤ t ≤ 4, before the bounces accumulate at t ≈ 4.31)
+  every step saved: 18 saved points, retcode Success, naccept 17, nreject 0, nf 117, final p (9.81, 0.5)
+    13 events: ground@0.45152364098573594 apex@0.8578949178728983 ground@1.2642661947600784 apex@1.6300003439585404 ground@1.995734493157019 apex@2.324895227435649 ground@2.654055961714294 apex@2.950300622565074 ground@3.246545283415866 soft@3.246545283415866 apex@3.5131654781815786 ground@3.7797856729473005 …
+    TDE (compiled_for f)              identical (t, u, retcode, counts, event log with states, final p)
+    control: PlainODE typed callbacks identical (t, u, retcode, counts, event log with states, final p)
+    PlainODE Vector{Any} callbacks    identical (t, u, retcode, counts, event log with states, final p)
+  saveat 0:0.05:4: 81 saved points, retcode Success, naccept 17, nreject 0, nf 117, final p (9.81, 0.5)
+    13 events: ground@0.45152364098573594 apex@0.8578949178728983 ground@1.2642661947600784 apex@1.6300003439585404 ground@1.995734493157019 apex@2.324895227435649 ground@2.654055961714294 apex@2.950300622565074 ground@3.246545283415866 soft@3.246545283415866 apex@3.5131654781815786 ground@3.7797856729473005 …
+    TDE (compiled_for f)              identical (t, u, retcode, counts, event log with states, final p)
+    control: PlainODE typed callbacks identical (t, u, retcode, counts, event log with states, final p)
+    PlainODE Vector{Any} callbacks    identical (t, u, retcode, counts, event log with states, final p)
+  abstol = reltol = 1e-10: 18 saved points, retcode Success, naccept 17, nreject 0, nf 117, final p (9.81, 0.5)
+    13 events: ground@0.4515236409857327 apex@0.8578949178728921 ground@1.264266194760068 apex@1.630000343958526 ground@1.9957344931569998 apex@2.3248952274356256 ground@2.6540559617142665 apex@2.9503006225650426 ground@3.2465452834158315 soft@3.2465452834158315 apex@3.513165478181541 ground@3.77978567294726 …
+    TDE (compiled_for f)              identical (t, u, retcode, counts, event log with states, final p)
+    control: PlainODE typed callbacks identical (t, u, retcode, counts, event log with states, final p)
+    PlainODE Vector{Any} callbacks    identical (t, u, retcode, counts, event log with states, final p)
+  PASS  the first ground contact at sqrt(2/g) (1e-9)  [0.4515236409857327 vs 0.4515236409857309]
+  PASS  the ball stays above the ground (every saved height ≥ -1e-9)
+  PASS  every run identical to the control
+
+checks: 5 of 5 pass
+load at end: 2.19 2.03 1.67
+exit 0

@@ -1,0 +1,34 @@
+== E-158 checks 3, 4: integ.p typed in a callback; a callback type without affect! refused at @implement
+   julia 1.13.2 (6d480d0753*)  TraitWorld 2e9ed68  TDE cccc517 (w34)  setting product  strict off  threads 1
+   load (cut -d' ' -f1-3 /proc/loadavg) at start: 2.47 2.06 1.66
+
+Check 3: the integrator as callbacks see it, Dynamic{IntegratorView{Vector{Float64}, Float64, OscParams}}
+  integ.p    infers Any[OscParams]
+  integ.p.k  infers Any[Float64]
+  integ.u    infers Any[Vector{Float64}]
+  integ.t    infers Any[Float64]
+  integ.dt   infers Any[Float64]
+  PASS  integ.p infers OscParams (plain code reading the kept view)
+  PASS  integ.p.k infers Float64
+  PASS  an affect! closure writing integ.p.c infers at the declared argument
+  RaiseSigma's condition (reads integ.p.σ, no assertion) infers Any[Bool]
+  PASS  a callback type's method reads integ.p at LorenzParams{Float64}
+  RaiseSigma's affect! typed: Nothing; dynamic calls in its body: 4
+  p after the solve: (4.0, 0.5, 9.0); without the damping callback: (4.0, 0.1, 9.0)
+  PASS  the write to integ.p.c reached the user's p
+  PASS  … and the solve: equal before t = 4, different after  [u at t = 4: equal; final u [0.30719622279612707, 0.5805044284470711] vs [0.5425979094483575, 1.1703618823127018]]
+
+Check 4: callback types refused at @implement
+  NoAffect (condition only): LoadError: LoadError: ImplementError: NoAffect has methods for some operations of Callback but not for affect!: define them / in expression starting at /home/hellmann/Repos/julia-trait-bound/experiments/w34-sciml/m2/check3_typed_p.jl:56
+  PASS  a callback type without affect! is refused at @implement (ImplementError, at the macro's expansion)
+  WithAffect (both): accepted
+  PASS  the same type with affect! is accepted
+  IntCondition (condition returns Int): ImplementError: ImplementError: the implementation of Callback for Main.U4.IntCondition does not conform: /   `condition` at Tuple{Main.U4.IntCondition, Vector{Float64}, Float64, Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}} returns `Int64`, declared `Bool` /   `condition` at Tuple{Main.U4.IntCondition, Vector{Float64}, Float64, Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}} returns `Int64`, declared `Bool`
+  PASS  a condition returning Int is refused at @implement
+  PASS  WithAffect acts in a solve (P = Vector{Float64})  [[0.0]]
+  WithAffect (P = Vector{Float64}) given to a problem with P = OscParams: TraitWorld.TraitArgumentError: TraitArgumentError: operation `condition` of trait Callback at representation Main.U4.WithAffect is declared for arguments Tuple{Vector{Float64}, Float64, Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}}, got Tuple{Vector{Float64}, Float64, Dynamic{IntegratorView{Vector{Float64}, Float64, OscParams}}}
+  FAIL  a callback type at other parameters is refused when init keeps it (Kept{Callback{U, T, P}}(cb))  [refused only at its first call: repro_kept_params.jl]
+
+checks: 10 of 11 pass
+load at end: 2.35 2.04 1.66
+exit 0

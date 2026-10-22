@@ -1,0 +1,143 @@
+# E-158 tests dev2  TDE 29f0641+changes (w34)  TraitWorld 2e9ed68
+# load at start: 1.05 0.96 1.22
+     Testing TraitDifferentialEquations
+┌ Warning: could not download https://pkg.julialang.org/registries
+│   exception = RequestError: HTTP/1.1 403 Forbidden (CONNECT tunnel failed, response 403) while requesting https://pkg.julialang.org/registries
+└ @ Pkg.Registry ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Pkg/src/Registry/Registry.jl:121
+      Status `/tmp/claude-1000/jl_nMleGb/Project.toml`
+  [f6369f11] ForwardDiff v1.4.6
+  [fc9886c1] TraitDifferentialEquations v0.0.1 `~/Repos/julia-trait-bound/TraitDifferentialEquations`
+  [7a3c1e52] TraitWorld v0.1.0 `~/Repos/julia-trait-bound/TraitWorld`
+  [37e2e46d] LinearAlgebra v1.13.0
+  [8dfed614] Test v1.11.0
+      Status `/tmp/claude-1000/jl_nMleGb/Manifest.toml`
+  [bbf7d656] CommonSubexpressions v0.3.1
+  [163ba53b] DiffResults v1.1.0
+  [b552c78f] DiffRules v1.16.0
+⌅ [ffbed154] DocStringExtensions v0.9.5
+  [f6369f11] ForwardDiff v1.4.6
+  [92d709cd] IrrationalConstants v0.2.6
+  [692b3bcd] JLLWrappers v1.8.0
+⌃ [2ab3a3ac] LogExpFunctions v1.0.2
+  [1914dd2f] MacroTools v0.5.16
+⌃ [77ba4419] NaNMath v1.1.4
+  [aea7be01] PrecompileTools v1.3.4
+⌃ [21216c6a] Preferences v1.6.0
+  [276daf66] SpecialFunctions v2.9.0
+  [1e83bf80] StaticArraysCore v1.4.4
+  [fc9886c1] TraitDifferentialEquations v0.0.1 `~/Repos/julia-trait-bound/TraitDifferentialEquations`
+  [7a3c1e52] TraitWorld v0.1.0 `~/Repos/julia-trait-bound/TraitWorld`
+  [efe28fd5] OpenSpecFun_jll v0.5.6+0
+  [56f22d72] Artifacts v1.11.0
+  [2a0f44e3] Base64 v1.11.0
+  [ade2ca70] Dates v1.11.0
+  [b77e0a4c] InteractiveUtils v1.11.0
+  [ac6e5ff7] JuliaSyntaxHighlighting v1.12.0
+  [8f399da3] Libdl v1.11.0
+  [37e2e46d] LinearAlgebra v1.13.0
+  [56ddb016] Logging v1.11.0
+  [d6f4376e] Markdown v1.11.0
+  [de0858da] Printf v1.11.0
+  [9a3f8284] Random v1.11.0
+  [ea8e919c] SHA v1.0.0
+  [9e88b42a] Serialization v1.11.0
+  [f489334b] StyledStrings v1.11.0
+  [fa267f1f] TOML v1.0.3
+  [8dfed614] Test v1.11.0
+  [4ec0a83e] Unicode v1.11.0
+  [e66e0078] CompilerSupportLibraries_jll v1.5.5+2
+  [4536629a] OpenBLAS_jll v0.3.30+0
+  [05823500] OpenLibm_jll v0.8.7+0
+  [8e850b90] libblastrampoline_jll v5.15.0+0
+        Info Packages marked with ⌃ and ⌅ have new versions available. Those with ⌃ may be upgradable, but those with ⌅ are restricted by compatibility constraints from upgrading.
+Precompiling for configuration --code-coverage=none --color=auto --warn-overwrite=yes --depwarn=yes --inline=yes --startup-file=no --track-allocation=none
+  60.4 s  ✓ TraitDifferentialEquations
+  1 dependency successfully precompiled in 60 seconds. 30 already precompiled.
+     Testing Running tests...
+ERROR: LoadError: Some tests did not pass: 8 passed, 2 failed, 0 errored, 0 broken.
+in expression starting at /home/hellmann/Repos/julia-trait-bound/TraitDifferentialEquations/test/w34_move2.jl:16
+in expression starting at /home/hellmann/Repos/julia-trait-bound/TraitDifferentialEquations/test/runtests.jl:118
+Test Summary:                     | Pass  Total  Time
+TraitDifferentialEquations: Tsit5 |    6      6  0.8s
+Test Summary:                         | Pass  Total  Time
+TraitDifferentialEquations: callbacks |    5      5  0.1s
+Test Summary:                                               | Pass  Total  Time
+TraitDifferentialEquations: Rodas5 with the library's duals |    6      6  0.7s
+Test Summary:                                               | Pass  Total  Time
+TraitDifferentialEquations: gradients through Tsit5 (row 5) |    8      8  1.2s
+Test Summary:                                       | Pass  Total  Time
+TraitDifferentialEquations: a Float32 state (row 6) |    2      2  0.9s
+Test Summary:                                    | Pass  Total  Time
+A problem type with its own cache (LorenzModels) |    5      5  1.5s
+Test Summary:                       | Pass  Total  Time
+Callback types (Bounce, RaiseSigma) |    4      4  0.2s
+Test Summary:                           | Pass  Total  Time
+A problem type: gradients through Tsit5 |    3      3  1.0s
+Test Summary:                             | Pass  Total  Time
+A problem type: errors at the conformance |   10     10  9.7s
+Test Summary:                                         | Pass  Total  Time
+Compiled: a right-hand side with a declared signature |    9      9  2.0s
+Test Summary:                          | Pass  Broken  Total  Time
+Compiled: a wrong signature is refused |    6       1      7  0.4s
+Test Summary:                                          | Pass  Total  Time
+W-34: ODEFunction, a given Jacobian, the chunk at init |   10     10  1.5s
+Test Summary:                                      | Pass  Total  Time
+W-34: a callable model enters form B (ChainModels) |    5      5  3.0s
+Test Summary:                      | Pass  Total  Time
+W-34: the solution as a Trajectory |    6      6  0.6s
+
+W-34 move 2: callbacks at the problem's types, the integrator view's operations: Test Failed at /home/hellmann/Repos/julia-trait-bound/TraitDifferentialEquations/test/w34_move2.jl:39
+  Expression: isapprox(hits[1], sqrt(2 / 9.81); atol = 1.0e-9) && length(hits) >= 3
+  Stacktrace:
+   [1] top-level scope
+     @ ~/Repos/julia-trait-bound/TraitDifferentialEquations/test/w34_move2.jl:18
+   [2] macro expansion
+     @ ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:1967 [inlined]
+   [3] macro expansion
+     @ ~/Repos/julia-trait-bound/TraitDifferentialEquations/test/w34_move2.jl:39 [inlined]
+   [4] macro expansion
+     @ ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:758 [inlined]
+
+W-34 move 2: callbacks at the problem's types, the integrator view's operations: Test Failed at /home/hellmann/Repos/julia-trait-bound/TraitDifferentialEquations/test/w34_move2.jl:40
+  Expression: minimum((u[1] for u = sb.u)) >= -1.0e-9
+   Evaluated: -21.697152567000515 >= -1.0e-9
+  Stacktrace:
+   [1] top-level scope
+     @ ~/Repos/julia-trait-bound/TraitDifferentialEquations/test/w34_move2.jl:18
+   [2] macro expansion
+     @ ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:1967 [inlined]
+   [3] macro expansion
+     @ ~/Repos/julia-trait-bound/TraitDifferentialEquations/test/w34_move2.jl:40 [inlined]
+   [4] macro expansion
+     @ ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:758 [inlined]
+Test Summary:                                                                   | Pass  Fail  Total  Time
+W-34 move 2: callbacks at the problem's types, the integrator view's operations |    8     2     10  3.4s
+RNG of the outermost testset: Random.Xoshiro(0x365f9dc06d9f38c9, 0x2f3d548f871459db, 0x4903467f68416fe3, 0x60a9f84c8c6f79e4, 0xd5cdc603e32fcb05)
+ERROR: Package TraitDifferentialEquations errored during testing
+Stacktrace:
+  [1] pkgerror(msg::String)
+    @ Pkg.Types ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Pkg/src/Types.jl:68
+  [2] test(ctx::Pkg.Types.Context, pkgs::Vector{PackageSpec}; coverage::Bool, julia_args::Cmd, test_args::Cmd, test_fn::Nothing, force_latest_compatible_version::Bool, allow_earlier_backwards_compatible_versions::Bool, allow_reresolve::Bool)
+    @ Pkg.Operations ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Pkg/src/Operations.jl:3319
+  [3] test
+    @ ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Pkg/src/Operations.jl:3197 [inlined]
+  [4] test(ctx::Pkg.Types.Context, pkgs::Vector{PackageSpec}; coverage::Bool, test_fn::Nothing, julia_args::Cmd, test_args::Cmd, force_latest_compatible_version::Bool, allow_earlier_backwards_compatible_versions::Bool, allow_reresolve::Bool, kwargs::@Kwargs{io::IOContext{IO}})
+    @ Pkg.API ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Pkg/src/API.jl:587
+  [5] test(pkgs::Vector{PackageSpec}; io::IOContext{IO}, kwargs::@Kwargs{})
+    @ Pkg.API ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Pkg/src/API.jl:172
+  [6] test(pkgs::Vector{PackageSpec})
+    @ Pkg.API ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Pkg/src/API.jl:161
+  [7] test(; name::Nothing, uuid::Nothing, version::Nothing, url::Nothing, rev::Nothing, path::Nothing, mode::PackageMode, subdir::Nothing, kwargs::@Kwargs{})
+    @ Pkg.API ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Pkg/src/API.jl:189
+  [8] test()
+    @ Pkg.API ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Pkg/src/API.jl:178
+  [9] top-level scope
+    @ none:1
+ [10] eval(m::Module, e::Any)
+    @ Core ./boot.jl:489
+ [11] exec_options(opts::Base.JLOptions)
+    @ Base ./client.jl:310
+ [12] _start()
+    @ Base ./client.jl:577
+exit 1
+# load at end: 1.82 1.28 1.31

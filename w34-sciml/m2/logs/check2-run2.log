@@ -1,0 +1,454 @@
+== E-158 check 2: no new CodeInstance of the driver for a new callback; one integrator type for two callback sets
+   julia 1.13.2 (6d480d0753*)  TraitWorld 2e9ed68  TDE cccc517 (w34)  setting product  strict off  threads 1
+   load (cut -d' ' -f1-3 /proc/loadavg) at start: 2.19 2.03 1.67
+
+--- warm-up: the oscillator with three discrete callbacks (models.jl), with saveat; the ball with two continuous and one discrete; one callback alone of each kind
+  ODECore + TraitDifferentialEquations (the driver, the integrators, the callbacks' records, the front end): 258 new CodeInstance(s)
+     [plain] TraitDifferentialEquations.#_options#2  Tuple{TraitDifferentialEquations.var"##_options#2", Float64, Float64, Float64, Int64, StepRangeLen{Float64, Base.TwicePrecision{Float64}, Base.TwicePrecision{Float64}, Int64}, typeof(TraitDifferentialEquations._options)}
+     [plain] TraitDifferentialEquations.#solve#3  Tuple{TraitDifferentialEquations.var"##solve#3", Any, Base.Pairs{Symbol, StepRangeLen{Float64, Base.TwicePrecision{Float64}, Base.TwicePrecision{Float64}, Int64}, Nothing, @NamedTuple{saveat::StepRangeLen{Float64, Base.TwicePrecision{Float64}, Base.TwicePrecis…
+     [facts] TraitDifferentialEquations.ODECore.#initdt##5  Tuple{TraitDifferentialEquations.ODECore.var"#initdt##5#initdt##6"{TraitDifferentialEquations.ODECore.Tsit5Integrator{Float64, BallParams}, TraitDifferentialEquations.ODECore.var"#sc#initdt##0"{TraitDifferentialEquations.ODECore.SolverOptions}, Vector{Float64}…
+     [facts] TraitDifferentialEquations.ODECore.#initdt##5  Tuple{TraitDifferentialEquations.ODECore.var"#initdt##5#initdt##6"{TraitDifferentialEquations.ODECore.Tsit5Integrator{Float64, OscParams}, TraitDifferentialEquations.ODECore.var"#sc#initdt##0"{TraitDifferentialEquations.ODECore.SolverOptions}, Vector{Float64},…
+     [facts] TraitDifferentialEquations.ODECore.FunctionCallback  Tuple{Type{TraitDifferentialEquations.ODECore.FunctionCallback{Vector{Float64}, Float64, OscParams}}, Kept{Callable{Tuple{Vector{Float64}, Float64, Dynamic{IntegratorView{Vector{Float64}, Float64, OscParams}}}, Bool}}, Kept{Callable{Tuple{Dynamic{IntegratorVie…
+     [facts] TraitDifferentialEquations.ODECore.FunctionCallback  Tuple{Type{TraitDifferentialEquations.ODECore.FunctionCallback{Vector{Float64}, Float64, BallParams}}, Kept{Callable{Tuple{Vector{Float64}, Float64, Dynamic{IntegratorView{Vector{Float64}, Float64, BallParams}}}, Bool}}, Kept{Callable{Tuple{Dynamic{IntegratorV…
+     [facts] TraitDifferentialEquations.ODECore.FunctionEventCallback  Tuple{Type{TraitDifferentialEquations.ODECore.FunctionEventCallback{Vector{Float64}, Float64, BallParams}}, Kept{Callable{Tuple{Vector{Float64}, Float64, Dynamic{IntegratorView{Vector{Float64}, Float64, BallParams}}}, Float64}}, Kept{Callable{Tuple{Dynamic{Int…
+     [facts] TraitDifferentialEquations.ODECore.ODEProblem  Tuple{Type{ODEProblem{Float64, OscParams, _A, _B, _C}} where {_A, _B, _C}, Any, Vector{Float64}, Tuple{Float64, Float64}, OscParams, Any, Any, TraitDifferentialEquations.ODECore.UserFunction}
+     [facts] TraitDifferentialEquations.ODECore.ODEProblem  Tuple{Type{ODEProblem{Float64, BallParams, Dynamic{Callable{Tuple{Vector{Float64}, Vector{Float64}, BallParams, Float64}, Nothing}}, Dynamic{Callable{Tuple{Vector{ForwardDiff.Dual{TraitDifferentialEquations.ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual…
+     [facts] TraitDifferentialEquations.ODECore.ODEProblem  Tuple{Type{ODEProblem{Float64, BallParams, _A, _B, _C}} where {_A, _B, _C}, Any, Vector{Float64}, Tuple{Float64, Float64}, BallParams, Any, Any, TraitDifferentialEquations.ODECore.UserFunction}
+     [plain] TraitDifferentialEquations.ODECore.ODEProblem  Tuple{Type{ODEProblem}, Any, Vector{Float64}, Tuple{Float64, Float64}, OscParams, Any, TraitWorld.CompiledFor{typeof(TraitDifferentialEquations.ODECore.no_jacobian)}, TraitDifferentialEquations.ODECore.UserFunction}
+     [plain] TraitDifferentialEquations.ODECore.ODEProblem  Tuple{Type{ODEProblem}, Any, Vector{Float64}, Tuple{Float64, Float64}, BallParams, Any, TraitWorld.CompiledFor{typeof(TraitDifferentialEquations.ODECore.no_jacobian)}, TraitDifferentialEquations.ODECore.UserFunction}
+     [plain] TraitDifferentialEquations.ODECore.ODEProblem  Tuple{Type{ODEProblem}, Any, Vector{Float64}, Tuple{Float64, Float64}, OscParams, Any, Any, TraitDifferentialEquations.ODECore.UserFunction}
+     [plain] TraitDifferentialEquations.ODECore.ODEProblem  Tuple{Type{ODEProblem}, Any, Vector{Float64}, Tuple{Float64, Float64}, BallParams, Any, Any, TraitDifferentialEquations.ODECore.UserFunction}
+     [facts] TraitDifferentialEquations.ODECore.ODEProblem  Tuple{Type{ODEProblem{Float64, OscParams, Dynamic{Callable{Tuple{Vector{Float64}, Vector{Float64}, OscParams, Float64}, Nothing}}, Dynamic{Callable{Tuple{Vector{ForwardDiff.Dual{TraitDifferentialEquations.ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{T…
+     [facts] TraitDifferentialEquations.ODECore.Tsit5Integrator  Tuple{Type{TraitDifferentialEquations.ODECore.Tsit5Integrator{Float64, BallParams}}, Vector{Float64}, Vector{Float64}, Float64, Float64, BallParams, Bool, Bool, Vector{Float64}, Vector{Float64}, Vector{Float64}, Vector{Float64}, Vector{Float64}, Vector{Float64…
+     [facts] TraitDifferentialEquations.ODECore.Tsit5Integrator  Tuple{Type{TraitDifferentialEquations.ODECore.Tsit5Integrator{Float64, OscParams}}, Vector{Float64}, Vector{Float64}, Float64, Float64, OscParams, Bool, Bool, Vector{Float64}, Vector{Float64}, Vector{Float64}, Vector{Float64}, Vector{Float64}, Vector{Float64},…
+     [facts] TraitDifferentialEquations.ODECore._fieldpos  Tuple{typeof(TraitWorld._fieldpos), Type{IntegratorView}, Val{:t}}
+     [facts] TraitDifferentialEquations.ODECore._fieldpos  Tuple{typeof(TraitWorld._fieldpos), Type{IntegratorView}, Val{:p}}
+     [facts] TraitDifferentialEquations.ODECore._keep_fn  Tuple{typeof(TraitDifferentialEquations.ODECore._keep_fn), Type{Kept{Callable{Tuple{Dynamic{IntegratorView{Vector{Float64}, Float64, OscParams}}}, Nothing}}}, Any}
+     [facts] TraitDifferentialEquations.ODECore._keep_fn  Tuple{typeof(TraitDifferentialEquations.ODECore._keep_fn), Type{Kept{Callable{Tuple{Dynamic{IntegratorView{Vector{Float64}, Float64, BallParams}}}, Nothing}}}, Any}
+     [facts] TraitDifferentialEquations.ODECore._keep_fn  Tuple{typeof(TraitDifferentialEquations.ODECore._keep_fn), Type{Kept{Callable{Tuple{Vector{Float64}, Float64, Dynamic{IntegratorView{Vector{Float64}, Float64, BallParams}}}, Bool}}}, Any}
+     [facts] TraitDifferentialEquations.ODECore._keep_fn  Tuple{typeof(TraitDifferentialEquations.ODECore._keep_fn), Type{Kept{Callable{Tuple{Vector{Float64}, Float64, Dynamic{IntegratorView{Vector{Float64}, Float64, OscParams}}}, Bool}}}, Any}
+     [facts] TraitDifferentialEquations.ODECore._keep_fn  Tuple{typeof(TraitDifferentialEquations.ODECore._keep_fn), Type{Kept{Callable{Tuple{Vector{Float64}, Float64, Dynamic{IntegratorView{Vector{Float64}, Float64, BallParams}}}, Float64}}}, Any}
+     [facts] TraitDifferentialEquations.ODECore._tgetprop  Tuple{typeof(TraitWorld._tgetprop), IntegratorView{Vector{Float64}, Float64, BallParams} at TraitDifferentialEquations.ODECore.Tsit5Integrator{Float64, BallParams}; u::Vector{Float64}, t::Float64, dt::Float64, p::BallParams, u_modified::Bool, terminated::Bool,…
+     [facts] TraitDifferentialEquations.ODECore._tgetprop  Tuple{typeof(TraitWorld._tgetprop), IntegratorView{Vector{Float64}, Float64, OscParams} at TraitDifferentialEquations.ODECore.Tsit5Integrator{Float64, OscParams}; u::Vector{Float64}, t::Float64, dt::Float64, p::OscParams, u_modified::Bool, terminated::Bool, Va…
+     [facts] TraitDifferentialEquations.ODECore._tgetprop  Tuple{typeof(TraitWorld._tgetprop), IntegratorView{Vector{Float64}, Float64, OscParams} at TraitDifferentialEquations.ODECore.Tsit5Integrator{Float64, OscParams}; u::Vector{Float64}, t::Float64, dt::Float64, p::OscParams, u_modified::Bool, terminated::Bool, Va…
+     [facts] TraitDifferentialEquations.ODECore._tgetprop  Tuple{typeof(TraitWorld._tgetprop), ODEProblemTrait{Float64, BallParams} at ODEProblem{Float64, BallParams, Dynamic{Callable{Tuple{Vector{Float64}, Vector{Float64}, BallParams, Float64}, Nothing}}, Dynamic{Callable{Tuple{Vector{ForwardDiff.Dual{TraitDifferenti…
+     [facts] TraitDifferentialEquations.ODECore._tgetprop  Tuple{typeof(TraitWorld._tgetprop), ODEProblemTrait{Float64, OscParams} at ODEProblem{Float64, OscParams, Dynamic{Callable{Tuple{Vector{Float64}, Vector{Float64}, OscParams, Float64}, Nothing}}, Dynamic{Callable{Tuple{Vector{ForwardDiff.Dual{TraitDifferentialE…
+     [facts] TraitDifferentialEquations.ODECore._tgetprop  Tuple{typeof(TraitWorld._tgetprop), IntegratorView{Vector{Float64}, Float64, BallParams} at TraitDifferentialEquations.ODECore.Tsit5Integrator{Float64, BallParams}; u::Vector{Float64}, t::Float64, dt::Float64, p::BallParams, u_modified::Bool, terminated::Bool,…
+     [facts] TraitDifferentialEquations.ODECore._tgetprop  Tuple{typeof(TraitWorld._tgetprop), ODEProblemTrait{Float64, OscParams} at ODEProblem{Float64, OscParams, Dynamic{Callable{Tuple{Vector{Float64}, Vector{Float64}, OscParams, Float64}, Nothing}}, Dynamic{Callable{Tuple{Vector{ForwardDiff.Dual{TraitDifferentialE…
+     [facts] TraitDifferentialEquations.ODECore._tgetprop  Tuple{typeof(TraitWorld._tgetprop), ODEProblemTrait{Float64, BallParams} at ODEProblem{Float64, BallParams, Dynamic{Callable{Tuple{Vector{Float64}, Vector{Float64}, BallParams, Float64}, Nothing}}, Dynamic{Callable{Tuple{Vector{ForwardDiff.Dual{TraitDifferenti…
+     [facts] TraitDifferentialEquations.ODECore._tgetprop  Tuple{typeof(TraitWorld._tgetprop), ODEProblemTrait{Float64, OscParams} at ODEProblem{Float64, OscParams, Dynamic{Callable{Tuple{Vector{Float64}, Vector{Float64}, OscParams, Float64}, Nothing}}, Dynamic{Callable{Tuple{Vector{ForwardDiff.Dual{TraitDifferentialE…
+     [facts] TraitDifferentialEquations.ODECore._tgetprop  Tuple{typeof(TraitWorld._tgetprop), IntegratorView{Vector{Float64}, Float64, OscParams} at TraitDifferentialEquations.ODECore.Tsit5Integrator{Float64, OscParams}; u::Vector{Float64}, t::Float64, dt::Float64, p::OscParams, u_modified::Bool, terminated::Bool, Va…
+     [facts] TraitDifferentialEquations.ODECore._tgetprop  Tuple{typeof(TraitWorld._tgetprop), IntegratorView{Vector{Float64}, Float64, BallParams} at TraitDifferentialEquations.ODECore.Tsit5Integrator{Float64, BallParams}; u::Vector{Float64}, t::Float64, dt::Float64, p::BallParams, u_modified::Bool, terminated::Bool,…
+     [facts] TraitDifferentialEquations.ODECore._tgetprop  Tuple{typeof(TraitWorld._tgetprop), ODEProblemTrait{Float64, BallParams} at ODEProblem{Float64, BallParams, Dynamic{Callable{Tuple{Vector{Float64}, Vector{Float64}, BallParams, Float64}, Nothing}}, Dynamic{Callable{Tuple{Vector{ForwardDiff.Dual{TraitDifferenti…
+     [facts] TraitDifferentialEquations.ODECore.ad_jacobian!  Tuple{typeof(TraitDifferentialEquations.ODECore.ad_jacobian!), ODEProblem{Float64, BallParams, Dynamic{Callable{Tuple{Vector{Float64}, Vector{Float64}, BallParams, Float64}, Nothing}}, Dynamic{Callable{Tuple{Vector{ForwardDiff.Dual{TraitDifferentialEquations.O…
+     [facts] TraitDifferentialEquations.ODECore.ad_jacobian!  Tuple{typeof(TraitDifferentialEquations.ODECore.ad_jacobian!), ODEProblem{Float64, OscParams, Dynamic{Callable{Tuple{Vector{Float64}, Vector{Float64}, OscParams, Float64}, Nothing}}, Dynamic{Callable{Tuple{Vector{ForwardDiff.Dual{TraitDifferentialEquations.ODE…
+     [facts] TraitDifferentialEquations.ODECore.add_tstop!  Tuple{typeof(add_tstop!), TraitDifferentialEquations.ODECore.Tsit5Integrator{Float64, BallParams}, Float64}
+     [facts] TraitDifferentialEquations.ODECore.add_tstop!  Tuple{typeof(add_tstop!), TraitDifferentialEquations.ODECore.Tsit5Integrator{Float64, OscParams}, Float64}
+     … 218 more
+    of them: the driver and init (ODECore) 219; the callbacks' operations at a callback type (its own entries) 20; the front end (the ordinary module) 19
+  TraitWorld: 697 new CodeInstance(s)
+     [facts] TraitWorld.#_captures_tobj##0  Tuple{TraitWorld.var"#_captures_tobj##0#_captures_tobj##1"{Type{TraitDifferentialEquations.ODECore.var"#initdt##5#initdt##6"{TraitDifferentialEquations.ODECore.Tsit5Integrator{Float64, BallParams}, TraitDifferentialEquations.ODECore.var"#sc#initdt##0"{TraitDif…
+     [facts] TraitWorld.#_captures_tobj##0  Tuple{TraitWorld.var"#_captures_tobj##0#_captures_tobj##1"{Type{TraitDifferentialEquations.ODECore.var"#initdt##5#initdt##6"{TraitDifferentialEquations.ODECore.Tsit5Integrator{Float64, OscParams}, TraitDifferentialEquations.ODECore.var"#sc#initdt##0"{TraitDiff…
+     [facts] TraitWorld.#_with_object##0  Tuple{TraitWorld.var"#_with_object##0#_with_object##1"{TraitDifferentialEquations.ODECore.FunctionCallback{Vector{Float64}, Float64, BallParams}}, TraitWorld.Held{Callback{Vector{Float64}, Float64, BallParams, TraitDifferentialEquations.ODECore.FunctionCallbac…
+     [facts] TraitWorld.#_with_object##0  Tuple{TraitWorld.var"#_with_object##0#_with_object##1"{TraitDifferentialEquations.ODECore.FunctionEventCallback{Vector{Float64}, Float64, BallParams}}, TraitWorld.Held{EventCallback{Vector{Float64}, Float64, BallParams, TraitDifferentialEquations.ODECore.Funct…
+     [facts] TraitWorld.#_with_object##0  Tuple{TraitWorld.var"#_with_object##0#_with_object##1"{TraitDifferentialEquations.ODECore.FunctionCallback{Vector{Float64}, Float64, OscParams}}, TraitWorld.Held{Callback{Vector{Float64}, Float64, OscParams, TraitDifferentialEquations.ODECore.FunctionCallback{…
+     [facts] TraitWorld.Builder  Tuple{Type{TraitWorld.Builder}, Tuple{TraitWorld.VSpec{IntegratorView{Vector{Float64}, Float64, OscParams, TraitWorld.Key{TraitDifferentialEquations.ODECore.Tsit5Integrator{Float64, OscParams}, @NamedTuple{u::Vector{Float64}, t::Float64, dt::Float64, p::OscPar…
+     [facts] TraitWorld.Builder  Tuple{Type{TraitWorld.Builder}, Tuple{TraitWorld.VSpec{ODEProblemTrait{Float64, OscParams, TraitWorld.Key{ODEProblem{Float64, OscParams, Dynamic{Callable{Tuple{Vector{Float64}, Vector{Float64}, OscParams, Float64}, Nothing}}, Dynamic{Callable{Tuple{Vector{Forw…
+     [facts] TraitWorld.Builder  Tuple{implementation of ODEProblemTrait{Float64, BallParams} at ODEProblem{Float64, BallParams, Dynamic{Callable{Tuple{Vector{Float64}, Vector{Float64}, BallParams, Float64}, Nothing}}, Dynamic{Callable{Tuple{Vector{ForwardDiff.Dual{TraitDifferentialEquations.…
+     [facts] TraitWorld.Builder  Tuple{implementation of EventCallback{Vector{Float64}, Float64, BallParams} at TraitDifferentialEquations.ODECore.FunctionEventCallback{Vector{Float64}, Float64, BallParams}, TraitDifferentialEquations.ODECore.FunctionEventCallback{Vector{Float64}, Float64, Ba…
+     [facts] TraitWorld.Builder  Tuple{implementation of Callback{Vector{Float64}, Float64, OscParams} at TraitDifferentialEquations.ODECore.FunctionCallback{Vector{Float64}, Float64, OscParams}, TraitDifferentialEquations.ODECore.FunctionCallback{Vector{Float64}, Float64, OscParams}}
+     [facts] TraitWorld.Builder  Tuple{Type{TraitWorld.Builder}, Tuple{TraitWorld.VSpec{Callback{Vector{Float64}, Float64, OscParams, TraitDifferentialEquations.ODECore.FunctionCallback{Vector{Float64}, Float64, OscParams}}, TraitWorld.Impl{()}, TraitDifferentialEquations.ODECore.FunctionCall…
+     [facts] TraitWorld.Builder  Tuple{Type{TraitWorld.Builder}, Tuple{TraitWorld.VSpec{Callback{Vector{Float64}, Float64, BallParams, TraitDifferentialEquations.ODECore.FunctionCallback{Vector{Float64}, Float64, BallParams}}, TraitWorld.Impl{()}, TraitDifferentialEquations.ODECore.FunctionCa…
+     … 685 more
+  every module: 1607 new CodeInstance(s), by module of the method: Base 561, Base.Iterators 1, Compiler 2, Core 45, Main 43, TraitDifferentialEquations 19, TraitDifferentialEquations.ODECore 239, TraitWorld 697
+  @snoop_inference, methods inferred, by module: Base 561, Base.Iterators 1, Compiler 2, Core 45, Main 43, TraitDifferentialEquations 19, TraitDifferentialEquations.ODECore 241, TraitWorld 720
+     of them in the solver's modules: ODEProblem Tuple{Type{ODEProblem}, Any, Vector{Float64}, Tuple{Float64, Float64}, OscParams}
+       _promote_state Tuple{typeof(TraitDifferentialEquations._promote_state), Vector{Float64}, OscParams}
+       _problem Tuple{typeof(TraitDifferentialEquations._problem), Any, Any, Vector{Float64}, Tuple{Float64, Float64}, OscParams}
+       ODEProblem Tuple{Type{ODEProblem}, Any, Vector{Float64}, Tuple{Float64, Float64}, OscParams, Any, TraitWorld.CompiledFor{typeof(TraitDifferentialEquations.ODECore.no_jacobian)}, TraitDifferentialEquat
+       ODEProblem Tuple{Type{ODEProblem{Float64, OscParams, _A, _B, _C}} where {_A, _B, _C}, Any, Vector{Float64}, Tuple{Float64, Float64}, OscParams, Any, Any, TraitDifferentialEquations.ODECore.UserFunctio
+       ODEProblem Tuple{Type{ODEProblem}, Any, Vector{Float64}, Tuple{Float64, Float64}, OscParams, Any, Any, TraitDifferentialEquations.ODECore.UserFunction}
+       _problem Tuple{typeof(TraitDifferentialEquations._problem), Any, Nothing, Vector{Float64}, Tuple{Float64, Float64}, OscParams}
+       solve Tuple{typeof(Core.kwcall), @NamedTuple{callback::Vector{Any}}, typeof(solve), ODEProblem{Float64, OscParams}, Tsit5}
+       solve Tuple{typeof(Core.kwcall), @NamedTuple{callback::Vector{Any}, saveat::StepRangeLen{Float64, Base.TwicePrecision{Float64}, Base.TwicePrecision{Float64}, Int64}}, typeof(solve), ODEProblem{Float64
+       #solve#3 Tuple{TraitDifferentialEquations.var"##solve#3", Any, Base.Pairs{Symbol, StepRangeLen{Float64, Base.TwicePrecision{Float64}, Base.TwicePrecision{Float64}, Int64}, Nothing, @NamedTuple{saveat:
+       _options Tuple{typeof(Core.kwcall), @NamedTuple{saveat::StepRangeLen{Float64, Base.TwicePrecision{Float64}, Base.TwicePrecision{Float64}, Int64}}, typeof(TraitDifferentialEquations._options)}
+       #_options#2 Tuple{TraitDifferentialEquations.var"##_options#2", Float64, Float64, Float64, Int64, StepRangeLen{Float64, Base.TwicePrecision{Float64}, Base.TwicePrecision{Float64}, Int64}, typeof(Trait
+       ODEProblem Tuple{Type{ODEProblem}, Any, Vector{Float64}, Tuple{Float64, Float64}, BallParams}
+       _promote_state Tuple{typeof(TraitDifferentialEquations._promote_state), Vector{Float64}, BallParams}
+       _problem Tuple{typeof(TraitDifferentialEquations._problem), Any, Any, Vector{Float64}, Tuple{Float64, Float64}, BallParams}
+       ODEProblem Tuple{Type{ODEProblem}, Any, Vector{Float64}, Tuple{Float64, Float64}, BallParams, Any, TraitWorld.CompiledFor{typeof(TraitDifferentialEquations.ODECore.no_jacobian)}, TraitDifferentialEqua
+       ODEProblem Tuple{Type{ODEProblem{Float64, BallParams, _A, _B, _C}} where {_A, _B, _C}, Any, Vector{Float64}, Tuple{Float64, Float64}, BallParams, Any, Any, TraitDifferentialEquations.ODECore.UserFunct
+       ODEProblem Tuple{Type{ODEProblem}, Any, Vector{Float64}, Tuple{Float64, Float64}, BallParams, Any, Any, TraitDifferentialEquations.ODECore.UserFunction}
+       _problem Tuple{typeof(TraitDifferentialEquations._problem), Any, Nothing, Vector{Float64}, Tuple{Float64, Float64}, BallParams}
+       solve Tuple{typeof(Core.kwcall), @NamedTuple{callback::Vector{Any}}, typeof(solve), ODEProblem{Float64, BallParams}, Tsit5}
+       solve Tuple{typeof(Core.kwcall), @NamedTuple{callback::DiscreteCallback}, typeof(solve), ODEProblem{Float64, BallParams}, Tsit5}
+       solve Tuple{typeof(Core.kwcall), @NamedTuple{callback::DiscreteCallback}, typeof(solve), ODEProblem{Float64, OscParams}, Tsit5}
+       solve Tuple{typeof(Core.kwcall), @NamedTuple{callback::ContinuousCallback}, typeof(solve), ODEProblem{Float64, BallParams}, Tsit5}
+       ODEProblem Tuple{Type{ODEProblem{Float64, OscParams, Dynamic{Callable{Tuple{Vector{Float64}, Vector{Float64}, OscParams, Float64}, Nothing}}, Dynamic{Callable{Tuple{Vector{ForwardDiff.Dual{TraitDiffer
+       _solve Tuple{typeof(TraitDifferentialEquations._solve), ODEProblem{Float64, OscParams, Dynamic{Callable{Tuple{Vector{Float64}, Vector{Float64}, OscParams, Float64}, Nothing}}, Dynamic{Callable{Tuple{V
+       solve_ode Tuple{typeof(TraitDifferentialEquations.ODECore.solve_ode), ODEProblem{Float64, OscParams, Dynamic{Callable{Tuple{Vector{Float64}, Vector{Float64}, OscParams, Float64}, Nothing}}, Dynamic{Ca
+       conformance Tuple{typeof(TraitWorld.conformance), TraitWorld.As{ODEProblemTrait}, ODEProblem{Float64, OscParams, Dynamic{Callable{Tuple{Vector{Float64}, Vector{Float64}, OscParams, Float64}, Nothing}}
+       implementation Tuple{typeof(TraitWorld.implementation), Type{ODEProblemTrait}, Type{ODEProblem{Float64, OscParams, Dynamic{Callable{Tuple{Vector{Float64}, Vector{Float64}, OscParams, Float64}, Nothing
+       op_args Tuple{typeof(TraitWorld.op_args), Type{ODEProblemTrait}, Val{:jacobian!}, Type{ODEProblem{Float64, OscParams, Dynamic{Callable{Tuple{Vector{Float64}, Vector{Float64}, OscParams, Float64}, Noth
+       param Tuple{typeof(TraitWorld.param), Type{ODEProblemTrait}, Val{:T}, Type{ODEProblem{Float64, OscParams, Dynamic{Callable{Tuple{Vector{Float64}, Vector{Float64}, OscParams, Float64}, Nothing}}, Dynam
+       op_args Tuple{typeof(TraitWorld.op_args), Type{ODEProblemTrait}, Val{:rhs_function}, Type{ODEProblem{Float64, OscParams, Dynamic{Callable{Tuple{Vector{Float64}, Vector{Float64}, OscParams, Float64}, N
+       op_args Tuple{typeof(TraitWorld.op_args), Type{ODEProblemTrait}, Val{:rhs!}, Type{ODEProblem{Float64, OscParams, Dynamic{Callable{Tuple{Vector{Float64}, Vector{Float64}, OscParams, Float64}, Nothing}}
+       op_ret Tuple{typeof(TraitWorld.op_ret), Type{ODEProblemTrait}, Val{:rhs!}, Type{ODEProblem{Float64, OscParams, Dynamic{Callable{Tuple{Vector{Float64}, Vector{Float64}, OscParams, Float64}, Nothing}}, 
+       solve_ode Tuple{typeof(TraitDifferentialEquations.ODECore.solve_ode), ODEProblemTrait{Float64, OscParams} at ODEProblem{Float64, OscParams, Dynamic{Callable{Tuple{Vector{Float64}, Vector{Float64}, Osc
+       _tgetprop Tuple{typeof(TraitWorld._tgetprop), ODEProblemTrait{Float64, OscParams} at ODEProblem{Float64, OscParams, Dynamic{Callable{Tuple{Vector{Float64}, Vector{Float64}, OscParams, Float64}, Nothin
+       _tgetprop Tuple{typeof(TraitWorld._tgetprop), ODEProblemTrait{Float64, OscParams} at ODEProblem{Float64, OscParams, Dynamic{Callable{Tuple{Vector{Float64}, Vector{Float64}, OscParams, Float64}, Nothin
+       _tgetprop Tuple{typeof(TraitWorld._tgetprop), ODEProblemTrait{Float64, OscParams} at ODEProblem{Float64, OscParams, Dynamic{Callable{Tuple{Vector{Float64}, Vector{Float64}, OscParams, Float64}, Nothin
+       tsit5_solve Tuple{typeof(TraitDifferentialEquations.ODECore.tsit5_solve), ODEProblemTrait{Float64, OscParams} at ODEProblem{Float64, OscParams, Dynamic{Callable{Tuple{Vector{Float64}, Vector{Float64},
+       tsit5_init Tuple{typeof(TraitDifferentialEquations.ODECore.tsit5_init), ODEProblemTrait{Float64, OscParams} at ODEProblem{Float64, OscParams, Dynamic{Callable{Tuple{Vector{Float64}, Vector{Float64}, O
+       enter_callbacks Tuple{typeof(TraitDifferentialEquations.ODECore.enter_callbacks), Vector{Any}, Type{Vector{Float64}}, Type{OscParams}}
+       Tsit5Integrator Tuple{Type{TraitDifferentialEquations.ODECore.Tsit5Integrator{Float64, OscParams}}, Vector{Float64}, Vector{Float64}, Float64, Float64, OscParams, Bool, Bool, Vector{Float64}, Vector{F
+       rhs! Tuple{typeof(rhs!), ODEProblemTrait{Float64, OscParams} at ODEProblem{Float64, OscParams, Dynamic{Callable{Tuple{Vector{Float64}, Vector{Float64}, OscParams, Float64}, Nothing}}, Dynamic{Callable
+       op_args Tuple{typeof(TraitWorld.op_args), Type{ODEProblemTrait}, Val{:rhs!}, Type{TraitWorld.Key{ODEProblem{Float64, OscParams, Dynamic{Callable{Tuple{Vector{Float64}, Vector{Float64}, OscParams, Floa
+       param Tuple{typeof(TraitWorld.param), Type{ODEProblemTrait}, Val{:T}, Type{TraitWorld.Key{ODEProblem{Float64, OscParams, Dynamic{Callable{Tuple{Vector{Float64}, Vector{Float64}, OscParams, Float64}, N
+       op_ret Tuple{typeof(TraitWorld.op_ret), Type{ODEProblemTrait}, Val{:rhs!}, Type{TraitWorld.Key{ODEProblem{Float64, OscParams, Dynamic{Callable{Tuple{Vector{Float64}, Vector{Float64}, OscParams, Float6
+       rhs! Tuple{typeof(rhs!), ODEProblem{Float64, OscParams, Dynamic{Callable{Tuple{Vector{Float64}, Vector{Float64}, OscParams, Float64}, Nothing}}, Dynamic{Callable{Tuple{Vector{ForwardDiff.Dual{TraitDif
+       tsit5_run! Tuple{typeof(TraitDifferentialEquations.ODECore.tsit5_run!), ODEProblemTrait{Float64, OscParams} at ODEProblem{Float64, OscParams, Dynamic{Callable{Tuple{Vector{Float64}, Vector{Float64}, O
+       initdt Tuple{typeof(TraitDifferentialEquations.ODECore.initdt), ODEProblemTrait{Float64, OscParams} at ODEProblem{Float64, OscParams, Dynamic{Callable{Tuple{Vector{Float64}, Vector{Float64}, OscParams
+       #initdt##5 Tuple{TraitDifferentialEquations.ODECore.var"#initdt##5#initdt##6"{TraitDifferentialEquations.ODECore.Tsit5Integrator{Float64, OscParams}, TraitDifferentialEquations.ODECore.var"#sc#initdt#
+       conformance Tuple{typeof(TraitWorld.conformance), TraitWorld.As{IntegratorView}, TraitDifferentialEquations.ODECore.Tsit5Integrator{Float64, OscParams}}
+       event_condition Tuple{typeof(event_condition), Kept{EventCallback{Vector{Float64}, Float64, OscParams}}, Vector{Float64}, Float64, Dynamic{IntegratorView{Vector{Float64}, Float64, OscParams}}}
+       op_args Tuple{typeof(TraitWorld.op_args), Type{EventCallback}, Val{:event_condition}, Type{TraitWorld.ErasedKey{Tuple{Vector{Float64}, Float64, OscParams}, Nothing}}, Val{3}}
+       param Tuple{typeof(TraitWorld.param), Type{EventCallback}, Val{:U}, Type{TraitWorld.ErasedKey{Tuple{Vector{Float64}, Float64, OscParams}, Nothing}}}
+       param Tuple{typeof(TraitWorld.param), Type{EventCallback}, Val{:T}, Type{TraitWorld.ErasedKey{Tuple{Vector{Float64}, Float64, OscParams}, Nothing}}}
+       param Tuple{typeof(TraitWorld.param), Type{EventCallback}, Val{:P}, Type{TraitWorld.ErasedKey{Tuple{Vector{Float64}, Float64, OscParams}, Nothing}}}
+       tsit5_step! Tuple{typeof(TraitDifferentialEquations.ODECore.tsit5_step!), ODEProblemTrait{Float64, OscParams} at ODEProblem{Float64, OscParams, Dynamic{Callable{Tuple{Vector{Float64}, Vector{Float64},
+       interp! Tuple{typeof(interp!), Dynamic{IntegratorView{Vector{Float64}, Float64, OscParams}}, Vector{Float64}, Float64}
+       op_args Tuple{typeof(TraitWorld.op_args), Type{IntegratorView}, Val{:interp!}, Type{TraitWorld.ErasedKey{Tuple{Vector{Float64}, Float64, OscParams}, Nothing}}, Val{2}}
+       param Tuple{typeof(TraitWorld.param), Type{IntegratorView}, Val{:U}, Type{TraitWorld.ErasedKey{Tuple{Vector{Float64}, Float64, OscParams}, Nothing}}}
+       param Tuple{typeof(TraitWorld.param), Type{IntegratorView}, Val{:T}, Type{TraitWorld.ErasedKey{Tuple{Vector{Float64}, Float64, OscParams}, Nothing}}}
+       event_time Tuple{typeof(TraitDifferentialEquations.ODECore.event_time), Kept{EventCallback{Vector{Float64}, Float64, OscParams}}, Dynamic{IntegratorView{Vector{Float64}, Float64, OscParams}}, Vector{F
+       interp! Tuple{typeof(interp!), Dynamic{IntegratorView{Vector{Float64}, Float64, OscParams}}, Vector{Float64}, Float64}
+       event_affect! Tuple{typeof(event_affect!), Kept{EventCallback{Vector{Float64}, Float64, OscParams}}, Dynamic{IntegratorView{Vector{Float64}, Float64, OscParams}}}
+       op_args Tuple{typeof(TraitWorld.op_args), Type{EventCallback}, Val{:event_affect!}, Type{TraitWorld.ErasedKey{Tuple{Vector{Float64}, Float64, OscParams}, Nothing}}, Val{1}}
+       condition Tuple{typeof(condition), Kept{Callback{Vector{Float64}, Float64, OscParams}}, Vector{Float64}, Float64, Dynamic{IntegratorView{Vector{Float64}, Float64, OscParams}}}
+       op_args Tuple{typeof(TraitWorld.op_args), Type{Callback}, Val{:condition}, Type{TraitWorld.ErasedKey{Tuple{Vector{Float64}, Float64, OscParams}, Nothing}}, Val{3}}
+       param Tuple{typeof(TraitWorld.param), Type{Callback}, Val{:U}, Type{TraitWorld.ErasedKey{Tuple{Vector{Float64}, Float64, OscParams}, Nothing}}}
+       param Tuple{typeof(TraitWorld.param), Type{Callback}, Val{:T}, Type{TraitWorld.ErasedKey{Tuple{Vector{Float64}, Float64, OscParams}, Nothing}}}
+       param Tuple{typeof(TraitWorld.param), Type{Callback}, Val{:P}, Type{TraitWorld.ErasedKey{Tuple{Vector{Float64}, Float64, OscParams}, Nothing}}}
+       affect! Tuple{typeof(affect!), Kept{Callback{Vector{Float64}, Float64, OscParams}}, Dynamic{IntegratorView{Vector{Float64}, Float64, OscParams}}}
+       op_args Tuple{typeof(TraitWorld.op_args), Type{Callback}, Val{:affect!}, Type{TraitWorld.ErasedKey{Tuple{Vector{Float64}, Float64, OscParams}, Nothing}}, Val{1}}
+       op_ret Tuple{typeof(TraitWorld.op_ret), Type{ODEProblemTrait}, Val{:jacobian!}, Type{ODEProblem{Float64, OscParams, Dynamic{Callable{Tuple{Vector{Float64}, Vector{Float64}, OscParams, Float64}, Nothin
+       jacobian! Tuple{typeof(jacobian!), ODEProblem{Float64, OscParams, Dynamic{Callable{Tuple{Vector{Float64}, Vector{Float64}, OscParams, Float64}, Nothing}}, Dynamic{Callable{Tuple{Vector{ForwardDiff.Dua
+       ad_jacobian! Tuple{typeof(TraitDifferentialEquations.ODECore.ad_jacobian!), ODEProblem{Float64, OscParams, Dynamic{Callable{Tuple{Vector{Float64}, Vector{Float64}, OscParams, Float64}, Nothing}}, Dyna
+       op_ret Tuple{typeof(TraitWorld.op_ret), Type{ODEProblemTrait}, Val{:rhs_function}, Type{ODEProblem{Float64, OscParams, Dynamic{Callable{Tuple{Vector{Float64}, Vector{Float64}, OscParams, Float64}, Not
+       rhs_function Tuple{typeof(rhs_function), ODEProblem{Float64, OscParams, Dynamic{Callable{Tuple{Vector{Float64}, Vector{Float64}, OscParams, Float64}, Nothing}}, Dynamic{Callable{Tuple{Vector{ForwardDi
+       field_type Tuple{typeof(TraitWorld.field_type), Type{ODEProblemTrait}, Val{:u0}, Type{TraitWorld.Key{ODEProblem{Float64, OscParams, Dynamic{Callable{Tuple{Vector{Float64}, Vector{Float64}, OscParams, 
+       field_type Tuple{typeof(TraitWorld.field_type), Type{ODEProblemTrait}, Val{:tspan}, Type{TraitWorld.Key{ODEProblem{Float64, OscParams, Dynamic{Callable{Tuple{Vector{Float64}, Vector{Float64}, OscParam
+       field_type Tuple{typeof(TraitWorld.field_type), Type{ODEProblemTrait}, Val{:p}, Type{TraitWorld.Key{ODEProblem{Float64, OscParams, Dynamic{Callable{Tuple{Vector{Float64}, Vector{Float64}, OscParams, F
+       param Tuple{typeof(TraitWorld.param), Type{ODEProblemTrait}, Val{:P}, Type{TraitWorld.Key{ODEProblem{Float64, OscParams, Dynamic{Callable{Tuple{Vector{Float64}, Vector{Float64}, OscParams, Float64}, N
+       _keep_fn Tuple{typeof(TraitDifferentialEquations.ODECore._keep_fn), Type{Kept{Callable{Tuple{Vector{Float64}, Float64, Dynamic{IntegratorView{Vector{Float64}, Float64, OscParams}}}, Bool}}}, Any}
+       _keep_fn Tuple{typeof(TraitDifferentialEquations.ODECore._keep_fn), Type{Kept{Callable{Tuple{Dynamic{IntegratorView{Vector{Float64}, Float64, OscParams}}}, Nothing}}}, Any}
+       FunctionCallback Tuple{Type{TraitDifferentialEquations.ODECore.FunctionCallback{Vector{Float64}, Float64, OscParams}}, Kept{Callable{Tuple{Vector{Float64}, Float64, Dynamic{IntegratorView{Vector{Float
+       conformance Tuple{typeof(TraitWorld.conformance), TraitWorld.As{Callback}, TraitDifferentialEquations.ODECore.FunctionCallback{Vector{Float64}, Float64, OscParams}}
+       implementation Tuple{typeof(TraitWorld.implementation), Type{Callback}, Type{TraitDifferentialEquations.ODECore.FunctionCallback{Vector{Float64}, Float64, OscParams}}}
+       condition Tuple{typeof(condition), Callback{Vector{Float64}, Float64, OscParams} at TraitDifferentialEquations.ODECore.FunctionCallback{Vector{Float64}, Float64, OscParams}, Vector{Float64}, Float64, 
+       op_args Tuple{typeof(TraitWorld.op_args), Type{Callback}, Val{:condition}, Type{TraitDifferentialEquations.ODECore.FunctionCallback{Vector{Float64}, Float64, OscParams}}, Val{3}}
+       param Tuple{typeof(TraitWorld.param), Type{Callback}, Val{:U}, Type{TraitDifferentialEquations.ODECore.FunctionCallback{Vector{Float64}, Float64, OscParams}}}
+       param Tuple{typeof(TraitWorld.param), Type{Callback}, Val{:T}, Type{TraitDifferentialEquations.ODECore.FunctionCallback{Vector{Float64}, Float64, OscParams}}}
+       param Tuple{typeof(TraitWorld.param), Type{Callback}, Val{:P}, Type{TraitDifferentialEquations.ODECore.FunctionCallback{Vector{Float64}, Float64, OscParams}}}
+       op_ret Tuple{typeof(TraitWorld.op_ret), Type{Callback}, Val{:condition}, Type{TraitDifferentialEquations.ODECore.FunctionCallback{Vector{Float64}, Float64, OscParams}}, Val{3}}
+       condition Tuple{typeof(condition), TraitDifferentialEquations.ODECore.FunctionCallback{Vector{Float64}, Float64, OscParams}, Vector{Float64}, Float64, Dynamic{IntegratorView{Vector{Float64}, Float64, 
+       affect! Tuple{typeof(affect!), Callback{Vector{Float64}, Float64, OscParams} at TraitDifferentialEquations.ODECore.FunctionCallback{Vector{Float64}, Float64, OscParams}, Dynamic{IntegratorView{Vector{
+       op_args Tuple{typeof(TraitWorld.op_args), Type{Callback}, Val{:affect!}, Type{TraitDifferentialEquations.ODECore.FunctionCallback{Vector{Float64}, Float64, OscParams}}, Val{1}}
+       op_ret Tuple{typeof(TraitWorld.op_ret), Type{Callback}, Val{:affect!}, Type{TraitDifferentialEquations.ODECore.FunctionCallback{Vector{Float64}, Float64, OscParams}}, Val{1}}
+       affect! Tuple{typeof(affect!), TraitDifferentialEquations.ODECore.FunctionCallback{Vector{Float64}, Float64, OscParams}, Dynamic{IntegratorView{Vector{Float64}, Float64, OscParams}}}
+       implementation Tuple{typeof(TraitWorld.implementation), Type{IntegratorView}, Type{TraitDifferentialEquations.ODECore.Tsit5Integrator{Float64, OscParams}}}
+       op_args Tuple{typeof(TraitWorld.op_args), Type{IntegratorView}, Val{:add_tstop!}, Type{TraitDifferentialEquations.ODECore.Tsit5Integrator{Float64, OscParams}}, Val{1}}
+       param Tuple{typeof(TraitWorld.param), Type{IntegratorView}, Val{:T}, Type{TraitDifferentialEquations.ODECore.Tsit5Integrator{Float64, OscParams}}}
+       param Tuple{typeof(TraitWorld.param), Type{IntegratorView}, Val{:T}, Type{TraitWorld.Key{TraitDifferentialEquations.ODECore.Tsit5Integrator{Float64, OscParams}, @NamedTuple{t::Float64}}}}
+       op_ret Tuple{typeof(TraitWorld.op_ret), Type{IntegratorView}, Val{:add_tstop!}, Type{TraitDifferentialEquations.ODECore.Tsit5Integrator{Float64, OscParams}}, Val{1}}
+       add_tstop! Tuple{typeof(add_tstop!), IntegratorView{Vector{Float64}, Float64, OscParams} at TraitDifferentialEquations.ODECore.Tsit5Integrator{Float64, OscParams}; u::Vector{Float64}, t::Float64, dt::
+       op_args Tuple{typeof(TraitWorld.op_args), Type{IntegratorView}, Val{:add_tstop!}, Type{TraitWorld.Key{TraitDifferentialEquations.ODECore.Tsit5Integrator{Float64, OscParams}, @NamedTuple{u::Vector{Floa
+       param Tuple{typeof(TraitWorld.param), Type{IntegratorView}, Val{:T}, Type{TraitWorld.Key{TraitDifferentialEquations.ODECore.Tsit5Integrator{Float64, OscParams}, @NamedTuple{u::Vector{Float64}, t::Floa
+       op_ret Tuple{typeof(TraitWorld.op_ret), Type{IntegratorView}, Val{:add_tstop!}, Type{TraitWorld.Key{TraitDifferentialEquations.ODECore.Tsit5Integrator{Float64, OscParams}, @NamedTuple{u::Vector{Float6
+       add_tstop! Tuple{typeof(add_tstop!), TraitDifferentialEquations.ODECore.Tsit5Integrator{Float64, OscParams}, Float64}
+       op_args Tuple{typeof(TraitWorld.op_args), Type{IntegratorView}, Val{:terminate!}, Type{TraitDifferentialEquations.ODECore.Tsit5Integrator{Float64, OscParams}}, Val{0}}
+       op_ret Tuple{typeof(TraitWorld.op_ret), Type{IntegratorView}, Val{:terminate!}, Type{TraitDifferentialEquations.ODECore.Tsit5Integrator{Float64, OscParams}}, Val{0}}
+       terminate! Tuple{typeof(terminate!), IntegratorView{Vector{Float64}, Float64, OscParams} at TraitDifferentialEquations.ODECore.Tsit5Integrator{Float64, OscParams}; u::Vector{Float64}, t::Float64, dt::
+       op_args Tuple{typeof(TraitWorld.op_args), Type{IntegratorView}, Val{:terminate!}, Type{TraitWorld.Key{TraitDifferentialEquations.ODECore.Tsit5Integrator{Float64, OscParams}, @NamedTuple{u::Vector{Floa
+       op_ret Tuple{typeof(TraitWorld.op_ret), Type{IntegratorView}, Val{:terminate!}, Type{TraitWorld.Key{TraitDifferentialEquations.ODECore.Tsit5Integrator{Float64, OscParams}, @NamedTuple{u::Vector{Float6
+       terminate! Tuple{typeof(terminate!), TraitDifferentialEquations.ODECore.Tsit5Integrator{Float64, OscParams}}
+       op_args Tuple{typeof(TraitWorld.op_args), Type{IntegratorView}, Val{:interp!}, Type{TraitDifferentialEquations.ODECore.Tsit5Integrator{Float64, OscParams}}, Val{2}}
+       param Tuple{typeof(TraitWorld.param), Type{IntegratorView}, Val{:U}, Type{TraitDifferentialEquations.ODECore.Tsit5Integrator{Float64, OscParams}}}
+       param Tuple{typeof(TraitWorld.param), Type{IntegratorView}, Val{:U}, Type{TraitWorld.Key{TraitDifferentialEquations.ODECore.Tsit5Integrator{Float64, OscParams}, @NamedTuple{u::Vector{Float64}}}}}
+       op_ret Tuple{typeof(TraitWorld.op_ret), Type{IntegratorView}, Val{:interp!}, Type{TraitDifferentialEquations.ODECore.Tsit5Integrator{Float64, OscParams}}, Val{2}}
+       interp! Tuple{typeof(interp!), TraitDifferentialEquations.ODECore.Tsit5Integrator{Float64, OscParams}, Vector{Float64}, Float64}
+       projection Tuple{typeof(TraitWorld.projection), Type{IntegratorView}, Type{TraitDifferentialEquations.ODECore.Tsit5Integrator{Float64, OscParams}}}
+       field_type Tuple{typeof(TraitWorld.field_type), Type{IntegratorView}, Val{:u}, Type{TraitWorld.Key{TraitDifferentialEquations.ODECore.Tsit5Integrator{Float64, OscParams}, @NamedTuple{u::Vector{Float64
+       param Tuple{typeof(TraitWorld.param), Type{IntegratorView}, Val{:U}, Type{TraitWorld.Key{TraitDifferentialEquations.ODECore.Tsit5Integrator{Float64, OscParams}, @NamedTuple{u::Vector{Float64}, t::Floa
+       field_type Tuple{typeof(TraitWorld.field_type), Type{IntegratorView}, Val{:t}, Type{TraitWorld.Key{TraitDifferentialEquations.ODECore.Tsit5Integrator{Float64, OscParams}, @NamedTuple{u::Vector{Float64
+       field_type Tuple{typeof(TraitWorld.field_type), Type{IntegratorView}, Val{:dt}, Type{TraitWorld.Key{TraitDifferentialEquations.ODECore.Tsit5Integrator{Float64, OscParams}, @NamedTuple{u::Vector{Float6
+       field_type Tuple{typeof(TraitWorld.field_type), Type{IntegratorView}, Val{:p}, Type{TraitWorld.Key{TraitDifferentialEquations.ODECore.Tsit5Integrator{Float64, OscParams}, @NamedTuple{u::Vector{Float64
+       param Tuple{typeof(TraitWorld.param), Type{IntegratorView}, Val{:P}, Type{TraitWorld.Key{TraitDifferentialEquations.ODECore.Tsit5Integrator{Float64, OscParams}, @NamedTuple{u::Vector{Float64}, t::Floa
+       field_type Tuple{typeof(TraitWorld.field_type), Type{IntegratorView}, Val{:u_modified}, Type{TraitWorld.Key{TraitDifferentialEquations.ODECore.Tsit5Integrator{Float64, OscParams}, @NamedTuple{u::Vecto
+       field_type Tuple{typeof(TraitWorld.field_type), Type{IntegratorView}, Val{:terminated}, Type{TraitWorld.Key{TraitDifferentialEquations.ODECore.Tsit5Integrator{Float64, OscParams}, @NamedTuple{u::Vecto
+       field_type Tuple{typeof(TraitWorld.field_type), Type{IntegratorView}, Val{:p}, Type{TraitWorld.ErasedKey{Tuple{Vector{Float64}, Float64, OscParams}, Nothing}}}
+       param Tuple{typeof(TraitWorld.param), Type{IntegratorView}, Val{:P}, Type{TraitWorld.ErasedKey{Tuple{Vector{Float64}, Float64, OscParams}, Nothing}}}
+       field_type Tuple{typeof(TraitWorld.field_type), Type{IntegratorView}, Val{:t}, Type{TraitWorld.ErasedKey{Tuple{Vector{Float64}, Float64, OscParams}, Nothing}}}
+       field_type Tuple{typeof(TraitWorld.field_type), Type{IntegratorView}, Val{:u}, Type{TraitWorld.ErasedKey{Tuple{Vector{Float64}, Float64, OscParams}, Nothing}}}
+       _tgetprop Tuple{typeof(TraitWorld._tgetprop), IntegratorView{Vector{Float64}, Float64, OscParams} at TraitDifferentialEquations.ODECore.Tsit5Integrator{Float64, OscParams}; u::Vector{Float64}, t::Floa
+       _fieldpos Tuple{typeof(TraitWorld._fieldpos), Type{IntegratorView}, Val{:p}}
+       add_tstop! Tuple{typeof(add_tstop!), Dynamic{IntegratorView{Vector{Float64}, Float64, OscParams}}, Float64}
+       op_args Tuple{typeof(TraitWorld.op_args), Type{IntegratorView}, Val{:add_tstop!}, Type{TraitWorld.ErasedKey{Tuple{Vector{Float64}, Float64, OscParams}, Nothing}}, Val{1}}
+       _tgetprop Tuple{typeof(TraitWorld._tgetprop), IntegratorView{Vector{Float64}, Float64, OscParams} at TraitDifferentialEquations.ODECore.Tsit5Integrator{Float64, OscParams}; u::Vector{Float64}, t::Floa
+       _fieldpos Tuple{typeof(TraitWorld._fieldpos), Type{IntegratorView}, Val{:t}}
+       _tgetprop Tuple{typeof(TraitWorld._tgetprop), IntegratorView{Vector{Float64}, Float64, OscParams} at TraitDifferentialEquations.ODECore.Tsit5Integrator{Float64, OscParams}; u::Vector{Float64}, t::Floa
+       terminate! Tuple{typeof(terminate!), Dynamic{IntegratorView{Vector{Float64}, Float64, OscParams}}}
+       ODEProblem Tuple{Type{ODEProblem{Float64, BallParams, Dynamic{Callable{Tuple{Vector{Float64}, Vector{Float64}, BallParams, Float64}, Nothing}}, Dynamic{Callable{Tuple{Vector{ForwardDiff.Dual{TraitDiff
+       _solve Tuple{typeof(TraitDifferentialEquations._solve), ODEProblem{Float64, BallParams, Dynamic{Callable{Tuple{Vector{Float64}, Vector{Float64}, BallParams, Float64}, Nothing}}, Dynamic{Callable{Tuple
+       solve_ode Tuple{typeof(TraitDifferentialEquations.ODECore.solve_ode), ODEProblem{Float64, BallParams, Dynamic{Callable{Tuple{Vector{Float64}, Vector{Float64}, BallParams, Float64}, Nothing}}, Dynamic{
+       conformance Tuple{typeof(TraitWorld.conformance), TraitWorld.As{ODEProblemTrait}, ODEProblem{Float64, BallParams, Dynamic{Callable{Tuple{Vector{Float64}, Vector{Float64}, BallParams, Float64}, Nothing
+       implementation Tuple{typeof(TraitWorld.implementation), Type{ODEProblemTrait}, Type{ODEProblem{Float64, BallParams, Dynamic{Callable{Tuple{Vector{Float64}, Vector{Float64}, BallParams, Float64}, Nothi
+       op_args Tuple{typeof(TraitWorld.op_args), Type{ODEProblemTrait}, Val{:jacobian!}, Type{ODEProblem{Float64, BallParams, Dynamic{Callable{Tuple{Vector{Float64}, Vector{Float64}, BallParams, Float64}, No
+       param Tuple{typeof(TraitWorld.param), Type{ODEProblemTrait}, Val{:T}, Type{ODEProblem{Float64, BallParams, Dynamic{Callable{Tuple{Vector{Float64}, Vector{Float64}, BallParams, Float64}, Nothing}}, Dyn
+       op_args Tuple{typeof(TraitWorld.op_args), Type{ODEProblemTrait}, Val{:rhs_function}, Type{ODEProblem{Float64, BallParams, Dynamic{Callable{Tuple{Vector{Float64}, Vector{Float64}, BallParams, Float64},
+       op_args Tuple{typeof(TraitWorld.op_args), Type{ODEProblemTrait}, Val{:rhs!}, Type{ODEProblem{Float64, BallParams, Dynamic{Callable{Tuple{Vector{Float64}, Vector{Float64}, BallParams, Float64}, Nothing
+       op_ret Tuple{typeof(TraitWorld.op_ret), Type{ODEProblemTrait}, Val{:rhs!}, Type{ODEProblem{Float64, BallParams, Dynamic{Callable{Tuple{Vector{Float64}, Vector{Float64}, BallParams, Float64}, Nothing}}
+       solve_ode Tuple{typeof(TraitDifferentialEquations.ODECore.solve_ode), ODEProblemTrait{Float64, BallParams} at ODEProblem{Float64, BallParams, Dynamic{Callable{Tuple{Vector{Float64}, Vector{Float64}, B
+       _tgetprop Tuple{typeof(TraitWorld._tgetprop), ODEProblemTrait{Float64, BallParams} at ODEProblem{Float64, BallParams, Dynamic{Callable{Tuple{Vector{Float64}, Vector{Float64}, BallParams, Float64}, Not
+       _tgetprop Tuple{typeof(TraitWorld._tgetprop), ODEProblemTrait{Float64, BallParams} at ODEProblem{Float64, BallParams, Dynamic{Callable{Tuple{Vector{Float64}, Vector{Float64}, BallParams, Float64}, Not
+       _tgetprop Tuple{typeof(TraitWorld._tgetprop), ODEProblemTrait{Float64, BallParams} at ODEProblem{Float64, BallParams, Dynamic{Callable{Tuple{Vector{Float64}, Vector{Float64}, BallParams, Float64}, Not
+       tsit5_solve Tuple{typeof(TraitDifferentialEquations.ODECore.tsit5_solve), ODEProblemTrait{Float64, BallParams} at ODEProblem{Float64, BallParams, Dynamic{Callable{Tuple{Vector{Float64}, Vector{Float64
+       tsit5_init Tuple{typeof(TraitDifferentialEquations.ODECore.tsit5_init), ODEProblemTrait{Float64, BallParams} at ODEProblem{Float64, BallParams, Dynamic{Callable{Tuple{Vector{Float64}, Vector{Float64},
+       enter_callbacks Tuple{typeof(TraitDifferentialEquations.ODECore.enter_callbacks), Vector{Any}, Type{Vector{Float64}}, Type{BallParams}}
+       Tsit5Integrator Tuple{Type{TraitDifferentialEquations.ODECore.Tsit5Integrator{Float64, BallParams}}, Vector{Float64}, Vector{Float64}, Float64, Float64, BallParams, Bool, Bool, Vector{Float64}, Vector
+       rhs! Tuple{typeof(rhs!), ODEProblemTrait{Float64, BallParams} at ODEProblem{Float64, BallParams, Dynamic{Callable{Tuple{Vector{Float64}, Vector{Float64}, BallParams, Float64}, Nothing}}, Dynamic{Calla
+       op_args Tuple{typeof(TraitWorld.op_args), Type{ODEProblemTrait}, Val{:rhs!}, Type{TraitWorld.Key{ODEProblem{Float64, BallParams, Dynamic{Callable{Tuple{Vector{Float64}, Vector{Float64}, BallParams, Fl
+       param Tuple{typeof(TraitWorld.param), Type{ODEProblemTrait}, Val{:T}, Type{TraitWorld.Key{ODEProblem{Float64, BallParams, Dynamic{Callable{Tuple{Vector{Float64}, Vector{Float64}, BallParams, Float64},
+       op_ret Tuple{typeof(TraitWorld.op_ret), Type{ODEProblemTrait}, Val{:rhs!}, Type{TraitWorld.Key{ODEProblem{Float64, BallParams, Dynamic{Callable{Tuple{Vector{Float64}, Vector{Float64}, BallParams, Floa
+       rhs! Tuple{typeof(rhs!), ODEProblem{Float64, BallParams, Dynamic{Callable{Tuple{Vector{Float64}, Vector{Float64}, BallParams, Float64}, Nothing}}, Dynamic{Callable{Tuple{Vector{ForwardDiff.Dual{TraitD
+       tsit5_run! Tuple{typeof(TraitDifferentialEquations.ODECore.tsit5_run!), ODEProblemTrait{Float64, BallParams} at ODEProblem{Float64, BallParams, Dynamic{Callable{Tuple{Vector{Float64}, Vector{Float64},
+       initdt Tuple{typeof(TraitDifferentialEquations.ODECore.initdt), ODEProblemTrait{Float64, BallParams} at ODEProblem{Float64, BallParams, Dynamic{Callable{Tuple{Vector{Float64}, Vector{Float64}, BallPar
+       #initdt##5 Tuple{TraitDifferentialEquations.ODECore.var"#initdt##5#initdt##6"{TraitDifferentialEquations.ODECore.Tsit5Integrator{Float64, BallParams}, TraitDifferentialEquations.ODECore.var"#sc#initdt
+       conformance Tuple{typeof(TraitWorld.conformance), TraitWorld.As{IntegratorView}, TraitDifferentialEquations.ODECore.Tsit5Integrator{Float64, BallParams}}
+       event_condition Tuple{typeof(event_condition), Kept{EventCallback{Vector{Float64}, Float64, BallParams}}, Vector{Float64}, Float64, Dynamic{IntegratorView{Vector{Float64}, Float64, BallParams}}}
+       op_args Tuple{typeof(TraitWorld.op_args), Type{EventCallback}, Val{:event_condition}, Type{TraitWorld.ErasedKey{Tuple{Vector{Float64}, Float64, BallParams}, Nothing}}, Val{3}}
+       param Tuple{typeof(TraitWorld.param), Type{EventCallback}, Val{:U}, Type{TraitWorld.ErasedKey{Tuple{Vector{Float64}, Float64, BallParams}, Nothing}}}
+       param Tuple{typeof(TraitWorld.param), Type{EventCallback}, Val{:T}, Type{TraitWorld.ErasedKey{Tuple{Vector{Float64}, Float64, BallParams}, Nothing}}}
+       param Tuple{typeof(TraitWorld.param), Type{EventCallback}, Val{:P}, Type{TraitWorld.ErasedKey{Tuple{Vector{Float64}, Float64, BallParams}, Nothing}}}
+       tsit5_step! Tuple{typeof(TraitDifferentialEquations.ODECore.tsit5_step!), ODEProblemTrait{Float64, BallParams} at ODEProblem{Float64, BallParams, Dynamic{Callable{Tuple{Vector{Float64}, Vector{Float64
+       interp! Tuple{typeof(interp!), Dynamic{IntegratorView{Vector{Float64}, Float64, BallParams}}, Vector{Float64}, Float64}
+       op_args Tuple{typeof(TraitWorld.op_args), Type{IntegratorView}, Val{:interp!}, Type{TraitWorld.ErasedKey{Tuple{Vector{Float64}, Float64, BallParams}, Nothing}}, Val{2}}
+       param Tuple{typeof(TraitWorld.param), Type{IntegratorView}, Val{:U}, Type{TraitWorld.ErasedKey{Tuple{Vector{Float64}, Float64, BallParams}, Nothing}}}
+       param Tuple{typeof(TraitWorld.param), Type{IntegratorView}, Val{:T}, Type{TraitWorld.ErasedKey{Tuple{Vector{Float64}, Float64, BallParams}, Nothing}}}
+       event_time Tuple{typeof(TraitDifferentialEquations.ODECore.event_time), Kept{EventCallback{Vector{Float64}, Float64, BallParams}}, Dynamic{IntegratorView{Vector{Float64}, Float64, BallParams}}, Vector
+       interp! Tuple{typeof(interp!), Dynamic{IntegratorView{Vector{Float64}, Float64, BallParams}}, Vector{Float64}, Float64}
+       event_affect! Tuple{typeof(event_affect!), Kept{EventCallback{Vector{Float64}, Float64, BallParams}}, Dynamic{IntegratorView{Vector{Float64}, Float64, BallParams}}}
+       op_args Tuple{typeof(TraitWorld.op_args), Type{EventCallback}, Val{:event_affect!}, Type{TraitWorld.ErasedKey{Tuple{Vector{Float64}, Float64, BallParams}, Nothing}}, Val{1}}
+       condition Tuple{typeof(condition), Kept{Callback{Vector{Float64}, Float64, BallParams}}, Vector{Float64}, Float64, Dynamic{IntegratorView{Vector{Float64}, Float64, BallParams}}}
+       op_args Tuple{typeof(TraitWorld.op_args), Type{Callback}, Val{:condition}, Type{TraitWorld.ErasedKey{Tuple{Vector{Float64}, Float64, BallParams}, Nothing}}, Val{3}}
+       param Tuple{typeof(TraitWorld.param), Type{Callback}, Val{:U}, Type{TraitWorld.ErasedKey{Tuple{Vector{Float64}, Float64, BallParams}, Nothing}}}
+       param Tuple{typeof(TraitWorld.param), Type{Callback}, Val{:T}, Type{TraitWorld.ErasedKey{Tuple{Vector{Float64}, Float64, BallParams}, Nothing}}}
+       param Tuple{typeof(TraitWorld.param), Type{Callback}, Val{:P}, Type{TraitWorld.ErasedKey{Tuple{Vector{Float64}, Float64, BallParams}, Nothing}}}
+       affect! Tuple{typeof(affect!), Kept{Callback{Vector{Float64}, Float64, BallParams}}, Dynamic{IntegratorView{Vector{Float64}, Float64, BallParams}}}
+       op_args Tuple{typeof(TraitWorld.op_args), Type{Callback}, Val{:affect!}, Type{TraitWorld.ErasedKey{Tuple{Vector{Float64}, Float64, BallParams}, Nothing}}, Val{1}}
+       op_ret Tuple{typeof(TraitWorld.op_ret), Type{ODEProblemTrait}, Val{:jacobian!}, Type{ODEProblem{Float64, BallParams, Dynamic{Callable{Tuple{Vector{Float64}, Vector{Float64}, BallParams, Float64}, Noth
+       jacobian! Tuple{typeof(jacobian!), ODEProblem{Float64, BallParams, Dynamic{Callable{Tuple{Vector{Float64}, Vector{Float64}, BallParams, Float64}, Nothing}}, Dynamic{Callable{Tuple{Vector{ForwardDiff.D
+       ad_jacobian! Tuple{typeof(TraitDifferentialEquations.ODECore.ad_jacobian!), ODEProblem{Float64, BallParams, Dynamic{Callable{Tuple{Vector{Float64}, Vector{Float64}, BallParams, Float64}, Nothing}}, Dy
+       op_ret Tuple{typeof(TraitWorld.op_ret), Type{ODEProblemTrait}, Val{:rhs_function}, Type{ODEProblem{Float64, BallParams, Dynamic{Callable{Tuple{Vector{Float64}, Vector{Float64}, BallParams, Float64}, N
+       rhs_function Tuple{typeof(rhs_function), ODEProblem{Float64, BallParams, Dynamic{Callable{Tuple{Vector{Float64}, Vector{Float64}, BallParams, Float64}, Nothing}}, Dynamic{Callable{Tuple{Vector{Forward
+       field_type Tuple{typeof(TraitWorld.field_type), Type{ODEProblemTrait}, Val{:u0}, Type{TraitWorld.Key{ODEProblem{Float64, BallParams, Dynamic{Callable{Tuple{Vector{Float64}, Vector{Float64}, BallParams
+       field_type Tuple{typeof(TraitWorld.field_type), Type{ODEProblemTrait}, Val{:tspan}, Type{TraitWorld.Key{ODEProblem{Float64, BallParams, Dynamic{Callable{Tuple{Vector{Float64}, Vector{Float64}, BallPar
+       field_type Tuple{typeof(TraitWorld.field_type), Type{ODEProblemTrait}, Val{:p}, Type{TraitWorld.Key{ODEProblem{Float64, BallParams, Dynamic{Callable{Tuple{Vector{Float64}, Vector{Float64}, BallParams,
+       param Tuple{typeof(TraitWorld.param), Type{ODEProblemTrait}, Val{:P}, Type{TraitWorld.Key{ODEProblem{Float64, BallParams, Dynamic{Callable{Tuple{Vector{Float64}, Vector{Float64}, BallParams, Float64},
+       _keep_fn Tuple{typeof(TraitDifferentialEquations.ODECore._keep_fn), Type{Kept{Callable{Tuple{Vector{Float64}, Float64, Dynamic{IntegratorView{Vector{Float64}, Float64, BallParams}}}, Float64}}}, Any}
+       _keep_fn Tuple{typeof(TraitDifferentialEquations.ODECore._keep_fn), Type{Kept{Callable{Tuple{Dynamic{IntegratorView{Vector{Float64}, Float64, BallParams}}}, Nothing}}}, Any}
+       FunctionEventCallback Tuple{Type{TraitDifferentialEquations.ODECore.FunctionEventCallback{Vector{Float64}, Float64, BallParams}}, Kept{Callable{Tuple{Vector{Float64}, Float64, Dynamic{IntegratorView{V
+       conformance Tuple{typeof(TraitWorld.conformance), TraitWorld.As{EventCallback}, TraitDifferentialEquations.ODECore.FunctionEventCallback{Vector{Float64}, Float64, BallParams}}
+       implementation Tuple{typeof(TraitWorld.implementation), Type{EventCallback}, Type{TraitDifferentialEquations.ODECore.FunctionEventCallback{Vector{Float64}, Float64, BallParams}}}
+       event_condition Tuple{typeof(event_condition), EventCallback{Vector{Float64}, Float64, BallParams} at TraitDifferentialEquations.ODECore.FunctionEventCallback{Vector{Float64}, Float64, BallParams}, Ve
+       op_args Tuple{typeof(TraitWorld.op_args), Type{EventCallback}, Val{:event_condition}, Type{TraitDifferentialEquations.ODECore.FunctionEventCallback{Vector{Float64}, Float64, BallParams}}, Val{3}}
+       param Tuple{typeof(TraitWorld.param), Type{EventCallback}, Val{:U}, Type{TraitDifferentialEquations.ODECore.FunctionEventCallback{Vector{Float64}, Float64, BallParams}}}
+       param Tuple{typeof(TraitWorld.param), Type{EventCallback}, Val{:T}, Type{TraitDifferentialEquations.ODECore.FunctionEventCallback{Vector{Float64}, Float64, BallParams}}}
+       param Tuple{typeof(TraitWorld.param), Type{EventCallback}, Val{:P}, Type{TraitDifferentialEquations.ODECore.FunctionEventCallback{Vector{Float64}, Float64, BallParams}}}
+       op_ret Tuple{typeof(TraitWorld.op_ret), Type{EventCallback}, Val{:event_condition}, Type{TraitDifferentialEquations.ODECore.FunctionEventCallback{Vector{Float64}, Float64, BallParams}}, Val{3}}
+       event_condition Tuple{typeof(event_condition), TraitDifferentialEquations.ODECore.FunctionEventCallback{Vector{Float64}, Float64, BallParams}, Vector{Float64}, Float64, Dynamic{IntegratorView{Vector{F
+       event_affect! Tuple{typeof(event_affect!), EventCallback{Vector{Float64}, Float64, BallParams} at TraitDifferentialEquations.ODECore.FunctionEventCallback{Vector{Float64}, Float64, BallParams}, Dynami
+       op_args Tuple{typeof(TraitWorld.op_args), Type{EventCallback}, Val{:event_affect!}, Type{TraitDifferentialEquations.ODECore.FunctionEventCallback{Vector{Float64}, Float64, BallParams}}, Val{1}}
+       op_ret Tuple{typeof(TraitWorld.op_ret), Type{EventCallback}, Val{:event_affect!}, Type{TraitDifferentialEquations.ODECore.FunctionEventCallback{Vector{Float64}, Float64, BallParams}}, Val{1}}
+       event_affect! Tuple{typeof(event_affect!), TraitDifferentialEquations.ODECore.FunctionEventCallback{Vector{Float64}, Float64, BallParams}, Dynamic{IntegratorView{Vector{Float64}, Float64, BallParams}}
+       _keep_fn Tuple{typeof(TraitDifferentialEquations.ODECore._keep_fn), Type{Kept{Callable{Tuple{Vector{Float64}, Float64, Dynamic{IntegratorView{Vector{Float64}, Float64, BallParams}}}, Bool}}}, Any}
+       FunctionCallback Tuple{Type{TraitDifferentialEquations.ODECore.FunctionCallback{Vector{Float64}, Float64, BallParams}}, Kept{Callable{Tuple{Vector{Float64}, Float64, Dynamic{IntegratorView{Vector{Floa
+       conformance Tuple{typeof(TraitWorld.conformance), TraitWorld.As{Callback}, TraitDifferentialEquations.ODECore.FunctionCallback{Vector{Float64}, Float64, BallParams}}
+       implementation Tuple{typeof(TraitWorld.implementation), Type{Callback}, Type{TraitDifferentialEquations.ODECore.FunctionCallback{Vector{Float64}, Float64, BallParams}}}
+       condition Tuple{typeof(condition), Callback{Vector{Float64}, Float64, BallParams} at TraitDifferentialEquations.ODECore.FunctionCallback{Vector{Float64}, Float64, BallParams}, Vector{Float64}, Float64
+       op_args Tuple{typeof(TraitWorld.op_args), Type{Callback}, Val{:condition}, Type{TraitDifferentialEquations.ODECore.FunctionCallback{Vector{Float64}, Float64, BallParams}}, Val{3}}
+       param Tuple{typeof(TraitWorld.param), Type{Callback}, Val{:U}, Type{TraitDifferentialEquations.ODECore.FunctionCallback{Vector{Float64}, Float64, BallParams}}}
+       param Tuple{typeof(TraitWorld.param), Type{Callback}, Val{:T}, Type{TraitDifferentialEquations.ODECore.FunctionCallback{Vector{Float64}, Float64, BallParams}}}
+       param Tuple{typeof(TraitWorld.param), Type{Callback}, Val{:P}, Type{TraitDifferentialEquations.ODECore.FunctionCallback{Vector{Float64}, Float64, BallParams}}}
+       op_ret Tuple{typeof(TraitWorld.op_ret), Type{Callback}, Val{:condition}, Type{TraitDifferentialEquations.ODECore.FunctionCallback{Vector{Float64}, Float64, BallParams}}, Val{3}}
+       condition Tuple{typeof(condition), TraitDifferentialEquations.ODECore.FunctionCallback{Vector{Float64}, Float64, BallParams}, Vector{Float64}, Float64, Dynamic{IntegratorView{Vector{Float64}, Float64,
+       affect! Tuple{typeof(affect!), Callback{Vector{Float64}, Float64, BallParams} at TraitDifferentialEquations.ODECore.FunctionCallback{Vector{Float64}, Float64, BallParams}, Dynamic{IntegratorView{Vecto
+       op_args Tuple{typeof(TraitWorld.op_args), Type{Callback}, Val{:affect!}, Type{TraitDifferentialEquations.ODECore.FunctionCallback{Vector{Float64}, Float64, BallParams}}, Val{1}}
+       op_ret Tuple{typeof(TraitWorld.op_ret), Type{Callback}, Val{:affect!}, Type{TraitDifferentialEquations.ODECore.FunctionCallback{Vector{Float64}, Float64, BallParams}}, Val{1}}
+       affect! Tuple{typeof(affect!), TraitDifferentialEquations.ODECore.FunctionCallback{Vector{Float64}, Float64, BallParams}, Dynamic{IntegratorView{Vector{Float64}, Float64, BallParams}}}
+       implementation Tuple{typeof(TraitWorld.implementation), Type{IntegratorView}, Type{TraitDifferentialEquations.ODECore.Tsit5Integrator{Float64, BallParams}}}
+       op_args Tuple{typeof(TraitWorld.op_args), Type{IntegratorView}, Val{:add_tstop!}, Type{TraitDifferentialEquations.ODECore.Tsit5Integrator{Float64, BallParams}}, Val{1}}
+       param Tuple{typeof(TraitWorld.param), Type{IntegratorView}, Val{:T}, Type{TraitDifferentialEquations.ODECore.Tsit5Integrator{Float64, BallParams}}}
+       param Tuple{typeof(TraitWorld.param), Type{IntegratorView}, Val{:T}, Type{TraitWorld.Key{TraitDifferentialEquations.ODECore.Tsit5Integrator{Float64, BallParams}, @NamedTuple{t::Float64}}}}
+       op_ret Tuple{typeof(TraitWorld.op_ret), Type{IntegratorView}, Val{:add_tstop!}, Type{TraitDifferentialEquations.ODECore.Tsit5Integrator{Float64, BallParams}}, Val{1}}
+       add_tstop! Tuple{typeof(add_tstop!), TraitDifferentialEquations.ODECore.Tsit5Integrator{Float64, BallParams}, Float64}
+       op_args Tuple{typeof(TraitWorld.op_args), Type{IntegratorView}, Val{:terminate!}, Type{TraitDifferentialEquations.ODECore.Tsit5Integrator{Float64, BallParams}}, Val{0}}
+       op_ret Tuple{typeof(TraitWorld.op_ret), Type{IntegratorView}, Val{:terminate!}, Type{TraitDifferentialEquations.ODECore.Tsit5Integrator{Float64, BallParams}}, Val{0}}
+       terminate! Tuple{typeof(terminate!), TraitDifferentialEquations.ODECore.Tsit5Integrator{Float64, BallParams}}
+       op_args Tuple{typeof(TraitWorld.op_args), Type{IntegratorView}, Val{:interp!}, Type{TraitDifferentialEquations.ODECore.Tsit5Integrator{Float64, BallParams}}, Val{2}}
+       param Tuple{typeof(TraitWorld.param), Type{IntegratorView}, Val{:U}, Type{TraitDifferentialEquations.ODECore.Tsit5Integrator{Float64, BallParams}}}
+       param Tuple{typeof(TraitWorld.param), Type{IntegratorView}, Val{:U}, Type{TraitWorld.Key{TraitDifferentialEquations.ODECore.Tsit5Integrator{Float64, BallParams}, @NamedTuple{u::Vector{Float64}}}}}
+       op_ret Tuple{typeof(TraitWorld.op_ret), Type{IntegratorView}, Val{:interp!}, Type{TraitDifferentialEquations.ODECore.Tsit5Integrator{Float64, BallParams}}, Val{2}}
+       interp! Tuple{typeof(interp!), IntegratorView{Vector{Float64}, Float64, BallParams} at TraitDifferentialEquations.ODECore.Tsit5Integrator{Float64, BallParams}; u::Vector{Float64}, t::Float64, dt::Floa
+       op_args Tuple{typeof(TraitWorld.op_args), Type{IntegratorView}, Val{:interp!}, Type{TraitWorld.Key{TraitDifferentialEquations.ODECore.Tsit5Integrator{Float64, BallParams}, @NamedTuple{u::Vector{Float6
+       param Tuple{typeof(TraitWorld.param), Type{IntegratorView}, Val{:U}, Type{TraitWorld.Key{TraitDifferentialEquations.ODECore.Tsit5Integrator{Float64, BallParams}, @NamedTuple{u::Vector{Float64}, t::Flo
+       param Tuple{typeof(TraitWorld.param), Type{IntegratorView}, Val{:T}, Type{TraitWorld.Key{TraitDifferentialEquations.ODECore.Tsit5Integrator{Float64, BallParams}, @NamedTuple{u::Vector{Float64}, t::Flo
+       op_ret Tuple{typeof(TraitWorld.op_ret), Type{IntegratorView}, Val{:interp!}, Type{TraitWorld.Key{TraitDifferentialEquations.ODECore.Tsit5Integrator{Float64, BallParams}, @NamedTuple{u::Vector{Float64}
+       interp! Tuple{typeof(interp!), TraitDifferentialEquations.ODECore.Tsit5Integrator{Float64, BallParams}, Vector{Float64}, Float64}
+       projection Tuple{typeof(TraitWorld.projection), Type{IntegratorView}, Type{TraitDifferentialEquations.ODECore.Tsit5Integrator{Float64, BallParams}}}
+       field_type Tuple{typeof(TraitWorld.field_type), Type{IntegratorView}, Val{:u}, Type{TraitWorld.Key{TraitDifferentialEquations.ODECore.Tsit5Integrator{Float64, BallParams}, @NamedTuple{u::Vector{Float6
+       field_type Tuple{typeof(TraitWorld.field_type), Type{IntegratorView}, Val{:t}, Type{TraitWorld.Key{TraitDifferentialEquations.ODECore.Tsit5Integrator{Float64, BallParams}, @NamedTuple{u::Vector{Float6
+       field_type Tuple{typeof(TraitWorld.field_type), Type{IntegratorView}, Val{:dt}, Type{TraitWorld.Key{TraitDifferentialEquations.ODECore.Tsit5Integrator{Float64, BallParams}, @NamedTuple{u::Vector{Float
+       field_type Tuple{typeof(TraitWorld.field_type), Type{IntegratorView}, Val{:p}, Type{TraitWorld.Key{TraitDifferentialEquations.ODECore.Tsit5Integrator{Float64, BallParams}, @NamedTuple{u::Vector{Float6
+       param Tuple{typeof(TraitWorld.param), Type{IntegratorView}, Val{:P}, Type{TraitWorld.Key{TraitDifferentialEquations.ODECore.Tsit5Integrator{Float64, BallParams}, @NamedTuple{u::Vector{Float64}, t::Flo
+       field_type Tuple{typeof(TraitWorld.field_type), Type{IntegratorView}, Val{:u_modified}, Type{TraitWorld.Key{TraitDifferentialEquations.ODECore.Tsit5Integrator{Float64, BallParams}, @NamedTuple{u::Vect
+       field_type Tuple{typeof(TraitWorld.field_type), Type{IntegratorView}, Val{:terminated}, Type{TraitWorld.Key{TraitDifferentialEquations.ODECore.Tsit5Integrator{Float64, BallParams}, @NamedTuple{u::Vect
+       field_type Tuple{typeof(TraitWorld.field_type), Type{IntegratorView}, Val{:p}, Type{TraitWorld.ErasedKey{Tuple{Vector{Float64}, Float64, BallParams}, Nothing}}}
+       param Tuple{typeof(TraitWorld.param), Type{IntegratorView}, Val{:P}, Type{TraitWorld.ErasedKey{Tuple{Vector{Float64}, Float64, BallParams}, Nothing}}}
+       field_type Tuple{typeof(TraitWorld.field_type), Type{IntegratorView}, Val{:u}, Type{TraitWorld.ErasedKey{Tuple{Vector{Float64}, Float64, BallParams}, Nothing}}}
+       field_type Tuple{typeof(TraitWorld.field_type), Type{IntegratorView}, Val{:t}, Type{TraitWorld.ErasedKey{Tuple{Vector{Float64}, Float64, BallParams}, Nothing}}}
+       _tgetprop Tuple{typeof(TraitWorld._tgetprop), IntegratorView{Vector{Float64}, Float64, BallParams} at TraitDifferentialEquations.ODECore.Tsit5Integrator{Float64, BallParams}; u::Vector{Float64}, t::Fl
+       _tgetprop Tuple{typeof(TraitWorld._tgetprop), IntegratorView{Vector{Float64}, Float64, BallParams} at TraitDifferentialEquations.ODECore.Tsit5Integrator{Float64, BallParams}; u::Vector{Float64}, t::Fl
+       _tgetprop Tuple{typeof(TraitWorld._tgetprop), IntegratorView{Vector{Float64}, Float64, BallParams} at TraitDifferentialEquations.ODECore.Tsit5Integrator{Float64, BallParams}; u::Vector{Float64}, t::Fl
+
+--- a new discrete callback (two new closures)
+  ODECore + TraitDifferentialEquations (the driver, the integrators, the callbacks' records, the front end): 0 new CodeInstance(s)
+    of them: the driver and init (ODECore) 0; the callbacks' operations at a callback type (its own entries) 0; the front end (the ordinary module) 0
+  TraitWorld: 6 new CodeInstance(s)
+     [facts] TraitWorld._CallWrap  Tuple{TraitWorld._CallWrap{Bool}, var"#61#62", Vector{Float64}, Float64, Dynamic{IntegratorView{Vector{Float64}, Float64, OscParams}}}
+     [facts] TraitWorld._CallWrap  Tuple{TraitWorld._CallWrap{Nothing}, var"#63#64", Dynamic{IntegratorView{Vector{Float64}, Float64, OscParams}}}
+     [plain] TraitWorld._CallWrap  Tuple{TraitWorld._CallWrap{Bool}, var"#61#62", Vector{Float64}, Float64, Dynamic{IntegratorView{Vector{Float64}, Float64, OscParams}}}
+     [plain] TraitWorld._CallWrap  Tuple{TraitWorld._CallWrap{Nothing}, var"#63#64", Dynamic{IntegratorView{Vector{Float64}, Float64, OscParams}}}
+     [facts] TraitWorld._fptr  Tuple{typeof(TraitWorld._fptr), Type{Tuple{Dynamic{IntegratorView{Vector{Float64}, Float64, OscParams}}}}, Type{Nothing}, Type{var"#63#64"}}
+     [facts] TraitWorld._fptr  Tuple{typeof(TraitWorld._fptr), Type{Tuple{Vector{Float64}, Float64, Dynamic{IntegratorView{Vector{Float64}, Float64, OscParams}}}}, Type{Bool}, Type{var"#61#62"}}
+  every module: 11 new CodeInstance(s), by module of the method: Main 5, TraitWorld 6
+  @snoop_inference, methods inferred, by module: Main 5, TraitWorld 6
+
+--- two new discrete callbacks and the old ones
+  ODECore + TraitDifferentialEquations (the driver, the integrators, the callbacks' records, the front end): 0 new CodeInstance(s)
+    of them: the driver and init (ODECore) 0; the callbacks' operations at a callback type (its own entries) 0; the front end (the ordinary module) 0
+  TraitWorld: 9 new CodeInstance(s)
+     [plain] TraitWorld._CallWrap  Tuple{TraitWorld._CallWrap{Bool}, var"#72#73", Vector{Float64}, Float64, Dynamic{IntegratorView{Vector{Float64}, Float64, OscParams}}}
+     [facts] TraitWorld._CallWrap  Tuple{TraitWorld._CallWrap{Bool}, var"#72#73", Vector{Float64}, Float64, Dynamic{IntegratorView{Vector{Float64}, Float64, OscParams}}}
+     [plain] TraitWorld._CallWrap  Tuple{TraitWorld._CallWrap{Nothing}, var"#74#75", Dynamic{IntegratorView{Vector{Float64}, Float64, OscParams}}}
+     [facts] TraitWorld._CallWrap  Tuple{TraitWorld._CallWrap{Bool}, var"#76#77", Vector{Float64}, Float64, Dynamic{IntegratorView{Vector{Float64}, Float64, OscParams}}}
+     [facts] TraitWorld._CallWrap  Tuple{TraitWorld._CallWrap{Nothing}, var"#74#75", Dynamic{IntegratorView{Vector{Float64}, Float64, OscParams}}}
+     [plain] TraitWorld._CallWrap  Tuple{TraitWorld._CallWrap{Bool}, var"#76#77", Vector{Float64}, Float64, Dynamic{IntegratorView{Vector{Float64}, Float64, OscParams}}}
+     [facts] TraitWorld._fptr  Tuple{typeof(TraitWorld._fptr), Type{Tuple{Dynamic{IntegratorView{Vector{Float64}, Float64, OscParams}}}}, Type{Nothing}, Type{var"#74#75"}}
+     [facts] TraitWorld._fptr  Tuple{typeof(TraitWorld._fptr), Type{Tuple{Vector{Float64}, Float64, Dynamic{IntegratorView{Vector{Float64}, Float64, OscParams}}}}, Type{Bool}, Type{var"#72#73"}}
+     [facts] TraitWorld._fptr  Tuple{typeof(TraitWorld._fptr), Type{Tuple{Vector{Float64}, Float64, Dynamic{IntegratorView{Vector{Float64}, Float64, OscParams}}}}, Type{Bool}, Type{var"#76#77"}}
+  every module: 19 new CodeInstance(s), by module of the method: Base 3, Main 7, TraitWorld 9
+  @snoop_inference, methods inferred, by module: Base 3, Main 7, TraitWorld 9
+
+--- a new continuous callback
+  ODECore + TraitDifferentialEquations (the driver, the integrators, the callbacks' records, the front end): 0 new CodeInstance(s)
+    of them: the driver and init (ODECore) 0; the callbacks' operations at a callback type (its own entries) 0; the front end (the ordinary module) 0
+  TraitWorld: 6 new CodeInstance(s)
+     [plain] TraitWorld._CallWrap  Tuple{TraitWorld._CallWrap{Nothing}, var"#87#88", Dynamic{IntegratorView{Vector{Float64}, Float64, BallParams}}}
+     [facts] TraitWorld._CallWrap  Tuple{TraitWorld._CallWrap{Nothing}, var"#87#88", Dynamic{IntegratorView{Vector{Float64}, Float64, BallParams}}}
+     [facts] TraitWorld._CallWrap  Tuple{TraitWorld._CallWrap{Float64}, var"#85#86", Vector{Float64}, Float64, Dynamic{IntegratorView{Vector{Float64}, Float64, BallParams}}}
+     [plain] TraitWorld._CallWrap  Tuple{TraitWorld._CallWrap{Float64}, var"#85#86", Vector{Float64}, Float64, Dynamic{IntegratorView{Vector{Float64}, Float64, BallParams}}}
+     [facts] TraitWorld._fptr  Tuple{typeof(TraitWorld._fptr), Type{Tuple{Vector{Float64}, Float64, Dynamic{IntegratorView{Vector{Float64}, Float64, BallParams}}}}, Type{Float64}, Type{var"#85#86"}}
+     [facts] TraitWorld._fptr  Tuple{typeof(TraitWorld._fptr), Type{Tuple{Dynamic{IntegratorView{Vector{Float64}, Float64, BallParams}}}}, Type{Nothing}, Type{var"#87#88"}}
+  every module: 11 new CodeInstance(s), by module of the method: Main 5, TraitWorld 6
+  @snoop_inference, methods inferred, by module: Main 5, TraitWorld 6
+
+--- the first callback type (UserCB.BelowKick, declared before the step)
+  ODECore + TraitDifferentialEquations (the driver, the integrators, the callbacks' records, the front end): 6 new CodeInstance(s)
+     [facts] TraitDifferentialEquations.ODECore._is_event_callback  Tuple{typeof(TraitDifferentialEquations.ODECore._is_event_callback), Any, Any}
+     [facts] TraitDifferentialEquations.ODECore._keep_fn  Tuple{typeof(TraitDifferentialEquations.ODECore._keep_fn), Type{Kept{Callback{Vector{Float64}, Float64, OscParams}}}, Any}
+     [facts] TraitDifferentialEquations.ODECore._uncast  Tuple{typeof(TraitDifferentialEquations.ODECore._uncast), Any}
+     [facts] TraitDifferentialEquations.ODECore.affect!  Tuple{typeof(affect!), Callback{Vector{Float64}, Float64, OscParams} at Main.UserCB.BelowKick, Dynamic{IntegratorView{Vector{Float64}, Float64, OscParams}}}
+     [facts] TraitDifferentialEquations.ODECore.condition  Tuple{typeof(condition), Callback{Vector{Float64}, Float64, OscParams} at Main.UserCB.BelowKick, Vector{Float64}, Float64, Dynamic{IntegratorView{Vector{Float64}, Float64, OscParams}}}
+     [plain] TraitDifferentialEquations.solve  Tuple{typeof(Core.kwcall), @NamedTuple{callback::Main.UserCB.BelowKick}, typeof(solve), ODEProblem{Float64, OscParams}, Tsit5}
+    of them: the driver and init (ODECore) 3; the callbacks' operations at a callback type (its own entries) 2; the front end (the ordinary module) 1
+  TraitWorld: 35 new CodeInstance(s)
+     [facts] TraitWorld.#_with_object##0  Tuple{TraitWorld.var"#_with_object##0#_with_object##1"{Main.UserCB.BelowKick}, TraitWorld.Held{Callback{Vector{Float64}, Float64, OscParams, Main.UserCB.BelowKick}, TraitWorld.Impl{()}, Main.UserCB.BelowKick, 0, Tuple{Main.UserCB.BelowKick}}}
+     [facts] TraitWorld.Builder  Tuple{implementation of Callback{Vector{Float64}, Float64, OscParams} at Main.UserCB.BelowKick, Main.UserCB.BelowKick}
+     [facts] TraitWorld.Compiled  Tuple{Type{Compiled{Callback{Vector{Float64}, Float64, OscParams}}}, Main.UserCB.BelowKick}
+     [facts] TraitWorld.Held  Tuple{Type{TraitWorld.Held{Callback{Vector{Float64}, Float64, OscParams, Main.UserCB.BelowKick}, TraitWorld.Impl{()}, Main.UserCB.BelowKick, 0, Tuple{Main.UserCB.BelowKick}}}, TraitWorld.Impl{()}, Tuple{}, Tuple{Main.UserCB.BelowKick}}
+     [facts] TraitWorld.Kept  Tuple{Type{Kept{Callback{Vector{Float64}, Float64, OscParams}}}, Main.UserCB.BelowKick}
+     [facts] TraitWorld.TObj  Tuple{Type{TObj}, Tuple{TraitWorld.Held{Callback{Vector{Float64}, Float64, OscParams, Main.UserCB.BelowKick}, TraitWorld.Impl{()}, Main.UserCB.BelowKick, 0, Tuple{Main.UserCB.BelowKick}}}}
+     [facts] TraitWorld.TObj  Tuple{Type{Callback{Vector{Float64}, Float64, OscParams} at Main.UserCB.BelowKick}, Tuple{TraitWorld.Held{Callback{Vector{Float64}, Float64, OscParams, Main.UserCB.BelowKick}, TraitWorld.Impl{()}, Main.UserCB.BelowKick, 0, Tuple{Main.UserCB.BelowKick}}}}
+     [facts] TraitWorld._DynOp  Tuple{TraitWorld._DynOp{Callback{Vector{Float64}, Float64, OscParams}, typeof(condition)}, Main.UserCB.BelowKick, Vector{Float64}, Float64, Dynamic{IntegratorView{Vector{Float64}, Float64, OscParams}}}
+     [facts] TraitWorld._DynOp  Tuple{TraitWorld._DynOp{Callback{Vector{Float64}, Float64, OscParams}, typeof(affect!)}, Main.UserCB.BelowKick, Dynamic{IntegratorView{Vector{Float64}, Float64, OscParams}}}
+     [facts] TraitWorld._Open  Tuple{TraitWorld._Open{Callback{Vector{Float64}, Float64, OscParams}}, Main.UserCB.BelowKick}
+     [facts] TraitWorld._assemble  Tuple{typeof(TraitWorld._assemble), TraitWorld.TraitList{Tuple{Callback}}, Main.UserCB.BelowKick}
+     [facts] TraitWorld._build  Tuple{typeof(TraitWorld._build), Main.UserCB.BelowKick}
+     … 23 more
+  every module: 70 new CodeInstance(s), by module of the method: Base 21, Core 3, Main 1, Main.UserCB 4, TraitDifferentialEquations 1, TraitDifferentialEquations.ODECore 5, TraitWorld 35
+  @snoop_inference, methods inferred, by module: Base 21, Core 3, Main 1, Main.UserCB 4, TraitDifferentialEquations 1, TraitDifferentialEquations.ODECore 5, TraitWorld 35
+     of them in the solver's modules: solve Tuple{typeof(Core.kwcall), @NamedTuple{callback::Main.UserCB.BelowKick}, typeof(solve), ODEProblem{Float64, OscParams}, Tsit5}
+       _is_event_callback Tuple{typeof(TraitDifferentialEquations.ODECore._is_event_callback), Any, Any}
+       _uncast Tuple{typeof(TraitDifferentialEquations.ODECore._uncast), Any}
+       _keep_fn Tuple{typeof(TraitDifferentialEquations.ODECore._keep_fn), Type{Kept{Callback{Vector{Float64}, Float64, OscParams}}}, Any}
+       condition Tuple{typeof(condition), Callback{Vector{Float64}, Float64, OscParams} at Main.UserCB.BelowKick, Vector{Float64}, Float64, Dynamic{IntegratorView{Vector{Float64}, Float64, OscParams}}}
+       affect! Tuple{typeof(affect!), Callback{Vector{Float64}, Float64, OscParams} at Main.UserCB.BelowKick, Dynamic{IntegratorView{Vector{Float64}, Float64, OscParams}}}
+
+--- a second callback type (UserCB.AboveDamp)
+  ODECore + TraitDifferentialEquations (the driver, the integrators, the callbacks' records, the front end): 3 new CodeInstance(s)
+     [facts] TraitDifferentialEquations.ODECore.affect!  Tuple{typeof(affect!), Callback{Vector{Float64}, Float64, OscParams} at Main.UserCB.AboveDamp, Dynamic{IntegratorView{Vector{Float64}, Float64, OscParams}}}
+     [facts] TraitDifferentialEquations.ODECore.condition  Tuple{typeof(condition), Callback{Vector{Float64}, Float64, OscParams} at Main.UserCB.AboveDamp, Vector{Float64}, Float64, Dynamic{IntegratorView{Vector{Float64}, Float64, OscParams}}}
+     [plain] TraitDifferentialEquations.solve  Tuple{typeof(Core.kwcall), @NamedTuple{callback::Tuple{Main.UserCB.AboveDamp, Main.UserCB.BelowKick}}, typeof(solve), ODEProblem{Float64, OscParams}, Tsit5}
+    of them: the driver and init (ODECore) 0; the callbacks' operations at a callback type (its own entries) 2; the front end (the ordinary module) 1
+  TraitWorld: 31 new CodeInstance(s)
+     [facts] TraitWorld.#_with_object##0  Tuple{TraitWorld.var"#_with_object##0#_with_object##1"{Main.UserCB.AboveDamp}, TraitWorld.Held{Callback{Vector{Float64}, Float64, OscParams, Main.UserCB.AboveDamp}, TraitWorld.Impl{()}, Main.UserCB.AboveDamp, 0, Tuple{Main.UserCB.AboveDamp}}}
+     [facts] TraitWorld.Builder  Tuple{implementation of Callback{Vector{Float64}, Float64, OscParams} at Main.UserCB.AboveDamp, Main.UserCB.AboveDamp}
+     [facts] TraitWorld.Compiled  Tuple{Type{Compiled{Callback{Vector{Float64}, Float64, OscParams}}}, Main.UserCB.AboveDamp}
+     [facts] TraitWorld.Held  Tuple{Type{TraitWorld.Held{Callback{Vector{Float64}, Float64, OscParams, Main.UserCB.AboveDamp}, TraitWorld.Impl{()}, Main.UserCB.AboveDamp, 0, Tuple{Main.UserCB.AboveDamp}}}, TraitWorld.Impl{()}, Tuple{}, Tuple{Main.UserCB.AboveDamp}}
+     [facts] TraitWorld.Kept  Tuple{Type{Kept{Callback{Vector{Float64}, Float64, OscParams}}}, Main.UserCB.AboveDamp}
+     [facts] TraitWorld.TObj  Tuple{Type{TObj}, Tuple{TraitWorld.Held{Callback{Vector{Float64}, Float64, OscParams, Main.UserCB.AboveDamp}, TraitWorld.Impl{()}, Main.UserCB.AboveDamp, 0, Tuple{Main.UserCB.AboveDamp}}}}
+     [facts] TraitWorld.TObj  Tuple{Type{Callback{Vector{Float64}, Float64, OscParams} at Main.UserCB.AboveDamp}, Tuple{TraitWorld.Held{Callback{Vector{Float64}, Float64, OscParams, Main.UserCB.AboveDamp}, TraitWorld.Impl{()}, Main.UserCB.AboveDamp, 0, Tuple{Main.UserCB.AboveDamp}}}}
+     [facts] TraitWorld._DynOp  Tuple{TraitWorld._DynOp{Callback{Vector{Float64}, Float64, OscParams}, typeof(affect!)}, Main.UserCB.AboveDamp, Dynamic{IntegratorView{Vector{Float64}, Float64, OscParams}}}
+     [facts] TraitWorld._DynOp  Tuple{TraitWorld._DynOp{Callback{Vector{Float64}, Float64, OscParams}, typeof(condition)}, Main.UserCB.AboveDamp, Vector{Float64}, Float64, Dynamic{IntegratorView{Vector{Float64}, Float64, OscParams}}}
+     [facts] TraitWorld._Open  Tuple{TraitWorld._Open{Callback{Vector{Float64}, Float64, OscParams}}, Main.UserCB.AboveDamp}
+     [facts] TraitWorld._assemble  Tuple{typeof(TraitWorld._assemble), TraitWorld.TraitList{Tuple{Callback}}, Main.UserCB.AboveDamp}
+     [facts] TraitWorld._build  Tuple{typeof(TraitWorld._build), Main.UserCB.AboveDamp}
+     … 19 more
+  every module: 58 new CodeInstance(s), by module of the method: Base 16, Core 3, Main 1, Main.UserCB 4, TraitDifferentialEquations 1, TraitDifferentialEquations.ODECore 2, TraitWorld 31
+  @snoop_inference, methods inferred, by module: Base 16, Core 3, Main 1, Main.UserCB 4, TraitDifferentialEquations 1, TraitDifferentialEquations.ODECore 2, TraitWorld 31
+     of them in the solver's modules: solve Tuple{typeof(Core.kwcall), @NamedTuple{callback::Tuple{Main.UserCB.AboveDamp, Main.UserCB.BelowKick}}, typeof(solve), ODEProblem{Float64, OscParams}, Tsit5}
+       condition Tuple{typeof(condition), Callback{Vector{Float64}, Float64, OscParams} at Main.UserCB.AboveDamp, Vector{Float64}, Float64, Dynamic{IntegratorView{Vector{Float64}, Float64, OscParams}}}
+       affect! Tuple{typeof(affect!), Callback{Vector{Float64}, Float64, OscParams} at Main.UserCB.AboveDamp, Dynamic{IntegratorView{Vector{Float64}, Float64, OscParams}}}
+
+integrator types: set A (three closures' callbacks) TraitDifferentialEquations.ODECore.Tsit5Integrator{Float64, OscParams}; set B (a closure, a callback type, a continuous one) TraitDifferentialEquations.ODECore.Tsit5Integrator{Float64, OscParams}
+  the callbacks' vector: Vector{Kept{Callback{Vector{Float64}, Float64, OscParams}}}; its items: DataType[Kept{Callback{Vector{Float64}, Float64, OscParams}}] / DataType[Kept{Callback{Vector{Float64}, Float64, OscParams}}]
+--- control: PlainODE typed, a new discrete callback (expected: a new driver)
+  PlainODE (the control's driver): 9 new CodeInstance(s)
+     [plain] PlainODE.#solve_typed#19  Tuple{PlainODE.var"##solve_typed#19", Tuple{TypedDiscreteCallback{var"#ctl_new##0#ctl_new##1", var"#ctl_new##2#ctl_new##3"}}, Tuple{}, Base.Pairs{Symbol, Union{}, Nothing, @NamedTuple{}}, typeof(PlainODE.solve_typed), PlainODE.ODEProblem{typeof(osc!), Float64,…
+     [plain] PlainODE.TypedDiscreteCallback  Tuple{Type{TypedDiscreteCallback}, var"#ctl_new##0#ctl_new##1", var"#ctl_new##2#ctl_new##3"}
+     [plain] PlainODE._solve  Tuple{typeof(PlainODE._solve), typeof(osc!), Vector{Float64}, Tuple{Float64, Float64}, PlainODE.Tsit5, OscParams, Tuple{TypedDiscreteCallback{var"#ctl_new##0#ctl_new##1", var"#ctl_new##2#ctl_new##3"}}, PlainODE.SolverOptions, Tuple{}}
+     [plain] PlainODE.affect!  Tuple{typeof(PlainODE.affect!), TypedDiscreteCallback{var"#ctl_new##0#ctl_new##1", var"#ctl_new##2#ctl_new##3"}, PlainODE.Tsit5Integrator{Float64, OscParams}}
+     [plain] PlainODE.condition  Tuple{typeof(PlainODE.condition), TypedDiscreteCallback{var"#ctl_new##0#ctl_new##1", var"#ctl_new##2#ctl_new##3"}, Vector{Float64}, Float64, PlainODE.Tsit5Integrator{Float64, OscParams}}
+     [plain] PlainODE.discrete_callback!  Tuple{typeof(PlainODE.discrete_callback!), FunctionWrappers.FunctionWrapper{Nothing, Tuple{Vector{Float64}, Vector{Float64}, OscParams, Float64}}, PlainODE.Tsit5Integrator{Float64, OscParams}, TypedDiscreteCallback{var"#ctl_new##0#ctl_new##1", var"#ctl_new##2#…
+     [plain] PlainODE.discrete_callbacks!  Tuple{typeof(PlainODE.discrete_callbacks!), FunctionWrappers.FunctionWrapper{Nothing, Tuple{Vector{Float64}, Vector{Float64}, OscParams, Float64}}, PlainODE.Tsit5Integrator{Float64, OscParams}, Tuple{TypedDiscreteCallback{var"#ctl_new##0#ctl_new##1", var"#ctl_…
+     [plain] PlainODE.solve_ode  Tuple{typeof(PlainODE.solve_ode), FunctionWrappers.FunctionWrapper{Nothing, Tuple{Vector{Float64}, Vector{Float64}, OscParams, Float64}}, Vector{Float64}, Tuple{Float64, Float64}, PlainODE.Tsit5, OscParams, Tuple{TypedDiscreteCallback{var"#ctl_new##0#ctl_new##…
+     [plain] PlainODE.solve_typed  Tuple{typeof(Core.kwcall), @NamedTuple{callbacks::Tuple{TypedDiscreteCallback{var"#ctl_new##0#ctl_new##1", var"#ctl_new##2#ctl_new##3"}}}, typeof(PlainODE.solve_typed), PlainODE.ODEProblem{typeof(osc!), Float64, OscParams}, PlainODE.Tsit5}
+  TraitWorld: 0 new CodeInstance(s)
+  every module: 21 new CodeInstance(s), by module of the method: Base 8, Core 1, Main 3, PlainODE 9
+  @snoop_inference, methods inferred, by module: Base 8, Core 1, Main 3, PlainODE 9
+
+  PASS  a new discrete callback: no new CodeInstance in ODECore + TDE  [0]
+  PASS  two new discrete callbacks with the old ones: none  [0]
+  PASS  a new continuous callback: none  [0]
+  (the first callback type: init's branch for values of callback types, compiled once per key: 3 driver CodeInstance(s))
+  PASS  a second callback type: none in the driver (the type's own operation entries only)  [total 3, driver 0]
+  PASS  one integrator type for two callback sets  [TraitDifferentialEquations.ODECore.Tsit5Integrator{Float64, OscParams}]
+  PASS  the control's typed driver is seen by the count  [9]
+RESULT check2 new driver CodeInstances: discrete 0, two discrete 0, continuous 0, first callback type 6 (driver 3), second 3 (driver 0); control (PlainODE typed) 9
+
+checks: 6 of 6 pass
+load at end: 2.61 2.13 1.71
+exit 0

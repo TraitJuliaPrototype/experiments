@@ -147,3 +147,91 @@ None of T-62, T-64, T-65, T-66, T-67, L-3 is on this build's path: `init` is an 
 - The init-chunk function sits in a helper struct `DualJacobian` held by the integrator (`Rodas5Integrator{P, JC}`), not in a bounded parameter of the integrator itself, so the integrator needs no marker when the problem's `jacobian!` is used.
 - `Trajectory`'s operations are not exported (`times`, `state`, `at` are common names); `at` interpolates linearly; the solution keeps no problem, so its type stays independent of `P`.
 - `ChainModel{G}` lives in a TDE example package that depends on nothing; checks 2–6 use it.
+
+
+---
+
+# E-158: move 2, callbacks and the integrator view as traits (TDE, W-34)
+
+The question (registry E-158; [the W-34 plan](../../writeup/plans/2026-10-21-w34-sciml-prerequisites.md) §2.3, §1.3): with callbacks as `Callback{U, T, P}` kept in a vector of the integrator, entered at `init` as records of `Callable` fields, and seeing the integrator as `Dynamic{IntegratorView{U, T, P}}` with operations, (1) are event times and states equal to a typed control (PlainODE) bit for bit, discrete first, then a scalar continuous callback? (2) Does a new callback compile nothing in the driver, with one integrator type for two callback sets? (3) Is `integ.p` typed in a callback? (4) Is a callback type without `affect!` refused at `@implement`? (5) What does a step with two callbacks cost and allocate against the control?
+
+What it measures: idiomatic trait code (TDE's solvers over trait-typed callbacks and the integrator view), against the same solver in plain Julia. The timings are quick regression checks, not measurements; current numbers belong in [the evidence](../../writeup/design/evidence.md).
+
+## What was built (TDE branch `w34`, cccc517, from E-157's 29f0641)
+
+- **`IntegratorView{U, T, P}`** (ODECore): the fields `@const u::U`, `@const t::T`, `@const dt::T`, `@const p::P`, `u_modified::Bool`, `terminated::Bool`; the operations `add_tstop!(i, τ::T)`, `terminate!(i)`, `interp!(i, out::U, τ::T)` (the state within the last accepted step, by the solver's interpolant). `Tsit5Integrator{T, P}` and `Rodas5Integrator{P, JC}` conform as no-block families, by their own methods; `U`, `T`, `P` come from the fields.
+- **`Callback{U, T, P}`** (`condition(cb, u::U, t::T, integ::Dynamic{IntegratorView{U, T, P}})::Bool`, `affect!(cb, integ)::Nothing`) and **`EventCallback{U, T, P}`** (`event_condition(…)::Float64`, `event_affect!(…)::Nothing`).
+- **The user's records:** `DiscreteCallback(condition, affect!)` and `ContinuousCallback(condition, affect!)`, plain structs of two `Any` fields (`@nospecializeinfer` constructors). At `init` (`enter_callbacks`) each becomes a `FunctionCallback{U, T, P}` / `FunctionEventCallback{U, T, P}` of two `Kept{Callable{…}}` fields at the problem's `(Vector{T}, Float64, P)`, a joint no-block family implementing the trait. A value of a callback type is kept as `Kept{Callback{U, T, P}}` (or `EventCallback`, by `conforms`).
+- **The integrator keeps** `Vector{Callback{Vector{T}, Float64, P}}` and `Vector{EventCallback{…}}` (struct fields; `Kept{…}` in a trait module). Tsit5's `init` (`tsit5_init`) is split from its driver (`tsit5_run!`).
+- **The driver:** tstops (the step clipped to the next one, `t` set to it exactly); after an accepted step the continuous callbacks (the earliest sign change, bisection on `interp!` to `Float64`'s resolution, `event_time`, the integrator moved to the last time before the crossing, the state saved there, `event_affect!`, `f(u, t)` again; the fired callback's next check starts a hundredth into the next step, SciML's repeat nudge), then the discrete ones as before. Rodas5: tstops and discrete callbacks; a continuous one is refused (`ArgumentError`).
+- **The control** (`baselines/PlainODE`): the same driver text (`event_time` verbatim), the integrator itself as the view, `add_tstop!`/`terminate!`/`interp!` as plain functions; `solve_typed(prob, Tsit5(); callbacks, events)` takes typed records (`TypedDiscreteCallback{C, A}`, `TypedContinuousCallback{C, A}`) in tuples, the discrete ones unrolled by recursion, so the driver is compiled per callback set (SciML's form). PlainODE's `solve` keeps its untyped `Vector{Any}`.
+- **Following the design:** `LorenzModels`' `Bounce` and `RaiseSigma` implement `Callback{Vector{Float64}, Float64, LorenzParams{Float64}}` (`RaiseSigma` reads `integ.p.σ` without an assertion); the session's `ResetZ` implements `Callback{Vector{Float64}, Float64, Vector{Float64}}`. The front end's API (`ODEProblem`, `solve(…; callback)`, `DiscreteCallback`, closures writing `i.u`, `i.p`, `i.terminated`) is unchanged.
+- TDE's suite: 95 checks pass, 1 broken as on `main` (`test/w34_move2.jl` adds 10).
+
+## How to run
+
+From any directory; every Julia job through `m2/jl.sh` (the shared lock, cores 0–1, `ionice -c3`, `nice -n 19`, one thread, one precompile task, the depot `/tmp/claude-1000/depot-w34` first):
+
+    m2/run_all.sh run1          # the session's RESULT lines, then checks 1, 2, 3+4, 5, 5 hot, each in a fresh session
+    m2/run_tests.sh <label>     # TDE's suite on the checkout as it stands
+    m2/run_session.sh <label>   # TDE's session (scripts/session.jl trait): RESULT lines against main's (../m1/logs/session-main-1.log)
+
+- `m2/setup_env.jl` made the environment once: TraitWorld, TDE, LorenzModels and PlainODE developed from the checkouts; ForwardDiff; SnoopCompileCore.
+- `m2/common.jl`: the setting line, the load, `check`, and the CodeInstance count (E-157's).
+- `m2/models.jl`: the user's models and callbacks (an oscillator with mutable parameters and three discrete callbacks: a kick at `p.tk` re-armed by `add_tstop!`, a write to `p.c`, `terminate!`; a bouncing ball with two continuous callbacks, the ground and the apex, and a discrete one writing `p.e`), written once, for TDE and the control.
+- **Check 2's count:** as E-157 check 4, each step called behind `invokelatest`, so that it is not inferred with the harness. The new CodeInstances of ODECore and the front end are split into the driver and `init` (ODECore), the callbacks' operations at a callback type (that type's own entries), and the front end (the ordinary module).
+- **Check 5:** best of five solves, ns per accepted step; `@allocated` over one solve per step. `hot`: the members the loop uses (`FunctionCallback{Vector{Float64}, Float64, Vector{Float64}}`, `Tsit5Integrator{Float64, Vector{Float64}}`) declared on their own in ODECore before their first use, L-37's workaround.
+- Reproducers: `m2/repro_typed_array.jl` (finding 3), `m2/repro_kept_params.jl` (finding 4), `m2/repro_nospecialize.jl` (a note on `@nospecialize`).
+- Logs: `m2/logs/<check>-run{1,2}.log`, `session-w34-run{1,2}.log`, `tests-w34-cccc517.log`, `run_all.out`; `m2/logs/dev/` the logs of the build's uncommitted states (a failing ball test before the repeat nudge).
+
+## The build and the run
+
+- julia-1.13 2943086604 (prints `6d480d0753*`), TraitWorld 2e9ed68, TDE cccc517 (branch `w34`), the product setting, strict mode off (`JULIA_TW_STRICT=0`), one thread.
+- TDE's load order: TDE, its example packages, the control PlainODE, then the script. Two runs (`run1`, `run2`), each check in a fresh session; the load (`/proc/loadavg`, 1/5/15 min) is at the top and the bottom of each log: 2.1–2.6 throughout (the user at work on the machine).
+
+## Results (2026-10-22)
+
+Build julia-1.13 2943086604, TraitWorld 2e9ed68, TDE cccc517, product setting, strict mode off, two runs, load 2.1–2.6. Idiomatic trait code.
+
+| Check | Outcome | Key numbers (run 1 / run 2) |
+|---|---|---|
+| 0 TDE's `RESULT` lines | **unchanged**: the 9 lines identical to `main`'s; the session passes, with its new callback type at the prompt | both runs |
+| 1 event times and states | **identical to the typed control, bit for bit**, in every variant: `sol.t`, `sol.u`, retcode, step and call counts, the event log (name, time, state) and the final parameters; TDE with `Dynamic` and `compiled_for` functions, the control typed and untyped | Stage 1 (discrete, oscillator): 10 events, the kicks after the first exactly at 2.0, 3.0, …, 8.0 by `add_tstop!`, the stop by `terminate!` at 8.505; every step saved, `saveat`, and tolerances 1e-10. Stage 2 (continuous, ball, 0 ≤ t ≤ 4): 13 events; the first contact at 0.45152364098573 (`sqrt(2/g)` within 2e-15); the ball never below −1e-9 |
+| 2 no driver code per callback | **none**; one integrator type `Tsit5Integrator{Float64, OscParams}` for two callback sets (three closures; a closure, a callback type and a continuous callback) | New CodeInstances in the driver and `init`: a new discrete callback 0, two new ones 0, a new continuous one 0, a second callback type 0 (its own `condition` and `affect!` entries 2, the front end's keyword call 1); the first callback type 3 once per key (`init`'s branch for callback-type values). TraitWorld per new closure pair: 6 (`_CallWrap`, `_fptr`); per new callback type 31–35 (its implementation's machinery). Control (PlainODE typed): 9 new driver CodeInstances for one new callback |
+| 3 `integ.p` typed | **yes**: `integ.p` on a `Dynamic{IntegratorView{Vector{Float64}, Float64, OscParams}}` infers `OscParams`, `integ.p.k` `Float64`; `RaiseSigma`'s `condition` reads `integ.p.σ` without an assertion and infers `Bool`; the write `integ.p.c = 0.5` reaches the user's `p` and the solve (equal before t = 4, different after) | — |
+| 4 a callback type without `affect!` | **refused at `@implement`**: `ImplementError` ("has methods for some operations of Callback but not for affect!"), raised at the macro's expansion; a condition returning `Int` also refused (`returns Int64, declared Bool`). **A callback type at other parameters than the problem's is accepted at `init` and refused only at its first call** (`TraitArgumentError`): finding 4 | — |
+| 5 a step with two callbacks | **The design's form (families):** two callbacks add 1,353 / 1,359 ns and **1,024 bytes per step**, against 6.5 / 2.4 ns and 0 bytes for the typed control and 94 / 100 ns, 32 bytes for PlainODE's `Vector{Any}`. **With the hot members declared on their own (L-37's workaround):** 32 / 41 ns and **32 bytes per step** (16 per callback call), against 4.6 / 0.8 ns, 0 bytes typed and 93 / 89 ns, 32 bytes `Vector{Any}` | Per step without callbacks: TDE 177 / 185 ns, the control 164 / 168 ns (both 122 B, saving every step). One call, families: `condition` on the kept `FunctionCallback` 1,779 ns, 848 B; `integ.p[1]` on the view 667 ns, 384 B. Hot: 42–43 ns, 48 B and 0.9 ns, 0 B; the kept `Callable` alone 12.7 ns, 16 B. `compiled_for` closures: 1,918 / 1,978 ns (families), 547 / 566 ns and 128 B (hot) per step for two |
+
+### Findings
+
+1. **L-37 dominates the callbacks' cost** (check 5). Both families of move 2 are on the hot path: every operation on a kept `FunctionCallback{U, T, P}` and every field read on the `Dynamic{IntegratorView{U, T, P}}` of a `Tsit5Integrator{T, P}` opens the family through its registry (`_conf_family`): 1.8 µs and 848 B per `condition`, 0.67 µs and 384 B per `integ.p`, so two callbacks add 1.35 µs and 1 KB to a 0.18 µs step. Declaring the two members on their own removes it (32–41 ns per step). The library cannot declare the members for its users' parameter types (`OscParams`, `LorenzParams`): that is the owner of `P` (planned, T-28) or W-40.
+2. **The view is boxed at every callback call** (check 5, hot): a `Dynamic{IntegratorView{…}}` is an immutable non-bits value, so each `Dynamic{Callable}` call that takes it boxes it (16 B; open issues §4 item 35; E-157 finding 1). Two callbacks: 32 B per step, as PlainODE's `Vector{Any}`. It is the callbacks' signature itself, so every callback call of move 2 allocates unless the box goes.
+3. **`X{P}[]` in a trait module's function body is not taken as `Kept{X{P}}`** (found building `enter_callbacks`): traits §7.2 says a trait's name as a container's element type means `Kept{X}` (`Column[]`). A bare name works (`Plain[]`), and so does a struct field `Vector{Shape{P}}`; `Shape{Float64}[]`, `Shape{P}[]` and `Vector{Shape{Float64}}()` give a vector of the trait type itself, and `push!` of a conforming value fails at `convert`. `TraitWorld/src/trait_module.jl:361` (`_dyn_body` rewrites only when `_istraitname`, `:306`, which takes a symbol or a dotted name, not a `curly`). Reproducer: `m2/repro_typed_array.jl`. TDE writes `Kept{Callback{U, T, P}}[]`.
+4. **A value is kept at parameters its type does not implement** (check 4): `Kept{Shape{Int}}(Sq())`, `Dynamic{…}` and `Compiled{…}` alike, with `Sq` implementing only `Shape{Vector{Float64}}`, are accepted (`conforms(Sq, Shape{Int})` is `false`); the first operation raises `TraitArgumentError`. `Dynamic{X}(x)` checks the family, `_family_list(X)`, not `X`'s parameters (`TraitWorld/src/core.jl:435`–`440`). In TDE a callback type at another `P` passes `init` and fails at its first `condition`. Reproducer: `m2/repro_kept_params.jl`.
+5. **`compiled_for` closures cost more than `Dynamic` ones** (check 5): kept in a `Kept{Callable}` field, a `Compiled` function is called by run-time dispatch on its type (traits §7.5, "a call selects its code by its type"), 270–280 ns per call with hot members. The design's `compiled_for` buys speed where code is compiled for the value; the integrator's vector is not.
+6. **A note on compile counts** (check 2; not a TraitWorld matter): a constructor with `@nospecialize` arguments still gets one CodeInstance per closure type when a caller that knows the types is inferred, in a trait module and a plain module alike (`m2/repro_nospecialize.jl`); `@nospecializeinfer` gives one. TDE's `DiscreteCallback` and `ContinuousCallback` use it. The front end's keyword call (`Core.kwcall` of `solve`) is compiled per callback container type (a callback type, a tuple of them), Julia's keyword machinery: one small CodeInstance in the ordinary module per new callback type.
+
+### Deviations met
+
+- **L-37** (finding 1): on the main path of move 2, twice per callback call.
+- **Open issues §4 item 35** (finding 2): the view boxed per `Dynamic{Callable}` call.
+- Not on this build's path: T-57 (the families have no block), T-62 (every family by its owner), T-68 (no mapped fields), L-3 (users' callback types add plain methods for their own types; every bounded method is in its function's owner), L-31 (the view is made explicitly, `Dynamic{IntegratorView{…}}(i)`).
+
+### Pushback (idiomatic code against the design)
+
+- **A callback type for every `P` is not offered** (traits §3.4, §4.7: a type conforming at every parameter value). A callback type states its problem's types (`@implement Callback{Vector{Float64}, Float64, LorenzParams{Float64}} Bounce`), so `Bounce` serves Lorenz problems only; SciML's callback types serve any problem. The ways round: the plain record entered at `init` (what `DiscreteCallback` does), or a family over a parameter of the callback's own, which the user then writes (`Bounce{P}`).
+- **The view's type in every callback signature** is long (`Dynamic{IntegratorView{Vector{Float64}, Float64, LorenzParams{Float64}}}`); `LorenzModels` names it once (`const LorenzView = …`).
+- **Move 2 puts two families on every callback call:** the callback records (`FunctionCallback{U, T, P}`, parametric because their `Callable`s name `U, T, P`) and the integrators. Through L-37 each call and each field read takes the per-member path (`main`'s cost for its unparametrized `Dynamic{IntegratorView}` was not measured here). Before W-40, the speed needs per-member declarations that only `P`'s owner could write.
+- **Every callback call allocates** while the view is a non-bits immutable passed to a `Dynamic` function (item 35).
+- **`compiled_for` on a callback** does not compile the driver for it (by design: the integrator's type stays free of callback types); it only changes the call to a run-time dispatch. SciML's fully specialized callbacks have no counterpart short of a callback type in the integrator's type.
+
+### Choices made (mine)
+
+- `IntegratorView{U, T, P}`'s fields as above; `terminated` stays writable beside `terminate!` (the existing API); `dt` is the last accepted step's size.
+- Two traits, `Callback` and `EventCallback`, with distinct operation names (`event_condition`, `event_affect!`), not one trait with a kind.
+- The user's records are plain structs in ODECore with `Any` fields, entered at `init`; the front end passes the callbacks as a `Vector{Any}` (`solve_ode`'s signature changed, internal). A continuous callback type is recognized by `conforms`.
+- `interp!` interpolates the last accepted step (after acceptance; the integrator keeps `uprev`, `kprev`, `tprev`); Rodas5's from `uprev` and `u`.
+- Continuous events: after the step is accepted, before saving; the earliest callback's event wins; the integrator moves to the last time before the crossing; the state is saved there once (not the post-affect state, as for discrete callbacks); SciML's repeat nudge (a hundredth of the step) for the fired callback's next check. Continuous before discrete. Rodas5 refuses continuous callbacks.
+- tstops: `add_tstop!` ignores a time not ahead; a tstop behind a continuous event stays.
+- TDE declares no hot members (the design's form is what is measured; the workaround is measured from the script).
+- The control's typed callbacks are tuples with the discrete ones unrolled by recursion; PlainODE's `Vector{Any}` path is shown beside it.
