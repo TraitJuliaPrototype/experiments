@@ -1,0 +1,38 @@
+== E-156 probe P10
+   julia 1.13.2 (6d480d0753*)  TraitWorld f06b82d  setting product  strict off  threads 1
+   load (cut -d' ' -f1-3 /proc/loadavg) at start: 1.16 1.03 0.92
+   form: struct Problem{F <: ODERHS} under @default_with_dynamic_self; two plain models give one Problem type
+
+trait module: no exception
+models: no exception
+Decay, top level                                returned Main.Core1.Problem{Dynamic{Main.Core1.ODERHS}}
+Growth{Float64} (a family member), top level    returned Main.Core1.Problem{Dynamic{Main.Core1.ODERHS}}
+Decay, typed caller                             returned Main.Core1.Problem{Dynamic{Main.Core1.ODERHS}}
+Growth{Float64}, typed caller                   returned Main.Core1.Problem{Dynamic{Main.Core1.ODERHS}}
+Decay with compiled_for, typed caller           returned Main.Core1.Problem{Main.Models.Decay}
+OwnModel (trait world), typed caller            returned Main.Core1.Problem{Main.Core1.OwnModel}
+euler with Decay: returned [0.81]; with Growth: returned [1.2100000000000002]
+
+  [ok  ] Decay at the top level: Problem{Dynamic{ODERHS}}
+         returned Main.Core1.Problem{Dynamic{Main.Core1.ODERHS}}
+  [ok  ] Growth{Float64} at the top level: Problem{Dynamic{ODERHS}}
+         returned Main.Core1.Problem{Dynamic{Main.Core1.ODERHS}}
+  [ok  ] Decay from a typed caller: Problem{Dynamic{ODERHS}} (the default over the first-seen rule)
+         returned Main.Core1.Problem{Dynamic{Main.Core1.ODERHS}}
+  [ok  ] Growth{Float64} from a typed caller: Problem{Dynamic{ODERHS}}
+         returned Main.Core1.Problem{Dynamic{Main.Core1.ODERHS}}
+  [ok  ] two plain models give one problem type
+         returned Main.Core1.Problem{Dynamic{Main.Core1.ODERHS}} vs returned Main.Core1.Problem{Dynamic{Main.Core1.ODERHS}}
+  [ok  ] compiled_for(Decay): Problem{Decay} (a cast wins)
+         returned Main.Core1.Problem{Main.Models.Decay}
+  [ok  ] OwnModel of the trait world, typed: Problem{OwnModel} (the default does not apply)
+         returned Main.Core1.Problem{Main.Core1.OwnModel}
+  [ok  ] the solver runs on both models
+         returned [0.81]; returned [1.2100000000000002]
+
+predicted (plan §2.1): works (one problem type)
+reference says:        traits §7.4, §6.3: under @default_with_dynamic_self a plain value not of the trait world is Dynamic at the struct parameter: F = Dynamic{ODERHS}
+matches the prediction: see the checks: yes where every check is ok
+load at end: 1.16 1.03 0.92
+RESULT P10 PASS
+exit 0

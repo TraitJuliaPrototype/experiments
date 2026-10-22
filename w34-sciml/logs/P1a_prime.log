@@ -1,0 +1,26 @@
+== E-156 probe P1a_prime
+   julia 1.13.2 (6d480d0753*)  TraitWorld f06b82d  setting product  strict off  threads 1
+   load (cut -d' ' -f1-3 /proc/loadavg) at start: 0.68 0.92 0.88
+   form: @implement X A where {A <: S} begin … end, outside (by S's owner) and inside the trait's module
+
+inside: no exception
+outside: ImplementError: ImplementError: Main.ModelsB may not implement `fval2` of Main.TraitOut.Fam2 for A: `fval2` belongs to Main.TraitOut, and Main.ModelsB does not own A, so the method would change `fval2` for everyone (rule 3). Declare the existing methods instead (`@implement Fam2{A}` without a block), or let the owner of A implement it.
+
+inside: usef(S(2)) returned 4.0; usef(S(1.5f0)) returned 3.0
+outside: usef2(S(2)) MethodError: MethodError: no method matching usef2(::Main.ModelsB.S{Int64})
+      This error has been manually thrown, explicitly, so the method may exist but be intentionally marked as unimplemented.
+      Argument 1 of `usef2` is bounded by Main.TraitOut.Fam2; a Main.ModelsB.S{Int64} conforms to none of them (declare an implementation with `@implement`, or convert it).
+      
+      …
+
+  [ok  ] inside: accepted, members work (S{Int} gives 4.0, S{Float32} gives 3.0)
+         inside: returned 4.0, returned 3.0
+  [ok  ] outside: refused by the rule-3 precheck (T-57)
+         ImplementError: ImplementError: Main.ModelsB may not implement `fval2` of Main.TraitOut.Fam2 for A: `fval2` belongs to Main.TraitOut, and Main.ModelsB does not own A, so the method would change `fval2` for everyone (rule 3). Declare the existing methods instead (`@implement Fam2{A}` without a block), or let the owner of A implement it.
+
+predicted (plan §2.1): outside: refused by the precheck (T-57); inside: works
+reference says:        traits §4.7: the trait's or the type's owner may declare a family with a block; Deviation T-57: outside the trait's module refused by the rule-3 precheck
+matches the prediction: see the checks: yes where every check is ok
+load at end: 0.79 0.94 0.88
+RESULT P1a_prime PASS
+exit 0

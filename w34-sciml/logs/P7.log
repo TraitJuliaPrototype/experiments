@@ -1,0 +1,27 @@
+== E-156 probe P7
+   julia 1.13.2 (6d480d0753*)  TraitWorld f06b82d  setting product  strict off  threads 1
+   load (cut -d' ' -f1-3 /proc/loadavg) at start: 1.11 1.01 0.91
+   form: a default whose body names the trait's parameter
+
+trait module: no exception
+declaration: no exception
+state(M32) via start, typed: UndefVarError: UndefVarError: `T` not defined in `Main.TraitPkg`
+      Suggestion: check for spelling errors or missing imports.
+zero_state(M32) at the top level: UndefVarError: UndefVarError: `T` not defined in `Main.TraitPkg`
+      Suggestion: check for spelling errors or missing imports.
+
+  [ok  ] the trait and the implementation are accepted
+         no exception; no exception
+  [ok  ] state(m, u0): UndefVarError T when the default runs (T-2)
+         UndefVarError: UndefVarError: `T` not defined in `Main.TraitPkg`
+               Suggestion: check for spelling errors or missing imports.
+  [ok  ] zero_state(m): UndefVarError T when the default runs (T-2)
+         UndefVarError: UndefVarError: `T` not defined in `Main.TraitPkg`
+               Suggestion: check for spelling errors or missing imports.
+
+predicted (plan §2.1): `UndefVarError` (T-2)
+reference says:        traits §3.2: the parameters are in scope in a default's body (Planned), Deviation T-2: `UndefVarError: T` when the default runs
+matches the prediction: see the checks: yes where every check is ok
+load at end: 1.11 1.01 0.91
+RESULT P7 PASS
+exit 0

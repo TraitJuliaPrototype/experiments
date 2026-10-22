@@ -1,0 +1,38 @@
+== E-156 probe P8
+   julia 1.13.2 (6d480d0753*)  TraitWorld f06b82d  setting product  strict off  threads 1
+   load (cut -d' ' -f1-3 /proc/loadavg) at start: 1.11 1.01 0.91
+   form: struct Callback{U, T, P} with Callable{Tuple{U, T, Dynamic{IntegratorView{U, T, P}}}, Bool} fields; Vector{Callback{U, T, P}} in the integrator
+
+trait module: no exception
+P = Params:  returned (2, 7.5, true, Vector{Main.CBCore.Callback{Vector{Float64}, Float64, Main.Models.Params}}, Kept{Callable{Tuple{Vector{Float64}, Float64, Dynamic{Main.CBCore.IntegratorView{Vector{Float64}, Float64, Main.Models.Params}}}, Bool}})
+P = Params2: returned (1, 4.0, false, Vector{Main.CBCore.Callback{Vector{Float64}, Float64, Main.Models.Params2}}, Kept{Callable{Tuple{Vector{Float64}, Float64, Dynamic{Main.CBCore.IntegratorView{Vector{Float64}, Float64, Main.Models.Params2}}}, Bool}})
+return type of `integ.p` on a Dynamic{Main.CBCore.IntegratorView{Vector{Float64}, Float64, Main.Models.Params}}: Any[Main.Models.Params]
+return type of `integ.t`: Any[Float64]
+a condition returning Int, in the solver's `if`: TypeError: TypeError: non-boolean (Int64) used in boolean context
+a condition returning Int, its result returned: TypeError: TypeError: non-boolean (Int64) used in boolean context
+  … kept with compiled_for: TypeError: TypeError: non-boolean (Int64) used in boolean context
+  … kept with with_dynamic: TypeError: TypeError: non-boolean (Int64) used in boolean context
+
+  [ok  ] the trait module (parametric record of Callable fields, Vector{Callback{U, T, P}} field) is accepted
+         no exception
+  [ok  ] P = Params: the callback fires at t = 2 and 3, writes u[1] = p.a and u_modified
+         returned (2, 7.5, true, Vector{Main.CBCore.Callback{Vector{Float64}, Float64, Main.Models.Params}}, Kept{Callable{Tuple{Vector{Float64}, Float64, Dynamic{Main.CBCore.IntegratorView{Vector{Float64}, Float64, Main.Models.Params}}}, Bool}})
+  [ok  ] P = Params2: a second parameter type works
+         returned (1, 4.0, false, Vector{Main.CBCore.Callback{Vector{Float64}, Float64, Main.Models.Params2}}, Kept{Callable{Tuple{Vector{Float64}, Float64, Dynamic{Main.CBCore.IntegratorView{Vector{Float64}, Float64, Main.Models.Params2}}}, Bool}})
+  [ok  ] `integ.p` read in plain code is inferred at P (Models.Params)
+         return_types: Any[Main.Models.Params]
+  [ok  ] `integ.t` read in plain code is inferred at T (Float64)
+         return_types: Any[Float64]
+  [ok  ] a condition returning Int is refused at the Callable's call (TypeError), not passed on
+         TypeError: TypeError: non-boolean (Int64) used in boolean context
+  [ok  ]   … kept with compiled_for: refused at the call (TypeError)
+         TypeError: TypeError: non-boolean (Int64) used in boolean context
+  [ok  ]   … kept with with_dynamic: refused at the call (TypeError)
+         TypeError: TypeError: non-boolean (Int64) used in boolean context
+
+predicted (plan §2.1): works
+reference says:        traits §7.2, §7.5: a `Callable{A, S}` field in a trait module is Kept{Callable{A, S}}; each call checked; §7.1: a declared field read on a kept value has its declared type at the parameters the form fixes. Implemented
+matches the prediction: see the checks: yes where every check is ok
+load at end: 1.18 1.03 0.91
+RESULT P8 PASS
+exit 0

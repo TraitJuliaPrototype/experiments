@@ -1,0 +1,34 @@
+== E-156 probe P12
+   julia 1.13.2 (6d480d0753*)  TraitWorld f06b82d  setting product  strict off  threads 1
+   load (cut -d' ' -f1-3 /proc/loadavg) at start: 1.37 1.07 0.93
+   form: init(prob::ODEProblemTrait{U, T, P}, alg)::Integrator{U, T, P} as an operation; the driver opens the result with compiled_for
+
+trait module: no exception
+declarations: no exception
+typeof(init's result), handed up: TypeError: TypeError: in typeassert, expected Main.Core1.Integrator{Vector{Float64}, Float64, Float64}, got a value of type Main.SolverPkg.EulerInteg{Vector{Float64}, Float64, Float64}
+solve, typed, Float64:  TypeError: TypeError: in typeassert, expected Main.Core1.Integrator{Vector{Float64}, Float64, Float64}, got a value of type Main.SolverPkg.EulerInteg{Vector{Float64}, Float64, Float64}
+solve, top level, Float32: TypeError: TypeError: in typeassert, expected Main.Core1.Integrator{Vector{Float32}, Float32, Float32}, got a value of type Main.SolverPkg.EulerInteg{Vector{Float32}, Float32, Float32}
+solve_dyn (no cast): TypeError: TypeError: in typeassert, expected Main.Core1.Integrator{Vector{Float64}, Float64, Float64}, got a value of type Main.SolverPkg.EulerInteg{Vector{Float64}, Float64, Float64}
+init at other parameters: declaration no exception; solve: TypeError: TypeError: in typeassert, expected Main.Core1.Integrator{Vector{Float64}, Float64, Float64}, got a value of type Main.SolverPkg.EulerInteg{Vector{Float32}, Float32, Float64}
+
+  [ok  ] the trait with a trait-typed operation result is accepted
+         no exception
+  [ok  ] the families (init by the problem's own method, generic in alg) are accepted
+         no exception
+  [FAIL] solve from a typed caller: init's result is a Dynamic{Integrator{…}}, opened with compiled_for, runs
+         TypeError: TypeError: in typeassert, expected Main.Core1.Integrator{Vector{Float64}, Float64, Float64}, got a value of type Main.SolverPkg.EulerInteg{Vector{Float64}, Float64, Float64}
+  [FAIL] init's result is a Dynamic{Integrator{Vector{Float64}, Float64, Float64}}
+         TypeError: TypeError: in typeassert, expected Main.Core1.Integrator{Vector{Float64}, Float64, Float64}, got a value of type Main.SolverPkg.EulerInteg{Vector{Float64}, Float64, Float64}
+  [FAIL] solve at the top level, Float32
+         TypeError: TypeError: in typeassert, expected Main.Core1.Integrator{Vector{Float32}, Float32, Float32}, got a value of type Main.SolverPkg.EulerInteg{Vector{Float32}, Float32, Float32}
+  [FAIL] the Dynamic result at the bound without a cast runs
+         TypeError: TypeError: in typeassert, expected Main.Core1.Integrator{Vector{Float64}, Float64, Float64}, got a value of type Main.SolverPkg.EulerInteg{Vector{Float64}, Float64, Float64}
+  [ok  ] an init returning an integrator at other parameters is refused (at the member's check or the call)
+         declaration: no exception; solve: TypeError: TypeError: in typeassert, expected Main.Core1.Integrator{Vector{Float64}, Float64, Float64}, got a value of type Main.SolverPkg.EulerInteg{Vector{Float32}, Float32, Float64}
+
+predicted (plan §2.1): unprobed (option (d))
+reference says:        traits §3.1, §6.2: an operation's result declared with a trait is Dynamic (Implemented); §6.4: compiled_for opens it
+matches the prediction: no prediction (unprobed)
+load at end: 1.37 1.07 0.93
+RESULT P12 FAIL
+exit 0

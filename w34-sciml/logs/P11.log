@@ -1,0 +1,40 @@
+== E-156 probe P11
+   julia 1.13.2 (6d480d0753*)  TraitWorld f06b82d  setting product  strict off  threads 1
+   load (cut -d' ' -f1-3 /proc/loadavg) at start: 1.16 1.03 0.92
+   form: solve!(integ::Integrator{U, T, P}, prob::ODEProblemTrait{U, T, P}) where {U, T, P}; a mismatched pair raises TraitBoundError
+
+trait module: no exception
+declarations: no exception
+matched (Float64), typed                                      returned (Vector{Float64}, Float64, Float64, 2.44140625)
+matched (Float32), top level                                  returned (Vector{Float32}, Float32, Float32, 2.4414062f0)
+U, T disagree (Float32 integrator, Float64 problem), typed    TraitBoundError: TraitBoundError: argument `prob`: parameter 1 of Main.Core1.ODEProblemTrait is Vector{Float64}, but `U` is Vector{Float32}
+U, T disagree, top level                                      TraitBoundError: TraitBoundError: argument `prob`: parameter 1 of Main.Core1.ODEProblemTrait is Vector{Float64}, but `U` is Vector{Float32}
+P disagrees (Int against Float64), typed                      TraitBoundError: TraitBoundError: argument `prob`: parameter 3 of Main.Core1.ODEProblemTrait is Float64, but `P` is Int64
+P disagrees, top level                                        TraitBoundError: TraitBoundError: argument `prob`: parameter 3 of Main.Core1.ODEProblemTrait is Float64, but `P` is Int64
+integ.u .+= integ.du on a declared field                      TraitUseError: TraitUseError: library code breaks a rule of the trait world:
+        none:0: a trait object carrying Main.Core1.Integrator is passed to `dotgetproperty`, an ordinary function: it can do only what its traits declare. Declare `dotgetproperty` as an operation, or use the operations
+
+  [ok  ] the trait module and the families are accepted
+         no exception; no exception
+  [ok  ] matched (Float64), typed: runs (u = 2.4414…)
+         returned (Vector{Float64}, Float64, Float64, 2.44140625)
+  [ok  ] matched (Float32), top level: runs (u = 2.4414…)
+         returned (Vector{Float32}, Float32, Float32, 2.4414062f0)
+  [ok  ] U, T disagree (Float32 integrator, Float64 problem), typed: TraitBoundError
+         TraitBoundError: TraitBoundError: argument `prob`: parameter 1 of Main.Core1.ODEProblemTrait is Vector{Float64}, but `U` is Vector{Float32}
+  [ok  ] U, T disagree, top level: TraitBoundError
+         TraitBoundError: TraitBoundError: argument `prob`: parameter 1 of Main.Core1.ODEProblemTrait is Vector{Float64}, but `U` is Vector{Float32}
+  [ok  ] P disagrees (Int against Float64), typed: TraitBoundError
+         TraitBoundError: TraitBoundError: argument `prob`: parameter 3 of Main.Core1.ODEProblemTrait is Float64, but `P` is Int64
+  [ok  ] P disagrees, top level: TraitBoundError
+         TraitBoundError: TraitBoundError: argument `prob`: parameter 3 of Main.Core1.ODEProblemTrait is Float64, but `P` is Int64
+  [FAIL] `integ.u .+= integ.du` on a declared field (traits §3.3: bounded code reads declared fields) runs
+         TraitUseError: TraitUseError: library code breaks a rule of the trait world:
+                 none:0: a trait object carrying Main.Core1.Integrator is passed to `dotgetproperty`, an ordinary function: it can do only what its traits declare. Declare `dotgetproperty` as an operation, or use the operations
+
+predicted (plan §2.1): works (open issue 51, option (a+))
+reference says:        traits §3.4, §5.1: a variable shared between bounds requires equal values, TraitBoundError otherwise. Implemented
+matches the prediction: see the checks: yes where every check is ok
+load at end: 1.31 1.06 0.93
+RESULT P11 FAIL
+exit 0

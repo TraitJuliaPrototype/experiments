@@ -1,0 +1,67 @@
+# E-156: probes of the forms the SciML moves rely on (W-34)
+
+The question (registry E-156; [the W-34 plan](../../writeup/plans/2026-10-21-w34-sciml-prerequisites.md) §2.1): do the forms the SciML moves 1–4 rely on work in TraitWorld as the references say? One script per probe, each with the plan's prediction by reading.
+
+What it measures: TraitWorld's forms, neither interop (trait code calling plain code) nor idiomatic trait code as a whole. The two timing probes (P13, P15) are quick regression checks, not measurements; current numbers belong in [the evidence](../../writeup/design/evidence.md).
+
+## How to run
+
+From any directory, one job at a time (the shared lock, `nice -n 19`, a depot of its own first):
+
+    ./run_probes.sh                 # every probe, serially, each in a fresh session
+    ./run_probes.sh P1b P15         # some probes
+
+- `setup_env.jl` made the environment once: TraitWorld developed from `../../TraitWorld`, ForwardDiff for P13's duals.
+- `probes/common.jl`: the setting line, top-level evaluation, the checks and the result line. Modules defined directly under `Main` stand in for packages; each is an owner of its own ([traits §10.1](../../writeup/reference/traits.md#101-who-may-implement)).
+- Each probe prints its checks, the plan's prediction, what the reference says, and a last line `RESULT <probe> PASS|FAIL|ERROR`.
+  - **PASS:** every check matches what the reference says, its status and its Deviations table. A probe of a deviation (T-2, T-5, T-57) passes when the deviation reproduces as its row describes it.
+  - **FAIL:** at least one check does not.
+  - Whether the observed behaviour matches the plan's prediction is a separate column below.
+- Timing (P13, P15): a hand loop of 10⁶ calls inside a typed function after warm-up, the best of five timings, and `@allocated` over one loop divided by the calls.
+- Logs: `logs/<probe>.log`; `logs/run_probes.out` is the driver's summary.
+
+## The build and the run
+
+- julia-1.13 2943086604 (W-33). `Base.GIT_VERSION_INFO` prints `6d480d0753*`: the binary was built from the working tree that was then committed as 2943086604 (sys.so 2026-10-21 20:52, the commit 21:05).
+- TraitWorld f06b82d, clean. The product setting (no `-J facts sys.so`), strict mode off (`JULIA_TW_STRICT=0`), one thread.
+- Each probe in a fresh session after TraitWorld, one run. The machine's load (`/proc/loadavg`, 1/5/15 min) is at the top and the bottom of each log.
+
+## Results (2026-10-22)
+
+Build julia-1.13 2943086604, TraitWorld f06b82d, product setting, strict mode off, one run per probe, load 0.7–1.5 (logs). "Prediction" is the plan's (§2.1); "verdict" is against the reference, its Deviations included.
+
+| Probe | Form | Prediction (plan) | Observed | Reference says | Verdict | Matches the prediction |
+|---|---|---|---|---|---|---|
+| P1a | `@implement X S{T} where {T} begin … end`, inside and outside the trait's module; the joint form with a block | not a family: a call reports "conforms to none" (T-5) | non-joint: declared, a call raises `MethodError` with the hint, in both modules. Joint (`SV{T} Ser{T} where {T} begin … end`): **`UndefVarError: T` at the declaration**, in both modules | §4.7 with T-5: the declaration taken as one type, a call raises `MethodError` | FAIL (the joint half: T-5's row describes a different failure) | non-joint yes; joint no |
+| P1a′ | `@implement X A where {A <: S} begin … end` | outside refused by the precheck (T-57); inside works | as predicted | §4.7 with T-57 | PASS | yes |
+| P1b | no-block families `S{T} where {T}` and `A where {A <: S}` by the type's owner outside the trait's module: operations without parameters, a trait of fields with parameters plus an operation, the joint form | works; members checked at first use | all work, typed and at the top level; a write through a declared field works; a non-conforming member (`Bad{Float64}`) refused at first use with `ImplementError` | §4.7, §10.1: Implemented | PASS | yes |
+| P1c | the same declared by a third package | accepted (no ownership check) | **`S{T} where {T}` accepted** for a trait without parameters and for a trait whose parameters all come from fields, and the members work; `A where {A <: S}`, the joint form `SV{T} Ser{T} where {T}` and the concrete control are refused (rule 3) | §4.9, §10.1: refused | FAIL | yes for the `S{T} where {T}` form with field-defined or no parameters; no for the other two forms |
+| P5 | `@trait Integrator{U, T, P} <: IntegratorView{U, T, P}`; subtrait beats supertrait | works | the trait declares, but **the first bounded function on it raises `UndefVarError: U`**; the family needs the parameters stated (joint form). Variant B (`<: IntegratorView` bare, parameters stated by a joint family) works: the subtrait's method wins, the supertrait's fields read through the subtrait's bound | §3.6 Implemented; the grammar takes a supertrait with parameters; no rule relates them | FAIL | no (the plan's form); B works |
+| P7 | a default naming the trait's parameter | `UndefVarError` (T-2) | `UndefVarError: T` when the default runs | §3.2 with T-2 | PASS | yes |
+| P8 | `struct Callback{U, T, P}` of `Callable{Tuple{U, T, Dynamic{IntegratorView{U, T, P}}}, Bool}` fields; `Vector{Callback{U, T, P}}` in the integrator; entered at `init` | works | works for two `P` types; `integ.p` and `integ.t` read in plain code infer at `P` and `T`; a condition returning `Int` refused at the call (`TypeError`, message "non-boolean (Int64) used in boolean context") | §7.2, §7.5, §7.1: Implemented | PASS | yes |
+| P9 | no-block family over a mutable type with its own `getproperty`, every field mapped (`u => u, t => _t, p => p`) | works | works: fields read and written at the stored fields, the operation by the owner's method. But **no field check for family members**: no mappings with an own `getproperty` accepted; a writable declared field on a **`const` stored field written through the trait**; a wrong field type gives `TypeError` at the write; a missing field `FieldError` at the use. A concrete type with its own `getproperty` and no mappings is refused, as the reference says | §3.3, §4.4, §4.9 (at a member's first use): Implemented | FAIL | the main form yes; the checks no |
+| P10 | `struct Problem{F <: ODERHS}` under `@default_with_dynamic_self`, two plain models | works (one problem type) | `Problem{Dynamic{ODERHS}}` for a concrete model and a family member, from the top level and typed callers; `compiled_for` gives `Problem{Decay}`; a trait-world model gives `Problem{OwnModel}` | §7.4, §6.3: Implemented | PASS | yes |
+| P11 | `solve!(integ::Integrator{U, T, P}, prob::ODEProblemTrait{U, T, P}) where {U, T, P}` | works | matched pairs run; `U, T` or `P` disagreeing raise `TraitBoundError` naming the parameter, typed and at the top level. **`integ.u .+= integ.du` on a declared field raises `TraitUseError`** (Julia lowers it to `Base.dotgetproperty`) | §3.4, §5.1, §3.3: Implemented | FAIL (the `.+=` check only) | yes for the link |
+| P12 | `init(prob::ODEProblemTrait{U, T, P}, alg)::Integrator{U, T, P}` as an operation; opened with `compiled_for` | unprobed (option (d)) | declared and accepted; **every call raises `TypeError: in typeassert, expected Integrator{…}, got EulerInteg{…}`**: the result is asserted to the trait's type, not made a `Dynamic` | §6.2: an operation's result declared with a trait is `Dynamic` (Implemented) | FAIL | — |
+| P14 | joint family `Tsit5For{U, T, P}` implementing `ODEAlgorithmFor{U, T, P}`; `init(a, …)::Integrator{U, T, P}`; `configure(alg::Tsit5, prob)` | unprobed (option (e)) | the joint family is declared; its members are **refused at first use: `init` returns `Tsit5Integ{…}`, declared `Integrator{…}`** (as P12). **A solver package's bounded method `Core1.configure(alg::Tsit5, prob::ODEProblemTrait{…})` beside the core's `configure(alg, prob::ODEProblemTrait)` is refused (L-3)**, and so is the plan's §1.4 route `Core1.__init(prob::ODEProblemTrait, alg::MyAlg)`: an ordinary argument's type is part of the entry's shape | §4.7; §6.2; §5.5 with L-3 | FAIL | — |
+| P13 | form A: `rhs!(f::ODERHS, du::AbstractVector, u::AbstractVector, p, t)::Nothing` on a `Dynamic` value | concrete: no allocation; family member: allocates | concrete (`Lorenz`, one line): 3.19 ns Float64, 4.70 ns duals, 0 bytes (plain call 3.02 / 4.37 ns). Family member (`ChainModel{Vector{Int}}`): 241 / 246 ns, **80 bytes** per call | §6.8; L-37 (304 bytes) | PASS | yes (80 bytes, not 304) |
+| P15 | a bounded function called in a typed plain loop: family member against members declared on their own | family 304 bytes per call; declared none | family member: 384 ns and **208 bytes** per call (S{Float32}: 456 ns, 208 bytes); declared on its own (also `S{Float64}` declared after its family): 0.96 ns, 0 bytes. The same work as one bounded call with the loop in trait code: 0.96–0.98 ns per iteration for all four, 0 bytes | L-37 | PASS | yes (208 bytes, not 304) |
+| X1 | a bounded function named like an unused Base export (`peek(x::X) = …`), found while writing P1b | — | refused: "`peek` belongs to Base; … only where it already has an entry of that shape (rule 3)"; plain Julia defines a new function of the module | §2, §5.5 | FAIL | — |
+
+
+## Findings
+
+Failures where the reference says Implemented (candidates for deviation rows; the coordinator decides):
+
+1. **A family `S{T} where {T}` without a block runs no ownership check** (P1c) when the trait has no parameters or all its parameters come from fields: a third package's declaration is accepted and works. Also no extension-trigger check. `TraitWorld/src/implement.jl:1473`–`1488` (`_implement_projection`, the branch "a family conforming by its fields" returns without `_check_implementation`). Reproducer: `module Third; using TraitWorld, ..TraitPkg, ..SolverPkg; @implement TraitPkg.ODEAlgorithm SolverPkg.Tsit5{C} where {C}; end`.
+2. **Family members' fields are not checked** (P9): the same branch skips `_check_projection` (so `_field_problems`, `implement.jl:580`), and `_member_problems` (`implement.jl:830`) checks operations, parameter bounds and concreteness only. Consequences: an own `getproperty` without mappings accepted; **a trait write stores into a `const` field** (TraitWorld writes fields by pointer, `src/core.jl:131`–`140`); a wrong field type gives a `TypeError` at the write, a missing field a `FieldError` at the use, instead of `ImplementError` at the first use. Reproducer: `mutable struct ConstF{T}; x::T; const u_modified::Bool; end; @implement Flagged ConstF{T} where {T}` with `@trait Flagged begin u_modified::Bool end` and `setflag!(f::Flagged) = (f.u_modified = true; nothing)`: afterwards the `const` field is `true`.
+3. **An operation's result declared with a trait** (P12, P14) is asserted to the trait's type: `TypeError` at every call (`src/core.jl:1060`, `return x::RT` in `opcall`), and a member whose method returns a conforming type is refused by the result check (`ImplementError`: "returns `Tsit5Integ{…}`, declared `Integrator{…}`"). Traits §6.2 lists "an operation's result declared with a trait" as Implemented.
+4. **A supertrait with parameters** (P5): `@trait Integrator{U, T, P} <: IntegratorView{U, T, P}` declares, but `supertraits(::Type{Integrator}) = (IntegratorView{U, T, P},)` is defined without a `where` (`src/trait.jl:335`), so the first bounded function on the subtrait raises `UndefVarError: U`. A subtrait's parameters are not taken from its supertrait's fields either (`implement.jl:1477`–`1478`, `trait_field_params` of the subtrait alone): the family needs them stated. The grammar admits the form; §3.6 has no rule for it, so this may be an open issue rather than a deviation.
+5. **`integ.u .+= x` on a declared field** (P11) raises `TraitUseError` ("passed to `dotgetproperty`, an ordinary function"): Julia lowers a dotted update of a field to `Base.dotgetproperty`, which the definition check does not treat as a field read (`src/checks.jl:150`, `:218`). Workaround: `u = integ.u; u .+= x`.
+6. **The joint family with a block** (P1a) fails with `UndefVarError: T` at the declaration, not as T-5 describes (declared, then `MethodError`): `implement.jl:1169` (`_param_methods` with no `where` variables, so `param(…) = T` and `_param_agrees` evaluate `T`). T-5's row needs this case.
+7. **X1:** a bounded function whose name Base exports but the module never used is taken as Base's function and refused by the L-3 rule (`src/trait_module.jl:828`–`831`). Plain Julia defines a new function of the module.
+
+Against the plan rather than the references:
+- **L-3 refuses the plan's §1.4 route for move 3** (P14). A non-owner's bounded method needs an entry of the same shape, and the shape includes the ordinary arguments' declared types (`trait_module.jl:685`: `pattern`). So `Core1.__init(prob::ODEProblemTrait, alg::Tsit5)` from a solver package is refused even when the core has `__init(prob::ODEProblemTrait, alg)`. This is the L-3 row as written ("a shape the function has none of yet"), but it means an open set of solvers cannot extend the core's bounded functions by their own types. The route needs W-36, or another spelling.
+- **Per-call cost of a family member:** 80 bytes per call in form A (P13), 208 in P15, not the 304 of L-37 (measured in `test/untyped.jl`'s setting). The gap is a plain caller's call into a bounded function (384 ns against 0.96 ns); inside one bounded call there is none.
+

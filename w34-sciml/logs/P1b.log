@@ -1,0 +1,52 @@
+== E-156 probe P1b
+   julia 1.13.2 (6d480d0753*)  TraitWorld f06b82d  setting product  strict off  threads 1
+   load (cut -d' ' -f1-3 /proc/loadavg) at start: 0.79 0.94 0.88
+   form: @implement X S{T} where {T} and @implement X A where {A <: S}, no block, by S's owner outside the trait's module
+
+declarations: no exception
+
+Tsit5{Int} at the top level                               returned (5, true)
+Tsit5{Symbol} from a typed caller                         returned (5, true)
+Rodas5{Int} (A where {A <: Rodas5}) typed                 returned (4, false)
+Rodas5{String} at the top level                           returned (4, false)
+Integ: ipeek, typed                                       returned (Vector{Float64}, Float64, Nothing, 0.0, 3)
+Integ: write t through the trait, typed                   returned 1.5
+Integ{Vector{Float32},Float32,Symbol} at the top level    returned (Vector{Float32}, Float32, Symbol, 0.0f0, 1)
+Ser{Float32} (joint), typed                               returned (Float32, 2.0f0)
+Ser{Int} (joint) at the top level                         returned (Int64, 7)
+Bad{Int} conforms                                         returned (3, true)
+Bad{Float64}: alg_order returns Float64                   ImplementError: ImplementError: Main.SolverPkg.Bad{Float64} is a member of a family implementation of Main.TraitPkg.ODEAlgorithm, but does not conform:
+        `alg_order` at Tuple{Main.SolverPkg.Bad{Float64}} returns `Float64`, declared `Int64`
+
+  [ok  ] the declarations are accepted (by the type's owner, outside the trait's module)
+         no exception
+  [ok  ] Tsit5{Int} at the top level
+         want (5, true); returned (5, true)
+  [ok  ] Tsit5{Symbol} from a typed caller
+         want (5, true); returned (5, true)
+  [ok  ] Rodas5{Int} (A where {A <: Rodas5}) typed
+         want (4, false); returned (4, false)
+  [ok  ] Rodas5{String} at the top level
+         want (4, false); returned (4, false)
+  [ok  ] Integ: ipeek, typed
+         want (Vector{Float64}, Float64, Nothing, 0.0, 3); returned (Vector{Float64}, Float64, Nothing, 0.0, 3)
+  [ok  ] Integ: write t through the trait, typed
+         want 1.5; returned 1.5
+  [ok  ] Integ{Vector{Float32},Float32,Symbol} at the top level
+         want (Vector{Float32}, Float32, Symbol, 0.0f0, 1); returned (Vector{Float32}, Float32, Symbol, 0.0f0, 1)
+  [ok  ] Ser{Float32} (joint), typed
+         want (Float32, 2.0f0); returned (Float32, 2.0f0)
+  [ok  ] Ser{Int} (joint) at the top level
+         want (Int64, 7); returned (Int64, 7)
+  [ok  ] Bad{Int} conforms
+         want (3, true); returned (3, true)
+  [ok  ] a member that does not conform is refused at its first use (ImplementError)
+         ImplementError: ImplementError: Main.SolverPkg.Bad{Float64} is a member of a family implementation of Main.TraitPkg.ODEAlgorithm, but does not conform:
+                 `alg_order` at Tuple{Main.SolverPkg.Bad{Float64}} returns `Float64`, declared `Int64`
+
+predicted (plan §2.1): works; members checked at first use
+reference says:        traits §4.7: a family without a block, by the type's own methods, Implemented; each member checked at its first use; §10.1: the type's owner may declare
+matches the prediction: see the checks: yes where every check is ok
+load at end: 1.13 1.01 0.91
+RESULT P1b PASS
+exit 0

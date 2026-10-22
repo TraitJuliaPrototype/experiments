@@ -1,0 +1,56 @@
+== E-156 probe P1c
+   julia 1.13.2 (6d480d0753*)  TraitWorld f06b82d  setting product  strict off  threads 1
+   load (cut -d' ' -f1-3 /proc/loadavg) at start: 1.13 1.01 0.91
+   form: @implement X S{T} where {T} / X A where {A <: S}, no block, by a third package
+
+control: one concrete type, @implement ODEAlgorithm Conc
+   declaration: ImplementError: ImplementError: Main.Third1 may not implement Main.TraitPkg.ODEAlgorithm for Main.SolverPkg.Conc: it owns neither the trait nor the representation (rule 3)
+   call:        MethodError: MethodError: no method matching describe(::Main.SolverPkg.Conc)
+      This error has been manually thrown, explicitly, so the method may exist but be intentionally marked as unimplemented.
+      Argument 1 of `describe` is bounded by Main.TraitPkg.ODEAlgorithm; a Main.SolverPkg.Conc conforms to none of them (declare an implementation with `@implement`, or convert it).
+      …
+operations, no parameters: ODEAlgorithm Tsit5{C} where {C}
+   declaration: no exception
+   call:        returned 5
+operations, no parameters: ODEAlgorithm A where {A <: Rodas5}
+   declaration: ImplementError: ImplementError: Main.Third3 may not implement Main.TraitPkg.ODEAlgorithm for Main.SolverPkg.Rodas5: it owns neither the trait nor the representation (rule 3)
+   call:        MethodError: MethodError: no method matching describe(::Main.SolverPkg.Rodas5{Int64})
+      This error has been manually thrown, explicitly, so the method may exist but be intentionally marked as unimplemented.
+      Argument 1 of `describe` is bounded by Main.TraitPkg.ODEAlgorithm; a Main.SolverPkg.Rodas5{Int64} conforms to none of them (declare an implementation with `@implement`, or convert it).
+      …
+fields with parameters: IntegratorView Integ{U, T, P} where {U, T, P}
+   declaration: no exception
+   call:        returned (Vector{Float64}, Float64, Nothing, 0.5)
+joint: SV{T} Ser{T} where {T}
+   declaration: ImplementError: ImplementError: Main.Third5 may not implement Main.TraitPkg.SV for Main.SolverPkg.Ser: it owns neither the trait nor the representation (rule 3)
+   call:        MethodError: MethodError: no method matching first_of(::Main.SolverPkg.Ser{Float64})
+      This error has been manually thrown, explicitly, so the method may exist but be intentionally marked as unimplemented.
+      Argument 1 of `first_of` is bounded by Main.TraitPkg.SV; a Main.SolverPkg.Ser{Float64} conforms to none of them (declare an implementation with `@implement`, or convert it).
+      …
+
+  [ok  ] refused at the declaration (ImplementError, rule 3): control: one concrete type, @implement ODEAlgorithm Conc
+         declaration: ImplementError: ImplementError: Main.Third1 may not implement Main.TraitPkg.ODEAlgorithm for Main.SolverPkg.Conc: it owns neither the trait nor the representation (rule 3); call afterwards: MethodError: MethodError: no method matching describe(::Main.SolverPkg.Conc)
+               This error has been manually thrown, explicitly, so the method may exist but be intentionally marked as unimplemented.
+               Argument 1 of `describe` is bounded by Main.TraitPkg.ODEAlgorithm; a Main.SolverPkg.Conc conforms to none of them (declare an implementation with `@implement`, or convert it).
+               …
+  [FAIL] refused at the declaration (ImplementError, rule 3): operations, no parameters: ODEAlgorithm Tsit5{C} where {C}
+         declaration: no exception; call afterwards: returned 5
+  [ok  ] refused at the declaration (ImplementError, rule 3): operations, no parameters: ODEAlgorithm A where {A <: Rodas5}
+         declaration: ImplementError: ImplementError: Main.Third3 may not implement Main.TraitPkg.ODEAlgorithm for Main.SolverPkg.Rodas5: it owns neither the trait nor the representation (rule 3); call afterwards: MethodError: MethodError: no method matching describe(::Main.SolverPkg.Rodas5{Int64})
+               This error has been manually thrown, explicitly, so the method may exist but be intentionally marked as unimplemented.
+               Argument 1 of `describe` is bounded by Main.TraitPkg.ODEAlgorithm; a Main.SolverPkg.Rodas5{Int64} conforms to none of them (declare an implementation with `@implement`, or convert it).
+               …
+  [FAIL] refused at the declaration (ImplementError, rule 3): fields with parameters: IntegratorView Integ{U, T, P} where {U, T, P}
+         declaration: no exception; call afterwards: returned (Vector{Float64}, Float64, Nothing, 0.5)
+  [ok  ] refused at the declaration (ImplementError, rule 3): joint: SV{T} Ser{T} where {T}
+         declaration: ImplementError: ImplementError: Main.Third5 may not implement Main.TraitPkg.SV for Main.SolverPkg.Ser: it owns neither the trait nor the representation (rule 3); call afterwards: MethodError: MethodError: no method matching first_of(::Main.SolverPkg.Ser{Float64})
+               This error has been manually thrown, explicitly, so the method may exist but be intentionally marked as unimplemented.
+               Argument 1 of `first_of` is bounded by Main.TraitPkg.SV; a Main.SolverPkg.Ser{Float64} conforms to none of them (declare an implementation with `@implement`, or convert it).
+               …
+
+predicted (plan §2.1): accepted: the no-block joint-form branch runs no ownership check (§4.9 says refused). If confirmed: a new T- row, W-38
+reference says:        traits §4.9 and §10.1: only the trait's or the type's owner may declare; a third package is refused (ImplementError)
+matches the prediction: see the log: the prediction holds for each case that is accepted
+load at end: 1.12 1.01 0.91
+RESULT P1c FAIL
+exit 0

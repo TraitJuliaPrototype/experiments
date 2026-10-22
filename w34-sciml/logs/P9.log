@@ -1,0 +1,54 @@
+== E-156 probe P9
+   julia 1.13.2 (6d480d0753*)  TraitWorld f06b82d  setting product  strict off  threads 1
+   load (cut -d' ' -f1-3 /proc/loadavg) at start: 1.18 1.03 0.91
+   form: @implement IntegratorView DEInt{U, T, P} where {U, T, P} u => u, t => _t, p => p (own getproperty)
+
+declarations: no exception
+the family without mappings: no exception
+control, one concrete type with its own getproperty, no mappings: ImplementError: ImplementError: Main.Others.OneGP does not have the fields Main.TraitPkg.IntegratorView declares:
+        Main.Others.OneGP defines its own `getproperty`, so field `u` of Main.TraitPkg.IntegratorView must be mapped explicitly (`u => storedfield`); it is read with `getfield`, and plain `x.u` may differ
+        Main.Others.OneGP defines its own `getproperty`, so field `t` of Main.TraitPkg.IntegratorView must be mapped explicitly (`t => storedfield`); it is read with `getfield`, and plain `x.t` may differ
+      …
+family GoodF (u_modified::Bool)     declaration: no exception
+        first use (setflag!): returned (1, true)
+family BadF (u_modified::Int)       declaration: no exception
+        first use (setflag!): TypeError: TypeError: in typeassert, expected Int64, got a value of type Bool
+family ConstF (const u_modified)    declaration: no exception
+        first use (setflag!): returned (1, true)
+family MissF (no field)             declaration: no exception
+        first use (setflag!): FieldError: FieldError: type Main.Others.MissF has no field `u_modified`, available fields: `x`
+readall, typed:          returned (Vector{Float64}, Float64, @NamedTuple{a::Int64}, 1.0, 0.5, (a = 2,))
+readall, top level:      returned (Vector{Float64}, Float64, @NamedTuple{a::Int64}, 1.0, 0.5, (a = 2,))
+bump! (write t, add_tstop!), typed: returned (0.75, 1)
+plain getproperty still serves plain code: x.p = :not_the_stored_p, x.t_alias = 0.5
+NoMap member at its first use: returned (Vector{Float64}, Float64, Int64, 1.0, 0.5, 1)
+
+  [ok  ] the family with every field mapped is accepted
+         no exception
+  [ok  ] declared fields read from the stored fields (t from _t, p the stored p, not getproperty's), typed
+         returned (Vector{Float64}, Float64, @NamedTuple{a::Int64}, 1.0, 0.5, (a = 2,))
+  [ok  ] the same at the top level (Dynamic)
+         returned (Vector{Float64}, Float64, @NamedTuple{a::Int64}, 1.0, 0.5, (a = 2,))
+  [ok  ] a write of t through the trait reaches the stored _t; add_tstop! by the existing method
+         returned (0.75, 1)
+  [FAIL] a family member with its own getproperty and no mappings is refused (at the declaration or its first use)
+         declaration: no exception; first use: returned (Vector{Float64}, Float64, Int64, 1.0, 0.5, 1)
+  [ok  ] control: one concrete type with its own getproperty and no mappings is refused at the declaration
+         ImplementError: ImplementError: Main.Others.OneGP does not have the fields Main.TraitPkg.IntegratorView declares:
+                 Main.Others.OneGP defines its own `getproperty`, so field `u` of Main.TraitPkg.IntegratorView must be mapped explicitly (`u => storedfield`); it is read with `getfield`, and plain `x.u` may differ
+               …
+  [ok  ] family GoodF{T}: works
+         no exception; (true, (1, true))
+  [FAIL] family BadF{T}: refused (ImplementError at the declaration or the first use)
+         declaration: no exception; first use: TypeError: TypeError: in typeassert, expected Int64, got a value of type Bool
+  [FAIL] family ConstF{T}: refused (ImplementError at the declaration or the first use)
+         declaration: no exception; first use: returned (1, true)
+  [FAIL] family MissF{T}: refused (ImplementError at the declaration or the first use)
+         declaration: no exception; first use: FieldError: FieldError: type Main.Others.MissF has no field `u_modified`, available fields: `x`
+
+predicted (plan §2.1): works
+reference says:        traits §3.3, §4.4, §4.7: Implemented; a type with its own getproperty must map every declared field
+matches the prediction: see the checks: yes where every check is ok
+load at end: 1.16 1.03 0.92
+RESULT P9 FAIL
+exit 0

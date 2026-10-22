@@ -1,0 +1,48 @@
+== E-156 probe P5
+   julia 1.13.2 (6d480d0753*)  TraitWorld f06b82d  setting product  strict off  threads 1
+   load (cut -d' ' -f1-3 /proc/loadavg) at start: 1.12 1.01 0.91
+   form: @trait Integrator{U, T, P} <: IntegratorView{U, T, P}; a bound on the subtrait beats the supertrait
+
+A: `@trait Integrator{U, T, P} <: IntegratorView{U, T, P}`: no exception
+A: the family declarations: ErrorException: @implement: a family `Integ{U, T, P} where {U, T, P}` needs the trait's parameters
+A: the joint form `@implement Integrator{U, T, P} Integ{U, T, P} where {U, T, P}`: no exception
+A: a bounded function on the subtrait (`kindA(i::Integrator)`): UndefVarError: UndefVarError: `U` not defined in `Main.TraitA`
+      Suggestion: check for spelling errors or missing imports.
+A: kindA(Integ): String: "not reached"
+
+B: `@trait Integrator{U, T, P} <: IntegratorView`: no exception
+B: `@implement Integrator Integ{U, T, P} where {U, T, P}` (no parameters stated): ErrorException: @implement: a family `Integ{U, T, P} where {U, T, P}` needs the trait's parameters
+B: `@implement Integrator{U, T, P} Integ{U, T, P} where {U, T, P}` (joint): no exception
+
+B: kind(Integ) at the top level                               returned :integrator
+B: kind(Integ) from a typed caller                            returned :integrator
+B: kind(ViewOnly): the supertrait's method                    returned :view
+B: iparams(Integ{Vector{Float32}, Float32, Symbol})           returned (Vector{Float32}, Float32, Symbol)
+B: drive!(Integ) typed: operations and the supertrait's field returned (3, 3.0)
+
+  [FAIL] A: the plan's form `Integrator{U, T, P} <: IntegratorView{U, T, P}` is declared, implemented and used
+         trait: no exception; family (fields' parameters): ErrorException: @implement: a family `Integ{U, T, P} where {U, T, P}` needs the trait's parameters; family (joint): no exception; bounded function: UndefVarError: UndefVarError: `U` not defined in `Main.TraitA`
+               Suggestion: check for spelling errors or missing imports.; call: String: "not reached"
+  [ok  ] B: the supertrait named bare, the subtrait's own parameters: accepted
+         no exception
+  [ok  ] B: the subtrait implemented by the joint family (parameters stated)
+         no exception
+  [ok  ] B: kind(Integ) at the top level
+         want :integrator; returned :integrator
+  [ok  ] B: kind(Integ) from a typed caller
+         want :integrator; returned :integrator
+  [ok  ] B: kind(ViewOnly): the supertrait's method
+         want :view; returned :view
+  [ok  ] B: iparams(Integ{Vector{Float32}, Float32, Symbol})
+         want (Vector{Float32}, Float32, Symbol); returned (Vector{Float32}, Float32, Symbol)
+  [ok  ] B: drive!(Integ) typed: operations and the supertrait's field
+         want (3, 3.0); returned (3, 3.0)
+
+note: in B nothing ties Integrator's U, T, P to IntegratorView's: a family could state other values.
+
+predicted (plan §2.1): works
+reference says:        traits §3.6: supertraits Implemented; the grammar takes a supertrait with parameters (`TraitExpr`); no rule says how a supertrait's parameters relate to the subtrait's; §5.5: a subtrait beats its supertrait
+matches the prediction: no for the plan's form (variant A); variant B as the checks say
+load at end: 1.12 1.01 0.91
+RESULT P5 FAIL
+exit 0

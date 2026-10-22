@@ -1,0 +1,66 @@
+== E-156 probe P1a
+   julia 1.13.2 (6d480d0753*)  TraitWorld f06b82d  setting product  strict off  threads 1
+   load (cut -d' ' -f1-3 /proc/loadavg) at start: 0.66 0.92 0.88
+   form: @implement X S{T} where {T} begin … end (and the joint X{T} Ser{T} where {T} begin … end), inside and outside the trait's module
+
+inside, family with a block: no exception
+inside, joint family with a block: UndefVarError: UndefVarError: `T` not defined in `Main.TraitIn2`
+      Suggestion: check for spelling errors or missing imports.
+outside, family with a block: no exception
+outside, joint family with a block: UndefVarError: UndefVarError: `T` not defined in `Main.ModelsC`
+      Suggestion: check for spelling errors or missing imports.
+
+inside, family: call MethodError: MethodError: no method matching usef(::Main.ModelsA.S{Int64})
+      This error has been manually thrown, explicitly, so the method may exist but be intentionally marked as unimplemented.
+      Argument 1 of `usef` is bounded by Main.TraitIn.Fam; a Main.ModelsA.S{Int64} conforms to none of them (declare an implementation with `@implement`, or convert it).
+      
+      …
+inside, joint: call MethodError: MethodError: no method matching uses(::Main.ModelsA.Ser{Float64})
+      This error has been manually thrown, explicitly, so the method may exist but be intentionally marked as unimplemented.
+      Argument 1 of `uses` is bounded by Main.TraitIn2.SV; a Main.ModelsA.Ser{Float64} conforms to none of them (declare an implementation with `@implement`, or convert it).
+      
+      …
+outside, family: call MethodError: MethodError: no method matching usef2(::Main.ModelsB.S{Int64})
+      This error has been manually thrown, explicitly, so the method may exist but be intentionally marked as unimplemented.
+      Argument 1 of `usef2` is bounded by Main.TraitOut.Fam2; a Main.ModelsB.S{Int64} conforms to none of them (declare an implementation with `@implement`, or convert it).
+      
+      …
+outside, joint: call MethodError: MethodError: no method matching uses2(::Main.ModelsC.Ser{Float64})
+      This error has been manually thrown, explicitly, so the method may exist but be intentionally marked as unimplemented.
+      Argument 1 of `uses2` is bounded by Main.TraitOut.SV2; a Main.ModelsC.Ser{Float64} conforms to none of them (declare an implementation with `@implement`, or convert it).
+      
+      …
+
+  [ok  ] inside, family with a block: declared, call raises MethodError (T-5)
+         declaration: no exception; call: MethodError: MethodError: no method matching usef(::Main.ModelsA.S{Int64})
+               This error has been manually thrown, explicitly, so the method may exist but be intentionally marked as unimplemented.
+               Argument 1 of `usef` is bounded by Main.TraitIn.Fam; a Main.ModelsA.S{Int64} conforms to none of them (declare an implementation with `@implement`, or convert it).
+               
+               …
+  [FAIL] inside, joint family with a block: declared, call raises MethodError (T-5)
+         declaration: UndefVarError: UndefVarError: `T` not defined in `Main.TraitIn2`
+               Suggestion: check for spelling errors or missing imports.; call: MethodError: MethodError: no method matching uses(::Main.ModelsA.Ser{Float64})
+               This error has been manually thrown, explicitly, so the method may exist but be intentionally marked as unimplemented.
+               Argument 1 of `uses` is bounded by Main.TraitIn2.SV; a Main.ModelsA.Ser{Float64} conforms to none of them (declare an implementation with `@implement`, or convert it).
+               
+               …
+  [ok  ] outside, family with a block: declared, call raises MethodError (T-5)
+         declaration: no exception; call: MethodError: MethodError: no method matching usef2(::Main.ModelsB.S{Int64})
+               This error has been manually thrown, explicitly, so the method may exist but be intentionally marked as unimplemented.
+               Argument 1 of `usef2` is bounded by Main.TraitOut.Fam2; a Main.ModelsB.S{Int64} conforms to none of them (declare an implementation with `@implement`, or convert it).
+               
+               …
+  [FAIL] outside, joint family with a block: declared, call raises MethodError (T-5)
+         declaration: UndefVarError: UndefVarError: `T` not defined in `Main.ModelsC`
+               Suggestion: check for spelling errors or missing imports.; call: MethodError: MethodError: no method matching uses2(::Main.ModelsC.Ser{Float64})
+               This error has been manually thrown, explicitly, so the method may exist but be intentionally marked as unimplemented.
+               Argument 1 of `uses2` is bounded by Main.TraitOut.SV2; a Main.ModelsC.Ser{Float64} conforms to none of them (declare an implementation with `@implement`, or convert it).
+               
+               …
+
+predicted (plan §2.1): not a family in either module: a call reports "conforms to none" (T-5)
+reference says:        traits §4.7: a family may take a block; Deviation T-5: `S{P} where {P}` with a block is taken as one type (the UnionAll); a call raises MethodError with the hint
+matches the prediction: see the checks: yes where every check is ok
+load at end: 0.68 0.92 0.88
+RESULT P1a FAIL
+exit 0
