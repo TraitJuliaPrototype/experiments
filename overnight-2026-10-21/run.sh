@@ -1,6 +1,6 @@
 #!/bin/bash
 # W-39: the overnight measurements on the current build (planned for julia-1.13 2943086604 and TraitWorld f06b82d;
-# run on 2026-10-22/23 after W-41 and W-43, julia-1.13 fa4e7f5798, TraitWorld c655dde: experiments/overnight-2026-10-22/tonight.sh),
+# run on 2026-10-22/23 after W-41 and W-43, julia-1.13 fa4e7f5798, TraitWorld main at the start (4410407 on 2026-10-22): experiments/overnight-2026-10-22/tonight.sh),
 # one job after another, niced, each through the shared lock. Logs in logs/; a line per part in logs/driver.log.
 #   E-162  the NetworkDynamics workload, a measurement round: settings U, P0, N, P4, I, A0, five runs each
 #          in P1's order, three in order B (U, P0, N, P4, I); logs in ndport/logs/night1*/
