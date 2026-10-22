@@ -1,0 +1,35 @@
+== E-156 probe P14
+   julia 1.13.2 (6d480d0753*)  TraitWorld 2e9ed68  setting product  strict off  threads 1
+   load (cut -d' ' -f1-3 /proc/loadavg) at start: 1.97 2.24 3.25
+   form: joint family Tsit5For{U, T, P} implementing ODEAlgorithmFor{U, T, P}; init(a, …)::Integrator{U, T, P}; configure(alg::Tsit5, prob)
+
+trait module: no exception
+solver package (trait module, bounded configure on the core's function): ErrorException: @trait_module: `Core1.configure` belongs to Main.Core1; Main.Tsit5Pkg may add trait-bounded methods to it only where it already has an entry of that shape (rule 3)
+solver package: `Core1.__init(prob::ODEProblemTrait, alg::MyAlg)` beside the core's `__init(prob::ODEProblemTrait, alg)`: ErrorException: @trait_module: `Core1.__init` belongs to Main.Core1; Main.InitPkg may add trait-bounded methods to it only where it already has an entry of that shape (rule 3)
+solver package without the bounded configure; configure typed in plain code: no exception
+
+configure(Tsit5(), prob): returned Main.Tsit5Pkg2.Tsit5For{Vector{Float64}, Float64, Float64}
+solve(prob, configure(Tsit5(), prob)): returned 2.44140625
+solve(prob, a configured for Float32): TraitBoundError: TraitBoundError: argument `a`: parameter 1 of Main.Core1.ODEAlgorithmFor is Vector{Float32}, but `U` is Vector{Float64}
+
+  [ok  ] the core trait module is accepted
+         no exception
+  [FAIL] the solver package's bounded configure on the core's function is accepted (L-3 permits: the core has a method of that shape)
+         ErrorException: @trait_module: `Core1.configure` belongs to Main.Core1; Main.Tsit5Pkg may add trait-bounded methods to it only where it already has an entry of that shape (rule 3)
+  [FAIL] the plan's §1.4 route: a solver package's `Core1.__init(prob::ODEProblemTrait, alg::MyAlg)` is accepted (traits §5.5; L-3: the core has a bounded method of that shape)
+         ErrorException: @trait_module: `Core1.__init` belongs to Main.Core1; Main.InitPkg may add trait-bounded methods to it only where it already has an entry of that shape (rule 3)
+  [ok  ] the joint family Tsit5For{U, T, P} is accepted
+         ErrorException: @trait_module: `Core1.configure` belongs to Main.Core1; Main.Tsit5Pkg may add trait-bounded methods to it only where it already has an entry of that shape (rule 3); no exception
+  [ok  ] configure gives the configured algorithm at the problem's parameters
+         returned Main.Tsit5Pkg2.Tsit5For{Vector{Float64}, Float64, Float64}
+  [ok  ] solve runs: init's trait-typed result opened with compiled_for
+         returned 2.44140625
+  [ok  ] an algorithm configured at other parameters is refused at the driver (TraitBoundError)
+         TraitBoundError: TraitBoundError: argument `a`: parameter 1 of Main.Core1.ODEAlgorithmFor is Vector{Float32}, but `U` is Vector{Float64}
+
+predicted (plan §2.1): unprobed (option (e)); for the porting guideline
+reference says:        traits §4.7 joint families; §6.2: an operation's result declared with a trait is Dynamic (Implemented); §5.1 shared variables; §5.5 with lowering L-3 for the bounded configure
+matches the prediction: no prediction (unprobed)
+load at end: 1.97 2.24 3.25
+RESULT P14 FAIL
+exit 0

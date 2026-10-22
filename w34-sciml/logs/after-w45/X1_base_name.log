@@ -1,0 +1,18 @@
+== E-156 probe X1_base_name
+   julia 1.13.2 (6d480d0753*)  TraitWorld 2e9ed68  setting product  strict off  threads 1
+   load (cut -d' ' -f1-3 /proc/loadavg) at start: 1.83 2.19 3.21
+   form: a bounded function named like an unused Base export: `peek(i::X) = …` in a trait module
+
+plain module: PlainM.peek === Base.peek? false; PlainM.peek(1) = mine
+trait module with `peek(x::X) = xv(x)`: no exception
+
+  [ok  ] plain Julia defines a new function (the baseline)
+  [ok  ] the trait module defines its own `peek` with a bounded method, as plain Julia would
+         no exception
+
+predicted (plan §2.1): (not in the plan)
+reference says:        traits §2: a trait module is a module; §5.5: a package adds bounded methods to functions it owns
+matches the prediction: n/a
+load at end: 1.83 2.19 3.21
+RESULT X1_base_name PASS
+exit 0

@@ -1,0 +1,34 @@
+== E-156 probe P12
+   julia 1.13.2 (6d480d0753*)  TraitWorld 2e9ed68  setting product  strict off  threads 1
+   load (cut -d' ' -f1-3 /proc/loadavg) at start: 1.64 2.30 3.38
+   form: init(prob::ODEProblemTrait{U, T, P}, alg)::Integrator{U, T, P} as an operation; the driver opens the result with compiled_for
+
+trait module: no exception
+declarations: no exception
+typeof(init's result), handed up: returned Dynamic{Main.Core1.Integrator{Vector{Float64}, Float64, Float64}}
+solve, typed, Float64:  returned 2.44140625
+solve, top level, Float32: returned 2.4414062f0
+solve_dyn (no cast): returned 2.44140625
+init at other parameters: declaration no exception; solve: TraitBoundError: TraitBoundError: an operation declared to return Main.Core1.Integrator{Vector{Float64}, Float64, Float64} returned a Main.SolverPkg.EulerInteg{Vector{Float32}, Float32, Float64}, which does not conform to Main.Core1.Integrator{Vector{Float64}, Float64, Float64}
+
+  [ok  ] the trait with a trait-typed operation result is accepted
+         no exception
+  [ok  ] the families (init by the problem's own method, generic in alg) are accepted
+         no exception
+  [ok  ] solve from a typed caller: init's result is a Dynamic{Integrator{…}}, opened with compiled_for, runs
+         returned 2.44140625
+  [ok  ] init's result is a Dynamic{Integrator{Vector{Float64}, Float64, Float64}}
+         returned Dynamic{Main.Core1.Integrator{Vector{Float64}, Float64, Float64}}
+  [ok  ] solve at the top level, Float32
+         returned 2.4414062f0
+  [ok  ] the Dynamic result at the bound without a cast runs
+         returned 2.44140625
+  [ok  ] an init returning an integrator at other parameters is refused (at the member's check or the call)
+         declaration: no exception; solve: TraitBoundError: TraitBoundError: an operation declared to return Main.Core1.Integrator{Vector{Float64}, Float64, Float64} returned a Main.SolverPkg.EulerInteg{Vector{Float32}, Float32, Float64}, which does not conform to Main.Core1.Integrator{Vector{Float64}, Float64, Float64}
+
+predicted (plan §2.1): unprobed (option (d))
+reference says:        traits §3.1, §6.2: an operation's result declared with a trait is Dynamic (Implemented); §6.4: compiled_for opens it
+matches the prediction: no prediction (unprobed)
+load at end: 1.67 2.30 3.37
+RESULT P12 PASS
+exit 0

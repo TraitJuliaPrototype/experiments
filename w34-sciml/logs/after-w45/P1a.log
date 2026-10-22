@@ -1,0 +1,30 @@
+== E-156 probe P1a
+   julia 1.13.2 (6d480d0753*)  TraitWorld 2e9ed68  setting product  strict off  threads 1
+   load (cut -d' ' -f1-3 /proc/loadavg) at start: 1.57 3.07 3.85
+   form: @implement X S{T} where {T} begin … end (and the joint X{T} Ser{T} where {T} begin … end), inside and outside the trait's module
+
+inside, family with a block: no exception
+inside, joint family with a block: no exception
+outside, family with a block: no exception
+outside, joint family with a block: no exception
+
+inside, family: call returned 2.0
+inside, joint: call returned (Float64, 1.5)
+outside, family: call returned 2.0
+outside, joint: call returned (Float64, 1.5)
+
+  [FAIL] inside, family with a block: declared, call raises MethodError (T-5)
+         declaration: no exception; call: returned 2.0
+  [FAIL] inside, joint family with a block: declared, call raises MethodError (T-5)
+         declaration: no exception; call: returned (Float64, 1.5)
+  [FAIL] outside, family with a block: declared, call raises MethodError (T-5)
+         declaration: no exception; call: returned 2.0
+  [FAIL] outside, joint family with a block: declared, call raises MethodError (T-5)
+         declaration: no exception; call: returned (Float64, 1.5)
+
+predicted (plan §2.1): not a family in either module: a call reports "conforms to none" (T-5)
+reference says:        traits §4.7: a family may take a block; Deviation T-5: `S{P} where {P}` with a block is taken as one type (the UnionAll); a call raises MethodError with the hint
+matches the prediction: see the checks: yes where every check is ok
+load at end: 1.52 3.04 3.84
+RESULT P1a FAIL
+exit 0
