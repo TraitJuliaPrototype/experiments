@@ -65,3 +65,85 @@ Against the plan rather than the references:
 - **L-3 refuses the plan's §1.4 route for move 3** (P14). A non-owner's bounded method needs an entry of the same shape, and the shape includes the ordinary arguments' declared types (`trait_module.jl:685`: `pattern`). So `Core1.__init(prob::ODEProblemTrait, alg::Tsit5)` from a solver package is refused even when the core has `__init(prob::ODEProblemTrait, alg)`. This is the L-3 row as written ("a shape the function has none of yet"), but it means an open set of solvers cannot extend the core's bounded functions by their own types. The route needs W-36, or another spelling.
 - **Per-call cost of a family member:** 80 bytes per call in form A (P13), 208 in P15, not the 304 of L-37 (measured in `test/untyped.jl`'s setting). The gap is a plain caller's call into a bounded function (384 ns against 0.96 ns); inside one bounded call there is none.
 
+
+---
+
+# E-157: move 1 in form B, with move 5's check (TDE, W-34)
+
+The question (registry E-157; [the W-34 plan](../../writeup/plans/2026-10-21-w34-sciml-prerequisites.md) §2.2, §1.2): with SciML's split of a plain `ODEFunction` record and a problem that keeps the function at bounded `Callable` parameters, (1) are TDE's `RESULT` lines unchanged, also with the chunk entered at `init`? (2) What does an `rhs!` call cost and allocate, `Dynamic` against `compiled_for`, with a `Vector` and a named-tuple `p`? (3) How many allocations per Tsit5 step (40 states, 1,000 steps)? (4) Does a new model type or function compile no CodeInstance of the solver's functions? (5) Is an `f` returning `du` refused at its first call? (6) Is a `Trajectory` helper compiled once per key, with one solution type for two models?
+
+What it measures: interop, library trait code (TDE's solvers) calling plain functions and a plain callable model. The timings are quick regression checks, not measurements; current numbers belong in [the evidence](../../writeup/design/evidence.md).
+
+## What was built (TDE branch `w34`, 29f0641, from `main` fbb9bd8)
+
+- **`ODEFunction{F, TJ, TMM}`** (the ordinary module): SciML's plain record of the user's functions, `ODEFunction(f; jac = nothing, mass_matrix = I)`. No parameter for `u`'s or `p`'s type.
+- **`ODEProblem{T, P, F, D, J}`** (ODECore): `f::F` at `RHSSig{P, T}`, `fd::D` at `DualSig{P, 8}` (as on `main`), and `jac::J` at `JacSig{P, T} = Tuple{Matrix{T}, Vector{T}, P, Float64}`, each a struct parameter bounded by `Callable` (traits §7.4). Without a Jacobian, `J` is the library's own `no_jacobian`, cast `compiled_for`, so `jacobian!` folds on `J`. The function as given is kept beside, in a `UserFunction` holder (field `fplain`).
+- **`jacobian!`** stays the trait's operation with its default (finite differences); `ODEProblem`'s method calls the given Jacobian when `J` is not `no_jacobian`, else duals (chunk 8) for a `Float64` state.
+- **The chunk per problem:** a new trait operation `rhs_function(prob)::Any = nothing`; `ODEProblem` returns the function as given (or `nothing` when a Jacobian was given). `Rodas5(chunk_size = 0)` enters it at Rodas5's `init` (`rodas5_solve`) at the duals of a chunk picked from the state's length (`ForwardDiff.pickchunksize`; `chunk_size = N` fixes it): `DualJacobian{P, N, FD <: Callable{DualSig{P, N}, Nothing}}`, held by `Rodas5Integrator{P, JC}`. The driver `rodas5_run` is a function barrier compiled per `N`. `Rodas5()` keeps the problem's `jacobian!`.
+- **`examples/ChainModels`:** a plain package that knows nothing of TDE or TraitWorld. `ChainModel{G}`, a diffusion with cubic damping on a graph of type `G` (`PathGraph`, `RingGraph`, `EdgeList`), callable as `m(du, u, p, t)`, `p` a `Vector` `[k, d]` or a named tuple `(k, d)` or `(k, d, w)`.
+- **`Trajectory{U, T}`** (ODECore): operations `times(s)::Vector{T}`, `state(s, k)::U`, `at(s, τ::T)::U` (linear between saved states). `@implement Trajectory{Vector{T}, Float64} ODESolution{T} where {T}`. The solution keeps no problem.
+- TDE's suite: 85 checks pass, 1 broken as on `main` (`test/w34.jl` adds 21).
+
+## How to run
+
+From any directory, one job at a time (the shared lock, `nice -n 19`, the depot `/tmp/claude-1000/depot-w34` first):
+
+    m1/run_all.sh run1          # check 1 (the session, both chunk paths), then checks 2–6, each in a fresh session
+    m1/run_tests.sh <label>     # TDE's suite on the checkout as it stands
+    m1/run_session.sh <label> [chunk]   # check 1 alone; `chunk`: every Rodas5() as Rodas5(chunk_size = 0)
+
+- `m1/setup_env.jl` made the environment once: TraitWorld, TDE, LorenzModels and ChainModels developed from the checkouts; ForwardDiff; SnoopCompileCore.
+- `m1/common.jl`: the setting line, the load, and the CodeInstance count (below).
+- Check 1 runs TDE's `scripts/session.jl trait` in TDE's own environment (`scripts/env`) and compares its `RESULT` lines with `main`'s (`logs/session-main-{1,2}.log`, TDE fbb9bd8). `session_chunk.jl` is the session with `Rodas5()` replaced by `Rodas5(chunk_size = 0)`, made by `run_session.sh`.
+- **Counting CodeInstances (checks 4, 6):** every method of the given modules from Julia's global method table (`Base.visit(Core.methodtable)`); for each, `Base.specializations(m)` and the CodeInstances in each MethodInstance's cache, keyed by (MethodInstance, owner): `plain`, `facts` (the facts compiler's), or TraitWorld's check owner (inference for its checks). A snapshot before and after a step; the difference is what the step compiled. Check 4 counts ODECore and TraitDifferentialEquations (the solvers, the problem, the integrators, the front end) and, for context, every module; SnoopCompileCore's `@snoop_inference` lists the methods inferred, by module, as a second view (it agrees). A control (`compiled_for`) shows that the count sees new solver code.
+- `m1/repro_nonbits_box.jl`: the minimal reproducer of finding 1.
+- Logs: `m1/logs/<check>-run{1,2}.log`, `session-*.log`, `tests-*.log`. `m1/logs/dev/` holds the logs of the build's first commit (0bb297b), kept because they show what finding 3 and 4 below found.
+
+## The build and the run
+
+- julia-1.13 2943086604 (prints `6d480d0753*`, as for E-156), TraitWorld c655dde, TDE 29f0641 (branch `w34`), the product setting, strict mode off (`JULIA_TW_STRICT=0`), one thread.
+- TDE's load order: TDE, its example packages, then the script. Two runs of each check (`run1`, `run2`), each check in a fresh session; the load (`/proc/loadavg`, 1/5/15 min) is at the top and the bottom of each log: 0.5–1.1 throughout.
+
+## Results (2026-10-22)
+
+Build julia-1.13 2943086604, TraitWorld c655dde, TDE 29f0641, product setting, strict mode off, two runs, load 0.5–1.1. Interop.
+
+| Check | Outcome | Key numbers (run 1 / run 2) |
+|---|---|---|
+| 1 `RESULT` lines | **unchanged**: the 9 lines identical to `main`'s, on both chunk paths; the session passes (14 checks) | `main` ×2, `w34` ×2, `w34` chunk at init ×2: all identical (Tsit5, Rodas5, `Float32`, two gradients, an edited function). Rodas5 with chunk 3 at init gives the same bits as chunk 8 |
+| 2 per `rhs!` call (through the problem's bound, as the solver calls it) | `Dynamic` below 10 ns, no allocation for `Vector` and bits named-tuple `p`; **a named tuple holding a vector is boxed at every `Dynamic` call** | Lorenz, `Vector` p: `Dynamic` 7.57 / 7.76 ns, `compiled_for` 1.46 / 1.52, direct 1.46 / 1.49, 0 bytes. Bits named tuple: 8.82 / 8.37 ns, 0 bytes. Named tuple holding a vector: 14.77 / 15.77 ns, **32 bytes, 1 allocation** per call (`compiled_for` 3.18 / 3.34 ns, 0 bytes). ChainModel (40 states), `Vector` p: 37.3 / 32.8 ns against 30.0 / 27.9 `compiled_for`; with the non-bits named tuple 44.6 / 46.0 ns, 32 bytes |
+| 3 allocations per Tsit5 step (40 states, 1,001 steps, 6 f calls per step) | **none**, except one box per call for the non-bits named tuple under `Dynamic` | 0 bytes / step for `Vector` and bits named-tuple `p`, both modes (53 allocations per 1,000-step solve: the setup); non-bits named tuple, `Dynamic`: 192 bytes, 6 allocations per step. ns per step 445–488 (`compiled_for` 443–459). For information, Rodas5: 6,304 bytes / 8 allocations per step with the problem's Jacobian (chunk 8; `ad_jacobian!` allocates its dual buffers per Jacobian), 400 bytes / 2 with the chunk at init (the LU) |
+| 4 no new solver code for a new model or function (`Dynamic`) | **none** | New CodeInstances in ODECore + TraitDifferentialEquations: `ChainModel{RingGraph}` 0, `ChainModel{EdgeList}` 0, a new function 0, a closure with a named-tuple `p` 0 (Tsit5, Rodas5 both paths, `saveat`); control `compiled_for(ChainModel{RingGraph})`: 31. What a new model does compile: itself at its signatures (ChainModels 8 per key) and TraitWorld's 10 per function (`_fptr` and `_CallWrap` at the three signatures used, `Float64`, duals 8, duals 10, and one `Erased` constructor at the init chunk's signature), plus Base's code the model's own body needs |
+| 5 an `f` returning `du` | **refused at its first call** under `Dynamic` (`TypeError: expected Nothing, got Vector{Float64}`); **before any call** under `compiled_for` (`ImplementError` at the problem's first use, naming `rhs!` at the declared arguments) | The same for a callable model returning `du`, and for a given Jacobian returning `J` (`TypeError` at its first call; `ImplementError` at the problem's first use under `compiled_for`). Construction is not refused under `Dynamic` (as on `main`, the suite's `@test_broken`) |
+| 6 a `Trajectory` helper | **compiled once per key**; one solution type `ODESolution{Float64}` for a function, two `ChainModel`s, a `compiled_for` model and a problem type (`LorenzProblem`, Rodas5) | Two helpers (`sample`, `final`) in a trait module of their own: the first call 8 CodeInstances (an entry and a body per helper, and their bookkeeping), every further model 0, a `Float32` state (a new key) 4, a dynamic call 2 (the entry at `Any`, the body at `Dynamic`) |
+
+### Findings
+
+1. **A `Dynamic{Callable}` call boxes an immutable non-bits argument** (check 2, 3): a named tuple `p` that holds a vector costs one allocation per call (32 bytes in TDE, 16 in the reproducer) and ~7 ns. A bits named tuple and a `Vector` cost nothing. The caller passes non-bits values as `Any` (`TraitWorld/src/core.jl:1118`, `_ctype`; the `ccall` at `:1146`); lowering §12 says "Non-bits arguments go boxed", so this is the lowering as written, and the registry row names it a lowering deviation row. Under `compiled_for` nothing is boxed. Reproducer: `m1/repro_nonbits_box.jl`.
+2. **The `Dynamic` call's overhead is ~6 ns** against a direct call (7.6–7.8 against 1.5 ns for Lorenz), above the evidence's 3.95 ns for a bare `Callable` call (a different body, through the problem's `rhs!` method and the kept `Dynamic{Callable}`'s extra load, open issues §4 item 35, P4). Below the row's ~10 ns.
+3. **A field typed `Any` in the problem specialized its constructor per model type** (first commit 0bb297b, `logs/dev/check4-run1.log`): the explicit-parameter constructor `ODEProblem{T, P, F, D, J}(…)` was compiled per type of the function stored in `fplain::Any` (2 CodeInstances for `ChainModel{RingGraph}`, one per key; `Function` subtypes are not specialized, so plain functions showed 0). Fixed in TDE by a `UserFunction` holder with a `@nospecialize` inner constructor (29f0641). The design is not involved; the lesson is for ports that keep a raw value beside a kept one (principled traits §10.3).
+4. **The member check caught an error in the build's own `Trajectory` conformance** (`logs/dev/check6-try1.log`): `at` returned `Vector{Float64}` for a `Float32` solution; at its first use `ODESolution{Float32}` was refused with an `ImplementError` naming `at` and both types. Fixed (`θ` at the element type).
+5. **A per-function `Erased` constructor at the init chunk's signature** (check 4): entering the function at `DualJacobian`'s bound from trait code compiles TraitWorld's `Erased{A, S}` constructor once per function type there; at the problem's bounds (entered from the ordinary module, `@nospecialize`) it does not. One small CodeInstance of TraitWorld's per new function, none of the solver's.
+
+### Deviations met
+
+None of T-62, T-64, T-65, T-66, T-67, L-3 is on this build's path: `init` is an internal function returning a concrete integrator (no trait-typed result, T-64), no dotted update of a declared field (T-65), no Base-like names (T-66), no supertrait (T-67), every bounded method in its function's owner (L-3). On the path but not limiting:
+- **L-37:** TDE's `ODEProblem` and `ODESolution` are family members, so each plain call into a bounded function (`solve_ode`, once per solve; a `Trajectory` helper, once per call) takes the family's registry path. Once per solve, not per step; not measured here.
+- **T-54:** a kept `Dynamic{Callable}` made at one signature enters the problem's dual bound (as on `main`) and, on the init path, `DualJacobian`'s; the design refuses it (§7.5). The suite's check of that case predates this branch.
+
+### Pushback (idiomatic code against the design)
+
+- **A function the solver enters at signatures of its own choosing** (the chunk at init): the trait cannot state "a function callable at the duals of any chunk", so the problem hands out its raw function as an operation's result `::Any` (`rhs_function`), and the solver enters it at its own bound. A `Callable` bound whose argument types the callee chooses is open issues §2 item 10. Recorded as a choice that works within the design; the escape is the `Any`.
+- **No optional bounded parameter:** a `Callable` parameter cannot be "absent". The problem keeps a library marker (`no_jacobian`, compiled) at `J`, so a problem with a Jacobian and one without are two types, and the solver compiles once for each (as SciML's `f.jac === nothing` does in its type).
+- **An immutable `p` is boxed per call under `Dynamic`** unless it is a bits type (finding 1): SciML's `p` is often a named tuple holding arrays. Within the design: `compiled_for(f)`, or a mutable `p`.
+- **The mass matrix:** the record carries it; TDE's solvers take `I` only (`ArgumentError` otherwise). Not in move 1's checks.
+
+### Choices made (mine)
+
+- `jacobian!` keeps TDE's name (the plan's `jac!`); the existing API (`ODEProblem(f, …)`, `Rodas5()`, `jacobian!` of problem types) is unchanged.
+- `ODEFunction` lives in the ordinary module; the problem's front end reads it under `@nospecialize`, so no record is built per function.
+- The absent Jacobian is the library's own function at `J`, cast `compiled_for`, rather than a `Bool` field or a `Union` field.
+- The chunk path is opt-in: `Rodas5(chunk_size = 0)` picks the chunk, `chunk_size = N` fixes it; `Rodas5()` keeps the problem's Jacobian. A given Jacobian wins over the chunk path (`rhs_function` returns `nothing`).
+- The init-chunk function sits in a helper struct `DualJacobian` held by the integrator (`Rodas5Integrator{P, JC}`), not in a bounded parameter of the integrator itself, so the integrator needs no marker when the problem's `jacobian!` is used.
+- `Trajectory`'s operations are not exported (`times`, `state`, `at` are common names); `at` interpolates linearly; the solution keeps no problem, so its type stays independent of `P`.
+- `ChainModel{G}` lives in a TDE example package that depends on nothing; checks 2–6 use it.

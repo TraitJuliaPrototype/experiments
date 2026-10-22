@@ -1,0 +1,18 @@
+== E-157 check 5: an f that returns du: refused at its first call (Dynamic), at first use (compiled_for)
+   julia 1.13.2 (6d480d0753*)  TraitWorld c655dde  TDE 0bb297b+changes (w34)  setting product  strict off  threads 1
+   load (cut -d' ' -f1-3 /proc/loadavg) at start: 0.54 0.69 0.79
+
+function returning du, Dynamic, Tsit5                           at call 1                         TypeError: TypeError: in typeassert, expected Nothing, got a value of type Vector{Float64}
+                                                                TypeError expected = Nothing, got Vector{Float64}
+function returning du, Dynamic, Rodas5 (chunk at init)          at call 1                         TypeError: TypeError: in typeassert, expected Nothing, got a value of type Vector{Float64}
+                                                                TypeError expected = Nothing, got Vector{Float64}
+function returning du, compiled_for, Tsit5                      before any call (at first use)    ImplementError: ImplementError: ODEProblem{Float64, Vector{Float64}, typeof(ret!), typeof(ret!), typeof(TraitDifferentialEquations.ODECore.no_jacobian)} is a member of a family implementation of ODEProblemTrait, but 
+callable model returning du, Dynamic, Tsit5                     at call 1                         TypeError: TypeError: in typeassert, expected Nothing, got a value of type Vector{Float64}
+                                                                TypeError expected = Nothing, got Vector{Float64}
+callable model returning du, compiled_for, Tsit5                before any call (at first use)    ImplementError: ImplementError: ODEProblem{Float64, Vector{Float64}, RetModel, RetModel, typeof(TraitDifferentialEquations.ODECore.no_jacobian)} is a member of a family implementation of ODEProblemTrait, but does not
+a given Jacobian returning J, Dynamic, Rodas5                   at call 1                         TypeError: TypeError: in typeassert, expected Nothing, got a value of type Matrix{Float64}
+                                                                TypeError expected = Nothing, got Matrix{Float64}
+a given Jacobian returning J, compiled_for, Rodas5              before any call (at first use)    ImplementError: ImplementError: ODEProblem{Float64, Vector{Float64}, Dynamic{Callable{Tuple{Vector{Float64}, Vector{Float64}, Vector{Float64}, Float64}, Nothing}}, Dynamic{Callable{Tuple{Vector{ForwardDiff.Dual{Trait
+
+load at end: 0.54 0.69 0.79
+exit 0

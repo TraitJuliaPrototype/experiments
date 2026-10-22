@@ -1,0 +1,26 @@
+== E-157 check 3: allocations per step: Tsit5, 40 states, ~1,000 steps
+   julia 1.13.2 (6d480d0753*)  TraitWorld c655dde  TDE 29f0641 (w34)  setting product  strict off  threads 1
+   load (cut -d' ' -f1-3 /proc/loadavg) at start: 1.00 0.89 0.86
+
+case                              alg                     mode            steps f calls/step  bytes/step allocs/step   ns/step  allocs (1,000 steps)
+p::Vector{Float64}                Tsit5                   Dynamic          1001          6.0         0.0        0.00       460                    53
+p::Vector{Float64}                Tsit5                   compiled_for     1001          6.0         0.0        0.00       449                    52
+p::Vector{Float64}                Rodas5 (chunk 8)        Dynamic          1001          9.0      6304.0        8.00     20307                  8088
+p::Vector{Float64}                Rodas5 (chunk 8)        compiled_for     1001          9.0      6304.0        8.00     21860                  8086
+p::Vector{Float64}                Rodas5 (chunk at init)  Dynamic          1001          9.0       400.0        2.00     22531                  2099
+p::Vector{Float64}                Rodas5 (chunk at init)  compiled_for     1001          9.0       400.0        2.00     21475                  2094
+p::NamedTuple (bits)              Tsit5                   Dynamic          1001          6.0         0.0        0.00       486                    55
+p::NamedTuple (bits)              Tsit5                   compiled_for     1001          6.0         0.0        0.00       443                    54
+p::NamedTuple (bits)              Rodas5 (chunk 8)        Dynamic          1001          9.0      6304.0        8.00     21741                  8090
+p::NamedTuple (bits)              Rodas5 (chunk 8)        compiled_for     1001          9.0      6304.0        8.00     22413                  8088
+p::NamedTuple (bits)              Rodas5 (chunk at init)  Dynamic          1001          9.0       400.0        2.00     21241                  2105
+p::NamedTuple (bits)              Rodas5 (chunk at init)  compiled_for     1001          9.0       400.0        2.00     21156                  2100
+p::NamedTuple (holds a Vector)    Tsit5                   Dynamic          1001          6.0       192.0        6.00       588                  6063
+p::NamedTuple (holds a Vector)    Tsit5                   compiled_for     1001          6.0         0.0        0.00       486                    54
+p::NamedTuple (holds a Vector)    Rodas5 (chunk 8)        Dynamic          1001          9.0      6752.0       22.00     15793                 22105
+p::NamedTuple (holds a Vector)    Rodas5 (chunk 8)        compiled_for     1001          9.0      6304.0        8.00     22583                  8088
+p::NamedTuple (holds a Vector)    Rodas5 (chunk at init)  Dynamic          1001          9.0       816.0       15.00     21734                 15119
+p::NamedTuple (holds a Vector)    Rodas5 (chunk at init)  compiled_for     1001          9.0       400.0        2.00     21338                  2100
+
+load at end: 1.00 0.89 0.86
+exit 0

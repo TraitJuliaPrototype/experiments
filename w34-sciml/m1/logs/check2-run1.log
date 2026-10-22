@@ -1,0 +1,30 @@
+== E-157 check 2: per rhs! call: Dynamic against compiled_for; Vector and NamedTuple p
+   julia 1.13.2 (6d480d0753*)  TraitWorld c655dde  TDE 29f0641 (w34)  setting product  strict off  threads 1
+   load (cut -d' ' -f1-3 /proc/loadavg) at start: 0.89 0.86 0.85
+
+case                                                    mode            ns/call  bytes/call  allocs/call       calls
+Lorenz, p::Vector{Float64}                              Dynamic            7.57         0.0        0.000    37120903
+Lorenz, p::Vector{Float64}                              compiled_for       1.46         0.0        0.000   190114068
+Lorenz, p::Vector{Float64}                              direct (plain)     1.46         0.0        0.000   243743906
+Lorenz, p::NamedTuple (bits)                            Dynamic            8.82         0.0        0.000    38390663
+Lorenz, p::NamedTuple (bits)                            compiled_for       1.13         0.0        0.000   206029806
+Lorenz, p::NamedTuple (bits)                            direct (plain)     1.13         0.0        0.000   328012246
+   isbits(p) = true; problem type under Dynamic: ODEProblem{…, P = @NamedTuple{σ::Float64, ρ::Float64, β::Float64}}
+Lorenz, p::NamedTuple (holds a Vector)                  Dynamic           14.77        32.0        1.000    21328328
+Lorenz, p::NamedTuple (holds a Vector)                  compiled_for       3.18         0.0        0.000    90939404
+Lorenz, p::NamedTuple (holds a Vector)                  direct (plain)     3.24         0.0        0.000   100688035
+   isbits(p) = false; problem type under Dynamic: ODEProblem{…, P = @NamedTuple{c::Vector{Float64}, scale::Float64}}
+ChainModel{PathGraph}, p::Vector{Float64}               Dynamic           37.28         0.0        0.000     8362602
+ChainModel{PathGraph}, p::Vector{Float64}               compiled_for      29.99         0.0        0.000     9207453
+ChainModel{PathGraph}, p::Vector{Float64}               direct (plain)    30.43         0.0        0.000     9918831
+ChainModel{PathGraph}, p::NamedTuple (bits)             Dynamic           33.28         0.0        0.000     8856062
+ChainModel{PathGraph}, p::NamedTuple (bits)             compiled_for      26.67         0.0        0.000    11677559
+ChainModel{PathGraph}, p::NamedTuple (bits)             direct (plain)    30.46         0.0        0.000     9295293
+   isbits(p) = true; problem type under Dynamic: ODEProblem{…, P = @NamedTuple{k::Float64, d::Float64}}
+ChainModel{PathGraph}, p::NamedTuple (holds a Vector)   Dynamic           44.56        32.0        1.000     7132651
+ChainModel{PathGraph}, p::NamedTuple (holds a Vector)   compiled_for      33.49         0.0        0.000     9544717
+ChainModel{PathGraph}, p::NamedTuple (holds a Vector)   direct (plain)    34.03         0.0        0.000     9815598
+   isbits(p) = false; problem type under Dynamic: ODEProblem{…, P = @NamedTuple{k::Float64, d::Float64, w::Vector{Float64}}}
+
+load at end: 1.00 0.89 0.86
+exit 0

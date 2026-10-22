@@ -1,0 +1,34 @@
+== E-157 check 6: a Trajectory helper compiled once per key; one solution type for two models
+   julia 1.13.2 (6d480d0753*)  TraitWorld c655dde  TDE 29f0641 (w34)  setting product  strict off  threads 1
+   load (cut -d' ' -f1-3 /proc/loadavg) at start: 1.00 0.89 0.86
+
+solution types: ODESolution{Float64}, ODESolution{Float32}
+typed caller, a function (lorenz!)                                8 new CodeInstance(s) in Plotting
+typed caller, ChainModel{PathGraph}                               0 new CodeInstance(s) in Plotting
+typed caller, ChainModel{RingGraph}, NamedTuple p                 0 new CodeInstance(s) in Plotting
+typed caller, compiled_for(ChainModel{RingGraph})                 0 new CodeInstance(s) in Plotting
+typed caller, a problem type (LorenzProblem), Rodas5              0 new CodeInstance(s) in Plotting
+typed caller, a Float32 state (a new key)                         4 new CodeInstance(s) in Plotting
+dynamic call, a function (lorenz!)                                2 new CodeInstance(s) in Plotting
+dynamic call, ChainModel{PathGraph}                               0 new CodeInstance(s) in Plotting
+
+The specializations of Plotting's methods at the end:
+  [facts] #tw_untyped_final#161  Tuple{Type{Main.Plotting.var"##tw_untyped_final#161"}}
+  [facts] #tw_untyped_sample#147  Tuple{Type{Main.Plotting.var"##tw_untyped_sample#147"}}
+  [plain] final  Tuple{typeof(Main.Plotting.final), ODESolution{Float32}}
+  [plain] final  Tuple{typeof(Main.Plotting.final), ODESolution{Float64}}
+  [facts] final  Tuple{typeof(Main.Plotting.final), Trajectory{Vector{Float32}, Float64} at ODESolution{Float32}}
+  [facts] final  Tuple{typeof(Main.Plotting.final), Trajectory{Vector{Float64}, Float64} at ODESolution{Float64}}
+  [plain] sample  Tuple{typeof(Main.Plotting.sample), Any, Int64}
+  [plain] sample  Tuple{typeof(Main.Plotting.sample), ODESolution{Float32}, Int64}
+  [plain] sample  Tuple{typeof(Main.Plotting.sample), ODESolution{Float64}, Int64}
+  [facts] sample  Tuple{typeof(Main.Plotting.sample), Trajectory{Vector{Float32}, Float64} at ODESolution{Float32}, Int64}
+  [facts] sample  Tuple{typeof(Main.Plotting.sample), Trajectory{Vector{Float64}, Float64} at Dynamic, Int64}
+  [facts] sample  Tuple{typeof(Main.Plotting.sample), Trajectory{Vector{Float64}, Float64} at ODESolution{Float64}, Int64}
+  [facts] keeps  Tuple{typeof(TraitWorld.keeps), TraitWorld.KeepOf{typeof(Main.Plotting.final)}}
+  [facts] keeps  Tuple{typeof(TraitWorld.keeps), TraitWorld.KeepOf{typeof(Main.Plotting.sample)}}
+  [facts] needed  Tuple{typeof(TraitWorld.needed), TraitWorld.EntryPos{typeof(Main.Plotting.final), 1, 1}}
+  [facts] needed  Tuple{typeof(TraitWorld.needed), TraitWorld.EntryPos{typeof(Main.Plotting.sample), 1, 2}}
+
+load at end: 1.00 0.90 0.86
+exit 0

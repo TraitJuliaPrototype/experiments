@@ -1,0 +1,30 @@
+ERROR: LoadError: ImplementError: ODESolution{Float32} is a member of a family implementation of Trajectory, but does not conform:
+  `at` at Tuple{ODESolution{Float32}, Float64} returns `Union{Vector{Float32}, Vector{Float64}}`, declared `Vector{Float32}`
+  `at` at Tuple{ODESolution{Float32}, Float64} returns `Union{Vector{Float32}, Vector{Float64}}`, declared `Vector{Float32}`
+Stacktrace:
+  [1] _check_member(X::Any, U::Any)
+    @ TraitWorld ~/Repos/julia-trait-bound/TraitWorld/src/implement.jl:864
+  [2] conformance(::TraitWorld.As{Trajectory}, u::ODESolution{Float32})
+    @ TraitDifferentialEquations.ODECore ./none:-1
+  [3] use(s::ODESolution{Float32})
+    @ Main ~/Repos/julia-trait-bound/experiments/w34-sciml/m1/check6_trajectory.jl:40
+  [4] top-level scope
+    @ ~/Repos/julia-trait-bound/experiments/w34-sciml/m1/check6_trajectory.jl:44
+  [5] include(mod::Module, _path::String)
+    @ Base ./Base.jl:310
+  [6] exec_options(opts::Base.JLOptions)
+    @ Base ./client.jl:344
+  [7] _start()
+    @ Base ./client.jl:577
+in expression starting at /home/hellmann/Repos/julia-trait-bound/experiments/w34-sciml/m1/check6_trajectory.jl:43
+== E-157 check 6: a Trajectory helper compiled once per key; one solution type for two models
+   julia 1.13.2 (6d480d0753*)  TraitWorld c655dde  TDE 0bb297b+changes (w34)  setting product  strict off  threads 1
+   load (cut -d' ' -f1-3 /proc/loadavg) at start: 0.62 0.69 0.79
+
+solution types: ODESolution{Float64}, ODESolution{Float32}
+typed caller, a function (lorenz!)                                8 new CodeInstance(s) in Plotting
+typed caller, ChainModel{PathGraph}                               0 new CodeInstance(s) in Plotting
+typed caller, ChainModel{RingGraph}, NamedTuple p                 0 new CodeInstance(s) in Plotting
+typed caller, compiled_for(ChainModel{RingGraph})                 0 new CodeInstance(s) in Plotting
+typed caller, a problem type (LorenzProblem), Rodas5              0 new CodeInstance(s) in Plotting
+exit 1
