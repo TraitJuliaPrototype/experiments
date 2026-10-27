@@ -396,3 +396,24 @@ The residual with the wrapper (`logs/e184norm/residual.jl`, `--trace-compile-tim
 - The digests are the same in all twelve sessions.
 - **The chain:** a session that defines `f() = 1` before `using OrdinaryDiffEqTsit5` records 83 outcomes (386 → 469 files); the same definition again reuses them (the load 0.344 → 0.282 s); `g(x::Int) = 2` instead records new ones (552).
 - **What it says:** remembering validation saves 0.6–0.8 s of the load, about half of E-185's 1.4 s: the walk, the backedges and the cache insertions remain. The first plot pays 0.17–0.25 s more, all of it a garbage collection that the load's own garbage triggered earlier without the remembered path (run 1's identity set was not the cause: the same with run 2's sentinel). Net, a session gains about 0.5 s.
+
+### E-188, the origins of a session's facts code (W-66 step 1), 2026-10-27
+
+`cache/probe_origins.jl`: the runtime's newly-inferred list switched on from the start of a session; after the workload, for each CodeInstance of owner `:facts` the session made, its origins: the packages owning its method, its signature's types, and its edges' callees and signatures. julia-1.13 41d199c557, TraitWorld 5589f4c, TraitDifferentialEquations 6234487; one session each; `logs/e188/`.
+
+| | D/p (trait demonstrators) | C/p (the facts-compiled SciML core, CairoMakie) |
+|---|---|---|
+| CodeInstances made: facts / plain | 95 / 475 | 11,543 / 11,453 |
+| facts, naming the session's own code or types | 32 | 363 |
+| facts, cacheable | 63 | 11,180 |
+| origins per entry besides Base and Core (mean, max) | 0.94, 3 | 1.97, 18 |
+| entries on Base and Core only | 24 | 5,622 (50%) |
+| distinct origin sets | 7 | 213 |
+| packages that are an origin (of those loaded) | 3 (of 68) | 39 (of 398) |
+| the largest share one package's new version invalidates | 41% (TraitDifferentialEquations) | 24.7% (LinearAlgebra), then SciMLBase 19.9%, DiffEqBase 16.6% |
+
+C's session compiled 20.9 s during its load (an extension image stale in `depot-C`, as in E-187), so its counts include code compiled at load.
+
+**What it says:**
+- **Keyed on origins, a cache keeps most of itself across a change:** half of C's cacheable facts code depends on Base and Core only, the rest on 39 of 398 packages; no single package's new version invalidates more than a quarter. An environment key loses all of it at any change.
+- **A facts-only cache leaves plain code out:** in C half of what the session compiles is plain (most of it Base's methods called from plain code); in D, after the parameters moved to the surface (E-181), the session compiles little of either. In a whole trait world the plain share is what plain layers call.
