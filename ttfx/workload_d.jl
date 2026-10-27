@@ -10,7 +10,10 @@ mark("start")
 const SHAPE = get(ENV, "WL_SHAPE", "matched"); const ORDER = get(ENV, "WL_ORDER", "A"); const KIND = get(ENV, "WL_D", "trait")
 KIND == "trait" ? (@eval using TraitDifferentialEquations; @eval const ODE = TraitDifferentialEquations) :
                   (@eval using PlainODE; @eval const ODE = PlainODE)
-loadplots() = KIND == "trait" ? (@eval using TraitMakie; @eval const PL = TraitMakie) : (@eval using PlainPlots; @eval const PL = PlainPlots)
+# E-177: a cache split by dependency set: its solver part loads with the solver, its plotting part with the plotting library
+loadcache(var) = haskey(ENV, var) && Base.invokelatest(Base.require, Main, Symbol(ENV[var]))
+loadcache("WL_CACHE_S")
+loadplots() = (KIND == "trait" ? (@eval using TraitMakie; @eval const PL = TraitMakie) : (@eval using PlainPlots; @eval const PL = PlainPlots); loadcache("WL_CACHE_P"))
 ORDER == "A" && loadplots()
 haskey(ENV, "WL_CACHE") && @eval using $(Symbol(ENV["WL_CACHE"]))   # E-172: a cache across sessions, emulated
 mark("load")
@@ -55,6 +58,11 @@ mark("plot1")
 c = ODE.solve(ODE.ODEProblem(vanderpol!, [2.0, 0.0], (0.0, 3000.0), shape([1000.0])), ODE.Rodas5(); saveat = TV, reltol = RT, abstol = AT)
 PL.save(joinpath(OUT, "d-2.png"), PL.lines(ts(c), comp(c, 1)))
 mark("model2")
+# E-177: a late load of packages that add methods to Base's functions, before the solves and plots again
+if get(ENV, "WL_LATE", "0") == "1"
+    @eval using OffsetArrays, StaticArrays
+    mark("late")
+end
 a2, b2 = solve_two(); plot_two(a2, b2, joinpath(OUT, "d-3.png"))
 mark("again")
 function digest(name, s, tq)
@@ -63,6 +71,10 @@ function digest(name, s, tq)
 end
 digest("lorenz", a, (1.0, 2.0)); digest("robertson", b, (1.0, 1e3, 1e5)); digest("vanderpol", c, (1000.0, 3000.0))
 include("pngs.jl"); pngs(OUT, "d-")
+# any package loaded from source instead of an image (a stale image is loaded from source silently)
+for (id, o) in Base.pkgorigins
+    o.path !== nothing && o.cachepath === nothing && !Base.in_sysimage(id) && println("STALE ", id.name)
+end
 println("V julia ", Base.GIT_VERSION_INFO.commit_short, " ", Sys.BINDIR, " kind ", KIND, " strict ", get(ENV, "JULIA_TW_STRICT", "0"), " shape ", SHAPE, " order ", ORDER)
 println("V pkgs ", join(sort!([string(nameof(m), "@", pkgversion(m)) for m in values(Base.loaded_modules) if pkgversion(m) !== nothing]), " "))
 mark("trailer")

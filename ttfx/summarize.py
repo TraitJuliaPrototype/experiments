@@ -4,7 +4,7 @@ import sys
 for path in sys.argv[1:]:
     W = E = None; marks = []; bad = []
     for line in open(path):
-        if "Precompiling" in line or "Rejecting cache" in line or "ERROR" in line or line.startswith("rc=") and line.strip() != "rc=0":
+        if "Precompiling" in line or "Rejecting cache" in line or "ERROR" in line or line.startswith("STALE ") or line.startswith("rc=") and line.strip() != "rc=0":
             bad.append(line.strip()[:60])
         p = line.split()
         if not p: continue

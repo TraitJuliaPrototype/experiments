@@ -23,8 +23,24 @@ _names_main(@nospecialize(T)) =
     T isa DataType ? (parentmodule(T) === Main || any(_names_main, T.parameters)) :
     T isa Tuple ? any(_names_main, T) : false
 const _BEFORE = Ref{Any}(nothing)
+# E-177: with REC_SOLVER set, the solver library is loaded first; the packages the rest of the load brings are the
+# plotting part's, and a recorded type that names one of them goes to the plotting part of the cache
+const _SOLVER_MODS = if haskey(ENV, "REC_SOLVER")
+    foreach(n -> Base.require(Main, Symbol(n)), split(ENV["REC_SOLVER"], ",")); Set{Module}(values(Base.loaded_modules))
+else
+    nothing
+end
+const _PLOT_MODS = Ref{Set{Module}}(Set{Module}())
+_mentions(@nospecialize(T), mods::Set{Module}) =
+    T isa Union ? (_mentions(T.a, mods) || _mentions(T.b, mods)) :
+    T isa UnionAll ? (_mentions(T.var.lb, mods) || _mentions(T.var.ub, mods) || _mentions(T.body, mods)) :
+    T isa TypeVar ? (_mentions(T.lb, mods) || _mentions(T.ub, mods)) :
+    T isa Core.TypeofVararg ? (isdefined(T, :T) && _mentions(T.T, mods)) :
+    T isa DataType ? (Base.moduleroot(parentmodule(T)) in mods || any(p -> _mentions(p, mods), T.parameters)) :
+    T isa Tuple ? any(p -> _mentions(p, mods), T) : false
 # the snapshot is taken at the workload's "load" mark, so code that came with the loaded images is not counted
-_on_mark(step) = step == "load" && (_BEFORE[] = _cis(); nothing)
+_on_mark(step) = step == "load" && (_BEFORE[] = _cis();
+    _SOLVER_MODS === nothing || (_PLOT_MODS[] = setdiff(Set{Module}(values(Base.loaded_modules)), _SOLVER_MODS)); nothing)
 const _SCRIPT, _OUT, _STMTS = ARGS[1], ARGS[2], ARGS[3]
 empty!(ARGS); push!(ARGS, _OUT)
 include(joinpath(@__DIR__, "..", _SCRIPT))
@@ -72,5 +88,15 @@ let after = _cis(), kept = Set{String}(), owners = Dict{Any,Int}(), named = 0, t
     println("R checks kept ", length(unique(checks)))
     # the types themselves: printing loses trait objects' types (TraitWorld prints them by bound and key)
     serialize(replace(_STMTS, r"\.jl$" => ".jls"), (plain = unique(plainT), facts = unique(factsT), checks = unique(checkT)))
+    if _SOLVER_MODS !== nothing      # E-177: the split by dependency set
+        P = _PLOT_MODS[]
+        part(v, plot) = unique(filter(T -> _mentions(T, P) == plot, v))
+        for (plot, suffix) in ((false, "-solver"), (true, "-plot"))
+            serialize(replace(_STMTS, r"\.jl$" => suffix * ".jls"),
+                      (plain = part(plainT, plot), facts = part(factsT, plot), checks = part(checkT, plot)))
+        end
+        println("R split: plotting part's packages ", length(P), "; solver part ", length(part(plainT, false)) + length(part(factsT, false)),
+                " types, plotting part ", length(part(plainT, true)) + length(part(factsT, true)))
+    end
     println("R new CodeInstances ", total, " by owner ", owners, "; naming Main ", named, "; unprintable ", unprintable, "; statements kept ", length(kept))
 end

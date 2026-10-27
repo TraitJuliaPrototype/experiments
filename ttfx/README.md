@@ -208,3 +208,22 @@ The same with the types serialized (`trace.jls`): S/pc 4.69–4.70 s (first solv
 
 **An estimate for a port on lean trees:** a plotting core about 1 s, a solver about 0.5 s, Julia's startup 0.1 s, the work after the load with a cache about 1 s: a session of about 2.6–2.7 s, against Python's 1.45 s and stock's 9.2 s. An estimate from floors, not a measurement.
 
+
+### Setting A (`all`), preliminary, 2026-10-27
+
+The facts system image rebuilt for julia-1.13 252edca933 (231 s); `env_up` precompiled under `all` into `depot-A` (258 s). A warm-up and two sessions (`logs/p1A/`): A 14.88–14.91 s (load 8.33–8.44, first solve 4.83–4.90, first plot 1.23–1.25, second model 0.22); A/p 18.4–19.0 s; A/b 14.55–14.61 s (the plotting library's load moves into the first plot: 7.8 s). The new check flagged SHA and Sockets; a false positive: they come from the system image (the check now excludes modules in the system image). Under `all` the load doubles (CairoMakie compiled by facts; evidence §3 had 4.9 against 1.9 s for CairoMakie alone).
+
+### E-177, the trait-specific test: a split cache, order B and a late load, 2026-10-27
+
+`cache/make_split_cache.sh X` records a perturbed session with the solver library loaded first, splits the recorded types by dependency set (a type naming a package that only the plotting library brings goes to the plotting part), and builds two packages: `SessionCacheXS` (the solver part) and `SessionCacheXP` (the plotting part), each loaded by the workload as soon as its dependencies are (`/x`). The late load (`/l`): `using OffsetArrays, StaticArrays` after the second model, before "again". julia-1.13 252edca933, TraitWorld e6d5976; a warm-up and two sessions (`logs/p177/`; the runs' STALE flags are the false positives above). D's split: solver part 1,245 types, plotting part 3; Dp's: 1,057 and 20.
+
+| Perturbed (to "again") | split cache, order A | split cache, order B | split cache, late load: "again" (compiling) | no cache, late load: "again" (compiling) |
+|---|---|---|---|---|
+| D (traits) | 1.02 s | 1.08–1.09 s | 0.020 s (0.00) | 0.020 s (0.00) |
+| Dp (plain) | 0.65 s | 0.69–0.71 s | 0.064 s (0.04) | 0.064 s (0.04) |
+
+**What it says:**
+- **The trait-specific claim holds on this path, at a small scale:** after the late load, the plain twins recompile 0.04 s of their code, cached or not; the trait code recompiles nothing. At the large scale the same was measured without a cache (E-168): after CairoMakie loads late, stock recompiles 0.44 s, the facts-compiled SciML core 0.04 s.
+- **Order B costs both alike** (0.05–0.08 s more in the first solve), so it is not the load order that the trait code is protected from here, but later loads that add methods to Base's functions.
+- The plain twins stay faster in every cell at this scale; the traits' advantage is what later loads cannot take away, and it grows with the code that later loads would invalidate.
+

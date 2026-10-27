@@ -57,6 +57,10 @@ mark("again")
 digest(name, sol, ts) = println("D ", name, " ", join((string(round(sol(t)[k]; sigdigits = 6)) for t in ts for k in 1:length(sol.u[1])), " "))
 digest("lorenz", a, (1.0, 2.0)); digest("robertson", b, (1.0, 1e3, 1e5)); digest("vanderpol", c, (1000.0, 3000.0))
 pngs(OUT, "jl-")
+# any package loaded from source instead of an image (a stale image is loaded from source silently)
+for (id, o) in Base.pkgorigins
+    o.path !== nothing && o.cachepath === nothing && !Base.in_sysimage(id) && println("STALE ", id.name)
+end
 println("V julia ", Base.GIT_VERSION_INFO.commit_short, " ", Sys.BINDIR, " image ", unsafe_string(Base.JLOptions().image_file),
         " strict ", get(ENV, "JULIA_TW_STRICT", "0"), " shape ", SHAPE, " order ", ORDER)
 println("V pkgs ", join(sort!([string(nameof(m), "@", pkgversion(m)) for m in values(Base.loaded_modules) if pkgversion(m) !== nothing]), " "))
