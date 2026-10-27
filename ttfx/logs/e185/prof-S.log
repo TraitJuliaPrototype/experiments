@@ -1,0 +1,63 @@
+P load 4.144 s, samples 12966 (0.32 ms each)
+P verify_method_graph                        2351  18.1%
+P verify_method                              2344  18.1%
+P jl_promote_ci_to_current                     32  0.2%
+P scan_new_methods!                           119  0.9%
+P scan_new_code!                             2395  18.5%
+P insert_backedges                           2514  19.4%
+P jl_activate_methods                        1527  11.8%
+P _include_from_serialized                   5843  45.1%
+P register_restored_modules                   260  2.0%
+P run_module_init                             258  2.0%
+P _methods_by_ftype                          1398  10.8%
+P ml_matches                                 1387  10.7%
+P jl_method_table_activate                   1519  11.7%
+P typeinf                                     109  0.8%
+P jl_compile_method_internal                  219  1.7%
+P stale_cachefile                             450  3.5%
+P locate_package                               12  0.1%
+Q 100.0%  jl_apply @julia.h
+Q 100.0%   @libc.so.6
+Q  50.0%  pthread_cond_wait @libc.so.6
+Q  50.0%  #wait#392 @condition.jl
+Q  50.0%  uv_cond_wait @thread.c
+Q  50.0%  _trywait @asyncevent.jl
+Q  50.0%  wait @condition.jl
+Q  50.0%  profile_printing_listener @Base.jl
+Q  50.0%  ijl_task_get_next @scheduler.c
+Q  50.0%  wait @task.jl
+Q  50.0%  #start_profile_listener##0 @Base.jl
+Q  50.0%  start_task @task.c
+Q  50.0%  jfptr_YY.start_profile_listenerYY.YY.0_16994.1 @sys.so
+Q  50.0%  exec_options @client.jl
+Q  50.0%  ijl_toplevel_eval @toplevel.c
+Q  50.0%  main @loader_exe.c
+Q  50.0%  _start @client.jl
+Q  50.0%  __libc_start_main @libc.so.6
+Q  50.0%   @start.S
+Q  50.0%  jl_toplevel_eval_flex @toplevel.c
+Q  50.0%  jl_repl_entrypoint @jlapi.c
+Q  50.0%  macro expansion @Profile.jl
+Q  50.0%  jfptr__start_60477.1 @sys.so
+Q  50.0%  _include @loading.jl
+Q  50.0%  top-level scope @timing.jl
+Q  50.0%  ijl_toplevel_eval_in @toplevel.c
+Q  50.0%  true_main @jlapi.c
+Q  50.0%  include_string @loading.jl
+Q  50.0%  jl_eval_toplevel_stmts @toplevel.c
+Q  50.0%  eval @boot.jl
+Q  50.0%  include @Base.jl
+Q  49.9%  macro expansion @loading.jl
+Q  49.9%  require @loading.jl
+Q  49.9%  eval_import_path @module.jl
+Q  49.9%  jfptr___require_77395.1 @sys.so
+Q  49.9%  macro expansion @prof_load.jl
+Q  49.9%  eval_import_path_all @module.jl
+Q  49.9%  _eval_using @module.jl
+Q  49.9%  macro expansion @lock.jl
+Q  49.9%  _require_prelocked @loading.jl
+Q  49.9%  __require @loading.jl
+Q  49.9%  _require_search_from_serialized @loading.jl
+Q  49.9%  __require_prelocked @loading.jl
+Q  49.9%  #_require_search_from_serialized#907 @loading.jl
+Q  45.3%  jfptr__eval_using_75473.1 @sys.so
