@@ -254,3 +254,15 @@ The facts system image rebuilt for julia-1.13 252edca933 (231 s); `env_up` preco
 - **The cause of the first:** A's images carry 1,058 specializations each of `Base._push!` and `Base.__safe_setindex!` at exact type-valued signatures, `(Vector{Type}, Type{Union{Tuple{…}, Tuple{…}}})`, whose signature types have no hash (`probe_hash0.jl`, `probe_specs_load.jl`). They come from the documentation system: `Docs.MultiDoc` keeps a `Type[]`, and each documented method with optional arguments pushes its signature's union of tuples. Inserting a specialization without a hash scans the method's whole list with `jl_types_equal` (`gf.c`, `jl_specializations_get_linfo_`), so the 2,116 insertions scan lists of about 2,900 entries. Plain Julia interprets that top-level code and keeps no such specialization (`repro_typepush.jl`: none in plain mode; 319 already in the facts system image); inferring the call creates one in either interpreter (`repro_typepush2.jl`). Under the facts image the code is inferred and the result kept in the package's image. W-59.
 - **The second** (validation 2.84 against 1.29 s): not diagnosed.
 
+### W-59's fix, measured, 2026-10-27
+
+julia-1.13 6800be7839 (images keep no external code specialized at a signature type without a hash), the facts system image rebuilt, `depot-A` precompiled again (239 s). The hash-less specializations of `_push!` and `__safe_setindex!` are gone from what the load adds (`probe_hash0.jl`: the largest groups left are Makie's own `map`, about 100 each). A warm-up and two sessions (`logs/p59/`):
+
+| Setting A | load | first solve | first plot | second model | late load | again: solve / plot (compiling) | **session** |
+|---|---|---|---|---|---|---|---|
+| before (julia-1.13 252edca933) | 8.21–8.44 | 4.83–4.90 | 1.23–1.25 | 0.22 | — | — | 14.88–14.91 |
+| after, matched | **3.83–3.84** | 4.78–4.80 | 1.32–1.33 | 0.21 | — | 0.015 / 0.08 | **10.35–10.40** |
+| after, late DataFrames | 3.79–3.86 | 4.89–4.90 | 1.33–1.34 | 0.21–0.22 | 0.25 | 0.003 / 0.11 (0.02) | 10.71–10.79 |
+
+The load under `all` falls from 8.2 to 3.8 s, about stock's 3.6 s: the 4.4 s saved are both the insertion's scans and the validation of those instances. Makie compiled by facts keeps its protection (the plot after a late DataFrames load recompiles 0.02 s). The other settings' images were stale after the rebuild (the trailer's check flagged them) and are measured again.
+
