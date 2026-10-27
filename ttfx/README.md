@@ -328,3 +328,25 @@ The outputs (solutions, images) are identical with and without the cache in ever
 - Each session with the cache still compiles about 220–280 signatures the store has (TraitWorld's own code before its part loads, and code the session invalidates): about 0.1 s, not diagnosed further.
 
 **Where the parts' load goes** (C, `cache/probe_parts.jl`, `logs/e180c/parts.log`; the workload's packages loaded first, then each part in turn): the freshness check 1.3–5 ms a part (0.076 s in all), the load 4–23 ms a part (0.34 s). Parts of 1–8 entries take 4–8 ms each; the largest, 15–23 ms (OrdinaryDiffEqTsit5 487 entries, OrdinaryDiffEqRosenbrock 571, LinearSolve 105). About 20 of the 45 parts hold fewer than 10 entries. A part's load is mostly a fixed cost.
+
+### E-181, the parameters at the surface, 2026-10-27
+
+`params/`: `params.jl` (a fresh session's first solve of Lorenz with Tsit5 and Robertson with Rodas5, with parameters of kind `vector`, `tuple`, `namedtuple`, or a struct defined in `Main`; then the steady state) and `steady.jl` (per solver, longer solves, a callback reading `integ.p`, the minimum of 50), run by `params/run.sh <branch>`. TDE `w34` 669cd9b (the parameters' type a key of the solver) against `partial-p` 6234487 (the right-hand side partially evaluated on the parameters, the solver keyed on the state's type; now w34). julia-1.13 6800be7839, TraitWorld 5589f4c; product setting; no cache; two fresh sessions each. Logs: `logs/e181/`, `logs/e181d/` (setting D after the change).
+
+| first solve (s) | vector (workload) | tuple | namedtuple | struct in `Main` |
+|---|---|---|---|---|
+| w34 669cd9b | 0.14–0.15 | 1.31–1.34 | 1.27–1.32 | 1.51–1.56 |
+| partial-p, first build (the function also entered at the old signatures) | 0.16 | 0.38 | 0.36–0.38 | 0.54–0.56 |
+| partial-p 6234487 | 0.16 | 0.21 | 0.20 | 0.26 |
+
+| steady state (ms, min of 50) | Tsit5, Lorenz (0, 100) | Rodas5, Robertson | Tsit5 with a callback |
+|---|---|---|---|
+| w34 669cd9b, vector / tuple | 0.26–0.27 / 0.25 | 0.16 / 0.18 | 0.29–0.31 / 0.31 |
+| partial-p 6234487, vector / tuple | 0.26–0.28 / 0.26–0.28 | 0.17 / 0.17 | 0.32–0.33 / 0.32–0.33 |
+
+Setting D after the change (`logs/e181d/`): matched 0.965 s (before 0.94–0.99), off-workload 1.11–1.12 s (before 2.36–2.39).
+
+**What it says:**
+- **The parameters' type need not reach the solver.** A new parameter type compiles the user's function and the outer layer's small records, 0.05–0.1 s beyond the workload's type, instead of the solver (1.1–1.4 s).
+- **The steady state is unchanged within about 5%,** with the same steps: the parameters move from an argument of the dynamic call into the record.
+- The first build entered the user's function at the old signatures too (0.19 s per new parameter type in the record's constructor): the outer layer must not keep forms the core does not use.
