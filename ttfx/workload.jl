@@ -33,17 +33,26 @@ function vanderpol!(du, u, p, t)
     du[1] = u[2]; du[2] = p[1] * ((1 - u[1]^2) * u[2]) - u[1]
     nothing
 end
-shape(v::Vector{Float64}) = SHAPE == "matched" ? v : Tuple(v)
+# E-184 (X5): WL_PARAMS and WL_SAVEAT override the shape's parameters and saving times one at a time
+const PSHAPE = get(ENV, "WL_PARAMS", SHAPE == "matched" ? "vector" : "tuple")
+const TSHAPE = get(ENV, "WL_SAVEAT", SHAPE == "matched" ? "vector" : "range")
+shape(v::Vector{Float64}) = PSHAPE == "vector" ? v : Tuple(v)
 # E-174 (WL_SPEC=nospec): the user's function behind SciMLBase's `NoSpecialize`, so the problem's type does not
 # name it (a stand-in for the SciML route's move 1: the function kept at a bound, not in the type)
 const SPEC = get(ENV, "WL_SPEC", "auto")
 const SB = OrdinaryDiffEqTsit5.OrdinaryDiffEqCore.SciMLBase
 fun(f) = SPEC == "nospec" ? SB.ODEFunction{true, SB.NoSpecialize}(f) : f
-times(a, b, n) = SHAPE == "matched" ? collect(range(a, b; length = n)) : range(a, b; length = n)
+times(a, b, n) = TSHAPE == "vector" ? collect(range(a, b; length = n)) : range(a, b; length = n)
+# E-184 (X5): WL_NORM=1 normalizes the call at the entry, as a port's front end would: saving times as a
+# Vector{Float64}, tolerances as Float64, the keywords in one order
+const NORM = get(ENV, "WL_NORM", "0") == "1"
+nsolve(prob, alg; saveat, reltol, abstol) = NORM ?
+    solve(prob, alg; saveat = Vector{Float64}(collect(saveat)), reltol = Float64(reltol), abstol = Float64(abstol)) :
+    solve(prob, alg; saveat, reltol, abstol)
 const TL = times(0.0, 20.0, 2001); const TR = exp10.(range(-5, 5; length = 201)); const TV = times(0.0, 3000.0, 3001)
 function solve_two()
-    a = solve(ODEProblem(fun(lorenz!), [1.0, 0.0, 0.0], (0.0, 20.0), shape([10.0, 28.0, 8 / 3])), Tsit5(); saveat = TL, reltol = RT, abstol = AT)
-    b = solve(ODEProblem(fun(robertson!), [1.0, 0.0, 0.0], (0.0, 1e5), shape([0.0])), Rodas5P(); saveat = TR, reltol = RT, abstol = AT)
+    a = nsolve(ODEProblem(fun(lorenz!), [1.0, 0.0, 0.0], (0.0, 20.0), shape([10.0, 28.0, 8 / 3])), Tsit5(); saveat = TL, reltol = RT, abstol = AT)
+    b = nsolve(ODEProblem(fun(robertson!), [1.0, 0.0, 0.0], (0.0, 1e5), shape([0.0])), Rodas5P(); saveat = TR, reltol = RT, abstol = AT)
     a, b
 end
 a, b = solve_two()
@@ -52,7 +61,7 @@ ORDER == "B" && (@eval using CairoMakie; loadcache("WL_CACHE_P"))
 include("plotting.jl")
 plot_two(a, b, joinpath(OUT, "jl-1.png"))
 mark("plot1")
-c = solve(ODEProblem(fun(vanderpol!), [2.0, 0.0], (0.0, 3000.0), shape([1000.0])), Rodas5P(); saveat = TV, reltol = RT, abstol = AT)
+c = nsolve(ODEProblem(fun(vanderpol!), [2.0, 0.0], (0.0, 3000.0), shape([1000.0])), Rodas5P(); saveat = TV, reltol = RT, abstol = AT)
 plot_one(c, joinpath(OUT, "jl-2.png"))
 mark("model2")
 # E-177: a late load of packages that add methods to Base's functions, before the solves and plots again
