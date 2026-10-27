@@ -80,3 +80,20 @@ Same build and environments (`logs/p2/`).
 - **D recovers 1.1 s** (first solve 1.50 → 0.27 s), less than Dp: its load grows 0.09 s with the cache, and its first solve keeps 0.18 s of compiling (not diagnosed).
 - **Fixed in TraitWorld 04095fe** (the load profile, `logs/p2/D-load-profile.log`: 260 of 660 samples in TraitWorld's image hook, compiling its body at the first image load): `_on_package_load` compiled by facts, and the hooks' bodies, reached through `invokelatest`, precompiled. D's load 0.81 → 0.44–0.46 s; its session 1.29–1.30 → 0.94–0.99 s (`logs/p2fix2/`; Dp unchanged, 1.14–1.19 s, `logs/p2fix/`). TraitWorld's, the acceptance suite's, TDE's and TraitMakie's tests pass (`experiments/checks/logs/w58-hooks/`). 122 of TraitWorld's MethodInstances are still invalidated by D's loads (its plain macro and definition-time machinery); they are not on a session's path unless trait code is defined in it.
 
+### E-174, the key hypothesis at upstream scale, 2026-10-27
+
+Stock 1.13.2, upstream OrdinaryDiffEq and CairoMakie (S), the user's functions behind `ODEFunction{true, NoSpecialize}` (`/n`), so the problem's type does not name them. The cache built as in E-172 from a perturbed `/n` session (`cache/make_cache.sh S n`: 230 of 253 statements kept, 23 name `Main`). A warm-up and two sessions (`logs/p174/`). Digests as in every setting.
+
+| Session (to "again") | load | first solve | first plot | second model | **session** |
+|---|---|---|---|---|---|
+| S, perturbed (E-168) | 3.57 | 5.28–5.36 | 1.56–1.57 | 2.24–2.29 | **12.83–12.98** |
+| S/n, perturbed, no cache | 3.55–3.57 | 8.19–8.22 | 1.55–1.56 | 2.71–2.73 | **16.19–16.20** |
+| S/n, matched, no cache | 3.62–3.64 | 7.50–7.55 | 1.52 | 0.08 | **12.88–12.94** |
+| **S/n, perturbed, with the cache** | 3.66–3.67 | **0.30** | 0.48 | **0.08** | **4.69–4.70** |
+
+**What it says:**
+- **With the user's function out of the solver's types, a cache across sessions keeps upstream SciML's solver code:** the first solve 0.30 s instead of 8.2 s, the second model 0.08 s. After the load, the session takes 1.03 s, against Python's 1.00 s (its session less its load).
+- **What remains is the load:** 3.66 s of the 4.69 s.
+- `NoSpecialize` alone, without the cache, is slower (16.2 s): OrdinaryDiffEq's workload does not compile its path. A new function then costs nothing (0.08 s).
+- The run time does not suffer here ("again" 0.04 s in every variant).
+
