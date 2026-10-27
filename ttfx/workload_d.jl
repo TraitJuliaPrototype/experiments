@@ -60,10 +60,10 @@ PL.save(joinpath(OUT, "d-2.png"), PL.lines(ts(c), comp(c, 1)))
 mark("model2")
 # E-177: a late load of packages that add methods to Base's functions, before the solves and plots again
 if get(ENV, "WL_LATE", "0") == "1"
-    @eval using OffsetArrays, StaticArrays
+    for p in split(get(ENV, "WL_LATE_PKGS", "OffsetArrays,StaticArrays"), ","); Base.require(Main, Symbol(strip(p))); end
     mark("late")
 end
-a2, b2 = solve_two(); plot_two(a2, b2, joinpath(OUT, "d-3.png"))
+a2, b2 = solve_two(); mark("again_solve"); plot_two(a2, b2, joinpath(OUT, "d-3.png"))
 mark("again")
 function digest(name, s, tq)
     tt = ts(s); n = length(comp(s, 1)) > 0 ? (KIND == "trait" ? length(ODE.ODECore.state(s, 1)) : length(s.u[1])) : 0

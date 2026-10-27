@@ -30,7 +30,7 @@ for st in $settings; do
   esac
   if [[ $mods == *x* ]]; then   # E-177: the cache split by dependency set, its own environment
     export WL_CACHE_S=SessionCache${s}S WL_CACHE_P=SessionCache${s}P
-    for k in "${!cmd[@]}"; do cmd[$k]=${cmd[$k]/--project=env_up/--project=env_split_$s}; cmd[$k]=${cmd[$k]/--project=env_d/--project=env_split_$s}; done
+    for k in "${!cmd[@]}"; do cmd[$k]=${cmd[$k]/--project=env_up/--project=env_split_$s}; cmd[$k]=${cmd[$k]/--project=env_d/--project=env_split_$s}; cmd[$k]=${cmd[$k]/--project=env_core/--project=env_split_$s}; done
   else unset WL_CACHE_S WL_CACHE_P; fi
   [[ $mods == *l* ]] && export WL_LATE=1 || unset WL_LATE
   if [[ $mods == *c* ]]; then   # E-172: the emulated cache across sessions, its own environment

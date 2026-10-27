@@ -11,6 +11,7 @@ F=(--startup-file=no --compiled-modules=existing --pkgimages=existing)
 case $X in
   D)  J=$JP; env=env_d; dep=""; pre=(env WL_D=trait); script=workload_d.jl; sol="TraitDifferentialEquations"; solu="TraitDifferentialEquations, TraitWorld"; plu="TraitDifferentialEquations, TraitMakie, TraitWorld" ;;
   Dp) J=$JP; env=env_d; dep=""; pre=(env WL_D=plain); script=workload_d.jl; sol="PlainODE"; solu="PlainODE"; plu="PlainODE, PlainPlots" ;;
+  C)  J=$JP; env=env_core; dep="$H/depot-C:$HOME/.julia:"; pre=(env); script=workload.jl; sol="OrdinaryDiffEqTsit5,OrdinaryDiffEqRosenbrock"; solu="OrdinaryDiffEqTsit5, OrdinaryDiffEqRosenbrock, TraitWorld"; plu="OrdinaryDiffEqTsit5, OrdinaryDiffEqRosenbrock, CairoMakie, TraitWorld" ;;
   S)  J=$JS; env=env_up; dep="$H/depot-S:$HOME/.julia:"; pre=(env); script=workload.jl; sol="OrdinaryDiffEqTsit5,OrdinaryDiffEqRosenbrock"; solu="OrdinaryDiffEqTsit5, OrdinaryDiffEqRosenbrock"; plu="OrdinaryDiffEqTsit5, OrdinaryDiffEqRosenbrock, CairoMakie" ;;
 esac
 [ -n "$dep" ] && export JULIA_DEPOT_PATH=$dep || unset JULIA_DEPOT_PATH

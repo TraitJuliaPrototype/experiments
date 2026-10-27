@@ -10,7 +10,10 @@ mark(step) = (isdefined(Main, :_on_mark) && Main._on_mark(step); println("T ", s
 mark("start")
 const SHAPE = get(ENV, "WL_SHAPE", "matched"); const ORDER = get(ENV, "WL_ORDER", "A")
 using OrdinaryDiffEqTsit5, OrdinaryDiffEqRosenbrock
-ORDER == "A" && @eval using CairoMakie
+# E-177: a cache split by dependency set: its solver part loads with the solver, its plotting part with CairoMakie
+loadcache(var) = haskey(ENV, var) && Base.invokelatest(Base.require, Main, Symbol(ENV[var]))
+loadcache("WL_CACHE_S")
+ORDER == "A" && (@eval using CairoMakie; loadcache("WL_CACHE_P"))
 haskey(ENV, "WL_CACHE") && @eval using $(Symbol(ENV["WL_CACHE"]))   # E-172: a cache across sessions, emulated
 mark("load")
 const OUT = isempty(ARGS) ? "out" : ARGS[1]
@@ -45,14 +48,19 @@ function solve_two()
 end
 a, b = solve_two()
 mark("solve1")
-ORDER == "B" && @eval using CairoMakie
+ORDER == "B" && (@eval using CairoMakie; loadcache("WL_CACHE_P"))
 include("plotting.jl")
 plot_two(a, b, joinpath(OUT, "jl-1.png"))
 mark("plot1")
 c = solve(ODEProblem(fun(vanderpol!), [2.0, 0.0], (0.0, 3000.0), shape([1000.0])), Rodas5P(); saveat = TV, reltol = RT, abstol = AT)
 plot_one(c, joinpath(OUT, "jl-2.png"))
 mark("model2")
-a2, b2 = solve_two(); plot_two(a2, b2, joinpath(OUT, "jl-3.png"))
+# E-177: a late load of packages that add methods to Base's functions, before the solves and plots again
+if get(ENV, "WL_LATE", "0") == "1"
+    for p in split(get(ENV, "WL_LATE_PKGS", "DataFrames"), ","); Base.require(Main, Symbol(strip(p))); end
+    mark("late")
+end
+a2, b2 = solve_two(); mark("again_solve"); plot_two(a2, b2, joinpath(OUT, "jl-3.png"))
 mark("again")
 digest(name, sol, ts) = println("D ", name, " ", join((string(round(sol(t)[k]; sigdigits = 6)) for t in ts for k in 1:length(sol.u[1])), " "))
 digest("lorenz", a, (1.0, 2.0)); digest("robertson", b, (1.0, 1e3, 1e5)); digest("vanderpol", c, (1000.0, 3000.0))

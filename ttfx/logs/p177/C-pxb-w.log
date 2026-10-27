@@ -1,0 +1,27 @@
+# setting=C/pxb run=w shape=perturbed order=B strict=0 load=1.17 2.04 2.30 depot=/home/hellmann/Repos/julia-trait-bound/experiments/ttfx/depot-C:/home/hellmann/.julia: julia-1.13=252edca933 TraitWorld=e6d5976
+W 1793112824.004068139
+ERROR: LoadError: ArgumentError: Package SessionCacheCS not found in current path.
+- Run `import Pkg; Pkg.add("SessionCacheCS")` to install the SessionCacheCS package.
+Stacktrace:
+ [1] macro expansion
+   @ ./loading.jl:2531 [inlined]
+ [2] macro expansion
+   @ ./lock.jl:376 [inlined]
+ [3] __require(into::Module, mod::Symbol)
+   @ Base ./loading.jl:2514
+ [4] require(into::Module, mod::Symbol)
+   @ Base ./loading.jl:2490
+ [5] loadcache(var::String)
+   @ Main ~/Repos/julia-trait-bound/experiments/ttfx/workload.jl:14
+ [6] top-level scope
+   @ ~/Repos/julia-trait-bound/experiments/ttfx/workload.jl:15
+ [7] include(mod::Module, _path::String)
+   @ Base ./Base.jl:310
+ [8] exec_options(opts::Base.JLOptions)
+   @ Base ./client.jl:344
+ [9] _start()
+   @ Base ./client.jl:577
+in expression starting at /home/hellmann/Repos/julia-trait-bound/experiments/ttfx/workload.jl:15
+T start 1.793112824129545e9 0.01875332 0.0
+rc=1
+E 1793112826.743829709

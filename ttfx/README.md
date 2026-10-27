@@ -227,3 +227,23 @@ The facts system image rebuilt for julia-1.13 252edca933 (231 s); `env_up` preco
 - **Order B costs both alike** (0.05–0.08 s more in the first solve), so it is not the load order that the trait code is protected from here, but later loads that add methods to Base's functions.
 - The plain twins stay faster in every cell at this scale; the traits' advantage is what later loads cannot take away, and it grows with the code that later loads would invalidate.
 
+**At scale** (S, C, A; DataFrames added to `env_up` and `env_core` as the late load, `WL_LATE_PKGS`; the split caches for S and C; "again" split into its solve and its plot, `again_solve`; `logs/p177/`, `logs/p177b/`):
+
+| Session (to "again") | load | first solve | first plot | second model | late load | again: solve | again: plot (compiling) | **session** |
+|---|---|---|---|---|---|---|---|---|
+| S/px (split cache, order A) | 3.64–3.70 | 0.80–0.81 | 0.39–0.40 | 0.46–0.47 | — | — | 0.05 | **5.45–5.55** |
+| S/pxb (order B) | 1.16–1.17 | 0.48 | 2.99–3.01 | 0.41 | — | — | 0.59–0.60 (0.36–0.38) | **5.75–5.78** |
+| S/pxl (late load) | 3.67–3.82 | 0.81–0.83 | 0.40 | 0.31–0.47 | 0.38–0.57 | 0.001 | 6.12 (6.05–6.06) | **12.0–12.1** |
+| S/l (no cache, matched) | 3.64–3.76 | 3.86–3.93 | 1.54–1.57 | 0.17–0.21 | 0.40–0.44 | 0.001 | 6.15–6.23 (6.09–6.17) | **15.9–16.2** |
+| C/px | 4.27–4.30 | 0.34 | 0.41 | 0.19–0.20 | — | 0.014 | 0.12 | **5.45–5.49** |
+| C/pxb | 1.56 | 0.50 | 2.97–2.99 | 0.20 | — | 0.015 | 0.22 | **5.58–5.60** |
+| C/pxl | 4.30–4.31 | 0.33–0.34 | 0.40–0.41 | 0.19–0.20 | 0.47–0.48 | 0.003 | 6.14–6.19 (6.08–6.13) | **11.97–12.03** |
+| A/l (all by facts, no cache, matched) | 8.21 | 4.74–4.86 | 1.21–1.24 | 0.22 | 0.46–0.48 | 0.003 | **0.28 (0.02)** | 15.2–15.4 |
+| A/pl (perturbed) | 8.22–8.48 | 6.55–6.57 | 1.34–1.36 | 2.43–2.46 | 0.47–0.48 | 0.003 | **0.11–0.12 (0.02)** | 19.3–19.6 |
+
+**What it says:**
+- **A later DataFrames load invalidates Makie's plotting code, where it is plain:** 6.1 s of recompiling in the plot after it, in S and in C (whose SciML core is compiled by facts, its Makie not), with or without a cache. The solves recompile nothing in any setting.
+- **Compiled by facts (A), the same plot recompiles 0.02 s.** The design's load protection, at scale, in a realistic session: the trait-specific (facts-specific) gain on this path, and the reason for the port's first Makie step (Makie compiled by facts).
+- **Its price is A's load:** 8.2 s against S's 3.6 s. Why facts images load slower is the next question (E-169's open item; open issue 73).
+- With split caches, S and C both reach 5.45–5.55 s; order B costs S 0.36–0.38 s of recompiling in the plot after CairoMakie's load, C 0.
+
