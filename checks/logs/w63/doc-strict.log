@@ -1,0 +1,8 @@
+PASS  §18 sq([1.0, 2.0, 3.0])
+PASS  §18 the pirate is refused: PirateError
+      message: PirateError: strict mode refuses `abs2(Float64)`, defined by Main.Meddler2. |   It would change what trait-world code computes, at the call `Tuple{typeof(abs2), Float64}`. |   Main.Meddler2 owns neither the function nor a type in that signature (a pirate). |   Turn strict mode off (`TraitWorld.strict!(false)`) to follow the method as plain Julia does, or define it where a type it is for is owned.
+PASS  §18 sq is unchanged
+PASS  §18 the pirate was never defined
+PASS  §18 a pirate that changes no compiled trait code is accepted
+
+5 pass, 0 fail
