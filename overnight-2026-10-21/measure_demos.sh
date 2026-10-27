@@ -17,7 +17,7 @@ if [[ " ${PARTS:-control tde makie report forks} " == *" tde "* ]]; then
   cd $R/TraitDifferentialEquations
   for l in none before after; do for i in 1 2; do echo "-- rows $l run $i"
     JULIA_LOAD_PATH="$R/TraitDifferentialEquations/scripts/env:$BIG:@stdlib" timeout 1800 $J --startup-file=no scripts/rows.jl $l 2>&1 | grep -E "^(row|loads|using)|ERROR|rror:"; done; done | tee $M/tde-rows.log
-  echo "-- runtime"; timeout 1800 $J --startup-file=no --project=scripts/env scripts/runtime.jl 2>&1 | tail -12 | tee $M/tde-runtime.log
+  echo "-- runtime"; JULIA_LOAD_PATH="$R/TraitDifferentialEquations/scripts/env:$R/experiments/solvers/env:@stdlib" timeout 1800 $J --startup-file=no scripts/runtime.jl 2>&1 | tail -12 | tee $M/tde-runtime.log
 fi
 if [[ " ${PARTS:-control tde makie report forks} " == *" makie "* ]]; then
   step makie; pc $R/TraitMakie/scripts/env

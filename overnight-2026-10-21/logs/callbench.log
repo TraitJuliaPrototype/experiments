@@ -1,14 +1,5 @@
-ERROR: LoadError: UndefVarError: `dynamic_fn` not defined in `TraitWorld`
-Suggestion: check for spelling errors or missing imports.
-Stacktrace:
- [1] getproperty(x::Module, f::Symbol)
-   @ Base ./Base_compiler.jl:50
- [2] top-level scope
-   @ ~/Repos/julia-trait-bound/experiments/factscompiler/step1/callbench.jl:6
- [3] include(mod::Module, _path::String)
-   @ Base ./Base.jl:310
- [4] exec_options(opts::Base.JLOptions)
-   @ Base ./client.jl:344
- [5] _start()
-   @ Base ./client.jl:577
-in expression starting at /home/hellmann/Repos/julia-trait-bound/experiments/factscompiler/step1/callbench.jl:6
+DynamicCall pointer   3.68 ns/call
+direct call           0.87 ns/call
+dynamic call (Any)    21.86 ns/call
+old world: 2.0 (expect 2.0), latest: 101.0 (expect 101.0)
+alternating worlds, 100 calls each way: 4.09 ns/call (incl. invoke_in_world)

@@ -1,0 +1,71 @@
+array          756  geomean 1.001  min 0.57  max 1.44
+broadcast       27  geomean 0.988  min 0.88  max 1.14
+collection     345  geomean 0.996  min 0.82  max 1.13
+dates           50  geomean 0.995  min 0.78  max 1.25
+find            63  geomean 0.992  min 0.90  max 1.10
+io              10  geomean 0.972  min 0.90  max 1.11
+micro            8  geomean 1.227  min 0.95  max 5.08
+misc            42  geomean 0.993  min 0.85  max 1.17
+problem         19  geomean 0.979  min 0.79  max 1.19
+scalar        1363  geomean 0.999  min 0.42  max 1.71
+shootout        12  geomean 1.006  min 0.93  max 1.18
+simd           680  geomean 1.003  min 0.69  max 1.43
+sort           135  geomean 1.003  min 0.76  max 4.13
+sparse         326  geomean 0.981  min 0.30  max 1.32
+string          22  geomean 0.983  min 0.82  max 1.09
+tuple           50  geomean 0.990  min 0.78  max 1.15
+union          434  geomean 0.998  min 0.86  max 1.75
+ALL           4342  geomean 0.998
+
+slower by more than 20% (ratio, benchmark, off ns, on ns):
+    5.08  micro/randmatmul                                                                    7206297   36610937
+    4.13  sort/length = 10/mixed eltype with by order                                             111        457
+    1.75  union/array/("perf_binaryop", "*", "BigFloat", "(false, false)")                     569949     997475
+    1.71  scalar/arithmetic/("div", "Float64", "Complex{UInt64}")                                   3          5
+    1.71  scalar/arithmetic/("div", "Float32", "ComplexF64")                                        3          6
+    1.47  scalar/atan/("39/16 <= abs(x) < 2^66", "negative argument", "Float32")                    4          5
+    1.46  union/array/("perf_binaryop", "*", "BigFloat", "(true, true)")                       728486    1065672
+    1.44  array/index/("sumvector_view", "SubArray{Float32, 2, Matrix{Float32}, Tuple{Base        760       1091
+    1.44  scalar/atan/("39/16 <= abs(x) < 2^66", "positive argument", "Float32")                    4          6
+    1.43  simd/("CartesianPartition", "conditional_loop!", "Int64", 4, 32)                        355        509
+    1.43  union/array/("perf_binaryop", "*", "BigFloat", "(false, true)")                      741106    1057138
+    1.38  scalar/atan/("7/16 <= abs(x) < 11/16", "positive argument", "Float32")                    4          6
+    1.34  scalar/atan/("7/16 <= abs(x) < 11/16", "negative argument", "Float32")                    4          6
+    1.33  scalar/atan/("11/16 <= abs(x) < 19/16", "negative argument", "Float32")                   4          6
+    1.33  scalar/atan/("11/16 <= abs(x) < 19/16", "positive argument", "Float32")                   4          6
+    1.32  scalar/acosh/("1 <= abs(x) < 2", "positive argument", "Float32")                         10         13
+    1.32  sparse/matmul/("Ac_mul_B!", "dense 2000x20, sparse 2000x2000 -> dense 20x2000")      450760     594555
+    1.32  array/index/("sumeach", "1:100000")                                                      24         31
+    1.31  array/index/("sumrange", "Base.ReinterpretArray{Float32, 2, Int32, Matrix{Int32}      43045      56459
+    1.31  scalar/arithmetic/("add", "ComplexF64", "Complex{Int64}")                                 2          2
+    1.30  sparse/index/("spmat", "row", "OneTo", 1000)                                           3726       4858
+    1.30  array/index/("sumvector_view", "Matrix{Float32}")                                       841       1093
+    1.30  sparse/index/("spmat", "row", "OneTo", 100)                                             361        469
+    1.28  scalar/predicate/("isinteger", "Complex{BigInt}")                                         2          2
+    1.28  scalar/arithmetic/("sub", "Complex{UInt64}", "UInt64")                                    2          2
+    1.28  scalar/predicate/("isinteger", "Complex{UInt64}")                                         2          2
+    1.28  scalar/arithmetic/("sub", "Int64", "Complex{Int64}")                                      2          2
+    1.28  scalar/acosh/("2 <= abs(x) < 2^28", "positive argument", "Float32")                       9         12
+    1.28  scalar/arithmetic/("div", "Float64", "Int64")                                             2          2
+    1.27  scalar/predicate/("isfinite", "Complex{BigFloat}")                                        2          2
+    1.27  scalar/atan2/("y zero", "y negative", "x negative", "Float64")                            3          3
+    1.25  scalar/arithmetic/("add", "Float64", "UInt64")                                            2          2
+    1.25  scalar/arithmetic/("sub", "Complex{UInt64}", "Int64")                                     2          2
+    1.25  scalar/arithmetic/("mul", "Float64", "Int64")                                             2          2
+    1.25  dates/arithmetic/("DateTime", "Millisecond")                                              2          2
+    1.25  scalar/arithmetic/("add", "Float64", "Float32")                                           2          2
+    1.25  scalar/arithmetic/("add", "ComplexF32", "ComplexF64")                                     2          2
+    1.25  scalar/arithmetic/("add", "Complex{UInt64}", "Complex{UInt64}")                           2          2
+    1.25  scalar/arithmetic/("sub", "Float64", "Int64")                                             2          2
+    1.25  scalar/atan2/("y zero", "y positive", "x negative", "Float64")                            3          4
+    1.25  scalar/floatexp/("significand", "subnorm", "Float32")                                     2          2
+    1.25  sort/issorted/("forwards", "descending")                                                  2          2
+    1.25  scalar/floatexp/("frexp", "norm", "Float32")                                              2          2
+    1.23  scalar/arithmetic/("sub", "Complex{Int64}", "Complex{Int64}")                             2          2
+    1.23  simd/("CartesianPartition", "conditional_loop!", "Int64", 3, 31)                        453        558
+    1.23  array/index/("sumlinear_view", "1:100000")                                               29         35
+    1.22  simd/("Linear", "loop_fields!", "Float64", "BaseBenchmarks.SIMDBenchmarks.Immuta        341        416
+    1.22  scalar/tanh/("very large", "negative argument", "Float32")                                2          3
+    1.21  simd/("Linear", "loop_fields!", "Float64", "BaseBenchmarks.SIMDBenchmarks.Immuta        343        415
+    1.20  scalar/arithmetic/("rem type", "UInt64", "BigInt")                                      121        145
+    1.20  simd/("CartesianPartition", "conditional_loop!", "Int64", 2, 32)                        350        421

@@ -3,7 +3,7 @@
 #     julia --project=<env with TraitWorld> callbench.jl
 using TraitWorld, BenchmarkTools
 f(x::Float64) = x + 1.0
-const D = TraitWorld.dynamic_fn(Tuple{Float64}, Float64, f)
+const D = Dynamic{Callable{Tuple{Float64},Float64}}(f)   # a Callable in DynamicCall mode
 const G = Any[f]
 function viad(d, n)
     s = 0.0

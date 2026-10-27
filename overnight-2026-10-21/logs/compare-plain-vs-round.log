@@ -1,0 +1,80 @@
+array          756  geomean 1.000  min 0.54  max 1.50
+broadcast       27  geomean 1.002  min 0.89  max 1.14
+collection     345  geomean 1.000  min 0.78  max 1.29
+dates           50  geomean 1.014  min 0.78  max 1.28
+find            63  geomean 1.014  min 0.95  max 1.12
+io              10  geomean 0.989  min 0.94  max 1.11
+micro            8  geomean 1.211  min 0.95  max 5.14
+misc            42  geomean 1.006  min 0.87  max 1.30
+problem         19  geomean 0.988  min 0.83  max 1.04
+scalar        1363  geomean 1.018  min 0.78  max 1.40
+shootout        12  geomean 0.998  min 0.97  max 1.02
+simd           680  geomean 1.008  min 0.73  max 1.85
+sort           135  geomean 1.005  min 0.88  max 2.19
+sparse         326  geomean 0.977  min 0.30  max 1.29
+string          22  geomean 0.986  min 0.93  max 1.07
+tuple           50  geomean 0.962  min 0.84  max 1.30
+union          434  geomean 0.988  min 0.92  max 1.07
+ALL           4342  geomean 1.004
+
+slower by more than 20% (ratio, benchmark, off ns, on ns):
+    5.14  micro/randmatmul                                                                    7256226   37274662
+    2.19  sort/length = 10/mixed eltype with by order                                             152        333
+    1.85  simd/("Linear", "loop_fields!", "Float32", "BaseBenchmarks.SIMDBenchmarks.Mutabl        254        470
+    1.80  simd/("Linear", "loop_fields!", "Float32", "BaseBenchmarks.SIMDBenchmarks.Mutabl        255        459
+    1.53  simd/("CartesianPartition", "conditional_loop!", "Int64", 3, 64)                        300        458
+    1.50  array/index/("sumcartesian_view", "SubArray{Int32, 2, Base.ReshapedArray{Int32,        1102       1654
+    1.47  array/growth/("append!", 2048)                                                          803       1179
+    1.41  simd/("CartesianPartition", "conditional_loop!", "Int64", 3, 63)                        323        455
+    1.40  scalar/arithmetic/("rem type", "BigInt", "UInt64")                                       96        134
+    1.39  simd/("CartesianPartition", "conditional_loop!", "Int64", 4, 64)                        320        446
+    1.39  array/index/("sumcolon", "SubArray{Int32, 2, BaseBenchmarks.ArrayBenchmarks.Arra     128121     177910
+    1.33  simd/("CartesianPartition", "conditional_loop!", "Int32", 3, 63)                        432        573
+    1.31  scalar/fastmath/("sub", "Complex{Int64}")                                                 2          2
+    1.31  scalar/predicate/("isnan", "BigFloat")                                                    2          2
+    1.31  scalar/arithmetic/("add", "Int64", "Complex{Int64}")                                      2          2
+    1.30  misc/bitshift/("UInt32", "UInt32")                                                        2          2
+    1.30  tuple/linear algebra/("matvec", "(8, 8)", "(8,)")                                         5          7
+    1.29  collection/queries & updates/("Set", "Int", "first")                                      4          5
+    1.29  sparse/index/("spvec", "integer", 10000)                                                  5          7
+    1.28  scalar/arithmetic/("mul", "Float32", "Float32")                                           2          2
+    1.28  scalar/predicate/("isinteger", "Complex{Int64}")                                          2          2
+    1.28  scalar/arithmetic/("sub", "Complex{Int64}", "Complex{Int64}")                             2          2
+    1.28  dates/arithmetic/("DateTime", "Minute")                                                   2          2
+    1.28  scalar/arithmetic/("sub", "Complex{Int64}", "Complex{UInt64}")                            2          2
+    1.28  scalar/arithmetic/("add", "Float32", "Float64")                                           2          2
+    1.28  scalar/arithmetic/("sub", "Complex{UInt64}", "Complex{Int64}")                            2          2
+    1.28  scalar/arithmetic/("div", "Float64", "Int64")                                             2          2
+    1.28  scalar/arithmetic/("div", "Float32", "Float64")                                           2          2
+    1.28  scalar/arithmetic/("add", "Complex{UInt64}", "UInt64")                                    2          2
+    1.28  scalar/predicate/("isinf", "ComplexF64")                                                  2          2
+    1.28  scalar/arithmetic/("add", "Float32", "Int64")                                             2          2
+    1.28  scalar/arithmetic/("mul", "Float64", "UInt64")                                            2          2
+    1.27  scalar/arithmetic/("sub", "Float32", "BigFloat")                                         46         59
+    1.27  scalar/exp2/("2pow35", "positive argument", "Float32")                                    2          3
+    1.27  scalar/exp2/("2pow127", "positive argument", "Float32")                                   3          3
+    1.26  scalar/sin/("argument reduction (easy) abs(x) < 3π/4", "positive argument", "Fl           5          6
+    1.26  scalar/sin/("argument reduction (easy) abs(x) < 5π/4", "positive argument", "Fl           5          6
+    1.26  scalar/sin/("argument reduction (easy) abs(x) < 2π/4", "positive argument", "Fl           5          6
+    1.26  scalar/sin/("argument reduction (easy) abs(x) < 4π/4", "positive argument", "Fl           4          5
+    1.26  array/index/("sumeach_view", "Base.ReinterpretArray{BaseBenchmarks.ArrayBenchmar      36562      46040
+    1.26  array/index/("sumcartesian", "SubArray{Int32, 2, Base.ReshapedArray{Int32, 2, Su       1087       1368
+    1.25  scalar/arithmetic/("add", "Float64", "Complex{UInt64}")                                   2          2
+    1.25  scalar/arithmetic/("mul", "ComplexF32", "UInt64")                                         2          2
+    1.25  dates/arithmetic/("DateTime", "Hour")                                                     2          2
+    1.25  sparse/index/("spmat", "row", "OneTo", 1000)                                           4095       5128
+    1.25  scalar/arithmetic/("add", "Float64", "Float32")                                           2          2
+    1.25  scalar/arithmetic/("add", "Complex{UInt64}", "Float64")                                   2          2
+    1.25  scalar/acos/("small", "negative argument", "Float64")                                     3          4
+    1.25  scalar/acos/("one", "positive argument", "Float64")                                       3          4
+    1.25  scalar/acos/("one", "negative argument", "Float64")                                       3          4
+    1.25  scalar/acos/("zero", "Float64")                                                           3          4
+    1.25  scalar/acos/("small", "positive argument", "Float64")                                     3          4
+    1.25  misc/bitshift/("Int", "UInt")                                                             2          2
+    1.25  dates/accessor/millisecond                                                                2          2
+    1.24  array/index/("sumcartesian_view", "SubArray{Float32, 2, Array{Float32, 3}, Tuple     125461     156169
+    1.24  scalar/sin/("argument reduction (easy) abs(x) < 4π/4", "negative argument", "Fl           4          5
+    1.23  simd/("CartesianPartition", "conditional_loop!", "Int32", 2, 32)                        277        341
+    1.23  scalar/arithmetic/("div", "BigFloat", "Complex{BigFloat}")                              365        448
+    1.22  array/index/("sumcartesian_view", "SubArray{Int32, 2, BaseBenchmarks.ArrayBenchm      95149     115805
+    1.22  array/index/("sumlinear_view", "Base.ReinterpretArray{Float32, 2, Int32, Matrix{      10149      12334
