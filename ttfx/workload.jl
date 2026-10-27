@@ -31,11 +31,16 @@ function vanderpol!(du, u, p, t)
     nothing
 end
 shape(v::Vector{Float64}) = SHAPE == "matched" ? v : Tuple(v)
+# E-174 (WL_SPEC=nospec): the user's function behind SciMLBase's `NoSpecialize`, so the problem's type does not
+# name it (a stand-in for the SciML route's move 1: the function kept at a bound, not in the type)
+const SPEC = get(ENV, "WL_SPEC", "auto")
+const SB = OrdinaryDiffEqTsit5.OrdinaryDiffEqCore.SciMLBase
+fun(f) = SPEC == "nospec" ? SB.ODEFunction{true, SB.NoSpecialize}(f) : f
 times(a, b, n) = SHAPE == "matched" ? collect(range(a, b; length = n)) : range(a, b; length = n)
 const TL = times(0.0, 20.0, 2001); const TR = exp10.(range(-5, 5; length = 201)); const TV = times(0.0, 3000.0, 3001)
 function solve_two()
-    a = solve(ODEProblem(lorenz!, [1.0, 0.0, 0.0], (0.0, 20.0), shape([10.0, 28.0, 8 / 3])), Tsit5(); saveat = TL, reltol = RT, abstol = AT)
-    b = solve(ODEProblem(robertson!, [1.0, 0.0, 0.0], (0.0, 1e5), shape([0.0])), Rodas5P(); saveat = TR, reltol = RT, abstol = AT)
+    a = solve(ODEProblem(fun(lorenz!), [1.0, 0.0, 0.0], (0.0, 20.0), shape([10.0, 28.0, 8 / 3])), Tsit5(); saveat = TL, reltol = RT, abstol = AT)
+    b = solve(ODEProblem(fun(robertson!), [1.0, 0.0, 0.0], (0.0, 1e5), shape([0.0])), Rodas5P(); saveat = TR, reltol = RT, abstol = AT)
     a, b
 end
 a, b = solve_two()
@@ -44,7 +49,7 @@ ORDER == "B" && @eval using CairoMakie
 include("plotting.jl")
 plot_two(a, b, joinpath(OUT, "jl-1.png"))
 mark("plot1")
-c = solve(ODEProblem(vanderpol!, [2.0, 0.0], (0.0, 3000.0), shape([1000.0])), Rodas5P(); saveat = TV, reltol = RT, abstol = AT)
+c = solve(ODEProblem(fun(vanderpol!), [2.0, 0.0], (0.0, 3000.0), shape([1000.0])), Rodas5P(); saveat = TV, reltol = RT, abstol = AT)
 plot_one(c, joinpath(OUT, "jl-2.png"))
 mark("model2")
 a2, b2 = solve_two(); plot_two(a2, b2, joinpath(OUT, "jl-3.png"))
