@@ -303,3 +303,26 @@ The CodeInstance-level caches rebuilt on julia-1.13 6800be7839 (and C's for the 
 - **Dropping Makie's heavy dependencies saves 0.4 s of the load:** Makie's own code is the load, not its tree. The port must shrink the plotting core itself (`PlotCore`), not only its dependencies.
 - The lean fork's first plot compiles 3.7 s against 1.5 s: its precompile workload covers less of the path (not diagnosed: the forks are dev'd paths, built from the clone's commit).
 
+
+### E-180, TraitWorld's cache across sessions as a mechanism, 2026-10-27
+
+TraitWorld branch `session-cache` (`src/cache.jl`, commit 031932a and the workload commit after it), julia-1.13 6800be7839. Variant `/k`: `JULIA_TW_CACHE=1`, the builder run synchronously at exit (`JULIA_TW_CACHE_BUILD=sync`), the cache in `cache/tw-cache-<setting>/` (not committed). The warm-up session (`-w`) starts with an empty cache, records, and its exit runs the builder; the sessions after it load the parts. Off-workload shapes (`/p`). Logs: `logs/e180a/` (D), `logs/e180c/` (C). Probe: `cache/probe_k.jl` (what a session with the cache still compiled).
+
+| | load | first solve | first plot | **session** | the cache's load | recording at exit | builder |
+|---|---|---|---|---|---|---|---|
+| D/p, no cache | 0.45–0.46 | 1.53–1.57 | 0.13 | **2.36–2.39** | | | |
+| D/pk | 0.62–0.64 | 0.093–0.097 | 0.15 | **1.06–1.08** | 5 parts, 0.15 s | 0.09 s | 27 s (1,270 entries), then 2–5 s |
+| D/pkb (order B, the cache recorded in order A) | 0.47–0.49 | 0.13–0.18 | 0.23–0.25 | **1.05–1.11** | 0.15 s | 0.09–0.12 s | |
+| D/pkl (a late load) | 0.62–0.63 | 0.09 | 0.14 | **1.16–1.19** (late step 0.12–0.14) | | | |
+| D/pks (strict mode) | 0.79–0.88 | 0.12–0.13 | 0.12 | **1.22–1.33** | | | |
+| C/p, no cache | 4.22–4.28 | 10.98–11.51 | 1.52–1.58 | **19.2–19.95** | | | |
+| C/pk | 4.51–4.63 | 0.52 | 0.62–0.63 | **6.07–6.19** | 45 parts, 0.45 s | 0.13 s | 174 s (3,418 entries) |
+
+The outputs (solutions, images) are identical with and without the cache in every D setting. Strict mode (`experiments/docs-examples/strict.jl`, three sessions, the second and third with the cache): the same 5 of 5 checks, the pirate refused and the harmless one accepted.
+
+**What it says:**
+- **The mechanism reproduces the emulation** (E-175: D 0.97 s) with no step by hand: D's off-workload session 2.4 → 1.07 s, C's 19.4 → 6.1 s.
+- **Order independence holds** for the session with a cache recorded in the other order (D/pkb's first session 1.10 s).
+- **The cost is the parts' load:** about 30 ms a part for D, 10 ms a part for C, 45 parts for C's 3,418 entries. Coarser parts are the next lever.
+- Three faults found on the way, fixed: the builder inherited `--pkgimages=existing` and made images without native code (the session generated the code again, 0.3 s a signature); a package callback runs inside `require`, whose cache of the load path predated the parts' directory; the cache's own code was not in TraitWorld's image (0.5 s at exit).
+- Each session with the cache still compiles about 220–280 signatures the store has (TraitWorld's own code before its part loads, and code the session invalidates): about 0.1 s, not diagnosed further.
