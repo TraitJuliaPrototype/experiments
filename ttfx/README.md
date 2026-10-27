@@ -165,3 +165,19 @@ The code the load brings (`probe_owners.jl`, CodeInstances and edge entries adde
 - **`@implement` of a user's type grew with the library's size** (0.23 → 1.25 s). TraitWorld's definition hook re-ran the keep analysis of every bounded function of the trait module (by inference) for each method the implementation added, although that analysis follows only methods of trait-module code, so a method defined outside cannot change its result. Fixed (TraitWorld 003ce8f): the refresh runs only for a method that is trait-module code. A new type's `@implement` now takes 0.08 s at every size.
 - Defining the struct and its `@implement` in one top-level block is refused with "Main does not own TNew": the block's macros expand before the struct exists. The message misleads (open issue 74).
 
+### E-175, D's remaining compilation with the cache, 2026-10-27
+
+D's first solve kept compiling 0.16–0.21 s with its cache. Three causes, each found by recording what the cached session still created (`RECORD_LIST=… cache/record_cis.jl`, `logs/p175d/`) and a profile (`prof_session.jl`):
+1. **Facts code replayed as plain copies:** `precompile(sig)` compiles plain code; the session needs the facts owner's copies of Base methods (603 facts CodeInstances still made). The cache now compiles those for the facts owner (`fpc`: `Compiler.typeinf_ext_toplevel(mi, world, SOURCE_MODE_ABI, TRIM_NO, FACTS_OWNER)`); the cached session then made 15.
+2. **Trait objects' types do not round-trip through printing** (TraitWorld prints them by bound and key, `PCT at Vector{Float64}`), so their statements failed. The recorder now serializes the types (`trace.jls`); failed statements 235 → 94.
+3. **TraitWorld's first-call checks ran again** (`checked_call` → `_check_once` → `worker_problems`, inference in every session; the review's M5). TraitWorld now lists the signatures checked in a session (`_CHECKED_IN_SESSION`); the cache runs those checks at its build and keeps them in its image as checked ahead (`__tw_checked__`).
+
+| D, perturbed (to "again") | load | first solve | first plot | second model | **session** |
+|---|---|---|---|---|---|
+| no cache | 0.80 | 1.50 | 0.13 | 0.07 | 2.63 |
+| cache, plain replay (E-175) | 0.60 | 0.25 | 0.12 | 0.05 | 1.15–1.17 |
+| cache with facts replay, exact types, checks kept | 0.57 | **0.093** | 0.12 | 0.05 | **0.97–0.98** |
+| matched, no cache (TraitWorld 04095fe) | 0.44–0.46 | 0.19 | 0.13 | 0.06 | 0.94–0.99 |
+
+A cache across sessions for trait code needs all three: the facts owner's code, the exact types, and the checks' results. With them the off-workload session runs like the on-workload one.
+

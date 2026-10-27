@@ -28,7 +28,8 @@ _on_mark(step) = step == "load" && (_BEFORE[] = _cis(); nothing)
 const _SCRIPT, _OUT, _STMTS = ARGS[1], ARGS[2], ARGS[3]
 empty!(ARGS); push!(ARGS, _OUT)
 include(joinpath(@__DIR__, "..", _SCRIPT))
-let after = _cis(), kept = Set{String}(), owners = Dict{Any,Int}(), named = 0, total = 0, unprintable = 0
+using Serialization
+let after = _cis(), kept = Set{String}(), owners = Dict{Any,Int}(), named = 0, total = 0, unprintable = 0, plainT = Any[], factsT = Any[], checkT = Any[]
     for ci in after
         ci in _BEFORE[] && continue
         total += 1
@@ -38,10 +39,38 @@ let after = _cis(), kept = Set{String}(), owners = Dict{Any,Int}(), named = 0, t
         T = mi.specTypes
         if _names_main(T); named += 1; continue; end
         str = try sprint(show, T; context = :module => Core) catch; nothing end
-        str === nothing ? (unprintable += 1) : push!(kept, "precompile(" * str * ")")
+        # code of the facts owner is replayed for that owner (`fpc`, defined by the cache module); `precompile` would
+        # compile plain copies of Base methods, not the facts copies the session uses
+        ci.owner === :facts ? push!(factsT, T) : ci.owner === nothing && push!(plainT, T)
+        fn = ci.owner === :facts ? "fpc(" : "precompile("
+        str === nothing ? (unprintable += 1) : push!(kept, fn * str * ")")
+    end
+    if get(ENV, "RECORD_LIST", "") != ""
+        open(ENV["RECORD_LIST"], "w") do io
+            for ci in after
+                ci in _BEFORE[] && continue
+                mi = ci.def isa Core.MethodInstance ? ci.def : ci.def.def
+                println(io, ci.owner, "\t", mi.def isa Method ? mi.def.module : "-", "\t", mi.specTypes)
+            end
+        end
+    end
+    # the first-call checks the session ran (TraitWorld): kept with the code, so a later session skips them
+    checks = String[]
+    for (id, m) in Base.loaded_modules
+        id.name == "TraitWorld" || continue
+        for sig in getglobal(m, :_CHECKED_IN_SESSION)
+            _names_main(sig) && continue
+            push!(checkT, sig)
+            str = try sprint(show, sig; context = :module => Core) catch; nothing end
+            str === nothing || push!(checks, "checked(" * str * ")")
+        end
     end
     open(_STMTS, "w") do io
         foreach(l -> println(io, l), sort!(collect(kept)))
+        foreach(l -> println(io, l), unique(checks))
     end
+    println("R checks kept ", length(unique(checks)))
+    # the types themselves: printing loses trait objects' types (TraitWorld prints them by bound and key)
+    serialize(replace(_STMTS, r"\.jl$" => ".jls"), (plain = unique(plainT), facts = unique(factsT), checks = unique(checkT)))
     println("R new CodeInstances ", total, " by owner ", owners, "; naming Main ", named, "; unprintable ", unprintable, "; statements kept ", length(kept))
 end
