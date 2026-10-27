@@ -1,0 +1,37 @@
+V julia 41d199c557* TraitWorld 5589f4c
+direct  Float64 x1                    0.88 ns/call         0 bytes / 1000000 calls
+varargs Float64 x1                    4.01 ns/call         0 bytes / 1000000 calls
+fixed   Float64 x1                    4.01 ns/call         0 bytes / 1000000 calls
+C wrapper Float64 x1: returns Float64; 2 statements; calls: call:Core.getfield
+direct  Float64 x3                    0.87 ns/call         0 bytes / 1000000 calls
+varargs Float64 x3                    4.13 ns/call         0 bytes / 1000000 calls
+fixed   Float64 x3                    4.02 ns/call         0 bytes / 1000000 calls
+C wrapper Float64 x3: returns Float64; 6 statements; calls: call:Core.getfield, call:Base.add_float
+direct  Float64 x6                    0.87 ns/call         0 bytes / 1000000 calls
+varargs Float64 x6                    4.73 ns/call         0 bytes / 1000000 calls
+fixed   Float64 x6                    4.72 ns/call         0 bytes / 1000000 calls
+C wrapper Float64 x6: returns Float64; 12 statements; calls: call:Core.getfield, call:Base.add_float
+direct  Float64 x8                    0.87 ns/call         0 bytes / 1000000 calls
+varargs Float64 x8                     4.9 ns/call         0 bytes / 1000000 calls
+C wrapper Float64 x8: returns Float64; 16 statements; calls: call:Core.getfield, call:Base.add_float
+direct  Float64 x12                   0.88 ns/call         0 bytes / 1000000 calls
+varargs Float64 x12                   6.93 ns/call         0 bytes / 1000000 calls
+C wrapper Float64 x12: returns Float64; 24 statements; calls: call:Core.getfield, call:Base.add_float
+direct  Box x1                        0.87 ns/call         0 bytes / 1000000 calls
+varargs Box x1                        8.68 ns/call  16000000 bytes / 1000000 calls
+fixed   Box x1                        9.02 ns/call  16000000 bytes / 1000000 calls
+C wrapper Box x1: returns Float64; 34 statements; calls: call:Core.getfield, call:Base.getfield, call:Base.sub_int, call:Base.bitcast, call:Base.ult_int, call:Core.tuple, invoke:throw_boundserror, call:Base.memoryrefnew, call:Base.memoryrefget
+direct  Box x3                        0.89 ns/call         0 bytes / 1000000 calls
+varargs Box x3                       18.32 ns/call  48000000 bytes / 1000000 calls
+fixed   Box x3                       18.76 ns/call  48000000 bytes / 1000000 calls
+C wrapper Box x3: returns Float64; 80 statements; calls: call:Core.getfield, call:Base.getfield, call:Base.sub_int, call:Base.bitcast, call:Base.ult_int, call:Core.tuple, invoke:throw_boundserror, call:Base.memoryrefnew, call:Base.memoryrefget, call:Base.add_float
+direct  Box x6                        0.89 ns/call         0 bytes / 1000000 calls
+varargs Box x6                        32.5 ns/call  96000000 bytes / 1000000 calls
+fixed   Box x6                       33.29 ns/call  96000000 bytes / 1000000 calls
+C wrapper Box x6: returns Float64; 149 statements; calls: call:Core.getfield, call:Base.getfield, call:Base.sub_int, call:Base.bitcast, call:Base.ult_int, call:Core.tuple, invoke:throw_boundserror, call:Base.memoryrefnew, call:Base.memoryrefget, call:Base.add_float
+direct  Box x8                        0.89 ns/call         0 bytes / 1000000 calls
+varargs Box x8                       41.28 ns/call  128000000 bytes / 1000000 calls
+C wrapper Box x8: returns Float64; 195 statements; calls: call:Core.getfield, call:Base.getfield, call:Base.sub_int, call:Base.bitcast, call:Base.ult_int, call:Core.tuple, invoke:throw_boundserror, call:Base.memoryrefnew, call:Base.memoryrefget, call:Base.add_float
+direct  Box x12                       0.91 ns/call         0 bytes / 1000000 calls
+varargs Box x12                      62.31 ns/call  192000000 bytes / 1000000 calls
+C wrapper Box x12: returns Float64; 287 statements; calls: call:Core.getfield, call:Base.getfield, call:Base.sub_int, call:Base.bitcast, call:Base.ult_int, call:Core.tuple, invoke:throw_boundserror, call:Base.memoryrefnew, call:Base.memoryrefget, call:Base.add_float

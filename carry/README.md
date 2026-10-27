@@ -21,3 +21,19 @@ Log: `e149.log`.
 - Reading a `Kept{X}` allocates nothing, from a container of them or through the view over a `Vector{Any}`. While W-18 was built, the first form, a union of `Compiled{X}` and `Dynamic{X}`, allocated 16 bytes per item read through the view (3,248 against 48 bytes for 200 items).
 - An operation on a `Kept{X}` costs 0.2–0.3 ns more than on a `Dynamic{X}`.
 - The `push!` rows measure mostly a constructor called at run time from untyped code (the value's box is the call's result); they are not a measure of storing a value in typed code, where a `Kept{X}` is stored inline.
+
+## E-197: one varargs wrapper behind an erased function's pointer (T-51), 2026-10-28
+
+`e197/e197.jl` copies TraitWorld's `Erased` with one wrapper `(::W{S})(o, args::Vararg{Any,N}) where {S,N}` and no arity limit, and measures it against TraitWorld's fixed arities (up to six) and a direct call: a loop of 10^6 erased calls, best of five; and the wrapper's code at the `cfunction`'s signature. julia-1.13 41d199c557 with W-22's edits built, TraitWorld 5589f4c; one session (`e197/e197.log`).
+
+| Arguments | `Float64`, varargs | `Float64`, fixed | non-bits, varargs | non-bits, fixed |
+|---|---|---|---|---|
+| 1 | 4.01 ns | 4.01 ns | 8.68 ns | 9.02 ns |
+| 3 | 4.13 ns | 4.02 ns | 18.32 ns | 18.76 ns |
+| 6 | 4.73 ns | 4.72 ns | 32.5 ns | 33.29 ns |
+| 8 | 4.9 ns | — | 41.28 ns | — |
+| 12 | 6.93 ns | — | 62.31 ns | — |
+
+- The non-bits argument (an immutable struct holding a vector) allocates 16 bytes per argument per call in both forms: the caller boxes it for the `Any` slot.
+- The wrapper's code calls no generic function at any arity: `getfield` and the callee's own operations.
+- So TraitWorld's `_CallWrap` is one varargs method, and the six-argument limit is gone (TraitWorld 6928b93; T-51 retired).
