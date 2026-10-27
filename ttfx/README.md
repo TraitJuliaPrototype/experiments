@@ -247,3 +247,10 @@ The facts system image rebuilt for julia-1.13 252edca933 (231 s); `env_up` preco
 - **Its price is A's load:** 8.2 s against S's 3.6 s. Why facts images load slower is the next question (E-169's open item; open issue 73).
 - With split caches, S and C both reach 5.45–5.55 s; order B costs S 0.36–0.38 s of recompiling in the plot after CairoMakie's load, C 0.
 
+### Why setting A loads in 8.2 s, 2026-10-27
+
+- **Per package** (`@time_imports`, `logs/p2/A-imports.log`): the sums are A 3.26 s against S 2.06 s; the largest differences are DelaunayTriangulation (+0.40 s), DataStructures (+0.19), ShaderAbstractions (+0.16), AdaptiveArrayPools (+0.11), Makie (+0.09), SparseArrays (+0.08). Most of A's extra 4.6 s falls outside any one package's time.
+- **The profile** (`logs/p2/A-load-profile.log`, 7,629 samples): restoring images 4.18 s (S 1.6 s), of which `jl_specializations_get_linfo_` 3.05 s, in type-equality and subtype checks; validating edges 2.84 s (S 1.29 s).
+- **The cause of the first:** A's images carry 1,058 specializations each of `Base._push!` and `Base.__safe_setindex!` at exact type-valued signatures, `(Vector{Type}, Type{Union{Tuple{…}, Tuple{…}}})`, whose signature types have no hash (`probe_hash0.jl`, `probe_specs_load.jl`). They come from the documentation system: `Docs.MultiDoc` keeps a `Type[]`, and each documented method with optional arguments pushes its signature's union of tuples. Inserting a specialization without a hash scans the method's whole list with `jl_types_equal` (`gf.c`, `jl_specializations_get_linfo_`), so the 2,116 insertions scan lists of about 2,900 entries. Plain Julia interprets that top-level code and keeps no such specialization (`repro_typepush.jl`: none in plain mode; 319 already in the facts system image); inferring the call creates one in either interpreter (`repro_typepush2.jl`). Under the facts image the code is inferred and the result kept in the package's image. W-59.
+- **The second** (validation 2.84 against 1.29 s): not diagnosed.
+
