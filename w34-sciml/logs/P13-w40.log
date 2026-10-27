@@ -1,0 +1,32 @@
+== E-156 probe P13
+   julia 1.13.2 (26a407d988)  TraitWorld bbfc130  setting product  strict off  threads 1
+   load (cut -d' ' -f1-3 /proc/loadavg) at start: 1.08 1.31 1.61
+   form: form A: rhs!(f::ODERHS, du::AbstractVector, u::AbstractVector, p, t)::Nothing on a Dynamic value; concrete model and family member; Float64 and duals
+
+trait module: no exception
+models (Lorenz declared first, then the family ChainModel{G}): no exception
+Prob(Lorenz) is Main.FormA.Prob{Dynamic{Main.FormA.ODERHS}}; Prob(ChainModel{Vector{Int}}) is Main.FormA.Prob{Dynamic{Main.FormA.ODERHS}}
+  plain call, Lorenz, Float64                        2.97 ns/call      0.0 bytes/call
+  form A, Lorenz (concrete), Float64                 2.97 ns/call      0.0 bytes/call
+  form A, ChainModel (family member), Float64        3.01 ns/call      0.0 bytes/call
+  plain call, Lorenz, duals                          4.34 ns/call      0.0 bytes/call
+  form A, Lorenz (concrete), duals                   4.32 ns/call      0.0 bytes/call
+  form A, ChainModel (family member), duals          4.26 ns/call      0.0 bytes/call
+check of the results: du64 = [-5.0, 27.3, -0.033333333333333326] (Float64), dud[1] = Dual{Nothing}(-5.0,-10.0,10.0,0.0)
+
+  [ok  ] the trait module and the models are accepted
+         no exception; no exception
+  [ok  ] both models give Prob{Dynamic{ODERHS}}
+         Main.FormA.Prob{Dynamic{Main.FormA.ODERHS}}, Main.FormA.Prob{Dynamic{Main.FormA.ODERHS}}
+  [ok  ] form A, Lorenz (concrete), Float64: no allocation per call (under 0.5 bytes per call: the harness's one dynamic call into the loop is spread over N)
+         0.000016 bytes/call
+  [ok  ] form A, Lorenz (concrete), duals: no allocation per call (under 0.5 bytes per call: the harness's one dynamic call into the loop is spread over N)
+         0.000016 bytes/call
+  [info] form A, ChainModel (family member), Float64: 3.01 ns, 0.0 bytes per call (prediction and L-37: allocates)
+  [info] form A, ChainModel (family member), duals: 4.26 ns, 0.0 bytes per call (prediction and L-37: allocates)
+
+predicted (plan §2.1): the concrete model: no allocation; the family member: allocates (open issue 49)
+reference says:        traits §6.8: one lookup and an indirect call, no allocation stated; lowering L-37: a family member's conformance through the registry at each typed call (304 bytes); evidence §2: 2.5–18.5 ns
+matches the prediction: see the numbers above
+load at end: 1.07 1.30 1.60
+RESULT P13 PASS

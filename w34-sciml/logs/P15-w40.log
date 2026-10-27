@@ -1,0 +1,38 @@
+== E-156 probe P15
+   julia 1.13.2 (26a407d988)  TraitWorld bbfc130  setting product  strict off  threads 1
+   load (cut -d' ' -f1-3 /proc/loadavg) at start: 1.56 1.41 1.65
+   form: a bounded function called in a typed plain loop: family member against members declared on their own
+
+trait module: no exception
+declarations: no exception
+S{Float64} declared on its own after the family: no exception
+
+the bounded function `total(s::Val15, i)` called N = 1000000 times from a typed plain loop:
+  FamS{Float64}, family member                                               0.88 ns/call      0.0 bytes/call
+  S{Float32}, family member (the family also has S{Float64} declared)        0.88 ns/call      0.0 bytes/call
+  S{Float64}, declared on its own after the family                           0.87 ns/call      0.0 bytes/call
+  OwnS{Float64}, declared on its own                                         0.87 ns/call      0.0 bytes/call
+
+context: the same work in one bounded call (`inner_loop(s::Val15, n)`, the loop in trait code), per iteration:
+  FamS{Float64}, family member                                               0.87 ns/iter      0.0 bytes/iter
+  S{Float32}, family member (the family also has S{Float64} declared)        0.87 ns/iter      0.0 bytes/iter
+  S{Float64}, declared on its own after the family                           0.87 ns/iter      0.0 bytes/iter
+  OwnS{Float64}, declared on its own                                         0.87 ns/iter      0.0 bytes/iter
+results agree: [65.0, 65.0, 65.0, 65.0]
+
+  [ok  ] the declarations are accepted
+         no exception; no exception
+  [ok  ] OwnS{Float64}, declared on its own: no allocation per call
+         0.000000 bytes/call
+  [FAIL] FamS{Float64}, family member: allocates per call (L-37)
+         0.0 bytes/call, 0.88 ns against 0.87 ns
+  [ok  ] S{Float64} declared on its own after the family is accepted (lowering §4.6: a more specific conformance method)
+         no exception
+  [ok  ] S{Float64}, declared on its own after the family: no allocation per call
+         0.000000 bytes/call
+
+predicted (plan §2.1): the family member: 304 bytes per call; the declared member: none
+reference says:        lowering L-37: a family member's typed call goes through the registry, 304 bytes per call against 0 for a declared type (planned fix W-40)
+matches the prediction: family member 0.0 bytes/call (predicted 304), declared 0.0 (predicted 0)
+load at end: 1.52 1.40 1.65
+RESULT P15 FAIL
