@@ -13,6 +13,21 @@ include(joinpath(@__DIR__, "Fingerprints.jl"))
 using .Fingerprints: entry_fp, entry_key, code_witness, pkgof, mi_of, stakeholders
 using Serialization
 const FAIL = Ref(0)
+# the candidates an entry saw at record: methods from outside each fact's stakeholders and the system image that
+# intersect the fact, by fingerprint, with their names (for diagnosis)
+function outsiders(sigs)
+    out = Tuple{UInt,String}[]
+    for sig in sigs
+        sig isa DataType && sig <: Tuple && length(sig.parameters) >= 1 || continue
+        ft = sig.parameters[1]; ft isa DataType && isdefined(ft, :instance) || continue
+        sh = stakeholders(sig)
+        for meth in methods(ft.instance)
+            q = pkgof(meth.module); (q in sh || q in SYSIMG) && continue
+            typeintersect(meth.sig, sig) === Union{} || push!(out, (Fingerprints.method_fp(meth), string(q, ": ", meth.sig)))
+        end
+    end
+    return sort!(unique!(out))
+end
 let
     loaded = Set(string(id.name) for id in keys(Base.loaded_modules) if id.name != "Main")
     session(@nospecialize(x)) = x isa Union ? (session(x.a) || session(x.b)) : x isa UnionAll ? session(x.body) :
@@ -31,7 +46,7 @@ let
             nothing
         end
         fp === nothing && continue
-        entries[entry_key(ci)] = (fp = fp, w = code_witness(ci), sigs = sigs)
+        entries[entry_key(ci)] = (fp = fp, w = code_witness(ci), sigs = sigs, out = outsiders(sigs))
     end
     file = get(ENV, "X_FILE", "logs/fp-scale.jls")
     if get(ENV, "X_MODE", "record") == "record"
@@ -39,20 +54,15 @@ let
     else
         rec = deserialize(file)
         both = intersect(keys(rec), keys(entries))
+        anyhit = 0; seen = Dict{String,Int}()
         eq = 0; hit = 0; kept = 0; unsound = 0; imprecise = 0; differs = 0
         for k in both
             r = rec[k]; e = entries[k]
-            h = false
-            for sig in r.sigs
-                sig isa DataType && sig <: Tuple && length(sig.parameters) >= 1 || continue
-                ft = sig.parameters[1]; ft isa DataType && isdefined(ft, :instance) || continue
-                sh = stakeholders(sig)
-                for meth in methods(ft.instance)
-                    q = pkgof(meth.module); (q in sh || q in SYSIMG) && continue
-                    typeintersect(meth.sig, sig) === Union{} || (h = true; break)
-                end
-                h && break
-            end
+            # any candidate (the index of revision 2), and a candidate the entry did not see at record (the refinement)
+            cur = outsiders(r.sigs)
+            any_hit = !isempty(cur); any_hit && (anyhit += 1)
+            h = cur != r.out
+            foreach(o -> (seen[o[2]] = get(seen, o[2], 0) + 1), cur)
             same = e.fp == r.fp; same && (eq += 1); h && (hit += 1)
             caught = !same || h; caught || (kept += 1)
             d = e.w != r.w; d && (differs += 1)
@@ -61,6 +71,10 @@ let
         end
         println("S entries recorded ", length(rec), ", in this session ", length(entries), ", in both ", length(both))
         println("S fingerprints equal ", eq, "; index hits ", hit, "; kept (equal, no hit) ", kept, " = ", round(100kept / max(length(both), 1); digits = 1), "%")
+        println("S entries with any candidate (revision 2's index) ", anyhit, "; with a candidate not seen at record ", hit)
+        for (k, n) in sort!(collect(seen); by = last, rev = true)[1:min(end, 12)]
+            println("S   candidate ", first(k, 140), " in ", n, " entries")
+        end
         println("S code differs ", differs, "; unsound (code differs, kept) ", unsound, "; imprecise (code same, not kept) ", imprecise)
     end
 end

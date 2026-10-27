@@ -59,3 +59,28 @@ Recorded in `env_a`; logs `logs/fp-*.log`.
 No case is kept where its code differs (30 checks). The one conservative call is SparseArrays, where the witness misses the changed target.
 
 Two faults found in the first run and fixed: the code witness read facts CodeInstances' inferred code, which is not kept; and F1 hashed the compressed source, which differs between builds.
+
+## Part 3: at scale, 2026-10-27
+
+C (`experiments/ttfx/env_core`: upstream SciML compiled by facts as trait modules, with CairoMakie; the product setting) runs the perturbed workload. Every facts CodeInstance the session made that names no session type is an entry. Recorded in `env_core`; checked in `env_core_fw`, the same environment with FunctionWrappers dev'd from `pkgs/FunctionWrappers_fw`, which adds an unused function `unused_by_e195` (45 dependents rebuilt), and in `env_core` again. julia-1.13 41d199c557, TraitWorld 5589f4c, one session each.
+
+```
+X_MODE=record X_FILE=../w66/logs/fp-scale-C.jls WL_SHAPE=perturbed OPENBLAS_NUM_THREADS=1 \
+  julia --startup-file=no --compiled-modules=existing --pkgimages=existing --project=env_core \
+  ../w66/fp_scale.jl workload.jl out/png            # from experiments/ttfx; X_MODE=check for the checks
+```
+
+| Run | Entries | Fingerprints equal | Index hits | Kept | Code differs | Unsound |
+|---|---|---|---|---|---|---|
+| 1 (`logs/run1-*`): F3 threw on abstract and vararg types, so only 185 entries | 185 | 185 | 0 | 100% | 0 | 0 |
+| 2 (`logs/run2-fp-scale-summary.log`, `logs/fp-scale-C.jls`), against `env_core_fw` | 2,143 | 2,143 | 35 | 2,108 (98.4%) | 0 | 0 |
+| 2, against `env_core` again | 2,143 | 2,143 | 35 | 2,108 (98.4%) | 0 | 0 |
+
+- Under the closure's build ids the same update loses 86–90% of C's entries (E-194). The fingerprints keep all of them.
+- The 35 index hits are the same in both checks: candidates the entries already saw when they were recorded. The index of revision 2 flags any method from outside a fact's stakeholders that intersects it. Part 4 compares against the candidates seen at record.
+- The witness is weak here: nothing the entries use changed, so no code differs. Soundness rests on parts 1 and 2.
+- Run 2's per-session logs were overwritten by run 3, which failed at load: a cache file of the shared depot was replaced in between (`logs/run3-failed-*`). The summary lines are kept from the task's output.
+
+## Part 4: the index against the candidates seen at record (pending)
+
+`fp_scale.jl` records, per entry, its candidates by fingerprint and name; a check flags an entry only if its candidates now differ. To run after W-22's build, with the depots precompiled again.
