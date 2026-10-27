@@ -300,7 +300,7 @@ The CodeInstance-level caches rebuilt on julia-1.13 6800be7839 (and C's for the 
 `using CairoMakie` alone: lean 2.32 s and 173 packages, against 2.7 s and 261.
 
 **What it says:**
-- **Dropping Makie's heavy dependencies saves 0.4 s of the load:** Makie's own code is the load, not its tree. The port must shrink the plotting core itself (`PlotCore`), not only its dependencies.
+- **Dropping Makie's heavy dependencies saves 0.4 s of the load.** The rest is not Makie's own code alone (the attribution below): the port must shrink both the plotting core (`PlotCore`) and the tree it keeps.
 - The lean fork's first plot compiles 3.7 s against 1.5 s: its precompile workload covers less of the path (not diagnosed: the forks are dev'd paths, built from the clone's commit).
 
 
@@ -350,3 +350,5 @@ Setting D after the change (`logs/e181d/`): matched 0.965 s (before 0.94–0.99)
 - **The parameters' type need not reach the solver.** A new parameter type compiles the user's function and the outer layer's small records, 0.05–0.1 s beyond the workload's type, instead of the solver (1.1–1.4 s).
 - **The steady state is unchanged within about 5%,** with the same steps: the parameters move from an argument of the dynamic call into the record.
 - The first build entered the user's function at the old signatures too (0.19 s per new parameter type in the record's constructor): the outer layer must not keep forms the core does not use.
+
+**E-179's load attributed** (2026-10-27, after [the memo's review](../../writeup/reviews/2026-10-27-lean-core-memo.md) M6; `@time_imports using CairoMakie` in `lean/env_lean`, stock 1.13.2, `depot-S`, one session; `logs/e179m6/lean-imports.log`): 2.28 s in all, the packages' increments 2.08 s over 168 packages. Makie 0.60 s, CairoMakie 0.29 s, ComputePipeline: 0.89 s together (43%). The other 165 packages 1.19 s, among them SparseArrays 0.23 s (through Interpolations, AxisAlgorithms, WoodburyMatrices), Pkg 0.13 s (through FileIO and Makie), StaticArrays 0.12 s, ImageCore 0.07 s, GeometryBasics 0.07 s, REPL 0.06 s (through MathTeXEngine, UnicodeFun). The lean fork dropped SparseArrays and REPL as Makie's own dependencies; they come back through others.
