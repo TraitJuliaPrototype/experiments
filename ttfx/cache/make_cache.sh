@@ -3,9 +3,12 @@
 # compiled statements that do not name Main, and make a package SessionCacheX whose precompile step runs
 # them; an environment env_cache_X with it; precompiled into X's depot.   bash cache/make_cache.sh X [n]
 # With n (S, U, C): the session traced with the function behind NoSpecialize (E-174); the cache is SessionCacheXn.
+# CI=1 (E-175): record every CodeInstance the session created (cache/record_cis.jl), not only compile roots;
+# the cache is SessionCacheX[n]ci.
 set -uo pipefail
 cd "$(dirname "$0")/.."; H=$PWD; R=$(cd ../.. && pwd); X=$1; V=${2:-}
-[ "$V" = n ] && export WL_SPEC=nospec || unset WL_SPEC
+[ "${CI:-0}" = 1 ] && V=${V}ci
+[[ "$V" == n* ]] && export WL_SPEC=nospec || unset WL_SPEC
 JP=$R/julia-1.13/julia; JS=$HOME/.julia/juliaup/julia-1.13.2+0.x64.linux.gnu/bin/julia
 export JULIA_PKG_GC_AUTO=false OPENBLAS_NUM_THREADS=1 JULIA_PKG_OFFLINE=true JULIA_PKG_PRECOMPILE_AUTO=0 JULIA_NUM_THREADS=1 JULIA_NUM_PRECOMPILE_TASKS=2
 F=(--startup-file=no --compiled-modules=existing --pkgimages=existing)
@@ -16,7 +19,12 @@ case $X in
 esac
 [ -n "$dep" ] && export JULIA_DEPOT_PATH=$dep || unset JULIA_DEPOT_PATH
 P=cache/SessionCache$X$V; mkdir -p $P/src logs/cache
-WL_SHAPE=perturbed flock /tmp/claude-1000/julia-review.lock nice -n 19 "${pre[@]}" $J "${F[@]}" --project=$env --trace-compile=$P/src/trace.jl $script out/png > logs/cache/$X-trace.out 2>&1
+if [ "${CI:-0}" = 1 ]; then   # E-175: every CodeInstance the session created, not only compile roots
+  WL_SHAPE=perturbed flock /tmp/claude-1000/julia-review.lock nice -n 19 "${pre[@]}" $J "${F[@]}" --project=$env cache/record_cis.jl $script out/png $P/src/trace.jl > logs/cache/$X$V-ci.out 2>&1
+  grep "^R " logs/cache/$X$V-ci.out
+else
+  WL_SHAPE=perturbed flock /tmp/claude-1000/julia-review.lock nice -n 19 "${pre[@]}" $J "${F[@]}" --project=$env --trace-compile=$P/src/trace.jl $script out/png > logs/cache/$X-trace.out 2>&1
+fi
 echo "$X traced: $(grep -c '^precompile' $P/src/trace.jl) statements, $(grep -c 'Main\.' $P/src/trace.jl) naming Main"
 uuid=$(python3 -c "import uuid; print(uuid.uuid5(uuid.NAMESPACE_DNS, 'SessionCache$X$V'))")
 cat > $P/Project.toml <<TOML
@@ -36,6 +44,7 @@ for (id, m) in Base.loaded_modules
     n = Symbol(id.name)
     isdefined(@__MODULE__, n) || Core.eval(@__MODULE__, :(const \$n = \$m))
 end
+include_dependency(joinpath(@__DIR__, "trace.jl"))   # the statements are this package's source too
 const COUNTS = let ok = 0, failed = 0, skipped = 0
     for line in eachline(joinpath(@__DIR__, "trace.jl"))
         startswith(line, "precompile") || continue

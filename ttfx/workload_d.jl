@@ -4,8 +4,8 @@
 #     WL_D=trait|plain WL_SHAPE=… WL_ORDER=… julia --startup-file=no --project=env_d workload_d.jl <outdir>
 Base.cumulative_compile_timing(true)
 const G0 = Base.gc_num()
-mark(step) = println("T ", step, " ", repr(time()), " ", Base.cumulative_compile_time_ns()[1] / 1e9, " ",
-                     Base.GC_Diff(Base.gc_num(), G0).total_time / 1e9)
+mark(step) = (isdefined(Main, :_on_mark) && Main._on_mark(step); println("T ", step, " ", repr(time()), " ", Base.cumulative_compile_time_ns()[1] / 1e9, " ",
+                     Base.GC_Diff(Base.gc_num(), G0).total_time / 1e9))
 mark("start")
 const SHAPE = get(ENV, "WL_SHAPE", "matched"); const ORDER = get(ENV, "WL_ORDER", "A"); const KIND = get(ENV, "WL_D", "trait")
 KIND == "trait" ? (@eval using TraitDifferentialEquations; @eval const ODE = TraitDifferentialEquations) :

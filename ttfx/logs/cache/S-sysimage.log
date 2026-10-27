@@ -1,0 +1,42 @@
+
+[8] signal 15: Terminated
+in expression starting at none:3
+unknown function (ip: 0x79b1524aafe2) at /lib/x86_64-linux-gnu/libc.so.6
+unknown function (ip: 0x79b15249eb62) at /lib/x86_64-linux-gnu/libc.so.6
+epoll_pwait at /lib/x86_64-linux-gnu/libc.so.6 (unknown line)
+
+[19] signal 15: Terminated
+in expression starting at none:0
+unknown function (ip: 0x7b4821caafe0) at /lib/x86_64-linux-gnu/libc.so.6
+unknown function (ip: 0x7b4821c9eae2) at /lib/x86_64-linux-gnu/libc.so.6
+unknown function (ip: 0x7b4821c9f236) at /lib/x86_64-linux-gnu/libc.so.6
+unknown function (ip: 0x7b4821ca4613) at /lib/x86_64-linux-gnu/libc.so.6
+uv__io_poll at /workspace/srcdir/libuv/src/unix/linux.c:1404
+uv_run at /workspace/srcdir/libuv/src/unix/core.c:430
+ijl_task_get_next at /cache/build/builder-amdci4-4/julialang/julia-ci/src/scheduler.c:533
+uv_thread_join at /workspace/srcdir/libuv/src/unix/thread.c:294
+warning: address range table at offset 0x39a0 has a premature terminator entry at offset 0x42f0
+warning: address range table at offset 0x39a0 has a premature terminator entry at offset 0x4350
+wait at ./task.jl:1297
+#wait#392 at ./condition.jl:141
+wait at ./condition.jl:136 [inlined]
+_trywait at ./asyncevent.jl:186
+#645 at ./asyncevent.jl:368
+unknown function (ip: 0x79b1369663bf) at (unknown file)
+jl_apply at /cache/build/builder-amdci4-4/julialang/julia-ci/src/julia.h:2319 [inlined]
+start_task at /cache/build/builder-amdci4-4/julialang/julia-ci/src/task.c:1287
+unknown function (ip: (nil)) at (unknown file)
+Allocations: 5616900 (Pool: 5616790; Big: 110); GC: 6
+- PackageCompiler: compiling incremental system image
+add_output<jl_dump_native_impl(void*, char const*, char const*, char const*, char const*, ios_t*, ios_t*, jl_emission_params_t*)::<lambda(llvm::Module&)> > at /cache/build/builder-amdci4-4/julialang/julia-ci/src/aotcompile.cpp:1986
+operator()<jl_dump_native_impl(void*, char const*, char const*, char const*, char const*, ios_t*, ios_t*, jl_emission_params_t*)::<lambda(llvm::Module&)> > at /cache/build/builder-amdci4-4/julialang/julia-ci/src/aotcompile.cpp:2141 [inlined]
+jl_dump_native_impl at /cache/build/builder-amdci4-4/julialang/julia-ci/src/aotcompile.cpp:2311
+ijl_write_compiler_output at /cache/build/builder-amdci4-4/julialang/julia-ci/src/precompile.c:164
+ijl_atexit_hook at /cache/build/builder-amdci4-4/julialang/julia-ci/src/init.c:279
+jl_repl_entrypoint at /cache/build/builder-amdci4-4/julialang/julia-ci/src/jlapi.c:1153
+main at /cache/build/builder-amdci4-4/julialang/julia-ci/cli/loader_exe.c:58
+unknown function (ip: 0x7b4821c2a577) at /lib/x86_64-linux-gnu/libc.so.6
+__libc_start_main at /lib/x86_64-linux-gnu/libc.so.6 (unknown line)
+unknown function (ip: 0x4010b8) at /workspace/srcdir/glibc-2.17/csu/../sysdeps/x86_64/start.S
+unknown function (ip: (nil)) at (unknown file)
+Allocations: 1013258692 (Pool: 1013249925; Big: 8767); GC: 64

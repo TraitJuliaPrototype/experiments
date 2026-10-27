@@ -122,3 +122,25 @@ A sampling profile of `using OrdinaryDiffEqTsit5, OrdinaryDiffEqRosenbrock, Cair
 - the rest (`__init__`, finding and checking cache files): about 450.
 
 Julia's loader machinery, not package code, takes the load: method insertion and edge validation are about two thirds. A system image of the stack needs neither; phase 3's second ceiling measures it.
+
+### E-170's system image: not buildable here, 2026-10-27
+
+`cache/build_sysimage.sh` (PackageCompiler 2.4.4, stock 1.13.2, `env_up`): three attempts with the session's 230 statements and one with the packages only. Each exhausted the machine's memory (30 GB, 8 GB swap) and was stopped by the watchdog: at 3.9, 1.5 and 0.8 GB available (`logs/cache/S-sysimage-mem.log`). The load's profile (E-169) stands in for this ceiling.
+
+### E-175, the cache emulated at the level of CodeInstances, 2026-10-27
+
+`cache/record_cis.jl` runs the perturbed workload and records every CodeInstance created after its load step, by a walk of the method table's specializations at the load mark and at the end; it keeps the signatures that name no type of `Main` (`CI=1 bash cache/make_cache.sh X`). New CodeInstances after the load: D 1,344 (facts 662, plain 682; 101 name `Main`), Dp 1,212 (139), S 3,879 (530), S/n 7,911 (164). `precompile` accepted D 997 of 1,226 kept, Dp 781 of 1,073, S 2,808 of 3,349, S/n 3,658 of 7,740 (the rest are signatures it does not compile as written). A warm-up and two sessions (`logs/p175/`, `CI=1 bash run.sh p175 …`).
+
+| Perturbed, with the cache (to "again") | load | first solve | first plot | second model | **session** | roots only (E-172, E-174) |
+|---|---|---|---|---|---|---|
+| S, auto-specialized | 3.66–3.73 | 0.49 | 0.34 | 0.22 | **4.88–4.93** | 11.6–11.8 |
+| S/n, `NoSpecialize` | 3.69–3.71 | 0.36 | 0.32 | 0.09 | **4.63–4.64** | 4.69–4.70 |
+| D | 0.60 | 0.25 (0.16–0.17 compiling) | 0.12 | 0.05 | **1.15–1.17** | 1.51–1.52 |
+| Dp | 0.19–0.20 | 0.18 | 0.08 | 0.04–0.05 | **0.64** | 0.70 |
+
+**What it says:**
+- **E-172's result for S was an artefact of recording roots only** ([the review](../../writeup/reviews/2026-10-27-cache-and-port-notes.md) B1, confirmed). Stock SciML's `AutoSpecialize` erases the function below `solve`'s entry, so its solver code is cacheable as it stands: the first solve 0.49 s instead of 5.3 s, the second model 0.22 s.
+- **With a cache, every setting's work after the load is about a second or less:** S 1.1–1.2 s (Python's session less its load: 1.0 s), D 0.55 s, Dp 0.45 s.
+- **The load is what remains:** 3.7 s in S, of a 4.9 s session.
+- D's first solve still compiles 0.16–0.17 s with the cache: its facts code is replayed by `precompile`, which compiles a facts method's callees in Base as plain copies, not the facts copies the session uses (not verified); TraitWorld's first-call checks are not yet counted (the review's M5).
+

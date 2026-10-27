@@ -29,7 +29,7 @@ for st in $settings; do
     *) echo "unknown setting $s"; exit 2 ;;
   esac
   if [[ $mods == *c* ]]; then   # E-172: the emulated cache across sessions, its own environment
-    cv=$s; [ $spec = nospec ] && cv=${s}n; export WL_CACHE=SessionCache$cv; for k in "${!cmd[@]}"; do cmd[$k]=${cmd[$k]/--project=env_up/--project=env_cache_$cv}; cmd[$k]=${cmd[$k]/--project=env_d/--project=env_cache_$cv}; done
+    cv=$s; [ $spec = nospec ] && cv=${s}n; [ "${CI:-0}" = 1 ] && cv=${cv}ci; export WL_CACHE=SessionCache$cv; for k in "${!cmd[@]}"; do cmd[$k]=${cmd[$k]/--project=env_up/--project=env_cache_$cv}; cmd[$k]=${cmd[$k]/--project=env_d/--project=env_cache_$cv}; done
   else unset WL_CACHE; fi
   name=${st//\//-}
   for i in w $(seq 1 $runs); do
