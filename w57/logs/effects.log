@@ -1,0 +1,26 @@
+ERROR: LoadError: ArgumentError: Collection is empty, must contain exactly 1 element
+Stacktrace:
+ [1] _only
+   @ ./iterators.jl:1622 [inlined]
+ [2] only(x::Vector{Any})
+   @ Base.Iterators ./iterators.jl:1617
+ [3] top-level scope
+   @ ~/Repos/julia-trait-bound/experiments/w57/effects.jl:23
+ [4] include(mod::Module, _path::String)
+   @ Base ./Base.jl:310
+ [5] exec_options(opts::Base.JLOptions)
+   @ Base ./client.jl:344
+ [6] _start()
+   @ Base ./client.jl:577
+in expression starting at /home/hellmann/Repos/julia-trait-bound/experiments/w57/effects.jl:23
+array_subpadding(ForwardDiff.Dual{ForwardDiff.Tag{typeof(sin), Float64}, Float64, 1}, Float64) foldable false  nortsite false  (!c,!e,!n,+t,!s,!m,!u,!o,!r)
+array_subpadding(ForwardDiff.Dual{Nothing, Float64, 4}, Float64) foldable false  nortsite false  (!c,!e,!n,+t,!s,!m,!u,!o,!r)
+array_subpadding(Float64, ForwardDiff.Dual{ForwardDiff.Tag{typeof(sin), Float64}, Float64, 1}) foldable false  nortsite false  (!c,!e,!n,+t,!s,!m,!u,!o,!r)
+array_subpadding(Tuple{Float64, Int32}, Float64) foldable true  nortsite true  (+c,+e,+n,+t,+s,+m,+u,+o,+r)
+padding(D1)                                    foldable false  nortsite false  (!c,!e,!n,+t,!s,!m,!u,!o,!r)
+packedsize(D1)                                 foldable false  nortsite false  (!c,!e,!n,!t,!s,!m,!u,!o,!r)
+fieldcount(DataType)                           foldable true  nortsite true  (+c,+e,!n,+t,+s,+m,+u,+o,+r)
+datatype_fieldcount(DataType)                  foldable false  nortsite false  (!c,!e,!n,!t,!s,!m,!u,!o,!r)
+unwrap_unionall(Any)                           foldable true  nortsite true  (+c,+e,+n,+t,+s,+m,+u,+o,+r)
+isabstracttype(Any)                            foldable true  nortsite true  (+c,+e,+n,+t,+s,+m,+u,+o,+r)
+datatype_alignment(DataType)                   foldable true  nortsite true  (+c,+e,!n,+t,+s,+m,+u,+o,+r)
