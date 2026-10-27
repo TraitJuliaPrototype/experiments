@@ -8,6 +8,8 @@
 set -uo pipefail
 cd "$(dirname "$0")/.."; H=$PWD; R=$(cd ../.. && pwd); X=$1; V=${2:-}
 [ "${CI:-0}" = 1 ] && V=${V}ci
+# E-184: CACHE_TAG names a cache recorded under other WL_* settings (WL_PARAMS, WL_SAVEAT, WL_NORM, passed through)
+V=${V}${CACHE_TAG:-}
 [[ "$V" == n* ]] && export WL_SPEC=nospec || unset WL_SPEC
 JP=$R/julia-1.13/julia; JS=$HOME/.julia/juliaup/julia-1.13.2+0.x64.linux.gnu/bin/julia
 export JULIA_PKG_GC_AUTO=false OPENBLAS_NUM_THREADS=1 JULIA_PKG_OFFLINE=true JULIA_PKG_PRECOMPILE_AUTO=0 JULIA_NUM_THREADS=1 JULIA_NUM_PRECOMPILE_TASKS=2

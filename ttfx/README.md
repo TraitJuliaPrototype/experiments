@@ -360,3 +360,22 @@ One untimed session of the workload in S (stock 1.13.2, `env_up`, `depot-S`), wi
 - **2,710 of about 44,400 code lines run (6.1%), in 52 of 150 files.** By file or directory: `makielayout/` 841 (the `Axis`, its ticks, spines and layout), `compute-plots.jl` 316 (the plot's ComputePipeline graph), `basic_recipes/` 264, `camera/` 165, `layouting/` 159, `scenes.jl` 135, `conversions.jl` 127, `utilities/` 109; the rest under 65 each.
 - **No line that calls MathTeXEngine or makes a `LaTeXString` ran:** the log axis's tick labels are rich text (`richtext.jl`, 5 lines), not LaTeX. MathTeXEngine (0.21 s of the floor, and REPL through it) is a candidate for a loading stub.
 - **What it says:** a `PlotCore` slice for this workload is a small part of Makie; the axis is its largest piece. Splitting can make the core lean; the compatibility machinery's share on this path is `compute-plots.jl` and the conversions (about 450 lines run).
+
+### E-184, normalization at the entry at upstream scale (W-60's X5), 2026-10-27
+
+Setting S (stock 1.13.2, `depot-S`). `workload.jl`'s new switches: `WL_PARAMS` and `WL_SAVEAT` set the parameters' and saving times' shapes one at a time; `WL_NORM=1` sends each `solve` through a wrapper (`nsolve`) that turns `saveat` into a `Vector{Float64}` and the tolerances into `Float64`. Caches: E-175's emulation at the level of CodeInstances (`CI=1 CACHE_TAG=<tag> bash cache/make_cache.sh S [n]`), each recorded from a session with `Vector` parameters and a **range** of saving times, used by sessions with **vectors**. `n`: the user's function behind SciMLBase's `NoSpecialize` (E-174), the stand-in for SciML's move 1. A warm-up and two sessions each; logs `logs/e184*/`.
+
+| | first solve (s) | session (s) |
+|---|---|---|
+| no cache, the wrapper (`logs/e184/`) | 3.85–3.94 | 9.37–9.56 |
+| a cache from ranges, no wrapper (`logs/e184raw/`) | 1.50 | 6.00–6.03 |
+| a cache from ranges, the wrapper (`logs/e184norm/`) | 0.51 | 4.87–4.91 |
+| `NoSpecialize`, no cache (`logs/e184n/`) | 7.34–7.61 | 12.69–13.01 |
+| `NoSpecialize`, a cache from ranges, the wrapper (`logs/e184nnorm/`) | 0.12–0.13 | 4.48–4.50 |
+
+The residual with the wrapper (`logs/e184norm/residual.jl`, `--trace-compile-timing`): the session's `nsolve` path at problem types that name the user's function (`ODEFunction{true, …, typeof(lorenz!)}`), 0.56 s of compile roots, and the plotting and digest code at the solution's type.
+
+**What it says:**
+- **Normalizing at the entry makes the cache recur across call shapes:** the first solve 1.50 → 0.51 s.
+- **What remains is keyed on the user's function** through the problem's type. With the function out of that type (`NoSpecialize`, standing in for move 1), the first solve from a cache recorded with other call shapes takes 0.12 s. Move 1 is needed for recurrence, as the memo's X5 predicted it might be.
+- Without a cache, `NoSpecialize` costs 7.3–7.6 s: upstream's images cover the `AutoSpecialize` path only. A port's images must cover its own erased path (as TDE's do).

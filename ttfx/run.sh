@@ -37,7 +37,7 @@ for st in $settings; do
   if [[ $mods == *k* ]]; then export JULIA_TW_CACHE=1 JULIA_TW_CACHE_BUILD=sync JULIA_TW_CACHE_REPORT=1 JULIA_TW_CACHE_DIR=$H/cache/tw-cache-$s
   else unset JULIA_TW_CACHE JULIA_TW_CACHE_BUILD JULIA_TW_CACHE_REPORT JULIA_TW_CACHE_DIR; fi
   if [[ $mods == *c* ]]; then   # E-172: the emulated cache across sessions, its own environment
-    cv=$s; [ $spec = nospec ] && cv=${s}n; [ "${CI:-0}" = 1 ] && cv=${cv}ci; export WL_CACHE=SessionCache$cv; for k in "${!cmd[@]}"; do cmd[$k]=${cmd[$k]/--project=env_up/--project=env_cache_$cv}; cmd[$k]=${cmd[$k]/--project=env_d/--project=env_cache_$cv}; cmd[$k]=${cmd[$k]/--project=env_core/--project=env_cache_$cv}; done
+    cv=$s; [ $spec = nospec ] && cv=${s}n; [ "${CI:-0}" = 1 ] && cv=${cv}ci; cv=${cv}${CACHE_TAG:-}; export WL_CACHE=SessionCache$cv; for k in "${!cmd[@]}"; do cmd[$k]=${cmd[$k]/--project=env_up/--project=env_cache_$cv}; cmd[$k]=${cmd[$k]/--project=env_d/--project=env_cache_$cv}; cmd[$k]=${cmd[$k]/--project=env_core/--project=env_cache_$cv}; done
   else unset WL_CACHE; fi
   name=${st//\//-}
   for i in w $(seq 1 $runs); do
