@@ -2,7 +2,7 @@
 # E-168: fresh sessions of the workload, one job at a time through the shared lock, two cores, niced.
 #     bash run.sh <tag> "<settings>" [runs=2]
 # A setting is a name with optional variants after a slash: py S U A C D Dp; /p perturbed shapes,
-# /b plotting loaded after the first simulation (order B), /s strict mode on. E.g. "S S/p C/s D/b".
+# /b plotting loaded after the first simulation (order B), /s strict mode on, /c the emulated cache (E-172). E.g. "S S/p C/s D/b".
 # Each setting first runs one discarded warm-up session (logs/<tag>/<setting>-w.log), then <runs>.
 # Julia runs with --compiled-modules=existing --pkgimages=existing: a missing image is not compiled in
 # the session; a log that shows precompiling or a rejected image is marked INVALID by summarize.py.
@@ -27,6 +27,9 @@ for st in $settings; do
     Dp) cmd=(env WL_D=plain $JP "${JF[@]}" --project=env_d workload_d.jl out/png); dep="" ;;
     *) echo "unknown setting $s"; exit 2 ;;
   esac
+  if [[ $mods == *c* ]]; then   # E-172: the emulated cache across sessions, its own environment
+    export WL_CACHE=SessionCache$s; for k in "${!cmd[@]}"; do cmd[$k]=${cmd[$k]/--project=env_up/--project=env_cache_$s}; cmd[$k]=${cmd[$k]/--project=env_d/--project=env_cache_$s}; done
+  else unset WL_CACHE; fi
   name=${st//\//-}
   for i in w $(seq 1 $runs); do
     f=logs/$tag/$name-$i.log

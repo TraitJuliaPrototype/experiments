@@ -12,6 +12,7 @@ KIND == "trait" ? (@eval using TraitDifferentialEquations; @eval const ODE = Tra
                   (@eval using PlainODE; @eval const ODE = PlainODE)
 loadplots() = KIND == "trait" ? (@eval using TraitMakie; @eval const PL = TraitMakie) : (@eval using PlainPlots; @eval const PL = PlainPlots)
 ORDER == "A" && loadplots()
+haskey(ENV, "WL_CACHE") && @eval using $(Symbol(ENV["WL_CACHE"]))   # E-172: a cache across sessions, emulated
 mark("load")
 const OUT = isempty(ARGS) ? "out" : ARGS[1]
 const RT, AT = 1e-6, 1e-8

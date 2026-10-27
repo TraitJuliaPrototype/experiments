@@ -1,0 +1,67 @@
+precompile(Tuple{typeof(Main.mark), String})
+precompile(Tuple{typeof(Base.print), Base.IOStream, String, String, Vararg{Any}})
+precompile(Tuple{typeof(Base.print), Base.IOStream, Float64})
+precompile(Tuple{typeof(Base.issorted), Array{String, 1}, Base.Order.ReverseOrdering{Base.Order.ForwardOrdering}})
+precompile(Tuple{typeof(JLLWrappers.get_julia_libpaths)})
+precompile(Tuple{typeof(TraitWorld._member_fold), Base.Compiler.AtLoad, Base.RefValue{Base.IdDict{Any, Any}}, Any, Any})
+precompile(Tuple{typeof(Main.loadplots)})
+precompile(Tuple{typeof(TraitWorld._on_package_load), Base.PkgId}) # recompile
+precompile(Tuple{typeof(Base.getproperty), Base.Order.Lt{Base.Sort.var"#_sort!##10#_sort!##11"{Base.Order.By{TraitWorld.var"#_note_conformances!##0#_note_conformances!##1", Base.Order.ForwardOrdering}}}, Symbol})
+precompile(Tuple{typeof(Main.times), Float64, Float64, Int64})
+precompile(Tuple{Type{NamedTuple{(:length,), T} where T<:Tuple}, Tuple{Int64}})
+precompile(Tuple{typeof(Base.float), Int64}) # recompile
+precompile(Tuple{typeof(Core.kwcall), NamedTuple{(:length,), Tuple{Int64}}, typeof(Base.range), Int64, Int64})
+precompile(Tuple{typeof(Base.Broadcast.broadcasted), typeof(Base.exp10), Base.StepRangeLen{Float64, Base.TwicePrecision{Float64}, Base.TwicePrecision{Float64}, Int64}})
+precompile(Tuple{typeof(Base.Broadcast.materialize), Base.Broadcast.Broadcasted{Base.Broadcast.DefaultArrayStyle{1}, Nothing, typeof(Base.exp10), Tuple{Base.StepRangeLen{Float64, Base.TwicePrecision{Float64}, Base.TwicePrecision{Float64}, Int64}}}})
+precompile(Tuple{Type{Base.Val{x} where x}, Bool}) # recompile
+precompile(Tuple{typeof(TraitWorld._held_callable_compiled), Any}) # recompile
+precompile(Tuple{Type{NamedTuple{(:saveat, :reltol, :abstol), T} where T<:Tuple}, Tuple{Base.StepRangeLen{Float64, Base.TwicePrecision{Float64}, Base.TwicePrecision{Float64}, Int64}, Float64, Float64}})
+precompile(Tuple{typeof(Base.structdiff), NamedTuple{(:saveat, :reltol, :abstol), Tuple{Base.StepRangeLen{Float64, Base.TwicePrecision{Float64}, Base.TwicePrecision{Float64}, Int64}, Float64, Float64}}, Type{NamedTuple{(:callback,), T} where T<:Tuple}})
+precompile(Tuple{typeof(Base.pairs), NamedTuple{(:saveat, :reltol, :abstol), Tuple{Base.StepRangeLen{Float64, Base.TwicePrecision{Float64}, Base.TwicePrecision{Float64}, Int64}, Float64, Float64}}})
+precompile(Tuple{Type{NamedTuple{(:saveat, :reltol, :abstol), T} where T<:Tuple}, Tuple{Array{Float64, 1}, Float64, Float64}})
+precompile(Tuple{typeof(Base.structdiff), NamedTuple{(:saveat, :reltol, :abstol), Tuple{Array{Float64, 1}, Float64, Float64}}, Type{NamedTuple{(:callback,), T} where T<:Tuple}})
+precompile(Tuple{typeof(Base._new_NamedTuple), Type{NamedTuple{(:saveat, :reltol, :abstol), Tuple{Array{Float64, 1}, Float64, Float64}}}, Tuple{Array{Float64, 1}, Float64, Float64}})
+precompile(Tuple{typeof(Base.pairs), NamedTuple{(:saveat, :reltol, :abstol), Tuple{Array{Float64, 1}, Float64, Float64}}})
+precompile(Tuple{Type{Base.Pairs{Symbol, V, I, A} where A where I where V}, NamedTuple{(:saveat, :reltol, :abstol), Tuple{Array{Float64, 1}, Float64, Float64}}, Nothing})
+precompile(Tuple{typeof(Main.solve_two)})
+precompile(Tuple{Type{TraitDifferentialEquations.ODECore.ODEProblem{T, P, F, D, J} where J where D where F where P where T}, Any, Array{Float64, 1}, Tuple{Float64, Float64}, Tuple{Float64, Float64, Float64}})
+precompile(Tuple{typeof(Base.Compiler._findall_matches), Base.Compiler.NativeInterpreter, Any}) # recompile
+precompile(Tuple{typeof(Base.findall), Type, Base.Compiler.CachedMethodTable{Base.Compiler.InternalMethodTable}}) # recompile
+precompile(Tuple{typeof(Base.Compiler.typeinf_type), Base.Compiler.NativeInterpreter, Core.MethodMatch})
+precompile(Tuple{typeof(TraitWorld._keyfield), Type{TraitWorld.Key{TraitDifferentialEquations.ODECore.Tsit5Integrator{Float64, Tuple{Float64, Float64, Float64}}, NamedTuple{(:t,), Tuple{Float64}}}}, Symbol})
+precompile(Tuple{typeof(TraitWorld._keyfield), Type{TraitWorld.Key{TraitDifferentialEquations.ODECore.Tsit5Integrator{Float64, Tuple{Float64, Float64, Float64}}, NamedTuple{(:u,), Tuple{Array{Float64, 1}}}}}, Symbol})
+precompile(Tuple{typeof(TraitWorld._keyfield), Type{TraitWorld.Key{TraitDifferentialEquations.ODECore.Tsit5Integrator{Float64, Tuple{Float64, Float64, Float64}}, NamedTuple{(:u, :t, :dt, :p, :u_modified, :terminated), Tuple{Array{Float64, 1}, Float64, Float64, Tuple{Float64, Float64, Float64}, Bool, Bool}}}}, Symbol})
+precompile(Tuple{typeof(TraitWorld._erasedparam), Type{TraitWorld.ErasedKey{Tuple{Array{Float64, 1}, Float64, Tuple{Float64, Float64, Float64}}, Nothing}}, Int64})
+precompile(Tuple{typeof(Base.getproperty), TraitWorld._DynOp{TraitDifferentialEquations.ODECore.IntegratorView{Array{Float64, 1}, Float64, Tuple{Float64, Float64, Float64}, Self} where Self, typeof(TraitDifferentialEquations.ODECore.interp!)}, Symbol})
+precompile(Tuple{typeof(Base.Compiler.getfield_at_offset_tfunc), Base.Compiler.InferenceLattice{Base.Compiler.ConditionalsLattice{Base.Compiler.PartialsLattice{Base.Compiler.ConstsLattice}}}, Any, Any, Any}) # recompile
+precompile(Tuple{Base.Compiler.var"#78#79"{Base.Compiler.var"#abstract_split_call##0#abstract_split_call##1", Base.Compiler.Future{Base.Compiler.CallMeta}, Base.RefValue{Base.Compiler.CallMeta}}, Base.Compiler.NativeInterpreter, Base.Compiler.InferenceState}) # recompile
+precompile(Tuple{typeof(TraitDifferentialEquations._solve), TraitDifferentialEquations.ODECore.ODEProblem{Float64, Tuple{Float64, Float64, Float64}, TraitWorld.Dynamic{TraitWorld.Callable{Tuple{Array{Float64, 1}, Array{Float64, 1}, Tuple{Float64, Float64, Float64}, Float64}, Nothing}}, TraitWorld.Dynamic{TraitWorld.Callable{Tuple{Array{ForwardDiff.Dual{TraitDifferentialEquations.ODECore.ODETag, Float64, 8}, 1}, Array{ForwardDiff.Dual{TraitDifferentialEquations.ODECore.ODETag, Float64, 8}, 1}, Tuple{Float64, Float64, Float64}, Float64}, Nothing}}, typeof(TraitDifferentialEquations.ODECore.no_jacobian)}, TraitDifferentialEquations.ODECore.Tsit5, Array{Any, 1}, TraitDifferentialEquations.ODECore.SolverOptions})
+precompile(Tuple{typeof(Base.Compiler.findsup_mt), Any, UInt64, Nothing}) # recompile
+precompile(Tuple{typeof(Base.Compiler.typeinf_code), Base.Compiler.NativeInterpreter, Core.MethodMatch, Bool}) # recompile
+precompile(Tuple{Type{TraitDifferentialEquations.ODECore.ODEProblem{T, P, F, D, J} where J where D where F where P where T}, Any, Array{Float64, 1}, Tuple{Float64, Float64}, Tuple{Float64}})
+precompile(Tuple{typeof(TraitWorld._keyfield), Type{TraitWorld.Key{TraitDifferentialEquations.ODECore.Rodas5Integrator{Tuple{Float64}, Nothing}, NamedTuple{(:t,), Tuple{Float64}}}}, Symbol})
+precompile(Tuple{typeof(TraitWorld._keyfield), Type{TraitWorld.Key{TraitDifferentialEquations.ODECore.Rodas5Integrator{Tuple{Float64}, Nothing}, NamedTuple{(:u,), Tuple{Array{Float64, 1}}}}}, Symbol})
+precompile(Tuple{typeof(TraitWorld._keyfield), Type{TraitWorld.Key{TraitDifferentialEquations.ODECore.Rodas5Integrator{Tuple{Float64}, Nothing}, NamedTuple{(:u, :t, :dt, :p, :u_modified, :terminated), Tuple{Array{Float64, 1}, Float64, Float64, Tuple{Float64}, Bool, Bool}}}}, Symbol})
+precompile(Tuple{typeof(Base.Broadcast._getindex), Tuple{Int64}, Int64}) # recompile
+precompile(Tuple{typeof(TraitWorld._erasedparam), Type{TraitWorld.ErasedKey{Tuple{Array{Float64, 1}, Float64, Tuple{Float64}}, Nothing}}, Int64})
+precompile(Tuple{typeof(TraitDifferentialEquations._solve), TraitDifferentialEquations.ODECore.ODEProblem{Float64, Tuple{Float64}, TraitWorld.Dynamic{TraitWorld.Callable{Tuple{Array{Float64, 1}, Array{Float64, 1}, Tuple{Float64}, Float64}, Nothing}}, TraitWorld.Dynamic{TraitWorld.Callable{Tuple{Array{ForwardDiff.Dual{TraitDifferentialEquations.ODECore.ODETag, Float64, 8}, 1}, Array{ForwardDiff.Dual{TraitDifferentialEquations.ODECore.ODETag, Float64, 8}, 1}, Tuple{Float64}, Float64}, Nothing}}, typeof(TraitDifferentialEquations.ODECore.no_jacobian)}, TraitDifferentialEquations.ODECore.Rodas5, Array{Any, 1}, TraitDifferentialEquations.ODECore.SolverOptions})
+precompile(Tuple{typeof(Base.indexed_iterate), Tuple{TraitDifferentialEquations.ODECore.ODESolution{Float64}, TraitDifferentialEquations.ODECore.ODESolution{Float64}}, Int64})
+precompile(Tuple{typeof(Base.indexed_iterate), Tuple{TraitDifferentialEquations.ODECore.ODESolution{Float64}, TraitDifferentialEquations.ODECore.ODESolution{Float64}}, Int64, Int64})
+precompile(Tuple{typeof(Base.Broadcast._getindex), Tuple{Float64}, Int64})
+precompile(Tuple{typeof(Main.plot_two), TraitDifferentialEquations.ODECore.ODESolution{Float64}, TraitDifferentialEquations.ODECore.ODESolution{Float64}, String})
+precompile(Tuple{typeof(Main.shape), Array{Float64, 1}})
+precompile(Tuple{typeof(Core.kwcall), NamedTuple{(:saveat, :reltol, :abstol), Tuple{Base.StepRangeLen{Float64, Base.TwicePrecision{Float64}, Base.TwicePrecision{Float64}, Int64}, Float64, Float64}}, typeof(TraitDifferentialEquations.solve), Any, TraitDifferentialEquations.ODECore.Rodas5})
+precompile(Tuple{typeof(Main.ts), TraitDifferentialEquations.ODECore.ODESolution{Float64}})
+precompile(Tuple{typeof(Main.comp), TraitDifferentialEquations.ODECore.ODESolution{Float64}, Int64})
+precompile(Tuple{typeof(TraitMakie.lines), Array{Float64, 1}, Vararg{Array{Float64, 1}}})
+precompile(Tuple{typeof(Main.digest), String, TraitDifferentialEquations.ODECore.ODESolution{Float64}, Tuple{Float64, Float64}})
+precompile(Tuple{typeof(Main.digest), String, TraitDifferentialEquations.ODECore.ODESolution{Float64}, Tuple{Float64, Float64, Float64}})
+precompile(Tuple{typeof(Main.pngs), String, String})
+precompile(Tuple{typeof(Base.print), Base.IOStream, UInt32})
+precompile(Tuple{typeof(Base.print), Base.IOStream, Int64})
+precompile(Tuple{typeof(Base.println), String, String, String, Vararg{Any}})
+precompile(Tuple{Type{Base.Iterators.Filter{F, I} where I where F}, Main.var"#9#10", Base.ValueIterator{Base.Dict{Base.PkgId, Module}}})
+precompile(Tuple{Type{Base.Generator{I, F} where F where I}, Main.var"#7#8", Base.Iterators.Filter{Main.var"#9#10", Base.ValueIterator{Base.Dict{Base.PkgId, Module}}}})
+precompile(Tuple{typeof(Base.collect), Base.Generator{Base.Iterators.Filter{Main.var"#9#10", Base.ValueIterator{Base.Dict{Base.PkgId, Module}}}, Main.var"#7#8"}})
+precompile(Tuple{typeof(Base.sort!), Array{String, 1}}) # recompile
+precompile(Tuple{typeof(Base.join), Array{String, 1}, String}) # recompile

@@ -11,6 +11,7 @@ mark("start")
 const SHAPE = get(ENV, "WL_SHAPE", "matched"); const ORDER = get(ENV, "WL_ORDER", "A")
 using OrdinaryDiffEqTsit5, OrdinaryDiffEqRosenbrock
 ORDER == "A" && @eval using CairoMakie
+haskey(ENV, "WL_CACHE") && @eval using $(Symbol(ENV["WL_CACHE"]))   # E-172: a cache across sessions, emulated
 mark("load")
 const OUT = isempty(ARGS) ? "out" : ARGS[1]
 const RT, AT = 1e-6, 1e-8

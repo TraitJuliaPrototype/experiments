@@ -63,3 +63,18 @@ Same build and environments (`logs/p2/`).
 - **The load** (`@time_imports`, `*-imports.log`): S loads 381 packages, 3.2 s summed (Makie 0.71 s; SparseArrays, StaticArrays, Pkg, REPL among the first ten); C 382 packages, 3.8 s; D 58 packages, 0.58 s. On the patched build one package per session takes 0.26–0.29 s, almost all compiling (D: IrrationalConstants; C: DocStringExtensions; on stock 6 and 1 ms): TraitWorld's load callback.
 - **TraitWorld's own machinery is invalidated at every load** (`probe_inval.jl`, `D-inval.log`): loading D invalidates 126 of TraitWorld's MethodInstances (its plain machinery: `_finish_module`, `check_bounds`, `_sig_alternatives`, `_rewrite_fdef`, `_process`, …), at methods such as ForwardDiff's `promote_rule` and FixedPointNumbers' `floor`; `_on_package_load` is recompiled in every session (87–105 ms in the traces). Class (c): the code is in TraitWorld's image and invalidated by packages loaded after it.
 
+
+### Phase 3a (E-172), a cache across sessions, emulated, 2026-10-27
+
+`cache/make_cache.sh X` traces a perturbed session (`--trace-compile`), keeps the compiled statements that do not name `Main`, and compiles them in the precompile step of a package `SessionCacheX` (`cache/`), loaded at the session's load step (`/c`, environment `env_cache_X`). Kept: D 53 of 67 statements (14 name `Main`), Dp 53 of 74 (21), S 177 of 203 (26); none failed. The same build; a warm-up and two sessions (`logs/p3a/`, `logs/cache/`).
+
+| Perturbed session (to "again") | without the cache (E-168) | with it | matched, no cache |
+|---|---|---|---|
+| D | 2.63 | **1.51–1.52** (load 0.90, first solve 0.27, first plot 0.16, second model 0.05) | 1.29–1.30 |
+| Dp | 1.82–1.84 | **0.70** (load 0.19, first solve 0.20, first plot 0.13, second model 0.05) | 1.13 |
+| S | 12.83–12.98 | **11.61–11.85** (first solve 5.16–5.29 and second model 2.25–2.30 unchanged; first plot 0.47–0.48 from 1.56) | 9.16 |
+
+**What it says:**
+- **What a cache across sessions can keep is decided by what the code is keyed on.** S's solver code is keyed on the user's function (`ODEFunction{true, AutoSpecialize, typeof(Main.robertson!), …}` in the problem's type, at `solve`'s keyword entry), so none of its 7.5 s of solver compilation is kept; its plotting code, keyed on library types, is (1.1 s saved).
+- **Dp recovers most:** PlainODE keeps the user's function behind a `FunctionWrapper` at a plain signature, so its solver is keyed on library types, and all of it is kept. Erasing the user's types at the library's boundary is what makes code cacheable, by traits (`Dynamic`) or by hand.
+- **D recovers 1.1 s** (first solve 1.50 → 0.27 s), less than Dp: its load grows 0.09 s with the cache, and its first solve keeps 0.18 s of compiling (not diagnosed).
