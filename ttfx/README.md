@@ -379,3 +379,20 @@ The residual with the wrapper (`logs/e184norm/residual.jl`, `--trace-compile-tim
 - **Normalizing at the entry makes the cache recur across call shapes:** the first solve 1.50 → 0.51 s.
 - **What remains is keyed on the user's function** through the problem's type. With the function out of that type (`NoSpecialize`, standing in for move 1), the first solve from a cache recorded with other call shapes takes 0.12 s. Move 1 is needed for recurrence, as the memo's X5 predicted it might be.
 - Without a cache, `NoSpecialize` costs 7.3–7.6 s: upstream's images cover the `AutoSpecialize` path only. A port's images must cover its own erased path (as TDE's do).
+
+### E-185 and E-186, the load's validation remembered (W-64), 2026-10-27
+
+**E-185** (`loader/prof_load.jl`, `logs/e185/`): the profiler over the workload's `using` in S (stock 1.13.2, one session). Of the main thread's samples: edge validation about 34% (about 1.4 s), method activation about 27%, promoting validated code 0.4%.
+
+**E-186** (`loader/e186.sh`, variant `/v`: `JULIA_REMEMBER_VALIDATION=1`): julia-1.13 f1866b9d4e (the change of [W-64's note](../../writeup/plans/2026-10-27-remembered-validation.md), revision 2), each environment precompiled again on it, the remembered outcomes cleared; a warm-up session records, three sessions reuse. U: the patched Julia, upstream packages, plain; C: the facts-compiled SciML core with CairoMakie. Logs `logs/e186/` (run 1, on 30a89bc2fe with an identity set per image, in `logs/e186/run1/`).
+
+| | load | first solve | first plot (GC) | session |
+|---|---|---|---|---|
+| U | 3.74–3.90 | 3.66–3.73 | 1.58–1.62 (0.07) | 9.36–9.55 |
+| U/v | 3.11–3.13 | 3.69–3.79 | 1.78–1.81 (0.18) | 8.95–9.07 |
+| C | 4.31–4.34 | 4.67–4.68 | 1.50–1.51 (0.03) | 10.85–10.89 |
+| C/v | 3.53–3.54 | 4.57–4.67 | 1.73–1.76 (0.16–0.19) | 10.27–10.38 |
+
+- The digests are the same in all twelve sessions.
+- **The chain:** a session that defines `f() = 1` before `using OrdinaryDiffEqTsit5` records 83 outcomes (386 → 469 files); the same definition again reuses them (the load 0.344 → 0.282 s); `g(x::Int) = 2` instead records new ones (552).
+- **What it says:** remembering validation saves 0.6–0.8 s of the load, about half of E-185's 1.4 s: the walk, the backedges and the cache insertions remain. The first plot pays 0.17–0.25 s more, all of it a garbage collection that the load's own garbage triggered earlier without the remembered path (run 1's identity set was not the cause: the same with run 2's sentinel). Net, a session gains about 0.5 s.
