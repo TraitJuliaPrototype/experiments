@@ -306,7 +306,7 @@ The CodeInstance-level caches rebuilt on julia-1.13 6800be7839 (and C's for the 
 
 ### E-180, TraitWorld's cache across sessions as a mechanism, 2026-10-27
 
-TraitWorld branch `session-cache` (`src/cache.jl`, commit 031932a and the workload commit after it), julia-1.13 6800be7839. Variant `/k`: `JULIA_TW_CACHE=1`, the builder run synchronously at exit (`JULIA_TW_CACHE_BUILD=sync`), the cache in `cache/tw-cache-<setting>/` (not committed). The warm-up session (`-w`) starts with an empty cache, records, and its exit runs the builder; the sessions after it load the parts. Off-workload shapes (`/p`). Logs: `logs/e180a/` (D), `logs/e180c/` (C). Probe: `cache/probe_k.jl` (what a session with the cache still compiled).
+TraitWorld branch `session-cache` (`src/cache.jl`, commit 031932a), julia-1.13 6800be7839. Variant `/k`: `JULIA_TW_CACHE=1`, the builder run synchronously at exit (`JULIA_TW_CACHE_BUILD=sync`), the cache in `cache/tw-cache-<setting>/` (not committed). The warm-up session (`-w`) starts with an empty cache, records, and its exit runs the builder; the sessions after it load the parts. Off-workload shapes (`/p`). Logs: `logs/e180a/` (D), `logs/e180c/` (C). Probe: `cache/probe_k.jl` (what a session with the cache still compiled).
 
 | | load | first solve | first plot | **session** | the cache's load | recording at exit | builder |
 |---|---|---|---|---|---|---|---|
