@@ -144,3 +144,9 @@ Julia's loader machinery, not package code, takes the load: method insertion and
 - **The load is what remains:** 3.7 s in S, of a 4.9 s session.
 - D's first solve still compiles 0.16–0.17 s with the cache: its facts code is replayed by `precompile`, which compiles a facts method's callees in Base as plain copies, not the facts copies the session uses (not verified); TraitWorld's first-call checks are not yet counted (the review's M5).
 
+### E-169, the load of C and the owners of loaded code, 2026-10-27
+
+C re-precompiled for TraitWorld 04095fe (122 s, 8 tasks). Its load's profile (`logs/p2/C-load-profile.log`, 3,845 samples, 1 ms): restoring images 1,836 (activating methods 799), validating edges 1,435, the rest about 570. After TraitWorld's hook fix C's load is about 3.85 s (4.5 s in E-168).
+
+The code the load brings (`probe_owners.jl`, CodeInstances and edge entries added by `using`): S 289,549 plain, 1.00 M edge entries; C 280,963 plain (0.98 M) and 33,814 facts (0.11 M), plus 1,023 of TraitWorld's check owners. Facts code is 11% of C's loaded code: validating it is not where C's load goes.
+
