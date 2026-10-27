@@ -150,3 +150,18 @@ C re-precompiled for TraitWorld 04095fe (122 s, 8 tasks). Its load's profile (`l
 
 The code the load brings (`probe_owners.jl`, CodeInstances and edge entries added by `using`): S 289,549 plain, 1.00 M edge entries; C 280,963 plain (0.98 M) and 33,814 facts (0.11 M), plus 1,023 of TraitWorld's check owners. Facts code is 11% of C's loaded code: validating it is not where C's load goes.
 
+### E-171, the scale probe, 2026-10-27
+
+`scale/gen.py` generates three trait packages: K traits of three operations each, N types implementing all of them, M bounded functions, and a workload compiling every function for every type. ScaleS (N 4, K 2, M 8: 32 workers, 135 lines), ScaleM (12, 4, 32: 384 workers, 553 lines), ScaleL (40, 8, 100: 4,000 workers, 2,533 lines). `scale/measure.jl` times, in a fresh session: `using`, a first call at a cached key, and a new type defined in the session (`@implement` of one trait, then its first call). julia-1.13 252edca933, TraitWorld 04095fe, then with the fix below; product setting; two sessions each (`scale/logs/`).
+
+| Package | precompile | native image | load | load, strict mode on | cached key, first call | new type: `@implement` (TraitWorld 04095fe → fixed) | its first call |
+|---|---|---|---|---|---|---|---|
+| ScaleS | 2.0 s | 3.0 MB | 0.158 s | 0.167 s | 1 ms | 0.23 → 0.077 s | 0.038 s |
+| ScaleM | 7.0 s | 14.3 MB | 0.184 s | 0.197 s | 1 ms | 0.50 → 0.078 s | 0.038 s |
+| ScaleL | 42 s | 86.5 MB | 0.304 s | 0.340 s | 1 ms | 1.25 → 0.079 s | 0.038 s |
+
+**What it says:**
+- **The load grows much slower than the code:** 125 times the workers and 29 times the native code cost 0.15 s more. Strict mode adds 0.01–0.04 s. Neither fails the premise.
+- **`@implement` of a user's type grew with the library's size** (0.23 → 1.25 s). TraitWorld's definition hook re-ran the keep analysis of every bounded function of the trait module (by inference) for each method the implementation added, although that analysis follows only methods of trait-module code, so a method defined outside cannot change its result. Fixed (TraitWorld 003ce8f): the refresh runs only for a method that is trait-module code. A new type's `@implement` now takes 0.08 s at every size.
+- Defining the struct and its `@implement` in one top-level block is refused with "Main does not own TNew": the block's macros expand before the struct exists. The message misleads (open issue 74).
+
