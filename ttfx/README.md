@@ -204,3 +204,7 @@ The same with the types serialized (`trace.jls`): S/pc 4.69–4.70 s (first solv
 
 **A plotting core's floor** (`probe_floor.jl`, stock 1.13.2, two sessions, `logs/p176/floor.log`): the dependencies the workload's plot plausibly needs, loaded without Makie (ColorTypes, Colors, FixedPointNumbers, Observables, ComputePipeline, GeometryBasics, StaticArrays, GridLayoutBase, FreeType, FreeTypeAbstraction, PlotUtils, Format, Cairo, PNGFiles): 0.51 s, 66 packages; with MathTeXEngine (Makie's default text) 0.72 s, 83 packages. CairoMakie's tree: 2.7 s, 261 packages. A core with Makie's algorithms on that tree loads its own code on top (Makie's image alone takes 0.71 s for 7,414 methods).
 
+**The solver's floor** (`probe_floor_solver.jl`, two sessions, `logs/p176/floor-solver.log`): OrdinaryDiffEqTsit5, ForwardDiff and DiffEqBase 0.47 s, 98 packages; `OrdinaryDiffEqRosenbrock` adds 0.73 s and 55 packages (the linear-solver tree).
+
+**An estimate for a port on lean trees:** a plotting core about 1 s, a solver about 0.5 s, Julia's startup 0.1 s, the work after the load with a cache about 1 s: a session of about 2.6–2.7 s, against Python's 1.45 s and stock's 9.2 s. An estimate from floors, not a measurement.
+
