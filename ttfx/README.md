@@ -181,3 +181,22 @@ D's first solve kept compiling 0.16–0.21 s with its cache. Three causes, each 
 
 A cache across sessions for trait code needs all three: the facts owner's code, the exact types, and the checks' results. With them the off-workload session runs like the on-workload one.
 
+### E-175, S's caches with exact types, 2026-10-27
+
+The same with the types serialized (`trace.jls`): S/pc 4.69–4.70 s (first solve 0.46, first plot 0.27, second model 0.22; 360 of 3,347 statements refused, 541 before); S/pnc 4.43–4.44 s (`logs/p175s/`). After the load, stock's session takes 1.1 s (0.8 s with `NoSpecialize`).
+
+### E-176, the methods a load adds, 2026-10-27
+
+`probe_external.jl` counts the methods a `using` adds, and those extending a function their package does not own (external), per package (`logs/p176/`). The load times of C and ScaleL in these logs are not valid (their images were stale after TraitWorld's commits, so those sessions compiled); the counts are.
+
+| Load | methods added | external | load time (valid run) |
+|---|---|---|---|
+| S: OrdinaryDiffEqTsit5, OrdinaryDiffEqRosenbrock, CairoMakie | 80,263 | 27,681 | 3.52 s |
+| C: the same, SciML compiled by facts | 81,929 | 27,944 | 3.85 s (E-169) |
+| D: TraitDifferentialEquations, TraitMakie | 9,196 | 3,806 | 0.45 s |
+| Dp: PlainODE, PlainPlots | 6,925 | 3,086 | 0.16 s |
+| ScaleL (4,000 workers) | 5,896 | 2,610 | 0.30 s (E-171) |
+
+- **The stack's load follows its size in methods,** and that is its dependency tree: in S the most external methods come from Distributions (2,248 of 4,333; reached through Makie), SciMLBase (1,558), ForwardDiff (1,404), Makie (1,358), SparseArrays, DataStructures, Unitful, SciMLOperators. 381 packages in all.
+- **A trait world is not cheap to load by any mechanism of its own:** ScaleL's external methods are mostly its implementations' registrations with TraitWorld's functions (1,764). It is cheap because it is small. The lever on the load is the tree's size: which packages a solver and a plotting core must load.
+
