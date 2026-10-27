@@ -28,4 +28,5 @@ A job started from the sandboxed Bash tool does not outlive the command, even wi
 
 | Date | Outcome |
 |---|---|
+| 2026-10-27 07:32–08:47 | Run from the session (`run_in_background`) on julia-1.13 0c589fd385 (W-41, W-43, W-52), TraitWorld main aac1694. Precompilation and E-162 done (`logs/driver.log`, `logs/e162-*.txt`; the summarizer fixed for a load label with spaces). Stopped by the session before E-163, to build and test W-40, W-42 and W-44; E-163 and E-164 to run later with `bash run.sh "e163 e164"`. E-162: every digest equal; P4's steady state regressed to 267.7 ms by W-52 (open issue 66). The logs of the failed launch of 2026-10-21 are in `logs-2026-10-21-failed/`. |
 | 2026-10-21 21:52 | Not run. Launched from the sandboxed Bash tool; the job died at its first step (`logs/driver.log` holds only the first line; `logs/precompile-upstream.log` is empty). No measurements. |
