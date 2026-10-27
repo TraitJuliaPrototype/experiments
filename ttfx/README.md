@@ -200,3 +200,5 @@ The same with the types serialized (`trace.jls`): S/pc 4.69–4.70 s (first solv
 - **The stack's load follows its size in methods,** and that is its dependency tree: in S the most external methods come from Distributions (2,248 of 4,333; reached through Makie), SciMLBase (1,558), ForwardDiff (1,404), Makie (1,358), SparseArrays, DataStructures, Unitful, SciMLOperators. 381 packages in all.
 - **A trait world is not cheap to load by any mechanism of its own:** ScaleL's external methods are mostly its implementations' registrations with TraitWorld's functions (1,764). It is cheap because it is small. The lever on the load is the tree's size: which packages a solver and a plotting core must load.
 
+**The trees** (stock 1.13.2, two sessions each, `logs/p176/trees.log`): `using OrdinaryDiffEqTsit5` 0.34 s, 83 packages; with `OrdinaryDiffEqRosenbrock` 1.09 s, 156 packages (the linear-solver tree, SparseArrays, Pkg); `using CairoMakie` 2.68–2.70 s, 261 packages; all three 3.56–3.84 s, 386 packages. Makie binds REPL and FileIO binds Pkg. Python's whole import: 0.45 s.
+
