@@ -599,8 +599,11 @@ toplevel(quote
     module CP
     Base.Experimental.@compiler_options facts=true
     struct S; a::Float64; b::Int; c::String; end
-    pa(s::S) = getfield(s, :a)
-    pb(s::S) = getfield(s, :b)
+    # the branches have an effect, so constant propagation decides here: concrete and semi-concrete
+    # evaluation, which Julia tries first, cross the modes with the whole CodeInstance as the edge (G1.30)
+    const HITS = Ref(0)
+    pa(s::S) = (HITS[] += 1; getfield(s, :a))
+    pb(s::S) = (HITS[] += 1; getfield(s, :b))
     Base.getproperty(s::S, f::Symbol) = f === :a ? pa(s) : f === :b ? pb(s) : getfield(s, f)
     end
     module CPU               # plain callers
@@ -650,10 +653,10 @@ ua27 = only(cis_of(nothing, CPU.ua, (CP.S,))); ub27 = only(cis_of(nothing, CPU.u
 check("G1.27 a plain caller's constant reaches a facts getproperty switch: the field's type, plain values",
       v27 == (getfield(s27, :a), getfield(s27, :b)) && g27 == "x" && rt27 == (Float64, Int) && (ua27.rettype, ub27.rettype) == (Float64, Int),
       "values $v27, inferred $rt27, cached $((ua27.rettype, ub27.rettype)) (expected (Float64, Int64))")
-Core.eval(CP, :(pb(s::S) = 10 * getfield(s, :b)))  # the owner changes the other branch's method
+Core.eval(CP, :(pb(s::S) = (HITS[] += 1; 10 * getfield(s, :b))))  # the owner changes the other branch's method
 w28 = (ua27.max_world == typemax(UInt), ub27.max_world == typemax(UInt))
 v28 = (CPU.ua(s27), CPU.ub(s27), CPU.ug(s27, :b))
-Core.eval(CP, :(pa(s::S) = 2 * getfield(s, :a)))   # the owner changes the method on `ua`'s constant path
+Core.eval(CP, :(pa(s::S) = (HITS[] += 1; 2 * getfield(s, :a))))   # the owner changes the method on `ua`'s constant path
 w28b = ua27.max_world == typemax(UInt)
 v28b = (CPU.ua(s27), CPU.ug(s27, :a))
 check("G1.28 a change on the constant's path invalidates the plain caller, a change on another branch does not",
@@ -700,6 +703,47 @@ fs31 = (Base.Compiler.is_fact_sig(Tuple{typeof(identity), Tuple{U8, Float64}}),
         Base.Compiler.is_fact_sig(Tuple{typeof(identity), Tuple{Union{Int8, Int16}}, Tuple{Union{UInt8, UInt16}}}))
 check("G1.31 unions in tuple arguments split by Julia's cost: one of eight yes, two of three no, two of two yes",
       fs31 == (true, false, true), "is_fact_sig: $fs31 (expected (true, false, true))")
+
+# --- G1.32: an asserted effect one frame above a run-time site (facts §8, W-52; the facts review of
+# 2026-10-26, H2): `h2` asserts `:foldable` and calls `h`, which holds the run-time site; the mark is
+# carried through the call, so the facts caller does not fold `h2(1)` and follows `g`'s redefinition,
+# as plain code does.
+toplevel(quote
+    module FoldUp
+    g(x) = 1
+    h(x::Int) = g(Base.inferencebarrier(x))
+    Base.@assume_effects :foldable h2(x::Int) = h(x)
+    end
+    kup() = FoldUp.h2(1)
+    wup() = FactsCall.call(kup)
+end)
+u0 = (kup(), wup())
+toplevel(:(FoldUp.g(x) = 2))
+u1 = (kup(), wup())
+check("G1.32 an assertion one frame above a run-time site does not fold over it", u0 == (1, 1) && u1 == (2, 2),
+      "before $u0, after $u1 (plain, facts)")
+
+# --- G1.33: a call at a fact signature with more matching methods than `max_methods` records no
+# edge, so it is a run-time site too (facts §5, W-52; the facts review's M5, the compiler review's H1):
+# the assertion over it does not apply in code compiled by facts, which follows the redefinition.
+# (Plain Julia records no edge there either; its value is shown, not checked.)
+toplevel(quote
+    module FoldMany
+    g() = 0
+    g(a::Int) = 1
+    g(a::Int, b::Int) = 2
+    g(a::Int, b::Int, c::Int) = 3
+    g(a::Int, b::Int, c::Int, d::Int) = 4
+    Base.@assume_effects :foldable h(n::Int) = g((Base.inferencebarrier((1, 1))::Tuple{Vararg{Int}})...)
+    end
+    kmany() = FoldMany.h(1)
+    wmany() = FactsCall.call(kmany)
+end)
+m0 = (kmany(), wmany())
+toplevel(:(FoldMany.g(a::Int, b::Int) = 20))
+m1 = (kmany(), wmany())
+check("G1.33 an assertion over a call with too many matching methods does not fold it in code compiled by facts",
+      m0[2] == 2 && m1[2] == 20, "facts before $(m0[2]), after $(m1[2]) (expected 2, 20); plain $(m0[1]), $(m1[1])")
 
 println()
 println(count(x -> x[2], results), " of ", length(results), " checks pass")
