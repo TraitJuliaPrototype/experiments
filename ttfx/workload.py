@@ -52,3 +52,4 @@ for f in sorted(n for n in os.listdir(out) if n.startswith("py-") and n.endswith
     d = open(os.path.join(out, f), "rb").read(); w, h = struct.unpack(">II", d[16:24])
     print("P", f, f"{w}x{h}", os.path.getsize(os.path.join(out, f)), "bytes")
 print("V python", sys.version.split()[0], "numpy", np.__version__, "scipy", scipy.__version__, "matplotlib", matplotlib.__version__, "order", ORDER)
+mark("trailer")

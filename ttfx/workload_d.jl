@@ -64,3 +64,4 @@ digest("lorenz", a, (1.0, 2.0)); digest("robertson", b, (1.0, 1e3, 1e5)); digest
 include("pngs.jl"); pngs(OUT, "d-")
 println("V julia ", Base.GIT_VERSION_INFO.commit_short, " ", Sys.BINDIR, " kind ", KIND, " strict ", get(ENV, "JULIA_TW_STRICT", "0"), " shape ", SHAPE, " order ", ORDER)
 println("V pkgs ", join(sort!([string(nameof(m), "@", pkgversion(m)) for m in values(Base.loaded_modules) if pkgversion(m) !== nothing]), " "))
+mark("trailer")

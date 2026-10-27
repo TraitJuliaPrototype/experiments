@@ -54,3 +54,4 @@ pngs(OUT, "jl-")
 println("V julia ", Base.GIT_VERSION_INFO.commit_short, " ", Sys.BINDIR, " image ", unsafe_string(Base.JLOptions().image_file),
         " strict ", get(ENV, "JULIA_TW_STRICT", "0"), " shape ", SHAPE, " order ", ORDER)
 println("V pkgs ", join(sort!([string(nameof(m), "@", pkgversion(m)) for m in values(Base.loaded_modules) if pkgversion(m) !== nothing]), " "))
+mark("trailer")

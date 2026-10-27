@@ -19,4 +19,6 @@ for path in sys.argv[1:]:
         cells.append(f"{name} {t-prev:.3f}" + (f" (c {c-pc:.2f}, gc {g-pg:.2f})" if c or g else ""))
         prev, pc, pg = t, c, g
     if E is not None: cells.append(f"exit {E-prev:.3f}")
-    print(path, "|", " | ".join(cells), "| total", f"{(E or prev)-W:.3f}", ("| INVALID: " + "; ".join(bad[:2])) if bad else "")
+    again = [t for step, t, c, g in marks if step == "again"]
+    sess = f"| session (to again) {again[0]-W:.3f}" if again else ""
+    print(path, "|", " | ".join(cells), "| total", f"{(E or prev)-W:.3f}", sess, ("| INVALID: " + "; ".join(bad[:2])) if bad else "")
