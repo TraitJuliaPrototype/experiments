@@ -417,3 +417,31 @@ C's session compiled 20.9 s during its load (an extension image stale in `depot-
 **What it says:**
 - **Keyed on origins, a cache keeps most of itself across a change:** half of C's cacheable facts code depends on Base and Core only, the rest on 39 of 398 packages; no single package's new version invalidates more than a quarter. An environment key loses all of it at any change.
 - **A facts-only cache leaves plain code out:** in C half of what the session compiles is plain (most of it Base's methods called from plain code); in D, after the parameters moved to the surface (E-181), the session compiles little of either. In a whole trait world the plain share is what plain layers call.
+
+### E-194, the facts-keyed cache's closure and index at scale (W-66), 2026-10-27
+
+`cache/probe_closure.jl`: the runtime's newly-inferred list from the start of a session. Then, for the CodeInstances the session made, the time per owner (from their own `time_infer_self` and `time_compile` fields). For each facts entry naming no session type:
+- its dependency closure: the packages reached through its edges, transitively through callee CodeInstances; its signature's types and their supertypes; bindings and folds; closed under the manifest's dependencies and the extensions' parents and triggers;
+- whether it reaches another owner's code;
+- the candidate index of [W-66's note](../../writeup/plans/2026-10-27-facts-keyed-cache.md), revision 2.
+
+julia-1.13 41d199c557, TraitWorld 5589f4c; D and C off-workload (`/p`), one valid session each (no stale image; C's depot precompiled again first); `logs/e194/`.
+
+| | D | C |
+|---|---|---|
+| CodeInstances made: facts / plain | 95 / 491 | 2,506 / 1,557 (and 7 of owner `facts_plain_return_type`) |
+| inference self-time, facts / plain (s) | 0.08 / 0.26 | 7.29 / 1.37 |
+| code generation, facts / plain (s) | 0.10 / 0.47 | 6.32 / 5.75 |
+| facts entries: cacheable / naming the session | 63 / 32 | 1,835 / 671 |
+| reaching another owner's code | 0 | 0 |
+| closure size, packages (mean, max) | 15, 31 | 83, 133 |
+| entries on Base, Core and the system image only | 24 | 173 |
+| entries hitting a candidate (hits) | 0 | 11 (64) |
+| the largest share one package's change invalidates | TraitWorld 59% (standard libraries 62%) | FunctionWrappers 90%, TraitWorld 86% (standard libraries 87%) |
+
+The per-CodeInstance times overlap (C's sum exceeds its session's 11.3 s of compilation), so they give proportions, not totals.
+
+**What it says:**
+- **Facts code is most of C's compilation** (inference about 5 to 1, code generation about even), and a fifth of D's. A facts-only cache is worth building at SciML's scale.
+- **The candidate index is a strong lever:** 11 of C's 1,835 entries need a walk.
+- **The closure rule invalidates nearly everything on a foundational package's update at SciML's scale** (86–90%): a new version rebuilds every dependent, so build ids cascade. Sharing across environments then holds only within an unchanged stack. A finer identity, content hashes of the methods and types an entry uses, would not cascade (the note's open choice).
