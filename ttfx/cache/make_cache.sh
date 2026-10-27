@@ -16,6 +16,7 @@ case $X in
   D)  J=$JP; env=env_d; dep=""; pre=(env WL_D=trait); script=workload_d.jl; uses="TraitDifferentialEquations, TraitMakie, TraitWorld" ;;
   Dp) J=$JP; env=env_d; dep=""; pre=(env WL_D=plain); script=workload_d.jl; uses="PlainODE, PlainPlots" ;;
   S)  J=$JS; env=env_up; dep="$H/depot-S:$HOME/.julia:"; pre=(env); script=workload.jl; uses="OrdinaryDiffEqTsit5, OrdinaryDiffEqRosenbrock, CairoMakie" ;;
+  C)  J=$JP; env=env_core; dep="$H/depot-C:$HOME/.julia:"; pre=(env); script=workload.jl; uses="OrdinaryDiffEqTsit5, OrdinaryDiffEqRosenbrock, CairoMakie, TraitWorld" ;;
 esac
 [ -n "$dep" ] && export JULIA_DEPOT_PATH=$dep || unset JULIA_DEPOT_PATH
 P=cache/SessionCache$X$V; mkdir -p $P/src logs/cache

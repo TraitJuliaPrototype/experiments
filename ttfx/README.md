@@ -268,3 +268,23 @@ The load under `all` falls from 8.2 to 3.8 s, about stock's 3.6 s: the 4.4 s sav
 
 **The other settings on julia-1.13 6800be7839** (re-precompiled: U 222 s, C 181 s, D 46 s; a warm-up and two sessions, all valid by the trailer's check; `logs/p59/`): U 9.47–9.59 s (load 3.57–3.74); C 10.75 s (load 4.15–4.16); D 0.99–1.00 s; Dp 1.19 s; A/b 10.2–10.4 s; after a late DataFrames load the plot recompiles 6.08–6.19 s in C and 6.17–6.19 s in U (Makie plain), as before. W-59 changed little outside `all` (C's load 4.27–4.30 → 4.15 s).
 
+### E-178, reuse across call shapes, 2026-10-27
+
+The CodeInstance-level caches rebuilt on julia-1.13 6800be7839 (and C's for the first time: 2,485 facts and 1,496 plain CodeInstances recorded), each from a perturbed session; used by matched sessions (`X/c`) and, for comparison, by perturbed ones (`X/pc`, the cache's own shapes). A warm-up and two sessions (`logs/p178/`).
+
+| Session (to "again") | first solve | first plot | second model | **session** | no cache (`logs/p59/`) |
+|---|---|---|---|---|---|
+| S/c: matched, cache from perturbed | 3.66–3.80 | 0.26–0.27 | 0.16–0.17 | **7.84–8.11** | 9.16–9.17 (S, E-168) |
+| S/pc: perturbed, its own shapes | 0.45 | 0.26 | 0.22 | 4.74 | 12.8–13.0 |
+| C/c | 4.43–4.56 | 0.26 | 0.18–0.19 | **9.32–9.49** | 10.75 |
+| C/pc | 0.33–0.34 | 0.27 | 0.19 | 5.31–5.35 | — |
+| D/c | 0.08 | 0.11–0.12 | 0.05 | **0.99** | 0.99–1.00 |
+| D/pc | 0.09 | 0.12 | 0.05 | 1.00 | 2.63 |
+| Dp/c | 0.15 | 0.08 | 0.29 | **0.87–0.88** | 1.19 |
+| Dp/pc | 0.18 | 0.08 | 0.04 | 0.65 | 1.82–1.84 |
+
+**What it says:**
+- **SciML's solver code is not reused across call shapes:** a cache from `Tuple` parameters and a range of saving times leaves the matched session's first solve compiling as without a cache (S 3.7 s, C 4.5 s). The plotting code is reused (first plot 0.26 s instead of 1.5 s).
+- **So a cache across sessions pays once per call shape** on SciML's path; the core's entry must normalize what it can (the options record of the port note's move 1b) for a cache to recur. The parameters' type, which the right-hand side reads, stays a key.
+- Dp's second model is not reused (a new function, compiled per signature by its wrapper), D's is (the model `Dynamic`).
+
