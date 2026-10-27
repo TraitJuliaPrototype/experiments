@@ -2,7 +2,7 @@
 # E-168: fresh sessions of the workload, one job at a time through the shared lock, two cores, niced.
 #     bash run.sh <tag> "<settings>" [runs=2]
 # A setting is a name with optional variants after a slash: py S U A C D Dp; /p perturbed shapes,
-# /b plotting loaded after the first simulation (order B), /s strict mode on, /c the emulated cache (E-172), /n the function behind NoSpecialize (E-174, S, U, C), /x the split cache and /l a late load (E-177), /k TraitWorld's cache across sessions (E-180: recorded at exit, built synchronously, in cache/tw-cache-<setting>; remove it to start empty). E.g. "S S/p C/s D/b".
+# /b plotting loaded after the first simulation (order B), /s strict mode on, /c the emulated cache (E-172), /n the function behind NoSpecialize (E-174, S, U, C), /x the split cache and /l a late load (E-177), /v validation remembered (E-186: JULIA_REMEMBER_VALIDATION=1, the patched Julia), /k TraitWorld's cache across sessions (E-180: recorded at exit, built synchronously, in cache/tw-cache-<setting>; remove it to start empty). E.g. "S S/p C/s D/b".
 # Each setting first runs one discarded warm-up session (logs/<tag>/<setting>-w.log), then <runs>.
 # Julia runs with --compiled-modules=existing --pkgimages=existing: a missing image is not compiled in
 # the session; a log that shows precompiling or a rejected image is marked INVALID by summarize.py.
@@ -34,6 +34,7 @@ for st in $settings; do
     for k in "${!cmd[@]}"; do cmd[$k]=${cmd[$k]/--project=env_up/--project=env_split_$s}; cmd[$k]=${cmd[$k]/--project=env_d/--project=env_split_$s}; cmd[$k]=${cmd[$k]/--project=env_core/--project=env_split_$s}; done
   else unset WL_CACHE_S WL_CACHE_P; fi
   [[ $mods == *l* ]] && export WL_LATE=1 || unset WL_LATE
+  [[ $mods == *v* ]] && export JULIA_REMEMBER_VALIDATION=1 || unset JULIA_REMEMBER_VALIDATION   # E-186
   if [[ $mods == *k* ]]; then export JULIA_TW_CACHE=1 JULIA_TW_CACHE_BUILD=sync JULIA_TW_CACHE_REPORT=1 JULIA_TW_CACHE_DIR=$H/cache/tw-cache-$s
   else unset JULIA_TW_CACHE JULIA_TW_CACHE_BUILD JULIA_TW_CACHE_REPORT JULIA_TW_CACHE_DIR; fi
   if [[ $mods == *c* ]]; then   # E-172: the emulated cache across sessions, its own environment
