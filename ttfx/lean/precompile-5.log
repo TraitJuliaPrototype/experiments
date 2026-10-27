@@ -1,0 +1,29 @@
+Precompiling packages...
+ERROR: LoadError: UndefVarError: `Spy` not defined in `Makie`
+Suggestion: check for spelling errors or missing imports.
+Stacktrace:
+  [1] top-level scope
+    @ ~/Repos/julia-trait-bound/experiments/ttfx/lean/Makie/src/interaction/inspector.jl:1037
+  [2] include(mapexpr::Function, mod::Module, _path::String)
+    @ Base ./Base.jl:310
+  [3] top-level scope
+    @ ~/Repos/julia-trait-bound/experiments/ttfx/lean/Makie/src/Makie.jl:236
+  [4] include(mod::Module, _path::String)
+    @ Base ./Base.jl:309
+  [5] include_package_for_output(pkg::Base.PkgId, input::String, depot_path::Vector{String}, dl_load_path::Vector{String}, load_path::Vector{String}, concrete_deps::Vector{Pair{Base.PkgId, UInt128}}, source::Nothing, preresolved::Vector{Pair{Base.PkgId, String}})
+    @ Base ./loading.jl:3210
+  [6] top-level scope
+    @ stdin:5
+  [7] eval(m::Module, e::Any)
+    @ Core ./boot.jl:489
+  [8] include_string(mapexpr::typeof(identity), mod::Module, code::String, filename::String)
+    @ Base ./loading.jl:3045
+  [9] include_string
+    @ ./loading.jl:3055 [inlined]
+ [10] exec_options(opts::Base.JLOptions)
+    @ Base ./client.jl:342
+ [11] _start()
+    @ Base ./client.jl:577
+in expression starting at /home/hellmann/Repos/julia-trait-bound/experiments/ttfx/lean/Makie/src/interaction/inspector.jl:1037
+in expression starting at /home/hellmann/Repos/julia-trait-bound/experiments/ttfx/lean/Makie/src/Makie.jl:1
+in expression starting at stdin:5

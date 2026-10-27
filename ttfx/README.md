@@ -288,3 +288,18 @@ The CodeInstance-level caches rebuilt on julia-1.13 6800be7839 (and C's for the 
 - **So a cache across sessions pays once per call shape** on SciML's path; the core's entry must normalize what it can (the options record of the port note's move 1b) for a cache to recur. The parameters' type, which the right-hand side reads, stays a key.
 - Dp's second model is not reused (a new function, compiled per signature by its wrapper), D's is (the model `Dynamic`).
 
+### E-179, a lean Makie, 2026-10-27
+
+`lean/`: forks of Makie 0.24.16, CairoMakie and ComputePipeline (the port's clone, commit 47479e0a) without StatsBase, Distributions, KernelDensity, StatsFuns, DelaunayTriangulation, TriplotBase, Unitful, SparseArrays, REPL, FFMPEG_jll and Downloads. Features dropped (open issue 75, option (i)): the statistics recipes (`hist`, `density`, `ecdf`, `qqplot`, `qqnorm`, `boxplot`, `violin`, `crossbar`, `hexbin`, `raincloud`), `tricontour`, `tricontourf`, `triplot`, `voronoiplot`, `spy`, units on axes, video recording, the downloaded texture atlas, the REPL's field docs. Contours (Contour, Isoband) kept. Each change is marked `E-179 lean` in the source. Setting `L`: stock 1.13.2, `lean/env_lean`, `depot-S`; a warm-up and two sessions (`logs/p179/`).
+
+| | load | first solve | first plot | second model | **session** |
+|---|---|---|---|---|---|
+| L (lean Makie) | 3.15–3.17 | 3.68–3.73 | 3.73–3.75 | 0.16–0.17 | **10.94–10.98** |
+| S (upstream, E-168) | 3.54–3.56 | 3.75–3.76 | 1.51 | 0.19 | 9.16–9.17 |
+
+`using CairoMakie` alone: lean 2.32 s and 173 packages, against 2.7 s and 261.
+
+**What it says:**
+- **Dropping Makie's heavy dependencies saves 0.4 s of the load:** Makie's own code is the load, not its tree. The port must shrink the plotting core itself (`PlotCore`), not only its dependencies.
+- The lean fork's first plot compiles 3.7 s against 1.5 s: its precompile workload covers less of the path (not diagnosed: the forks are dev'd paths, built from the clone's commit).
+

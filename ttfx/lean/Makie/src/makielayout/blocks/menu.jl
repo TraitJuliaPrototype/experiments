@@ -1,0 +1,491 @@
+function _option_text_colors(hovered, optionstrings, m, filtered_indices)
+    return map(eachindex(optionstrings)) do idx
+        global_idx = filtered_indices[][idx]
+        if global_idx == m.i_selected[]
+            return m.textcolor_active[]
+        elseif idx == hovered
+            return m.textcolor_hover[]
+        else
+            return m.textcolor[]
+        end
+    end
+end
+
+function _update_option_colors!(hovered, optionstrings, optionpolycolors, optiontexts, m, filtered_indices)
+    n = length(optionstrings[])
+    resize!(optionpolycolors.val, n)
+    map!(optionpolycolors.val, 1:n) do idx
+        global_idx = filtered_indices[][idx]
+        if global_idx == m.i_selected[]
+            return m.cell_color_active[]
+        elseif idx == hovered
+            return m.cell_color_hover[]
+        else
+            if iseven(idx)
+                m.cell_color_inactive_even[]
+            else
+                m.cell_color_inactive_odd[]
+            end
+        end
+    end
+    optiontexts.color = _option_text_colors(hovered, optionstrings[], m, filtered_indices)
+    return notify(optionpolycolors)
+end
+
+function _pick_entry(y, menuscene, list_y_bounds)
+    # determine which rectangle in the list the mouse is in
+    # we do this geometrically and not by picking because it's hard to calculate the index
+    # of the text from the picking value returned
+    # translation due to scrolling has to be removed first
+    ytrans = y - translation(menuscene)[][2]
+    return argmin(
+        i -> abs(ytrans - 0.5 * (list_y_bounds[][i + 1] + list_y_bounds[][i])),
+        1:(length(list_y_bounds[]) - 1)
+    )
+end
+
+function _mouse_up(butt, was_pressed)
+    if butt.button == Mouse.left
+        if butt.action == Mouse.press
+            was_pressed[] = true
+            return false
+        elseif butt.action == Mouse.release && was_pressed[]
+            was_pressed[] = false
+            return true
+        end
+    end
+    was_pressed[] = false
+    return false
+end
+
+function initialize_block!(m::Menu; default = 1)
+    blockscene = m.blockscene
+
+    search_text = Observable("")
+
+    listheight = Observable(0.0; ignore_equal_values = true)
+    # the direction is auto-chosen as up if there is too little space below and if the space below
+    # is smaller than above
+    _direction = Observable{Symbol}(:none; ignore_equal_values = true)
+
+    map!(blockscene, _direction, m.layoutobservables.computedbbox, m.direction) do bb, dir
+        if dir == Makie.automatic
+            pxa = viewport(blockscene)[]
+            bottomspace = abs(bottom(pxa) - bottom(bb))
+            topspace = abs(top(pxa) - top(bb))
+            # slight preference for down
+            if bottomspace >= listheight[] || bottomspace > topspace
+                return :down
+            else
+                return :up
+            end
+        else
+            return dir::Symbol
+        end
+    end
+
+    scenearea = Observable(Rect2i(0, 0, 0, 0), ignore_equal_values = true)
+    map!(
+        blockscene, scenearea, m.layoutobservables.computedbbox, listheight, _direction, m.is_open;
+        update = true
+    ) do bbox, h, d, open
+        if open
+            return round_to_IRect2D(
+                BBox(
+                    left(bbox),
+                    right(bbox),
+                    d === :down ? max(0, bottom(bbox) - h) : top(bbox),
+                    d === :down ? bottom(bbox) : min(top(bbox) + h, top(blockscene.viewport[]))
+                )
+            )
+        else
+            # If the scene is not visible the scene placement and size does not
+            # matter for rendering. We still need to set the size to 0 for
+            # interactions though.
+            return Rect2i(0, 0, 0, 0)
+        end
+    end
+
+    menuscene = Scene(blockscene, scenearea, camera = campixel!, clear = true, visible = m.is_open)
+    translate!(menuscene, 0, 0, 200)
+
+    onany(blockscene, scenearea, listheight) do area, listheight
+        t = translation(menuscene)[]
+        y = t[2]
+        new_y = max(min(0, y), height(area) - listheight)
+        translate!(menuscene, t[1], new_y, t[3])
+    end
+
+    optionstrings_all = lift(o -> optionlabel.(o), blockscene, m.options; ignore_equal_values = true)
+
+    filtered_indices = lift(blockscene, optionstrings_all, search_text, m.filter; ignore_equal_values = true) do strings, query, filter_fn
+        isempty(query) ? collect(eachindex(strings)) : findall(s -> filter_fn(query, s)::Bool, strings)
+    end
+
+    optionstrings = lift(blockscene, optionstrings_all, filtered_indices) do strings, idx
+        strings[idx]
+    end
+
+    selected_text = lift(blockscene, m.prompt, m.i_selected; ignore_equal_values = true) do prompt, i_selected
+        if i_selected == 0 || i_selected > length(optionstrings_all[])
+            prompt
+        else
+            optionstrings_all[][i_selected]
+        end
+    end
+
+    selectionarea = Observable(Rect2d(0, 0, 0, 0); ignore_equal_values = true)
+
+    button_hovered = Observable(false)
+    selectionpoly_color = lift(
+        blockscene, button_hovered, m.is_open,
+        m.selection_cell_color_inactive, m.cell_color_hover
+    ) do hovered, is_open, inactive, hover
+        return (hovered && !is_open) ? hover : inactive
+    end
+    selectionpoly = poly!(
+        blockscene, selectionarea, color = selectionpoly_color;
+        inspectable = false
+    )
+    selectiontextpos = Observable(Point2f(0, 0); ignore_equal_values = true)
+
+    # State tracking for the in-place editor
+    displayed_string = Observable("")
+    selection_focused = Observable(false)
+
+    # Sync displayed text to current selection when closed
+    on(blockscene, selected_text; update = true) do st
+        if !m.is_open[]
+            displayed_string[] = st
+        end
+    end
+
+    # Handle menu open/close transitions
+    on(blockscene, m.is_open) do open
+        if open
+            if m.searchable[]
+                displayed_string[] = "" # Clear text so we start fresh with filtering
+                selection_focused[] = true
+            end
+        else
+            if m.searchable[]
+                selection_focused[] = false
+                search_text[] = ""
+            end
+            displayed_string[] = selected_text[]
+        end
+    end
+
+    # Pipe user keystrokes into search query
+    on(blockscene, displayed_string) do s
+        if m.is_open[] && m.searchable[]
+            search_text[] = s
+        end
+    end
+
+    # The in-place editable text plot
+    selectiontext = editabletext!(
+        blockscene, displayed_string;
+        position = selectiontextpos,
+        align = (:left, :center),
+        focused = selection_focused,
+        color = m.textcolor,
+        fontsize = m.fontsize,
+        cursor_color = m.textcolor,
+        space = :pixel,
+        multiline = false,
+        manage_focus = false,
+        on_submit = (text) -> begin
+            m.is_open[] = false
+        end,
+    )
+    # Sync typing edits back to displayed_string
+    on(blockscene, selectiontext[1]) do t
+        if displayed_string[] != t
+            displayed_string[] = t
+        end
+    end
+
+    # A nice in-place placeholder for the search query
+    placeholder_visible = lift(blockscene, m.is_open, displayed_string) do open, s
+        return open && m.searchable[] && isempty(s)
+    end
+
+    placeholder_text = text!(
+        blockscene, selectiontextpos, text = m.search_placeholder, align = (:left, :center),
+        fontsize = m.fontsize,
+        color = lift(c -> to_color((c, 0.4f0)), blockscene, m.textcolor),
+        visible = placeholder_visible, inspectable = false
+    )
+    translate!(placeholder_text, 0, 0, 1)
+
+    onany(blockscene, selected_text, m.fontsize, m.textpadding) do _, _, (l, r, b, t)
+        bb = boundingbox(selectiontext, :data)
+        m.layoutobservables.autosize[] = width(bb) + l + r, height(bb) + b + t
+    end
+    notify(selected_text)
+
+    on(blockscene, m.layoutobservables.computedbbox) do cbb
+        selectionarea[] = Rect2d(origin(cbb), widths(cbb))
+        ch = height(cbb)
+        selectiontextpos[] = cbb.origin + Point2f(m.textpadding[][1], ch / 2)
+    end
+
+    textpositions = Observable(zeros(Point2f, length(optionstrings[])); ignore_equal_values = true)
+
+    optionrects = Observable([Rect2d(0, 0, 0, 0)]; ignore_equal_values = true)
+    optionpolycolors = Observable(RGBAf[RGBAf(0.5, 0.5, 0.5, 1)]; ignore_equal_values = true)
+
+    # the y boundaries of the list rectangles
+    list_y_bounds = Ref(Float32[])
+
+    optionpolys = poly!(menuscene, optionrects, color = optionpolycolors, inspectable = false)
+
+    optiontexts = text!(
+        menuscene, textpositions, text = optionstrings[], align = (:left, :center),
+        fontsize = m.fontsize, color = _option_text_colors(0, optionstrings[], m, filtered_indices),
+        inspectable = false
+    )
+
+    # band-aid fix for resizing before display. Texts and their colors have to be set in
+    # one update because computing the glyphs errors while the two have different lengths
+    on(optionstrings) do strings
+        N = length(strings)
+        if N != length(textpositions[])
+            resize!(textpositions[], N)
+            notify(textpositions)
+        end
+        update!(optiontexts, text = strings, color = _option_text_colors(0, strings, m, filtered_indices))
+        return
+    end
+
+    # listheight needs to be up to date before showing the menuscene so that its
+    # direction is correct
+    gc_heights = map(blockscene, fast_string_boundingboxes_obs(optiontexts), m.textpadding) do bbs, pad
+        heights = map(size -> size[2] + pad[3] + pad[4], widths.(bbs))
+        h = sum(heights)
+        listheight[] = h
+        return (heights, h)
+    end
+
+    onany(blockscene, gc_heights, scenearea) do (heights, h), bbox
+        # No need to update when the scene is hidden
+        widths(bbox) == Vec2i(0) && return
+
+        pad = m.textpadding[] # gc_heights triggers on padding, so we don't need to react to it
+        # listheight[] = h
+
+        heights_cumsum = [zero(eltype(heights)); cumsum(heights)]
+        list_y_bounds[] = h .- heights_cumsum
+        texts_y = @views h .- 0.5 .* (heights_cumsum[1:(end - 1)] .+ heights_cumsum[2:end])
+        textpositions[] = Point2f.(pad[1], texts_y)
+        w_bbox = width(bbox)
+        # need to manipulate the vectors themselves, otherwise update errors when lengths change
+        resize!(optionrects.val, length(heights))
+
+        optionrects.val .= map(eachindex(heights)) do i
+            BBox(0, w_bbox, h - heights_cumsum[i + 1], h - heights_cumsum[i])
+        end
+
+        _update_option_colors!(0, optionstrings, optionpolycolors, optiontexts, m, filtered_indices)
+        notify(optionrects)
+        return
+    end
+    notify(optionstrings)
+
+
+    was_inside_options = Ref(false)
+    was_inside_button = Ref(false)
+
+    e = menuscene.events
+
+    # Up events are notoriusly hard,
+    # especially if we want to react only to presses that went down inside an element & went up inside
+    # was pressed needs to be tracked per item, and also needs to be invalidated outside `mouse_up`
+    # which makes the state handling especially annoying
+    # TODO, move this back to mousestatemachine, which does exactly this
+    was_pressed_options = Ref(false)
+    was_pressed_button = Ref(false)
+
+    onany(blockscene, e.mouseposition, e.mousebutton; priority = 64) do position, butt
+        mp = screen_relative(menuscene, position)
+        # track if we have been inside menu/options to clean up if we haven't been
+        is_over_options = false
+        is_over_button = false
+        is_inside_menuscene = false
+        consume = false
+
+        if Makie.is_mouseinside(menuscene) # the whole scene containing all options
+            is_inside_menuscene = true
+            # Is inside the expanded menu selection (the polys cover the whole
+            # selectable area and are in pixel space relative to menuscene)
+            if any(r -> mp in r, optionpolys[1][])
+                is_over_options = true
+                was_inside_options[] = true
+                # we either clicked on an item or hover it
+                if _mouse_up(butt, was_pressed_options) # PRESSED
+                    m.i_selected[] = filtered_indices[][_pick_entry(mp[2], menuscene, list_y_bounds)]
+                    m.is_open[] = false
+                else # HOVER
+                    idx_hovered = _pick_entry(mp[2], menuscene, list_y_bounds)
+                    _update_option_colors!(idx_hovered, optionstrings, optionpolycolors, optiontexts, m, filtered_indices)
+                end
+            else
+                # If not inside anymore, invalidate was_pressed
+                was_pressed_options[] = false
+            end
+            consume = true
+        else
+            # If not inside menuscene, we check the state for the menu button
+            # (use position because selectionpoly is in blockscene)
+            if position in selectionpoly.converted[][1]
+                # If over, we either click it to open/close the menu, or we just hover it
+                is_over_button = true
+                was_inside_button[] = true
+                if _mouse_up(butt, was_pressed_button) # PRESSED
+                    if m.is_open[]
+                        # If searchable, clicking inside the box shouldn't close the menu,
+                        # so that the user can click to reposition the cursor/select text.
+                        if !m.searchable[]
+                            m.is_open[] = false
+                        end
+                    else
+                        m.is_open[] = true
+                        t = translation(menuscene)[]
+                        y_for_top_align = height(menuscene.viewport[]) - listheight[]
+                        translate!(menuscene, t[1], y_for_top_align, t[3])
+                    end
+                    consume = true
+                else # HOVER
+                    button_hovered[] = true
+                end
+            else
+                # If not inside anymore, invalidate was_pressed
+                was_pressed_button[] = false
+            end
+        end
+        # Make sure we clean up all was_pressed states, if mouse got released
+        if butt.action == Mouse.release
+            was_pressed_options[] = false
+            was_pressed_button[] = false
+        end
+
+        # clean up hovers if we're outside
+        if !is_over_options && was_inside_options[] # going from being inside to outside
+            was_inside_options[] = false
+            _update_option_colors!(0, optionstrings, optionpolycolors, optiontexts, m, filtered_indices)
+        end
+        if !is_over_button && was_inside_button[]
+            was_inside_button[] = false
+            button_hovered[] = false
+        end
+        # if mouse got over anything else, we close the menu
+        if !is_over_button && !is_inside_menuscene && butt.button == Mouse.left && butt.action == Mouse.press
+            m.is_open[] = false
+        end
+
+        return Consume(consume)
+    end
+
+    on(blockscene, menuscene.events.scroll; priority = 61) do (x, y)
+        if is_mouseinside(menuscene)
+            t = translation(menuscene)[]
+            # Hack to differentiate mousewheel and trackpad scrolling
+            step = m.scroll_speed[] * y
+            new_y = max(min(t[2] - step, 0), height(menuscene.viewport[]) - listheight[])
+            translate!(menuscene, t[1], new_y, t[3])
+            return Consume(true)
+        else
+            return Consume(false)
+        end
+    end
+
+    on(blockscene, m.options) do options
+        # Make sure i_selected is on a valid index when the contentgrid updates
+        old_selection = m.selection[]
+        old_selected_text = selected_text[]
+        should_search = m.i_selected[] > 0
+        m.i_selected.val = 0
+
+        new_i = 0 # default to nothing selected
+        # if there is a current selection, check if it still exists in the new options
+        if should_search
+            for (i, o) in enumerate(options)
+                # if one of the new options is equivalent to the old options, we choose it for continuity
+                if old_selection == optionvalue(o) && old_selected_text == optionlabel(o)
+                    new_i = i
+                    break
+                end
+            end
+        end
+
+        # trigger eventual selection actions
+        m.i_selected[] = new_i
+    end
+    symbol_pos = lift(blockscene, selectionarea, m.textpadding) do sa, tp
+        return mean(rightline(sa)) - Point2f(tp[2], 0)
+    end
+    dropdown_arrow = scatter!(
+        blockscene, symbol_pos;
+        marker = lift(iso -> iso ? :utriangle : :dtriangle, blockscene, m.is_open),
+        markersize = m.dropdown_arrow_size,
+        color = m.dropdown_arrow_color,
+        strokecolor = :transparent,
+        inspectable = false
+    )
+
+    translate!(dropdown_arrow, 0, 0, 1)
+
+    on(blockscene, m.i_selected) do i
+        if i == 0
+            m.selection[] = nothing
+        else
+            # collect in case options is a zip or other generator without indexing
+            option = collect(m.options[])[i]
+
+            # only update the selection value if the new value is actually different
+            # this is because i_selected can also be changed when the options themselves
+            # are mutated, and there could still be the same option in the list
+            # just at a different place, so that should not trigger a selection
+            newvalue = optionvalue(option)
+            if m.selection[] != newvalue
+                m.selection[] = newvalue
+            end
+        end
+    end
+
+    if default === nothing
+        m.i_selected[] = 0
+    elseif default isa Integer
+        Base.checkbounds(optionstrings[], default)
+        m.i_selected[] = default
+    else
+        i = findfirst(x -> x == default, optionstrings[])
+        if i === nothing
+            error("Initial menu selection was set to $(default) but that was not found in the option names.")
+        end
+        m.i_selected[] = i
+    end
+    notify(m.is_open)
+
+    # trigger bbox
+    notify(m.layoutobservables.suggestedbbox)
+
+    return
+end
+
+function optionlabel(option)
+    return string(option)
+end
+
+function optionlabel(option::Tuple{Any, Any})
+    return string(option[1])
+end
+
+function optionvalue(option)
+    return option
+end
+
+function optionvalue(option::Tuple{Any, Any})
+    return option[2]
+end

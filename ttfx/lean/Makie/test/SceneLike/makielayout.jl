@@ -1,0 +1,1160 @@
+using InteractiveUtils: subtypes
+
+# Minimal sanity checks for Makie Layout
+@testset "Blocks constructors" begin
+    fig = Figure()
+    ax = Axis(fig[1, 1])
+    cb = Colorbar(fig[1, 2])
+    gl2 = fig[2, :] = Makie.GridLayout()
+    bu = gl2[1, 1] = Button(fig)
+    sl = gl2[1, 2] = Slider(fig)
+
+    scat = scatter!(ax, rand(10))
+    le = gl2[1, 3] = Legend(fig, [scat], ["scatter"])
+
+    to = gl2[1, 4] = Toggle(fig)
+    te = fig[0, :] = Label(fig, "A super title")
+    me = fig[end + 1, :] = Menu(fig, options = ["one", "two", "three"])
+    tb = fig[end + 1, :] = Textbox(fig)
+    is = fig[end + 1, :] = IntervalSlider(fig)
+    @test true
+end
+
+@testset "Searchable Menu" begin
+    fig = Figure()
+    m = Menu(fig[1, 1], options = ["Apple", "Apricot", "Banana"], searchable = true)
+    @test m.selection[] === "Apple"
+    m.i_selected[] = 2
+    @test m.selection[] == "Apricot"
+    # option mutation preserves selection by value+label
+    m.options[] = ["Banana", "Apricot", "Cherry"]
+    @test m.i_selected[] == 2
+    @test m.selection[] == "Apricot"
+    # custom filter attribute is honored
+    m2 = Menu(
+        fig[1, 2], options = ["sin", "sinh", "cos"], searchable = true,
+        filter = (q, s) -> startswith(s, q)
+    )
+    @test m2.filter[]("sin", "sinh") == true
+    @test m2.filter[]("sinh", "sin") == false
+end
+
+@testset "Searchable Menu filtering" begin
+    fig = Figure()
+    m = Menu(fig[1, 1], options = ["Apple", "Apricot", "Banana"], searchable = true)
+    Makie.update_state_before_display!(fig)
+    e = events(fig)
+
+    bbox = m.layoutobservables.computedbbox[]
+    e.mouseposition[] = Tuple(Point2d(Makie.origin(bbox) .+ widths(bbox) ./ 2))
+    e.mousebutton[] = Makie.MouseButtonEvent(Mouse.left, Mouse.press)
+    e.mousebutton[] = Makie.MouseButtonEvent(Mouse.left, Mouse.release)
+
+    optiontexts = m.blockscene.children[1].plots[2]::Makie.Text
+    e.unicode_input[] = 'p'
+    @test optiontexts.text[] == ["Apple", "Apricot"]
+    @test length(optiontexts.color[]) == 2
+
+    e.keyboardbutton[] = Makie.KeyEvent(Keyboard.backspace, Keyboard.press)
+    e.keyboardbutton[] = Makie.KeyEvent(Keyboard.backspace, Keyboard.release)
+    @test optiontexts.text[] == ["Apple", "Apricot", "Banana"]
+    @test length(optiontexts.color[]) == 3
+
+    m.i_selected[] = 2
+    e.unicode_input[] = 'p'
+    @test optiontexts.text[] == ["Apple", "Apricot"]
+    e.mouseposition[] = (1.0, 1.0)
+    e.mousebutton[] = Makie.MouseButtonEvent(Mouse.left, Mouse.press)
+    e.mousebutton[] = Makie.MouseButtonEvent(Mouse.left, Mouse.release)
+    @test !m.is_open[]
+    @test m.i_selected[] == 2
+    @test m.selection[] == "Apricot"
+    @test optiontexts.text[] == ["Apple", "Apricot", "Banana"]
+end
+
+@testset "Menu option text colors" begin
+    fig = Figure()
+    m = Menu(fig[1, 1], options = ["a", "b", "c"], default = "b", textcolor_hover = :red)
+    Makie.update_state_before_display!(fig)
+    e = events(fig)
+
+    bbox = m.layoutobservables.computedbbox[]
+    e.mouseposition[] = Tuple(Point2d(Makie.origin(bbox) .+ widths(bbox) ./ 2))
+    e.mousebutton[] = Makie.MouseButtonEvent(Mouse.left, Mouse.press)
+    e.mousebutton[] = Makie.MouseButtonEvent(Mouse.left, Mouse.release)
+
+    menuscene = m.blockscene.children[1]
+    optionpolys = menuscene.plots[1]::Poly
+    optiontexts = menuscene.plots[2]::Makie.Text
+    @test optiontexts.color[] == to_color.([:black, :white, :black])
+
+    option = optionpolys.converted[][1][3]
+    e.mouseposition[] = Tuple(Point2d(Makie.origin(option) .+ widths(option) ./ 2 .+ Makie.origin(viewport(menuscene)[])))
+    @test optiontexts.color[] == to_color.([:black, :white, :red])
+end
+
+@testset "Menu selection box hover color" begin
+    fig = Figure()
+    m = Menu(fig[1, 1], options = ["a", "b", "c"], selection_cell_color_inactive = :red, cell_color_hover = :orange)
+    Makie.update_state_before_display!(fig)
+    selectionpoly = m.blockscene.plots[1]::Poly
+    e = events(fig)
+    click() = (
+        e.mousebutton[] = Makie.MouseButtonEvent(Mouse.left, Mouse.press);
+        e.mousebutton[] = Makie.MouseButtonEvent(Mouse.left, Mouse.release)
+    )
+
+    bbox = m.layoutobservables.computedbbox[]
+    e.mouseposition[] = Tuple(Point2d(Makie.origin(bbox) .+ widths(bbox) ./ 2))
+    @test to_color(selectionpoly.color[]) == to_color(:orange)
+
+    click()
+    @test m.is_open[]
+    @test to_color(selectionpoly.color[]) == to_color(:red)
+
+    menuscene = m.blockscene.children[1]
+    option = menuscene.plots[1].converted[][1][2]
+    e.mouseposition[] = Tuple(Point2d(Makie.origin(option) .+ widths(option) ./ 2 .+ Makie.origin(viewport(menuscene)[])))
+    @test to_color(selectionpoly.color[]) == to_color(:red)
+
+    click()
+    @test !m.is_open[]
+    @test m.selection[] == "b"
+    @test to_color(selectionpoly.color[]) == to_color(:red)
+end
+
+@testset "Generic Block functionality" begin
+    for T in subtypes(Makie.Block)
+        T === Makie.AbstractAxis && continue
+        @test propertynames(T) isa Vector{Symbol}
+    end
+end
+
+@testset "deleting from axis" begin
+    f = Figure()
+    ax = Axis(f[1, 1])
+    sc = scatter!(ax, randn(100, 2))
+    li = lines!(ax, randn(100, 2))
+    hm = heatmap!(ax, randn(20, 20))
+    # axis contains 3 plots
+    @test length(ax.scene.plots) == 3
+    delete!(ax, sc)
+    @test length(ax.scene.plots) == 2
+    @test sc ∉ ax.scene.plots
+    empty!(ax)
+    @test isempty(ax.scene.plots)
+end
+
+@testset "zero heatmap" begin
+    xs = LinRange(0, 20, 10)
+    ys = LinRange(0, 15, 10)
+    zs = zeros(length(xs), length(ys))
+
+    fig = Figure()
+    _, hm = heatmap(fig[1, 1], xs, ys, zs)
+    cb = Colorbar(fig[1, 2], hm)
+
+    @test hm.scaled_colorrange[] == Vec(-0.5, 0.5)
+    @test cb.limits[] == Vec(-0.5, 0.5)
+
+    hm.colorrange = Float32.((-1, 1))
+    @test cb.limits[] == Vec(-1, 1)
+
+    # TODO: This doesn't work anymore because colorbar doesn't use the same observable
+    # cb.limits[] = Float32.((-2, 2))
+    # @test hm.attributes[:colorrange][] == (-2, 2)
+end
+
+@testset "Axis limits basics" begin
+    f = Figure()
+    ax = Axis(f[1, 1], limits = (nothing, nothing))
+    ax.targetlimits[] = BBox(0, 10, 0, 20)
+    @test ax.finallimits[] == BBox(0, 10, 0, 20)
+    @test ax.limits[] == (nothing, nothing)
+    xlims!(ax, -10, 10)
+    @test ax.limits[] == ((-10, 10), nothing)
+    @test ax.finallimits[] == BBox(-10, 10, 0, 20)
+    ylims!(ax, -20, 30)
+    @test ax.limits[] == ((-10, 10), (-20, 30))
+    @test ax.finallimits[] == BBox(-10, 10, -20, 30)
+    limits!(ax, -5, 5, -10, 10)
+    @test ax.finallimits[] == BBox(-5, 5, -10, 10)
+    @test ax.limits[] == ((-5, 5), (-10, 10))
+    ax.limits[] = (nothing, nothing)
+    ax.xautolimitmargin = (0, 0)
+    ax.yautolimitmargin = (0, 0)
+    scatter!(Point2f[(0, 0), (1, 2)])
+    reset_limits!(ax)
+    @test ax.limits[] == (nothing, nothing)
+    @test ax.targetlimits[] == BBox(0, 1, 0, 2)
+    @test ax.finallimits[] == BBox(0, 1, 0, 2)
+    scatter!(Point2f(3, 4))
+    reset_limits!(ax)
+    @test ax.limits[] == (nothing, nothing)
+    @test ax.targetlimits[] == BBox(0, 3, 0, 4)
+    @test ax.finallimits[] == BBox(0, 3, 0, 4)
+    limits!(ax, -1, 1, 0, 2)
+    @test ax.limits[] == ((-1, 1), (0, 2))
+    @test ax.targetlimits[] == BBox(-1, 1, 0, 2)
+    @test ax.finallimits[] == BBox(-1, 1, 0, 2)
+    scatter!(Point2f(5, 6))
+    reset_limits!(ax)
+    @test ax.limits[] == ((-1, 1), (0, 2))
+    @test ax.targetlimits[] == BBox(-1, 1, 0, 2)
+    @test ax.finallimits[] == BBox(-1, 1, 0, 2)
+    autolimits!(ax)
+    @test ax.limits[] == (nothing, nothing)
+    @test ax.targetlimits[] == BBox(0, 5, 0, 6)
+    @test ax.finallimits[] == BBox(0, 5, 0, 6)
+    xlims!(ax, [-10, 10])
+    @test ax.limits[] == ([-10, 10], nothing)
+    @test ax.targetlimits[] == BBox(-10, 10, 0, 6)
+    @test ax.finallimits[] == BBox(-10, 10, 0, 6)
+    scatter!(Point2f(11, 12))
+    reset_limits!(ax)
+    @test ax.limits[] == ([-10, 10], nothing)
+    @test ax.targetlimits[] == BBox(-10, 10, 0, 12)
+    @test ax.finallimits[] == BBox(-10, 10, 0, 12)
+    autolimits!(ax)
+    ylims!(ax, [5, 7])
+    @test ax.limits[] == (nothing, [5, 7])
+    @test ax.targetlimits[] == BBox(0, 11, 5, 7)
+    @test ax.finallimits[] == BBox(0, 11, 5, 7)
+    scatter!(Point2f(-5, -7))
+    reset_limits!(ax)
+    @test ax.limits[] == (nothing, [5, 7])
+    @test ax.targetlimits[] == BBox(-5, 11, 5, 7)
+    @test ax.finallimits[] == BBox(-5, 11, 5, 7)
+    @test_throws MethodError limits!(f[1, 1], -1, 1, -1, 1)
+end
+
+# issue 3240
+@testset "Axis limits 4-tuple" begin
+    fig = Figure()
+    ax = Axis(fig[1, 1], limits = (0, 600, 0, 15))
+    xlims!(ax, 100, 400)
+    @test ax.limits[] == ((100, 400), (0, 15))
+    xlims!()
+    @test ax.limits[] == ((nothing, nothing), (0, 15))
+
+    ax = Axis(fig[1, 1], limits = (0, 600, 0, 15))
+    ylims!(ax, 1, 13)
+    @test ax.limits[] == ((0, 600), (1, 13))
+    ylims!()
+    @test ax.limits[] == ((0, 600), (nothing, nothing))
+
+    ax = Axis(fig[1, 1], limits = (0, 600, 0, 15))
+    limits!(ax, 350, 700, 2, 14)
+    @test ax.limits[] == ((350, 700), (2, 14))
+end
+
+@testset "Axis3 limits 6-tuple" begin
+    fig = Figure()
+    ax = Axis3(fig[1, 1], limits = (0, 1, 0, 2, 0, 3))
+    xlims!(ax, 1, 2)
+    @test ax.limits[] == ((1, 2), (0, 2), (0, 3))
+    xlims!()
+    @test ax.limits[] == ((nothing, nothing), (0, 2), (0, 3))
+
+    ax = Axis3(fig[1, 1], limits = (0, 1, 0, 2, 0, 3))
+    ylims!(ax, 1, 3)
+    @test ax.limits[] == ((0, 1), (1, 3), (0, 3))
+    ylims!()
+    @test ax.limits[] == ((0, 1), (nothing, nothing), (0, 3))
+
+    ax = Axis3(fig[1, 1], limits = (0, 1, 0, 2, 0, 3))
+    zlims!(ax, 1, 5)
+    @test ax.limits[] == ((0, 1), (0, 2), (1, 5))
+    zlims!()
+    @test ax.limits[] == ((0, 1), (0, 2), (nothing, nothing))
+end
+
+function Base.isapprox(a::Makie.Plane, b::Makie.Plane; kwargs...)
+    return isapprox(a.normal, b.normal; kwargs...) && isapprox(a.distance, b.distance; kwargs...)
+end
+
+@testset "Axis3 plot clip" begin
+    f = Figure()
+    ax3 = Axis3(f[1, 1])
+    sc = scatter!(ax3, Rect3f(0, 0, 0, 1, 1, 1))
+    expected = [
+        Plane3f(Vec3f(1, 0, 0), -1), Plane3f(Vec3f(0, 1, 0), -1), Plane3f(Vec3f(0, 0, 1), -2 / 3),
+        Plane3f(Vec3f(-1, 0, 0), -1), Plane3f(Vec3f(0, -1, 0), -1), Plane3f(Vec3f(0, 0, -1), -2 / 3),
+    ]
+    @test all(ax3.scene.theme.clip_planes[] .≈ expected)
+    # check plot init
+    @test all(sc.clip_planes[] .≈ expected)
+
+    # check update
+    ax3.aspect[] = :data
+    expected = [
+        Plane3f(Vec3f(1, 0, 0), -1), Plane3f(Vec3f(0, 1, 0), -1), Plane3f(Vec3f(0, 0, 1), -1),
+        Plane3f(Vec3f(-1, 0, 0), -1), Plane3f(Vec3f(0, -1, 0), -1), Plane3f(Vec3f(0, 0, -1), -1),
+    ]
+    @test all(ax3.scene.theme.clip_planes[] .≈ expected)
+    @test all(sc.clip_planes[] .≈ expected)
+end
+
+@testset "Axis limits intervals" begin
+    fig = Figure()
+    ax = Axis(fig[1, 1], limits = (0 .. 600, 0 .. 15))
+    xlims!(ax, 100 .. 400)
+    @test ax.limits[] == ((100, 400), (0, 15))
+    ylims!(ax, 1 .. 13)
+    @test ax.limits[] == ((100, 400), (1, 13))
+    limits!(ax, 1 .. 3, 1 .. 2)
+    @test ax.limits[] == ((1, 3), (1, 2))
+    ax3 = Axis3(fig[1, 1], limits = (0 .. 1, 0 .. 2, 0 .. 3))
+    xlims!(ax3, 10 .. 20)
+    zlims!(ax3, 1 .. 2)
+    @test ax3.limits[] == ((10, 20), (0, 2), (1, 2))
+end
+
+@testset "Colorbar plot object kwarg clash" begin
+    for attr in (:colormap, :limits)
+        f, ax, p = scatter(1:10, 1:10, color = 1:10, colorrange = (1, 10))
+        Colorbar(f[2, 1], p)
+        @test_throws ErrorException Colorbar(f[2, 1], p; Dict(attr => nothing)...)
+    end
+
+    for attr in (:colormap, :limits, :highclip, :lowclip)
+        for F in (heatmap, contourf)
+            f, ax, p = F(1:10, 1:10, randn(10, 10))
+            Colorbar(f[1, 2], p)
+            @test_throws ErrorException Colorbar(f[1, 3], p; Dict(attr => nothing)...)
+        end
+    end
+end
+
+@testset "Tick functions" begin
+    automatic = Makie.automatic
+    Automatic = Makie.Automatic
+
+    get_ticks = Makie.get_ticks
+    get_tickvalues = Makie.get_tickvalues
+    get_ticklabels = Makie.get_ticklabels
+
+    for func in [identity, log, log2, log10, Makie.logit]
+        tup = ([1, 2, 3], ["a", "b", "c"])
+        @test get_ticks(tup, func, automatic, 0, 5) == tup
+
+        rng = 1:5
+        @test get_ticks(rng, func, automatic, 0, 5) == ([1, 2, 3, 4, 5], ["1", "2", "3", "4", "5"])
+
+        numbers = [1.0, 1.5, 2.0]
+        @test get_ticks(numbers, func, automatic, 0, 5) == (numbers, ["1.0", "1.5", "2.0"])
+
+        @test get_ticks(numbers, func, xs -> string.(xs) .* "kg", 0, 5) == (numbers, ["1.0kg", "1.5kg", "2.0kg"])
+
+        @test get_ticks(WilkinsonTicks(5), identity, automatic, 1, 5) == ([1, 2, 3, 4, 5], ["1", "2", "3", "4", "5"])
+    end
+end
+
+@testset "Automatic ticks for pseudolog10" begin
+    automatic = Makie.automatic
+    cases = [
+        (-10.0, 10.0) => (
+            [-10.0, 0.0, 10.0],
+            ["−101", "0", "101"],
+        ),
+        (-100.0, 100.0) => (
+            [-100.0, -10.0, 0.0, 10.0, 100.0],
+            ["−102", "−101", "0", "101", "102"],
+        ),
+        (-1000.0, 1000.0) => (
+            [-1000.0, -100.0, -10.0, 0.0, 10.0, 100.0, 1000.0],
+            ["−103", "−102", "−101", "0", "101", "102", "103"],
+        ),
+        (-1.0e6, 1.0e6) => (
+            [-1.0e6, -1000.0, 0.0, 1000.0, 1.0e6],
+            ["−106", "−103", "0", "103", "106"],
+        ),
+        (0.0, 100.0) => (
+            [0.0, 10.0, 100.0],
+            ["0", "101", "102"],
+        ),
+        (0.0, 10000.0) => (
+            [0.0, 10.0, 100.0, 1000.0, 10000.0],
+            ["0", "101", "102", "103", "104"],
+        ),
+        (-10.0, 1000.0) => (
+            [-10.0, 0.0, 10.0, 100.0, 1000.0],
+            ["−101", "0", "101", "102", "103"],
+        ),
+        (-100.0, 1.0e6) => (
+            [-100.0, 0.0, 100.0, 10000.0, 1.0e6],
+            ["−102", "0", "102", "104", "106"],
+        ),
+        (1.0, 1000.0) => (
+            [1.0, 10.0, 100.0, 1000.0],
+            ["100", "101", "102", "103"],
+        ),
+        (10.0, 1.0e6) => (
+            [10.0, 100.0, 1000.0, 10000.0, 100000.0, 1.0e6],
+            ["101", "102", "103", "104", "105", "106"],
+        ),
+        (-1000.0, -10.0) => (
+            [-1000.0, -100.0, -10.0],
+            ["−103", "−102", "−101"],
+        ),
+        (-1.0e6, -10.0) => (
+            [-1.0e6, -100000.0, -10000.0, -1000.0, -100.0, -10.0],
+            ["−106", "−105", "−104", "−103", "−102", "−101"],
+        ),
+        (0.0, 0.01) => (
+            [0.0, 0.005, 0.01],
+            ["0.000", "0.005", "0.010"],
+        ),
+        (-0.5, 0.5) => (
+            [-0.5, 0.0, 0.5],
+            ["−0.5", "0.0", "0.5"],
+        ),
+        (-100.0, -50.0) => (
+            [-100.0, -90.0, -80.0, -70.0, -60.0, -50.0],
+            ["−100", "−90", "−80", "−70", "−60", "−50"],
+        ),
+        (0.0, 99.0) => (
+            [0.0, 20.0, 40.0, 60.0, 80.0],
+            ["0", "20", "40", "60", "80"],
+        ),
+        # Prime kmax = 7: stride 3 doesn't divide 7 but reaches k = 6 cleanly with 5 ticks,
+        # better than the divisor-only options (s=1 → 15 ticks, s=7 → 3 ticks).
+        (-1.0e7, 1.0e7) => (
+            [-1.0e6, -1000.0, 0.0, 1000.0, 1.0e6],
+            ["−106", "−103", "0", "103", "106"],
+        ),
+        (10.0, 1.0e8) => (
+            [10.0, 1000.0, 100000.0, 1.0e7],
+            ["101", "103", "105", "107"],
+        ),
+    ]
+    for ((lo, hi), (expected_ticks, expected_labels)) in cases
+        ticks, labels = Makie.get_ticks(automatic, Makie.pseudolog10, automatic, lo, hi)
+        @test ticks == expected_ticks
+        @test string.(labels) == expected_labels
+    end
+end
+
+@testset "Automatic ticks for Symlog10" begin
+    automatic = Makie.automatic
+    s10 = Makie.Symlog10(10.0)
+    s100 = Makie.Symlog10(100.0)
+    s5 = Makie.Symlog10(5.0)
+    s_asym = Makie.Symlog10(-5.0, 50.0)
+    s10_ls2 = Makie.Symlog10(-10.0, 10.0; linscale = 2.0)
+
+    cases = [
+        (s10, -100.0, 100.0) => (
+            [-100.0, -10.0, 0.0, 10.0, 100.0],
+            ["−102", "−101", "0", "101", "102"],
+        ),
+        (s10, -1000.0, 1000.0) => (
+            [-1000.0, -100.0, -10.0, 0.0, 10.0, 100.0, 1000.0],
+            ["−103", "−102", "−101", "0", "101", "102", "103"],
+        ),
+        (s10, -1.0e6, 1.0e6) => (
+            [-1.0e6, -1000.0, 0.0, 1000.0, 1.0e6],
+            ["−106", "−103", "0", "103", "106"],
+        ),
+        (s10, 0.0, 1000.0) => (
+            [0.0, 10.0, 100.0, 1000.0],
+            ["0", "101", "102", "103"],
+        ),
+        (s10, -10.0, 10.0) => (
+            [-10.0, -5.0, 0.0, 5.0, 10.0],
+            ["−10", "−5", "0", "5", "10"],
+        ),
+        (s10, 10.0, 1000.0) => (
+            [10.0, 100.0, 1000.0],
+            ["101", "102", "103"],
+        ),
+        (s10, -1000.0, -10.0) => (
+            [-1000.0, -100.0, -10.0],
+            ["−103", "−102", "−101"],
+        ),
+        (s100, -1000.0, 1000.0) => (
+            [-1000.0, 0.0, 1000.0],
+            ["−103", "0", "103"],
+        ),
+        (s5, -100.0, 100.0) => (
+            [-100.0, -10.0, 0.0, 10.0, 100.0],
+            ["−102", "−101", "0", "101", "102"],
+        ),
+        (s_asym, -50.0, 500.0) => (
+            [0.0, 200.0, 400.0],
+            ["0", "200", "400"],
+        ),
+        (s10_ls2, -100.0, 100.0) => (
+            [-100.0, -10.0, 0.0, 10.0, 100.0],
+            ["−102", "−101", "0", "101", "102"],
+        ),
+        (s10, -50.0, 50.0) => (
+            [-10.0, 0.0, 10.0],
+            ["−101", "0", "101"],
+        ),
+    ]
+    for ((scale, lo, hi), (expected_ticks, expected_labels)) in cases
+        ticks, labels = Makie.get_ticks(automatic, scale, automatic, lo, hi)
+        @test ticks == expected_ticks
+        @test string.(labels) == expected_labels
+    end
+end
+
+@testset "PseudologTicks/SymlogTicks n_ideal parameter" begin
+    automatic = Makie.automatic
+
+    auto_t, auto_l = Makie.get_ticks(automatic, Makie.pseudolog10, automatic, -1.0e6, 1.0e6)
+    explicit_t, explicit_l = Makie.get_ticks(PseudologTicks(), Makie.pseudolog10, automatic, -1.0e6, 1.0e6)
+    @test auto_t == explicit_t
+    @test string.(auto_l) == string.(explicit_l)
+
+    sparse_t, _ = Makie.get_ticks(PseudologTicks(3), Makie.pseudolog10, automatic, -1.0e6, 1.0e6)
+    @test sparse_t == [-1.0e6, 0.0, 1.0e6]
+
+    dense_t, _ = Makie.get_ticks(PseudologTicks(15), Makie.pseudolog10, automatic, -1.0e6, 1.0e6)
+    @test dense_t == [
+        -1.0e6, -100000.0, -10000.0, -1000.0, -100.0, -10.0,
+        0.0, 10.0, 100.0, 1000.0, 10000.0, 100000.0, 1.0e6,
+    ]
+
+    sym_auto, _ = Makie.get_ticks(automatic, Makie.Symlog10(10.0), automatic, -1.0e6, 1.0e6)
+    sym_explicit, _ = Makie.get_ticks(SymlogTicks(), Makie.Symlog10(10.0), automatic, -1.0e6, 1.0e6)
+    @test sym_auto == sym_explicit
+end
+
+@testset "Custom formatter applied to pseudolog10/Symlog10 ticks" begin
+    automatic = Makie.automatic
+    formatter = vs -> [string(Int(v)) for v in vs]
+
+    ticks, labels = Makie.get_ticks(automatic, Makie.pseudolog10, formatter, -1000.0, 1000.0)
+    @test ticks == [-1000.0, -100.0, -10.0, 0.0, 10.0, 100.0, 1000.0]
+    @test labels == ["-1000", "-100", "-10", "0", "10", "100", "1000"]
+
+    ticks, labels = Makie.get_ticks(automatic, Makie.Symlog10(10.0), formatter, -1000.0, 1000.0)
+    @test ticks == [-1000.0, -100.0, -10.0, 0.0, 10.0, 100.0, 1000.0]
+    @test labels == ["-1000", "-100", "-10", "0", "10", "100", "1000"]
+end
+
+@testset "Minor tick skip" begin
+    # Verify that minor ticks aren't calculated if they are not needed
+    f, a, _ = scatter(1:10, axis = (xticksmirrored = true,))
+    a.xminortickcolor[] = :red
+    Makie.update_state_before_display!(f)
+    plots = filter(p -> p.color[] == :red, a.blockscene.plots)
+    for p in plots
+        @test isempty(p.args[1][])
+        @test !p.visible[]
+    end
+    a.xminorticksvisible[] = true
+    for p in plots
+        @test !isempty(p.args[1][])
+        @test p.visible[]
+    end
+end
+
+@testset "MultiplesTicks strip_zero" begin
+    default = MultiplesTicks(5, pi, "π")
+    strip = MultiplesTicks(5, pi, "π"; strip_zero = true)
+    no_strip = MultiplesTicks(5, pi, "π"; strip_zero = false)
+
+    @test default == no_strip
+    zero_default = Makie.get_ticks(default, nothing, Makie.Automatic(), -7, 7)[2][3]
+    @test zero_default == "0π"
+    zero_stripped = Makie.get_ticks(strip, nothing, Makie.Automatic(), -7, 7)[2][3]
+    @test zero_stripped == "0"
+end
+
+@testset "Colorbars" begin
+    fig = Figure()
+    hmap = heatmap!(Axis(fig[1, 1]), rand(4, 4))
+    cb1 = Colorbar(fig[1, 2], hmap; height = Relative(0.65))
+    @test cb1.height[] == Relative(0.65)
+    @testset "conversion" begin
+        # https://github.com/MakieOrg/Makie.jl/issues/2278
+        fig = Figure()
+        cbar = Colorbar(fig[1, 1], colormap = :viridis, colorrange = Vec2f(0, 1))
+        ticklabel_strings = first.(cbar.axis.elements[:ticklabels].arg1[])
+        @test ticklabel_strings[1] == "0.0"
+        @test ticklabel_strings[end] == "1.0"
+    end
+    @testset "errors" begin
+        f, ax, pl1 = scatter(rand(10))
+        pl2 = scatter!(ax, rand(10); color = rand(RGBf, 10))
+        pl3 = barplot!(ax, 1:3; colorrange = (0, 1))
+        @test_throws ErrorException Colorbar(f[1, 2], pl1)
+        @test_throws ErrorException Colorbar(f[1, 2], pl2)
+        @test_throws ErrorException Colorbar(f[1, 2], pl3)
+    end
+    @testset "Recipes" begin
+        f, ax, pl = barplot(1:3; color = 1:3)
+        cbar = Colorbar(f[1, 2], pl)
+        @test cbar.limits[] == Vec(1.0, 3.0)
+
+        let data = fill(1.0, 2, 2, 2)
+            data[1] = 3.0
+            f, ax, pl = volumeslices(1:2, 1:2, 1:2, data)
+            cbar = Colorbar(f[1, 2], pl)
+            @test cbar.limits[] == Vec(1.0, 3.0)
+        end
+    end
+end
+
+@testset "cycling" begin
+    fig = Figure()
+    ax = Axis(fig[1, 1], palette = (patchcolor = [:blue, :green],))
+    pl = density!(rand(10); color = Cycled(2))
+    @test pl.color[] === :green
+    pl = density!(rand(10); color = Cycled(1))
+    @test pl.color[] === :blue
+end
+
+@testset "briefly empty ticklabels" begin
+    # issue 2079, for some reason at Axis initialization briefly there would be a zero-element
+    # ticklabel/position array and this would be split into a Vector{Any} for the positions,
+    # triggering a conversion error
+    # So we just check that the same scenario doesn't error again
+    f = Figure()
+    ax = Axis(f[1, 1], xticks = 20:10:80)
+    scatter!(ax, 30:10:100, rand(Float64, 8), color = :red)
+end
+
+# issues 1958 and 2006
+@testset "axislegend number align" begin
+    f = Figure()
+    ax = Axis(f[1, 1], xticks = 20:10:80)
+    lines!(ax, 1:10, label = "A line")
+    leg = axislegend(ax, position = (0.4, 0.8))
+    @test leg.halign[] == 0.4
+    @test leg.valign[] == 0.8
+    @test_nowarn axislegend(ax, "foo")  # issue 2530
+end
+
+# issue 2005
+@testset "invalid plotting function keyword arguments" begin
+    for T in [Axis, Axis3, LScene]
+        f = Figure()
+        kw = (; backgroundcolor = :red)
+        @test_throws ArgumentError lines(f[1, 1], 1:10, figure = kw)
+        @test_nowarn               lines(f[1, 2], 1:10, axis = kw)
+        @test_throws ArgumentError lines(f[1, 3][1, 1], 1:10, figure = kw)
+        @test_nowarn               lines(f[1, 4][1, 2], 1:10, axis = kw)
+        ax = T(f[1, 5])
+        @test_throws ArgumentError lines!(ax, 1:10, axis = kw)
+        @test_throws ArgumentError lines!(ax, 1:10, axis = kw)
+        @test_throws ArgumentError lines!(1:10, axis = kw)
+        @test_throws ArgumentError lines!(1:10, figure = kw)
+        @test_nowarn               lines!(1:10)
+        @test_throws ArgumentError lines!(f[1, 5], 1:10, figure = kw)
+        @test_throws ArgumentError lines!(f[1, 5], 1:10, axis = kw)
+        @test_nowarn               lines!(f[1, 5], 1:10)
+    end
+end
+
+@testset "Linked axes" begin
+    # this tests a bug in 0.17.4 where the first axis targetlimits
+    # don't change because the second axis has limits contained inside those
+    # of the first, so the axis linking didn't proliferate
+    f = Figure()
+    ax1 = Axis(f[1, 1], xautolimitmargin = (0, 0), yautolimitmargin = (0, 0))
+    ax2 = Axis(f[2, 1], xautolimitmargin = (0, 0), yautolimitmargin = (0, 0))
+    scatter!(ax1, 1:5, 2:6)
+    scatter!(ax2, 2:3, 3:4)
+    reset_limits!(ax1)
+    reset_limits!(ax2)
+    @test first.(extrema(ax1.finallimits[])) == (1, 5)
+    @test last.(extrema(ax1.finallimits[])) == (2, 6)
+    @test first.(extrema(ax2.finallimits[])) == (2, 3)
+    @test last.(extrema(ax2.finallimits[])) == (3, 4)
+    linkxaxes!(ax1, ax2)
+    @test first.(extrema(ax1.finallimits[])) == (1, 5)
+    @test last.(extrema(ax1.finallimits[])) == (2, 6)
+    @test first.(extrema(ax2.finallimits[])) == (1, 5)
+    @test last.(extrema(ax2.finallimits[])) == (3, 4)
+    linkyaxes!(ax1, ax2)
+    @test first.(extrema(ax1.finallimits[])) == (1, 5)
+    @test last.(extrema(ax1.finallimits[])) == (2, 6)
+    @test first.(extrema(ax2.finallimits[])) == (1, 5)
+    @test last.(extrema(ax2.finallimits[])) == (2, 6)
+end
+
+# issue 1718
+@testset "Linked axes of linked axes" begin
+    # check that if linking axis A and B, where B has already been linked to C, A and C are also linked
+    f = Figure()
+    ax1 = Axis(f[1, 1])
+    ax2 = Axis(f[1, 2])
+    ax3 = Axis(f[1, 3])
+
+    linkaxes!(ax2, ax3)
+    @test Set(ax1.xaxislinks) == Set([])
+    @test Set(ax2.xaxislinks) == Set([ax3])
+    @test Set(ax3.xaxislinks) == Set([ax2])
+    @test Set(ax1.yaxislinks) == Set([])
+    @test Set(ax2.yaxislinks) == Set([ax3])
+    @test Set(ax3.yaxislinks) == Set([ax2])
+
+    linkaxes!(ax1, ax2)
+    @test Set(ax1.xaxislinks) == Set([ax2, ax3])
+    @test Set(ax2.xaxislinks) == Set([ax1, ax3])
+    @test Set(ax3.xaxislinks) == Set([ax1, ax2])
+    @test Set(ax1.yaxislinks) == Set([ax2, ax3])
+    @test Set(ax2.yaxislinks) == Set([ax1, ax3])
+    @test Set(ax3.yaxislinks) == Set([ax1, ax2])
+end
+
+copy_listeners(obs::Observable) = copy(obs.listeners)
+function iterate_observable_fields(f, x::T) where {T}
+    for (fieldname, fieldtype) in zip(fieldnames(T), fieldtypes(T))
+        fieldtype <: Observable || continue
+        f(fieldname, getfield(x, fieldname))
+    end
+    return
+end
+
+function iterate_attributes(f, a::Attributes, prefix = "")
+    for (key, value) in a
+        if value isa Attributes
+            iterate_attributes(f, value, "$prefix:$key")
+        else
+            f("$prefix:$key", value)
+        end
+    end
+    return
+end
+
+function listener_dict(s::Scene)
+    d = Dict{String, Vector}()
+    iterate_observable_fields(s) do fieldname, field
+        d["$fieldname"] = copy_listeners(field)
+    end
+    iterate_observable_fields(s.events) do fieldname, field
+        d["events:$fieldname"] = copy_listeners(field)
+    end
+    iterate_observable_fields(s.camera) do fieldname, field
+        d["camera:$fieldname"] = copy_listeners(field)
+    end
+    iterate_attributes(s.theme) do prefix, obs
+        d["theme:$prefix"] = copy_listeners(obs)
+    end
+    return d
+end
+
+function dictdiff(before, after)
+    kd = setdiff(keys(before), keys(after))
+    isempty(kd) || error("Mismatching keys: $kd")
+    d = Dict{String, Vector}()
+    for key in keys(after)
+        befset = Set(last.(before[key]))
+        v = filter(after[key]) do (prio, func)
+            func ∉ befset
+        end
+        isempty(v) || (d[key] = v)
+    end
+    return d
+end
+
+function get_difference_dict(blockfunc)
+    s = Scene(camera = campixel!)
+    before = listener_dict(s)
+    block = blockfunc(s)
+    delete!(block)
+    after = listener_dict(s)
+    return dictdiff(before, after)
+end
+
+@testset "Deletion of Blocks" begin
+    blocks = [Axis, Axis3, Slider, Toggle, Label, Button, Menu, Textbox, Box]
+    @testset "$block" for block in blocks
+        d = get_difference_dict(block)
+        @test isempty(d)
+    end
+    @testset "Slidergrid" begin
+        d = get_difference_dict() do scene
+            SliderGrid(
+                scene,
+                (label = "Amplitude", range = 0:0.1:10, startvalue = 5),
+                (label = "Band", type = IntervalSlider, range = 0:0.1:10, startvalues = (2.0, 8.0)),
+                (label = "Frequency", range = 0:0.5:50, format = "{:.1f}Hz", startvalue = 10),
+                (
+                    label = "Phase", range = 0:0.01:2pi,
+                    format = x -> string(round(x / pi, digits = 2), "π"),
+                )
+            )
+        end
+        @test isempty(d)
+    end
+    @testset "Legend" begin
+        d = get_difference_dict() do scene
+            Legend(
+                scene, [
+                    MarkerElement(marker = :cross),
+                    LineElement(),
+                    PolyElement(),
+                ], ["Label 1", "Label 2", "Label 3"]
+            )
+        end
+        @test isempty(d)
+    end
+end
+
+@testset "SliderGrid with IntervalSlider" begin
+    fig = Figure()
+    sg = SliderGrid(
+        fig[1, 1],
+        (label = "Amplitude", range = 0:0.1:10, startvalue = 5.0),
+        (label = "Band", type = IntervalSlider, range = 0:0.1:10, startvalues = (2.0, 8.0)),
+        (label = "Frequency", range = 0:0.5:50, startvalue = 10.0),
+    )
+
+    @test sg.sliders[1] isa Slider
+    @test sg.sliders[2] isa IntervalSlider
+    @test sg.sliders[3] isa Slider
+
+    @test sg.sliders[1].value[] == 5.0
+    @test sg.sliders[2].interval[] == (2.0, 8.0)
+    @test sg.sliders[3].value[] == 10.0
+
+    @test sg.valuelabels[1].text[] == "5.0"
+    @test sg.valuelabels[2].text[] == "(2.0, 8.0)"
+    @test sg.valuelabels[3].text[] == "10.0"
+
+    set_close_to!(sg.sliders[1], 7.5)
+    @test sg.sliders[1].value[] == 7.5
+    @test sg.valuelabels[1].text[] == "7.5"
+
+    set_close_to!(sg.sliders[2], 3.0, 6.0)
+    @test sg.sliders[2].interval[] == (3.0, 6.0)
+    @test sg.valuelabels[2].text[] == "(3.0, 6.0)"
+
+    set_close_to!(sg.sliders[3], 25.0)
+    @test sg.sliders[3].value[] == 25.0
+    @test sg.valuelabels[3].text[] == "25.0"
+end
+
+@testset "Legend with rich text" begin
+    fig = Figure()
+    ax = Axis(fig[1, 1])
+    l1 = lines!(0 .. 2π, sin)
+    @test_nowarn Legend(
+        fig[1, 2],
+        [l1],
+        [rich("some", subscript("entry"))],
+        rich("title", color = :red, font = :bold_italic)
+    )
+end
+
+@testset "Legend for hist with labels" begin
+    f, ax, h = hist(randn(100), bar_labels = :y, label = "My histogram")
+    @test_nowarn axislegend()
+    f
+end
+
+@testset "Legend with plotlists" begin
+    Axis(Figure()[1, 1])
+    plotlist!([Makie.SpecApi.Scatter(1:10)], label = "MyPlot 1")
+    @test_nowarn axislegend()
+
+    plotlist([Makie.SpecApi.Scatter(1:10)], label = "MyPlot 2")
+    @test_nowarn axislegend()
+end
+
+@testset "Legend with empty element" begin
+    f = Figure()
+    @test_nowarn Legend(f[1, 1], [[]], ["No legend elements"])
+end
+
+@testset "Legend data gathering" begin
+    function make_fig(plot_func, args...)
+        f = Figure()
+        ax = Axis(f[1, 1])
+        plot_func(ax, args..., label = "test")
+        Legend(f[1, 2], ax)
+        return f
+    end
+
+    @test make_fig(density!, rand(100)) isa Figure
+    @test make_fig(poly!, Rect2f(0, 0, 1, 1)) isa Figure
+    @test make_fig(band!, rand(3), rand(3), rand(3)) isa Figure
+    @test make_fig(violin!, rand(1:3, 10), rand(10)) isa Figure
+    @test make_fig(boxplot!, rand(1:3, 10), rand(10)) isa Figure
+    @test make_fig(crossbar!, rand(3), rand(3), rand(3) .- 1, rand(3) .+ 1) isa Figure
+    @test make_fig(scatter!, rand(3)) isa Figure
+    @test make_fig(lines!, rand(3)) isa Figure
+    @test make_fig(linesegments!, rand(8)) isa Figure
+end
+
+@testset "Joint legend data gathering" begin
+    f = Figure()
+    ax1 = Axis(f[1, 1])
+    l1a = lines!(ax1, rand(10), label = "test a")
+    l1b = lines!(ax1, rand(10), label = "test b")
+    ax2 = Axis(f[1, 2])
+    l2a = lines!(ax2, rand(10), label = "test a")
+    leg = Legend(f[1, 3], [ax1, ax2], merge = true)
+
+    @test f isa Figure
+    # The joint legend has two entries
+    @test length(leg.entrygroups[][][2]) == 2
+    # The first entry has two linked plots
+    @test length(leg.entrygroups[][][2][1].elements) == 2
+    # The two linked plots are the plots from two different axes
+    @test leg.entrygroups[][][2][1].elements[1].plots[] == l1a
+    @test leg.entrygroups[][][2][1].elements[2].plots[] == l2a
+end
+
+@testset "Legend linecap and joinstyle" begin
+    # The value stored on the LineElement may already be converted by the plot's
+    # compute graph (Int32) or kept as the original Symbol (override path), so
+    # we compare against both possible forms.
+    matches(stored, sym, key) = stored == sym || stored == Makie.convert_attribute(sym, Makie.Key{key}())
+
+    f = Figure()
+    ax = Axis(f[1, 1])
+    lines!(ax, 1:10, label = "a", linecap = :round, joinstyle = :round)
+    linesegments!(ax, [Point2f(0, 0), Point2f(1, 1)], label = "b", linecap = :square)
+    lines!(ax, 1:10, label = "c" => (; linecap = :square, joinstyle = :bevel))
+    leg = Legend(f[1, 2], ax)
+
+    entries = leg.entrygroups[][][2]
+    @test matches(entries[1].elements[1].attributes[:linecap][], :round, :linecap)
+    @test matches(entries[1].elements[1].attributes[:joinstyle][], :round, :joinstyle)
+    @test matches(entries[2].elements[1].attributes[:linecap][], :square, :linecap)
+    @test matches(entries[3].elements[1].attributes[:linecap][], :square, :linecap)
+    @test matches(entries[3].elements[1].attributes[:joinstyle][], :bevel, :joinstyle)
+end
+
+@testset "ReversibleScale" begin
+    @test ReversibleScale(identity).inverse === identity
+    @test ReversibleScale(log).inverse === exp
+    @test ReversibleScale(cbrt).inverse(2) == 8
+    @test_throws ArgumentError ReversibleScale(x -> log10(x))  # missing inverse scale
+    @test_throws ArgumentError ReversibleScale(sqrt, exp10)  # incorrect inverse scale
+end
+
+# @testset "Invalid inverse transform" begin
+#     f = Figure()
+#     @test_throws ArgumentError Colorbar(f[1, 1], limits = (1, 100), scale = x -> log10(x))
+# end
+
+@testset "Colorscales" begin
+    x = 10.0 .^ (1:0.1:4)
+    y = 1.0:0.1:5.0
+    z = broadcast((x, y) -> x, x, y')
+
+    for scale in (
+            Makie.Symlog10(2),
+            Makie.pseudolog10,
+            Makie.AsinhScale(0.1),
+            Makie.SinhScale(1 / 3),
+            Makie.LogScale(1000, ℯ),
+            Makie.LuptonAsinhScale(0.1, 0.01, 0.1),
+            Makie.PowerScale(1),
+        )
+        fig, ax, hm = heatmap(x, y, z; colorscale = scale, axis = (; xscale = scale))
+        Colorbar(fig[1, 2], hm)
+    end
+end
+
+@testset "Axis scale" begin
+    # This just shouldn't error
+    try
+        fig, ax, li = lines(1:10, 1:10)
+        vlines!(ax, 3)
+        hlines!(ax, 3)
+        bp = barplot!(ax, 1 .+ 5 .* rand(10))
+        vspan!(ax, 3, 4)
+        hspan!(ax, 3, 4)
+        bracket!(ax, 1, 1, 2, 2)
+        eb = errorbars!(ax, 1:10, 1:10, [0.3 for _ in 1:10], whiskerwidth = 5)
+        text!(ax, Point2f(2), text = "abba")
+        tooltip!(ax, Point2f(8), "baab")
+        tricontourf!(ax, 1 .+ 4 .* rand(5), 1 .+ 4 .* rand(5), rand(5))
+        qqplot!(ax, 5:10, 1:5)
+        ax.yscale = log10
+        ax.yscale = identity
+        ax.yscale = log10
+        ax.yscale = identity
+        @test true
+    catch e
+        @test false
+        rethrow(e)
+    end
+end
+
+@testset "Block attribute conversion observable cleanup" begin
+    limits = Observable((-1.0, 1.0, -1.0, 1.0))
+    for _ in 1:5
+        fig = Figure()
+        for i in 1:5
+            for j in 1:5
+                ax = Axis(fig[i, j]; limits)
+            end
+        end
+        empty!(fig)
+    end
+    @test isempty(limits.listeners)
+end
+
+@testset "Toggle" begin
+    f = Figure()
+    t = Toggle(f[1, 1])
+    Toggle(f[2, 1], orientation = :vertical)
+    Toggle(f[3, 1], orientation = pi / 4)
+
+    # changing active triggers animation
+    e = events(f)
+    @test length(e.tick.listeners) == 0
+    t.active[] = true
+    @test length(e.tick.listeners) == 1
+    e.tick[] = Makie.Tick(Makie.RegularRenderTick, 1, 1.0, 1.0)
+    @test length(e.tick.listeners) == 0
+end
+
+@testset "Textbox set! & unsafe_set!" begin
+    f = Figure()
+    tb = Textbox(f[1, 1], validator = isequal("hi"))
+    @test isnothing(Makie.set!(tb, "hi"))
+    @test_throws ErrorException Makie.set!(tb, "there")
+    @test isnothing(Makie.unsafe_set!(tb, "there"))
+end
+
+@testset "No user plots in empty axis" begin
+    for T in subtypes(Makie.AbstractAxis)
+        f = Figure()
+        a = T(f[1, 1])
+        if T <: LScene
+            # LScene creates its axis as a single mostly self-managed plot,
+            # rather than a bunch of plots managed by the Block
+            @test length(a.scene.plots) == 1
+        else
+            @test isempty(a.scene.plots)
+        end
+    end
+end
+
+# See Makie#5588
+@testset "Color Updates of interactive elements" begin
+    f = Figure()
+    m = Menu(f[1, 1], options = ['a', 'b'], selection_cell_color_inactive = :red, cell_color_hover = :orange)
+    t = Toggle(f[2, 1], framecolor_inactive = to_color(:red), framecolor_active = to_color(:orange))
+    s = Slider(
+        f[3, 1], range = -100:100,
+        color_inactive = :red, color_active_dimmed = :orange, color_active = :black,
+    )
+    set_close_to!(s, 0)
+    c = Checkbox(
+        f[4, 1],
+        checkboxcolor_unchecked = :red, checkboxcolor_checked = :orange,
+        checkboxstrokecolor_unchecked = :blue, checkboxstrokecolor_checked = :cyan,
+        checkmarkcolor_unchecked = :white, checkmarkcolor_checked = :black,
+    )
+    f
+    Makie.update_state_before_display!(f)
+
+    @testset "Menu" begin
+        p = m.blockscene.plots[1]::Poly
+        @test to_color(p.color[]) == to_color(:red)
+        m.selection_cell_color_inactive = :blue
+        @test to_color(p.color[]) == to_color(:blue)
+
+        events(f).mouseposition[] = (300.0, 275.0)
+        @test to_color(p.color[]) == to_color(:orange)
+        m.cell_color_hover = :green
+        @test to_color(p.color[]) == to_color(:green)
+    end
+
+    @testset "Toggle" begin
+        p = t.blockscene.plots[1]::Poly
+        @test to_color(p.color[]) == to_color(:red)
+        t.framecolor_inactive = to_color(:blue)
+        @test to_color(p.color[]) == to_color(:blue)
+
+        events(f).mouseposition[] = (300.0, 225.0)
+        events(f).mousebutton[] = Makie.MouseButtonEvent(Mouse.left, Mouse.press)
+        events(f).mousebutton[] = Makie.MouseButtonEvent(Mouse.left, Mouse.release)
+        events(f).tick[] = Makie.Tick(Makie.SkippedRenderTick, 1, 0.1, 0.1)
+        events(f).tick[] = Makie.Tick(Makie.SkippedRenderTick, 2, 0.2, 0.1)
+        @test to_color(p.color[]) == to_color(:orange)
+        t.framecolor_active = to_color(:green)
+        @test to_color(p.color[]) == to_color(:green)
+    end
+
+    @testset "Slider" begin
+        p1 = s.blockscene.plots[1]::LineSegments
+        p2 = s.blockscene.plots[2]::Scatter
+        @test to_color(p1.color[]) == to_color([:orange, :red])
+        @test to_color(p2.color[]) == to_color(:black)
+        s.color_inactive = :blue
+        s.color_active_dimmed = :green
+        s.color_active = :cyan
+        @test to_color(p1.color[]) == to_color([:green, :blue])
+        @test to_color(p2.color[]) == to_color(:cyan)
+    end
+
+    @testset "Checkbox" begin
+        p1 = c.blockscene.plots[1]::Poly
+        p2 = c.blockscene.plots[2]::Scatter
+        events(f).mouseposition[] = (300.0, 165.0)
+        @test to_color(p1.color[]) == to_color(:red)
+        @test to_color(p1.strokecolor[]) == to_color(:blue)
+        @test to_color(p2.color[]) == to_color(:white)
+
+        c.checked = true
+
+        @test to_color(p1.color[]) == to_color(:orange)
+        @test to_color(p1.strokecolor[]) == to_color(:cyan)
+        @test to_color(p2.color[]) == to_color(:black)
+
+        c.checkboxcolor_unchecked = :green
+        c.checkboxcolor_checked = :purple
+        c.checkboxstrokecolor_unchecked = :yellow
+        c.checkboxstrokecolor_checked = :gray
+        c.checkmarkcolor_unchecked = :lightgreen
+        c.checkmarkcolor_checked = :pink
+
+        # still checked
+        @test to_color(p1.color[]) == to_color(:purple)
+        @test to_color(p1.strokecolor[]) == to_color(:gray)
+        @test to_color(p2.color[]) == to_color(:pink)
+
+        c.checked = false
+
+        @test to_color(p1.color[]) == to_color(:green)
+        @test to_color(p1.strokecolor[]) == to_color(:yellow)
+        @test to_color(p2.color[]) == to_color(:lightgreen)
+    end
+end
+
+# issue 2415
+@testset "themeable axislegend" begin
+    f = Figure()
+    ax = Axis(f[1, 1])
+    lines!(ax, 1:10, label = "A line")
+    leg = @test_nowarn axislegend(ax)
+    @test leg.margin[] == (6, 6, 6, 6)
+    with_theme(Theme(Legend = (; margin = (1, 2, 3, 4)))) do
+        leg = @test_nowarn axislegend(ax)
+        @test leg.margin[] == (1, 2, 3, 4)
+
+        # Kwargs override theme
+        leg = @test_nowarn axislegend(ax; margin = (4, 3, 2, 1))
+        @test leg.margin[] == (4, 3, 2, 1)
+    end
+    with_theme(Theme(Legend = (;))) do
+        leg = @test_nowarn axislegend(ax)
+        @test leg.margin[] == (6, 6, 6, 6)
+
+        # Kwargs override theme
+        leg = @test_nowarn axislegend(ax; margin = (4, 3, 2, 1))
+        @test leg.margin[] == (4, 3, 2, 1)
+    end
+end
+
+@testset "LScene limits" begin
+    f, a, p = scatter([Point3f(1, 2, 3)])
+    @test !any(iszero, widths(a.scene.plots[1].arg1[]))
+    f, a, p = scatter([Point3f(1, 2, 3), Point3f(1, 2, 0)])
+    @test !any(iszero, widths(a.scene.plots[1].arg1[]))
+    f, a, p = scatter([Point3f(1, 2, 3), Point3f(1, 0, 0)])
+    @test !any(iszero, widths(a.scene.plots[1].arg1[]))
+end

@@ -1,0 +1,42 @@
+Precompiling packages...
+ERROR: LoadError: ArgumentError: Cannot load (`using/import`) module Contour into module Makie.ContoursHygiene in package Makie
+because package Makie does not have Contour in its dependencies:
+- You may have a partially installed environment. Try `Pkg.instantiate()`
+  to ensure all packages in the environment are installed.
+- Or, if you have Makie checked out for development and have
+  added Contour as a dependency but haven't updated your primary
+  environment's manifest file, try `Pkg.resolve()`.
+- Otherwise you may need to report an issue with Makie
+Stacktrace:
+  [1] macro expansion
+    @ ./loading.jl:2534 [inlined]
+  [2] macro expansion
+    @ ./lock.jl:376 [inlined]
+  [3] __require(into::Module, mod::Symbol)
+    @ Base ./loading.jl:2514
+  [4] require
+    @ ./loading.jl:2490 [inlined]
+  [5] eval_import_path
+    @ ./module.jl:36 [inlined]
+  [6] _eval_import(imported::Bool, to::Module, from::Nothing, paths::Expr)
+    @ Base ./module.jl:111
+  [7] top-level scope
+    @ ~/Repos/julia-trait-bound/experiments/ttfx/lean/Makie/src/Makie.jl:8
+  [8] include(mod::Module, _path::String)
+    @ Base ./Base.jl:309
+  [9] include_package_for_output(pkg::Base.PkgId, input::String, depot_path::Vector{String}, dl_load_path::Vector{String}, load_path::Vector{String}, concrete_deps::Vector{Pair{Base.PkgId, UInt128}}, source::Nothing, preresolved::Vector{Pair{Base.PkgId, String}})
+    @ Base ./loading.jl:3210
+ [10] top-level scope
+    @ stdin:5
+ [11] eval(m::Module, e::Any)
+    @ Core ./boot.jl:489
+ [12] include_string(mapexpr::typeof(identity), mod::Module, code::String, filename::String)
+    @ Base ./loading.jl:3045
+ [13] include_string
+    @ ./loading.jl:3055 [inlined]
+ [14] exec_options(opts::Base.JLOptions)
+    @ Base ./client.jl:342
+ [15] _start()
+    @ Base ./client.jl:577
+in expression starting at /home/hellmann/Repos/julia-trait-bound/experiments/ttfx/lean/Makie/src/Makie.jl:1
+in expression starting at stdin:5

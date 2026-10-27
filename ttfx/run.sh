@@ -22,6 +22,7 @@ for st in $settings; do
     py) cmd=($H/pyenv/bin/python workload.py out/png); dep="" ;;
     S)  cmd=($JS "${JF[@]}" --project=env_up workload.jl out/png); dep="$H/depot-S:$HOME/.julia:" ;;
     U)  cmd=($JP "${JF[@]}" --project=env_up workload.jl out/png); dep="" ;;
+    L)  cmd=($JS "${JF[@]}" --project=lean/env_lean workload.jl out/png); dep="$H/depot-S:$HOME/.julia:" ;;   # E-179: stock with the lean Makie and CairoMakie
     A)  cmd=($JP -J $R/julia-1.13/usr/lib/julia/facts/sys.so "${JF[@]}" --project=env_up workload.jl out/png); dep="$H/depot-A:$HOME/.julia:" ;;
     C)  cmd=($JP "${JF[@]}" --project=env_core workload.jl out/png); dep="$H/depot-C:$HOME/.julia:" ;;
     D)  cmd=(env WL_D=trait $JP "${JF[@]}" --project=env_d workload_d.jl out/png); dep="" ;;
