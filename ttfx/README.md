@@ -97,3 +97,18 @@ Stock 1.13.2, upstream OrdinaryDiffEq and CairoMakie (S), the user's functions b
 - `NoSpecialize` alone, without the cache, is slower (16.2 s): OrdinaryDiffEq's workload does not compile its path. A new function then costs nothing (0.08 s).
 - The run time does not suffer here ("again" 0.04 s in every variant).
 
+### E-173, the cache's checks, 2026-10-27
+
+TraitWorld 04095fe (D's cache rebuilt: 52 of 66 statements kept); otherwise as E-172 and E-174 (`logs/p173/`).
+- **Order independence: not tested.** Each emulated cache package depends on the plotting library, so loading it at the load step loads CairoMakie (or TraitMakie, PlainPlots) there too: the `/b` sessions with a cache ran in order A (S/pncb 4.63–4.70 s, load 3.60–3.67 s, as S/pnc). The test needs the cache split by dependency set ([the cache note](../../writeup/plans/2026-10-27-session-cache.md) §3), so that its solver part loads with the solver and its plotting part with the plotting library.
+- **Recurrence** (a cache built from a perturbed session, used by a matched one):
+
+| Session (to "again") | load | first solve | first plot | second model | **session** | the same session without a cache |
+|---|---|---|---|---|---|---|
+| D/c | 0.61 | 0.09 | 0.12–0.13 | 0.05 | **1.02** | 0.94–0.99 |
+| Dp/c | 0.19–0.20 | 0.17 | 0.10 | 0.32 | **0.92** | 1.14–1.19 |
+| S/nc | 3.68–3.74 | **6.27–6.29** | 0.48 | 0.08 | **10.68–10.80** | 12.88–12.94 |
+
+- **Stock SciML's solver is keyed on the call's shape:** a cache from `Tuple` parameters and a range of saving times leaves the matched session (vectors) compiling 6.3 s in its first solve. Each new shape costs its compilation once; a cache across sessions pays it once per shape, not once per session, but the first time stays.
+- D's cache adds 0.15 s to its load (0.61 against 0.44–0.46 s); its first solve is covered either way (TDE's workload has the matched shapes).
+

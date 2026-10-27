@@ -5,7 +5,6 @@ precompile(Tuple{typeof(Base.issorted), Array{String, 1}, Base.Order.ReverseOrde
 precompile(Tuple{typeof(JLLWrappers.get_julia_libpaths)})
 precompile(Tuple{typeof(TraitWorld._member_fold), Base.Compiler.AtLoad, Base.RefValue{Base.IdDict{Any, Any}}, Any, Any})
 precompile(Tuple{typeof(Main.loadplots)})
-precompile(Tuple{typeof(TraitWorld._on_package_load), Base.PkgId}) # recompile
 precompile(Tuple{typeof(Base.getproperty), Base.Order.Lt{Base.Sort.var"#_sort!##10#_sort!##11"{Base.Order.By{TraitWorld.var"#_note_conformances!##0#_note_conformances!##1", Base.Order.ForwardOrdering}}}, Symbol})
 precompile(Tuple{typeof(Main.times), Float64, Float64, Int64})
 precompile(Tuple{Type{NamedTuple{(:length,), T} where T<:Tuple}, Tuple{Int64}})
