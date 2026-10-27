@@ -84,3 +84,17 @@ X_MODE=record X_FILE=../w66/logs/fp-scale-C.jls WL_SHAPE=perturbed OPENBLAS_NUM_
 ## Part 4: the index against the candidates seen at record (pending)
 
 `fp_scale.jl` records, per entry, its candidates by fingerprint and name; a check flags an entry only if its candidates now differ. To run after W-22's build, with the depots precompiled again.
+
+# E-199: which owners' code package images carry (the facts-first review §2.3, check (a)), 2026-10-28
+
+`image_owners.jl` loads an environment's packages and counts the CodeInstances that came from package images, by owner, and those with machine code (an entry point set at load). julia-1.13 41d199c557 with W-22's edits built; product setting; one session each (`logs/e199-D.log`, `logs/e199-C.log`).
+
+| Owner | D: from images | D: machine code | C: from images | C: machine code |
+|---|---|---|---|---|
+| `nothing` | 17,619 | 6,857 | 280,441 | 86,618 |
+| `:facts` | 14,723 | 14,556 | 33,769 | 33,397 |
+| TraitWorld's check owner | 4,401 | 4,391 | 550 | 545 |
+| `:facts_plain_return_type` | 309 | 286 | 473 | 439 |
+
+- The check owner's results and `return_type`'s answers never run, but get machine code (`add_foreign_codeinfos!`, compiler C-12). In D they are 4,677 CodeInstances with machine code beside 14,556 of the facts owner.
+- So removing their machine code (§2.3) is worth a build: its image sizes and load times are check (b).
