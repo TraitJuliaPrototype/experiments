@@ -266,3 +266,5 @@ julia-1.13 6800be7839 (images keep no external code specialized at a signature t
 
 The load under `all` falls from 8.2 to 3.8 s, about stock's 3.6 s: the 4.4 s saved are both the insertion's scans and the validation of those instances. Makie compiled by facts keeps its protection (the plot after a late DataFrames load recompiles 0.02 s). The other settings' images were stale after the rebuild (the trailer's check flagged them) and are measured again.
 
+**The other settings on julia-1.13 6800be7839** (re-precompiled: U 222 s, C 181 s, D 46 s; a warm-up and two sessions, all valid by the trailer's check; `logs/p59/`): U 9.47–9.59 s (load 3.57–3.74); C 10.75 s (load 4.15–4.16); D 0.99–1.00 s; Dp 1.19 s; A/b 10.2–10.4 s; after a late DataFrames load the plot recompiles 6.08–6.19 s in C and 6.17–6.19 s in U (Makie plain), as before. W-59 changed little outside `all` (C's load 4.27–4.30 → 4.15 s).
+
