@@ -202,3 +202,5 @@ The same with the types serialized (`trace.jls`): S/pc 4.69–4.70 s (first solv
 
 **The trees** (stock 1.13.2, two sessions each, `logs/p176/trees.log`): `using OrdinaryDiffEqTsit5` 0.34 s, 83 packages; with `OrdinaryDiffEqRosenbrock` 1.09 s, 156 packages (the linear-solver tree, SparseArrays, Pkg); `using CairoMakie` 2.68–2.70 s, 261 packages; all three 3.56–3.84 s, 386 packages. Makie binds REPL and FileIO binds Pkg. Python's whole import: 0.45 s.
 
+**A plotting core's floor** (`probe_floor.jl`, stock 1.13.2, two sessions, `logs/p176/floor.log`): the dependencies the workload's plot plausibly needs, loaded without Makie (ColorTypes, Colors, FixedPointNumbers, Observables, ComputePipeline, GeometryBasics, StaticArrays, GridLayoutBase, FreeType, FreeTypeAbstraction, PlotUtils, Format, Cairo, PNGFiles): 0.51 s, 66 packages; with MathTeXEngine (Makie's default text) 0.72 s, 83 packages. CairoMakie's tree: 2.7 s, 261 packages. A core with Makie's algorithms on that tree loads its own code on top (Makie's image alone takes 0.71 s for 7,414 methods).
+
