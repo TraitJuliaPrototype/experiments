@@ -75,6 +75,7 @@ Same build and environments (`logs/p2/`).
 | S | 12.83–12.98 | **11.61–11.85** (first solve 5.16–5.29 and second model 2.25–2.30 unchanged; first plot 0.47–0.48 from 1.56) | 9.16 |
 
 **What it says:**
+- **Provisional** ([the review](../../writeup/reviews/2026-10-27-cache-and-port-notes.md) B1): `--trace-compile` records compile roots only, under the default owner; dropping a root that names `Main` drops its library-keyed callees too, and facts code is not recorded. The first bullet's "none … could be kept" for S is therefore not shown; E-175 repeats the emulation at the level of CodeInstances.
 - **What a cache across sessions can keep is decided by what the code is keyed on.** S's solver code is keyed on the user's function (`ODEFunction{true, AutoSpecialize, typeof(Main.robertson!), …}` in the problem's type, at `solve`'s keyword entry), so none of its 7.5 s of solver compilation is kept; its plotting code, keyed on library types, is (1.1 s saved).
 - **Dp recovers most:** PlainODE keeps the user's function behind a `FunctionWrapper` at a plain signature, so its solver is keyed on library types, and all of it is kept. Erasing the user's types at the library's boundary is what makes code cacheable, by traits (`Dynamic`) or by hand.
 - **D recovers 1.1 s** (first solve 1.50 → 0.27 s), less than Dp: its load grows 0.09 s with the cache, and its first solve keeps 0.18 s of compiling (not diagnosed).
@@ -112,3 +113,12 @@ TraitWorld 04095fe (D's cache rebuilt: 52 of 66 statements kept); otherwise as E
 - **Stock SciML's solver is keyed on the call's shape:** a cache from `Tuple` parameters and a range of saving times leaves the matched session (vectors) compiling 6.3 s in its first solve. Each new shape costs its compilation once; a cache across sessions pays it once per shape, not once per session, but the first time stays.
 - D's cache adds 0.15 s to its load (0.61 against 0.44–0.46 s); its first solve is covered either way (TDE's workload has the matched shapes).
 
+
+### E-169, the load of S, 2026-10-27
+
+A sampling profile of `using OrdinaryDiffEqTsit5, OrdinaryDiffEqRosenbrock, CairoMakie` on stock 1.13.2 with C frames, 1 ms (`logs/p2/S-load-profile.log`; 3,333 samples in the load):
+- restoring the images (`jl_restore_incremental_from_buf`): 1,603, of which activating their methods (`jl_activate_methods`, mostly the type-intersection search of what each insertion invalidates) 919;
+- validating the images' edges (`insert_backedges` → `verify_method_graph`, in the compiler's world): 1,285;
+- the rest (`__init__`, finding and checking cache files): about 450.
+
+Julia's loader machinery, not package code, takes the load: method insertion and edge validation are about two thirds. A system image of the stack needs neither; phase 3's second ceiling measures it.
