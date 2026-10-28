@@ -65,3 +65,21 @@ Limits:
 On f558180 everything passes except:
 - **C16** (`promote_op` at `Type{Int}`): plain Julia gives `DataType` when the call is folded into compiled code and `Type{Int64}` at run time. Inference-dependent values have no single plain answer (G1 carve-out).
 - **C24b**: a harness bug (the calls use different arguments); C24c is the corrected case and passes.
+
+## E-198: strict mode on code of the facts owner, and pirates reported at an image's load (W-66 step 3), 2026-10-28
+
+julia-1.13 8ceda6f9d6; TraitWorld d924f38 (before) and the branch `w66-strict-facts` (after, merged); [the note](../../writeup/plans/2026-10-28-strict-mode-on-facts-code.md). Logs `e198/logs/`, sessions `../ttfx/logs/e198-before/`, `../ttfx/logs/e198-after/` (a warm-up and two sessions each).
+
+| Check | Before | After |
+|---|---|---|
+| C, strict mode: load / session | 10.20–10.34 / 16.60–16.64 s | 10.19–10.33 / 16.60–16.78 s |
+| C: methods seen, pirates walked, owning, walking, misses | 79,138, 876, 0.85 s, 0.71 s, 0 | 79,138, 876, 0.91 s, 0.58 s, 0 |
+| D, strict mode: load / session | 0.71 / 1.25–1.26 s | 0.70–0.71 / 1.24–1.25 s |
+| D: methods seen, pirates walked, owning, walking, misses | 6,531, 52, 0.06 s, 0.19 s, 0 | 6,531, 52, 0.06 s, 0.15 s, 0 |
+| refusals in C and D | none | none; no pirate reported at a load |
+
+- **Case (d)** (`e198/compiler_chain.jl`): TraitWorld's machinery calls the compiler; a pirate at a signature of Julia's plain code that the compiler's code calls there is refused, at all three chains found (`getindex(::RefValue{Symbol})` twice, `isempty(::SimpleVector)`).
+- **Part B** (`e198/pirate_before.jl`, `env_d`): `abs2(::Float64)` defined in `Main` before TraitDifferentialEquations loads is reported in strict mode, naming the pirate, `rodas5_step!` and the fact; a pirate that wins nowhere is not; strict mode off is silent. Both settings of strict mode compute the pirate's result.
+- **Suites** (`../checks/logs/e198/`): every suite passes; under `all` TraitWorld's standing `verify_dynamic.jl:40` only, its strict tests included; the strict documentation example 5/5.
+- **The walk is a small part of strict mode's cost:** C's strict load is about 6 s slower than without strict mode (4.2 s), of which owning and walking are 1.5 s; the narrowing does not change it. Where the rest goes is not diagnosed.
+- The validation log kept on for the session costs nothing measurable here (C's strict load before and after).

@@ -1,0 +1,6 @@
+┌ Error: strict mode: pirates loaded before a package image break its trait code:
+│   PirateError: `abs2(Float64)`, defined by Main before a package image was loaded, wins at its trait code's fact `Tuple{typeof(abs2), Float64}` in `TraitDifferentialEquations.ODECore.rodas5_step!`.
+│   Main owns neither the function nor a type in that signature (a pirate). It came first, so strict mode cannot refuse it: the image's code is compiled again with it, and computes its result.
+│   Load the package before the pirate, or define the method where a type it is for is owned.
+└ @ TraitWorld ~/Repos/julia-trait-bound/TraitWorld/src/strict.jl:478
+R case wins strict true reported 1 Main.abs2 in rodas5_step!  steps 28  u(end) -9.395404198204043
