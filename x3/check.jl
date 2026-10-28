@@ -24,3 +24,13 @@ println("X3 recolored through the core's trait: ", same(TraitMakie.save(joinpath
 f = TraitMakie.figure(); TraitMakie.lines!(f, xs, ys; color = :gray); MakieCompat.stairs!(f, xs, ys .+ 1)
 println("X3 both kinds in one axis: ", isfile(TraitMakie.save(joinpath(OUT, "mixed.png"), f)))
 println("X3 the plot's type: ", typeof(p))
+# slice 3 (E-223): upstream's `band.jl` unchanged: its own `convert_arguments`, named arguments, `@inherit`, a mesh
+# of triangles and stroke lines; compared by pixels (experiments/x3/tools/pngdiff.jl), since the files may differ
+xb = collect(range(0, 4pi; length = 60)); lo = cos.(xb) .- 1; hi = sin.(xb) .+ 1
+fb1 = TraitMakie.figure(); pb = MakieCompat.band!(fb1, xb, lo, hi; color = (0.12, 0.35, 0.8, 0.3))
+fb2 = TraitMakie.figure(); TraitMakie.band!(fb2, xb, lo, hi; color = (0.12, 0.35, 0.8, 0.3))
+TraitMakie.save(joinpath(OUT, "old-band.png"), fb1); TraitMakie.save(joinpath(OUT, "core-band.png"), fb2)
+println("X3 band saved: old-band.png, core-band.png; the plot's type: ", typeof(pb))
+pb.direction = :y
+TraitMakie.save(joinpath(OUT, "old-band-y.png"), fb1)
+println("X3 band with direction = :y saved after the change")
