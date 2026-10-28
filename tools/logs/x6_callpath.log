@@ -1,0 +1,160 @@
+X6 selected: IntA 11.0 (want 11.0), IntB 322.0 (want 322.0)
+X6 per call: the capability chosen 357.53 ns; one bound 77.84 ns
+callpath: cb(::Dynamic{IntegratorView})
+  entry: Main.X6.cb, bounded argument 1; untyped callers served by the table of declared implementations
+  argument 1: Dynamic{IntegratorView} holding IntA
+    the position needs HasDu, IntegratorView
+      HasDu: none: no method of its own, so each call that needs it asks the slow path's cache (`_conformance_slow`, an IdDict by trait and type)
+      IntegratorView: declared for IntA (Main.X6)
+    typed caller:   Dynamic: the erased key (code compiled once) (the held value's attribute): IntegratorView at Dynamic
+    untyped caller: Dynamic: the erased key (code compiled once) (the held value's attribute): IntegratorView at Dynamic
+    the trait object's type is not known where the call is compiled: it is made when the call runs, and the worker is chosen by a dispatch on it (the object's traits)
+  worker: cb(::IntegratorView) at x6.jl:29 (Main.X6)
+  typed caller's code (the entry inlined):
+    run-time sites: 2 (and 2 on rare paths)
+      [dynamic dispatch] _enter_erased(::EntryPos{typeof(cb), 1, 1}, ::Any)
+          _cp_typed diagnostics.jl:300 → … → enter entry.jl:220 → _enter_held entry.jl:230
+      [dynamic dispatch] checked_call(::typeof(cb), ::Any)
+          _cp_typed diagnostics.jl:300 → cb none:0 → macro expansion trait_module.jl:1181
+      rare: an error path: inferencebarrier(_held_refused)(::Type{EntryPos{typeof(cb), 1, 1}}, ::Dynamic{IntegratorView})
+      rare: only for a result like the input: _like_return(::LikeResult, ::Tuple{Dynamic{IntegratorView}}, ::Tuple{Any})
+  worker's code (compiled by facts, and what it invokes statically):
+    run-time sites: 2
+      [a split's last branch: a table by the value's type, a call through its pointer] tnow on a Dynamic{IntegratorView}(::<a type outside the candidates>); the candidates now: IntA, IntB
+          in Tuple{typeof(cb), IntegratorView at Dynamic} %15
+      [a split's last branch: a table by the value's type, a call through its pointer] state on a Dynamic{IntegratorView}(::<a type outside the candidates>); the candidates now: IntA, IntB
+          in Tuple{typeof(cb), IntegratorView at Dynamic} %35
+  per call: typed caller 289.0 ns, 176.0 bytes; untyped caller 328.0 ns, 176.0 bytes
+
+
+callpath: cb(::Dynamic{IntegratorView})
+  entry: Main.X6.cb, bounded argument 1; untyped callers served by the table of declared implementations
+  argument 1: Dynamic{IntegratorView} holding IntB
+    the position needs HasDu, IntegratorView
+      HasDu: declared for IntB (Main.X6)
+      IntegratorView: declared for IntB (Main.X6)
+    typed caller:   Dynamic: the erased key (code compiled once) (the held value's attribute): HasDu & IntegratorView at Dynamic
+    untyped caller: Dynamic: the erased key (code compiled once) (the held value's attribute): HasDu & IntegratorView at Dynamic
+    the trait object's type is not known where the call is compiled: it is made when the call runs, and the worker is chosen by a dispatch on it (the object's traits)
+  worker: cb(::(HasDu, IntegratorView)) at x6.jl:30 (Main.X6)
+  typed caller's code (the entry inlined):
+    run-time sites: 2 (and 2 on rare paths)
+      [dynamic dispatch] _enter_erased(::EntryPos{typeof(cb), 1, 1}, ::Any)
+          _cp_typed diagnostics.jl:300 → … → enter entry.jl:220 → _enter_held entry.jl:230
+      [dynamic dispatch] checked_call(::typeof(cb), ::Any)
+          _cp_typed diagnostics.jl:300 → cb none:0 → macro expansion trait_module.jl:1181
+      rare: an error path: inferencebarrier(_held_refused)(::Type{EntryPos{typeof(cb), 1, 1}}, ::Dynamic{IntegratorView})
+      rare: only for a result like the input: _like_return(::LikeResult, ::Tuple{Dynamic{IntegratorView}}, ::Tuple{Any})
+  worker's code (compiled by facts, and what it invokes statically):
+    run-time sites: 3
+      [a split's last branch: a table by the value's type, a call through its pointer] tnow on a Dynamic{IntegratorView}(::<a type outside the candidates>); the candidates now: IntA, IntB
+          in Tuple{typeof(cb), HasDu & IntegratorView at Dynamic} %15
+      [a split's last branch: a table by the value's type, a call through its pointer] state on a Dynamic{IntegratorView}(::<a type outside the candidates>); the candidates now: IntA, IntB
+          in Tuple{typeof(cb), HasDu & IntegratorView at Dynamic} %35
+      [a split's last branch: a table by the value's type, a call through its pointer] du on a Dynamic{HasDu}(::<a type outside the candidates>); the candidates now: IntB
+          in Tuple{typeof(cb), HasDu & IntegratorView at Dynamic} %70
+  per call: typed caller 52.2 ns, 80.0 bytes; untyped caller 88.9 ns, 80.0 bytes
+
+
+callpath: cbplain(::Dynamic{IntegratorView})
+  entry: Main.X6.cbplain, bounded argument 1; untyped callers served by the table of declared implementations
+  argument 1: Dynamic{IntegratorView} holding IntA
+    the position needs IntegratorView
+      IntegratorView: declared for IntA (Main.X6)
+    typed caller:   Dynamic: the erased key (code compiled once) (the held value's attribute): IntegratorView at Dynamic
+    untyped caller: Dynamic: the erased key (code compiled once) (the held value's attribute): IntegratorView at Dynamic
+    the trait object's type is not known where the call is compiled: it is made when the call runs, and the worker is chosen by a dispatch on it (the object's traits)
+  worker: cbplain(::IntegratorView) at x6.jl:31 (Main.X6)
+  typed caller's code (the entry inlined):
+    run-time sites: 2 (and 2 on rare paths)
+      [dynamic dispatch] _enter_erased(::EntryPos{typeof(cbplain), 1, 1}, ::Any)
+          _cp_typed diagnostics.jl:300 → … → enter entry.jl:220 → _enter_held entry.jl:230
+      [dynamic dispatch] checked_call(::typeof(cbplain), ::Any)
+          _cp_typed diagnostics.jl:300 → cbplain none:0 → macro expansion trait_module.jl:1181
+      rare: an error path: inferencebarrier(_held_refused)(::Type{EntryPos{typeof(cbplain), 1, 1}}, ::Dynamic{IntegratorView})
+      rare: only for a result like the input: _like_return(::LikeResult, ::Tuple{Dynamic{IntegratorView}}, ::Tuple{Any})
+  worker's code (compiled by facts, and what it invokes statically):
+    run-time sites: 2
+      [a split's last branch: a table by the value's type, a call through its pointer] tnow on a Dynamic{IntegratorView}(::<a type outside the candidates>); the candidates now: IntA, IntB
+          in Tuple{typeof(cbplain), IntegratorView at Dynamic} %15
+      [a split's last branch: a table by the value's type, a call through its pointer] state on a Dynamic{IntegratorView}(::<a type outside the candidates>); the candidates now: IntA, IntB
+          in Tuple{typeof(cbplain), IntegratorView at Dynamic} %35
+  per call: typed caller 41.9 ns, 48.0 bytes; untyped caller 78.6 ns, 48.0 bytes
+
+
+callpath: cbplain(::Dynamic{IntegratorView})
+  entry: Main.X6.cbplain, bounded argument 1; untyped callers served by the table of declared implementations
+  argument 1: Dynamic{IntegratorView} holding IntB
+    the position needs IntegratorView
+      IntegratorView: declared for IntB (Main.X6)
+    typed caller:   Dynamic: the erased key (code compiled once) (the held value's attribute): IntegratorView at Dynamic
+    untyped caller: Dynamic: the erased key (code compiled once) (the held value's attribute): IntegratorView at Dynamic
+    the trait object's type is not known where the call is compiled: it is made when the call runs, and the worker is chosen by a dispatch on it (the object's traits)
+  worker: cbplain(::IntegratorView) at x6.jl:31 (Main.X6)
+  typed caller's code (the entry inlined):
+    run-time sites: 2 (and 2 on rare paths)
+      [dynamic dispatch] _enter_erased(::EntryPos{typeof(cbplain), 1, 1}, ::Any)
+          _cp_typed diagnostics.jl:300 → … → enter entry.jl:220 → _enter_held entry.jl:230
+      [dynamic dispatch] checked_call(::typeof(cbplain), ::Any)
+          _cp_typed diagnostics.jl:300 → cbplain none:0 → macro expansion trait_module.jl:1181
+      rare: an error path: inferencebarrier(_held_refused)(::Type{EntryPos{typeof(cbplain), 1, 1}}, ::Dynamic{IntegratorView})
+      rare: only for a result like the input: _like_return(::LikeResult, ::Tuple{Dynamic{IntegratorView}}, ::Tuple{Any})
+  worker's code (compiled by facts, and what it invokes statically):
+    run-time sites: 2
+      [a split's last branch: a table by the value's type, a call through its pointer] tnow on a Dynamic{IntegratorView}(::<a type outside the candidates>); the candidates now: IntA, IntB
+          in Tuple{typeof(cbplain), IntegratorView at Dynamic} %15
+      [a split's last branch: a table by the value's type, a call through its pointer] state on a Dynamic{IntegratorView}(::<a type outside the candidates>); the candidates now: IntA, IntB
+          in Tuple{typeof(cbplain), IntegratorView at Dynamic} %35
+  per call: typed caller 43.0 ns, 48.0 bytes; untyped caller 82.1 ns, 48.0 bytes
+
+
+callpath: cb(::IntB)
+  entry: Main.X6.cb, bounded argument 1; untyped callers served by the table of declared implementations
+  argument 1: plain IntB
+    the position needs HasDu, IntegratorView
+      HasDu: declared for IntB (Main.X6)
+      IntegratorView: declared for IntB (Main.X6)
+    typed caller:   Compiled at its key (the caller knows the type): HasDu & IntegratorView at IntB
+    untyped caller: Dynamic: the erased key (code compiled once) (the caller does not know the type): HasDu & IntegratorView at Dynamic
+  worker: cb(::(HasDu, IntegratorView)) at x6.jl:30 (Main.X6)
+  typed caller's code (the entry inlined):
+    run-time sites: none (and 1 on rare paths)
+      rare: the first-call check: once per signature: inferencebarrier(_latest)(::typeof(_check_once), ::RefValue{Bool}, ::Type{Tuple{typeof(cb), HasDu & IntegratorView at IntB}})
+  worker's code (compiled by facts, and what it invokes statically):
+    run-time sites: none
+  per call: typed caller 0.874 ns, 0.0 bytes; untyped caller 83.7 ns, 80.0 bytes
+
+
+factscode: Tuple{typeof(run_cb), Vector{Dynamic{IntegratorView}}, Int64}
+  code of the owner facts; 4 bodies read (the signature, then what it invokes statically)
+    Tuple{typeof(run_cb), Vector{Dynamic{IntegratorView}}, Int64} → Any; 126 statements, 5 run-time sites
+    Tuple{typeof(throw_boundserror), Vector{Dynamic{IntegratorView}}, Tuple{Int64}} → Union{}; 3 statements, 0 run-time sites
+    Tuple{Type{BoundsError}, Any, Tuple{Int64}} → BoundsError; 6 statements, 0 run-time sites
+    Tuple{typeof(fallback), typeof(cb), Dynamic{IntegratorView}} → Any; 16 statements, 2 run-time sites
+  run-time sites: 3 (and 4 on rare paths)
+    [dynamic dispatch] _enter_erased(::EntryPos{typeof(cb), 1, 1}, ::Any)
+        in Tuple{typeof(run_cb), Vector{Dynamic{IntegratorView}}, Int64} %57, run_cb x6.jl:35 → … → enter entry.jl:220 → _enter_held entry.jl:230
+    [dynamic dispatch] checked_call(::typeof(cb), ::Any)
+        in Tuple{typeof(run_cb), Vector{Dynamic{IntegratorView}}, Int64} %68, run_cb x6.jl:35 → cb none:0 → macro expansion trait_module.jl:1181
+    [dynamic dispatch] +(::Any, ::Any)
+        in Tuple{typeof(run_cb), Vector{Dynamic{IntegratorView}}, Int64} %78, run_cb x6.jl:35
+    rare: an error path: inferencebarrier(_held_refused)(::Type{EntryPos{typeof(cb), 1, 1}}, ::Dynamic{IntegratorView})
+    rare: only for a result like the input: _like_return(::LikeResult, ::Tuple{Dynamic{IntegratorView}}, ::Tuple{Any})
+    rare: the untyped fallback: a value without the traits: inferencebarrier(_has_tagged_fallback)(::typeof(cb), ::Tuple{Dynamic{IntegratorView}})
+    rare: the untyped fallback: a value without the traits: inferencebarrier(_fallback_plain)(::Nothing, ::typeof(cb), ::Tuple{Dynamic{IntegratorView}})
+
+
+factscode: Tuple{typeof(cb), HasDu & IntegratorView at Dynamic}
+  code of the owner facts; 3 bodies read (the signature, then what it invokes statically)
+    Tuple{typeof(cb), HasDu & IntegratorView at Dynamic} → Float64; 98 statements, 3 run-time sites
+    Tuple{typeof(throw_boundserror), Vector{Float64}, Tuple{Int64}} → Union{}; 3 statements, 0 run-time sites
+    Tuple{Type{BoundsError}, Any, Tuple{Int64}} → BoundsError; 6 statements, 0 run-time sites
+  run-time sites: 3
+    [a split's last branch: a table by the value's type, a call through its pointer] tnow on a Dynamic{IntegratorView}(::<a type outside the candidates>); the candidates now: IntA, IntB
+        in Tuple{typeof(cb), HasDu & IntegratorView at Dynamic} %15
+    [a split's last branch: a table by the value's type, a call through its pointer] state on a Dynamic{IntegratorView}(::<a type outside the candidates>); the candidates now: IntA, IntB
+        in Tuple{typeof(cb), HasDu & IntegratorView at Dynamic} %35
+    [a split's last branch: a table by the value's type, a call through its pointer] du on a Dynamic{HasDu}(::<a type outside the candidates>); the candidates now: IntB
+        in Tuple{typeof(cb), HasDu & IntegratorView at Dynamic} %70
+
+
