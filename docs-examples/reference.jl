@@ -298,12 +298,12 @@ struct FunctionCallback
     cond::Dynamic{Callable{Tuple{Vector{Float64}, Float64}, Bool}}
 end
 fire(cb::FunctionCallback, u::Vector{Float64}) = cb.cond(u, 0.0)
-apply_open(f::Callable{Tuple{Float64}, S}, x::Float64) where {S} = f(x)    # planned: an open result type
+apply_open(f::Callable{Tuple{Float64}, S}, x::Float64) where {S} = f(x)    # an open result type
 end
 using .CB
 callback(f) = FunctionCallback(Dynamic{Callable{Tuple{Vector{Float64}, Float64}, Bool}}(f))   # in plain code
 check("§5.8 a stored Dynamic{Callable}", fire(callback((u, t) -> u[1] > t), [1.0]) === true)
-check("T-18 an open Callable result type is no bound: MethodError", outcome(() -> apply_open(x -> 2x, 1.0)) isa MethodError)
+check("§5.8 an open result type, inferred at the entry", apply_open(x -> 2x, 1.0) === 2.0 && apply_open(x -> round(Int, x), 2.6) === 3)
 
 # §10
 @trait_module module DynSolv
