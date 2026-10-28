@@ -747,5 +747,18 @@ m1 = (kmany(), wmany())
 check("G1.33 an assertion over a call with too many matching methods does not fold it in code compiled by facts",
       m0[2] == 2 && m1[2] == 20, "facts before $(m0[2]), after $(m1[2]) (expected 2, 20); plain $(m0[1]), $(m1[1])")
 
+# --- G1.34: a facts method reached with a narrow MethodInstance after a wider one was compiled runs with its
+# own static parameters (facts F-21): the wider code is copied onto the narrow instance, for every owner
+toplevel(quote
+    module SparamF
+    Base.Experimental.@compiler_options facts=true
+    vect(::Type{T}) where {T} = T
+    end
+end)
+s34a = SparamF.vect(Type{Type{Type{Int32}}})
+s34b = try Base.invokelatest(SparamF.vect, Type{Type{Int32}}) catch e; e end
+check("G1.34 a narrow instance after a wider one runs with its own static parameters",
+      s34a === Type{Type{Type{Int32}}} && s34b === Type{Type{Int32}}, "got $(repr(s34a)), $(repr(s34b)) (expected Type{Type{Int32}} second)")
+
 println()
 println(count(x -> x[2], results), " of ", length(results), " checks pass")
