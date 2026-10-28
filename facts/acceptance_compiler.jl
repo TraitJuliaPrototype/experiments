@@ -613,6 +613,8 @@ toplevel(quote
     ug(s::CP.S, f::Symbol) = getproperty(s, f)
     end
 end)
+"The default owner of a plain module's code: `nothing` in the product setting, `:facts` under `all` (the mode is the owner, W-22)."
+const DEFAULT_OWNER = Base.Compiler.facts_default() ? :facts : nothing
 "The CodeInstances of `owner` cached for `f` at `types`."
 function cis_of(owner, f, types)
     mi = ccall(:jl_method_lookup_by_tt, Any, (Any, Csize_t, Any), Tuple{typeof(f), types...}, Base.get_world_counter(), nothing)
@@ -649,7 +651,7 @@ n27 = facts_cis_cp()
 v27 = (CPU.ua(s27), CPU.ub(s27))
 n27b = facts_cis_cp()
 rt27 = (only(Base.return_types(CPU.ua, (CP.S,))), only(Base.return_types(CPU.ub, (CP.S,))))
-ua27 = only(cis_of(nothing, CPU.ua, (CP.S,))); ub27 = only(cis_of(nothing, CPU.ub, (CP.S,)))
+ua27 = only(cis_of(DEFAULT_OWNER, CPU.ua, (CP.S,))); ub27 = only(cis_of(DEFAULT_OWNER, CPU.ub, (CP.S,)))
 check("G1.27 a plain caller's constant reaches a facts getproperty switch: the field's type, plain values",
       v27 == (getfield(s27, :a), getfield(s27, :b)) && g27 == "x" && rt27 == (Float64, Int) && (ua27.rettype, ub27.rettype) == (Float64, Int),
       "values $v27, inferred $rt27, cached $((ua27.rettype, ub27.rettype)) (expected (Float64, Int64))")
@@ -686,7 +688,7 @@ toplevel(quote
     end
 end)
 v30 = CEU.ut()
-ci30 = only(cis_of(nothing, CEU.ut, ()))
+ci30 = only(cis_of(DEFAULT_OWNER, CEU.ut, ()))
 c30 = isdefined(ci30, :rettype_const) ? ci30.rettype_const : nothing
 Core.eval(CE, :(Base.@assume_effects :terminates_locally function tri(n::Int); s = 0; for i in 1:n; s += 2i; end; return s; end))
 w30 = ci30.max_world == typemax(UInt)
