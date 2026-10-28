@@ -1,17 +1,16 @@
 # Tools for finding slowdowns (W-85)
 
-Four tools, for the questions asked again and again while porting:
+Five tools, for the questions asked again and again while porting:
 
 | Tool | Question | Where |
 |---|---|---|
 | A/B harness | Is this change faster or slower, and where (first call, compilation, steady state, allocation)? | `ab/ab.sh`, `ab/ABProbe.jl` |
-| `TraitWorld.callpath(f, args...)` | Which path does this call into trait code take, and what does it cost? | TraitWorld branch `w85-tooling`, `src/diagnostics.jl` |
+| `TraitWorld.callpath(f, args...)` | Which path does this call into trait code take, and what does it cost? | TraitWorld `src/diagnostics.jl` |
 | `TraitWorld.factscode(f, types)` | Which calls in the code compiled by facts are chosen at run time? | same |
 | `TraitWorld.loadreport()` | What do TraitWorld's checks and folds cost during `using` and at first uses? | same, and `src/report.jl` |
+| `TraitWorld.descend_facts(f, types)` | Cthulhu's interactive descent over the code compiled by facts | TraitWorld's extension `ext/TraitWorldCthulhuExt.jl` (with `using Cthulhu`) |
 
-`callpath`, `factscode` and `loadreport` are public in TraitWorld but not exported.
-Cthulhu's interactive descent over the facts owner's code is not built: Cthulhu is not in the depot and the sandbox blocks the package server.
-`factscode` reads the same code non-interactively.
+`callpath`, `factscode`, `loadreport` and `descend_facts` are public in TraitWorld but not exported.
 
 The machine's rules hold for every tool: one Julia job at a time through `flock /tmp/claude-1000/julia-review.lock nice -n 19 …`, with `JULIA_PKG_OFFLINE=true`.
 
@@ -201,6 +200,68 @@ The member fixes at load (E-213's 28 members) are almost all compilation.
 Half of it is the override index, specialized on each member's builder type; A/B example 3 removes it.
 The same import with the switch off took 1.735 s.
 
+## `descend_facts`: Cthulhu over the code compiled by facts
+
+```julia
+using Cthulhu, TraitWorld                         # loads TraitWorld's extension TraitWorldCthulhuExt
+TraitWorld.descend_facts(f, types; facts = true, kw...)   # kw: Cthulhu.descend's (view, optimize, iswarn, …)
+TraitWorld.descend_facts(callpath(f, args...))    # the worker of that call
+Cthulhu.descend(f, types; provider = TraitWorld.facts_provider())
+```
+
+Cthulhu is TraitWorld's weak dependency, not a dependency: the extension loads where an environment has both.
+`experiments/tools/cthulhu/` is such an environment: Cthulhu 3.0.2 from the depot, TraitWorld and the forks.
+Its paths point at `../../../TraitWorld-w85` and at `../../../forks-w85`, a worktree of the forks at 78327b5
+(`git -C forks worktree add --detach ../forks-w85 78327b5`); point the first at `../../../TraitWorld` once the branch is merged.
+
+The provider is Cthulhu 3's `AbstractProvider` with Julia's native interpreter in the facts mode, as `factscode` reads code:
+
+- each callee is inferred again by its own owner's interpreter (the facts owner's code by facts, plain code plainly); the facts owner's cache keeps no optimized source, so the provider keeps what it infers;
+- the facts mode's call infos (a split, a fold) are given to Cthulhu as the calls they stand for;
+- the callsite menu shows Cthulhu's runtime calls labelled as `factscode` labels them (`[dispatch]`, `[split table]`, `[pointer]`, with `rare: error`, `rare: fallback`, …), and adds the sites Cthulhu does not list: a split's last branch, a call through a pointer;
+- Cthulhu's own typed view marks `dynamic` calls as usual.
+
+Not available with this provider: the remarks, per-statement effects and exception-type toggles (they show nothing), and the constant-propagated version of a callee (Cthulhu descends into its code instance instead).
+`ascend` is not tested.
+
+Run non-interactively (Cthulhu's own entry points, and sessions in its virtual terminal, `Cthulhu.Testing`):
+
+```
+julia --project=experiments/tools/cthulhu experiments/tools/cthulhu/descend_examples.jl   # log: cthulhu/logs/descend_examples.log
+julia --project=experiments/tools/cthulhu experiments/tools/cthulhu/test_descend.jl       # 13 checks
+```
+
+### Worked example: E-218's loop and the forks' join kernel
+
+The menu of `run_cb` (E-218's loop in trait code), the facts owner's code:
+
+```
+ • %36 = invoke throw_boundserror(::Array{…},::Tuple{…})::Union{}
+   %57 = runtime < [dispatch] _enter_erased(::EntryPos{…},::Any)::Any >
+   %61 = runtime < [dispatch, rare: error] inferencebarrier(_held_refused)(…) >
+   %66 = invoke fallback(::typeof(cb),::Dynamic{IntegratorView})::Any
+   %68 = runtime < [dispatch] checked_call(::Core.Const(Main.X6.cb),::Any)::… >
+   %74 = runtime < [dispatch, rare: like-input result] _like_return(…,…,…)::… >
+   %78 = runtime < [dispatch] +(::Any,::Any)::Any >
+   %97 = invoke throw_boundserror(::Array{…},::Tuple{…})::Union{}
+```
+
+`descend_facts(callpath(innerrows, tocolumn([1, 2, 3, 5, 8, 13]), tocolumn([2, 3, 5, 7, 11, 13, 17]), true, false))`: the worker of the forks' `ColumnKernels.innerrows` on two `Dynamic{Column}` values, then the third callsite (`_issorted`):
+
+```
+ • %30 = runtime < [split table] nrows on a Dynamic{Column{Int64}}()::Int64 >
+   %68 = runtime < [split table] nrows on a Dynamic{Column{Int64}}()::Int64 >
+   %83 = invoke _issorted(::Tables.ColumnCore.Column{Int64} at Dynamic)::Bool
+   …
+_issorted(c::TObj{var"##T#282"}) where var"##T#282">:Column @ DataFrames.ColumnKernels …/forks-w85/DataFrames/src/other/kernels.jl:294
+ • %30 = runtime < [split table] nrows on a Dynamic{Column{Int64}}()::Int64 >
+   %81 = invoke throw_boundserror(::Vector{Bool},::Tuple{Int64})::Union{}
+   …
+   %177 = runtime < [split table] cell on a Dynamic{Column{Int64}}()::Int64 >
+```
+
+The `throw_boundserror` calls belong to the split's inlined candidates (`Vector{Bool}`, `Vector{Int64}`, `Vector{String}`, `Vector{UInt32}`, …); a column of another type takes the split table.
+
 ## Results table
 
 | Date | Build | What | Result |
@@ -213,4 +274,5 @@ The same import with the switch off took 1.735 s.
 ## Files
 
 - `ab/ab.sh`, `ab/ABProbe.jl`: the harness. `ab/examples/`: the probes above and the patch of example 3. `ab/logs/`: each example's `result.txt`, the AB lines of both sides and `Pkg.status` of both environments.
+- `cthulhu/`: the environment with Cthulhu, `descend_examples.jl`, `test_descend.jl`, `logs/`.
 - `scripts/x6_callpath.jl`, `scripts/x6_conformance.jl`, `scripts/x6_declared.jl`, `scripts/forks_loadreport.jl`; their logs in `logs/`.

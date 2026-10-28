@@ -1,0 +1,513 @@
+X6 selected: IntA 11.0 (want 11.0), IntB 322.0 (want 322.0)
+X6 per call: the capability chosen 375.3 ns; one bound 78.83 ns
+== callsites of MethodInstance for run_cb(::Vector{Dynamic{IntegratorView}}, ::Int64) (code instance of the owner :facts)
+  %36 = invoke throw_boundserror(::Vector{Dynamic{IntegratorView}},::Tuple{Int64})::Union{}
+  %57 = runtime < [dispatch] _enter_erased(::Core.Const(TraitWorld.EntryPos{typeof(cb), 1, 1}()),::Any)::Any >
+  %61 = runtime < [dispatch, rare: error] inferencebarrier(_held_refused)(::Core.Const(TraitWorld.EntryPos{typeof(cb), 1, 1}),::Dynamic{IntegratorView})::Any >
+  %66 = invoke fallback(::typeof(cb),::Dynamic{IntegratorView})::Any
+  %68 = runtime < [dispatch] checked_call(::Core.Const(Main.X6.cb),::Any)::Any >
+  %74 = runtime < [dispatch, rare: like-input result] _like_return(::TraitWorld.LikeResult,::Tuple{Dynamic{IntegratorView}},::Tuple{Any})::Any >
+  %78 = runtime < [dispatch] +(::Any,::Any)::Any >
+  %97 = invoke throw_boundserror(::Vector{Dynamic{IntegratorView}},::Tuple{Int64})::Union{}
+
+== callsites of MethodInstance for cb(::HasDu & IntegratorView at Dynamic) (code instance of the owner :facts)
+  %15 = runtime < [split table] tnow on a Dynamic{IntegratorView}()::Float64 >
+  %35 = runtime < [split table] state on a Dynamic{IntegratorView}()::Any >
+  %54 = invoke throw_boundserror(::Vector{Float64},::Tuple{Int64})::Union{}
+  %70 = runtime < [split table] du on a Dynamic{HasDu}()::Any >
+  %89 = invoke throw_boundserror(::Vector{Float64},::Tuple{Int64})::Union{}
+
+== descend_facts: the first screen (its menu)
+Select a call to descend into or ↩ to ascend.
+
+Toggles: [w]arn, [h]ide type-stable statements, [o]ptimize, [d]ebuginfo, [r]emarks, [e]ffects, e[x]ception_types, [i]nlining costs, [t]ype_annotations, [s]yntax highlight for Source/LLVM/Native, [j]ump to source always.
+Show: [S]ource, [A]ST, [T]yped, [L]LVM, [N]ative.
+Actions: [q]uit, ⟵ ascend, [b]ookmark, [E]dit source code, [R]evise and redisplay, dum[P] params cache.
+
+ • %36 = invoke throw_boundserror(::Array{…},::Tuple{…})::Union{}
+   %57 = runtime < [dispatch] _enter_erased(::EntryPos{…},::Any)::Any >
+   %61 = runtime < [dispatch, rare: error] inferencebarrier(_held_refused)(…) >
+   %66 = invoke fallback(::typeof(cb),::Dynamic{IntegratorView})::Any
+   %68 = runtime < [dispatch] checked_call(::Core.Const(Main.X6.cb),::Any)::… >
+   %74 = runtime < [dispatch, rare: like-input result] _like_return(…,…,…)::… >
+   %78 = runtime < [dispatch] +(::Any,::Any)::Any >
+   %97 = invoke throw_boundserror(::Array{…},::Tuple{…})::Union{}
+   ↩
+== after descending into callsite 4
+
+fallback(f::F, args...) where F @ TraitWorld ~/Repos/julia-trait-bound/TraitWorld-w85/src/entry.jl:730
+       ∘ ─ %0 = invoke fallback(::typeof(cb),::Dynamic{IntegratorView})::Any
+│╻╷ getindex731 1 ─ %1  =   builtin Base.getfield(TraitWorld.CLOSED_WORLD, :x)::Bool
+│      └──       goto #6 if not %1
+│      2 ─ %3  =   builtin Core.getfield(_3, 1)::Dynamic{IntegratorView}
+│      │           builtin Core.throw_methoderror(_2, TraitWorld.Untyped(), %3)::Union{}
+│      └──       unreachable
+│╻  inferencebarrier732 3 ─ %6  =   builtin Base.compilerbarrier(:type, TraitWorld._has_tagged_fallback)::Any
+│      │   %7  =   dynamic (%6)(_2, _3)::Any
+│      │           builtin Core.typeassert(%7, TraitWorld.Bool)::Bool
+│      │   %9  = π (%7, Bool)
+│      └──       goto #14 if not %9
+│      4 ─ %11 =   builtin Core.getfield(_3, 1)::Dynamic{IntegratorView}
+│      │           builtin Core.throw_methoderror(_2, TraitWorld.Untyped(), %11)::Union{}
+│      └──       unreachable
+│╻  inferencebarrier733 5 ─ %14 =   builtin Base.compilerbarrier(:type, TraitWorld._fallback_plain)::Any
+│      │   %15 =   dynamic (%14)(TraitWorld.nothing, _2, _3)::Any
+│      └──       return %15
+
+Select a call to descend into or ↩ to ascend.
+
+Toggles: [w]arn, [h]ide type-stable statements, [o]ptimize, [d]ebuginfo, [r]emarks, [e]ffects, e[x]ception_types, [i]nlining costs, [t]ype_annotations, [s]yntax highlight for Source/LLVM/Native, [j]ump to source always.
+Show: [S]ource, [A]ST, [T]yped, [L]LVM, [N]ative.
+Actions: [q]uit, ⟵ ascend, [b]ookmark, [E]dit source code, [R]evise and redisplay, dum[P] params cache.
+
+ • %7 = runtime < [dispatch] inferencebarrier(_has_tagged_fallback)(…,…)::Any >
+   %15 = runtime < [dispatch] inferencebarrier(_fallback_plain)(…,…,…)::Any >
+   ↩
+session ended: true
+
+callpath: innerrows(::Dynamic{Column}, ::Dynamic{Column}, ::Bool, ::Bool)
+  entry: DataFrames.ColumnKernels.innerrows, bounded arguments 1, 2; untyped callers served by the table of declared implementations
+  argument 1: Dynamic{Column} holding Vector{Int64}
+    the position needs Column
+      Column: a family's member (Tables.ColumnCore, /home/hellmann/Repos/julia-trait-bound/TraitWorld-w85/src/implement.jl:881): fixed in this session
+    typed caller:   Dynamic: the erased key (code compiled once) (the held value's attribute): Column{Int64} at Dynamic
+    untyped caller: Dynamic: the erased key (code compiled once) (the held value's attribute): Column{Int64} at Dynamic
+    the trait object's type is not known where the call is compiled: it is made when the call runs, and the worker is chosen by a dispatch on it (the object's traits)
+  argument 2: Dynamic{Column} holding Vector{Int64}
+    the position needs Column
+      Column: a family's member (Tables.ColumnCore, /home/hellmann/Repos/julia-trait-bound/TraitWorld-w85/src/implement.jl:881): fixed in this session
+    typed caller:   Dynamic: the erased key (code compiled once) (the held value's attribute): Column{Int64} at Dynamic
+    untyped caller: Dynamic: the erased key (code compiled once) (the held value's attribute): Column{Int64} at Dynamic
+    the trait object's type is not known where the call is compiled: it is made when the call runs, and the worker is chosen by a dispatch on it (the object's traits)
+  worker: innerrows(::Column, ::Column, ::Bool, ::Bool) at kernels.jl:275 (DataFrames.ColumnKernels)
+  typed caller's code (the entry inlined):
+    run-time sites: 7 (and 3 on rare paths)
+      [dynamic dispatch] _enter_erased(::EntryPos{typeof(innerrows), 1, 4}, ::Any)
+          _cp_typed diagnostics.jl:302 → … → enter entry.jl:220 → _enter_held entry.jl:230
+      [dynamic dispatch] convert(::Type{Tuple{Vector{Int64}, Vector{Int64}}}, ::Any)
+          _cp_typed diagnostics.jl:302 → innerrows none:0 → macro expansion trait_module.jl:1193
+      [dynamic dispatch] _enter_erased(::EntryPos{typeof(innerrows), 2, 4}, ::Any)
+          _cp_typed diagnostics.jl:302 → … → enter entry.jl:220 → _enter_held entry.jl:230
+      [dynamic dispatch] convert(::Type{Tuple{Vector{Int64}, Vector{Int64}}}, ::Any)
+          _cp_typed diagnostics.jl:302 → innerrows none:0 → macro expansion trait_module.jl:1193
+      [dynamic dispatch] checked_call(::typeof(innerrows), ::Any, ::Any, ::Bool, ::Bool)
+          _cp_typed diagnostics.jl:302 → innerrows none:0 → macro expansion trait_module.jl:1193
+      [dynamic dispatch] convert(::Type{Tuple{Vector{Int64}, Vector{Int64}}}, ::Any)
+          _cp_typed diagnostics.jl:302 → innerrows none:0 → macro expansion trait_module.jl:1193
+      [dynamic dispatch] convert(::Type{Tuple{Vector{Int64}, Vector{Int64}}}, ::Any)
+          _cp_typed diagnostics.jl:302 → innerrows none:0 → macro expansion trait_module.jl:1193
+      rare: an error path: inferencebarrier(_held_refused)(::Type{EntryPos{typeof(innerrows), 1, 4}}, ::Dynamic{Column})
+      rare: an error path: inferencebarrier(_held_refused)(::Type{EntryPos{typeof(innerrows), 2, 4}}, ::Dynamic{Column})
+      rare: only for a result like the input: _like_return(::LikeResult, ::Tuple{Dynamic{Column}, Dynamic{Column}}, ::Tuple{Any, Any})
+  worker's code (compiled by facts, and what it invokes statically):
+    run-time sites: 16
+      [a split's last branch: a table by the value's type, a call through its pointer] nrows on a Dynamic{Column{Int64}}(::<a type outside the candidates>); the candidates now: Vector{Int64}
+          in Tuple{typeof(innerrows), Column{Int64} at Dynamic, Column{Int64} at Dynamic, Bool, Bool} %30
+      [a split's last branch: a table by the value's type, a call through its pointer] nrows on a Dynamic{Column{Int64}}(::<a type outside the candidates>); the candidates now: Vector{Int64}
+          in Tuple{typeof(innerrows), Column{Int64} at Dynamic, Column{Int64} at Dynamic, Bool, Bool} %68
+      [a split's last branch: a table by the value's type, a call through its pointer] nrows on a Dynamic{Column{Int64}}(::<a type outside the candidates>); the candidates now: Vector{Int64}
+          in Tuple{typeof(_issorted), Column{Int64} at Dynamic} %30
+      [a split's last branch: a table by the value's type, a call through its pointer] cell on a Dynamic{Column{Int64}}(::<a type outside the candidates>, ::Int64); the candidates now: Vector{Int64}
+          in Tuple{typeof(_issorted), Column{Int64} at Dynamic} %177
+      [a split's last branch: a table by the value's type, a call through its pointer] cell on a Dynamic{Column{Int64}}(::<a type outside the candidates>, ::Int64); the candidates now: Vector{Int64}
+          in Tuple{typeof(_issorted), Column{Int64} at Dynamic} %304
+      [a split's last branch: a table by the value's type, a call through its pointer] nrows on a Dynamic{Column{Int64}}(::<a type outside the candidates>); the candidates now: Vector{Int64}
+          in Tuple{typeof(_innerjoin_sorted), Column{Int64} at Dynamic, Column{Int64} at Dynamic} %30
+      [a split's last branch: a table by the value's type, a call through its pointer] nrows on a Dynamic{Column{Int64}}(::<a type outside the candidates>); the candidates now: Vector{Int64}
+          in Tuple{typeof(_innerjoin_sorted), Column{Int64} at Dynamic, Column{Int64} at Dynamic} %65
+      [a split's last branch: a table by the value's type, a call through its pointer] cell on a Dynamic{Column{Int64}}(::<a type outside the candidates>, ::Int64); the candidates now: Vector{Int64}
+          in Tuple{typeof(_innerjoin_sorted), Column{Int64} at Dynamic, Column{Int64} at Dynamic} %107
+      [a split's last branch: a table by the value's type, a call through its pointer] cell on a Dynamic{Column{Int64}}(::<a type outside the candidates>, ::Int64); the candidates now: Vector{Int64}
+          in Tuple{typeof(_innerjoin_sorted), Column{Int64} at Dynamic, Column{Int64} at Dynamic} %139
+      [a split's last branch: a table by the value's type, a call through its pointer] emptycells on a Dynamic{Column{Int64}}(::<a type outside the candidates>, ::Int64); the candidates now: Vector{Int64}
+          in Tuple{typeof(_innerjoin_unsorted), Column{Int64} at Dynamic, Column{Int64} at Dynamic} %29
+      [a split's last branch: a table by the value's type, a call through its pointer] emptycells on a Dynamic{Column{Int64}}(::<a type outside the candidates>, ::Int64); the candidates now: Vector{Int64}
+          in Tuple{typeof(_innerjoin_unsorted), Column{Int64} at Dynamic, Column{Int64} at Dynamic} %64
+      [a split's last branch: a table by the value's type, a call through its pointer] emptycells on a Dynamic{Column{Int64}}(::<a type outside the candidates>, ::Int64); the candidates now: Vector{Int64}
+          in Tuple{typeof(_innerjoin_unsorted), Column{Int64} at Dynamic, Column{Int64} at Dynamic} %105
+      [a split's last branch: a table by the value's type, a call through its pointer] nrows on a Dynamic{Column{Int64}}(::<a type outside the candidates>); the candidates now: Vector{Int64}
+          in Tuple{typeof(_innerjoin_unsorted), Column{Int64} at Dynamic, Column{Int64} at Dynamic} %148
+      [a split's last branch: a table by the value's type, a call through its pointer] cell on a Dynamic{Column{Int64}}(::<a type outside the candidates>, ::Int64); the candidates now: Vector{Int64}
+          in Tuple{typeof(_innerjoin_unsorted), Column{Int64} at Dynamic, Column{Int64} at Dynamic} %335
+      [a split's last branch: a table by the value's type, a call through its pointer] nrows on a Dynamic{Column{Int64}}(::<a type outside the candidates>); the candidates now: Vector{Int64}
+          in Tuple{typeof(_innerjoin_unsorted), Column{Int64} at Dynamic, Column{Int64} at Dynamic} %495
+      [a split's last branch: a table by the value's type, a call through its pointer] cell on a Dynamic{Column{Int64}}(::<a type outside the candidates>, ::Int64); the candidates now: Vector{Int64}
+          in Tuple{typeof(_innerjoin_unsorted), Column{Int64} at Dynamic, Column{Int64} at Dynamic} %640
+  per call: typed caller 244.0 ns, 320.0 bytes; untyped caller 310.0 ns, 352.0 bytes
+
+
+== callsites of MethodInstance for innerrows(::Tables.ColumnCore.Column{Int64} at Dynamic, ::Tables.ColumnCore.Column{Int64} at Dynamic, ::Bool, ::Bool) (code instance of the owner :facts)
+  %30 = runtime < [split table] nrows on a Dynamic{Column{Int64}}()::Int64 >
+  %68 = runtime < [split table] nrows on a Dynamic{Column{Int64}}()::Int64 >
+  %83 = invoke _issorted(::Tables.ColumnCore.Column{Int64} at Dynamic)::Bool
+  %85 = invoke _issorted(::Tables.ColumnCore.Column{Int64} at Dynamic)::Bool
+  %87 = invoke _innerjoin_sorted(::Tables.ColumnCore.Column{Int64} at Dynamic,::Tables.ColumnCore.Column{Int64} at Dynamic)::Tuple{Vector{Int64}, Vector{Int64}}
+  %102 = invoke _innerjoin_unsorted(::Tables.ColumnCore.Column{Int64} at Dynamic,::Tables.ColumnCore.Column{Int64} at Dynamic)::Tuple{Vector{Int64}, Vector{Int64}}
+  %105 = invoke _innerjoin_unsorted(::Tables.ColumnCore.Column{Int64} at Dynamic,::Tables.ColumnCore.Column{Int64} at Dynamic)::Tuple{Vector{Int64}, Vector{Int64}}
+
+== descend_facts: the first screen (its menu)
+Select a call to descend into or ↩ to ascend.
+
+Toggles: [w]arn, [h]ide type-stable statements, [o]ptimize, [d]ebuginfo, [r]emarks, [e]ffects, e[x]ception_types, [i]nlining costs, [t]ype_annotations, [s]yntax highlight for Source/LLVM/Native, [j]ump to source always.
+Show: [S]ource, [A]ST, [T]yped, [L]LVM, [N]ative.
+Actions: [q]uit, ⟵ ascend, [b]ookmark, [E]dit source code, [R]evise and redisplay, dum[P] params cache.
+
+ • %30 = runtime < [split table] nrows on a Dynamic{Column{Int64}}()::Int64 >
+   %68 = runtime < [split table] nrows on a Dynamic{Column{Int64}}()::Int64 >
+   %83 = invoke _issorted(::Tables.ColumnCore.Column{Int64} at Dynamic)::Bool
+   %85 = invoke _issorted(::Tables.ColumnCore.Column{Int64} at Dynamic)::Bool
+   %87 = invoke _innerjoin_sorted(::TObj{…},::TObj{…})::…
+   %102 = invoke _innerjoin_unsorted(::TObj{…},::TObj{…})::…
+   %105 = invoke _innerjoin_unsorted(::TObj{…},::TObj{…})::…
+   ↩
+== after descending into callsite 3
+
+_issorted(c::TObj{var"##T#282"}) where var"##T#282">:Column @ DataFrames.ColumnKernels ~/Repos/julia-trait-bound/forks-w85/DataFrames/src/other/kernels.jl:294
+          ∘ ── %0 = invoke _issorted(::Tables.ColumnCore.Column{Int64} at Dynamic)::Bool
+│         1 ── %1   =   builtin TraitWorld.getfield(_2, :views)::Tuple{TraitWorld.View{Tables.ColumnCore.Column{Int64, TraitWorld.ErasedKey{Tuple{TraitWorld.ParamVal{Int64}}, Nothing}}, TraitWorld.ErasedWit, TraitWorld.ErasedKey{Tuple{TraitWorld.ParamVal{Int64}}, Nothing}, 0, Tuple{}}}
+│         │    %2   =   builtin Core.getfield(%1, 1)::TraitWorld.View{Tables.ColumnCore.Column{Int64, TraitWorld.ErasedKey{Tuple{TraitWorld.ParamVal{Int64}}, Nothing}}, TraitWorld.ErasedWit, TraitWorld.ErasedKey{Tuple{TraitWorld.ParamVal{Int64}}, Nothing}, 0, Tuple{}}
+│         │    %3   =   builtin TraitWorld.getfield(%2, :o)::Any
+│         │    %4   =   builtin (isa)(%3, Vector{Bool})::Bool
+│         └───        goto #10 if not %4
+│         2 ── %6   = π (%3, Vector{Bool})
+│         │    %7   =   builtin Base.getfield(%6, :size)::Tuple{Int64}
+│         │    %8   =   builtin Core.getfield(%7, 1)::Int64
+│         └───        goto #33
+│         3 ── %10  =   builtin (isa)(%3, Vector{Int64})::Bool
+│         └───        goto #16 if not %10
+│         4 ── %12  = π (%3, Vector{Int64})
+│         │    %13  =   builtin Base.getfield(%12, :size)::Tuple{Int64}
+│         │    %14  =   builtin Core.getfield(%13, 1)::Int64
+│         └───        goto #33
+│         5 ── %16  =   builtin (isa)(%3, Vector{String})::Bool
+│         └───        goto #22 if not %16
+│         6 ── %18  = π (%3, Vector{String})
+│         │    %19  =   builtin Base.getfield(%18, :size)::Tuple{Int64}
+│         │    %20  =   builtin Core.getfield(%19, 1)::Int64
+│         └───        goto #33
+│         7 ── %22  =   builtin (isa)(%3, PooledArrays.PooledVector{String, UInt32, Vector{UInt32}})::Bool
+│         └───        goto #29 if not %22
+│         8 ── %24  = π (%3, PooledArrays.PooledVector{String, UInt32, Vector{UInt32}})
+│         │    %25  =   builtin Base.getfield(%24, :refs)::Vector{UInt32}
+│         │    %26  =   builtin Base.getfield(%25, :size)::Tuple{Int64}
+│         │    %27  =   builtin Core.getfield(%26, 1)::Int64
+│         └───        goto #33
+│         9 ── %29  =   builtin Core.typeof(%3)::DataType
+│         │    %30  = $(Expr(:foreigncall, :((:jl_split_table_ptr,)), Ptr{Nothing}, svec(Any, Any), 0, :(:ccall), Compiler.SplitTable(Compiler.SplitState(UInt64[0x0000000000000000, 0x0000000000000000], 0x0000000000000000, Any[]), TraitWorld._DynOp{Tables.ColumnCore.Column{Int64}, typeof(Tables.ColumnCore.nrows)}, Tuple{}, Int64, true), :(%29)))::Ptr{Nothing}
+│         │    %31  = $(Expr(:foreigncall, :(%30), Int64, svec(Any, Any), 0, :(:ccall), TraitWorld._DynOp{Tables.ColumnCore.Column{Int64}, typeof(Tables.ColumnCore.nrows)}(Tables.ColumnCore.nrows), :(%3)))::Int64
+│         └───        goto #33
+│         10 ┄ %33  = φ (#9 => %8, #15 => %14, #21 => %20, #28 => %27, #32 => %31)::Int64
+│         └───        goto #35
+│         11 ─        goto #36
+│╻     -295 12 ─ %36  = intrinsic Base.sub_int(%33, 1)::Int64
+││╻╷╷╷  UnitRange    │    %37  = intrinsic Base.sle_int(1, %36)::Bool
+│││┃     unitrange_last    └───        goto #40 if not %37
+││││      13 ─        goto #41
+││││      14 ─        goto #41
+│││       15 ┄ %41  = φ (#39 => %36, #40 => 0)::Int64
+│││       └───        goto #43
+│││       16 ─        goto #44
+││╻╷╷   isempty    17 ─ %44  = intrinsic Base.slt_int(%41, 1)::Bool
+││        └───        goto #47 if not %44
+││        18 ─        goto #48
+││        19 ─        goto #48
+│         20 ┄ %48  = φ (#46 => true, #47 => false)::Bool
+│         │    %49  = φ (#47 => 1)::Int64
+│         │    %50  = φ (#47 => 1)::Int64
+│         │    %51  = intrinsic Base.not_int(%48)::Bool
+│         └───        goto #324 if not %51
+│         21 ┄ %53  = φ (#52 => %49, #323 => %318)::Int64
+│         │    %54  = φ (#52 => %50, #323 => %319)::Int64
+│╻     +296 │    %55  = intrinsic Base.add_int(%53, 1)::Int64
+││        │    %56  =   builtin TraitWorld.getfield(_2, :views)::Tuple{TraitWorld.View{Tables.ColumnCore.Column{Int64, TraitWorld.ErasedKey{Tuple{TraitWorld.ParamVal{Int64}}, Nothing}}, TraitWorld.ErasedWit, TraitWorld.ErasedKey{Tuple{TraitWorld.ParamVal{Int64}}, Nothing}, 0, Tuple{}}}
+││        │    %57  =   builtin Core.getfield(%56, 1)::TraitWorld.View{Tables.ColumnCore.Column{Int64, TraitWorld.ErasedKey{Tuple{TraitWorld.ParamVal{Int64}}, Nothing}}, TraitWorld.ErasedWit, TraitWorld.ErasedKey{Tuple{TraitWorld.ParamVal{Int64}}, Nothing}, 0, Tuple{}}
+││        │    %58  =   builtin TraitWorld.getfield(%57, :o)::Any
+││        │    %59  =   builtin (isa)(%58, Vector{Bool})::Bool
+││        └───        goto #83 if not %59
+││        22 ─ %61  = π (%58, Vector{Bool})
+││        │    %62  = intrinsic Base.add_int(1, %55)::Int64
+││        │    %63  = intrinsic Base.sub_int(%62, 1)::Int64
+││        │    %64  = $(Expr(:boundscheck, false))::Bool
+││        └───        goto #74 if not %64
+││        23 ─ %66  = intrinsic Base.sub_int(%63, 1)::Int64
+││        │    %67  = intrinsic Base.bitcast(Base.UInt, %66)::UInt64
+││        │    %68  =   builtin Base.getfield(%61, :size)::Tuple{Int64}
+││        │    %69  =   builtin Core.getfield(%68, 1)::Int64
+││        │    %70  = intrinsic Base.bitcast(Base.UInt, %69)::UInt64
+││        │    %71  = intrinsic Base.ult_int(%67, %70)::Bool
+││        └───        goto #80 if not %71
+││        24 ─        nothing::Nothing
+││        25 ┄ %74  =   builtin Base.getfield(%61, :ref)::MemoryRef{Bool}
+││        │    %75  =   builtin Base.memoryrefnew(%74, %63, false)::MemoryRef{Bool}
+││        │    %76  =   builtin Base.memoryrefget(%75, :not_atomic, false)::Bool
+││        │             builtin Core.typeassert(%76, Int64)::Int64
+││        │    %78  = π (%76, Int64)
+││        └───        goto #180
+││        26 ─ %80  =   builtin Core.tuple(%63)::Tuple{Int64}
+││        │              invoke Base.throw_boundserror(%61::Vector{Bool}, %80::Tuple{Int64})::Union{}
+││        └───        unreachable
+││        27 ─ %83  =   builtin (isa)(%58, Vector{Int64})::Bool
+││        └───        goto #105 if not %83
+││        28 ─ %85  = π (%58, Vector{Int64})
+││        │    %86  = intrinsic Base.add_int(1, %55)::Int64
+││        │    %87  = intrinsic Base.sub_int(%86, 1)::Int64
+││        │    %88  = $(Expr(:boundscheck, false))::Bool
+││        └───        goto #98 if not %88
+││        29 ─ %90  = intrinsic Base.sub_int(%87, 1)::Int64
+││        │    %91  = intrinsic Base.bitcast(Base.UInt, %90)::UInt64
+││        │    %92  =   builtin Base.getfield(%85, :size)::Tuple{Int64}
+││        │    %93  =   builtin Core.getfield(%92, 1)::Int64
+││        │    %94  = intrinsic Base.bitcast(Base.UInt, %93)::UInt64
+││        │    %95  = intrinsic Base.ult_int(%91, %94)::Bool
+││        └───        goto #102 if not %95
+││        30 ─        nothing::Nothing
+││        31 ┄ %98  =   builtin Base.getfield(%85, :ref)::MemoryRef{Int64}
+││        │    %99  =   builtin Base.memoryrefnew(%98, %87, false)::MemoryRef{Int64}
+││        │    %100 =   builtin Base.memoryrefget(%99, :not_atomic, false)::Int64
+││        └───        goto #180
+││        32 ─ %102 =   builtin Core.tuple(%87)::Tuple{Int64}
+││        │              invoke Base.throw_boundserror(%85::Vector{Int64}, %102::Tuple{Int64})::Union{}
+││        └───        unreachable
+││        33 ─ %105 =   builtin (isa)(%58, Vector{String})::Bool
+││        └───        goto #129 if not %105
+││        34 ─ %107 = π (%58, Vector{String})
+││        │    %108 = intrinsic Base.add_int(1, %55)::Int64
+││        │    %109 = intrinsic Base.sub_int(%108, 1)::Int64
+││        │    %110 = $(Expr(:boundscheck, false))::Bool
+││        └───        goto #120 if not %110
+││        35 ─ %112 = intrinsic Base.sub_int(%109, 1)::Int64
+││        │    %113 = intrinsic Base.bitcast(Base.UInt, %112)::UInt64
+││        │    %114 =   builtin Base.getfield(%107, :size)::Tuple{Int64}
+││        │    %115 =   builtin Core.getfield(%114, 1)::Int64
+││        │    %116 = intrinsic Base.bitcast(Base.UInt, %115)::UInt64
+││        │    %117 = intrinsic Base.ult_int(%113, %116)::Bool
+││        └───        goto #126 if not %117
+││        36 ─        nothing::Nothing
+││        37 ┄ %120 =   builtin Base.getfield(%107, :ref)::MemoryRef{String}
+││        │    %121 =   builtin Base.memoryrefnew(%120, %109, false)::MemoryRef{String}
+││        │    %122 =   builtin Base.memoryrefget(%121, :not_atomic, false)::String
+││        │             builtin Core.typeassert(%122, Int64)::Int64
+││        │    %124 = π (%122, Int64)
+││        └───        goto #180
+││        38 ─ %126 =   builtin Core.tuple(%109)::Tuple{Int64}
+││        │              invoke Base.throw_boundserror(%107::Vector{String}, %126::Tuple{Int64})::Union{}
+││        └───        unreachable
+││        39 ─ %129 =   builtin (isa)(%58, PooledArrays.PooledVector{String, UInt32, Vector{UInt32}})::Bool
+││        └───        goto #176 if not %129
+││        40 ─ %131 = π (%58, PooledArrays.PooledVector{String, UInt32, Vector{UInt32}})
+││        │    %132 = intrinsic Base.add_int(1, %55)::Int64
+││        │    %133 = intrinsic Base.sub_int(%132, 1)::Int64
+││        │    %134 =   builtin Base.getfield(%131, :refs)::Vector{UInt32}
+││        │    %135 = $(Expr(:boundscheck, false))::Bool
+││        └───        goto #145 if not %135
+││        41 ─ %137 = intrinsic Base.sub_int(%133, 1)::Int64
+││        │    %138 = intrinsic Base.bitcast(Base.UInt, %137)::UInt64
+││        │    %139 =   builtin Base.getfield(%134, :size)::Tuple{Int64}
+││        │    %140 =   builtin Core.getfield(%139, 1)::Int64
+││        │    %141 = intrinsic Base.bitcast(Base.UInt, %140)::UInt64
+││        │    %142 = intrinsic Base.ult_int(%138, %141)::Bool
+││        └───        goto #152 if not %142
+││        42 ─        nothing::Nothing
+││        43 ┄ %145 =   builtin Base.getfield(%134, :ref)::MemoryRef{UInt32}
+││        │    %146 =   builtin Base.memoryrefnew(%145, %133, false)::MemoryRef{UInt32}
+││        │    %147 =   builtin Base.memoryrefget(%146, :not_atomic, false)::UInt32
+││        │    %148 =   builtin (%147 === 0x00000000)::Bool
+││        └───        goto #155 if not %148
+││        44 ─          builtin PooledArrays.throw(UndefRefError())::Union{}
+││        └───        unreachable
+││        45 ─ %152 =   builtin Core.tuple(%133)::Tuple{Int64}
+││        │              invoke Base.throw_boundserror(%134::Vector{UInt32}, %152::Tuple{Int64})::Union{}
+││        └───        unreachable
+││        46 ─ %155 =   builtin Base.getfield(%131, :pool)::Vector{String}
+││        │    %156 = intrinsic Core.zext_int(Core.Int64, %147)::Int64
+││        │    %157 = $(Expr(:boundscheck, false))::Bool
+││        └───        goto #167 if not %157
+││        47 ─ %159 = intrinsic Base.sub_int(%156, 1)::Int64
+││        │    %160 = intrinsic Base.bitcast(Base.UInt, %159)::UInt64
+││        │    %161 =   builtin Base.getfield(%155, :size)::Tuple{Int64}
+││        │    %162 =   builtin Core.getfield(%161, 1)::Int64
+││        │    %163 = intrinsic Base.bitcast(Base.UInt, %162)::UInt64
+││        │    %164 = intrinsic Base.ult_int(%160, %163)::Bool
+││        └───        goto #173 if not %164
+││        48 ─        nothing::Nothing
+││        49 ┄ %167 =   builtin Base.getfield(%155, :ref)::MemoryRef{String}
+││        │    %168 =   builtin Base.memoryrefnew(%167, %156, false)::MemoryRef{String}
+││        │    %169 =   builtin Base.memoryrefget(%168, :not_atomic, false)::String
+││        │             builtin Core.typeassert(%169, Int64)::Int64
+││        │    %171 = π (%169, Int64)
+││        └───        goto #180
+││        50 ─ %173 =   builtin Core.tuple(%156)::Tuple{Int64}
+││        │              invoke Base.throw_boundserror(%155::Vector{String}, %173::Tuple{Int64})::Union{}
+││        └───        unreachable
+││        51 ─ %176 =   builtin Core.typeof(%58)::DataType
+││        │    %177 = $(Expr(:foreigncall, :((:jl_split_table_ptr,)), Ptr{Nothing}, svec(Any, Any), 0, :(:ccall), Compiler.SplitTable(Compiler.SplitState(UInt64[0x0000000000000000, 0x0000000000000000], 0x0000000000000000, Any[]), TraitWorld._DynOp{Tables.ColumnCore.Column{Int64}, typeof(Tables.ColumnCore.cell)}, Tuple{Int64}, Int64, true), :(%176)))::Ptr{Nothing}
+││        │    %178 = $(Expr(:foreigncall, :(%177), Int64, svec(Any, Any, Int64), 0, :(:ccall), TraitWorld._DynOp{Tables.ColumnCore.Column{Int64}, typeof(Tables.ColumnCore.cell)}(Tables.ColumnCore.cell), :(%58), :(%55)))::Int64
+││        └───        goto #180
+││        52 ┄ %180 = φ (#79 => %78, #101 => %100, #125 => %124, #172 => %171, #179 => %178)::Int64
+││        └───        goto #182
+││        53 ─        goto #183
+││        54 ─ %183 =   builtin TraitWorld.getfield(_2, :views)::Tuple{TraitWorld.View{Tables.ColumnCore.Column{Int64, TraitWorld.ErasedKey{Tuple{TraitWorld.ParamVal{Int64}}, Nothing}}, TraitWorld.ErasedWit, TraitWorld.ErasedKey{Tuple{TraitWorld.ParamVal{Int64}}, Nothing}, 0, Tuple{}}}
+││        │    %184 =   builtin Core.getfield(%183, 1)::TraitWorld.View{Tables.ColumnCore.Column{Int64, TraitWorld.ErasedKey{Tuple{TraitWorld.ParamVal{Int64}}, Nothing}}, TraitWorld.ErasedWit, TraitWorld.ErasedKey{Tuple{TraitWorld.ParamVal{Int64}}, Nothing}, 0, Tuple{}}
+││        │    %185 =   builtin TraitWorld.getfield(%184, :o)::Any
+││        │    %186 =   builtin (isa)(%185, Vector{Bool})::Bool
+││        └───        goto #210 if not %186
+││        55 ─ %188 = π (%185, Vector{Bool})
+││        │    %189 = intrinsic Base.add_int(1, %53)::Int64
+││        │    %190 = intrinsic Base.sub_int(%189, 1)::Int64
+││        │    %191 = $(Expr(:boundscheck, false))::Bool
+││        └───        goto #201 if not %191
+││        56 ─ %193 = intrinsic Base.sub_int(%190, 1)::Int64
+││        │    %194 = intrinsic Base.bitcast(Base.UInt, %193)::UInt64
+││        │    %195 =   builtin Base.getfield(%188, :size)::Tuple{Int64}
+││        │    %196 =   builtin Core.getfield(%195, 1)::Int64
+││        │    %197 = intrinsic Base.bitcast(Base.UInt, %196)::UInt64
+││        │    %198 = intrinsic Base.ult_int(%194, %197)::Bool
+││        └───        goto #207 if not %198
+││        57 ─        nothing::Nothing
+││        58 ┄ %201 =   builtin Base.getfield(%188, :ref)::MemoryRef{Bool}
+││        │    %202 =   builtin Base.memoryrefnew(%201, %190, false)::MemoryRef{Bool}
+││        │    %203 =   builtin Base.memoryrefget(%202, :not_atomic, false)::Bool
+││        │             builtin Core.typeassert(%203, Int64)::Int64
+││        │    %205 = π (%203, Int64)
+││        └───        goto #307
+││        59 ─ %207 =   builtin Core.tuple(%190)::Tuple{Int64}
+││        │              invoke Base.throw_boundserror(%188::Vector{Bool}, %207::Tuple{Int64})::Union{}
+││        └───        unreachable
+││        60 ─ %210 =   builtin (isa)(%185, Vector{Int64})::Bool
+││        └───        goto #232 if not %210
+││        61 ─ %212 = π (%185, Vector{Int64})
+││        │    %213 = intrinsic Base.add_int(1, %53)::Int64
+││        │    %214 = intrinsic Base.sub_int(%213, 1)::Int64
+││        │    %215 = $(Expr(:boundscheck, false))::Bool
+││        └───        goto #225 if not %215
+││        62 ─ %217 = intrinsic Base.sub_int(%214, 1)::Int64
+││        │    %218 = intrinsic Base.bitcast(Base.UInt, %217)::UInt64
+││        │    %219 =   builtin Base.getfield(%212, :size)::Tuple{Int64}
+││        │    %220 =   builtin Core.getfield(%219, 1)::Int64
+││        │    %221 = intrinsic Base.bitcast(Base.UInt, %220)::UInt64
+││        │    %222 = intrinsic Base.ult_int(%218, %221)::Bool
+││        └───        goto #229 if not %222
+││        63 ─        nothing::Nothing
+││        64 ┄ %225 =   builtin Base.getfield(%212, :ref)::MemoryRef{Int64}
+││        │    %226 =   builtin Base.memoryrefnew(%225, %214, false)::MemoryRef{Int64}
+││        │    %227 =   builtin Base.memoryrefget(%226, :not_atomic, false)::Int64
+││        └───        goto #307
+││        65 ─ %229 =   builtin Core.tuple(%214)::Tuple{Int64}
+││        │              invoke Base.throw_boundserror(%212::Vector{Int64}, %229::Tuple{Int64})::Union{}
+││        └───        unreachable
+││        66 ─ %232 =   builtin (isa)(%185, Vector{String})::Bool
+││        └───        goto #256 if not %232
+││        67 ─ %234 = π (%185, Vector{String})
+││        │    %235 = intrinsic Base.add_int(1, %53)::Int64
+││        │    %236 = intrinsic Base.sub_int(%235, 1)::Int64
+││        │    %237 = $(Expr(:boundscheck, false))::Bool
+││        └───        goto #247 if not %237
+││        68 ─ %239 = intrinsic Base.sub_int(%236, 1)::Int64
+││        │    %240 = intrinsic Base.bitcast(Base.UInt, %239)::UInt64
+││        │    %241 =   builtin Base.getfield(%234, :size)::Tuple{Int64}
+││        │    %242 =   builtin Core.getfield(%241, 1)::Int64
+││        │    %243 = intrinsic Base.bitcast(Base.UInt, %242)::UInt64
+││        │    %244 = intrinsic Base.ult_int(%240, %243)::Bool
+││        └───        goto #253 if not %244
+││        69 ─        nothing::Nothing
+││        70 ┄ %247 =   builtin Base.getfield(%234, :ref)::MemoryRef{String}
+││        │    %248 =   builtin Base.memoryrefnew(%247, %236, false)::MemoryRef{String}
+││        │    %249 =   builtin Base.memoryrefget(%248, :not_atomic, false)::String
+││        │             builtin Core.typeassert(%249, Int64)::Int64
+││        │    %251 = π (%249, Int64)
+││        └───        goto #307
+││        71 ─ %253 =   builtin Core.tuple(%236)::Tuple{Int64}
+││        │              invoke Base.throw_boundserror(%234::Vector{String}, %253::Tuple{Int64})::Union{}
+││        └───        unreachable
+││        72 ─ %256 =   builtin (isa)(%185, PooledArrays.PooledVector{String, UInt32, Vector{UInt32}})::Bool
+││        └───        goto #303 if not %256
+││        73 ─ %258 = π (%185, PooledArrays.PooledVector{String, UInt32, Vector{UInt32}})
+││        │    %259 = intrinsic Base.add_int(1, %53)::Int64
+││        │    %260 = intrinsic Base.sub_int(%259, 1)::Int64
+││        │    %261 =   builtin Base.getfield(%258, :refs)::Vector{UInt32}
+││        │    %262 = $(Expr(:boundscheck, false))::Bool
+││        └───        goto #272 if not %262
+││        74 ─ %264 = intrinsic Base.sub_int(%260, 1)::Int64
+││        │    %265 = intrinsic Base.bitcast(Base.UInt, %264)::UInt64
+││        │    %266 =   builtin Base.getfield(%261, :size)::Tuple{Int64}
+││        │    %267 =   builtin Core.getfield(%266, 1)::Int64
+││        │    %268 = intrinsic Base.bitcast(Base.UInt, %267)::UInt64
+││        │    %269 = intrinsic Base.ult_int(%265, %268)::Bool
+││        └───        goto #279 if not %269
+││        75 ─        nothing::Nothing
+││        76 ┄ %272 =   builtin Base.getfield(%261, :ref)::MemoryRef{UInt32}
+││        │    %273 =   builtin Base.memoryrefnew(%272, %260, false)::MemoryRef{UInt32}
+││        │    %274 =   builtin Base.memoryrefget(%273, :not_atomic, false)::UInt32
+││        │    %275 =   builtin (%274 === 0x00000000)::Bool
+││        └───        goto #282 if not %275
+││        77 ─          builtin PooledArrays.throw(UndefRefError())::Union{}
+││        └───        unreachable
+││        78 ─ %279 =   builtin Core.tuple(%260)::Tuple{Int64}
+││        │              invoke Base.throw_boundserror(%261::Vector{UInt32}, %279::Tuple{Int64})::Union{}
+││        └───        unreachable
+││        79 ─ %282 =   builtin Base.getfield(%258, :pool)::Vector{String}
+││        │    %283 = intrinsic Core.zext_int(Core.Int64, %274)::Int64
+││        │    %284 = $(Expr(:boundscheck, false))::Bool
+││        └───        goto #294 if not %284
+││        80 ─ %286 = intrinsic Base.sub_int(%283, 1)::Int64
+││        │    %287 = intrinsic Base.bitcast(Base.UInt, %286)::UInt64
+││        │    %288 =   builtin Base.getfield(%282, :size)::Tuple{Int64}
+││        │    %289 =   builtin Core.getfield(%288, 1)::Int64
+││        │    %290 = intrinsic Base.bitcast(Base.UInt, %289)::UInt64
+││        │    %291 = intrinsic Base.ult_int(%287, %290)::Bool
+││        └───        goto #300 if not %291
+││        81 ─        nothing::Nothing
+││        82 ┄ %294 =   builtin Base.getfield(%282, :ref)::MemoryRef{String}
+││        │    %295 =   builtin Base.memoryrefnew(%294, %283, false)::MemoryRef{String}
+││        │    %296 =   builtin Base.memoryrefget(%295, :not_atomic, false)::String
+││        │             builtin Core.typeassert(%296, Int64)::Int64
+││        │    %298 = π (%296, Int64)
+││        └───        goto #307
+││        83 ─ %300 =   builtin Core.tuple(%283)::Tuple{Int64}
+││        │              invoke Base.throw_boundserror(%282::Vector{String}, %300::Tuple{Int64})::Union{}
+││        └───        unreachable
+││        84 ─ %303 =   builtin Core.typeof(%185)::DataType
+││        │    %304 = $(Expr(:foreigncall, :((:jl_split_table_ptr,)), Ptr{Nothing}, svec(Any, Any), 0, :(:ccall), Compiler.SplitTable(Compiler.SplitState(UInt64[0x0000000000000000, 0x0000000000000000], 0x0000000000000000, Any[]), TraitWorld._DynOp{Tables.ColumnCore.Column{Int64}, typeof(Tables.ColumnCore.cell)}, Tuple{Int64}, Int64, true), :(%303)))::Ptr{Nothing}
+││        │    %305 = $(Expr(:foreigncall, :(%304), Int64, svec(Any, Any, Int64), 0, :(:ccall), TraitWorld._DynOp{Tables.ColumnCore.Column{Int64}, typeof(Tables.ColumnCore.cell)}(Tables.ColumnCore.cell), :(%185), :(%53)))::Int64
+││        └───        goto #307
+││        85 ┄ %307 = φ (#206 => %205, #228 => %227, #252 => %251, #299 => %298, #306 => %305)::Int64
+││        └───        goto #309
+││        86 ─        goto #310
+││╻     <    87 ─ %310 = intrinsic Base.slt_int(%180, %307)::Bool
+│         └───        goto #313 if not %310
+│         88 ─        return false
+│╻╷    iterate297 89 ─ %313 =   builtin (%54 === %41)::Bool
+││        └───        goto #316 if not %313
+││        90 ─        goto #318
+││╻     +    91 ─ %316 = intrinsic Base.add_int(%54, 1)::Int64
+│││       └───        goto #318
+│         92 ┄ %318 = φ (#317 => %316)::Int64
+│         │    %319 = φ (#317 => %316)::Int64
+│         │    %320 = φ (#315 => true, #317 => false)::Bool
+│         │    %321 = intrinsic Base.not_int(%320)::Bool
+│         └───        goto #324 if not %321
+│         93 ─        goto #53
+│     298 94 ┄        return true
+
+Select a call to descend into or ↩ to ascend.
+
+Toggles: [w]arn, [h]ide type-stable statements, [o]ptimize, [d]ebuginfo, [r]emarks, [e]ffects, e[x]ception_types, [i]nlining costs, [t]ype_annotations, [s]yntax highlight for Source/LLVM/Native, [j]ump to source always.
+Show: [S]ource, [A]ST, [T]yped, [L]LVM, [N]ative.
+Actions: [q]uit, ⟵ ascend, [b]ookmark, [E]dit source code, [R]evise and redisplay, dum[P] params cache.
+
+ • %30 = runtime < [split table] nrows on a Dynamic{Column{Int64}}()::Int64 >
+   %81 = invoke throw_boundserror(::Vector{Bool},::Tuple{Int64})::Union{}
+   %103 = invoke throw_boundserror(::Vector{Int64},::Tuple{Int64})::Union{}
+   %127 = invoke throw_boundserror(::Vector{String},::Tuple{Int64})::Union{}
+   %153 = invoke throw_boundserror(::Vector{UInt32},::Tuple{Int64})::Union{}
+   %174 = invoke throw_boundserror(::Vector{String},::Tuple{Int64})::Union{}
+   %177 = runtime < [split table] cell on a Dynamic{Column{Int64}}()::Int64 >
+   %208 = invoke throw_boundserror(::Vector{Bool},::Tuple{Int64})::Union{}
+   %230 = invoke throw_boundserror(::Vector{Int64},::Tuple{Int64})::Union{}
+   %254 = invoke throw_boundserror(::Vector{String},::Tuple{Int64})::Union{}
+   %280 = invoke throw_boundserror(::Vector{UInt32},::Tuple{Int64})::Union{}
+   %301 = invoke throw_boundserror(::Vector{String},::Tuple{Int64})::Union{}
+   %304 = runtime < [split table] cell on a Dynamic{Column{Int64}}()::Int64 >
+   ↩
+session ended: true
+
