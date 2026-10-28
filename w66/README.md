@@ -150,3 +150,16 @@ TraitWorld b179274 (a pass recorded while an image is built with the worker meth
 
 - Every suite passes (`../checks/logs/e203/`).
 - Found on the way: `_CHECKED_IN_SESSION`, a constant, kept the image build's entries in every session that loaded TraitWorld; it starts empty now.
+
+# E-190: `return_type` at run time by plain inference in both settings (W-22, open issue 30), 2026-10-28
+
+`e190/rt_corpus.jl`: after a session, every specialization of a facts method with a valid facts CodeInstance at a dispatch tuple is a query; the run-time answer (`Core.Compiler.return_type`) is compared with plain inference's in `PlainRTInterp`, the answer the compile-time fold uses. julia-1.13 5071b67894 before, 3e3da4e584 after (`return_type_interp` is `PlainRTInterp` in both settings); perturbed shapes; logs `e190/`.
+
+| | D before | D after | C before | C after |
+|---|---|---|---|---|
+| queries | 907 | 907 | 6,554 | 6,554 |
+| run-time answer differs from plain inference's | 26 (15 wider) | 0 | 414 (all wider) | 0 |
+
+- Before, the run-time answer for a facts method was facts inference's: `Any` where plain inference gives `ODESolution{…}` for SciML's `solve`, `Float64` for TraitMakie's readers.
+- The corpus's own queries take 8.4 s (D) and 13.5 s (C) after the change, since each is inferred plainly for the first time; sessions ask far fewer. Sessions (`../ttfx/logs/e190/`, two each): D 0.94 s, C 10.77–10.79 s, U 9.10–9.14 s, C/p 19.1–19.2 s, D/p 1.08 s: within 2% of the earlier builds.
+- Every suite passes (`../checks/logs/e190/`).
