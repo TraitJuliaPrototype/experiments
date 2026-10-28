@@ -8,6 +8,6 @@ How to run: `julia --project=../../TraitWorld <script>.jl` with the patched Juli
 |---|---|---|
 | `capabilities.jl` | a `Vector{Dynamic{Col}}` with a plain and a pooled column; `kind(c::Col)` and `kind(c::(Col, Pooled))` | `[:plain, :pooled]`; a `Dynamic{Shape}` there: `TraitBoundError`; a kept function at a signature with a method: called; without one whose result can be the declared type: `TraitBoundError` |
 | `callable_follows.jl` | `count_if(f::Callable{Tuple{T}, Bool}, xs::Iterable{T}) where {T}`; `T` fixed by a plain argument too | correct for `Int` and `Float64` items; a variable no other argument fixes refused at the definition |
-| `alloc_compare.jl` | a typed call, the following form against a fixed signature | the same allocation (96 bytes, from the `Iterable` entry, not the new form); no slower |
+| `alloc_compare.jl` | a typed call, the following form against a fixed signature | the same allocation (96 bytes, from the `Iterable` entry, not the new form) and time: 145.7 against 145.2 ns per call, then 145.9 against 146.5 (minimum of five rounds of 10^5 calls, inside a function) |
 
 Every suite passes (`experiments/checks/logs/w81/`); TraitDifferentialEquations' two tests that expected the old errors now expect `TraitBoundError` at the bound (TDE ef12c54).

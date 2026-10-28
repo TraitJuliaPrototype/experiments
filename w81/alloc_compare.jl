@@ -10,6 +10,16 @@ f2(v) = G83b.count_int(iseven, v)
 v = [1, 2, 3, 4]
 f1(v); f2(v)
 println("B follows: ", @allocated(f1(v)), " bytes; fixed: ", @allocated(f2(v)), " bytes")
-t1 = @elapsed for _ in 1:10^5; f1(v); end
-t2 = @elapsed for _ in 1:10^5; f2(v); end
-println("B follows: ", round(t1 * 1e4; digits = 1), " ns/call; fixed: ", round(t2 * 1e4; digits = 1), " ns/call")
+# timed inside a function, minimum of five repetitions of 10^5 calls each
+function bench(g, v)
+    best = Inf
+    for _ in 1:5
+        t = @elapsed for _ in 1:10^5; g(v); end
+        best = min(best, t)
+    end
+    return best * 1e4                                  # ns per call
+end
+bench(f1, v); bench(f2, v)
+for _ in 1:2
+    println("B follows: ", round(bench(f1, v); digits = 1), " ns/call; fixed: ", round(bench(f2, v); digits = 1), " ns/call")
+end
