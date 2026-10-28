@@ -163,3 +163,22 @@ TraitWorld b179274 (a pass recorded while an image is built with the worker meth
 - Before, the run-time answer for a facts method was facts inference's: `Any` where plain inference gives `ODESolution{…}` for SciML's `solve`, `Float64` for TraitMakie's readers.
 - The corpus's own queries take 8.4 s (D) and 13.5 s (C) after the change, since each is inferred plainly for the first time; sessions ask far fewer. Sessions (`../ttfx/logs/e190/`, two each): D 0.94 s, C 10.77–10.79 s, U 9.10–9.14 s, C/p 19.1–19.2 s, D/p 1.08 s: within 2% of the earlier builds.
 - Every suite passes (`../checks/logs/e190/`).
+
+## E-205: the store's gain bound (W-66, the store note rev 2 §6, E-a), 2026-10-28
+
+`store_bound.jl`: the runtime's newly-inferred list from the start of a session; per owner, the CodeInstances' own `time_infer_self` (inference and optimization, exclusive of callees inferred inside) and `time_compile`; the facts entries the store would admit (the note's §1: not naming the session, no edge naming it, no edge to another owner's code, no generated function or opaque closure), with the reasons for the rest; Julia's compile-time counter and the wall clock as a check. julia-1.13 a4e9ad5da9, TraitWorld fac437a; perturbed shapes, one session each; `logs/e205/`.
+
+| | C (facts-compiled SciML core with CairoMakie) | D (the trait demonstrators) |
+|---|---|---|
+| session wall clock (from before `using`) | 14.51 s | 1.36 s |
+| Julia's compile-time counter | 10.7 s | 0.93 s |
+| inference self-time, all owners / code generation, all owners | 3.54 / 7.56 s | 0.36 / 0.57 s |
+| facts CodeInstances / admitted by the store | 2,505 / 1,760 | 95 / 62 |
+| excluded: names the session / an edge names it / generated | 363 / 305 / 77 | 32 / 0 / 1 |
+| **the bound:** the admitted entries' inference and optimization | **1.5 s** | **0.02 s** |
+| their code generation (stays in the session with an IR store) | 1.47 s | 0.05 s |
+| code generation of all facts code | 6.25 s | 0.10 s |
+
+- The per-CodeInstance sums agree with the compile-time counter (3.54 + 7.56 against 10.7 s in C), so on this build they measure the session's compilation, unlike E-194's sums.
+- The IR's size was not measured: inferring a sample of entries again with the facts interpreter at the top level did not finish within 25 minutes (`E205_IR=1` turns it on).
+- **What it says:** a store of optimized IR can save at most 1.5 s of C's 14.5 s off-workload session, before its own costs, and nothing in D. Code generation is twice inference here, and the store leaves it in the session. The 7.29 s of E-194 does not stand on this build. See open issue 95.
