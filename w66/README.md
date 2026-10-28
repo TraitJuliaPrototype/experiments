@@ -127,3 +127,11 @@ julia-1.13 5071b67894 (images give machine code to `nothing` and `:facts` only; 
 - The check owner's and the answers' CodeInstances that keep machine code are reached as callees of code that gets machine code; not diagnosed further.
 - C's first solve is 0.3 s slower (7%) without the plain code keep-compiled kept: under the 20% that would have kept it. Its load is 0.1–0.2 s faster.
 - Every suite passes; under `all` TraitWorld's standing failure only.
+
+# E-202: the first-call checks' records (the facts-first review §2.4, check), 2026-10-28
+
+julia-1.13 5071b67894, TraitWorld 0976025; perturbed shapes; one session each (`e202/D.log`, `e202/C.log`, `e202/edit_case.log`).
+- `_note_checked_ahead!`, the walk over every name of every loaded package's modules after each load: 33 ms over D's 68 packages, 51 ms over C's 398 (timed again at the load mark).
+- D's session runs 9 first-call checks. All 9 are for workers whose facts code came from an image: the image keeps the code but not that it passed. Running their rule checks again takes 62 ms. C runs the same 9.
+- So about a tenth of D's 0.95 s session goes to work the image already did: the checked-record of §2.4 is worth building.
+- The edit case (`e202/edit_case.jl`): `Core.eval(M, :(sq(v::Values) = …))` in a finished trait module is accepted but defines another method; the entry keeps calling the generated worker, and the call gives the old result. What a redefinition should do is open issue 79.
