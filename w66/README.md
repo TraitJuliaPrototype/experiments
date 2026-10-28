@@ -81,9 +81,17 @@ X_MODE=record X_FILE=../w66/logs/fp-scale-C.jls WL_SHAPE=perturbed OPENBLAS_NUM_
 - The witness is weak here: nothing the entries use changed, so no code differs. Soundness rests on parts 1 and 2.
 - Run 2's per-session logs were overwritten by run 3, which failed at load: a cache file of the shared depot was replaced in between (`logs/run3-failed-*`). The summary lines are kept from the task's output.
 
-## Part 4: the index against the candidates seen at record (pending)
+## Part 4: the index against the candidates seen at record, 2026-10-28
 
-`fp_scale.jl` records, per entry, its candidates by fingerprint and name; a check flags an entry only if its candidates now differ. To run after W-22's build, with the depots precompiled again.
+`fp_scale.jl` records, per entry, its candidates (methods from outside a fact's stakeholders and the system image that intersect the fact) by fingerprint and name; a check flags an entry only if its candidates now differ. julia-1.13 41d199c557 with W-22's edits built, TraitWorld 5589f4c with W-22's edit, `depot-C` precompiled again (`env_core_fw` 132.6 s); one session each (`logs/part4-*.log`, `logs/part4-C.jls`).
+
+| Check | Entries | Fingerprints equal | Any candidate (revision 2's index) | A candidate not seen at record | Kept | Code differs |
+|---|---|---|---|---|---|---|
+| `env_core_fw` (FunctionWrappers update) | 2,143 | 2,143 | 35 | 0 | 2,143 (100%) | 0 |
+| `env_core` again | 2,143 | 2,143 | 35 | 0 | 2,143 (100%) | 0 |
+
+- The 35 entries' candidates are the same in every session. Most are methods of one SciML package's function at its own types, defined by another package of the same split family (`OrdinaryDiffEqDifferentiation` on `OrdinaryDiffEqCore.alg_autodiff`; `NonlinearSolveBase` on `solve`), or `Base.deepcopy_internal` methods of packages the facts' signatures do not name.
+- So the index compares against the candidates the entry saw at record: a candidate is new, or gone, or changed. With it nothing is lost to imprecision here.
 
 # E-199: which owners' code package images carry (the facts-first review §2.3, check (a)), 2026-10-28
 
