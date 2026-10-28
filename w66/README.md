@@ -106,3 +106,24 @@ X_MODE=record X_FILE=../w66/logs/fp-scale-C.jls WL_SHAPE=perturbed OPENBLAS_NUM_
 
 - The check owner's results and `return_type`'s answers never run, but get machine code (`add_foreign_codeinfos!`, compiler C-12). In D they are 4,677 CodeInstances with machine code beside 14,556 of the facts owner.
 - So removing their machine code (§2.3) is worth a build: its image sizes and load times are check (b).
+
+# E-201: machine code only for the owners whose code runs (the facts-first review §2.3, check (b)), 2026-10-28
+
+julia-1.13 5071b67894 (images give machine code to `nothing` and `:facts` only; keep-compiled keeps only code of the facts owner), TraitWorld 0976025; the facts image and every depot rebuilt (C 301 s, D 38 s with four tasks; U 261 s, A 434 s with three; every package, since the system image changed). Logs `logs/e201/`, sessions `../ttfx/logs/e201/`, suites `../checks/logs/e201/`.
+
+| | before (E-199, 8ceda6f9d6) | after |
+|---|---|---|
+| D: check owner, with machine code | 4,391 of 4,401 | 752 of 4,387 |
+| D: `return_type`'s answers, with machine code | 286 of 309 | 48 of 309 |
+| D: `nothing`, with machine code | 6,857 | 6,386 |
+| C: check owner / answers, with machine code | 545 / 439 | 122 / 65 |
+| C: `nothing`, with machine code | 86,618 | 84,084 |
+| image of TraitWorld / TraitDifferentialEquations / TraitMakie | 52.0 / 21.3 / 22.3 MB | 48.6 / 18.4 / 19.6 MB |
+| D session | 0.95–0.96 s | 0.94–0.96 s |
+| C session (first solve) | 10.62–10.64 s (4.55) | 10.76–10.91 s (4.86–4.89) |
+| U session | 9.10–9.32 s | 9.32–9.37 s |
+| A session | 10.76–10.91 s | 10.92–10.94 s |
+
+- The check owner's and the answers' CodeInstances that keep machine code are reached as callees of code that gets machine code; not diagnosed further.
+- C's first solve is 0.3 s slower (7%) without the plain code keep-compiled kept: under the 20% that would have kept it. Its load is 0.1–0.2 s faster.
+- Every suite passes; under `all` TraitWorld's standing failure only.
