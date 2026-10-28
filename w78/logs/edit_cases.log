@@ -1,0 +1,14 @@
+┌ Warning: trait module EditT: library code breaks a rule of the trait world:
+│   sq (edit_cases.jl:29): edit_cases.jl:29: a trait object carrying Values is passed to `identity`, an ordinary function: it can do only what its traits declare. Declare `identity` as an operation, or use the operations
+│   sq (edit_cases.jl:29): edit_cases.jl:29: `length` has no method for a trait object carrying Values
+└ @ TraitWorld ~/Repos/julia-trait-bound/TraitWorld/src/trait_module.jl:1240
+E first: 5.0 caller: 6.0
+E body edit: 6.0 caller: 7.0 methods: 2 -> 2
+E bad edit:
+E bad edit call: TraitUseError: library code breaks a rule of the trait world:
+  edit_cases.jl:29: a trait object carrying Values is passed to `identity`, an ordinary function: 
+E fixed again: 9.0
+E new function after end: 3
+E bound edited: 6
+E plain: 2
+E lowering hook installed: true
