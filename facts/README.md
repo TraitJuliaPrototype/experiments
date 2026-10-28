@@ -83,3 +83,20 @@ julia-1.13 8ceda6f9d6; TraitWorld d924f38 (before) and the branch `w66-strict-fa
 - **Suites** (`../checks/logs/e198/`): every suite passes; under `all` TraitWorld's standing `verify_dynamic.jl:40` only, its strict tests included; the strict documentation example 5/5.
 - **The walk is a small part of strict mode's cost:** C's strict load is about 6 s slower than without strict mode (4.2 s), of which owning and walking are 1.5 s; the narrowing does not change it. Where the rest goes is not diagnosed.
 - The validation log kept on for the session costs nothing measurable here (C's strict load before and after).
+
+## E-204: where C's strict-mode load goes, and two fixes (W-75), 2026-10-28
+
+A profile of the workload's `using`s (`w75/profile_strict_load.jl`, 1 ms; strict mode on and off), julia-1.13 5071b67894. With strict mode on, 7,707 samples fell inside image restore against 1,836 off; under it, TraitWorld's image hook: the extensions' check 3.2 s, of which `_extension_parent`'s scan of all loaded modules per method 2.3 s (the image's own package is not registered yet, so the negative cache missed it); the extension warnings 1.2 s; the walk 1.6 s; ownership 0.8 s (`w75/strict1.log`).
+
+Fixes (TraitWorld a72b176): extension parents memoized for an image's scan; the warnings' text built at most 20 times; the warning names the trait code's method instead of printing its CodeInstance.
+
+| Strict mode on | before (TraitWorld b179274) | after |
+|---|---|---|
+| C load | 10.19–10.33 s | 7.24–7.28 s |
+| C session | 16.60–16.78 s | 13.64–13.76 s |
+| D load | 0.70–0.71 s | 0.65 s |
+| D session | 1.24–1.25 s | 1.19 s |
+
+- Left in C's strict load (`w75/strict1-after2.log`): the walk 1.6 s, the extensions' check 1.3 s, their 11 warnings 0.9 s, ownership 0.8 s. Without strict mode C loads in 4.0 s.
+- C's second model took 0.36 s in both sessions after the change, against 0.19 s before; not diagnosed.
+- Every suite passes (`../checks/logs/e204/`).
