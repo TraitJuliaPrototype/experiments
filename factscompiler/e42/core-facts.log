@@ -1,0 +1,632 @@
+┌ Warning: Networking unavailable
+└ @ Main ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/test/choosetests.jl:217
+ERROR: LoadError: Test run finished with errors
+in expression starting at /home/hellmann/Repos/julia-trait-bound/julia-1.13/usr/share/julia/test/runtests.jl:103
+Running parallel tests with:
+  getpid() = 16
+  nworkers() = 1
+  nthreads(:interactive) = 1
+  nthreads(:default) = 1
+  Sys.CPU_THREADS = 1
+  Sys.total_memory() = 30.568 GiB
+  Sys.free_memory() = 25.367 GiB
+  Sys.uptime() = 113045.12 (31.4 hours)
+
+Test  (Worker) | Time (s) | GC (s) | GC % | Alloc (MB) | RSS (MB)
+core       (1) |        started at 2026-10-28T05:43:22.290
+core       (1) |         failed at 2026-10-28T05:45:03.942
+Error During Test at /home/hellmann/Repos/julia-trait-bound/julia-1.13/usr/share/julia/test/core.jl:252
+  Test threw exception
+  Expression: any((mi->begin
+            #= /home/hellmann/Repos/julia-trait-bound/julia-1.13/usr/share/julia/test/core.jl:253 =#
+            mi isa Core.MethodInstance && mi.specTypes == Tuple{typeof(f59327), Function, Int}
+        end), ((methods(f59327))[1]).specializations)
+  MethodError: no method matching iterate(::Core.MethodInstance)
+  The function `iterate` exists, but no method is defined for this combination of argument types.
+  Closest candidates are:
+    iterate(!Matched::Base.AsyncGenerator, !Matched::Base.AsyncGeneratorState)
+     @ Base asyncmap.jl:320
+    iterate(!Matched::Base.AsyncGenerator)
+     @ Base asyncmap.jl:320
+    iterate(!Matched::BitSet)
+     @ Base bitset.jl:333
+    ...
+  Stacktrace:
+   [1] _any(f::Main.Test41Main_core.var"#26#27", itr::Core.MethodInstance, ::Colon)
+     @ Base ./anyall.jl:123
+   [2] any(f::Function, itr::Core.MethodInstance)
+     @ Base ./anyall.jl:115
+   [3] eval_test_function(func::Any, args::Any, kwargs::Any, quoted_func::Union{Expr, Symbol}, source::LineNumberNode, negate::Bool)
+     @ Test ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:394
+   [4] top-level scope
+     @ ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/test/core.jl:539
+   [5] macro expansion
+     @ ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:755 [inlined]
+Error During Test at /home/hellmann/Repos/julia-trait-bound/julia-1.13/usr/share/julia/test/core.jl:259
+  Test threw exception
+  Expression: any((mi->begin
+            #= /home/hellmann/Repos/julia-trait-bound/julia-1.13/usr/share/julia/test/core.jl:260 =#
+            mi isa Core.MethodInstance && mi.specTypes == Tuple{typeof(h59327), Function, Int}
+        end), ((methods(h59327))[1]).specializations)
+  MethodError: no method matching iterate(::Core.MethodInstance)
+  The function `iterate` exists, but no method is defined for this combination of argument types.
+  Closest candidates are:
+    iterate(!Matched::Base.AsyncGenerator, !Matched::Base.AsyncGeneratorState)
+     @ Base asyncmap.jl:320
+    iterate(!Matched::Base.AsyncGenerator)
+     @ Base asyncmap.jl:320
+    iterate(!Matched::BitSet)
+     @ Base bitset.jl:333
+    ...
+  Stacktrace:
+   [1] _any(f::Main.Test41Main_core.var"#29#30", itr::Core.MethodInstance, ::Colon)
+     @ Base ./anyall.jl:123
+   [2] any(f::Function, itr::Core.MethodInstance)
+     @ Base ./anyall.jl:115
+   [3] eval_test_function(func::Any, args::Any, kwargs::Any, quoted_func::Union{Expr, Symbol}, source::LineNumberNode, negate::Bool)
+     @ Test ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:394
+   [4] top-level scope
+     @ ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/test/core.jl:539
+   [5] macro expansion
+     @ ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:755 [inlined]
+Error During Test at /home/hellmann/Repos/julia-trait-bound/julia-1.13/usr/share/julia/test/core.jl:266
+  Test threw exception
+  Expression: any((mi->begin
+            #= /home/hellmann/Repos/julia-trait-bound/julia-1.13/usr/share/julia/test/core.jl:267 =#
+            mi isa Core.MethodInstance && mi.specTypes == Tuple{typeof(j59327), Function, Int}
+        end), ((methods(j59327))[1]).specializations)
+  MethodError: no method matching iterate(::Core.MethodInstance)
+  The function `iterate` exists, but no method is defined for this combination of argument types.
+  Closest candidates are:
+    iterate(!Matched::Base.AsyncGenerator, !Matched::Base.AsyncGeneratorState)
+     @ Base asyncmap.jl:320
+    iterate(!Matched::Base.AsyncGenerator)
+     @ Base asyncmap.jl:320
+    iterate(!Matched::BitSet)
+     @ Base bitset.jl:333
+    ...
+  Stacktrace:
+   [1] _any(f::Main.Test41Main_core.var"#32#33", itr::Core.MethodInstance, ::Colon)
+     @ Base ./anyall.jl:123
+   [2] any(f::Function, itr::Core.MethodInstance)
+     @ Base ./anyall.jl:115
+   [3] eval_test_function(func::Any, args::Any, kwargs::Any, quoted_func::Union{Expr, Symbol}, source::LineNumberNode, negate::Bool)
+     @ Test ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:394
+   [4] top-level scope
+     @ ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/test/core.jl:539
+   [5] macro expansion
+     @ ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:755 [inlined]
+Error During Test at /home/hellmann/Repos/julia-trait-bound/julia-1.13/usr/share/julia/test/core.jl:274
+  Test threw exception
+  Expression: any((mi->begin
+            #= /home/hellmann/Repos/julia-trait-bound/julia-1.13/usr/share/julia/test/core.jl:275 =#
+            mi isa Core.MethodInstance && mi.specTypes == Tuple{typeof(l59327), Function, Int}
+        end), ((methods(l59327))[1]).specializations)
+  MethodError: no method matching iterate(::Core.MethodInstance)
+  The function `iterate` exists, but no method is defined for this combination of argument types.
+  Closest candidates are:
+    iterate(!Matched::Base.AsyncGenerator, !Matched::Base.AsyncGeneratorState)
+     @ Base asyncmap.jl:320
+    iterate(!Matched::Base.AsyncGenerator)
+     @ Base asyncmap.jl:320
+    iterate(!Matched::BitSet)
+     @ Base bitset.jl:333
+    ...
+  Stacktrace:
+   [1] _any(f::Main.Test41Main_core.var"#35#36", itr::Core.MethodInstance, ::Colon)
+     @ Base ./anyall.jl:123
+   [2] any(f::Function, itr::Core.MethodInstance)
+     @ Base ./anyall.jl:115
+   [3] eval_test_function(func::Any, args::Any, kwargs::Any, quoted_func::Union{Expr, Symbol}, source::LineNumberNode, negate::Bool)
+     @ Test ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:394
+   [4] top-level scope
+     @ ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/test/core.jl:539
+   [5] macro expansion
+     @ ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:755 [inlined]
+Error During Test at /home/hellmann/Repos/julia-trait-bound/julia-1.13/usr/share/julia/test/core.jl:283
+  Test threw exception
+  Expression: !(any((mi->begin
+                #= /home/hellmann/Repos/julia-trait-bound/julia-1.13/usr/share/julia/test/core.jl:284 =#
+                mi isa Core.MethodInstance && mi.specTypes == Tuple{typeof(n59327), Function, Int}
+            end), ((methods(n59327))[1]).specializations))
+  MethodError: no method matching iterate(::Core.MethodInstance)
+  The function `iterate` exists, but no method is defined for this combination of argument types.
+  Closest candidates are:
+    iterate(!Matched::Base.AsyncGenerator, !Matched::Base.AsyncGeneratorState)
+     @ Base asyncmap.jl:320
+    iterate(!Matched::Base.AsyncGenerator)
+     @ Base asyncmap.jl:320
+    iterate(!Matched::BitSet)
+     @ Base bitset.jl:333
+    ...
+  Stacktrace:
+   [1] _any(f::Main.Test41Main_core.var"#38#39", itr::Core.MethodInstance, ::Colon)
+     @ Base ./anyall.jl:123
+   [2] any(f::Function, itr::Core.MethodInstance)
+     @ Base ./anyall.jl:115
+   [3] eval_test_function(func::Any, args::Any, kwargs::Any, quoted_func::Union{Expr, Symbol}, source::LineNumberNode, negate::Bool)
+     @ Test ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:394
+   [4] top-level scope
+     @ ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/test/core.jl:539
+   [5] macro expansion
+     @ ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:755 [inlined]
+Error During Test at /home/hellmann/Repos/julia-trait-bound/julia-1.13/usr/share/julia/test/core.jl:287
+  Test threw exception
+  Expression: any((mi->begin
+            #= /home/hellmann/Repos/julia-trait-bound/julia-1.13/usr/share/julia/test/core.jl:288 =#
+            mi isa Core.MethodInstance && mi.specTypes == Tuple{typeof(n59327), typeof(+), Int}
+        end), ((methods(n59327))[1]).specializations)
+  MethodError: no method matching iterate(::Core.MethodInstance)
+  The function `iterate` exists, but no method is defined for this combination of argument types.
+  Closest candidates are:
+    iterate(!Matched::Base.AsyncGenerator, !Matched::Base.AsyncGeneratorState)
+     @ Base asyncmap.jl:320
+    iterate(!Matched::Base.AsyncGenerator)
+     @ Base asyncmap.jl:320
+    iterate(!Matched::BitSet)
+     @ Base bitset.jl:333
+    ...
+  Stacktrace:
+   [1] _any(f::Main.Test41Main_core.var"#41#42", itr::Core.MethodInstance, ::Colon)
+     @ Base ./anyall.jl:123
+   [2] any(f::Function, itr::Core.MethodInstance)
+     @ Base ./anyall.jl:115
+   [3] eval_test_function(func::Any, args::Any, kwargs::Any, quoted_func::Union{Expr, Symbol}, source::LineNumberNode, negate::Bool)
+     @ Test ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:394
+   [4] top-level scope
+     @ ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/test/core.jl:539
+   [5] macro expansion
+     @ ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:755 [inlined]
+Error During Test at /home/hellmann/Repos/julia-trait-bound/julia-1.13/usr/share/julia/test/core.jl:296
+  Test threw exception
+  Expression: !(any((mi->begin
+                #= /home/hellmann/Repos/julia-trait-bound/julia-1.13/usr/share/julia/test/core.jl:297 =#
+                mi isa Core.MethodInstance && mi.specTypes == Tuple{typeof(n59327), Function, Int}
+            end), ((methods(n59327))[1]).specializations))
+  MethodError: no method matching iterate(::Core.MethodInstance)
+  The function `iterate` exists, but no method is defined for this combination of argument types.
+  Closest candidates are:
+    iterate(!Matched::Base.AsyncGenerator, !Matched::Base.AsyncGeneratorState)
+     @ Base asyncmap.jl:320
+    iterate(!Matched::Base.AsyncGenerator)
+     @ Base asyncmap.jl:320
+    iterate(!Matched::BitSet)
+     @ Base bitset.jl:333
+    ...
+  Stacktrace:
+   [1] _any(f::Main.Test41Main_core.var"#44#45", itr::Core.MethodInstance, ::Colon)
+     @ Base ./anyall.jl:123
+   [2] any(f::Function, itr::Core.MethodInstance)
+     @ Base ./anyall.jl:115
+   [3] eval_test_function(func::Any, args::Any, kwargs::Any, quoted_func::Union{Expr, Symbol}, source::LineNumberNode, negate::Bool)
+     @ Test ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:394
+   [4] top-level scope
+     @ ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/test/core.jl:539
+   [5] macro expansion
+     @ ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:755 [inlined]
+Error During Test at /home/hellmann/Repos/julia-trait-bound/julia-1.13/usr/share/julia/test/core.jl:300
+  Test threw exception
+  Expression: any((mi->begin
+            #= /home/hellmann/Repos/julia-trait-bound/julia-1.13/usr/share/julia/test/core.jl:301 =#
+            mi isa Core.MethodInstance && mi.specTypes == Tuple{typeof(n59327), typeof(+), Int}
+        end), ((methods(n59327))[1]).specializations)
+  MethodError: no method matching iterate(::Core.MethodInstance)
+  The function `iterate` exists, but no method is defined for this combination of argument types.
+  Closest candidates are:
+    iterate(!Matched::Base.AsyncGenerator, !Matched::Base.AsyncGeneratorState)
+     @ Base asyncmap.jl:320
+    iterate(!Matched::Base.AsyncGenerator)
+     @ Base asyncmap.jl:320
+    iterate(!Matched::BitSet)
+     @ Base bitset.jl:333
+    ...
+  Stacktrace:
+   [1] _any(f::Main.Test41Main_core.var"#47#48", itr::Core.MethodInstance, ::Colon)
+     @ Base ./anyall.jl:123
+   [2] any(f::Function, itr::Core.MethodInstance)
+     @ Base ./anyall.jl:115
+   [3] eval_test_function(func::Any, args::Any, kwargs::Any, quoted_func::Union{Expr, Symbol}, source::LineNumberNode, negate::Bool)
+     @ Test ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:394
+   [4] top-level scope
+     @ ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/test/core.jl:539
+   [5] macro expansion
+     @ ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:755 [inlined]
+Test Failed at /home/hellmann/Repos/julia-trait-bound/julia-1.13/usr/share/julia/test/core.jl:363
+  Expression: Base.return_types() do
+            #= /home/hellmann/Repos/julia-trait-bound/julia-1.13/usr/share/julia/test/core.jl:364 =#
+            typejoin(Int, UInt)
+        end |> only == Type{typejoin(Int, UInt)}
+   Evaluated: Any == Type{Integer}
+Test Failed at /home/hellmann/Repos/julia-trait-bound/julia-1.13/usr/share/julia/test/core.jl:366
+  Expression: Base.return_types() do
+            #= /home/hellmann/Repos/julia-trait-bound/julia-1.13/usr/share/julia/test/core.jl:367 =#
+            typejoin(Int, UInt, Float64)
+        end |> only == Type{typejoin(Int, UInt, Float64)}
+   Evaluated: Any == Type{Real}
+Error During Test at /home/hellmann/Repos/julia-trait-bound/julia-1.13/usr/share/julia/test/core.jl:8289
+  Test threw exception
+  Expression: f47476(1, 2, 3, 4, 5, 6, (7, 8)) === 2
+  UndefVarError: `N` not defined in static parameter matching
+  Stacktrace:
+   [1] f47476(::Int64, ::Vararg{Union{Int64, NTuple{N, Int64}} where N})
+     @ Main.Test41Main_core ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/test/core.jl:8281
+   [2] top-level scope
+     @ ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/test/core.jl:539
+   [3] macro expansion
+     @ ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:755 [inlined]
+Error During Test at /home/hellmann/Repos/julia-trait-bound/julia-1.13/usr/share/julia/test/core.jl:8293
+  Test threw exception
+  Expression: vect47476(Type{Type{Type{Int32}}}) === Type{Type{Type{Int32}}}
+  UndefVarError: `T` not defined in static parameter matching
+  Stacktrace:
+   [1] vect47476(::Type)
+     @ Main.Test41Main_core ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/test/core.jl:8292
+   [2] top-level scope
+     @ ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/test/core.jl:539
+   [3] macro expansion
+     @ ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:755 [inlined]
+Error During Test at /home/hellmann/Repos/julia-trait-bound/julia-1.13/usr/share/julia/test/core.jl:8294
+  Test threw exception
+  Expression: vect47476(Type{Type{Type{Int64}}}) === Type{Type{Type{Int64}}}
+  UndefVarError: `T` not defined in static parameter matching
+  Stacktrace:
+   [1] vect47476(::Type)
+     @ Main.Test41Main_core ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/test/core.jl:8292
+   [2] top-level scope
+     @ ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/test/core.jl:539
+   [3] macro expansion
+     @ ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:755 [inlined]
+Error During Test at /home/hellmann/Repos/julia-trait-bound/julia-1.13/usr/share/julia/test/core.jl:8298
+  Test threw exception
+  Expression: g47476(nothing, 1, nothing, 2, nothing, 3, nothing, 4, nothing, 5, Val(6)) === 6
+  UndefVarError: `T` not defined in static parameter matching
+  Stacktrace:
+   [1] g47476(::Nothing, ::Vararg{Union{Nothing, Int64, Val{T}} where T})
+     @ Main.Test41Main_core ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/test/core.jl:8296
+   [2] top-level scope
+     @ ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/test/core.jl:539
+   [3] macro expansion
+     @ ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:755 [inlined]
+
+
+Test Summary: |    Pass  Fail  Error  Broken    Total     Time
+  Overall     | 7354027     2     12       7  7354048  1m42.8s
+    core      | 7354027     2     12       7  7354048  1m42.2s
+    FAILURE
+
+The global RNG seed was 0x3b3022eb49c49e93102fa50d3c2b5586.
+
+Error in testset core:
+Error During Test at /home/hellmann/Repos/julia-trait-bound/julia-1.13/usr/share/julia/test/core.jl:252
+  Test threw exception
+  Expression: any((mi->begin
+            #= /home/hellmann/Repos/julia-trait-bound/julia-1.13/usr/share/julia/test/core.jl:253 =#
+            mi isa Core.MethodInstance && mi.specTypes == Tuple{typeof(f59327), Function, Int}
+        end), ((methods(f59327))[1]).specializations)
+  MethodError: no method matching iterate(::Core.MethodInstance)
+  The function `iterate` exists, but no method is defined for this combination of argument types.
+  Closest candidates are:
+    iterate(!Matched::Base.AsyncGenerator, !Matched::Base.AsyncGeneratorState)
+     @ Base asyncmap.jl:320
+    iterate(!Matched::Base.AsyncGenerator)
+     @ Base asyncmap.jl:320
+    iterate(!Matched::BitSet)
+     @ Base bitset.jl:333
+    ...
+  Stacktrace:
+   [1] _any(f::Main.Test41Main_core.var"#26#27", itr::Core.MethodInstance, ::Colon)
+     @ Base ./anyall.jl:123
+   [2] any(f::Function, itr::Core.MethodInstance)
+     @ Base ./anyall.jl:115
+   [3] eval_test_function(func::Any, args::Any, kwargs::Any, quoted_func::Union{Expr, Symbol}, source::LineNumberNode, negate::Bool)
+     @ Test ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:394
+   [4] top-level scope
+     @ ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/test/core.jl:539
+   [5] macro expansion
+     @ ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:755 [inlined]
+Error in testset core:
+Error During Test at /home/hellmann/Repos/julia-trait-bound/julia-1.13/usr/share/julia/test/core.jl:259
+  Test threw exception
+  Expression: any((mi->begin
+            #= /home/hellmann/Repos/julia-trait-bound/julia-1.13/usr/share/julia/test/core.jl:260 =#
+            mi isa Core.MethodInstance && mi.specTypes == Tuple{typeof(h59327), Function, Int}
+        end), ((methods(h59327))[1]).specializations)
+  MethodError: no method matching iterate(::Core.MethodInstance)
+  The function `iterate` exists, but no method is defined for this combination of argument types.
+  Closest candidates are:
+    iterate(!Matched::Base.AsyncGenerator, !Matched::Base.AsyncGeneratorState)
+     @ Base asyncmap.jl:320
+    iterate(!Matched::Base.AsyncGenerator)
+     @ Base asyncmap.jl:320
+    iterate(!Matched::BitSet)
+     @ Base bitset.jl:333
+    ...
+  Stacktrace:
+   [1] _any(f::Main.Test41Main_core.var"#29#30", itr::Core.MethodInstance, ::Colon)
+     @ Base ./anyall.jl:123
+   [2] any(f::Function, itr::Core.MethodInstance)
+     @ Base ./anyall.jl:115
+   [3] eval_test_function(func::Any, args::Any, kwargs::Any, quoted_func::Union{Expr, Symbol}, source::LineNumberNode, negate::Bool)
+     @ Test ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:394
+   [4] top-level scope
+     @ ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/test/core.jl:539
+   [5] macro expansion
+     @ ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:755 [inlined]
+Error in testset core:
+Error During Test at /home/hellmann/Repos/julia-trait-bound/julia-1.13/usr/share/julia/test/core.jl:266
+  Test threw exception
+  Expression: any((mi->begin
+            #= /home/hellmann/Repos/julia-trait-bound/julia-1.13/usr/share/julia/test/core.jl:267 =#
+            mi isa Core.MethodInstance && mi.specTypes == Tuple{typeof(j59327), Function, Int}
+        end), ((methods(j59327))[1]).specializations)
+  MethodError: no method matching iterate(::Core.MethodInstance)
+  The function `iterate` exists, but no method is defined for this combination of argument types.
+  Closest candidates are:
+    iterate(!Matched::Base.AsyncGenerator, !Matched::Base.AsyncGeneratorState)
+     @ Base asyncmap.jl:320
+    iterate(!Matched::Base.AsyncGenerator)
+     @ Base asyncmap.jl:320
+    iterate(!Matched::BitSet)
+     @ Base bitset.jl:333
+    ...
+  Stacktrace:
+   [1] _any(f::Main.Test41Main_core.var"#32#33", itr::Core.MethodInstance, ::Colon)
+     @ Base ./anyall.jl:123
+   [2] any(f::Function, itr::Core.MethodInstance)
+     @ Base ./anyall.jl:115
+   [3] eval_test_function(func::Any, args::Any, kwargs::Any, quoted_func::Union{Expr, Symbol}, source::LineNumberNode, negate::Bool)
+     @ Test ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:394
+   [4] top-level scope
+     @ ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/test/core.jl:539
+   [5] macro expansion
+     @ ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:755 [inlined]
+Error in testset core:
+Error During Test at /home/hellmann/Repos/julia-trait-bound/julia-1.13/usr/share/julia/test/core.jl:274
+  Test threw exception
+  Expression: any((mi->begin
+            #= /home/hellmann/Repos/julia-trait-bound/julia-1.13/usr/share/julia/test/core.jl:275 =#
+            mi isa Core.MethodInstance && mi.specTypes == Tuple{typeof(l59327), Function, Int}
+        end), ((methods(l59327))[1]).specializations)
+  MethodError: no method matching iterate(::Core.MethodInstance)
+  The function `iterate` exists, but no method is defined for this combination of argument types.
+  Closest candidates are:
+    iterate(!Matched::Base.AsyncGenerator, !Matched::Base.AsyncGeneratorState)
+     @ Base asyncmap.jl:320
+    iterate(!Matched::Base.AsyncGenerator)
+     @ Base asyncmap.jl:320
+    iterate(!Matched::BitSet)
+     @ Base bitset.jl:333
+    ...
+  Stacktrace:
+   [1] _any(f::Main.Test41Main_core.var"#35#36", itr::Core.MethodInstance, ::Colon)
+     @ Base ./anyall.jl:123
+   [2] any(f::Function, itr::Core.MethodInstance)
+     @ Base ./anyall.jl:115
+   [3] eval_test_function(func::Any, args::Any, kwargs::Any, quoted_func::Union{Expr, Symbol}, source::LineNumberNode, negate::Bool)
+     @ Test ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:394
+   [4] top-level scope
+     @ ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/test/core.jl:539
+   [5] macro expansion
+     @ ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:755 [inlined]
+Error in testset core:
+Error During Test at /home/hellmann/Repos/julia-trait-bound/julia-1.13/usr/share/julia/test/core.jl:283
+  Test threw exception
+  Expression: !(any((mi->begin
+                #= /home/hellmann/Repos/julia-trait-bound/julia-1.13/usr/share/julia/test/core.jl:284 =#
+                mi isa Core.MethodInstance && mi.specTypes == Tuple{typeof(n59327), Function, Int}
+            end), ((methods(n59327))[1]).specializations))
+  MethodError: no method matching iterate(::Core.MethodInstance)
+  The function `iterate` exists, but no method is defined for this combination of argument types.
+  Closest candidates are:
+    iterate(!Matched::Base.AsyncGenerator, !Matched::Base.AsyncGeneratorState)
+     @ Base asyncmap.jl:320
+    iterate(!Matched::Base.AsyncGenerator)
+     @ Base asyncmap.jl:320
+    iterate(!Matched::BitSet)
+     @ Base bitset.jl:333
+    ...
+  Stacktrace:
+   [1] _any(f::Main.Test41Main_core.var"#38#39", itr::Core.MethodInstance, ::Colon)
+     @ Base ./anyall.jl:123
+   [2] any(f::Function, itr::Core.MethodInstance)
+     @ Base ./anyall.jl:115
+   [3] eval_test_function(func::Any, args::Any, kwargs::Any, quoted_func::Union{Expr, Symbol}, source::LineNumberNode, negate::Bool)
+     @ Test ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:394
+   [4] top-level scope
+     @ ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/test/core.jl:539
+   [5] macro expansion
+     @ ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:755 [inlined]
+Error in testset core:
+Error During Test at /home/hellmann/Repos/julia-trait-bound/julia-1.13/usr/share/julia/test/core.jl:287
+  Test threw exception
+  Expression: any((mi->begin
+            #= /home/hellmann/Repos/julia-trait-bound/julia-1.13/usr/share/julia/test/core.jl:288 =#
+            mi isa Core.MethodInstance && mi.specTypes == Tuple{typeof(n59327), typeof(+), Int}
+        end), ((methods(n59327))[1]).specializations)
+  MethodError: no method matching iterate(::Core.MethodInstance)
+  The function `iterate` exists, but no method is defined for this combination of argument types.
+  Closest candidates are:
+    iterate(!Matched::Base.AsyncGenerator, !Matched::Base.AsyncGeneratorState)
+     @ Base asyncmap.jl:320
+    iterate(!Matched::Base.AsyncGenerator)
+     @ Base asyncmap.jl:320
+    iterate(!Matched::BitSet)
+     @ Base bitset.jl:333
+    ...
+  Stacktrace:
+   [1] _any(f::Main.Test41Main_core.var"#41#42", itr::Core.MethodInstance, ::Colon)
+     @ Base ./anyall.jl:123
+   [2] any(f::Function, itr::Core.MethodInstance)
+     @ Base ./anyall.jl:115
+   [3] eval_test_function(func::Any, args::Any, kwargs::Any, quoted_func::Union{Expr, Symbol}, source::LineNumberNode, negate::Bool)
+     @ Test ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:394
+   [4] top-level scope
+     @ ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/test/core.jl:539
+   [5] macro expansion
+     @ ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:755 [inlined]
+Error in testset core:
+Error During Test at /home/hellmann/Repos/julia-trait-bound/julia-1.13/usr/share/julia/test/core.jl:296
+  Test threw exception
+  Expression: !(any((mi->begin
+                #= /home/hellmann/Repos/julia-trait-bound/julia-1.13/usr/share/julia/test/core.jl:297 =#
+                mi isa Core.MethodInstance && mi.specTypes == Tuple{typeof(n59327), Function, Int}
+            end), ((methods(n59327))[1]).specializations))
+  MethodError: no method matching iterate(::Core.MethodInstance)
+  The function `iterate` exists, but no method is defined for this combination of argument types.
+  Closest candidates are:
+    iterate(!Matched::Base.AsyncGenerator, !Matched::Base.AsyncGeneratorState)
+     @ Base asyncmap.jl:320
+    iterate(!Matched::Base.AsyncGenerator)
+     @ Base asyncmap.jl:320
+    iterate(!Matched::BitSet)
+     @ Base bitset.jl:333
+    ...
+  Stacktrace:
+   [1] _any(f::Main.Test41Main_core.var"#44#45", itr::Core.MethodInstance, ::Colon)
+     @ Base ./anyall.jl:123
+   [2] any(f::Function, itr::Core.MethodInstance)
+     @ Base ./anyall.jl:115
+   [3] eval_test_function(func::Any, args::Any, kwargs::Any, quoted_func::Union{Expr, Symbol}, source::LineNumberNode, negate::Bool)
+     @ Test ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:394
+   [4] top-level scope
+     @ ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/test/core.jl:539
+   [5] macro expansion
+     @ ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:755 [inlined]
+Error in testset core:
+Error During Test at /home/hellmann/Repos/julia-trait-bound/julia-1.13/usr/share/julia/test/core.jl:300
+  Test threw exception
+  Expression: any((mi->begin
+            #= /home/hellmann/Repos/julia-trait-bound/julia-1.13/usr/share/julia/test/core.jl:301 =#
+            mi isa Core.MethodInstance && mi.specTypes == Tuple{typeof(n59327), typeof(+), Int}
+        end), ((methods(n59327))[1]).specializations)
+  MethodError: no method matching iterate(::Core.MethodInstance)
+  The function `iterate` exists, but no method is defined for this combination of argument types.
+  Closest candidates are:
+    iterate(!Matched::Base.AsyncGenerator, !Matched::Base.AsyncGeneratorState)
+     @ Base asyncmap.jl:320
+    iterate(!Matched::Base.AsyncGenerator)
+     @ Base asyncmap.jl:320
+    iterate(!Matched::BitSet)
+     @ Base bitset.jl:333
+    ...
+  Stacktrace:
+   [1] _any(f::Main.Test41Main_core.var"#47#48", itr::Core.MethodInstance, ::Colon)
+     @ Base ./anyall.jl:123
+   [2] any(f::Function, itr::Core.MethodInstance)
+     @ Base ./anyall.jl:115
+   [3] eval_test_function(func::Any, args::Any, kwargs::Any, quoted_func::Union{Expr, Symbol}, source::LineNumberNode, negate::Bool)
+     @ Test ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:394
+   [4] top-level scope
+     @ ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/test/core.jl:539
+   [5] macro expansion
+     @ ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:755 [inlined]
+Error in testset core:
+Test Failed at /home/hellmann/Repos/julia-trait-bound/julia-1.13/usr/share/julia/test/core.jl:363
+  Expression: Base.return_types() do
+            #= /home/hellmann/Repos/julia-trait-bound/julia-1.13/usr/share/julia/test/core.jl:364 =#
+            typejoin(Int, UInt)
+        end |> only == Type{typejoin(Int, UInt)}
+   Evaluated: Any == Type{Integer}
+Error in testset core:
+Test Failed at /home/hellmann/Repos/julia-trait-bound/julia-1.13/usr/share/julia/test/core.jl:366
+  Expression: Base.return_types() do
+            #= /home/hellmann/Repos/julia-trait-bound/julia-1.13/usr/share/julia/test/core.jl:367 =#
+            typejoin(Int, UInt, Float64)
+        end |> only == Type{typejoin(Int, UInt, Float64)}
+   Evaluated: Any == Type{Real}
+Error in testset core:
+Error During Test at /home/hellmann/Repos/julia-trait-bound/julia-1.13/usr/share/julia/test/core.jl:8289
+  Test threw exception
+  Expression: f47476(1, 2, 3, 4, 5, 6, (7, 8)) === 2
+  UndefVarError: `N` not defined in static parameter matching
+  Stacktrace:
+   [1] f47476(::Int64, ::Vararg{Union{Int64, NTuple{N, Int64}} where N})
+     @ Main.Test41Main_core ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/test/core.jl:8281
+   [2] top-level scope
+     @ ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/test/core.jl:539
+   [3] macro expansion
+     @ ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:755 [inlined]
+Error in testset core:
+Error During Test at /home/hellmann/Repos/julia-trait-bound/julia-1.13/usr/share/julia/test/core.jl:8293
+  Test threw exception
+  Expression: vect47476(Type{Type{Type{Int32}}}) === Type{Type{Type{Int32}}}
+  UndefVarError: `T` not defined in static parameter matching
+  Stacktrace:
+   [1] vect47476(::Type)
+     @ Main.Test41Main_core ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/test/core.jl:8292
+   [2] top-level scope
+     @ ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/test/core.jl:539
+   [3] macro expansion
+     @ ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:755 [inlined]
+Error in testset core:
+Error During Test at /home/hellmann/Repos/julia-trait-bound/julia-1.13/usr/share/julia/test/core.jl:8294
+  Test threw exception
+  Expression: vect47476(Type{Type{Type{Int64}}}) === Type{Type{Type{Int64}}}
+  UndefVarError: `T` not defined in static parameter matching
+  Stacktrace:
+   [1] vect47476(::Type)
+     @ Main.Test41Main_core ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/test/core.jl:8292
+   [2] top-level scope
+     @ ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/test/core.jl:539
+   [3] macro expansion
+     @ ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:755 [inlined]
+Error in testset core:
+Error During Test at /home/hellmann/Repos/julia-trait-bound/julia-1.13/usr/share/julia/test/core.jl:8298
+  Test threw exception
+  Expression: g47476(nothing, 1, nothing, 2, nothing, 3, nothing, 4, nothing, 5, Val(6)) === 6
+  UndefVarError: `T` not defined in static parameter matching
+  Stacktrace:
+   [1] g47476(::Nothing, ::Vararg{Union{Nothing, Int64, Val{T}} where T})
+     @ Main.Test41Main_core ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/test/core.jl:8296
+   [2] top-level scope
+     @ ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/test/core.jl:539
+   [3] macro expansion
+     @ ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:755 [inlined]
+ERROR: A test has failed. Please submit a bug report (https://github.com/JuliaLang/julia/issues)
+including error messages above and the output of versioninfo():
+Julia Version 1.13.2
+Commit 3e3da4e584* (2026-10-28 02:52 UTC)
+Platform Info:
+  OS: Linux (x86_64-linux-gnu)
+  CPU: 16 × 11th Gen Intel(R) Core(TM) i7-11800H @ 2.30GHz
+  WORD_SIZE: 64
+  LLVM: libLLVM-20.1.8 (ORCJIT, tigerlake)
+  GC: Built with stock GC
+Threads: 1 default, 1 interactive, 1 GC (on 16 virtual cores)
+Environment:
+  JULIA_PKG_OFFLINE = true
+  JULIA_DEPOT_PATH = /tmp/claude-1000/depot-facts:/home/hellmann/.julia:
+
+Stacktrace:
+ [1] error(s::String)
+   @ Base ./error.jl:44
+ [2] runtests(tests::Vector{String}; ncores::Int64, exit_on_error::Bool, revise::Bool, propagate_project::Bool, seed::Nothing, julia_args::Cmd)
+   @ Base ./util.jl:726
+ [3] top-level scope
+   @ none:1
+ [4] eval(m::Module, e::Any)
+   @ Core ./boot.jl:489
+ [5] exec_options(opts::Base.JLOptions)
+   @ Base ./client.jl:310
+ [6] _start()
+   @ Base ./client.jl:577
+
+caused by: failed process: Process(setenv(`/home/hellmann/Repos/julia-trait-bound/julia-1.13/usr/bin/julia -C native -J/home/hellmann/Repos/julia-trait-bound/julia-1.13/usr/lib/julia/facts/sys.so -g1 --startup-file=no /home/hellmann/Repos/julia-trait-bound/julia-1.13/usr/bin/../share/julia/test/runtests.jl core`,["GNOME_DESKTOP_SESSION_ID=this-is-deprecated", "MEMORY_PRESSURE_WRITE=c29tZSAyMDAwMDAgMjAwMDAwMAA=", "XMODIFIERS=@im=ibus", "TERM=xterm-256color", "AI_AGENT=claude-code_2-1-310_agent", "CLAUDE_CODE_SESSION_ID=6b66fb82-07fa-48b1-b063-bc3f0b65ba26", "OPENBLAS_MAIN_FREE=1", "SHELL=/bin/bash", "JULIA_LOAD_PATH=@:@stdlib", "XAUTHORITY=/run/user/1000/.mutter-Xwaylandauth.HUZAX3"  …  "PWD=/home/hellmann/Repos/julia-trait-bound/julia-1.13/test", "OPENBLAS_DEFAULT_NUM_THREADS=1", "CLOUDSDK_PROXY_PASSWORD=fb514eafb7deb9c10eb8eff2e184b66e", "CLAUDECODE=1", "HOME=/home/hellmann", "HTTPS_PROXY=http://srt.dG9vbHVfMDFLZnI0MkNMd2E0VksyYVVYOEZVUEcx:fb514eafb7deb9c10eb8eff2e184b66e@localhost:3128", "XDG_CURRENT_DESKTOP=ubuntu:GNOME", "grpc_proxy=http://srt.dG9vbHVfMDFLZnI0MkNMd2E0VksyYVVYOEZVUEcx:fb514eafb7deb9c10eb8eff2e184b66e@localhost:3128", "DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1000/bus", "XDG_SESSION_CLASS=user"]), ProcessExited(1)) [1]
+
+Stacktrace:
+ [1] pipeline_error
+   @ ./process.jl:610 [inlined]
+ [2] run(::Cmd; wait::Bool)
+   @ Base ./process.jl:525
+ [3] run
+   @ ./process.jl:522 [inlined]
+ [4] runtests(tests::Vector{String}; ncores::Int64, exit_on_error::Bool, revise::Bool, propagate_project::Bool, seed::Nothing, julia_args::Cmd)
+   @ Base ./util.jl:718
+ [5] top-level scope
+   @ none:1
+ [6] eval(m::Module, e::Any)
+   @ Core ./boot.jl:489
+ [7] exec_options(opts::Base.JLOptions)
+   @ Base ./client.jl:310
+ [8] _start()
+   @ Base ./client.jl:577
