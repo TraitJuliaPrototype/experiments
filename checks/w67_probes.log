@@ -1,0 +1,21 @@
+┌ Warning: @warn_not_fully_typed: `total` at HasData at TraitWorld.Key{Nothing, @NamedTuple{data::AbstractVector}} uses abstract types on its normal path; 2 root causes:
+│   1. field `parts` of `TraitWorld.View{Main.RootKey.HasData{TraitWorld.Key{Nothing, @NamedTuple{data::AbstractVector}}}, TraitWorld.Impl{()}, TraitWorld.Key{Nothing, @NamedTuple{data::AbstractVector}}, 1, Tuple{Nothing, AbstractVector}}` is declared `Tuple{Nothing, AbstractVector}` (w67_probes.jl:15)
+│        7 uses, 4 in loops; first in a loop: w67_probes.jl:15  getfield(::Any, ::Int64)
+│        ← dynamic call iterate(::AbstractVector) returns Any (w67_probes.jl:15)
+│        ← field `2` is read from a value of type Tuple{Nothing, AbstractVector} (w67_probes.jl:15)
+│   2. field `o` of `TraitWorld.View{Main.RootKey.HasData{TraitWorld.Key{Nothing, @NamedTuple{data::AbstractVector}}}, TraitWorld.Impl{()}, TraitWorld.Key{Nothing, @NamedTuple{data::AbstractVector}}, 1, Tuple{Nothing, AbstractVector}}` is declared `Any` (w67_probes.jl:15)
+│        1 use; first: w67_probes.jl:15  getfield(::Any, ::Int64)
+└ @ TraitWorld ~/Repos/julia-trait-bound/TraitWorld/src/concrete.jl:539
+┌ Warning: @warn_not_fully_typed: not fully typed: Tuple{typeof(Main.RootKey.total), Main.RootKey.HasData at data::AbstractVector}
+│   3 run-time sites on normal paths; each pays the facts rule's cost:
+│   /home/hellmann/Repos/julia-trait-bound/experiments/checks/w67_probes.jl:15: +(Any, Any)  in total
+│       its arguments are not concrete, so its result is `Any`: give the values concrete types (a typed field or container, a function barrier), or declare them `Dynamic{X}` with a trait that declares the result type
+│   /home/hellmann/Repos/julia-trait-bound/experiments/checks/w67_probes.jl:15: iterate(AbstractVector)  in total
+│       its arguments are not concrete, so its result is `Any`: give the values concrete types (a typed field or container, a function barrier), or declare them `Dynamic{X}` with a trait that declares the result type
+│   /home/hellmann/Repos/julia-trait-bound/experiments/checks/w67_probes.jl:15: iterate(AbstractVector, Any)  in total
+│       its arguments are not concrete, so its result is `Any`: give the values concrete types (a typed field or container, a function barrier), or declare them `Dynamic{X}` with a trait that declares the result type
+└ @ TraitWorld ~/Repos/julia-trait-bound/TraitWorld/src/concrete.jl:549
+--- (1) a root cause through a key's field type
+P1 result: 3.0
+--- (2) a parameter-bounded constructor at an archetype
+P2 result: SimpleEdge{Int64}(3, 3)
