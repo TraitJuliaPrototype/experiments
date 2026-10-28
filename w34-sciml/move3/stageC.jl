@@ -13,15 +13,11 @@ function rober!(du, u, p, t)
 end
 prob = ODEProblem(rober!, [1.0, 0.0, 0.0], (0.0, 1e5), [0.04, 3e7, 1e4])
 ref = solve(prob, Rodas5(); abstol = 1e-8, reltol = 1e-6)
-# a user's linear solver at the prompt: Base's backslash on a copy
+# a user's linear solver at the prompt: what Base's backslash does for a general matrix, LU on a copy; the factorization
+# is LinearAlgebra's, a `Solvable` (BaseTraits)
 struct Backslash end
-mutable struct BackslashCache; W::Matrix{Float64}; end
-@implement ODECore.LinearCache BackslashCache begin
-    linfactor!(c, W) = (copyto!(c.W, W); nothing)
-    linsolve!(c, x, b) = (x .= c.W \ b; nothing)
-end
 @implement ODECore.LinearSolver Backslash begin
-    lincache(ls, n) = BackslashCache(zeros(n, n))
+    linfactor(ls, W) = LinearAlgebra.lu(W)
 end
 for (name, ls) in ["DenseLU (default)" => DenseLU(), "DenseQR (TraitLinSolvers)" => DenseQR(), "Backslash (the prompt)" => Backslash(),
                    "Dynamic DenseQR" => with_dynamic(DenseQR())]
@@ -39,7 +35,7 @@ function newcis(f)
 end
 struct Backslash2 end
 @implement ODECore.LinearSolver Backslash2 begin
-    lincache(ls, n) = BackslashCache(zeros(n, n))
+    linfactor(ls, W) = LinearAlgebra.lu(W)
 end
 n1, t1 = newcis(() -> solve(prob, Rodas5(linsolve = with_dynamic(Backslash())); abstol = 1e-8, reltol = 1e-6))
 n2, t2 = newcis(() -> solve(prob, Rodas5(linsolve = with_dynamic(Backslash2())); abstol = 1e-8, reltol = 1e-6))

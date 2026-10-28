@@ -1,0 +1,9 @@
+C DenseLU (default)           steps 129, max |u - u_LU| at the end 0.0, identical to LU: true
+C DenseQR (TraitLinSolvers)   steps 129, max |u - u_LU| at the end 6.5503158452884236e-15, identical to LU: false
+C Backslash (the prompt)      steps 129, max |u - u_LU| at the end 0.0, identical to LU: true
+C Dynamic DenseQR             steps 129, max |u - u_LU| at the end 6.5503158452884236e-15, identical to LU: false
+C a new linear solver, Dynamic, after another Dynamic one: 0 CodeInstances of TraitRodas (13.1 ms); the first Dynamic: 0
+C the same solver as its own type (Compiled): 6 CodeInstances of TraitRodas (163.2 ms)
+C time of the stiff solve, DenseLU         744.0 µs
+C time of the stiff solve, Dynamic DenseLU 754.0 µs
+C time of the stiff solve, DenseQR         2152.6 µs

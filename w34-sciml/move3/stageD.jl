@@ -43,24 +43,19 @@ end
 # module at the prompt, where a trait's name bounds a struct parameter and keeps a field (traits §7.2, §7.4)
 @trait_module module UserSolvers
 using TraitWorld
-import ODECore
+import ODECore, LinearAlgebra
 export MyNewton, MyLU
 struct MyNewton{L <: ODECore.LinearSolver}; linsolve::L; end
-struct MyNewtonCache; lc::ODECore.LinearCache; J::Matrix{Float64}; r::Vector{Float64}; dx::Vector{Float64}; fx::Vector{Float64}; end
+struct MyNewtonCache; ls::ODECore.LinearSolver; J::Matrix{Float64}; r::Vector{Float64}; dx::Vector{Float64}; fx::Vector{Float64}; end
 @implement ODECore.NLCache MyNewtonCache begin
-    nlstage!(c, m, x, z, t, γdt) = ODECore.newton_stage!(c.lc, c.J, c.r, c.dx, c.fx, 30, 1e-10, false, m, x, z, t, γdt)
+    nlstage!(c, m, x, z, t, γdt) = ODECore.newton_stage!(c.ls, c.J, c.r, c.dx, c.fx, 30, 1e-10, false, m, x, z, t, γdt)
 end
 @implement ODECore.NonlinearSolver MyNewton{L} where {L} begin
-    nlcache(nl, n) = MyNewtonCache(ODECore.lincache(nl.linsolve, n), zeros(n, n), zeros(n), zeros(n), zeros(n))
+    nlcache(nl, n) = MyNewtonCache(nl.linsolve, zeros(n, n), zeros(n), zeros(n), zeros(n))
 end
 struct MyLU end
-mutable struct MyLUCache; W::Matrix{Float64}; end
-@implement ODECore.LinearCache MyLUCache begin
-    linfactor!(c, W) = (copyto!(c.W, W); nothing)
-    linsolve!(c, x, b) = (x .= c.W \ b; nothing)
-end
 @implement ODECore.LinearSolver MyLU begin
-    lincache(ls, n) = MyLUCache(zeros(n, n))
+    linfactor(ls, W) = LinearAlgebra.lu(W)
 end
 end
 using .UserSolvers
