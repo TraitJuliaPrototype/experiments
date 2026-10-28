@@ -68,9 +68,45 @@ if order == "interleaved"
     pre = facts_valid()
     steps = Any[(:CSV, () -> @eval(using CSV)), (:DataFrames, () -> @eval(using DataFrames)), (:CairoMakie, () -> @eval(using CairoMakie))]
     for (n, u) in STACK2; push!(steps, (Symbol(n), () -> loadpkg(n, u))); end
+    seenlost = Base.IdSet{Any}()
     for (name, f) in steps
+        diag = get(ENV, "G2_DIAG", "0") == "1"
+        log = diag ? ccall(:jl_debug_method_invalidation, Any, (Cint,), 1) : nothing    # the switch returns the log
         tl = @elapsed f()
+        diag && ccall(:jl_debug_method_invalidation, Any, (Cint,), 0)
         lost = filter(ci -> ci.max_world != typemax(UInt), pre)
+        if diag && log isa Vector
+            # the runtime's log: invalidated instances, then the method whose insertion caused it and its tag
+            cause = IdDict{Any,Any}(); pending = Any[]
+            for (k, x) in enumerate(log)
+                if x isa Core.MethodInstance
+                    push!(pending, x)
+                elseif x isa String
+                    if x == "jl_method_table_insert" && k > 1
+                        for mi in pending; cause[mi] = log[k-1]; end
+                    end
+                    empty!(pending)
+                end
+            end
+            if !isempty(lost) && isempty(seenlost)
+                # the entries around the first lost instance's root, as the log holds them
+                for (k, x) in enumerate(log)
+                    if x isa Core.MethodInstance && occursin("_cat(::Val{1}, ::UnitRange{Int64}, ::Int64)", string(x))
+                        for q in max(1, k-3):min(length(log), k+6)
+                            println("    LOG ", q, " ", typeof(log[q]), " ", first(string(log[q]), 200))
+                        end
+                        break
+                    end
+                end
+            end
+            for ci in lost
+                ci in seenlost && continue
+                push!(seenlost, ci)
+                mi = ci.def isa Core.MethodInstance ? ci.def : ci.def.def
+                c = get(cause, mi, nothing)
+                println("    LOST ", first(string(mi), 150), "  <= ", c isa Method ? string(c.module, ": ", c.sig) : repr(c))
+            end
+        end
         mods = Dict{Symbol,Int}()
         for ci in lost
             mi = ci.def isa Core.MethodInstance ? ci.def : ci.def.def

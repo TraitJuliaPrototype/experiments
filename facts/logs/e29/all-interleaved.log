@@ -1,0 +1,24 @@
+WARNING: Detected access to binding `PlotCore.__tw_checked__` in a world prior to its definition world.
+  Julia 1.12 has introduced more strict world age semantics for global bindings.
+  !!! This code may malfunction under Revise.
+  !!! This code will error in future versions of Julia.
+Hint: Add an appropriate `invokelatest` around the access to this binding.
+To make this warning an error, and hence obtain a stack trace, use `julia --depwarn=error`.
+
+  1 dependency had output during precompilation:
+┌ TraitMakie
+│  [Output was shown above]
+└  
+interleaved: first work 135.3 ms; again 9.3 ms; facts-owned valid 68150
+  after CSV                load  47.57 s; facts-owned lost 0 of 68162 Pair{Symbol, Int64}[]; work 10.1 ms
+  after DataFrames         load  55.66 s; facts-owned lost 0 of 68162 Pair{Symbol, Int64}[]; work 10.0 ms
+  after CairoMakie         load 468.65 s; facts-owned lost 12 of 68162 [:CommonSubexpressions => 6, :ForwardDiff => 3, :Base => 3]; work 10.0 ms
+  after OffsetArrays       load   0.01 s; facts-owned lost 12 of 68162 [:CommonSubexpressions => 6, :ForwardDiff => 3, :Base => 3]; work 9.0 ms
+  after StatsBase          load    0.0 s; facts-owned lost 12 of 68162 [:CommonSubexpressions => 6, :ForwardDiff => 3, :Base => 3]; work 8.9 ms
+  after Unitful            load    0.0 s; facts-owned lost 12 of 68162 [:CommonSubexpressions => 6, :ForwardDiff => 3, :Base => 3]; work 9.2 ms
+  after IntervalArithmetic load    0.0 s; facts-owned lost 12 of 68162 [:CommonSubexpressions => 6, :ForwardDiff => 3, :Base => 3]; work 9.1 ms
+  after Distributions      load    0.0 s; facts-owned lost 12 of 68162 [:CommonSubexpressions => 6, :ForwardDiff => 3, :Base => 3]; work 9.1 ms
+  after Interpolations     load    0.0 s; facts-owned lost 12 of 68162 [:CommonSubexpressions => 6, :ForwardDiff => 3, :Base => 3]; work 9.1 ms
+  after StaticArrays       load    0.0 s; facts-owned lost 12 of 68162 [:CommonSubexpressions => 6, :ForwardDiff => 3, :Base => 3]; work 9.1 ms
+  a new right-hand side function: Tsit5 20.3 ms, Rodas5 26.3 ms
+  a new problem type (a new key, compiled by facts): 522.2 ms
