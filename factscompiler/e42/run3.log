@@ -1,0 +1,511 @@
+┌ Warning: Networking unavailable
+└ @ Main ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/test/choosetests.jl:217
+┌ Warning: skipping stftime tests: no locale found for testing
+└ @ Main.Test47Main_misc ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/test/misc.jl:1271
+ERROR: LoadError: Test run finished with errors
+in expression starting at /home/hellmann/Repos/julia-trait-bound/julia-1.13/usr/share/julia/test/runtests.jl:103
+Running parallel tests with:
+  getpid() = 15
+  nworkers() = 1
+  nthreads(:interactive) = 1
+  nthreads(:default) = 1
+  Sys.CPU_THREADS = 4
+  Sys.total_memory() = 30.568 GiB
+  Sys.free_memory() = 25.201 GiB
+  Sys.uptime() = 116412.72 (32.3 hours)
+
+Test    (Worker) | Time (s) | GC (s) | GC % | Alloc (MB) | RSS (MB)
+keywordargs  (1) |        started at 2026-10-28T06:39:29.881
+keywordargs  (1) |     1.46 |   0.02 |  1.0 |      74.46 |   424.34
+staged       (1) |        started at 2026-10-28T06:39:31.588
+staged       (1) |     8.45 |   1.52 | 18.0 |    3439.23 |   737.21
+worlds       (1) |        started at 2026-10-28T06:39:40.041
+worlds       (1) |         failed at 2026-10-28T06:39:42.542
+Test Failed at /home/hellmann/Repos/julia-trait-bound/julia-1.13/usr/share/julia/test/worlds.jl:33
+  Expression: Base.return_types(g265b, (Int,)) == Any[Int]
+   Evaluated: Any[Any] == Any[Int64]
+Test Failed at /home/hellmann/Repos/julia-trait-bound/julia-1.13/usr/share/julia/test/worlds.jl:39
+  Expression: Base.return_types(g265b, (Int,)) == Any[Union{Int, Float64}]
+   Evaluated: Any[Any] == Any[Union{Float64, Int64}]
+Test Failed at /home/hellmann/Repos/julia-trait-bound/julia-1.13/usr/share/julia/test/worlds.jl:82
+  Expression: Base.return_types(B265_, (Int,)) == Any[B265{Int}]
+   Evaluated: Any[Any] == Any[Main.Test83Main_worlds.B265{Int64}]
+Test Failed at /home/hellmann/Repos/julia-trait-bound/julia-1.13/usr/share/julia/test/worlds.jl:94
+  Expression: B265{UInt8} <: only(Base.return_types(B265_, (Int,))) <: B265
+   Evaluated: Main.Test83Main_worlds.B265{UInt8} <: Any <: Main.Test83Main_worlds.B265
+Error During Test at /home/hellmann/Repos/julia-trait-bound/julia-1.13/usr/share/julia/test/testdefs.jl:25
+  Got exception outside of a @test
+  LoadError: MethodError: no method matching worlds(::Nothing)
+  The function `worlds` exists, but no method is defined for this combination of argument types.
+  Closest candidates are:
+    worlds(!Matched::Core.MethodInstance)
+     @ Main.Test83Main_worlds ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/test/worlds.jl:242
+  Stacktrace:
+    [1] top-level scope
+      @ ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/test/worlds.jl:341
+    [2] include(mod::Module, _path::String)
+      @ Base ./Base.jl:310
+    [3] macro expansion
+      @ ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/test/testdefs.jl:35 [inlined]
+    [4] macro expansion
+      @ ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:1967 [inlined]
+    [5] macro expansion
+      @ ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/test/testdefs.jl:27 [inlined]
+    [6] macro expansion
+      @ ./timing.jl:699 [inlined]
+    [7] runtests(name::String, path::String, isolate::Bool; seed::UInt128)
+      @ Main ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/test/testdefs.jl:25
+    [8] runtests
+      @ ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/test/testdefs.jl:7 [inlined]
+    [9] invokelatest
+      @ ./Base_compiler.jl:253 [inlined]
+   [10] #local_remotecall_thunk##0
+      @ ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Distributed/src/remotecall.jl:425 [inlined]
+   [11] run_work_thunk(thunk::Distributed.var"#local_remotecall_thunk##0#local_remotecall_thunk##1"{typeof(runtests), Tuple{String, String}, @Kwargs{seed::UInt128}}, print_error::Bool)
+      @ Distributed ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Distributed/src/process_messages.jl:70
+   [12] remotecall_fetch(::Function, ::Distributed.LocalProcess, ::String, ::Vararg{String}; kwargs::@Kwargs{seed::UInt128})
+      @ Distributed ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Distributed/src/remotecall.jl:450
+   [13] remotecall_fetch(::Function, ::Int64, ::String, ::Vararg{String}; kwargs::@Kwargs{seed::UInt128})
+      @ Distributed ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Distributed/src/remotecall.jl:492
+   [14] (::var"#47#48"{Vector{Task}, var"#print_testworker_errored#40"{ReentrantLock, Int64, Int64}, var"#print_testworker_stats#37"{ReentrantLock, Int64, Int64, Int64, Int64, Int64, Int64}, ReentrantLock, Vector{Any}, Int64, Int64, Int64, Int64, Int64, Int64, Dict{String, Timer}, Dict{String, DateTime}})()
+      @ Main ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/test/runtests.jl:300
+  in expression starting at /home/hellmann/Repos/julia-trait-bound/julia-1.13/usr/share/julia/test/worlds.jl:341
+
+atomics      (1) |        started at 2026-10-28T06:39:42.619
+atomics      (1) |    38.32 |   0.69 |  1.8 |    4537.47 |  1080.00
+reflection   (1) |        started at 2026-10-28T06:40:20.941
+reflection   (1) |         failed at 2026-10-28T06:40:24.521
+Test Failed at /home/hellmann/Repos/julia-trait-bound/julia-1.13/usr/share/julia/test/reflection.jl:1366
+  Expression: only(Base.return_types(sub2ind_gen, (NTuple, Int, Int))) == Int
+   Evaluated: Any == Int64
+Test Failed at /home/hellmann/Repos/julia-trait-bound/julia-1.13/usr/share/julia/test/reflection.jl:1369
+  Expression: rt == Int
+   Evaluated: Any == Int64
+Test Failed at /home/hellmann/Repos/julia-trait-bound/julia-1.13/usr/share/julia/test/reflection.jl:1392
+  Expression: Base.infer_return_type(code_lowered, (Any,)) == Vector{Core.CodeInfo}
+   Evaluated: Any == Vector{Core.CodeInfo}
+Test Failed at /home/hellmann/Repos/julia-trait-bound/julia-1.13/usr/share/julia/test/reflection.jl:1393
+  Expression: Base.infer_return_type(code_lowered, (Any, Any)) == Vector{Core.CodeInfo}
+   Evaluated: Any == Vector{Core.CodeInfo}
+
+complex      (1) |        started at 2026-10-28T06:40:24.521
+complex      (1) |     8.24 |   0.10 |  1.2 |     614.14 |  1086.70
+rational     (1) |        started at 2026-10-28T06:40:32.761
+rational     (1) |         failed at 2026-10-28T06:40:54.520
+Error During Test at /home/hellmann/Repos/julia-trait-bound/julia-1.13/usr/share/julia/test/rational.jl:821
+  Test threw exception
+  Expression: #= /home/hellmann/Repos/julia-trait-bound/julia-1.13/usr/share/julia/test/rational.jl:821 =# @inferred(A * A) isa Matrix{Rational}
+  return type Matrix{Rational} does not match inferred return type Any
+  Stacktrace:
+   [1] error(s::String)
+     @ Base ./error.jl:44
+   [2] top-level scope
+     @ ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/test/rational.jl:817
+   [3] macro expansion
+     @ ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:1967 [inlined]
+   [4] macro expansion
+     @ ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/test/rational.jl:821 [inlined]
+   [5] macro expansion
+     @ ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:755 [inlined]
+
+int          (1) |        started at 2026-10-28T06:40:54.540
+int          (1) |     9.48 |   0.35 |  3.6 |    3009.10 |  1090.94
+floatfuncs   (1) |        started at 2026-10-28T06:41:04.025
+floatfuncs   (1) |    31.92 |   0.20 |  0.6 |     828.43 |  1091.82
+offsetarray  (1) |        started at 2026-10-28T06:41:35.947
+offsetarray  (1) |    23.95 |   0.53 |  2.2 |    2812.98 |  1117.86
+cartesian    (1) |        started at 2026-10-28T06:41:59.902
+cartesian    (1) |     4.64 |   0.07 |  1.6 |     417.72 |  1117.86
+regex        (1) |        started at 2026-10-28T06:42:04.540
+regex        (1) |     2.67 |   0.04 |  1.5 |     251.59 |  1117.86
+copy         (1) |        started at 2026-10-28T06:42:07.211
+copy         (1) |     2.45 |   0.04 |  1.5 |     248.22 |  1117.86
+enums        (1) |        started at 2026-10-28T06:42:09.661
+enums        (1) |     2.05 |   0.04 |  1.8 |     223.93 |  1117.86
+vecelement   (1) |        started at 2026-10-28T06:42:11.707
+vecelement   (1) |     4.23 |   0.07 |  1.6 |     394.14 |  1117.86
+misc         (1) |        started at 2026-10-28T06:42:15.941
+misc         (1) |         failed at 2026-10-28T06:44:58.968
+Test Failed at /home/hellmann/Repos/julia-trait-bound/julia-1.13/usr/share/julia/test/misc.jl:124
+  Expression: get_finalizers_inhibited() == 1
+   Evaluated: 2 == 1
+Test Failed at /home/hellmann/Repos/julia-trait-bound/julia-1.13/usr/share/julia/test/misc.jl:126
+  Expression: get_finalizers_inhibited() == 1
+   Evaluated: 2 == 1
+Test Failed at /home/hellmann/Repos/julia-trait-bound/julia-1.13/usr/share/julia/test/misc.jl:128
+  Expression: get_finalizers_inhibited() == 0
+   Evaluated: 1 == 0
+Test Failed at /home/hellmann/Repos/julia-trait-bound/julia-1.13/usr/share/julia/test/misc.jl:173
+  Expression: get_finalizers_inhibited() == 0
+   Evaluated: 1 == 0
+Test Failed at /home/hellmann/Repos/julia-trait-bound/julia-1.13/usr/share/julia/test/misc.jl:174
+  Expression: lock(get_finalizers_inhibited, l) == 1
+   Evaluated: 2 == 1
+Test Failed at /home/hellmann/Repos/julia-trait-bound/julia-1.13/usr/share/julia/test/misc.jl:175
+  Expression: get_finalizers_inhibited() == 0
+   Evaluated: 1 == 0
+Test Failed at /home/hellmann/Repos/julia-trait-bound/julia-1.13/usr/share/julia/test/misc.jl:179
+  Expression: get_finalizers_inhibited() == 2
+   Evaluated: 3 == 2
+Test Failed at /home/hellmann/Repos/julia-trait-bound/julia-1.13/usr/share/julia/test/misc.jl:181
+  Expression: get_finalizers_inhibited() == 1
+   Evaluated: 2 == 1
+Test Failed at /home/hellmann/Repos/julia-trait-bound/julia-1.13/usr/share/julia/test/misc.jl:183
+  Expression: get_finalizers_inhibited() == 1
+   Evaluated: 2 == 1
+Test Failed at /home/hellmann/Repos/julia-trait-bound/julia-1.13/usr/share/julia/test/misc.jl:185
+  Expression: get_finalizers_inhibited() == 2
+   Evaluated: 3 == 2
+Test Failed at /home/hellmann/Repos/julia-trait-bound/julia-1.13/usr/share/julia/test/misc.jl:187
+  Expression: get_finalizers_inhibited() == 2
+   Evaluated: 3 == 2
+Test Failed at /home/hellmann/Repos/julia-trait-bound/julia-1.13/usr/share/julia/test/misc.jl:189
+  Expression: get_finalizers_inhibited() == 1
+   Evaluated: 2 == 1
+Test Failed at /home/hellmann/Repos/julia-trait-bound/julia-1.13/usr/share/julia/test/misc.jl:191
+  Expression: get_finalizers_inhibited() == 0
+   Evaluated: 1 == 0
+Test Failed at /home/hellmann/Repos/julia-trait-bound/julia-1.13/usr/share/julia/test/misc.jl:173
+  Expression: get_finalizers_inhibited() == 0
+   Evaluated: 1 == 0
+Test Failed at /home/hellmann/Repos/julia-trait-bound/julia-1.13/usr/share/julia/test/misc.jl:174
+  Expression: lock(get_finalizers_inhibited, l) == 1
+   Evaluated: 2 == 1
+Test Failed at /home/hellmann/Repos/julia-trait-bound/julia-1.13/usr/share/julia/test/misc.jl:175
+  Expression: get_finalizers_inhibited() == 0
+   Evaluated: 1 == 0
+Test Failed at /home/hellmann/Repos/julia-trait-bound/julia-1.13/usr/share/julia/test/misc.jl:179
+  Expression: get_finalizers_inhibited() == 2
+   Evaluated: 3 == 2
+Test Failed at /home/hellmann/Repos/julia-trait-bound/julia-1.13/usr/share/julia/test/misc.jl:181
+  Expression: get_finalizers_inhibited() == 1
+   Evaluated: 2 == 1
+Test Failed at /home/hellmann/Repos/julia-trait-bound/julia-1.13/usr/share/julia/test/misc.jl:183
+  Expression: get_finalizers_inhibited() == 1
+   Evaluated: 2 == 1
+Test Failed at /home/hellmann/Repos/julia-trait-bound/julia-1.13/usr/share/julia/test/misc.jl:185
+  Expression: get_finalizers_inhibited() == 2
+   Evaluated: 3 == 2
+Test Failed at /home/hellmann/Repos/julia-trait-bound/julia-1.13/usr/share/julia/test/misc.jl:187
+  Expression: get_finalizers_inhibited() == 2
+   Evaluated: 3 == 2
+Test Failed at /home/hellmann/Repos/julia-trait-bound/julia-1.13/usr/share/julia/test/misc.jl:189
+  Expression: get_finalizers_inhibited() == 1
+   Evaluated: 2 == 1
+Test Failed at /home/hellmann/Repos/julia-trait-bound/julia-1.13/usr/share/julia/test/misc.jl:191
+  Expression: get_finalizers_inhibited() == 0
+   Evaluated: 1 == 0
+Test Failed at /home/hellmann/Repos/julia-trait-bound/julia-1.13/usr/share/julia/test/misc.jl:275
+  Expression: c[] == 1
+   Evaluated: 0 == 1
+Test Failed at /home/hellmann/Repos/julia-trait-bound/julia-1.13/usr/share/julia/test/misc.jl:277
+  Expression: c[] == 1
+   Evaluated: 0 == 1
+Test Failed at /home/hellmann/Repos/julia-trait-bound/julia-1.13/usr/share/julia/test/misc.jl:878
+  Expression: finalized
+Error During Test at /home/hellmann/Repos/julia-trait-bound/julia-1.13/usr/share/julia/test/misc.jl:1618
+  Test threw exception
+  Expression: in_fin[]
+  UndefRefError: access to undefined reference
+  Stacktrace:
+   [1] getproperty
+     @ ./Base_compiler.jl:57 [inlined]
+   [2] getindex(b::Base.RefValue{Any})
+     @ Base ./refvalue.jl:59
+   [3] top-level scope
+     @ ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/test/misc.jl:1607
+   [4] macro expansion
+     @ ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:1967 [inlined]
+   [5] macro expansion
+     @ ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/test/misc.jl:1618 [inlined]
+   [6] macro expansion
+     @ ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:755 [inlined]
+   [7] macro expansion
+     @ ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/test/misc.jl:1618 [inlined]
+
+fastmath     (1) |        started at 2026-10-28T06:44:58.968
+fastmath     (1) |    13.73 |   0.47 |  3.4 |    1226.51 |  1229.74
+ccall        (1) |        started at 2026-10-28T06:45:12.711
+ccall        (1) |    56.99 |  46.84 | 82.2 |     410.26 |  1270.68
+
+Test Summary:   |    Pass  Fail  Error  Broken    Total     Time
+  Overall       | 2481222    34      3      70  2481329  5m43.8s
+    keywordargs |     155                           155     2.2s
+    staged      |      80                    1       81     8.5s
+    worlds      |      84     4      1               89     2.5s
+    atomics     |   11866                    1    11867    38.3s
+    reflection  |     611     4                     615     3.6s
+    complex     |    8553                    2     8555     8.2s
+    rational    |  169190            1       1   169192    21.8s
+    int         |  998635                   40   998675     9.5s
+    floatfuncs  |    1254                   18     1272    31.9s
+    offsetarray |     541                    3      544    24.0s
+    cartesian   |     683                    3      686     4.6s
+    regex       |     170                           170     2.7s
+    copy        |     561                           561     2.5s
+    enums       |     102                           102     2.0s
+    vecelement  |     679                           679     4.2s
+    misc        | 1281621    26      1       1  1281649  2m43.0s
+    fastmath    |    1003                          1003    13.7s
+    ccall       |    5434                          5434    57.0s
+    FAILURE
+
+The global RNG seed was 0x9cd1372bda38f6f00fa9d3238eb5944d.
+
+Error in testset worlds:
+Test Failed at /home/hellmann/Repos/julia-trait-bound/julia-1.13/usr/share/julia/test/worlds.jl:33
+  Expression: Base.return_types(g265b, (Int,)) == Any[Int]
+   Evaluated: Any[Any] == Any[Int64]
+Error in testset worlds:
+Test Failed at /home/hellmann/Repos/julia-trait-bound/julia-1.13/usr/share/julia/test/worlds.jl:39
+  Expression: Base.return_types(g265b, (Int,)) == Any[Union{Int, Float64}]
+   Evaluated: Any[Any] == Any[Union{Float64, Int64}]
+Error in testset worlds:
+Test Failed at /home/hellmann/Repos/julia-trait-bound/julia-1.13/usr/share/julia/test/worlds.jl:82
+  Expression: Base.return_types(B265_, (Int,)) == Any[B265{Int}]
+   Evaluated: Any[Any] == Any[Main.Test83Main_worlds.B265{Int64}]
+Error in testset worlds:
+Test Failed at /home/hellmann/Repos/julia-trait-bound/julia-1.13/usr/share/julia/test/worlds.jl:94
+  Expression: B265{UInt8} <: only(Base.return_types(B265_, (Int,))) <: B265
+   Evaluated: Main.Test83Main_worlds.B265{UInt8} <: Any <: Main.Test83Main_worlds.B265
+Error in testset worlds:
+Error During Test at /home/hellmann/Repos/julia-trait-bound/julia-1.13/usr/share/julia/test/testdefs.jl:25
+  Got exception outside of a @test
+  LoadError: MethodError: no method matching worlds(::Nothing)
+  The function `worlds` exists, but no method is defined for this combination of argument types.
+  Closest candidates are:
+    worlds(!Matched::Core.MethodInstance)
+     @ Main.Test83Main_worlds ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/test/worlds.jl:242
+  Stacktrace:
+    [1] top-level scope
+      @ ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/test/worlds.jl:341
+    [2] include(mod::Module, _path::String)
+      @ Base ./Base.jl:310
+    [3] macro expansion
+      @ ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/test/testdefs.jl:35 [inlined]
+    [4] macro expansion
+      @ ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:1967 [inlined]
+    [5] macro expansion
+      @ ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/test/testdefs.jl:27 [inlined]
+    [6] macro expansion
+      @ ./timing.jl:699 [inlined]
+    [7] runtests(name::String, path::String, isolate::Bool; seed::UInt128)
+      @ Main ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/test/testdefs.jl:25
+    [8] runtests
+      @ ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/test/testdefs.jl:7 [inlined]
+    [9] invokelatest
+      @ ./Base_compiler.jl:253 [inlined]
+   [10] #local_remotecall_thunk##0
+      @ ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Distributed/src/remotecall.jl:425 [inlined]
+   [11] run_work_thunk(thunk::Distributed.var"#local_remotecall_thunk##0#local_remotecall_thunk##1"{typeof(runtests), Tuple{String, String}, @Kwargs{seed::UInt128}}, print_error::Bool)
+      @ Distributed ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Distributed/src/process_messages.jl:70
+   [12] remotecall_fetch(::Function, ::Distributed.LocalProcess, ::String, ::Vararg{String}; kwargs::@Kwargs{seed::UInt128})
+      @ Distributed ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Distributed/src/remotecall.jl:450
+   [13] remotecall_fetch(::Function, ::Int64, ::String, ::Vararg{String}; kwargs::@Kwargs{seed::UInt128})
+      @ Distributed ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Distributed/src/remotecall.jl:492
+   [14] (::var"#47#48"{Vector{Task}, var"#print_testworker_errored#40"{ReentrantLock, Int64, Int64}, var"#print_testworker_stats#37"{ReentrantLock, Int64, Int64, Int64, Int64, Int64, Int64}, ReentrantLock, Vector{Any}, Int64, Int64, Int64, Int64, Int64, Int64, Dict{String, Timer}, Dict{String, DateTime}})()
+      @ Main ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/test/runtests.jl:300
+  in expression starting at /home/hellmann/Repos/julia-trait-bound/julia-1.13/usr/share/julia/test/worlds.jl:341
+Error in testset reflection:
+Test Failed at /home/hellmann/Repos/julia-trait-bound/julia-1.13/usr/share/julia/test/reflection.jl:1366
+  Expression: only(Base.return_types(sub2ind_gen, (NTuple, Int, Int))) == Int
+   Evaluated: Any == Int64
+Error in testset reflection:
+Test Failed at /home/hellmann/Repos/julia-trait-bound/julia-1.13/usr/share/julia/test/reflection.jl:1369
+  Expression: rt == Int
+   Evaluated: Any == Int64
+Error in testset reflection:
+Test Failed at /home/hellmann/Repos/julia-trait-bound/julia-1.13/usr/share/julia/test/reflection.jl:1392
+  Expression: Base.infer_return_type(code_lowered, (Any,)) == Vector{Core.CodeInfo}
+   Evaluated: Any == Vector{Core.CodeInfo}
+Error in testset reflection:
+Test Failed at /home/hellmann/Repos/julia-trait-bound/julia-1.13/usr/share/julia/test/reflection.jl:1393
+  Expression: Base.infer_return_type(code_lowered, (Any, Any)) == Vector{Core.CodeInfo}
+   Evaluated: Any == Vector{Core.CodeInfo}
+Error in testset rational:
+Error During Test at /home/hellmann/Repos/julia-trait-bound/julia-1.13/usr/share/julia/test/rational.jl:821
+  Test threw exception
+  Expression: #= /home/hellmann/Repos/julia-trait-bound/julia-1.13/usr/share/julia/test/rational.jl:821 =# @inferred(A * A) isa Matrix{Rational}
+  return type Matrix{Rational} does not match inferred return type Any
+  Stacktrace:
+   [1] error(s::String)
+     @ Base ./error.jl:44
+   [2] top-level scope
+     @ ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/test/rational.jl:817
+   [3] macro expansion
+     @ ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:1967 [inlined]
+   [4] macro expansion
+     @ ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/test/rational.jl:821 [inlined]
+   [5] macro expansion
+     @ ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:755 [inlined]
+Error in testset misc:
+Test Failed at /home/hellmann/Repos/julia-trait-bound/julia-1.13/usr/share/julia/test/misc.jl:124
+  Expression: get_finalizers_inhibited() == 1
+   Evaluated: 2 == 1
+Error in testset misc:
+Test Failed at /home/hellmann/Repos/julia-trait-bound/julia-1.13/usr/share/julia/test/misc.jl:126
+  Expression: get_finalizers_inhibited() == 1
+   Evaluated: 2 == 1
+Error in testset misc:
+Test Failed at /home/hellmann/Repos/julia-trait-bound/julia-1.13/usr/share/julia/test/misc.jl:128
+  Expression: get_finalizers_inhibited() == 0
+   Evaluated: 1 == 0
+Error in testset misc:
+Test Failed at /home/hellmann/Repos/julia-trait-bound/julia-1.13/usr/share/julia/test/misc.jl:173
+  Expression: get_finalizers_inhibited() == 0
+   Evaluated: 1 == 0
+Error in testset misc:
+Test Failed at /home/hellmann/Repos/julia-trait-bound/julia-1.13/usr/share/julia/test/misc.jl:174
+  Expression: lock(get_finalizers_inhibited, l) == 1
+   Evaluated: 2 == 1
+Error in testset misc:
+Test Failed at /home/hellmann/Repos/julia-trait-bound/julia-1.13/usr/share/julia/test/misc.jl:175
+  Expression: get_finalizers_inhibited() == 0
+   Evaluated: 1 == 0
+Error in testset misc:
+Test Failed at /home/hellmann/Repos/julia-trait-bound/julia-1.13/usr/share/julia/test/misc.jl:179
+  Expression: get_finalizers_inhibited() == 2
+   Evaluated: 3 == 2
+Error in testset misc:
+Test Failed at /home/hellmann/Repos/julia-trait-bound/julia-1.13/usr/share/julia/test/misc.jl:181
+  Expression: get_finalizers_inhibited() == 1
+   Evaluated: 2 == 1
+Error in testset misc:
+Test Failed at /home/hellmann/Repos/julia-trait-bound/julia-1.13/usr/share/julia/test/misc.jl:183
+  Expression: get_finalizers_inhibited() == 1
+   Evaluated: 2 == 1
+Error in testset misc:
+Test Failed at /home/hellmann/Repos/julia-trait-bound/julia-1.13/usr/share/julia/test/misc.jl:185
+  Expression: get_finalizers_inhibited() == 2
+   Evaluated: 3 == 2
+Error in testset misc:
+Test Failed at /home/hellmann/Repos/julia-trait-bound/julia-1.13/usr/share/julia/test/misc.jl:187
+  Expression: get_finalizers_inhibited() == 2
+   Evaluated: 3 == 2
+Error in testset misc:
+Test Failed at /home/hellmann/Repos/julia-trait-bound/julia-1.13/usr/share/julia/test/misc.jl:189
+  Expression: get_finalizers_inhibited() == 1
+   Evaluated: 2 == 1
+Error in testset misc:
+Test Failed at /home/hellmann/Repos/julia-trait-bound/julia-1.13/usr/share/julia/test/misc.jl:191
+  Expression: get_finalizers_inhibited() == 0
+   Evaluated: 1 == 0
+Error in testset misc:
+Test Failed at /home/hellmann/Repos/julia-trait-bound/julia-1.13/usr/share/julia/test/misc.jl:173
+  Expression: get_finalizers_inhibited() == 0
+   Evaluated: 1 == 0
+Error in testset misc:
+Test Failed at /home/hellmann/Repos/julia-trait-bound/julia-1.13/usr/share/julia/test/misc.jl:174
+  Expression: lock(get_finalizers_inhibited, l) == 1
+   Evaluated: 2 == 1
+Error in testset misc:
+Test Failed at /home/hellmann/Repos/julia-trait-bound/julia-1.13/usr/share/julia/test/misc.jl:175
+  Expression: get_finalizers_inhibited() == 0
+   Evaluated: 1 == 0
+Error in testset misc:
+Test Failed at /home/hellmann/Repos/julia-trait-bound/julia-1.13/usr/share/julia/test/misc.jl:179
+  Expression: get_finalizers_inhibited() == 2
+   Evaluated: 3 == 2
+Error in testset misc:
+Test Failed at /home/hellmann/Repos/julia-trait-bound/julia-1.13/usr/share/julia/test/misc.jl:181
+  Expression: get_finalizers_inhibited() == 1
+   Evaluated: 2 == 1
+Error in testset misc:
+Test Failed at /home/hellmann/Repos/julia-trait-bound/julia-1.13/usr/share/julia/test/misc.jl:183
+  Expression: get_finalizers_inhibited() == 1
+   Evaluated: 2 == 1
+Error in testset misc:
+Test Failed at /home/hellmann/Repos/julia-trait-bound/julia-1.13/usr/share/julia/test/misc.jl:185
+  Expression: get_finalizers_inhibited() == 2
+   Evaluated: 3 == 2
+Error in testset misc:
+Test Failed at /home/hellmann/Repos/julia-trait-bound/julia-1.13/usr/share/julia/test/misc.jl:187
+  Expression: get_finalizers_inhibited() == 2
+   Evaluated: 3 == 2
+Error in testset misc:
+Test Failed at /home/hellmann/Repos/julia-trait-bound/julia-1.13/usr/share/julia/test/misc.jl:189
+  Expression: get_finalizers_inhibited() == 1
+   Evaluated: 2 == 1
+Error in testset misc:
+Test Failed at /home/hellmann/Repos/julia-trait-bound/julia-1.13/usr/share/julia/test/misc.jl:191
+  Expression: get_finalizers_inhibited() == 0
+   Evaluated: 1 == 0
+Error in testset misc:
+Test Failed at /home/hellmann/Repos/julia-trait-bound/julia-1.13/usr/share/julia/test/misc.jl:275
+  Expression: c[] == 1
+   Evaluated: 0 == 1
+Error in testset misc:
+Test Failed at /home/hellmann/Repos/julia-trait-bound/julia-1.13/usr/share/julia/test/misc.jl:277
+  Expression: c[] == 1
+   Evaluated: 0 == 1
+Error in testset misc:
+Test Failed at /home/hellmann/Repos/julia-trait-bound/julia-1.13/usr/share/julia/test/misc.jl:878
+  Expression: finalized
+Error in testset misc:
+Error During Test at /home/hellmann/Repos/julia-trait-bound/julia-1.13/usr/share/julia/test/misc.jl:1618
+  Test threw exception
+  Expression: in_fin[]
+  UndefRefError: access to undefined reference
+  Stacktrace:
+   [1] getproperty
+     @ ./Base_compiler.jl:57 [inlined]
+   [2] getindex(b::Base.RefValue{Any})
+     @ Base ./refvalue.jl:59
+   [3] top-level scope
+     @ ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/test/misc.jl:1607
+   [4] macro expansion
+     @ ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:1967 [inlined]
+   [5] macro expansion
+     @ ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/test/misc.jl:1618 [inlined]
+   [6] macro expansion
+     @ ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:755 [inlined]
+   [7] macro expansion
+     @ ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/test/misc.jl:1618 [inlined]
+ERROR: A test has failed. Please submit a bug report (https://github.com/JuliaLang/julia/issues)
+including error messages above and the output of versioninfo():
+Julia Version 1.13.2
+Commit 3e3da4e584* (2026-10-28 02:52 UTC)
+Platform Info:
+  OS: Linux (x86_64-linux-gnu)
+  CPU: 16 × 11th Gen Intel(R) Core(TM) i7-11800H @ 2.30GHz
+  WORD_SIZE: 64
+  LLVM: libLLVM-20.1.8 (ORCJIT, tigerlake)
+  GC: Built with stock GC
+Threads: 1 default, 1 interactive, 1 GC (on 16 virtual cores)
+Environment:
+  JULIA_PKG_OFFLINE = true
+  JULIA_DEPOT_PATH = /tmp/claude-1000/depot-facts:/home/hellmann/.julia:
+
+Stacktrace:
+ [1] error(s::String)
+   @ Base ./error.jl:44
+ [2] runtests(tests::Vector{String}; ncores::Int64, exit_on_error::Bool, revise::Bool, propagate_project::Bool, seed::Nothing, julia_args::Cmd)
+   @ Base ./util.jl:726
+ [3] top-level scope
+   @ none:1
+ [4] eval(m::Module, e::Any)
+   @ Core ./boot.jl:489
+ [5] exec_options(opts::Base.JLOptions)
+   @ Base ./client.jl:310
+ [6] _start()
+   @ Base ./client.jl:577
+
+caused by: failed process: Process(setenv(`/home/hellmann/Repos/julia-trait-bound/julia-1.13/usr/bin/julia -C native -J/home/hellmann/Repos/julia-trait-bound/julia-1.13/usr/lib/julia/facts/sys.so -g1 --startup-file=no /home/hellmann/Repos/julia-trait-bound/julia-1.13/usr/bin/../share/julia/test/runtests.jl keywordargs staged worlds ccall atomics reflection complex rational int floatfuncs offsetarray cartesian regex copy enums vecelement misc fastmath`,["GNOME_DESKTOP_SESSION_ID=this-is-deprecated", "MEMORY_PRESSURE_WRITE=c29tZSAyMDAwMDAgMjAwMDAwMAA=", "XMODIFIERS=@im=ibus", "TERM=xterm-256color", "AI_AGENT=claude-code_2-1-310_agent", "CLAUDE_CODE_SESSION_ID=6b66fb82-07fa-48b1-b063-bc3f0b65ba26", "OPENBLAS_MAIN_FREE=1", "SHELL=/bin/bash", "JULIA_LOAD_PATH=@:@stdlib", "XAUTHORITY=/run/user/1000/.mutter-Xwaylandauth.HUZAX3"  …  "PWD=/home/hellmann/Repos/julia-trait-bound/julia-1.13/test", "OPENBLAS_DEFAULT_NUM_THREADS=1", "CLOUDSDK_PROXY_PASSWORD=fb514eafb7deb9c10eb8eff2e184b66e", "CLAUDECODE=1", "HOME=/home/hellmann", "HTTPS_PROXY=http://srt.dG9vbHVfMDFENGM5ZEIyUjNrOUNDUXgyUU10M2hx:fb514eafb7deb9c10eb8eff2e184b66e@localhost:3128", "XDG_CURRENT_DESKTOP=ubuntu:GNOME", "grpc_proxy=http://srt.dG9vbHVfMDFENGM5ZEIyUjNrOUNDUXgyUU10M2hx:fb514eafb7deb9c10eb8eff2e184b66e@localhost:3128", "DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1000/bus", "XDG_SESSION_CLASS=user"]), ProcessExited(1)) [1]
+
+Stacktrace:
+ [1] pipeline_error
+   @ ./process.jl:610 [inlined]
+ [2] run(::Cmd; wait::Bool)
+   @ Base ./process.jl:525
+ [3] run
+   @ ./process.jl:522 [inlined]
+ [4] runtests(tests::Vector{String}; ncores::Int64, exit_on_error::Bool, revise::Bool, propagate_project::Bool, seed::Nothing, julia_args::Cmd)
+   @ Base ./util.jl:718
+ [5] top-level scope
+   @ none:1
+ [6] eval(m::Module, e::Any)
+   @ Core ./boot.jl:489
+ [7] exec_options(opts::Base.JLOptions)
+   @ Base ./client.jl:310
+ [8] _start()
+   @ Base ./client.jl:577
