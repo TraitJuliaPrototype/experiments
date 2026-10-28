@@ -132,6 +132,21 @@ julia-1.13 5071b67894 (images give machine code to `nothing` and `:facts` only; 
 
 julia-1.13 5071b67894, TraitWorld 0976025; perturbed shapes; one session each (`e202/D.log`, `e202/C.log`, `e202/edit_case.log`).
 - `_note_checked_ahead!`, the walk over every name of every loaded package's modules after each load: 33 ms over D's 68 packages, 51 ms over C's 398 (timed again at the load mark).
-- D's session runs 9 first-call checks. All 9 are for workers whose facts code came from an image: the image keeps the code but not that it passed. Running their rule checks again takes 62 ms. C runs the same 9.
-- So about a tenth of D's 0.95 s session goes to work the image already did: the checked-record of §2.4 is worth building.
+- The probe counted 9 first-call checks in D's session (and C's), all for workers whose facts code came from an image. **Corrected by E-203:** 7 of them were TraitWorld's own build-time checks, which its image kept in the session's list (a constant); the session ran 2 of its own. The 62 ms re-ran all 9.
+- So §2.4 saves the walk (33–51 ms) and the session's 2 checks: tens of milliseconds, not a tenth of D's session.
 - The edit case (`e202/edit_case.jl`): `Core.eval(M, :(sq(v::Values) = …))` in a finished trait module is accepted but defines another method; the entry keeps calling the generated worker, and the call gives the old result. What a redefinition should do is open issue 79.
+
+# E-203: the checks' records kept with the code they checked (§2.4 built), 2026-10-28
+
+TraitWorld b179274 (a pass recorded while an image is built with the worker methods it checked, looked up in the modules the signature names; definition checks kept in the trait module; the walk after every load removed; the session's list of checks starts empty), julia-1.13 5071b67894. Logs `logs/e203/`, sessions `../ttfx/logs/e203/`.
+
+| | before (TraitWorld 0976025) | after |
+|---|---|---|
+| D: the session's own first-call checks | 2 | 0 |
+| C: the session's own first-call checks | 2 | 0 |
+| the records' walk after every load | 33 ms (D), 51 ms (C) | none |
+| D session | 0.94–0.96 s | 0.94–0.95 s |
+| C session | 10.76–10.91 s | 10.59–10.61 s |
+
+- Every suite passes (`../checks/logs/e203/`).
+- Found on the way: `_CHECKED_IN_SESSION`, a constant, kept the image build's entries in every session that loaded TraitWorld; it starts empty now.

@@ -3,17 +3,20 @@
 # At the end: the checks run in the session, how many of their workers' facts code came from an image, and the
 # time to run their rule checks again.
 #     julia --project=<env> checks_probe.jl <workload script> <outdir>   (from experiments/ttfx)
+const N0 = Ref(0)
 const TWID = Base.PkgId(Base.UUID("7a3c1e52-9b4d-4f6e-8a21-5d0c3b9e7f14"), "TraitWorld")
 function _on_mark(step)
     haskey(Base.loaded_modules, TWID) || return
     TW = Base.loaded_modules[TWID]
-    if step == "load"
+    step == "load" && (N0[] = length(getglobal(TW, :_CHECKED_IN_SESSION)))
+    if step == "load" && isdefined(TW, :_note_checked_ahead!)
         roots = [m for (id, m) in Base.loaded_modules if id.name != "Main"]
         t = @elapsed foreach(m -> Base.invokelatest(getglobal(TW, :_note_checked_ahead!), m), roots)
         println("K note_checked_ahead over ", length(roots), " packages: ", round(t * 1000; digits = 1), " ms; records ",
                 length(getglobal(TW, :_CHECKED_AHEAD)[]))
     elseif step == "again"
-        sigs = copy(getglobal(TW, :_CHECKED_IN_SESSION))
+        # the list is a constant of TraitWorld's image: the entries before the load mark are its build's
+        sigs = getglobal(TW, :_CHECKED_IN_SESSION)[N0[]+1:end]
         inimg = 0
         for sig in sigs
             w = getglobal(TW, :_worker_sig)(sig)
