@@ -445,3 +445,20 @@ The per-CodeInstance times overlap (C's sum exceeds its session's 11.3 s of comp
 - **Facts code is most of C's compilation** (inference about 5 to 1, code generation about even), and a fifth of D's. A facts-only cache is worth building at SciML's scale.
 - **The candidate index is a strong lever:** 11 of C's 1,835 entries need a walk.
 - **The closure rule invalidates nearly everything on a foundational package's update at SciML's scale** (86–90%): a new version rebuilds every dependent, so build ids cascade. Sharing across environments then holds only within an unchanged stack. A finer identity, content hashes of the methods and types an entry uses, would not cascade (the note's open choice).
+
+### E-196: the mode is the owner (W-22), 2026-10-28
+
+julia-1.13 8ceda6f9d6 (under the test bed the default owner is the facts owner for every method and top-level thunk outside the compiler's modules; the facts image's default read at restore), TraitWorld d924f38; the facts system image and every depot rebuilt (U 297 s, C 235 s, D 38 s with four tasks; A 468 s with three). A warm-up and two sessions per setting (`logs/w22c/` for A, `logs/w22b/` for the others; baseline `logs/p59/`, julia-1.13 6800be7839):
+
+| Setting | load | first solve | first plot | second model | again: solve | **session** | baseline session |
+|---|---|---|---|---|---|---|---|
+| A | 4.43–4.49 | 4.78–4.87 | 1.05 | 0.25 | 0.014 | **10.76–10.91** | 10.35–10.40 |
+| C | 4.21–4.22 | 4.55–4.56 | 1.47–1.48 | 0.22 | 0.014 | **10.62–10.64** | 10.75 |
+| D | 0.41 | 0.19 | 0.12 | 0.07 | 0.03 | **0.95–0.96** | 0.99 |
+| U | 3.51–3.62 | 3.56–3.66 | 1.67–1.69 | 0.17–0.20 | 0.013 | **9.10–9.32** | 9.47–9.59 |
+
+- Two faults of the first build, found by these sessions and fixed before the numbers above (`logs/w22/`, `logs/w22b/`):
+  - the facts image's default was read in `Base.__init__`, which the runtime itself runs under the default owner: every start compiled Base plainly, 11.8 s (now 0.16 s);
+  - a top-level thunk's default owner did not follow the setting: under `all` compiled thunks inferred their callees plainly, and A's repeated solve compiled 0.29 s (`diag/again_solve.jl`: 171 plain CodeInstances; now none).
+- A's load is 0.6 s slower than on 6800be7839, with the same compile time inside it: not diagnosed.
+- A's precompile is 20–66% slower per package with three tasks (Makie 185 against 112 s); DataFrames alone, one task, 36.1 against 33.5 s. Not diagnosed; the test bed's images only.
