@@ -1,6 +1,6 @@
 #!/bin/bash
-# Every test suite and check against the current checkouts, one Julia job at a time through the
-# shared lock: TraitWorld (product setting and the test bed `all`), the acceptance suite (both),
+# Every test suite and check against the current checkouts, each job in a slot of `experiments/tools/jl`
+# (one after another here): TraitWorld (product setting and the test bed `all`), the acceptance suite (both),
 # the four demonstrators, the documentation's examples, TraitReport's REPL session. Logs to logs/<tag>/; a summary line each.
 #     bash run_all.sh <tag>
 R=/home/hellmann/Repos/julia-trait-bound
@@ -10,7 +10,7 @@ export JULIA_PKG_OFFLINE=true JULIA_NUM_PRECOMPILE_TASKS=4
 run() {  # name, dir, mode, args...
   local name=$1 dir=$2 mode=$3; shift 3
   local F=""; if [ $mode = all ]; then F="-J $FI"; export JULIA_DEPOT_PATH=/tmp/claude-1000/depot-facts:$HOME/.julia:; else unset JULIA_DEPOT_PATH; fi
-  (cd $dir && flock /tmp/claude-1000/julia-review.lock nice -n 19 timeout 5400 $J $F --startup-file=no "$@" > $L/$name.log 2>&1); local rc=$?
+  (cd $dir && $R/experiments/tools/jl --name run_all-$mode timeout -s KILL 5400 $J $F --startup-file=no "$@" > $L/$name.log 2>&1); local rc=$?
   echo "$name rc=$rc  $(grep -E 'tests passed|of [0-9]+ checks pass|[0-9]+ pass, [0-9]+ fail|Test Failed|errored' $L/$name.log | tail -1)"
 }
 T='using Pkg; Pkg.test()'

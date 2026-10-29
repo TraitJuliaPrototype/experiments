@@ -1,0 +1,69 @@
+#!/bin/bash
+# jl: run a Julia job in one of the machine's slots, so that several agents can run Julia at once.
+#
+#     jl [--exclusive] [--name NAME] command args...      e.g.  jl --name w91 julia-1.13/julia --project=. test/runtests.jl
+#
+# - Slots: JL_SLOTS (default 4) slots of 16/JL_SLOTS cores each; a job waits for a free slot and runs pinned
+#   to its slot's cores (taskset), niced, with JULIA_NUM_PRECOMPILE_TASKS = the slot's cores (unless set).
+# - Depot: a depot of its own, /tmp/claude-1000/depots/NAME (NAME from --name or JL_NAME; default the slot),
+#   stacked before JULIA_DEPOT_PATH (or ~/.julia): compiled caches are read from the depots below and
+#   written to its own, so jobs never evict each other's caches.
+# - Memory guard: the job's process group is killed (exit 137, a line on stderr) when the machine's available
+#   memory falls below JL_MEM_MIN_GB (default 2.5 GB).
+# - --exclusive: for measurements and Julia builds. Waits until no slot job runs, holds every new job back
+#   meanwhile, and runs on all cores without a depot of its own. Scripts that take the old lock
+#   (flock /tmp/claude-1000/julia-review.lock) are exclusive jobs too.
+set -u
+B=/tmp/claude-1000; L=$B/jl; mkdir -p $L $B/depots
+GLOBAL=$B/julia-review.lock; GATE=$L/gate.lock
+N=${JL_SLOTS:-4}; PER=$((16 / N)); EXCL=0; NAME=${JL_NAME:-}
+while [ $# -gt 0 ]; do
+  case $1 in
+    --exclusive) EXCL=1; shift ;;
+    --name) NAME=$2; shift 2 ;;
+    *) break ;;
+  esac
+done
+[ $# -gt 0 ] || { echo "usage: jl [--exclusive] [--name NAME] command args..." >&2; exit 2; }
+
+guard() {  # $1: the job's process group. Machine-level: /proc's pids are the host's inside the sandbox.
+  local min=${JL_MEM_MIN_GB:-2.5} avail
+  while kill -0 -- -$1 2>/dev/null; do
+    sleep 2
+    avail=$(awk '/MemAvailable/ {print $2}' /proc/meminfo)
+    if awk -v a=$avail -v mn=$min 'BEGIN {exit !(a < mn*1048576)}'; then
+      echo "jl: memory guard killed the job (available $((avail/1024)) MB)" >&2
+      kill -KILL -- -$1 2>/dev/null; return
+    fi
+  done
+}
+run() {  # the job in its own process group (job control), with the guard beside it
+  set -m; "$@" & local pid=$!; set +m
+  guard $pid & local g=$!
+  wait $pid; local rc=$?
+  kill $g 2>/dev/null; wait $g 2>/dev/null
+  return $rc
+}
+
+if [ $EXCL = 1 ]; then
+  exec 7>$GATE; flock -x 7          # hold new slot jobs back
+  exec 8>$GLOBAL; flock -x 8        # wait for the running ones
+  nice -n 19 "$@"; exit $?
+fi
+
+exec 7>$GATE; flock -x 7; exec 8>$GLOBAL; flock -s 8; flock -u 7   # pass the gate, then share the machine
+slot=""
+while [ -z "$slot" ]; do
+  for i in $(seq 1 $N); do
+    exec 9>$L/slot.$i.lock
+    if flock -n 9; then slot=$i; break; fi
+    exec 9>&-
+  done
+  [ -n "$slot" ] || sleep 3
+done
+first=$(( (slot - 1) * PER )); cores=$first-$(( first + PER - 1 ))
+NAME=${NAME:-slot$slot}; DEP=$B/depots/$NAME; mkdir -p $DEP
+export JULIA_DEPOT_PATH="$DEP:${JULIA_DEPOT_PATH:-$HOME/.julia:}"
+export JULIA_NUM_PRECOMPILE_TASKS=${JULIA_NUM_PRECOMPILE_TASKS:-$PER}
+echo "jl: slot $slot (cores $cores), depot $DEP" >&2
+run taskset -c $cores nice -n 19 "$@"
