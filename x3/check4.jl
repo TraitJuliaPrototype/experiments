@@ -7,12 +7,13 @@ using MakieCompat, MakieCompatStats, TraitMakie, StatsBase
 const Cairo = TraitMakie.PlotCore.Cairo                 # the core's Cairo, for the pixel comparison
 const OUT = isempty(ARGS) ? mktempdir() : ARGS[1]
 
+# the image surface's own data, by its stride (tools/pngdiff.jl; fixed 2026-10-29, E-227)
 function pixels(path)
     s = Cairo.read_from_png(path)
-    buf = zeros(UInt32, Int(s.height), Int(s.width))
-    img = Cairo.CairoARGBSurface(buf)
-    c = Cairo.CairoContext(img); Cairo.set_source_surface(c, s, 0, 0); Cairo.paint(c); Cairo.flush(img)
-    return vec(copy(buf))
+    w, h = Int(s.width), Int(s.height)
+    stride = ccall((:cairo_image_surface_get_stride, Cairo.libcairo), Int32, (Ptr{Nothing},), s.ptr)
+    d = ccall((:cairo_image_surface_get_data, Cairo.libcairo), Ptr{UInt32}, (Ptr{Nothing},), s.ptr)
+    return vec(copy(unsafe_wrap(Array, d, (Int(stride) ÷ 4, h))[1:w, :]))
 end
 "Save both figures; equal by bytes, else the number of pixels that differ."
 function compare(name, fold, fcore)

@@ -1,12 +1,14 @@
 # Two PNGs compared pixel by pixel (Cairo): the share of pixels that differ and the largest channel difference.
 #     julia --project=TraitMakie experiments/x3/tools/pngdiff.jl a.png b.png
 using Cairo
+# the image surface's own data, by its stride (as TraitMakie's test suite reads it). E-227 found that painting the PNG
+# onto a surface over a Julia array left the array blank, so every comparison before 2026-10-29 reported 0 pixels.
 function pixels(p)
     s = Cairo.read_from_png(p)
-    buf = zeros(UInt32, Int(s.height), Int(s.width))      # a surface over a Julia array, the PNG painted onto it
-    img = Cairo.CairoARGBSurface(buf)
-    c = Cairo.CairoContext(img); Cairo.set_source_surface(c, s, 0, 0); Cairo.paint(c); Cairo.flush(img)
-    return vec(copy(buf))
+    w, h = Int(s.width), Int(s.height)
+    stride = ccall((:cairo_image_surface_get_stride, Cairo.libcairo), Int32, (Ptr{Nothing},), s.ptr)
+    d = ccall((:cairo_image_surface_get_data, Cairo.libcairo), Ptr{UInt32}, (Ptr{Nothing},), s.ptr)
+    return vec(copy(unsafe_wrap(Array, d, (Int(stride) ÷ 4, h))[1:w, :]))
 end
 a, b = pixels(ARGS[1]), pixels(ARGS[2])
 d = count(a .!= b)
