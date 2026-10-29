@@ -426,7 +426,7 @@ julia-1.13 bfca89decc, TraitWorld main 4579236 (not edited), product setting, st
 1. **The protocol is expressible in TraitWorld as decided:** a trait parameter that is abstract or a union, an operation whose declared result is `Union{Nothing, Kept{Callable}}` with a default, a bounded getter taking any `I` (`logs/probe-protocol-1.log`).
 2. **A bound's `where` variable named as a global of the module is read as the global** (`logs/probe-shadow-1.log`): in ODECore, `_names_of(s::IndexProvider{I}) where {I}` bound `IndexProvider{LinearAlgebra.I}` (ODECore imports `I`), and the call raised `TraitBoundError`; plain Julia shadows the global. Renamed in ODECore (`K`). A candidate deviation for TraitWorld's lowering (not edited here).
 3. A vector of mixed positions and names (`[:x, 3]`, a `Vector{Any}`) is read by position and name, not through the system: tested in `test/r3.jl` (`tests-2`).
-4. The bound `idx::I` of an ordinary argument fixes `I` to the argument's own type (traits §5.1), so a getter bounded `IndexProvider{I}` takes the index untyped and checks `idx isa I` itself; an abstract `I` is otherwise refused at the call.
+4. By traits §5.1, a `where` variable shared between a bound and an ordinary argument requires equal values, so `getter(ip::IndexProvider{I}, idx::I)` would refuse a `VIndex` for `I = SymbolicIndex`; the getter takes the index untyped and checks `idx isa I` itself (not tried in the other form).
 
 ### Choices made (mine)
 
