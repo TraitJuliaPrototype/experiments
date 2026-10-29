@@ -498,3 +498,17 @@ TraitWorld ca92f22 (a family member fixed while a package image is built is reco
 - `using TraitDifferentialEquations`: 1.07 → 0.40–0.41 s. Its 14 members: checked again, 750 ms → fixed from records, 103–105 ms. Of those, 72 ms is the first lookup's compilation; each further member takes about 2 ms.
 - Python's session was 1.43 s in E-230's round: D is now below it.
 - The first plot is 0.03 s slower. Not attributed.
+
+### E-239, setting D after W-32's R2 items in TDE, 2026-10-29
+
+TDE `w34` ede32e3 and f0a79ae against a same-day control on 3a51d95 (before R2; `../w34-sciml/r2/control_before.sh`, a worktree); TraitMakie c0d5c36, TraitWorld ca92f22, julia-1.13 bfca89decc; product setting, strict mode off; two cores. `bash precompile.sh D; bash run.sh e239 "D" 1`: a discarded warm-up and one session each (`logs/e239/`: `a-*` the first round on ede32e3, the rest on f0a79ae with the control before and after). The results' lines (`D`, `P`) are equal across all.
+
+| D | load | first solve | first plot | second model | **session** |
+|---|---|---|---|---|---|
+| control 3a51d95 (three sessions) | 0.574–0.578 | 0.171–0.175 | 0.217–0.235 | 0.054–0.055 | **1.19–1.22** |
+| ede32e3 (load 1.9–2.7) | 0.68–0.74 | 0.255–0.256 | 0.23–0.24 | 0.092–0.095 | **1.43–1.49** |
+| f0a79ae | 0.654–0.655 | 0.179–0.181 | 0.223 | 0.055 | **1.29** |
+
+- ede32e3 compiled the front end per new function (38 ms each; [the E-239 write-up](../w34-sciml/README.md#e-239-w-32-r2-the-tde-side-2026-10-29), finding 1); f0a79ae removes it.
+- What remains is the load, +0.08 s: TraitWorld's load report counts 23 family members fixed from records against 14 (the optional traits on `ODEProblem`, the integrators' `CoreIntegrator`), about 2 ms each, about 20 ms; the rest is not attributed.
+

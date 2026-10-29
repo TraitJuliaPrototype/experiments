@@ -287,3 +287,51 @@ julia-1.13 bfca89decc, TraitWorld c39fedc, TDE bc68501, product setting, strict 
 - Two types: the solver's `CoreSolution{T}` and the user's `ODESolution{T, P}`, rather than one type with a `Union{Nothing, …}` problem field. The core never sees the problem (W-63); the split states it.
 - `plotpoints` returns a copy (an n × 2 matrix), not a view conforming to TraitMakie's `Positions`; that view would need a package extension.
 - `at` stays linear between the saved states; the solvers' interpolants are not kept.
+
+# E-239: W-32 R2, the TDE side (2026-10-29)
+
+The question (registry E-239; [the R1 census](../../writeup/plans/2026-10-29-ndport-r1-census.md) §3, items 1, 2, 12–17; open issue 119): can TDE take what NetworkDynamics needs from SciML, each item in the trait form, with results unchanged? Not a measurement, except E-168's session once (`../ttfx/`, section E-239).
+
+## What was built (TDE branch `w34`, ede32e3 and f0a79ae, from 3a51d95)
+
+- **Optional properties of a problem's function** (open issue 119): the traits `HasMassMatrix`, `HasJacobianPrototype`, `HasSystem` on the function's type (and `HasCallbacks` on a problem's). `ODEFunction`'s defaults read them, `ODEProblem` keeps them; `solve` and `init` refuse a mass matrix other than the identity for an algorithm that takes none (`takes_mass_matrix`, an `ODEAlgorithm` operation, default `false`). A callable object with an undeclared `mass_matrix` property is refused.
+- **The system object back** (item 12): `getsystem` on a problem, a solution, the integrator, a callback's view of it.
+- **Rodas5 with continuous callbacks** (item 1): the events located as Tsit5's (`locate_events!`, shared).
+- **`init`, `step!`, `step!(integ, dt, stop_at_tdt)`, `solve!`** (item 2): the drivers are their integrators' `advance!` (one accepted step); `ODEStepper <: ODEAlgorithm` (`init_core`); `CoreIntegrator{U, T}`. `init` returns the integrator callbacks see (`ParamIntegrator`). The integrators keep their core problem (`Tsit5Integrator{T, M}`, `Rodas5Integrator{JC, M}`).
+- **Items 13–16:** `save_discretes!` and `parameters_at(sol, t)`; `ODEProblem(…; callback)`; `tstops` and the callbacks' `initialize`; `auto_dt_reset!`; `ContinuousCallback(condition, affect!, affect_neg!)`.
+- **Item 17, part:** `ODEFunction` callable. Not done: `Rodas4`, `copy` of absent parameters.
+- TDE's suite: 161 checks (116 before; `test/r2.jl` and changed expectations in `w34.jl`, `w34_move2.jl`, `routea.jl`).
+
+## How to run
+
+    r2/run.sh <run>                     # check 1: the session's RESULT lines; check 2: Pkg.test() (stock image)
+    W=<scratch> r2/control_before.sh    # E-168's session on TDE 3a51d95, the same day (needs a worktree, see its header)
+    julia --project=../ttfx/env_d r2/probe_steps.jl   # the first problem and solves, wall and compile time
+
+## Results (2026-10-29)
+
+julia-1.13 bfca89decc, TraitWorld ca92f22, product setting, strict mode off.
+
+| Check | ede32e3 | f0a79ae |
+|---|---|---|
+| 1 `RESULT` lines (`logs/session-run1`, `-run2`) | **identical** (9) | **identical** (9) |
+| 2 TDE's suite | passes (161) | passes (161) |
+| `ODEProblem` of a new function (`probe_steps.jl`, the env of setting D) | 43 ms (3a51d95: 5 ms) | 5 ms |
+| the first Tsit5 solve | 58 ms (3a51d95: 22 ms) | 22 ms |
+
+### Findings
+
+1. **A bound's entry is compiled per argument type.** The front end first read a plain function's optional properties through three bounded functions: about 38 ms of compilation per new function, and E-168's session 0.25 s slower. f0a79ae reads them without entering a bound where the answer is known without one (a function that declares none of the traits; TDE's own records, by their fields).
+2. **A kept value meets a bound of another trait:** its held object must conform (`TraitBoundError`), where a plain value that conforms to none of the bounds reaches the ordinary fallback (traits §5.5 and §6.5 read together suggest the fallback). The front end reads a kept value's properties through its kept trait only, so a model kept as `Dynamic{Callable{…}}` shows no mass matrix. A candidate open issue.
+3. **NetworkDynamics' `NWState(int::(IntegratorView, HasSystem))`** is refused by TraitWorld's encoding: the untyped one-argument constructor, lowered below the bound (lowering L-3), is reported ambiguous with `NWState(thing, uflat::AbstractVector)`, which no call can reach. NetworkDynamics takes TDE's concrete integrator by type and refuses a callback's view with a message. A case for the main session.
+4. **A type's own `getproperty` and declared fields:** `integ.ps` sugar on `ParamIntegrator` made TraitWorld require explicit field mappings for `IntegratorView`; the sugar was dropped (`getparam(integ, :ρ)`).
+
+### Choices made (mine)
+
+- A mass matrix is kept by the problem and refused by the algorithm (`takes_mass_matrix`), not refused at the problem: the solvers are an open set, and one that takes mass matrices needs no change to the front end.
+- A Jacobian prototype is a hint: kept, never refused (a solver that does not use it computes the same Jacobian dense).
+- A callable object with a `mass_matrix` property it does not declare is refused (SciML reads the property; a silent ODE would be wrong). Functions are exempt: a closure's captured variables are its fields.
+- `init` takes only `ODEStepper`s (a subtrait): a solver that cannot be stepped is refused at the bound (`TraitBoundError` naming `ODEStepper`).
+- A callback's `initialize(u, t, integ)` without SciML's callback argument; an affect of `nothing` is refused (every crossing is an event, as NetworkDynamics' vector callbacks have it).
+- The parameters are saved at the start of every solve with callbacks (`deepcopy` unless an array), and at each `save_discretes!`; `parameters_at` takes the last saved at or before `t`.
+- The integrators keep their core problem's type (`M`): it names no parameters type, and the drivers were compiled per core problem already.
