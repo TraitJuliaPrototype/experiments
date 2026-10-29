@@ -1,0 +1,56 @@
+E-255 (U7) TraitDifferentialEquations: julia-1.13 00dcc9994c, TraitWorld 33dd55e, families: [(:Base, :AbstractDict), (:Core, :AbstractArray), (:Core, :AbstractString), (:Dates, :Period), (:LinearAlgebra, :Factorization)]
+all negative folds: 180858 answers at 63360 statements (site, code, pc); branch sites: 19074 answers at 5906; isa/subtype tfuncs: 4106 answers
+an open set (trait, family, Callable) anywhere in the fold: 194 answers (0.107 %) at 96 statements
+T1 rests on a membership in an open set: 56 answers (0.031 % of all), 39 records; at branch sites 24 (0.126 % of branch-site answers), 21 records
+T2 T1, and a package or Main could still declare it (a package's or Main's type or set): 3 answers (0.002 % of all), 3 records; at branch sites 3 (0.016 % of branch-site answers), 3 records
+T3 T1, with a Main type (Lemma M does not cover it): 3 answers (0.002 % of all), 3 records; at branch sites 3 (0.016 % of branch-site answers), 3 records
+P1 proxy: rests on Kept{X}/Compiled{X}, which the unified model makes X (§5.2): 936 answers (0.518 % of all), 761 records; at branch sites 574 (3.009 % of branch-site answers), 544 records
+breakdown (answers, (statement, types) records):
+  P1: 936, 761
+  P1 bookkeeping: 362, 217
+  P1 bookkeeping, other side a value's type, compiling Core/Base/stdlib code: 88, 24
+  P1 bookkeeping, other side a value's type, compiling package code: 39, 15
+  P1 bookkeeping, other side: a compiler kind (Module, Type, builtin, memory): 235, 178
+  P1 bookkeeping, other side: a value's type: 127, 39
+  P1 branch: 574, 544
+  P1 branch, other side a value's type, compiling Core/Base/stdlib code: 8, 8
+  P1 branch, other side a value's type, compiling package code: 364, 344
+  P1 branch, other side: Dynamic: 53, 43
+  P1 branch, other side: TraitWorld's machinery: 147, 147
+  P1 branch, other side: a compiler kind (Module, Type, builtin, memory): 2, 2
+  P1 branch, other side: a value's type: 372, 352
+  T1: 56, 39
+  T1 bookkeeping: 32, 18
+  T1 bookkeeping, compiling Core/Base/stdlib code: 31, 17
+  T1 bookkeeping, compiling Core/Base/stdlib code, in a loop: 1, 1
+  T1 bookkeeping, other side: a compiler kind (Module, Type, builtin, memory): 23, 14
+  T1 bookkeeping, other side: a value's type: 9, 4
+  T1 branch: 24, 21
+  T1 branch, compiling Core/Base/stdlib code: 17, 17
+  T1 branch, compiling package code: 7, 4
+  T1 branch, other side: a compiler kind (Module, Type, builtin, memory): 3, 3
+  T1 branch, other side: a value's type: 21, 18
+  T2: 3, 3
+  T2 branch: 3, 3
+  T2 branch, compiling Core/Base/stdlib code: 2, 2
+  T2 branch, compiling package code: 1, 1
+  T3: 3, 3
+  T3 branch: 3, 3
+top records at branch sites (T1, T2, T3, and P1 with a value's type on the other side):
+  2 × T1 isa:leaf in_loop=false TraitIndexing none:0: Float64 vs AbstractVector
+  2 × P1 isa:leaf in_loop=false TraitWorld /home/hellmann/Repos/julia-trait-bound/TraitWorld/src/entry.jl:1070: TraitIndexing.StateGetter vs Kept{Callable}
+  2 × P1 isa:leaf in_loop=false TraitWorld /home/hellmann/Repos/julia-trait-bound/TraitWorld/src/entry.jl:1027: TraitIndexing.VectorGetter vs Kept
+  2 × P1 isa:leaf in_loop=false TraitWorld /home/hellmann/Repos/julia-trait-bound/TraitWorld/src/attributes.jl:309: ODESolution{Float64, Vector{Float64}} vs Compiled
+  2 × P1 isa:leaf in_loop=false TraitWorld /home/hellmann/Repos/julia-trait-bound/TraitWorld/src/entry.jl:1108: TraitIndexing.VectorGetter vs Union{Compiled{X}, Dynamic{X}, Kept{X}} where X
+  2 × T1 isa:leaf in_loop=false TraitIndexing none:0: Symbol vs AbstractVector
+  2 × P1 isa:leaf in_loop=false TraitWorld /home/hellmann/Repos/julia-trait-bound/TraitWorld/src/entry.jl:226: ODESolution{Float64, Vector{Float64}} vs Union{Compiled{X}, Dynamic{X}, Kept{X}} where X
+  2 × P1 isa:leaf in_loop=false TraitWorld /home/hellmann/Repos/julia-trait-bound/TraitWorld/src/entry.jl:1027: TraitIndexing.VectorGetter vs Compiled
+  2 × P1 isa:leaf in_loop=false TraitWorld /home/hellmann/Repos/julia-trait-bound/TraitWorld/src/entry.jl:1108: TraitIndexing.StateGetter vs Union{Compiled{X}, Dynamic{X}, Kept{X}} where X
+  2 × P1 isa:leaf in_loop=false TraitWorld /home/hellmann/Repos/julia-trait-bound/TraitWorld/src/attributes.jl:309: ODESolution{Float64, Vector{Float64}} vs Kept
+  2 × P1 isa:leaf in_loop=false TraitWorld /home/hellmann/Repos/julia-trait-bound/TraitWorld/src/entry.jl:1027: TraitIndexing.ParamGetter vs Compiled
+  2 × P1 isa:leaf in_loop=false TraitWorld /home/hellmann/Repos/julia-trait-bound/TraitWorld/src/attributes.jl:301: ODESolution{Float64, Vector{Float64}} vs Kept
+  2 × P1 isa:leaf in_loop=false TraitWorld /home/hellmann/Repos/julia-trait-bound/TraitWorld/src/entry.jl:1027: TraitIndexing.ParamGetter vs Kept
+  2 × P1 isa:leaf in_loop=false TraitWorld /home/hellmann/Repos/julia-trait-bound/TraitWorld/src/entry.jl:226: ODESolution{Float64, Vector{Float64}} vs Union{Compiled{X}, Dynamic{X}, Kept{X}} where X
+  2 × P1 isa:leaf in_loop=false TraitWorld /home/hellmann/Repos/julia-trait-bound/TraitWorld/src/entry.jl:1070: TraitIndexing.VectorGetter vs Kept{Callable}
+families declared during the run, not counted as open: none
+report written in 2.9 s

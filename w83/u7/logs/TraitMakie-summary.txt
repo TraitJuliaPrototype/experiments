@@ -1,0 +1,43 @@
+E-255 (U7) TraitMakie: julia-1.13 00dcc9994c, TraitWorld 33dd55e, families: [(:Base, :AbstractDict), (:Core, :AbstractArray), (:Core, :AbstractString), (:Dates, :Period), (:LinearAlgebra, :Factorization)]
+all negative folds: 27897 answers at 9910 statements (site, code, pc); branch sites: 2929 answers at 1181; isa/subtype tfuncs: 424 answers
+an open set (trait, family, Callable) anywhere in the fold: 45 answers (0.161 %) at 23 statements
+T1 rests on a membership in an open set: 9 answers (0.032 % of all), 8 records; at branch sites 2 (0.068 % of branch-site answers), 2 records
+T2 T1, and a package or Main could still declare it (a package's or Main's type or set): 0 answers (0.0 % of all), 0 records; at branch sites 0 (0.0 % of branch-site answers), 0 records
+T3 T1, with a Main type (Lemma M does not cover it): 0 answers (0.0 % of all), 0 records; at branch sites 0 (0.0 % of branch-site answers), 0 records
+P1 proxy: rests on Kept{X}/Compiled{X}, which the unified model makes X (§5.2): 137 answers (0.491 % of all), 109 records; at branch sites 96 (3.278 % of branch-site answers), 90 records
+breakdown (answers, (statement, types) records):
+  P1: 137, 109
+  P1 bookkeeping: 41, 19
+  P1 bookkeeping, other side: a compiler kind (Module, Type, builtin, memory): 41, 19
+  P1 branch: 96, 90
+  P1 branch, other side a value's type, compiling package code: 90, 85
+  P1 branch, other side: Dynamic: 1, 1
+  P1 branch, other side: TraitWorld's machinery: 4, 3
+  P1 branch, other side: a compiler kind (Module, Type, builtin, memory): 1, 1
+  P1 branch, other side: a value's type: 90, 85
+  T1: 9, 8
+  T1 bookkeeping: 7, 6
+  T1 bookkeeping, compiling Core/Base/stdlib code: 7, 6
+  T1 bookkeeping, other side: a compiler kind (Module, Type, builtin, memory): 7, 6
+  T1 branch: 2, 2
+  T1 branch, compiling Core/Base/stdlib code: 1, 1
+  T1 branch, compiling package code: 1, 1
+  T1 branch, other side: a value's type: 2, 2
+top records at branch sites (T1, T2, T3, and P1 with a value's type on the other side):
+  2 × P1 isa:leaf in_loop=false TraitMakie.PlotCore /home/hellmann/Repos/julia-trait-bound/TraitMakie/src/PlotCore.jl:352: Matrix{Float64} vs Kept{Positions}
+  2 × P1 isa:leaf in_loop=false TraitMakie.PlotCore /home/hellmann/Repos/julia-trait-bound/TraitMakie/src/PlotCore.jl:501: Matrix{Float64} vs Kept{Positions}
+  2 × P1 isa:leaf in_loop=false TraitMakie.PlotCore /home/hellmann/Repos/julia-trait-bound/TraitMakie/src/PlotCore.jl:501: Matrix{Float64} vs Kept{Positions}
+  2 × P1 isa:leaf in_loop=false TraitMakie.PlotCore /home/hellmann/Repos/julia-trait-bound/TraitMakie/src/PlotCore.jl:377: Matrix{Float64} vs Kept{Positions}
+  2 × P1 isa:leaf in_loop=false TraitMakie.PlotCore /home/hellmann/Repos/julia-trait-bound/TraitMakie/src/PlotCore.jl:352: Symbol vs Kept{ColorSpec}
+  1 × P1 isa:leaf in_loop=false TraitWorld /home/hellmann/Repos/julia-trait-bound/TraitWorld/src/attributes.jl:309: Sensor vs Compiled
+  1 × P1 isa:leaf in_loop=false TraitWorld /home/hellmann/Repos/julia-trait-bound/TraitWorld/src/attributes.jl:301: NTuple{4, Float64} vs Kept
+  1 × P1 isa:leaf in_loop=false TraitWorld /home/hellmann/Repos/julia-trait-bound/TraitWorld/src/attributes.jl:309: String vs Kept
+  1 × P1 isa:leaf in_loop=false TraitWorld /home/hellmann/Repos/julia-trait-bound/TraitWorld/src/attributes.jl:301: Matrix{Float64} vs Kept
+  1 × P1 isa:leaf in_loop=false TraitWorld /home/hellmann/Repos/julia-trait-bound/TraitWorld/src/entry.jl:226: NTuple{4, Float64} vs Union{Compiled{X}, Dynamic{X}, Kept{X}} where X
+  1 × P1 isa:leaf in_loop=false TraitWorld /home/hellmann/Repos/julia-trait-bound/TraitWorld/src/attributes.jl:301: TraitMakie.PlotCore.ColorName vs Kept
+  1 × P1 isa:leaf in_loop=false TraitWorld /home/hellmann/Repos/julia-trait-bound/TraitWorld/src/attributes.jl:301: String vs Compiled
+  1 × P1 isa:leaf in_loop=false TraitWorld /home/hellmann/Repos/julia-trait-bound/TraitWorld/src/attributes.jl:301: Matrix{Float64} vs Kept
+  1 × P1 isa:leaf in_loop=false TraitWorld /home/hellmann/Repos/julia-trait-bound/TraitWorld/src/attributes.jl:301: Live{Vector{Tuple{Float64, Float64}}} vs Kept
+  1 × P1 isa:leaf in_loop=false TraitWorld /home/hellmann/Repos/julia-trait-bound/TraitWorld/src/entry.jl:226: Vector{TraitMakie.PlotCore.MarkerName} vs Union{Compiled{X}, Dynamic{X}, Kept{X}} where X
+families declared during the run, not counted as open: none
+report written in 0.8 s

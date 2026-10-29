@@ -1,0 +1,31 @@
+jl: slot 1 (cores 0-3), depot /home/hellmann/.julia/agent-depots/w83u7
+E-255 (U7) smoke: julia-1.13 00dcc9994c, TraitWorld 33dd55e, families: [(:Base, :AbstractDict), (:Core, :AbstractArray), (:Core, :AbstractString), (:Dates, :Period), (:LinearAlgebra, :Factorization)]
+all negative folds: 8247 answers at 3044 statements (site, code, pc); branch sites: 793 answers at 308; isa/subtype tfuncs: 56 answers
+an open set (trait, family, Callable) anywhere in the fold: 5 answers (0.061 %) at 4 statements
+T1 rests on a membership in an open set: 5 answers (0.061 % of all), 4 records; at branch sites 5 (0.631 % of branch-site answers), 4 records
+T2 T1, and a package or Main could still declare it (a package's or Main's type or set): 3 answers (0.036 % of all), 2 records; at branch sites 3 (0.378 % of branch-site answers), 2 records
+T3 T1, with a Main type (Lemma M does not cover it): 0 answers (0.0 % of all), 0 records; at branch sites 0 (0.0 % of branch-site answers), 0 records
+P1 proxy: rests on Kept{X}/Compiled{X}, which the unified model makes X (§5.2): 0 answers (0.0 % of all), 0 records; at branch sites 0 (0.0 % of branch-site answers), 0 records
+breakdown (answers, (statement, types) records):
+  T1: 5, 4
+  T1 branch: 5, 4
+  T1 branch, compiling Core/Base/stdlib code: 1, 1
+  T1 branch, compiling Main code: 2, 2
+  T1 branch, compiling Main code, in a loop: 2, 1
+  T1 branch, other side: a value's type: 5, 4
+  T2: 3, 2
+  T2 branch: 3, 2
+  T2 branch, compiling Main code: 1, 1
+  T2 branch, compiling Main code, in a loop: 2, 1
+top records at branch sites (T1, T2, T3, and P1 with a value's type on the other side):
+  2 × T2 isa:leaf in_loop=true Main /home/hellmann/Repos/julia-trait-bound/experiments/w83/u7/smoke.jl:5: Int64 vs HasLength
+  1 × T1 isa:leaf in_loop=false Base arrayshow.jl:578: Vector{Tuple{Symbol, Symbol}} vs AbstractDict
+  1 × T1 isa:leaf in_loop=false Main /home/hellmann/Repos/julia-trait-bound/experiments/w83/u7/smoke.jl:3: Int64 vs AbstractDict
+  1 × T2 isa:leaf in_loop=false Main /home/hellmann/Repos/julia-trait-bound/experiments/w83/u7/smoke.jl:4: Float64 vs Iterable
+families declared during the run, not counted as open: none
+report written in 0.2 s
+f(1) = 2
+g(1.0) = 2
+h([1, 2]) = 0
+Test Summary: | Total  Time
+E-255 run     |     0  0.2s

@@ -1,0 +1,57 @@
+E-255 (U7) traitworld-product: julia-1.13 00dcc9994c, TraitWorld 33dd55e, families: [(:Base, :AbstractDict), (:Core, :AbstractArray), (:Core, :AbstractString), (:Dates, :Period), (:LinearAlgebra, :Factorization)]
+all negative folds: 287420 answers at 116335 statements (site, code, pc); branch sites: 28589 answers at 12577; isa/subtype tfuncs: 6613 answers
+an open set (trait, family, Callable) anywhere in the fold: 610 answers (0.212 %) at 287 statements
+T1 rests on a membership in an open set: 219 answers (0.076 % of all), 122 records; at branch sites 35 (0.122 % of branch-site answers), 33 records
+T2 T1, and a package or Main could still declare it (a package's or Main's type or set): 2 answers (0.001 % of all), 2 records; at branch sites 2 (0.007 % of branch-site answers), 2 records
+T3 T1, with a Main type (Lemma M does not cover it): 0 answers (0.0 % of all), 0 records; at branch sites 0 (0.0 % of branch-site answers), 0 records
+P1 proxy: rests on Kept{X}/Compiled{X}, which the unified model makes X (§5.2): 2646 answers (0.921 % of all), 2405 records; at branch sites 1092 (3.82 % of branch-site answers), 1002 records
+breakdown (answers, (statement, types) records):
+  P1: 2646, 2405
+  P1 bookkeeping: 1554, 1403
+  P1 bookkeeping, other side a value's type, compiling Core/Base/stdlib code: 5, 4
+  P1 bookkeeping, other side a value's type, compiling package code: 10, 8
+  P1 bookkeeping, other side: a compiler kind (Module, Type, builtin, memory): 1539, 1391
+  P1 bookkeeping, other side: a value's type: 15, 12
+  P1 branch: 1092, 1002
+  P1 branch, other side a value's type, compiling Core/Base/stdlib code: 3, 3
+  P1 branch, other side a value's type, compiling Main code: 2, 2
+  P1 branch, other side a value's type, compiling package code: 776, 755
+  P1 branch, other side a value's type, compiling package code, in a loop: 22, 14
+  P1 branch, other side: Dynamic: 55, 45
+  P1 branch, other side: TraitWorld's machinery: 231, 180
+  P1 branch, other side: a compiler kind (Module, Type, builtin, memory): 3, 3
+  P1 branch, other side: a value's type: 803, 774
+  T1: 219, 122
+  T1 bookkeeping: 184, 89
+  T1 bookkeeping, compiling Core/Base/stdlib code: 166, 79
+  T1 bookkeeping, compiling Core/Base/stdlib code, in a loop: 1, 1
+  T1 bookkeeping, compiling Main code: 1, 1
+  T1 bookkeeping, compiling package code: 16, 8
+  T1 bookkeeping, other side: a compiler kind (Module, Type, builtin, memory): 99, 73
+  T1 bookkeeping, other side: a value's type: 85, 16
+  T1 branch: 35, 33
+  T1 branch, compiling Core/Base/stdlib code: 31, 31
+  T1 branch, compiling Core/Base/stdlib code, in a loop: 4, 2
+  T1 branch, other side: a compiler kind (Module, Type, builtin, memory): 5, 5
+  T1 branch, other side: a value's type: 30, 28
+  T2: 2, 2
+  T2 branch: 2, 2
+  T2 branch, compiling Core/Base/stdlib code: 2, 2
+top records at branch sites (T1, T2, T3, and P1 with a value's type on the other side):
+  4 × P1 isa:leaf in_loop=true TraitWorld /home/hellmann/Repos/julia-trait-bound/TraitWorld/src/diagnostics.jl:458: Int64 vs TraitWorld.Compiled
+  4 × P1 isa:leaf in_loop=true TraitWorld /home/hellmann/Repos/julia-trait-bound/TraitWorld/src/diagnostics.jl:458: Int64 vs TraitWorld.Kept
+  3 × P1 isa:leaf in_loop=false TraitWorld /home/hellmann/Repos/julia-trait-bound/TraitWorld/src/verify.jl:381: Expr vs Union{TraitWorld.Compiled{X}, TraitWorld.Dynamic{X}, TraitWorld.Kept{X…
+  3 × P1 isa:leaf in_loop=false TraitWorld /home/hellmann/Repos/julia-trait-bound/TraitWorld/src/attributes.jl:309: Int64 vs TraitWorld.Compiled
+  3 × P1 isa:leaf in_loop=false TraitWorld /home/hellmann/Repos/julia-trait-bound/TraitWorld/src/attributes.jl:309: Int64 vs TraitWorld.Kept
+  2 × P1 isa:leaf in_loop=true TraitWorld /home/hellmann/Repos/julia-trait-bound/TraitWorld/src/diagnostics.jl:458: Main.DiagT.Ra vs TraitWorld.Kept
+  2 × P1 isa:disjoint in_loop=false TraitWorld.BaseTraits /home/hellmann/Repos/julia-trait-bound/TraitWorld/src/BaseTraits.jl:149: Union{Int64, String} vs TraitWorld.Compiled{Main.BTCells.Cell}
+  2 × P1 isa:leaf in_loop=false TraitWorld /home/hellmann/Repos/julia-trait-bound/TraitWorld/src/core.jl:1290: RBox{Int64} vs Union{TraitWorld.Compiled{X}, TraitWorld.Dynamic{X}, TraitWorld.Kept{X…
+  2 × T1 isa:disjoint in_loop=true Base strings/annotated.jl:243: Union{Char, AbstractString} vs Base.AnnotatedChar
+  2 × P1 isa:leaf in_loop=false TraitWorld /home/hellmann/Repos/julia-trait-bound/TraitWorld/src/entry.jl:226: Vector{Float64} vs Union{TraitWorld.Compiled{X}, TraitWorld.Dynamic{X}, TraitWorld.Kept{X…
+  2 × P1 isa:leaf in_loop=true TraitWorld /home/hellmann/Repos/julia-trait-bound/TraitWorld/src/diagnostics.jl:458: Main.DiagT.Ra vs TraitWorld.Compiled
+  2 × P1 isa:leaf in_loop=false TraitWorld /home/hellmann/Repos/julia-trait-bound/TraitWorld/src/attributes.jl:309: Main.DiagT.Ra vs TraitWorld.Kept
+  2 × P1 isa:leaf in_loop=false TraitWorld /home/hellmann/Repos/julia-trait-bound/TraitWorld/src/entry.jl:226: V2 vs Union{TraitWorld.Compiled{X}, TraitWorld.Dynamic{X}, TraitWorld.Kept{X…
+  2 × P1 isa:leaf in_loop=false TraitWorld /home/hellmann/Repos/julia-trait-bound/TraitWorld/src/core.jl:1290: RBox{Float64} vs Union{TraitWorld.Compiled{X}, TraitWorld.Dynamic{X}, TraitWorld.Kept{X…
+  2 × P1 isa:disjoint in_loop=false TraitWorld.BaseTraits /home/hellmann/Repos/julia-trait-bound/TraitWorld/src/BaseTraits.jl:149: Union{Int64, String} vs TraitWorld.Kept{Main.BTCells.Cell}
+families declared during the run, not counted as open: none
+report written in 3.0 s

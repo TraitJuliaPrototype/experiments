@@ -1,0 +1,31 @@
+E-255 (U7) TraitCSV: julia-1.13 00dcc9994c, TraitWorld 33dd55e, families: [(:Base, :AbstractDict), (:Core, :AbstractArray), (:Core, :AbstractString), (:Dates, :Period), (:LinearAlgebra, :Factorization)]
+all negative folds: 12949 answers at 4403 statements (site, code, pc); branch sites: 1397 answers at 507; isa/subtype tfuncs: 153 answers
+an open set (trait, family, Callable) anywhere in the fold: 282 answers (2.178 %) at 133 statements
+T1 rests on a membership in an open set: 116 answers (0.896 % of all), 52 records; at branch sites 15 (1.074 % of branch-site answers), 8 records
+T2 T1, and a package or Main could still declare it (a package's or Main's type or set): 0 answers (0.0 % of all), 0 records; at branch sites 0 (0.0 % of branch-site answers), 0 records
+T3 T1, with a Main type (Lemma M does not cover it): 0 answers (0.0 % of all), 0 records; at branch sites 0 (0.0 % of branch-site answers), 0 records
+P1 proxy: rests on Kept{X}/Compiled{X}, which the unified model makes X (§5.2): 5 answers (0.039 % of all), 5 records; at branch sites 0 (0.0 % of branch-site answers), 0 records
+breakdown (answers, (statement, types) records):
+  P1: 5, 5
+  P1 bookkeeping: 5, 5
+  P1 bookkeeping, other side: a compiler kind (Module, Type, builtin, memory): 5, 5
+  T1: 116, 52
+  T1 bookkeeping: 101, 44
+  T1 bookkeeping, compiling Core/Base/stdlib code: 101, 44
+  T1 bookkeeping, other side: a compiler kind (Module, Type, builtin, memory): 43, 39
+  T1 bookkeeping, other side: a value's type: 58, 5
+  T1 branch: 15, 8
+  T1 branch, compiling Core/Base/stdlib code: 3, 2
+  T1 branch, compiling Core/Base/stdlib code, in a loop: 12, 6
+  T1 branch, other side: a value's type: 15, 8
+top records at branch sites (T1, T2, T3, and P1 with a value's type on the other side):
+  2 × T1 isa:disjoint in_loop=true Base strings/annotated.jl:243: AbstractString vs Base.AnnotatedChar
+  2 × T1 isa:disjoint in_loop=true Base strings/annotated.jl:243: AbstractString vs Base.AnnotatedChar
+  2 × T1 isa:disjoint in_loop=true Base strings/annotated.jl:243: AbstractString vs Base.AnnotatedChar
+  2 × T1 isa:disjoint in_loop=true Base strings/annotated.jl:243: AbstractString vs Base.AnnotatedChar
+  2 × T1 passes:308 in_loop=false Base strings/annotated.jl:243: AbstractString vs Base.AnnotatedChar
+  2 × T1 isa:disjoint in_loop=true Base strings/annotated.jl:243: AbstractString vs Base.AnnotatedChar
+  2 × T1 isa:disjoint in_loop=true Base strings/annotated.jl:243: AbstractString vs Base.AnnotatedChar
+  1 × T1 isa:leaf in_loop=false Base arrayshow.jl:578: Vector{Tuple{Symbol, Symbol}} vs AbstractDict
+families declared during the run, not counted as open: none
+report written in 0.5 s

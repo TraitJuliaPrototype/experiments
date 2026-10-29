@@ -1,0 +1,724 @@
+jl: slot 1 (cores 0-3), depot /home/hellmann/.julia/agent-depots/w83u7
+WARNING: Detected access to binding `CoreT.T` in a world prior to its definition world.
+  Julia 1.12 has introduced more strict world age semantics for global bindings.
+  !!! This code may malfunction under Revise.
+  !!! This code will error in future versions of Julia.
+Hint: Add an appropriate `invokelatest` around the access to this binding.
+To make this warning an error, and hence obtain a stack trace, use `julia --depwarn=error`.
+WARNING: Detected access to binding `AbsB.BT` in a world prior to its definition world.
+  Julia 1.12 has introduced more strict world age semantics for global bindings.
+  !!! This code may malfunction under Revise.
+  !!! This code will error in future versions of Julia.
+Hint: Add an appropriate `invokelatest` around the access to this binding.
+To make this warning an error, and hence obtain a stack trace, use `julia --depwarn=error`.
+WARNING: Detected access to binding `Main.FoldF` in a world prior to its definition world.
+  Julia 1.12 has introduced more strict world age semantics for global bindings.
+  !!! This code may malfunction under Revise.
+  !!! This code will error in future versions of Julia.
+Hint: Add an appropriate `invokelatest` around the access to this binding.
+To make this warning an error, and hence obtain a stack trace, use `julia --depwarn=error`.
+
+M7: verify_main: Test Failed at /home/hellmann/Repos/julia-trait-bound/TraitWorld/test/runtests.jl:670
+  Expression: isclosed(r)
+   Evaluated: isclosed(TraitWorld.MainReport(Tuple{typeof(Main.VMain.main), Vector{String}}, 13, 4, 31, 0, 0, Pair{Symbol, Any}[], 0, 4, TraitWorld.Hole[TraitWorld.Hole(:dispatch, false, MethodInstance for (::Main.Columns.var"#total##0#total##1"{ColTable at Dynamic})(::Tuple{Int64, Int64}), 7, Compiler.split_call, Any[Type{ColTable}, Type{Float64}, TraitWorld._DynOp{ColTable, typeof(value)}, Any, Int64, Int64], "none:0"), TraitWorld.Hole(:dispatch, false, MethodInstance for colmean(::ColTable at Dynamic, ::Int64), 4, Compiler.split_call, Any[Type{ColTable}, Type{Vector{Float64}}, TraitWorld._DynOp{ColTable, typeof(col)}, Any, Int64], "/home/hellmann/Repos/julia-trait-bound/TraitWorld/test/runtests.jl:36")], Any[], true, String[]))
+  Stacktrace:
+   [1] top-level scope
+     @ ~/Repos/julia-trait-bound/TraitWorld/test/runtests.jl:668
+   [2] macro expansion
+     @ ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:1967 [inlined]
+   [3] macro expansion
+     @ ~/Repos/julia-trait-bound/TraitWorld/test/runtests.jl:670 [inlined]
+   [4] macro expansion
+     @ ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:758 [inlined]
+
+poc3 M8: verify_main, keyword entries: Test Failed at /home/hellmann/Repos/julia-trait-bound/TraitWorld/test/runtests.jl:934
+  Expression: isclosed(r)
+   Evaluated: isclosed(TraitWorld.MainReport(Tuple{typeof(Main.VKW.main), Vector{String}}, 22, 8, 62, 0, 0, Pair{Symbol, Any}[], 0, 1, TraitWorld.Hole[TraitWorld.Hole(:dispatch, false, MethodInstance for colrange(::ColTable at Dynamic, ::Int64), 4, Compiler.split_call, Any[Type{ColTable}, Type{Vector{Float64}}, TraitWorld._DynOp{ColTable, typeof(col)}, Any, Int64], "/home/hellmann/Repos/julia-trait-bound/TraitWorld/test/runtests.jl:37"), TraitWorld.Hole(:dispatch, false, MethodInstance for Main.KW.var"#colz#1"(::ColTable at Dynamic, ::Float64, ::typeof(colz), ::ColTable at Dynamic, ::Int64), 4, Compiler.split_call, Any[Type{ColTable}, Type{Vector{Float64}}, TraitWorld._DynOp{ColTable, typeof(col)}, Any, Int64], "/home/hellmann/Repos/julia-trait-bound/TraitWorld/test/runtests.jl:820"), TraitWorld.Hole(:dispatch, false, MethodInstance for colmean(::ColTable at Dynamic, ::Int64), 4, Compiler.split_call, Any[Type{ColTable}, Type{Vector{Float64}}, TraitWorld._DynOp{ColTable, typeof(col)}, Any, Int64], "/home/hellmann/Repos/julia-trait-bound/TraitWorld/test/runtests.jl:36"), TraitWorld.Hole(:dispatch, true, MethodInstance for Base.mapreduce_empty(::typeof(identity), ::Function, ::Type), 1, Base.reduce_empty, Any[Function, Type], "reduce.jl:370")], Any[], true, String[]))
+  Stacktrace:
+   [1] top-level scope
+     @ ~/Repos/julia-trait-bound/TraitWorld/test/runtests.jl:932
+   [2] macro expansion
+     @ ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:1967 [inlined]
+   [3] macro expansion
+     @ ~/Repos/julia-trait-bound/TraitWorld/test/runtests.jl:934 [inlined]
+   [4] macro expansion
+     @ ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:758 [inlined]
+1
+
+Dynamic values: Test Failed at /home/hellmann/Repos/julia-trait-bound/TraitWorld/test/dynamic.jl:94
+  Expression: getfield((typed(Main.Decay(1.0))).model, :compiled)
+   Evaluated: getfield(Kept{Model}: Dynamic at Decay, compiled)
+  Stacktrace:
+   [1] top-level scope
+     @ ~/Repos/julia-trait-bound/TraitWorld/test/dynamic.jl:79
+   [2] macro expansion
+     @ ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:1967 [inlined]
+   [3] macro expansion
+     @ ~/Repos/julia-trait-bound/TraitWorld/test/dynamic.jl:94 [inlined]
+   [4] macro expansion
+     @ ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:758 [inlined]
+
+a result like the input, typed for a caller that knows the type: Test Failed at /home/hellmann/Repos/julia-trait-bound/TraitWorld/test/like.jl:120
+  Expression: Base.return_types(ft, (Main.LSeries{Float64},)) == [Main.LSeries{Float32}]
+   Evaluated: Any[Any] == DataType[LSeries{Float32}]
+  Stacktrace:
+   [1] top-level scope
+     @ ~/Repos/julia-trait-bound/TraitWorld/test/like.jl:115
+   [2] macro expansion
+     @ ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:1967 [inlined]
+   [3] macro expansion
+     @ ~/Repos/julia-trait-bound/TraitWorld/test/like.jl:120 [inlined]
+   [4] macro expansion
+     @ ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:758 [inlined]
+
+a result like the input, typed for a caller that knows the type: Test Failed at /home/hellmann/Repos/julia-trait-bound/TraitWorld/test/like.jl:122
+  Expression: Base.return_types(fm, (Main.LMeas,)) == [Main.LMeas]
+   Evaluated: Any[Any] == DataType[LMeas]
+  Stacktrace:
+   [1] top-level scope
+     @ ~/Repos/julia-trait-bound/TraitWorld/test/like.jl:115
+   [2] macro expansion
+     @ ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:1967 [inlined]
+   [3] macro expansion
+     @ ~/Repos/julia-trait-bound/TraitWorld/test/like.jl:122 [inlined]
+   [4] macro expansion
+     @ ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:758 [inlined]
+
+a result like the input, typed for a caller that knows the type: Test Failed at /home/hellmann/Repos/julia-trait-bound/TraitWorld/test/like.jl:124
+  Expression: Base.return_types(fo, (Main.LOwn,)) == [Main.LOwn]
+   Evaluated: Any[Any] == DataType[LOwn]
+  Stacktrace:
+   [1] top-level scope
+     @ ~/Repos/julia-trait-bound/TraitWorld/test/like.jl:115
+   [2] macro expansion
+     @ ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:1967 [inlined]
+   [3] macro expansion
+     @ ~/Repos/julia-trait-bound/TraitWorld/test/like.jl:124 [inlined]
+   [4] macro expansion
+     @ ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:758 [inlined]
+
+a result like the input, typed for a caller that knows the type: Test Failed at /home/hellmann/Repos/julia-trait-bound/TraitWorld/test/like.jl:126
+  Expression: Base.return_types(fb, (Main.LBox,)) == [Main.LBox]
+   Evaluated: Any[Any] == DataType[LBox]
+  Stacktrace:
+   [1] top-level scope
+     @ ~/Repos/julia-trait-bound/TraitWorld/test/like.jl:115
+   [2] macro expansion
+     @ ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:1967 [inlined]
+   [3] macro expansion
+     @ ~/Repos/julia-trait-bound/TraitWorld/test/like.jl:126 [inlined]
+   [4] macro expansion
+     @ ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:758 [inlined]
+
+Printing by bound and representation: Test Failed at /home/hellmann/Repos/julia-trait-bound/TraitWorld/test/printing.jl:46
+  Expression: occursin("PVec{Float64} at Vector{Float64}", bt)
+   Evaluated: occursin("PVec{Float64} at Vector{Float64}", "\nStacktrace:\n  [1] error(s::String)\n    @ Base ./error.jl:44\n  [2] boom(s::Main.PrintLib.PVec{Float64} at Dynamic)\n    @ Main.PrintLib ~/Repos/julia-trait-bound/TraitWorld/test/printing.jl:22\n  [3] macro expansion\n    @ ~/Repos/julia-trait-bound/TraitWorld/src/checks.jl:312 [inlined]\n  [4] checked_call(f::typeof(Main.PrintLib.boom), a1::Main.PrintLib.PVec{Float64} at Dynamic)\n    @ TraitWorld ~/Repos/julia-trait-bound/TraitWorld/src/checks.jl:330\n  [5] macro expansion\n    @ ~/Repos/julia-trait-bound/TraitWorld/src/trait_module.jl:1339 [inlined]\n  [6] boom\n    @ ./none:0 [inlined]\n  [7] (::var\"#134#135\")()\n    @ Main ~/Repos/julia-trait-bound/TraitWorld/test/printing.jl:45\n  [8] frames(f::var\"#134#135\")\n    @ Main ~/Repos/julia-trait-bound/TraitWorld/test/printing.jl:27\n  [9] #allframes##0\n    @ ~/Repos/julia-trait-bound/TraitWorld/test/printing.jl:29 [inlined]\n [10] withenv(f::var\"#allframes##0#allframes##1\"{var\"#134#135\"}, keyvals::Pair{String, String})\n    @ Base ./env.jl:273\n [11] allframes(f::Function)\n    @ Main ~/Repos/julia-trait-bound/TraitWorld/test/printing.jl:29\n [12] top-level scope\n    @ ~/Repos/julia-trait-bound/TraitWorld/test/printing.jl:42\n [13] macro expansion\n    @ ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:1967 [inlined]\n [14] macro expansion\n    @ ~/Repos/julia-trait-bound/TraitWorld/test/printing.jl:45 [inlined]\n [15] include(mapexpr::Function, mod::Module, _path::String)\n    @ Base ./Base.jl:311\n [16] top-level scope\n    @ ~/Repos/julia-trait-bound/TraitWorld/test/runtests.jl:1035\n [17] include(mod::Module, _path::String)\n    @ Base ./Base.jl:310\n [18] top-level scope\n    @ ~/Repos/julia-trait-bound/experiments/w83/u7/run.jl:16\n [19] macro expansion\n    @ ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:1967 [inlined]\n [20] macro expansion\n    @ ~/Repos/julia-trait-bound/experiments/w83/u7/run.jl:16 [inlined]\n [21] include(mod::Module, _path::String)\n    @ Base ./Base.jl:310\n [22] exec_options(opts::Base.JLOptions)\n    @ Base ./client.jl:344\n [23] _start()\n    @ Base ./client.jl:577")
+  Stacktrace:
+   [1] top-level scope
+     @ ~/Repos/julia-trait-bound/TraitWorld/test/printing.jl:42
+   [2] macro expansion
+     @ ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:1967 [inlined]
+   [3] macro expansion
+     @ ~/Repos/julia-trait-bound/TraitWorld/test/printing.jl:46 [inlined]
+   [4] macro expansion
+     @ ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:758 [inlined]
+
+runtime as methods: conformances, entries, keys: Test Failed at /home/hellmann/Repos/julia-trait-bound/TraitWorld/test/runtime.jl:95
+  Expression: alloc1(typed, m) == 0 && (alloc1(typed, mm) == 0 && alloc1(typed, v) == 0)
+  Stacktrace:
+   [1] top-level scope
+     @ ~/Repos/julia-trait-bound/TraitWorld/test/runtime.jl:72
+   [2] macro expansion
+     @ ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:1967 [inlined]
+   [3] macro expansion
+     @ ~/Repos/julia-trait-bound/TraitWorld/test/runtime.jl:95 [inlined]
+   [4] macro expansion
+     @ ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:758 [inlined]
+21.0
+
+verify_main: targets of dynamic values: Test Failed at /home/hellmann/Repos/julia-trait-bound/TraitWorld/test/verify_dynamic.jl:43
+  Expression: all((h->begin
+            #= /home/hellmann/Repos/julia-trait-bound/TraitWorld/test/verify_dynamic.jl:43 =#
+            h.errorpath || TraitWorld.owner(h.caller.def.var"module") === :Julia
+        end), r.holes)
+   Evaluated: all(var"#203#204"(), TraitWorld.Hole[TraitWorld.Hole(:dispatch, false, MethodInstance for totalarea(::Vector{Dynamic{Main.VDyn.Shape}}), 40, Compiler.split_call, Any[Type{Main.VDyn.Shape}, Type{Float64}, TraitWorld._DynOp{Main.VDyn.Shape, typeof(Main.VDyn.area)}, Any], "/home/hellmann/Repos/julia-trait-bound/TraitWorld/src/trait.jl:543")])
+  Stacktrace:
+   [1] top-level scope
+     @ ~/Repos/julia-trait-bound/TraitWorld/test/verify_dynamic.jl:37
+   [2] macro expansion
+     @ ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:1967 [inlined]
+   [3] macro expansion
+     @ ~/Repos/julia-trait-bound/TraitWorld/test/verify_dynamic.jl:43 [inlined]
+   [4] macro expansion
+     @ ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:758 [inlined]
+
+verify_main: targets of dynamic values: Test Failed at /home/hellmann/Repos/julia-trait-bound/TraitWorld/test/verify_dynamic.jl:49
+  Expression: count((p->begin
+                #= /home/hellmann/Repos/julia-trait-bound/TraitWorld/test/verify_dynamic.jl:49 =#
+                p.first === :dynamic
+            end), r.targets) == 6
+   Evaluated: 4 == 6
+  Stacktrace:
+   [1] top-level scope
+     @ ~/Repos/julia-trait-bound/TraitWorld/test/verify_dynamic.jl:37
+   [2] macro expansion
+     @ ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:1967 [inlined]
+   [3] macro expansion
+     @ ~/Repos/julia-trait-bound/TraitWorld/test/verify_dynamic.jl:49 [inlined]
+   [4] macro expansion
+     @ ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:758 [inlined]
+
+the fully-typed certificate: Test Failed at /home/hellmann/Repos/julia-trait-bound/TraitWorld/test/certificate.jl:39
+  Expression: isfullytyped(r)
+   Evaluated: isfullytyped(FullyTypedReport(2 run-time sites))
+  Stacktrace:
+   [1] top-level scope
+     @ ~/Repos/julia-trait-bound/TraitWorld/test/certificate.jl:36
+   [2] macro expansion
+     @ ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:1967 [inlined]
+   [3] macro expansion
+     @ ~/Repos/julia-trait-bound/TraitWorld/test/certificate.jl:39 [inlined]
+   [4] macro expansion
+     @ ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:758 [inlined]
+
+the fully-typed certificate: Test Failed at /home/hellmann/Repos/julia-trait-bound/TraitWorld/test/certificate.jl:48
+  Expression: isfullytyped(r3) && r3.dynamic >= 1
+  Stacktrace:
+   [1] top-level scope
+     @ ~/Repos/julia-trait-bound/TraitWorld/test/certificate.jl:36
+   [2] macro expansion
+     @ ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:1967 [inlined]
+   [3] macro expansion
+     @ ~/Repos/julia-trait-bound/TraitWorld/test/certificate.jl:48 [inlined]
+   [4] macro expansion
+     @ ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:758 [inlined]
+
+Dynamic: made from a value of unknown type without a search or a copy: Test Failed at /home/hellmann/Repos/julia-trait-bound/TraitWorld/test/basetraits.jl:122
+  Expression: allocs(C.countnums, d) < 200
+   Evaluated: 74224 < 200
+  Stacktrace:
+   [1] top-level scope
+     @ ~/Repos/julia-trait-bound/TraitWorld/test/basetraits.jl:115
+   [2] macro expansion
+     @ ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:1967 [inlined]
+   [3] macro expansion
+     @ ~/Repos/julia-trait-bound/TraitWorld/test/basetraits.jl:122 [inlined]
+   [4] macro expansion
+     @ ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:758 [inlined]
+
+BaseTraits: the crossing, a user's container taken directly: Test Failed at /home/hellmann/Repos/julia-trait-bound/TraitWorld/test/basetraits.jl:198
+  Expression: allocs(C.valsc, big) < 1000
+   Evaluated: 680432 < 1000
+  Stacktrace:
+   [1] top-level scope
+     @ ~/Repos/julia-trait-bound/TraitWorld/test/basetraits.jl:164
+   [2] macro expansion
+     @ ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:1967 [inlined]
+   [3] macro expansion
+     @ ~/Repos/julia-trait-bound/TraitWorld/test/basetraits.jl:198 [inlined]
+   [4] macro expansion
+     @ ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:758 [inlined]
+2 3
+
+asvector: a trait collection as an AbstractVector for plain code: Test Failed at /home/hellmann/Repos/julia-trait-bound/TraitWorld/test/basetraits_next.jl:58
+  Expression: typeof(v) === IndexableVector{Float64, BTNCol}
+   Evaluated: IndexableVector{Float64, Dynamic{TraitWorld.BaseTraits.Indexable{Float64}}} === IndexableVector{Float64, BTNCol}
+  Stacktrace:
+   [1] top-level scope
+     @ ~/Repos/julia-trait-bound/TraitWorld/test/basetraits_next.jl:47
+   [2] macro expansion
+     @ ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:1967 [inlined]
+   [3] macro expansion
+     @ ~/Repos/julia-trait-bound/TraitWorld/test/basetraits_next.jl:58 [inlined]
+   [4] macro expansion
+     @ ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:758 [inlined]
+
+the type the caller knows decides (rule 2): Test Failed at /home/hellmann/Repos/julia-trait-bound/TraitWorld/test/attributes.jl:128
+  Expression: a_typed(c) === :compiled
+   Evaluated: dynamic === compiled
+  Stacktrace:
+   [1] top-level scope
+     @ ~/Repos/julia-trait-bound/TraitWorld/test/attributes.jl:125
+   [2] macro expansion
+     @ ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:1967 [inlined]
+   [3] macro expansion
+     @ ~/Repos/julia-trait-bound/TraitWorld/test/attributes.jl:128 [inlined]
+   [4] macro expansion
+     @ ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:1967 [inlined]
+   [5] macro expansion
+     @ ~/Repos/julia-trait-bound/TraitWorld/test/attributes.jl:128 [inlined]
+   [6] macro expansion
+     @ ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:758 [inlined]
+
+values keep their attribute; results never change: Test Failed at /home/hellmann/Repos/julia-trait-bound/TraitWorld/test/attributes.jl:137
+  Expression: a_pass_typed(c) == (:compiled, Float64(pi))
+   Evaluated: (:dynamic, 3.141592653589793) == (:compiled, 3.141592653589793)
+  Stacktrace:
+   [1] top-level scope
+     @ ~/Repos/julia-trait-bound/TraitWorld/test/attributes.jl:125
+   [2] macro expansion
+     @ ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:1967 [inlined]
+   [3] macro expansion
+     @ ~/Repos/julia-trait-bound/TraitWorld/test/attributes.jl:137 [inlined]
+   [4] macro expansion
+     @ ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:1967 [inlined]
+   [5] macro expansion
+     @ ~/Repos/julia-trait-bound/TraitWorld/test/attributes.jl:137 [inlined]
+   [6] macro expansion
+     @ ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:758 [inlined]
+
+keywords and varargs: Test Failed at /home/hellmann/Repos/julia-trait-bound/TraitWorld/test/attributes.jl:149
+  Expression: a_kw_typed(c) === :compiled
+   Evaluated: dynamic === compiled
+  Stacktrace:
+   [1] top-level scope
+     @ ~/Repos/julia-trait-bound/TraitWorld/test/attributes.jl:125
+   [2] macro expansion
+     @ ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:1967 [inlined]
+   [3] macro expansion
+     @ ~/Repos/julia-trait-bound/TraitWorld/test/attributes.jl:149 [inlined]
+   [4] macro expansion
+     @ ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:1967 [inlined]
+   [5] macro expansion
+     @ ~/Repos/julia-trait-bound/TraitWorld/test/attributes.jl:149 [inlined]
+   [6] macro expansion
+     @ ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:758 [inlined]
+
+keywords and varargs: Test Failed at /home/hellmann/Repos/julia-trait-bound/TraitWorld/test/attributes.jl:152
+  Expression: a_va_typed(c) === :compiled
+   Evaluated: dynamic === compiled
+  Stacktrace:
+   [1] top-level scope
+     @ ~/Repos/julia-trait-bound/TraitWorld/test/attributes.jl:125
+   [2] macro expansion
+     @ ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:1967 [inlined]
+   [3] macro expansion
+     @ ~/Repos/julia-trait-bound/TraitWorld/test/attributes.jl:149 [inlined]
+   [4] macro expansion
+     @ ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:1967 [inlined]
+   [5] macro expansion
+     @ ~/Repos/julia-trait-bound/TraitWorld/test/attributes.jl:152 [inlined]
+   [6] macro expansion
+     @ ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:758 [inlined]
+
+a trait's default, @default_with_dynamic_self (rule 3): not for types of the trait world: Test Failed at /home/hellmann/Repos/julia-trait-bound/TraitWorld/test/attributes.jl:210
+  Expression: a_m_tw(AttrG.MyModel(1)) === :compiled
+   Evaluated: dynamic === compiled
+  Stacktrace:
+   [1] top-level scope
+     @ ~/Repos/julia-trait-bound/TraitWorld/test/attributes.jl:125
+   [2] macro expansion
+     @ ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:1967 [inlined]
+   [3] macro expansion
+     @ ~/Repos/julia-trait-bound/TraitWorld/test/attributes.jl:209 [inlined]
+   [4] macro expansion
+     @ ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:1967 [inlined]
+   [5] macro expansion
+     @ ~/Repos/julia-trait-bound/TraitWorld/test/attributes.jl:210 [inlined]
+   [6] macro expansion
+     @ ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:758 [inlined]
+
+Callable: its Dynamic default, Compiled{Callable}, casts, Dynamic{Callable}: Test Failed at /home/hellmann/Repos/julia-trait-bound/TraitWorld/test/attributes.jl:216
+  Expression: a_cm_abs2(2.0) === :compiled
+   Evaluated: dynamic === compiled
+  Stacktrace:
+   [1] top-level scope
+     @ ~/Repos/julia-trait-bound/TraitWorld/test/attributes.jl:125
+   [2] macro expansion
+     @ ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:1967 [inlined]
+   [3] macro expansion
+     @ ~/Repos/julia-trait-bound/TraitWorld/test/attributes.jl:215 [inlined]
+   [4] macro expansion
+     @ ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:1967 [inlined]
+   [5] macro expansion
+     @ ~/Repos/julia-trait-bound/TraitWorld/test/attributes.jl:216 [inlined]
+   [6] macro expansion
+     @ ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:758 [inlined]
+
+an attribute on several bounds: Test Failed at /home/hellmann/Repos/julia-trait-bound/TraitWorld/test/attributes.jl:299
+  Expression: fb(PAB(1.0, 2.0)) == (:compiled, 3.0)
+   Evaluated: (:dynamic, 3.0) == (:compiled, 3.0)
+  Stacktrace:
+   [1] top-level scope
+     @ ~/Repos/julia-trait-bound/TraitWorld/test/attributes.jl:293
+   [2] macro expansion
+     @ ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:1967 [inlined]
+   [3] macro expansion
+     @ ~/Repos/julia-trait-bound/TraitWorld/test/attributes.jl:299 [inlined]
+   [4] macro expansion
+     @ ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:758 [inlined]
+
+values carry: storage keeps each value's attribute: Test Failed at /home/hellmann/Repos/julia-trait-bound/TraitWorld/test/carry.jl:99
+  Expression: C.bagkinds(b) == [:dynamic, :compiled, :compiled, :dynamic, :compiled, :dynamic]
+   Evaluated: [:dynamic, :dynamic, :compiled, :dynamic, :compiled, :dynamic] == [:dynamic, :compiled, :compiled, :dynamic, :compiled, :dynamic]
+  Stacktrace:
+   [1] top-level scope
+     @ ~/Repos/julia-trait-bound/TraitWorld/test/carry.jl:91
+   [2] macro expansion
+     @ ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:1967 [inlined]
+   [3] macro expansion
+     @ ~/Repos/julia-trait-bound/TraitWorld/test/carry.jl:99 [inlined]
+   [4] macro expansion
+     @ ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:758 [inlined]
+
+values carry: storage keeps each value's attribute: Test Failed at /home/hellmann/Repos/julia-trait-bound/TraitWorld/test/carry.jl:101
+  Expression: sprint(show, b.items[2]) == "Kept{$(S)}: Compiled at $(Main.CHex)"
+   Evaluated: "Kept{Main.Carry.Shape}: Dynamic at CHex" == "Kept{Main.Carry.Shape}: Compiled at CHex"
+  Stacktrace:
+   [1] top-level scope
+     @ ~/Repos/julia-trait-bound/TraitWorld/test/carry.jl:91
+   [2] macro expansion
+     @ ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:1967 [inlined]
+   [3] macro expansion
+     @ ~/Repos/julia-trait-bound/TraitWorld/test/carry.jl:101 [inlined]
+   [4] macro expansion
+     @ ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:758 [inlined]
+
+values carry: storage keeps each value's attribute: Test Failed at /home/hellmann/Repos/julia-trait-bound/TraitWorld/test/carry.jl:107
+  Expression: tput(db, h)
+    Expected: TraitBoundError
+  No exception thrown
+  Stacktrace:
+   [1] do_test_throws(result::Test.ExecutionResult, orig_expr::Any, extype::Any)
+     @ Test ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:915
+   [2] top-level scope
+     @ ~/Repos/julia-trait-bound/TraitWorld/test/carry.jl:91
+   [3] macro expansion
+     @ ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:1967 [inlined]
+   [4] macro expansion
+     @ ~/Repos/julia-trait-bound/TraitWorld/test/carry.jl:107 [inlined]
+
+values carry: a struct parameter bounded by a trait: Test Failed at /home/hellmann/Repos/julia-trait-bound/TraitWorld/test/carry.jl:148
+  Expression: (typeof(tbox(h))).parameters[1] === Main.CHex
+   Evaluated: Dynamic{Main.Carry.Shape} === CHex
+  Stacktrace:
+   [1] top-level scope
+     @ ~/Repos/julia-trait-bound/TraitWorld/test/carry.jl:140
+   [2] macro expansion
+     @ ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:1967 [inlined]
+   [3] macro expansion
+     @ ~/Repos/julia-trait-bound/TraitWorld/test/carry.jl:148 [inlined]
+   [4] macro expansion
+     @ ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:758 [inlined]
+
+values carry: a struct parameter bounded by a trait: Test Failed at /home/hellmann/Repos/julia-trait-bound/TraitWorld/test/carry.jl:153
+  Expression: (typeof(tboxit(h))).parameters[1] === Main.CHex
+   Evaluated: Dynamic{Main.Carry.Shape} === CHex
+  Stacktrace:
+   [1] top-level scope
+     @ ~/Repos/julia-trait-bound/TraitWorld/test/carry.jl:140
+   [2] macro expansion
+     @ ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:1967 [inlined]
+   [3] macro expansion
+     @ ~/Repos/julia-trait-bound/TraitWorld/test/carry.jl:153 [inlined]
+   [4] macro expansion
+     @ ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:758 [inlined]
+
+values carry: a struct parameter bounded by a trait: Test Failed at /home/hellmann/Repos/julia-trait-bound/TraitWorld/test/carry.jl:155
+  Expression: C.boxkind(tboxit(h)) === :compiled && C.boxkind(C.boxit(h)) === :dynamic
+  Stacktrace:
+   [1] top-level scope
+     @ ~/Repos/julia-trait-bound/TraitWorld/test/carry.jl:140
+   [2] macro expansion
+     @ ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:1967 [inlined]
+   [3] macro expansion
+     @ ~/Repos/julia-trait-bound/TraitWorld/test/carry.jl:155 [inlined]
+   [4] macro expansion
+     @ ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:758 [inlined]
+
+concrete parameters of the bounds, per function: Test Failed at /home/hellmann/Repos/julia-trait-bound/TraitWorld/test/concreteness.jl:92
+  Expression: e isa TraitBoundError && occursin("Self is Vector{Real}", sprint(showerror, e))
+  Stacktrace:
+   [1] top-level scope
+     @ ~/Repos/julia-trait-bound/TraitWorld/test/concreteness.jl:84
+   [2] macro expansion
+     @ ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:1967 [inlined]
+   [3] macro expansion
+     @ ~/Repos/julia-trait-bound/TraitWorld/test/concreteness.jl:92 [inlined]
+   [4] macro expansion
+     @ ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:758 [inlined]
+
+W-40: a family member's builder folded in a typed caller: Test Failed at /home/hellmann/Repos/julia-trait-bound/TraitWorld/test/fold.jl:47
+  Expression: allocs == 0
+   Evaluated: 288352 == 0
+  Stacktrace:
+   [1] macro expansion
+     @ ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:758 [inlined]
+   [2] macro expansion
+     @ ~/Repos/julia-trait-bound/TraitWorld/test/fold.jl:47 [inlined]
+   [3] macro expansion
+     @ ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:1967 [inlined]
+   [4] top-level scope
+     @ ~/Repos/julia-trait-bound/TraitWorld/test/fold.jl:44
+each constructor its own entry: Log Test Failed at /home/hellmann/Repos/julia-trait-bound/TraitWorld/test/constructors.jl:89
+  Expression: M.COnly(Main.CPerson("ann"))
+  Log Pattern: min_level = Base.CoreLogging.Warn
+  Captured Logs: 
+    LogRecord(Warn, "@warn_not_fully_typed: not fully typed: Tuple{Type{Main.CtorMod.COnly}, Main.CtorMod.CNamed at Dynamic}\n  1 run-time site on normal paths; each pays the facts rule's cost:\n  /home/hellmann/Repos/julia-trait-bound/TraitWorld/test/constructors.jl:38: Compiler.split_call(Type{Main.CtorMod.CNamed}, Type{String}, TraitWorld._DynOp{Main.CtorMod.CNamed, typeof(Main.CtorMod.cname)}, Any)  in COnly\n      its arguments are not concrete, so its result is `Any`: give the values concrete types (a typed field or container, a function barrier), or declare them `Dynamic{X}` with a trait that declares the result type", TraitWorld, :concrete, :TraitWorld_0e78d8b7, "/home/hellmann/Repos/julia-trait-bound/TraitWorld/src/concrete.jl", 549, Base.Pairs{Symbol, Union{}, Nothing, @NamedTuple{}}())
+
+Stacktrace:
+ [1] record(ts::Test.DefaultTestSet, t::Test.LogTestFailure)
+   @ Test ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Test/src/logging.jl:166
+ [2] top-level scope
+   @ ~/Repos/julia-trait-bound/TraitWorld/test/constructors.jl:57
+ [3] macro expansion
+   @ ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:1967 [inlined]
+ [4] macro expansion
+   @ ~/Repos/julia-trait-bound/TraitWorld/test/constructors.jl:85 [inlined]
+ [5] macro expansion
+   @ ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:1967 [inlined]
+ [6] macro expansion
+   @ ~/Repos/julia-trait-bound/TraitWorld/test/constructors.jl:89 [inlined]
+ [7] macro expansion
+   @ ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:755 [inlined]
+Test Summary:                                                                                                      | Pass  Fail  Total     Time
+E-255 run                                                                                                          | 1137    32   1169  2m29.3s
+  M1: the note's example                                                                                           |    9            9     0.8s
+  M1: rule 2 and escapes, reported with their lines                                                                |    6            6     1.4s
+  M1: ownership (rule 3); a trait module may import ordinary code                                                  |    7            7     0.1s
+  M1: implementations are checked when defined                                                                     |    4            4     0.1s
+  dispatch: types first, then traits; fallback                                                                     |    5            5     0.1s
+  Callable                                                                                                         |   16           16     0.6s
+  closures capturing a trait object are checked                                                                    |    6            6     0.5s
+  M2: Base capability traits and generic implementations                                                           |   15           15     1.2s
+  M3: views and joint projections                                                                                  |    6            6     0.3s
+  M4: dispatch                                                                                                     |   15           15     0.9s
+  a call with keywords: only the methods that take keywords (open issue 130)                                       |   20           20     1.1s
+  a later subtrait adds no method to its supertrait's operations (open issue 124)                                  |   20           20     0.9s
+  M4: adopting a trait method keeps existing calls                                                                 |    7            7     0.2s
+  M5: Callable at two signatures                                                                                   |    3            3     0.2s
+  M6: calls into ordinary code; a winning pirate is followed                                                       |    4            4     0.1s
+  M7: fully typed mode                                                                                             |    6            6     3.5s
+  M7: verify_main                                                                                                  |    2     1      3     1.8s
+  review: correctness                                                                                              |   15           15     1.2s
+  review: a pirate behind a catch; a closed world in a session                                                     |    4            4     0.1s
+  review: unrelated bounds added by another module                                                                 |    1            1     0.1s
+┌ Warning: trait module Bad: library code breaks a rule of the trait world:
+│   bad_field (runtests.jl:105): runtests.jl:105: `t.views`: the user's data is reached only through the operations and the writable fields its traits declare (`ColTable` declares ncols, col, value)
+│   bad_ordinary (runtests.jl:104): runtests.jl:104: a trait object carrying ColTable is passed to `sum`, an ordinary function: it can do only what its traits declare. Declare `sum` as an operation, or use the operations
+│   bad_rule3 (runtests.jl:103): runtests.jl:103: a trait object carrying ColTable is passed to `firstrow`, whose methods need other traits at argument 1. Declare the bounds it needs, so the caller projects each (rule 2)
+│   bad_typeof (runtests.jl:106): runtests.jl:106: `typeof(t)`: code must not depend on the user's type
+│   helper (runtests.jl:107): runtests.jl:104: a trait object carrying ColTable is passed to `sum`, an ordinary function: it can do only what its traits declare. Declare `sum` as an operation, or use the operations
+└ @ TraitWorld ~/Repos/julia-trait-bound/TraitWorld/src/trait_module.jl:1559
+┌ Warning: trait module Clo: library code breaks a rule of the trait world:
+│   bad (runtests.jl:243): runtests.jl:243: a trait object carrying ColTable is passed to `sum`, an ordinary function: it can do only what its traits declare. Declare `sum` as an operation, or use the operations
+│   badunt (runtests.jl:248): runtests.jl:248: a trait object carrying ColTable is passed to `sum`, an ordinary function: it can do only what its traits declare. Declare `sum` as an operation, or use the operations
+└ @ TraitWorld ~/Repos/julia-trait-bound/TraitWorld/src/trait_module.jl:1559
+┌ Warning: trait module RHelp: library code breaks a rule of the trait world:
+│   helper2 (runtests.jl:691): runtests.jl:691: a trait object carrying Iterable is passed to `sum`, an ordinary function: it can do only what its traits declare. Declare `sum` as an operation, or use the operations
+│   outer2 (runtests.jl:692): runtests.jl:691: a trait object carrying Iterable is passed to `sum`, an ordinary function: it can do only what its traits declare. Declare `sum` as an operation, or use the operations
+└ @ TraitWorld ~/Repos/julia-trait-bound/TraitWorld/src/trait_module.jl:1559
+┌ Warning: trait module Leak: library code breaks a rule of the trait world:
+│   leak (runtests.jl:700): runtests.jl:700: returns a trait object to ordinary code: a trait object is a handle, not a value
+│   leak_cond (runtests.jl:701): runtests.jl:701: returns a trait object to ordinary code: a trait object is a handle, not a value
+└ @ TraitWorld ~/Repos/julia-trait-bound/TraitWorld/src/trait_module.jl:1559
+┌ Warning: trait module BadDef: library code breaks a rule of the trait world:
+│   def_ordinary (runtests.jl:1007): runtests.jl:1007: a trait object carrying ColTable is passed to `sum`, an ordinary function: it can do only what its traits declare. Declare `sum` as an operation, or use the operations
+│   def_rule3 (runtests.jl:1009): runtests.jl:1009: a trait object carrying ColTable is passed to `firstrow`, whose methods need other traits at argument 1. Declare the bounds it needs, so the caller projects each (rule 2)
+│   def_typeof (runtests.jl:1008): runtests.jl:1008: `typeof(t)`: code must not depend on the user's type
+└ @ TraitWorld ~/Repos/julia-trait-bound/TraitWorld/src/trait_module.jl:1559
+┌ Warning: trait module DynBad: library code breaks a rule of the trait world:
+│   keepany (dynamic.jl:57): dynamic.jl:57: a trait object carrying Hook is passed to `push!`, an ordinary function: it can do only what its traits declare. Declare `push!` as an operation, or use the operations
+└ @ TraitWorld ~/Repos/julia-trait-bound/TraitWorld/src/trait_module.jl:1559
+┌ Warning: trait module FieldBad: library code breaks a rule of the trait world:
+│   readsecret (fields.jl:46): fields.jl:46: `t.secret`: the user's data is reached only through the operations and the writable fields its traits declare (`Stepper` declares advance!; fields t, dt)
+│   writeconst! (fields.jl:45): fields.jl:45: `t.t` = …: the user's data is reached only through the operations and the writable fields its traits declare (`Stepper` declares advance!; fields t, dt)
+└ @ TraitWorld ~/Repos/julia-trait-bound/TraitWorld/src/trait_module.jl:1559
+┌ Warning: trait module FieldDotBad: library code breaks a rule of the trait world:
+│   bumpsecret! (fields.jl:175): fields.jl:175: `t.secret`: the user's data is reached only through the operations and the writable fields its traits declare (`Integ` declares no operations; fields u, du)
+└ @ TraitWorld ~/Repos/julia-trait-bound/TraitWorld/src/trait_module.jl:1559
+┌ Warning: trait module ParamBad: library code breaks a rule of the trait world:
+│   badsize (params.jl:38): params.jl:38: `size` has no method for a trait object carrying StateVector
+└ @ TraitWorld ~/Repos/julia-trait-bound/TraitWorld/src/trait_module.jl:1559
+┌ Warning: trait module LikeBad: library code breaks a rule of the trait world:
+│   leak (like.jl:57): like.jl:57: returns a trait object to ordinary code: a trait object is a handle, not a value
+└ @ TraitWorld ~/Repos/julia-trait-bound/TraitWorld/src/trait_module.jl:1559
+┌ Warning: `cfirst` has a `Dynamic` attribute on a bound, but it is neither exported nor public in Main.CapT. An annotation is a default for plain values entering from plain callers, expected at public functions; it never casts a value that carries an attribute. Cast at the call instead: `compiled_for(x)`, `with_dynamic(x)`.
+└ @ Main.CapT ~/Repos/julia-trait-bound/TraitWorld/src/attributes.jl:353
+┌ Warning: trait module BTNPropBad: library code breaks a rule of the trait world:
+│   readsecret (basetraits_next.jl:211): basetraits_next.jl:211: `t.ps`: the user's data is reached only through the operations and the writable fields its traits declare (`IntegView` declares curt)
+└ @ TraitWorld ~/Repos/julia-trait-bound/TraitWorld/src/trait_module.jl:1559
+┌ Warning: `dviewsum` has a `Dynamic` attribute on a bound, but it is neither exported nor public in Main.BoundParam. An annotation is a default for plain values entering from plain callers, expected at public functions; it never casts a value that carries an attribute. Cast at the call instead: `compiled_for(x)`, `with_dynamic(x)`.
+└ @ Main.BoundParam ~/Repos/julia-trait-bound/TraitWorld/src/attributes.jl:353
+the script ended with TestSetException
+E-255 (U7) traitworld-all: julia-1.13 00dcc9994c, TraitWorld 33dd55e, families: [(:Base, :AbstractDict), (:Core, :AbstractArray), (:Core, :AbstractString), (:Dates, :Period), (:LinearAlgebra, :Factorization)]
+all negative folds: 248035 answers at 102477 statements (site, code, pc); branch sites: 24382 answers at 11437; isa/subtype tfuncs: 5860 answers
+an open set (trait, family, Callable) anywhere in the fold: 300 answers (0.121 %) at 143 statements
+T1 rests on a membership in an open set: 102 answers (0.041 % of all), 63 records; at branch sites 21 (0.086 % of branch-site answers), 19 records
+T2 T1, and a package or Main could still declare it (a package's or Main's type or set): 2 answers (0.001 % of all), 2 records; at branch sites 2 (0.008 % of branch-site answers), 2 records
+T3 T1, with a Main type (Lemma M does not cover it): 0 answers (0.0 % of all), 0 records; at branch sites 0 (0.0 % of branch-site answers), 0 records
+P1 proxy: rests on Kept{X}/Compiled{X}, which the unified model makes X (§5.2): 2100 answers (0.847 % of all), 1809 records; at branch sites 1116 (4.577 % of branch-site answers), 958 records
+breakdown (answers, (statement, types) records):
+  P1: 2100, 1809
+  P1 bookkeeping: 984, 851
+  P1 bookkeeping, other side a value's type, compiling Core/Base/stdlib code: 7, 4
+  P1 bookkeeping, other side a value's type, compiling package code: 9, 7
+  P1 bookkeeping, other side: a compiler kind (Module, Type, builtin, memory): 968, 840
+  P1 bookkeeping, other side: a value's type: 16, 11
+  P1 branch: 1116, 958
+  P1 branch, other side a value's type, compiling Core/Base/stdlib code: 4, 4
+  P1 branch, other side a value's type, compiling Main code: 2, 2
+  P1 branch, other side a value's type, compiling package code: 821, 726
+  P1 branch, other side a value's type, compiling package code, in a loop: 18, 14
+  P1 branch, other side: Dynamic: 50, 42
+  P1 branch, other side: TraitWorld's machinery: 218, 167
+  P1 branch, other side: a compiler kind (Module, Type, builtin, memory): 3, 3
+  P1 branch, other side: a value's type: 845, 746
+  T1: 102, 63
+  T1 bookkeeping: 81, 44
+  T1 bookkeeping, compiling Core/Base/stdlib code: 63, 37
+  T1 bookkeeping, compiling package code: 18, 7
+  T1 bookkeeping, other side: a compiler kind (Module, Type, builtin, memory): 54, 36
+  T1 bookkeeping, other side: a value's type: 27, 8
+  T1 branch: 21, 19
+  T1 branch, compiling Core/Base/stdlib code: 19, 18
+  T1 branch, compiling Core/Base/stdlib code, in a loop: 2, 1
+  T1 branch, other side: a compiler kind (Module, Type, builtin, memory): 3, 2
+  T1 branch, other side: a value's type: 18, 17
+  T2: 2, 2
+  T2 branch: 2, 2
+  T2 branch, compiling Core/Base/stdlib code: 2, 2
+top records at branch sites (T1, T2, T3, and P1 with a value's type on the other side):
+  2 × P1 isa:leaf in_loop=false TraitWorld /home/hellmann/Repos/julia-trait-bound/TraitWorld/src/entry.jl:226: Dict{String, Any} vs Union{TraitWorld.Compiled{X}, TraitWorld.Dynamic{X}, TraitWorld.Kept{X…
+  2 × P1 isa:leaf in_loop=false TraitWorld /home/hellmann/Repos/julia-trait-bound/TraitWorld/src/attributes.jl:301: LOwn vs TraitWorld.Kept
+  2 × P1 isa:leaf in_loop=true TraitWorld /home/hellmann/Repos/julia-trait-bound/TraitWorld/src/diagnostics.jl:458: Int64 vs TraitWorld.Compiled
+  2 × P1 isa:leaf in_loop=false TraitWorld /home/hellmann/Repos/julia-trait-bound/TraitWorld/src/attributes.jl:309: LSeries{Float64} vs TraitWorld.Compiled
+  2 × P1 isa:leaf in_loop=false TraitWorld /home/hellmann/Repos/julia-trait-bound/TraitWorld/src/entry.jl:226: Vector{Any} vs Union{TraitWorld.Compiled{X}, TraitWorld.Dynamic{X}, TraitWorld.Kept{X…
+  2 × P1 isa:leaf in_loop=false TraitWorld /home/hellmann/Repos/julia-trait-bound/TraitWorld/src/entry.jl:226: Main.DiagT.Ra vs Union{TraitWorld.Compiled{X}, TraitWorld.Dynamic{X}, TraitWorld.Kept{X…
+  2 × P1 isa:leaf in_loop=false TraitWorld /home/hellmann/Repos/julia-trait-bound/TraitWorld/src/attributes.jl:309: LSeries{Float64} vs TraitWorld.Kept
+  2 × P1 isa:leaf in_loop=false TraitWorld /home/hellmann/Repos/julia-trait-bound/TraitWorld/src/entry.jl:226: Ramp vs Union{TraitWorld.Compiled{X}, TraitWorld.Dynamic{X}, TraitWorld.Kept{X…
+  2 × P1 isa:leaf in_loop=false TraitWorld /home/hellmann/Repos/julia-trait-bound/TraitWorld/src/entry.jl:1240: LBox vs Union{TraitWorld.Compiled{X}, TraitWorld.Dynamic{X}, TraitWorld.Kept{X…
+  2 × P1 isa:leaf in_loop=false TraitWorld /home/hellmann/Repos/julia-trait-bound/TraitWorld/src/attributes.jl:301: LSeries{Float64} vs TraitWorld.Kept
+  2 × P1 isa:leaf in_loop=false TraitWorld /home/hellmann/Repos/julia-trait-bound/TraitWorld/src/entry.jl:555: Float64 vs TraitWorld.Kept
+  2 × P1 isa:leaf in_loop=false TraitWorld /home/hellmann/Repos/julia-trait-bound/TraitWorld/src/entry.jl:555: Float64 vs TraitWorld.Compiled
+  2 × P1 isa:leaf in_loop=false TraitWorld /home/hellmann/Repos/julia-trait-bound/TraitWorld/src/attributes.jl:301: Measurements vs TraitWorld.Kept
+  2 × P1 isa:leaf in_loop=false TraitWorld /home/hellmann/Repos/julia-trait-bound/TraitWorld/src/attributes.jl:309: CSurf vs TraitWorld.Kept
+  2 × P1 isa:leaf in_loop=false TraitWorld /home/hellmann/Repos/julia-trait-bound/TraitWorld/src/entry.jl:226: LOwn vs Union{TraitWorld.Compiled{X}, TraitWorld.Dynamic{X}, TraitWorld.Kept{X…
+families declared during the run, not counted as open: none
+report written in 4.9 s
+  poc3 M1: keyword, default and variable arguments                                                                 |   11           11     0.4s
+  poc3 M2: Callable, Compiled and Dynamic                                                                          |   13           13     0.3s
+  poc3 M4: the one-line conformance, and forwarding with by                                                        |   13           13     1.3s
+  poc3 M8: verify_main, keyword entries                                                                            |    1     1      2     0.1s
+  ownership of methods outside trait modules (rule 3 lookups)                                                      |    6            6     0.1s
+  wrapping by facts: trait-world code calls any Julia code                                                         |    6            6     0.3s
+  return types read from CodeInstances: a predicate's conditional is no constant                                   |    2            2     0.0s
+  facts at tuples with unions of concrete elements (iteration with missing values)                                 |    7            7     0.2s
+  definition checking at archetypes                                                                                |   10           10     0.3s
+  Dynamic values                                                                                                   |   16     1     17     0.8s
+  Dynamic: containers in functions, supertrait views                                                               |    4            4     0.5s
+  an operation's result declared with a trait is Dynamic                                                           |    7            7     0.7s
+  T-78: Vector{<:X} in an argument is refused                                                                      |    1            1     0.0s
+  Trait fields and lenses                                                                                          |   17           17     0.5s
+  family members: declared fields checked at first use                                                             |    5            5     0.2s
+  a dotted update of a declared field                                                                              |    3            3     0.1s
+  Trait parameters (associated types)                                                                              |   18           18     0.8s
+  a stated parameter agrees with the trait's equation                                                              |    4            4     0.0s
+  families with a block over a parametric type expression                                                          |    5            5     0.4s
+  families with a block, by the type's owner                                                                       |    3            3     0.1s
+  kept forms check the fixed parameters                                                                            |    6            6     0.1s
+  a parametric trait's name as an element type                                                                     |    5            5     0.1s
+  Results like the input                                                                                           |   15           15     1.4s
+  a result like the input, typed for a caller that knows the type                                                  |    4     4      8     0.2s
+  TraitWorld adds no method of show at types of types                                                              |    1            1     0.1s
+  Printing by bound and representation                                                                             |    6     1      7     0.9s
+  conforms(T, X): membership as a function                                                                         |    6            6     0.0s
+  Stack traces hide the machinery's frames                                                                         |    2            2     0.1s
+  T-80: the hint lists the declared implementations                                                                |    2            2     0.1s
+  Keys: the design's trait syntax                                                                                  |   18           18     0.9s
+  Keys: late overrides for family members                                                                          |    4            4     0.1s
+  Concreteness: opt-in per trait                                                                                   |   10           10     0.4s
+  L-42: a key's field type is the declared type                                                                    |    2            2     0.1s
+  runtime as methods: conformances, entries, keys                                                                  |   11     1     12     0.2s
+  a new conformance invalidates no entry                                                                           |    7            7     0.2s
+  no implementing type when defaults serve every operation                                                         |    6            6     0.3s
+  fields define parameters by matching                                                                             |    6            6     0.3s
+  an override after a conformance is refused                                                                       |    4            4     0.0s
+  untyped calls: Dynamic, the worker at the erased key                                                             |   10           10     0.5s
+  untyped calls of Compiled values: the table                                                                      |    6            6     0.5s
+  untyped calls: worlds, redefinitions, families                                                                   |   17           17     1.0s
+  untyped calls of Compiled values: the table, whatever the ordinary arguments' annotations (W-49)                 |   12           12     0.9s
+  strict mode: defining a winning pirate is an error                                                               |   38           38     1.1s
+  verify_main: targets of dynamic values                                                                           |    1     2      3     0.4s
+  the fully-typed certificate                                                                                      |   10     2     12     0.7s
+  a redeclaration is refused in every form                                                                         |    4            4     0.1s
+  a bounded function defined again after its trait module's end                                                    |   12           12     0.5s
+  a stored value's capabilities, functions at other signatures, Callables that follow                              |   13           13     0.9s
+  an open result type (traits reference §5.8)                                                                      |    6            6     0.6s
+  a family implemented with methods by the owner of its members, for another module's trait (traits §4.7, §10.1)   |    1            1     0.3s
+  a bounded function inside another macro, and `@nospecialize` on its ordinary arguments (found by SciML's move 3) |   10           10     0.5s
+  a bounded function's declared result, seen by plain inference at its entry (found by SciML's move 4)             |    4            4     0.3s
+  a bound that opens its value: Opened{X} (traits §6.4, open issue 98)                                             |   11           11     0.5s
+  rewrap: a changed function keeps its attribute (traits §6.4)                                                     |    7            7     0.1s
+  BaseTraits: Base's containers conform by Base's methods                                                          |    6            6     0.1s
+  BaseTraits: a trait's name in a bound's parameters names an item position                                        |    1            1     0.4s
+  BaseTraits: DynamicItems, a user's vector without a copy                                                         |   11           11     0.9s
+  BaseTraits: DynamicValues, a user's Dict{String,Any}                                                             |    3            3     0.6s
+  Dynamic: made from a value of unknown type without a search or a copy                                            |    2     1      3     0.0s
+  Dynamic: the first candidates are the first declared                                                             |    2            2     0.1s
+  BaseTraits: the crossing, a user's container taken directly                                                      |   15     1     16     1.2s
+  BaseTraits: verify_main and the crossing                                                                         |    4            4     0.9s
+  asvector: a trait collection as an AbstractVector for plain code                                                 |   12     1     13     1.4s
+  Solvable: LinearAlgebra's factorizations solve linear systems                                                    |    9            9     1.2s
+  BoundedText: a bound on the bytes print writes                                                                   |   85           85     1.9s
+  HasProperty: property access at a name, an input parameter                                                       |   24           24     0.8s
+  Compiled and Dynamic                                                                                             |   65     6     71     3.0s
+    the type the caller knows decides (rule 2)                                                                     |    2     1      3     0.0s
+    an attribute at the position overrides (rule 4)                                                                |    2            2     0.1s
+    values keep their attribute; results never change                                                              |    3     1      4     0.2s
+    conversions always win (rule 5)                                                                                |    4            4     0.1s
+    keywords and varargs                                                                                           |    2     2      4     0.1s
+    an operation's argument declared Dynamic{Y}: the seam                                                          |    2            2     0.1s
+    declared fields at the erased key: typed                                                                       |    4            4     0.1s
+    parameters: carried by the erased key; a Dynamic attribute must fix them                                       |    3            3     0.1s
+    a trait's default, @default_compiled_for_self: Compiled whatever the caller knew                               |    7            7     0.3s
+    a trait's default, @default_with_dynamic_self (rule 3): not for types of the trait world                       |    3     1      4     0.1s
+    Callable: its Dynamic default, Compiled{Callable}, casts, Dynamic{Callable}                                    |    9     1     10     0.1s
+    items: each item's attribute when it is read                                                                   |    9            9     1.4s
+    functions held: Compiled, Dynamic, Kept; constructors never cast (traits §5.8)                                 |   14           14     0.1s
+    an attribute on a function neither exported nor public warns (rule 8)                                          |    1            1     0.1s
+  an attribute on several bounds                                                                                   |    3     1      4     0.2s
+  a Dynamic's operations typed by its fixed parameters                                                             |    4            4     0.1s
+  a Dynamic's operations: a parameter-bounded type constructor in a declared type                                  |   11           11     0.6s
+  values carry: items of a Vector{Any} keep their attribute (the bug of 2026-10-21)                                |    5            5     0.8s
+  values carry: storage keeps each value's attribute                                                               |    5     3      8     0.4s
+  values carry: casts, constructors, equality                                                                      |   10           10     0.1s
+  values carry: a write stores what reads back the same                                                            |    4            4     0.7s
+  values carry: a struct parameter bounded by a trait                                                              |   16     3     19     0.3s
+  a function kept before its signature is known (traits reference §7.5, open issue 102)                            |   17           17     0.2s
+  the bound at the field: the same struct as the bound in the header (W-42)                                        |    5            5     0.0s
+  a library's conversion to its trait at a store (traits reference §7.3, W-44)                                     |    4            4     0.1s
+  a struct parameter named only by a bound: read from the kept value (traits reference §7.4)                       |    5            5     0.7s
+  where variables in bounds                                                                                        |   13           13     0.6s
+  lowering L-49: a where variable shadows a module global                                                          |    4            4     0.2s
+  checks at the declaration                                                                                        |   12           12     0.4s
+  a subtrait's implementation agrees with its supertrait's                                                         |    3            3     0.1s
+  a bounded method's name resolves as in Julia                                                                     |    3            3     0.1s
+  a supertrait with parameters takes the subtrait's parameters by name                                             |   10           10     1.0s
+  @implement of a bundle                                                                                           |    2            2     0.3s
+  supertraits: kept values and families                                                                            |    6            6     0.4s
+  a member's own declaration after its first use                                                                   |    4            4     0.3s
+  T-62: a family by fields from a third package is refused                                                         |    1            1     0.0s
+  T-77: the member check counts the stakeholders' methods only                                                     |    1            1     0.1s
+  concrete parameters and Self, per trait                                                                          |   13           13     0.5s
+  concrete parameters of the bounds, per function                                                                  |    9     1     10     0.6s
+  a trait's name on an argument outside trait modules is refused                                                   |    3            3     0.0s
+  joint owners                                                                                                     |   11           11     0.1s
+  W-40: a family member's builder folded in a typed caller                                                         |    3     1      4     0.5s
+  W-40: a builder over 256 bytes (N1)                                                                              |    2            2     0.2s
+  W-40: not folded where the type is unknown; a member that does not conform                                       |    2            2     0.1s
+  W-84: a member fixed while an image was built is fixed from its record at load                                   |    5            5     0.5s
+  W-84: a pirate loaded before the image changes a method that served the member: checked again, refused           |    3            3     0.6s
+  W-91: an image keeps a Callable entry whose argument types have no hash                                          |    9            9     0.5s
+  an implementation's image build reads no deprecated binding (open issue 123)                                     |    3            3     0.0s
+  open issue 131: a bounded constructor                                                                            |   26     1     27     1.9s
+    a struct without parameters                                                                                    |   11           11     0.2s
+    a parametric struct                                                                                            |    9            9     0.1s
+    each constructor its own entry                                                                                 |    6     1      7     1.6s
+  lowering L-50: the constructor at the entry's signature is its fallback                                          |   26           26     0.5s
+  open issue 131: a bounded constructor compiled ahead in a package image                                          |    3            3     0.0s
+  lowering L-50: refused while Julia writes a package image                                                        |    2            2     0.0s
+  diagnostics: callpath                                                                                            |   17           17     2.4s
+  diagnostics: factscode                                                                                           |    6            6     0.2s
+  diagnostics: loadreport                                                                                          |    5            5     0.7s
+RNG of the outermost testset: Random.Xoshiro(0xf68b15448e71a91b, 0x13c02e473ea88a31, 0x6bc109d70aca740d, 0xaaab67d12b22160a, 0xf740a805ae4e2635)

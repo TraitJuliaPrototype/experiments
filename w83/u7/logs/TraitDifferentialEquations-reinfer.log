@@ -1,0 +1,45 @@
+jl: slot 1 (cores 0-3), depot /home/hellmann/.julia/agent-depots/w83u7
+re-inferring 1541 method instances of [:TraitDifferentialEquations, :TraitArrayTools, :TraitIndexing, :TraitRodas, :TraitNonlinearSolve, :ODECore]
+re-inferred: 1541 ok, 0 errors, 7.8 s
+E-255 (U7) TraitDifferentialEquations-reinfer: julia-1.13 00dcc9994c, TraitWorld 33dd55e, families: [(:Base, :AbstractDict), (:Core, :AbstractArray), (:Core, :AbstractString), (:Dates, :Period), (:LinearAlgebra, :Factorization)]
+all negative folds: 57267 answers at 17820 statements (site, code, pc); branch sites: 6073 answers at 1400; isa/subtype tfuncs: 1175 answers
+an open set (trait, family, Callable) anywhere in the fold: 2 answers (0.003 %) at 2 statements
+T1 rests on a membership in an open set: 2 answers (0.003 % of all), 2 records; at branch sites 2 (0.033 % of branch-site answers), 2 records
+T2 T1, and a package or Main could still declare it (a package's or Main's type or set): 0 answers (0.0 % of all), 0 records; at branch sites 0 (0.0 % of branch-site answers), 0 records
+T3 T1, with a Main type (Lemma M does not cover it): 0 answers (0.0 % of all), 0 records; at branch sites 0 (0.0 % of branch-site answers), 0 records
+P1 proxy: rests on Kept{X}/Compiled{X}, which the unified model makes X (§5.2): 336 answers (0.587 % of all), 281 records; at branch sites 124 (2.042 % of branch-site answers), 108 records
+breakdown (answers, (statement, types) records):
+  P1: 336, 281
+  P1 bookkeeping: 212, 173
+  P1 bookkeeping, other side a value's type, compiling Core/Base/stdlib code: 34, 12
+  P1 bookkeeping, other side: a compiler kind (Module, Type, builtin, memory): 178, 161
+  P1 bookkeeping, other side: a value's type: 34, 12
+  P1 branch: 124, 108
+  P1 branch, other side a value's type, compiling package code: 77, 65
+  P1 branch, other side: Dynamic: 18, 14
+  P1 branch, other side: TraitWorld's machinery: 29, 29
+  P1 branch, other side: a value's type: 77, 65
+  T1: 2, 2
+  T1 branch: 2, 2
+  T1 branch, compiling Core/Base/stdlib code: 2, 2
+  T1 branch, other side: a value's type: 2, 2
+top records at branch sites (T1, T2, T3, and P1 with a value's type on the other side):
+  2 × P1 isa:leaf in_loop=false TraitWorld /home/hellmann/Repos/julia-trait-bound/TraitWorld/src/entry.jl:1027: TraitNonlinearSolve.ProblemNLJac{NonlinearProblemTrait{TraitWorld.Para… vs TraitWorld.Kept
+  2 × P1 isa:leaf in_loop=false TraitWorld /home/hellmann/Repos/julia-trait-bound/TraitWorld/src/entry.jl:1027: TraitNonlinearSolve.ProblemResidual{NonlinearProblemTrait{TraitWorld.P… vs TraitWorld.Kept
+  2 × P1 isa:leaf in_loop=false TraitWorld /home/hellmann/Repos/julia-trait-bound/TraitWorld/src/entry.jl:1027: TraitNonlinearSolve.ProblemResidual{NonlinearProblemTrait{TraitWorld.P… vs TraitWorld.Compiled
+  2 × P1 isa:leaf in_loop=false TraitWorld /home/hellmann/Repos/julia-trait-bound/TraitWorld/src/entry.jl:1027: ODECore.ProblemJac{ODEProblemTrait{TraitWorld.ParamArchetype{ODEProble… vs TraitWorld.Kept
+  2 × P1 isa:leaf in_loop=false TraitWorld /home/hellmann/Repos/julia-trait-bound/TraitWorld/src/entry.jl:1027: ODECore.ProblemRHS{ODEProblemTrait{TraitWorld.ParamArchetype{ODEProble… vs TraitWorld.Kept
+  2 × P1 isa:leaf in_loop=false TraitWorld /home/hellmann/Repos/julia-trait-bound/TraitWorld/src/entry.jl:1027: ODECore.ProblemRHS{ODEProblemTrait{TraitWorld.ParamArchetype{ODEProble… vs TraitWorld.Compiled
+  2 × P1 isa:leaf in_loop=false TraitWorld /home/hellmann/Repos/julia-trait-bound/TraitWorld/src/entry.jl:1029: TraitNonlinearSolve.ProblemNLJac{NonlinearProblemTrait{TraitWorld.Para… vs TraitWorld.Kept
+  2 × P1 isa:leaf in_loop=false TraitWorld /home/hellmann/Repos/julia-trait-bound/TraitWorld/src/entry.jl:1029: ODECore.ProblemJac{ODEProblemTrait{TraitWorld.ParamArchetype{ODEProble… vs TraitWorld.Kept
+  2 × P1 isa:leaf in_loop=false TraitWorld /home/hellmann/Repos/julia-trait-bound/TraitWorld/src/entry.jl:1029: TraitNonlinearSolve.ProblemResidual{NonlinearProblemTrait{TraitWorld.P… vs TraitWorld.Kept
+  2 × P1 isa:leaf in_loop=false TraitWorld /home/hellmann/Repos/julia-trait-bound/TraitWorld/src/entry.jl:1029: ODECore.ProblemRHS{ODEProblemTrait{TraitWorld.ParamArchetype{ODEProble… vs TraitWorld.Kept
+  2 × P1 isa:leaf in_loop=false TraitWorld /home/hellmann/Repos/julia-trait-bound/TraitWorld/src/entry.jl:1027: ODECore.ProblemJac{ODEProblemTrait{TraitWorld.ParamArchetype{ODEProble… vs TraitWorld.Compiled
+  2 × P1 isa:leaf in_loop=false TraitWorld /home/hellmann/Repos/julia-trait-bound/TraitWorld/src/entry.jl:1027: TraitNonlinearSolve.ProblemNLJac{NonlinearProblemTrait{TraitWorld.Para… vs TraitWorld.Compiled
+  1 × P1 isa:leaf in_loop=false TraitWorld /home/hellmann/Repos/julia-trait-bound/TraitWorld/src/attributes.jl:309: TraitRodas.Rodas5Steps vs TraitWorld.Kept
+  1 × P1 isa:leaf in_loop=false ODECore /home/hellmann/Repos/julia-trait-bound/TraitDifferentialEquations/lib/ODECore/src/core.jl:1090: TraitWorld.Kept{Interpolant{Vector{Float64}, Float64}} vs Nothing
+  1 × T1 isa:leaf in_loop=false Base arrayshow.jl:578: Vector{Tuple{Symbol, Symbol}} vs AbstractDict
+families declared during the run, not counted as open: none
+report written in 1.5 s
+Test Summary: | Pass  Total  Time
+E-255 run     |    1      1  8.9s

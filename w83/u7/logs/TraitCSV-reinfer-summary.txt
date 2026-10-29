@@ -1,0 +1,20 @@
+E-255 (U7) TraitCSV-reinfer: julia-1.13 00dcc9994c, TraitWorld 33dd55e, families: [(:Base, :AbstractDict), (:Core, :AbstractArray), (:Core, :AbstractString), (:Dates, :Period), (:LinearAlgebra, :Factorization)]
+all negative folds: 9848 answers at 3674 statements (site, code, pc); branch sites: 956 answers at 367; isa/subtype tfuncs: 72 answers
+an open set (trait, family, Callable) anywhere in the fold: 2 answers (0.02 %) at 2 statements
+T1 rests on a membership in an open set: 2 answers (0.02 % of all), 2 records; at branch sites 2 (0.209 % of branch-site answers), 2 records
+T2 T1, and a package or Main could still declare it (a package's or Main's type or set): 0 answers (0.0 % of all), 0 records; at branch sites 0 (0.0 % of branch-site answers), 0 records
+T3 T1, with a Main type (Lemma M does not cover it): 0 answers (0.0 % of all), 0 records; at branch sites 0 (0.0 % of branch-site answers), 0 records
+P1 proxy: rests on Kept{X}/Compiled{X}, which the unified model makes X (§5.2): 4 answers (0.041 % of all), 4 records; at branch sites 0 (0.0 % of branch-site answers), 0 records
+breakdown (answers, (statement, types) records):
+  P1: 4, 4
+  P1 bookkeeping: 4, 4
+  P1 bookkeeping, other side: a compiler kind (Module, Type, builtin, memory): 4, 4
+  T1: 2, 2
+  T1 branch: 2, 2
+  T1 branch, compiling Core/Base/stdlib code: 2, 2
+  T1 branch, other side: a value's type: 2, 2
+top records at branch sites (T1, T2, T3, and P1 with a value's type on the other side):
+  1 × T1 isa:leaf in_loop=false Base arrayshow.jl:578: Vector{Symbol} vs AbstractDict
+  1 × T1 isa:leaf in_loop=false Base arrayshow.jl:578: Vector{Tuple{Symbol, Symbol}} vs AbstractDict
+families declared during the run, not counted as open: none
+report written in 0.3 s

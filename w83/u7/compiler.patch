@@ -1,0 +1,584 @@
+diff -ru /home/hellmann/Repos/julia-trait-bound/julia-1.13/Compiler/src/abstractinterpretation.jl Compiler/src/abstractinterpretation.jl
+--- /home/hellmann/Repos/julia-trait-bound/julia-1.13/Compiler/src/abstractinterpretation.jl	2026-10-27 07:42:36.467434315 +0100
++++ Compiler/src/abstractinterpretation.jl	2026-10-29 19:05:23.339986597 +0100
+@@ -1297,7 +1297,7 @@
+             assign_parentchild!(irsv, sv)
+             rt, (nothrow, noub) = ir_abstract_constant_propagation(interp, irsv)
+             @assert !(rt isa Conditional || rt isa MustAlias) "invalid lattice element returned from irinterp"
+-            if !(isa(rt, Type) && hasintersect(rt, Bool))
++            if !(isa(rt, Type) && _u7hi("abstractinterpretation:1300", rt, Bool))
+                 ir = irsv.ir
+                 # TODO (#48913) enable double inlining pass when there are any calls
+                 # that are newly resolved by irinterp
+@@ -1759,7 +1759,7 @@
+     state.valtype = state.statetype = Bottom
+     state.may_have_terminated = Nothing <: state.stateordonet_widened
+     while state.valtype !== Any
+-        nounion = typeintersect(state.stateordonet_widened, Tuple{Any,Any})
++        nounion = _u7ti("abstractinterpretation:1762", state.stateordonet_widened, Tuple{Any,Any})
+         if nounion !== Union{} && !isa(nounion, DataType)
+             # nounion is of a type we cannot handle
+             state.valtype = Any
+@@ -1767,7 +1767,7 @@
+         end
+         if nounion === Union{} || (nounion.parameters[1] <: state.valtype && nounion.parameters[2] <: state.statetype)
+             # reached a fixpoint or iterator failed/gave invalid answer
+-            if !hasintersect(state.stateordonet_widened, Nothing)
++            if !_u7hi("abstractinterpretation:1770", state.stateordonet_widened, Nothing)
+                 # ... but cannot terminate
+                 if state.may_have_terminated
+                     # ... and iterator may have terminated prior to this loop, but not during it
+@@ -2009,7 +2009,7 @@
+     if isexact_tty && !isa(tty_ub, TypeVar)
+         tty_lb = tty_ub # TODO: this would be wrong if !isexact_tty, but instanceof_tfunc doesn't preserve this info
+         if !has_free_typevars(tty_lb) && !has_free_typevars(tty_ub)
+-            thentype = typeintersect(tty, tty_ub)
++            thentype = _u7ti("abstractinterpretation:2012", tty, tty_ub)
+             if iskindtype(tty_ub) && thentype !== Bottom
+                 # `typeintersect` may be unable narrow down `Type`-type
+                 thentype = tty_ub
+@@ -2323,7 +2323,7 @@
+             specsig = get_ci_abi(method_or_ci)
+             defdef = get_ci_mi(method_or_ci).def
+             exct = method_or_ci.exctype
+-            if !hasintersect(argtype, specsig)
++            if !_u7hi("abstractinterpretation:2326", argtype, specsig)
+                 return Future(CallMeta(Bottom, TypeError, EFFECTS_THROWS, NoCallInfo()))
+             elseif !(argtype <: specsig) || ((!isa(method_or_ci.def, ABIOverride) && isa(defdef, Method)) && !(argtype <: defdef.sig))
+                 exct = Union{exct, TypeError}
+@@ -2349,13 +2349,13 @@
+             types = method # argument value
+             lookupsig = method.sig # edge kind
+             argtype = argtypes_to_type(pushfirst!(argtype_tail(argtypes, 4), ft))
+-            nargtype = typeintersect(lookupsig, argtype)
++            nargtype = _u7ti("abstractinterpretation:2352", lookupsig, argtype)
+             nargtype === Bottom && return Future(CallMeta(Bottom, TypeError, EFFECTS_THROWS, NoCallInfo()))
+             nargtype isa DataType || return Future(CallMeta(Any, Any, unedged_effects(interp), NoCallInfo())) # other cases are not implemented below
+             # Fall through to generic invoke handling
+         end
+     else
+-        hasintersect(widenconst(types), Union{Method, CodeInstance}) && return Future(CallMeta(Any, Any, unedged_effects(interp), NoCallInfo()))
++        _u7hi("abstractinterpretation:2358", widenconst(types), Union{Method, CodeInstance}) && return Future(CallMeta(Any, Any, unedged_effects(interp), NoCallInfo()))
+         types, isexact, _, _ = instanceof_tfunc(argtype_by_index(argtypes, 3), false)
+         isexact || return Future(CallMeta(Any, Any, unedged_effects(interp), NoCallInfo()))
+         unwrapped = unwrap_unionall(types)
+@@ -2364,7 +2364,7 @@
+             return Future(CallMeta(Bottom, TypeError, EFFECTS_THROWS, NoCallInfo()))
+         end
+         argtype = argtypes_to_type(argtype_tail(argtypes, 4))
+-        nargtype = typeintersect(types, argtype)
++        nargtype = _u7ti("abstractinterpretation:2367", types, argtype)
+         nargtype === Bottom && return Future(CallMeta(Bottom, TypeError, EFFECTS_THROWS, NoCallInfo()))
+         nargtype isa DataType || return Future(CallMeta(Any, Any, unedged_effects(interp), NoCallInfo())) # other cases are not implemented below
+         isdispatchelem(ft) || return Future(CallMeta(Any, Any, unedged_effects(interp), NoCallInfo())) # check that we might not have a subtype of `ft` at runtime, before doing supertype lookup below
+@@ -2486,7 +2486,7 @@
+             return CallMeta(ret, GlobalAccessInfo(convert(Core.Binding, gr)))
+         end
+         return CallMeta(Union{}, TypeError, EFFECTS_THROWS, NoCallInfo())
+-    elseif !hasintersect(widenconst(M), Module) || !hasintersect(widenconst(s), Symbol)
++    elseif !_u7hi("abstractinterpretation:2489", widenconst(M), Module) || !_u7hi("abstractinterpretation:2489", widenconst(s), Symbol)
+         return CallMeta(Union{}, TypeError, EFFECTS_THROWS, NoCallInfo())
+     elseif M ⊑ Module && s ⊑ Symbol
+         return CallMeta(Any, UndefVarError, generic_getglobal_effects, NoCallInfo())
+@@ -2548,7 +2548,7 @@
+         end
+         update_valid_age!(sv, valid_worlds)
+         return CallMeta(rt, Union{}, EFFECTS_TOTAL, GlobalAccessInfo(convert(Core.Binding, gr)))
+-    elseif !hasintersect(widenconst(M), Module) || !hasintersect(widenconst(s), Symbol)
++    elseif !_u7hi("abstractinterpretation:2551", widenconst(M), Module) || !_u7hi("abstractinterpretation:2551", widenconst(s), Symbol)
+         return CallMeta(Union{}, TypeError, EFFECTS_THROWS, NoCallInfo())
+     elseif M ⊑ Module && s ⊑ Symbol
+         return CallMeta(Type, Union{}, EFFECTS_TOTAL, NoCallInfo())
+@@ -2583,7 +2583,7 @@
+         return CallMeta(Union{}, Union{TypeError, ErrorException}, EFFECTS_THROWS, NoCallInfo())
+     end
+     ⊑ = partialorder(typeinf_lattice(interp))
+-    if !(hasintersect(widenconst(M), Module) && hasintersect(widenconst(s), Symbol))
++    if !(_u7hi("abstractinterpretation:2586", widenconst(M), Module) && _u7hi("abstractinterpretation:2586", widenconst(s), Symbol))
+         return CallMeta(Union{}, TypeError, EFFECTS_THROWS, NoCallInfo())
+     elseif M ⊑ Module && s ⊑ Symbol
+         return CallMeta(v, ErrorException, setglobal!_effects, NoCallInfo())
+@@ -2907,7 +2907,7 @@
+     ocargsig′ = unwrap_unionall(ocargsig)
+     ocargsig′ isa DataType || return Future(CallMeta(Any, Any, Effects(), NoCallInfo()))
+     ocsig = rewrap_unionall(Tuple{Tuple, ocargsig′.parameters...}, ocargsig)
+-    hasintersect(sig, ocsig) || return Future(CallMeta(Union{}, Union{MethodError,TypeError}, EFFECTS_THROWS, NoCallInfo()))
++    _u7hi("abstractinterpretation:2910", sig, ocsig) || return Future(CallMeta(Union{}, Union{MethodError,TypeError}, EFFECTS_THROWS, NoCallInfo()))
+     ocmethod = closure.source::Method
+     if !isdefined(ocmethod, :source)
+         # This opaque closure was created from optimized source. We cannot infer it further.
+@@ -2976,10 +2976,10 @@
+             ft, ArgInfo(arginfo.fargs, newargtypes), si, sv, #=check=#true)
+     end
+     wft = widenconst(ft)
+-    if hasintersect(wft, Builtin)
++    if _u7hi("abstractinterpretation:2979", wft, Builtin)
+         add_remark!(interp, sv, "Could not identify method table for call")
+         return Future(CallMeta(Any, Any, Effects(), NoCallInfo()))
+-    elseif hasintersect(wft, Core.OpaqueClosure)
++    elseif _u7hi("abstractinterpretation:2982", wft, Core.OpaqueClosure)
+         uft = unwrap_unionall(wft)
+         if isa(uft, DataType)
+             return Future(CallMeta(rewrap_unionall(uft.parameters[2], wft), Any, Effects(), NoCallInfo()))
+@@ -3451,7 +3451,7 @@
+             return merge_exct(abstract_eval_isdefinedglobal(interp, M, s, allow_import, saw_latestworld, sv), exct)
+         end
+         return CallMeta(Union{}, TypeError, EFFECTS_THROWS, NoCallInfo())
+-    elseif !hasintersect(widenconst(M), Module) || !hasintersect(widenconst(s), Symbol)
++    elseif !_u7hi("abstractinterpretation:3454", widenconst(M), Module) || !_u7hi("abstractinterpretation:3454", widenconst(s), Symbol)
+         return CallMeta(Union{}, TypeError, EFFECTS_THROWS, NoCallInfo())
+     elseif M ⊑ Module && s ⊑ Symbol
+         return CallMeta(Bool, Union{exct, UndefVarError}, generic_isdefinedglobal_effects, NoCallInfo())
+@@ -3489,7 +3489,7 @@
+         else
+             rt = Union{}
+         end
+-    elseif !hasintersect(widenconst(condt), Bool)
++    elseif !_u7hi("abstractinterpretation:3492", widenconst(condt), Bool)
+         rt = Union{}
+     end
+     return RTEffects(rt, exct, effects)
+@@ -3606,7 +3606,7 @@
+     t = sp_type_rewrap(e.args[2], mi, true)
+     let fptr = e.args[1]
+         if !isexpr(fptr, :tuple)
+-            if !hasintersect(widenconst(abstract_eval_value(interp, fptr, sstate, sv)), Ptr)
++            if !_u7hi("abstractinterpretation:3609", widenconst(abstract_eval_value(interp, fptr, sstate, sv)), Ptr)
+                 return RTEffects(Bottom, Any, EFFECTS_THROWS)
+             end
+         end
+@@ -3846,7 +3846,7 @@
+     end
+     ty = kind == PARTITION_KIND_DECLARED ? Any : partition_restriction(partition)
+     wnewty = widenconst(newty)
+-    if !hasintersect(wnewty, ty)
++    if !_u7hi("abstractinterpretation:3849", wnewty, ty)
+         return Pair{Any,Any}(Bottom, TypeError)
+     elseif !(wnewty <: ty)
+         retty = tmeet(typeinf_lattice(interp), newty, ty)
+@@ -3883,6 +3883,7 @@
+ @inline function abstract_eval_basic_statement(
+     interp::AbstractInterpreter, @nospecialize(stmt), sstate::StatementState, frame::InferenceState,
+     result::Union{Nothing,Future{RTEffects}}=nothing)
++    U7_FRAME[] = frame
+     rt = nothing
+     exct = Bottom
+     changes = nothing
+@@ -4260,6 +4261,7 @@
+ 
+ function typeinf_local(interp::AbstractInterpreter, frame::InferenceState, nextresult::CurrentState)
+     @assert !is_inferred(frame)
++    U7_FRAME[] = frame
+     W = frame.ip
+     ssavaluetypes = frame.ssavaluetypes
+     bbs = frame.cfg.blocks
+@@ -4295,6 +4297,7 @@
+         while currpc < bbend
+             currpc += 1
+             frame.currpc = currpc
++            U7_FRAME[] = frame
+             stmt = frame.src.code[currpc]
+             # If we're at the end of the basic block ...
+             if currpc == bbend
+@@ -4343,7 +4346,7 @@
+                     if condval === true
+                         @goto fallthrough
+                     else
+-                        if !nothrow && !hasintersect(widenconst(orig_condt), Bool)
++                        if !nothrow && !_u7hi("abstractinterpretation:4346", widenconst(orig_condt), Bool)
+                             ssavaluetypes[currpc] = Bottom
+                             @goto find_next_bb
+                         end
+diff -ru /home/hellmann/Repos/julia-trait-bound/julia-1.13/Compiler/src/abstractlattice.jl Compiler/src/abstractlattice.jl
+--- /home/hellmann/Repos/julia-trait-bound/julia-1.13/Compiler/src/abstractlattice.jl	2026-10-16 15:44:20.886396641 +0200
++++ Compiler/src/abstractlattice.jl	2026-10-29 19:05:23.312128805 +0100
+@@ -108,7 +108,7 @@
+ function tmeet end
+ 
+ function tmeet(::JLTypeLattice, @nospecialize(a::Type), @nospecialize(b::Type))
+-    ti = typeintersect(a, b)
++    ti = _u7ti("abstractlattice:111", a, b)
+     valid_as_lattice(ti, true) || return Bottom
+     return ti
+ end
+diff -ru /home/hellmann/Repos/julia-trait-bound/julia-1.13/Compiler/src/Compiler.jl Compiler/src/Compiler.jl
+--- /home/hellmann/Repos/julia-trait-bound/julia-1.13/Compiler/src/Compiler.jl	2026-10-19 06:35:24.191511250 +0200
++++ Compiler/src/Compiler.jl	2026-10-29 19:05:23.295059767 +0100
+@@ -182,6 +182,7 @@
+ include("stmtinfo.jl")
+ include("inferenceresult.jl")
+ include("inferencestate.jl")
++include("u7count.jl")
+ 
+ include("typeutils.jl")
+ include("typelimits.jl")
+diff -ru /home/hellmann/Repos/julia-trait-bound/julia-1.13/Compiler/src/facts.jl Compiler/src/facts.jl
+--- /home/hellmann/Repos/julia-trait-bound/julia-1.13/Compiler/src/facts.jl	2026-10-28 03:54:45.832209076 +0100
++++ Compiler/src/facts.jl	2026-10-29 19:05:23.330461531 +0100
+@@ -757,7 +757,7 @@
+         for C in cands
+             U = Union{U, C}
+         end
+-        U = typeintersect(X, U)
++        U = _u7ti("facts:760", X, U)
+         if U !== Union{}
+             newargs[2] = U
+             narrowed = true
+diff -ru /home/hellmann/Repos/julia-trait-bound/julia-1.13/Compiler/src/optimize.jl Compiler/src/optimize.jl
+--- /home/hellmann/Repos/julia-trait-bound/julia-1.13/Compiler/src/optimize.jl	2026-10-19 09:14:52.882634706 +0200
++++ Compiler/src/optimize.jl	2026-10-29 19:05:23.340361776 +0100
+@@ -1036,6 +1036,7 @@
+ 
+ # run the optimization work
+ function optimize(interp::AbstractInterpreter, opt::OptimizationState, caller::InferenceResult)
++    U7_FRAME[] = opt
+     @zone "CC: OPTIMIZER" ir = run_passes_ipo_safe(opt.src, opt)
+     ipo_dataflow_analysis!(interp, opt, ir, caller)
+     finishopt!(interp, opt, ir)
+diff -ru /home/hellmann/Repos/julia-trait-bound/julia-1.13/Compiler/src/ssair/irinterp.jl Compiler/src/ssair/irinterp.jl
+--- /home/hellmann/Repos/julia-trait-bound/julia-1.13/Compiler/src/ssair/irinterp.jl	2026-10-16 15:44:20.890258672 +0200
++++ Compiler/src/ssair/irinterp.jl	2026-10-29 19:05:23.340487682 +0100
+@@ -331,6 +331,7 @@
+ function ir_abstract_constant_propagation(interp::AbstractInterpreter, irsv::IRInterpretationState;
+         externally_refined::Union{Nothing,BitSet} = nothing)
+     (; ir, tpdum, ssa_refined) = irsv
++    U7_FRAME[] = irsv
+ 
+     @assert isempty(ir.new_nodes) "IRCode should be compacted before irinterp"
+ 
+diff -ru /home/hellmann/Repos/julia-trait-bound/julia-1.13/Compiler/src/ssair/passes.jl Compiler/src/ssair/passes.jl
+--- /home/hellmann/Repos/julia-trait-bound/julia-1.13/Compiler/src/ssair/passes.jl	2026-10-16 15:44:20.890756500 +0200
++++ Compiler/src/ssair/passes.jl	2026-10-29 19:05:23.337971326 +0100
+@@ -253,7 +253,7 @@
+ function (walker_callback::TypeConstrainingWalker)(@nospecialize(def), @nospecialize(defssa::AnySSAValue))
+     if isa(def, PiNode)
+         walker_callback.typeconstraint =
+-            typeintersect(walker_callback.typeconstraint, widenconst(def.typ))
++            _u7ti("passes:256", walker_callback.typeconstraint, widenconst(def.typ))
+         return LiftedValue(def.val)
+     end
+     return nothing
+@@ -305,7 +305,7 @@
+                     val = OldSSAValue(val.id)
+                 end
+                 edge_typ = widenconst(argextype(val, compact))
+-                hasintersect(edge_typ, typeconstraint) || continue
++                _u7hi("passes:308", edge_typ, typeconstraint) || continue
+                 push!(possible_predecessors, n)
+             end
+             for n in possible_predecessors
+@@ -2203,7 +2203,7 @@
+             if !isassigned(stmt.values, i)
+                 # Should be impossible to have something used only by PiNodes that's undef
+                 push!(to_drop, i)
+-            elseif !hasintersect(widenconst(argextype(stmt.values[i], compact)),
++            elseif !_u7hi("passes:2206", widenconst(argextype(stmt.values[i], compact)),
+                                  widenconst(t))
+                 push!(to_drop, i)
+             end
+diff -ru /home/hellmann/Repos/julia-trait-bound/julia-1.13/Compiler/src/tfuncs.jl Compiler/src/tfuncs.jl
+--- /home/hellmann/Repos/julia-trait-bound/julia-1.13/Compiler/src/tfuncs.jl	2026-10-19 07:40:32.035662349 +0200
++++ Compiler/src/tfuncs.jl	2026-10-29 19:05:23.323202781 +0100
+@@ -106,7 +106,7 @@
+     troot = widenconst(troot)
+     if t === Bottom
+         return Bottom, true, true, false # runtime unreachable
+-    elseif t === typeof(Bottom) || !hasintersect(t, Type)
++    elseif t === typeof(Bottom) || !_u7hi("tfuncs:109", t, Type)
+         return Bottom, true, false, false # literal Bottom or non-Type
+     elseif isType(t)
+         tp = t.parameters[1]
+@@ -124,7 +124,7 @@
+         if t′′ isa DataType && t′′.name !== Tuple.name && !has_free_typevars(tr)
+             # a real instance must be within the declared bounds of the type,
+             # so we can intersect with the original wrapper.
+-            tr = typeintersect(tr, t′′.name.wrapper)
++            tr = _u7ti("tfuncs:127", tr, t′′.name.wrapper)
+             isconcrete = !isabstracttype(t′′)
+             if tr === Union{}
+                 # runtime unreachable (our inference Type{T} where S is
+@@ -334,7 +334,7 @@
+         else
+             return Bottom
+         end
+-    elseif !hasintersect(widenconst(cnd), Bool)
++    elseif !_u7hi("tfuncs:337", widenconst(cnd), Bool)
+         return Bottom
+     end
+     return tmerge(𝕃, x, y)
+@@ -378,7 +378,7 @@
+     return egal_tfunc(widenlattice(𝕃), x, y)
+ end
+ @nospecs function egal_tfunc(::JLTypeLattice, x, y)
+-    hasintersect(widenconst(x), widenconst(y)) || return Const(false)
++    _u7hi("tfuncs:381", widenconst(x), widenconst(y)) || return Const(false)
+     return Bool
+ end
+ add_tfunc(===, 2, 2, egal_tfunc, 1)
+@@ -394,7 +394,7 @@
+     ⊑ = partialorder(𝕃)
+     isvarargtype(x) && return false
+     isvarargtype(name) && return false
+-    if hasintersect(widenconst(x), Module)
++    if _u7hi("tfuncs:397", widenconst(x), Module)
+         return name ⊑ Symbol
+     else
+         return name ⊑ Symbol || name ⊑ Int
+@@ -412,7 +412,7 @@
+     a1 = unwrap_unionall(arg1t)
+     if isa(a1, DataType) && !isabstracttype(a1)
+         if a1 === Module
+-            hasintersect(widenconst(sym), Symbol) || return Bottom
++            _u7hi("tfuncs:415", widenconst(sym), Symbol) || return Bottom
+             # isa(sym, Const) case intercepted in abstract interpretation
+         elseif isa(sym, Const)
+             val = sym.val
+@@ -484,7 +484,7 @@
+     if t === Bottom
+         # x must be an instance (not a Type) or is the Bottom type object
+         x = widenconst(x)
+-        return !hasintersect(x, Type)
++        return !_u7hi("tfuncs:487", x, Type)
+     end
+     x = unwrap_unionall(t)
+     if isconcrete
+@@ -900,15 +900,15 @@
+             if isa(v, Const) || isa(v, Conditional)
+                 # this and the `isdispatchelem` below test for knowledge of a
+                 # leaftype appearing on the LHS (ensuring the isa is precise)
+-                return Const(false)
++                return _u7f("isa:const", widenconst(v), t)
+             end
+             v = widenconst(v)
+-            isdispatchelem(v) && return Const(false)
++            isdispatchelem(v) && return _u7f("isa:leaf", v, t)
+             if !hasintersect(v, t)
+                 # similar to `isnotbrokensubtype` check above, `typeintersect(v, t)`
+                 # can't be trusted for kind types so we do an extra check here
+                 if !iskindtype(v)
+-                    return Const(false)
++                    return _u7f("isa:disjoint", v, t)
+                 end
+             end
+         end
+@@ -933,7 +933,7 @@
+             end
+         else
+             if isexact_a || (b !== Bottom && !hasintersect(a, b))
+-                return Const(false)
++                return _u7f(isexact_a ? "subtype:exact" : "subtype:disjoint", a, b)
+             end
+         end
+     end
+@@ -1090,14 +1090,14 @@
+ @nospecs function getfield_tfunc(𝕃::AbstractLattice, s00, name, boundscheck_or_order)
+     if !isvarargtype(boundscheck_or_order)
+         t = widenconst(boundscheck_or_order)
+-        hasintersect(t, Symbol) || hasintersect(t, Bool) || return Bottom
++        _u7hi("tfuncs:1093", t, Symbol) || _u7hi("tfuncs:1093", t, Bool) || return Bottom
+     end
+     return getfield_tfunc(𝕃, s00, name)
+ end
+ @nospecs function getfield_tfunc(𝕃::AbstractLattice, s00, name, order, boundscheck)
+-    hasintersect(widenconst(order), Symbol) || return Bottom
++    _u7hi("tfuncs:1098", widenconst(order), Symbol) || return Bottom
+     if !isvarargtype(boundscheck)
+-        hasintersect(widenconst(boundscheck), Bool) || return Bottom
++        _u7hi("tfuncs:1100", widenconst(boundscheck), Bool) || return Bottom
+     end
+     return getfield_tfunc(𝕃, s00, name)
+ end
+@@ -1220,12 +1220,12 @@
+     end
+     isa(s, DataType) || return Any
+     isabstracttype(s) && return Any
+-    if s <: Tuple && !hasintersect(widenconst(name), Int)
++    if s <: Tuple && !_u7hi("tfuncs:1223", widenconst(name), Int)
+         return Bottom
+     end
+     if s <: Module
+         setfield && return Bottom
+-        hasintersect(widenconst(name), Symbol) || return Bottom
++        _u7hi("tfuncs:1228", widenconst(name), Symbol) || return Bottom
+         return Any
+     end
+     if s.name === _NAMEDTUPLE_NAME && !isconcretetype(s)
+@@ -1309,7 +1309,7 @@
+ 
+ @nospecs function setfield!_tfunc(𝕃::AbstractLattice, o, f, v, order)
+     if !isvarargtype(order)
+-        hasintersect(widenconst(order), Symbol) || return Bottom
++        _u7hi("tfuncs:1312", widenconst(order), Symbol) || return Bottom
+     end
+     return setfield!_tfunc(𝕃, o, f, v)
+ end
+@@ -1317,7 +1317,7 @@
+     mutability_errorcheck(o) || return Bottom
+     ft = _getfield_tfunc(𝕃, o, f, true)
+     ft === Bottom && return Bottom
+-    hasintersect(widenconst(v), widenconst(ft)) || return Bottom
++    _u7hi("tfuncs:1320", widenconst(v), widenconst(ft)) || return Bottom
+     return v
+ end
+ mutability_errorcheck(@nospecialize obj) = _mutability_errorcheck(widenconst(obj))
+@@ -1766,7 +1766,7 @@
+                 end
+             else
+                 if !isType(ai)
+-                    if !isa(ai, Type) || hasintersect(ai, Type) || hasintersect(ai, TypeVar)
++                    if !isa(ai, Type) || _u7hi("tfuncs:1769", ai, Type) || _u7hi("tfuncs:1769", ai, TypeVar)
+                         hasnonType = true
+                     else
+                         return Bottom
+@@ -2015,7 +2015,7 @@
+                 end
+             elseif iskindtype(x)
+                 params[i] = x
+-            elseif !isvarargtype(x) && hasintersect(x, Type)
++            elseif !isvarargtype(x) && _u7hi("tfuncs:2018", x, Type)
+                 params[i] = Union{x, Type}
+             elseif x === Union{}
+                 return Bottom # argtypes is malformed, but try not to crash
+@@ -2031,7 +2031,7 @@
+ end
+ 
+ @nospecs function memorynew_tfunc(𝕃::AbstractLattice, memtype, memlen)
+-    hasintersect(widenconst(memlen), Int) || return Bottom
++    _u7hi("tfuncs:2034", widenconst(memlen), Int) || return Bottom
+     memt = tmeet(𝕃, instanceof_tfunc(memtype, true)[1], GenericMemory)
+     memt == Union{} && return memt
+     # PartialStruct so that loads of Const `length` get inferred
+@@ -2044,7 +2044,7 @@
+     return memoryref_elemtype(mem)
+ end
+ @nospecs function memoryrefset!_tfunc(𝕃::AbstractLattice, mem, item, order, boundscheck)
+-    hasintersect(widenconst(item), memoryrefget_tfunc(𝕃, mem, order, boundscheck)) || return Bottom
++    _u7hi("tfuncs:2047", widenconst(item), memoryrefget_tfunc(𝕃, mem, order, boundscheck)) || return Bottom
+     return item
+ end
+ @nospecs function memoryrefswap!_tfunc(𝕃::AbstractLattice, mem, v, order, boundscheck)
+@@ -2060,7 +2060,7 @@
+ end
+ @nospecs function memoryrefreplace!_tfunc(𝕃::AbstractLattice, mem, x, v, success_order, failure_order, boundscheck)
+     memoryrefset!_tfunc(𝕃, mem, v, success_order, boundscheck) === Bottom && return Bottom
+-    hasintersect(widenconst(failure_order), Symbol) || return Bottom
++    _u7hi("tfuncs:2063", widenconst(failure_order), Symbol) || return Bottom
+     T = _memoryref_elemtype(mem)
+     T === Bottom && return Bottom
+     PT = Const(ccall(:jl_apply_cmpswap_type, Any, (Any,), T) where T)
+@@ -2068,7 +2068,7 @@
+ end
+ @nospecs function memoryrefsetonce!_tfunc(𝕃::AbstractLattice, mem, v, success_order, failure_order, boundscheck)
+     memoryrefset!_tfunc(𝕃, mem, v, success_order, boundscheck) === Bottom && return Bottom
+-    hasintersect(widenconst(failure_order), Symbol) || return Bottom
++    _u7hi("tfuncs:2071", widenconst(failure_order), Symbol) || return Bottom
+     return Bool
+ end
+ 
+@@ -2110,22 +2110,22 @@
+ end
+ @nospecs function memoryref_tfunc(𝕃::AbstractLattice, ref, idx, boundscheck)
+     memoryref_builtin_common_errorcheck(ref, Const(:not_atomic), boundscheck) || return Bottom
+-    hasintersect(widenconst(idx), Int) || return Bottom
+-    hasintersect(widenconst(ref), GenericMemory) && return memoryref_tfunc(𝕃, ref)
++    _u7hi("tfuncs:2113", widenconst(idx), Int) || return Bottom
++    _u7hi("tfuncs:2114", widenconst(ref), GenericMemory) && return memoryref_tfunc(𝕃, ref)
+     return ref
+ end
+ add_tfunc(memoryrefnew, 1, 3, memoryref_tfunc, 1)
+ 
+ @nospecs function memoryrefoffset_tfunc(𝕃::AbstractLattice, mem)
+-    hasintersect(widenconst(mem), GenericMemoryRef) || return Bottom
++    _u7hi("tfuncs:2120", widenconst(mem), GenericMemoryRef) || return Bottom
+     return Int
+ end
+ add_tfunc(memoryrefoffset, 1, 1, memoryrefoffset_tfunc, 5)
+ 
+ @nospecs function memoryref_builtin_common_errorcheck(mem, order, boundscheck)
+-    hasintersect(widenconst(mem), Union{GenericMemory, GenericMemoryRef}) || return false
+-    hasintersect(widenconst(order), Symbol) || return false
+-    hasintersect(widenconst(unwrapva(boundscheck)), Bool) || return false
++    _u7hi("tfuncs:2126", widenconst(mem), Union{GenericMemory, GenericMemoryRef}) || return false
++    _u7hi("tfuncs:2127", widenconst(order), Symbol) || return false
++    _u7hi("tfuncs:2128", widenconst(unwrapva(boundscheck)), Bool) || return false
+     return true
+ end
+ 
+@@ -2528,7 +2528,7 @@
+         consistent = ALWAYS_TRUE
+     end
+     nothrow = isdefined_nothrow(𝕃, argtypes)
+-    if hasintersect(widenconst(wobj), Module)
++    if _u7hi("tfuncs:2531", widenconst(wobj), Module)
+         inaccessiblememonly = ALWAYS_FALSE
+     elseif is_mutation_free_argtype(wobj)
+         inaccessiblememonly = ALWAYS_TRUE
+@@ -2567,7 +2567,7 @@
+             noub = ALWAYS_FALSE
+         end
+     end
+-    if hasintersect(widenconst(obj), Module)
++    if _u7hi("tfuncs:2570", widenconst(obj), Module)
+         # Modeled more precisely in abstract_eval_getglobal
+         inaccessiblememonly = ALWAYS_FALSE
+     elseif is_mutation_free_argtype(obj)
+@@ -2749,7 +2749,7 @@
+     end
+     if nargs == expected_nargs && !isva
+         boundscheck = widenconditional(lastargtype)
+-        hasintersect(widenconst(boundscheck), Bool) || return true # must throw and noub
++        _u7hi("tfuncs:2752", widenconst(boundscheck), Bool) || return true # must throw and noub
+         boundscheck isa Const && boundscheck.val === true && return true
+     elseif nargs > expected_nargs + 1
+         return true # must throw and noub
+@@ -3293,7 +3293,7 @@
+     if !(o isa Const)
+         if o === Symbol
+             return ConcurrencyViolationError
+-        elseif !hasintersect(o, Symbol)
++        elseif !_u7hi("tfuncs:3296", o, Symbol)
+             return TypeError
+         else
+             return Union{ConcurrencyViolationError, TypeError}
+diff -ru /home/hellmann/Repos/julia-trait-bound/julia-1.13/Compiler/src/typelattice.jl Compiler/src/typelattice.jl
+--- /home/hellmann/Repos/julia-trait-bound/julia-1.13/Compiler/src/typelattice.jl	2026-10-16 15:44:20.892930873 +0200
++++ Compiler/src/typelattice.jl	2026-10-29 19:05:23.325480299 +0100
+@@ -613,7 +613,7 @@
+     if isa(v, PartialStruct)
+         has_free_typevars(t) && return v
+         widev = widenconst(v)
+-        ti = typeintersect(widev, t)
++        ti = _u7ti("typelattice:616", widev, t)
+         if ti === widev
+             return v
+         end
+@@ -640,7 +640,7 @@
+         if widev <: t
+             return v
+         end
+-        ti = typeintersect(widev, t)
++        ti = _u7ti("typelattice:643", widev, t)
+         valid_as_lattice(ti, true) || return Bottom
+         return PartialOpaque(ti, v.env, v.parent, v.source)
+     end
+@@ -650,6 +650,7 @@
+ @nospecializeinfer function tmeet(lattice::ConstsLattice, @nospecialize(v), @nospecialize(t::Type))
+     if isa(v, Const)
+         if !has_free_typevars(t) && !isa(v.val, t)
++            U7_ON[] && _u7_neg("tmeet:const", typeof(v.val), t)
+             return Bottom
+         end
+         return v
+diff -ru /home/hellmann/Repos/julia-trait-bound/julia-1.13/Compiler/src/typelimits.jl Compiler/src/typelimits.jl
+--- /home/hellmann/Repos/julia-trait-bound/julia-1.13/Compiler/src/typelimits.jl	2026-10-16 15:44:20.893136890 +0200
++++ Compiler/src/typelimits.jl	2026-10-29 19:05:23.328092579 +0100
+@@ -643,7 +643,7 @@
+                     # strictly limited to being egal, this has no restrictions on complexity.
+                     # (Otherwise, we would need to use <: and take the narrower one without
+                     # intersection. See the similar comment in abstract_call_method.)
+-                    tyi = typeintersect(ft, (tni.val::Core.TypeName).wrapper)
++                    tyi = _u7ti("typelimits:646", ft, (tni.val::Core.TypeName).wrapper)
+                 else
+                     # Since aty===bty, the fieldtype has no restrictions on complexity.
+                     tyi = ft
+Only in Compiler/src: u7count.jl

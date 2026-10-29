@@ -1,0 +1,29 @@
+E-255 (U7) TraitTables-reinfer: julia-1.13 00dcc9994c, TraitWorld 33dd55e, families: [(:Base, :AbstractDict), (:Core, :AbstractArray), (:Core, :AbstractString), (:Dates, :Period), (:LinearAlgebra, :Factorization)]
+all negative folds: 22242 answers at 8575 statements (site, code, pc); branch sites: 2382 answers at 758; isa/subtype tfuncs: 373 answers
+an open set (trait, family, Callable) anywhere in the fold: 2 answers (0.009 %) at 2 statements
+T1 rests on a membership in an open set: 2 answers (0.009 % of all), 2 records; at branch sites 2 (0.084 % of branch-site answers), 2 records
+T2 T1, and a package or Main could still declare it (a package's or Main's type or set): 0 answers (0.0 % of all), 0 records; at branch sites 0 (0.0 % of branch-site answers), 0 records
+T3 T1, with a Main type (Lemma M does not cover it): 0 answers (0.0 % of all), 0 records; at branch sites 0 (0.0 % of branch-site answers), 0 records
+P1 proxy: rests on Kept{X}/Compiled{X}, which the unified model makes X (§5.2): 151 answers (0.679 % of all), 92 records; at branch sites 69 (2.897 % of branch-site answers), 36 records
+breakdown (answers, (statement, types) records):
+  P1: 151, 92
+  P1 bookkeeping: 82, 56
+  P1 bookkeeping, other side: a compiler kind (Module, Type, builtin, memory): 82, 56
+  P1 branch: 69, 36
+  P1 branch, other side a value's type, compiling package code: 4, 4
+  P1 branch, other side: Dynamic: 7, 4
+  P1 branch, other side: TraitWorld's machinery: 58, 28
+  P1 branch, other side: a value's type: 4, 4
+  T1: 2, 2
+  T1 branch: 2, 2
+  T1 branch, compiling Core/Base/stdlib code: 2, 2
+  T1 branch, other side: a value's type: 2, 2
+top records at branch sites (T1, T2, T3, and P1 with a value's type on the other side):
+  1 × T1 isa:leaf in_loop=false Base arrayshow.jl:578: Vector{Symbol} vs AbstractDict
+  1 × P1 isa:leaf in_loop=false TraitWorld /home/hellmann/Repos/julia-trait-bound/TraitWorld/src/attributes.jl:301: Vector{Float64} vs TraitWorld.Compiled
+  1 × P1 isa:leaf in_loop=false TraitWorld /home/hellmann/Repos/julia-trait-bound/TraitWorld/src/attributes.jl:301: Vector{Union{Missing, Float64}} vs TraitWorld.Compiled
+  1 × T1 isa:leaf in_loop=false Base arrayshow.jl:578: Vector{Tuple{Symbol, Symbol}} vs AbstractDict
+  1 × P1 isa:leaf in_loop=false TraitWorld /home/hellmann/Repos/julia-trait-bound/TraitWorld/src/attributes.jl:301: Vector{Float64} vs TraitWorld.Kept
+  1 × P1 isa:leaf in_loop=false TraitWorld /home/hellmann/Repos/julia-trait-bound/TraitWorld/src/attributes.jl:301: Vector{Union{Missing, Float64}} vs TraitWorld.Kept
+families declared during the run, not counted as open: none
+report written in 0.6 s
