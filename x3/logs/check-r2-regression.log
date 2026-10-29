@@ -1,0 +1,46 @@
+# E-240 (W-32 R2, the Makie side), 2026-10-29T12:56:21+01:00: X3's checks of slices 1-5 and the plotting session after R2; julia-1.13 bfca89decc, TraitWorld ca92f22, TraitMakie 2c70583 + R2's changes (uncommitted at the run; committed as the next TraitMakie commit). PNGs compared byte for byte with a run of the same scripts before the change (TraitMakie 2c70583).
+## check.jl
+X3 step pre: old-style PNG equals the core's: true
+X3 step post: old-style PNG equals the core's: true
+X3 step center: old-style PNG equals the core's: true
+X3 changed after the plot was made (step, color): true
+X3 recolored through the core's trait: true
+X3 both kinds in one axis: true
+X3 the plot's type: TraitMakie.OldAPI.Plot{typeof(MakieCompat.stairs), Tuple{Vector{Point{2, Float64}}}}
+X3 band saved: old-band.png, core-band.png; the plot's type: TraitMakie.OldAPI.Plot{typeof(MakieCompat.band), Tuple{Vector{Point{2, Float64}}, Vector{Point{2, Float64}}}}
+X3 band with direction = :y saved after the change
+## check4.jl
+X3S4 default: equal bytes: true
+X3S4 the tree: stephist → stairs → leaf lines
+X3S4 types: TraitMakie.OldAPI.Plot{typeof(stephist), Tuple{Vector{Float64}}}; child TraitMakie.OldAPI.Plot{typeof(MakieCompat.stairs), Tuple{Vector{Point{2, Float64}}}}
+X3S4 pdf: equal bytes: true
+X3S4 changed: equal bytes: true
+X3S4 obs-1: equal bytes: true
+X3S4 obs-replaced: equal bytes: true
+X3S4 obs-mutated-unnotified: equal bytes: true
+X3S4 obs-notified: equal bytes: true
+X3S4 obs-color-1: equal bytes: true
+X3S4 obs-color-2: equal bytes: true
+X3S4 attrs-arg: equal bytes: true
+X3S4 attrs-kw: equal bytes: true
+X3S4 attrs-own: equal bytes: true
+X3S4 arg-replaced: equal bytes: true
+X3S4 histogram-conversion: equal bytes: true
+X3S4 three kinds in one axis: true
+X3S4 distinct PNGs among the old-style cases: 12 of 14
+## check5.jl
+X3S5 plot_two: equal bytes to the core's own: true; pixels differing: 0; size 800×600 (upstream 800×600); pixels not white: 42773; pixels differing from upstream's: 15.7%
+X3S5 plot_one: equal bytes to the core's own: true; pixels differing: 0; size 800×400 (upstream 800×400); pixels not white: 16437; pixels differing from upstream's: 10.1%
+X3S5 log axis: ticks at exponents [-4.0, -2.0, 0.0, 2.0, 4.0], labels ["10⁻⁴", "10⁻²", "10⁰", "10²", "10⁴"]
+X3S5 scales: TraitWorld.Kept{Scale}; sqrt refused: MethodError: no method matching add_axis!(::Figure, ::Int64, ::Int64, ::typeof(sqrt), ::typeof(identity), ::String, ::St
+X3S5 palette: true true
+X3S5 px_per_unit = 2: 1200×900
+## session5.jl
+T start 1.793274981018374e9 0.019117339
+T load 1.793274981380828e9 0.091515747
+T data 1.793274981488036e9 0.188423171
+T plot1 1.793274981666536e9 0.334752636
+T plot2 1.793274981704691e9 0.361395551
+T again 1.793274981726829e9 0.361395551
+## PNGs against the run before
+PNGs compared: 51; differing: 0
