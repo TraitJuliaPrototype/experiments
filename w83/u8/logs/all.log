@@ -1,0 +1,18 @@
+jl: slot 3 (cores 8-11), depot /home/hellmann/.julia/agent-depots/w83u8all
+RESULT U8 setting=all (facts sysimage) julia=00dcc9994c traitworld=0.1.0
+RESULT U8 before: isx(S)=false world=39521
+RESULT U8 before: CodeInstances isx@S=Any[(owner = :facts, min = 39506, max = "∞")]
+RESULT U8 before: CodeInstances conforms=2 Any[(owner = :facts, min = 39470, max = "∞"), (owner = :facts, min = 39477, max = "∞")]
+RESULT U8 code_typed isx@S returns Any; body: $(Expr(:invoke, CodeInstance for MethodInstance for conforms(::Type, ::Type), :(Main.conforms), S, :(Main.Shape))) ; return %1
+RESULT U8 @implement: world 39521 -> 39538; invalidated MethodInstances=1 tags=["invalidate_mt_cache"]
+RESULT U8   invalidated: MethodInstance for TraitWorld.conformance(::TraitWorld.As{Shape}, ::Any)
+RESULT U8 after: isx(S)=true
+RESULT U8 after: CodeInstances isx@S=Any[(owner = :facts, min = 39506, max = "∞")]  new=0
+RESULT U8 after: CodeInstances conforms=2 Any[(owner = :facts, min = 39470, max = "∞"), (owner = :facts, min = 39477, max = "∞")]
+RESULT U8 old world (invoke_in_world 39521): isx(S)=true
+RESULT U8 task created before @implement: isx(S)=true
+RESULT U8 conforms(S, Shape) now=true; in old world=true
+RESULT U8B before: isb(SB)=false world=39563 CodeInstances=Any[(owner = :facts, min = 39551, max = "∞")]
+RESULT U8B after: isb(SB)=true world=39568 CodeInstances=Any[(owner = :facts, min = 39551, max = "∞")] new=0
+RESULT U8B old world (invoke_in_world 39563): isb(SB)=false
+RESULT U8B task created before the declaration: isb(SB)=false
