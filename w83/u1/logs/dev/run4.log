@@ -1,0 +1,373 @@
+# 2026-10-29T19:06:54+01:00 julia-1.13 00dcc9994c, TraitWorld 33dd55e, forks 943b065, TraitMakie c0d5c36, Graphs-p4 54632125, load 2.73
+jl: slot 3 (cores 8-11), depot /home/hellmann/.julia/agent-depots/w83u1
+loaded in 1.7 s
+julia 1.13.2 00dcc9994c; TraitWorld 0.1.0
+
+=== variant A ===
+B01  A open      u_first                   firstindex   [inference stops (Union{}) in u_first:12 at `:((%4)(%6))` = throw(_): reached list is a lower bound]
+        base.jl:12: `firstindex` has no method for a trait object carrying HasLength, Indexable, Iterable
+B02  A open      u_last                    lastindex   [inference stops (Union{}) in u_last:18 at `:((%4)(%6))` = throw(_): reached list is a lower bound]
+        base.jl:18: `lastindex` has no method for a trait object carrying HasLength, Indexable, Iterable
+B03  A open      u_copy!                   firstindex   [MutableIndexable's supertrait parameter tied]   [inference stops (Union{}) in u_copy!:24 at `:((%2)(_2))` = firstindex(t): reached list is a lower bound]
+        base.jl:24: `firstindex` has no method for a trait object carrying HasLength, Indexable, Iterable, MutableIndexable, Resizable
+B04  A open      u_copyto_iter!            eachindex   [MutableIndexable's supertrait parameter tied]   [inference stops (Union{}) in u_copyto_iter!:34 at `:(_6 = (%1)(_2))` = eachindex(t): reached list is a lower bound]
+        base.jl:34: a trait object carrying HasLength, Indexable, Iterable, MutableIndexable is passed to `eachindex`, whose methods need other traits at argument 1. Declare the bounds it needs, so the caller projects each (rule 2)
+B05  A open      u_copyto_offset!          returned (escapes)   [MutableIndexable's supertrait parameter tied]
+        base.jl:47: returns a trait object to ordinary code: a trait object is a handle, not a value
+B06  A open      u_copyto_n!               returned (escapes), LinearIndices   [MutableIndexable's supertrait parameter tied]
+        base.jl:76: returns a trait object to ordinary code: a trait object is a handle, not a value
+        base.jl:76: `LinearIndices` has no method for a trait object carrying HasLength, Indexable, Iterable, MutableIndexable
+B07  A open      u_copyto_arr!             returned (escapes), isempty, builtin isa, unalias, IndexStyle   [MutableIndexable's supertrait parameter tied]
+        base.jl:113: returns a trait object to ordinary code: a trait object is a handle, not a value
+        base.jl:113: a trait object carrying HasLength, Indexable, Iterable is passed to `isempty`, an ordinary function: it can do only what its traits declare. Declare `isempty` as an operation, or use the operations
+        base.jl:113: passed to the builtin `isa`
+        base.jl:113: a trait object carrying HasLength, Indexable, Iterable, MutableIndexable is passed to `unalias`, an ordinary function: it can do only what its traits declare. Declare `unalias` as an operation, or use the operations
+        base.jl:113: a trait object carrying HasLength, Indexable, Iterable is passed to `unalias`, an ordinary function: it can do only what its traits declare. Declare `unalias` as an operation, or use the operations
+        base.jl:113: `IndexStyle` has no method for a trait object carrying HasLength, Indexable, Iterable, MutableIndexable
+B08  A open      u_copy                    copymutable
+        base.jl:124: a trait object carrying HasLength, Indexable, Iterable is passed to `copymutable`, an ordinary function: it can do only what its traits declare. Declare `copymutable` as an operation, or use the operations
+B09  A open      u_copymutable             similar   [inference stops (Union{}) in u_copymutable:130 at `:((%3)(_2))` = similar(t): reached list is a lower bound]
+        base.jl:130: `similar` has no method for a trait object carrying HasLength, Indexable, Iterable
+B10  A open      u_zero                    similar   [inference stops (Union{}) in u_zero:136 at `:((%2)(_2, %7))` = similar(t, _): reached list is a lower bound]
+        base.jl:136: `similar` has no method for a trait object carrying HasLength, Indexable, Iterable
+B11  A bounded   u_isempty                 
+B12  A open      u_get                     checkbounds
+        base.jl:142: `checkbounds` has no method for a trait object carrying HasLength, Indexable, Iterable
+B13  A open      u_get!                    returned (escapes), axes1   [MutableIndexable's supertrait parameter tied]
+        base.jl:145: returns a trait object to ordinary code: a trait object is a handle, not a value
+        base.jl:145: a trait object carrying HasLength, Indexable, Iterable is passed to `axes1`, an ordinary function: it can do only what its traits declare. Declare `axes1` as an operation, or use the operations
+        base.jl:145: a trait object carrying HasLength, Indexable, Iterable, MutableIndexable is passed to `axes1`, an ordinary function: it can do only what its traits declare. Declare `axes1` as an operation, or use the operations
+B14  A open      u_isequal                 builtin ===, axes
+        base.jl:156: passed to the builtin `===`
+        base.jl:156: a trait object carrying HasLength, Indexable, Iterable is passed to `axes`, whose methods need other traits at argument 1. Declare the bounds it needs, so the caller projects each (rule 2)
+B15  A open      u_cmp                     firstindex   [inference stops (Union{}) in u_cmp:170 at `:((%2)(_2))` = firstindex(t): reached list is a lower bound]
+        base.jl:170: `firstindex` has no method for a trait object carrying HasLength, Indexable, Iterable
+B16  A open      u_isless                  cmp   [inference stops (Union{}) in u_isless:182 at `:((%2)(_2, _3))` = cmp(t, t): reached list is a lower bound]
+        base.jl:182: a trait object carrying HasLength, Indexable, Iterable is passed to `cmp`, an ordinary function: it can do only what its traits declare. Declare `cmp` as an operation, or use the operations
+B17  A open      u_eq                      axes   [inference stops (Union{}) in u_eq:185 at `:((%4)(_2))` = axes(t): reached list is a lower bound]
+        base.jl:185: a trait object carrying HasLength, Indexable, Iterable is passed to `axes`, whose methods need other traits at argument 1. Declare the bounds it needs, so the caller projects each (rule 2)
+B18  A open      u_map!                    eachindex   [MutableIndexable's supertrait parameter tied]   [inference stops (Union{}) in u_map!:202 at `:((%2)(_3))` = eachindex(t): reached list is a lower bound]
+        base.jl:202: a trait object carrying HasLength, Indexable, Iterable, MutableIndexable is passed to `eachindex`, whose methods need other traits at argument 1. Declare the bounds it needs, so the caller projects each (rule 2)
+B19  A open      u_map                     Base.Generator, collect_similar
+        base.jl:211: a trait object carrying HasLength, Indexable, Iterable is passed to `Base.Generator`, an ordinary function: it can do only what its traits declare. Declare `Base.Generator` as an operation, or use the operations
+        base.jl:211: a trait object carrying HasLength, Indexable, Iterable is passed to `collect_similar`, an ordinary function: it can do only what its traits declare. Declare `collect_similar` as an operation, or use the operations
+B20  A open      u_mapany                  map!
+        base.jl:214: a trait object carrying HasLength, Indexable, Iterable is passed to `map!`, an ordinary function: it can do only what its traits declare. Declare `map!` as an operation, or use the operations
+B21  A open      u_push!                   lastindex   [MutableIndexable's supertrait parameter tied]   [inference stops (Union{}) in u_push!:217 at `:(Base.lastindex(_2))` = lastindex(t): reached list is a lower bound]
+        base.jl:217: `lastindex` has no method for a trait object carrying HasLength, Indexable, Iterable, MutableIndexable, Resizable
+B22  A open      u_keepat_inds!            firstindex   [MutableIndexable's supertrait parameter tied]   [inference stops (Union{}) in u_keepat_inds!:227 at `:(_6 = (%2)(_2))` = firstindex(t): reached list is a lower bound]
+        base.jl:227: `firstindex` has no method for a trait object carrying HasLength, Indexable, Iterable, MutableIndexable, Resizable
+B23  A open      u_keepat_mask!            BoundsError, firstindex   [MutableIndexable's supertrait parameter tied]   [inference stops (Union{}) in u_keepat_mask!:246 at `:((%11)(%13))` = throw(_): reached list is a lower bound]
+        base.jl:246: a trait object carrying HasLength, Indexable, Iterable, MutableIndexable, Resizable is passed to `BoundsError`, an ordinary function: it can do only what its traits declare. Declare `BoundsError` as an operation, or use the operations
+        base.jl:246: a trait object carrying HasLength, Indexable, Iterable is passed to `BoundsError`, an ordinary function: it can do only what its traits declare. Declare `BoundsError` as an operation, or use the operations
+        base.jl:246: `firstindex` has no method for a trait object carrying HasLength, Indexable, Iterable, MutableIndexable, Resizable
+B24  A open      u_circshift!              returned (escapes), lastindex   [MutableIndexable's supertrait parameter tied]
+        base.jl:261: returns a trait object to ordinary code: a trait object is a handle, not a value
+        base.jl:261: `lastindex` has no method for a trait object carrying HasLength, Indexable, Iterable, MutableIndexable
+B25  A bounded   u_foreach                 
+D01  A open      u_findall                 firstindex   [inference stops (Union{}) in u_findall:13 at `:((%12)(_2))` = firstindex(t): reached list is a lower bound]
+        dataframes.jl:13: `firstindex` has no method for a trait object carrying Tables.ColumnCore.Column
+D02  A open      u_copyto_widen!           eachindex   [inference stops (Union{}) in u_copyto_widen!:44 at `:((%3)(_2, _3))` = eachindex(t, t): reached list is a lower bound]
+        dataframes.jl:44: a trait object carrying Tables.ColumnCore.Column is passed to `eachindex`, whose methods need other traits at argument 1. Declare the bounds it needs, so the caller projects each (rule 2)
+        dataframes.jl:44: a trait object carrying Tables.ColumnCore.Column is passed to `eachindex`, an ordinary function: it can do only what its traits declare. Declare `eachindex` as an operation, or use the operations
+D03  A open      u_groupreduce!_helper     getindex, eltype, isassigned, setindex!
+        dataframes.jl:59: `getindex` has no method for a trait object carrying Tables.ColumnCore.Column
+        dataframes.jl:59: a trait object carrying Tables.ColumnCore.Column is passed to `eltype`, an ordinary function: it can do only what its traits declare. Declare `eltype` as an operation, or use the operations
+        dataframes.jl:59: `isassigned` has no method for a trait object carrying Tables.ColumnCore.Column
+        dataframes.jl:59: `setindex!` has no method for a trait object carrying Tables.ColumnCore.Column
+D04  A open      u_groupreduce!            eachindex, groupreduce!_helper, eltype   [inference stops (Union{}) in u_groupreduce!:86 at `:((%78)(_2))` = eachindex(t): reached list is a lower bound]
+        dataframes.jl:86: a trait object carrying Tables.ColumnCore.Column is passed to `eachindex`, whose methods need other traits at argument 1. Declare the bounds it needs, so the caller projects each (rule 2)
+        dataframes.jl:86: `groupreduce!_helper` has no method for a trait object carrying Tables.ColumnCore.Column
+        dataframes.jl:86: a trait object carrying Tables.ColumnCore.Column is passed to `eltype`, an ordinary function: it can do only what its traits declare. Declare `eltype` as an operation, or use the operations
+D05  A open      u_agg_var                 groupreduce, eltype   [inference stops (Union{}) in u_agg_var:138 at `:((%15)(%17))` = zero(_): reached list is a lower bound]
+        dataframes.jl:138: `groupreduce` has no method for a trait object carrying Tables.ColumnCore.Column
+        dataframes.jl:138: a trait object carrying Tables.ColumnCore.Column is passed to `eltype`, an ordinary function: it can do only what its traits declare. Declare `eltype` as an operation, or use the operations
+D06  A open      u_agg_std                 unknown function
+        dataframes.jl:152: a trait object is passed to a function not known at compile time
+D07  A open      u_agg_first               similar, kwcall
+        dataframes.jl:162: `similar` has no method for a trait object carrying Tables.ColumnCore.Column
+        dataframes.jl:162: `kwcall` has no method for a trait object carrying Tables.ColumnCore.Column
+D08  A open      u_fillfirst!              returned (escapes), getindex, setindex!, eachindex, length
+        dataframes.jl:174: returns a trait object to ordinary code: a trait object is a handle, not a value
+        dataframes.jl:174: `getindex` has no method for a trait object carrying Tables.ColumnCore.Column
+        dataframes.jl:174: `setindex!` has no method for a trait object carrying Tables.ColumnCore.Column
+        dataframes.jl:174: a trait object carrying Tables.ColumnCore.Column is passed to `eachindex`, whose methods need other traits at argument 1. Declare the bounds it needs, so the caller projects each (rule 2)
+        dataframes.jl:174: `length` has no method for a trait object carrying Tables.ColumnCore.Column
+D09  A open      u_update_lengths!         enumerate   [inference stops (Union{}) in u_update_lengths!:229 at `:(_8 = Base.iterate(%2))` = iterate(_): reached list is a lower bound]
+        dataframes.jl:229: a trait object carrying Tables.ColumnCore.Column is passed to `enumerate`, an ordinary function: it can do only what its traits declare. Declare `enumerate` as an operation, or use the operations
+D10  A open      u_repeat_lengths!         eachindex   [inference stops (Union{}) in u_repeat_lengths!:245 at `:((%4)(_3))` = eachindex(t): reached list is a lower bound]
+        dataframes.jl:245: a trait object carrying Tables.ColumnCore.Column is passed to `eachindex`, whose methods need other traits at argument 1. Declare the bounds it needs, so the caller projects each (rule 2)
+D11  A open      u_cycle_permute!          returned (escapes), getindex, setindex!
+        dataframes.jl:256: returns a trait object to ordinary code: a trait object is a handle, not a value
+        dataframes.jl:256: `getindex` has no method for a trait object carrying Tables.ColumnCore.Column
+        dataframes.jl:256: `setindex!` has no method for a trait object carrying Tables.ColumnCore.Column
+D12  A open      u_compose_joined_rcol!    length   [inference stops (Union{}) in u_compose_joined_rcol!:275 at `:((%4)(_3))` = length(t): reached list is a lower bound]
+        dataframes.jl:275: `length` has no method for a trait object carrying Tables.ColumnCore.Column
+D13  A open      u_similar_outer           eltype
+        dataframes.jl:288: a trait object carrying Tables.ColumnCore.Column is passed to `eltype`, an ordinary function: it can do only what its traits declare. Declare `eltype` as an operation, or use the operations
+D14  A open      u_check_aggregate_first   eltype
+        dataframes.jl:292: a trait object carrying Tables.ColumnCore.Column is passed to `eltype`, an ordinary function: it can do only what its traits declare. Declare `eltype` as an operation, or use the operations
+D15  A open      u_df_eq                   size   [inference stops (Union{}) in u_df_eq:296 at `:((%4)(_2, 2))` = size(t, _): reached list is a lower bound]
+        dataframes.jl:296: `size` has no method for a trait object carrying Tables.ColumnCore.TableSource
+D16  A open      u_df_isequal              size   [inference stops (Union{}) in u_df_isequal:310 at `:((%3)(_2, 2))` = size(t, _): reached list is a lower bound]
+        dataframes.jl:310: `size` has no method for a trait object carrying Tables.ColumnCore.TableSource
+D17  A open      u_df_isempty              nrow   [inference stops (Union{}) in u_df_isempty:320 at `:((%2)(_2))` = nrow(t): reached list is a lower bound]
+        dataframes.jl:320: `nrow` has no method for a trait object carrying Tables.ColumnCore.TableSource
+D18  A open      u_df_size                 nrow   [inference stops (Union{}) in u_df_size:323 at `:((%1)(_2))` = nrow(t): reached list is a lower bound]
+        dataframes.jl:323: `nrow` has no method for a trait object carrying Tables.ColumnCore.TableSource
+D19  A open      u_ncol                    index   [inference stops (Union{}) in u_ncol:326 at `:((%2)(_2))` = index(t): reached list is a lower bound]
+        dataframes.jl:326: `index` has no method for a trait object carrying Tables.ColumnCore.TableSource
+D20  A open      u_completecases           getindex, size   [inference stops (Union{}) in u_completecases:329 at `:((%13)(_2, 1))` = size(t, _): reached list is a lower bound]
+        dataframes.jl:329: `getindex` has no method for a trait object carrying Tables.ColumnCore.TableSource
+        dataframes.jl:329: `size` has no method for a trait object carrying Tables.ColumnCore.TableSource
+M01  A open      u_pointbased_xy           zip   [inference stops (Union{}) in u_pointbased_xy:13 at `:(Base._array_for(%5, %2, %3))` = _array_for(_, _, _): reached list is a lower bound]
+        makie.jl:13: a trait object carrying TraitMakie.PlotCore.Sample is passed to `zip`, an ordinary function: it can do only what its traits declare. Declare `zip` as an operation, or use the operations
+M02  A open      u_pointbased_ps           Base.IteratorSize, _array_for   [inference stops (Union{}) in u_pointbased_ps:16 at `:(Base._array_for(%4, %1, %2))` = _array_for(_, t, _): reached list is a lower bound]
+        makie.jl:16: a trait object carrying TraitMakie.PlotCore.Positions is passed to `Base.IteratorSize`, an ordinary function: it can do only what its traits declare. Declare `Base.IteratorSize` as an operation, or use the operations
+        makie.jl:16: a trait object carrying TraitMakie.PlotCore.Positions is passed to `_array_for`, an ordinary function: it can do only what its traits declare. Declare `_array_for` as an operation, or use the operations
+M03  A open      u_runs                    enumerate   [inference stops (Union{}) in u_runs:19 at `:(_3 = Base.iterate(%7))` = iterate(_): reached list is a lower bound]
+        makie.jl:19: a trait object carrying TraitMakie.PlotCore.Positions is passed to `enumerate`, an ordinary function: it can do only what its traits declare. Declare `enumerate` as an operation, or use the operations
+M04  A open      u_points                  getindex
+        makie.jl:35: `getindex` has no method for a trait object carrying TraitMakie.PlotCore.Positions
+M05  A open      u_matrix                  eachindex   [inference stops (Union{}) in u_matrix:38 at `:((%1)(_2))` = eachindex(t): reached list is a lower bound]
+        makie.jl:38: a trait object carrying TraitMakie.PlotCore.Positions is passed to `eachindex`, whose methods need other traits at argument 1. Declare the bounds it needs, so the caller projects each (rule 2)
+M06  A open      u_floats                  Vector{Float64}   [inference stops (Union{}) in u_floats:41 at `:((%3)(_2))` = Vector{Float64}(t): reached list is a lower bound]
+        makie.jl:41: `Vector{Float64}` has no method for a trait object carrying TraitMakie.PlotCore.Sample
+M07  A open      u_extrema_nan             iterate   [inference stops (Union{}) in u_extrema_nan:44 at `:(_3 = Base.iterate(%3))` = iterate(t): reached list is a lower bound]
+        makie.jl:44: `iterate` has no method for a trait object carrying TraitMakie.PlotCore.Sample
+M08  A open      u_one                     getindex
+        makie.jl:54: `getindex` has no method for a trait object carrying TraitMakie.PlotCore.ColorSpec
+M09  A open      u_crange                  iterate   [inference stops (Union{}) in u_crange:57 at `:(_4 = Base.iterate(%6))` = iterate(t): reached list is a lower bound]
+        makie.jl:57: `iterate` has no method for a trait object carrying TraitMakie.PlotCore.Sample
+M10  A open      u_xy                      length   [inference stops (Union{}) in u_xy:68 at `:((%2)(_2))` = length(t): reached list is a lower bound]
+        makie.jl:68: `length` has no method for a trait object carrying TraitMakie.PlotCore.Sample
+M11  A open      u_gap                     length   [inference stops (Union{}) in u_gap:73 at `:((%2)(_2))` = length(t): reached list is a lower bound]
+        makie.jl:73: `length` has no method for a trait object carrying TraitMakie.PlotCore.Sample
+M12  A open      u_sample                  Vector{Float64}   [inference stops (Union{}) in u_sample:76 at `:((%3)(_2))` = Vector{Float64}(t): reached list is a lower bound]
+        makie.jl:76: `Vector{Float64}` has no method for a trait object carrying TraitMakie.PlotCore.Sample
+M13  A open      u_band_convert            float_type   [inference stops (Union{}) in u_band_convert:79 at `:((%2)(_2, _3))` = float_type(t, t): reached list is a lower bound]
+        makie.jl:79: a trait object carrying TraitMakie.PlotCore.Sample is passed to `float_type`, an ordinary function: it can do only what its traits declare. Declare `float_type` as an operation, or use the operations
+M14  A open      u_fill_view               view
+        makie.jl:84: `view` has no method for a trait object carrying TraitMakie.PlotCore.Sample
+M15  A open      u_band_coords             length   [inference stops (Union{}) in u_band_coords:89 at `:(_7 = (%3)(_2))` = length(t): reached list is a lower bound]
+        makie.jl:89: `length` has no method for a trait object carrying TraitMakie.PlotCore.Positions
+M16  A open      u_band_merged             copy   [inference stops (Union{}) in u_band_merged:108 at `:(_5 = (%1)(_2))` = copy(t): reached list is a lower bound]
+        makie.jl:108: `copy` has no method for a trait object carrying TraitMakie.PlotCore.Positions
+M17  A open      u_steppoints              isempty   [inference stops (Union{}) in u_steppoints:119 at `:((%7)(_2))` = isempty(t): reached list is a lower bound]
+        makie.jl:119: a trait object carrying TraitMakie.PlotCore.Positions is passed to `isempty`, an ordinary function: it can do only what its traits declare. Declare `isempty` as an operation, or use the operations
+N01  A open      u_ffleaves                all_neighbors, edges   [inference stops (Union{}) in u_ffleaves:15 at `:((%25)(%28))` = throw(_): reached list is a lower bound]
+        nd.jl:19: a trait object carrying Graphs.GraphInterface is passed to `all_neighbors`, an ordinary function: it can do only what its traits declare. Declare `all_neighbors` as an operation, or use the operations
+        nd.jl:15: a trait object carrying Graphs.GraphInterface is passed to `edges`, whose methods need other traits at argument 1. Declare the bounds it needs, so the caller projects each (rule 2)
+N02  A open      u_prune_blocks!           outneighbors
+        nd.jl:59: a trait object carrying Graphs.GraphInterface is passed to `outneighbors`, whose methods need other traits at argument 1. Declare the bounds it needs, so the caller projects each (rule 2)
+N03  A open      u_index_manager           edges   [inference stops (Union{}) in u_index_manager:71 at `:((%20)(_2))` = edges(t): reached list is a lower bound]
+        nd.jl:71: a trait object carrying Graphs.GraphInterface is passed to `edges`, whose methods need other traits at argument 1. Declare the bounds it needs, so the caller projects each (rule 2)
+N04  A bounded   u_vertex!                 
+N05  A bounded   u_edge!                   
+N06  A open      u_degree                  outdegree, indegree
+        nd.jl:127: `outdegree` has no method for a trait object carrying Graphs.GraphInterface
+        nd.jl:127: `indegree` has no method for a trait object carrying Graphs.GraphInterface
+N07  A open      u_degree_histogram        vertices, u_degree_histogram(t, _) (undeclared arity, unreported)   [inference stops (Union{}) in u_degree_histogram:0 at `:((%1)(_2, %2))` = u_degree_histogram(t, _), u_degree_histogram:135 at `:((%6)(_2))` = vertices(t): reached list is a lower bound]
+        nd.jl:135: `vertices` has no method for a trait object carrying Graphs.GraphInterface
+        inference stops at `u_degree_histogram(t, _)` (Union{}), not reported by the checker
+N08  A open      u_has_self_loops          vertices
+        nd.jl:146: `vertices` has no method for a trait object carrying Graphs.GraphInterface
+N09  A open      u_num_self_loops          vertices
+        nd.jl:151: `vertices` has no method for a trait object carrying Graphs.GraphInterface
+N10  A open      u_noallocextreme          vertices   [inference stops (Union{}) in u_noallocextreme:154 at `:((%3)(_5))` = vertices(t): reached list is a lower bound]
+        nd.jl:154: `vertices` has no method for a trait object carrying Graphs.GraphInterface
+N11  A open      u_is_connected            connected_components!
+        nd.jl:166: `connected_components!` has no method for a trait object carrying Graphs.GraphInterface
+N12  A open      u_common_neighbors        neighbors
+        nd.jl:178: `neighbors` has no method for a trait object carrying Graphs.GraphInterface
+
+--- summary, variant A ---
+  Base abstractarray.jl     n=25  fully bounded 2  open 23  not checked 0  (open only by returning the argument: 1; with inference stopping at a Union{} call: 13)
+      reached (functions reaching it): firstindex 5, returned (escapes) 5, lastindex 3, axes 2, eachindex 2, similar 2, Base.Generator 1, BoundsError 1, IndexStyle 1, LinearIndices 1, axes1 1, builtin === 1, builtin isa 1, checkbounds 1, cmp 1, collect_similar 1, copymutable 1, isempty 1, map! 1, unalias 1
+  DataFrames (forks)        n=20  fully bounded 0  open 20  not checked 0  (open only by returning the argument: 0; with inference stopping at a Union{} call: 13)
+      reached (functions reaching it): eltype 5, eachindex 4, getindex 4, setindex! 3, size 3, length 2, nrow 2, returned (escapes) 2, enumerate 1, firstindex 1, groupreduce 1, groupreduce!_helper 1, index 1, isassigned 1, kwcall 1, similar 1, unknown function 1
+  MakieCompat               n=17  fully bounded 0  open 17  not checked 0  (open only by returning the argument: 0; with inference stopping at a Union{} call: 14)
+      reached (functions reaching it): length 3, Vector{Float64} 2, getindex 2, iterate 2, Base.IteratorSize 1, _array_for 1, copy 1, eachindex 1, enumerate 1, float_type 1, isempty 1, view 1, zip 1
+  NetworkDynamics + Graphs  n=12  fully bounded 2  open 10  not checked 0  (open only by returning the argument: 0; with inference stopping at a Union{} call: 4)
+      reached (functions reaching it): vertices 4, edges 2, all_neighbors 1, connected_components! 1, indegree 1, neighbors 1, outdegree 1, outneighbors 1, u_degree_histogram(t, _) (undeclared arity, unreported) 1
+  all samples               n=74  fully bounded 4  open 70  not checked 0  (open only by returning the argument: 1; with inference stopping at a Union{} call: 44)
+      reached (functions reaching it): eachindex 7, returned (escapes) 7, firstindex 6, getindex 6, eltype 5, length 5, vertices 4, lastindex 3, setindex! 3, similar 3, size 3, Vector{Float64} 2, axes 2, edges 2, enumerate 2, isempty 2, iterate 2, nrow 2, Base.Generator 1, Base.IteratorSize 1, BoundsError 1, IndexStyle 1, LinearIndices 1, _array_for 1, all_neighbors 1, axes1 1, builtin === 1, builtin isa 1, checkbounds 1, cmp 1, collect_similar 1, connected_components! 1, copy 1, copymutable 1, float_type 1, groupreduce 1, groupreduce!_helper 1, indegree 1, index 1, isassigned 1, kwcall 1, map! 1, neighbors 1, outdegree 1, outneighbors 1, u_degree_histogram(t, _) (undeclared arity, unreported) 1, unalias 1, unknown function 1, view 1, zip 1
+
+=== variant B ===
+B01  B open      u_first                   checked_length
+        base.jl:12: a trait object carrying HasLength, Indexable, Iterable, Main.U1Contracts.ArrayOps is passed to `checked_length`, an ordinary function: it can do only what its traits declare. Declare `checked_length` as an operation, or use the operations
+B02  B open      u_last                    checked_length
+        base.jl:18: a trait object carrying HasLength, Indexable, Iterable, Main.U1Contracts.ArrayOps is passed to `checked_length`, an ordinary function: it can do only what its traits declare. Declare `checked_length` as an operation, or use the operations
+B03  B open      u_copy!                   copyto!   [MutableIndexable's supertrait parameter tied]   [inference stops (Union{}) in u_copy!:24 at `:((%9)(%11))` = throw(_): reached list is a lower bound]
+        base.jl:24: `copyto!` has no method for a trait object carrying HasLength, Indexable, Iterable, MutableIndexable, Resizable, Main.U1Contracts.ArrayOps
+B04  B open      u_copyto_iter!            returned (escapes)   [MutableIndexable's supertrait parameter tied]
+        base.jl:34: returns a trait object to ordinary code: a trait object is a handle, not a value
+B05  B open      u_copyto_offset!          returned (escapes)   [MutableIndexable's supertrait parameter tied]
+        base.jl:47: returns a trait object to ordinary code: a trait object is a handle, not a value
+B06  B open      u_copyto_n!               returned (escapes), LinearIndices   [MutableIndexable's supertrait parameter tied]
+        base.jl:76: returns a trait object to ordinary code: a trait object is a handle, not a value
+        base.jl:76: `LinearIndices` has no method for a trait object carrying HasLength, Indexable, Iterable, MutableIndexable, Main.U1Contracts.ArrayOps
+B07  B open      u_copyto_arr!             isempty, builtin isa, unalias, copyto_unaliased!   [MutableIndexable's supertrait parameter tied]
+        base.jl:113: a trait object carrying HasLength, Indexable, Iterable, Main.U1Contracts.ArrayOps is passed to `isempty`, an ordinary function: it can do only what its traits declare. Declare `isempty` as an operation, or use the operations
+        base.jl:113: passed to the builtin `isa`
+        base.jl:113: a trait object carrying HasLength, Indexable, Iterable, MutableIndexable, Main.U1Contracts.ArrayOps is passed to `unalias`, an ordinary function: it can do only what its traits declare. Declare `unalias` as an operation, or use the operations
+        base.jl:113: a trait object carrying HasLength, Indexable, Iterable, Main.U1Contracts.ArrayOps is passed to `unalias`, an ordinary function: it can do only what its traits declare. Declare `unalias` as an operation, or use the operations
+        base.jl:113: `copyto_unaliased!` has no method for a trait object carrying HasLength, Indexable, Iterable, MutableIndexable, Main.U1Contracts.ArrayOps
+B08  B open      u_copy                    copymutable
+        base.jl:124: a trait object carrying HasLength, Indexable, Iterable, Main.U1Contracts.ArrayOps is passed to `copymutable`, an ordinary function: it can do only what its traits declare. Declare `copymutable` as an operation, or use the operations
+B09  B open      u_copymutable             copyto!
+        base.jl:130: a trait object carrying HasLength, Indexable, Iterable, Main.U1Contracts.ArrayOps is passed to `copyto!`, an ordinary function: it can do only what its traits declare. Declare `copyto!` as an operation, or use the operations
+B10  B bounded   u_zero                    
+B11  B bounded   u_isempty                 
+B12  B open      u_get                     checkbounds
+        base.jl:142: `checkbounds` has no method for a trait object carrying HasLength, Indexable, Iterable, Main.U1Contracts.ArrayOps
+B13  B open      u_get!                    returned (escapes), axes1   [MutableIndexable's supertrait parameter tied]
+        base.jl:145: returns a trait object to ordinary code: a trait object is a handle, not a value
+        base.jl:145: a trait object carrying HasLength, Indexable, Iterable, Main.U1Contracts.ArrayOps is passed to `axes1`, an ordinary function: it can do only what its traits declare. Declare `axes1` as an operation, or use the operations
+        base.jl:145: a trait object carrying HasLength, Indexable, Iterable, MutableIndexable, Main.U1Contracts.ArrayOps is passed to `axes1`, an ordinary function: it can do only what its traits declare. Declare `axes1` as an operation, or use the operations
+B14  B open      u_isequal                 builtin ===, zip
+        base.jl:156: passed to the builtin `===`
+        base.jl:156: a trait object carrying HasLength, Indexable, Iterable, Main.U1Contracts.ArrayOps is passed to `zip`, an ordinary function: it can do only what its traits declare. Declare `zip` as an operation, or use the operations
+B15  B open      u_cmp                     zip
+        base.jl:170: a trait object carrying HasLength, Indexable, Iterable, Main.U1Contracts.ArrayOps is passed to `zip`, an ordinary function: it can do only what its traits declare. Declare `zip` as an operation, or use the operations
+B16  B open      u_isless                  cmp   [inference stops (Union{}) in u_isless:182 at `:((%2)(_2, _3))` = cmp(t, t): reached list is a lower bound]
+        base.jl:182: a trait object carrying HasLength, Indexable, Iterable, Main.U1Contracts.ArrayOps is passed to `cmp`, an ordinary function: it can do only what its traits declare. Declare `cmp` as an operation, or use the operations
+B17  B open      u_eq                      zip
+        base.jl:185: a trait object carrying HasLength, Indexable, Iterable, Main.U1Contracts.ArrayOps is passed to `zip`, an ordinary function: it can do only what its traits declare. Declare `zip` as an operation, or use the operations
+B18  B open      u_map!                    returned (escapes)   [MutableIndexable's supertrait parameter tied]
+        base.jl:202: returns a trait object to ordinary code: a trait object is a handle, not a value
+B19  B open      u_map                     Base.Generator, collect_similar
+        base.jl:211: a trait object carrying HasLength, Indexable, Iterable, Main.U1Contracts.ArrayOps is passed to `Base.Generator`, an ordinary function: it can do only what its traits declare. Declare `Base.Generator` as an operation, or use the operations
+        base.jl:211: a trait object carrying HasLength, Indexable, Iterable, Main.U1Contracts.ArrayOps is passed to `collect_similar`, an ordinary function: it can do only what its traits declare. Declare `collect_similar` as an operation, or use the operations
+B20  B open      u_mapany                  map!
+        base.jl:214: a trait object carrying HasLength, Indexable, Iterable, Main.U1Contracts.ArrayOps is passed to `map!`, an ordinary function: it can do only what its traits declare. Declare `map!` as an operation, or use the operations
+B21  B open      u_push!                   returned (escapes)   [MutableIndexable's supertrait parameter tied]
+        base.jl:217: returns a trait object to ordinary code: a trait object is a handle, not a value
+B22  B open      u_keepat_inds!            returned (escapes), nextind, deleteat!   [MutableIndexable's supertrait parameter tied]
+        base.jl:227: returns a trait object to ordinary code: a trait object is a handle, not a value
+        base.jl:227: `nextind` has no method for a trait object carrying HasLength, Indexable, Iterable, MutableIndexable, Resizable, Main.U1Contracts.ArrayOps
+        base.jl:227: `deleteat!` has no method for a trait object carrying HasLength, Indexable, Iterable, MutableIndexable, Resizable, Main.U1Contracts.ArrayOps
+B23  B open      u_keepat_mask!            BoundsError   [MutableIndexable's supertrait parameter tied]   [inference stops (Union{}) in u_keepat_mask!:246 at `:((%11)(%13))` = throw(_): reached list is a lower bound]
+        base.jl:246: a trait object carrying HasLength, Indexable, Iterable, MutableIndexable, Resizable, Main.U1Contracts.ArrayOps is passed to `BoundsError`, an ordinary function: it can do only what its traits declare. Declare `BoundsError` as an operation, or use the operations
+        base.jl:246: a trait object carrying HasLength, Indexable, Iterable, Main.U1Contracts.ArrayOps is passed to `BoundsError`, an ordinary function: it can do only what its traits declare. Declare `BoundsError` as an operation, or use the operations
+B24  B open      u_circshift!              returned (escapes), reverse!   [MutableIndexable's supertrait parameter tied]
+        base.jl:261: returns a trait object to ordinary code: a trait object is a handle, not a value
+        base.jl:261: `reverse!` has no method for a trait object carrying HasLength, Indexable, Iterable, MutableIndexable, Main.U1Contracts.ArrayOps
+B25  B bounded   u_foreach                 
+D01  B open      u_findall                 count, findfirst
+        dataframes.jl:13: a trait object carrying HasLength, Indexable, Iterable, Tables.ColumnCore.Column, Main.U1Contracts.ArrayOps is passed to `count`, an ordinary function: it can do only what its traits declare. Declare `count` as an operation, or use the operations
+        dataframes.jl:13: a trait object carrying HasLength, Indexable, Iterable, Tables.ColumnCore.Column, Main.U1Contracts.ArrayOps is passed to `findfirst`, an ordinary function: it can do only what its traits declare. Declare `findfirst` as an operation, or use the operations
+D02  B open      u_copyto_widen!           eachindex(t, t) (undeclared arity, unreported)   [MutableIndexable's supertrait parameter tied]   [inference stops (Union{}) in u_copyto_widen!:44 at `:((%3)(_2, _3))` = eachindex(t, t): reached list is a lower bound]
+        inference stops at `eachindex(t, t)` (Union{}), not reported by the checker
+D03  B open      u_groupreduce!_helper     eltype, isassigned   [MutableIndexable's supertrait parameter tied]
+        dataframes.jl:59: a trait object carrying HasLength, Indexable, Iterable, MutableIndexable, Tables.ColumnCore.Column, Main.U1Contracts.ArrayOps is passed to `eltype`, an ordinary function: it can do only what its traits declare. Declare `eltype` as an operation, or use the operations
+        dataframes.jl:59: `isassigned` has no method for a trait object carrying HasLength, Indexable, Iterable, MutableIndexable, Tables.ColumnCore.Column, Main.U1Contracts.ArrayOps
+D04  B open      u_groupreduce!            groupreduce!_helper, eltype, isassigned, broadcasted, materialize!, typeof, first, copyto_widen!   [MutableIndexable's supertrait parameter tied]
+        dataframes.jl:86: `groupreduce!_helper` has no method for a trait object carrying HasLength, Indexable, Iterable, MutableIndexable, Tables.ColumnCore.Column, Main.U1Contracts.ArrayOps
+        dataframes.jl:86: a trait object carrying HasLength, Indexable, Iterable, MutableIndexable, Tables.ColumnCore.Column, Main.U1Contracts.ArrayOps is passed to `eltype`, an ordinary function: it can do only what its traits declare. Declare `eltype` as an operation, or use the operations
+        dataframes.jl:86: `isassigned` has no method for a trait object carrying HasLength, Indexable, Iterable, MutableIndexable, Tables.ColumnCore.Column, Main.U1Contracts.ArrayOps
+        dataframes.jl:86: a trait object carrying HasLength, Indexable, Iterable, Tables.ColumnCore.Column, Main.U1Contracts.ArrayOps is passed to `eltype`, an ordinary function: it can do only what its traits declare. Declare `eltype` as an operation, or use the operations
+        dataframes.jl:86: a trait object carrying HasLength, Indexable, Iterable, MutableIndexable, Tables.ColumnCore.Column, Main.U1Contracts.ArrayOps is passed to `broadcasted`, an ordinary function: it can do only what its traits declare. Declare `broadcasted` as an operation, or use the operations
+        dataframes.jl:86: a trait object carrying HasLength, Indexable, Iterable, MutableIndexable, Tables.ColumnCore.Column, Main.U1Contracts.ArrayOps is passed to `materialize!`, an ordinary function: it can do only what its traits declare. Declare `materialize!` as an operation, or use the operations
+        dataframes.jl:86: `typeof(t)`: code must not depend on the user's type
+        dataframes.jl:86: a trait object carrying HasLength, Indexable, Iterable, MutableIndexable, Tables.ColumnCore.Column, Main.U1Contracts.ArrayOps is passed to `first`, an ordinary function: it can do only what its traits declare. Declare `first` as an operation, or use the operations
+        dataframes.jl:86: `copyto_widen!` has no method for a trait object carrying HasLength, Indexable, Iterable, MutableIndexable, Tables.ColumnCore.Column, Main.U1Contracts.ArrayOps
+D05  B open      u_agg_var                 groupreduce, eltype   [inference stops (Union{}) in u_agg_var:138 at `:((%15)(%17))` = zero(_): reached list is a lower bound]
+        dataframes.jl:138: `groupreduce` has no method for a trait object carrying HasLength, Indexable, Iterable, Tables.ColumnCore.Column, Main.U1Contracts.ArrayOps
+        dataframes.jl:138: a trait object carrying HasLength, Indexable, Iterable, Tables.ColumnCore.Column, Main.U1Contracts.ArrayOps is passed to `eltype`, an ordinary function: it can do only what its traits declare. Declare `eltype` as an operation, or use the operations
+D06  B open      u_agg_std                 unknown function
+        dataframes.jl:152: a trait object is passed to a function not known at compile time
+D07  B open      u_agg_first               kwcall
+        dataframes.jl:162: `kwcall` has no method for a trait object carrying HasLength, Indexable, Iterable, Tables.ColumnCore.Column, Main.U1Contracts.ArrayOps
+D08  B open      u_fillfirst!              returned (escapes)   [MutableIndexable's supertrait parameter tied]
+        dataframes.jl:174: returns a trait object to ordinary code: a trait object is a handle, not a value
+D09  B open      u_update_lengths!         enumerate
+        dataframes.jl:229: a trait object carrying HasLength, Indexable, Iterable, Tables.ColumnCore.Column, Main.U1Contracts.ArrayOps is passed to `enumerate`, an ordinary function: it can do only what its traits declare. Declare `enumerate` as an operation, or use the operations
+D10  B open      u_repeat_lengths!         dotview   [MutableIndexable's supertrait parameter tied]
+        dataframes.jl:245: a trait object carrying HasLength, Indexable, Iterable, MutableIndexable, Tables.ColumnCore.Column, Main.U1Contracts.ArrayOps is passed to `dotview`, an ordinary function: it can do only what its traits declare. Declare `dotview` as an operation, or use the operations
+D11  B open      u_cycle_permute!          returned (escapes)   [MutableIndexable's supertrait parameter tied]
+        dataframes.jl:256: returns a trait object to ordinary code: a trait object is a handle, not a value
+D12  B open      u_compose_joined_rcol!    returned (escapes)   [MutableIndexable's supertrait parameter tied]
+        dataframes.jl:275: returns a trait object to ordinary code: a trait object is a handle, not a value
+D13  B open      u_similar_outer           eltype
+        dataframes.jl:288: a trait object carrying HasLength, Indexable, Iterable, Tables.ColumnCore.Column, Main.U1Contracts.ArrayOps is passed to `eltype`, an ordinary function: it can do only what its traits declare. Declare `eltype` as an operation, or use the operations
+D14  B open      u_check_aggregate_first   eltype
+        dataframes.jl:292: a trait object carrying HasLength, Indexable, Iterable, Tables.ColumnCore.Column, Main.U1Contracts.ArrayOps is passed to `eltype`, an ordinary function: it can do only what its traits declare. Declare `eltype` as an operation, or use the operations
+D15  B open      u_df_eq                   size   [inference stops (Union{}) in u_df_eq:296 at `:((%4)(_2, 2))` = size(t, _): reached list is a lower bound]
+        dataframes.jl:296: `size` has no method for a trait object carrying Tables.ColumnCore.TableSource
+D16  B open      u_df_isequal              size   [inference stops (Union{}) in u_df_isequal:310 at `:((%3)(_2, 2))` = size(t, _): reached list is a lower bound]
+        dataframes.jl:310: `size` has no method for a trait object carrying Tables.ColumnCore.TableSource
+D17  B open      u_df_isempty              nrow   [inference stops (Union{}) in u_df_isempty:320 at `:((%2)(_2))` = nrow(t): reached list is a lower bound]
+        dataframes.jl:320: `nrow` has no method for a trait object carrying Tables.ColumnCore.TableSource
+D18  B open      u_df_size                 nrow   [inference stops (Union{}) in u_df_size:323 at `:((%1)(_2))` = nrow(t): reached list is a lower bound]
+        dataframes.jl:323: `nrow` has no method for a trait object carrying Tables.ColumnCore.TableSource
+D19  B open      u_ncol                    index   [inference stops (Union{}) in u_ncol:326 at `:((%2)(_2))` = index(t): reached list is a lower bound]
+        dataframes.jl:326: `index` has no method for a trait object carrying Tables.ColumnCore.TableSource
+D20  B open      u_completecases           getindex, size   [inference stops (Union{}) in u_completecases:329 at `:((%13)(_2, 1))` = size(t, _): reached list is a lower bound]
+        dataframes.jl:329: `getindex` has no method for a trait object carrying Tables.ColumnCore.TableSource
+        dataframes.jl:329: `size` has no method for a trait object carrying Tables.ColumnCore.TableSource
+M01  B open      u_pointbased_xy           zip
+        makie.jl:13: a trait object carrying HasLength, Indexable, Iterable, TraitMakie.PlotCore.Sample, Main.U1Contracts.ArrayOps is passed to `zip`, an ordinary function: it can do only what its traits declare. Declare `zip` as an operation, or use the operations
+M02  B open      u_pointbased_ps           Base.IteratorSize, _array_for
+        makie.jl:16: a trait object carrying HasLength, Indexable, Iterable, TraitMakie.PlotCore.Positions, Main.U1Contracts.ArrayOps is passed to `Base.IteratorSize`, an ordinary function: it can do only what its traits declare. Declare `Base.IteratorSize` as an operation, or use the operations
+        makie.jl:16: a trait object carrying HasLength, Indexable, Iterable, TraitMakie.PlotCore.Positions, Main.U1Contracts.ArrayOps is passed to `_array_for`, an ordinary function: it can do only what its traits declare. Declare `_array_for` as an operation, or use the operations
+M03  B open      u_runs                    enumerate
+        makie.jl:19: a trait object carrying HasLength, Indexable, Iterable, TraitMakie.PlotCore.Positions, Main.U1Contracts.ArrayOps is passed to `enumerate`, an ordinary function: it can do only what its traits declare. Declare `enumerate` as an operation, or use the operations
+M04  B bounded   u_points                  
+M05  B bounded   u_matrix                  
+M06  B open      u_floats                  Vector{Float64}   [inference stops (Union{}) in u_floats:41 at `:((%3)(_2))` = Vector{Float64}(t): reached list is a lower bound]
+        makie.jl:41: `Vector{Float64}` has no method for a trait object carrying HasLength, Indexable, Iterable, TraitMakie.PlotCore.Sample, Main.U1Contracts.ArrayOps
+M07  B bounded   u_extrema_nan             
+M08  B bounded   u_one                     
+M09  B bounded   u_crange                  
+M10  B open      u_xy                      Vector{Float64}   [inference stops (Union{}) in u_xy:68 at `:((%11)(_2))` = Vector{Float64}(t): reached list is a lower bound]
+        makie.jl:68: `Vector{Float64}` has no method for a trait object carrying HasLength, Indexable, Iterable, TraitMakie.PlotCore.Sample, Main.U1Contracts.ArrayOps
+M11  B open      u_gap                     Vector{Float64}
+        makie.jl:73: `Vector{Float64}` has no method for a trait object carrying HasLength, Indexable, Iterable, TraitMakie.PlotCore.Sample, Main.U1Contracts.ArrayOps
+M12  B open      u_sample                  Vector{Float64}   [inference stops (Union{}) in u_sample:76 at `:((%3)(_2))` = Vector{Float64}(t): reached list is a lower bound]
+        makie.jl:76: `Vector{Float64}` has no method for a trait object carrying HasLength, Indexable, Iterable, TraitMakie.PlotCore.Sample, Main.U1Contracts.ArrayOps
+M13  B open      u_band_convert            float_type   [inference stops (Union{}) in u_band_convert:79 at `:((%2)(_2, _3))` = float_type(t, t): reached list is a lower bound]
+        makie.jl:79: a trait object carrying HasLength, Indexable, Iterable, TraitMakie.PlotCore.Sample, Main.U1Contracts.ArrayOps is passed to `float_type`, an ordinary function: it can do only what its traits declare. Declare `float_type` as an operation, or use the operations
+M14  B open      u_fill_view               view
+        makie.jl:84: `view` has no method for a trait object carrying HasLength, Indexable, Iterable, TraitMakie.PlotCore.Sample, Main.U1Contracts.ArrayOps
+M15  B open      u_band_coords             vcat
+        makie.jl:89: a trait object carrying HasLength, Indexable, Iterable, TraitMakie.PlotCore.Positions, Main.U1Contracts.ArrayOps is passed to `vcat`, an ordinary function: it can do only what its traits declare. Declare `vcat` as an operation, or use the operations
+M16  B open      u_band_merged             copy   [inference stops (Union{}) in u_band_merged:108 at `:(_5 = (%1)(_2))` = copy(t): reached list is a lower bound]
+        makie.jl:108: `copy` has no method for a trait object carrying HasLength, Indexable, Iterable, TraitMakie.PlotCore.Positions, Main.U1Contracts.ArrayOps
+M17  B open      u_steppoints              isempty
+        makie.jl:119: a trait object carrying HasLength, Indexable, Iterable, TraitMakie.PlotCore.Positions, Main.U1Contracts.ArrayOps is passed to `isempty`, an ordinary function: it can do only what its traits declare. Declare `isempty` as an operation, or use the operations
+N01  B open      u_ffleaves                all_neighbors
+        nd.jl:19: a trait object carrying Graphs.GraphInterface, Main.U1Contracts.GraphOps is passed to `all_neighbors`, an ordinary function: it can do only what its traits declare. Declare `all_neighbors` as an operation, or use the operations
+N02  B bounded   u_prune_blocks!           
+N03  B open      u_index_manager           typeof, Main.NDStubs.IMStub{Graphs.GraphInterface{Int64} at TraitWorld.Archetype{Graphs.GraphInterface, Tuple{Int64}}, Main.U1Contracts.GraphOps{Int64} at TraitWorld.Archetype{Main.U1Contracts.GraphOps, Tuple{Int64}}}
+        nd.jl:71: `typeof(t)`: code must not depend on the user's type
+        nd.jl:71: a trait object carrying Graphs.GraphInterface, Main.U1Contracts.GraphOps is passed to `Main.NDStubs.IMStub{Graphs.GraphInterface{Int64} at TraitWorld.Archetype{Graphs.GraphInterface, Tuple{Int64}}, Main.U1Contracts.GraphOps{Int64} at TraitWorld.Archetype{Main.U1Contracts.GraphOps, Tuple{Int64}}}`, an ordinary function: it can do only what its traits declare. Declare `Main.NDStubs.IMStub{Graphs.GraphInterface{Int64} at TraitWorld.Archetype{Graphs.GraphInterface, Tuple{Int64}}, Main.U1Contracts.GraphOps{Int64} at TraitWorld.Archetype{Main.U1Contracts.GraphOps, Tuple{Int64}}}` as an operation, or use the operations
+N04  B bounded   u_vertex!                 
+N05  B bounded   u_edge!                   
+N06  B open      u_degree                  outdegree, indegree
+        nd.jl:127: `outdegree` has no method for a trait object carrying Graphs.GraphInterface, Main.U1Contracts.GraphOps
+        nd.jl:127: `indegree` has no method for a trait object carrying Graphs.GraphInterface, Main.U1Contracts.GraphOps
+N07  B open      u_degree_histogram        unknown function
+        nd.jl:135: a trait object is passed to a function not known at compile time
+N08  B bounded   u_has_self_loops          
+N09  B bounded   u_num_self_loops          
+N10  B open      u_noallocextreme          unknown function
+        nd.jl:154: a trait object is passed to a function not known at compile time
+N11  B open      u_is_connected            connected_components!
+        nd.jl:166: `connected_components!` has no method for a trait object carrying Graphs.GraphInterface, Main.U1Contracts.GraphOps
+N12  B open      u_common_neighbors        neighbors
+        nd.jl:178: `neighbors` has no method for a trait object carrying Graphs.GraphInterface, Main.U1Contracts.GraphOps
+
+--- summary, variant B ---
+  Base abstractarray.jl     n=25  fully bounded 3  open 22  not checked 0  (open only by returning the argument: 4; with inference stopping at a Union{} call: 3)
+      reached (functions reaching it): returned (escapes) 8, zip 3, checked_length 2, copyto! 2, Base.Generator 1, BoundsError 1, LinearIndices 1, axes1 1, builtin === 1, builtin isa 1, checkbounds 1, cmp 1, collect_similar 1, copymutable 1, copyto_unaliased! 1, deleteat! 1, isempty 1, map! 1, nextind 1, reverse! 1, unalias 1
+  DataFrames (forks)        n=20  fully bounded 0  open 20  not checked 0  (open only by returning the argument: 3; with inference stopping at a Union{} call: 8)
+      reached (functions reaching it): eltype 5, returned (escapes) 3, size 3, isassigned 2, nrow 2, broadcasted 1, copyto_widen! 1, count 1, dotview 1, eachindex(t, t) (undeclared arity, unreported) 1, enumerate 1, findfirst 1, first 1, getindex 1, groupreduce 1, groupreduce!_helper 1, index 1, kwcall 1, materialize! 1, typeof 1, unknown function 1
+  MakieCompat               n=17  fully bounded 5  open 12  not checked 0  (open only by returning the argument: 0; with inference stopping at a Union{} call: 5)
+      reached (functions reaching it): Vector{Float64} 4, Base.IteratorSize 1, _array_for 1, copy 1, enumerate 1, float_type 1, isempty 1, vcat 1, view 1, zip 1
+  NetworkDynamics + Graphs  n=12  fully bounded 5  open 7  not checked 0  (open only by returning the argument: 0; with inference stopping at a Union{} call: 0)
+      reached (functions reaching it): unknown function 2, Main.NDStubs.IMStub{Graphs.GraphInterface{Int64} at TraitWorld.Archetype{Graphs.GraphInterface, Tuple{Int64}}, Main.U1Contracts.GraphOps{Int64} at TraitWorld.Archetype{Main.U1Contracts.GraphOps, Tuple{Int64}}} 1, all_neighbors 1, connected_components! 1, indegree 1, neighbors 1, outdegree 1, typeof 1
+  all samples               n=74  fully bounded 13  open 61  not checked 0  (open only by returning the argument: 7; with inference stopping at a Union{} call: 16)
+      reached (functions reaching it): returned (escapes) 11, eltype 5, Vector{Float64} 4, zip 4, size 3, unknown function 3, checked_length 2, copyto! 2, enumerate 2, isassigned 2, isempty 2, nrow 2, typeof 2, Base.Generator 1, Base.IteratorSize 1, BoundsError 1, LinearIndices 1, Main.NDStubs.IMStub{Graphs.GraphInterface{Int64} at TraitWorld.Archetype{Graphs.GraphInterface, Tuple{Int64}}, Main.U1Contracts.GraphOps{Int64} at TraitWorld.Archetype{Main.U1Contracts.GraphOps, Tuple{Int64}}} 1, _array_for 1, all_neighbors 1, axes1 1, broadcasted 1, builtin === 1, builtin isa 1, checkbounds 1, cmp 1, collect_similar 1, connected_components! 1, copy 1, copymutable 1, copyto_unaliased! 1, copyto_widen! 1, count 1, deleteat! 1, dotview 1, eachindex(t, t) (undeclared arity, unreported) 1, findfirst 1, first 1, float_type 1, getindex 1, groupreduce 1, groupreduce!_helper 1, indegree 1, index 1, kwcall 1, map! 1, materialize! 1, neighbors 1, nextind 1, outdegree 1, reverse! 1, unalias 1, vcat 1, view 1
+
+total 29.6 s
