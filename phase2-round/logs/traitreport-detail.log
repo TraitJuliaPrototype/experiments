@@ -1,0 +1,56 @@
+B imports    wall 0.422 compile 0.091 gc 0.0
+B probe      wall 0.193 compile 0.087 gc 0.035
+B read       wall 0.009 compile 0.007 gc 0.0
+B summarize  wall 0.02 compile 0.018 gc 0.0
+B plot+PNG   wall 0.064 compile 0.026 gc 0.0
+B after the load: wall 0.093 compile 0.052
+C new CodeInstances 591 by owner Dict{Any, Int64}(nothing => 585, :facts => 6); naming Main 47
+C   nothing                   Base                        545
+C   nothing                   Core                        28
+C   nothing                   Main                        10
+C   facts                     Base                        6
+C   nothing                   Compiler                    2
+TraitWorld load report: 3.009 s since the recording started, of it 2.631 s compiling (Julia's counter)
+  step                       count        ms  compiling
+  family members fixed at a package's load (a fold kept in its image: from the image's record, or checked again)
+    already fixed                4                     
+  family members fixed or checked at first use (the run-time path, the table)
+    check                        2      13.2       11.9
+    slowest (ms, of it compiling):
+          12.9    11.9  Column for Vector{Float64}
+           0.4     0.0  Sample for Vector{Float64}
+  the image hook (each package image's methods: overrides, strict mode)
+    total                       41      35.7       27.5
+    override index              41      20.4       18.4
+    override check              41      14.2        9.1
+    strict                      41       0.0        0.0
+    slowest (ms, of it compiling):
+          28.8    27.5  TraitTables
+           1.7     0.0  TraitMakie
+           0.9     0.0  ColorTypes
+           0.8     0.0  TraitCSV
+           0.8     0.0  Colors
+           0.4     0.0  FixedPointNumbers
+  after each package load (the generation and dynamic candidates, strict mode's validation log)
+    total                       48      14.6        8.9
+    generation                  48      14.3        8.9
+    strict at load              48       0.0        0.0
+    slowest (ms, of it compiling):
+           9.3     8.9  JLLWrappers
+           0.3     0.0  Printf
+           0.2     0.0  StyledStringsExt
+           0.2     0.0  CompilerSupportLibraries_jll
+           0.1     0.0  Zlib_jll
+           0.1     0.0  Graphics
+  the definition hook (each method defined)
+    total                       40       0.3        0.0
+  the table of declared implementations (untyped calls): first sight of a type
+    pointer made                 8      28.6       25.4
+    miss                        15      21.6       18.4
+    slowest (ms, of it compiling):
+          19.9    18.4  EntryPos{typeof(summarize), 1, 2} for Vector{Float64}
+          19.8    18.4  EntryPos{typeof(summarize), 1, 2} for Vector{Float64}
+           7.4     7.0  EntryPos{typeof(fillcolumn), 1, 3} for CSVColumn{Int64} & Column{Int64} at Vector{Int64}
+           0.7     0.0  EntryPos{typeof(binned), 1, 2} for Vector{Float64}
+           0.7     0.0  EntryPos{typeof(binned), 1, 2} for Vector{Float64}
+           0.3     0.0  EntryPos{typeof(fillcolumn), 1, 3} for CSVColumn{Int64} & Column{Int64} at Vector{Int64}

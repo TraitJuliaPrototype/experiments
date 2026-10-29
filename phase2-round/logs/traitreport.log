@@ -1,0 +1,15 @@
+/home/hellmann/.config/matplotlib is not a writable directory
+Matplotlib created a temporary cache directory at /tmp/claude-1000/matplotlib-afeyumre because there was an issue with the default path (/home/hellmann/.config/matplotlib); it is highly recommended to set the MPLCONFIGDIR environment variable to a writable directory, in particular to speed up the import of Matplotlib and to better support multiprocessing.
+# E-233 TraitReport 2026-10-29T11:22:13+01:00 julia-1.13=bfca89decc TraitWorld=ca92f22 TraitReport=09d7f9b TraitCSV=9c6477b TraitTables=438ac2b TraitMakie=2c70583 python=3.12.14 pandas 3.0.6 matplotlib 3.11.2 loadavg=1.21 0.75 0.88 1/878 28
+-- python (pandas + matplotlib)
+imports 0.423 s; read 0.001 s; summarize+print 0.001 s; plot+PNG 0.099 s | wall .612603920
+imports 0.424 s; read 0.001 s; summarize+print 0.001 s; plot+PNG 0.103 s | wall .609014602
+imports 0.439 s; read 0.001 s; summarize+print 0.001 s; plot+PNG 0.102 s | wall .624230478
+-- julia /home/hellmann/Repos/julia-trait-bound/TraitReport/../julia-1.13/julia, form (t)
+startup 0.100 | imports 8.553 | read 0.006 | summarize 0.013 | plot+PNG 0.063 | exit 0.087 | wall 8.821
+startup 0.099 | imports 0.358 | read 0.006 | summarize 0.013 | plot+PNG 0.063 | exit 0.090 | wall 0.629
+startup 0.098 | imports 0.359 | read 0.006 | summarize 0.012 | plot+PNG 0.063 | exit 0.092 | wall 0.630
+-- julia /home/hellmann/Repos/julia-trait-bound/TraitReport/../julia-1.13/julia, form (pt)
+startup 0.100 | imports 1.790 | read 0.004 | summarize 0.000 | plot+PNG 0.072 | exit 0.085 | wall 2.051
+startup 0.097 | imports 0.333 | read 0.004 | summarize 0.000 | plot+PNG 0.073 | exit 0.088 | wall 0.596
+startup 0.099 | imports 0.328 | read 0.005 | summarize 0.000 | plot+PNG 0.073 | exit 0.084 | wall 0.589
