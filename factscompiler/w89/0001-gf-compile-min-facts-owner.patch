@@ -1,0 +1,94 @@
+From 3cf728a7188c33d32dc0ac14b33b6dc280024173 Mon Sep 17 00:00:00 2001
+From: Frank Hellmann <hellmann@pik-potsdam.com>
+Date: Thu, 29 Oct 2026 08:07:28 +0100
+Subject: [PATCH] gf: under --compile=min the facts owner runs what the plain
+ owner runs (W-89, facts F-23, compiler C-5)
+
+- A builtin's code is the runtime's one CodeInstance, of the plain owner, whoever calls it
+  (jl_code_owner). Under the test bed the facts owner found no CodeInstance of its own for a builtin;
+  with compilation off it copied the builtin's, whose flags never say that invoke matches specptr,
+  and jl_read_codeinst_invoke spun on it forever: the facts image hung at startup.
+- With compilation off or no source, the copy of the unspecialized code and the interpreted
+  CodeInstance are the asking owner's, so its next call finds them (one per call before). The
+  unspecialized code read is the asking owner's, else the plain owner's.
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_0174bvyJoKvUcTpMnhCzYaa7
+---
+ src/gf.c | 33 +++++++++++++++++++++++++++++----
+ 1 file changed, 29 insertions(+), 4 deletions(-)
+
+diff --git a/src/gf.c b/src/gf.c
+index be16d18ff7..9d929cf717 100644
+--- a/src/gf.c
++++ b/src/gf.c
+@@ -455,6 +455,11 @@ JL_DLLEXPORT jl_value_t *jl_code_owner(jl_value_t *def, int reach) JL_NOTSAFEPOI
+ {
+     if (jl_is_method(def)) {
+         jl_method_t *m = (jl_method_t*)def;
++        // a builtin (or intrinsic) has no code to compile: its one CodeInstance is the runtime's,
++        // of the plain owner (jl_mk_builtin_func), and every caller runs it
++        if (m->source == NULL && m->generator == NULL && !m->is_for_opaque_closure &&
++            jl_atomic_load_relaxed(&m->unspecialized) != NULL)
++            return jl_nothing;
+         if (jl_method_is_facts(m))
+             return (jl_value_t*)jl_facts_sym;
+         if (jl_method_is_plain(m))
+@@ -3825,6 +3830,24 @@ JL_DLLEXPORT int jl_method_is_macro(jl_method_t *m)
+ 
+ static jl_code_instance_t *jl_compile_method_internal_owner(jl_method_instance_t *mi, size_t world, jl_value_t *owner);
+ 
++// The unspecialized code `owner` runs where it compiles nothing (--compile=min, or no source): its
++// own owner's, else the plain owner's (as the fallback of jl_compile_method_internal_owner); the
++// plain owner never runs code compiled by facts.
++static jl_code_instance_t *unspec_compiled_for_owner(jl_method_instance_t *unspecmi, jl_value_t *owner)
++{
++    jl_code_instance_t *plain = NULL;
++    jl_code_instance_t *ci = jl_atomic_load_relaxed(&unspecmi->cache);
++    for (; ci; ci = jl_atomic_load_relaxed(&ci->next)) {
++        if (jl_atomic_load_acquire(&ci->invoke) == NULL)
++            continue;
++        if (ci->owner == owner)
++            return ci;
++        if (ci->owner == jl_nothing && plain == NULL)
++            plain = ci;
++    }
++    return plain;
++}
++
+ jl_code_instance_t *jl_compile_method_internal(jl_method_instance_t *mi, size_t world)
+ {
+     return jl_compile_method_internal_owner(mi, world, jl_default_owner(mi));
+@@ -3901,15 +3924,16 @@ static jl_code_instance_t *jl_compile_method_internal_owner(jl_method_instance_t
+         if (jl_is_method(def)) {
+             jl_method_instance_t *unspecmi = jl_atomic_load_relaxed(&def->unspecialized);
+             if (unspecmi) {
+-                jl_code_instance_t *unspec = jl_atomic_load_relaxed(&unspecmi->cache);
+-                if (unspec && jl_atomic_load_acquire(&unspec->invoke) != NULL) {
++                jl_code_instance_t *unspec = unspec_compiled_for_owner(unspecmi, owner);
++                if (unspec) {
+                     uint8_t specsigflags;
+                     jl_callptr_t invoke;
+                     void *fptr;
+                     jl_read_codeinst_invoke(unspec, &specsigflags, &invoke, &fptr, 1);
+                     jl_debuginfo_t *di = NULL;
+                     jl_svec_t *edges = jl_emptysvec;
+-                    jl_code_instance_t *codeinst = jl_new_codeinst(mi, jl_nothing,
++                    // the copy is the asking owner's, so its next call finds it (compiler C-5)
++                    jl_code_instance_t *codeinst = jl_new_codeinst(mi, owner,
+                         (jl_value_t*)jl_any_type, (jl_value_t*)jl_any_type, NULL, NULL,
+                         0, 1, ~(size_t)0, 0, jl_nothing, di, edges);
+                     codeinst->rettype_const = unspec->rettype_const;
+@@ -3932,7 +3956,8 @@ static jl_code_instance_t *jl_compile_method_internal_owner(jl_method_instance_t
+         if (!jl_code_requires_compiler(src, 0)) {
+             jl_debuginfo_t *di = NULL;
+             jl_svec_t *edges = jl_emptysvec;
+-            jl_code_instance_t *codeinst = jl_new_codeinst(mi, jl_nothing,
++            // the asking owner's, as above: interpreted code serves either owner
++            jl_code_instance_t *codeinst = jl_new_codeinst(mi, owner,
+                 (jl_value_t*)jl_any_type, (jl_value_t*)jl_any_type, NULL, NULL,
+                 0, 1, ~(size_t)0, 0, jl_nothing, di, edges);
+             jl_atomic_store_release(&codeinst->invoke, jl_fptr_interpret_call);
+-- 
+2.48.1
+

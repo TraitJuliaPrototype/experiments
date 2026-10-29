@@ -1,0 +1,62 @@
+No source file named gf.c.
+Breakpoint 1 (gf.c:3800) pending.
+
+This GDB supports auto-downloading debuginfo from the following URLs:
+  <https://debuginfod.ubuntu.com>
+Debuginfod has been disabled.
+To make this setting permanent, add 'set debuginfod enabled off' to .gdbinit.
+[Thread debugging using libthread_db enabled]
+Using host libthread_db library "/lib/x86_64-linux-gnu/libthread_db.so.1".
+[New Thread 0x7fffe2fff6c0 (LWP 18)]
+
+Thread 1 "julia" hit Breakpoint 1, jl_read_codeinst_invoke (ci=ci@entry=0x7fffeab96fd0 <jl_system_image_data+83087312>, specsigflags=specsigflags@entry=0x7fffffffbf07 "", invoke=invoke@entry=0x7fffffffbf10, specptr=specptr@entry=0x7fffffffbf18, waitcompile=waitcompile@entry=1) at /home/hellmann/Repos/julia-trait-bound/julia-1.13/src/gf.c:3801
+3801	            flags = jl_atomic_load_acquire(&ci->flags);
+#0  jl_read_codeinst_invoke (ci=ci@entry=0x7fffeab96fd0 <jl_system_image_data+83087312>, specsigflags=specsigflags@entry=0x7fffffffbf07 "", invoke=invoke@entry=0x7fffffffbf10, specptr=specptr@entry=0x7fffffffbf18, waitcompile=waitcompile@entry=1) at /home/hellmann/Repos/julia-trait-bound/julia-1.13/src/gf.c:3801
+#1  0x00007ffff704d6ac in jl_compile_method_internal_owner (mi=mi@entry=0x7fffeab96f90 <jl_system_image_data+83087248>, world=world@entry=39470, owner=owner@entry=0x7fffe227c348) at /home/hellmann/Repos/julia-trait-bound/julia-1.13/src/gf.c:3909
+#2  0x00007ffff704e0f6 in _jl_invoke_owner (F=0x7fffeab030b0 <jl_system_image_data+82481328>, args=0x7fffffffc018, nargs=2, mfunc=0x7fffeab96f90 <jl_system_image_data+83087248>, world=39470, owner=<optimized out>) at /home/hellmann/Repos/julia-trait-bound/julia-1.13/src/gf.c:4468
+#3  _jl_invoke (F=0x7fffeab030b0 <jl_system_image_data+82481328>, args=0x7fffffffc018, nargs=2, mfunc=0x7fffeab96f90 <jl_system_image_data+83087248>, world=39470) at /home/hellmann/Repos/julia-trait-bound/julia-1.13/src/gf.c:4482
+#4  ijl_apply_generic (F=0x7fffeab030b0 <jl_system_image_data+82481328>, args=0x7fffffffc018, nargs=2) at /home/hellmann/Repos/julia-trait-bound/julia-1.13/src/gf.c:4911
+#5  0x00007ffff706fa3c in jl_apply (args=0x7fffffffc010, nargs=3) at /home/hellmann/Repos/julia-trait-bound/julia-1.13/src/julia.h:2332
+#6  do_call (args=args@entry=0x7fffe21dc320, nargs=nargs@entry=3, s=s@entry=0x7fffffffc300) at /home/hellmann/Repos/julia-trait-bound/julia-1.13/src/interpreter.c:123
+#7  0x00007ffff706f290 in eval_value (e=e@entry=0x7fffe21f8bb0, s=s@entry=0x7fffffffc300) at /home/hellmann/Repos/julia-trait-bound/julia-1.13/src/interpreter.c:243
+#8  0x00007ffff7070310 in eval_stmt_value (stmt=0x7fffe21f8bb0, s=0x7fffffffc300) at /home/hellmann/Repos/julia-trait-bound/julia-1.13/src/interpreter.c:194
+#9  eval_body (stmts=<optimized out>, s=s@entry=0x7fffffffc300, ip=5, ip@entry=0, toplevel=toplevel@entry=0) at /home/hellmann/Repos/julia-trait-bound/julia-1.13/src/interpreter.c:698
+#10 0x00007ffff7070f83 in jl_fptr_interpret_call (f=<optimized out>, args=0x7fffffffc518, nargs=<optimized out>, codeinst=<optimized out>) at /home/hellmann/Repos/julia-trait-bound/julia-1.13/src/interpreter.c:807
+#11 0x00007ffff706fa3c in jl_apply (args=0x7fffffffc510, nargs=3) at /home/hellmann/Repos/julia-trait-bound/julia-1.13/src/julia.h:2332
+#0  jl_read_codeinst_invoke (ci=ci@entry=0x7fffeab96fd0 <jl_system_image_data+83087312>, specsigflags=specsigflags@entry=0x7fffffffbf07 "", invoke=invoke@entry=0x7fffffffbf10, specptr=specptr@entry=0x7fffffffbf18, waitcompile=waitcompile@entry=1) at /home/hellmann/Repos/julia-trait-bound/julia-1.13/src/gf.c:3801
+3801	            flags = jl_atomic_load_acquire(&ci->flags);
+$1 = {def = 0x7fffeab96f90 <jl_system_image_data+83087248>, owner = 0x7fffe2200008, next = 0x0, min_world = 1, max_world = 18446744073709551615, rettype = 0x7fffeab028c0 <jl_system_image_data+82479296>, exctype = 0x7fffeab028c0 <jl_system_image_data+82479296>, rettype_const = 0x0, inferred = 0x7fffe2200008, debuginfo = 0x0, edges = 0x7fffea5a15f0 <jl_system_image_data+76838384>, analysis_results = 0x7fffe2200008, ipo_purity_bits = 0, time_infer_total = 0, time_infer_cache_saved = 0, time_infer_self = 0, time_compile = 0, flags = 8 '\b', precompile = 0 '\000', invoke = 0x7ffff703dca0 <jl_fptr_args>, specptr = {fptr = 0x7ffff705c670 <jl_f_isa>, fptr1 = 0x7ffff705c670 <jl_f_isa>, fptr3 = 0x7ffff705c670 <jl_f_isa>}}
+$2 = (jl_value_t *) 0x7fffeab96f90 <jl_system_image_data+83087248>
+isa(Any...) from isa(Any...)
+$3 = void
+nothing
+$4 = void
+$5 = 8 '\b'
+$6 = (_Atomic jl_callptr_t) 0x7ffff703dca0 <jl_fptr_args>
+$7 = {fptr = 0x7ffff705c670 <jl_f_isa>, fptr1 = 0x7ffff705c670 <jl_f_isa>, fptr3 = 0x7ffff705c670 <jl_f_isa>}
+Any
+$8 = void
+#1  0x00007ffff704d6ac in jl_compile_method_internal_owner (mi=mi@entry=0x7fffeab96f90 <jl_system_image_data+83087248>, world=world@entry=39470, owner=owner@entry=0x7fffe227c348) at /home/hellmann/Repos/julia-trait-bound/julia-1.13/src/gf.c:3909
+3909	                    jl_read_codeinst_invoke(unspec, &specsigflags, &invoke, &fptr, 1);
+invoke = 0x6fa00000a3c
+fptr = 0xcf700000706
+specsigflags = 0 '\000'
+di = <optimized out>
+edges = <optimized out>
+codeinst = <optimized out>
+unspec = 0x7fffeab96fd0 <jl_system_image_data+83087312>
+unspecmi = <optimized out>
+codeinst = 0x0
+mi2 = 0x7fffeab96f90 <jl_system_image_data+83087248>
+compile_option = <optimized out>
+def = 0x7fffeab97060 <jl_system_image_data+83087456>
+compilation_start = <optimized out>
+inference_start = <optimized out>
+is_recompile = <optimized out>
+codeinst_old = <optimized out>
+isa(Any...) from isa(Any...)
+$9 = void
+:facts
+$10 = void
+$11 = <optimized out>
+[Inferior 1 (process 15) killed]

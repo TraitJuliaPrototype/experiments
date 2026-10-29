@@ -1,0 +1,46 @@
+No source file named gf.c.
+Breakpoint 1 (gf.c:3800) pending.
+Function "jl_code_for_interpreter" not defined.
+Breakpoint 2 (jl_code_for_interpreter) pending.
+
+This GDB supports auto-downloading debuginfo from the following URLs:
+  <https://debuginfod.ubuntu.com>
+Debuginfod has been disabled.
+To make this setting permanent, add 'set debuginfod enabled off' to .gdbinit.
+Using host libthread_db library "/lib/x86_64-linux-gnu/libthread_db.so.1".
+spin on: isa(Any...) from isa(Any...)
+spin on: getfield(Any...) from getfield(Any...)
+spin on: tuple(Any...) from tuple(Any...)
+spin on: memoryrefoffset(Any...) from memoryrefoffset(Any...)
+spin on: typeof(Any...) from typeof(Any...)
+spin on: memoryrefnew(Any...) from memoryrefnew(Any...)
+spin on: apply_type(Any...) from apply_type(Any...)
+spin on: _call_in_world_total(Any...) from _call_in_world_total(Any...)
+spin on: setfield!(Any...) from setfield!(Any...)
+spin on: memoryrefset!(Any...) from memoryrefset!(Any...)
+spin on: invoke_in_world(Any...) from invoke_in_world(Any...)
+spin on: _expr(Any...) from _expr(Any...)
+spin on: svec(Any...) from svec(Any...)
+spin on: declare_global(Any...) from declare_global(Any...)
+spin on: get_binding_type(Any...) from get_binding_type(Any...)
+spin on: setglobal!(Any...) from setglobal!(Any...)
+spin on: var"==="(Any...) from var"==="(Any...)
+spin on: IntrinsicFunction(Any...) from IntrinsicFunction(Any...)
+spin on: isdefined(Any...) from isdefined(Any...)
+spin on: _apply_iterate(Any...) from _apply_iterate(Any...)
+spin on: nfields(Any...) from nfields(Any...)
+1000 1000 nothing
+[New process 33]
+[Inferior 1 (process 33) exited normally]
+Num     Type           Disp Enb Address            What
+1       breakpoint     keep y   0x00007ffff704ba12 in jl_read_codeinst_invoke at /home/hellmann/Repos/julia-trait-bound/julia-1.13/src/gf.c:3801
+	breakpoint already hit 21 times
+        silent
+        printf "spin on: "
+        call (void)jl_(ci->def)
+        set var ci->flags = ci->flags | 2
+        continue
+2       breakpoint     keep y   0x00007ffff7071060 in jl_code_for_interpreter at /home/hellmann/Repos/julia-trait-bound/julia-1.13/src/interpreter.c:751
+	breakpoint already hit 1030 times
+        silent
+        continue
