@@ -1,0 +1,146 @@
+
+[244] signal 15: Terminated
+in expression starting at none:0
+
+[233] signal 15: Terminated
+in expression starting at none:1
+unknown function (ip: 0x7be0204aafe0) at /lib/x86_64-linux-gnu/libc.so.6
+unknown function (ip: 0x7be02049eae2) at /lib/x86_64-linux-gnu/libc.so.6
+unknown function (ip: 0x7be02049f236) at /lib/x86_64-linux-gnu/libc.so.6
+pthread_cond_wait at /lib/x86_64-linux-gnu/libc.so.6 (unknown line)
+uv_cond_wait at /workspace/srcdir/libuv/src/unix/thread.c:822
+ijl_task_get_next at /home/hellmann/Repos/julia-trait-bound/julia-1.13/src/scheduler.c:614
+jl_read_codeinst_invoke at /home/hellmann/Repos/julia-trait-bound/julia-1.13/src/gf.c:3801
+jl_compile_method_internal_owner at /home/hellmann/Repos/julia-trait-bound/julia-1.13/src/gf.c:3909
+_jl_invoke_owner at /home/hellmann/Repos/julia-trait-bound/julia-1.13/src/gf.c:4468 [inlined]
+_jl_invoke at /home/hellmann/Repos/julia-trait-bound/julia-1.13/src/gf.c:4482 [inlined]
+ijl_apply_generic at /home/hellmann/Repos/julia-trait-bound/julia-1.13/src/gf.c:4911
+jl_apply at /home/hellmann/Repos/julia-trait-bound/julia-1.13/src/julia.h:2332 [inlined]
+do_call at /home/hellmann/Repos/julia-trait-bound/julia-1.13/src/interpreter.c:123
+eval_value at /home/hellmann/Repos/julia-trait-bound/julia-1.13/src/interpreter.c:243
+eval_stmt_value at /home/hellmann/Repos/julia-trait-bound/julia-1.13/src/interpreter.c:194 [inlined]
+eval_body at /home/hellmann/Repos/julia-trait-bound/julia-1.13/src/interpreter.c:698
+jl_fptr_interpret_call at /home/hellmann/Repos/julia-trait-bound/julia-1.13/src/interpreter.c:807
+jl_apply at /home/hellmann/Repos/julia-trait-bound/julia-1.13/src/julia.h:2332 [inlined]
+do_call at /home/hellmann/Repos/julia-trait-bound/julia-1.13/src/interpreter.c:123
+eval_value at /home/hellmann/Repos/julia-trait-bound/julia-1.13/src/interpreter.c:243
+eval_body at /home/hellmann/Repos/julia-trait-bound/julia-1.13/src/interpreter.c:581
+jl_fptr_interpret_call at /home/hellmann/Repos/julia-trait-bound/julia-1.13/src/interpreter.c:807
+wait at ./task.jl:1297
+_reinit_stdio at ./libuv.jl:158
+reinit_stdio at ./libuv.jl:144 [inlined]
+__init__ at ./Base.jl:376
+jfptr___init___65475 at /home/hellmann/Repos/julia-trait-bound/julia-1.13/usr/lib/julia/facts/sys.so (unknown line)
+jl_apply at /home/hellmann/Repos/julia-trait-bound/julia-1.13/src/julia.h:2332 [inlined]
+jl_module_run_initializer at /home/hellmann/Repos/julia-trait-bound/julia-1.13/src/toplevel.c:70
+_finish_jl_init_ at /home/hellmann/Repos/julia-trait-bound/julia-1.13/src/init.c:640
+jl_repl_entrypoint at /home/hellmann/Repos/julia-trait-bound/julia-1.13/src/jlapi.c:1145
+main at /home/hellmann/Repos/julia-trait-bound/julia-1.13/cli/loader_exe.c:58
+unknown function (ip: 0x75826c62a577) at /lib/x86_64-linux-gnu/libc.so.6
+__libc_start_main at /lib/x86_64-linux-gnu/libc.so.6 (unknown line)
+_start at /home/hellmann/Repos/julia-trait-bound/julia-1.13/usr/bin/julia (unknown line)
+unknown function (ip: (nil)) at (unknown file)
+Allocations: 1 (Pool: 1; Big: 0); GC: 0
+#wait#391 at ./condition.jl:141
+wait at ./condition.jl:136 [inlined]
+_trywait at ./asyncevent.jl:186
+profile_printing_listener at ./Base.jl:336
+#start_profile_listener##0 at ./Base.jl:356
+jfptr_YY.start_profile_listenerYY.YY.0_13287 at /home/hellmann/Repos/julia-trait-bound/julia-1.13/usr/lib/julia/facts/sys.so (unknown line)
+jl_apply at /home/hellmann/Repos/julia-trait-bound/julia-1.13/src/julia.h:2332 [inlined]
+start_task at /home/hellmann/Repos/julia-trait-bound/julia-1.13/src/task.c:1287
+unknown function (ip: (nil)) at (unknown file)
+unknown function (ip: 0x7be0204aafe2) at /lib/x86_64-linux-gnu/libc.so.6
+unknown function (ip: 0x7be02049eb62) at /lib/x86_64-linux-gnu/libc.so.6
+epoll_pwait at /lib/x86_64-linux-gnu/libc.so.6 (unknown line)
+uv__io_poll at /workspace/srcdir/libuv/src/unix/linux.c:1404
+uv_run at /workspace/srcdir/libuv/src/unix/core.c:430
+ijl_task_get_next at /home/hellmann/Repos/julia-trait-bound/julia-1.13/src/scheduler.c:533
+wait at ./task.jl:1297
+#wait#391 at ./condition.jl:141
+wait at ./condition.jl:136 [inlined]
+wait_readnb at ./stream.jl:411
+read at ./stream.jl:959
+unknown function (ip: 0x7be006919622) at (unknown file)
+read at ./process.jl:489
+unknown function (ip: 0x7be00691954f) at (unknown file)
+#collect_artifacts#54 at /home/hellmann/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Pkg/src/Operations.jl:1341
+collect_artifacts at /home/hellmann/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Pkg/src/Operations.jl:1327 [inlined]
+#check_artifacts_downloaded#109 at /home/hellmann/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Pkg/src/Operations.jl:1581
+check_artifacts_downloaded at /home/hellmann/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Pkg/src/Operations.jl:1580
+jfptr_check_artifacts_downloaded_43537 at /tmp/claude-1000/depot-facts/compiled/v1.13/Pkg/tUTdb_BMyvF.so (unknown line)
+#is_package_downloaded#286 at /home/hellmann/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Pkg/src/Operations.jl:3505
+is_package_downloaded at /home/hellmann/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Pkg/src/Operations.jl:3501 [inlined]
+deps_graph at /home/hellmann/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Pkg/src/Operations.jl:1091
+resolve_versions! at /home/hellmann/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Pkg/src/Operations.jl:825
+resolve_versions! at /home/hellmann/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Pkg/src/Operations.jl:754 [inlined]
+#up#232 at /home/hellmann/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Pkg/src/Operations.jl:2686
+up at /home/hellmann/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Pkg/src/Operations.jl:2660 [inlined]
+#up#172 at /home/hellmann/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Pkg/src/API.jl:480
+up at /home/hellmann/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Pkg/src/API.jl:447 [inlined]
+#up#52 at /home/hellmann/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Pkg/src/API.jl:177
+unknown function (ip: 0x7be006915c56) at (unknown file)
+up at /home/hellmann/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Pkg/src/API.jl:177
+#resolve#174 at /home/hellmann/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Pkg/src/API.jl:486 [inlined]
+resolve at /home/hellmann/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Pkg/src/API.jl:485
+unknown function (ip: 0x7be006915686) at (unknown file)
+#246 at /home/hellmann/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Pkg/src/Operations.jl:2953
+with_temp_env at /home/hellmann/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Pkg/src/Operations.jl:2880
+unknown function (ip: 0x7be006913511) at (unknown file)
+#sandbox_with_temp_env#244 at /home/hellmann/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Pkg/src/Operations.jl:2937
+unknown function (ip: 0x7be006911a99) at (unknown file)
+sandbox_with_temp_env at /home/hellmann/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Pkg/src/Operations.jl:2930
+unknown function (ip: 0x7be0069117d9) at (unknown file)
+#251 at /home/hellmann/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Pkg/src/Operations.jl:3047
+#mktempdir#21 at ./file.jl:975
+unknown function (ip: 0x7be00690d333) at (unknown file)
+mktempdir at ./file.jl:971
+jfptr_mktempdir_56306 at /tmp/claude-1000/depot-facts/compiled/v1.13/Pkg/tUTdb_BMyvF.so (unknown line)
+mktempdir at ./file.jl:971
+jfptr_mktempdir_57474 at /home/hellmann/Repos/julia-trait-bound/julia-1.13/usr/lib/julia/facts/sys.so (unknown line)
+#sandbox#248 at /home/hellmann/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Pkg/src/Operations.jl:2993
+unknown function (ip: 0x7be00690b9e3) at (unknown file)
+sandbox at /home/hellmann/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Pkg/src/Operations.jl:2983
+#test#260 at /home/hellmann/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Pkg/src/Operations.jl:3272
+test at /home/hellmann/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Pkg/src/Operations.jl:3197
+unknown function (ip: 0x7be0069087f2) at (unknown file)
+#test#177 at /home/hellmann/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Pkg/src/API.jl:587
+test at /home/hellmann/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Pkg/src/API.jl:563
+unknown function (ip: 0x7be0068fddcd) at (unknown file)
+#test#87 at /home/hellmann/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Pkg/src/API.jl:172
+unknown function (ip: 0x7be0068fdca6) at (unknown file)
+test at /home/hellmann/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Pkg/src/API.jl:161
+#test#89 at /home/hellmann/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Pkg/src/API.jl:189
+test at /home/hellmann/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Pkg/src/API.jl:178
+unknown function (ip: 0x7be0068fd43f) at (unknown file)
+jl_apply at /home/hellmann/Repos/julia-trait-bound/julia-1.13/src/julia.h:2332 [inlined]
+do_call at /home/hellmann/Repos/julia-trait-bound/julia-1.13/src/interpreter.c:123
+eval_value at /home/hellmann/Repos/julia-trait-bound/julia-1.13/src/interpreter.c:243
+eval_stmt_value at /home/hellmann/Repos/julia-trait-bound/julia-1.13/src/interpreter.c:194 [inlined]
+eval_body at /home/hellmann/Repos/julia-trait-bound/julia-1.13/src/interpreter.c:698
+jl_interpret_toplevel_thunk at /home/hellmann/Repos/julia-trait-bound/julia-1.13/src/interpreter.c:889
+jl_toplevel_eval_flex at /home/hellmann/Repos/julia-trait-bound/julia-1.13/src/toplevel.c:742
+jl_eval_toplevel_stmts at /home/hellmann/Repos/julia-trait-bound/julia-1.13/src/toplevel.c:585
+jl_toplevel_eval_flex at /home/hellmann/Repos/julia-trait-bound/julia-1.13/src/toplevel.c:683
+jl_eval_toplevel_stmts at /home/hellmann/Repos/julia-trait-bound/julia-1.13/src/toplevel.c:585
+jl_toplevel_eval_flex at /home/hellmann/Repos/julia-trait-bound/julia-1.13/src/toplevel.c:683
+ijl_toplevel_eval at /home/hellmann/Repos/julia-trait-bound/julia-1.13/src/toplevel.c:754
+ijl_toplevel_eval_in at /home/hellmann/Repos/julia-trait-bound/julia-1.13/src/toplevel.c:799
+eval at ./boot.jl:489
+jfptr_eval_14293 at /home/hellmann/Repos/julia-trait-bound/julia-1.13/usr/lib/julia/facts/sys.so (unknown line)
+exec_options at ./client.jl:310
+_start at ./client.jl:577
+jfptr__start_44287 at /home/hellmann/Repos/julia-trait-bound/julia-1.13/usr/lib/julia/facts/sys.so (unknown line)
+jl_apply at /home/hellmann/Repos/julia-trait-bound/julia-1.13/src/julia.h:2332 [inlined]
+true_main at /home/hellmann/Repos/julia-trait-bound/julia-1.13/src/jlapi.c:985
+jl_repl_entrypoint at /home/hellmann/Repos/julia-trait-bound/julia-1.13/src/jlapi.c:1152
+main at /home/hellmann/Repos/julia-trait-bound/julia-1.13/cli/loader_exe.c:58
+unknown function (ip: 0x7be02042a577) at /lib/x86_64-linux-gnu/libc.so.6
+__libc_start_main at /lib/x86_64-linux-gnu/libc.so.6 (unknown line)
+_start at /home/hellmann/Repos/julia-trait-bound/julia-1.13/julia (unknown line)
+unknown function (ip: (nil)) at (unknown file)
+Allocations: 7643586 (Pool: 7641322; Big: 2264); GC: 9
+┌ Warning: The project dependencies or compat requirements have changed since the manifest was last resolved.
+│ It is recommended to `Pkg.resolve()` or consider `Pkg.update()` if necessary.
+└ @ Pkg.API ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Pkg/src/API.jl:1312
+     Testing TraitWorld
