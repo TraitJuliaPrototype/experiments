@@ -1,0 +1,45 @@
+jl: slot 3 (cores 8-11), depot /tmp/claude-1000/depots/w131-plain
+┌ Warning: The project dependencies or compat requirements have changed since the manifest was last resolved.
+│ It is recommended to `Pkg.resolve()` or consider `Pkg.update()` if necessary.
+└ @ Pkg.API ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Pkg/src/API.jl:1312
+     Testing TraitTables
+ERROR: AssertionError: normpath(entry.path) == normpath(path)
+Stacktrace:
+  [1] update_project_sources!(env::Pkg.Types.EnvCache)
+    @ Pkg.Types ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Pkg/src/Types.jl:1468
+  [2] record_project_hash
+    @ ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Pkg/src/Operations.jl:1815 [inlined]
+  [3] sandbox_preserve(env::Pkg.Types.EnvCache, target::PackageSpec, test_project::String)
+    @ Pkg.Operations ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Pkg/src/Operations.jl:2906
+  [4] (::Pkg.Operations.var"#251#252"{Dict{String, Any}, Bool, Bool, Bool, Pkg.Operations.var"#272#273"{Bool, Cmd, Cmd, Nothing, Pkg.Types.Context, Vector{Tuple{String, Base.Process}}, String, PackageSpec}, Pkg.Types.Context, PackageSpec, String, Pkg.Types.Project, String})(tmp::String)
+    @ Pkg.Operations ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Pkg/src/Operations.jl:3017
+  [5] mktempdir(fn::Pkg.Operations.var"#251#252"{Dict{String, Any}, Bool, Bool, Bool, Pkg.Operations.var"#272#273"{Bool, Cmd, Cmd, Nothing, Pkg.Types.Context, Vector{Tuple{String, Base.Process}}, String, PackageSpec}, Pkg.Types.Context, PackageSpec, String, Pkg.Types.Project, String}, parent::String; prefix::String)
+    @ Base.Filesystem ./file.jl:975
+  [6] mktempdir(fn::Function, parent::String)
+    @ Base.Filesystem ./file.jl:971
+  [7] sandbox(fn::Function, ctx::Pkg.Types.Context, target::PackageSpec, sandbox_path::String, sandbox_project_override_in::Pkg.Types.Project; preferences::Dict{String, Any}, force_latest_compatible_version::Bool, allow_earlier_backwards_compatible_versions::Bool, allow_reresolve::Bool)
+    @ Pkg.Operations ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Pkg/src/Operations.jl:2993
+  [8] sandbox
+    @ ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Pkg/src/Operations.jl:2983 [inlined]
+  [9] test(ctx::Pkg.Types.Context, pkgs::Vector{PackageSpec}; coverage::Bool, julia_args::Cmd, test_args::Cmd, test_fn::Nothing, force_latest_compatible_version::Bool, allow_earlier_backwards_compatible_versions::Bool, allow_reresolve::Bool)
+    @ Pkg.Operations ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Pkg/src/Operations.jl:3272
+ [10] test
+    @ ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Pkg/src/Operations.jl:3197 [inlined]
+ [11] test(ctx::Pkg.Types.Context, pkgs::Vector{PackageSpec}; coverage::Bool, test_fn::Nothing, julia_args::Cmd, test_args::Cmd, force_latest_compatible_version::Bool, allow_earlier_backwards_compatible_versions::Bool, allow_reresolve::Bool, kwargs::@Kwargs{io::IOContext{IO}})
+    @ Pkg.API ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Pkg/src/API.jl:587
+ [12] test(pkgs::Vector{PackageSpec}; io::IOContext{IO}, kwargs::@Kwargs{})
+    @ Pkg.API ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Pkg/src/API.jl:172
+ [13] test(pkgs::Vector{PackageSpec})
+    @ Pkg.API ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Pkg/src/API.jl:161
+ [14] test(; name::Nothing, uuid::Nothing, version::Nothing, url::Nothing, rev::Nothing, path::Nothing, mode::PackageMode, subdir::Nothing, kwargs::@Kwargs{})
+    @ Pkg.API ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Pkg/src/API.jl:189
+ [15] test()
+    @ Pkg.API ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Pkg/src/API.jl:178
+ [16] top-level scope
+    @ none:1
+ [17] eval(m::Module, e::Any)
+    @ Core ./boot.jl:489
+ [18] exec_options(opts::Base.JLOptions)
+    @ Base ./client.jl:310
+ [19] _start()
+    @ Base ./client.jl:577

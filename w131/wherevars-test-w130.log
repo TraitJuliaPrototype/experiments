@@ -1,0 +1,62 @@
+jl: slot 1 (cores 0-3), depot /tmp/claude-1000/depots/w131
+ERROR: LoadError: Some tests did not pass: 1 passed, 0 failed, 3 errored, 0 broken.
+in expression starting at /tmp/claude-1000/-home-hellmann-Repos-julia-trait-bound/6b66fb82-07fa-48b1-b063-bc3f0b65ba26/scratchpad/tw130/test/wherevars.jl:91
+Test Summary:             | Pass  Total  Time
+where variables in bounds |   13     13  1.5s
+
+lowering L-49: a where variable shadows a module global: Error During Test at /tmp/claude-1000/-home-hellmann-Repos-julia-trait-bound/6b66fb82-07fa-48b1-b063-bc3f0b65ba26/scratchpad/tw130/test/wherevars.jl:94
+  Test threw exception
+  Expression: S.ixof(S.SA()) === Symbol
+  TraitBoundError: a value conforming as Main.WVShadow.SIx{Symbol, TraitWorld.ErasedKey{Tuple{TraitWorld.ParamVal{Symbol}}, Nothing}} was passed to `ixof` at argument 1, whose bounds need a value conforming at the parameters they fix: Main.WVShadow.SIx{LinearAlgebra.UniformScaling{Bool}(true)}
+  Stacktrace:
+    [1] _no_worker_error(sig::Any)
+      @ TraitWorld /tmp/claude-1000/-home-hellmann-Repos-julia-trait-bound/6b66fb82-07fa-48b1-b063-bc3f0b65ba26/scratchpad/tw130/src/entry.jl:634
+    [2] ixof(x::Any)
+      @ Main.WVShadow ./none:0
+    [3] top-level scope
+      @ /tmp/claude-1000/-home-hellmann-Repos-julia-trait-bound/6b66fb82-07fa-48b1-b063-bc3f0b65ba26/scratchpad/tw130/test/wherevars.jl:92
+    [4] macro expansion
+      @ ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:1967 [inlined]
+    [5] macro expansion
+      @ /tmp/claude-1000/-home-hellmann-Repos-julia-trait-bound/6b66fb82-07fa-48b1-b063-bc3f0b65ba26/scratchpad/tw130/test/wherevars.jl:94 [inlined]
+    [6] macro expansion
+      @ ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:755 [inlined]
+
+lowering L-49: a where variable shadows a module global: Error During Test at /tmp/claude-1000/-home-hellmann-Repos-julia-trait-bound/6b66fb82-07fa-48b1-b063-bc3f0b65ba26/scratchpad/tw130/test/wherevars.jl:95
+  Test threw exception
+  Expression: S.ixboth(S.SA()) === (Symbol, "a")
+  TraitBoundError: a value conforming as Main.WVShadow.SIx{Symbol, TraitWorld.ErasedKey{Tuple{TraitWorld.ParamVal{Symbol}}, Nothing}}, Main.WVShadow.SNamed{TraitWorld.ErasedKey{Tuple{}, Nothing}} was passed to `ixboth` at argument 1, whose bounds need a value conforming at the parameters they fix: Main.WVShadow.SIx{LinearAlgebra.UniformScaling{Bool}(true)} and Main.WVShadow.SNamed
+  Stacktrace:
+    [1] _no_worker_error(sig::Any)
+      @ TraitWorld /tmp/claude-1000/-home-hellmann-Repos-julia-trait-bound/6b66fb82-07fa-48b1-b063-bc3f0b65ba26/scratchpad/tw130/src/entry.jl:634
+    [2] ixboth(x::Any)
+      @ Main.WVShadow ./none:0
+    [3] top-level scope
+      @ /tmp/claude-1000/-home-hellmann-Repos-julia-trait-bound/6b66fb82-07fa-48b1-b063-bc3f0b65ba26/scratchpad/tw130/test/wherevars.jl:92
+    [4] macro expansion
+      @ ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:1967 [inlined]
+    [5] macro expansion
+      @ /tmp/claude-1000/-home-hellmann-Repos-julia-trait-bound/6b66fb82-07fa-48b1-b063-bc3f0b65ba26/scratchpad/tw130/test/wherevars.jl:95 [inlined]
+    [6] macro expansion
+      @ ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:755 [inlined]
+
+lowering L-49: a where variable shadows a module global: Error During Test at /tmp/claude-1000/-home-hellmann-Repos-julia-trait-bound/6b66fb82-07fa-48b1-b063-bc3f0b65ba26/scratchpad/tw130/test/wherevars.jl:96
+  Test threw exception
+  Expression: S.ixdyn(S.SA()) === Symbol
+  TraitBoundError: a value conforming as Main.WVShadow.SIx{Symbol, TraitWorld.ErasedKey{Tuple{TraitWorld.ParamVal{Symbol}}, Nothing}} was passed to `ixdyn` at argument 1, whose bounds need a value conforming at the parameters they fix: Main.WVShadow.SIx{LinearAlgebra.UniformScaling{Bool}(true)}
+  Stacktrace:
+    [1] _no_worker_error(sig::Any)
+      @ TraitWorld /tmp/claude-1000/-home-hellmann-Repos-julia-trait-bound/6b66fb82-07fa-48b1-b063-bc3f0b65ba26/scratchpad/tw130/src/entry.jl:634
+    [2] ixdyn(x::Any)
+      @ Main.WVShadow ./none:0
+    [3] top-level scope
+      @ /tmp/claude-1000/-home-hellmann-Repos-julia-trait-bound/6b66fb82-07fa-48b1-b063-bc3f0b65ba26/scratchpad/tw130/test/wherevars.jl:92
+    [4] macro expansion
+      @ ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:1967 [inlined]
+    [5] macro expansion
+      @ /tmp/claude-1000/-home-hellmann-Repos-julia-trait-bound/6b66fb82-07fa-48b1-b063-bc3f0b65ba26/scratchpad/tw130/test/wherevars.jl:96 [inlined]
+    [6] macro expansion
+      @ ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:755 [inlined]
+Test Summary:                                           | Pass  Error  Total  Time
+lowering L-49: a where variable shadows a module global |    1      3      4  2.4s
+RNG of the outermost testset: Random.Xoshiro(0x0404a0dbc65ef1dc, 0x09d1ae8a5baf4501, 0xa2ca4fee6c05d247, 0xea3945593592c4b4, 0xb6fe21936c8d3d2e)
