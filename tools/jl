@@ -5,7 +5,8 @@
 #
 # - Slots: JL_SLOTS (default 4) slots of 16/JL_SLOTS cores each; a job waits for a free slot and runs pinned
 #   to its slot's cores (taskset), niced, with JULIA_NUM_PRECOMPILE_TASKS = the slot's cores (unless set).
-# - Depot: a depot of its own, /tmp/claude-1000/depots/NAME (NAME from --name or JL_NAME; default the slot),
+# - Depot: a depot of its own, ~/.julia/agent-depots/NAME on disk (NAME from --name or JL_NAME; default the slot;
+#   not /tmp, a tmpfs in RAM that filled up), JL_DEPOTS to override the root,
 #   stacked before JULIA_DEPOT_PATH (or ~/.julia): compiled caches are read from the depots below and
 #   written to its own, so jobs never evict each other's caches.
 # - Memory guard: the job's process group is killed (exit 137, a line on stderr) when the machine's available
@@ -14,7 +15,7 @@
 #   meanwhile, and runs on all cores without a depot of its own. Scripts that take the old lock
 #   (flock /tmp/claude-1000/julia-review.lock) are exclusive jobs too.
 set -u
-B=/tmp/claude-1000; L=$B/jl; mkdir -p $L $B/depots
+B=/tmp/claude-1000; L=$B/jl; DR=${JL_DEPOTS:-$HOME/.julia/agent-depots}; mkdir -p $L $DR
 GLOBAL=$B/julia-review.lock; GATE=$L/gate.lock
 N=${JL_SLOTS:-4}; PER=$((16 / N)); EXCL=0; NAME=${JL_NAME:-}
 while [ $# -gt 0 ]; do
@@ -62,7 +63,7 @@ while [ -z "$slot" ]; do
   [ -n "$slot" ] || sleep 3
 done
 first=$(( (slot - 1) * PER )); cores=$first-$(( first + PER - 1 ))
-NAME=${NAME:-slot$slot}; DEP=$B/depots/$NAME; mkdir -p $DEP
+NAME=${NAME:-slot$slot}; DEP=$DR/$NAME; mkdir -p $DEP
 export JULIA_DEPOT_PATH="$DEP:${JULIA_DEPOT_PATH:-$HOME/.julia:}"
 export JULIA_NUM_PRECOMPILE_TASKS=${JULIA_NUM_PRECOMPILE_TASKS:-$PER}
 echo "jl: slot $slot (cores $cores), depot $DEP" >&2
