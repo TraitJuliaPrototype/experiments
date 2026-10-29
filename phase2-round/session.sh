@@ -7,7 +7,7 @@
 #            and the CodeInstances created after the imports by owner and module (rec.jl); the probes run
 #            between marks ("probe", "end"), outside the steps; with --trace-compile-timing (logs/<tag>/trace-<i>.jl)
 #   record   E-234: every CodeInstance created after the imports recorded (rec.jl), split at `using InlineStrings`
-# TRACE=1 adds --trace-compile-timing in any mode. NOE=1 runs without -e (no compile counter: as forks/scripts/measure_session.sh). HINTS=0 turns the REPL's typing hints off (they infer and compile in the background as the input arrives).
+# TRACE=1 adds --trace-compile-timing in any mode. JFLAGS adds flags (E-238: `-J <facts sys.so>` for the test bed `all`, with JULIA_DEPOT_PATH). NOE=1 runs without -e (no compile counter: as forks/scripts/measure_session.sh). HINTS=0 turns the REPL's typing hints off (they infer and compile in the background as the input arrives).
 #   cache    E-234: the emulated cache loaded with the imports (SessionCacheFk1, env_cache_fk; make_cache.sh)
 # A warm-up run first (logs/<tag>/<mode>-w.out), then <runs>. Raw REPL output in logs/<tag>/; one summary line
 # per run from parse.py. One Julia job at a time (flock), niced, under a kill timeout.
@@ -53,7 +53,7 @@ for i in w $(seq 1 $runs); do
     flock /tmp/claude-1000/julia-review.lock bash -c 'load=$(cut -d" " -f1-3 /proc/loadavg); s=$(date +%s.%N)
         nice -n 19 timeout -s KILL 600 script -qec "$1" /dev/null < "$2" > "$3" 2>&1
         printf "\nS %s E %s load %s\n" "$s" "$(date +%s.%N)" "$load" >> "$3"' _ \
-        "$J --startup-file=no $jf $([ "${NOE:-0}" = 1 ] || echo "-e '$ex'") -i --banner=no --project=$env" logs/$tag/session-$mode.jl $f
+        "$J ${JFLAGS:-} --startup-file=no $jf $([ "${NOE:-0}" = 1 ] || echo "-e '$ex'") -i --banner=no --project=$env" logs/$tag/session-$mode.jl $f
     load=$(grep -ao "load [0-9. ]*$" $f | tail -1 | cut -d" " -f2-)
     echo "$mode $i load $load | $(python3 -I parse.py $f)"
 done

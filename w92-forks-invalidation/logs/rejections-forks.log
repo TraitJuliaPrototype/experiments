@@ -1,0 +1,58 @@
+log entries 3391
+failed edges 124; code rejected through a callee 965
+  30  Compiler.FoldRecord(TraitWorld._member_fold, (Base.RefValue{IdDict{Any, Any}}(IdDict{Any, Any}(Vector{DataType} => implementation of Tables.ColumnCore.Column{DataType} at Vector{DataType}((TraitWorld.  NOW MATCHES  
+       owners :facts; packages Tables; e.g. MethodInstance for TraitWorld.conformance(::TraitWorld.As{Tables.ColumnCore.Column}, ::Vector{Union{Missing, Bool}})
+  20  Core.Binding(:(Base.zext_int), #undef, #undef, #undef, 0x08)  NOW MATCHES  
+       owners nothing,TraitWorld._CheckOwner(),:facts; packages Base; e.g. MethodInstance for getproperty(::Module, ::Symbol)
+  12  Tuple{typeof(convert), Type{String}, Any}  NOW MATCHES  convert(::Type{String}, s::DataStrings.DataString) @ DataStrings ~/.julia/packages/DataStrings/sr2Hk/src/DataStrings.jl:520
+       owners nothing; packages Base,PrettyTables; e.g. MethodInstance for setindex!(::Dict{String, Function}, ::Any, ::Any)
+   7  Tuple{typeof(convert), Type{Vector{Any}}, Any}  NOW MATCHES  convert(::Type{Array{S, N}}, pa::PooledArrays.PooledArray{T, R, N}) where {S, T, R, N} @ PooledArrays ~/.julia/packages/PooledArrays/Vy2X0/src/PooledArrays.jl:499
+       owners nothing; packages Base; e.g. MethodInstance for setindex!(::Memory{Vector{Any}}, ::Any, ::Int64)
+   7  Tuple{typeof(convert), Type{Vector{Vector{Any}}}, Any}  NOW MATCHES  convert(::Type{Array{S, N}}, pa::PooledArrays.PooledArray{T, R, N}) where {S, T, R, N} @ PooledArrays ~/.julia/packages/PooledArrays/Vy2X0/src/PooledArrays.jl:499
+       owners nothing; packages PrettyTables; e.g. MethodInstance for PrettyTables.TableData(::Any, ::String, ::String, ::String, ::Bool, ::String, ::Any, ::Bool, ::Any, ::Nothing, ::Any, ::Any, ::Union{Nothing, Vector{PrettyTables.MergeCells}}, ::Not
+   5  Compiler.FoldRecord(TraitWorld._member_fold, (Base.RefValue{IdDict{Any, Any}}(IdDict{Any, Any}(Vector{Bool} => implementation of CSV.ColumnParsers.CSVColumn{Bool} at Vector{Bool} & Tables.ColumnCore.C  NOW MATCHES  
+       owners :facts; packages CSV; e.g. MethodInstance for TraitWorld.conformance(::TraitWorld.As{CSV.ColumnParsers.CSVColumn}, ::Vector{Union{Missing, Bool}})
+   5  Core.Binding(:(Base.llvmcall), #undef, #undef, #undef, 0x08)  NOW MATCHES  
+       owners nothing,TraitWorld._CheckOwner(),:facts; packages Base; e.g. MethodInstance for getproperty(::Module, ::Symbol)
+   5  Tuple{typeof(convert), Type{Vector{PrettyTables.AbstractHighlighter}}, Any}  NOW MATCHES  convert(::Type{Array{S, N}}, pa::PooledArrays.PooledArray{T, R, N}) where {S, T, R, N} @ PooledArrays ~/.julia/packages/PooledArrays/Vy2X0/src/PooledArrays.jl:499
+       owners nothing; packages PrettyTables; e.g. MethodInstance for PrettyTables.TypstPrintOptions(::Any, ::Any, ::Any, ::Any, ::Any, ::Any, ::Any, ::Any, ::Any, ::Any)
+   4  Core.Binding(:(Base.eq_int), #undef, #undef, #undef, 0x08)  NOW MATCHES  
+       owners :facts,nothing; packages Base; e.g. MethodInstance for getproperty(::Module, ::Symbol)
+   4  Core.Binding(:(Base.Threads.ReentrantLock), #undef, #undef, Any[CodeInstance for MethodInstance for getproperty(::Module, ::Symbol), CodeInstance for MethodInstance for getproperty(::Module, ::Symbol)  NOW MATCHES  
+       owners nothing; packages Base; e.g. MethodInstance for getproperty(::Module, ::Symbol)
+   3  Tuple{typeof(Tables.ColumnCore.nrows), Any}  NOW MATCHES  nrows(dyn::Union{TraitWorld.Compiled{var"##X#198"}, TraitWorld.Dynamic{var"##X#198"}, TraitWorld.Kept{var"##X#198"}}, args...) where var"##X#198"<:CSVColumn @ CSV.ColumnParsers ~/Repos/julia-trait-bound/TraitWorld/src/trait.jl:540 ; nrows(dyn::Union{TraitWorld.Compiled{var"##X#244"}, TraitWorld.Dynamic{var"##X#244"}, TraitWorld.Kept{var"##X#244"}}, args...) where var"##X#244"<:TextColumn @ CSV.Col
+       owners TraitWorld._CheckOwner(); packages DataFrames,TraitWorld; e.g. MethodInstance for size(::DataFrames.ColumnKernels.CellVector{T} where T<:AbstractFloat)
+   2  Tuple{typeof(convert), Type{String}, AbstractString}  NOW MATCHES  convert(::Type{String}, s::DataStrings.DataString) @ DataStrings ~/.julia/packages/DataStrings/sr2Hk/src/DataStrings.jl:520
+       owners nothing; packages Base; e.g. MethodInstance for convert(::Type{Union{SubString{String}, String}}, ::AbstractString)
+   2  Tuple{typeof(Tables.ColumnCore.vector), Any}  NOW MATCHES  vector(dyn::Union{TraitWorld.Compiled{var"##X#202"}, TraitWorld.Dynamic{var"##X#202"}, TraitWorld.Kept{var"##X#202"}}, args...) where var"##X#202"<:CSVColumn @ CSV.ColumnParsers ~/Repos/julia-trait-bound/TraitWorld/src/trait.jl:540 ; vector(dyn::Union{TraitWorld.Compiled{var"##X#248"}, TraitWorld.Dynamic{var"##X#248"}, TraitWorld.Kept{var"##X#248"}}, args...) where var"##X#248"<:TextColumn @ CSV.C
+       owners nothing,TraitWorld._CheckOwner(); packages DataFrames,TraitWorld; e.g. MethodInstance for getindex(::DataFrames.ColumnVectors, ::AbstractVector)
+   2  Tuple{typeof(Tables.rowcount), Any}  NOW MATCHES  rowcount(t::CSV.ParsedTable) @ CSV ~/Repos/julia-trait-bound/forks/CSV/src/tables.jl:17 ; rowcount(f::CSV.File) @ CSV ~/Repos/julia-trait-bound/forks/CSV/src/api.jl:2296 ; rowcount(lf::CSV.LazyFile) @ CSV ~/Repos/julia-trait-bound/forks/CSV/src/api.jl:2509 ; rowcount(t::CSV.PredicateColumns) @ CSV ~/Repos/julia-trait-bound/forks/CSV/src/scan.jl:23
+       owners nothing; packages PrettyTables; e.g. MethodInstance for PrettyTables.ColumnTable(::Any)
+   2  Tuple{typeof(Tables.ColumnCore.cell), Any, Int64}  NOW MATCHES  cell(dyn::Union{TraitWorld.Compiled{var"##X#199"}, TraitWorld.Dynamic{var"##X#199"}, TraitWorld.Kept{var"##X#199"}}, args...) where var"##X#199"<:CSVColumn @ CSV.ColumnParsers ~/Repos/julia-trait-bound/TraitWorld/src/trait.jl:540 ; cell(dyn::Union{TraitWorld.Compiled{var"##X#245"}, TraitWorld.Dynamic{var"##X#245"}, TraitWorld.Kept{var"##X#245"}}, args...) where var"##X#245"<:TextColumn @ CSV.Colum
+       owners TraitWorld._CheckOwner(); packages DataFrames; e.g. MethodInstance for getindex(::DataFrames.ColumnKernels.CellVector{T} where T<:AbstractFloat, ::Int64)
+   2  MethodInstance for convert(::Type{Vector{Symbol}}, ::AbstractVector{Symbol})  NOW MATCHES  convert(::Type{Array{S, N}}, pa::PooledArrays.PooledArray{T, R, N}) where {S, T, R, N} @ PooledArrays ~/.julia/packages/PooledArrays/Vy2X0/src/PooledArrays.jl:499
+       owners nothing; packages PrettyTables; e.g. MethodInstance for PrettyTables.ColumnTable(::D, ::T, ::AbstractVector{Symbol}, ::Tuple{Int64, Int64}) where {D, T}
+   1  Tuple{typeof(eltype), Type{<:AbstractVector{T}} where T}  NOW MATCHES  eltype(::Type{CSV.File}) @ CSV ~/Repos/julia-trait-bound/forks/CSV/src/api.jl:2314
+       owners nothing; packages Base; e.g. MethodInstance for eltype(::AbstractVector)
+   1  Tuple{typeof(Tables.istable), Type{T} where T<:(AbstractVecOrMat)}  NOW MATCHES  istable(::Type{CSV.File}) @ CSV ~/Repos/julia-trait-bound/forks/CSV/src/api.jl:2288
+       owners nothing; packages Tables; e.g. MethodInstance for Tables.istable(::AbstractVecOrMat)
+   1  Tuple{typeof(Tables.ColumnCore.vector), TraitWorld.Dynamic}  NOW MATCHES  vector(dyn::Union{TraitWorld.Compiled{var"##X#202"}, TraitWorld.Dynamic{var"##X#202"}, TraitWorld.Kept{var"##X#202"}}, args...) where var"##X#202"<:CSVColumn @ CSV.ColumnParsers ~/Repos/julia-trait-bound/TraitWorld/src/trait.jl:540 ; vector(dyn::Union{TraitWorld.Compiled{var"##X#248"}, TraitWorld.Dynamic{var"##X#248"}, TraitWorld.Kept{var"##X#248"}}, args...) where var"##X#248"<:TextColumn @ CSV.C
+       owners TraitWorld._CheckOwner(); packages TraitWorld; e.g. MethodInstance for TraitWorld._erased_op(::Type{Tables.ColumnCore.Column}, ::typeof(Tables.ColumnCore.vector), ::Type{AbstractVector}, ::TraitWorld.AbstractView)
+   1  Tuple{typeof(Tables.ColumnCore.nrows), TraitWorld.Dynamic}  NOW MATCHES  nrows(dyn::Union{TraitWorld.Compiled{var"##X#198"}, TraitWorld.Dynamic{var"##X#198"}, TraitWorld.Kept{var"##X#198"}}, args...) where var"##X#198"<:CSVColumn @ CSV.ColumnParsers ~/Repos/julia-trait-bound/TraitWorld/src/trait.jl:540 ; nrows(dyn::Union{TraitWorld.Compiled{var"##X#244"}, TraitWorld.Dynamic{var"##X#244"}, TraitWorld.Kept{var"##X#244"}}, args...) where var"##X#244"<:TextColumn @ CSV.Col
+       owners TraitWorld._CheckOwner(); packages TraitWorld; e.g. MethodInstance for TraitWorld._erased_op(::Type{Tables.ColumnCore.Column}, ::typeof(Tables.ColumnCore.nrows), ::Type{Int64}, ::TraitWorld.AbstractView)
+   1  Tuple{typeof(eltype), Union{Type{<:AbstractVector{T}}, Type{<:AbstractMatrix{T}}} where T}  NOW MATCHES  eltype(::Type{CSV.File}) @ CSV ~/Repos/julia-trait-bound/forks/CSV/src/api.jl:2314
+       owners nothing; packages Base; e.g. MethodInstance for eltype(::AbstractVecOrMat)
+   1  MethodInstance for convert(::Type{Vector{Dict{Symbol, Any}}}, ::AbstractVector)  NOW MATCHES  convert(::Type{Array{S, N}}, pa::PooledArrays.PooledArray{T, R, N}) where {S, T, R, N} @ PooledArrays ~/.julia/packages/PooledArrays/Vy2X0/src/PooledArrays.jl:499
+       owners nothing; packages Tables; e.g. MethodInstance for Tables.DictRowTable(::Vector{Symbol}, ::Dict{Symbol, Type}, ::AbstractVector)
+   1  MethodInstance for Tables.columnaccess(::Type{T} where T<:(AbstractVecOrMat))  NOW MATCHES  columnaccess(::Type{CSV.File}) @ CSV ~/Repos/julia-trait-bound/forks/CSV/src/api.jl:2289
+       owners nothing; packages Tables; e.g. MethodInstance for Tables.columnaccess(::AbstractVecOrMat)
+   1  MethodInstance for propertynames(::Tables.AbstractRow)  NOW MATCHES  propertynames(row::CSV._IndexedRow) @ CSV ~/Repos/julia-trait-bound/forks/CSV/src/tables.jl:294 ; propertynames(::CSV.Row{NT}) where NT @ CSV ~/Repos/julia-trait-bound/forks/CSV/src/api.jl:2638
+       owners nothing; packages DataFrames; e.g. MethodInstance for DataFrames.fill_row!(::Tables.AbstractRow, ::NTuple{N, AbstractVector}, ::Int64, ::Int64, ::NTuple{N, Symbol}) where N
+   1  Compiler.FoldRecord(TraitWorld._member_fold, (Base.RefValue{IdDict{Any, Any}}(IdDict{Any, Any}(IOBuffer => implementation of CSV.ColumnParsers.CSVSource at IOBuffer((TraitWorld.VSpec{CSV.ColumnParsers  NOW MATCHES  
+       owners :facts; packages CSV; e.g. MethodInstance for TraitWorld.conformance(::TraitWorld.As{CSV.ColumnParsers.CSVSource}, ::IOBuffer)
+   1  Compiler.FoldRecord(TraitWorld._member_fold, (Base.RefValue{IdDict{Any, Any}}(IdDict{Any, Any}(String => implementation of CSV.ColumnParsers.CSVSource at String((TraitWorld.VSpec{CSV.ColumnParsers.CSV  NOW MATCHES  
+       owners :facts; packages CSV; e.g. MethodInstance for TraitWorld.conformance(::TraitWorld.As{CSV.ColumnParsers.CSVSource}, ::String)
+   1  Tuple{typeof(print), IOContext{IOBuffer}, AbstractString}  NOW MATCHES  print(io::IO, s::DataStrings.DataString) @ DataStrings ~/.julia/packages/DataStrings/sr2Hk/src/DataStrings.jl:531
+       owners nothing; packages Base; e.g. MethodInstance for Base.annotatedstring(::Vararg{Any})
+   1  Tuple{typeof(Tables.ColumnCore.take), Any, AbstractVector{Int64}}  NOW MATCHES  take(dyn::Union{TraitWorld.Compiled{var"##X#201"}, TraitWorld.Dynamic{var"##X#201"}, TraitWorld.Kept{var"##X#201"}}, args...) where var"##X#201"<:CSVColumn @ CSV.ColumnParsers ~/Repos/julia-trait-bound/TraitWorld/src/trait.jl:540 ; take(dyn::Union{TraitWorld.Compiled{var"##X#247"}, TraitWorld.Dynamic{var"##X#247"}, TraitWorld.Kept{var"##X#247"}}, args...) where var"##X#247"<:TextColumn @ CSV.Colum
+       owners nothing; packages DataFrames; e.g. MethodInstance for DataFrames._threaded_getindex(::AbstractVector{Int64}, ::AbstractVector{Int64}, ::DataFrames.ColumnVectors, ::DataFrames.Index)
