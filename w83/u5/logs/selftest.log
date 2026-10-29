@@ -1,0 +1,24 @@
+jl: slot 3 (cores 8-11), depot /home/hellmann/.julia/agent-depots/w83u5
+== U5 census: selftest
+julia 1.13.2 00dcc9994c; TraitWorld at /home/hellmann/Repos/julia-trait-bound/TraitWorld
+trait modules: 5 (Main, TraitWorld)
+memberships (conformance methods): 52
+
+bounded methods per package: bounded / on a foreign function or in an extension / those bounded by a set with a foreign member (method×position) / with an unshielded member
+  Main                                  3    2    2    2
+  TraitWorld                            6    0    0    0
+
+memberships by kind and declaring package:
+  Main                              foreign_type    3
+  TraitWorld                        by_owner        5
+  TraitWorld                        foreign_type    13
+  TraitWorld                        generic         15
+  TraitWorld                        generic_own_ub  16
+
+hits (also in selftest-hits.tsv):
+  [Main] ga arg 1 bound Main.U5A.XA (1 foreign members)
+      Main.U5B.ga Tuple{typeof(Main.U5A.ga), TObj{var"##T#170"}} where var"##T#170">:Union{Main.U5A.XA, Main.U5B.XB} @ selftest.jl:22
+  [Main] ga arg 1 bound Main.U5B.XB (2 foreign members)
+      Main.U5B.ga Tuple{typeof(Main.U5A.ga), TObj{var"##T#170"}} where var"##T#170">:Union{Main.U5A.XA, Main.U5B.XB} @ selftest.jl:22
+  [Main] ga arg 1 bound Main.U5B.XB (2 foreign members)
+      Main.U5B.ga Tuple{typeof(Main.U5A.ga), TObj{var"##T#169"}} where var"##T#169">:Main.U5B.XB @ selftest.jl:21
