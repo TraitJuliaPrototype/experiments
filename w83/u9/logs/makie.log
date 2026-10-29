@@ -1,4 +1,4 @@
-jl: slot 2 (cores 4-7), depot /home/hellmann/.julia/agent-depots/w83u9
+jl: slot 1 (cores 0-3), depot /home/hellmann/.julia/agent-depots/w83u9
 _ok (generic function with 1 method)
 png (generic function with 1 method)
 Figure(600, 400, Axis[Axis(Kept{Plot}[Kept{Plot}: Dynamic at Lines], "session", "x", "", Kept{Scale}: Compiled at typeof(identity), Kept{Scale}: Compiled at typeof(identity), 1, 1, 0, true, (NaN, NaN, NaN, NaN))])
@@ -52,16 +52,12 @@ CHECK a refused colour keeps the old one ok
 Fade(50)
 CHECK a new colour type ok
 Lollipop
-U9 entry raised: LoadError: TraitWorld.ImplementError("Lollipop has methods for some operations of Plot but not for setcolor!: define them, or remove them and forward to a field with `by`\nOr forward to a field whose 
 Figure(600, 400, Axis[Axis(Kept{Plot}[], "lollipops", "", "", Kept{Scale}: Compiled at typeof(identity), Kept{Scale}: Compiled at typeof(identity), 1, 1, 0, true, (NaN, NaN, NaN, NaN))])
-U9 entry raised: MethodError: no method matching add_plot!(::TraitMakie.PlotCore.Axis, ::Lollipop)
-This error has been manually thrown, explicitly, so the method may exist but be intentionally marked as unimplemented.
-U9 entry raised: BoundsError: attempt to access 0-element Vector{TraitWorld.Kept{TraitMakie.PlotCore.Plot}} at index [1]
-U9 entry raised: UndefVarError: `lp` not defined in `Main`
-Suggestion: add an appropriate import or assignment. This global was declared but not assigned.
-U9 entry raised: BoundsError: attempt to access 0-element Vector{TraitWorld.Kept{TraitMakie.PlotCore.Plot}} at index [1]
-U9 entry raised: UndefVarError: `lp` not defined in `Main`
-Suggestion: add an appropriate import or assignment. This global was declared but not assigned.
+Lollipop(Bars(Kept{Positions}: Compiled at Matrix{Float64}, Kept{ColorSpec}: Compiled at TraitMakie.PlotCore.ColorName, 0.04), Scatter(Kept{Positions}: Compiled at Matrix{Float64}, Kept{ColorSpec}: Compiled at TraitMakie.PlotCore.ColorName, 9.0, Kept{MarkerShape}: Compiled at TraitMakie.PlotCore.MarkerName))
+CHECK a new plot type ok
+:rect
+Figure(600, 400, Axis[Axis(Kept{Plot}[Kept{Plot}: Dynamic at Lollipop], "lollipops", "", "", Kept{Scale}: Compiled at typeof(identity), Kept{Scale}: Compiled at typeof(identity), 1, 1, 0, true, (NaN, NaN, NaN, NaN))])
+CHECK its attributes changed ok
 Hist(Kept{Sample}: Dynamic at Vector{Float64}, 5, Kept{ColorSpec}: Dynamic at TraitMakie.PlotCore.ColorName, Bars(Kept{Positions}: Dynamic at Matrix{Float64}, Kept{ColorSpec}: Dynamic at TraitMakie.PlotCore.ColorName, 1.0))
 2
 (0.2, 0.6, 0.2, 0.5)
@@ -72,32 +68,31 @@ Lines(Kept{Positions}: Dynamic at Vector{Tuple{Float64, Float64}}, Kept{ColorSpe
 2-element Vector{Tuple{Float64, Float64}}:
  (0.0, 4.0)
  (5.0, -2.0)
-U9 entry raised: BoundsError: attempt to access 2-element Vector{TraitWorld.Kept{TraitMakie.PlotCore.Plot}} at index [3]
+CHECK live data ok
 CHECK session done ok
-U9 session done: makie, entries that raised: 8
+U9 session done: makie, entries that raised: 1
 == U9 census: makie
 julia 00dcc9994c; functions with bounded methods: 33 (bounded methods 31, operation defaults 1, + hypothetical Base.show)
-caller CodeInstances: 743
+caller CodeInstances: 737
 
 -- trait functions (the ports' bounded methods and defaults)
 call sites: 46 (concrete 45, non-concrete 1)
-  guard_methoderror        2   in a loop     0   in bounded code     0
-  fold_positive           25   in a loop     0   in bounded code     4
+  guard_methoderror        1   in a loop     0   in bounded code     0
+  fold_positive           26   in a loop     0   in bounded code     4
   nonconcrete              1   in a loop     0   in bounded code     0
   dynamic_value           18   in a loop     0   in bounded code     0
-guards: 2; in a loop 0; widening: none 0, covered by a declared result 0, to Any 2; in a loop and widening to Any 0
+guards: 1; in a loop 0; widening: none 0, covered by a declared result 0, to Any 1; in a loop and widening to Any 0
 guards with a trait object argument (in bounded code): 0 (its receiver type unknown: 0)
-guards at the boundary (plain code calling trait code) 2, inside bounded code 0
-guards removed if sealed sets fold negatives: 1 of 2
-what runs when the guard fails: MethodError 2, a default or the same declared result 0, a real fallback 0 (in a loop: 0)
+guards at the boundary (plain code calling trait code) 1, inside bounded code 0
+guards removed if sealed sets fold negatives: 0 of 1
+what runs when the guard fails: MethodError 1, a default or the same declared result 0, a real fallback 0 (in a loop: 0)
 guards per function (sites, in a loop, widening to Any):
-  add_plot!                                   1    0    1
   add_lines!                                  1    0    1
 
 -- hypothetical Base.show(::IO, ::X) on an open set X (U5)
-call sites: 563 (concrete 424, non-concrete 139)
+call sites: 554 (concrete 415, non-concrete 139)
   guard_fallback          17   in a loop     9   in bounded code     0
-  plain                  404   in a loop   103   in bounded code     0
+  plain                  395   in a loop   102   in bounded code     0
   nonconcrete            139   in a loop    74   in bounded code     0
   dynamic_value            3   in a loop     3   in bounded code     0
 guards: 17; in a loop 9; widening: none 17, covered by a declared result 0, to Any 0; in a loop and widening to Any 0
@@ -108,29 +103,29 @@ what runs when the guard fails: MethodError 0, a default or the same declared re
 guards per function (sites, in a loop, widening to Any):
   show                                       17    9    0
 guards in a loop:
-  [guard_fallback] show(IOContext{IOBuffer}, Base.PkgId) in Base.show_delim_array @ show.jl:1449; now Base.showTuple{typeof(show), IO, Any}; later Base.show(::IO, ::HypotheticalOpenSet) [2:Base.PkgId∉HypotheticalOpenSet]; result Nothing ⊔ Nothing (none)
-  [guard_fallback] show(IOContext{IOBuffer}, Base.PkgId) in Base.show_delim_array @ show.jl:1449; now Base.showTuple{typeof(show), IO, Any}; later Base.show(::IO, ::HypotheticalOpenSet) [2:Base.PkgId∉HypotheticalOpenSet]; result Nothing ⊔ Nothing (none)
-  [guard_fallback] show(IOContext{IOBuffer}, Base.PkgId) in Base.show_delim_array @ show.jl:1449; now Base.showTuple{typeof(show), IO, Any}; later Base.show(::IO, ::HypotheticalOpenSet) [2:Base.PkgId∉HypotheticalOpenSet]; result Nothing ⊔ Nothing (none)
-  [guard_fallback] show(IOContext{IOStream}, Axis) in Base.show_delim_array @ show.jl:1449; now Base.showTuple{typeof(show), IO, Any}; later Base.show(::IO, ::HypotheticalOpenSet) [2:Axis∉HypotheticalOpenSet]; result Nothing ⊔ Nothing (none)
-  [guard_fallback] show(IOContext{IOBuffer}, Base.PkgId) in Base.show_delim_array @ show.jl:1449; now Base.showTuple{typeof(show), IO, Any}; later Base.show(::IO, ::HypotheticalOpenSet) [2:Base.PkgId∉HypotheticalOpenSet]; result Nothing ⊔ Nothing (none)
   [guard_fallback] show(IOContext{IOStream}, Axis) in Base.show_delim_array @ show.jl:1449; now Base.showTuple{typeof(show), IO, Any}; later Base.show(::IO, ::HypotheticalOpenSet) [2:Axis∉HypotheticalOpenSet]; result Nothing ⊔ Nothing (none)
   [guard_fallback] show(IOContext{IOBuffer}, Base.PkgId) in Base.show_delim_array @ show.jl:1449; now Base.showTuple{typeof(show), IO, Any}; later Base.show(::IO, ::HypotheticalOpenSet) [2:Base.PkgId∉HypotheticalOpenSet]; result Nothing ⊔ Nothing (none)
   [guard_fallback] show(IOContext{IOBuffer}, Base.PkgId) in Base.show_delim_array @ show.jl:1449; now Base.showTuple{typeof(show), IO, Any}; later Base.show(::IO, ::HypotheticalOpenSet) [2:Base.PkgId∉HypotheticalOpenSet]; result Nothing ⊔ Nothing (none)
   [guard_fallback] show(IOContext{IOStream}, Axis) in Base.show_delim_array @ show.jl:1449; now Base.showTuple{typeof(show), IO, Any}; later Base.show(::IO, ::HypotheticalOpenSet) [2:Axis∉HypotheticalOpenSet]; result Nothing ⊔ Nothing (none)
+  [guard_fallback] show(IOContext{IOBuffer}, Base.PkgId) in Base.show_delim_array @ show.jl:1449; now Base.showTuple{typeof(show), IO, Any}; later Base.show(::IO, ::HypotheticalOpenSet) [2:Base.PkgId∉HypotheticalOpenSet]; result Nothing ⊔ Nothing (none)
+  [guard_fallback] show(IOContext{IOBuffer}, Base.PkgId) in Base.show_delim_array @ show.jl:1449; now Base.showTuple{typeof(show), IO, Any}; later Base.show(::IO, ::HypotheticalOpenSet) [2:Base.PkgId∉HypotheticalOpenSet]; result Nothing ⊔ Nothing (none)
+  [guard_fallback] show(IOContext{IOStream}, Axis) in Base.show_delim_array @ show.jl:1449; now Base.showTuple{typeof(show), IO, Any}; later Base.show(::IO, ::HypotheticalOpenSet) [2:Axis∉HypotheticalOpenSet]; result Nothing ⊔ Nothing (none)
+  [guard_fallback] show(IOContext{IOBuffer}, Base.PkgId) in Base.show_delim_array @ show.jl:1449; now Base.showTuple{typeof(show), IO, Any}; later Base.show(::IO, ::HypotheticalOpenSet) [2:Base.PkgId∉HypotheticalOpenSet]; result Nothing ⊔ Nothing (none)
+  [guard_fallback] show(IOContext{IOBuffer}, Base.PkgId) in Base.show_delim_array @ show.jl:1449; now Base.showTuple{typeof(show), IO, Any}; later Base.show(::IO, ::HypotheticalOpenSet) [2:Base.PkgId∉HypotheticalOpenSet]; result Nothing ⊔ Nothing (none)
 
-callers skipped: top-level thunks 0, TraitWorld's machinery 52, not re-inferable 0; re-inferred 553; splatted calls 51
+callers skipped: top-level thunks 0, TraitWorld's machinery 53, not re-inferable 0; re-inferred 545; splatted calls 51
 census time 13.0 s
 
 -- Base's abstract types as open sets (AbstractArray, AbstractDict, AbstractString, Dates.Period, LinearAlgebra.Factorization)
-functions 83; specializations that would carry a guard 1325; their static callers (backedges) 4711
-of them where a package (not only Julia) could declare the membership: specializations 172, static callers 254
+functions 83; specializations that would carry a guard 1326; their static callers (backedges) 4665
+of them where a package (not only Julia) could declare the membership: specializations 173, static callers 253
   function (specializations, static callers; where a package could declare: specializations, static callers)
-  any                                         40   144     8    70
-  hash                                       125   214    65    66
-  axes                                       210   881    30    51
+  any                                         40   140     8    70
+  hash                                       125   211    65    66
+  axes                                       210   876    30    50
   kwcall                                      23    25     8    11
-  show                                        38    30    14    10
-  ==                                         111   690    11    10
+  show                                        39    30    15    10
+  ==                                         111   687    11    10
   all                                         38    72     2     9
   issubset                                     7    15     1     4
   Random.Sampler                              11    11     4     4
@@ -140,7 +135,7 @@ of them where a package (not only Julia) could declare the membership: specializ
   lines!                                       4     5     1     2
   union!                                       5    14     2     2
   eachindex                                   18    19     2     2
-  print                                       72   255     2     1
+  print                                       72   253     2     1
   _color                                       2     2     1     1
   _sample                                      1     1     1     1
   isequal                                     56   387     1     1

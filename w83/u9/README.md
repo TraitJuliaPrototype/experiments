@@ -8,15 +8,15 @@ The question (registry row E-259; open issue 136 (e); exploration `writeup/explo
 
 **(e) stands. No guard sits in a loop, none in bounded code, and none widens a result beyond what today's code already infers.**
 
-- Across the five sessions, 8 guard sites in the ports' trait functions (4 distinct sites). Every one is at the boundary: plain code calling trait code.
+- Across the five sessions, 7 guard sites in the ports' trait functions (3 distinct sites). Every one is at the boundary: plain code calling trait code.
 - They come from two patterns only:
   - a capability predicate written as dispatch: `is_nonlinear_algorithm(alg::NonlinearAlgorithm) = true; is_nonlinear_algorithm(alg) = false`, called at `Tsit5` and `Rodas5`. Under (e) this is a run-time membership read, which is what the predicate means;
-  - `MethodError` paths: code compiled at a type that is not a member (`add_lines!` at a `Vector{Float64}` for `Positions`; `add_plot!` at the session's `Lollipop`, whose `@implement` failed). There is no cost on a path that throws.
+  - a `MethodError` path: code compiled at a type that is not a member (`add_lines!` at a `Vector{Float64}` for `Positions`). There is no cost on a path that throws.
 - The guard costs nothing measurable when the membership is a cell per (type, set) holding its `min_world`:
   - 0.00 ns per call where LLVM hoists the read out of the loop;
   - +0.2 to +0.6 ns per call where it cannot (a write the compiler cannot see through in the loop).
 - Two conditions on (e) follow from the numbers:
-  1. **Base's abstract types must stay closed.** Their members come only from `struct S <: A`, as (e) states. If the abstract types BaseTraits' families range over admitted late members, 1,325–4,619 specializations per session would carry guards, on `axes`, `eltype`, `hash`, `==` and `broadcasted`. Restricted to the cases where a package (not only Julia) could declare the membership, it is still 172–1,122 specializations per session.
+  1. **Base's abstract types must stay closed.** Their members come only from `struct S <: A`, as (e) states. If the abstract types BaseTraits' families range over admitted late members, 1,326–4,619 specializations per session would carry guards, on `axes`, `eltype`, `hash`, `==` and `broadcasted`. Restricted to the cases where a package (not only Julia) could declare the membership, it is still 173–1,122 specializations per session.
   2. **The registry must be a cell per (type, set), not a scan.** U8 part B's layout, a `Vector` of `(type, set, min_world)` scanned on each read, costs 357–372 ns per call. A per-type table keyed by set costs 27–28 ns. Neither belongs in a guard.
 
 ## Results (2026-10-29)
@@ -25,7 +25,7 @@ Build: julia-1.13 `00dcc9994c`, TraitWorld `33dd55e`. Product setting, strict mo
 
 - **Repositories:**
   - TDE: `w34` at `e9e07ed`;
-  - TraitMakie: `c0d5c36`;
+  - TraitMakie: `7f70363` (its session rerun on 2026-10-29, after the session's Lollipop step was fixed);
   - TraitReport: `d21fe00`;
   - TraitTables: `438ac2b`;
   - TraitCSV: `9c6477b`;
@@ -39,7 +39,7 @@ Build: julia-1.13 `00dcc9994c`, TraitWorld `33dd55e`. Product setting, strict mo
 | session | call sites | at concrete types | non-concrete (run-time dispatch already) | a `Dynamic`/`Kept`/`Compiled` value (a run-time split already) | positive folds | guards | of them in a loop | in bounded code | widening (none / covered / to `Any`) |
 |---|---|---|---|---|---|---|---|---|---|
 | TDE (`scripts/session.jl trait`, passed) | 92 | 21 | 22 | 49 | 19 | 2 | 0 | 0 | 0 / 0 / 2 |
-| TraitMakie (`scripts/session.jl`) | 46 | 27 | 1 | 18 | 25 | 2 | 0 | 0 | 0 / 0 / 2 |
+| TraitMakie (`scripts/session.jl`, 10 of 10 checks) | 46 | 27 | 1 | 18 | 26 | 1 | 0 | 0 | 0 / 0 / 1 |
 | TraitReport (`scripts/session.jl`) | 62 | 35 | 4 | 23 | 34 | 1 | 0 | 0 | 0 / 0 / 1 |
 | forks (`scripts/session.jl`, `env_forks`) | 309 | 78 | 71 | 160 | 78 | 0 | 0 | 0 | — |
 | NetworkDynamics on the ports (setting PT, passes first … usertype) | 217 | 100 | 22 | 95 | 65 | 3 | 0 | 0 | 0 / 0 / 3 |
@@ -54,13 +54,12 @@ Build: julia-1.13 `00dcc9994c`, TraitWorld `33dd55e`. Product setting, strict mo
 |---|---|---|---|---|---|---|---|---|
 | `is_nonlinear_algorithm(Tsit5)`, `(Rodas5{DenseLU})` (TDE, ndport) | `TraitDifferentialEquations._isnonlinear` (`TraitDifferentialEquations.jl:72`) | fallback | the untyped fallback (`false`) | `Tsit5 ∉ NonlinearAlgorithm` | `Bool ⊔ Any` (no declared result) | `Any` | yes | a real fallback |
 | `add_lines!(Axis, Vector{Float64}, ColorName, Float64)` (TraitMakie, TraitReport, ndport) | `TraitMakie.lines!` (`TraitMakie.jl:103`) | MethodError | none | `Vector{Float64} ∉ Positions` | `Union{} ⊔ Any` | `Any` | no (`Positions` adopts Base's vectors) | MethodError |
-| `add_plot!(Axis, Lollipop)` (TraitMakie) | `TraitMakie.plot!` (`TraitMakie.jl:134`) | MethodError | none | `Lollipop ∉ Plot` (its `@implement` failed in the session) | `Union{} ⊔ Any` | `Any` | yes | MethodError |
 
 - **Today's results are `Any` already** at these sites: the entry reaches the fallback through an inference barrier. So (e) loses nothing against today. Option (a) would type the fallback's result (`Bool`). A declared result `::Bool` on the bounded predicate would remove the widening under (e).
-- **The sealed variant** (the coordinator's question): suppose a set whose memberships are all declared at the member type's definition or in the member's own package proper folds its negatives. Then 5 of the 8 guard sites fold.
+- **The sealed variant** (the coordinator's question): suppose a set whose memberships are all declared at the member type's definition or in the member's own package proper folds its negatives. Then 4 of the 7 guard sites fold.
   - Such a set has no membership in an extension and none by the set's owner for a foreign type. These are U5's members by owner, refined: `by_owner`, `by_owner_param`, `generic_own_ub`.
   - The guards that stay are `add_lines!` at `Positions`, an open set.
-- **The kind of fallback:** 4 MethodError, 0 a default or the same declared result, 4 real fallbacks (the predicate, at `Tsit5` and `Rodas5` in two sessions; counts from `logs/*-sites.tsv`). None of them is in a loop.
+- **The kind of fallback:** 3 MethodError, 0 a default or the same declared result, 4 real fallbacks (the predicate, at `Tsit5` and `Rodas5` in two sessions; counts from `logs/*-sites.tsv`). None of them is in a loop.
 
 ### The hypothetical `Base.show(::IO, ::X)` on an open set (U5's question)
 
@@ -69,7 +68,7 @@ Base has no bounded methods today. A Base function gets guards only where someon
 | session | `show` call sites | guards | in a loop | widening |
 |---|---|---|---|---|
 | TDE | 548 | 8 | 6 | none (both `Nothing`) |
-| TraitMakie | 563 | 17 | 9 | none |
+| TraitMakie | 554 | 17 | 9 | none |
 | TraitReport | 545 | 16 | 9 | none |
 | forks | 699 | 15 | 6 | none |
 | ndport | 792 | 18 | 6 | none |
@@ -85,7 +84,7 @@ What (e) would cost if `AbstractArray`, `AbstractDict` and `AbstractString` (and
 | session | functions | specializations | their static callers | where a package could declare the membership: specializations / callers |
 |---|---|---|---|---|
 | TDE | 79 | 1,420 | 5,119 | 226 / 354 |
-| TraitMakie | 83 | 1,325 | 4,711 | 172 / 254 |
+| TraitMakie | 83 | 1,326 | 4,665 | 173 / 253 |
 | TraitReport | 83 | 1,530 | 5,400 | 208 / 299 |
 | forks | 102 | 2,204 | 9,228 | 301 / 643 |
 | ndport | 224 | 4,619 | 13,106 | 1,122 / 1,864 |
@@ -121,14 +120,14 @@ The setup:
 
 ## Findings for the design
 
-1. **Where the guards come from.** Guards arise only at the boundary, from capability predicates written as dispatch and from `MethodError` paths.
+1. **Where the guards come from.** Guards arise only at the boundary, from capability predicates written as dispatch and from a `MethodError` path.
    - Inside bounded code there are none. There an argument's membership is positive by construction, and the ports have no subtrait methods competing with a supertrait's.
    - The predicate is the case §13.4 names ("the capability test of open issue 82 (b) … there a run-time read is what one wants"). For a predicate, the guard is the semantics, not a cost.
-2. **Base's abstract types decide the count.** If they stayed open, guards would land on Base's hottest generic functions in every session. Ownership removes most of them: only Julia may declare a Julia-owned type a member of a Julia-owned family. But 172–1,122 specializations per session remain where a package's type is involved. So (e) needs the rule it states: abstract types are closed, and the open sets are the traits.
+2. **Base's abstract types decide the count.** If they stayed open, guards would land on Base's hottest generic functions in every session. Ownership removes most of them: only Julia may declare a Julia-owned type a member of a Julia-owned family. But 173–1,122 specializations per session remain where a package's type is involved. So (e) needs the rule it states: abstract types are closed, and the open sets are the traits.
 3. **The registry's layout matters by three orders of magnitude.** U8 part B shows world-correctness. As a guard's read it must be a cell per (type, set), fixed when the guard is compiled: a load and a compare, hoistable out of loops. It must not be a lookup in a table.
-4. **The sealed variant removes most of the remaining guards** (5 of 8). The ones left are on open sets that adopt Base's types (`Positions`).
+4. **The sealed variant removes most of the remaining guards** (4 of 7). The ones left are on open sets that adopt Base's types (`Positions`).
 5. **Today's lowering asserts a bounded function's declared result on the untyped fallback too.** The self-test's `describe(x) = :plain` beside `describe(s::Shape)::String` raised a `TypeError` through the entry. Under (e), `m0` is an ordinary method with its own result. So "the guarded result is the bounded method's declared result joined with `m0`'s" is a change from today, not a description of it.
-6. **Unrelated, seen on the way: TraitMakie's REPL session fails its Lollipop step on this build.** `@implement Plot Lollipop` raises "Lollipop has methods for some operations of Plot but not for setcolor!", although `setcolor!(l::Lollipop, c::Dynamic{ColorSpec})` is defined. `scripts/session.sh` itself reports "7 checks ok, 0 failed" because the three later checks never print. So the Makie census lacks the recipe part.
+6. **Unrelated, seen on the way: TraitMakie's REPL session refused its Lollipop recipe.** The session's `setcolor!(l::Lollipop, c::Dynamic{ColorSpec})` did not cover the `Kept{ColorSpec}` that the `Plot` trait declares, so `@implement Plot Lollipop` raised "Lollipop has methods for some operations of Plot but not for setcolor!". The message names the operation, not the declared signature or the near-miss method: [open issue 139](../../../writeup/open-issues.md). TraitMakie `1af318c` fixed the session. The census was rerun on 2026-10-29 at `7f70363` (10 of 10 checks): `add_plot!(Axis, Lollipop)` is now a positive fold, and the TraitMakie row counts the recipe part.
 
 ## What the census counts, and what it does not
 
