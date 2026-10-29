@@ -1,0 +1,37 @@
+jl: slot 3 (cores 8-11), depot /tmp/claude-1000/depots/w130
+WARNING: Detected access to binding `Main.Mixedf` in a world prior to its definition world.
+  Julia 1.12 has introduced more strict world age semantics for global bindings.
+  !!! This code may malfunction under Revise.
+  !!! This code will error in future versions of Julia.
+Hint: Add an appropriate `invokelatest` around the access to this binding.
+To make this warning an error, and hence obtain a stack trace, use `julia --depwarn=error`.
+WARNING: Detected access to binding `Mixedf.f` in a world prior to its definition world.
+  Julia 1.12 has introduced more strict world age semantics for global bindings.
+  !!! This code may malfunction under Revise.
+  !!! This code will error in future versions of Julia.
+Hint: Add an appropriate `invokelatest` around the access to this binding.
+To make this warning an error, and hence obtain a stack trace, use `julia --depwarn=error`.
+WARNING: Detected access to binding `Main.Mixedg` in a world prior to its definition world.
+  Julia 1.12 has introduced more strict world age semantics for global bindings.
+  !!! This code may malfunction under Revise.
+  !!! This code will error in future versions of Julia.
+Hint: Add an appropriate `invokelatest` around the access to this binding.
+To make this warning an error, and hence obtain a stack trace, use `julia --depwarn=error`.
+WARNING: Detected access to binding `Mixedg.g` in a world prior to its definition world.
+  Julia 1.12 has introduced more strict world age semantics for global bindings.
+  !!! This code may malfunction under Revise.
+  !!! This code will error in future versions of Julia.
+Hint: Add an appropriate `invokelatest` around the access to this binding.
+To make this warning an error, and hence obtain a stack trace, use `julia --depwarn=error`.
+f(A1) => ("A", 1)
+f(B1) => ("B", 2, 1)
+f(B1; k = 5) => ERROR MethodError: no method matching f(::B1; k::Int64)
+f(A1; k = 5) => ERROR MethodError: no method matching f(::A1; k::Int64)
+f(7; k = 5) => ERROR MethodError: no method matching f(::Int64; k::Int64)
+f(7) => ("untyped", 7, 0)
+g(A1) => ERROR TraitUseError: library code breaks a rule of the trait world:
+g(B1) => ("B", 2, 1)
+g(B1; k = 5) => ("B", 2, 5)
+g(A1; k = 5) => ERROR TraitUseError: library code breaks a rule of the trait world:
+g(7; k = 5) => ("untyped", 7, 5)
+g(7) => ("untyped", 7, 0)

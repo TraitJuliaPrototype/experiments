@@ -1,0 +1,13 @@
+jl: slot 1 (cores 0-3), depot /tmp/claude-1000/depots/w130
+NWState(int) => ERROR UndefRefError: access to undefined reference
+NWState(nw) => (Net(2), [0.0, 0.0])
+NWState(nw; ufill = 3.0) => (Net(2), [3.0, 3.0])
+NWState(nw; guess = true) => (Net(2), [-1.0, -1.0])
+NWState(nw, [5.0, 6.0]) => (Net(2), [5.0, 6.0])
+nwstate(int) => (Net(2), [1.0, 2.0])
+nwstate(int; ufill = 3.0) => ERROR MethodError: no method matching extract_nw(::Integ)
+nwstate(nw) => (Net(2), [0.0, 0.0])
+nwstate(nw; guess = true) => (Net(2), [-1.0, -1.0])
+nwstate(nw, [5.0, 6.0]) => (Net(2), [5.0, 6.0])
+nwstate(Dynamic{IntegratorView}(int)) => (Net(2), [1.0, 2.0])
+kwcall's methods at UnionAll => Method[]
