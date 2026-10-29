@@ -512,3 +512,16 @@ TDE `w34` ede32e3 and f0a79ae against a same-day control on 3a51d95 (before R2; 
 - ede32e3 compiled the front end per new function (38 ms each; [the E-239 write-up](../w34-sciml/README.md#e-239-w-32-r2-the-tde-side-2026-10-29), finding 1); f0a79ae removes it.
 - What remains is the load, +0.08 s: TraitWorld's load report counts 23 family members fixed from records against 14 (the optional traits on `ODEProblem`, the integrators' `CoreIntegrator`), about 2 ms each, about 20 ms; the rest is not attributed.
 
+
+### E-242, setting D after W-32's R3 items in TDE, 2026-10-29
+
+TDE `w34` e4eeed9 and 388cb33 against a same-day control on f0a79ae (before R3; `../w34-sciml/r3/control_before.sh`, a worktree); TraitMakie as found, TraitWorld d22ec7b, julia-1.13 bfca89decc; product setting, strict mode off; two cores. `bash precompile.sh D; bash run.sh e242 "D" 2`: a discarded warm-up and two sessions each; the control a warm-up and one session, before and after each round (`logs/e242/`: `a-D-*` on e4eeed9, `D-*` on 388cb33, `Dbefore-*` the control). The results' lines are equal across all.
+
+| D | load | first solve | first plot | second model | **session** |
+|---|---|---|---|---|---|
+| control f0a79ae (four sessions) | 0.642–0.671 | 0.174–0.185 | 0.220–0.230 | 0.054–0.080 | **1.27–1.32** |
+| e4eeed9 | 0.614–0.621 | 0.620–0.635 | 0.244–0.253 | 0.076–0.078 | **1.74–1.77** |
+| 388cb33 | 0.669–0.688 | 0.181–0.182 | 0.235–0.243 | 0.072–0.075 | **1.34–1.35** |
+
+- e4eeed9's first solve: the session's `solve_two` inferred TraitWorld's `conforms` through the umbrella's `solve` (0.43 s; [the E-242 write-up](../w34-sciml/README.md#e-242-w-32-r3-the-tde-items-left-for-networkdynamics-2026-10-29), finding 5). 388cb33 chooses the nonlinear front end by trait dispatch.
+- What remains, +0.04–0.06 s: the load (+0.02–0.04 s; TraitNonlinearSolve and its members are loaded), the second model (+0.02 s; a Rodas5 solve with `saveat`, so not the dense path), the first plot (+0.01 s). Not attributed further.

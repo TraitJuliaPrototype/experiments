@@ -335,3 +335,57 @@ julia-1.13 bfca89decc, TraitWorld ca92f22, product setting, strict mode off.
 - A callback's `initialize(u, t, integ)` without SciML's callback argument; an affect of `nothing` is refused (every crossing is an event, as NetworkDynamics' vector callbacks have it).
 - The parameters are saved at the start of every solve with callbacks (`deepcopy` unless an array), and at each `save_discretes!`; `parameters_at` takes the last saved at or before `t`.
 - The integrators keep their core problem's type (`M`): it names no parameters type, and the drivers were compiled per core problem already.
+
+# E-242: W-32 R3, the TDE items left for NetworkDynamics (2026-10-29)
+
+The question (registry E-242; [the R1 census](../../writeup/plans/2026-10-29-ndport-r1-census.md) §3, item 11, S7, item 17's rest; open issues 117 and 118): can TDE take NetworkDynamics' fixed point, `remake`, dense output and the solution's `idxs` forms, each in the trait form, with results unchanged; and how far does NetworkDynamics then run? Not a measurement, except E-168's session once (`../ttfx/`, section E-242).
+
+## What was built (TDE branch `w34`, e4eeed9 and 388cb33, from f0a79ae)
+
+- **Nonlinear problems with an open set of solvers** (item 11), a new package `lib/TraitNonlinearSolve` as [the note](../../writeup/plans/2026-10-29-tde-nonlinear-problems.md) designs it (its §7 lists the amendments): `NonlinearProblemTrait{T, P}`; TDE's `NonlinearProblem` and `NonlinearFunction`; `SteadyStateProblem` from a right-hand side at a time or from any `ODEProblemTrait`; `NonlinearAlgorithm` with `NewtonRaphson`, `TrustRegion` and `NonlinearPolyalg`, each over any `LinearSolver`; the solution with its problem kept; a precompile workload. The umbrella re-exports it and forwards a nonlinear algorithm from its `solve`, chosen by trait dispatch (`is_nonlinear_algorithm`, `is_nonlinear_problem`: bounded methods with an untyped fallback, 388cb33).
+- **`remake(prob; u0, tspan, p, callback)`** (S7) in ODECore: the user's functions back from the problem with their attributes, entered again.
+- **Dense output** (open issue 117, my choice): `Interpolant{U, T}` (`interpolate`) in ODECore; `HermiteSteps{T}` (Tsit5) and TraitRodas' `Rodas5Steps`; `CoreSolution` and `ODESolution` keep `Kept{Interpolant{Vector{T}, Float64}}` or `nothing`; `dense` defaults to an empty `saveat`. A step cut by an event keeps its full step's data and ends at the event's time, so `sol(te)` is the state saved there.
+- **The solution's `idxs` forms:** `sol(τ; idxs)` is `sol(τ, idxs)`, by dispatch on the index's type (`Int`, `Symbol`, vectors; a library's own type by its own method); at a vector of times, a vector of values. Open issue 118 is not built.
+- Not built: `Rodas4` (a second tableau and interpolant) and `copy` of absent parameters (a `NullParameters` default would change every parameterless problem's type).
+- TDE's suite: 222 checks (161 before; `test/nonlinear.jl`, `test/r3.jl`).
+
+## How to run
+
+    r3/run.sh <run>                     # check 1: the session's RESULT lines; check 2: Pkg.test() (stock image)
+    W=<scratch> r3/control_before.sh    # E-168's session on TDE f0a79ae, the same day (needs a worktree, see its header)
+    julia --project=<TDE> r3/quick_nl.jl nonlinear.jl r3.jl     # the new test files alone
+    (ndport) scripts/r3_pc.sh <name>; scripts/r3_run.sh <name> scripts/r3_workload.jl; R1_JFLAGS="-t 2" scripts/r3_run.sh <name> scripts/r3_nd_tests.jl
+
+## Results (2026-10-29)
+
+julia-1.13 bfca89decc, TraitWorld d22ec7b (main, as found), product setting, strict mode off.
+
+| Check | e4eeed9 / 388cb33 |
+|---|---|
+| 1 `RESULT` lines (`r3/logs/session-1.log`, `session-4.log`) | **identical** (9) |
+| 2 TDE's suite (`r3/logs/tests-1.log`, `tests-4.log`; `tests-2`, `-3`: the intermediate form, finding 6) | passes (222) |
+| NetworkDynamics' workload (`ndport/logs/r3-tde/run-3.log`, `run-4.log`) | 4 failures (E-239: 24): `SII.getu(sol, …)` in each pass (open issue 118) |
+| `find_fixpoint` against the relaxation (flows and frequencies) | 8.4e-10–9.6e-10 in every pass |
+| the cascade (Tsit5 and Rodas5) | E-239's trips, the same lines and times |
+| dense output against `saveat` (Tsit5, the network with its callbacks) | 0.0 |
+| NetworkDynamics' test subset (`ndport/logs/r3-tde/ndtest-1.log`, `ndtest-2.log`) | as E-239: massmatrix 6, doctor 26, diffusion 108/1/1/24, inhomogeneous 39/0/1/12 |
+| E-168's session, setting D (`../ttfx/logs/e242/`) | e4eeed9 1.74–1.77 s (`a-D-*`); 388cb33 **1.34–1.35 s**; the control on f0a79ae 1.27–1.32 s (four sessions, two before and two after) |
+| inferring `solve(::Any, ::Tsit5)` at the session's keywords (`r3/probe_inference3.jl`) | e4eeed9 447 ms; 388cb33 14 ms; f0a79ae 12 ms |
+
+### Findings
+
+1. **A field kept at a bounded parameter is read through the bound.** In a trait module, `prob.f` on TDE's `ODEProblem` gives the trait object (`Callable{…} at PartialFn{…}`), not the stored record, so `rewrap` saw no cast. `remake` reads the fields as stored (`getfield`).
+2. **A trait object reaches untyped code only where its trait is expected** (rule 2): `SteadyStateProblem(prob::ODEProblemTrait)` read the problem's optional properties inside the bound and was refused (`TraitBoundError` at `getsystem`). The front end reads them before the problem enters the bound.
+3. **A library's own index type on TDE's solution:** NetworkDynamics' methods `(sol::ODESolution)(t::Real, idx::SymbolicIndex)` load and run, strict mode off; the ports' ownership rules raise nothing for a method that names the library's own type.
+4. **One `solve` across packages:** TraitNonlinearSolve's `solve` is its own function; the umbrella forwards to it. A shared `solve` (CommonSolve's role) meets lowering L-3 (W-36). A case for the main session.
+5. **`conforms` in a front end is inferred by the callers.** At e4eeed9 the umbrella's `solve` asked `conforms(typeof(alg), NonlinearAlgorithm)`. A caller that infers `solve` at its keywords' types (E-168's `solve_two`) inferred TraitWorld's membership lookup with the trait as a constant: 0.43 s in the session's first solve, not visible in `--trace-compile` beyond the caller's own line (`Main.solve_two` 519 ms). An inference barrier removed it (13.7 ms); trait dispatch removes it without an annotation (388cb33). A note for the main session: `conforms` is a run-time question, and a library that asks it in a front end pays for it in its callers' inference.
+6. **A `@trait_module` block in the umbrella** (an intermediate form of the fix, bounded predicates in the umbrella itself) made the suite's nested-gradient test fail deterministically ("cannot determine ordering of Dual tags", `r3/logs/tests-2.log`, `-3`): ForwardDiff orders tags by the order of their first compilation, and the block changed it. The predicates moved to TraitNonlinearSolve, and the test passes. Not attributed further; the test depends on compilation order.
+7. **The in-place function that returns its array** (open issue 120, decided): one in NetworkDynamics' test subset (`diffusion_test.jl:33`), adapted at the source; none in NetworkDynamics' own code.
+
+### Choices made (mine)
+
+- Open issue 117 as its proposal (the user's rule "more expressive is principled"); `dense` on without `saveat`, as SciML's default; Tsit5's interpolant is the cubic Hermite its `saveat` and events use.
+- `sol(ts; idxs)` returns a plain vector of the values, not a `DiffEqArray` (TraitArrayTools' `DiffEqArray` holds vector states; SciML's holds any). Upstream's `sol(ts; idxs).u` does not run.
+- The `idxs` forms by dispatch on the index's type, so NetworkDynamics' own indexing serves its indices without a protocol (open issue 118's alternative C7, in the solution's call syntax).
+- `remake` gives a plain function back plain and a cast one under its cast; it keeps the callbacks unless given.
+- The note's amendments (§7): the trait's default Jacobian by finite differences; `SteadyStateProblem` a constructor; the line search a flag; the default polyalgorithm.
