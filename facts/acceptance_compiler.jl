@@ -760,5 +760,21 @@ s34b = try Base.invokelatest(SparamF.vect, Type{Type{Int32}}) catch e; e end
 check("G1.34 a narrow instance after a wider one runs with its own static parameters",
       s34a === Type{Type{Type{Int32}}} && s34b === Type{Type{Int32}}, "got $(repr(s34a)), $(repr(s34b)) (expected Type{Type{Int32}} second)")
 
+# --- G1.35: the current image starts and runs under `--compile=min` (W-89; compiler C-5):
+# a builtin's code is the plain owner's for every caller, and the interpreted copy of a method's code is
+# the asking owner's, so 1000 calls leave at most two CodeInstances. A child process with this session's
+# image (`Base.julia_cmd()`), killed after 60 s.
+prog35 = """f(x) = isa(x, Int); s = 0; for i in 1:1000; global s += f(i); end
+c = which(f, (Int,)).specializations.cache; n = 1; while isdefined(c, :next); global n += 1; global c = c.next; end
+print(s, " ", n)"""
+p35 = open(pipeline(`$(Base.julia_cmd()) --compile=min -t1 --startup-file=no -e $prog35`; stderr = stderr), "r")
+t35 = timedwait(() -> process_exited(p35), 60.0)
+t35 === :timed_out && kill(p35, Base.SIGKILL)
+out35 = read(p35, String); wait(p35)
+r35 = tryparse.(Int, split(out35))
+check("G1.35 the image starts and runs under --compile=min, one CodeInstance kept per owner",
+      t35 === :ok && success(p35) && length(r35) == 2 && r35[1] == 1000 && r35[2] <= 2,
+      t35 === :ok ? "exit $(p35.exitcode), output \"$out35\" (expected 1000 and at most 2 CodeInstances)" : "killed after 60 s")
+
 println()
 println(count(x -> x[2], results), " of ", length(results), " checks pass")
