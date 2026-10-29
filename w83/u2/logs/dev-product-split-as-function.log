@@ -1,0 +1,43 @@
+jl: slot 2 (cores 4-7), depot /home/hellmann/.julia/agent-depots/w83u4
+== u2 (E-257)  julia 1.13.2 (00dcc9994c)  setting product  TraitWorld 33dd55e  load 4.02 2.65 2.36
+-- n = 2 implementations
+product  dynamic      Σ area2 over Vector{Dynamic{S2}} (dloop)                        1.31 ns/elt     0.0 B/elt  (median of 2000 samples)
+product  dynamic      Σ area2 over Vector{Dynamic{S2}}: total2, E-164's copy row      1.15 ns/elt     0.0 B/elt  (median of 2000 samples)
+product  kept         Σ area2 over Vector{Kept{S2}}, half Compiled half Dynamic       1.37 ns/elt     0.0 B/elt  (median of 2000 samples)
+product  kept         Σ area2 over Vector{Kept{S2}}, all Compiled                     1.37 ns/elt     0.0 B/elt  (median of 2000 samples)
+product  kept         Σ area2 over Vector{Kept{S2}}, all Dynamic                      1.37 ns/elt     0.0 B/elt  (median of 2000 samples)
+product  collapse     Σ area2 over Vector{Any}, half raw half Dynamic: isa, split    127.49 ns/elt    32.0 B/elt  (median of 2000 samples)
+product  collapse     Σ area2 over Vector{Any}, all raw: isa, split                 219.18 ns/elt    32.0 B/elt  (median of 2000 samples)
+product  collapse     Σ area2 over Vector{Any}, all Dynamic: isa, split              33.40 ns/elt    32.0 B/elt  (median of 2000 samples)
+product  collapse     Σ area2 over Vector{Any}, half/half: isa, @dynamic_of           1.95 ns/elt     0.0 B/elt  (median of 2000 samples)
+product  today        Σ area2: total2(amix), the mixed Vector{Any} crossing           2.62 ns/elt     0.1 B/elt  (median of 2000 samples)
+product  today        Σ area2: total2(kmix), Vector{Kept{S2}} at the bound            1.34 ns/elt     0.1 B/elt  (median of 2000 samples)
+-- n = 4 implementations
+product  dynamic      Σ area4 over Vector{Dynamic{S4}} (dloop)                        1.40 ns/elt     0.0 B/elt  (median of 2000 samples)
+product  dynamic      Σ area4 over Vector{Dynamic{S4}}: total4, E-164's copy row      1.49 ns/elt     0.0 B/elt  (median of 2000 samples)
+product  kept         Σ area4 over Vector{Kept{S4}}, half Compiled half Dynamic       1.82 ns/elt     0.0 B/elt  (median of 2000 samples)
+product  kept         Σ area4 over Vector{Kept{S4}}, all Compiled                     1.83 ns/elt     0.0 B/elt  (median of 2000 samples)
+product  kept         Σ area4 over Vector{Kept{S4}}, all Dynamic                      1.83 ns/elt     0.0 B/elt  (median of 2000 samples)
+product  collapse     Σ area4 over Vector{Any}, half raw half Dynamic: isa, split    144.29 ns/elt    32.0 B/elt  (median of 2000 samples)
+product  collapse     Σ area4 over Vector{Any}, all raw: isa, split                 233.84 ns/elt    32.0 B/elt  (median of 2000 samples)
+product  collapse     Σ area4 over Vector{Any}, all Dynamic: isa, split              31.49 ns/elt    32.0 B/elt  (median of 2000 samples)
+product  collapse     Σ area4 over Vector{Any}, half/half: isa, @dynamic_of           2.49 ns/elt     0.0 B/elt  (median of 2000 samples)
+product  today        Σ area4: total4(amix), the mixed Vector{Any} crossing           2.87 ns/elt     0.0 B/elt  (median of 2000 samples)
+product  today        Σ area4: total4(kmix), Vector{Kept{S4}} at the bound            1.41 ns/elt     0.0 B/elt  (median of 2000 samples)
+ERROR: LoadError: AssertionError: count((k->begin
+                    #= /home/hellmann/Repos/julia-trait-bound/experiments/w83/u2/u2.jl:65 =#
+                    getfield(k, :compiled)
+                end), kmix) == N ÷ 2 && count((x->begin
+                    #= /home/hellmann/Repos/julia-trait-bound/experiments/w83/u2/u2.jl:65 =#
+                    x isa Dynamic
+                end), amix) == N ÷ 2
+Stacktrace:
+ [1] top-level scope
+   @ ~/Repos/julia-trait-bound/experiments/w83/u2/u2.jl:65
+ [2] include(mod::Module, _path::String)
+   @ Base ./Base.jl:310
+ [3] exec_options(opts::Base.JLOptions)
+   @ Base ./client.jl:344
+ [4] _start()
+   @ Base ./client.jl:577
+in expression starting at /home/hellmann/Repos/julia-trait-bound/experiments/w83/u2/u2.jl:51

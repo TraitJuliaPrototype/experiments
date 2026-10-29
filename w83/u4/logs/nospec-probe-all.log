@@ -1,0 +1,5 @@
+jl: slot 2 (cores 4-7), depot /home/hellmann/.julia/agent-depots/w83u4
+all  small (inlineable): Tuple{DataType, Bool}[(Tuple{typeof(small), Any}, 0), (Tuple{typeof(small), Q1}, 1), (Tuple{typeof(small), Q2}, 1), (Tuple{typeof(small), Q3}, 1)]
+all  big (@noinline):    Tuple{DataType, Bool}[(Tuple{typeof(big), Any}, 1), (Tuple{typeof(big), Q1}, 1), (Tuple{typeof(big), Q2}, 1), (Tuple{typeof(big), Q3}, 1)]
+all  c2 at Q1: Any[:($(Expr(:invoke, CodeInstance for MethodInstance for big(::Any), :(Main.big), Core.Argument(2)))), :(return %1)] => Float64
+all  c1 at Q1: Any[:(Base.getfield(_2, :a)), :(Base.add_float(%1, 1.0)), :(return %2)] => Float64
