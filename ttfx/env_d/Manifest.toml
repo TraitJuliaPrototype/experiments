@@ -260,6 +260,12 @@ registries = "General"
 uuid = "77ba4419-2d1f-58cd-9bb1-8ffee604a2e3"
 version = "1.1.5"
 
+[[deps.ODECore]]
+deps = ["ForwardDiff", "LinearAlgebra", "TraitArrayTools", "TraitIndexing", "TraitWorld"]
+path = "../../../TraitDifferentialEquations/lib/ODECore"
+uuid = "dde65c3d-a5a2-4c0b-ae11-c816328cb47b"
+version = "0.0.1"
+
 [[deps.OffsetArrays]]
 git-tree-sha1 = "117432e406b5c023f665fa73dc26e79ec3630151"
 registries = "General"
@@ -410,10 +416,22 @@ deps = ["Dates"]
 uuid = "fa267f1f-6049-4f14-aa54-33bafae1ed76"
 version = "1.0.3"
 
+[[deps.TraitArrayTools]]
+deps = ["TraitWorld"]
+path = "../../../TraitDifferentialEquations/lib/TraitArrayTools"
+uuid = "1b9b79cd-6bec-4e99-a18c-2677d046d2b7"
+version = "0.0.1"
+
 [[deps.TraitDifferentialEquations]]
-deps = ["ForwardDiff", "LinearAlgebra", "TraitWorld"]
+deps = ["ForwardDiff", "LinearAlgebra", "ODECore", "TraitArrayTools", "TraitIndexing", "TraitRodas", "TraitWorld"]
 path = "../../../TraitDifferentialEquations"
 uuid = "fc9886c1-0241-47c4-acfc-eaf7404dec9a"
+version = "0.0.1"
+
+[[deps.TraitIndexing]]
+deps = ["TraitWorld"]
+path = "../../../TraitDifferentialEquations/lib/TraitIndexing"
+uuid = "33517989-6c57-4017-8c1a-5a2ed17d5e8b"
 version = "0.0.1"
 
 [[deps.TraitMakie]]
@@ -422,11 +440,23 @@ path = "../../../TraitMakie"
 uuid = "46a11cac-d2c9-498a-a901-1fb9b8611426"
 version = "0.0.1"
 
+[[deps.TraitRodas]]
+deps = ["ForwardDiff", "LinearAlgebra", "ODECore", "TraitWorld"]
+path = "../../../TraitDifferentialEquations/lib/TraitRodas"
+uuid = "bf920f43-cef2-427b-965f-14169ab0c399"
+version = "0.0.1"
+
 [[deps.TraitWorld]]
-deps = ["PrecompileTools", "Serialization"]
+deps = ["Dates", "LinearAlgebra", "PrecompileTools", "Serialization"]
 path = "../../../TraitWorld"
 uuid = "7a3c1e52-9b4d-4f6e-8a21-5d0c3b9e7f14"
 version = "0.1.0"
+
+    [deps.TraitWorld.extensions]
+    TraitWorldCthulhuExt = "Cthulhu"
+
+    [deps.TraitWorld.weakdeps]
+    Cthulhu = "f68482b8-f384-11e8-15f7-abe071a5a75f"
 
 [[deps.Unicode]]
 uuid = "4ec0a83e-493e-50e2-b9ac-8f72acf5a8f5"

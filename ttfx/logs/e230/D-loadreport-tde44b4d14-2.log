@@ -1,0 +1,70 @@
+LOAD TraitDifferentialEquations wall 0.904 compile 0.678
+TraitWorld load report: 1.292 s since the recording started, of it 1.173 s compiling (Julia's counter)
+  step                       count        ms  compiling
+  family members fixed at a package's load (a fold kept in its image, checked again: fold_holds)
+    total                       11     614.5      601.2
+    check                       11     421.1      409.9
+    builder                     11      52.4       50.8
+    index                       11      17.1       16.8
+    slowest (ms, of it compiling):
+         479.9   475.3  IntegratorView for ParamIntegrator{Vector{Float64}, Float64, Vector{Float64}}
+          49.5    48.1  Callback for FunctionCallback{Vector{Float64}, Float64, Vector{Float64}}
+          21.6    20.3  StepView for Tsit5Integrator{Float64}
+          15.2    14.6  ODEAlgorithm for Rodas5{DenseLU}
+          14.8    13.6  StepView for Tsit5Integrator{Dual{Tag{Sig{Tuple{Vector{Float64}}, Float64}, Float6…
+           8.7     7.8  StepView for Rodas5Integrator{Nothing}
+           8.1     7.2  EventCallback for FunctionEventCallback{Vector{Float64}, Float64, Vector{Float64}}
+           6.0     5.4  StepCallback for ParamCallback{Vector{Float64}, Float64, Vector{Float64}}
+           5.6     5.0  StepEvent for ParamEvent{Vector{Float64}, Float64, Vector{Float64}}
+           4.3     4.0  Solvable for LU{Float64, Matrix{Float64}, Vector{Int64}}
+           0.8     0.0  StepView for Rodas5Integrator{DualJacobian{3, Dynamic{Callable{Tuple{Vector{Dual{O…
+  the image hook (each package image's methods: overrides, strict mode)
+    total                       19      38.6       28.3
+    override index              19      20.8       19.1
+    override check              19      16.4        9.1
+    strict                      19       0.0        0.0
+    slowest (ms, of it compiling):
+          30.1    28.3  IrrationalConstants
+           3.1     0.0  ForwardDiff
+           1.5     0.0  ODECore
+           1.1     0.0  SpecialFunctions
+           0.6     0.0  TraitIndexing
+           0.4     0.0  DiffRules
+           0.3     0.0  MacroTools
+           0.2     0.0  DocStringExtensions
+           0.2     0.0  DiffResults
+           0.2     0.0  TraitDifferentialEquations
+           0.2     0.0  LogExpFunctions
+           0.2     0.0  NaNMath
+           0.1     0.0  TraitRodas
+           0.1     0.0  OpenLibm_jll
+           0.1     0.0  StaticArraysCore
+           0.1     0.0  JLLWrappers
+           0.1     0.0  CommonSubexpressions
+           0.0     0.0  OpenSpecFun_jll
+           0.0     0.0  CompilerSupportLibraries_jll
+  after each package load (the generation and dynamic candidates, strict mode's validation log)
+    total                       26       2.8        0.0
+    generation                  26       2.7        0.0
+    strict at load              26       0.0        0.0
+    slowest (ms, of it compiling):
+           0.3     0.0  Printf
+           0.1     0.0  Dates
+           0.1     0.0  TOML
+           0.1     0.0  Preferences
+           0.1     0.0  Serialization
+           0.1     0.0  DiffResults
+           0.1     0.0  TraitWorld
+           0.1     0.0  PrecompileTools
+           0.1     0.0  DiffRules
+           0.1     0.0  MacroTools
+           0.1     0.0  IrrationalConstants
+           0.1     0.0  OpenLibm_jll
+           0.1     0.0  StaticArraysCore
+           0.1     0.0  TraitRodas
+           0.1     0.0  LogExpFunctions
+           0.1     0.0  CompilerSupportLibraries_jll
+           0.1     0.0  DocStringExtensions
+           0.1     0.0  ForwardDiff
+           0.1     0.0  TraitDifferentialEquations
+           0.1     0.0  NaNMath

@@ -462,3 +462,26 @@ julia-1.13 8ceda6f9d6 (under the test bed the default owner is the facts owner f
   - a top-level thunk's default owner did not follow the setting: under `all` compiled thunks inferred their callees plainly, and A's repeated solve compiled 0.29 s (`diag/again_solve.jl`: 171 plain CodeInstances; now none).
 - A's load is 0.6 s slower than on 6800be7839, with the same compile time inside it: not diagnosed.
 - A's precompile is 20–66% slower per package with three tasks (Makie 185 against 112 s); DataFrames alone, one task, 36.1 against 33.5 s. Not diagnosed; the test bed's images only.
+
+### E-230, setting D on the split packages, the plots through `Trajectory` (W-34), 2026-10-29
+
+TDE `w34` bc68501 (move 5: the umbrella over the core, Rodas5, the indexing and array-tools packages as packages of their own; [the plan](../../writeup/plans/2026-10-29-sciml-finish.md) §3), TraitMakie 231cf52 (2c70583 for the later sessions: a script changed, no source), TraitWorld c39fedc, julia-1.13 bfca89decc; product setting, strict mode off; two cores; load 0.1–0.4. `env_d` re-resolved for the split packages. Since E-230 `workload_d.jl` gives each line an n × 2 matrix of points: D's from `plotpoints(sol, k)`, written against `Trajectory`; Dp's by `hcat` from the solution's vectors (E-168 passed the vectors, from which both libraries make the same matrix). `bash run.sh e230 "py D Dp D/p" 2`: a discarded warm-up and two sessions per setting (`logs/e230/`). The digests equal E-168's in every setting; no stale image.
+
+| Setting | load | first solve | first plot | second model | again | **session** |
+|---|---|---|---|---|---|---|
+| Python | 0.45 | 0.07 | 0.49 | 0.24 | 0.16 | **1.43** |
+| D, TDE + TraitMakie | 1.17 (0.80) | 0.19 (0.17) | 0.18 (0.15) | 0.053 (0.04) | 0.05 | **1.76–1.77** |
+| Dp, PlainODE + PlainPlots | 0.19–0.20 (0.04) | 0.22 (0.21) | 0.27–0.28 (0.24–0.25) | 0.33 (0.32) | 0.05 | **1.17–1.20** |
+| D/p, perturbed shapes | 1.17 (0.80) | 0.43 (0.41) | 0.17 (0.14) | 0.054 (0.04) | 0.05 | **1.99–2.00** |
+
+**Where D's load goes** (`probe_load_e230.jl`, `probe_loadreport_e230.jl`, one session each; `logs/e230/D-load-*.log`, `D-loadreport*.log`):
+- `using TraitDifferentialEquations` takes 1.04–1.08 s, of it 0.80 s compiling (`@time_imports`: the umbrella 806 ms, 94% compiling; ODECore 27 ms, TraitIndexing 3 ms, TraitRodas and TraitArrayTools less). TraitMakie after it: 0.17 s.
+- TraitWorld's load report: 744 ms in 14 family members fixed in the images and checked again at load (`fold_holds`, W-84). The largest: `IntegratorView for ParamIntegrator{Vector{Float64}, Float64, Vector{Float64}}` 491 ms; `Solvable for LU` 64 ms; `ODEProblemTrait` for three `ODEProblem` members 81 ms together.
+- The same report on TDE 44b4d14 (before move 5; `logs/e230/env-tde44b4d14-Project.toml`): the load 0.90 s (0.68 s compiling), 612 ms in 11 members, `ParamIntegrator`'s 476 ms. **Move 5 adds about 0.14 s:** the three `ODEProblemTrait` members, which the solutions now keep (`Kept{ODEProblemTrait{T, P}}`), are checked at load too.
+- The rest of the load's growth against E-168's 0.44–0.46 s predates move 5 and was not separated here: TDE since 669cd9b (W-63's `ParamIntegrator`, moves 3 and 4, BaseTraits' `HasProperty` on the integrator view) and TraitWorld since 04095fe.
+
+**What it says:**
+- **The split packages cost nothing measurable at load as packages.** Five packages of their own load in about 35 ms together.
+- **D's session is 1.76 s, above E-168's 0.94–0.99 s and above Python's 1.43 s.** The plan's line is crossed. The difference is the load (1.17 against 0.45 s): family members checked again at load, which is W-84 (phase 2 of the plan). After the load, the first solve and the second model are as in E-168 (0.19 and 0.053 s against 0.19 and 0.056–0.060 s); the first plot is 0.18 against 0.13 s.
+- **The traits' contribution stands:** the second model 0.053 s against Dp's 0.33 s.
+- **The first plot's 0.05 s more is not attributed:** `plotpoints` (compiled at the first plot, per solution type) and TraitMakie's changes since E-168's 9436157 (Makie's X3 slices) were not separated.

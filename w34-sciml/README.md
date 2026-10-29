@@ -237,3 +237,53 @@ Build julia-1.13 2943086604, TraitWorld 2e9ed68, TDE cccc517, product setting, s
 - tstops: `add_tstop!` ignores a time not ahead; a tstop behind a continuous event stays.
 - TDE declares no hot members (the design's form is what is measured; the workaround is measured from the script).
 - The control's typed callbacks are tuples with the discrete ones unrolled by recursion; PlainODE's `Vector{Any}` path is shown beside it.
+
+---
+
+# E-229: move 5, the solution as a trajectory (TDE, W-34)
+
+The question (registry E-229; [the plan](../../writeup/plans/2026-10-29-sciml-finish.md) §2, §4): can the solution keep its problem as a kept value, with no axis for its function or type? Is a helper over trajectories compiled once per solution type, not per model? Does `DiffEqArray` conform?
+
+What it measures: idiomatic trait code (library helpers written against a trait) and the solution's type. No timings.
+
+## What was built (TDE branch `w34`, bc68501, from 44b4d14)
+
+- **`lib/TraitArrayTools`,** RecursiveArrayTools' stand-in, a package of its own below the core: `Trajectory{U, T}` (`times`, `state`, `at`), `DiffEqArray{E}` (states at times, linear between them; `A(τ)`), `plotpoints(s::Trajectory{U, Float64}, i)::Matrix{Float64}`, `linear_at`.
+- **`CoreSolution{T}`,** what a solver returns (ODECore; Tsit5, TraitRodas and TraitImplicit return it). **`ODESolution{T, P}`,** made by the outer layer (`with_problem`, a bounded function on the problem): the same data, `prob::Kept{ODEProblemTrait{T, P}}` and the names. `sol(τ)` is `at(sol, τ)`.
+- `_ad_jacobian!` declares its result `::Nothing` (finding 1).
+- TDE's suite: 116 checks pass, none broken (`test/w34.jl` adds 11).
+
+## How to run
+
+    move5/run.sh <run>       # checks 1–6, each in a fresh process, through the shared lock, niced
+
+- Check 1 runs TDE's `scripts/session.jl trait` (`JULIA_LOAD_PATH="scripts/env:@stdlib"`) and compares its `RESULT` lines with `../w81/x1/session-x1-one-function.log`; check 2 is TDE's `Pkg.test()`; checks 3–6 are `move5/move5.jl` in `move5/` (its environment: TDE, TraitArrayTools, LorenzModels, ChainModels from the checkouts).
+- CodeInstances are counted as in E-157 (every method of TraitArrayTools from the global method table, the CodeInstances of each specialization by owner), before and after each step. Check 6 runs before check 5, which calls `plotpoints` too.
+- Logs: `move5/logs/{session,tests,move5}-run1.log`.
+
+## Results (2026-10-29)
+
+julia-1.13 bfca89decc, TraitWorld c39fedc, TDE bc68501, product setting, strict mode off, one run, load 0.8–1.2.
+
+| Check | Outcome |
+|---|---|
+| 1 `RESULT` lines | **unchanged:** the 9 lines identical; the session passes |
+| 2 TDE's suite | **passes** (116) |
+| 3 one solution type | **`ODESolution{Float64, Vector{Float64}}`** for a function, the same `compiled_for`, `ChainModel{PathGraph}` (Tsit5), `ChainModel{RingGraph}` (Rodas5), Rodas5 with the chunk at init; `sol.prob` is `Kept{ODEProblemTrait{Float64, Vector{Float64}}}` for each. A problem type (`LorenzProblem`), `Tuple` parameters and a `Float32` state give their own `P` or `T` |
+| 4 `sol.prob` | its `u0`, `tspan`, `p` read back; `rhs!(sol.prob, …)` is the problem's derivative, for `ODEProblem` and for `LorenzProblem` (its `p` a `LorenzParams`) |
+| 5 `DiffEqArray` | conforms; `plotpoints` equals the solution's for each component; `A(τ) == sol(τ)` on 21 times |
+| 6 `plotpoints` compiled | typed callers, new CodeInstances in TraitArrayTools: the first solution type 12; four more models and solvers of that type 0; `LorenzProblem` 10, `Tuple` parameters 10, `Float32` 11 (each a new solution type); a `DiffEqArray{Float64}` 17. As `Dynamic{Trajectory{Vector{Float64}, Float64}}`: 12 for the first, 0 for four more (two other solution types and a `DiffEqArray`) |
+
+### Findings
+
+1. **The kept problem is checked as a family member; under facts, `jacobian!` inferred `Any` there.** Storing an `ODEProblem` whose function is `Dynamic` in `Kept{ODEProblemTrait{T, P}}` checks it as a member of the problem family (before move 5, `core_problem` checked only compiled ones). The check refused it: `jacobian!` returns `Any`, declared `Nothing`. Plain inference of the same body gives `Nothing`. Under facts the generated entry of the bounded `_ad_jacobian!(fd::Callable{CoreDualSig{N}, Nothing}, …)`, called with the problem's function kept at another signature, is inferred with `fd::Any` (`enter_callable(…, ::Any, ::Any, …)`, then `checked_call(::typeof(_ad_jacobian!), ::Any, …)` by dynamic dispatch), so its result is lost (`TraitWorld.factscode`). TDE declares `_ad_jacobian!`'s result, which the entry passes to its callers. A candidate open issue for the main session: the facts entry of a bounded function loses its inferred result when a kept function enters at another signature.
+2. **One solution type per state and parameter type.** The function, the callable model's type, the problem's type and the solver are no part of it.
+3. **The helper is compiled per solution type, not per model,** and once for every trajectory kept `Dynamic`.
+4. **Move 5 costs the load about 0.14 s** (E-230): the three `ODEProblem` members the solutions keep are fixed in TDE's image and checked again at every load (W-84).
+
+### Choices made (mine)
+
+- `Trajectory`'s owner is a package of its own below the core (RecursiveArrayTools' place in SciML), so a plotting package needs no solver.
+- Two types: the solver's `CoreSolution{T}` and the user's `ODESolution{T, P}`, rather than one type with a `Union{Nothing, …}` problem field. The core never sees the problem (W-63); the split states it.
+- `plotpoints` returns a copy (an n × 2 matrix), not a view conforming to TraitMakie's `Positions`; that view would need a package extension.
+- `at` stays linear between the saved states; the solvers' interpolants are not kept.

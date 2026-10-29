@@ -45,9 +45,13 @@ function solve_two()
     b = ODE.solve(ODE.ODEProblem(robertson!, [1.0, 0.0, 0.0], (0.0, 1e5), shape([0.0])), ODE.Rodas5(); saveat = TR, reltol = RT, abstol = AT)
     a, b
 end
+# the points (t, u[k]) a line takes: D's through the solution as a `Trajectory` (TDE's `plotpoints`, move 5, E-230),
+# Dp's from the solution's vectors. E-168 passed the vectors x, y (both libraries make the same matrix from them).
+pts(s, k) = KIND == "trait" ? ODE.plotpoints(s, k) : hcat(ts(s), comp(s, k))
+scaled(m, c) = (m[:, 2] .*= c; m)
 function plot_two(a, b, path)
-    f = PL.lines(ts(a), comp(a, 1)); PL.lines!(f, ts(a), comp(a, 2)); PL.lines!(f, ts(a), comp(a, 3)); PL.save(path, f)
-    g = PL.lines(ts(b), comp(b, 1)); PL.lines!(g, ts(b), comp(b, 2) .* 1e4); PL.lines!(g, ts(b), comp(b, 3))
+    f = PL.lines(pts(a, 1)); PL.lines!(f, pts(a, 2)); PL.lines!(f, pts(a, 3)); PL.save(path, f)
+    g = PL.lines(pts(b, 1)); PL.lines!(g, scaled(pts(b, 2), 1e4)); PL.lines!(g, pts(b, 3))
     PL.save(replace(path, ".png" => "b.png"), g)
 end
 a, b = solve_two()
@@ -56,7 +60,7 @@ ORDER == "B" && loadplots()
 plot_two(a, b, joinpath(OUT, "d-1.png"))
 mark("plot1")
 c = ODE.solve(ODE.ODEProblem(vanderpol!, [2.0, 0.0], (0.0, 3000.0), shape([1000.0])), ODE.Rodas5(); saveat = TV, reltol = RT, abstol = AT)
-PL.save(joinpath(OUT, "d-2.png"), PL.lines(ts(c), comp(c, 1)))
+PL.save(joinpath(OUT, "d-2.png"), PL.lines(pts(c, 1)))
 mark("model2")
 # E-177: a late load of packages that add methods to Base's functions, before the solves and plots again
 if get(ENV, "WL_LATE", "0") == "1"

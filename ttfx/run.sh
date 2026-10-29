@@ -45,7 +45,7 @@ for st in $settings; do
     f=logs/$tag/$name-$i.log
     ( [ -n "$dep" ] && export JULIA_DEPOT_PATH=$dep || unset JULIA_DEPOT_PATH
       export WL_SHAPE=$shape WL_ORDER=$order WL_SPEC=$spec; [ $strict = 1 ] && export JULIA_TW_STRICT=1 || unset JULIA_TW_STRICT
-      echo "# setting=$st run=$i shape=$shape order=$order strict=$strict load=$(cut -d' ' -f1-3 /proc/loadavg) depot=${JULIA_DEPOT_PATH:-default} julia-1.13=$(git -C $R/julia-1.13 log -1 --format=%h) TraitWorld=$(git -C $R/TraitWorld log -1 --format=%h)"
+      echo "# setting=$st run=$i shape=$shape order=$order strict=$strict load=$(cut -d' ' -f1-3 /proc/loadavg) depot=${JULIA_DEPOT_PATH:-default} julia-1.13=$(git -C $R/julia-1.13 log -1 --format=%h) TraitWorld=$(git -C $R/TraitWorld log -1 --format=%h) TDE=$(git -C $R/TraitDifferentialEquations log -1 --format=%h) TraitMakie=$(git -C $R/TraitMakie log -1 --format=%h)$(git -C $R/TraitMakie status --porcelain --untracked-files=no | grep -q . && echo +changes)"
       flock /tmp/claude-1000/julia-review.lock bash -c 'echo "W $(date +%s.%N)"; taskset -c 0-1 ionice -c2 -n7 nice -n 19 timeout 300 "$@" 2>&1; echo "rc=$?"; echo "E $(date +%s.%N)"' _ "${cmd[@]}"
     ) > $f
     echo "$name-$i: $(python3 -I summarize.py $f | tail -1)"
