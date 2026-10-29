@@ -1,0 +1,141 @@
+jl: slot 1 (cores 0-3), depot /home/hellmann/.julia/agent-depots/w83u9
+_ok (generic function with 1 method)
+200×3 Table
+x        y       z      
+9.379    6.7144  10.6768
+7.7061   5.6605  36.9955
+7.6797   6.3166  17.272 
+8.0694   6.4037  98.7811
+8.6995   5.9667  62.5493
+9.0486   6.6732  97.9518
+7.1913   5.7209  73.9895
+13.7296  9.2125  4.1206 
+⋮ (192 more rows)
+x      mean 10.0729  std 2.1199  min 3.8746  max 15.6967  sum 2014.5881
+y      mean 6.6177  std 1.3638  min 3.4647  max 9.6038  sum 1323.5325
+z      mean 51.7144  std 29.9059  min 0.6563  max 99.7924  sum 10342.8816
+Hist(Kept{Sample}: Dynamic at Vector{Float64}, 24, Kept{ColorSpec}: Dynamic at TraitMakie.PlotCore.ColorName, Bars(Kept{Positions}: Dynamic at Matrix{Float64}, Kept{ColorSpec}: Dynamic at TraitMakie.PlotCore.ColorName, 1.0))
+VLines(Kept{Positions}: Dynamic at Matrix{Float64}, Kept{ColorSpec}: Dynamic at TraitMakie.PlotCore.ColorName, 1.5)
+CHECK the report's plot ok
+12
+:orange
+CHECK a changed attribute ok
+500×6 Table
+t    s1       s2      s3      n   tag  
+0.1  0.2999   0.853   2.9409  16  alpha
+0.2  1.2315   1.3498  3.0     14  delta
+0.3  0.6714   3.8648  0.9331  11  gamma
+0.4  -0.1215  3.5165  2.6161  12  gamma
+0.5  0.6418   2.9753  1.046   2   delta
+0.6  1.7252   0.9078  0.945   7   alpha
+0.7  0.3743   4.692   2.9879  16  alpha
+0.8  3.4263   3.9121  3.137   3   delta
+⋮ (492 more rows)
+t      mean 25.05  std 14.4482  min 0.1  max 50.0  sum 12525.0
+s1     mean 0.9784  std 0.9682  min -1.6124  max 4.5138  sum 473.538  missing 16
+s2     mean 1.9214  std 1.009  min -1.1198  max 4.692  sum 920.3683  missing 21
+s3     mean 3.0382  std 1.0391  min 0.2092  max 6.2186  sum 1470.5003  missing 16
+n      mean 9.2156  std 5.6892  min 0.0  max 19.0  sum 4488.0  missing 13
+tag    String, 4 distinct of 500
+CHECK a second shape ok
+U9 entry raised: ArgumentError: cell 20 is missing: pass skipmissing = true to leave missing cells out
+CHECK missing cells left out ok
+500×7 Table
+t    s1       s2      s3      n   tag    ramp
+0.1  0.2999   0.853   2.9409  16  alpha  0.5 
+0.2  1.2315   1.3498  3.0     14  delta  1.0 
+0.3  0.6714   3.8648  0.9331  11  gamma  1.5 
+0.4  -0.1215  3.5165  2.6161  12  gamma  2.0 
+0.5  0.6418   2.9753  1.046   2   delta  2.5 
+0.6  1.7252   0.9078  0.945   7   alpha  3.0 
+0.7  0.3743   4.692   2.9879  16  alpha  3.5 
+0.8  3.4263   3.9121  3.137   3   delta  4.0 
+⋮ (492 more rows)
+CHECK a new column type ok
+200×3 Table
+name   x    n
+item1  0.5  1
+item2  1.0  2
+item3  1.5  3
+item4  2.0  4
+item5  2.5  5
+item6  3.0  6
+item7  3.5  7
+item8  4.0  8
+⋮ (192 more rows)
+CHECK a strings column (String15) ok
+Figure(600, 400, Axis[Axis(Kept{Plot}[Kept{Plot}: Dynamic at Bars], "means", "", "", Kept{Scale}: Compiled at typeof(identity), Kept{Scale}: Compiled at typeof(identity), 1, 1, 0, true, (NaN, NaN, NaN, NaN))])
+Labels(Kept{Positions}: Dynamic at Matrix{Float64}, ["t", "s1", "s2", "s3", "n", "ramp"], Kept{ColorSpec}: Dynamic at TraitMakie.PlotCore.ColorName, 11.0, :center)
+CHECK a plot of another type ok
+CHECK session done ok
+U9 session done: report, entries that raised: 1
+== U9 census: report
+julia 00dcc9994c; functions with bounded methods: 43 (bounded methods 42, operation defaults 1, + hypothetical Base.show)
+caller CodeInstances: 782
+
+-- trait functions (the ports' bounded methods and defaults)
+call sites: 62 (concrete 58, non-concrete 4)
+  guard_methoderror        1   in a loop     0   in bounded code     0
+  fold_positive           34   in a loop     0   in bounded code    14
+  nonconcrete              4   in a loop     3   in bounded code     0
+  dynamic_value           23   in a loop     2   in bounded code     0
+guards: 1; in a loop 0; widening: none 0, covered by a declared result 0, to Any 1; in a loop and widening to Any 0
+guards with a trait object argument (in bounded code): 0 (its receiver type unknown: 0)
+guards at the boundary (plain code calling trait code) 1, inside bounded code 0
+guards removed if sealed sets fold negatives: 0 of 1
+what runs when the guard fails: MethodError 1, a default or the same declared result 0, a real fallback 0 (in a loop: 0)
+guards per function (sites, in a loop, widening to Any):
+  add_lines!                                  1    0    1
+
+-- hypothetical Base.show(::IO, ::X) on an open set X (U5)
+call sites: 545 (concrete 409, non-concrete 136)
+  guard_fallback          16   in a loop     9   in bounded code     0
+  plain                  390   in a loop    94   in bounded code     0
+  nonconcrete            136   in a loop    75   in bounded code     0
+  dynamic_value            3   in a loop     3   in bounded code     0
+guards: 16; in a loop 9; widening: none 16, covered by a declared result 0, to Any 0; in a loop and widening to Any 0
+guards with a trait object argument (in bounded code): 0 (its receiver type unknown: 0)
+guards at the boundary (plain code calling trait code) 16, inside bounded code 0
+guards removed if sealed sets fold negatives: 0 of 16
+what runs when the guard fails: MethodError 0, a default or the same declared result 0, a real fallback 16 (in a loop: 9)
+guards per function (sites, in a loop, widening to Any):
+  show                                       16    9    0
+guards in a loop:
+  [guard_fallback] show(IOContext{IOBuffer}, Base.PkgId) in Base.show_delim_array @ show.jl:1449; now Base.showTuple{typeof(show), IO, Any}; later Base.show(::IO, ::HypotheticalOpenSet) [2:Base.PkgId∉HypotheticalOpenSet]; result Nothing ⊔ Nothing (none)
+  [guard_fallback] show(IOContext{IOBuffer}, Base.PkgId) in Base.show_delim_array @ show.jl:1449; now Base.showTuple{typeof(show), IO, Any}; later Base.show(::IO, ::HypotheticalOpenSet) [2:Base.PkgId∉HypotheticalOpenSet]; result Nothing ⊔ Nothing (none)
+  [guard_fallback] show(IOContext{IOStream}, Axis) in Base.show_delim_array @ show.jl:1449; now Base.showTuple{typeof(show), IO, Any}; later Base.show(::IO, ::HypotheticalOpenSet) [2:Axis∉HypotheticalOpenSet]; result Nothing ⊔ Nothing (none)
+  [guard_fallback] show(IOContext{IOStream}, Axis) in Base.show_delim_array @ show.jl:1449; now Base.showTuple{typeof(show), IO, Any}; later Base.show(::IO, ::HypotheticalOpenSet) [2:Axis∉HypotheticalOpenSet]; result Nothing ⊔ Nothing (none)
+  [guard_fallback] show(IOContext{IOBuffer}, Base.PkgId) in Base.show_delim_array @ show.jl:1449; now Base.showTuple{typeof(show), IO, Any}; later Base.show(::IO, ::HypotheticalOpenSet) [2:Base.PkgId∉HypotheticalOpenSet]; result Nothing ⊔ Nothing (none)
+  [guard_fallback] show(IOContext{IOBuffer}, Base.PkgId) in Base.show_delim_array @ show.jl:1449; now Base.showTuple{typeof(show), IO, Any}; later Base.show(::IO, ::HypotheticalOpenSet) [2:Base.PkgId∉HypotheticalOpenSet]; result Nothing ⊔ Nothing (none)
+  [guard_fallback] show(IOContext{IOBuffer}, Base.PkgId) in Base.show_delim_array @ show.jl:1449; now Base.showTuple{typeof(show), IO, Any}; later Base.show(::IO, ::HypotheticalOpenSet) [2:Base.PkgId∉HypotheticalOpenSet]; result Nothing ⊔ Nothing (none)
+  [guard_fallback] show(IOContext{IOStream}, Axis) in Base.show_delim_array @ show.jl:1449; now Base.showTuple{typeof(show), IO, Any}; later Base.show(::IO, ::HypotheticalOpenSet) [2:Axis∉HypotheticalOpenSet]; result Nothing ⊔ Nothing (none)
+  [guard_fallback] show(IOContext{IOBuffer}, Base.PkgId) in Base.show_delim_array @ show.jl:1449; now Base.showTuple{typeof(show), IO, Any}; later Base.show(::IO, ::HypotheticalOpenSet) [2:Base.PkgId∉HypotheticalOpenSet]; result Nothing ⊔ Nothing (none)
+
+callers skipped: top-level thunks 0, TraitWorld's machinery 94, not re-inferable 0; re-inferred 549; splatted calls 51
+census time 13.4 s
+
+-- Base's abstract types as open sets (AbstractArray, AbstractDict, AbstractString, Dates.Period, LinearAlgebra.Factorization)
+functions 83; specializations that would carry a guard 1530; their static callers (backedges) 5400
+of them where a package (not only Julia) could declare the membership: specializations 208, static callers 299
+  function (specializations, static callers; where a package could declare: specializations, static callers)
+  hash                                       151   251    90    93
+  any                                         40   142     8    70
+  axes                                       230   923    45    69
+  kwcall                                      21    25     6    11
+  ==                                         111   690    11    10
+  all                                         38    72     2     9
+  show                                        32    27    11     9
+  issubset                                     7    15     1     4
+  Random.Sampler                              11    11     4     4
+  conformance                                  5     6     2     3
+  findnext                                    59    53     4     3
+  print                                       74   265     3     2
+  isempty                                     15    27     1     2
+  lines!                                       4     5     1     2
+  union!                                       5    14     2     2
+  eachindex                                   18    19     2     2
+  _color                                       2     2     1     1
+  _sample                                      1     1     1     1
+  isequal                                     57   388     2     1
+  pairs                                        2     3     1     1
+time 3.3 s

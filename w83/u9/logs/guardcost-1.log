@@ -1,0 +1,18 @@
+ 20:25:42 up 2 days, 22:06,  2 users,  load average: 1.23, 0.68, 0.43
+U9 guard cost: julia 00dcc9994c, load 1.30 1.37 0.81, 1 thread(s)
+ns per call, median (p10, p90) over 2001 loops of 1,000 calls; bytes allocated per call
+-- m0 inlined
+  plain            0.923  (0.921, 0.926)  0.0 B
+  cell             0.924  (0.922, 0.926)  0.0 B
+  cell_fast        0.926  (0.924, 0.928)  0.0 B
+  registry       374.134  (365.811, 379.831)  0.0 B
+  dict            28.249  (26.977, 29.667)  0.0 B
+  cell_widened    25.043  (23.744, 29.213)  32.0 B
+-- m0 @noinline
+  plain            3.088  (3.079, 3.156)  0.0 B
+  cell             2.041  (2.036, 2.047)  0.0 B
+  cell_fast         2.04  (2.035, 2.088)  0.0 B
+  registry       375.237  (368.511, 384.132)  0.0 B
+  dict            28.772  (27.522, 30.442)  0.0 B
+  cell_widened    25.511  (24.548, 27.372)  32.0 B
+ 20:29:11 up 2 days, 22:09,  2 users,  load average: 1.30, 1.37, 0.81

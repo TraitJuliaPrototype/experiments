@@ -1,0 +1,73 @@
+jl: slot 1 (cores 0-3), depot /home/hellmann/.julia/agent-depots/w83u9
+== U9 census: selftest
+julia 00dcc9994c; functions with bounded methods: 12 (bounded methods 11, operation defaults 1, + hypothetical Base.show)
+caller CodeInstances: 431
+
+-- trait functions (the ports' bounded methods and defaults)
+call sites: 12 (concrete 11, non-concrete 1)
+  guard_fallback           2   in a loop     1   in bounded code     0
+  guard_subtrait           2   in a loop     0   in bounded code     1
+  guard_methoderror        1   in a loop     0   in bounded code     0
+  fold_positive            4   in a loop     0   in bounded code     1
+  plain                    2   in a loop     0   in bounded code     0
+  nonconcrete              1   in a loop     0   in bounded code     0
+guards: 5; in a loop 1; widening: none 1, covered by a declared result 1, to Any 3; in a loop and widening to Any 1
+guards with a trait object argument (in bounded code): 1 (its receiver type unknown: 0)
+guards at the boundary (plain code calling trait code) 4, inside bounded code 1
+guards removed if sealed sets fold negatives: 5 of 5
+what runs when the guard fails: MethodError 1, a default or the same declared result 0, a real fallback 4 (in a loop: 1)
+  in bounded code: [guard_subtrait] describe(Shape at Sq) in Main.U9Lib.k @ selftest.jl:18; later Main.U9Lib.describe(Round) [1:Sq∉Round]
+guards per function (sites, in a loop, widening to Any):
+  describe                                    4    1    3
+  g                                           1    0    0
+guards in a loop:
+  [guard_fallback] describe(Int64) in Main.c_fallback_loop @ selftest.jl:34; now Main.U9Lib.describeTuple{typeof(describe), Any} [untyped fallback]; later Main.U9Lib.describe(Round) [1:Int64∉Round]; Main.U9Lib.describe(Shape) [1:Int64∉Shape]; result Symbol ⊔ Any (any)
+
+-- hypothetical Base.show(::IO, ::X) on an open set X (U5)
+call sites: 380 (concrete 282, non-concrete 98)
+  guard_fallback           8   in a loop     6   in bounded code     0
+  plain                  274   in a loop    74   in bounded code     0
+  nonconcrete             98   in a loop    52   in bounded code     0
+guards: 8; in a loop 6; widening: none 8, covered by a declared result 0, to Any 0; in a loop and widening to Any 0
+guards with a trait object argument (in bounded code): 0 (its receiver type unknown: 0)
+guards at the boundary (plain code calling trait code) 8, inside bounded code 0
+guards removed if sealed sets fold negatives: 0 of 8
+what runs when the guard fails: MethodError 0, a default or the same declared result 0, a real fallback 8 (in a loop: 6)
+guards per function (sites, in a loop, widening to Any):
+  show                                        8    6    0
+guards in a loop:
+  [guard_fallback] show(IOContext{IOBuffer}, Base.PkgId) in Base.show_delim_array @ show.jl:1449; now Base.showTuple{typeof(show), IO, Any}; later Base.show(::IO, ::HypotheticalOpenSet) [2:Base.PkgId∉HypotheticalOpenSet]; result Nothing ⊔ Nothing (none)
+  [guard_fallback] show(IOContext{IOBuffer}, Base.PkgId) in Base.show_delim_array @ show.jl:1449; now Base.showTuple{typeof(show), IO, Any}; later Base.show(::IO, ::HypotheticalOpenSet) [2:Base.PkgId∉HypotheticalOpenSet]; result Nothing ⊔ Nothing (none)
+  [guard_fallback] show(IOContext{IOBuffer}, Base.PkgId) in Base.show_delim_array @ show.jl:1449; now Base.showTuple{typeof(show), IO, Any}; later Base.show(::IO, ::HypotheticalOpenSet) [2:Base.PkgId∉HypotheticalOpenSet]; result Nothing ⊔ Nothing (none)
+  [guard_fallback] show(IOContext{IOBuffer}, Base.PkgId) in Base.show_delim_array @ show.jl:1449; now Base.showTuple{typeof(show), IO, Any}; later Base.show(::IO, ::HypotheticalOpenSet) [2:Base.PkgId∉HypotheticalOpenSet]; result Nothing ⊔ Nothing (none)
+  [guard_fallback] show(IOContext{IOBuffer}, Base.PkgId) in Base.show_delim_array @ show.jl:1449; now Base.showTuple{typeof(show), IO, Any}; later Base.show(::IO, ::HypotheticalOpenSet) [2:Base.PkgId∉HypotheticalOpenSet]; result Nothing ⊔ Nothing (none)
+  [guard_fallback] show(IOContext{IOBuffer}, Base.PkgId) in Base.show_delim_array @ show.jl:1449; now Base.showTuple{typeof(show), IO, Any}; later Base.show(::IO, ::HypotheticalOpenSet) [2:Base.PkgId∉HypotheticalOpenSet]; result Nothing ⊔ Nothing (none)
+
+callers skipped: top-level thunks 0, TraitWorld's machinery 27, not re-inferable 0; re-inferred 358; splatted calls 41
+census time 8.3 s
+
+-- Base's abstract types as open sets (AbstractArray, AbstractDict, AbstractString, Dates.Period, LinearAlgebra.Factorization)
+functions 74; specializations that would carry a guard 983; their static callers (backedges) 3631
+of them where a package (not only Julia) could declare the membership: specializations 84, static callers 145
+  function (specializations, static callers; where a package could declare: specializations, static callers)
+  any                                         37   109     8    53
+  axes                                       158   663    22    31
+  hash                                        75   139    23    24
+  ==                                          81   496    11    10
+  all                                         30    53     2     9
+  kwcall                                      10    10     4     4
+  issubset                                     6    14     1     4
+  findnext                                    43    45     4     3
+  isempty                                     11    16     1     2
+  union!                                       5    13     2     2
+  isequal                                     48   326     1     1
+  pairs                                        1     1     1     1
+  show                                        16    14     1     1
+  print                                       54   170     1     0
+  arg_gen                                      1     1     0     0
+  _copy_or_fill!                               2     3     0     0
+  argmin                                       1     9     0     0
+  cat_indices                                  2     2     0     0
+  vcat                                         3     9     0     0
+  sizeof                                      15   179     1     0
+time 2.6 s
