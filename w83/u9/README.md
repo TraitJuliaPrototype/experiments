@@ -8,7 +8,7 @@ The question (registry row E-259; open issue 136 (e); exploration `writeup/explo
 
 **(e) stands. No guard sits in a loop, none in bounded code, and none widens a result beyond what today's code already infers.**
 
-- Across the five sessions, 8 guard sites in the ports' trait functions (5 distinct sites). Every one is at the boundary: plain code calling trait code.
+- Across the five sessions, 8 guard sites in the ports' trait functions (4 distinct sites). Every one is at the boundary: plain code calling trait code.
 - They come from two patterns only:
   - a capability predicate written as dispatch: `is_nonlinear_algorithm(alg::NonlinearAlgorithm) = true; is_nonlinear_algorithm(alg) = false`, called at `Tsit5` and `Rodas5`. Under (e) this is a run-time membership read, which is what the predicate means;
   - `MethodError` paths: code compiled at a type that is not a member (`add_lines!` at a `Vector{Float64}` for `Positions`; `add_plot!` at the session's `Lollipop`, whose `@implement` failed). There is no cost on a path that throws.
@@ -60,7 +60,7 @@ Build: julia-1.13 `00dcc9994c`, TraitWorld `33dd55e`. Product setting, strict mo
 - **The sealed variant** (the coordinator's question): suppose a set whose memberships are all declared at the member type's definition or in the member's own package proper folds its negatives. Then 5 of the 8 guard sites fold.
   - Such a set has no membership in an extension and none by the set's owner for a foreign type. These are U5's members by owner, refined: `by_owner`, `by_owner_param`, `generic_own_ub`.
   - The guards that stay are `add_lines!` at `Positions`, an open set.
-- **The kind of fallback:** 5 MethodError, 0 a default or the same declared result, 3 real fallbacks (the predicate). None of them is in a loop.
+- **The kind of fallback:** 4 MethodError, 0 a default or the same declared result, 4 real fallbacks (the predicate, at `Tsit5` and `Rodas5` in two sessions; counts from `logs/*-sites.tsv`). None of them is in a loop.
 
 ### The hypothetical `Base.show(::IO, ::X)` on an open set (U5's question)
 
