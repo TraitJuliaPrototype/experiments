@@ -1,0 +1,7 @@
+doc = "excluded combination: Xs.Members = Union{Sp.Ty} (members by X's owner); Fo.f(::Xs.Members) in ext FoXsExt (parent Fo, trigger Xs); P deps Fo, Sp only"
+ext = "FoXsExt"
+pkgs = ["Sp", "Xs", "Fo", "P"]
+top = ["P", "Xs"]
+exts = ["FoXsExt"]
+[probes]
+P = "P"

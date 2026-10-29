@@ -1,0 +1,40 @@
+jl: slot 4 (cores 12-15), depot /home/hellmann/.julia/agent-depots/w83u6
+RESULT R8 steps=Pt julia=00dcc9994c compiled_modules=1
+RESULT R8 step=Pt isprecompiled_before=Fo=true Pt=true Sp=true Xs=true
+RESULT R8 step=Pt loaded_now=Xs>Fo>Sp>FoSpExt>SpXsExt>Pt
+RESULT R8 step=Pt invalidation_tags=Dict("MethodInstance" => 3, "jl_method_table_insert" => 2) load_tags=Dict{String, Int64}()
+RESULT R8 step=Pt   invalidated: MethodInstance for Fo.f(::Sp.Ty)
+RESULT R8 step=Pt   invalidated: MethodInstance for FoSpExt.g()
+RESULT R8 step=Pt   invalidated: MethodInstance for Xs.ismember(::Sp.Ty)
+RESULT R8 step=Pt probe=FoSpExt seen=fallback loaded=FoSpExt>Xs>Fo>Sp image=true now=won
+RESULT R8 step=Pt probe=Pt seen=won loaded=Pt>Xs>Fo>Sp>FoSpExt>SpXsExt image=true now=won
+RESULT R8 steps=Fo,Sp julia=00dcc9994c compiled_modules=1
+RESULT R8 step=Fo isprecompiled_before=Fo=true Pt=true Sp=true Xs=true
+RESULT R8 step=Fo loaded_now=Xs>Fo
+RESULT R8 step=Fo invalidation_tags=Dict{String, Int64}() load_tags=Dict{String, Int64}()
+RESULT R8 step=Sp isprecompiled_before=Fo=true Pt=true Sp=true Xs=true
+RESULT R8 step=Sp loaded_now=Xs>Fo>Sp>FoSpExt>SpXsExt
+RESULT R8 step=Sp invalidation_tags=Dict("MethodInstance" => 3, "jl_method_table_insert" => 2) load_tags=Dict{String, Int64}()
+RESULT R8 step=Sp   invalidated: MethodInstance for Fo.f(::Sp.Ty)
+RESULT R8 step=Sp   invalidated: MethodInstance for FoSpExt.g()
+RESULT R8 step=Sp   invalidated: MethodInstance for Xs.ismember(::Sp.Ty)
+RESULT R8 step=Sp probe=FoSpExt seen=fallback loaded=FoSpExt>Xs>Fo>Sp image=true now=won
+RESULT R8 steps=Sp,Fo julia=00dcc9994c compiled_modules=1
+RESULT R8 step=Sp isprecompiled_before=Fo=true Pt=true Sp=true Xs=true
+RESULT R8 step=Sp loaded_now=Sp
+RESULT R8 step=Sp invalidation_tags=Dict{String, Int64}() load_tags=Dict{String, Int64}()
+RESULT R8 step=Fo isprecompiled_before=Fo=true Pt=true Sp=true Xs=true
+RESULT R8 step=Fo loaded_now=Sp>Xs>Fo>SpXsExt>FoSpExt
+RESULT R8 step=Fo invalidation_tags=Dict{String, Int64}() load_tags=Dict("MethodInstance" => 1, "insert_backedges_callee" => 1, "verify_methods" => 2, "CodeInstance" => 5)
+RESULT R8 step=Fo   invalidated: MethodInstance for Xs.ismember(::Sp.Ty)
+RESULT R8 step=Fo probe=FoSpExt seen=fallback loaded=FoSpExt>Xs>Fo>Sp image=true now=won
+RESULT R8 mode=parallel doc=P = extension FoSpExt (parent Fo, trigger Sp; Xs in its tree via Fo); membership by S's owner in ext SpXsExt (parent Sp, trigger Xs); top Pt deps Fo, Sp
+Precompiling packages...
+   0.3 s  ✓ Xs
+   0.3 s  ✓ Sp
+   0.3 s  ✓ Fo
+   0.3 s  ✓ Sp → SpXsExt
+   0.3 s  ✓ Fo → FoSpExt
+   0.3 s  ✓ Pt
+  6 dependencies successfully precompiled in 1 seconds
+RESULT R8 mode=parallel precompile_seconds=1.8

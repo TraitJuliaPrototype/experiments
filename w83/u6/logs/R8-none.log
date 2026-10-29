@@ -1,0 +1,31 @@
+jl: slot 4 (cores 12-15), depot /home/hellmann/.julia/agent-depots/w83u6
+RESULT R8 steps=Pt julia=00dcc9994c compiled_modules=0
+RESULT R8 step=Pt isprecompiled_before=Fo=false Pt=false Sp=false Xs=false
+RESULT R8 step=Pt loaded_now=Pt>Fo>Xs>Sp>FoSpExt>SpXsExt
+RESULT R8 step=Pt invalidation_tags=Dict("MethodInstance" => 3, "jl_method_table_insert" => 2) load_tags=Dict{String, Int64}()
+RESULT R8 step=Pt   invalidated: MethodInstance for Fo.f(::Sp.Ty)
+RESULT R8 step=Pt   invalidated: MethodInstance for FoSpExt.g()
+RESULT R8 step=Pt   invalidated: MethodInstance for Xs.ismember(::Sp.Ty)
+RESULT R8 step=Pt probe=FoSpExt seen=fallback loaded=Pt>Fo>Xs>Sp>FoSpExt image=false now=won
+RESULT R8 step=Pt probe=Pt seen=won loaded=Pt>Fo>Xs>Sp>FoSpExt>SpXsExt image=false now=won
+RESULT R8 steps=Fo,Sp julia=00dcc9994c compiled_modules=0
+RESULT R8 step=Fo isprecompiled_before=Fo=false Pt=false Sp=false Xs=false
+RESULT R8 step=Fo loaded_now=Fo>Xs
+RESULT R8 step=Fo invalidation_tags=Dict{String, Int64}() load_tags=Dict{String, Int64}()
+RESULT R8 step=Sp isprecompiled_before=Fo=false Pt=false Sp=false Xs=false
+RESULT R8 step=Sp loaded_now=Fo>Xs>Sp>FoSpExt>SpXsExt
+RESULT R8 step=Sp invalidation_tags=Dict("MethodInstance" => 3, "jl_method_table_insert" => 2) load_tags=Dict{String, Int64}()
+RESULT R8 step=Sp   invalidated: MethodInstance for Fo.f(::Sp.Ty)
+RESULT R8 step=Sp   invalidated: MethodInstance for FoSpExt.g()
+RESULT R8 step=Sp   invalidated: MethodInstance for Xs.ismember(::Sp.Ty)
+RESULT R8 step=Sp probe=FoSpExt seen=fallback loaded=Fo>Xs>Sp>FoSpExt image=false now=won
+RESULT R8 steps=Sp,Fo julia=00dcc9994c compiled_modules=0
+RESULT R8 step=Sp isprecompiled_before=Fo=false Pt=false Sp=false Xs=false
+RESULT R8 step=Sp loaded_now=Sp
+RESULT R8 step=Sp invalidation_tags=Dict{String, Int64}() load_tags=Dict{String, Int64}()
+RESULT R8 step=Fo isprecompiled_before=Fo=false Pt=false Sp=false Xs=false
+RESULT R8 step=Fo loaded_now=Sp>Fo>Xs>SpXsExt>FoSpExt
+RESULT R8 step=Fo invalidation_tags=Dict{String, Int64}() load_tags=Dict{String, Int64}()
+RESULT R8 step=Fo probe=FoSpExt seen=won loaded=Sp>Fo>Xs>SpXsExt>FoSpExt image=false now=won
+RESULT R8 mode=none doc=P = extension FoSpExt (parent Fo, trigger Sp; Xs in its tree via Fo); membership by S's owner in ext SpXsExt (parent Sp, trigger Xs); top Pt deps Fo, Sp
+RESULT R8 mode=none precompile_seconds=0.0

@@ -1,0 +1,26 @@
+jl: slot 2 (cores 4-7), depot /home/hellmann/.julia/agent-depots/w83u6
+RESULT R9 steps=P,Xs julia=00dcc9994c compiled_modules=1
+RESULT R9 step=P isprecompiled_before=Fo=false P=false Sp=false Xs=false
+RESULT R9 step=P loaded_now=Fo>Sp>P
+RESULT R9 step=P invalidation_tags=Dict{String, Int64}() load_tags=Dict{String, Int64}()
+RESULT R9 step=P probe=P seen=fallback loaded=P>Fo>Sp image=true now=fallback
+RESULT R9 step=Xs isprecompiled_before=Fo=true P=true Sp=true Xs=false
+RESULT R9 step=Xs loaded_now=Fo>Sp>P>Xs>FoXsExt
+RESULT R9 step=Xs invalidation_tags=Dict("MethodInstance" => 2, "jl_method_table_insert" => 2) load_tags=Dict{String, Int64}()
+RESULT R9 step=Xs   invalidated: MethodInstance for P.g()
+RESULT R9 step=Xs   invalidated: MethodInstance for Fo.f(::Sp.Ty)
+RESULT R9 step=Xs probe=P seen=fallback loaded=P>Fo>Sp image=true now=won
+RESULT R9 steps=main,Xs julia=00dcc9994c compiled_modules=1
+RESULT R9 step=main isprecompiled_before=Fo=true P=true Sp=true Xs=true
+RESULT R9 step=main loaded_now=Fo>Sp
+RESULT R9 step=main invalidation_tags=Dict{String, Int64}() load_tags=Dict{String, Int64}()
+RESULT R9 step=main h_at_compile=fallback
+RESULT R9 step=main main_h_now=fallback
+RESULT R9 step=Xs isprecompiled_before=Fo=true P=true Sp=true Xs=true
+RESULT R9 step=Xs loaded_now=Fo>Sp>Xs>FoXsExt
+RESULT R9 step=Xs invalidation_tags=Dict("MethodInstance" => 2, "jl_method_table_insert" => 2) load_tags=Dict{String, Int64}()
+RESULT R9 step=Xs   invalidated: MethodInstance for h()
+RESULT R9 step=Xs   invalidated: MethodInstance for Fo.f(::Sp.Ty)
+RESULT R9 step=Xs main_h_now=won
+RESULT R9 mode=require doc=excluded combination: Xs.Members = Union{Sp.Ty} (members by X's owner); Fo.f(::Xs.Members) in ext FoXsExt (parent Fo, trigger Xs); P deps Fo, Sp only
+RESULT R9 mode=require precompile_seconds=0.0

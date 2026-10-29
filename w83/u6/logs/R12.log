@@ -1,0 +1,44 @@
+generated R12
+jl: slot 3 (cores 8-11), depot /home/hellmann/.julia/agent-depots/w83u6
+RESULT R12 steps=P julia=00dcc9994c compiled_modules=1
+RESULT R12 step=P isprecompiled_before=Fo=true P=true Sp=true Xs=true
+RESULT R12 step=P loaded_now=Xs>Fo>Sp>P
+RESULT R12 step=P invalidation_tags=Dict{String, Int64}() load_tags=Dict{String, Int64}()
+RESULT R12 step=P probe=P seen=fallback loaded=P>Xs>Fo>Sp image=true now=fallback
+┌ Warning: could not download https://pkg.julialang.org/registries
+│   exception = RequestError: HTTP/1.1 403 not in this command's allowed_domains ? re-run the command with this host listed if it needs it (CONNECT tunnel failed, response 403) while requesting https://pkg.julialang.org/registries
+└ @ Pkg.Registry ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Pkg/src/Registry/Registry.jl:121
+RESULT R12 mode=parallel doc=as R1, but XsSpExt is added to Xs (Project.toml, ext file, resolve) after P's image was written
+Precompiling packages...
+   0.3 s  ✓ Xs
+   0.3 s  ✓ Sp
+   0.2 s  ✓ Fo
+   0.3 s  ✓ P
+  4 dependencies successfully precompiled in 1 seconds
+RESULT R12 mode=parallel precompile_seconds=1.5
+jl: slot 2 (cores 4-7), depot /home/hellmann/.julia/agent-depots/w83u6
+RESULT R12 resolved: Xs
+RESULT R12 --- after adding the extension: keep (no precompile) ---
+jl: slot 2 (cores 4-7), depot /home/hellmann/.julia/agent-depots/w83u6
+RESULT R12 steps=P julia=00dcc9994c compiled_modules=1
+RESULT R12 step=P isprecompiled_before=Fo=true P=true Sp=true Xs=true
+RESULT R12 step=P loaded_now=Xs>Fo>Sp>P>XsSpExt
+RESULT R12 step=P invalidation_tags=Dict("MethodInstance" => 3, "jl_method_table_insert" => 2) load_tags=Dict{String, Int64}()
+RESULT R12 step=P   invalidated: MethodInstance for Fo.f(::Sp.Ty)
+RESULT R12 step=P   invalidated: MethodInstance for P.g()
+RESULT R12 step=P   invalidated: MethodInstance for Xs.ismember(::Sp.Ty)
+RESULT R12 step=P probe=P seen=fallback loaded=P>Xs>Fo>Sp image=true now=won
+RESULT R12 mode=keep doc=as R1, but XsSpExt is added to Xs (Project.toml, ext file, resolve) after P's image was written
+RESULT R12 mode=keep precompile_seconds=0.0
+RESULT R12 --- after adding the extension: Pkg.precompile() ---
+jl: slot 3 (cores 8-11), depot /home/hellmann/.julia/agent-depots/w83u6
+RESULT R12 steps=P julia=00dcc9994c compiled_modules=1
+RESULT R12 step=P isprecompiled_before=Fo=true P=true Sp=true Xs=true
+RESULT R12 step=P loaded_now=Xs>Fo>Sp>P>XsSpExt
+RESULT R12 step=P invalidation_tags=Dict("MethodInstance" => 3, "jl_method_table_insert" => 2) load_tags=Dict{String, Int64}()
+RESULT R12 step=P   invalidated: MethodInstance for Fo.f(::Sp.Ty)
+RESULT R12 step=P   invalidated: MethodInstance for P.g()
+RESULT R12 step=P   invalidated: MethodInstance for Xs.ismember(::Sp.Ty)
+RESULT R12 step=P probe=P seen=fallback loaded=P>Xs>Fo>Sp image=true now=won
+RESULT R12 mode=update doc=as R1, but XsSpExt is added to Xs (Project.toml, ext file, resolve) after P's image was written
+RESULT R12 mode=update precompile_seconds=0.7
