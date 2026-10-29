@@ -1,0 +1,12 @@
+# ramp.jl (the session's "a new column type" step, reduced), julia-1.13 bfca89decc, TraitTables 438ac2b, TraitCSV 9c6477b
+# TraitWorld c39fedc (main, env_t):
+describe mean: 125.25 expected 125.25
+sortby: Kept{Column} false
+# TraitWorld 3fcff02 (2026-10-28, before every suspect; scratch env, worktree TraitWorld-bisect):
+describe mean: 125.25 expected 125.25
+sortby: Kept{Column} false
+# TraitWorld 804b662 (2026-10-21, W-18 follow-up; TraitTables 438ac2b "Follow W-18" the same minute):
+describe mean: 125.25 expected 125.25
+sortby: Kept{Column} false
+# The check asked for `isa Dynamic{Column}` (written 2026-10-18, TraitReport 4f89bb6); since W-18 a
+# table's columns are a Vector{Kept{Column}} (traits §7.2), so t["ramp"] is a Kept{Column}: the check is stale.
