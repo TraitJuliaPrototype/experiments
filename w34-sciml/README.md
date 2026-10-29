@@ -389,3 +389,48 @@ julia-1.13 bfca89decc, TraitWorld d22ec7b (main, as found), product setting, str
 - The `idxs` forms by dispatch on the index's type, so NetworkDynamics' own indexing serves its indices without a protocol (open issue 118's alternative C7, in the solution's call syntax).
 - `remake` gives a plain function back plain and a cast one under its cast; it keeps the callbacks unless given.
 - The note's amendments (§7): the trait's default Jacobian by finite differences; `SteadyStateProblem` a constructor; the line search a flag; the default polyalgorithm.
+
+# E-245: open issue 118, structured indices and observed values by the trait protocol (2026-10-29)
+
+The question (registry E-245; open issue 118, decided 2026-10-29, mine, for W-71): can a system map its own index types to state variables, parameters and observed values' getters (`IndexProvider{I}` with `observed`), so that TDE's solution, integrator and a callback's view answer `getu`-like reads through it, and NetworkDynamics' 4 remaining `SII.getu(sol, …)` failures go, with no SymbolicIndexingInterface interop? Not a measurement.
+
+## What was built (TDE branch `w34` 282edb3, from 8396460; NetworkDynamics `ports` ddf7259, from e0f5664)
+
+- **TraitIndexing:** `IndexProvider{I}`, `I` the system's own index type (abstract or a union allowed): `variable_index`, `parameter_index`, and `observed(sys, idx)::Union{Nothing, Kept{Callable}}` (default `nothing`), a getter `g(u, p, t)` kept before the state's types are known. `HasSystem` and `getsystem` moved here from ODECore (SymbolicIndexingInterface's `symbolic_container`; ODECore re-exports them). `ValueProvider{U, P}` gains `current_time`; `SeriesProvider{U, P}` (`series_times`, `series_state`, `series_parameters`) for values at saved times. `getter(sys, idx)` and `getu(x, idx)`, through the system `x` carries: `getu(sol, idx)(sol)` at the saved times with the parameters in force at each, `getu(integ, idx)(integ)` now, `getu(x, idx)(u, p, t)`. A vector of indices that is not itself an `I` is read index by index. Names are `IndexProvider{Symbol}` (`SymbolCache`, and the solution's and the integrator's forwarding).
+- **ODECore:** the solution's `idxs` forms read any index other than `Int` and `Symbol` (and vectors of them) through `getu`, at the state at `τ` and the parameters in force there; one getter for a vector of times.
+- **NetworkDynamics:** `IndexProvider{NWIndex}` for `Network`, `NWIndex = Union{SymbolicIndex, AbstractVector{<:SymbolicIndex}, ObservableExpression}`: a component's state or parameter by position; outputs, observed values, inputs, colons, vectors and expressions by NetworkDynamics' own `SII.observed`, kept as `Kept{Callable}`. Its two `idxs` methods on TDE's solution removed.
+- `test/r118.jl` (21 checks): an abstract index type, a union with vectors of the system's own indices, names, saved parameters, the integrator, a callback's view, the refusals. `test/r3.jl`'s index type with its own method on the solution replaced by it.
+
+## How to run
+
+    r118/run.sh <run>                   # check 1: the session's RESULT lines; check 2: Pkg.test() (stock image)
+    julia --project=<TDE> r118/probe_protocol.jl     # the protocol in TraitWorld, a toy (logs/probe-protocol-1.log)
+    julia --project=<TDE> r118/probe_shadow.jl       # finding 2 (logs/probe-shadow-1.log)
+    (ndport) scripts/r5_run.sh <name> scripts/r5_check.jl; R1_JFLAGS="-t 2" scripts/r5_run.sh <name> scripts/r3_nd_tests.jl
+
+## Results (2026-10-29)
+
+julia-1.13 bfca89decc, TraitWorld main 4579236 (not edited), product setting, strict mode off.
+
+| Check | 282edb3 / ddf7259 |
+|---|---|
+| 1 `RESULT` lines (`r118/logs/session-3.log`) | **identical** (9) |
+| 2 TDE's suite (`r118/logs/tests-3.log`; `tests-1`, `-2`: findings 2 and 3) | passes (242) |
+| NetworkDynamics' workload with `getu` (`ndport/logs/r5/check-3.log`) | **0 failures** (E-242: 4); 133 checks ok |
+| `getu(sol, eidxs(nw, :, :P))(sol)` and three more index forms against NetworkDynamics' own reading over `NWState` at the saved times | **exactly equal**, every pass |
+| `getu` from a callback's view (a TDE callback beside the network's) and from the integrator | exactly NetworkDynamics' own value |
+| NetworkDynamics' test subset (`ndport/logs/r5/ndtest-1.log`) | as E-242's: massmatrix 6, doctor 26, diffusion 108 pass, 1 fail (`:111`, allocations), 1 error (a DAE refused), inhomogeneous 39 pass, 1 error (a DAE refused) |
+
+### Findings
+
+1. **The protocol is expressible in TraitWorld as decided:** a trait parameter that is abstract or a union, an operation whose declared result is `Union{Nothing, Kept{Callable}}` with a default, a bounded getter taking any `I` (`logs/probe-protocol-1.log`).
+2. **A bound's `where` variable named as a global of the module is read as the global** (`logs/probe-shadow-1.log`): in ODECore, `_names_of(s::IndexProvider{I}) where {I}` bound `IndexProvider{LinearAlgebra.I}` (ODECore imports `I`), and the call raised `TraitBoundError`; plain Julia shadows the global. Renamed in ODECore (`K`). A candidate deviation for TraitWorld's lowering (not edited here).
+3. A vector of mixed positions and names (`[:x, 3]`, a `Vector{Any}`) is read by position and name, not through the system: tested in `test/r3.jl` (`tests-2`).
+4. The bound `idx::I` of an ordinary argument fixes `I` to the argument's own type (traits §5.1), so a getter bounded `IndexProvider{I}` takes the index untyped and checks `idx isa I` itself; an abstract `I` is otherwise refused at the call.
+
+### Choices made (mine)
+
+- `HasSystem` and `getsystem` are TraitIndexing's, beside the protocol, as SymbolicIndexingInterface owns `symbolic_container`; ODECore re-exports them, so `ODECore.HasSystem` still names the trait.
+- `observed` returns a getter kept without a signature (`Kept{Callable}`), called at `(u, p, t)` directly; the reader does not enter it at `Callable{Tuple{U, P, Float64}, S}`.
+- A value that is both a series and a value provider (the solution) is read as a series, as SymbolicIndexingInterface reads a time series.
+- NetworkDynamics' index type includes vectors of its indices, so its batched observed function serves a vector with one evaluation of the network's buffers per time.

@@ -1,0 +1,162 @@
+jl: slot 1 (cores 0-3), depot /tmp/claude-1000/depots/ndr5
+     Testing TraitDifferentialEquations
+┌ Warning: could not download https://pkg.julialang.org/registries
+│   exception = RequestError: HTTP/1.1 403 not in this command's allowed_domains ? re-run the command with this host listed if it needs it (CONNECT tunnel failed, response 403) while requesting https://pkg.julialang.org/registries
+└ @ Pkg.Registry ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Pkg/src/Registry/Registry.jl:121
+      Status `/tmp/claude-1000/jl_sm4tDF/Project.toml`
+  [f6369f11] ForwardDiff v1.4.6
+  [dde65c3d] ODECore v0.0.1 `~/Repos/julia-trait-bound/TraitDifferentialEquations/lib/ODECore`
+  [1b9b79cd] TraitArrayTools v0.0.1 `~/Repos/julia-trait-bound/TraitDifferentialEquations/lib/TraitArrayTools`
+  [fc9886c1] TraitDifferentialEquations v0.0.1 `~/Repos/julia-trait-bound/TraitDifferentialEquations`
+  [33517989] TraitIndexing v0.0.1 `~/Repos/julia-trait-bound/TraitDifferentialEquations/lib/TraitIndexing`
+  [86edfd3c] TraitNonlinearSolve v0.0.1 `~/Repos/julia-trait-bound/TraitDifferentialEquations/lib/TraitNonlinearSolve`
+  [bf920f43] TraitRodas v0.0.1 `~/Repos/julia-trait-bound/TraitDifferentialEquations/lib/TraitRodas`
+  [7a3c1e52] TraitWorld v0.1.0 `~/Repos/julia-trait-bound/TraitWorld`
+  [37e2e46d] LinearAlgebra v1.13.0
+  [8dfed614] Test v1.11.0
+      Status `/tmp/claude-1000/jl_sm4tDF/Manifest.toml`
+  [bbf7d656] CommonSubexpressions v0.3.1
+  [163ba53b] DiffResults v1.1.0
+  [b552c78f] DiffRules v1.16.0
+⌅ [ffbed154] DocStringExtensions v0.9.5
+  [f6369f11] ForwardDiff v1.4.6
+⌃ [92d709cd] IrrationalConstants v0.2.6
+  [692b3bcd] JLLWrappers v1.8.0
+⌃ [2ab3a3ac] LogExpFunctions v1.0.2
+  [1914dd2f] MacroTools v0.5.16
+⌃ [77ba4419] NaNMath v1.1.4
+  [dde65c3d] ODECore v0.0.1 `~/Repos/julia-trait-bound/TraitDifferentialEquations/lib/ODECore`
+  [aea7be01] PrecompileTools v1.3.4
+⌃ [21216c6a] Preferences v1.6.0
+⌃ [276daf66] SpecialFunctions v2.9.0
+  [1e83bf80] StaticArraysCore v1.4.4
+  [1b9b79cd] TraitArrayTools v0.0.1 `~/Repos/julia-trait-bound/TraitDifferentialEquations/lib/TraitArrayTools`
+  [fc9886c1] TraitDifferentialEquations v0.0.1 `~/Repos/julia-trait-bound/TraitDifferentialEquations`
+  [33517989] TraitIndexing v0.0.1 `~/Repos/julia-trait-bound/TraitDifferentialEquations/lib/TraitIndexing`
+  [86edfd3c] TraitNonlinearSolve v0.0.1 `~/Repos/julia-trait-bound/TraitDifferentialEquations/lib/TraitNonlinearSolve`
+  [bf920f43] TraitRodas v0.0.1 `~/Repos/julia-trait-bound/TraitDifferentialEquations/lib/TraitRodas`
+  [7a3c1e52] TraitWorld v0.1.0 `~/Repos/julia-trait-bound/TraitWorld`
+  [efe28fd5] OpenSpecFun_jll v0.5.6+0
+  [56f22d72] Artifacts v1.11.0
+  [2a0f44e3] Base64 v1.11.0
+  [ade2ca70] Dates v1.11.0
+  [b77e0a4c] InteractiveUtils v1.11.0
+  [ac6e5ff7] JuliaSyntaxHighlighting v1.12.0
+  [8f399da3] Libdl v1.11.0
+  [37e2e46d] LinearAlgebra v1.13.0
+  [56ddb016] Logging v1.11.0
+  [d6f4376e] Markdown v1.11.0
+  [de0858da] Printf v1.11.0
+  [9a3f8284] Random v1.11.0
+  [ea8e919c] SHA v1.0.0
+  [9e88b42a] Serialization v1.11.0
+  [f489334b] StyledStrings v1.11.0
+  [fa267f1f] TOML v1.0.3
+  [8dfed614] Test v1.11.0
+  [4ec0a83e] Unicode v1.11.0
+  [e66e0078] CompilerSupportLibraries_jll v1.5.5+2
+  [4536629a] OpenBLAS_jll v0.3.30+0
+  [05823500] OpenLibm_jll v0.8.7+0
+  [8e850b90] libblastrampoline_jll v5.15.0+0
+        Info Packages marked with ⌃ and ⌅ have new versions available. Those with ⌃ may be upgradable, but those with ⌅ are restricted by compatibility constraints from upgrading.
+     Testing Running tests...
+ERROR: LoadError: Some tests did not pass: 0 passed, 0 failed, 1 errored, 0 broken.
+in expression starting at /home/hellmann/Repos/julia-trait-bound/TraitDifferentialEquations/test/w34.jl:99
+in expression starting at /home/hellmann/Repos/julia-trait-bound/TraitDifferentialEquations/test/runtests.jl:117
+Test Summary:                     | Pass  Total  Time
+TraitDifferentialEquations: Tsit5 |    6      6  1.2s
+Test Summary:                         | Pass  Total  Time
+TraitDifferentialEquations: callbacks |    5      5  0.1s
+Test Summary:                                               | Pass  Total  Time
+TraitDifferentialEquations: Rodas5 with the library's duals |    6      6  1.2s
+Test Summary:                                               | Pass  Total  Time
+TraitDifferentialEquations: gradients through Tsit5 (row 5) |    8      8  1.5s
+Test Summary:                                       | Pass  Total  Time
+TraitDifferentialEquations: a Float32 state (row 6) |    2      2  0.8s
+Test Summary:                                    | Pass  Total  Time
+A problem type with its own cache (LorenzModels) |    5      5  1.1s
+Test Summary:                       | Pass  Total  Time
+Callback types (Bounce, RaiseSigma) |    8      8  1.6s
+Test Summary:                           | Pass  Total  Time
+A problem type: gradients through Tsit5 |    3      3  1.0s
+Test Summary:                             | Pass  Total  Time
+A problem type: errors at the conformance |   10     10  2.7s
+Test Summary:                                         | Pass  Total  Time
+Compiled: a right-hand side with a declared signature |    9      9  2.3s
+Test Summary:                          | Pass  Total  Time
+Compiled: a wrong signature is refused |    6      6  0.4s
+Test Summary:                                          | Pass  Total  Time
+W-34: ODEFunction, a given Jacobian, the chunk at init |   10     10  1.3s
+Test Summary:                                      | Pass  Total  Time
+W-34: a callable model enters form B (ChainModels) |    5      5  1.5s
+Test Summary:                      | Pass  Total  Time
+W-34: the solution as a Trajectory |    6      6  0.5s
+Test Summary:                                                        | Pass  Total  Time
+W-34 move 5: the solution keeps its problem; DiffEqArray; plotpoints |   11     11  0.4s
+
+symbolic access (move 4): names from the problem's `sys`, by any provider: Error During Test at /home/hellmann/Repos/julia-trait-bound/TraitDifferentialEquations/test/w34.jl:99
+  Got exception outside of a @test
+  TraitBoundError: a value conforming as IndexProvider{Symbol, TraitWorld.ErasedKey{Tuple{TraitWorld.ParamVal{Symbol}}, Nothing}} was passed to `_names_of` at argument 1, whose bounds need a value conforming at the parameters they fix: IndexProvider{LinearAlgebra.UniformScaling{Bool}(true)}
+  Stacktrace:
+    [1] _no_worker_error(sig::Any)
+      @ TraitWorld ~/Repos/julia-trait-bound/TraitWorld/src/entry.jl:634
+    [2] _names_of(s::Any)
+      @ ODECore ./none:0
+    [3] _names(s::Any)
+      @ ODECore ~/Repos/julia-trait-bound/TraitDifferentialEquations/lib/ODECore/src/core.jl:346
+    [4] _problem(f::Any, jac::Any, u0::Vector{Float64}, tspan::Tuple{Float64, Float64}, p::Vector{Float64}, sys::Any, mm::Any, jp::Any, cbs::Vector{Any})
+      @ ODECore ~/Repos/julia-trait-bound/TraitDifferentialEquations/lib/ODECore/src/frontend.jl:79
+    [5] ODEProblem(f::Any, u0::Vector{Float64}, tspan::Tuple{Float64, Float64}, p::Vector{Float64}; callback::Any)
+      @ ODECore ~/Repos/julia-trait-bound/TraitDifferentialEquations/lib/ODECore/src/frontend.jl:0
+    [6] ODEProblem(f::Any, u0::Vector{Float64}, tspan::Tuple{Float64, Float64}, p::Vector{Float64})
+      @ ODECore ~/Repos/julia-trait-bound/TraitDifferentialEquations/lib/ODECore/src/frontend.jl:58
+    [7] top-level scope
+      @ ~/Repos/julia-trait-bound/TraitDifferentialEquations/test/w34.jl:100
+    [8] macro expansion
+      @ ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:1967 [inlined]
+    [9] macro expansion
+      @ ~/Repos/julia-trait-bound/TraitDifferentialEquations/test/w34.jl:101 [inlined]
+   [10] include(mapexpr::Function, mod::Module, _path::String)
+      @ Base ./Base.jl:311
+   [11] top-level scope
+      @ ~/Repos/julia-trait-bound/TraitDifferentialEquations/test/runtests.jl:117
+   [12] include(mapexpr::Function, mod::Module, _path::String)
+      @ Base ./Base.jl:311
+   [13] top-level scope
+      @ none:6
+   [14] eval(m::Module, e::Any)
+      @ Core ./boot.jl:489
+   [15] exec_options(opts::Base.JLOptions)
+      @ Base ./client.jl:310
+   [16] _start()
+      @ Base ./client.jl:577
+Test Summary:                                                             | Error  Total  Time
+symbolic access (move 4): names from the problem's `sys`, by any provider |     1      1  1.2s
+RNG of the outermost testset: Random.Xoshiro(0xcda08329c07fc2ba, 0xb90fb632886b598f, 0x91d8cc0b2b5b8a43, 0x4bd8ec7ba5f1cb2d, 0xe4fa195abc2810f1)
+ERROR: Package TraitDifferentialEquations errored during testing
+Stacktrace:
+  [1] pkgerror(msg::String)
+    @ Pkg.Types ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Pkg/src/Types.jl:68
+  [2] test(ctx::Pkg.Types.Context, pkgs::Vector{PackageSpec}; coverage::Bool, julia_args::Cmd, test_args::Cmd, test_fn::Nothing, force_latest_compatible_version::Bool, allow_earlier_backwards_compatible_versions::Bool, allow_reresolve::Bool)
+    @ Pkg.Operations ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Pkg/src/Operations.jl:3319
+  [3] test
+    @ ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Pkg/src/Operations.jl:3197 [inlined]
+  [4] test(ctx::Pkg.Types.Context, pkgs::Vector{PackageSpec}; coverage::Bool, test_fn::Nothing, julia_args::Cmd, test_args::Cmd, force_latest_compatible_version::Bool, allow_earlier_backwards_compatible_versions::Bool, allow_reresolve::Bool, kwargs::@Kwargs{io::IOContext{IO}})
+    @ Pkg.API ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Pkg/src/API.jl:587
+  [5] test(pkgs::Vector{PackageSpec}; io::IOContext{IO}, kwargs::@Kwargs{})
+    @ Pkg.API ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Pkg/src/API.jl:172
+  [6] test(pkgs::Vector{PackageSpec})
+    @ Pkg.API ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Pkg/src/API.jl:161
+  [7] test(; name::Nothing, uuid::Nothing, version::Nothing, url::Nothing, rev::Nothing, path::Nothing, mode::PackageMode, subdir::Nothing, kwargs::@Kwargs{})
+    @ Pkg.API ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Pkg/src/API.jl:189
+  [8] test()
+    @ Pkg.API ~/Repos/julia-trait-bound/julia-1.13/usr/share/julia/stdlib/v1.13/Pkg/src/API.jl:178
+  [9] top-level scope
+    @ none:1
+ [10] eval(m::Module, e::Any)
+    @ Core ./boot.jl:489
+ [11] exec_options(opts::Base.JLOptions)
+    @ Base ./client.jl:310
+ [12] _start()
+    @ Base ./client.jl:577
+exit 1
