@@ -1,0 +1,77 @@
+== E-229: move 5, the solution as a trajectory
+   julia-1.13 bfca89decc (prints 1c2e98b58e*)  TraitWorld c39fedc  TDE bc68501 (w34)  setting product  strict off
+   load at start: 0.95 0.93 0.81
+
+check 3: one solution type per state and parameter type
+  a function, Tsit5                                 ODESolution{Float64, Vector{Float64}}   sol.prob: Kept{ODEProblemTrait{Float64, Vector{Float64}}}
+  the function compiled_for, Tsit5                  ODESolution{Float64, Vector{Float64}}   sol.prob: Kept{ODEProblemTrait{Float64, Vector{Float64}}}
+  a callable model ChainModel{PathGraph}, Tsit5     ODESolution{Float64, Vector{Float64}}   sol.prob: Kept{ODEProblemTrait{Float64, Vector{Float64}}}
+  a callable model ChainModel{RingGraph}, Rodas5    ODESolution{Float64, Vector{Float64}}   sol.prob: Kept{ODEProblemTrait{Float64, Vector{Float64}}}
+  a function, Rodas5 with the chunk at init         ODESolution{Float64, Vector{Float64}}   sol.prob: Kept{ODEProblemTrait{Float64, Vector{Float64}}}
+  a problem type LorenzProblem, Rodas5              ODESolution{Float64, LorenzParams{Float64}}   sol.prob: Kept{ODEProblemTrait{Float64, LorenzParams{Float64}}}
+  a function, Tuple parameters                      ODESolution{Float64, Tuple{Float64, Float64, Float64}}   sol.prob: Kept{ODEProblemTrait{Float64, Tuple{Float64, Float64, Float64}}}
+  a Float32 state                                   ODESolution{Float32, Vector{Float32}}   sol.prob: Kept{ODEProblemTrait{Float32, Vector{Float32}}}
+  pass  the first five (functions, compiled, callable models, Tsit5, Rodas5) have one type, ODESolution{Float64, Vector{Float64}}
+
+check 4: sol.prob, the problem kept
+  pass  a function: u0, tspan read back; rhs!(sol.prob, …) is the problem's derivative
+  pass  a problem type: u0, tspan read back; rhs!(sol.prob, …) is the problem's derivative
+  pass  a function: sol.prob.p is the problem's p
+  pass  a problem type: sol.prob.p is its LorenzParams
+
+check 6: plotpoints compiled once per solution type, once for Dynamic{Trajectory}
+  typed, a function, Tsit5                                    12 new CodeInstance(s) in TraitArrayTools  facts,plain
+  typed, the function compiled_for, Tsit5                      0 new CodeInstance(s) in TraitArrayTools  
+  typed, a callable model ChainModel{PathGraph}, Tsit5         0 new CodeInstance(s) in TraitArrayTools  
+  typed, a callable model ChainModel{RingGraph}, Rodas5        0 new CodeInstance(s) in TraitArrayTools  
+  typed, a function, Rodas5 with the chunk at init             0 new CodeInstance(s) in TraitArrayTools  
+  typed, a problem type LorenzProblem, Rodas5                 10 new CodeInstance(s) in TraitArrayTools  facts,plain
+  typed, a function, Tuple parameters                         10 new CodeInstance(s) in TraitArrayTools  facts,plain
+  typed, a Float32 state                                      11 new CodeInstance(s) in TraitArrayTools  facts,plain
+  typed, a DiffEqArray{Float64}                               17 new CodeInstance(s) in TraitArrayTools  facts,plain
+  Dynamic{Trajectory{Vector{Float64}, Float64}}, a function, Tsit5                12 new CodeInstance(s)
+  Dynamic{Trajectory{Vector{Float64}, Float64}}, a callable model ChainModel{PathGraph}, Tsit5  0 new CodeInstance(s)
+  Dynamic{Trajectory{Vector{Float64}, Float64}}, a problem type LorenzProblem, Rodas5  0 new CodeInstance(s)
+  Dynamic{Trajectory{Vector{Float64}, Float64}}, a function, Tuple parameters      0 new CodeInstance(s)
+  Dynamic{Trajectory{Vector{Float64}, Float64}}, a DiffEqArray{Float64}            0 new CodeInstance(s)
+
+The specializations of plotpoints and the trait's operations at the end (MethodInstance, owner):
+  [facts] at  Tuple{typeof(at), DiffEqArray{Float64}, Float64}
+  [plain] plotpoints  Tuple{typeof(plotpoints), DiffEqArray{Float64}, Int64}
+  [plain] plotpoints  Tuple{typeof(plotpoints), Dynamic{Trajectory{Vector{Float64}, Float64}}, Int64}
+  [plain] plotpoints  Tuple{typeof(plotpoints), ODESolution{Float32, Vector{Float32}}, Int64}
+  [plain] plotpoints  Tuple{typeof(plotpoints), ODESolution{Float64, LorenzParams{Float64}}, Int64}
+  [plain] plotpoints  Tuple{typeof(plotpoints), ODESolution{Float64, Tuple{Float64, Float64, Float64}}, Int64}
+  [plain] plotpoints  Tuple{typeof(plotpoints), ODESolution{Float64, Vector{Float64}}, Int64}
+  [facts] plotpoints  Tuple{typeof(plotpoints), Trajectory{Vector{Float32}, Float64} at ODESolution{Float32, Vector{Float32}}, Int64}
+  [facts] plotpoints  Tuple{typeof(plotpoints), Trajectory{Vector{Float64}, Float64} at DiffEqArray{Float64}, Int64}
+  [facts] plotpoints  Tuple{typeof(plotpoints), Trajectory{Vector{Float64}, Float64} at Dynamic, Int64}
+  [facts] plotpoints  Tuple{typeof(plotpoints), Trajectory{Vector{Float64}, Float64} at ODESolution{Float64, LorenzParams{Float64}}, Int64}
+  [facts] plotpoints  Tuple{typeof(plotpoints), Trajectory{Vector{Float64}, Float64} at ODESolution{Float64, Tuple{Float64, Float64, Float64}}, Int64}
+  [facts] plotpoints  Tuple{typeof(plotpoints), Trajectory{Vector{Float64}, Float64} at ODESolution{Float64, Vector{Float64}}, Int64}
+  [facts] state  Tuple{typeof(state), DiffEqArray{Float64}, Int64}
+  [facts] state  Tuple{typeof(state), Dynamic{Trajectory{Vector{Float64}, Float64}}, Int64}
+  [check] state  Tuple{typeof(state), Trajectory{TraitWorld.ParamArchetype{Trajectory, :U}, Float64} at TraitWorld.Archetype{Trajectory, Tuple{TraitWorld.ParamOpen, Float64}}, Int64}
+  [facts] state  Tuple{typeof(state), Trajectory{Vector{Float32}, Float64} at ODESolution{Float32, Vector{Float32}}, Int64}
+  [facts] state  Tuple{typeof(state), Trajectory{Vector{Float64}, Float64} at DiffEqArray{Float64}, Int64}
+  [facts] state  Tuple{typeof(state), Trajectory{Vector{Float64}, Float64} at Dynamic, Int64}
+  [facts] state  Tuple{typeof(state), Trajectory{Vector{Float64}, Float64} at ODESolution{Float64, LorenzParams{Float64}}, Int64}
+  [facts] state  Tuple{typeof(state), Trajectory{Vector{Float64}, Float64} at ODESolution{Float64, Tuple{Float64, Float64, Float64}}, Int64}
+  [facts] state  Tuple{typeof(state), Trajectory{Vector{Float64}, Float64} at ODESolution{Float64, Vector{Float64}}, Int64}
+  [facts] times  Tuple{typeof(times), DiffEqArray{Float64}}
+  [facts] times  Tuple{typeof(times), Dynamic{Trajectory{Vector{Float64}, Float64}}}
+  [check] times  Tuple{typeof(times), Trajectory{TraitWorld.ParamArchetype{Trajectory, :U}, Float64} at TraitWorld.Archetype{Trajectory, Tuple{TraitWorld.ParamOpen, Float64}}}
+  [facts] times  Tuple{typeof(times), Trajectory{Vector{Float32}, Float64} at ODESolution{Float32, Vector{Float32}}}
+  [facts] times  Tuple{typeof(times), Trajectory{Vector{Float64}, Float64} at DiffEqArray{Float64}}
+  [facts] times  Tuple{typeof(times), Trajectory{Vector{Float64}, Float64} at Dynamic}
+  [facts] times  Tuple{typeof(times), Trajectory{Vector{Float64}, Float64} at ODESolution{Float64, LorenzParams{Float64}}}
+  [facts] times  Tuple{typeof(times), Trajectory{Vector{Float64}, Float64} at ODESolution{Float64, Tuple{Float64, Float64, Float64}}}
+  [facts] times  Tuple{typeof(times), Trajectory{Vector{Float64}, Float64} at ODESolution{Float64, Vector{Float64}}}
+
+check 5: DiffEqArray conforms; the same points
+  pass  plotpoints(sol, i) == plotpoints(DiffEqArray(sol.u, sol.t), i), i = 1:3
+  pass  at agrees inside the span: a(τ) == sol(τ)
+
+checks failed: 0
+load at end: 0.96 0.93 0.81
+exit 0
