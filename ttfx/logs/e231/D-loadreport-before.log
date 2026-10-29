@@ -1,0 +1,74 @@
+LOAD TraitDifferentialEquations wall 1.066 compile 0.814
+TraitWorld load report: 1.439 s since the recording started, of it 1.309 s compiling (Julia's counter)
+  step                       count        ms  compiling
+  family members fixed at a package's load (a fold kept in its image, checked again: fold_holds)
+    total                       14     750.3      733.2
+    check                       14     548.0      533.6
+    builder                     14      58.2       56.2
+    index                       14      17.8       17.5
+    slowest (ms, of it compiling):
+         495.6   491.0  IntegratorView for ParamIntegrator{Vector{Float64}, Float64, Vector{Float64}}
+          64.1    63.6  Solvable for LU{Float64, Matrix{Float64}, Vector{Int64}}
+          44.2    42.7  ODEProblemTrait for ODEProblem{Dual{Tag{Sig{Tuple{Vector{Float64}}, Float64}, Float64}, F…
+          39.6    38.4  EventCallback for FunctionEventCallback{Vector{Float64}, Float64, Vector{Float64}}
+          30.0    28.4  ODEProblemTrait for ODEProblem{Float64, Vector{Float64}, Dynamic{Callable{Tuple{Vector{Fl…
+          21.7    20.4  StepView for Tsit5Integrator{Float64}
+          15.7    15.1  ODEAlgorithm for Rodas5{DenseLU}
+          10.0     9.2  StepEvent for ParamEvent{Vector{Float64}, Float64, Vector{Float64}}
+           8.3     7.2  ODEProblemTrait for ODEProblem{Float64, Nothing, Dynamic{Callable{Tuple{Vector{Float64}, …
+           7.2     6.4  Callback for FunctionCallback{Vector{Float64}, Float64, Vector{Float64}}
+           6.3     5.3  StepView for Tsit5Integrator{Dual{Tag{Sig{Tuple{Vector{Float64}}, Float64}, Float6…
+           6.1     5.5  StepCallback for ParamCallback{Vector{Float64}, Float64, Vector{Float64}}
+           0.8     0.0  StepView for Rodas5Integrator{Nothing}
+           0.7     0.0  StepView for Rodas5Integrator{DualJacobian{3, Dynamic{Callable{Tuple{Vector{Dual{O…
+  the image hook (each package image's methods: overrides, strict mode)
+    total                       20      39.8       29.2
+    override index              20      21.5       19.8
+    override check              20      16.7        9.4
+    strict                      20       0.0        0.0
+    slowest (ms, of it compiling):
+          31.0    29.2  IrrationalConstants
+           3.2     0.0  ForwardDiff
+           1.7     0.1  ODECore
+           1.0     0.0  SpecialFunctions
+           0.7     0.0  TraitIndexing
+           0.4     0.0  DiffRules
+           0.3     0.0  MacroTools
+           0.2     0.0  DiffResults
+           0.2     0.0  DocStringExtensions
+           0.2     0.0  TraitArrayTools
+           0.2     0.0  TraitDifferentialEquations
+           0.2     0.0  LogExpFunctions
+           0.2     0.0  NaNMath
+           0.2     0.0  TraitRodas
+           0.1     0.0  OpenLibm_jll
+           0.1     0.0  StaticArraysCore
+           0.1     0.0  JLLWrappers
+           0.1     0.0  CommonSubexpressions
+           0.0     0.0  OpenSpecFun_jll
+           0.0     0.0  CompilerSupportLibraries_jll
+  after each package load (the generation and dynamic candidates, strict mode's validation log)
+    total                       27       3.0        0.0
+    generation                  27       2.9        0.0
+    strict at load              27       0.0        0.0
+    slowest (ms, of it compiling):
+           0.3     0.0  Printf
+           0.1     0.0  Dates
+           0.1     0.0  TOML
+           0.1     0.0  Preferences
+           0.1     0.0  TraitWorld
+           0.1     0.0  DiffRules
+           0.1     0.0  CompilerSupportLibraries_jll
+           0.1     0.0  TraitDifferentialEquations
+           0.1     0.0  Serialization
+           0.1     0.0  PrecompileTools
+           0.1     0.0  TraitRodas
+           0.1     0.0  OpenLibm_jll
+           0.1     0.0  IrrationalConstants
+           0.1     0.0  OpenSpecFun_jll
+           0.1     0.0  SpecialFunctions
+           0.1     0.0  StaticArraysCore
+           0.1     0.0  ForwardDiff
+           0.1     0.0  TraitArrayTools
+           0.1     0.0  LogExpFunctions
+           0.1     0.0  DiffResults

@@ -485,3 +485,16 @@ TDE `w34` bc68501 (move 5: the umbrella over the core, Rodas5, the indexing and 
 - **D's session is 1.76 s, above E-168's 0.94–0.99 s and above Python's 1.43 s.** The plan's line is crossed. The difference is the load (1.17 against 0.45 s): family members checked again at load, which is W-84 (phase 2 of the plan). After the load, the first solve and the second model are as in E-168 (0.19 and 0.053 s against 0.19 and 0.056–0.060 s); the first plot is 0.18 against 0.13 s.
 - **The traits' contribution stands:** the second model 0.053 s against Dp's 0.33 s.
 - **The first plot's 0.05 s more is not attributed:** `plotpoints` (compiled at the first plot, per solution type) and TraitMakie's changes since E-168's 9436157 (Makie's X3 slices) were not separated.
+
+### E-231, setting D with members fixed from their images' records (W-84), 2026-10-29
+
+TraitWorld ca92f22 (a family member fixed while a package image is built is recorded in that image and fixed from the record at load, while the methods that serve it are the same; [the plan](../../writeup/plans/2026-10-29-w84-member-checks-at-load.md)) against c39fedc; TDE 3a51d95, TraitMakie 2c70583, julia-1.13 bfca89decc; product setting, strict mode off; two cores; load 1.0–1.5. The logs' headers name TraitWorld c39fedc: the "after" runs used ca92f22's tree before it was committed. `bash run.sh e231-before "D" 2` (on c39fedc) and `bash run.sh e231 "D" 2`, each after `bash precompile.sh D`; a discarded warm-up and two sessions a side (`logs/e231-before/`, `logs/e231/`); the load report `probe_loadreport_e230.jl` (`logs/e231/D-loadreport-*.log`). The results' lines (`D`, `P`) are equal before and after.
+
+| D | load | first solve | first plot | second model | **session** |
+|---|---|---|---|---|---|
+| before (c39fedc) | 1.18–1.19 (0.81–0.82) | 0.19 (0.17) | 0.19 (0.16) | 0.054 (0.04) | **1.78–1.80** |
+| after (ca92f22) | 0.57 (0.18) | 0.17–0.18 (0.16) | 0.22 (0.19) | 0.054–0.055 (0.04) | **1.19–1.20** |
+
+- `using TraitDifferentialEquations`: 1.07 → 0.40–0.41 s. Its 14 members: checked again, 750 ms → fixed from records, 103–105 ms. Of those, 72 ms is the first lookup's compilation; each further member takes about 2 ms.
+- Python's session was 1.43 s in E-230's round: D is now below it.
+- The first plot is 0.03 s slower. Not attributed.

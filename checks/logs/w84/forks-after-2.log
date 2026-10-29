@@ -1,0 +1,57 @@
+using CSV, DataFrames, Statistics, Dates: 1.206 s
+TraitWorld load report: 1.523 s since the recording started, of it 0.679 s compiling (Julia's counter)
+  step                       count        ms  compiling
+  family members fixed at a package's load (a fold kept in its image: from the image's record, or checked again)
+    total                        1      21.8       19.9
+    from record                 26     133.7      131.4
+    check                        1      13.8       12.3
+    builder                      1       2.3        2.0
+    index                        1       0.0        0.0
+    already fixed               10                     
+    slowest (ms, of it compiling):
+          72.1    71.8  Column for Vector{Union{Missing, Bool}}
+          21.8    19.9  Column for Vector{Union{Missing, String15}}
+           3.6     3.3  Column for Vector{DataString}
+           3.5     3.3  Column for Vector{Bool}
+           3.4     3.2  Column for Vector{UInt32}
+  the image hook (each package image's methods: overrides, strict mode)
+    total                       46      56.2       31.4
+    override check              46      27.1        9.1
+    override index              46      25.3       22.3
+    strict                      46       0.0        0.0
+    slowest (ms, of it compiling):
+          31.0    28.6  Tables
+           6.2     2.8  CSV
+           5.4     0.0  DataFrames
+           2.3     0.0  DataStructures
+           1.9     0.0  PrettyTables
+  after each package load (the generation and dynamic candidates, strict mode's validation log)
+    total                       59       6.8        0.0
+    generation                  59       6.4        0.0
+    strict at load              59       0.0        0.0
+    slowest (ms, of it compiling):
+           0.3     0.0  CSVInlineStringsExt
+           0.3     0.0  Statistics
+           0.3     0.0  DataValueInterfaces
+           0.2     0.0  CSVDataFramesExt
+           0.2     0.0  CSVDataFramesInlineStringsExt
+
+first uses (a frame, CSV.write, CSV.read, groupby-combine): 0.325 s
+TraitWorld load report: 0.398 s since the recording started, of it 0.37 s compiling (Julia's counter)
+  step                       count        ms  compiling
+  first-call checks of worker signatures
+    worker problems              2      48.1       46.1
+    fully typed                  2       0.1        0.0
+    slowest (ms, of it compiling):
+          47.2    46.1  Tuple{typeof(tocolumn), Column{Float64} at Dynamic}
+           0.9     0.0  Tuple{typeof(aggregate), Column{DataString} at StringVector{DataString}, Aggregate{typeof(length), Nothing}, GroupedDataFrame{Dat…
+           0.1     0.0  Tuple{typeof(tocolumn), Column{Float64} at Dynamic}
+  implementations found by the slow path (generic implementations, dynamic ones)
+    builder                      1       0.0        0.0
+  the table of declared implementations (untyped calls): first sight of a type
+    pointer made                 3      15.5       14.5
+    miss                         3       0.8        0.0
+    slowest (ms, of it compiling):
+           9.3     9.1  EntryPos{typeof(aggregate), 1, 3} for StringVector{DataString}
+           5.9     5.4  EntryPos{typeof(refcodes), 1, 3} for Vector{Int64}
+           0.4     0.0  EntryPos{typeof(refcodes), 1, 3} for Vector{Int64}
