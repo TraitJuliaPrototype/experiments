@@ -434,3 +434,52 @@ julia-1.13 bfca89decc, TraitWorld main 4579236 (not edited), product setting, st
 - `observed` returns a getter kept without a signature (`Kept{Callable}`), called at `(u, p, t)` directly; the reader does not enter it at `Callable{Tuple{U, P, Float64}, S}`.
 - A value that is both a series and a value provider (the solution) is read as a series, as SymbolicIndexingInterface reads a time series.
 - NetworkDynamics' index type includes vectors of its indices, so its batched observed function serves a vector with one evaluation of the network's buffers per time.
+
+# E-248: W-96, Tsit5's own interpolant and the states saved at events (2026-10-29)
+
+The question (registry E-248; W-96; R5's tolerance gap, E-246): with Tsit5's own interpolant for dense output, `saveat` and event location, and the states saved before and after each event, is NetworkDynamics' step e within tolerance against upstream (U′)? Not a measurement, except E-168's session once (`../ttfx/`, section E-248).
+
+## What was built (TDE branch `w96`, a worktree at `../../TraitDifferentialEquations-w96`: 7b4ad78, 5862baa, e9e07ed; from `w34` 282edb3)
+
+- **Tsit5's own interpolant:** the free fourth-order continuous extension of Tsitouras 5(4), the coefficients of OrdinaryDiffEqTsit5 2.1.5's `Tsit5Interp` (from the depot), from the step's start and its seven stages (`tsit5_interp!`). `Tsit5Steps{T}`, an `Interpolant{Vector{T}, Float64}` (open issue 117's design), keeps them per step. Dense output, `saveat` and event location use it. Rodas5's own interpolant is unchanged.
+- **The states saved at events** (SciML's `save_positions` at its default), continuous and discrete, for Tsit5 and Rodas5 (`save_step!`, `save_state!` in ODECore): before the affect unless the step's saves just saved that state; after it always (discrete) or while `u_modified` stays set (continuous). `linear_at` returns the first state saved at a time (the state before an event).
+- **After a continuous event the next step is the accepted step's size** (SciML's `dtrelax = 1`); before, the controller's proposal. Found while comparing event times with upstream's.
+- Tsit5's `initdt` uses `utilde` as scratch, so the last step's stages stay valid for its interpolant until the next step.
+
+## How to run
+
+    julia --project=../../ndport/env_upstream w96/upstream_ref.jl                # upstream's numbers; TOL=1e-6|1e-8 (logs/upstream-ref-*.log)
+    julia --project=<TDE> w96/tde_probe.jl                                         # the same problems on TDE; TOL as above (logs/tde-probe-w96-*, -w34-*: on w34, the cubic Hermite polynomial)
+    w96/run.sh <run> [TDE]                  # check 1: the session's RESULT lines; check 2: Pkg.test() (default TDE: the worktree)
+    W=<scratch> [TAG=b] w96/session_d.sh control|w96     # E-168's session in setting D (../ttfx/logs/e248/)
+    (ndport) scripts/w96_pc.sh <name>; NDW_ENV=env_w96 NDW_TDE=TraitDifferentialEquations-w96 NDW_LOGDIR=logs/w96 NDW_JLNAME=w96 scripts/r5_workload.sh <name> PT [runs]
+
+## Results (2026-10-29)
+
+julia-1.13 bfca89decc, TraitWorld main f270262 (not edited), product setting, strict mode off.
+
+| Check | 7b4ad78 / 5862baa |
+|---|---|
+| 1 `RESULT` lines (`w96/logs/session-1.log`, `session-2.log`) | **identical** (9): the session has no `saveat` and no continuous event |
+| 2 TDE's suite (`w96/logs/tests-2.log`; `tests-1`: `test/r118.jl` expected two saved states where the discrete callback now saves four, fixed in 5862baa) | passes (265; E-245: 242) |
+| Lorenz on (0, 1), abstol = reltol = 1e-8: dense output at 0.137, 0.5, 0.731 against upstream's (the same 151 steps) | **6.3e-11** (w34's Hermite: 5.1e-6); at 1e-6: 4.6e-10 (Hermite 2.6e-5) |
+| the same against a tight run (1e-12) | 2.57e-8, upstream's 2.56e-8 (Hermite 5.1e-6); at the steps 4.0e-8 |
+| Lorenz on (0, 3), z through 25 (u[2] *= 0.9), 1e-8: Tsit5's nine event times against upstream's (323 steps both) | **1.6e-12** (Hermite 3.2e-8); at 1e-6: 1.0e-10 (Hermite 6.1e-6) |
+| its saved times with `saveat` | upstream's: 24 (6 times, 9 events before and after); every step: 333, upstream's |
+| NetworkDynamics' ported workload, R5's comparison (`ndport/README.md`, section E-248) | **within tolerance**: 0 failures (R5: 11) |
+
+### Findings
+
+1. **TDE's Tsit5 reproduces upstream's values between steps** where it takes upstream's steps: the dense output 6e-11 and the event times 2e-12 from upstream's at 1e-8 (the differences of the step sizes, below), 100 to 10⁴ times closer than the cubic Hermite polynomial.
+2. **At the default tolerances TDE's Tsit5 takes other steps than upstream's** (Lorenz on (0, 1): 27 against 26): OrdinaryDiffEqCore 4.19 lets the first step grow by `qmax_first_step`, not `qmax = 10` (the second step 0.0013 upstream, 0.00036 in TDE). Beyond it, the step sizes differ in the ninth digit (upstream's controller uses `fastpower`). Not changed here (W-96's scope): a candidate for the main session.
+3. **TDE's Rodas5 takes other steps than upstream's** at 1e-8 (372 against 326 on problem B); its event times are 1e-9 to 4e-9 from upstream's. Not changed.
+4. Upstream recomputes a step's stages over the part an event cut (`reeval_internals_due_to_modification!`, six more evaluations), and interpolates `saveat` times inside it on them; TDE keeps the full step's stages and size. The saved values at `saveat` agree within 4e-11 at 1e-8 (problem B).
+
+### Choices made (mine)
+
+- The solution's saves at events follow SciML's defaults only; no `save_positions` keyword on `DiscreteCallback` and `ContinuousCallback`.
+- A step cut by an event keeps the full step's stages and size (one interpolant, continuous at the event's time); no recomputation over the cut part.
+- The next step after a continuous event is the accepted step's size, as upstream's `dtrelax = 1`.
+- At a saved time with two states (an event's), both are read with the parameters saved at or before that time (`parameters_at`), as SymbolicIndexingInterface reads a time; unchanged.
+- PlainODE (the plain control of `scripts/session.jl`) keeps the cubic Hermite polynomial and saves no states at events: the session uses neither.
+- Built on a branch `w96` in a worktree, not on `w34`, because R6 (E-247) ran on `w34` as found at the time; `w96` is a fast-forward of `w34`.

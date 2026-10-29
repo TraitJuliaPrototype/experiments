@@ -525,3 +525,15 @@ TDE `w34` e4eeed9 and 388cb33 against a same-day control on f0a79ae (before R3; 
 
 - e4eeed9's first solve: the session's `solve_two` inferred TraitWorld's `conforms` through the umbrella's `solve` (0.43 s; [the E-242 write-up](../w34-sciml/README.md#e-242-w-32-r3-the-tde-items-left-for-networkdynamics-2026-10-29), finding 5). 388cb33 chooses the nonlinear front end by trait dispatch.
 - What remains, +0.04–0.06 s: the load (+0.02–0.04 s; TraitNonlinearSolve and its members are loaded), the second model (+0.02 s; a Rodas5 solve with `saveat`, so not the dense path), the first plot (+0.01 s). Not attributed further.
+
+### E-248, setting D after W-96 in TDE (Tsit5's own interpolant, the states saved at events), 2026-10-29
+
+TDE `w96` 5862baa (a worktree, `../../TraitDifferentialEquations-w96`) against a same-day control on `w34` 282edb3 (`env_d` as it is); TraitWorld f270262, TraitMakie c0d5c36, julia-1.13 bfca89decc; product setting, strict mode off; two cores; each session under `jl --exclusive`. `W=<scratch> ../w34-sciml/w96/session_d.sh control|w96`: a discarded warm-up and one session, alternating control, w96, control, w96 (`logs/e248/`: `control-*`, `w96-*`; the second round `*b`).
+
+| D | load | first solve | first plot | second model | **session** |
+|---|---|---|---|---|---|
+| control 282edb3 (`control-1`, `-1b`) | 0.682–0.704 | 0.184–0.186 | 0.241–0.268 | 0.075–0.076 | **1.357–1.415** |
+| w96 5862baa (`w96-1`, `-1b`) | 0.684–0.686 | 0.183–0.184 | 0.241 | 0.075–0.077 | **1.356–1.358** |
+
+- No change: the session's code is the same apart from the saves and the interpolant; the warm-ups agree (control 1.354–1.376, w96 1.351–1.355).
+- The Lorenz digest (values at `saveat` times, interpolated) changed: `-9.40845 -9.0962 28.5816 -7.87609 -8.76163 24.9903`, setting U's (upstream's OrdinaryDiffEq) exactly; the control's `-9.40841 -9.09617 28.5816 -7.87611 -8.76165 24.9903` was the cubic Hermite polynomial's. The plots of it differ in size accordingly (`d-1.png`, `d-3.png` 53536 bytes, the control's 53574). Robertson's and Van der Pol's (Rodas5) are unchanged.
