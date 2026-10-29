@@ -1,0 +1,10 @@
+RESULT plain: same solution = true
+RESULT compiled_for: same solution = true
+RESULT with_dynamic: same solution = true
+RESULT Dynamic{Callback}: same solution = true
+RESULT Kept{Callback}: same solution = true
+RESULT neither: MethodError
+MethodError: no method matching _enter_callback!(::Vector{Kept{Callback{Vector{Float64}, Float64, LorenzParams{Float64}}}}, ::Vector{Kept{EventCallback{Vector{Float64}, Float64, LorenzParams{Float64}}}}, ::Neither)
+This error has been manually thrown, explicitly, so the method may exist but be intentionally marked as unimplemented.
+Argument 3 of `_enter_callback!` is bounded by Callback or EventCallback; a value of type Neither conforms to none of them (declare an implementation with `@implement`, or convert it).
+  Callback is implemented by Bounce, ODECore.FunctionCallback{U, T, P}, RaiseSigm
