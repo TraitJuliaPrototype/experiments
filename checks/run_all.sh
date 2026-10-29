@@ -1,7 +1,8 @@
 #!/bin/bash
 # Every test suite and check against the current checkouts, each job in a slot of `experiments/tools/jl`
 # (one after another here): TraitWorld (product setting and the test bed `all`), the acceptance suite (both),
-# the four demonstrators, the documentation's examples, TraitReport's REPL session. Logs to logs/<tag>/; a summary line each.
+# the four demonstrators, the documentation's examples, TraitReport's and TraitMakie's REPL sessions. Logs to logs/<tag>/;
+# a summary line each. A session passes only when every check prints ok and only the expected errors show.
 #     bash run_all.sh <tag>
 R=/home/hellmann/Repos/julia-trait-bound
 J=$R/julia-1.13/julia; FI=$R/julia-1.13/usr/lib/julia/facts/sys.so
@@ -22,4 +23,6 @@ for d in TraitTables TraitCSV TraitDifferentialEquations TraitMakie; do run $d $
 for s in tutorial strict reference; do run doc-$s $R/TraitWorld plain --project=. $R/experiments/docs-examples/$s.jl; done
 # TraitReport's REPL session (it takes the lock itself; about 7 s)
 (unset JULIA_DEPOT_PATH; bash $R/TraitReport/scripts/session.sh > $L/traitreport-session.log 2>&1); echo "traitreport-session rc=$?  $(grep '^session:' $L/traitreport-session.log)"
+# TraitMakie's REPL session (it takes the lock itself)
+(unset JULIA_DEPOT_PATH; bash $R/TraitMakie/scripts/session.sh > $L/traitmakie-session.log 2>&1); echo "traitmakie-session rc=$?  $(grep '^session:' $L/traitmakie-session.log)"
 echo done
