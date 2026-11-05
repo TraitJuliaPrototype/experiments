@@ -3,8 +3,10 @@
 #
 #     jl [--exclusive] [--name NAME] command args...      e.g.  jl --name w91 julia-1.13/julia --project=. test/runtests.jl
 #
-# - Slots: JL_SLOTS (default 4) slots of 16/JL_SLOTS cores each; a job waits for a free slot and runs pinned
-#   to its slot's cores (taskset), niced, with JULIA_NUM_PRECOMPILE_TASKS = the slot's cores (unless set).
+# - Slots: JL_SLOTS (default 4) slots of JL_CORES/JL_SLOTS cores each (JL_CORES default 16); a job waits for a
+#   free slot and runs pinned to its slot's cores (taskset; JL_NOPIN=1 skips pinning, for a shared host), niced,
+#   with JULIA_NUM_PRECOMPILE_TASKS = the slot's cores (unless set).
+# - Locks: under JL_LOCKDIR (default /tmp/claude-1000).
 # - Depot: a depot of its own, ~/.julia/agent-depots/NAME on disk (NAME from --name or JL_NAME; default the slot;
 #   not /tmp, a tmpfs in RAM that filled up), JL_DEPOTS to override the root,
 #   stacked before JULIA_DEPOT_PATH (or ~/.julia): compiled caches are read from the depots below and
@@ -12,12 +14,12 @@
 # - Memory guard: the job's process group is killed (exit 137, a line on stderr) when the machine's available
 #   memory falls below JL_MEM_MIN_GB (default 2.5 GB).
 # - --exclusive: for measurements and Julia builds. Waits until no slot job runs, holds every new job back
-#   meanwhile, and runs on all cores without a depot of its own. Scripts that take the old lock
+#   meanwhile, and runs without a depot of its own, with JULIA_NUM_PRECOMPILE_TASKS = JL_CORES (unless set). Scripts that take the old lock
 #   (flock /tmp/claude-1000/julia-review.lock) are exclusive jobs too.
 set -u
-B=/tmp/claude-1000; L=$B/jl; DR=${JL_DEPOTS:-$HOME/.julia/agent-depots}; mkdir -p $L $DR
+B=${JL_LOCKDIR:-/tmp/claude-1000}; L=$B/jl; DR=${JL_DEPOTS:-$HOME/.julia/agent-depots}; mkdir -p $L $DR
 GLOBAL=$B/julia-review.lock; GATE=$L/gate.lock
-N=${JL_SLOTS:-4}; PER=$((16 / N)); EXCL=0; NAME=${JL_NAME:-}
+N=${JL_SLOTS:-4}; CORES=${JL_CORES:-16}; PER=$((CORES / N)); EXCL=0; NAME=${JL_NAME:-}
 while [ $# -gt 0 ]; do
   case $1 in
     --exclusive) EXCL=1; shift ;;
@@ -49,6 +51,7 @@ run() {  # the job in its own process group (job control), with the guard beside
 if [ $EXCL = 1 ]; then
   exec 7>$GATE; flock -x 7          # hold new slot jobs back
   exec 8>$GLOBAL; flock -x 8        # wait for the running ones
+  export JULIA_NUM_PRECOMPILE_TASKS=${JULIA_NUM_PRECOMPILE_TASKS:-$CORES}
   nice -n 19 "$@"; exit $?
 fi
 
@@ -67,4 +70,4 @@ NAME=${NAME:-slot$slot}; DEP=$DR/$NAME; mkdir -p $DEP
 export JULIA_DEPOT_PATH="$DEP:${JULIA_DEPOT_PATH:-$HOME/.julia:}"
 export JULIA_NUM_PRECOMPILE_TASKS=${JULIA_NUM_PRECOMPILE_TASKS:-$PER}
 echo "jl: slot $slot (cores $cores), depot $DEP" >&2
-run taskset -c $cores nice -n 19 "$@"
+if [ "${JL_NOPIN:-0}" = 1 ]; then run nice -n 19 "$@"; else run taskset -c $cores nice -n 19 "$@"; fi

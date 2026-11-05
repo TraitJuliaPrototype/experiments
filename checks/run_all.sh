@@ -4,7 +4,7 @@
 # the four demonstrators, the documentation's examples, TraitReport's and TraitMakie's REPL sessions. Logs to logs/<tag>/;
 # a summary line each. A session passes only when every check prints ok and only the expected errors show.
 #     bash run_all.sh <tag>
-R=/home/hellmann/Repos/julia-trait-bound
+R=${TW_ROOT:-$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)}
 J=$R/julia-1.13/julia; FI=$R/julia-1.13/usr/lib/julia/facts/sys.so
 L=$R/experiments/checks/logs/$1; mkdir -p $L
 export JULIA_PKG_OFFLINE=true JULIA_NUM_PRECOMPILE_TASKS=4

@@ -5,7 +5,7 @@
 # since the compiler's own code is compiled plainly in either mode.
 # Use: julia -J $OUT/sys.so, with a depot of its own (JULIA_DEPOT_PATH=<dir>:).
 set -e
-J13=/home/hellmann/Repos/julia-trait-bound/julia-1.13
+J13=${TW_ROOT:-$(cd "$(dirname "${BASH_SOURCE[0]}")/../../.." && pwd)}/julia-1.13
 OUT=${OUT:-$J13/usr/lib/julia/facts}
 mkdir -p "$OUT"
 LIB=$J13/usr/lib/julia
