@@ -1,0 +1,59 @@
+port	trait	member	form	kind	key	declared by
+NetworkDynamics	NetworkDynamics.ComponentDynamics	D<:NetworkDynamics.FunctionDynamics	family	family-own		implementation
+NetworkDynamics	NetworkDynamics.EdgeDynamics	D<:NetworkDynamics.FunctionDynamics	family	family-own		implementation
+NetworkDynamics	NetworkDynamics.VertexDynamics	D<:NetworkDynamics.FunctionDynamics	family	family-own		implementation
+NetworkDynamics	ODECore.HasJacobianPrototype	NetworkDynamics.NetworkFixedT{NW}	family	family-own		implementation
+NetworkDynamics	ODECore.HasJacobianPrototype	NetworkDynamics.Network{EX, G, NL, VTup, MM, CT, GBT, LM, EM}	family	family-own		implementation
+NetworkDynamics	ODECore.HasMassMatrix	NetworkDynamics.Network{EX, G, NL, VTup, MM, CT, GBT, LM, EM}	family	family-own		implementation
+NetworkDynamics	TraitIndexing.HasSystem	NetworkDynamics.NetworkFixedT{NW}	family	family-own		implementation
+NetworkDynamics	TraitIndexing.HasSystem	NetworkDynamics.Network{EX, G, NL, VTup, MM, CT, GBT, LM, EM}	family	family-own		implementation
+NetworkDynamics	TraitIndexing.IndexProvider	NetworkDynamics.Network{EX, G, NL, VTup, MM, CT, GBT, LM, EM}	family	family-own		implementation
+ODECore	HasProperty{:ps}	ODECore.ParamIntegrator{U, T, P}	family	family-own		implementation
+ODECore	ODECore.Callback	ODECore.FunctionCallback{U, T, P}	family	family-own		implementation
+ODECore	ODECore.CoreIntegrator	ODECore.Tsit5Integrator{T, M}	family	family-own		implementation
+ODECore	ODECore.EventCallback	ODECore.FunctionEventCallback{U, T, P}	family	family-own		implementation
+ODECore	ODECore.HasCallbacks	ODECore.ODEProblem{T, P, F, J}	family	family-own		implementation
+ODECore	ODECore.HasJacobianPrototype	ODECore.ODEFunction{F, TJ, TMM}	family	family-own		implementation
+ODECore	ODECore.HasJacobianPrototype	ODECore.ODEProblem{T, P, F, J}	family	family-own		implementation
+ODECore	ODECore.HasMassMatrix	ODECore.ODEFunction{F, TJ, TMM}	family	family-own		implementation
+ODECore	ODECore.HasMassMatrix	ODECore.ODEProblem{T, P, F, J}	family	family-own		implementation
+ODECore	ODECore.IntegratorView	ODECore.ParamIntegrator{U, T, P}	family	family-own, fields mapped		implementation
+ODECore	ODECore.IntegratorView	ODECore.ParamIntegrator{U, T, P}	family	family-own, fields mapped		projection
+ODECore	ODECore.Interpolant	ODECore.Tsit5Steps{T}	family	family-own		implementation
+ODECore	ODECore.LinearSolver	ODECore.DenseLU	concrete	own	ODECore.DenseLU	implementation
+ODECore	ODECore.NLCache	ODECore.NewtonCache	concrete	own	ODECore.NewtonCache	implementation
+ODECore	ODECore.NonlinearSolver	ODECore.Newton{L}	family	family-own		implementation
+ODECore	ODECore.ODEAlgorithm	ODECore.Tsit5	concrete	own	ODECore.Tsit5	implementation
+ODECore	ODECore.ODEProblemTrait	ODECore.ODEProblem{T, P, F, J}	family	family-own		implementation
+ODECore	ODECore.ODEStepper	ODECore.Tsit5	concrete	own	ODECore.Tsit5	implementation
+ODECore	ODECore.StepCallback	ODECore.ParamCallback{U, T, P}	family	family-own		implementation
+ODECore	ODECore.StepEvent	ODECore.ParamEvent{U, T, P}	family	family-own		implementation
+ODECore	ODECore.StepView	ODECore.Tsit5Integrator{T, M}	family	family-own, fields mapped		implementation
+ODECore	ODECore.StepView	ODECore.Tsit5Integrator{T, M}	family	family-own, fields mapped		projection
+ODECore	TraitArrayTools.Trajectory	ODECore.ODESolution{T, P}	family	family-own		implementation
+ODECore	TraitIndexing.HasSystem	ODECore.ODEFunction{F, TJ, TMM}	family	family-own		implementation
+ODECore	TraitIndexing.HasSystem	ODECore.ODEProblem{T, P, F, J}	family	family-own		implementation
+ODECore	TraitIndexing.HasSystem	ODECore.ODESolution{T, P}	family	family-own		implementation
+ODECore	TraitIndexing.HasSystem	ODECore.ParamIntegrator{U, T, P}	family	family-own		implementation
+ODECore	TraitIndexing.IndexProvider	ODECore.ODESolution{T, P}	family	family-own		implementation
+ODECore	TraitIndexing.IndexProvider	ODECore.ParamIntegrator{U, T, P}	family	family-own		implementation
+ODECore	TraitIndexing.SeriesProvider	ODECore.ODESolution{T, P}	family	family-own		implementation
+ODECore	TraitIndexing.ValueProvider	ODECore.ODESolution{T, P}	family	family-own		implementation
+ODECore	TraitIndexing.ValueProvider	ODECore.ParamIntegrator{U, T, P}	family	family-own		implementation
+TraitArrayTools	TraitArrayTools.Trajectory	TraitArrayTools.DiffEqArray{E}	family	family-own		implementation
+TraitIndexing	TraitIndexing.IndexProvider	TraitIndexing.SymbolCache	concrete	own	TraitIndexing.SymbolCache	implementation
+TraitNonlinearSolve	ODECore.HasJacobianPrototype	TraitNonlinearSolve.NonlinearFunction{F, TJ}	family	family-own		implementation
+TraitNonlinearSolve	ODECore.HasJacobianPrototype	TraitNonlinearSolve.NonlinearProblem{T, P, F, J}	family	family-own		implementation
+TraitNonlinearSolve	TraitIndexing.HasSystem	TraitNonlinearSolve.NonlinearFunction{F, TJ}	family	family-own		implementation
+TraitNonlinearSolve	TraitIndexing.HasSystem	TraitNonlinearSolve.NonlinearProblem{T, P, F, J}	family	family-own		implementation
+TraitNonlinearSolve	TraitIndexing.HasSystem	TraitNonlinearSolve.NonlinearSolution{T, P}	family	family-own		implementation
+TraitNonlinearSolve	TraitNonlinearSolve.NonlinearAlgorithm	TraitNonlinearSolve.NewtonRaphson{L}	family	family-own		implementation
+TraitNonlinearSolve	TraitNonlinearSolve.NonlinearAlgorithm	TraitNonlinearSolve.NonlinearPolyalg	concrete	own	TraitNonlinearSolve.NonlinearPolyalg	implementation
+TraitNonlinearSolve	TraitNonlinearSolve.NonlinearAlgorithm	TraitNonlinearSolve.TrustRegion{L}	family	family-own		implementation
+TraitNonlinearSolve	TraitNonlinearSolve.NonlinearProblemTrait	TraitNonlinearSolve.NonlinearProblem{T, P, F, J}	family	family-own		implementation
+TraitRodas	ODECore.CoreIntegrator	TraitRodas.Rodas5Integrator{JC, M}	family	family-own		implementation
+TraitRodas	ODECore.Interpolant	TraitRodas.Rodas5Steps	concrete	own	TraitRodas.Rodas5Steps	implementation
+TraitRodas	ODECore.ODEAlgorithm	TraitRodas.Rodas5{L}	family	family-own		implementation
+TraitRodas	ODECore.ODEStepper	TraitRodas.Rodas5{L}	family	family-own		implementation
+TraitRodas	ODECore.StepView	TraitRodas.Rodas5Integrator{JC, M}	family	family-own, fields mapped		implementation
+TraitRodas	ODECore.StepView	TraitRodas.Rodas5Integrator{JC, M}	family	family-own, fields mapped		projection
