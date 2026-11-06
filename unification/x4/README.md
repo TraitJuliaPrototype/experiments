@@ -20,20 +20,20 @@ JULIA_NUM_THREADS=1 nice -n 5 julia-unified/julia --startup-file=no experiments/
 Outputs: `out/<run>-<tree>.txt`. Answers checked separately (`Vector{Int} <: Fam1`, `M <: C3` true; the
 non-members false).
 
-## Results (2026-11-06; vanilla 45b6d15e34, `unified` fd800b27b9; one thread; load 4–7 of 128)
+## Results (2026-11-06; vanilla 45b6d15e34, `unified` fd800b27b9 and a7ab25d01a; one thread; load 4–9 of 128)
 
-Runs 1–3 were of the build before its last two changes. Runs 4 and 5 are of fd800b27b9.
+Runs 1–3 were of the build before its last two changes. Runs 4 and 5 are of fd800b27b9 (kept on branch `w98-fd800b27b9`). Run 6 is of the restructured stack's top, a7ab25d01a: the same code, on the twelve changes useful without traits (`writeup/design/julia-changes.md` §7.1); load 3–6.
 
-| Question | vanilla | run 1 (c3f0b4bc11 + the rework) | run 3 (+ the fast path) | runs 4, 5 (+ the memo) |
-|---|---|---|---|---|
-| `Vector{Int} <: Unrel`, a non-member, k = 0 | 14.1 | 50.7 | 20.9 | 23.6, 23.6 |
-| the same, k = 10 | 14.1 | 55.8 | 27.4 | 23.6, 24.4 |
-| the same, k = 50 | 14.1–14.3 | 72.6 | 45.4 | 23.6, 24.4 |
-| `isa([1], Unrel)`, k = 50 | 16.7 | 76.1 | 48.3 | 26.4 |
-| `Vector{Int} <: Fam1`, a member, k = 50 | 16.4 (not a member) | 96.7 | 46.4 | 26.4, 26.7 |
-| `M <: Unrel`, a non-member at depth 3 | 12.2 | 94.9 | 63.9 | 22.3, 22.3 |
-| `M <: C3`, a member through three entries | 12.2 (not a member) | 276.4 | 312.6 | 171.3, 172.0 |
-| `Vector{Int} <: Closed`, an unrelated closed type | 14.1 | 13.1–13.7 | 13.3–14.4 | 13.4–13.9 |
+| Question | vanilla | run 1 (c3f0b4bc11 + the rework) | run 3 (+ the fast path) | runs 4, 5 (+ the memo) | run 6 (a7ab25d01a) |
+|---|---|---|---|---|---|
+| `Vector{Int} <: Unrel`, a non-member, k = 0 | 14.1 | 50.7 | 20.9 | 23.6, 23.6 | 24.5 |
+| the same, k = 10 | 14.1 | 55.8 | 27.4 | 23.6, 24.4 | 24.6 |
+| the same, k = 50 | 14.1–14.3 | 72.6 | 45.4 | 23.6, 24.4 | 24.1 |
+| `isa([1], Unrel)`, k = 50 | 16.7 | 76.1 | 48.3 | 26.4 | 26.8 |
+| `Vector{Int} <: Fam1`, a member, k = 50 | 16.4 (not a member) | 96.7 | 46.4 | 26.4, 26.7 | 26.1 |
+| `M <: Unrel`, a non-member at depth 3 | 12.2 | 94.9 | 63.9 | 22.3, 22.3 | 23.2 |
+| `M <: C3`, a member through three entries | 12.2 (not a member) | 276.4 | 312.6 | 171.3, 172.0 | 186.8 |
+| `Vector{Int} <: Closed`, an unrelated closed type | 14.1 | 13.1–13.7 | 13.3–14.4 | 13.4–13.9 | 13.7–14.4 |
 
 With the pruning off, the numbers of each run are within a few percent of those with it on.
 
