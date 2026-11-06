@@ -15,6 +15,7 @@ Copied on 2026-11-06 from the earlier attempt (`attic/oc-traits/`, `attic/oc-not
 | `gates/util.jl` | shared probes (a function's CodeInstances, the current world) | — |
 | `test/acceptance/AC_*.jl` (21) | the facts mode's acceptance cases in the unified form: a policy-compiled twin against a plain twin, values equal, each also under the test bed `all` (`ac_finish`) | stage 3, W-100 |
 | `c7count/` | E-260: the C7 placement count on the patched build; `attempt/` holds the earlier attempt's TSVs | stage 0, W-97 |
+| `audit/probes.jl` | the audit's probes: what the branch does beside what compiler §7 intends, without asserting | stage 0, W-97; gates once fixed |
 
 **What will change in them:**
 - The `m1_*` and `m2_*` gates were written against memberships composed through chains and a single world bump. Under explicit memberships and the method-insertion protocol (decisions 4 and 5, [decisions](../../writeup/record/decisions.md) §5), the gates that pin composed answers (`m2_set_in_set.jl`, `m2_future_min_worlds.jl`, parts of `m1_late_implement.jl` and `m1_worlds_minworld.jl`) are re-pinned in stage 1 and 2.
@@ -35,4 +36,5 @@ Each gate prints `<name>: OK` and exits 0, or asserts. One Julia process per gat
 
 | Date | Build | What | Result |
 |---|---|---|---|
-| — | — | — | — |
+| 2026-11-06 | `unified` c3f0b4bc11 | the 22 `m1_*`/`m2_*` gates (E-262) | 22 of 22 pass (`logs/e262-gates-unified-c3f0b4bc11.log`) |
+| 2026-11-06 | `unified` c3f0b4bc11 | the audit's probes (`audit/probes.jl`) | P1, P2, P3, P4, P5, P6 differ from compiler §7 (`logs/audit-probes-c3f0b4bc11.log`; [the audit](../../writeup/reviews/2026-11-06-oc-build-audit.md)) |
