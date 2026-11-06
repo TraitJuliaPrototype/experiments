@@ -15,7 +15,7 @@ w_pre = curworld()
 r0 = dc(MDW())
 @assert r0 === 0 "pre-membership: the Any method answers (Int)"
 
-@implement MDW DW
+@implement DW MDW
 
 r1 = d(MDW())
 @assert r1 === :set "new world: the set method answers"

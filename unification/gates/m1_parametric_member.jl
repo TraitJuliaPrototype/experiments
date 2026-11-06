@@ -6,7 +6,7 @@ include("util.jl")
 
 @trait QSet{T}
 struct Mem2{T} end
-@implement Mem2{T} QSet{T}           # parametric pattern + parametric instance
+@implement QSet{T} Mem2{T}           # parametric pattern + parametric instance
 
 m = Mem2{Int}()
 @assert (m isa QSet{Int}) "matching instance answers true"

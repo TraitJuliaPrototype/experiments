@@ -21,7 +21,7 @@ catch err
     err isa TypeError || rethrow()
 end
 
-@implement Late2 X2
+@implement X2 Late2
 
 @assert isaq(x) "isa true in the new world (old CI, runtime check)"
 @assert subq() && tupq() "subtype questions true after the declaration"

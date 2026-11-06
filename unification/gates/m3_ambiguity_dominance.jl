@@ -16,8 +16,8 @@ body_dominates = """
     kd(::VC2)          = :vc2
     kd(::Vararg{VC3})  = :vc3
     struct PC end
-    @implement PC VC2                    # first join: silent
-    @implement PC VC3                    # pair (VC2, VC3): dominance suppresses now
+    @implement VC2 PC                    # first join: silent
+    @implement VC3 PC                    # pair (VC2, VC3): dominance suppresses now
     println("CHILD_RUNTIME ", kd(PC()))
     println("CHILD_DONE")
 """
@@ -31,8 +31,8 @@ body_ambiguous = """
     fd(::XD) = :x
     fd(::YD) = :y
     struct MD end
-    @implement MD XD
-    @implement MD YD
+    @implement XD MD
+    @implement YD MD
     res = try
         fd(MD()); "nothrow"
     catch e

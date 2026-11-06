@@ -21,7 +21,7 @@ ci0 = [c for c in all_cis(caller) if c.min_world <= w_pre <= c.max_world]
 @assert all(c -> c.max_world == typemax(UInt), ci0) "not bounded yet (fresh CIs carry the UInt64 ceiling)"
 
 before = (stat(1), stat(2), stat(4), stat(5))
-@implement SSt ST
+@implement ST SSt
 after = (stat(1), stat(2), stat(4), stat(5))
 println("m2_stale_caller stats (replays, visits, spec-invalidations, cache-lowerings): ",
         before, " -> ", after)

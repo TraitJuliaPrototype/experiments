@@ -13,8 +13,8 @@ body_warn = """
     f(::XA) = :x
     f(::YA) = :y
     struct MA end
-    @implement MA XA                     # first join: no pair, no warning
-    @implement MA YA                     # member of both: the report fires here
+    @implement XA MA                     # first join: no pair, no warning
+    @implement YA MA                     # member of both: the report fires here
     res = try
         f(MA())
         "nothrow"
@@ -32,9 +32,9 @@ body_suppress = """
     g(::XB) = :x
     g(::YB) = :y
     @trait ZB
-    @implement ZB XB                     # ZB joins XB (first join: silent)
+    @implement XB ZB                     # ZB joins XB (first join: silent)
     g(::ZB) = :z                         # a method on ZB: more specific than both
-    @implement ZB YB                     # second join: pair (XB, YB) suppressed
+    @implement YB ZB                     # second join: pair (XB, YB) suppressed
     println("CHILD_DONE")
 """
 

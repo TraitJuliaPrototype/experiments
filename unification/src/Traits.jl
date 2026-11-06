@@ -1,73 +1,75 @@
 module Traits
 
-# The traits-v2 library surface (plan §4.6, milestone M6; this is the first
-# @trait/@implement cut that lands with M1). Semantics:
-# writeup/reference/traits.md; mechanism: oc-notes/plan.md §4.1-4.2.
+# A stub of the trait library on the unified build, enough for the gates of the
+# stages W-98 and W-99: sets and memberships only (writeup/reference/compiler.md §4,
+# lowering.md §2–§3). The library itself is W-106.
 
 export @trait, @implement, isopen, declare_membership
 
-## Runtime hooks (src/datatype.c on the julia-oc branch)
+## Runtime hooks (src/datatype.c)
 
-# open a set: set the TypeName's open bit. @trait calls this right after the
-# abstract declaration; a `struct S <: X` only picks up the final membership if
-# X's bit was already set when S was created.
+# open a set: before its binding is published (compiler §4.1)
 _open_set!(@nospecialize(T)) = ccall(:jl_set_open_set, Cvoid, (Any,), T)
 
-# is this set open? (authoritative: reads the C bit, not a Julia-side table)
+# is this set open? (the TypeName's bit)
 function isopen(@nospecialize(T))::Bool
-    dt = T isa DataType ? T : Base.unwrap_unionall(T)
+    dt = Base.unwrap_unionall(T)
     dt isa DataType || return false
     return ccall(:jl_is_open_set, Cint, (Any,), dt) != 0
 end
 
-# the entry point behind @implement; see julia_internal.h for the protocol
-function declare_membership(@nospecialize(member), @nospecialize(set_instance),
-                            @nospecialize(key), mod::Module, @nospecialize(by))
+# the entry point behind @implement (compiler §4.2); the caller follows it with
+# Expr(:latestworld), so the declaring code sees its own membership (§4.3)
+function declare_membership(@nospecialize(member), @nospecialize(set_instance), mod::Module,
+                            @nospecialize(by) = nothing, receiver::Symbol = :self)
     return ccall(:jl_declare_membership, Any, (Any, Any, Any, Any, Any),
-                 member, set_instance, key, mod, by)
+                 member, set_instance, mod, by, receiver)
 end
 
 ## The declaration forms
 
 """
     @trait X
-    @trait X <: A        # A itself open: membership carries over by set-in-set entries
+    @trait X <: A          # A a set
     @trait X{P}
-    @trait X{P, Q} <: A
+    @trait X{P <: B} <: A{P}
 
-Declare the abstract type `X` as an *open set*: types may become members of it
-after its definition — subtypes by `struct S <: X` (a membership final as the
-supertype), unrelated types later by `@implement S X`.
+Declare the abstract type `X` as a set, open from its declaration: as
+`abstract type` lowers, with the set opened before its binding is published.
 """
 macro trait(ex)
-    root, head = _trait_head(ex)
-    open_fn = _open_set!   # embed the value: resolves independent of hygiene
-    return quote
-        $(esc(Expr(:abstract, head)))
-        ($open_fn)($(esc(root)))
+    name, params, super = _trait_parts(ex)
+    mod = __module__
+    pnames = Symbol[p isa Symbol ? p : p.args[1] for p in params]
+    tvdefs = Any[p isa Symbol ? :($p = Core.TypeVar($(QuoteNode(p)))) :
+                 :($(p.args[1]) = Core.TypeVar($(QuoteNode(p.args[1])), $(p.args[2]))) for p in params]
+    open_fn = _open_set!
+    t = gensym(:set)                  # not a parameter's name
+    q = quote
+        Core.declare_global($mod, $(QuoteNode(name)), false)
+        $(Expr(:latestworld))
+        let $(tvdefs...)
+            local $t = Core._abstracttype($mod, $(QuoteNode(name)), Core.svec($(pnames...)))
+            $open_fn($t)
+            Core._setsuper!($t, $super)
+            Core._typebody!(false, $t)
+            Core.declare_const($mod, $(QuoteNode(name)), $t)
+        end
+        $(Expr(:latestworld))
         nothing
     end
+    return esc(q)
 end
 
 """
-    @implement S X
-    @implement S{T} X{T}      # parametric form: one shared set of parameters
+    @implement X S
+    @implement X{T} S{T}      # one shared set of parameters
+    @implement X S{T}         # the member of every instance of X
 
-Declare `S` — a `DataType`, a member pattern like `S{T} where T`, or a curly form
-with free parameter symbols — a member of the open set `X` *now*, in a fresh
-world: `s isa X` becomes true for `S` values in this world and every later one,
-and stays false in older worlds. The declared key is the erased key (`nothing` ≡
-`Keyed{X, Nothing, Nothing}`); returns the `Core.MembershipEntry`.
-
-In the parametric form (review M1) the member pattern and the set instance are
-built over the SAME freshly minted type variables, so the entry binds narrow:
-`@implement S{T} X{T}` makes `S{Int}` a member of `X{Int}` (and of the bare
-family `X`, whose query a whole-family declaration answers), and not of
-`X{String}`. A set expression naming none of the parameters must be the bare
-family (its wrapper chain pairs positionally with the pattern's); one naming
-only some of them is rejected.
+Declare `S` (a type, or a pattern with free parameter symbols) a member of the set
+`X` in a new world, then continue in that world. Returns the `Core.MembershipEntry`.
 """
-macro implement(s, x)
+macro implement(x, s)
     mod = __module__
     decl = declare_membership
     ps = _param_syms(mod, s)
@@ -76,38 +78,37 @@ macro implement(s, x)
         isempty(xs) ||
             error("@implement: $(first(xs)) is a free parameter in the set expression but not in the member pattern")
         return quote
-            ($decl)($(esc(s)), $(esc(x)), nothing, $mod, nothing)
+            local e = ($decl)($(esc(s)), $(esc(x)), $mod)
+            $(Expr(:latestworld))
+            e
         end
     end
     tvs = Core.TypeVar.(ps)
     tvmap = IdDict{Any,Any}(ps .=> tvs)
-    tup = Expr(:tuple, QuoteNode.(tvs)...)   # the minted variables, as runtime values
+    tup = Expr(:tuple, QuoteNode.(tvs)...)
     wrap = _wrap_tvs
     mexpr = :($wrap($(esc(_subst_params(s, tvmap))), $tup))
     xs = _param_syms(mod, x)
     all(p -> p in ps, xs) ||
         error("@implement: $(first(setdiff(xs, ps))) is a free parameter in the set expression but not in the member pattern")
     if isempty(xs)
-        # bare family instance: pass the set expression through — its own wrapper
-        # chain pairs with the pattern chain in jl_membership_lookup (equal depth)
         iexpr = esc(x)
     elseif length(xs) == length(ps)
         iexpr = :($wrap($(esc(_subst_params(x, tvmap))), $tup))
     else
-        error("@implement: every parameter of the member pattern must occur in the set expression, or give the bare family name")
+        error("@implement: every parameter of the member pattern must occur in the set expression, or give the bare set")
     end
     return quote
-        ($decl)($mexpr, $iexpr, nothing, $mod, nothing)
+        local e = ($decl)($mexpr, $iexpr, $mod)
+        $(Expr(:latestworld))
+        e
     end
 end
 
 ## Helpers
 
-## Parametric @implement support (review M1)
-
 # free parameter symbols of a declaration side: plain symbols in type-argument
-# position that the calling module does not define; names bound by an explicit
-# `where` in the same expression are not free
+# position that the calling module does not define; names bound by `where` are not free
 function _param_syms(mod::Module, ex)
     ps = Symbol[]
     _collect_free!(ps, mod, ex, Set{Symbol}())
@@ -128,7 +129,7 @@ function _collect_free!(ps::Vector{Symbol}, mod::Module, ex, bound::Set{Symbol})
         end
         _collect_free!(ps, mod, ex.args[1], bound)
     elseif ex.head === :curly
-        for a in ex.args[2:end]     # the head names the type itself, never a parameter
+        for a in ex.args[2:end]
             if a isa Symbol
                 !(a in bound) && !(a in ps) && !isdefined(mod, a) && push!(ps, a)
             else
@@ -140,7 +141,7 @@ function _collect_free!(ps::Vector{Symbol}, mod::Module, ex, bound::Set{Symbol})
 end
 
 # replace the free parameter symbols by their minted variables (QuoteNode: the
-# object itself, evaluated as a value, so pattern and instance share it)
+# object itself, so pattern and instance share it)
 function _subst_params(ex, tvmap::IdDict{Any,Any})
     if ex isa Symbol
         tv = get(tvmap, ex, nothing)
@@ -157,9 +158,8 @@ function _subst_params(ex, tvmap::IdDict{Any,Any})
     return ex
 end
 
-# wrap the evaluated body in UnionAlls over the shared tvars, first parameter
-# outermost — the same order for both sides, so jl_membership_lookup's
-# positional pairing lines the chains up
+# wrap the evaluated body in UnionAlls over the shared variables, first outermost:
+# the same order for pattern and instance
 function _wrap_tvs(@nospecialize(body), tvs::Tuple)
     body isa Type || error("@implement: $(body) is not a type")
     for i in lastindex(tvs):-1:1
@@ -168,21 +168,24 @@ function _wrap_tvs(@nospecialize(body), tvs::Tuple)
     return body
 end
 
-# `X` | `X{Ps...}` | `X <: A` | `X{Ps...} <: A`  →  (root name, declaration head)
-function _trait_head(ex)
-    if ex isa Symbol
-        return ex, ex
-    elseif Meta.isexpr(ex, :curly)
-        ex.args[1] isa Symbol || error("@trait: bad type name in $ex")
-        return ex.args[1]::Symbol, ex
-    elseif Meta.isexpr(ex, :<:)
-        lhs = ex.args[1]
-        root = lhs isa Symbol ? lhs : Meta.isexpr(lhs, :curly) && lhs.args[1] isa Symbol ? lhs.args[1]::Symbol :
-               error("@trait: bad left-hand side in $ex")
-        return root, ex
-    else
-        error("@trait expects `X`, `X <: A`, `X{Ps...}`, or `X{Ps...} <: A`, got $ex")
+# `X` | `X{Ps...}` | `X <: A` | `X{Ps...} <: A`  →  (name, params, supertype expression)
+function _trait_parts(ex)
+    super = :Any
+    if Meta.isexpr(ex, :<:)
+        super = ex.args[2]
+        ex = ex.args[1]
     end
+    if ex isa Symbol
+        return ex, Any[], super
+    elseif Meta.isexpr(ex, :curly) && ex.args[1] isa Symbol
+        params = Any[]
+        for p in ex.args[2:end]
+            p isa Symbol || Meta.isexpr(p, :<:) || error("@trait: bad parameter $p")
+            push!(params, p)
+        end
+        return ex.args[1]::Symbol, params, super
+    end
+    error("@trait expects `X`, `X <: A`, `X{Ps...}`, or `X{Ps...} <: A`, got $ex")
 end
 
 end # module

@@ -12,7 +12,7 @@ struct Mem6 end
 g6(::S6...) = :set
 g6(::Any)   = :any
 w6 = curworld()
-@implement Mem6 S6
+@implement S6 Mem6
 @assert g6(Mem6()) === :set "new world, 1-arg through vararg sig"
 @assert Base.invoke_in_world(w6, g6, Mem6()) === :any "old world, 1-arg (W1 probe A1)"
 @assert g6(Mem6(), Mem6()) === :set "new world, 2-arg length-mismatch shape"
@@ -34,7 +34,7 @@ struct Oth7 end
 u7(::Union{Oth7, S7}) = :set
 u7(::Any)             = :any
 w7 = curworld()
-@implement Mem7 S7
+@implement S7 Mem7
 @assert u7(Mem7()) === :set "new world through the union arm"
 @assert Base.invoke_in_world(w7, u7, Mem7()) === :any "old world keeps the catch-all (W1 probe B1)"
 @assert u7(Oth7()) === :set "the closed union arm still answers"
@@ -46,7 +46,7 @@ struct Late9c end
 f9c(::S9c) = :set
 f9c(::Any) = :any
 w9 = curworld()
-@implement Late9c M9c
+@implement M9c Late9c
 @assert f9c(Late9c()) === :set "composed chain dispatch in the new world"
 @assert Base.invoke_in_world(w9, f9c, Late9c()) === :any "composed chain bounded in the old world"
 
@@ -60,7 +60,7 @@ vd(::Any)    = :any
 caller2(x::MD2) = vd(x)          # compiled through the catch-all, pre-declare
 @assert caller2(MD2()) === :any "pre-declare value"
 w2 = curworld()
-@implement MD2 VD2
+@implement VD2 MD2
 @assert caller2(MD2()) === :set "new world through the vararg method (replay reaches it)"
 @assert Base.invoke_in_world(w2, caller2, MD2()) === :any "old world still bounded"
 

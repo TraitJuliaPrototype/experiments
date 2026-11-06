@@ -10,7 +10,7 @@ struct Late3 end
 probe_early(y) = y isa X3             # compiles before the entry: no fold possible
 
 w_before = curworld()
-e = @implement Late3 X3
+e = @implement X3 Late3
 @assert e.min_world >= w_before + 1 "the declaring world must be above any world seen before (single-bump protocol)"
 
 probe_late(y) = y isa X3              # compiles after: a positive fold is allowed

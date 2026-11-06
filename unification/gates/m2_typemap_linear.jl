@@ -20,7 +20,7 @@ end
 w(x::BigL) = :big
 w(x) = :any                       # catch-all (the trap of probe 2)
 w(x::SetL) = :set
-@implement MemL SetL
+@implement SetL MemL
 
 @assert (w(MemL()) === :set) "member reaches the set method in the populated table (probe 2)"
 @assert (w(BigL()) === :big) "chain-matched query unaffected"
@@ -44,7 +44,7 @@ for i in 1:200
 end
 v(x::WideS) = :set
 v2(x::ClosedW) = :set2
-@implement WideMem WideS
+@implement WideS WideMem
 
 using Printf
 probe(m) = Base.inferencebarrier(v)(m)      # keep the dispatch loop real (no const-fold)

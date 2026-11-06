@@ -14,7 +14,7 @@ wqv(x) = wq(x)                  # module-level (world-old) call shape
 
 @assert isempty(methods(wq, (MQ,))) "no match before the declaration"
 w_pre = curworld()
-@implement MQ BQ
+@implement BQ MQ
 
 ms = methods(wq, (MQ,))
 @assert any(m -> m.sig.parameters[2] === XQ, ms) "match record names XQ through BQ ⊆ XQ"
@@ -35,7 +35,7 @@ abstract type AMem end
 struct SubA <: AMem end
 wq2(::AQ) = :set
 wq2(::Any) = :any
-@implement AMem AQ
+@implement AQ AMem
 
 isa_ans = SubA() isa AQ
 m_ans = any(mm -> mm.sig.parameters[2] === AQ, methods(wq2, (SubA,)))

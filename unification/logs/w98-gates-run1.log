@@ -1,0 +1,85 @@
+FAIL m1_audit_probes.jl (exit 1)
+       @ Base strings/substring.jl:289
+      filter(::Any, !Matched::AbstractString)
+       @ Base strings/basic.jl:672
+      ...
+    
+    Stacktrace:
+     [1] top-level scope
+       @ /p/projects/coen/julia-trait-bound/experiments/unification/gates/m1_audit_probes.jl:95
+     [2] include(mod::Module, _path::String)
+       @ Base ./Base.jl:309
+     [3] exec_options(opts::Base.JLOptions)
+       @ Base ./client.jl:344
+     [4] _start()
+       @ Base ./client.jl:577
+    in expression starting at /p/projects/coen/julia-trait-bound/experiments/unification/gates/m1_audit_probes.jl:95
+PASS m1_compiled_isa.jl
+PASS m1_late_implement.jl
+PASS m1_late_open_stale.jl
+PASS m1_no_wrappers.jl
+PASS m1_open_family_fold.jl
+PASS m1_parametric_member.jl
+FAIL m1_parametric_set.jl (exit 1)
+    ERROR: LoadError: AssertionError: hmm — see notes: bare query against a narrow entry
+    Stacktrace:
+     [1] top-level scope
+       @ /p/projects/coen/julia-trait-bound/experiments/unification/gates/m1_parametric_set.jl:26
+     [2] include(mod::Module, _path::String)
+       @ Base ./Base.jl:309
+     [3] exec_options(opts::Base.JLOptions)
+       @ Base ./client.jl:344
+     [4] _start()
+       @ Base ./client.jl:577
+    in expression starting at /p/projects/coen/julia-trait-bound/experiments/unification/gates/m1_parametric_set.jl:26
+PASS m1_typevalue_isa.jl
+FAIL m1_union_isa.jl (exit 1)
+    ERROR: LoadError: AssertionError: bare set (baseline)
+    Stacktrace:
+     [1] top-level scope
+       @ /p/projects/coen/julia-trait-bound/experiments/unification/gates/m1_union_isa.jl:11
+     [2] include(mod::Module, _path::String)
+       @ Base ./Base.jl:309
+     [3] exec_options(opts::Base.JLOptions)
+       @ Base ./client.jl:344
+     [4] _start()
+       @ Base ./client.jl:577
+    in expression starting at /p/projects/coen/julia-trait-bound/experiments/unification/gates/m1_union_isa.jl:11
+PASS m1_worlds_minworld.jl
+PASS m2_abstract_query.jl
+PASS m2_ambiguity_report.jl
+FAIL m2_closed_open_order.jl (exit 1)
+    ERROR: LoadError: UndefVarError: `Dynamic` not defined in `Core`
+    Suggestion: check for spelling errors or missing imports.
+    Stacktrace:
+     [1] getproperty(x::Module, f::Symbol)
+       @ Base ./Base_compiler.jl:50
+     [2] top-level scope
+       @ /p/projects/coen/julia-trait-bound/experiments/unification/gates/m2_closed_open_order.jl:32
+     [3] include(mod::Module, _path::String)
+       @ Base ./Base.jl:309
+     [4] exec_options(opts::Base.JLOptions)
+       @ Base ./client.jl:344
+     [5] _start()
+       @ Base ./client.jl:577
+    in expression starting at /p/projects/coen/julia-trait-bound/experiments/unification/gates/m2_closed_open_order.jl:32
+PASS m2_dispatch_worlds.jl
+PASS m2_future_min_worlds.jl
+PASS m2_post_declare_infer.jl
+FAIL m2_set_in_set.jl (exit 1)
+    ERROR: LoadError: AssertionError: Type{Late2}: the induced membership composes too (§2.8)
+    Stacktrace:
+     [1] top-level scope
+       @ /p/projects/coen/julia-trait-bound/experiments/unification/gates/m2_set_in_set.jl:17
+     [2] include(mod::Module, _path::String)
+       @ Base ./Base.jl:309
+     [3] exec_options(opts::Base.JLOptions)
+       @ Base ./client.jl:344
+     [4] _start()
+       @ Base ./client.jl:577
+    in expression starting at /p/projects/coen/julia-trait-bound/experiments/unification/gates/m2_set_in_set.jl:17
+PASS m2_stale_caller.jl
+PASS m2_typemap_linear.jl
+PASS m2_vararg_union_worlds.jl
+PASS m2_volume.jl
+gates: 17 passed, 5 failed

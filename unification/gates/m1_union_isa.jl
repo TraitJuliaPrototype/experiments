@@ -1,12 +1,12 @@
-# Gate for review finding M3: the type VALUE S answers `isa U` when some arm of
-# the union U contains the set (L10's Type{S} rule must descend union arms —
-# otherwise isa disagrees with dispatch, review p16 G2/G8).
+# Gate for review finding M3: a type value with an entry for Type{S} (compiler §4.10)
+# answers `isa U` when some arm of the union U contains the set, as dispatch does.
 using Traits
 include("util.jl")
 
 @trait Z9
 struct Mem9 end
-@implement Mem9 Z9
+@implement Z9 Mem9                    # the type's values
+@implement Z9 Type{Mem9}              # and the type value
 
 @assert (Mem9 isa Z9) "bare set (baseline)"
 @assert (Mem9 isa Union{Z9, Int}) "type value answers through a union containing the set"

@@ -12,7 +12,7 @@ negq() = PS{Union{Baz, X2}} <: PS{X2}    # compiled before Baz joins X2
 
 @assert !negq() "not a subtype before the declaration"
 
-@implement Baz X2
+@implement X2 Baz
 
 rt = PS{Union{Baz, X2}} <: PS{X2}
 @assert negq() == rt "compiled call must agree with the runtime truth after the

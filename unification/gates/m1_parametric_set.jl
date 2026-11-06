@@ -12,7 +12,7 @@ w_old = curworld()
 x = PLate()
 @assert !pprobe(x) "not a member before the declaration"
 
-@implement PLate PSet                # bare set name: member of the whole family
+@implement PSet PLate                # bare set name: member of the whole family
 
 @assert pprobe(x) "member of PSet{Int}"
 @assert (x isa PSet{String}) "bare declaration = member of every instance"
@@ -20,9 +20,9 @@ x = PLate()
 
 # a second, narrower declaration is independent (family work refines this at M5)
 struct PLate2 end
-@implement PLate2 PSet{Float64}
+@implement PSet{Float64} PLate2
 @assert (PLate2() isa PSet{Float64})
 @assert !(PLate2() isa PSet{Int}) "narrow declaration is narrow"
-@assert !(PLate2() isa PSet) "hmm — see notes: bare query against a narrow entry"
+@assert (PLate2() isa PSet) "PSet is PSet{T} where T: a member of PSet{Float64} is one (compiler §4.5)"
 
 println("m1_parametric_set: OK")

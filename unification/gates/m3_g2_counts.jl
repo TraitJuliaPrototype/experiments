@@ -20,7 +20,7 @@ const G2BIT = 0b00010000
 # ---------------- work A: a scripted trait session ----------------
 @trait Col3c
 struct Mem3c end
-@implement Mem3c Col3c
+@implement Col3c Mem3c
 w3a(m::Mem3c) = "member"
 wdet(x::Matrix{Float64}) = det(x)
 wmap(a::Vector{Int}) = map(x -> x + 1, a)

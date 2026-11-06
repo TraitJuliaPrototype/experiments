@@ -13,7 +13,7 @@ w_old = curworld()
 s = Late1()
 @assert !probe(s) "`s isa X1` must be false before the membership"
 
-e = @implement Late1 X1
+e = @implement X1 Late1
 @assert e isa Core.MembershipEntry
 # mutation semantics: the entry is visible from the declaring statement's world;
 # top-level statements each open a world, so all we pin is: newer than the read
@@ -26,7 +26,7 @@ e = @implement Late1 X1
 
 # a second membership of the same member in a second set: independent entries
 @trait X1b
-@implement Late1 X1b
+@implement X1b Late1
 @assert probe(s) && (s isa X1b)
 
 println("m1_late_implement: OK")

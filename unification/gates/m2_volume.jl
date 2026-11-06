@@ -25,7 +25,7 @@ foreach(T -> @assert(vt(T()) === :any, "pre-membership table value"), TS)
 b = map(stat, 1:6)
 t0 = time_ns()
 for T in TS
-    Traits.declare_membership(T, VOL, nothing, @__MODULE__, nothing)
+    Traits.declare_membership(T, VOL, @__MODULE__)
 end
 wall = (time_ns() - t0) / 1e9
 d = map(stat, 1:6) .- b           # replays, visits, morespec-skips, spec-invalidations, cache-lowerings, latest-only-clears

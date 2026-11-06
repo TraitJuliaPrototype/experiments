@@ -1,0 +1,27 @@
+E-270 run4-vanilla on 45b6d15e34*, machine load 4.48 5.98 7.28
+k = 0 entries on AbstractVector's chain:
+  Vector{Int} <: Closed (unrelated, closed)            k=0       14.1 ns
+  Vector{Int} <: Unrel (non-member, open)              k=0       14.1 ns
+  isa([1], Unrel)                                      k=0       16.6 ns
+k = 1 entries on AbstractVector's chain:
+  Vector{Int} <: Closed (unrelated, closed)            k=1       15.3 ns
+  Vector{Int} <: Unrel (non-member, open)              k=1       15.5 ns
+  isa([1], Unrel)                                      k=1       17.8 ns
+  Vector{Int} <: Fam1 (a member)                       k=1       15.8 ns
+  Vector{Int} <: Fam1 (the last entry)                 k=1       16.4 ns
+k = 10 entries on AbstractVector's chain:
+  Vector{Int} <: Closed (unrelated, closed)            k=10      14.2 ns
+  Vector{Int} <: Unrel (non-member, open)              k=10      14.3 ns
+  isa([1], Unrel)                                      k=10      16.6 ns
+  Vector{Int} <: Fam1 (a member)                       k=10      16.4 ns
+  Vector{Int} <: Fam10 (the last entry)                k=10      15.8 ns
+k = 50 entries on AbstractVector's chain:
+  Vector{Int} <: Closed (unrelated, closed)            k=50      14.1 ns
+  Vector{Int} <: Unrel (non-member, open)              k=50      14.3 ns
+  isa([1], Unrel)                                      k=50      16.7 ns
+  Vector{Int} <: Fam1 (a member)                       k=50      16.4 ns
+  Vector{Int} <: Fam50 (the last entry)                k=50      15.8 ns
+a set-in-set chain of depth 3:
+  M <: C3 (through three entries)                      k=3       12.2 ns
+  M <: Unrel (non-member)                              k=3       12.2 ns
+  isa(M(), C3)                                         k=3       14.9 ns

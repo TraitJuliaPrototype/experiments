@@ -13,7 +13,7 @@ f9(::P9) = :set
 f9(::Any) = 0
 g9(x) = f9(x)
 
-@implement PM9 P9
+@implement P9 PM9
 
 # shape 1: explicit code_typed at the member type — inference must resolve the
 # call THROUGH the membership (f9(::P9) wins → Symbol), not fall to the Any

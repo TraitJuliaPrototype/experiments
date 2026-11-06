@@ -1,6 +1,6 @@
-# Gate M1-d (plan §5.M1, review L10): a type *value* answers `isa` against an
-# open set through the Type{S} entry — jl_isa's datatype-type branch,
-# obviously_disjoint and the intersection datatype case stay exact.
+# Gate M1-d (compiler §4.10, C-19): a type value is a member of a set only by an entry
+# whose pattern is Type{S}, kept on S's TypeName. An entry for S answers S <: X and
+# `S() isa X`, never `S isa X`; an entry for Type{S} answers `S isa X`, never `S <: X`.
 using Traits
 include("util.jl")
 
@@ -11,20 +11,22 @@ struct Late4b end
 vprobe(y) = y isa X4                  # defined early: callable in both worlds
 
 w_old = curworld()
-@assert !(Late4 isa X4) "type value not a member before the declaration"
+@assert !(Late4 <: X4) && !(Late4 isa X4) && !(Late4() isa X4) "nothing before the declarations"
+
+@implement X4 Late4                   # the type is a member
+@assert (Late4 <: X4) "the entry answers Late4 <: X4"
+@assert (Late4() isa X4) "and its values"
+@assert !(Late4 isa X4) "the type value is not a member (A1)"
 @assert !isa(Late4, X4)
-@assert !(Int isa X4) "never a member"
 
-@implement Late4 X4
-
-@assert (Late4 isa X4) "Type{Late4} answers through the entry"
-@assert isa(Late4, X4)
-@assert !(Late4b isa X4) "non-member stays a non-member, exactly"
-@assert !(Int isa X4)
-@assert !Base.invoke_in_world(w_old, vprobe, Late4) "old world: false"  # early-defined probe: a closure made here is too new for w_old
-
-# exactness (review H2): the set and a non-member simply do not intersect —
-# a value of Late4b is never `isa X4`, and no union absorbs it by accident
-@assert !(Late4b() isa X4) && !(1 isa X4)
+@implement X4 Type{Late4b}            # the type value is a member
+@assert (Late4b isa X4) "a Type{S} entry answers S isa X"
+@assert vprobe(Late4b) "through a function compiled before the declaration"
+@assert !(Late4b <: X4) "and never S <: X"
+@assert !(Late4b() isa X4) "nor its values"
+@assert !Base.invoke_in_world(w_old, vprobe, Late4b) "old world: false"
+@assert typeintersect(Type{Late4b}, X4) == Type{Late4b} "intersection sees the type value's entry"
+@assert typeintersect(Type{Late4}, X4) == Union{} "and no entry for Late4's value"
+@assert !(Int isa X4) && !(1 isa X4)
 
 println("m1_typevalue_isa: OK")
