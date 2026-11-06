@@ -16,6 +16,8 @@ Copied on 2026-11-06 from the earlier attempt (`attic/oc-traits/`, `attic/oc-not
 | `test/acceptance/AC_*.jl` (21) | the facts mode's acceptance cases in the unified form: a policy-compiled twin against a plain twin, values equal, each also under the test bed `all` (`ac_finish`) | stage 3, W-100 |
 | `c7count/` | E-260: the C7 placement count on the patched build; `attempt/` holds the earlier attempt's TSVs | stage 0, W-97 |
 | `audit/probes.jl` | the audit's probes: what the branch does beside what compiler §7 intends, without asserting | stage 0, W-97; gates once fixed |
+| `e262_suites.sh` | E-262 (3): Base's `subtype`, `core`, `ambiguous` and `worlds` test files on a tree, wall time each, then `detect_ambiguities(Base)` | stage 0 and every stage's gate |
+| `s0a/` | E-261 (W-S0a): `s0a.jl` counts, per step of a session, the invalidated code the code slot would keep (compiler §7.7); `run.sh` runs the forks' session and the `g2all`-shaped session on `julia-1.13`; `selftest0.jl`/`selftest1.jl` a case with a known answer (part (A): 2 of 4 CodeInstances kept, `f1` and `h1`; part (B) is not self-tested) | stage 0, W-97 |
 
 **What will change in them:**
 - The `m1_*` and `m2_*` gates were written against memberships composed through chains and a single world bump. Under explicit memberships and the method-insertion protocol (decisions 4 and 5, [decisions](../../writeup/record/decisions.md) §5), the gates that pin composed answers (`m2_set_in_set.jl`, `m2_future_min_worlds.jl`, parts of `m1_late_implement.jl` and `m1_worlds_minworld.jl`) are re-pinned in stage 1 and 2.
@@ -28,9 +30,14 @@ source env.sh                                              # from the design rep
 experiments/unification/gates/run_all.sh julia-unified     # the m1_* and m2_* gates
 experiments/unification/gates/run_all.sh julia-unified 'm1_*'
 experiments/unification/c7count/run_all.sh                 # E-260, on julia-1.13 (about 10 minutes)
+experiments/unification/e262_suites.sh julia-unified unified   # E-262 (3); and julia-vanilla vanilla
+experiments/unification/s0a/run.sh                         # E-261, on julia-1.13
+julia-1.13/julia --startup-file=no experiments/unification/s0a/s0a.jl selftest work:experiments/unification/s0a/selftest0.jl work:experiments/unification/s0a/selftest1.jl
 ```
 
 Each gate prints `<name>: OK` and exits 0, or asserts. One Julia process per gate; 4 cores.
+
+The environments E-260 and E-261 load must be instantiated in the workspace depot first (`Pkg.instantiate(); Pkg.precompile()` per environment; logs in `logs/instantiate/`).
 
 ## Results
 
