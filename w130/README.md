@@ -1,6 +1,6 @@
 # Open issue 130: a call with keywords reaches the fallback (TraitWorld branch `w130`)
 
-Open issue 130 is built on TraitWorld's branch `w130` (worktree `../../TraitWorld-w130`). The design: [traits §5.7](../../writeup/reference/traits.md#57-keywords-defaults-and-varargs), [lowering §10](../../writeup/reference/lowering.md#10-keywords-defaults-and-varargs), deviation L-48.
+Open issue 130 is built on TraitWorld's branch `w130` (worktree `../../TraitWorld-w130`). The design: [traits §5.7](../../attic/writeup/reference/traits.md#57-keywords-defaults-and-varargs), [lowering §10](../../attic/writeup/reference/lowering.md#10-keywords-defaults-and-varargs), deviation L-48.
 
 ## How to run
 

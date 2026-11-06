@@ -12,7 +12,7 @@ From any directory, one job at a time (the shared lock, `nice -n 19`, a depot of
     ./run_probes.sh P1b P15         # some probes
 
 - `setup_env.jl` made the environment once: TraitWorld developed from `../../TraitWorld`, ForwardDiff for P13's duals.
-- `probes/common.jl`: the setting line, top-level evaluation, the checks and the result line. Modules defined directly under `Main` stand in for packages; each is an owner of its own ([traits §10.1](../../writeup/reference/traits.md#101-who-may-implement)).
+- `probes/common.jl`: the setting line, top-level evaluation, the checks and the result line. Modules defined directly under `Main` stand in for packages; each is an owner of its own ([traits §10.1](../../attic/writeup/reference/traits.md#101-who-may-implement)).
 - Each probe prints its checks, the plan's prediction, what the reference says, and a last line `RESULT <probe> PASS|FAIL|ERROR`.
   - **PASS:** every check matches what the reference says, its status and its Deviations table. A probe of a deviation (T-2, T-5, T-57) passes when the deviation reproduces as its row describes it.
   - **FAIL:** at least one check does not.

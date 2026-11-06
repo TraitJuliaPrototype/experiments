@@ -5,9 +5,9 @@ row: `writeup/record/experiments.md` E-266.
 
 **The question.** Today the facts owner compiles its own copies of the Base methods that facts code reaches. Images keep them,
 also where only a dynamic call reaches them (keep-compiled). Under the draft there is one CodeInstance per
-MethodInstance and policy ([compiler §2.3](../../../writeup/reference-unified/compiler.md#23-one-codeinstance-per-methodinstance-and-policy)):
+MethodInstance and policy ([compiler §2.3](../../../writeup/reference/compiler.md#23-one-codeinstance-per-methodinstance-and-policy)):
 facts code calls Base's plain code. Mitigation M1 keeps plain code in an image where its record satisfies G2
-([§3.2](../../../writeup/reference-unified/compiler.md#32-g2-as-a-predicate)). How much of what the facts copies
+([§3.2](../../../writeup/reference/compiler.md#32-g2-as-a-predicate)). How much of what the facts copies
 hold today would M1 keep?
 
 ## How to run

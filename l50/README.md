@@ -1,6 +1,6 @@
 # Lowering L-50 (TraitWorld branch `l50`)
 
-Lowering deviation L-50: a bounded method of a type's constructor at the signature of an ordinary constructor (one of Julia's default constructors, or an untyped inner one). It is built on TraitWorld's branch `l50` (worktree `../../TraitWorld-l50`), from `main` 4961de8. The design: [lowering §8.1](../../writeup/reference/lowering.md#81-the-rewrite), [traits §5.5](../../writeup/reference/traits.md#55-dispatch-types-first-then-traits).
+Lowering deviation L-50: a bounded method of a type's constructor at the signature of an ordinary constructor (one of Julia's default constructors, or an untyped inner one). It is built on TraitWorld's branch `l50` (worktree `../../TraitWorld-l50`), from `main` 4961de8. The design: [lowering §8.1](../../attic/writeup/reference/lowering.md#81-the-rewrite), [traits §5.5](../../attic/writeup/reference/traits.md#55-dispatch-types-first-then-traits).
 
 The mechanism: when the entry is defined, the constructor at its signature and that constructor's keyword sorter are taken out of the method table (`Base.delete_method`). A tagged method takes each one's place, `S(::Untyped, args…)` and `Core.kwcall(nt, ::Type{S}, ::Untyped, args…)`. It calls the constructor by `invoke` with the method itself.
 

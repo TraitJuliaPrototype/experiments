@@ -1,7 +1,7 @@
 # E-267 (X6): `Callable` by a memoized method-table query inside subtyping
 
 The work plan's §8, X6 (the user, 2026-11-06: "Adopt, keys as optional is approved. Run the X now"). Registry
-row: `writeup/record/experiments.md` E-267. The draft's mechanism ([compiler §7.4](../../../writeup/reference-unified/compiler.md#74-callables-call)):
+row: `writeup/record/experiments.md` E-267. The draft's mechanism ([compiler §7.4](../../../writeup/reference/compiler.md#74-callables-call)):
 `F <: Callable{A, S}` holds where `F` has a method at `A` (`hasmethod`); the answer is a query of `F`'s method
 table, memoized per (`F`, `A`) with its world range; a query that reaches itself again answers no.
 

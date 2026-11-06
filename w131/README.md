@@ -1,6 +1,6 @@
 # Open issue 131 and lowering L-49 (TraitWorld branch `w131`)
 
-Open issue 131 (a bounded method of a type's constructor) and lowering deviation L-49 (a bound's `where` variable read as a module global) are built on TraitWorld's branch `w131` (worktree `../../TraitWorld-w131`), from `w130`. The design: [lowering §8.1](../../writeup/reference/lowering.md#81-the-rewrite), [traits §5.5](../../writeup/reference/traits.md#55-dispatch-types-first-then-traits), deviation L-50.
+Open issue 131 (a bounded method of a type's constructor) and lowering deviation L-49 (a bound's `where` variable read as a module global) are built on TraitWorld's branch `w131` (worktree `../../TraitWorld-w131`), from `w130`. The design: [lowering §8.1](../../attic/writeup/reference/lowering.md#81-the-rewrite), [traits §5.5](../../attic/writeup/reference/traits.md#55-dispatch-types-first-then-traits), deviation L-50.
 
 ## How to run
 

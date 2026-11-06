@@ -1,6 +1,6 @@
 # W-94: facts code "rejected at load" by another package's implementation (E-243)
 
-Open issue 126 asks why the member-fold `conformance(::As{Column}, ::Vector{…})` CodeInstances of the facts owner that E-238 counted as rejected at load are rejected when CSV's `@implement CSVColumn A where {A <: Vector}` loads, and whether [facts §2.2](../../writeup/reference/facts.md#g2) needs an exception. Registry row: [`experiments.md`](../../writeup/record/experiments.md) E-243. The analysis: [`../../writeup/plans/2026-10-29-w94-facts-rejected-by-implementation.md`](../../writeup/plans/2026-10-29-w94-facts-rejected-by-implementation.md).
+Open issue 126 asks why the member-fold `conformance(::As{Column}, ::Vector{…})` CodeInstances of the facts owner that E-238 counted as rejected at load are rejected when CSV's `@implement CSVColumn A where {A <: Vector}` loads, and whether [facts §2.2](../../attic/writeup/reference/facts.md#g2) needs an exception. Registry row: [`experiments.md`](../../writeup/record/experiments.md) E-243. The analysis: [`../../writeup/plans/2026-10-29-w94-facts-rejected-by-implementation.md`](../../writeup/plans/2026-10-29-w94-facts-rejected-by-implementation.md).
 
 ## How to run
 

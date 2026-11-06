@@ -1,6 +1,6 @@
 # Unification: the gates and acceptance cases of the unified build
 
-The tests of the unified build ([compiler §7](../../writeup/reference/compiler.md#7-traits-in-the-type-system); [the synthesis plan](../../writeup/plans/2026-11-05-unification-synthesis.md); W-97 to W-104). Registry rows: E-260 to E-262 ([experiments §12](../../writeup/record/experiments.md)).
+The tests of the unified build ([compiler §7](../../attic/writeup/reference/compiler.md#7-traits-in-the-type-system); [the synthesis plan](../../writeup/plans/2026-11-05-unification-synthesis.md); W-97 to W-104). Registry rows: E-260 to E-262 ([experiments §12](../../writeup/record/experiments.md)).
 
 Copied on 2026-11-06 from the earlier attempt (`attic/oc-traits/`, `attic/oc-notes/c7count/`) unchanged, except for the run scripts. The audit (W-97) judges each gate as code; a gate is changed only with a note in this file.
 

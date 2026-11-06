@@ -1,6 +1,6 @@
 # W-92: the forks' invalidated plain code, and the facts route (E-238)
 
-W-92 asks whether the plain code that the forks' REPL session compiles again after the loads (E-233: 0.48 s in the steps) could be code of the facts owner, which unrelated loads do not invalidate ([facts §2.2](../../writeup/reference/facts.md#g2)). Registry row: [`experiments.md`](../../writeup/record/experiments.md) E-238. The note with the choice: [`../../writeup/plans/2026-10-29-w92-forks-invalidation.md`](../../writeup/plans/2026-10-29-w92-forks-invalidation.md).
+W-92 asks whether the plain code that the forks' REPL session compiles again after the loads (E-233: 0.48 s in the steps) could be code of the facts owner, which unrelated loads do not invalidate ([facts §2.2](../../attic/writeup/reference/facts.md#g2)). Registry row: [`experiments.md`](../../writeup/record/experiments.md) E-238. The note with the choice: [`../../writeup/plans/2026-10-29-w92-forks-invalidation.md`](../../writeup/plans/2026-10-29-w92-forks-invalidation.md).
 
 ## How to run
 

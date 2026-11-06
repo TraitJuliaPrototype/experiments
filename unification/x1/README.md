@@ -4,7 +4,7 @@ The work plan's §8, X1 (the user, 2026-11-06: "Adopt, keys as optional is appro
 row: `writeup/record/experiments.md` E-265.
 
 **The question.** Under the draft there is one CodeInstance per MethodInstance and policy
-([compiler §2.3](../../../writeup/reference-unified/compiler.md#23-one-codeinstance-per-methodinstance-and-policy)). So
+([compiler §2.3](../../../writeup/reference/compiler.md#23-one-codeinstance-per-methodinstance-and-policy)). So
 facts code calls plain code, and a load that invalidates the plain code invalidates the facts callers that
 hold code edges to it. E-261 counted them: set (B) and the part the code slot keeps. This experiment times them.
 
