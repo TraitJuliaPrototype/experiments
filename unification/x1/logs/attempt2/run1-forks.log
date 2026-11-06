@@ -1,0 +1,33 @@
+# 2026-11-06T19:18:17+01:00 julia-1.13 00dcc9994c, TraitWorld 33dd55e, forks 77b9aab, TraitMakie ba46982, TDE e9e07ed, TraitReport 882c533
+== forks control 19:18:17 load 2.74 3.67 3.21
+jl: slot 1 (cores 0-3), depot /p/projects/coen/julia-trait-bound/.julia-depot/agent-depots/x1
+run1-forks-control CSV                        load 1.34 s; (B) 23, kept by the slot 20; lost 0 → 0 invalidated
+run1-forks-control DataFrames                 load 1.08 s; (B) 46, kept by the slot 27; lost 0 → 0 invalidated
+run1-forks-control Statistics                 load 0.0 s; (B) 0, kept by the slot 0; lost 0 → 0 invalidated
+run1-forks-control Dates                      load 0.0 s; (B) 0, kept by the slot 0; lost 0 → 0 invalidated
+┌ Warning: Assignment to `again` in soft scope is ambiguous because a global variable by the same name exists: `again` will be treated as a new local. Disambiguate by using `local again` to suppress this warning or `global again` to assign to the existing global variable.
+└ @ /p/projects/coen/julia-trait-bound/experiments/unification/x1/x1.jl:369
+E-265 run1-forks-control (control): 4 steps on 00dcc9994c*, machine load 3.02
+  (B) facts callers of invalidated plain code 69; kept by the slot 47; lost and invalidated 0
+  the work: 2.248 s, compile counter 2.955 s (of it recompiling 0.215 s)
+  lost code compiled again in the work: 0 facts CodeInstances; their plain callees without code: 0, compiled in 0.0 s
+== forks slot 19:18:32 load 3.02 3.69 3.22
+jl: slot 1 (cores 0-3), depot /p/projects/coen/julia-trait-bound/.julia-depot/agent-depots/x1
+run1-forks-slot CSV                        load 0.85 s; (B) 23, kept by the slot 20; lost 28 → 28 invalidated
+run1-forks-slot DataFrames                 load 1.07 s; (B) 41, kept by the slot 22; lost 74 → 104 invalidated
+run1-forks-slot Statistics                 load 0.0 s; (B) 0, kept by the slot 0; lost 0 → 0 invalidated
+run1-forks-slot Dates                      load 0.0 s; (B) 0, kept by the slot 0; lost 0 → 0 invalidated
+┌ Warning: Assignment to `again` in soft scope is ambiguous because a global variable by the same name exists: `again` will be treated as a new local. Disambiguate by using `local again` to suppress this warning or `global again` to assign to the existing global variable.
+└ @ /p/projects/coen/julia-trait-bound/experiments/unification/x1/x1.jl:369
+ERROR: LoadError: UndefVarError: `again` not defined in local scope
+Suggestion: check for an assignment to a local variable that shadows a global of the same name.
+Stacktrace:
+ [1] top-level scope
+   @ /p/projects/coen/julia-trait-bound/experiments/unification/x1/x1.jl:369
+ [2] include(mod::Module, _path::String)
+   @ Base ./Base.jl:310
+ [3] exec_options(opts::Base.JLOptions)
+   @ Base ./client.jl:344
+ [4] _start()
+   @ Base ./client.jl:577
+in expression starting at /p/projects/coen/julia-trait-bound/experiments/unification/x1/x1.jl:336

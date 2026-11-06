@@ -1,0 +1,237 @@
+# 2026-11-06T19:18:17+01:00 julia-1.13 00dcc9994c, TraitWorld 33dd55e, forks 77b9aab, TraitMakie ba46982, TDE e9e07ed, TraitReport 882c533
+== g2all control 19:18:17 load 2.74 3.67 3.21
+jl: slot 2 (cores 4-7), depot /p/projects/coen/julia-trait-bound/.julia-depot/agent-depots/x1
+run1-g2all-control TraitDifferentialEquations load 1.13 s; (B) 24, kept by the slot 21; lost 0 → 0 invalidated
+run1-g2all-control TraitMakie                 load 0.59 s; (B) 0, kept by the slot 0; lost 0 → 0 invalidated
+run1-g2all-control work:/p/projects/coen/julia-trait-bound/experiments/unification/s0a/g2work.jl load 0.28 s; (B) 0, kept by the slot 0; lost 0 → 0 invalidated
+run1-g2all-control CSV                        load 0.3 s; (B) 23, kept by the slot 18; lost 0 → 0 invalidated
+run1-g2all-control DataFrames                 load 0.6 s; (B) 27, kept by the slot 26; lost 0 → 0 invalidated
+run1-g2all-control CairoMakie                 load 5.01 s; (B) 0, kept by the slot 0; lost 0 → 0 invalidated
+run1-g2all-control OffsetArrays               load 0.0 s; (B) 0, kept by the slot 0; lost 0 → 0 invalidated
+run1-g2all-control StatsBase                  load 0.0 s; (B) 0, kept by the slot 0; lost 0 → 0 invalidated
+run1-g2all-control Unitful                    load 0.0 s; (B) 0, kept by the slot 0; lost 0 → 0 invalidated
+run1-g2all-control IntervalArithmetic         load 0.0 s; (B) 0, kept by the slot 0; lost 0 → 0 invalidated
+run1-g2all-control Distributions              load 0.0 s; (B) 0, kept by the slot 0; lost 0 → 0 invalidated
+run1-g2all-control Interpolations             load 0.0 s; (B) 0, kept by the slot 0; lost 0 → 0 invalidated
+run1-g2all-control StaticArrays               load 0.0 s; (B) 0, kept by the slot 0; lost 0 → 0 invalidated
+┌ Warning: Assignment to `again` in soft scope is ambiguous because a global variable by the same name exists: `again` will be treated as a new local. Disambiguate by using `local again` to suppress this warning or `global again` to assign to the existing global variable.
+└ @ /p/projects/coen/julia-trait-bound/experiments/unification/x1/x1.jl:369
+E-265 run1-g2all-control (control): 13 steps on 00dcc9994c*, machine load 2.98
+  (B) facts callers of invalidated plain code 74; kept by the slot 65; lost and invalidated 0
+  the work: 0.109 s, compile counter 0.096 s (of it recompiling 0.096 s)
+  lost code compiled again in the work: 0 facts CodeInstances; their plain callees without code: 0, compiled in 0.0 s
+== g2all slot 19:19:04 load 2.98 3.61 3.21
+jl: slot 1 (cores 0-3), depot /p/projects/coen/julia-trait-bound/.julia-depot/agent-depots/x1
+run1-g2all-slot TraitDifferentialEquations load 0.78 s; (B) 24, kept by the slot 21; lost 28 → 28 invalidated
+run1-g2all-slot TraitMakie                 load 0.65 s; (B) 0, kept by the slot 0; lost 0 → 0 invalidated
+run1-g2all-slot work:/p/projects/coen/julia-trait-bound/experiments/unification/s0a/g2work.jl load 0.32 s; (B) 0, kept by the slot 0; lost 0 → 0 invalidated
+
+[1915662] signal 15: Terminated
+in expression starting at /p/projects/coen/julia-trait-bound/experiments/unification/x1/x1.jl:312
+__futex_abstimed_wait_common at /lib64/libc.so.6 (unknown line)
+pthread_cond_wait at /lib64/libc.so.6 (unknown line)
+uv_cond_wait at /workspace/srcdir/libuv/src/unix/thread.c:822
+jl_parallel_gc_threadfun at /home/hellmann/julia-trait-bound/julia-1.13/src/gc-stock.c:3729
+start_thread at /lib64/libc.so.6 (unknown line)
+__clone3 at /lib64/libc.so.6 (unknown line)
+unknown function (ip: (nil)) at (unknown file)
+__futex_abstimed_wait_common at /lib64/libc.so.6 (unknown line)
+pthread_cond_wait at /lib64/libc.so.6 (unknown line)
+uv_cond_wait at /workspace/srcdir/libuv/src/unix/thread.c:822
+jl_parallel_gc_threadfun at /home/hellmann/julia-trait-bound/julia-1.13/src/gc-stock.c:3729
+start_thread at /lib64/libc.so.6 (unknown line)
+__clone3 at /lib64/libc.so.6 (unknown line)
+unknown function (ip: (nil)) at (unknown file)
+__futex_abstimed_wait_common at /lib64/libc.so.6 (unknown line)
+pthread_cond_wait at /lib64/libc.so.6 (unknown line)
+uv_cond_wait at /workspace/srcdir/libuv/src/unix/thread.c:822
+jl_parallel_gc_threadfun at /home/hellmann/julia-trait-bound/julia-1.13/src/gc-stock.c:3729
+start_thread at /lib64/libc.so.6 (unknown line)
+__clone3 at /lib64/libc.so.6 (unknown line)
+unknown function (ip: (nil)) at (unknown file)
+__futex_abstimed_wait_common at /lib64/libc.so.6 (unknown line)
+pthread_cond_wait at /lib64/libc.so.6 (unknown line)
+uv_cond_wait at /workspace/srcdir/libuv/src/unix/thread.c:822
+ijl_task_get_next at /home/hellmann/julia-trait-bound/julia-1.13/src/scheduler.c:614
+wait at ./task.jl:1297
+wait_forever at ./task.jl:1196
+jfptr_wait_forever_31735 at /p/projects/coen/julia-trait-bound/julia-1.13/usr/lib/julia/sys.so (unknown line)
+jl_apply at /home/hellmann/julia-trait-bound/julia-1.13/src/julia.h:2332 [inlined]
+start_task at /home/hellmann/julia-trait-bound/julia-1.13/src/task.c:1287
+unknown function (ip: (nil)) at (unknown file)
+__futex_abstimed_wait_common at /lib64/libc.so.6 (unknown line)
+pthread_cond_wait at /lib64/libc.so.6 (unknown line)
+uv_cond_wait at /workspace/srcdir/libuv/src/unix/thread.c:822
+ijl_task_get_next at /home/hellmann/julia-trait-bound/julia-1.13/src/scheduler.c:614
+wait at ./task.jl:1297
+wait_forever at ./task.jl:1196
+jfptr_wait_forever_31735 at /p/projects/coen/julia-trait-bound/julia-1.13/usr/lib/julia/sys.so (unknown line)
+jl_apply at /home/hellmann/julia-trait-bound/julia-1.13/src/julia.h:2332 [inlined]
+start_task at /home/hellmann/julia-trait-bound/julia-1.13/src/task.c:1287
+unknown function (ip: (nil)) at (unknown file)
+__futex_abstimed_wait_common at /lib64/libc.so.6 (unknown line)
+pthread_cond_wait at /lib64/libc.so.6 (unknown line)
+uv_cond_wait at /workspace/srcdir/libuv/src/unix/thread.c:822
+ijl_task_get_next at /home/hellmann/julia-trait-bound/julia-1.13/src/scheduler.c:614
+wait at ./task.jl:1297
+wait_forever at ./task.jl:1196
+jfptr_wait_forever_31735 at /p/projects/coen/julia-trait-bound/julia-1.13/usr/lib/julia/sys.so (unknown line)
+jl_apply at /home/hellmann/julia-trait-bound/julia-1.13/src/julia.h:2332 [inlined]
+start_task at /home/hellmann/julia-trait-bound/julia-1.13/src/task.c:1287
+unknown function (ip: (nil)) at (unknown file)
+__futex_abstimed_wait_common at /lib64/libc.so.6 (unknown line)
+pthread_cond_wait at /lib64/libc.so.6 (unknown line)
+uv_cond_wait at /workspace/srcdir/libuv/src/unix/thread.c:822
+ijl_task_get_next at /home/hellmann/julia-trait-bound/julia-1.13/src/scheduler.c:614
+wait at ./task.jl:1297
+#wait#391 at ./condition.jl:141
+wait at ./condition.jl:136 [inlined]
+_trywait at ./asyncevent.jl:186
+profile_printing_listener at ./Base.jl:336
+#start_profile_listener##0 at ./Base.jl:356
+jfptr_YY.start_profile_listenerYY.YY.0_21580 at /p/projects/coen/julia-trait-bound/julia-1.13/usr/lib/julia/sys.so (unknown line)
+jl_apply at /home/hellmann/julia-trait-bound/julia-1.13/src/julia.h:2332 [inlined]
+start_task at /home/hellmann/julia-trait-bound/julia-1.13/src/task.c:1287
+unknown function (ip: (nil)) at (unknown file)
+sym_in at ./tuple.jl:673
+in at ./tuple.jl:677 [inlined]
+is_relevant_expr at ./../usr/share/julia/Compiler/src/ssair/ir.jl:581 [inlined]
+userefs at ./../usr/share/julia/Compiler/src/ssair/ir.jl:644 [inlined]
+renumber_ssa2! at ./../usr/share/julia/Compiler/src/ssair/ir.jl:1349
+process_node! at ./../usr/share/julia/Compiler/src/ssair/ir.jl:1550
+cfg_simplify! at ./../usr/share/julia/Compiler/src/ssair/passes.jl:2695
+simplify_ir! at ./../usr/share/julia/Compiler/src/optimize.jl:214 [inlined]
+retrieve_ir_for_inlining at ./../usr/share/julia/Compiler/src/ssair/inlining.jl:1083
+jfptr_retrieve_ir_for_inlining_87489 at /p/projects/coen/julia-trait-bound/julia-1.13/usr/lib/julia/sys.so (unknown line)
+resolve_todo at ./../usr/share/julia/Compiler/src/ssair/inlining.jl:969
+#handle_const_prop_result!#205 at ./../usr/share/julia/Compiler/src/ssair/inlining.jl:1575
+handle_const_prop_result! at ./../usr/share/julia/Compiler/src/ssair/inlining.jl:1568 [inlined]
+#handle_any_const_result!#199 at ./../usr/share/julia/Compiler/src/ssair/inlining.jl:1445
+handle_any_const_result! at ./../usr/share/julia/Compiler/src/ssair/inlining.jl:1436 [inlined]
+compute_inlining_cases at ./../usr/share/julia/Compiler/src/ssair/inlining.jl:1508
+handle_call! at ./../usr/share/julia/Compiler/src/ssair/inlining.jl:1544
+assemble_inline_todo! at ./../usr/share/julia/Compiler/src/ssair/inlining.jl:1823
+ssa_inlining_pass! at ./../usr/share/julia/Compiler/src/ssair/inlining.jl:83 [inlined]
+run_passes_ipo_safe at ./../usr/share/julia/Compiler/src/optimize.jl:1053
+run_passes_ipo_safe at ./../usr/share/julia/Compiler/src/optimize.jl:1066 [inlined]
+optimize at ./../usr/share/julia/Compiler/src/optimize.jl:1039
+jfptr_optimize_89829 at /p/projects/coen/julia-trait-bound/julia-1.13/usr/lib/julia/sys.so (unknown line)
+finish_nocycle at ./../usr/share/julia/Compiler/src/typeinfer.jl:231
+jfptr_finish_nocycle_92511 at /p/projects/coen/julia-trait-bound/julia-1.13/usr/lib/julia/sys.so (unknown line)
+typeinf at ./../usr/share/julia/Compiler/src/abstractinterpretation.jl:4603
+const_prop_call at ./../usr/share/julia/Compiler/src/abstractinterpretation.jl:1386
+abstract_call_method_with_const_args at ./../usr/share/julia/Compiler/src/abstractinterpretation.jl:931
+abstract_call_method_with_const_args at ./../usr/share/julia/Compiler/src/abstractinterpretation.jl:892 [inlined]
+handle1 at ./../usr/share/julia/Compiler/src/abstractinterpretation.jl:201
+infercalls at ./../usr/share/julia/Compiler/src/abstractinterpretation.jl:275
+abstract_call_gf_by_type at ./../usr/share/julia/Compiler/src/abstractinterpretation.jl:361
+abstract_call_known at ./../usr/share/julia/Compiler/src/abstractinterpretation.jl:2899
+abstract_call at ./../usr/share/julia/Compiler/src/abstractinterpretation.jl:3005
+abstract_call at ./../usr/share/julia/Compiler/src/abstractinterpretation.jl:2998 [inlined]
+abstract_call at ./../usr/share/julia/Compiler/src/abstractinterpretation.jl:3158
+abstract_eval_call at ./../usr/share/julia/Compiler/src/abstractinterpretation.jl:3176 [inlined]
+abstract_eval_statement_expr at ./../usr/share/julia/Compiler/src/abstractinterpretation.jl:3532
+abstract_eval_basic_statement at ./../usr/share/julia/Compiler/src/abstractinterpretation.jl:3929 [inlined]
+abstract_eval_basic_statement at ./../usr/share/julia/Compiler/src/abstractinterpretation.jl:3886 [inlined]
+typeinf_local at ./../usr/share/julia/Compiler/src/abstractinterpretation.jl:4435
+jfptr_typeinf_local_92291 at /p/projects/coen/julia-trait-bound/julia-1.13/usr/lib/julia/sys.so (unknown line)
+typeinf at ./../usr/share/julia/Compiler/src/abstractinterpretation.jl:4596
+const_prop_call at ./../usr/share/julia/Compiler/src/abstractinterpretation.jl:1386
+abstract_call_method_with_const_args at ./../usr/share/julia/Compiler/src/abstractinterpretation.jl:931
+abstract_call_method_with_const_args at ./../usr/share/julia/Compiler/src/abstractinterpretation.jl:892 [inlined]
+handle1 at ./../usr/share/julia/Compiler/src/abstractinterpretation.jl:201
+infercalls at ./../usr/share/julia/Compiler/src/abstractinterpretation.jl:275
+abstract_call_gf_by_type at ./../usr/share/julia/Compiler/src/abstractinterpretation.jl:361
+abstract_call_known at ./../usr/share/julia/Compiler/src/abstractinterpretation.jl:2899
+abstract_call at ./../usr/share/julia/Compiler/src/abstractinterpretation.jl:3005
+abstract_call at ./../usr/share/julia/Compiler/src/abstractinterpretation.jl:2998 [inlined]
+abstract_call at ./../usr/share/julia/Compiler/src/abstractinterpretation.jl:3158
+abstract_eval_call at ./../usr/share/julia/Compiler/src/abstractinterpretation.jl:3176 [inlined]
+abstract_eval_statement_expr at ./../usr/share/julia/Compiler/src/abstractinterpretation.jl:3532
+abstract_eval_basic_statement at ./../usr/share/julia/Compiler/src/abstractinterpretation.jl:3929 [inlined]
+abstract_eval_basic_statement at ./../usr/share/julia/Compiler/src/abstractinterpretation.jl:3886 [inlined]
+typeinf_local at ./../usr/share/julia/Compiler/src/abstractinterpretation.jl:4435
+jfptr_typeinf_local_92291 at /p/projects/coen/julia-trait-bound/julia-1.13/usr/lib/julia/sys.so (unknown line)
+typeinf at ./../usr/share/julia/Compiler/src/abstractinterpretation.jl:4596
+const_prop_call at ./../usr/share/julia/Compiler/src/abstractinterpretation.jl:1386
+abstract_call_method_with_const_args at ./../usr/share/julia/Compiler/src/abstractinterpretation.jl:931
+abstract_call_method_with_const_args at ./../usr/share/julia/Compiler/src/abstractinterpretation.jl:892 [inlined]
+handle1 at ./../usr/share/julia/Compiler/src/abstractinterpretation.jl:201
+infercalls at ./../usr/share/julia/Compiler/src/abstractinterpretation.jl:275
+abstract_call_gf_by_type at ./../usr/share/julia/Compiler/src/abstractinterpretation.jl:361
+abstract_call_known at ./../usr/share/julia/Compiler/src/abstractinterpretation.jl:2899
+abstract_call at ./../usr/share/julia/Compiler/src/abstractinterpretation.jl:3005
+abstract_call at ./../usr/share/julia/Compiler/src/abstractinterpretation.jl:2998 [inlined]
+abstract_call at ./../usr/share/julia/Compiler/src/abstractinterpretation.jl:3158
+abstract_eval_call at ./../usr/share/julia/Compiler/src/abstractinterpretation.jl:3176 [inlined]
+abstract_eval_statement_expr at ./../usr/share/julia/Compiler/src/abstractinterpretation.jl:3532
+abstract_eval_basic_statement at ./../usr/share/julia/Compiler/src/abstractinterpretation.jl:3929 [inlined]
+abstract_eval_basic_statement at ./../usr/share/julia/Compiler/src/abstractinterpretation.jl:3886 [inlined]
+typeinf_local at ./../usr/share/julia/Compiler/src/abstractinterpretation.jl:4435
+jfptr_typeinf_local_92291 at /p/projects/coen/julia-trait-bound/julia-1.13/usr/lib/julia/sys.so (unknown line)
+typeinf at ./../usr/share/julia/Compiler/src/abstractinterpretation.jl:4596
+const_prop_call at ./../usr/share/julia/Compiler/src/abstractinterpretation.jl:1386
+abstract_call_method_with_const_args at ./../usr/share/julia/Compiler/src/abstractinterpretation.jl:931
+abstract_call_method_with_const_args at ./../usr/share/julia/Compiler/src/abstractinterpretation.jl:892 [inlined]
+handle1 at ./../usr/share/julia/Compiler/src/abstractinterpretation.jl:201
+infercalls at ./../usr/share/julia/Compiler/src/abstractinterpretation.jl:275
+abstract_call_gf_by_type at ./../usr/share/julia/Compiler/src/abstractinterpretation.jl:361
+abstract_call_known at ./../usr/share/julia/Compiler/src/abstractinterpretation.jl:2899
+abstract_call at ./../usr/share/julia/Compiler/src/abstractinterpretation.jl:3005
+abstract_call at ./../usr/share/julia/Compiler/src/abstractinterpretation.jl:2998 [inlined]
+abstract_call at ./../usr/share/julia/Compiler/src/abstractinterpretation.jl:3158
+abstract_eval_call at ./../usr/share/julia/Compiler/src/abstractinterpretation.jl:3176 [inlined]
+abstract_eval_statement_expr at ./../usr/share/julia/Compiler/src/abstractinterpretation.jl:3532
+abstract_eval_basic_statement at ./../usr/share/julia/Compiler/src/abstractinterpretation.jl:3929 [inlined]
+abstract_eval_basic_statement at ./../usr/share/julia/Compiler/src/abstractinterpretation.jl:3886 [inlined]
+typeinf_local at ./../usr/share/julia/Compiler/src/abstractinterpretation.jl:4435
+jfptr_typeinf_local_92291 at /p/projects/coen/julia-trait-bound/julia-1.13/usr/lib/julia/sys.so (unknown line)
+typeinf at ./../usr/share/julia/Compiler/src/abstractinterpretation.jl:4596
+typeinf_frame at ./../usr/share/julia/Compiler/src/typeinfer.jl:1285
+typeinf_code at ./../usr/share/julia/Compiler/src/typeinfer.jl:1237 [inlined]
+typeinf_code at ./../usr/share/julia/Compiler/src/typeinfer.jl:1231
+unknown function (ip: 0x7ff96bd0afb9) at (unknown file)
+jl_apply at /home/hellmann/julia-trait-bound/julia-1.13/src/julia.h:2332 [inlined]
+ijl_call_in_typeinf_world at /home/hellmann/julia-trait-bound/julia-1.13/src/gf.c:659
+invoke_in_typeinf_world at ./reflection.jl:293
+jl_apply at /home/hellmann/julia-trait-bound/julia-1.13/src/julia.h:2332 [inlined]
+jl_f__apply_iterate at /home/hellmann/julia-trait-bound/julia-1.13/src/builtins.c:876
+invoke_default_compiler at ./reflection.jl:298
+jl_apply at /home/hellmann/julia-trait-bound/julia-1.13/src/julia.h:2332 [inlined]
+jl_f__apply_iterate at /home/hellmann/julia-trait-bound/julia-1.13/src/builtins.c:876
+invoke_interp_compiler at ./reflection.jl:306
+#code_typed_by_type#208 at ./reflection.jl:367
+code_typed_by_type at ./reflection.jl:344 [inlined]
+#caller_ir##0 at /p/projects/coen/julia-trait-bound/experiments/unification/x1/x1.jl:72
+get! at ./iddict.jl:171
+caller_ir at /p/projects/coen/julia-trait-bound/experiments/unification/x1/x1.jl:69 [inlined]
+result_edge at /p/projects/coen/julia-trait-bound/experiments/unification/x1/x1.jl:80
+unknown function (ip: 0x7ff96bd094d5) at (unknown file)
+analyse_step at /p/projects/coen/julia-trait-bound/experiments/unification/x1/x1.jl:189
+unknown function (ip: 0x7ff96bd1775a) at (unknown file)
+jl_apply at /home/hellmann/julia-trait-bound/julia-1.13/src/julia.h:2332 [inlined]
+do_call at /home/hellmann/julia-trait-bound/julia-1.13/src/interpreter.c:123
+eval_value at /home/hellmann/julia-trait-bound/julia-1.13/src/interpreter.c:243
+eval_body at /home/hellmann/julia-trait-bound/julia-1.13/src/interpreter.c:581
+jl_interpret_toplevel_thunk at /home/hellmann/julia-trait-bound/julia-1.13/src/interpreter.c:889
+jl_toplevel_eval_flex at /home/hellmann/julia-trait-bound/julia-1.13/src/toplevel.c:742
+jl_eval_toplevel_stmts at /home/hellmann/julia-trait-bound/julia-1.13/src/toplevel.c:585
+jl_toplevel_eval_flex at /home/hellmann/julia-trait-bound/julia-1.13/src/toplevel.c:683
+ijl_toplevel_eval at /home/hellmann/julia-trait-bound/julia-1.13/src/toplevel.c:754
+ijl_toplevel_eval_in at /home/hellmann/julia-trait-bound/julia-1.13/src/toplevel.c:799
+eval at ./boot.jl:489
+include_string at ./loading.jl:3045
+_include at ./loading.jl:3105
+include at ./Base.jl:310
+exec_options at ./client.jl:344
+_start at ./client.jl:577
+jfptr__start_64892 at /p/projects/coen/julia-trait-bound/julia-1.13/usr/lib/julia/sys.so (unknown line)
+jl_apply at /home/hellmann/julia-trait-bound/julia-1.13/src/julia.h:2332 [inlined]
+true_main at /home/hellmann/julia-trait-bound/julia-1.13/src/jlapi.c:985
+jl_repl_entrypoint at /home/hellmann/julia-trait-bound/julia-1.13/src/jlapi.c:1152
+main at /home/hellmann/julia-trait-bound/julia-1.13/cli/loader_exe.c:58
+__libc_start_call_main at /lib64/libc.so.6 (unknown line)
+__libc_start_main at /lib64/libc.so.6 (unknown line)
+_start at /p/projects/coen/julia-trait-bound/julia-1.13/julia (unknown line)
+unknown function (ip: (nil)) at (unknown file)
+Allocations: 39566959 (Pool: 39566562; Big: 397); GC: 32

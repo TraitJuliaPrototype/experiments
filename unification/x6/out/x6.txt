@@ -1,0 +1,13 @@
+E-267 on 00dcc9994c*, 1 threads, machine load 5.12 3.98 3.13
+(1) cost per call, 1000 closure types, A = Tuple{Int64}; medians of 5 rounds (ns):
+    the query, first call per type (cold): median 1372, 90th percentile 1813
+    the query, warm (a memo miss):           75.1
+    a memo hit (IdDict, world range checked): 17.8
+    `<:` Function on the closure's type:     18.3
+    `isa` Function:                          0.4
+    E-256's entry today: 80-96 ns (the registry row)
+    the memo's range: at world 41524 member=false valid 0..∞; after another function's method (world 41528) the query gives the same range: true; after `gtest(::Int)` (world 41531) member=true, and the memo entry from world 41524 still claims world 41531 with the old answer: true. So method insertion must lower the memo, as the draft says: a walk of the memo per new method of F.
+(2) a query that reaches itself (p(x::Callable{Tuple{typeof(p)}}), p(x::Function), q(y::Callable{Tuple{typeof(q)}})):
+    the least fixed point: a = p callable at q: true; b = q callable at p: true
+    the draft's rule (answers no, memoized): a first → a=true, b=false; b first → b=true, a=true  (DEPENDS ON THE ORDER)
+    a provisional cache: a first → a=true, b=true; b first → b=true, a=true  (the same in both orders)
