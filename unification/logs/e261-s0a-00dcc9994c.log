@@ -1,0 +1,32 @@
+== forks 12:21:14 load 7.79
+forks CSV                          load 0.82 s; log 1161; invalidated MIs 323 (roots 40); CIs [TraitWorld._CheckOwner()=6,plain=280]; result-edge-only [plain=86]; kept [plain=140]; MIs kept 140, re-inferred equal 153; (B) facts callers 27, kept 24, closure 132; tags Dict("jl_method_table_insert" => 554)
+forks DataFrames                   load 0.77 s; log 3643; invalidated MIs 882 (roots 73); CIs [TraitWorld._CheckOwner()=196,plain=751]; result-edge-only [TraitWorld._CheckOwner()=29,plain=104]; kept [TraitWorld._CheckOwner()=31,plain=170]; MIs kept 175, re-inferred equal 485; (B) facts callers 93, kept 43, closure 648; tags Dict("jl_method_table_insert" => 1763, "invalidate_mt_cache" => 4)
+forks Statistics                   load 0.0 s; log 0; invalidated MIs 0 (roots 0); CIs []; result-edge-only []; kept []; MIs kept 0, re-inferred equal 0; (B) facts callers 0, kept 0, closure 0; tags Dict{String, Int64}()
+forks Dates                        load 0.0 s; log 0; invalidated MIs 0 (roots 0); CIs []; result-edge-only []; kept []; MIs kept 0, re-inferred equal 0; (B) facts callers 0, kept 0, closure 0; tags Dict{String, Int64}()
+E-261 forks: 4 steps on 00dcc9994c*
+  (A) invalidated MethodInstances 1205 (roots 113); invalidated CodeInstances 1233
+      callers with result edges only 219; kept by the slot 341 of 1233 CodeInstances
+  (B) facts-owner callers of invalidated plain code 120 (with their facts callers 780); kept by the slot 67
+== g2all 12:21:25 load 7.74
+ERROR: LoadError: SystemError: opening file "/home/hellmann/julia-trait-bound/experiments/unification/s0a/experiments/unification/s0a/g2work.jl": No such file or directory
+Stacktrace:
+ [1] include(mod::Module, _path::String)
+   @ Base ./Base.jl:310
+ [2] macro expansion
+   @ ~/julia-trait-bound/experiments/unification/s0a/s0a.jl:129 [inlined]
+ [3] macro expansion
+   @ ./timing.jl:463 [inlined]
+ [4] run_step(step::String)
+   @ Main ~/julia-trait-bound/experiments/unification/s0a/s0a.jl:128
+ [5] top-level scope
+   @ ~/julia-trait-bound/experiments/unification/s0a/s0a.jl:252
+ [6] include(mod::Module, _path::String)
+   @ Base ./Base.jl:310
+ [7] exec_options(opts::Base.JLOptions)
+   @ Base ./client.jl:344
+ [8] _start()
+   @ Base ./client.jl:577
+in expression starting at /home/hellmann/julia-trait-bound/experiments/unification/s0a/s0a.jl:251
+g2all TraitDifferentialEquations   load 0.81 s; log 2342; invalidated MIs 706 (roots 9); CIs [TraitWorld._CheckOwner()=4,plain=688]; result-edge-only [plain=205]; kept [plain=249]; MIs kept 249, re-inferred equal 401; (B) facts callers 28, kept 25, closure 133; tags Dict("jl_method_table_insert" => 1165)
+g2all TraitMakie                   load 0.43 s; log 56; invalidated MIs 25 (roots 2); CIs [plain=23]; result-edge-only [plain=3]; kept [plain=18]; MIs kept 18, re-inferred equal 4; (B) facts callers 0, kept 0, closure 0; tags Dict("jl_method_table_insert" => 26)
+== done 12:21:33

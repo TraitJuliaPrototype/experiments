@@ -45,3 +45,6 @@ The environments E-260 and E-261 load must be instantiated in the workspace depo
 |---|---|---|---|
 | 2026-11-06 | `unified` c3f0b4bc11 | the 22 `m1_*`/`m2_*` gates (E-262) | 22 of 22 pass (`logs/e262-gates-unified-c3f0b4bc11.log`) |
 | 2026-11-06 | `unified` c3f0b4bc11 | the audit's probes (`audit/probes.jl`) | P1, P2, P3, P4, P5, P6 differ from compiler §7 (`logs/audit-probes-c3f0b4bc11.log`; [the audit](../../writeup/reviews/2026-11-06-oc-build-audit.md)) |
+| 2026-11-06 | julia-1.13 00dcc9994c | E-260, the C7 count (`c7count/run_all.sh`) | equal to the attempt's in every session; flag 92–99.6 % of the specializations, `type_morespecific_` the `::Any` methods' and the members' (`logs/e260-c7count-00dcc9994c.log`) |
+| 2026-11-06 | julia-1.13 00dcc9994c | E-261, the slot's estimate (`s0a/run.sh`) | forks: 341 of 1,233 invalidated CodeInstances kept, facts callers 67 of 120; `g2all`: 1,622 of 6,430, 91 of 100 (`logs/e261-s0a-*.log`) |
+| 2026-11-06 | `unified` c3f0b4bc11 and vanilla `45b6d15e34` | E-262 (3), Base's four test files | pass on both; 16.1/67.7/8.6/8.6 s against 15.7/65.4/8.1/8.4 s; `detect_ambiguities(Base)` 0 on both |
