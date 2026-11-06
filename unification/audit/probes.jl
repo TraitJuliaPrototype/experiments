@@ -37,14 +37,15 @@ end
 report("P3 declaring a 9-parameter family", ok3, :declared)
 report("P3 P9{1,2,3,4,5,6,7,8,9} <: PX3", P9{1,2,3,4,5,6,7,8,9} <: PX3, true)
 
-# P4. isa(x, T) and typeof(x) <: T agree (explicit memberships: one answer).
+# P4. isa(x, T) and typeof(x) <: T agree, transitively.
 @trait PA4
 @trait PB4
 struct PS4 end
 @implement PB4 PA4          # the set PB4 is a member of PA4
 @implement PS4 PB4          # PS4 is a member of PB4, not declared a member of PA4
-report("P4 PS4() isa PA4", PS4() isa PA4, PS4 <: PA4)
-report("P4 PS4 <: PA4 (no entry of PS4 for PA4)", PS4 <: PA4, false)
+# membership is transitive (the user, 2026-11-06): PS4 <: PB4 <: PA4 gives PS4 <: PA4, and isa agrees
+report("P4 PS4() isa PA4", PS4() isa PA4, true)
+report("P4 PS4 <: PA4 (transitive)", PS4 <: PA4, true)
 
 # P5. A cycle of set-in-set entries is refused, whichever entry of a set leads back.
 @trait PA5
@@ -69,3 +70,12 @@ catch err
     :refused
 end
 report("P6 a builtin function's type as a member", ok6, :refused)
+
+# P7. A membership of an abstract type reaches its subtypes through the supertype chain (transitivity).
+@trait PX7
+abstract type PAbs7 end
+struct PS7 <: PAbs7 end
+@implement PAbs7 PX7
+report("P7 PAbs7 <: PX7 (the entry)", PAbs7 <: PX7, true)
+report("P7 PS7 <: PX7 (chain, then entry)", PS7 <: PX7, true)
+report("P7 PS7() isa PX7", PS7() isa PX7, true)

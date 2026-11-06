@@ -8,7 +8,10 @@ P2 typeintersect(Dynamic{PX2}, PX2) == Dynamic{PX2}        got false    intended
 P2 p2(Dynamic{PX2}(1))                                     got :fallback intended :bounded   <-- differs
 P3 declaring a 9-parameter family                          got :declared intended :declared
 P3 P9{1,2,3,4,5,6,7,8,9} <: PX3                            got false    intended true   <-- differs
-P4 PS4() isa PA4                                           got true     intended false   <-- differs
-P4 PS4 <: PA4 (no entry of PS4 for PA4)                    got false    intended false
+P4 PS4() isa PA4                                           got true     intended true
+P4 PS4 <: PA4 (transitive)                                 got false    intended true   <-- differs
 P5 a cycle through a set's second entry                    got :accepted intended :refused   <-- differs
 P6 a builtin function's type as a member                   got :accepted intended :refused   <-- differs
+P7 PAbs7 <: PX7 (the entry)                                got true     intended true
+P7 PS7 <: PX7 (chain, then entry)                          got false    intended true   <-- differs
+P7 PS7() isa PX7                                           got false    intended true   <-- differs
