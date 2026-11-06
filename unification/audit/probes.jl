@@ -79,3 +79,18 @@ struct PS7 <: PAbs7 end
 report("P7 PAbs7 <: PX7 (the entry)", PAbs7 <: PX7, true)
 report("P7 PS7 <: PX7 (chain, then entry)", PS7 <: PX7, true)
 report("P7 PS7() isa PX7", PS7() isa PX7, true)
+
+# P8. A set's parameters are invariant; `X{<:T}` is the covariant spelling, as for Julia's types (the user, 2026-11-06).
+@trait PX8{T}
+struct PS8 end
+@implement PS8 PX8{Int}
+report("P8 PS8 <: PX8{Int}", PS8 <: PX8{Int}, true)
+report("P8 PS8 <: PX8{Real} (invariant)", PS8 <: PX8{Real}, false)
+report("P8 PS8 <: PX8{<:Real}", PS8 <: PX8{<:Real}, true)
+report("P8 PS8 <: PX8{<:AbstractString}", PS8 <: PX8{<:AbstractString}, false)
+report("P8 PS8 <: PX8{>:Int}", PS8 <: PX8{>:Int}, true)
+report("P8 PS8() isa PX8{<:Integer}", PS8() isa PX8{<:Integer}, true)
+p8(::PX8{<:Integer}) = :bounded
+p8(::Any) = :fallback
+report("P8 p8(PS8()) dispatches at PX8{<:Integer}", p8(PS8()), :bounded)
+report("P8 typeintersect(PS8, PX8{<:Real}) == PS8", typeintersect(PS8, PX8{<:Real}) == PS8, true)

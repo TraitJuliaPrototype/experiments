@@ -15,3 +15,11 @@ P6 a builtin function's type as a member                   got :accepted intende
 P7 PAbs7 <: PX7 (the entry)                                got true     intended true
 P7 PS7 <: PX7 (chain, then entry)                          got false    intended true   <-- differs
 P7 PS7() isa PX7                                           got false    intended true   <-- differs
+P8 PS8 <: PX8{Int}                                         got true     intended true
+P8 PS8 <: PX8{Real} (invariant)                            got false    intended false
+P8 PS8 <: PX8{<:Real}                                      got false    intended true   <-- differs
+P8 PS8 <: PX8{<:AbstractString}                            got false    intended false
+P8 PS8 <: PX8{>:Int}                                       got false    intended true   <-- differs
+P8 PS8() isa PX8{<:Integer}                                got false    intended true   <-- differs
+P8 p8(PS8()) dispatches at PX8{<:Integer}                  got :fallback intended :bounded   <-- differs
+P8 typeintersect(PS8, PX8{<:Real}) == PS8                  got false    intended true   <-- differs
