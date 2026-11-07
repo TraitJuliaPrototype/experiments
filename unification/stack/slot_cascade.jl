@@ -95,6 +95,35 @@ const TPf = Tuple{typeof(FM.Pf), Int}
     println("session: ", (marks = s3.marks - s0.marks, kept = s3.kept - s0.kept, final = s3.final - s0.final))
 end
 
+# a callee inlined at one site and called at another (the review of 2026-11-07, M2): the caller holds a
+# code edge to it, so a recompilation to an equal result with other code compiles the caller again
+module M2
+E(x) = x + 1
+D(x::Int) = E(x) + x
+C(x::Int) = (@inline D(x)) + (@noinline D(x + 1))
+end
+@testset "inlined at one site, called at another" begin
+    @test M2.C(3) == 16
+    @eval M2 E(x::Int) = x + 2
+    @test M2.C(3) == 18                                  # the inlined copy is not kept
+end
+
+# a cycle of result edges (the review, H2): X -> Y -> Z -> X, Z recompiled; revalidation inside
+# inference terminates, and the results are the new ones
+module R
+E(x) = x + 1
+@noinline Z(x::Int) = x > 0 ? X(x - 1) + E(x) : 0
+@noinline Y(x::Int) = Z(x) * 1
+@noinline X(x::Int) = Y(x) + 1
+end
+@testset "a cycle of result edges" begin
+    @test R.X(3) == 13
+    w = Base.get_world_counter()
+    @eval R E(x::Int) = x + 2
+    @test R.X(3) == 16
+    @test Base.invoke_in_world(w, R.X, 3) == 13
+end
+
 # the same callers loaded from a package image
 const root = mktempdir()
 function package(name, uuid, deps, src)
