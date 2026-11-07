@@ -30,4 +30,12 @@ file name is the milestone whose gate it belongs to:
   entry carries the receiver; a set's TypeName has a contract slot (C-20 retired)
 - `m1_audit_probes.jl`     — the audit's probes P1, P3–P8 as assertions, one
   instance per member, the set's supertype, the world protocol (W-98)
+- `m2_*.jl`                — dispatch at sets (W-98's second commit, W-99); among them
+  `m2_ambiguity_report.jl` (one warning at the second membership; a set-in-set method
+  on both sides suppresses it) and `m2_ambiguity_arity.jl` (the report asks at the
+  methods' own arity and names the joint signature: the audit's A7, compiler §5.4)
+- `m3_*.jl`                — the earlier attempt's later stages; not run. Each is re-judged
+  at the stage that takes up its subject. `m3_ambiguity_dominance.jl` pins a rule the
+  references do not have (a fixed-arity method at one set beating a `Vararg` at another;
+  compiler §5.2 leaves two unrelated sets unordered, and dispatch raises at the member).
 - `util.jl`               — CI walker (`Base.specializations` + `ci.next`)

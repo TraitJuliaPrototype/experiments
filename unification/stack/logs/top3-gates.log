@@ -1,0 +1,35 @@
+PASS m1_audit_probes.jl
+PASS m1_compiled_isa.jl
+PASS m1_late_implement.jl
+PASS m1_late_open_stale.jl
+PASS m1_no_wrappers.jl
+PASS m1_open_family_fold.jl
+PASS m1_parametric_member.jl
+PASS m1_parametric_set.jl
+PASS m1_typevalue_isa.jl
+PASS m1_union_isa.jl
+PASS m1_worlds_minworld.jl
+PASS m2_abstract_query.jl
+FAIL m2_ambiguity_arity.jl (exit 1)
+    ERROR: LoadError: AssertionError: one warning for h2: SubString{String}["WARNING: method methodtable at Main.XE and Main.YE is ambiguous for Main.ME, a member of both sets"]
+    Stacktrace:
+     [1] top-level scope
+       @ /p/projects/coen/julia-trait-bound/experiments/unification/gates/m2_ambiguity_arity.jl:49
+     [2] include(mod::Module, _path::String)
+       @ Base ./Base.jl:309
+     [3] exec_options(opts::Base.JLOptions)
+       @ Base ./client.jl:344
+     [4] _start()
+       @ Base ./client.jl:577
+    in expression starting at /p/projects/coen/julia-trait-bound/experiments/unification/gates/m2_ambiguity_arity.jl:49
+PASS m2_ambiguity_report.jl
+PASS m2_closed_open_order.jl
+PASS m2_dispatch_worlds.jl
+PASS m2_future_min_worlds.jl
+PASS m2_post_declare_infer.jl
+PASS m2_set_in_set.jl
+PASS m2_stale_caller.jl
+PASS m2_typemap_linear.jl
+PASS m2_vararg_union_worlds.jl
+PASS m2_volume.jl
+gates: 22 passed, 1 failed

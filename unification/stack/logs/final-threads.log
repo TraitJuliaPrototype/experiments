@@ -1,0 +1,128 @@
+Test Summary:                                 |   Pass   Total   Time
+threads_exec.jl with JULIA_NUM_THREADS == 1,0 | 140944  140944  51.2s
+
+warning: julia signal stack allocated without guard page (launch foreign threads earlier to avoid this warning).
+
+warning: julia signal stack allocated without guard page (launch foreign threads earlier to avoid this warning).
+
+warning: julia signal stack allocated without guard page (launch foreign threads earlier to avoid this warning).
+
+warning: julia signal stack allocated without guard page (launch foreign threads earlier to avoid this warning).
+Test Summary:                                 |   Pass   Total   Time
+threads_exec.jl with JULIA_NUM_THREADS == 1,1 | 140945  140945  51.4s
+Test Summary:                                 |   Pass   Total   Time
+threads_exec.jl with JULIA_NUM_THREADS == 2,0 | 127849  127849  49.9s
+Test Summary:                                 |   Pass   Total   Time
+threads_exec.jl with JULIA_NUM_THREADS == 2,1 | 119814  119814  51.4s
+Test Summary:                                 |   Pass   Total   Time
+threads_exec.jl with JULIA_NUM_THREADS == 4,0 | 110880  110880  50.0s
+ERROR: LoadError: Test run finished with errors
+in expression starting at /p/projects/coen/julia-trait-bound/julia-unified/usr/share/julia/test/runtests.jl:103
+Running parallel tests with:
+  getpid() = 2240569
+  nworkers() = 1
+  nthreads(:interactive) = 1
+  nthreads(:default) = 4
+  Sys.CPU_THREADS = 1
+  Sys.total_memory() = 754.783 GiB
+  Sys.free_memory() = 653.590 GiB
+  Sys.uptime() = 196519.58 (54.6 hours)
+
+Test  (Worker) | Time (s) | GC (s) | GC % | Alloc (MB) | RSS (MB)
+threads    (1) |        started at 2026-11-06T23:40:23.104
+threads    (1) |         failed at 2026-11-06T23:48:08.033
+Test Failed at /p/projects/coen/julia-trait-bound/julia-unified/usr/share/julia/test/threads.jl:472
+  Expression: readchomp(setcpuaffinity(cmd, allowed_cpus[1:n])) == string(max(1, n ÷ 2))
+   Evaluated: "1" == "2"
+Test Failed at /p/projects/coen/julia-trait-bound/julia-unified/usr/share/julia/test/threads.jl:472
+  Expression: readchomp(setcpuaffinity(cmd, allowed_cpus[1:n])) == string(max(1, n ÷ 2))
+   Evaluated: "1" == "2"
+Test Failed at /p/projects/coen/julia-trait-bound/julia-unified/usr/share/julia/test/threads.jl:472
+  Expression: readchomp(setcpuaffinity(cmd, allowed_cpus[1:n])) == string(max(1, n ÷ 2))
+   Evaluated: "1" == "3"
+Test Failed at /p/projects/coen/julia-trait-bound/julia-unified/usr/share/julia/test/threads.jl:472
+  Expression: readchomp(setcpuaffinity(cmd, allowed_cpus[1:n])) == string(max(1, n ÷ 2))
+   Evaluated: "1" == "3"
+Test Failed at /p/projects/coen/julia-trait-bound/julia-unified/usr/share/julia/test/threads.jl:472
+  Expression: readchomp(setcpuaffinity(cmd, allowed_cpus[1:n])) == string(max(1, n ÷ 2))
+   Evaluated: "1" == "4"
+
+
+Test Summary: | Pass  Fail  Total  Time
+  Overall     |  163     5    168  0.4s
+    threads   |  163     5    168  7m46.2s
+    FAILURE
+
+The global RNG seed was 0x334a02ab043bb23ac815080a6a0b46c8.
+
+Error in testset threads:
+Test Failed at /p/projects/coen/julia-trait-bound/julia-unified/usr/share/julia/test/threads.jl:472
+  Expression: readchomp(setcpuaffinity(cmd, allowed_cpus[1:n])) == string(max(1, n ÷ 2))
+   Evaluated: "1" == "2"
+Error in testset threads:
+Test Failed at /p/projects/coen/julia-trait-bound/julia-unified/usr/share/julia/test/threads.jl:472
+  Expression: readchomp(setcpuaffinity(cmd, allowed_cpus[1:n])) == string(max(1, n ÷ 2))
+   Evaluated: "1" == "2"
+Error in testset threads:
+Test Failed at /p/projects/coen/julia-trait-bound/julia-unified/usr/share/julia/test/threads.jl:472
+  Expression: readchomp(setcpuaffinity(cmd, allowed_cpus[1:n])) == string(max(1, n ÷ 2))
+   Evaluated: "1" == "3"
+Error in testset threads:
+Test Failed at /p/projects/coen/julia-trait-bound/julia-unified/usr/share/julia/test/threads.jl:472
+  Expression: readchomp(setcpuaffinity(cmd, allowed_cpus[1:n])) == string(max(1, n ÷ 2))
+   Evaluated: "1" == "3"
+Error in testset threads:
+Test Failed at /p/projects/coen/julia-trait-bound/julia-unified/usr/share/julia/test/threads.jl:472
+  Expression: readchomp(setcpuaffinity(cmd, allowed_cpus[1:n])) == string(max(1, n ÷ 2))
+   Evaluated: "1" == "4"
+ERROR: A test has failed. Please submit a bug report (https://github.com/JuliaLang/julia/issues)
+including error messages above and the output of versioninfo():
+Julia Version 1.13.2
+Commit e005b0b063* (2026-11-06 22:16 UTC)
+Platform Info:
+  OS: Linux (x86_64-pc-linux-gnu)
+  CPU: 128 × AMD EPYC 9354 32-Core Processor
+  WORD_SIZE: 64
+  LLVM: libLLVM-20.1.8 (ORCJIT, znver4)
+  GC: Built with stock GC
+Threads: 4 default, 1 interactive, 4 GC (on 4 virtual cores)
+Environment:
+  JULIA_CPU_THREADS = 4
+  JULIA_NUM_PRECOMPILE_TASKS = 4
+  JULIA_DEPOT_PATH = /p/projects/coen/julia-trait-bound/.julia-depot
+  LD_LIBRARY_PATH = /p/system/packages_rhel9/tools/git/2.52.0/lib64:/p/system/packages_rhel9/tools/git/2.52.0/lib:/p/system/packages_rhel9/libraries/mpc/1.3.1/lib64:/p/system/packages_rhel9/libraries/mpc/1.3.1/lib:/p/system/packages_rhel9/libraries/mpfr/4.2.1/lib64:/p/system/packages_rhel9/libraries/mpfr/4.2.1/lib:/p/system/packages_rhel9/libraries/gmp/6.3.0/lib64:/p/system/packages_rhel9/libraries/gmp/6.3.0/lib:/p/system/packages_rhel9/compiler/gcc/13.2.0/lib64:/usr/local/lib::/home/hellmann/gurobi/lib
+  JULIA_NUM_THREADS = 4
+
+Stacktrace:
+ [1] error(s::String)
+   @ Base ./error.jl:44
+ [2] runtests(tests::Vector{String}; ncores::Int64, exit_on_error::Bool, revise::Bool, propagate_project::Bool, seed::Nothing, julia_args::Cmd)
+   @ Base ./util.jl:726
+ [3] top-level scope
+   @ none:1
+ [4] eval(m::Module, e::Any)
+   @ Core ./boot.jl:489
+ [5] exec_options(opts::Base.JLOptions)
+   @ Base ./client.jl:310
+ [6] _start()
+   @ Base ./client.jl:577
+
+caused by: failed process: Process(setenv(`/p/projects/coen/julia-trait-bound/julia-unified/usr/bin/julia -C native -J/p/projects/coen/julia-trait-bound/julia-unified/usr/lib/julia/sys.so -g1 --startup-file=no /p/projects/coen/julia-trait-bound/julia-unified/usr/bin/../share/julia/test/runtests.jl threads`,["__LMOD_REF_COUNT_C_INCLUDE_PATH=/p/system/packages_rhel9/tools/git/2.52.0/include:1;/p/system/packages_rhel9/libraries/mpc/1.3.1/include:1;/p/system/packages_rhel9/libraries/mpfr/4.2.1/include:1;/p/system/packages_rhel9/libraries/gmp/6.3.0/include:1", "_ModuleTable005_=ZmlsZXNfcmhlbDkvcGFyYWxsZWw6L3Avc3lzdGVtL21vZHVsZWZpbGVzX3JoZWw5L3Rvb2xzIiwKfQo=", "ELECTRON_RUN_AS_NODE=1", "VSCODE_IPC_HOOK_CLI=/run/user/3147/vscode-ipc-b3c6dcf5-2b34-4fb9-bdf5-4ece5277b891.sock", "__LMOD_REF_COUNT_PATH=/p/system/packages_rhel9/tools/git/2.52.0/bin:1;/p/system/packages_rhel9/libraries/mpc/1.3.1/bin:1;/p/system/packages_rhel9/libraries/mpfr/4.2.1/bin:1;/p/system/packages_rhel9/libraries/gmp/6.3.0/bin:1;/p/system/packages_rhel9/compiler/gcc/13.2.0/libexec:1;/p/system/packages_rhel9/compiler/gcc/13.2.0/bin:1;.:3;/p/system/packages/bin:3;/home/hellmann/.vscode-server/cli/servers/Stable-261c84cb1eddf11235f9e2c921425e9663fbe556/server/bin/remote-cli:1;/home/hellmann/.juliaup/bin:1;/home/hellmann/.local/bin:1;/usr/local/bin:4;/usr/bin:1;/usr/local/sbin:1;/usr/sbin:4;/opt/mellanox/doca/tools:3;/usr/lpp/X11/bin:3;/usr/lpp/bin:6;/usr/local/frame/bin:3;/home/hellmann/bin:3;/usr/lpp/xgmon/bin:3;/home/hellmann/gurobi/bin:3", "OPENBLAS_NUM_THREADS=1", "LMOD_ROOT=/usr/share/lmod", "AI_AGENT=claude-code_2-1-318_agent", "CLAUDE_CODE_SESSION_ID=526e6ede-34f0-459e-97c3-7d1f9ee65230", "OPENBLAS_MAIN_FREE=1"  …  "CPLUS_INCLUDE_PATH=/p/system/packages_rhel9/tools/git/2.52.0/include:/p/system/packages_rhel9/libraries/mpc/1.3.1/include:/p/system/packages_rhel9/libraries/mpfr/4.2.1/include:/p/system/packages_rhel9/libraries/gmp/6.3.0/include", "CLAUDECODE=1", "HOME=/home/hellmann", "TW_ROOT=/p/projects/coen/julia-trait-bound", "GIT_ROOT=/p/system/packages_rhel9/tools/git/2.52.0", "JULIA_NUM_THREADS=4", "DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/3147/bus", "_ModuleTable003_=bW9kdWxlZmlsZXNfcmhlbDkvbGlicmFyaWVzL21wYy8xLjMuMSIsCmZ1bGxOYW1lID0gIm1wYy8xLjMuMSIsCmxvYWRPcmRlciA9IDMsCnByb3BUID0ge30sCnN0YWNrRGVwdGggPSAxLApzdGF0dXMgPSAiYWN0aXZlIiwKdXNlck5hbWUgPSAibXBjIiwKd1YgPSAiMDAwMDAwMDAxLjAwMDAwMDAwMy4wMDAwMDAwMDEuKnpmaW5hbCIsCn0sCm1wZnIgPSB7CmZuID0gIi9wL3N5c3RlbS9tb2R1bGVmaWxlc19yaGVsOS9saWJyYXJpZXMvbXBmci80LjIuMSIsCmZ1bGxOYW1lID0gIm1wZnIvNC4yLjEiLApsb2FkT3JkZXIgPSAyLApwcm9wVCA9IHt9LApzdGFja0RlcHRoID0gMSwKc3RhdHVzID0gImFjdGl2ZSIsCnVzZXJOYW1lID0gIm1wZnIiLAp3ViA9ICIwMDAwMDAwMDQuMDAw", "_ModuleTable002_=LApmdWxsTmFtZSA9ICJnaXQvMi41Mi4wIiwKbG9hZE9yZGVyID0gNSwKcHJvcFQgPSB7fSwKc3RhY2tEZXB0aCA9IDAsCnN0YXR1cyA9ICJhY3RpdmUiLAp1c2VyTmFtZSA9ICJnaXQvMi41Mi4wIiwKd1YgPSAiMDAwMDAwMDAyLjAwMDAwMDA1Mi4qemZpbmFsIiwKfSwKZ21wID0gewpmbiA9ICIvcC9zeXN0ZW0vbW9kdWxlZmlsZXNfcmhlbDkvbGlicmFyaWVzL2dtcC82LjMuMCIsCmZ1bGxOYW1lID0gImdtcC82LjMuMCIsCmxvYWRPcmRlciA9IDEsCnByb3BUID0ge30sCnN0YWNrRGVwdGggPSAxLApzdGF0dXMgPSAiYWN0aXZlIiwKdXNlck5hbWUgPSAiZ21wIiwKd1YgPSAiMDAwMDAwMDA2LjAwMDAwMDAwMy4qemZpbmFsIiwKfSwKbXBjID0gewpmbiA9ICIvcC9zeXN0ZW0v", "XDG_SESSION_CLASS=user"]), ProcessExited(1)) [1]
+
+Stacktrace:
+ [1] pipeline_error
+   @ ./process.jl:610 [inlined]
+ [2] run(::Cmd; wait::Bool)
+   @ Base ./process.jl:525
+ [3] run
+   @ ./process.jl:522 [inlined]
+ [4] runtests(tests::Vector{String}; ncores::Int64, exit_on_error::Bool, revise::Bool, propagate_project::Bool, seed::Nothing, julia_args::Cmd)
+   @ Base ./util.jl:718
+ [5] top-level scope
+   @ none:1
+ [6] eval(m::Module, e::Any)
+   @ Core ./boot.jl:489
+ [7] exec_options(opts::Base.JLOptions)
+   @ Base ./client.jl:310
+ [8] _start()
+   @ Base ./client.jl:577
