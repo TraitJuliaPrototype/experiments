@@ -37,8 +37,10 @@ let c = only([c for c in all_cis(g9) if c.rettype === Symbol &&
     @assert c.min_world > 1 "fresh CI, not an old pre-membership one"
 end
 
-# negative control (I1): a non-member still infers the Any method
-@assert code_typed(g9, (Int,); world = curworld())[1].second === Int "unrelated queries keep vanilla inference"
+# negative control (I1): a non-member still runs the Any method; Int could join P9, so the call is
+# guarded and infers the Any method's result joined with the set method's (Any: it declares none;
+# compiler §5.6)
+@assert Int <: code_typed(g9, (Int,); world = curworld())[1].second "unrelated queries keep the Any method's answer"
 @assert g9(3) === 0
 
 println("m2_post_declare_infer: OK")

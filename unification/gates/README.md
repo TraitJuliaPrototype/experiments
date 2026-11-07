@@ -60,3 +60,6 @@ file name is the milestone whose gate it belongs to:
 - `n6_attribute.jl` — W-111: each trait argument's attribute by the five steps of traits §7.5 (the
   runtime at a dynamic call, inference at a static one), the casts and `Core.attributed_call`, `keep`,
   the run-time site that passes `Dynamic` on, the reserved names, identical results
+- `n7_guards.jl` — W-112: a membership invalidates no code; a guarded call opens with its cell, an
+  older world keeps the old answer, no guard through the type's own supertypes, a method at a set defined
+  later invalidates the callers it shadows, the guarded call's result, the facts mode

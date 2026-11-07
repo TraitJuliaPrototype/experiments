@@ -1,0 +1,83 @@
+PASS m1_audit_probes.jl
+PASS m1_compiled_isa.jl
+PASS m1_late_implement.jl
+PASS m1_late_open_stale.jl
+PASS m1_no_wrappers.jl
+PASS m1_open_family_fold.jl
+PASS m1_parametric_member.jl
+PASS m1_parametric_set.jl
+PASS m1_typevalue_isa.jl
+PASS m1_union_isa.jl
+PASS m1_worlds_minworld.jl
+PASS m2_abstract_query.jl
+PASS m2_ambiguity_arity.jl
+PASS m2_ambiguity_report.jl
+PASS m2_closed_open_order.jl
+FAIL m2_dispatch_worlds.jl (exit 1)
+    ERROR: LoadError: AssertionError: the pre-membership Int CI was lowered (§7's cache walk)
+    Stacktrace:
+     [1] top-level scope
+       @ /p/projects/coen/julia-trait-bound/experiments/unification/gates/m2_dispatch_worlds.jl:33
+     [2] include(mod::Module, _path::String)
+       @ Base ./Base.jl:310
+     [3] exec_options(opts::Base.JLOptions)
+       @ Base ./client.jl:344
+     [4] _start()
+       @ Base ./client.jl:577
+    in expression starting at /p/projects/coen/julia-trait-bound/experiments/unification/gates/m2_dispatch_worlds.jl:33
+FAIL m2_future_min_worlds.jl (exit 1)
+    ERROR: LoadError: AssertionError: A: cached caller flips AT the entry (F2: union position must be bounded)
+    Stacktrace:
+     [1] top-level scope
+       @ /p/projects/coen/julia-trait-bound/experiments/unification/gates/m2_future_min_worlds.jl:21
+     [2] include(mod::Module, _path::String)
+       @ Base ./Base.jl:310
+     [3] exec_options(opts::Base.JLOptions)
+       @ Base ./client.jl:344
+     [4] _start()
+       @ Base ./client.jl:577
+    in expression starting at /p/projects/coen/julia-trait-bound/experiments/unification/gates/m2_future_min_worlds.jl:21
+FAIL m2_post_declare_infer.jl (exit 1)
+    ERROR: LoadError: AssertionError: unrelated queries keep vanilla inference
+    Stacktrace:
+     [1] top-level scope
+       @ /p/projects/coen/julia-trait-bound/experiments/unification/gates/m2_post_declare_infer.jl:41
+     [2] include(mod::Module, _path::String)
+       @ Base ./Base.jl:310
+     [3] exec_options(opts::Base.JLOptions)
+       @ Base ./client.jl:344
+     [4] _start()
+       @ Base ./client.jl:577
+    in expression starting at /p/projects/coen/julia-trait-bound/experiments/unification/gates/m2_post_declare_infer.jl:41
+PASS m2_query_world_task.jl
+PASS m2_set_in_set.jl
+PASS m2_set_query_split.jl
+FAIL m2_stale_caller.jl (exit 1)
+    m2_stale_caller stats (replays, visits, spec-invalidations, cache-lowerings): (0x0000000000000000, 0x0000000000000000, 0x0000000000000000, 0x0000000000000000) -> (0x0000000000000001, 0x0000000000000001, 0x0000000000000001, 0x0000000000000000)
+    ERROR: LoadError: AssertionError: the old CI shows the lowering
+    Stacktrace:
+     [1] top-level scope
+       @ /p/projects/coen/julia-trait-bound/experiments/unification/gates/m2_stale_caller.jl:36
+     [2] include(mod::Module, _path::String)
+       @ Base ./Base.jl:310
+     [3] exec_options(opts::Base.JLOptions)
+       @ Base ./client.jl:344
+     [4] _start()
+       @ Base ./client.jl:577
+    in expression starting at /p/projects/coen/julia-trait-bound/experiments/unification/gates/m2_stale_caller.jl:36
+PASS m2_typemap_linear.jl
+PASS m2_union_normal_form.jl
+FAIL m2_vararg_union_worlds.jl (exit 1)
+    ERROR: LoadError: AssertionError: new world through the vararg method (replay reaches it)
+    Stacktrace:
+     [1] top-level scope
+       @ /p/projects/coen/julia-trait-bound/experiments/unification/gates/m2_vararg_union_worlds.jl:64
+     [2] include(mod::Module, _path::String)
+       @ Base ./Base.jl:310
+     [3] exec_options(opts::Base.JLOptions)
+       @ Base ./client.jl:344
+     [4] _start()
+       @ Base ./client.jl:577
+    in expression starting at /p/projects/coen/julia-trait-bound/experiments/unification/gates/m2_vararg_union_worlds.jl:64
+PASS m2_volume.jl
+gates: 21 passed, 5 failed

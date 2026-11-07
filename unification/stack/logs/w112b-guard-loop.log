@@ -1,0 +1,77 @@
+; Function Signature: loop(Array{Main.S, 1})
+define nonnull ptr @julia_loop_361(ptr noundef nonnull align 8 dereferenceable(24) %"v::Array") local_unnamed_addr #0 {
+top:
+  %jlcallframe1 = alloca [2 x ptr], align 8
+  %gcframe2 = alloca [4 x ptr], align 16
+  call void @llvm.memset.p0.i64(ptr align 16 %gcframe2, i8 0, i64 32, i1 true)
+  %thread_ptr = call ptr asm "movq %fs:0, $0", "=r"() #10
+  %tls_ppgcstack = getelementptr inbounds i8, ptr %thread_ptr, i64 -8
+  %tls_pgcstack = load ptr, ptr %tls_ppgcstack, align 8
+  store i64 8, ptr %gcframe2, align 8
+  %frame.prev = getelementptr inbounds nuw i8, ptr %gcframe2, i64 8
+  %task.gcstack = load ptr, ptr %tls_pgcstack, align 8
+  store ptr %task.gcstack, ptr %frame.prev, align 8
+  store ptr %gcframe2, ptr %tls_pgcstack, align 8
+  %"v::Array.size_ptr" = getelementptr inbounds nuw i8, ptr %"v::Array", i64 16
+  %"v::Array.size_ptr.copyload" = load i64, ptr %"v::Array.size_ptr", align 8
+  %.not = icmp eq i64 %"v::Array.size_ptr.copyload", 0
+  br i1 %.not, label %L83, label %guard_exit35
+
+L36:                                              ; preds = %guard_exit41, %guard_exit35
+  %.055.in = phi ptr [ %memoryref_data, %guard_exit35 ], [ %memoryref_data22, %guard_exit41 ]
+  %value_phi6 = phi i64 [ 2, %guard_exit35 ], [ %4, %guard_exit41 ]
+  %value_phi7 = phi ptr [ @"jl_global#368.jit", %guard_exit35 ], [ %2, %guard_exit41 ]
+  %.055 = load i64, ptr %.055.in, align 8
+  %.min_world = load atomic i64, ptr getelementptr inbounds nuw (i8, ptr @"jl_global#363.jit", i64 16) monotonic, align 8
+  %.not57 = icmp eq i64 %.min_world, -1
+  %gc_slot_addr_1 = getelementptr inbounds nuw i8, ptr %gcframe2, i64 24
+  store ptr %value_phi7, ptr %gc_slot_addr_1, align 8
+  br i1 %.not57, label %L42, label %L44
+
+L42:                                              ; preds = %L36
+  %box_Int64 = call nonnull align 8 dereferenceable(8) ptr @ijl_box_int64(i64 signext %.055) #11
+  br label %L46
+
+L44:                                              ; preds = %L36
+  %ptls_field = getelementptr inbounds nuw i8, ptr %tls_pgcstack, i64 16
+  %ptls_load = load ptr, ptr %ptls_field, align 8
+  %"box::S" = call noalias nonnull align 8 dereferenceable(16) ptr @ijl_gc_small_alloc(ptr %ptls_load, i32 360, i32 16, i64 139956218769808) #6
+  %"box::S.tag_addr" = getelementptr inbounds i8, ptr %"box::S", i64 -8
+  store atomic i64 139956218769808, ptr %"box::S.tag_addr" unordered, align 8
+  store i64 %.055, ptr %"box::S", align 8
+  %gc_slot_addr_0 = getelementptr inbounds nuw i8, ptr %gcframe2, i64 16
+  store ptr %"box::S", ptr %gc_slot_addr_0, align 8
+  store ptr %"box::S", ptr %jlcallframe1, align 8
+  %0 = call nonnull ptr @ijl_apply_generic(ptr nonnull @"jl_global#366.jit", ptr nonnull %jlcallframe1, i32 1)
+  br label %L46
+
+L46:                                              ; preds = %L44, %L42
+  %value_phi8 = phi ptr [ %box_Int64, %L42 ], [ %0, %L44 ]
+  %gc_slot_addr_065 = getelementptr inbounds nuw i8, ptr %gcframe2, i64 16
+  store ptr %value_phi8, ptr %gc_slot_addr_065, align 8
+  store ptr %value_phi7, ptr %jlcallframe1, align 8
+  %1 = getelementptr inbounds nuw i8, ptr %jlcallframe1, i64 8
+  store ptr %value_phi8, ptr %1, align 8
+  %2 = call nonnull ptr @ijl_apply_generic(ptr nonnull @"jl_global#364.jit", ptr nonnull %jlcallframe1, i32 2)
+  %3 = add i64 %value_phi6, -1
+  %"v::Array.size_ptr9.copyload" = load i64, ptr %"v::Array.size_ptr", align 8
+  %.not58.not = icmp ult i64 %3, %"v::Array.size_ptr9.copyload"
+  br i1 %.not58.not, label %guard_exit41, label %L83
+
+L83:                                              ; preds = %L46, %top
+  %value_phi25 = phi ptr [ @"jl_global#368.jit", %top ], [ %2, %L46 ]
+  %frame.prev73 = load ptr, ptr %frame.prev, align 8
+  store ptr %frame.prev73, ptr %tls_pgcstack, align 8
+  ret ptr %value_phi25
+
+guard_exit35:                                     ; preds = %top
+  %memoryref_data = load ptr, ptr %"v::Array", align 8
+  br label %L36
+
+guard_exit41:                                     ; preds = %L46
+  %4 = add i64 %value_phi6, 1
+  %memoryref_data16 = load ptr, ptr %"v::Array", align 8
+  %memoryref_byteoffset = shl i64 %3, 3
+  %memoryref_data22 = getelementptr inbounds i8, ptr %memoryref_data16, i64 %memoryref_byteoffset
+  br label %L36
+}

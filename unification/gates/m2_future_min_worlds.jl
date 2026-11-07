@@ -1,9 +1,8 @@
-# Gate M2 (review A round 2, F2/F3): the NEGATIVE bounding of cached callers
-# (future_min) must be exact across a world-pinned flip — at UNION sig positions
-# (F2: was unbounded) and for COMPOSED multi-chain memberships (F3: was the
-# first-scanned chain, not the earliest-completing chain). Oracles: the flip
-# world is read from the entries' own min_world fields; the caller was compiled
-# pre-declare and must switch :any -> :set exactly at the flip.
+# Gate M2 (review A round 2, F2/F3; re-judged to compiler §5.6 with W-112): a cached caller must
+# switch exactly at a world-pinned flip — at UNION sig positions (F2) and for COMPOSED multi-chain
+# memberships (F3: the earliest-completing chain). Oracles: the flip world is read from the entries'
+# own min_world fields; the caller was compiled pre-declare and must switch :any -> :set exactly at
+# the flip. Its guard does the switching: a membership invalidates nothing.
 using Traits
 include("util.jl")
 
@@ -19,7 +18,7 @@ wu = curworld()
 eu = @implement UF UM                  # the union's UF arm gains the member
 @assert Base.invoke_in_world(eu.min_world - 1, calu, UM()) === :any "A: below the flip, :any is truth"
 @assert Base.invoke_in_world(eu.min_world, calu, UM()) === :set "A: cached caller flips AT the entry (F2: union position must be bounded)"
-@assert any(c -> c.max_world == eu.min_world - 1, all_cis(calu)) "A: the pre-declare CI carries the bound"
+@assert all(c -> c.max_world == typemax(UInt), all_cis(calu)) "A: the guarded caller is not invalidated"
 @assert du(UK()) === :set "A: closed union arm unaffected"
 
 # ---- (B) two competing chains — earliest completion wins (F3) ----
@@ -40,7 +39,7 @@ flip = max(e2.min_world, e3.min_world) # chain-2's completion world
 @assert flip < e4.min_world "B: construction — the first-scanned chain completes strictly later"
 @assert Base.invoke_in_world(flip - 1, calm, MM()) === :any "B: below the earliest flip, :any is truth"
 @assert Base.invoke_in_world(flip, calm, MM()) === :set "B: cached caller must flip at the EARLIEST completing chain (F3)"
-@assert any(c -> c.max_world == flip - 1, all_cis(calm)) "B: the CI bound is flip-1, not chain-1's completion-1"
+@assert all(c -> c.max_world == typemax(UInt), all_cis(calm)) "B: the guarded caller is not invalidated"
 @assert Base.invoke_in_world(curworld(), calm, MM()) === :set "B: current world answers"
 
 println("m2_future_min_worlds: OK")
