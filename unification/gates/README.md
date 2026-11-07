@@ -66,3 +66,6 @@ file name is the milestone whose gate it belongs to:
 - `n8_callable.jl` — W-113: `Callable{A, S}` by a function's own methods, dispatch by signature,
   a definition or deletion that begins or ends a membership, the result checked on return, E-267's
   question that reaches itself, never a builtin
+- `n9_fully_typed.jl` — W-114: fully typed mode, by a method's meta and a module's option: compiled by
+  facts; code with a run-time site (in it or a facts callee) or an abstract result starts with the check,
+  fully typed code has none; warn once, enforce at every run, Julia's error without a hook

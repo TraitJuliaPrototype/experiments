@@ -19,8 +19,6 @@ const ac_julia = `$(Base.julia_cmd()) --startup-file=no --project=$(Base.active_
 # facts" (compiler §2.2), which `Expr(:meta, :facts_always)` sets at the definition. Set before the
 # function's first call (a method instance reads its policy at its first use, C-49).
 mark!(f) = foreach(m -> (m.facts = 0x02), methods(f))
-# `@enforce_fully_typed` (traits §13) is not built yet (W-114): the case that uses it is skipped
-markc!(f) = error("@enforce_fully_typed is not built yet (W-114)")
 const AC_TESTBED = get(ENV, "JULIA_COMPILE_BY_FACTS", "0") == "1"
 
 function ac_finish(path::AbstractString)

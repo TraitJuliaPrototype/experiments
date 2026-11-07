@@ -1,0 +1,171 @@
+PASS m1_audit_probes.jl
+PASS m1_compiled_isa.jl
+PASS m1_late_implement.jl
+PASS m1_late_open_stale.jl
+PASS m1_no_wrappers.jl
+PASS m1_open_family_fold.jl
+PASS m1_parametric_member.jl
+PASS m1_parametric_set.jl
+PASS m1_typevalue_isa.jl
+PASS m1_union_isa.jl
+PASS m1_worlds_minworld.jl
+PASS m2_abstract_query.jl
+PASS m2_ambiguity_arity.jl
+PASS m2_ambiguity_report.jl
+PASS m2_closed_open_order.jl
+PASS m2_dispatch_worlds.jl
+PASS m2_future_min_worlds.jl
+PASS m2_post_declare_infer.jl
+PASS m2_query_world_task.jl
+PASS m2_set_in_set.jl
+PASS m2_set_query_split.jl
+PASS m2_stale_caller.jl
+PASS m2_typemap_linear.jl
+PASS m2_union_normal_form.jl
+PASS m2_vararg_union_worlds.jl
+PASS m2_volume.jl
+FAIL m3_all_gauntlet.jl (exit 1)
+       @ Base array.jl:3006
+      filter(::Any, !Matched::Union{SubString{String}, String}) got unsupported keyword argument "join"
+       @ Base strings/substring.jl:289
+      ...
+    
+    Stacktrace:
+     [1] top-level scope
+       @ /p/projects/coen/julia-trait-bound/experiments/unification/gates/m3_all_gauntlet.jl:9
+     [2] include(mod::Module, _path::String)
+       @ Base ./Base.jl:310
+     [3] exec_options(opts::Base.JLOptions)
+       @ Base ./client.jl:344
+     [4] _start()
+       @ Base ./client.jl:577
+    in expression starting at /p/projects/coen/julia-trait-bound/experiments/unification/gates/m3_all_gauntlet.jl:9
+FAIL m3_ambiguity_dominance.jl (exit 1)
+      [8] #open#323
+        @ ./io.jl:429 [inlined]
+      [9] open
+        @ ./io.jl:426 [inlined]
+     [10] child(body::String)
+        @ Main /p/projects/coen/julia-trait-bound/experiments/unification/gates/m3_ambiguity_dominance.jl:48
+     [11] top-level scope
+        @ /p/projects/coen/julia-trait-bound/experiments/unification/gates/m3_ambiguity_dominance.jl:58
+     [12] include(mod::Module, _path::String)
+        @ Base ./Base.jl:310
+     [13] exec_options(opts::Base.JLOptions)
+        @ Base ./client.jl:344
+     [14] _start()
+        @ Base ./client.jl:577
+    in expression starting at /p/projects/coen/julia-trait-bound/experiments/unification/gates/m3_ambiguity_dominance.jl:58
+FAIL m3_fold_known.jl (exit 1)
+      [4] require
+        @ ./loading.jl:2490 [inlined]
+      [5] eval_import_path
+        @ ./module.jl:36 [inlined]
+      [6] _eval_import(imported::Bool, to::Module, from::Nothing, paths::Expr)
+        @ Base ./module.jl:111
+      [7] top-level scope
+        @ /p/projects/coen/julia-trait-bound/experiments/unification/gates/m3_fold_known.jl:7
+      [8] include(mod::Module, _path::String)
+        @ Base ./Base.jl:310
+      [9] exec_options(opts::Base.JLOptions)
+        @ Base ./client.jl:344
+     [10] _start()
+        @ Base ./client.jl:577
+    in expression starting at /p/projects/coen/julia-trait-bound/experiments/unification/gates/m3_fold_known.jl:7
+FAIL m3_g2_bit.jl (exit 1)
+      [4] require
+        @ ./loading.jl:2490 [inlined]
+      [5] eval_import_path
+        @ ./module.jl:36 [inlined]
+      [6] _eval_import(imported::Bool, to::Module, from::Nothing, paths::Expr)
+        @ Base ./module.jl:111
+      [7] top-level scope
+        @ /p/projects/coen/julia-trait-bound/experiments/unification/gates/m3_g2_bit.jl:6
+      [8] include(mod::Module, _path::String)
+        @ Base ./Base.jl:310
+      [9] exec_options(opts::Base.JLOptions)
+        @ Base ./client.jl:344
+     [10] _start()
+        @ Base ./client.jl:577
+    in expression starting at /p/projects/coen/julia-trait-bound/experiments/unification/gates/m3_g2_bit.jl:6
+FAIL m3_g2_counts.jl (exit 1)
+      addenv(::Cmd, !Matched::Vector{<:AbstractString}; inherit)
+       @ Base cmd.jl:344
+      addenv(::Cmd, !Matched::Dict; inherit)
+       @ Base cmd.jl:319
+    
+    Stacktrace:
+     [1] top-level scope
+       @ /p/projects/coen/julia-trait-bound/experiments/unification/gates/m3_g2_counts.jl:9
+     [2] include(mod::Module, _path::String)
+       @ Base ./Base.jl:310
+     [3] exec_options(opts::Base.JLOptions)
+       @ Base ./client.jl:344
+     [4] _start()
+       @ Base ./client.jl:577
+    in expression starting at /p/projects/coen/julia-trait-bound/experiments/unification/gates/m3_g2_counts.jl:7
+FAIL m3_image_roundtrip.jl (exit 1)
+     [2] uv_error
+       @ ./libuv.jl:113 [inlined]
+     [3] mkdir(path::String; mode::UInt16)
+       @ Base.Filesystem ./file.jl:185
+     [4] mkdir(path::String)
+       @ Base.Filesystem ./file.jl:177
+     [5] top-level scope
+       @ /p/projects/coen/julia-trait-bound/experiments/unification/gates/m3_image_roundtrip.jl:18
+     [6] include(mod::Module, _path::String)
+       @ Base ./Base.jl:310
+     [7] exec_options(opts::Base.JLOptions)
+       @ Base ./client.jl:344
+     [8] _start()
+       @ Base ./client.jl:577
+    in expression starting at /p/projects/coen/julia-trait-bound/experiments/unification/gates/m3_image_roundtrip.jl:18
+FAIL m3_policy_sites.jl (exit 1)
+      [4] require
+        @ ./loading.jl:2490 [inlined]
+      [5] eval_import_path
+        @ ./module.jl:36 [inlined]
+      [6] _eval_import(imported::Bool, to::Module, from::Nothing, paths::Expr)
+        @ Base ./module.jl:111
+      [7] top-level scope
+        @ /p/projects/coen/julia-trait-bound/experiments/unification/gates/m3_policy_sites.jl:6
+      [8] include(mod::Module, _path::String)
+        @ Base ./Base.jl:310
+      [9] exec_options(opts::Base.JLOptions)
+        @ Base ./client.jl:344
+     [10] _start()
+        @ Base ./client.jl:577
+    in expression starting at /p/projects/coen/julia-trait-bound/experiments/unification/gates/m3_policy_sites.jl:6
+FAIL m3_record_kinds.jl (exit 1)
+      [4] require
+        @ ./loading.jl:2490 [inlined]
+      [5] eval_import_path
+        @ ./module.jl:36 [inlined]
+      [6] _eval_import(imported::Bool, to::Module, from::Nothing, paths::Expr)
+        @ Base ./module.jl:111
+      [7] top-level scope
+        @ /p/projects/coen/julia-trait-bound/experiments/unification/gates/m3_record_kinds.jl:7
+      [8] include(mod::Module, _path::String)
+        @ Base ./Base.jl:310
+      [9] exec_options(opts::Base.JLOptions)
+        @ Base ./client.jl:344
+     [10] _start()
+        @ Base ./client.jl:577
+    in expression starting at /p/projects/coen/julia-trait-bound/experiments/unification/gates/m3_record_kinds.jl:7
+FAIL m3_rtsite_effects.jl (exit 1)
+      [4] require
+        @ ./loading.jl:2490 [inlined]
+      [5] eval_import_path
+        @ ./module.jl:36 [inlined]
+      [6] _eval_import(imported::Bool, to::Module, from::Nothing, paths::Expr)
+        @ Base ./module.jl:111
+      [7] top-level scope
+        @ /p/projects/coen/julia-trait-bound/experiments/unification/gates/m3_rtsite_effects.jl:6
+      [8] include(mod::Module, _path::String)
+        @ Base ./Base.jl:310
+      [9] exec_options(opts::Base.JLOptions)
+        @ Base ./client.jl:344
+     [10] _start()
+        @ Base ./client.jl:577
+    in expression starting at /p/projects/coen/julia-trait-bound/experiments/unification/gates/m3_rtsite_effects.jl:6
+gates: 26 passed, 9 failed
