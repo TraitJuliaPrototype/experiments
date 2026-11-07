@@ -1,0 +1,33 @@
+
+[2783201] signal 11 (1): Segmentation fault
+in expression starting at none:0
+jl_lookup_generic_ at /p/projects/coen/julia-trait-bound/julia-unified/src/gf.c:5566 [inlined]
+ijl_apply_generic at /p/projects/coen/julia-trait-bound/julia-unified/src/gf.c:5707
+jl_call_staged at /p/projects/coen/julia-trait-bound/julia-unified/src/method.c:729
+ijl_code_for_staged at /p/projects/coen/julia-trait-bound/julia-unified/src/method.c:802
+jl_code_or_ci_for_interpreter at /p/projects/coen/julia-trait-bound/julia-unified/src/interpreter.c:738
+jl_fptr_interpret_call at /p/projects/coen/julia-trait-bound/julia-unified/src/interpreter.c:774
+jl_apply at /p/projects/coen/julia-trait-bound/julia-unified/src/julia.h:2360 [inlined]
+jl_f__apply_iterate at /p/projects/coen/julia-trait-bound/julia-unified/src/builtins.c:876
+invoke_fixedworld at /p/projects/coen/julia-trait-bound/julia-unified/base/JuliaSyntax/src/integration/hooks.jl:143
+jl_apply at /p/projects/coen/julia-trait-bound/julia-unified/src/julia.h:2360 [inlined]
+jl_f__apply_iterate at /p/projects/coen/julia-trait-bound/julia-unified/src/builtins.c:876
+invoke_fixedworld at /p/projects/coen/julia-trait-bound/julia-unified/base/JuliaSyntax/src/integration/hooks.jl:142
+_parse_string at ./meta.jl:312
+#parseall#5 at ./meta.jl:406
+parseall at ./meta.jl:405 [inlined]
+_parse_input_line_core at ./client.jl:177 [inlined]
+#parse_input_line#944 at ./client.jl:195 [inlined]
+parse_input_line at ./client.jl:192 [inlined]
+exec_options at ./client.jl:310
+_start at ./client.jl:577
+unknown function (ip: 0x7f18245f0bdf) at (unknown file)
+jl_apply at /p/projects/coen/julia-trait-bound/julia-unified/src/julia.h:2360 [inlined]
+true_main at /p/projects/coen/julia-trait-bound/julia-unified/src/jlapi.c:985
+jl_repl_entrypoint at /p/projects/coen/julia-trait-bound/julia-unified/src/jlapi.c:1152
+main at /p/projects/coen/julia-trait-bound/julia-unified/cli/loader_exe.c:58
+__libc_start_call_main at /lib64/libc.so.6 (unknown line)
+__libc_start_main at /lib64/libc.so.6 (unknown line)
+_start at julia-unified/julia (unknown line)
+Allocations: 19662169 (Pool: 19662092; Big: 77); GC: 14
+timeout: the monitored command dumped core
