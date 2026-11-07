@@ -63,3 +63,6 @@ file name is the milestone whose gate it belongs to:
 - `n7_guards.jl` — W-112: a membership invalidates no code; a guarded call opens with its cell, an
   older world keeps the old answer, no guard through the type's own supertypes, a method at a set defined
   later invalidates the callers it shadows, the guarded call's result, the facts mode
+- `n8_callable.jl` — W-113: `Callable{A, S}` by a function's own methods, dispatch by signature,
+  a definition or deletion that begins or ends a membership, the result checked on return, E-267's
+  question that reaches itself, never a builtin
