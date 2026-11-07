@@ -46,11 +46,12 @@ file name is the milestone whose gate it belongs to:
   without the membership. TraitWorld's tests `override rule` and `module end` are W-108's other gates.
 - W-109's gates are TraitWorld's tests `operation results`, `split`, `table`, `declared fields` and
   `classification` (TraitWorld `unified`, `test/core.jl`).
-- `f1_facts_sites.jl`, `f2_policy_flags.jl`, `f3_policy_code.jl`, `f4_g2_bit.jl`, `f5_return_type.jl`, `f6_reach_policy.jl` — W-100 on branch `w100`: the facts
+- `f1_facts_sites.jl`, `f2_policy_flags.jl`, `f3_policy_code.jl`, `f4_g2_bit.jl`, `f5_return_type.jl`, `f6_reach_policy.jl`, `f7_membership_edges.jl` — W-100 on branch `w100`: the facts
   inference and its run-time sites (compiler §1), the module and method flags (§2.1, §2.2), one
   CodeInstance per policy and calls between policies (§2.3, §2.4), G2's bit (§3.2), `return_type` (§1.4),
   the policy of the code that reaches a boundary by each way of calling, and a session under the test
-  bed (§2.3–§2.5)
+  bed (§2.3–§2.5), the flag carried into keyword sorters and positional forwarders (C-43), positive
+  memberships in the record and the code's worlds from their entries' (§3.1, §4.8)
 - `m3_*.jl`                — the earlier attempt's later stages; not run. Each is re-judged
   at the stage that takes up its subject. `m3_ambiguity_dominance.jl` pins a rule the
   references do not have (a fixed-arity method at one set beating a `Vararg` at another;

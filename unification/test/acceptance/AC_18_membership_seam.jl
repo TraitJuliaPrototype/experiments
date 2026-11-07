@@ -1,9 +1,10 @@
 # AC-18 (new; §8 — the membership seam): a marked caller at a member compiled
-# AFTER the declare uses M2's §0 query-world override; pin (i) the dispatch
-# (sig, callee) edge at the concrete member signature, (ii) ci.min_world >=
-# entry.min_world, (iii) a MembershipEdge carrying the entry, and (iv) the
-# non-member abstract query as a run-time site (no pair, rettype Any, nortsite
-# false — later members answered dynamically).
+# AFTER the declare uses the task's query world (compiler §4.11); pin (i) the
+# dispatch edge at the concrete member signature, (ii) ci.min_world >=
+# entry.min_world, (iii) the entry itself in the record, a positive membership
+# (compiler §3.1, §4.8), and (iv) the non-member abstract query as a run-time
+# site (no pair, rettype Any, nortsite false — later members answered
+# dynamically).
 include("ac_util.jl")
 using Traits
 
@@ -25,9 +26,9 @@ callee_mi(e) = e isa Core.CodeInstance ? e.def : e
 haspair = any(e -> (mi = callee_mi(e); mi isa Core.MethodInstance && mi.specTypes === Tuple{typeof(g18), M18}), ci.edges)
 @assert haspair "dispatch edge at the concrete member sig: $(collect(ci.edges))"
 @assert ci.min_world >= e18.min_world "world bound above the declare: $(ci.min_world) >= $(e18.min_world)"
-fes = [e for e in ci.edges if isa(e, Compiler.MembershipEdge)]
-@assert length(fes) == 1 "exactly one MembershipEdge: $(collect(ci.edges))"
-@assert fes[1].entry === e18 "the edge carries the entry: $(fes[1].entry)"
+fes = [e for e in ci.edges if isa(e, Core.MembershipEntry)]
+@assert length(fes) == 1 "exactly one positive membership: $(collect(ci.edges))"
+@assert fes[1] === e18 "the record names the entry: $(fes[1])"
 
 cib = only([c for c in all_cis(mk18b) if c.min_world > 0 && c.owner === nothing])
 @assert cib.rettype === Any "abstract query over the set: rettype Any, got $(cib.rettype)"

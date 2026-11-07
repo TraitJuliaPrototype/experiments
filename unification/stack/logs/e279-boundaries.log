@@ -1,0 +1,62 @@
+== columns (product setting, the workload in a facts module, w100 9a601902a0, load 3.59)
+facts CodeInstances made by the workload: 75; resting on plain code: 54 (72.0 %)
+resting on plain code that misses G2 (exposed): 0 (0.0 %)
+the plain methods missing G2 that facts code rests on:
+callers' edges into plain code, by the callee's root module: Base 125, Core 9, TraitWorld 9
+the 25 plain methods most rested on:
+     17  Base.getproperty  Tuple{typeof(getproperty), Any, Symbol}
+     14  Base.Colon  Tuple{Colon, T, T} where T<:Real
+     11  Base./  Tuple{typeof(/), Number, Number}
+      8  Base.iterate  Tuple{typeof(iterate), OrdinalRange{T}, Any} where T
+      8  Base.iterate  Tuple{typeof(iterate), OrdinalRange}
+      8  Base.zero  Tuple{typeof(zero), Type{T}} where T<:Number
+      6  Base.Generator  Tuple{Type{Base.Generator}, F, I} where {I, F}
+      6  Core._typeof_captured_variable  Tuple{typeof(Core._typeof_captured_variable), Any}
+      6  Base.+  Tuple{typeof(+), T, T} where T<:Union{Float16, Float32, Float64}
+      4  Base.Val  Tuple{Type{Val{x}} where x}
+      4  Base.literal_pow  Tuple{typeof(Base.literal_pow), typeof(^), Union{Float16, Float32, Float64, Int16, Int32, Int64, Int8, UInt16, UInt32, UInt64, UInt8, Complex{<:Union{Float16, Float32, Float64, Int16, Int32, Int64, Int8, UInt16, UInt32, UInt64, UInt8}}, Rational{<:Union{Float16, Float32, Float64, Int16, Int32, Int64, Int8, UInt16, UInt32, UInt64, UInt8}}}, Val{2}}
+      4  Base.getindex  Tuple{typeof(getindex), Array, Int64}
+      4  Base.length  Tuple{typeof(length), AbstractArray}
+      4  Base.-  Tuple{typeof(-), T, T} where T<:Union{Float16, Float32, Float64}
+      4  Base.Math.sqrt  Tuple{typeof(sqrt), Union{Float32, Float64}}
+      3  TraitWorld._fwd  Tuple{typeof(TraitWorld._fwd), Any, Type}
+      3  Base.*  Tuple{typeof(*), Number, Number}
+      3  TraitWorld._fwd  Tuple{typeof(TraitWorld._fwd), TraitWorld.Dynamic, Type}
+      3  TraitWorld.Dynamic  Tuple{Type{TraitWorld.Dynamic{X}}, Any} where X
+      3  Base.identity  Tuple{typeof(identity), Any}
+      3  Base.mapreduce_empty  Tuple{typeof(Base.mapreduce_empty), Any, Any, Any}
+      2  Base.getproperty  Tuple{typeof(getproperty), Module, Symbol}
+      2  Base.getindex  Tuple{typeof(getindex), Type{Any}}
+      2  Base.Broadcast.broadcasted  Tuple{typeof(Base.Broadcast.broadcasted), F, Any, Any, Vararg{Any}} where F
+      2  Base.+  Tuple{typeof(+), T, T} where T<:Union{Int128, Int16, Int32, Int64, Int8, UInt128, UInt16, UInt32, UInt64, UInt8}
+exit 0
+== ode (product setting, the workload in a facts module, w100 9a601902a0, load 3.97)
+facts CodeInstances made by the workload: 55; resting on plain code: 36 (65.5 %)
+resting on plain code that misses G2 (exposed): 0 (0.0 %)
+the plain methods missing G2 that facts code rests on:
+callers' edges into plain code, by the callee's root module: Base 94, TraitWorld 6, Core 4
+the 25 plain methods most rested on:
+     11  Base./  Tuple{typeof(/), Number, Number}
+     11  Base.+  Tuple{typeof(+), T, T} where T<:Union{Float16, Float32, Float64}
+      9  Base.Colon  Tuple{Colon, T, T} where T<:Real
+      8  Base.vect  Tuple{typeof(Base.vect), Vararg{T}} where T
+      7  Base.getproperty  Tuple{typeof(getproperty), Module, Symbol}
+      7  Base.copy  Tuple{typeof(copy), Array}
+      7  Base.iterate  Tuple{typeof(iterate), OrdinalRange{T}, Any} where T
+      7  Base.iterate  Tuple{typeof(iterate), OrdinalRange}
+      6  Base.Broadcast.broadcasted  Tuple{typeof(Base.Broadcast.broadcasted), F, Any, Any, Vararg{Any}} where F
+      4  Base.string  Tuple{typeof(string), Vararg{Any}}
+      4  Base.Broadcast.materialize  Tuple{typeof(Base.Broadcast.materialize), Base.Broadcast.Broadcasted}
+      4  Base.Broadcast.materialize!  Tuple{typeof(Base.Broadcast.materialize!), Any, Base.Broadcast.Broadcasted{<:Any}}
+      3  TraitWorld.Dynamic  Tuple{Type{TraitWorld.Dynamic{X}}, Any} where X
+      3  Base.identity  Tuple{typeof(identity), Any}
+      2  Base.getindex  Tuple{typeof(getindex), Type{Any}}
+      2  TraitWorld._fwd  Tuple{typeof(TraitWorld._fwd), Any, Type}
+      2  Core.BoundsError  Tuple{Type{BoundsError}, Any, Any}
+      2  Core._typeof_captured_variable  Tuple{typeof(Core._typeof_captured_variable), Any}
+      1  Base.*  Tuple{typeof(*), T, T} where T<:Union{Float16, Float32, Float64}
+      1  TraitWorld._fwd  Tuple{typeof(TraitWorld._fwd), TraitWorld.Dynamic, Type}
+      1  Base.getindex  Tuple{typeof(getindex), Array, Int64}
+      1  Base.-  Tuple{typeof(-), T, T} where T<:Union{Float16, Float32, Float64}
+      1  Base./  Tuple{typeof(/), Union{Int128, Int16, Int32, Int64, Int8, UInt128, UInt16, UInt32, UInt64, UInt8}, Union{Int128, Int16, Int32, Int64, Int8, UInt128, UInt16, UInt32, UInt64, UInt8}}
+exit 0
