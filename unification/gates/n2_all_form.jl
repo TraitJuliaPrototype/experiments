@@ -26,6 +26,12 @@ const A = All{PX, PY}
 # the normal form's further rules (findings 9, 10, 11)
 @assert All{AbstractArray{Int}, AbstractVector} === AbstractVector{Int}
 @assert All{Union{PX, Int}, PY} === Union{A, All{Int, PY}}
+@trait QZ{T}
+let U = All{QZ{T}, PX} where T                                   # flattened under a UnionAll (C-34)
+    B = All{U, PY}
+    @assert B == (All{QZ{T}, PX, PY} where T)
+    @assert B isa UnionAll && B.body isa DataType && length(B.body.parameters[1].parameters) == 3
+end
 let raised = try
         All{Int, Core.All.body}
         false

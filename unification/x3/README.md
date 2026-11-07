@@ -23,17 +23,17 @@ Outputs: `out/<label>.txt`, `results/<label>/`, `logs/`.
 
 ## Results
 
-Three sessions, two runs each: `s1` on the stack before E-269's fixes, `s2` after the first round, `s3` on the final top. ns per query or call (`out/`); the quick subset as geometric means of time ratios (`results/`, `compare.jl`). Load 2–9 of 128.
+Four sessions, two runs each: `s1` on the stack before E-269's fixes, `s2` after the first round, `s3` on the final top, `s4` on the top with W-107 (runs `r5`, `r6`; `r1`–`r4` were on the probe before its hot-path fixes, at +8–11 % for `getindex` with no method at a set). In `s4` vanilla measured 14,690–14,898, 5,640–5,693 and 1,286–1,297 ns for the three matches, 136.0–137.9 and 164.7–167.2 ns for the dynamic calls, 151.4–152.5 for a member's. ns per query or call (`out/`); the quick subset as geometric means of time ratios (`results/`, `compare.jl`). Load 2–9 of 128.
 
-| Question | vanilla | `s1`: before | `s3`: final top 3ad297247e (tag `measured-3ad297247e`) |
-|---|---|---|---|
-| match `getindex` at 50 container types, k = 0 / k ≥ 1 | 14,780–14,950 | 14,810 / 15,690–15,860 | 14,960–15,050 / 15,280–15,400 (+3–4 %) |
-| match `iterate`, k = 0 / k ≥ 1 | 5,660–5,730 | 5,690 / 6,780–6,800 | 5,710–5,750 / 6,020–6,100 (+6–7 %) |
-| match `length`, k = 0 / k ≥ 1 | 1,290–1,330 | 1,230 / 2,055–2,070 | 1,250–1,280 / 1,530–1,540 (+17–18 %) |
-| dynamic `length(c)` over 50 containers | 136.5–138.2 | 170–172 | 133–138 |
-| dynamic `getindex(c, 1)` over 50 containers | 164.4–167.4 | 194–196 | 167–168 |
-| a member's dynamic `length`, 10 / 50 members | 116–117 / 151–153 | 121–123 / — | — / 141 |
-| the quick subset (148), against vanilla | 0.975–0.980 between two vanilla runs | 0.990–1.024 | 1.005 (k = 100), 1.010 (k = 0) |
+| Question | vanilla | `s1`: before | `s3`: final top 3ad297247e (tag `measured-3ad297247e`) | `s4`: the top with W-107, 8a9144928e |
+|---|---|---|---|---|
+| match `getindex` at 50 container types, k = 0 / k ≥ 1 | 14,780–14,950 | 14,810 / 15,690–15,860 | 14,960–15,050 / 15,280–15,400 (+3–4 %) | 15,630–15,860 / 15,910–16,040 (+5–8 % / +7–8 %) |
+| match `iterate`, k = 0 / k ≥ 1 | 5,660–5,730 | 5,690 / 6,780–6,800 | 5,710–5,750 / 6,020–6,100 (+6–7 %) | 5,920–5,950 / 6,235–6,285 (+5 % / +10–11 %) |
+| match `length`, k = 0 / k ≥ 1 | 1,290–1,330 | 1,230 / 2,055–2,070 | 1,250–1,280 / 1,530–1,540 (+17–18 %) | 1,345–1,353 / 1,612–1,619 (+4–5 % / +25 %) |
+| dynamic `length(c)` over 50 containers | 136.5–138.2 | 170–172 | 133–138 | 133.6–135.0 |
+| dynamic `getindex(c, 1)` over 50 containers | 164.4–167.4 | 194–196 | 167–168 | 162.4–165.0 |
+| a member's dynamic `length`, 10 / 50 members | 116–117 / 151–153 | 121–123 / — | — / 141 | — / 146.1–146.6 |
+| the quick subset (148), against vanilla | 0.975–0.980 between two vanilla runs | 0.990–1.024 | 1.005 (k = 100), 1.010 (k = 0) | not rerun |
 
 ## What it means
 

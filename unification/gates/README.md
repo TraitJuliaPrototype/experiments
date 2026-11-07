@@ -34,11 +34,13 @@ file name is the milestone whose gate it belongs to:
   `m2_ambiguity_report.jl` (one warning at the second membership; a set-in-set method
   on both sides suppresses it) and `m2_ambiguity_arity.jl` (the report asks at the
   methods' own arity and names the joint signature: the audit's A7, compiler §5.4)
-- `n2_*.jl`                — intersections `All{X, Y}` (W-107, compiler §4.9), on branch
-  `w107-probe`: `n2_all_probe.jl` (subtyping and the normal form), `n2_all_form.jl` (the
+- `n2_*.jl`                — intersections `All{X, Y}` (W-107, compiler §4.9), on `unified`
+  8a9144928e: `n2_all_probe.jl` (subtyping and the normal form), `n2_all_form.jl` (the
   encoding where the runtime reads names, parameters and wrappers: the review of 2026-11-07, §6),
   `n2_all_dispatch.jl` (intersection, dispatch at an `All` bound), `n2_open_abstract.jl` (a set
-  and an abstract type meet as `All{X, T}`: compiler §4.7, §5.3, C-33)
+  and an abstract type meet as `All{X, T}`: compiler §4.7, §5.3, C-33), `n2_all_rank.jl` (the rank
+  of an intersection, §5.2), `n2_set_order_late.jl` (a later set-in-set membership orders two
+  methods recorded as ambiguous, §5.2)
 - `m3_*.jl`                — the earlier attempt's later stages; not run. Each is re-judged
   at the stage that takes up its subject. `m3_ambiguity_dominance.jl` pins a rule the
   references do not have (a fixed-arity method at one set beating a `Vararg` at another;

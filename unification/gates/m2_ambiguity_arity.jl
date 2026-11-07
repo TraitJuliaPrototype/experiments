@@ -1,7 +1,7 @@
 # Gate (W-99, the audit's A7; compiler §5.4): the ambiguity report at a membership asks at the
 # methods' own arity. A pair of two-argument methods whose other arguments never meet warns zero
 # times (the report used to ask with one argument, get no match, and call that an ambiguity); a
-# pair that a call reaches warns once and names the signature that would resolve it.
+# pair that a call reaches warns once and names the signature that would resolve it, at All{XE, YE}.
 include("util.jl")
 
 const JULIA = `$(Base.julia_cmd()) --startup-file=no --project=$(Base.active_project())`
@@ -47,6 +47,8 @@ out, err = child(body)
 warns = [m.match for m in eachmatch(r"WARNING: method [^\n]*", err)]
 @assert !any(w -> occursin("method f2 ", w), warns) "no warning for f2, whose methods no call reaches together: $warns"
 @assert count(w -> occursin("method h2 ", w), warns) == 1 "one warning for h2: $warns"
-@assert any(w -> occursin("method h2 ", w) && occursin("would resolve it", w) && occursin("ME, Int", w), warns) "the warning names the joint signature: $warns"
+# the joint method: the two signatures' intersection, the sets meeting as All{XE, YE} (W-107)
+@assert any(w -> occursin("method h2 ", w) && occursin("would resolve it", w) &&
+                 occursin(r"All\{Main\.[XY]E, Main\.[XY]E\}, Int64", w), warns) "the warning names the joint signature: $warns"
 
 println("m2_ambiguity_arity: OK")
