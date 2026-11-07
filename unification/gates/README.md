@@ -44,6 +44,8 @@ file name is the milestone whose gate it belongs to:
 - `n3_image_memberships.jl` — memberships in package images (W-108, compiler §9): four packages on
   a fresh depot, both load orders, a call before and after a membership's load, an image built
   without the membership. TraitWorld's tests `override rule` and `module end` are W-108's other gates.
+- W-109's gates are TraitWorld's tests `operation results`, `split`, `table`, `declared fields` and
+  `classification` (TraitWorld `unified`, `test/core.jl`).
 - `m3_*.jl`                — the earlier attempt's later stages; not run. Each is re-judged
   at the stage that takes up its subject. `m3_ambiguity_dominance.jl` pins a rule the
   references do not have (a fixed-arity method at one set beating a `Vararg` at another;
