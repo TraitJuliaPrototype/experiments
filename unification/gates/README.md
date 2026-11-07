@@ -57,3 +57,6 @@ file name is the milestone whose gate it belongs to:
   references do not have (a fixed-arity method at one set beating a `Vararg` at another;
   compiler §5.2 leaves two unrelated sets unordered, and dispatch raises at the member).
 - `util.jl`               — CI walker (`Base.specializations` + `ci.next`)
+- `n6_attribute.jl` — W-111: each trait argument's attribute by the five steps of traits §7.5 (the
+  runtime at a dynamic call, inference at a static one), the casts and `Core.attributed_call`, `keep`,
+  the run-time site that passes `Dynamic` on, the reserved names, identical results
