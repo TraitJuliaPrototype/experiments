@@ -41,6 +41,9 @@ file name is the milestone whose gate it belongs to:
   and an abstract type meet as `All{X, T}`: compiler §4.7, §5.3, C-33), `n2_all_rank.jl` (the rank
   of an intersection, §5.2), `n2_set_order_late.jl` (a later set-in-set membership orders two
   methods recorded as ambiguous, §5.2)
+- `n3_image_memberships.jl` — memberships in package images (W-108, compiler §9): four packages on
+  a fresh depot, both load orders, a call before and after a membership's load, an image built
+  without the membership. TraitWorld's tests `override rule` and `module end` are W-108's other gates.
 - `m3_*.jl`                — the earlier attempt's later stages; not run. Each is re-judged
   at the stage that takes up its subject. `m3_ambiguity_dominance.jl` pins a rule the
   references do not have (a fixed-arity method at one set beating a `Vararg` at another;
