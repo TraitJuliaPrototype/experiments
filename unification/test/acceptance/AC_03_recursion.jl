@@ -9,7 +9,7 @@ using Traits
 struct W3
     v::Int
 end
-@implement W3 C3
+@implement C3 W3
 cv3(w::C3) = w.v
 dp3(w::C3) = cv3(w) <= 0 ? 0 : 1 + dp3(W3(cv3(w) - 1))
 pl3(w::W3) = w.v <= 0 ? 0 : 1 + pl3(W3(w.v - 1))
@@ -25,7 +25,7 @@ mark!(nest3)
 # D7 observation (record, do not pin): the G2 bits of the cycle frames
 for f in (dp3, nest3)
     for c in all_cis(f)
-        println("OBSERVED g2bit(", typeof(f).name.mt.name, ", min=", c.min_world,
+        println("OBSERVED g2bit(", nameof(f), ", min=", c.min_world,
                 ") = ", (getfield(c, :flags) & 0b00010000) != 0)
     end
 end

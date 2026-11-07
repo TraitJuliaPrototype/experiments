@@ -14,7 +14,7 @@ pf11(x::L11) = f11(x)
 mark!(mk11)
 
 w0 = curworld()
-e11 = @implement L11 S11
+e11 = @implement S11 L11
 @assert mk11(L11()) == 2.0 "latest world sees the membership"
 
 o_old = try
@@ -33,7 +33,7 @@ end
 
 # the marked CI is world-bounded from the declare world up (M2 seam holds with
 # the facts record in place)
-ci = only([c for c in all_cis(mk11) if c.min_world > 0])
+ci = only([c for c in all_cis(mk11) if c.max_world == typemax(UInt) && c.owner === nothing])
 @assert ci.min_world >= e11.min_world "marked CI min_world $(ci.min_world) >= entry min $(e11.min_world)"
 
 ac_finish(@__FILE__)

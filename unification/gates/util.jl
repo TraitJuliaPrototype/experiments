@@ -5,6 +5,7 @@ function all_cis(@nospecialize(f))
     out = Core.CodeInstance[]
     for m in methods(f)
         for mi in Base.specializations(m)
+            isdefined(mi, :cache) || continue                       # no CodeInstance yet
             ci = getfield(mi, :cache)::Core.CodeInstance
             while ci !== nothing
                 push!(out, ci)

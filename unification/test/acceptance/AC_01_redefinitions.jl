@@ -20,7 +20,7 @@ pl2(x::Int) = h2(x) * 2
 mark!(mk2)
 @assert mk2(3) == pl2(3) == 8
 h2(x) = x + 10
-@assert mk2(3) == pl2(3) == 22 "G1.2: helper redefinition followed identically"
+@assert mk2(3) == pl2(3) == 26 "G1.2: helper redefinition followed identically"
 
 # G1.4 a winning pirate, added after the compile, is followed as plain follows it
 abstract type A4 end
@@ -34,14 +34,15 @@ p4(x::B4) = :pirate
 @assert mk4(B4()) == pl4(B4()) == :pirate "G1.4: the pirate wins in both modes"
 
 # G1.6 a more specific method at the call signature, added later, is followed
-struct C6x end
+abstract type C6x end
+struct C6a <: C6x end
 s6(::C6x) = :general
 mk6(x::C6x) = s6(x)
 pl6(x::C6x) = s6(x)
 mark!(mk6)
-@assert mk6(C6x()) == pl6(C6x()) == :general
+@assert mk6(C6a()) == pl6(C6a()) == :general
 s6(::C6x) = :general2                       # redefinition
-@assert mk6(C6x()) == pl6(C6x()) == :general2
+@assert mk6(C6a()) == pl6(C6a()) == :general2
 struct D6 <: C6x end
 s6(::D6) = :specific
 @assert mk6(D6()) == pl6(D6()) == :specific "G1.6: later more-specific followed identically"

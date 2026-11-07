@@ -1,6 +1,6 @@
 # AC-17 (new; facts §6.4 — the compiler's own code is ALWAYS plain):
-# (a) mark_facts! on a Compiler function has no effect (the frame refuses the
-#     Compiler module, R-2/R-9);
+# (a) the method flag "always facts" on a Compiler function has no effect (the
+#     compiler's module flag wins);
 # (b) after an `all` workload (marked calls and membership compiles above),
 #     EVERY CodeInstance of EVERY function of `Compiler` and `Base.Compiler`
 #     reads nortsite == true — plain inference has no site that clears the bit,
@@ -12,7 +12,7 @@ using Traits
 # --- the workload: exercises the policy machinery in this process ------------
 @trait S17
 struct M17 end
-@implement M17 S17
+@implement S17 M17
 g17(::S17) = 1
 c17(m::M17) = g17(m)
 sink17(a) = a
@@ -27,7 +27,9 @@ map(x -> x + 1, [1, 2, 3])          # some real inference too
 
 # --- (a) marking a Compiler function changes nothing --------------------------
 target = Compiler.decode_effects          # a plain Compiler method, hot during this file
-Compiler.mark_facts!(target)              # refused or ignored — must not throw
+mark!(target)                             # the method flag "always facts": the compiler's
+                                          # module flag wins (facts §6.4)
+@assert all(m -> ccall(:jl_method_policy, Cint, (Any,), m) == 0, methods(target)) "the marked Compiler method's policy stays plain"
 target(UInt32(0))
 for c in all_cis(target)
     @assert Compiler.decode_effects(c.ipo_purity_bits).nortsite "a marked Compiler function stayed plain"

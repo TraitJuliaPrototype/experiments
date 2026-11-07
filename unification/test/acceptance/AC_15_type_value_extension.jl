@@ -18,13 +18,15 @@ mark!(kt15)
 
 r0 = kt15(DataType[Int, Float64])
 @assert r0 == 1 "before the extension: $r0"
-ci = only([c for c in all_cis(kt15) if c.min_world > 0])
-cic = only([c for c in all_cis(clf15) if c.min_world > 0])
+ci = only([c for c in all_cis(kt15) if c.min_world > 0 && c.owner === nothing])
+# the site frame: its CodeInstances, at the call's signature and at the compileable one
+cics = [c for c in all_cis(clf15) if c.min_world > 0 && c.owner === nothing]
 @assert ci.max_world === typemax(UInt) "marked caller CI is unbounded: $(ci.max_world)"
-@assert cic.max_world === typemax(UInt) "the run-time-site frame itself is unbounded: $(cic.max_world)"
+@assert all(c -> c.max_world === typemax(UInt), cics) "the run-time-site frame itself is unbounded: $(map(c -> c.max_world, cics))"
 
 module Qk15
     struct QT end
+    import ..Pk15
     Pk15.trt(::Type{QT}) = true           # the unrelated extension (a pirate at Pk15.trt)
 end
 
@@ -32,7 +34,7 @@ r1 = kt15(DataType[Int, Float64, Qk15.QT])
 p1 = count(T -> Pk15.trt(T), DataType[Int, Float64, Qk15.QT])
 @assert r1 == p1 == 2 "G2.1: the extension is followed dynamically: $r1 vs plain $p1"
 @assert ci.max_world === typemax(UInt) "the extension invalidated nothing: $(ci.max_world)"
-@assert cic.max_world === typemax(UInt) "neither at the site frame: $(cic.max_world)"
-@assert only([c for c in all_cis(clf15) if c.min_world > 0]) === cic "no recompilation happened"
+@assert all(c -> c.max_world === typemax(UInt), cics) "neither at the site frame: $(map(c -> c.max_world, cics))"
+@assert [c for c in all_cis(clf15) if c.min_world > 0 && c.owner === nothing] == cics "no recompilation happened"
 
 ac_finish(@__FILE__)

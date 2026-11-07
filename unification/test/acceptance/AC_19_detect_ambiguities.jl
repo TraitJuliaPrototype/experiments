@@ -1,4 +1,4 @@
-# AC-19 (old G1.35 half; new reading — D9): the `JULIA_FACTS=1` process boots,
+# AC-19 (old G1.35 half; new reading — D9): the test bed's process (`JULIA_COMPILE_BY_FACTS=1`) boots,
 # runs a small acceptance prelude (the policy surface exists and is usable),
 # and `detect_ambiguities(Base)` is UNCHANGED against the plain setting — the
 # test bed must not perturb plain-visible surfaces outside the policy.
@@ -8,14 +8,13 @@
 const JULIA = `$(Base.julia_cmd()) --startup-file=no --project=$(Base.active_project())`
 
 prog = """
-    using InteractiveUtils, Traits
-    import Compiler
+    using InteractiveUtils, Test, Traits
+    const Compiler = Base.Compiler
     struct A19 end
     f19(::A19) = 1
     g19(x::Int) = x + 1
-    Compiler.mark_facts!(g19)
-    @assert isdefined(Compiler, :mark_facts!) && isdefined(Compiler, :mark_concrete!) &&
-            isdefined(Compiler, :is_fact_sig) "the policy surface exists"
+    foreach(m -> (m.facts = 0x02), methods(g19))       # the method flag "always facts"
+    @assert isdefined(Compiler, :is_fact_sig) && isdefined(Compiler, :method_policy) "the policy surface exists"
     @assert g19(1) == 2
     ambs = detect_ambiguities(Base)
     println("NAMBIG ", length(ambs))
@@ -30,7 +29,7 @@ function run_child(env)
     try
         open(op, "w") do of
             open(ep, "w") do ef
-                run(pipeline(addenv(`$JULIA -e $(prog)`, env), stdout=of, stderr=ef))
+                run(pipeline(addenv(`$JULIA -e $(prog)`, env...), stdout=of, stderr=ef))
             end
         end
         out, err = read(op, String), read(ep, String)
@@ -43,8 +42,8 @@ function run_child(env)
     end
 end
 
-n_plain, l_plain = run_child(String[])
-n_all, l_all = run_child(["JULIA_FACTS" => "1"])
+n_plain, l_plain = run_child(Pair{String,String}[])
+n_all, l_all = run_child(["JULIA_COMPILE_BY_FACTS" => "1"])
 @assert !isnothing(n_plain) && n_plain == n_all "the ambiguity count moved under the policy: $n_plain vs $n_all"
 @assert l_plain == l_all "the ambiguity list moved under the policy"
 println("AC_19: OK   (detect_ambiguities(Base) = $n_plain, unchanged under all)")

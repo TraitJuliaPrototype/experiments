@@ -11,8 +11,8 @@ using Traits
 @trait X20
 @trait Z20
 struct S20 end
-ez20 = @implement S20 Z20             # S -> Z
-ex20 = @implement Z20 X20             # Z -> X  (declared later: the chain's top)
+ez20 = @implement Z20 S20             # S -> Z
+ex20 = @implement X20 Z20             # Z -> X  (declared later: the chain's top)
 hh20(::X20) = :via
 mc20(s::S20) = hh20(s)
 mark!(mc20)
