@@ -24,8 +24,9 @@ h(x) = x
 @assert only(methods(b)).facts == 1 && !isfacts(only(methods(b)))
 # every method a definition makes takes the flag: the body, the keyword sorter, the positional
 # method without keywords and its forwarders for the optional arguments
-@eval kw(x, y = 1; z = 2) = $(Expr(:block, Expr(:meta, :facts_boundary), :(x + y + z)))
-@eval opt(x, y = 1, w = 2) = $(Expr(:block, Expr(:meta, :facts_always), :(x + y + w)))
+# (the meta at the body's start, where a macro puts it with `Base.pushmeta!`)
+eval(Base.pushmeta!(:(kw(x, y = 1; z = 2) = x + y + z), :facts_boundary))
+eval(Base.pushmeta!(:(opt(x, y = 1, w = 2) = x + y + w), :facts_always))
 kwms = [methods(kw)..., methods(Core.kwcall, (NamedTuple, typeof(kw), Vararg))...]
 bodyms = [m for f in names(Main; all = true) if startswith(string(f), "#kw#")
             for m in methods(getfield(Main, f))]
