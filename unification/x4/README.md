@@ -20,7 +20,7 @@ JULIA_NUM_THREADS=1 nice -n 5 julia-unified/julia --startup-file=no experiments/
 Outputs: `out/<run>-<tree>.txt`. Answers checked separately (`Vector{Int} <: Fam1`, `M <: C3` true; the
 non-members false).
 
-## Results (2026-11-06; vanilla 45b6d15e34, `unified` fd800b27b9 and 3ad297247e; one thread; load 4–9 of 128)
+## Results (2026-11-06; vanilla 45b6d15e34, `unified` fd800b27b9 and 3ad297247e (tag `measured-3ad297247e`); one thread; load 4–9 of 128)
 
 Runs 1–3 were of the build before its last two changes. Runs 4 and 5 are of fd800b27b9 (kept on branch `w98-fd800b27b9`). Run 6 is of the restructured stack's top after W-99 and W-106, 3ad297247e: the same subtyping, on the eleven changes useful without traits (`writeup/design/julia-changes.md` §7.1); load 2–4.
 

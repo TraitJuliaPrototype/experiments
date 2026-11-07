@@ -25,7 +25,7 @@ Outputs: `out/<label>.txt`, `results/<label>/`, `logs/`.
 
 Three sessions, two runs each: `s1` on the stack before E-269's fixes, `s2` after the first round, `s3` on the final top. ns per query or call (`out/`); the quick subset as geometric means of time ratios (`results/`, `compare.jl`). Load 2–9 of 128.
 
-| Question | vanilla | `s1`: before | `s3`: final top 3ad297247e |
+| Question | vanilla | `s1`: before | `s3`: final top 3ad297247e (tag `measured-3ad297247e`) |
 |---|---|---|---|
 | match `getindex` at 50 container types, k = 0 / k ≥ 1 | 14,780–14,950 | 14,810 / 15,690–15,860 | 14,960–15,050 / 15,280–15,400 (+3–4 %) |
 | match `iterate`, k = 0 / k ≥ 1 | 5,660–5,730 | 5,690 / 6,780–6,800 | 5,710–5,750 / 6,020–6,100 (+6–7 %) |
