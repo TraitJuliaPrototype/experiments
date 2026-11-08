@@ -1,0 +1,81 @@
+== 11:35:48 1. precompile (load 2.84)
+   0.5 s  ✓ CompilerSupportLibraries_jll
+  16.5 s  ✓ TraitWorld
+  3 dependencies successfully precompiled in 17 seconds. 2 already precompiled.
+   3.6 s  ✓ Test
+   0.4 s  ✓ Traits
+  4 dependencies successfully precompiled in 5 seconds. 5 already precompiled.
+   4.9 s  ✓ TraitCSV → TraitCSVInlineStringsExt
+   9.7 s  ✓ TraitMakie
+  40 dependencies successfully precompiled in 25 seconds. 8 already precompiled.
+   0.6 s  ✓ PrecompileTools
+   1.8 s  ✓ PlainTables
+  2 dependencies successfully precompiled in 3 seconds. 45 already precompiled.
+  12.9 s  ✓ CSV → CSVDataFramesExt
+   8.9 s  ✓ CSV → CSVDataFramesInlineStringsExt
+  36 dependencies successfully precompiled in 145 seconds. 62 already precompiled.
+│  [Output was shown above]
+└  
+  13.1 s  ✓ CSV → CSVDataFramesExt
+   8.9 s  ✓ CSV → CSVDataFramesInlineStringsExt
+  36 dependencies successfully precompiled in 127 seconds. 25 already precompiled.
+   0.8 s  ✓ CSV → CSVInlineStringsExt
+  35.9 s  ✓ DataFrames
+  5 dependencies successfully precompiled in 61 seconds. 52 already precompiled.
+== 11:44:33 2. the compiler's invalidations by upstream CSV and DataFrames (load 3.91)
+28d2334164*: invalidated 1604, of the compiler 195
+  compiler instances at depth 1: #_print_ir_new_node#13 (9), new_nodes_iter (1), GuardedCallInfo (1), ConstCallInfo (1), ApplyCallInfo (1), UnionSplitInfo (1), AbstractIterationInfo (1), UnionSplitApplyCallInfo (1)
+== 11:44:34 4. sessions (load 3.91)
+== 11:46:01 4b. profiles (load 2.81)
+== 11:46:17 4c. what the forks' loads compile (load 3.97)
+compiled during the loads: 8 signatures, 1440.5 ms
+#=  939.9 ms =# precompile(Tuple{Base.Compiler.var"#infercalls#146"{Base.Compiler.ArgInfo, Base.Compiler.StmtInfo, Base.Compiler.CallInferenceState, Base.Compil
+#=  199.4 ms =# precompile(Tuple{typeof(TraitWorld._image_methods_hook), Array{Any, 1}, String}) # recompile
+#=  191.9 ms =# precompile(Tuple{typeof(TraitWorld._image_methods_hook), Array{Any, 1}, String}) # recompile
+#=   74.3 ms =# precompile(Tuple{typeof(TraitWorld._strict_at_load!), Base.PkgId}) # recompile
+#=   15.7 ms =# precompile(Tuple{typeof(Base.collect), Type{Array{Any, 1}}, Base.Iterators.Flatten{Base.Generator{Array{Array{Any, 1}, 1}, TraitWorld.var"#_sig_
+== 11:46:21 2. battery w123d (load 3.97)
+gates: 27 passed, 0 failed
+gates: 19 passed, 0 failed
+w123d core                 exit 0  wall 71.1 s      SUCCESS
+w123d subtype              exit 0  wall 19.1 s      SUCCESS
+w123d worlds               exit 0  wall 10.3 s      SUCCESS
+w123d ambiguous            exit 0  wall 10.0 s      SUCCESS
+w123d reflection           exit 0  wall 15.3 s      SUCCESS
+w123d Compiler/inline      exit 0  wall 96.5 s      SUCCESS
+w123d Compiler/inference   exit 0  wall 81.5 s      SUCCESS
+w123d precompile           exit 0  wall 271.3 s      SUCCESS
+AC_01_redefinitions: OK
+AC_02_stdlib: OK
+AC_03_recursion: OK
+AC_04_return_type: OK
+AC_05_return_type_redef: OK
+AC_06_return_type_wide: OK
+AC_07_assert_fold_rtsite: OK
+AC_08_base_assertion: OK
+AC_09_assert_above_rtsite: OK
+AC_10_assert_many_methods: OK
+AC_11_worlds: OK
+AC_12_cycle_redef: OK
+AC_13_union_split_cost: OK
+AC_14_narrow_after_wide: OK
+AC_15b_runtime_site: OK
+AC_15_type_value_extension: OK
+AC_16_concrete_enforcement: OK
+AC_17_compiler_always_plain: OK
+AC_18_membership_seam: OK
+AC_19: OK   (detect_ambiguities(Base) = 0, unchanged under all)
+AC_20_chain_membership: OK
+traitworld exit 0
+columns exit 0
+ode exit 0
+== 12:06:59 3. checks (load 2.43)
+digests equal: 26 steps
+repl exit 0; marks 20 of 20; errors 0, 0 expected (transcript: /tmp/forks_check/repl.txt)
+check_session: pass
+    tag    String, 4 distinct of 500
+CHECK items: (t) and (pt) print the same summary and draw the same PNG ok
+    name   String15, 200 distinct of 200
+    x      mean 50.25  std 28.9396  min 0.5  max 100.0  sum 10050.0
+    n      mean 100.5  std 57.8792  min 1.0  max 200.0  sum 20100.0
+== 12:09:12 done (load 2.56)
