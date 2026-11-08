@@ -1,5 +1,6 @@
 #!/bin/bash
-# E-297 (W-128: build B2, C-54, C-60, C-46): the same steps in another order, sessions first; setting D precompiled by loading:
+# E-297 (W-128: build B2, C-54, C-60, C-46, open issue 158 (a) with TraitWorld's half): the same steps in another order,
+# sessions first; setting D precompiled by loading; then 4d (CSV's load after REPL's, E-296's regression) and 5 (TDE's suite):
 #   1. the environments precompiled again (a rebuilt system image makes every package image stale);
 #   2. the battery (label $1, default w123b);
 #   3. the ports' checks: the forks' session digests, TraitReport's (t)/(pt) check;
@@ -33,6 +34,9 @@ step "4c. what the forks' loads compile"
 (cd "$R/forks-unified" && unset JULIA_DEPOT_PATH && nice -n 10 "$U" --startup-file=no --project=env_forks --trace-compile="$H/logs/e297-tracecompile.jl" --trace-compile-timing \
     -e 'using TraitWorld, Tables, CSV, DataFrames' > /dev/null 2>&1)
 awk '{t += $2} END {print "compiled during the loads:", NR, "signatures,", t, "ms"}' "$H/logs/e297-tracecompile.jl"; sort -k2 -rn "$H/logs/e297-tracecompile.jl" | head -5 | cut -c1-160
+step "4d. the forks' loads after REPL's (E-296: 5.4-5.8 s for CSV)"
+for i in 1 2; do (cd "$R/forks-unified" && unset JULIA_DEPOT_PATH && nice -n 10 "$U" --startup-file=no --project=env_forks -e \
+    't = time(); using REPL; t0 = time(); using CSV; t1 = time(); using DataFrames; t2 = time(); println("REPL ", round(t0 - t, digits = 3), " CSV ", round(t1 - t0, digits = 3), " DataFrames ", round(t2 - t1, digits = 3))'); done | tee "$H/logs/e297-repl-loads.log"
 step "2. battery $L"
 bash "$R/experiments/unification/stack/battery.sh" julia-unified "$L"
 

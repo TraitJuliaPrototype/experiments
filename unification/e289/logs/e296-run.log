@@ -1,0 +1,77 @@
+== 12:29:13 1. precompile (load 3.88)
+   0.5 s  ✓ CompilerSupportLibraries_jll
+  21.4 s  ✓ TraitWorld
+  3 dependencies successfully precompiled in 22 seconds. 2 already precompiled.
+   3.7 s  ✓ TraitCSV → TraitCSVInlineStringsExt
+   8.8 s  ✓ TraitMakie
+  40 dependencies successfully precompiled in 24 seconds. 8 already precompiled.
+   0.6 s  ✓ PrecompileTools
+   1.7 s  ✓ PlainTables
+  2 dependencies successfully precompiled in 3 seconds. 45 already precompiled.
+  14.0 s  ✓ CSV → CSVDataFramesExt
+   8.5 s  ✓ CSV → CSVDataFramesInlineStringsExt
+  36 dependencies successfully precompiled in 145 seconds. 62 already precompiled.
+│  [Output was shown above]
+└  
+  14.1 s  ✓ CSV → CSVDataFramesExt
+   8.7 s  ✓ CSV → CSVDataFramesInlineStringsExt
+  36 dependencies successfully precompiled in 134 seconds. 25 already precompiled.
+   0.9 s  ✓ CSV → CSVInlineStringsExt
+  36.2 s  ✓ DataFrames
+  5 dependencies successfully precompiled in 62 seconds. 52 already precompiled.
+== 12:37:35 2. the compiler's invalidations by upstream CSV and DataFrames (load 9.49)
+07c0bee2a2*: invalidated 1594, of the compiler 195
+  compiler instances at depth 1: #_print_ir_new_node#13 (9), new_nodes_iter (1), GuardedCallInfo (1), ConstCallInfo (1), ApplyCallInfo (1), UnionSplitInfo (1), AbstractIterationInfo (1), UnionSplitApplyCallInfo (1)
+== 12:37:37 4. sessions (load 9.49)
+== 12:38:56 4b. profiles (load 8.33)
+== 12:39:08 4c. what the forks' loads compile (load 9.19)
+compiled during the loads: 4 signatures, 35.1 ms
+#=   15.7 ms =# precompile(Tuple{typeof(Base.collect), Type{Array{Any, 1}}, Base.Iterators.Flatten{Base.Generator{Array{Array{Any, 1}, 1}, TraitWorld.var"#_sig_
+#=   12.4 ms =# precompile(Tuple{typeof(Base.mul_prod), Int64, Int64})
+#=    4.3 ms =# precompile(Tuple{Type{Base.Generator{I, F} where F where I}, TraitWorld.var"#_sig_alternatives##0#_sig_alternatives##1"{Array{Any, 1}}, Array{Ar
+#=    2.7 ms =# precompile(Tuple{Type{Base.Iterators.Flatten{I} where I}, Base.Generator{Array{Array{Any, 1}, 1}, TraitWorld.var"#_sig_alternatives##0#_sig_alte
+== 12:39:10 2. battery w128 (load 9.19)
+gates: 27 passed, 0 failed
+gates: 21 passed, 2 failed
+w128 core                 exit 0  wall 70.2 s      SUCCESS
+w128 subtype              exit 0  wall 19.5 s      SUCCESS
+w128 worlds               exit 0  wall 10.2 s      SUCCESS
+w128 ambiguous            exit 0  wall 9.8 s      SUCCESS
+w128 reflection           exit 0  wall 15.2 s      SUCCESS
+w128 Compiler/inline      exit 0  wall 95.5 s      SUCCESS
+w128 Compiler/inference   exit 0  wall 81.6 s      SUCCESS
+w128 precompile           exit 0  wall 271.1 s      SUCCESS
+AC_01_redefinitions: OK
+AC_02_stdlib: OK
+AC_03_recursion: OK
+AC_04_return_type: OK
+AC_05_return_type_redef: OK
+AC_06_return_type_wide: OK
+AC_07_assert_fold_rtsite: OK
+AC_08_base_assertion: OK
+AC_09_assert_above_rtsite: OK
+AC_10_assert_many_methods: OK
+AC_11_worlds: OK
+AC_12_cycle_redef: OK
+AC_13_union_split_cost: OK
+AC_14_narrow_after_wide: OK
+AC_15b_runtime_site: OK
+AC_15_type_value_extension: OK
+AC_16_concrete_enforcement: OK
+AC_17_compiler_always_plain: OK
+AC_18_membership_seam: OK
+AC_19: OK   (detect_ambiguities(Base) = 0, unchanged under all)
+AC_20_chain_membership: OK
+traitworld exit 0
+columns exit 0
+ode exit 0
+== 12:59:53 3. checks (load 7.86)
+digests equal: 26 steps
+repl exit 0; marks 20 of 20; errors 0, 0 expected (transcript: /tmp/forks_check/repl.txt)
+check_session: pass
+    tag    String, 4 distinct of 500
+CHECK items: (t) and (pt) print the same summary and draw the same PNG ok
+    name   String15, 200 distinct of 200
+    x      mean 50.25  std 28.9396  min 0.5  max 100.0  sum 10050.0
+    n      mean 100.5  std 57.8792  min 1.0  max 200.0  sum 20100.0
+== 13:02:09 done (load 9.28)

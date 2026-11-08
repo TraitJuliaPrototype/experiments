@@ -58,3 +58,18 @@ The shared host, load 2.3–6.0 (others' jobs), one job at a time. The earlier b
 **Compared from the recorded runs** (not run again, at the user's request):
 - TraitReport (t): the earlier build 0.63 s (E-233, the project's machine); the unified build 3.18–3.20 s (E-286, this host).
 - NetworkDynamics' workload (`ndport/logs/r7/time/PT-1.log`, E-250, the project's machine; `ndport/logs/unified/workload-PT-1.log`, this host, one run with an extra pass `graphtype`): loads 2.83 against 13.0 s (Graphs and NetworkDynamics 1.57 against 12.96 s); the first pass a–g 18.9 against 33.3 s; new equations (`changed` b–e) 1.10 against 9.02 s, of it `recompile` 0.0 against 1.54 s; the steady state (`again` d) 780 against 783 ms; the session 31.3 s against 100.4 s (88.6 s without the extra pass).
+
+## Stage 1 and W-128 on later builds (2026-11-08)
+
+E-292 to E-296 run the same harness (`run.sh`, a warm-up and 3 runs each) on each build of stage 1 and W-128; the scripts `e292.sh` to `e296.sh` also precompile the environments, run the battery (`../stack/battery.sh`) and the ports' checks, count the compiler's instances that upstream CSV and DataFrames invalidate (`compinv.jl`), and profile the loads (`../w121/load_profile.jl`). Logs: `logs/<part>-<label>.log`, `logs/e29n-*.log`. This host, load 2.3–9.3 of 128 cores.
+
+| E- | build (`unified`), TraitWorld | the goal's task | the forks' session | setting D | TraitReport (t) | the compiler's instances lost |
+|---|---|---|---|---|---|---|
+| 292 | 98fcbdfbba, 0ac3364 | 7.62–7.75 s | 6.48–6.51 s | invalid (stale images) | 0.99–1.04 s | 2,049 (vanilla 193) |
+| 294 | 9d428d473b, 0ac3364 | 7.70–7.77 s | 6.60–6.67 s | 9.64–9.69 s | 1.02–1.06 s | 1,998 |
+| 295 | 28d2334164, 0ac3364 | 4.98–5.11 s | 6.48 s | 9.19–9.28 s | 1.24–1.58 s | 195 |
+| 296 | 07c0bee2a2 (B1), e6eaa85 | 3.62–3.70 s | 9.86–10.42 s | 6.35–6.56 s | 1.02–1.07 s | 195 |
+
+- E-296's forks' session is slower because of compiler §5.6's rule for a pruned arm (C-73, new in B1): see the registry's row. Its loads in a plain process compile 35 ms; at a REPL, CSV's load is 5.4–5.8 s against 0.6 s.
+- The logs of E-296 name the source's head (1d493ca959) in their headers; the binary was built from 07c0bee2a2.
+- E-296's diagnosis, one process each after `using REPL` (or not), loading CSV under the forks' environment: `logs/e296-repl-csv-tracecompile.jl` (41 signatures, 7.8 s, of it `TraitWorld._image_methods_hook` 5.3 s), `logs/e296-repl-csv-invalidations.txt.gz` (the runtime's log, `jl_debug_method_invalidation`), `logs/e296-repl-csv-validation.txt` and `logs/e296-csv-validation.txt` (image validation's log, `Compiler.ReinferUtils.debug_method_invalidation`). In the validation logs a guard's cell appears beside each rejected instance only because the log names every edge of an instance whose world is bounded (fixed in the log on 40401f67d8).
