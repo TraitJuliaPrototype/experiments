@@ -1,0 +1,80 @@
+load of DataFrames after TraitWorld, Tables, CSV: 2.051 s (profiled)
+samples: 2324 on the main thread, 1399 under validation (60.2 %)
+-- self, top 25 (share of validation's samples)
+  47.0 %  membership_range_visit [C]
+   7.3 %  arraylist_grow [C]
+   3.9 %  jl_type_has_memberships [C]
+   2.6 %  arraylist_push [C]
+   2.0 %  obvious_subtype [C]
+   1.9 %  obviously_disjoint [C]
+   1.8 %  has_free_typevars [C]
+   1.6 %  verify_method
+   1.2 %  jl_svecref [C]
+   1.1 %  jl_is_va_tuple [C]
+   0.9 %   [C]
+   0.9 %  get_ci_mi
+   0.9 %  jl_is_concrete_type [C]
+   0.9 %  jl_f__svec_ref [C]
+   0.9 %  ijl_array_grow_end [C]
+   0.8 %  ijl_unwrap_unionall [C]
+   0.8 %  subtype [C]
+   0.7 %  jl_typemap_intersection_node_visitor [C]
+   0.7 %  iterate
+   0.6 %  jl_to_typeof [C]
+   0.6 %  jl_is_all_type [C]
+   0.5 %  getindex
+   0.5 %  jl_is_type_type [C]
+   0.5 %  get_method_from_edge
+   0.5 %  obviously_egal [C]
+-- inclusive, top 45
+ 100.0 %  _require_search_from_serialized
+ 100.0 %  jl_apply [C]
+ 100.0 %  eval_stmt_value [C]
+ 100.0 %  ijl_toplevel_eval [C]
+ 100.0 %  _require_prelocked
+ 100.0 %  __libc_start_call_main [C]
+ 100.0 %  __require_prelocked
+ 100.0 %  require
+ 100.0 %  eval_body [C]
+ 100.0 %  exec_options
+ 100.0 %  eval_import_path_all
+ 100.0 %  main [C]
+ 100.0 %  jl_eval_toplevel_stmts [C]
+ 100.0 %  __libc_start_main [C]
+ 100.0 %  eval
+ 100.0 %  __require
+ 100.0 %  _start
+ 100.0 %  jl_toplevel_eval_flex [C]
+ 100.0 %  jl_interpret_toplevel_thunk [C]
+ 100.0 %  include_string
+ 100.0 %  ijl_toplevel_eval_in [C]
+ 100.0 %  _include
+ 100.0 %  .plt [C]
+ 100.0 %  _include_from_serialized
+ 100.0 %  #_include_from_serialized#891
+ 100.0 %  include
+ 100.0 %  jl_repl_entrypoint [C]
+ 100.0 %  _eval_using
+ 100.0 %  eval_value [C]
+ 100.0 %  _start [C]
+ 100.0 %  true_main [C]
+ 100.0 %  insert_backedges_typeinf
+ 100.0 %  eval_import_path
+ 100.0 %  macro expansion
+ 100.0 %  insert_backedges
+ 100.0 %  #_require_search_from_serialized#908
+ 100.0 %  do_call [C]
+ 100.0 %  ijl_call_in_typeinf_world [C]
+  98.9 %  scan_new_code!
+  98.4 %  verify_method_graph
+  98.3 %  verify_method
+  88.0 %  verify_call
+  85.6 %  ijl_matching_methods [C]
+  85.6 %  _methods_by_ftype
+  85.4 %  ml_matches [C]
+-- DataFrames's own instances valid now: 2707; their edges by kind
+   18718  CodeInstance
+    1049  call by signature (count + sig + matches)
+     724  invoke signature
+     249  MembershipEntry
+      70  MethodInstance
