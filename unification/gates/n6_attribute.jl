@@ -13,6 +13,7 @@ using Traits
 @trait Shape
 @trait Model                                # its default: Dynamic (step 4)
 struct Own; r::Float64; end                 # a member of the set's own package
+struct Wrap{F}; f::F; end                   # the set's package's, carrying what it wraps in its type
 end
 using .Lib: Shape, Model
 dyn_default!(Model, 2)
@@ -45,6 +46,15 @@ c, s = Circle(1.0), Square(2.0)
 @assert mkind(1) === :compiled "a type of Julia's own: per type"
 @assert mkind(Lib.Own(1.0)) === :compiled "a type of the set's package: per type"
 @assert marea(c) == area(c) && marea(s) == area(s)
+# a type is own only with its parameters, recursively: one of the set's package's that carries another
+# package's type in a parameter is not few and fixed, and the set's default applies to it (open issue 161)
+declare_membership(Lib.Wrap, Model, @__MODULE__)
+area(w::Lib.Wrap) = 1.0
+@assert mkind(Lib.Wrap(c)) === :dynamic "the set's package's type carrying another package's: the default"
+@assert mkind(Lib.Wrap(1)) === :compiled "the set's package's type with Julia's own parameter: per type"
+@assert mkind(Lib.Wrap(Lib.Own(1.0))) === :compiled "with the set's package's parameter: per type"
+@assert mkind(Lib.Wrap(sin)) === :compiled "with a function Julia defines: per type"
+@assert mkind(Lib.Wrap(Lib.Wrap(c))) === :dynamic "another package's type two levels down"
 
 # step 3: the method's `@nospecialize` and `@specialize` at the argument; the module's `dynamic`
 nkind(@nospecialize(x::Shape)) = Core.keep(x) isa Core.Dynamic ? :dynamic : :compiled
