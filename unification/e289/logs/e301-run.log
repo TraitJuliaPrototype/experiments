@@ -1,0 +1,83 @@
+== 16:38:30 1. precompile (load 3.72)
+Precompiling packages...
+   0.4 s  ✓ CompilerSupportLibraries_jll
+  1 dependency successfully precompiled in 0 seconds. 4 already precompiled.
+Precompiling packages...
+   0.4 s  ✓ Traits
+  1 dependency successfully precompiled in 0 seconds. 8 already precompiled.
+   4.1 s  ✓ TraitCSV → TraitCSVInlineStringsExt
+   8.2 s  ✓ TraitMakie
+  40 dependencies successfully precompiled in 22 seconds. 8 already precompiled.
+   0.6 s  ✓ PrecompileTools
+   1.7 s  ✓ PlainTables
+  2 dependencies successfully precompiled in 2 seconds. 45 already precompiled.
+   7.7 s  ✓ CSV → CSVDataFramesExt
+   4.0 s  ✓ CSV → CSVDataFramesInlineStringsExt
+  36 dependencies successfully precompiled in 128 seconds. 62 already precompiled.
+  17 dependencies successfully precompiled in 28 seconds. 10 already precompiled.
+
+  4 dependencies had output during precompilation:
+   7.9 s  ✓ CSV → CSVDataFramesExt
+   4.1 s  ✓ CSV → CSVDataFramesInlineStringsExt
+  36 dependencies successfully precompiled in 104 seconds. 25 already precompiled.
+   0.9 s  ✓ CSV → CSVInlineStringsExt
+  36.8 s  ✓ DataFrames
+  5 dependencies successfully precompiled in 62 seconds. 52 already precompiled.
+== 16:45:38 2. TraitDifferentialEquations' suite (load 3.85)
+tde exit 0
+== 16:46:12 3. sessions (load 3.28)
+== 16:46:52 4. validation in the forks' DataFrames load (E-299's profile) (load 2.86)
+load of DataFrames after TraitWorld, Tables, CSV: 1.172 s (profiled)
+samples: 1184 on the main thread, 542 under validation (45.8 %)
+-- self, top 25 (share of validation's samples)
+   8.5 %  jl_type_has_memberships [C]
+   4.4 %  verify_method
+   4.2 %  obvious_subtype [C]
+   2.6 %  jl_f__svec_ref [C]
+   2.6 %  get_ci_mi
+   2.4 %  has_free_typevars [C]
+== 16:46:55 5. battery w123f (load 2.79)
+gates: 27 passed, 0 failed
+gates: 23 passed, 0 failed
+w123f core                 exit 0  wall 70.3 s      SUCCESS
+w123f subtype              exit 0  wall 19.2 s      SUCCESS
+w123f worlds               exit 0  wall 10.3 s      SUCCESS
+w123f ambiguous            exit 0  wall 10.2 s      SUCCESS
+w123f reflection           exit 0  wall 15.5 s      SUCCESS
+w123f Compiler/inline      exit 0  wall 96.8 s      SUCCESS
+w123f Compiler/inference   exit 0  wall 81.6 s      SUCCESS
+w123f precompile           exit 0  wall 272.3 s      SUCCESS
+AC_01_redefinitions: OK
+AC_02_stdlib: OK
+AC_03_recursion: OK
+AC_04_return_type: OK
+AC_05_return_type_redef: OK
+AC_06_return_type_wide: OK
+AC_07_assert_fold_rtsite: OK
+AC_08_base_assertion: OK
+AC_09_assert_above_rtsite: OK
+AC_10_assert_many_methods: OK
+AC_11_worlds: OK
+AC_12_cycle_redef: OK
+AC_13_union_split_cost: OK
+AC_14_narrow_after_wide: OK
+AC_15b_runtime_site: OK
+AC_15_type_value_extension: OK
+AC_16_concrete_enforcement: OK
+AC_17_compiler_always_plain: OK
+AC_18_membership_seam: OK
+AC_19: OK   (detect_ambiguities(Base) = 0, unchanged under all)
+AC_20_chain_membership: OK
+traitworld exit 0
+columns exit 0
+ode exit 0
+== 17:07:43 5b. checks (load 2.53)
+digests equal: 26 steps
+repl exit 0; marks 20 of 20; errors 0, 0 expected (transcript: /tmp/forks_check/repl.txt)
+check_session: pass
+    tag    String, 4 distinct of 500
+CHECK items: (t) and (pt) print the same summary and draw the same PNG ok
+    name   String15, 200 distinct of 200
+    x      mean 50.25  std 28.9396  min 0.5  max 100.0  sum 10050.0
+    n      mean 100.5  std 57.8792  min 1.0  max 200.0  sum 20100.0
+== 17:09:48 done (load 2.82)

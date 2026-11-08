@@ -72,6 +72,7 @@ E-292 to E-296 run the same harness (`run.sh`, a warm-up and 3 runs each) on eac
 | 297 | c248dbfd8c (B2), c4f9f99 | 4.14–4.50 s (load 7.4) | 5.13–5.49 s | invalid (TDE did not precompile) | 1.13–1.19 s | 195 |
 | 298 | ef93ff7844 (B2), c4f9f99, TDE fcee973 | 3.37–3.45 s | 4.76–5.17 s | 3.42 s | 0.97–0.99 s | — |
 | 300 | 89b3bcff81, c4f9f99, TDE fcee973 | 2.37–2.40 s | 4.08–4.44 s | 2.82–2.84 s | 0.89–0.91 s | — |
+| 301 | d04256a442, 1f0f78e, TDE fcee973 | 2.21–2.28 s | 3.98–4.42 s | 2.75–2.82 s | 0.775–0.821 s | — |
 
 - E-296's forks' session is slower because of compiler §5.6's rule for a pruned arm (C-73, new in B1): see the registry's row. Its loads in a plain process compile 35 ms; at a REPL, CSV's load is 5.4–5.8 s against 0.6 s.
 - The logs of E-296 name the source's head (1d493ca959) in their headers; the binary was built from 07c0bee2a2.
@@ -79,3 +80,4 @@ E-292 to E-296 run the same harness (`run.sh`, a warm-up and 3 runs each) on eac
 - E-297: after `using REPL`, CSV's load 0.69–0.71 s (`logs/e297-repl-loads.log`), against 5.4–5.8 s on B1.
 - E-298: setting D's first solve 0.79–0.80 s and second model 0.06 s (2.85–2.98 s and 0.79–0.81 s on B1): C-54 built. The goal's task with TraitWorld's `src` at e6eaa85 (`logs/f-unified-w128c-tw0.log`, whose header names TraitWorld's head) 3.39–3.92 s: open issue 158 (a)'s library half costs nothing there.
 - E-299 (`../w121/logs/e299-*.log`): validation was 60 % of the forks' DataFrames load, half of it our walk of the memberships at each match (`membership_range_visit`); upstream's DataFrames validates in a quarter of the samples. E-300: without the walk (89b3bcff81) the load is 1.16 s profiled against 2.05 s.
+- E-301: stage 1's gate met. The terms it removed were named by `logs/e301-diag-*` (TraitReport (t)'s trace and the first member check's) and `../w121/session_profile.jl` (a session profiled by class, the member check first).
