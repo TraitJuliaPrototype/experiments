@@ -1,0 +1,26 @@
+#=    0.0 ms =# precompile(Tuple{typeof(JLLWrappers.get_julia_libpaths)})
+#=   38.5 ms =# precompile(Tuple{typeof(Base.issorted), Array{String, 1}, Base.Order.ReverseOrdering{Base.Order.ForwardOrdering}})
+#=    8.0 ms =# precompile(Tuple{typeof(Base.get), Array{String, 1}, Int64, String})
+#=    4.6 ms =# precompile(Tuple{typeof(Core.kwcall), NamedTuple{(:stringtype,), Tuple{typeof(DataType)}}, typeof(CSV.read), String, Type})
+#=    4.4 ms =# precompile(Tuple{typeof(Base.Compiler._findall_matches), Base.Compiler.NativeInterpreter, Any}) # recompile
+#=    4.0 ms =# precompile(Tuple{typeof(Base.findall), Type, Base.Compiler.CachedMethodTable{Base.Compiler.InternalMethodTable}}) # recompile
+#=    5.2 ms =# precompile(Tuple{typeof(Base._split_pointer), Type{typeof(CSV.ColumnParsers.rawsource)}, Type{String}, Type{Any}, Type{Tuple{}}})
+#=    2.6 ms =# precompile(Tuple{typeof(Base.Unicode.isdigit), Char})
+#=    3.4 ms =# precompile(Tuple{typeof(Base.in), Char, NTuple{4, Char}})
+#=  143.3 ms =# precompile(Tuple{typeof(CSV._file), String, Nothing, Nothing, Nothing, Nothing, Bool, Bool, Bool, Base.Val{String}, Symbol, Int64, Nothing, Bool, Bool, Base.Pairs{Symbol, Union{}, Nothing, NamedTuple{(), Tuple{}}}}) # recompile
+#=    3.6 ms =# precompile(Tuple{Type{Tables.CopiedColumns{T} where T}, CSV.File})
+#=    2.6 ms =# precompile(Tuple{Type{DataFrames.DataFrame}, Tables.CopiedColumns{CSV.File}})
+#=    2.1 ms =# precompile(Tuple{typeof(Base.length), Array{Float64, 1}})
+#=    2.6 ms =# precompile(Tuple{typeof(Base.add_sum), Int64, Bool})
+#=   96.5 ms =# precompile(Tuple{typeof(Main.summary_line), Base.IOStream, String, Array{Float64, 1}})
+#=    2.8 ms =# precompile(Tuple{Type{Base.Iterators.Filter{F, I} where I where F}, Main.var"#2#3", Array{String, 1}})
+#=    2.5 ms =# precompile(Tuple{Type{Base.Generator{I, F} where F where I}, typeof(Base.identity), Base.Iterators.Filter{Main.var"#2#3", Array{String, 1}}})
+#=   15.6 ms =# precompile(Tuple{typeof(Base.first), Base.Generator{Base.Iterators.Filter{Main.var"#2#3", Array{String, 1}}, typeof(Base.identity)}})
+#=    2.9 ms =# precompile(Tuple{typeof(Base._any), Base.ComposedFunction{typeof(Base.:(!)), typeof(Base.ismissing)}, Array{Float64, 1}, Base.Colon})
+#=    2.4 ms =# precompile(Tuple{typeof(Base.skipmissing), Array{Float64, 1}})
+#=    7.6 ms =# precompile(Tuple{typeof(Base.collect), Type{Float64}, Base.SkipMissing{Array{Float64, 1}}})
+#=    2.6 ms =# precompile(Tuple{typeof(Base.Filesystem.basename), String})
+#=    4.2 ms =# precompile(Tuple{typeof(Base.getindex), Array{Float64, 1}, Int64})
+#=    5.7 ms =# precompile(Tuple{typeof(Base.println), Base.IOStream, String, Float64, Vararg{Any}})
+#=   10.9 ms =# precompile(Tuple{typeof(Base.print), Base.IOStream, String, Float64, Vararg{Any}})
+#=   34.7 ms =# precompile(Tuple{typeof(Base._atexit), Int32}) # recompile
