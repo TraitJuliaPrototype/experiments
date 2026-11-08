@@ -199,6 +199,9 @@ end
         @test FB.C(3) == 10
         @test ccall(:jl_code_slot_stat, Csize_t, (Cint,), 4) > f0
         @test FB.C(4) == 12                           # the slot keeps the entry
+        GC.gc(true)                                   # the last resorts' list survives a collection (E-305)
+        @eval FB E(x::Int) = x + 4                   # another miss reads the list
+        @test FB.C(3) == 14
     finally
         ccall(:jl_code_slot_force_fallback, Cint, (Cint,), last)
     end
