@@ -3,7 +3,8 @@
 # sleeping, each attributed to the class of highest priority on its stack (CLASSES' order).
 # Usage: julia --project=<env> load_profile.jl Pkg1 Pkg2 ...
 using Profile
-const CLASSES = [
+# W121_CALLBACKS_LAST=1 (E-292): the package callbacks last, so the extensions' loads inside them are split by the classes below
+const CLASSES0 = [
     ("activation: the dispatch walk", ["jl_membership_dispatch_walk"]),
     ("activation: the ambiguity report", ["jl_membership_ambiguity_report"]),
     ("activation: the cells", ["jl_membership_update_cells"]),
@@ -14,6 +15,7 @@ const CLASSES = [
     ("inference/compile", ["typeinf_ext", "jl_type_infer", "jl_compile_method_internal", "jl_compile_codeinst", "jl_emit_codeinst"]),
     ("image restore", ["jl_restore_package_image", "jl_restore_incremental", "ijl_restore_package_image_from_file"]),
 ]
+const CLASSES = get(ENV, "W121_CALLBACKS_LAST", "0") == "1" ? [filter(c -> c[1] != "package callbacks", CLASSES0); filter(c -> c[1] == "package callbacks", CLASSES0)] : CLASSES0
 function classify_samples()
     data, lidict = Profile.retrieve()
     counts = Dict{String,Int}(); total = 0

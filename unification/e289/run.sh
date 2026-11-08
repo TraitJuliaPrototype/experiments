@@ -12,15 +12,15 @@
 set -uo pipefail
 H=$(cd "$(dirname "$0")" && pwd); R=$(cd "$H/../../.." && pwd)
 source "$R/env.sh"
-part=$1; runs=${2:-3}
+label=$1; runs=${2:-3}; part=${label%%-w[0-9]*}   # a label is a part with an optional suffix -w<n> (E-292: -w123)
 EARLY=$R/julia-1.13/julia; UNI=$R/julia-unified/julia
 PYENV=${PYENV:?set PYENV}
 CSV=$R/experiments/interfaces/App/data/sample.csv
 OUT=$H/out; mkdir -p "$OUT" "$H/logs"; export MPLCONFIGDIR=$OUT/mpl JULIA_PKG_OFFLINE=true
 export JULIA_LOCK=$H/.lock JULIA_GATE=$H/.gate
-LOG=$H/logs/$part.log
+LOG=$H/logs/$label.log
 rev() { git -C "$R/$1" log -1 --format=%h; }
-{ echo "# E-289 $part $(date -Is) load $(cut -d' ' -f1-3 /proc/loadavg) | julia-1.13 $(rev julia-1.13) TraitWorld $(rev TraitWorld) TraitReport $(rev TraitReport) forks $(rev forks) TDE $(rev TraitDifferentialEquations) TraitMakie $(rev TraitMakie) | unified $(rev julia-unified) TraitWorld-unified $(rev TraitWorld-unified) TraitReport-unified $(rev TraitReport-unified) forks-unified $(rev forks-unified) TDE-unified $(rev TraitDifferentialEquations-unified) TraitMakie-unified $(rev TraitMakie-unified)"; } > "$LOG"
+{ echo "# E-289 $label $(date -Is) load $(cut -d' ' -f1-3 /proc/loadavg) | julia-1.13 $(rev julia-1.13) TraitWorld $(rev TraitWorld) TraitReport $(rev TraitReport) forks $(rev forks) TDE $(rev TraitDifferentialEquations) TraitMakie $(rev TraitMakie) | unified $(rev julia-unified) TraitWorld-unified $(rev TraitWorld-unified) TraitReport-unified $(rev TraitReport-unified) forks-unified $(rev forks-unified) TDE-unified $(rev TraitDifferentialEquations-unified) TraitMakie-unified $(rev TraitMakie-unified)"; } > "$LOG"
 
 phases() {   # marks "T t1 t2 ..." -> startup, the steps, exit, wall (as TraitReport's measure.sh)
     awk -v s="$1" -v e="$2" -v names="$3" '/^T / {
@@ -40,14 +40,14 @@ report() {   # julia dir env -- one form (f) process
         echo "$p" | grep -v '^T ' | head -3 >> "$LOG"
     done
 }
-dsession() {   # julia env -- setting D, timed from before exec to exit
-    local J=$1 env=$2
+dsession() {   # julia env [script] -- setting D, timed from before exec to exit
+    local J=$1 env=$2 script=${3:-workload_d.jl}
     cd "$R/experiments/ttfx"
     for i in w $(seq "$runs"); do
-        f=$OUT/d-$part-$i.log
+        f=$OUT/d-$label-$i.log
         { echo "W $(date +%s.%N)"
           WL_D=trait WL_SHAPE=matched WL_ORDER=A WL_SPEC=auto JULIA_NUM_THREADS=1 nice -n 10 timeout 600 \
-              "$J" --startup-file=no --compiled-modules=existing --pkgimages=existing --project=$env workload_d.jl "$OUT/png-$part" 2>&1
+              "$J" --startup-file=no --compiled-modules=existing --pkgimages=existing --project=$env $script "$OUT/png-$part" 2>&1
           echo "rc=$?"; echo "E $(date +%s.%N)"; } > "$f"
         echo "$i | load $(cut -d' ' -f1 /proc/loadavg) | $(python3 -I summarize.py "$f" | cut -d'|' -f2-)" >> "$LOG"
         grep -E '^(D|P) ' "$f" | md5sum | sed 's/^/results digest /' >> "$LOG"
@@ -62,6 +62,8 @@ case $part in
     forks-py)      (cd "$R/forks" && PYENV=$PYENV bash scripts/measure_session.sh "$runs" "py") >> "$LOG" 2>&1 ;;
     d-early)   dsession "$EARLY" env_d ;;
     d-unified) dsession "$UNI" "$H/env_d_unified" ;;
+    dprobe-unified) dsession "$UNI" "$H/env_d_unified" "$H/probe_c54.jl" ;;   # E-293: problems at Dynamic, past C-54
+    t-unified)     (cd "$R/TraitReport-unified" && JULIAS=$UNI PYENV=$PYENV bash scripts/measure.sh "$runs" "t") >> "$LOG" 2>&1 ;;
     py-app)
         for i in w $(seq "$runs"); do
             s=$(date +%s.%N); p=$("$PYENV/bin/python" "$R/experiments/interfaces/python/app.py" "$CSV" "$OUT/py.png" 2>&1 >/dev/null); e=$(date +%s.%N)
