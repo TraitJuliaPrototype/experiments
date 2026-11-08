@@ -181,6 +181,31 @@ println("from image: ", (cC.flags & 0x04) != 0, " record: ", Base.Compiler.ci_re
 println("after: ", SlotC.P(3))
 println("kept: ", current(SlotC.C, TC) === cC)
 """
+# the slot's last resort (the review of 2026-11-07, H1): a miss where no code with the caller's result
+# can be made gets an entry with the call's signature that dispatches and asserts the result. A test
+# switch sends every miss there.
+module FB
+E(x) = x + 1
+struct Pt; a::Int; b::Float64; end
+@noinline D(x::Int) = Pt(E(x), 1.0)              # an inline struct: the specialized signature
+@noinline C(x::Int) = D(x).a * 2
+end
+@testset "the last resort" begin
+    @test FB.C(3) == 8
+    f0 = ccall(:jl_code_slot_stat, Csize_t, (Cint,), 4)
+    last = ccall(:jl_code_slot_force_fallback, Cint, (Cint,), 1)
+    try
+        @eval FB E(x::Int) = x + 2                   # D compiled again; C marked; its slot misses
+        @test FB.C(3) == 10
+        @test ccall(:jl_code_slot_stat, Csize_t, (Cint,), 4) > f0
+        @test FB.C(4) == 12                           # the slot keeps the entry
+    finally
+        ccall(:jl_code_slot_force_fallback, Cint, (Cint,), last)
+    end
+    @eval FB E(x::Int) = x + 3                       # the entry follows the session's world
+    @test FB.C(3) == 12
+end
+
 @testset "a package image" begin
     cmd = addenv(`$(Base.julia_cmd()) --startup-file=no --project=$env -e $probe`,
                  "JULIA_DEPOT_PATH" => joinpath(root, "depot") * ":")
