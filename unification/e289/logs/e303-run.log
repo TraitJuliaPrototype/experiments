@@ -1,0 +1,85 @@
+== 17:44:12 1. precompile (load 5.54)
+   0.4 s  ✓ CompilerSupportLibraries_jll
+  11.2 s  ✓ TraitWorld
+  3 dependencies successfully precompiled in 12 seconds. 2 already precompiled.
+   4.1 s  ✓ TraitCSV → TraitCSVInlineStringsExt
+   7.9 s  ✓ TraitMakie
+  40 dependencies successfully precompiled in 22 seconds. 8 already precompiled.
+   0.6 s  ✓ PrecompileTools
+   1.8 s  ✓ PlainTables
+  2 dependencies successfully precompiled in 2 seconds. 45 already precompiled.
+   7.5 s  ✓ CSV → CSVDataFramesExt
+   3.4 s  ✓ CSV → CSVDataFramesInlineStringsExt
+  36 dependencies successfully precompiled in 127 seconds. 62 already precompiled.
+  17 dependencies successfully precompiled in 27 seconds. 10 already precompiled.
+
+  4 dependencies had output during precompilation:
+   7.5 s  ✓ CSV → CSVDataFramesExt
+   3.5 s  ✓ CSV → CSVDataFramesInlineStringsExt
+  36 dependencies successfully precompiled in 103 seconds. 25 already precompiled.
+   1.2 s  ✓ CSV → CSVInlineStringsExt
+  35.6 s  ✓ DataFrames
+  5 dependencies successfully precompiled in 61 seconds. 52 already precompiled.
+== 17:51:29 2. TraitDifferentialEquations' suite (load 6.65)
+tde exit 0
+== 17:52:03 3. sessions (load 5.59)
+== 17:52:40 4. validation in the forks' DataFrames load (E-299's profile) (load 4.10)
+load of DataFrames after TraitWorld, Tables, CSV: 0.928 s (profiled)
+samples: 958 on the main thread, 544 under validation (56.8 %)
+-- self, top 25 (share of validation's samples)
+   3.5 %  obvious_subtype [C]
+   3.5 %  obviously_disjoint [C]
+   3.3 %  has_free_typevars [C]
+   3.1 %  verify_method
+   3.1 %  subtype [C]
+   2.9 %  ijl_unwrap_unionall [C]
+== 17:52:43 4b. the goal's loads profiled by class (load 4.01)
+P TraitWorld 0.114 s (profiled), 94 samples | image restore 51.1%, validation 28.7%, other 9.6%, activation: the dispatch walk 5.3%, inference/compile 5.3%
+P CSV 0.444 s (profiled), 498 samples | other 37.8%, validation 30.5%, image restore 30.3%, __init__ 1.2%, activation: the dispatch walk 0.2%
+P DataFrames 0.968 s (profiled), 1067 samples | validation 47.4%, image restore 31.6%, other 16.4%, activation: the dispatch walk 2.8%, package callbacks 1.8%
+P TraitMakie 0.291 s (profiled), 289 samples | image restore 32.2%, validation 29.8%, other 18.0%, __init__ 15.6%, activation: the dispatch walk 2.4%, package callbacks 2.1%
+== 17:52:50 5. battery w124b (load 4.09)
+gates: 27 passed, 0 failed
+gates: 23 passed, 0 failed
+w124b core                 exit 0  wall 70.4 s      SUCCESS
+w124b subtype              exit 0  wall 19.0 s      SUCCESS
+w124b worlds               exit 0  wall 10.1 s      SUCCESS
+w124b ambiguous            exit 0  wall 9.9 s      SUCCESS
+w124b reflection           exit 0  wall 15.1 s      SUCCESS
+w124b Compiler/inline      exit 0  wall 96.2 s      SUCCESS
+w124b Compiler/inference   exit 0  wall 81.3 s      SUCCESS
+w124b precompile           exit 0  wall 266.1 s      SUCCESS
+AC_01_redefinitions: OK
+AC_02_stdlib: OK
+AC_03_recursion: OK
+AC_04_return_type: OK
+AC_05_return_type_redef: OK
+AC_06_return_type_wide: OK
+AC_07_assert_fold_rtsite: OK
+AC_08_base_assertion: OK
+AC_09_assert_above_rtsite: OK
+AC_10_assert_many_methods: OK
+AC_11_worlds: OK
+AC_12_cycle_redef: OK
+AC_13_union_split_cost: OK
+AC_14_narrow_after_wide: OK
+AC_15b_runtime_site: OK
+AC_15_type_value_extension: OK
+AC_16_concrete_enforcement: OK
+AC_17_compiler_always_plain: OK
+AC_18_membership_seam: OK
+AC_19: OK   (detect_ambiguities(Base) = 0, unchanged under all)
+AC_20_chain_membership: OK
+traitworld exit 0
+columns exit 0
+ode exit 0
+== 18:13:23 5b. checks (load 6.19)
+digests equal: 26 steps
+repl exit 0; marks 20 of 20; errors 0, 0 expected (transcript: /tmp/forks_check/repl.txt)
+check_session: pass
+    tag    String, 4 distinct of 500
+CHECK items: (t) and (pt) print the same summary and draw the same PNG ok
+    name   String15, 200 distinct of 200
+    x      mean 50.25  std 28.9396  min 0.5  max 100.0  sum 10050.0
+    n      mean 100.5  std 57.8792  min 1.0  max 200.0  sum 20100.0
+== 18:15:27 done (load 5.53)

@@ -15,7 +15,9 @@ t0 = time()
 Profile.@profile Core.eval(Main, :(using $(Symbol(TARGET))))
 println("load of $TARGET after $(join(BEFORE, ", ")): ", round(time() - t0, digits = 3), " s (profiled)")
 
-const VAL = ["verify_method_graph", "jl_verify", "verify_call", "_insert_backedges", "insert_backedges", "verify_methods"]
+# VP_CLASS: the frames that mark the class tallied (default validation's; e.g. "jl_membership_dispatch_walk")
+const VAL = haskey(ENV, "VP_CLASS") ? split(ENV["VP_CLASS"]) :
+    ["verify_method_graph", "jl_verify", "verify_call", "_insert_backedges", "insert_backedges", "verify_methods"]
 function tally()
     data, lidict = Profile.retrieve()
     self = Dict{String,Int}(); incl = Dict{String,Int}()

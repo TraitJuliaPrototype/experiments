@@ -73,6 +73,8 @@ E-292 to E-296 run the same harness (`run.sh`, a warm-up and 3 runs each) on eac
 | 298 | ef93ff7844 (B2), c4f9f99, TDE fcee973 | 3.37–3.45 s | 4.76–5.17 s | 3.42 s | 0.97–0.99 s | — |
 | 300 | 89b3bcff81, c4f9f99, TDE fcee973 | 2.37–2.40 s | 4.08–4.44 s | 2.82–2.84 s | 0.89–0.91 s | — |
 | 301 | d04256a442, 1f0f78e, TDE fcee973 | 2.21–2.28 s | 3.98–4.42 s | 2.75–2.82 s | 0.775–0.821 s | — |
+| 302 | d04256a442, forks 2306541 (CSV by facts) | 1.91–1.95 s | 3.89–4.04 s | — | — | — |
+| 303 | 9ac2741187, forks 2306541 | 1.81–1.83 s | 3.67–3.70 s | 2.52–2.54 s | 0.73–0.76 s | — |
 
 - E-296's forks' session is slower because of compiler §5.6's rule for a pruned arm (C-73, new in B1): see the registry's row. Its loads in a plain process compile 35 ms; at a REPL, CSV's load is 5.4–5.8 s against 0.6 s.
 - The logs of E-296 name the source's head (1d493ca959) in their headers; the binary was built from 07c0bee2a2.
