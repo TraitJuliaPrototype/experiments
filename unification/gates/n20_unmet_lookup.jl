@@ -58,7 +58,9 @@ finalcells(ci) = [e for e in ci.edges if e isa Core.MembershipCell && e.isfinal 
 isstr(io::IO) = io isa AbstractString
 @assert isstr(IOBuffer()) === false
 let ci = latest(isstr, IO)
-    @assert isdefined(ci, :rettype_const) && ci.rettype_const === false "isa folds: $(first(only(code_typed(isstr, (IO,)))))"
+    folded = isdefined(ci, :rettype_const) && (ci.rettype_const === false ||
+             (ci.rettype_const isa Core.InterConditional && ci.rettype_const.thentype === Union{}))
+    @assert folded "isa folds: $(first(only(code_typed(isstr, (IO,)))))"
     @assert any(c -> c.member === AbstractString, finalcells(ci)) "the cell (AbstractString, IO) recorded: $(ci.edges)"
 end
 w2(io::IO, a::UInt8, b::UInt8) = write(io, a, b)
@@ -66,7 +68,17 @@ w2(io::IO, a::UInt8, b::UInt8) = write(io, a, b)
 let ir = first(only(code_typed(w2, (IO, UInt8, UInt8))))
     @assert !any(st -> Meta.isexpr(st, :call) && any(a -> a isa Type && occursin("All{", string(a)), st.args), ir.code) "no branch at All{AbstractString, IO}: $ir"
 end
-@assert !any(mi -> unmet(mi.specTypes), Base.specializations(which(write, (AbstractString, UInt8, UInt8)))) "no instance at the unmet intersection"
+# an instance compiled there while Base was built stays as an object, its code invalidated once Base
+# counts as loaded
+function validcode(mi)
+    ci = isdefined(mi, :cache) ? mi.cache : nothing
+    while ci isa Core.CodeInstance
+        ci.max_world == typemax(UInt) && return true
+        ci = isdefined(ci, :next) ? ci.next : nothing
+    end
+    return false
+end
+@assert !any(mi -> unmet(mi.specTypes) && validcode(mi), Base.specializations(which(write, (AbstractString, UInt8, UInt8)))) "no valid code at the unmet intersection"
 module P20
 struct S20 <: AbstractString end
 end

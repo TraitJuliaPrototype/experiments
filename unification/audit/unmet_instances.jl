@@ -3,7 +3,8 @@
 # never run, yet it holds edges: an invalidation below it climbs through it to everything that inlined
 # or called it (the load hooks of TraitWorld, at depth 35-42, at the goal's load on 7bd8b6e512).
 #     julia-unified/julia --startup-file=no [--project=<env>] experiments/unification/audit/unmet_instances.jl [Pkg,…] [n]
-# Loads the packages, then lists the instances by function, most first. A report: it asserts nothing.
+# Loads the packages, then lists the instances with code valid in the latest world by function, most
+# first. A report: it asserts nothing.
 pkgs = length(ARGS) >= 1 && !isempty(ARGS[1]) ? split(ARGS[1], ',') : String[]
 nshow = length(ARGS) >= 2 ? parse(Int, ARGS[2]) : 40
 for p in pkgs
@@ -13,7 +14,16 @@ world = Base.get_world_counter()
 rootof(m::Module) = (p = parentmodule(m); (p === m || p === Main) ? m : rootof(p))
 
 n = 0; nunmet = 0
-byf = Dict{Any,Int}(); bymod = Dict{Module,Int}(); samples = Dict{Any,Any}(); withcode = 0
+byf = Dict{Any,Int}(); bymod = Dict{Module,Int}(); samples = Dict{Any,Any}(); withcode = 0; valid = 0
+# code valid in the latest world: a CodeInstance whose max_world is open (an invalidated one stays in the cache)
+function valid_ci(mi)
+    ci = isdefined(mi, :cache) ? mi.cache : nothing
+    while ci isa Core.CodeInstance
+        ci.max_world == typemax(UInt) && return true
+        ci = isdefined(ci, :next) ? ci.next : nothing
+    end
+    return false
+end
 Base.visit(Core.methodtable) do m
     m isa Method || return
     for mi in Base.specializations(m)
@@ -22,6 +32,8 @@ Base.visit(Core.methodtable) do m
         Base.has_unmet_intersection(mi.specTypes, world) || continue
         global nunmet += 1
         isdefined(mi, :cache) && (global withcode += 1)
+        valid_ci(mi) || continue
+        global valid += 1
         k = m.name
         byf[k] = get(byf, k, 0) + 1
         bymod[rootof(m.module)] = get(bymod, rootof(m.module), 0) + 1
@@ -29,7 +41,8 @@ Base.visit(Core.methodtable) do m
     end
 end
 println("# the unmet-instance report: world $world, packages $(isempty(pkgs) ? "none" : join(pkgs, ", "))")
-println("method instances: $n; at a signature no type is in: $nunmet ($withcode with code)")
+println("method instances: $n; at a signature no type is in: $nunmet ($withcode with code, $valid valid in the latest world)")
+println("listed below: those valid in the latest world")
 println("by module: ", join(["$k $v" for (k, v) in sort(collect(bymod); by = last, rev = true)], ", "))
 for (k, v) in first(sort(collect(byf); by = last, rev = true), nshow)
     println(lpad(v, 6), "  ", k, "   e.g. ", first(string(samples[k]), 150))

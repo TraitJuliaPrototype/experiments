@@ -28,7 +28,22 @@ julia-unified/julia --startup-file=no experiments/unification/audit/unmet_instan
 # by a nominal supertype and are not checked, with a result that infers outside the declaration
 # (`all`: every operation; a proposed declaration: `write=Int,unsafe_write=Int`, `-` for none)
 julia-unified/julia --startup-file=no experiments/unification/audit/declared_results.jl [Pkg,…] [n] [f=T,…] [core|all]
+
+# the typemap report: methods a lookup tests one by one, in a level's linear list, by function; the
+# longest single lists (a list at the root is walked by every lookup of every function)
+julia-unified/julia --startup-file=no experiments/unification/audit/typemap_linear.jl [Pkg,…] [n]
+
+# the chain report: for each invalidated instance matching a pattern, its chain from the root and the cause
+julia-unified/julia --startup-file=no --project=<env> experiments/unification/audit/invalidation_chains.jl '<regex>' Pkg,…
+
+# the load profile: where loading packages spends its time, C frames included (flat and tree)
+julia-unified/julia --startup-file=no --project=<env> experiments/unification/audit/profile_load.jl Pkg,… <flat.log> <tree.log>
 ```
+
+The compile trace of the imports (`trace-imports-*.log`) is Julia's own: `--trace-compile=<log> --trace-compile-timing -e 'using …'`.
+
+The unmet-instance report counts instances with code valid in the latest world: an invalidated instance
+stays as an object with its old code.
 
 `probes.jl` holds earlier probes. Logs are in `logs/`, named by the build.
 
@@ -55,5 +70,9 @@ carries that instance's invalidation to every caller of an instance compiled onc
 | 0c836f3ef6 | load (`load-inval-fu-0c836f3ef6.log`) | 17,035 instances invalidated; 22,791 under split edges, mostly `get` at `TTY`, an inlined branch |
 | 7bd8b6e512 (only a leaf inlined) | load (`load-inval-fu-7bd8b6e512.log`) | 6,687 instances invalidated; 2,110 under split edges; `length(::HasLength)` 121 |
 | 7bd8b6e512 | unmet instances (`unmet-instances-base-7bd8b6e512.log`) | 58 of the system image's 69,628 instances at `All{X, IO}`; the roots of the chains (35–42 deep) that recompile TraitWorld's load hooks at each load (open issue 169) |
+| 1906196731 (E-334) | unmet instances (`unmet-instances-base-e334.log`) | 0 with valid code (28 objects, compiled while Base was built, their code invalidated once Base counts as loaded) |
+| 1906196731 | load (`load-inval-fu-e334.log`) | 4,271 instances invalidated; 191 under a split's branch; TraitWorld's hooks still recompiled through plain chains (`trace-imports-fu-e334.log`: `_strict_at_load!` under `showerror`, `_atexit` under `length(::HasLength)` at `Factorization`) |
+| 1906196731 | the profile of the goal's load (`profile-load-fu-e334-{flat,tree}.log`) | of 5.0 s, validation's `verify_call` 2.8 s, nearly all in the typemap visitor's linear list (`typemap.c:832`) |
+| 1906196731 | typemap (`typemap-linear-base-e334.log`) | of Base's 24,905 methods, 2,258 in linear lists, 1,199 with an open set; one list at the root holds those 1,199, so every lookup of every function walks them (E-335); per function `show` 239, `Core.kwcall` 165, `showerror` 47 |
 
 The load report's `split_edge` over-matches (the Fable plan, §2.2): its rows "at `IO`" and "at `All{…}`" are not branches of a split.
