@@ -1,7 +1,8 @@
 # The erasure report (open issue 166): in the methods of a module whose argument is typed by a set and
 # compiled once (Base's methods typed `io::IO`), the calls left to dispatch when they run on a value of
 # the set: not one of the set's operations (those are split), with more matching methods than inference
-# unions. Their results lose their types downstream, and the instances they reach are in an image only
+# unions. For a closed abstract type with a contract (`IO`), the methods typed by it, as code compiled
+# once at it below an erasing entry (`@nospecialize(io::IO)`). Their results lose their types downstream, and the instances they reach are in an image only
 # if its build ran them. Grouped by function, most sites first: the common calls are the candidates for
 # an operation with a declared result (166 (c)), or for an image to hold their targets (166 (a)).
 #     julia-unified/julia --startup-file=no experiments/unification/audit/erased_calls.jl [Module] [Set] [n]
@@ -11,7 +12,10 @@ const CC = Base.Compiler
 root = length(ARGS) >= 1 ? getfield(Main, Symbol(ARGS[1])) : Base
 X = length(ARGS) >= 2 ? getfield(Core, Symbol(ARGS[2])) : IO
 nshow = length(ARGS) >= 3 ? parse(Int, ARGS[3]) : 40
-@assert ccall(:jl_is_open_set, Cint, (Any,), X) == 1 "$X is not a set"
+hascontract = ccall(:jl_has_contract, Cint, (Any,), X) == 1
+@assert ccall(:jl_is_open_set, Cint, (Any,), X) == 1 || hascontract "$X is neither a set nor a type with a contract"
+# a closed type's contract (compiler §7.1): its operations' methods
+contract_ops = hascontract ? collect(Any, ccall(:jl_contract_operations, Any, (Any,), X)::Core.SimpleVector) : nothing
 
 # the module's package: the module below `Main` (Base's parent is `Main`), or a toplevel module
 rootof(m::Module) = (p = parentmodule(m); (p === m || p === Main) ? m : rootof(p))
@@ -96,7 +100,7 @@ for m in methods_at
         # an operation's call at a receiver typed by the set is split: this is its fallback, past the candidates
         if fv !== nothing && settyped(recv)
             atype = Tuple{typeof(fv), Any[CC.widenconst(CC.argextype(a, ir)) for a in args]...}
-            ops = ccall(:jl_declared_methods_of, Any, (Any,), typeof(fv))::Vector{Any}
+            ops = contract_ops === nothing ? ccall(:jl_declared_methods_of, Any, (Any,), typeof(fv))::Vector{Any} : contract_ops
             if any(om -> atype <: om.sig, ops)
                 global nsplit += 1
                 continue

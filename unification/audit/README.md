@@ -10,8 +10,9 @@ directory's own dated results.
 From the design repository's root, after `source env.sh`:
 
 ```sh
-# the erasure report: dynamic calls in a module's methods typed by a set (default Base at IO), and the
-# wrapper types whose parameter, bounded by the set, types a field
+# the erasure report: dynamic calls in a module's methods typed by a set, or by a closed type with a contract
+# as code compiled once at it below an erasing entry (default Base at IO), and the wrapper types whose
+# parameter, bounded by the type, types a field
 julia-unified/julia --startup-file=no experiments/unification/audit/erased_calls.jl [Module] [Set] [n]
 
 # the load report: what loading packages invalidates, grouped by cause, by the inserted method's shape,

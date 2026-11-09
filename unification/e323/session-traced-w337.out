@@ -1,0 +1,646 @@
+# The interactive workload (plan §4.2), fed line by line to a REPL:
+#     DATA=data julia -i --banner=no --project=<env> < scripts/session.jl
+# Each step is one REPL input (results displayed as at the prompt), followed by a mark
+# `T <step> <time()>`; the harness takes the differences. Lines starting `#` are skipped by the REPL.
+_m(s) = println("T ", s, " ", time())
+_m("start")
+using CSV, DataFrames, Statistics, Dates
+_m("imports")
+D = get(ENV, "DATA", "data"); tmp = tempname(); nothing
+df = CSV.read(joinpath(D, "people.csv"), DataFrame);
+_m("read")
+df
+_m("show")
+describe(df)
+_m("describe")
+sub = subset(select(df, :id, :city, :income), :income => ByRow(x -> !ismissing(x) && x > 5e4))
+_m("select_filter")
+sort(df, [:city, :income], rev = [false, true])
+_m("sort")
+combine(groupby(df, :city), :income => mean ∘ skipmissing => :mean_income, nrow)
+_m("groupby_combine")
+transform(df, [:age, :income] => ByRow((a, i) -> coalesce(i, 0.0) / max(coalesce(a, 1), 1)) => :ratio)
+_m("user_function")
+innerjoin(df, CSV.read(joinpath(D, "orders.csv"), DataFrame), on = :id)
+_m("join")
+df.income_k = df.income ./ 1000;
+_m("add_column")
+CSV.write(tmp, df)
+_m("write")
+s2 = CSV.read(joinpath(D, "sensors.csv"), DataFrame)
+_m("2_read_show")
+describe(s2)
+_m("2_describe")
+sort(s2, [:tag, :s1])
+_m("2_sort")
+combine(groupby(s2, :tag), :s1 => mean ∘ skipmissing => :m1, :s2 => maximum ∘ skipmissing => :x2, nrow)
+_m("2_groupby_combine")
+using InlineStrings
+_m("3_using")
+df3 = CSV.read(joinpath(D, "people.csv"), DataFrame; stringtype = String15)
+_m("3_read_show")
+describe(df3)
+_m("3_describe")
+combine(groupby(df3, :city), :income => mean ∘ skipmissing => :mean_income, nrow)
+_m("3_groupby_combine")
+exit()
+#=   13.1 ms =# precompile(Tuple{Type{REPL.BasicREPL}, Any})
+#=   27.1 ms =# precompile(Tuple{typeof(Base.CoreLogging.shouldlog), Base.CoreLogging.ConsoleLogger, Base.CoreLogging.LogLevel, Module, Symbol, Symbol})
+#=    4.7 ms =# precompile(Tuple{typeof(Base.string), Module})
+#=    6.0 ms =# precompile(Tuple{typeof(Base.Filesystem.contractuser), String})
+#=    7.1 ms =# precompile(Tuple{Type{Base.IOContext{IO_t} where IO_t<:IO}, Base.GenericIOBuffer{Memory{UInt8}}, Base.TTY})
+#=    2.9 ms =# precompile(Tuple{typeof(Base.write), Base.TTY, Array{UInt8, 1}})
+┌ Warning: Terminal not fully functional
+└ @ Base client.jl:490
+#=    2.1 ms =# precompile(Tuple{Type{REPL.REPLDisplay{Repl} where Repl<:REPL.AbstractREPL}, REPL.BasicREPL})
+#=    9.5 ms =# precompile(Tuple{typeof(Base.__atreplinit), REPL.BasicREPL})
+#=    2.8 ms =# precompile(Tuple{REPL.var"#62#63"{REPL.BasicREPL, REPL.REPLBackendRef}})
+julia> #=   26.3 ms =# precompile(Tuple{typeof(Core.kwcall), NamedTuple{(:keep,), Tuple{Bool}}, typeof(Base.readline), Base.Terminals.TTYTerminal})
+#=    3.3 ms =# precompile(Tuple{typeof(Core.kwcall), NamedTuple{(:keep,), Tuple{Bool}}, typeof(Base.copyuntil), Base.GenericIOBuffer{Memory{UInt8}}, Base.TTY, UInt8})
+#=    2.2 ms =# precompile(Tuple{typeof(Base.getindex), Base.RefValue{Ptr{UInt8}}})
+#=    2.2 ms =# precompile(Tuple{typeof(Base.unsafe_convert), Type{Ptr{Ptr{UInt8}}}, Base.RefValue{Ptr{UInt8}}})
+#=    4.5 ms =# precompile(Tuple{typeof(Base.setproperty!), REPL.BasicREPL, Symbol, Bool})
+#=    1.8 ms =# precompile(Tuple{typeof(REPL.outstream), REPL.BasicREPL})
+#=    3.5 ms =# precompile(Tuple{REPL.var"#print_response##0#print_response##1"{REPL.BasicREPL, Pair{Any, Bool}, Bool, Bool}, Any})
+#=    5.1 ms =# precompile(Tuple{Type{Base.IOContext{IO_t} where IO_t<:IO}, Base.Terminals.TTYTerminal, Pair{Symbol, Module}})
+#=    3.5 ms =# precompile(Tuple{typeof(Base.indexed_iterate), Pair{Any, Bool}, Int64})
+#=    3.5 ms =# precompile(Tuple{typeof(Base.indexed_iterate), Pair{Any, Bool}, Int64, Int64})
+#=    7.1 ms =# precompile(Tuple{typeof(Base.write), Base.Terminals.TTYTerminal, Char})
+
+julia> 
+julia> 
+julia> 
+julia> #=    2.4 ms =# precompile(Tuple{REPL.var"#print_response##2#print_response##3"{typeof(Main._m)}})
+#=    7.8 ms =# precompile(Tuple{REPL.var"#display##0#display##1"{REPL.REPLDisplay{REPL.BasicREPL}, Base.Multimedia.MIME{:var"text/plain"}, Base.RefValue{Any}}, Any})
+#=    8.0 ms =# precompile(Tuple{Type{Base.IOContext{IO_t} where IO_t<:IO}, Base.Terminals.TTYTerminal, Pair{Symbol, Bool}, Pair{Symbol, Module}})
+#=    3.0 ms =# precompile(Tuple{Type{Base.IOContext{IO_t} where IO_t<:IO}, REPL.LimitIO{Base.Terminals.TTYTerminal}, Base.IOContext{Base.Terminals.TTYTerminal}})
+#=   32.2 ms =# precompile(Tuple{typeof(Base.show), Base.IOContext{REPL.LimitIO{Base.Terminals.TTYTerminal}}, Base.Multimedia.MIME{:var"text/plain"}, Function})
+#=   15.1 ms =# precompile(Tuple{typeof(Base.print), Base.IOContext{REPL.LimitIO{Base.Terminals.TTYTerminal}}, String, String, Vararg{String}})
+_m (generic function with 1 method)#=    3.2 ms =# precompile(Tuple{typeof(Base.println), Base.IOContext{Base.Terminals.TTYTerminal}})
+
+#=    3.5 ms =# precompile(Tuple{typeof(Base.indexed_iterate), Tuple{Nothing, Bool}, Int64})
+#=    3.2 ms =# precompile(Tuple{typeof(Base.indexed_iterate), Tuple{Nothing, Bool}, Int64, Int64})
+
+julia> #=    9.6 ms =# precompile(Tuple{typeof(Main._m), String})
+#=   15.7 ms =# precompile(Tuple{typeof(Base.print), Base.TTY, String, String, Vararg{Any}})
+T start #=    9.0 ms =# precompile(Tuple{typeof(Base.print), Base.TTY, Float64})
+1.794254428099133e9
+
+julia> #=    3.9 ms =# precompile(Tuple{typeof(Base.getproperty), TypeVar, Symbol})
+
+julia> T imports 1.794254429031745e9
+
+julia> #=    5.2 ms =# precompile(Tuple{typeof(Base.fl_lower), Symbol, Module, Ptr{UInt8}, UInt64})
+
+julia> #=    5.3 ms =# precompile(Tuple{typeof(Base.all), Function, Tuple{Module}})
+#=    2.1 ms =# precompile(Tuple{typeof(Base.first), Tuple{Module}})
+#=    2.1 ms =# precompile(Tuple{typeof(Base.last), Tuple{Module}})
+#=    3.3 ms =# precompile(Tuple{typeof(Base.getindex), Array{typeof(DataType), 1}, Int64})
+#=    8.6 ms =# precompile(Tuple{typeof(Base.getindex), Type{Array{UInt8, 1}}, Array{UInt8, 1}, Array{UInt8, 1}, Array{UInt8, 1}, Vararg{Array{UInt8, 1}}})
+#=    3.9 ms =# precompile(Tuple{typeof(Base.indexed_iterate), Tuple{Int64, TypeVar}, Int64})
+#=    3.6 ms =# precompile(Tuple{typeof(Base.indexed_iterate), Tuple{Int64, TypeVar}, Int64, Int64})
+[33m#=    3.9 ms =# precompile(Tuple{typeof(Base.Compiler._findall_matches), Base.Compiler.NativeInterpreter, Any}) # recompile[0m
+[33m#=    3.4 ms =# precompile(Tuple{typeof(Base.findall), Type, Base.Compiler.CachedMethodTable{Base.Compiler.InternalMethodTable}}) # recompile[0m
+#=    3.5 ms =# precompile(Tuple{typeof(Base.string), Symbol, String, Vararg{Any}})
+#=    4.2 ms =# precompile(Tuple{typeof(Base.iterate), Base.Iterators.Enumerate{Array{Symbol, 1}}})
+#=    4.5 ms =# precompile(Tuple{typeof(Base.iterate), Base.Iterators.Enumerate{Array{Symbol, 1}}, Tuple{Int64, Int64}})
+#=    2.6 ms =# precompile(Tuple{typeof(Base.length), DataStrings.StringVector{DataStrings.DataString}})
+#=    2.1 ms =# precompile(Tuple{typeof(Base.length), Array{Dates.Date, 1}})
+
+julia> T read 1.794254429112745e9
+
+julia> #=    2.6 ms =# precompile(Tuple{REPL.var"#print_response##2#print_response##3"{DataFrames.DataFrame}})
+[33m#=    8.2 ms =# precompile(Tuple{Base._SplitTarget{typeof(Base.get), Base.TTY, Any, Tuple{Symbol, Bool}}, Any, Any, Symbol, Bool}) # recompile[0m
+#=    5.2 ms =# precompile(Tuple{typeof(Base._split_pointer), Type{typeof(Base.get)}, Type{Base.IOContext{REPL.LimitIO{Base.Terminals.TTYTerminal}}}, Type{Any}, Type{Tuple{Symbol, Bool}}})
+#=   34.6 ms =# precompile(Tuple{Base._SplitTarget{typeof(Base.get), Base.IOContext{REPL.LimitIO{Base.Terminals.TTYTerminal}}, Any, Tuple{Symbol, Bool}}, Any, Any, Symbol, Bool})
+#=    3.8 ms =# precompile(Tuple{Type{Base.IOContext{IO}}, Base.IOContext{REPL.LimitIO{Base.Terminals.TTYTerminal}}})
+#=    2.1 ms =# precompile(Tuple{typeof(Base.Unicode.textwidth), String})
+#=    3.5 ms =# precompile(Tuple{typeof(Base.setindex!), Array{String, 1}, String, Int64})
+#=    3.2 ms =# precompile(Tuple{typeof(Base.displaysize), REPL.LimitIO{IO_t} where IO_t<:IO})
+#=    3.1 ms =# precompile(Tuple{typeof(REPL._displaysize), Base.Terminals.TTYTerminal})
+#=    6.5 ms =# precompile(Tuple{Type{Base.IOContext{IO_t} where IO_t<:IO}, Base.IOContext{Base.GenericIOBuffer{Memory{UInt8}}}, Pair{Symbol, Tuple{Int64, Int64}}, Pair{Symbol, Bool}})
+#=    2.1 ms =# precompile(Tuple{typeof(Base.length), Array{Array{String, 1}, 1}})
+#=    3.1 ms =# precompile(Tuple{typeof(Base.getindex), Array{Array{String, 1}, 1}, Int64})
+#=    5.1 ms =# precompile(Tuple{typeof(Base.getindex), DataStrings.StringVector{DataStrings.DataString}, Int64})
+#=    4.1 ms =# precompile(Tuple{typeof(Base.getindex), Array{Union{Base.Missing, Float64}, 1}, Int64})
+#=    1.9 ms =# precompile(Tuple{typeof(Base.ismissing), Int64})
+#=    2.9 ms =# precompile(Tuple{typeof(Base.print), Base.IOContext{Base.GenericIOBuffer{Memory{UInt8}}}, Base.SubString{String}})
+#=    5.5 ms =# precompile(Tuple{typeof(Base._split_pointer), Type{typeof(Base.unsafe_write)}, Type{REPL.LimitIO{Base.Terminals.TTYTerminal}}, Type{Int64}, Type{Tuple{Ptr{UInt8}, UInt64}}})
+10000×7 DataFrame
+   Row │ id     name          city       age      income     joined      active
+       │ Int64  DataStri…     DataStri…  Int64?   Float64?   Date        Bool
+───────┼────────────────────────────────────────────────────────────────────────
+     1 │     1  bmajj         Mainz           42    76787.8  2022-04-25   false
+     2 │     2  rojgagzay     Bonn            62    24096.8  2012-04-01   false
+     3 │     3  ubpj          Munich          64    46511.1  2015-11-29    true
+     4 │     4  tigib         Ulm             75    28599.6  2014-07-15   false
+     5 │     5  rlb           Berlin          66    36439.0  2021-08-14    true
+     6 │     6  chrj          Mainz           46  missing    2015-10-21   false
+     7 │     7  qcntdaldl     Potsdam    missing    75569.5  2017-11-06   false
+     8 │     8  rmzxfiqmnpli  Leipzig         53    85567.9  2012-02-04    true
+     9 │     9  rzkfzzs       Potsdam         40    70836.3  2013-05-20   false
+    10 │    10  goteyhk       Cologne         24    98436.3  2021-09-08    true
+    11 │    11  xguhddcge     Bonn            57    99590.5  2015-06-28   false
+    12 │    12  xao           Bremen          82    52479.7  2019-08-14   false
+    13 │    13  aburfqhvqd    Berlin          89    59188.3  2022-03-11    true
+    14 │    14  jlqsbsux      Leipzig         80    87792.3  2018-08-03    true
+    15 │    15  nqzlzaf       Kiel            37    23177.8  2012-06-27   false
+    16 │    16  aasxm         Cologne         29    36109.2  2013-06-18   false
+   ⋮   │   ⋮         ⋮            ⋮         ⋮         ⋮          ⋮         ⋮
+  9986 │  9986  uvbrhuc       Berlin          70    79972.5  2014-12-21   false
+  9987 │  9987  dxbo          Cologne         50    51656.3  2012-09-08   false
+  9988 │  9988  ripysgwlnslh  Berlin          22    77974.2  2019-03-08   false
+  9989 │  9989  mfplfxjxtu    Munich          73    45361.7  2021-12-30   false
+  9990 │  9990  ylhnrfhe      Berlin          20    72538.1  2021-06-21   false
+  9991 │  9991  dold          Mainz           26    39461.8  2015-01-07   false
+  9992 │  9992  hsyv          Ulm             56    42268.8  2014-02-03   false
+  9993 │  9993  wrxmfx        Bremen          64    47036.6  2014-05-29    true
+  9994 │  9994  vxoatxvint    Potsdam         39    79664.4  2019-02-06   false
+  9995 │  9995  tctcypsbfv    Ulm             90    83868.1  2012-07-09    true
+  9996 │  9996  ufjxu         Munich          57    92781.8  2016-03-31    true
+  9997 │  9997  dexggqod      Kiel            56    34894.2  2012-03-28    true
+  9998 │  9998  zljq          Leipzig         67    94198.9  2015-01-13    true
+  9999 │  9999  mfcdnjywwccc  Cologne         49    55768.2  2013-11-03   false
+ 10000 │ 10000  cdwzxgzyx     Dresden         21    61417.0  2017-12-20   false
+                                                               9969 rows omitted
+
+julia> T show 1.794254429224183e9
+
+julia> #=    4.4 ms =# precompile(Tuple{typeof(Base._array_for_inner), Type{Symbol}, Base.HasShape{1}, Tuple{Base.OneTo{Int64}}})
+#=    4.5 ms =# precompile(Tuple{Type{Array{Type, 1}}, UndefInitializer, Int64})
+#=    3.5 ms =# precompile(Tuple{typeof(Base.indexed_iterate), Tuple{Int64, Array{Any, 1}}, Int64})
+#=    3.5 ms =# precompile(Tuple{typeof(Base.indexed_iterate), Tuple{Int64, Array{Any, 1}}, Int64, Int64})
+#=    2.0 ms =# precompile(Tuple{typeof(Base.length), Array{Union{Nothing, Float64}, 1}})
+#=    2.0 ms =# precompile(Tuple{typeof(Base.length), Array{Type, 1}})
+#=    3.0 ms =# precompile(Tuple{typeof(Base.isassigned), Array{Symbol, 1}, Int64})
+#=    3.1 ms =# precompile(Tuple{typeof(Base.getindex), Array{Type, 1}, Int64})
+7×7 DataFrame
+ Row │ variable  mean     min         median      max         nmissing  eltype
+     │ Symbol    Union…   Any         Any         Any         Int64     Type
+─────┼──────────────────────────────────────────────────────────────────────────────────────────
+   1 │ id        5000.5   1           5000.5      10000              0  Int64
+   2 │ name               aaapu                   zzzaw              0  DataString
+   3 │ city               Berlin                  Ulm                0  DataString
+   4 │ age       53.9448  18          54.0        90               492  Union{Missing, Int64}
+   5 │ income    59727.5  20010.8     59860.8     99998.1          212  Union{Missing, Float64}
+   6 │ joined             2010-01-01  2016-12-13  2023-09-10         0  Date
+   7 │ active    0.4994   false       0.0         true               0  Bool
+
+julia> T describe 1.794254429263257e9
+
+julia> #=    8.8 ms =# precompile(Tuple{typeof(Base.getindex), Core.SimpleVector, Base.UnitRange{Int64}})
+#=    4.0 ms =# precompile(Tuple{Type{Ref{Any}}, Tuple{Pair{Symbol, Tables.ByRow{Main.var"#5#6"}}}})
+#=    3.5 ms =# precompile(Tuple{typeof(Base.map), DataFrames.var"#_preprocess_subset_args##0#_preprocess_subset_args##1"{DataFrames.DataFrame}, Tuple{Pair{Symbol, Tables.ByRow{Main.var"#5#6"}}}})
+#=    3.9 ms =# precompile(Tuple{typeof(Base.indexed_iterate), Tuple{Int64, Pair{Symbol, Tables.ByRow{Main.var"#5#6"}}}, Int64})
+#=    3.5 ms =# precompile(Tuple{typeof(Base.indexed_iterate), Tuple{Int64, Pair{Symbol, Tables.ByRow{Main.var"#5#6"}}}, Int64, Int64})
+#=    2.2 ms =# precompile(Tuple{typeof(Base.first), Pair{Symbol, Tables.ByRow{Main.var"#5#6"}}})
+#=    2.7 ms =# precompile(Tuple{Type{Pair{A, B} where B where A}, Symbol, Pair{Tables.ByRow{Main.var"#5#6"}, Symbol}})
+#=    3.8 ms =# precompile(Tuple{typeof(Base.map), DataFrames.var"#619#620"{DataFrames.DataFrame}, Tuple{Pair{Symbol, Pair{Tables.ByRow{Main.var"#5#6"}, Symbol}}}})
+#=    3.5 ms =# precompile(Tuple{typeof(Base.getproperty), Pair{Symbol, Pair{Tables.ByRow{Main.var"#5#6"}, Symbol}}, Symbol})
+#=    3.4 ms =# precompile(Tuple{typeof(Base.getproperty), Pair{Tables.ByRow{Main.var"#5#6"}, Symbol}, Symbol})
+#=    3.3 ms =# precompile(Tuple{typeof(Base.indexed_iterate), Pair{Symbol, Pair{Tables.ByRow{Main.var"#5#6"}, Symbol}}, Int64})
+#=    3.2 ms =# precompile(Tuple{typeof(Base.indexed_iterate), Pair{Symbol, Pair{Tables.ByRow{Main.var"#5#6"}, Symbol}}, Int64, Int64})
+#=    3.2 ms =# precompile(Tuple{typeof(Base.indexed_iterate), Pair{Tables.ByRow{Main.var"#5#6"}, Symbol}, Int64})
+#=    3.2 ms =# precompile(Tuple{typeof(Base.indexed_iterate), Pair{Tables.ByRow{Main.var"#5#6"}, Symbol}, Int64, Int64})
+#=    2.7 ms =# precompile(Tuple{Type{Pair{A, B} where B where A}, Int64, Pair{Tables.ByRow{Main.var"#5#6"}, Symbol}})
+#=    4.3 ms =# precompile(Tuple{Type{Ref{Any}}, Pair{Int64, Pair{Tables.ByRow{Main.var"#5#6"}, Symbol}}})
+#=    3.8 ms =# precompile(Tuple{typeof(Base.indexed_iterate), Pair{Int64, Pair{Tables.ByRow{Main.var"#5#6"}, Symbol}}, Int64})
+#=    3.5 ms =# precompile(Tuple{typeof(Base.indexed_iterate), Pair{Int64, Pair{Tables.ByRow{Main.var"#5#6"}, Symbol}}, Int64, Int64})
+#=    3.3 ms =# precompile(Tuple{Tables.ByRow{Main.var"#5#6"}, Array{Union{Base.Missing, Float64}, 1}})
+#=    2.3 ms =# precompile(Tuple{Main.var"#5#6", Float64})
+#=    2.1 ms =# precompile(Tuple{typeof(Base.length), Array{DataStrings.DataString, 1}})
+#=    4.0 ms =# precompile(Tuple{typeof(Base.getindex), Array{DataStrings.DataString, 1}, Int64})
+6102×3 DataFrame
+  Row │ id     city       income
+      │ Int64  DataStri…  Float64?
+──────┼────────────────────────────
+    1 │     1  Mainz       76787.8
+    2 │     7  Potsdam     75569.5
+    3 │     8  Leipzig     85567.9
+    4 │     9  Potsdam     70836.3
+    5 │    10  Cologne     98436.3
+    6 │    11  Bonn        99590.5
+    7 │    12  Bremen      52479.7
+    8 │    13  Berlin      59188.3
+    9 │    14  Leipzig     87792.3
+   10 │    17  Munich      62898.8
+   11 │    19  Mainz       87295.8
+   12 │    20  Dresden     92545.5
+   13 │    22  Cologne     83061.4
+   14 │    23  Mainz       70638.9
+   15 │    24  Mainz       98191.8
+   16 │    25  Berlin      74180.8
+  ⋮   │   ⋮        ⋮         ⋮
+ 6088 │  9979  Cologne     51239.8
+ 6089 │  9980  Hamburg     64039.0
+ 6090 │  9983  Mainz       84468.9
+ 6091 │  9984  Dresden     87146.4
+ 6092 │  9985  Berlin      59378.6
+ 6093 │  9986  Berlin      79972.5
+ 6094 │  9987  Cologne     51656.3
+ 6095 │  9988  Berlin      77974.2
+ 6096 │  9990  Berlin      72538.1
+ 6097 │  9994  Potsdam     79664.4
+ 6098 │  9995  Ulm         83868.1
+ 6099 │  9996  Munich      92781.8
+ 6100 │  9998  Leipzig     94198.9
+ 6101 │  9999  Cologne     55768.2
+ 6102 │ 10000  Dresden     61417.0
+                  6071 rows omitted
+
+julia> T select_filter 1.794254429351126e9
+
+julia> 10000×7 DataFrame
+   Row │ id     name          city       age     income     joined      active
+       │ Int64  DataStri…     DataStri…  Int64?  Float64?   Date        Bool
+───────┼───────────────────────────────────────────────────────────────────────
+     1 │  1365  fpbarlur      Berlin         25  missing    2016-04-16   false
+     2 │  1549  vxk           Berlin         88  missing    2013-10-20    true
+     3 │  1654  rxkao         Berlin         76  missing    2013-01-10   false
+     4 │  1971  qozkrh        Berlin         61  missing    2019-10-01    true
+     5 │  2067  xgbehvzpcieq  Berlin         42  missing    2016-02-23   false
+     6 │  2150  pqlujdne      Berlin         52  missing    2021-02-18    true
+     7 │  2253  zurb          Berlin         90  missing    2018-07-08    true
+     8 │  2485  xjpsciiwq     Berlin         61  missing    2015-07-31    true
+     9 │  2527  hcfhik        Berlin         27  missing    2016-06-26   false
+    10 │  3002  gosucdb       Berlin         46  missing    2011-09-27   false
+    11 │  4282  zvy           Berlin         41  missing    2014-01-11   false
+    12 │  4514  wyfkxsegje    Berlin         22  missing    2022-09-05    true
+    13 │  4786  uldxknbrrbx   Berlin         59  missing    2018-09-23    true
+    14 │  5771  ucxioytqixtm  Berlin         84  missing    2022-11-11    true
+    15 │  5950  eoeqmq        Berlin         55  missing    2010-09-22   false
+    16 │  7723  fnxaz         Berlin         30  missing    2023-05-28    true
+   ⋮   │   ⋮         ⋮            ⋮        ⋮         ⋮          ⋮         ⋮
+  9986 │   638  bsrpeg        Ulm            88    21450.0  2012-12-22    true
+  9987 │   286  plif          Ulm            88    21373.0  2019-04-04    true
+  9988 │  8087  ssswa         Ulm            39    21265.8  2018-02-11    true
+  9989 │  6116  oiqreotyu     Ulm            45    21235.2  2020-02-07    true
+  9990 │  4400  hocehgzpe     Ulm            49    21170.4  2012-05-26    true
+  9991 │  2209  eyfu          Ulm            72    20946.0  2016-05-14    true
+  9992 │  6301  smzhzr        Ulm            32    20928.3  2013-01-27    true
+  9993 │  7319  jwpru         Ulm            70    20873.7  2020-04-17   false
+  9994 │  6325  dnqzg         Ulm            72    20573.4  2011-09-13   false
+  9995 │  5183  komkvoipgt    Ulm            69    20491.3  2012-04-22    true
+  9996 │  6478  dhbqiqhfh     Ulm            34    20441.3  2012-05-01   false
+  9997 │  6350  nrqce         Ulm            38    20310.6  2021-02-21   false
+  9998 │  9540  zkqmfgpwo     Ulm            58    20246.4  2016-06-09   false
+  9999 │  8910  jcvuqp        Ulm            55    20197.8  2017-03-31    true
+ 10000 │  8688  fmauvtkrkwwn  Ulm            85    20145.3  2015-09-17   false
+                                                              9969 rows omitted
+
+julia> T sort 1.794254429405643e9
+
+julia> #=    4.9 ms =# precompile(Tuple{typeof(DataFrames.combine), DataFrames.GroupedDataFrame{DataFrames.DataFrame}, Union{Base.Regex, AbstractString, Function, Signed, Symbol, Unsigned, AbstractArray{T, 1} where T, AbstractArray{T, 2} where T, Pair{A, B} where B where A, Type, DataAPI.All{T} where T<:Tuple, DataAPI.Between{T1, T2} where T2<:Union{Int64, Symbol} where T1<:Union{Int64, Symbol}, DataAPI.Cols{T} where T<:Tuple, InvertedIndices.InvertedIndex{S} where S}, Union{Base.Regex, AbstractString, Function, Signed, Symbol, Unsigned, AbstractArray{T, 1} where T, AbstractArray{T, 2} where T, Pair{A, B} where B where A, Type, DataAPI.All{T} where T<:Tuple, DataAPI.Between{T1, T2} where T2<:Union{Int64, Symbol} where T1<:Union{Int64, Symbol}, DataAPI.Cols{T} where T<:Tuple, InvertedIndices.InvertedIndex{S} where S}})
+#=    3.4 ms =# precompile(Tuple{typeof(Base.getproperty), Pair{Base.ComposedFunction{typeof(Statistics.mean), typeof(Base.skipmissing)}, Symbol}, Symbol})
+#=    3.2 ms =# precompile(Tuple{typeof(Base.indexed_iterate), Pair{Base.ComposedFunction{typeof(Statistics.mean), typeof(Base.skipmissing)}, Symbol}, Int64})
+#=    3.2 ms =# precompile(Tuple{typeof(Base.indexed_iterate), Pair{Base.ComposedFunction{typeof(Statistics.mean), typeof(Base.skipmissing)}, Symbol}, Int64, Int64})
+#=    3.5 ms =# precompile(Tuple{typeof(Base.setindex!), Array{Task, 1}, Task, Int64})
+#=    2.1 ms =# precompile(Tuple{typeof(Base.length), Array{Float64, 1}})
+#=    3.1 ms =# precompile(Tuple{typeof(Base.getindex), Array{Float64, 1}, Int64})
+12×3 DataFrame
+ Row │ city       mean_income  nrow
+     │ DataStri…  Float64      Int64
+─────┼───────────────────────────────
+   1 │ Mainz          59056.5    840
+   2 │ Bonn           58888.8    826
+   3 │ Munich         58997.6    865
+   4 │ Ulm            59572.8    797
+   5 │ Berlin         59135.1    888
+   6 │ Potsdam        61327.8    848
+   7 │ Leipzig        58309.9    824
+   8 │ Cologne        61795.0    818
+   9 │ Bremen         60256.9    835
+  10 │ Kiel           59463.8    855
+  11 │ Dresden        60501.5    794
+  12 │ Hamburg        59512.4    810
+
+julia> T groupby_combine 1.794254429435098e9
+
+julia> #=    2.8 ms =# precompile(Tuple{Type{Pair{A, B} where B where A}, Array{Symbol, 1}, Pair{Tables.ByRow{Main.var"#8#9"}, Symbol}})
+#=    4.0 ms =# precompile(Tuple{typeof(Base.map), DataFrames.var"#619#620"{DataFrames.DataFrame}, Tuple{Base.Colon, Pair{Array{Symbol, 1}, Pair{Tables.ByRow{Main.var"#8#9"}, Symbol}}}})
+#=    3.5 ms =# precompile(Tuple{typeof(Base.getproperty), Pair{Array{Symbol, 1}, Pair{Tables.ByRow{Main.var"#8#9"}, Symbol}}, Symbol})
+#=    3.4 ms =# precompile(Tuple{typeof(Base.getproperty), Pair{Tables.ByRow{Main.var"#8#9"}, Symbol}, Symbol})
+#=   31.1 ms =# precompile(Tuple{typeof(DataFrames.normalize_selection), DataFrames.Index, Pair{var"#s123", var"#s122"} where var"#s122"<:(Pair{var"#s121", var"#s120"} where var"#s120"<:Union{AbstractArray{Symbol, 1}, AbstractString, typeof(DataType), Function, Symbol, AbstractArray{var"#s113", 1} where var"#s113"<:AbstractString} where var"#s121"<:Union{Function, Type}) where var"#s123", Bool})
+#=    2.7 ms =# precompile(Tuple{typeof(Base.last), Pair{Array{Symbol, 1}, Pair{Tables.ByRow{Main.var"#8#9"}, Symbol}}})
+#=    2.1 ms =# precompile(Tuple{typeof(Base.last), Pair{Tables.ByRow{Main.var"#8#9"}, Symbol}})
+#=    2.1 ms =# precompile(Tuple{typeof(Base.first), Pair{Array{Symbol, 1}, Pair{Tables.ByRow{Main.var"#8#9"}, Symbol}}})
+#=    2.7 ms =# precompile(Tuple{Type{Pair{A, B} where B where A}, Array{Int64, 1}, Pair{Tables.ByRow{Main.var"#8#9"}, Symbol}})
+#=    6.4 ms =# precompile(Tuple{typeof(Base.copy), Array{Union{Base.Missing, Int64}, 1}})
+#=    6.2 ms =# precompile(Tuple{typeof(Base.copy), Array{Union{Base.Missing, Float64}, 1}})
+#=    5.1 ms =# precompile(Tuple{typeof(Base.copy), Array{Dates.Date, 1}})
+#=    4.9 ms =# precompile(Tuple{typeof(Base.copy), Array{Bool, 1}})
+#=    4.1 ms =# precompile(Tuple{Type{Ref{Any}}, Pair{Array{Int64, 1}, Pair{Tables.ByRow{Main.var"#8#9"}, Symbol}}})
+#=    3.6 ms =# precompile(Tuple{typeof(Base.indexed_iterate), Pair{Array{Int64, 1}, Pair{Tables.ByRow{Main.var"#8#9"}, Symbol}}, Int64})
+#=    3.3 ms =# precompile(Tuple{typeof(Base.indexed_iterate), Pair{Array{Int64, 1}, Pair{Tables.ByRow{Main.var"#8#9"}, Symbol}}, Int64, Int64})
+#=    3.2 ms =# precompile(Tuple{typeof(Base.indexed_iterate), Pair{Tables.ByRow{Main.var"#8#9"}, Symbol}, Int64})
+#=    3.2 ms =# precompile(Tuple{typeof(Base.indexed_iterate), Pair{Tables.ByRow{Main.var"#8#9"}, Symbol}, Int64, Int64})
+#=    5.0 ms =# precompile(Tuple{Tables.ByRow{Main.var"#8#9"}, Array{Union{Base.Missing, Int64}, 1}, Array{Union{Base.Missing, Float64}, 1}})
+#=    4.1 ms =# precompile(Tuple{Type{Array{Float64, 1}}, UndefInitializer, Int64})
+#=    2.8 ms =# precompile(Tuple{Main.var"#8#9", Int64, Float64})
+#=    2.8 ms =# precompile(Tuple{typeof(Base.setindex!), Array{Float64, 1}, Float64, Int64})
+#=    2.8 ms =# precompile(Tuple{Main.var"#8#9", Int64, Base.Missing})
+#=    2.4 ms =# precompile(Tuple{Main.var"#8#9", Base.Missing, Float64})
+10000×8 DataFrame
+   Row │ id     name          city       age      income     joined      active  ratio
+       │ Int64  DataStri…     DataStri…  Int64?   Float64?   Date        Bool    Float64
+───────┼───────────────────────────────────────────────────────────────────────────────────
+     1 │     1  bmajj         Mainz           42    76787.8  2022-04-25   false   1828.28
+     2 │     2  rojgagzay     Bonn            62    24096.8  2012-04-01   false    388.658
+     3 │     3  ubpj          Munich          64    46511.1  2015-11-29    true    726.736
+     4 │     4  tigib         Ulm             75    28599.6  2014-07-15   false    381.329
+     5 │     5  rlb           Berlin          66    36439.0  2021-08-14    true    552.106
+     6 │     6  chrj          Mainz           46  missing    2015-10-21   false      0.0
+     7 │     7  qcntdaldl     Potsdam    missing    75569.5  2017-11-06   false  75569.5
+     8 │     8  rmzxfiqmnpli  Leipzig         53    85567.9  2012-02-04    true   1614.49
+     9 │     9  rzkfzzs       Potsdam         40    70836.3  2013-05-20   false   1770.91
+    10 │    10  goteyhk       Cologne         24    98436.3  2021-09-08    true   4101.51
+    11 │    11  xguhddcge     Bonn            57    99590.5  2015-06-28   false   1747.2
+    12 │    12  xao           Bremen          82    52479.7  2019-08-14   false    639.997
+    13 │    13  aburfqhvqd    Berlin          89    59188.3  2022-03-11    true    665.037
+    14 │    14  jlqsbsux      Leipzig         80    87792.3  2018-08-03    true   1097.4
+    15 │    15  nqzlzaf       Kiel            37    23177.8  2012-06-27   false    626.426
+    16 │    16  aasxm         Cologne         29    36109.2  2013-06-18   false   1245.14
+   ⋮   │   ⋮         ⋮            ⋮         ⋮         ⋮          ⋮         ⋮         ⋮
+  9986 │  9986  uvbrhuc       Berlin          70    79972.5  2014-12-21   false   1142.46
+  9987 │  9987  dxbo          Cologne         50    51656.3  2012-09-08   false   1033.13
+  9988 │  9988  ripysgwlnslh  Berlin          22    77974.2  2019-03-08   false   3544.28
+  9989 │  9989  mfplfxjxtu    Munich          73    45361.7  2021-12-30   false    621.393
+  9990 │  9990  ylhnrfhe      Berlin          20    72538.1  2021-06-21   false   3626.91
+  9991 │  9991  dold          Mainz           26    39461.8  2015-01-07   false   1517.76
+  9992 │  9992  hsyv          Ulm             56    42268.8  2014-02-03   false    754.801
+  9993 │  9993  wrxmfx        Bremen          64    47036.6  2014-05-29    true    734.947
+  9994 │  9994  vxoatxvint    Potsdam         39    79664.4  2019-02-06   false   2042.68
+  9995 │  9995  tctcypsbfv    Ulm             90    83868.1  2012-07-09    true    931.867
+  9996 │  9996  ufjxu         Munich          57    92781.8  2016-03-31    true   1627.75
+  9997 │  9997  dexggqod      Kiel            56    34894.2  2012-03-28    true    623.111
+  9998 │  9998  zljq          Leipzig         67    94198.9  2015-01-13    true   1405.95
+  9999 │  9999  mfcdnjywwccc  Cologne         49    55768.2  2013-11-03   false   1138.13
+ 10000 │ 10000  cdwzxgzyx     Dresden         21    61417.0  2017-12-20   false   2924.62
+                                                                          9969 rows omitted
+
+julia> T user_function 1.794254429569203e9
+
+julia> #=    2.5 ms =# precompile(Tuple{typeof(Base.length), Array{Durations.Timestamp{Dates.Nanosecond}, 1}})
+#=    3.3 ms =# precompile(Tuple{typeof(Base.indexed_iterate), Tuple{Array{Int64, 1}, Array{Int64, 1}}, Int64})
+#=    3.1 ms =# precompile(Tuple{typeof(Base.indexed_iterate), Tuple{Array{Int64, 1}, Array{Int64, 1}}, Int64, Int64})
+#=    2.0 ms =# precompile(Tuple{typeof(Base.length), Array{AbstractArray{T, 1} where T, 1}})
+#=    2.1 ms =# precompile(Tuple{typeof(Base.isless), Int64, Int64})
+#=    3.1 ms =# precompile(Tuple{typeof(Base.indexed_iterate), Tuple{Base.GMP.BigInt, Base.GMP.BigInt}, Int64})
+#=    3.1 ms =# precompile(Tuple{typeof(Base.indexed_iterate), Tuple{Base.GMP.BigInt, Base.GMP.BigInt}, Int64, Int64})
+#=    3.1 ms =# precompile(Tuple{typeof(Base.:(>)), Base.GMP.BigInt, Int64})
+#=    2.6 ms =# precompile(Tuple{typeof(Base.div), Base.GMP.BigInt, Int64})
+#=    3.0 ms =# precompile(Tuple{typeof(Base.:(<)), Base.GMP.BigInt, Int64})
+#=    4.7 ms =# precompile(Tuple{Type{Array{AbstractArray{T, 1} where T, 1}}, UndefInitializer, Int64})
+#=    3.1 ms =# precompile(Tuple{typeof(Base.show), Base.GenericIOBuffer{Memory{UInt8}}, Type})
+#=    3.1 ms =# precompile(Tuple{typeof(Base.getindex), Array{Durations.Timestamp{Dates.Nanosecond}, 1}, Int64})
+50000×11 DataFrame
+   Row │ id     name          city       age      income     joined      active  order_id  amount   item       ts      ⋯
+       │ Int64  DataStri…     DataStri…  Int64?   Float64?   Date        Bool    Int64     Float64  DataStri…  Timesta ⋯
+───────┼────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+     1 │  5224  rdnyypotl     Bonn            54    79673.6  2015-06-22    true         1   175.26  item06     2024-07 ⋯
+     2 │  7288  ofxqnym       Bonn            65    80943.2  2016-12-03   false         2   377.01  item16     2024-04
+     3 │  6604  xxngsjziwhen  Ulm        missing    97476.7  2010-03-19    true         3     4.96  item06     2024-04
+     4 │  7900  tiwieoldlbuh  Bonn            56    31213.4  2021-04-28   false         4   391.29  item12     2024-07
+     5 │  6973  byo           Munich          58  missing    2012-05-02    true         5   455.8   item03     2024-05 ⋯
+     6 │   715  wrowlszbf     Hamburg         77    39130.1  2019-04-23   false         6    22.72  item34     2024-03
+     7 │  5340  nvuvttaphn    Mainz           69    75057.6  2015-09-14    true         7   190.0   item14     2024-09
+     8 │  5923  rbosx         Ulm             80    65401.5  2014-01-02    true         8    56.53  item04     2024-06
+     9 │  7010  scxeymjhptgp  Kiel            24    44044.0  2019-04-15   false         9   144.86  item37     2024-05 ⋯
+    10 │  2949  ukybtebzh     Dresden         33    85439.6  2011-10-31   false        10   490.13  item14     2024-03
+    11 │  4171  twgfivc       Bremen          39    28118.1  2016-01-26    true        11   365.34  item07     2024-01
+    12 │  2853  asdsvgocvvxu  Munich          88    91992.7  2012-02-11    true        12   162.15  item21     2024-01
+    13 │  8203  ucmtawn       Berlin          61    91747.3  2014-06-14    true        13   397.94  item33     2024-09 ⋯
+    14 │  9248  xcd           Bonn            53    22114.2  2023-06-26    true        14    96.32  item13     2024-10
+    15 │   793  blq           Munich          41    31661.7  2014-10-06    true        15   428.99  item27     2024-07
+    16 │  4656  rtygdtyd      Dresden         35    87668.2  2012-04-19   false        16   234.35  item26     2024-04
+   ⋮   │   ⋮         ⋮            ⋮         ⋮         ⋮          ⋮         ⋮        ⋮         ⋮         ⋮              ⋱
+ 49986 │  8582  wosmtami      Bonn            41    75997.6  2016-06-08    true     49986   320.61  item36     2024-12 ⋯
+ 49987 │  1669  fgbnywuxhjc   Bremen          56    24674.3  2015-04-21   false     49987   292.66  item02     2024-04
+ 49988 │  9804  yfavfv        Leipzig         24    73568.0  2011-07-09   false     49988   272.31  item32     2024-04
+ 49989 │  4424  ukbogxywwmx   Berlin          27    51119.7  2011-12-20    true     49989   131.79  item02     2024-02
+ 49990 │  7572  ussrensvjlm   Berlin          47    45923.1  2011-07-30    true     49990   116.51  item19     2024-12 ⋯
+ 49991 │  7029  zssryuzdq     Potsdam         66    87133.9  2021-12-25    true     49991   394.27  item23     2024-10
+ 49992 │   305  qihdtlox      Berlin          25    60834.0  2019-05-10    true     49992   450.21  item11     2024-11
+ 49993 │  9961  yhxtrmo       Mainz           88    50073.9  2013-12-23   false     49993   386.83  item09     2024-07
+ 49994 │  4519  zdlsciychx    Berlin          50    45034.2  2022-07-29   false     49994   446.98  item39     2024-01 ⋯
+ 49995 │  7862  qgoup         Ulm             78    65800.9  2014-09-24   false     49995   383.25  item26     2024-01
+ 49996 │  1130  rxdroaqnghia  Munich          84    57506.9  2015-07-29   false     49996   490.54  item02     2024-08
+ 49997 │   945  hxkqixhlml    Berlin          62    64607.8  2019-03-19    true     49997   411.88  item27     2024-03
+ 49998 │  4583  xxzbnmfyh     Mainz           34    25858.4  2016-08-15   false     49998   498.58  item31     2024-10 ⋯
+ 49999 │   851  wltbd         Cologne         54    69803.6  2010-09-21    true     49999   380.5   item24     2024-04
+ 50000 │  6626  lsnbh         Potsdam         79    43097.4  2016-04-24   false     50000   420.21  item14     2024-12
+                                                                                         1 column and 49969 rows omitted
+
+julia> T join 1.794254429639636e9
+
+julia> #=    2.5 ms =# precompile(Tuple{typeof(Base.setproperty!), DataFrames.DataFrame, Symbol, Array{Union{Base.Missing, Float64}, 1}})
+
+julia> T add_column 1.794254429642889e9
+
+julia> #=    4.3 ms =# precompile(Tuple{Type{CSV._ColumnEmitter{C, O, F, S, G} where G where S where F where O<:(CSV.WriteOpts{F, D} where D<:Union{Nothing, Dates.DateFormat{S, T} where T<:Tuple where S} where F<:Union{Nothing, Printf.Format{S, T} where T where S}) where C<:CSV._WriterColumns}, CSV._WriterColumns, Int64, Int64, CSV.WriteOpts{Nothing, Nothing}, typeof(CSV._identity_transform), Int64, Array{UInt8, 1}, Bool, Base.Val{false}, Base.Val{false}})
+#=   24.1 ms =# precompile(Tuple{Base.var"##open#326", Base.Pairs{Symbol, Union{}, Nothing, NamedTuple{(), Tuple{}}}, typeof(Base.open), CSV._ColumnEmitter{CSV._WriterColumns, CSV.WriteOpts{Nothing, Nothing}, typeof(CSV._identity_transform), Base.Val{false}, Base.Val{false}}, String, Vararg{String}})
+#=    3.1 ms =# precompile(Tuple{typeof(Base.open), String, String})
+#=   15.7 ms =# precompile(Tuple{typeof(Base.setindex!), Array{Union{Nothing, Task}, 1}, Task, Int64})
+#=   15.7 ms =# precompile(Tuple{CSV.var"#_ordered_parallel_blocks!##0#_ordered_parallel_blocks!##1"{CSV.var"#_emitrowblocks!##1#_emitrowblocks!##2"{CSV._WriterColumns, CSV.WriteOpts{Nothing, Nothing}, CSV.var"#bounds#_emitrowblocks!##0"{Int64, Int64}}, Int64, Int64}})
+#=    5.9 ms =# precompile(Tuple{CSV.var"#_emitrowblocks!##3#_emitrowblocks!##4"{Base.IOStream, Base.RefValue{Bool}, Int64}, CSV._WriteBuffer})
+#=    2.6 ms =# precompile(Tuple{REPL.var"#print_response##2#print_response##3"{String}})
+#=  134.6 ms =# precompile(Tuple{typeof(Base.show), Base.IOContext{REPL.LimitIO{Base.Terminals.TTYTerminal}}, Base.Multimedia.MIME{:var"text/plain"}, String})
+"/tmp/jl_HMNmfiH8fW"
+
+julia> T write 1.794254430150105e9
+
+julia> 10000×8 DataFrame
+   Row │ t        s1            s2            s3        s4            s5        s6            tag
+       │ Float64  Float64?      Float64?      Float64?  Float64?      Float64?  Float64?      DataStri…
+───────┼────────────────────────────────────────────────────────────────────────────────────────────────
+     1 │     0.1        0.0342        1.7865    3.4859        4.9555    4.4541        5.831   alpha
+     2 │     0.2        1.3124        2.726     4.0768        2.9028    4.7464        6.0238  gamma
+     3 │     0.3       -0.4006        1.663     2.3713        2.0913    5.7207        6.5702  gamma
+     4 │     0.4        0.3158        1.8701    2.0817        5.1761    4.7629        4.5461  gamma
+     5 │     0.5        0.493   missing         4.4497        4.0302    5.8707        5.7442  beta
+     6 │     0.6        0.7145        2.5978    2.9375        3.9959    3.2008        7.1761  alpha
+     7 │     0.7        1.4134        2.709     4.2666  missing         4.4345        5.524   delta
+     8 │     0.8        1.6671        1.0856    3.4636        5.2276    4.1479        7.0574  delta
+     9 │     0.9        1.7362        2.2013    2.3346        2.8955    4.086         5.4294  delta
+    10 │     1.0        3.115         1.2584    3.3852        2.9805    5.5697        5.6589  alpha
+    11 │     1.1        0.4374        2.5864    2.6221        4.0357    5.1138        5.2839  gamma
+    12 │     1.2       -0.4523        1.7457    3.8237        3.0532    6.2251        6.2835  beta
+    13 │     1.3       -0.8862        2.6757    3.4638        4.6813    4.3772        4.8006  alpha
+    14 │     1.4        1.151   missing         3.1297        4.1212    4.0605        5.7232  gamma
+    15 │     1.5        1.3686        2.9958    3.0141        3.9846    5.0029        6.8812  gamma
+    16 │     1.6        1.4011        3.5237    3.692         3.5656    3.5863        6.5997  alpha
+   ⋮   │    ⋮          ⋮             ⋮           ⋮           ⋮           ⋮           ⋮            ⋮
+  9986 │   998.6        0.8875        1.1673    3.2043        3.3306    5.6753        4.7889  gamma
+  9987 │   998.7        0.6231        3.0017    2.3719        4.3743    4.3942        5.8228  alpha
+  9988 │   998.8        0.9944        0.6499    2.8648        5.3786    5.102         7.3491  beta
+  9989 │   998.9        1.9202        2.4853    2.6346        5.2383    5.1434        4.8999  alpha
+  9990 │   999.0        2.5135       -0.1558    3.3979        3.4721    5.8625        5.828   alpha
+  9991 │   999.1        0.7874        1.0114    3.898         4.7751    4.8709        4.0825  gamma
+  9992 │   999.2        2.4735        1.119     3.8062        4.066     3.3598        7.1233  alpha
+  9993 │   999.3        0.9761        2.298     2.1519        2.6975    3.7981        7.4691  delta
+  9994 │   999.4        1.7797        1.35      2.5536        6.6672    4.8796        5.5029  alpha
+  9995 │   999.5        1.1355        2.6486    3.3216        3.2089    4.9294        6.3686  alpha
+  9996 │   999.6        0.6415        1.2425    2.7154        4.9052    5.0709        5.1291  gamma
+  9997 │   999.7        2.5024       -0.2952    3.5871        4.4758    7.2492        6.8488  gamma
+  9998 │   999.8  missing             2.4459    2.2532        4.775     4.2674        5.214   beta
+  9999 │   999.9        0.0721        3.1923    3.0109        3.3984    4.2478  missing       beta
+ 10000 │  1000.0        3.2098        3.817     1.4652        2.6841    3.0787        4.5878  beta
+                                                                                       9969 rows omitted
+
+julia> T 2_read_show 1.794254430157636e9
+
+julia> #=   30.7 ms =# precompile(Tuple{typeof(Base.setindex_widen_up_to), Array{Float64, 1}, DataStrings.DataString, Int64})
+8×7 DataFrame
+ Row │ variable  mean      min      median   max     nmissing  eltype
+     │ Symbol    Union…    Any      Union…   Any     Int64     Type
+─────┼─────────────────────────────────────────────────────────────────────────────────
+   1 │ t         500.05    0.1      500.05   1000.0         0  Float64
+   2 │ s1        0.985969  -2.9119  0.9859   4.9675       289  Union{Missing, Float64}
+   3 │ s2        1.99409   -1.4759  2.00525  5.809        316  Union{Missing, Float64}
+   4 │ s3        3.01735   -0.981   3.0155   6.5683       321  Union{Missing, Float64}
+   5 │ s4        3.99393   0.3037   3.9936   7.9414       317  Union{Missing, Float64}
+   6 │ s5        5.00271   1.6266   5.00405  8.6387       320  Union{Missing, Float64}
+   7 │ s6        5.99149   2.0518   5.98655  9.7263       310  Union{Missing, Float64}
+   8 │ tag                 alpha             gamma          0  DataString
+
+julia> T 2_describe 1.79425443019524e9
+
+julia> 10000×8 DataFrame
+   Row │ t        s1            s2        s3        s4            s5        s6        tag
+       │ Float64  Float64?      Float64?  Float64?  Float64?      Float64?  Float64?  DataStri…
+───────┼────────────────────────────────────────────────────────────────────────────────────────
+     1 │   289.2       -2.0053    2.582     1.4495        4.8209    5.3843    6.1747  alpha
+     2 │   180.2       -1.8729    0.5733    3.1588        5.317     5.3807    7.021   alpha
+     3 │   718.9       -1.8314    0.3314    2.3034        3.6808    6.1144    5.2184  alpha
+     4 │   433.3       -1.812     1.7531    2.4196        4.1731    4.0484    5.5152  alpha
+     5 │   129.9       -1.754     1.1085    1.712         4.7197    5.4069    7.1764  alpha
+     6 │   302.6       -1.7523    3.199     2.7679        7.4689    5.496     5.3287  alpha
+     7 │   591.1       -1.6674    0.8041    3.7322        4.2615    5.1256    8.7641  alpha
+     8 │   546.2       -1.6565    2.5871    4.0171        3.5219    4.9451    6.0271  alpha
+     9 │   718.5       -1.6006    1.3635    3.4075        4.0316    4.9548    5.9844  alpha
+    10 │   513.8       -1.5993    3.1956    3.8627        5.0057    5.9124    4.9365  alpha
+    11 │   287.2       -1.5627    3.4883    3.1717        4.3025    5.3328    5.8175  alpha
+    12 │   779.9       -1.5438    3.0906    2.1514        6.6533    5.8493    6.7476  alpha
+    13 │   384.4       -1.5411    2.4542    2.6138        2.7171    3.5181    5.2419  alpha
+    14 │   645.8       -1.533     1.5514    3.8779        3.911     5.8727    5.2832  alpha
+    15 │   434.0       -1.5219    1.0838    3.9703        3.5735    4.1447    6.6945  alpha
+    16 │   763.6       -1.5203    1.7242    1.1511  missing         5.5473    7.6614  alpha
+   ⋮   │    ⋮          ⋮           ⋮         ⋮           ⋮           ⋮         ⋮          ⋮
+  9986 │   803.6  missing         2.4931    4.7845        4.3278    5.9165    6.0408  gamma
+  9987 │   835.0  missing         2.3969    2.4445        3.974     5.2094    5.0778  gamma
+  9988 │   843.9  missing         2.3784    5.2923        5.2644    4.2852    7.075   gamma
+  9989 │   844.7  missing         3.3195    3.5692        2.9614    6.2215    9.1072  gamma
+  9990 │   879.4  missing         0.8245    3.3355        4.6057    4.8784    5.6786  gamma
+  9991 │   896.6  missing         1.037     3.5462        6.5922    3.5672    6.9382  gamma
+  9992 │   897.9  missing         2.2853    3.5909        3.9725    5.8134    6.3595  gamma
+  9993 │   919.9  missing         2.4493    1.7078        6.1943    4.5397    5.3108  gamma
+  9994 │   935.0  missing         1.9067    2.5115        4.0846    4.4211    4.8954  gamma
+  9995 │   937.3  missing         1.6086    4.7674        3.32      5.8356    5.9094  gamma
+  9996 │   937.7  missing         1.8217    2.7684        4.935     4.7881    7.3903  gamma
+  9997 │   950.7  missing         1.8723    3.9382        3.7502    5.427     4.8622  gamma
+  9998 │   960.0  missing         3.0546    1.3333        5.4084    4.7263    6.0643  gamma
+  9999 │   972.5  missing         3.3963    2.2891        4.67      4.3985    6.8662  gamma
+ 10000 │   975.2  missing         1.2929    3.0668        3.7775    4.8846    6.2169  gamma
+                                                                               9969 rows omitted
+
+julia> T 2_sort 1.794254430239297e9
+
+julia> #=    3.8 ms =# precompile(Tuple{Type{Pair{A, B} where B where A}, Symbol, Pair{Base.ComposedFunction{typeof(Base.maximum), typeof(Base.skipmissing)}, Symbol}})
+#=    4.2 ms =# precompile(Tuple{typeof(Base.map), DataFrames.var"#809#810"{DataFrames.GroupedDataFrame{DataFrames.DataFrame}}, Tuple{Pair{Symbol, Pair{Base.ComposedFunction{typeof(Statistics.mean), typeof(Base.skipmissing)}, Symbol}}, Pair{Symbol, Pair{Base.ComposedFunction{typeof(Base.maximum), typeof(Base.skipmissing)}, Symbol}}, typeof(DataAPI.nrow)}})
+#=    4.2 ms =# precompile(Tuple{Type{Ref{Any}}, Tuple{Pair{Symbol, Pair{Base.ComposedFunction{typeof(Statistics.mean), typeof(Base.skipmissing)}, Symbol}}, Pair{Symbol, Pair{Base.ComposedFunction{typeof(Base.maximum), typeof(Base.skipmissing)}, Symbol}}, typeof(DataAPI.nrow)}})
+#=    3.4 ms =# precompile(Tuple{typeof(Base.getproperty), Pair{Symbol, Pair{Base.ComposedFunction{typeof(Base.maximum), typeof(Base.skipmissing)}, Symbol}}, Symbol})
+#=    3.3 ms =# precompile(Tuple{typeof(Base.getproperty), Pair{Base.ComposedFunction{typeof(Base.maximum), typeof(Base.skipmissing)}, Symbol}, Symbol})
+#=    3.3 ms =# precompile(Tuple{typeof(Base.indexed_iterate), Pair{Symbol, Pair{Base.ComposedFunction{typeof(Base.maximum), typeof(Base.skipmissing)}, Symbol}}, Int64})
+#=    3.3 ms =# precompile(Tuple{typeof(Base.indexed_iterate), Pair{Symbol, Pair{Base.ComposedFunction{typeof(Base.maximum), typeof(Base.skipmissing)}, Symbol}}, Int64, Int64})
+#=    3.2 ms =# precompile(Tuple{typeof(Base.indexed_iterate), Pair{Base.ComposedFunction{typeof(Base.maximum), typeof(Base.skipmissing)}, Symbol}, Int64})
+#=    3.2 ms =# precompile(Tuple{typeof(Base.indexed_iterate), Pair{Base.ComposedFunction{typeof(Base.maximum), typeof(Base.skipmissing)}, Symbol}, Int64, Int64})
+4×4 DataFrame
+ Row │ tag        m1        x2       nrow
+     │ DataStri…  Float64   Float64  Int64
+─────┼─────────────────────────────────────
+   1 │ alpha      1.00304    5.7793   2457
+   2 │ gamma      0.97881    5.6409   2499
+   3 │ beta       0.985546   5.3997   2557
+   4 │ delta      0.976634   5.809    2487
+
+julia> T 2_groupby_combine 1.794254430274655e9
+
+julia> 
+julia> T 3_using 1.794254430275246e9
+
+julia> #=    3.3 ms =# precompile(Tuple{typeof(Core.kwcall), NamedTuple{(:stringtype,), Tuple{typeof(DataType)}}, typeof(CSV.read), String, Type})
+#=   10.6 ms =# precompile(Tuple{typeof(Base.afoldl), Base.var"#getindex##2#getindex##3"{Array{AbstractArray{T, 1} where T, 1}}, Int64, Array{Int64, 1}, DataStrings.StringVector{DataStrings.DataString}, DataStrings.StringVector{DataStrings.DataString}, Array{Union{Base.Missing, Int64}, 1}, Array{Union{Base.Missing, Float64}, 1}, Array{Dates.Date, 1}, Array{Bool, 1}})
+10000×7 DataFrame
+   Row │ id     name          city      age      income     joined      active
+       │ Int64  String15      String15  Int64?   Float64?   Date        Bool
+───────┼───────────────────────────────────────────────────────────────────────
+     1 │     1  bmajj         Mainz          42    76787.8  2022-04-25   false
+     2 │     2  rojgagzay     Bonn           62    24096.8  2012-04-01   false
+     3 │     3  ubpj          Munich         64    46511.1  2015-11-29    true
+     4 │     4  tigib         Ulm            75    28599.6  2014-07-15   false
+     5 │     5  rlb           Berlin         66    36439.0  2021-08-14    true
+     6 │     6  chrj          Mainz          46  missing    2015-10-21   false
+     7 │     7  qcntdaldl     Potsdam   missing    75569.5  2017-11-06   false
+     8 │     8  rmzxfiqmnpli  Leipzig        53    85567.9  2012-02-04    true
+     9 │     9  rzkfzzs       Potsdam        40    70836.3  2013-05-20   false
+    10 │    10  goteyhk       Cologne        24    98436.3  2021-09-08    true
+    11 │    11  xguhddcge     Bonn           57    99590.5  2015-06-28   false
+    12 │    12  xao           Bremen         82    52479.7  2019-08-14   false
+    13 │    13  aburfqhvqd    Berlin         89    59188.3  2022-03-11    true
+    14 │    14  jlqsbsux      Leipzig        80    87792.3  2018-08-03    true
+    15 │    15  nqzlzaf       Kiel           37    23177.8  2012-06-27   false
+    16 │    16  aasxm         Cologne        29    36109.2  2013-06-18   false
+   ⋮   │   ⋮         ⋮           ⋮         ⋮         ⋮          ⋮         ⋮
+  9986 │  9986  uvbrhuc       Berlin         70    79972.5  2014-12-21   false
+  9987 │  9987  dxbo          Cologne        50    51656.3  2012-09-08   false
+  9988 │  9988  ripysgwlnslh  Berlin         22    77974.2  2019-03-08   false
+  9989 │  9989  mfplfxjxtu    Munich         73    45361.7  2021-12-30   false
+  9990 │  9990  ylhnrfhe      Berlin         20    72538.1  2021-06-21   false
+  9991 │  9991  dold          Mainz          26    39461.8  2015-01-07   false
+  9992 │  9992  hsyv          Ulm            56    42268.8  2014-02-03   false
+  9993 │  9993  wrxmfx        Bremen         64    47036.6  2014-05-29    true
+  9994 │  9994  vxoatxvint    Potsdam        39    79664.4  2019-02-06   false
+  9995 │  9995  tctcypsbfv    Ulm            90    83868.1  2012-07-09    true
+  9996 │  9996  ufjxu         Munich         57    92781.8  2016-03-31    true
+  9997 │  9997  dexggqod      Kiel           56    34894.2  2012-03-28    true
+  9998 │  9998  zljq          Leipzig        67    94198.9  2015-01-13    true
+  9999 │  9999  mfcdnjywwccc  Cologne        49    55768.2  2013-11-03   false
+ 10000 │ 10000  cdwzxgzyx     Dresden        21    61417.0  2017-12-20   false
+                                                              9969 rows omitted
+
+julia> T 3_read_show 1.79425443029716e9
+
+julia> 7×7 DataFrame
+ Row │ variable  mean     min         median      max         nmissing  eltype
+     │ Symbol    Union…   Any         Any         Any         Int64     Type
+─────┼──────────────────────────────────────────────────────────────────────────────────────────
+   1 │ id        5000.5   1           5000.5      10000              0  Int64
+   2 │ name               aaapu                   zzzaw              0  String15
+   3 │ city               Berlin                  Ulm                0  String15
+   4 │ age       53.9448  18          54.0        90               492  Union{Missing, Int64}
+   5 │ income    59727.5  20010.8     59860.8     99998.1          212  Union{Missing, Float64}
+   6 │ joined             2010-01-01  2016-12-13  2023-09-10         0  Date
+   7 │ active    0.4994   false       0.0         true               0  Bool
+
+julia> T 3_describe 1.794254430302066e9
+
+julia> 12×3 DataFrame
+ Row │ city      mean_income  nrow
+     │ String15  Float64      Int64
+─────┼──────────────────────────────
+   1 │ Mainz         59056.5    840
+   2 │ Bonn          58888.8    826
+   3 │ Munich        58997.6    865
+   4 │ Ulm           59572.8    797
+   5 │ Berlin        59135.1    888
+   6 │ Potsdam       61327.8    848
+   7 │ Leipzig       58309.9    824
+   8 │ Cologne       61795.0    818
+   9 │ Bremen        60256.9    835
+  10 │ Kiel          59463.8    855
+  11 │ Dresden       60501.5    794
+  12 │ Hamburg       59512.4    810
+
+julia> T 3_groupby_combine 1.794254430303309e9
+
+julia> 

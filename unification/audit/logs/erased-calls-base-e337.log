@@ -1,0 +1,80 @@
+# Base at IO: 929 methods with an argument typed IO; not inferred: 0
+# the fallbacks of split operations (intended): 123 sites; calls through `Core.attributed_call`: 0
+# other dynamic calls on a value of IO: 2439 sites, 246 functions
+# the wrappers over IO (type: parameter <: bound, field): Base.EachLine: IOT <: IO, .stream; IOContext: IO_t <: IO, .io; Base.JuliaSyntax.Tokenize.Lexer: IO_t <: IO, .io; Base.ReadEachIterator: IOT <: IO, .stream
+# receivers (sites): IO (2349); IOContext (75); Base.GenericIOBuffer (7); Base.AbstractPipe (5); Base.LibuvStream (3)
+function                     sites methods   results (sites) | receivers (sites)
+print                         1052     326   Any (792), Nothing (260) | IO (1047), IOContext (5)
+kwcall                         158      95   Any (113), Nothing (32), Union{Core.PrecompilableError, Tuple{String, Union{Nothing, String}}} (4) | IO (153), IOContext (4)
+show                           156     106   Any (132), Nothing (24) | IO (137), IOContext (19)
+IOContext                       80      51   IOContext (73), IOContext{IOBuffer} (7) | IO (71), IOContext (9)
+read                            75      23   Any (69), Char (5), String (1) | IO (75)
+kwerr                           63      63   Union{} (63) | IO (62), Base.GenericIOBuffer (1)
+show_unquoted                   59      20   Any (56), Nothing (3) | IO (53), IOContext (6)
+println                         58      38   Any (50), Nothing (8) | IO (58)
+write                           54      35   Any (48), Int64 (6) | IO (53), Base.GenericIOBuffer (1)
+show_list                       24       8   Any (20), Nothing (4) | IO (22), IOContext (2)
+show_block                      18       4   Any (15), Nothing (3) | IOContext (14), IO (4)
+eof                             14      11   Any (14) | IO (14)
+show_enclosed_list              13       6   Any (12), Nothing (1) | IO (13)
+position                        11       7   Any (11) | IO (11)
+show_delim_array                11       9   Any (8), Nothing (3) | IO (11)
+displaysize                     11      11   Any (11) | IO (11)
+summary                         11      11   Any (10), Nothing (1) | IO (11)
+showarg                          9       9   Any (9) | IO (9)
+join                             9       8   Any (8), Nothing (1) | IO (9)
+print_matrix                     9       9   Any (5), Nothing (4) | IO (9)
+show_sym                         9       8   Any (5), Nothing (4) | IO (9)
+unsafe_write                     9       7   Any (6), Int64 (3) | IO (9)
+print_value                      8       2   Nothing (5), Any (3) | IO (8)
+show_circular                    8       8   Bool (8) | IO (8)
+Function                         7       5   Any (7) | IO (7)
+# why, at the candidate IOBuffer in place of an erased stream (sites: the stream / another argument / static at the set)
+print                    913   139     0
+kwcall                    77    81     0
+show                      33   123     0
+IOContext                  0    80     0
+read                      46    29     0
+kwerr                      0    63     0
+show_unquoted             13    46     0
+println                   56     2     0
+write                     26    28     0
+show_list                 15     9     0
+show_block                 6    12     0
+eof                       14     0     0
+show_enclosed_list         6     7     0
+position                  11     0     0
+show_delim_array           2     9     0
+displaysize               11     0     0
+summary                    0    11     0
+showarg                    1     8     0
+join                       5     4     0
+print_matrix               0     9     0
+show_sym                   7     2     0
+unsafe_write               0     9     0
+print_value                8     0     0
+show_circular              8     0     0
+Function                   0     0     0
+unsafe_read                0     7     0
+showerror                  4     3     0
+time_print                 0     7     0
+seek                       3     3     0
+show_type_name             5     1     0
+copyuntil                  2     4     0
+alignment                  0     6     0
+print_range                0     6     0
+escape_raw_string          1     4     0
+show_signature_function     2     3     0
+printvalue                 2     3     0
+print_type_colored         5     0     0
+alignment_from_show        0     5     0
+readbytes!                 1     4     0
+isdelimited                0     5     0
+show_call                  1     4     0
+_show_cpuinfo              4     1     0
+show_mi                    5     0     0
+printstyled                5     0     0
+pipe_reader                0     5     0
+ioproperties               5     0     0
+show_vector                0     5     0
+# all: the stream 1454; another argument 972
