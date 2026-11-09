@@ -1,0 +1,41 @@
+insertion log: 3180 entries; validation log: 1880 entries
+== instances naming LimitIO
+  by convert(::Type{String}, s::DataStrings.DataString) @ DataStrings ~/.julia/packages/DataStrings/sr2Hk/src/DataStrings.jl:520 (jl_method_table_insert): 511 instances, 4 naming it
+      Tuple{typeof(StyledStrings._ansi_writer), typeof(write), IOContext{REPL.LimitIO{Base.TTY}}, SubString{Base.AnnotatedString{String}}}
+      Tuple{typeof(Base.AnnotatedDisplay.ansi_write), typeof(write), IOContext{REPL.LimitIO{Base.TTY}}, SubString{Base.AnnotatedString{String}}}
+      Tuple{typeof(StyledStrings._ansi_writer), typeof(write), IOContext{REPL.LimitIO{Base.TTY}}, Base.AnnotatedString{String}}
+  by print(io::IO, s::DataStrings.DataString) @ DataStrings ~/.julia/packages/DataStrings/sr2Hk/src/DataStrings.jl:531 (jl_method_table_insert): 119 instances, 4 naming it
+      Tuple{typeof(Markdown.term), IOContext{REPL.LimitIO{Base.TTY}}, Markdown.Code, Int64}
+      Tuple{typeof(print), IOContext{REPL.LimitIO{Base.TTY}}, AbstractString, String, String, String}
+      Tuple{typeof(show), IOContext{REPL.LimitIO{Base.TTY}}, MIME{Symbol("text/plain")}, Function}
+  by ismarked(stream::TranscodingStreams.TranscodingStream) @ TranscodingStreams ~/.julia/packages/TranscodingStreams/O3BYF/src/stream.jl:229 (jl_method_table_insert): 7 instances, 1 naming it
+      Tuple{typeof(show), IOContext{REPL.LimitIO{Base.TTY}}, MIME{Symbol("text/plain")}, Function}
+  by thisind(s::InlineStrings.InlineString, i::Int64) @ InlineStrings ~/.julia/packages/InlineStrings/3hOt5/src/InlineStrings.jl:681 (jl_method_table_insert): 64 instances, 1 naming it
+      Tuple{typeof(Markdown.term), IOContext{REPL.LimitIO{Base.TTY}}, Markdown.Code, Int64}
+== instances naming show), Base.IOContext
+== instances naming TTYTerminal
+  by convert(::Type{String}, s::DataStrings.DataString) @ DataStrings ~/.julia/packages/DataStrings/sr2Hk/src/DataStrings.jl:520 (jl_method_table_insert): 511 instances, 11 naming it
+      Tuple{typeof(REPL.History.run_display!), @NamedTuple{term::Base.Terminals.TTYTerminal, prompt::REPL.LineEdit.Prompt, istate::REPL.LineEdit.MIState, pstate::REPL.LineEdit.PromptState}, Channel{Symbol}, Vector{REPL.History.HistEntry}, REPL.LineEdit.TerminalProperties}
+      Tuple{REPL.History.var"#runsearch##2#runsearch##3"{REPL.History.HistoryFile, REPL.LineEdit.TerminalProperties, @NamedTuple{term::Base.Terminals.TTYTerminal, prompt::REPL.LineEdit.Prompt, istate::REPL.LineEdit.MIState, pstate::REPL.LineEdit.PromptState}, Channel{Symbol}}}
+      Tuple{typeof(REPL.History.savedest), Base.Terminals.TTYTerminal, REPL.LineEdit.TerminalProperties}
+  by print(io::IO, s::DataStrings.DataString) @ DataStrings ~/.julia/packages/DataStrings/sr2Hk/src/DataStrings.jl:531 (jl_method_table_insert): 119 instances, 3 naming it
+      Tuple{typeof(REPL.History.savefile), Base.Terminals.TTYTerminal, SubString{String}}
+      Tuple{typeof(REPL.History.run_display!), @NamedTuple{term::Base.Terminals.TTYTerminal, prompt::REPL.LineEdit.Prompt, istate::REPL.LineEdit.MIState, pstate::REPL.LineEdit.PromptState}, Channel{Symbol}, Vector{REPL.History.HistEntry}, REPL.LineEdit.TerminalProperties}
+      Tuple{typeof(REPL.History.savefile), Base.Terminals.TTYTerminal, SubString{String}}
+== the methods whose insertion invalidated most
+  511  convert(::Type{String}, s::DataStrings.DataString) @ DataStrings ~/.julia/packages/DataStrings/sr2Hk/src/DataStrings.jl:520
+  368  (::Type{T})(x::SentinelArrays.ChainedVectorIndex) where T<:Union{Signed, Unsigned} @ SentinelArrays ~/.julia/packages/SentinelArrays/Rjd5p/src/chainedvector.jl:262
+  119  print(io::IO, s::DataStrings.DataString) @ DataStrings ~/.julia/packages/DataStrings/sr2Hk/src/DataStrings.jl:531
+  83  size(A::SentinelArrays.SentinelArray, i) @ SentinelArrays ~/.julia/packages/SentinelArrays/Rjd5p/src/SentinelArrays.jl:184
+  78  nextind(s::InlineStrings.InlineString, i::Int64) @ InlineStrings ~/.julia/packages/InlineStrings/3hOt5/src/InlineStrings.jl:699
+  68  show(io::IO, s::LaTeXStrings.LaTeXString) @ LaTeXStrings ~/.julia/packages/LaTeXStrings/xwv3L/src/LaTeXStrings.jl:101
+  64  thisind(s::InlineStrings.InlineString, i::Int64) @ InlineStrings ~/.julia/packages/InlineStrings/3hOt5/src/InlineStrings.jl:681
+  28  iterate(v::Union{Base.KeySet{<:Any, <:DataStructures.SwissDict}, Base.ValueIterator{<:DataStructures.SwissDict}}, state) @ DataStructures ~/.julia/packages/DataStructures/IwRP2/src/swiss_dict.jl:647
+  26  convert(::Type{Array{S, N}}, pa::PooledArrays.PooledArray{T, R, N}) where {S, T, R, N} @ PooledArrays ~/.julia/packages/PooledArrays/Vy2X0/src/PooledArrays.jl:499
+  21  eltype(::SentinelArrays.BufferedVectors.BufferedVector{T}) where T @ SentinelArrays.BufferedVectors ~/.julia/packages/SentinelArrays/Rjd5p/src/BufferedVectors.jl:30
+  19  eltype(::Type{CSV.File}) @ CSV /p/projects/coen/julia-trait-bound/forks-unified/CSV/src/api.jl:2314
+  18  similar(x::SentinelArrays.ChainedVector{T, A} where A<:AbstractVector{T}, ::Type{S}) where {T, S} @ SentinelArrays ~/.julia/packages/SentinelArrays/Rjd5p/src/chainedvector.jl:389
+  17  convert(::Type{Vector{String}}, v::DataStrings.StringVector{DataStrings.DataString}) @ DataStrings ~/.julia/packages/DataStrings/sr2Hk/src/construct.jl:132
+  14  mapreduce(f::F, op::OP, x::SentinelArrays.ChainedVector) where {F, OP} @ SentinelArrays ~/.julia/packages/SentinelArrays/Rjd5p/src/chainedvector.jl:837
+  13  cconvert(::Type{Cstring}, x::T) where T<:InlineString @ InlineStrings ~/.julia/packages/InlineStrings/3hOt5/src/InlineStrings.jl:145
+== validation log entries naming LimitIO or show at a String

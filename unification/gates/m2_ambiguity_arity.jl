@@ -2,6 +2,7 @@
 # methods' own arity. A pair of two-argument methods whose other arguments never meet warns zero
 # times (the report used to ask with one argument, get no match, and call that an ambiguity); a
 # pair that a call reaches warns once and names the signature that would resolve it, at All{XE, YE}.
+# The same for a pattern's member (C-29).
 include("util.jl")
 
 const JULIA = `$(Base.julia_cmd()) --startup-file=no --project=$(Base.active_project())`
@@ -24,6 +25,17 @@ body = """
         (e isa MethodError || occursin("ambiguous", sprint(showerror, e))) ? "raised" : "wrong"
     end
     println("CHILD_H2 ", res)
+    # a pattern's member (compiler C-29): the same test at the call types both methods reach
+    @trait XG
+    @trait YG
+    f3(::Type{Int}, ::XG) = :x
+    f3(::Type{String}, ::YG) = :y        # no call reaches both
+    h3(::XG, ::Int) = :x
+    h3(::YG, ::Integer) = :y             # h3(MP{1}(), 1) reaches both: ambiguous
+    struct MP{T} end
+    @implement XG MP
+    @implement YG MP
+    println("CHILD_F3 ", f3(Int, MP{1}()), " ", f3(String, MP{2}()))
     println("CHILD_DONE")
 """
 
@@ -50,5 +62,11 @@ warns = [m.match for m in eachmatch(r"WARNING: method [^\n]*", err)]
 # the joint method: the two signatures' intersection, the sets meeting as All{XE, YE} (W-107)
 @assert any(w -> occursin("method h2 ", w) && occursin("would resolve it", w) &&
                  occursin(r"All\{Main\.[XY]E, Main\.[XY]E\}, Int64", w), warns) "the warning names the joint signature: $warns"
+
+@assert occursin("CHILD_F3 x y", out) "f3 dispatches by its first argument: $out"
+@assert !any(w -> occursin("method f3 ", w), warns) "no warning for f3 at the pattern's member: $warns"
+@assert count(w -> occursin("method h3 ", w), warns) == 1 "one warning for h3 at the pattern's member: $warns"
+@assert any(w -> occursin("method h3 ", w) && occursin("would resolve it", w) &&
+                 occursin(r"All\{Main\.[XY]G, Main\.[XY]G\}, Int64", w), warns) "h3's warning names the joint signature: $warns"
 
 println("m2_ambiguity_arity: OK")

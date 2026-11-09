@@ -1,5 +1,6 @@
 # Gate (W-100, slice 3; compiler §3.2): a CodeInstance of either policy records whether its record
-# satisfies G2: every dispatch edge at a fact signature.
+# satisfies G2: every dispatch edge at a fact signature; an inlined callee's record read on the edge's
+# instance, a constant-propagated result's included (C-75).
 include("util.jl")
 a(x::Int) = x + 1
 c(x::Int) = a(x)                  # every call at a fact signature
@@ -23,4 +24,12 @@ b(v::Vector{Any}) = a(v[1])       # a run-time site under facts: no edge, so G2 
 end
 @assert FM.b(Any[1]) == 2
 @assert (native_ci(FM.b, (Vector{Any},)).flags & 0x30) == 0x30      # facts, and G2
+# (C-75) a caller that inlines Base's `push!` keeps G2: `push!`'s record names the edge instance a
+# constant-propagated callee's result makes (`_growend!`), which carries the bit as a cached result does
+module FP
+Base.Experimental.@compiler_options facts=true
+addone(v::Vector{String}) = push!(v, "a")
+end
+@assert FP.addone(String[]) == ["a"]
+@assert (native_ci(FP.addone, (Vector{String},)).flags & 0x30) == 0x30 "facts, and G2 through push!: $(native_ci(FP.addone, (Vector{String},)).flags)"
 println("f4_g2_bit: OK")
