@@ -1,0 +1,36 @@
+# the declared-result report: world 39722, packages CSV, DataFrames, TraitMakie, operations: core
+operations with a covering declared result: 14
+  apply!Tuple{Any, TraitWorld.BaseTraits.LinearOp{T}, Any} ::AbstractArray{T, 1}: 1 serving methods checked, 1 outside
+  closeTuple{IO} ::Any: 12 serving methods checked, 0 outside
+  eofTuple{IO} ::Bool: 11 serving methods checked, 0 outside
+  flushTuple{IO} ::Any: 9 serving methods checked, 0 outside
+  getTuple{IO, Any, Any} ::Any: 4 serving methods checked, 0 outside
+  haskeyTuple{IO, Any} ::Bool: 4 serving methods checked, 0 outside
+  isopenTuple{IO} ::Bool: 11 serving methods checked, 0 outside
+  ldiv!Tuple{Any, TraitWorld.BaseTraits.Solvable{T}, Any} ::AbstractArray{T, 1}: 13 serving methods checked, 13 outside
+  lockTuple{IO} ::Any: 3 serving methods checked, 0 outside
+  readTuple{IO, Type{UInt8}} ::UInt8: 11 serving methods checked, 0 outside
+  unlockTuple{IO} ::Any: 3 serving methods checked, 0 outside
+  unsafe_readTuple{IO, Ptr{UInt8}, UInt64} ::Any: 10 serving methods checked, 0 outside
+  unsafe_writeTuple{IO, Ptr{UInt8}, UInt64} ::Int64: 13 serving methods checked, 0 outside
+  writeTuple{IO, UInt8} ::Int64: 14 serving methods checked, 0 outside
+
+serving methods whose result infers outside the declaration: 14
+by package: LinearAlgebra 13, TraitWorld 1
+by operation and inferred result: ldiv! ::Any 4, ldiv! ::AbstractVecOrMat 2, ldiv! ::LinearAlgebra.UpperTriangular 2, ldiv! ::LinearAlgebra.LowerTriangular 2, apply! ::Any 1, ldiv! ::LinearAlgebra.Tridiagonal 1, ldiv! ::LinearAlgebra.Diagonal 1, ldiv! ::Tuple{Any, Int64} 1
+
+  apply! ::AbstractVector{Any}  ← Any   Tuple{typeof(TraitWorld.BaseTraits.apply!), Any, AbstractMatrix{T}, Any} where T  [/p/projects/coen/julia-trait-bound/TraitWorld-unified/src/BaseTraits.jl:180]
+  ldiv! ::AbstractVector{Any}  ← LinearAlgebra.UpperTriangular   Tuple{typeof(LinearAlgebra.ldiv!), LinearAlgebra.UpperTriangular, LinearAlgebra.Diagonal, LinearAlgebra.UnitUpperTriangular}  [/p/projects/coen/julia-trait-bound/julia-unified/usr/share/julia/stdlib/v1.13/LinearAlgebra/src/diagonal.jl:788]
+  ldiv! ::AbstractVector{Any}  ← LinearAlgebra.UpperTriangular   Tuple{typeof(LinearAlgebra.ldiv!), LinearAlgebra.UpperTriangular, LinearAlgebra.Diagonal, LinearAlgebra.UpperTriangular}  [/p/projects/coen/julia-trait-bound/julia-unified/usr/share/julia/stdlib/v1.13/LinearAlgebra/src/diagonal.jl:787]
+  ldiv! ::AbstractVector{Any}  ← LinearAlgebra.Tridiagonal   Tuple{typeof(LinearAlgebra.ldiv!), LinearAlgebra.Tridiagonal, LinearAlgebra.Diagonal, Union{LinearAlgebra.SymTridiagonal, LinearAlgebra.Tridiagonal}}  [/p/projects/coen/julia-trait-bound/julia-unified/usr/share/julia/stdlib/v1.13/LinearAlgebra/src/diagonal.jl:690]
+  ldiv! ::AbstractVector{Any}  ← Tuple{Any, Int64}   Tuple{typeof(LinearAlgebra.ldiv!), LinearAlgebra.QRPivoted{T, var"#s5080", C} where {var"#s5080"<:(StridedMatrix{T} where T), C<:AbstractVector{T}}, AbstractMatrix{T}, Real} where T<:Union{Float32, Float64, ComplexF64, ComplexF32}  [/p/projects/coen/julia-trait-bound/julia-unified/usr/share/julia/stdlib/v1.13/LinearAlgebra/src/qr.jl:568]
+  ldiv! ::AbstractVector{Any}  ← LinearAlgebra.LowerTriangular   Tuple{typeof(LinearAlgebra.ldiv!), LinearAlgebra.LowerTriangular, LinearAlgebra.Diagonal, LinearAlgebra.UnitLowerTriangular}  [/p/projects/coen/julia-trait-bound/julia-unified/usr/share/julia/stdlib/v1.13/LinearAlgebra/src/diagonal.jl:788]
+  ldiv! ::AbstractVector{Any}  ← LinearAlgebra.LowerTriangular   Tuple{typeof(LinearAlgebra.ldiv!), LinearAlgebra.LowerTriangular, LinearAlgebra.Diagonal, LinearAlgebra.LowerTriangular}  [/p/projects/coen/julia-trait-bound/julia-unified/usr/share/julia/stdlib/v1.13/LinearAlgebra/src/diagonal.jl:787]
+  ldiv! ::AbstractVector{Any}  ← Any   Tuple{typeof(LinearAlgebra.ldiv!), AbstractVector, LinearAlgebra.Factorization, AbstractVector}  [/p/projects/coen/julia-trait-bound/julia-unified/usr/share/julia/stdlib/v1.13/LinearAlgebra/src/factorization.jl:156]
+  ldiv! ::AbstractVector{Any}  ← Any   Tuple{typeof(LinearAlgebra.ldiv!), AbstractMatrix, LinearAlgebra.Factorization, AbstractMatrix}  [/p/projects/coen/julia-trait-bound/julia-unified/usr/share/julia/stdlib/v1.13/LinearAlgebra/src/factorization.jl:167]
+  ldiv! ::AbstractVector{Any}  ← AbstractVecOrMat   Tuple{typeof(LinearAlgebra.ldiv!), AbstractVecOrMat, LinearAlgebra.Bidiagonal, AbstractVecOrMat}  [/p/projects/coen/julia-trait-bound/julia-unified/usr/share/julia/stdlib/v1.13/LinearAlgebra/src/bidiag.jl:1325]
+  ldiv! ::AbstractVector{Any}  ← Any   Tuple{typeof(LinearAlgebra.ldiv!), AbstractArray, AbstractMatrix, AbstractArray}  [/p/projects/coen/julia-trait-bound/julia-unified/usr/share/julia/stdlib/v1.13/LinearAlgebra/src/generic.jl:399]
+  ldiv! ::AbstractVector{Any}  ← Any   Tuple{typeof(LinearAlgebra.ldiv!), AbstractVecOrMat, LinearAlgebra.AbstractTriangular, AbstractVecOrMat}  [/p/projects/coen/julia-trait-bound/julia-unified/usr/share/julia/stdlib/v1.13/LinearAlgebra/src/triangular.jl:1249]
+  ldiv! ::AbstractVector{Any}  ← AbstractVecOrMat   Tuple{typeof(LinearAlgebra.ldiv!), AbstractVecOrMat, LinearAlgebra.Diagonal, AbstractVecOrMat}  [/p/projects/coen/julia-trait-bound/julia-unified/usr/share/julia/stdlib/v1.13/LinearAlgebra/src/diagonal.jl:638]
+  ldiv! ::AbstractVector{Any}  ← LinearAlgebra.Diagonal   Tuple{typeof(LinearAlgebra.ldiv!), LinearAlgebra.Diagonal, LinearAlgebra.Diagonal, LinearAlgebra.Diagonal}  [/p/projects/coen/julia-trait-bound/julia-unified/usr/share/julia/stdlib/v1.13/LinearAlgebra/src/diagonal.jl:672]
+EXIT 0

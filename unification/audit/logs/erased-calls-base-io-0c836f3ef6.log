@@ -1,0 +1,83 @@
+# Base at IO: 931 methods with an argument typed IO; not inferred: 0
+# the fallbacks of split operations (intended): 155 sites; calls through `Core.attributed_call`: 983
+# other dynamic calls on a value of IO: 1093 sites, 163 functions
+# the wrappers over IO (type: parameter <: bound, field): Base.EachLine: IOT <: IO, .stream; IOContext: IO_t <: IO, .io; Base.JuliaSyntax.Tokenize.Lexer: IO_t <: IO, .io; Base.ReadEachIterator: IOT <: IO, .stream
+# receivers (sites): IO (1009); IOContext (69); Base.GenericIOBuffer (7); Base.AbstractPipe (5); Base.LibuvStream (3)
+function                     sites methods   results (sites) | receivers (sites)
+print                          145      91   Any (121), Nothing (24) | IO (144), IOContext (1)
+show                           109      82   Any (98), Nothing (11) | IO (92), IOContext (17)
+IOContext                       89      56   IOContext (89) | IO (76), IOContext (13)
+kwcall                          89      68   Any (65), Nothing (16), Union{Core.PrecompilableError, Tuple{String, Union{Nothing, String}}} (4) | IO (79), IOContext (9)
+read                            70      20   Any (69), String (1) | IO (70)
+kwerr                           63      63   Union{} (63) | IO (62), Base.GenericIOBuffer (1)
+show_unquoted                   46      17   Any (46) | IO (41), IOContext (5)
+write                           31      23   Any (29), Int64 (2) | IO (31)
+show_block                      13       3   Nothing (7), Any (6) | IOContext (10), IO (3)
+show_list                       13      11   Any (7), Nothing (6) | IO (13)
+show_delim_array                12      10   Any (7), Nothing (5) | IO (12)
+position                        11       7   Any (11) | IO (11)
+displaysize                     11      11   Any (11) | IO (11)
+summary                         10      10   Any (9), Nothing (1) | IO (10)
+print_matrix                     9       9   Any (5), Nothing (4) | IO (9)
+unsafe_write                     9       7   Any (6), Int64 (3) | IO (9)
+#time_print#941                  9       9   Nothing (9) | IO (9)
+showarg                          8       8   Any (8) | IO (8)
+show_vector                      8       6   Nothing (8) | IO (8)
+unsafe_read                      7       5   Any (7) | IO (7)
+#print_table#2                   7       7   Nothing (7) | IO (7)
+seek                             7       6   Any (7) | IO (7)
+Function                         7       5   Any (7) | IO (7)
+#_copyline#391                   6       6   IO (6) | IO (5), Base.GenericIOBuffer (1)
+print_range                      6       6   Nothing (5), Any (1) | IO (6)
+readuntil_vector!                6       6   Any (6) | IO (6)
+alignment                        6       4   Vector{<:Tuple{Int64, Vararg}} (3), Any (2), Vector{<:Tuple{Any, Vararg}} (1) | IO (6)
+isdelimited                      5       2   Any (5) | IOContext (3), IO (2)
+readbytes!                       5       4   Any (5) | IO (5)
+#_printstyled#2                  5       2   Nothing (5) | IO (5)
+alignment_from_show              5       4   Int64 (5) | IO (4), IOContext (1)
+#show_backtrace#858              5       4   Nothing (5) | IO (5)
+pipe_reader                      5       5   Any (5) | Base.AbstractPipe (5)
+print_quoted                     5       3   Nothing (5) | IO (5)
+_show_green_node                 4       4   Nothing (4) | IO (4)
+copyuntil                        4       4   Any (4) | IO (4)
+join                             4       4   Any (3), Nothing (1) | IO (4)
+escape_raw_string                4       4   Int64 (3), Any (1) | IO (4)
+show_import_path                 4       2   Any (4) | IO (4)
+readeach                         4       4   Base.ReadEachIterator (2), Base.ReadEachIterator{Char} (2) | IO (4)
+# why, at the candidate IOBuffer in place of an erased stream (sites: the stream / another argument / static at the set)
+print                      0   145     0
+show                       1   108     0
+IOContext                  0    89     0
+kwcall                    13    76     0
+read                      41    29     0
+kwerr                      0    63     0
+show_unquoted              0    46     0
+write                      3    28     0
+show_block                 0    13     0
+show_list                  0    13     0
+show_delim_array           0    12     0
+position                  11     0     0
+displaysize               11     0     0
+summary                    0    10     0
+print_matrix               0     9     0
+unsafe_write               0     9     0
+#time_print#941            0     9     0
+showarg                    0     8     0
+show_vector                0     8     0
+unsafe_read                0     7     0
+#print_table#2             0     7     0
+seek                       4     3     0
+Function                   0     0     0
+#_copyline#391             5     1     0
+print_range                0     6     0
+readuntil_vector!          0     6     0
+alignment                  0     6     0
+isdelimited                0     5     0
+readbytes!                 1     4     0
+#_printstyled#2            0     5     0
+alignment_from_show        0     5     0
+#show_backtrace#858        0     5     0
+pipe_reader                0     5     0
+print_quoted               0     5     0
+# all: another argument 953; the stream 128
+EXIT 0

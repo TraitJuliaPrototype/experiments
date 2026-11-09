@@ -20,6 +20,16 @@ cd TraitReport-unified
 ../julia-unified/julia --startup-file=no --project=env_fu ../experiments/unification/audit/load_invalidations.jl CSV,DataFrames,TraitMakie [n]
 ```
 
+```sh
+# the unmet-instance report: method instances compiled at a signature no type of the world is in
+julia-unified/julia --startup-file=no experiments/unification/audit/unmet_instances.jl [Pkg,…] [n]
+
+# the declared-result report: the methods serving an operation of Core's sets (`IO`), whose members join
+# by a nominal supertype and are not checked, with a result that infers outside the declaration
+# (`all`: every operation; a proposed declaration: `write=Int,unsafe_write=Int`, `-` for none)
+julia-unified/julia --startup-file=no experiments/unification/audit/declared_results.jl [Pkg,…] [n] [f=T,…] [core|all]
+```
+
 `probes.jl` holds earlier probes. Logs are in `logs/`, named by the build.
 
 ## Results
@@ -34,3 +44,16 @@ cd TraitReport-unified
 The causes (open issues 166, 167): the lookup flagged calls at `IO` ambiguous at `All{AbstractString, IO}`,
 an intersection no type is in (E-331); and an edge from a split's branch to its candidate's instance
 carries that instance's invalidation to every caller of an instance compiled once.
+
+**2026-11-09, later builds.**
+
+| Build | Report | Finding |
+|---|---|---|
+| 43c222c751 (E-331) | erasure | 1,093 dynamic sites (2,018 before); 128 due to the stream |
+| 43c222c751 | declared results, against `Int` for `write` and `unsafe_write` (`declared-results-stdlib-e331.log`) | Base: `Filesystem.File` and Core's streams return a `UInt`; REPL's `LimitIO` a forwarder |
+| 0c836f3ef6 (E-332, E-333) | declared results (`declared-results-{stdlib,fu}-0c836f3ef6.log`) | none outside, Base, the standard libraries and the goal's packages; a stream in CSV's tests returns `n::UInt` (converted at the call) |
+| 0c836f3ef6 | load (`load-inval-fu-0c836f3ef6.log`) | 17,035 instances invalidated; 22,791 under split edges, mostly `get` at `TTY`, an inlined branch |
+| 7bd8b6e512 (only a leaf inlined) | load (`load-inval-fu-7bd8b6e512.log`) | 6,687 instances invalidated; 2,110 under split edges; `length(::HasLength)` 121 |
+| 7bd8b6e512 | unmet instances (`unmet-instances-base-7bd8b6e512.log`) | 58 of the system image's 69,628 instances at `All{X, IO}`; the roots of the chains (35–42 deep) that recompile TraitWorld's load hooks at each load (open issue 169) |
+
+The load report's `split_edge` over-matches (the Fable plan, §2.2): its rows "at `IO`" and "at `All{…}`" are not branches of a split.

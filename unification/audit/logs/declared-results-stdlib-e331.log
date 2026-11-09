@@ -1,0 +1,28 @@
+# the declared-result report: world 39675, packages Sockets, REPL, Pkg, Downloads, Tar, Serialization, Distributed, Markdown, InteractiveUtils, Profile, Test, LibGit2, FileWatching, Logging, Mmap, SharedArrays
+operations with a covering declared result: 12
+  closeTuple{IO} ::Any: 10 serving methods checked, 0 outside
+  eofTuple{IO} ::Bool: 10 serving methods checked, 0 outside
+  flushTuple{IO} ::Any: 7 serving methods checked, 0 outside
+  getTuple{IO, Any, Any} ::Any: 27 serving methods checked, 0 outside
+  haskeyTuple{IO, Any} ::Bool: 6 serving methods checked, 0 outside
+  isopenTuple{IO} ::Bool: 9 serving methods checked, 0 outside
+  lockTuple{IO} ::Any: 4 serving methods checked, 0 outside
+  readTuple{IO, Type{UInt8}} ::UInt8: 10 serving methods checked, 0 outside
+  unlockTuple{IO} ::Any: 4 serving methods checked, 0 outside
+  unsafe_readTuple{IO, Ptr{UInt8}, UInt64} ::Any: 8 serving methods checked, 0 outside
+  unsafe_writeTuple{IO, Ptr{UInt8}, UInt64} ::Int64 (proposed; declared Integer): 11 serving methods checked, 5 outside
+  writeTuple{IO, UInt8} ::Int64 (proposed; declared Integer): 13 serving methods checked, 3 outside
+
+serving methods whose result infers outside the declaration: 8
+by package: Base 6, REPL 2
+by operation and inferred result: write ::Integer 3, unsafe_write ::UInt64 2, unsafe_write ::Union{Int64, UInt64} 2, unsafe_write ::Integer 1
+
+  unsafe_write ::Int64  ← UInt64   Tuple{typeof(unsafe_write), Base.Filesystem.File, Ptr{UInt8}, UInt64}  [filesystem.jl:233]
+  unsafe_write ::Int64  ← Union{Int64, UInt64}   Tuple{typeof(unsafe_write), Base.AbstractPipe, Ptr{UInt8}, UInt64}  [io.jl:471]
+  unsafe_write ::Int64  ← UInt64   Tuple{typeof(unsafe_write), Union{Core.CoreSTDERR, Core.CoreSTDOUT}, Ptr{UInt8}, UInt64}  [coreio.jl:26]
+  unsafe_write ::Int64  ← Integer   Tuple{typeof(unsafe_write), Core.Dynamic{<:IO}, Ptr{UInt8}, UInt64}  [iotrait.jl:52]
+  unsafe_write ::Int64  ← Union{Int64, UInt64}   Tuple{typeof(unsafe_write), REPL.LimitIO, Ptr{UInt8}, UInt64}  [/p/projects/coen/julia-trait-bound/julia-unified/usr/share/julia/stdlib/v1.13/REPL/src/REPL.jl:519]
+  write ::Int64  ← Integer   Tuple{typeof(write), Base.AbstractPipe, UInt8}  [io.jl:469]
+  write ::Int64  ← Integer   Tuple{typeof(write), Core.Dynamic{<:IO}, UInt8}  [iotrait.jl:51]
+  write ::Int64  ← Integer   Tuple{typeof(write), REPL.LimitIO, UInt8}  [/p/projects/coen/julia-trait-bound/julia-unified/usr/share/julia/stdlib/v1.13/REPL/src/REPL.jl:510]
+EXIT 0

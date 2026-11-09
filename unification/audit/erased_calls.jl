@@ -56,6 +56,7 @@ struct Site
     method::Method
     rt::Any
     recv::Any   # the first argument known only as a stream: its type
+    atype::Any  # the call's argument types
 end
 calls = Dict{Any,Vector{Site}}()
 failed = 0
@@ -101,7 +102,8 @@ for m in methods_at
                 continue
             end
         end
-        push!(get!(Vector{Site}, calls, key), Site(m, CC.widenconst(ir.stmts[i][:type]), recv))
+        atype = fv === nothing ? nothing : Tuple{typeof(fv), Any[CC.widenconst(CC.argextype(a, ir)) for a in args]...}
+        push!(get!(Vector{Site}, calls, key), Site(m, CC.widenconst(ir.stmts[i][:type]), recv, atype))
     end
 end
 
@@ -130,3 +132,31 @@ for (f, sites) in first(sort(collect(calls); by = p -> -length(p[2])), nshow)
     vs = join(["$(r) ($(n))" for (r, n) in first(sort(collect(rv); by = p -> -p[2]), 2)], ", ")
     println(rpad(string(f), 28), lpad(length(sites), 6), lpad(length(unique(s.method for s in sites)), 8), "   ", rs, " | ", vs)
 end
+
+# why the calls stay dynamic: the same call with each erased stream replaced by an `IOBuffer` (one of the
+# set's candidates). "the stream": static there, so the cost is the stream's erasure; "another argument":
+# dynamic there too, as in code compiled per stream type (vanilla); "static at the set": the lookup allows
+# a static call at the set itself, so the inliner left it (a policy, not the lookup).
+mt = CC.method_table(interp)
+cand = (ccall(:jl_candidates_of, Any, (Any,), X)::Vector{Any})[1]
+function static_at(@nospecialize(atype))
+    r = CC.findall(atype, mt; limit = -1)
+    (r === nothing || r.ambig || length(r.matches) != 1) && return false
+    m = r.matches[1]
+    m.fully_covers || return false
+    return CC.get_compileable_sig(m.method, m.spec_types, m.sparams) !== nothing
+end
+at_candidate(@nospecialize(atype)) = Tuple{Any[erased(p) ? cand : p for p in atype.parameters]...}
+println("# why, at the candidate $(cand) in place of an erased stream (sites: the stream / another argument / static at the set)")
+tot = Dict{String,Int}()
+for (f, sites) in sort(collect(calls); by = p -> -length(p[2]))
+    why = Dict{String,Int}()
+    for s in sites
+        s.atype === nothing && continue
+        k = static_at(s.atype) ? "static at the set" : static_at(at_candidate(s.atype)) ? "the stream" : "another argument"
+        why[k] = get(why, k, 0) + 1
+        tot[k] = get(tot, k, 0) + 1
+    end
+    length(sites) >= 5 && println(rpad(string(f), 22), lpad(get(why, "the stream", 0), 6), lpad(get(why, "another argument", 0), 6), lpad(get(why, "static at the set", 0), 6))
+end
+println("# all: ", join(["$k $v" for (k, v) in sort(collect(tot); by = p -> -p[2])], "; "))

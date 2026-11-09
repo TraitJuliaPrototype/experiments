@@ -1,7 +1,7 @@
 # Gate (W-129 (b); traits §9b; compiler §7.5, §4.8): `IO`, Base's trait of streams. `Core.IO` is a set from
 # Core's build: a method typed `io::IO` is compiled once whatever the stream, Julia's own included; an
 # operation on a stream typed `IO` infers its declared result, split over `IO`'s first candidates, the rest
-# through the table, the result asserted; "a `String` is not an `IO`" is final since Base has loaded, so
+# through the table, the result converted to the declared result (Base's streams already return it); "a `String` is not an `IO`" is final since Base has loaded, so
 # `isa` folds and a call carries no guard, while a type of Main stays guarded; `Dynamic{IO}` is an `IO`
 # that plain code takes, an `IOContext`'s properties reaching `show` through it; a membership its type's
 # owner declares later opens the pair's final cell and invalidates what relied on it; the system image
@@ -22,7 +22,7 @@ folded_false(c) = isdefined(c, :rettype_const) && (c.rettype_const === false ||
 @assert ccall(:jl_is_closed_after_load, Cint, (Any,), IO) == 1
 cands = ccall(:jl_candidates_of, Any, (Any,), IO)::Vector{Any}
 @assert length(cands) >= 4 && cands[1:4] == Any[IOBuffer, IOStream, Base.TTY, Base.PipeEndpoint] "IO's first candidates: $cands"
-for (f, n, rt) in ((write, 3, Integer), (unsafe_write, 4, Integer), (read, 3, UInt8), (eof, 2, Bool),
+for (f, n, rt) in ((write, 3, Int), (unsafe_write, 4, Int), (read, 3, UInt8), (eof, 2, Bool),
                    (Base.isopen, 2, Bool), (haskey, 3, Bool), (get, 4, Any), (flush, 2, Any))
     ms = ccall(:jl_declared_methods_of, Any, (Any,), typeof(f))::Vector{Any}
     @assert any(m -> m.declared_result === rt && m.nargs == n, ms) "$f's operation, declared $rt: $ms"
@@ -47,22 +47,68 @@ sm = which(show, (IOBuffer, Int))
 
 # (2) an operation at a receiver typed `IO`: its declared result, split, asserted
 wb(io::IO, x::UInt8) = write(io, x)
-@assert Base.return_types(wb, (IO, UInt8)) == Any[Integer]
+@assert Base.return_types(wb, (IO, UInt8)) == Any[Int]
 @assert wb(IOBuffer(), 0x41) == 1 && wb(IOContext(IOBuffer()), 0x41) == 1
 let ir = first(only(code_typed(wb, (IO, UInt8))))
-    inv = [st.args[1] for st in ir.code if Meta.isexpr(st, :invoke)]
-    tys = [(inv[k] isa Core.CodeInstance ? inv[k].def : inv[k]).specTypes for k in eachindex(inv)]
-    # the branches for the candidates past the first are direct calls; `IOBuffer`'s is inlined
-    @assert all(T -> Tuple{typeof(write), T, UInt8} in tys, (IOStream, Base.TTY, Base.PipeEndpoint)) "the split's branches: $tys"
+    # a branch whose body calls further (`write(::IOBuffer, ::UInt8)` may grow the buffer) calls its target
+    # through a `:caller_world` pointer (compiler §7.2, open issue 167), and the caller holds no edge to it
+    cfs = [st.args[2].value for st in ir.code if Meta.isexpr(st, :cfunction)]
+    tgts = [typeof(t).parameters[2] for t in cfs if typeof(t) <: Base._SplitTarget]
+    @assert all(T -> T in tgts, (IOBuffer, IOStream, Base.TTY, Base.PipeEndpoint)) "the split's pointers: $tgts"
+    invoked(st) = (c = st.args[1]; mi = c isa Core.CodeInstance ? c.def : c; mi isa Core.MethodInstance ? mi.def : nothing)
+    @assert !any(st -> Meta.isexpr(st, :invoke) && (m = invoked(st)) isa Method && m.name === :write, ir.code) "no direct call of a candidate's write: $ir"
+    wb(IOBuffer(), 0x41)
+    ci = latest(wb, IO, UInt8)
+    spec(e) = e isa Core.CodeInstance ? e.def.specTypes : e isa Core.MethodInstance ? e.specTypes : nothing
+    edged = [spec(e) for e in ci.edges if spec(e) isa DataType && length(spec(e).parameters) >= 2]
+    @assert !any(t -> t.parameters[2] in (IOBuffer, IOStream, Base.TTY, Base.PipeEndpoint), edged) "no edge to a candidate's instance: $(ci.edges)"
+end
+# a leaf branch, calling only builtins (`isopen(::IOBuffer)` reads fields), is inlined
+op(io::IO) = Base.isopen(io)
+let ir = first(only(code_typed(op, (IO,))))
+    tgts = [typeof(st.args[2].value).parameters[2] for st in ir.code if Meta.isexpr(st, :cfunction)]
+    @assert !(IOBuffer in tgts) && any(st -> Meta.isexpr(st, :call) && (st.args[1] == GlobalRef(Core, :isa) || st.args[1] === isa) && st.args[3] === IOBuffer, ir.code) "isopen(::IOBuffer) inlined: $ir"
+    @assert op(IOBuffer()) === true
 end
 mutable struct CountIO <: IO; n::Int; end           # past the candidates: through the table
 Base.write(c::CountIO, ::UInt8) = (c.n += 1; 1)
 let c = CountIO(0)
     @assert wb(c, 0x41) == 1 && c.n == 1
 end
-struct BadIO <: IO end                               # a result that breaks the declaration
+struct UIntIO <: IO end                              # another integer type: converted, as `f(…)::Int` would
+Base.write(::UIntIO, ::UInt8) = UInt(1)
+Base.unsafe_write(::UIntIO, ::Ptr{UInt8}, n::UInt) = n
+ws(io::IO, s::String) = write(io, s)
+@assert wb(UIntIO(), 0x41) === 1 && ws(UIntIO(), "abc") === 3 && wb(Core.Dynamic{IO}(UIntIO()), 0x41) === 1
+struct BadIO <: IO end                               # a result that does not convert raises
 Base.write(::BadIO, ::UInt8) = "one"
-@assert try wb(BadIO(), 0x41); false catch e; e isa TypeError end "the declared result asserted"
+@assert try wb(BadIO(), 0x41); false catch e; e isa MethodError || e isa TypeError end "the declared result enforced"
+# Base's streams return their counts as `Int`, so their branches convert nothing (the declared-result
+# report, audit/declared_results.jl, over every package)
+for S in (Tuple{typeof(write), IO, UInt8}, Tuple{typeof(unsafe_write), IO, Ptr{UInt8}, UInt})
+    for m in methods(S.parameters[1].instance)
+        (m.module === Base || parentmodule(m.module) === Base) && (m.declared_covers & 0x01) == 0 || continue
+        ti = typeintersect(m.sig, S)
+        ti === Union{} && continue
+        ms = Base._methods_by_ftype(ti, -1, Base.get_world_counter())
+        i = findfirst(x -> x.method === m, ms)
+        i === nothing && continue
+        mt = ms[i]
+        rt = Base.Compiler.typeinf_type(Base.Compiler.NativeInterpreter(), mt.method, mt.spec_types, mt.sparams)
+        @assert rt === nothing || Base.Compiler.widenconst(rt) <: Int "Base's $m returns $rt"
+    end
+end
+
+# a caller in an old world of Base's build (a generated function's generator runs in the world it was
+# defined in): the pointer's target and the table's miss serve it
+let mw = only(methods(Base._split_table_miss!)).primary_world - 1, b = IOBuffer()
+    @assert Base.invoke_in_world(mw, write, IOContext(b), "abc") == 3 "the table's miss in an old world"
+    mktemp() do p, f
+        @assert Base.invoke_in_world(mw, write, f, "xyz") == 3 "a pointer branch in an old world"
+        close(f)
+    end
+    @assert String(take!(b)) == "abc"
+end
 
 # (3) final negatives: `x isa IO` folds for a `String`; a call with a shadow at `IO` carries no guard
 isio(x::String) = x isa IO
