@@ -1,0 +1,27 @@
+forks-unified at 5c43492 (e323); unified 23022b0ec7
+== 06:21:28 1. precompile (load 5.07)
+   3.3 s  ✓ CSV → CSVDataFramesInlineStringsExt
+  3 dependencies successfully precompiled in 52 seconds. 58 already precompiled.
+== 06:22:22 2. the display at an IOBuffer (load 4.33)
+people  first 48.5 ms; then min 1.646 median 1.677 ms; 3143 bytes
+big     first 10.6 ms; then min 0.247 median 0.254 ms; 4497 bytes
+== 06:22:24 3. sessions (load 4.33)
+show 0.081 2_read_show 0.008 3_read_show 0.021 wall 2.960 show 0.081 2_read_show 0.007 3_read_show 0.021 wall 2.984 show 0.081 2_read_show 0.008 3_read_show 0.021 wall 3.010 
+scripts/measure_session.sh: line 34: /tmp/claude-1000/julia-review.lock: Permission denied
+flock: 9: Bad file descriptor
+flock: 9: Bad file descriptor
+fk-patched 1 load 3.97 | start 1.560 | read 0.049 | show 0.082 | describe 0.040 | select_filter 0.129 | sort 0.146 | groupby_combine 0.030 | user_function 0.127 | join 0.078 | add_column 0.003 | write 0.511 | 2_read_show 0.007 | 2_describe 0.039 | 2_sort 0.068 | 2_groupby_combine 0.037 | 3_using 0.001 | 3_read_show 0.021 | 3_describe 0.005 | 3_groupby_combine 0.001 | exit 0.078 | wall 3.013
+== 06:22:36 4. checks (load 3.81)
+digests equal: 26 steps
+repl exit 0; marks 20 of 20; errors 0, 0 expected (transcript: /tmp/forks_check/repl.txt)
+check_session: pass
+DataFrames' tests exit 1
+Test Summary: | Pass  Total  Time
+Test Summary: | Pass  Total  Time
+Test Summary:      | Pass  Total  Time
+Test Summary: | Pass  Total  Time
+Test Summary:       | Pass  Total  Time
+Test Summary: | Pass  Total  Time
+Test Summary:          |     Pass     Total   Time
+Test Summary:                                       | Pass  Total  Time
+== 06:58:46 done (load 2.62)
