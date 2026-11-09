@@ -1,0 +1,27 @@
+read            0.434
+describe        0.038
+select_filter   0.124
+sort            0.263
+groupby         0.025
+user_function   0.418
+join            1.927
+write           0.226
+facts CodeInstances of CSV, DataFrames, Tables: 3468; G2 3400; not G2 68
+      47  inlined callee not G2
+          Tuple{CSV.var"##_applytypes!#46", Bool, typeof(CSV._applytypes!), Vector{CSV.ColumnDecision}, Dict{Symbol, DataType}, Vector{Symbol}, Vector{Int64}}
+          Tuple{typeof(CSV._normalizetypemap), Dict{DataType, DataType}}
+          Tuple{typeof(completecases), DataFrame, Vector{Symbol}}
+      12  a dispatch edge not at a fact signature + inlined callee not G2
+          Tuple{DataFrames.var"##unstack#703", Function, Bool, Bool, Function, Missing, Bool, typeof(unstack), DataFrame}
+          Tuple{DataFrames.var"##unstack#703", typeof(identity), Bool, Bool, typeof(only), Missing, Bool, typeof(unstack), DataFrame}
+          Tuple{typeof(DataFrames.ordering), DataFrame, UnitRange{Int64}, Function, Function, Bool, Base.Order.ForwardOrdering}
+       5  inlined callee, uncached and not G2
+          Tuple{typeof(DataFrames._combine), GroupedDataFrame{DataFrame}, Vector{Any}, Vector{Bool}, Vararg{Bool, 4}}
+          Tuple{DataFrames.var"##mapcols#653", All{Tuple{}}, typeof(mapcols), DataFrames.var"#143#144"{Int64}, DataFrame}
+          Tuple{DataFrames.var"##mapcols#653", All{Tuple{}}, typeof(mapcols), DataFrames.var"#151#152"{Int64, Int64}, DataFrame}
+       2  inlined callee's edge names an uncached instance; the cached one is G2
+          Tuple{typeof(CSV._writeshortest_default), Vector{UInt8}, Int64, Float64, UInt8}
+          Tuple{typeof(CSV._writeshortest_default), CSV._WriteBuffer, Int64, Float64, UInt8}
+       2  none found
+          Tuple{CSV.var"##index#19", Int64, Int64, Int64, Int64, Bool, Int64, Bool, Nothing, typeof(CSV.index), Vector{UInt8}, CSV.Dialect}
+          Tuple{CSV.var"##index#19", Int64, Int64, Int64, Int64, Bool, Nothing, Bool, Nothing, typeof(CSV.index), Vector{UInt8}, CSV.Dialect}

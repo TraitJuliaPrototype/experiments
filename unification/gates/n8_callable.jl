@@ -1,4 +1,4 @@
-# Gate (W-113; compiler §7.4; traits §9): `Core.Callable{A, S}`. A function is a member where one of its
+# Gate (W-113, C-63; compiler §7.4; traits §9): `Core.Callable{A, S}`. A function is a member where one of its
 # methods covers a call at `A`, whatever `S` is; its own methods decide it, read in the query's world.
 # Dispatch picks by signature; a method defined later begins a membership and deleting it ends one; a
 # call through a value known as `Callable{A, S}` has the result `S`, asserted on return; a question
@@ -38,6 +38,14 @@ newf(x::Int) = x + 1
 Base.delete_method(which(newf, (Int,)))
 @assert !probe(newf) "deleting the method ended it"
 @assert try apply(newf, 1); false catch e; e isa MethodError end
+
+# a match through Callable holds in the worlds of the member's methods (C-63): the dispatch cache
+# entry made after the method's definition is not used by a call in a world before it
+oldf(x::Float64) = x
+w_before = curworld()
+oldf(x::Int) = x + 1
+@assert apply(oldf, 1) === :int
+@assert try Base.invoke_in_world(w_before, apply, oldf, 1); false catch e; e isa MethodError end "the older world: no member"
 
 # the call through a value known as Callable{A, S}: S, asserted on return
 call1(f::C{Tuple{Int}, Int}) = f(1)

@@ -1,0 +1,121 @@
+== 04:35:19 1. precompile (load 4.68)
+  11.4 s  ✓ TraitWorld
+  3 dependencies successfully precompiled in 12 seconds. 2 already precompiled.
+   8.3 s  ✓ TraitMakie
+  40 dependencies successfully precompiled in 24 seconds. 8 already precompiled.
+   1.7 s  ✓ PlainTables
+  2 dependencies successfully precompiled in 2 seconds. 45 already precompiled.
+   3.2 s  ✓ CSV → CSVDataFramesInlineStringsExt
+  36 dependencies successfully precompiled in 116 seconds. 62 already precompiled.
+   7.7 s  ✓ TraitDifferentialEquations
+  17 dependencies successfully precompiled in 30 seconds. 10 already precompiled.
+   3.2 s  ✓ CSV → CSVDataFramesInlineStringsExt
+  36 dependencies successfully precompiled in 91 seconds. 25 already precompiled.
+  35.6 s  ✓ DataFrames
+  5 dependencies successfully precompiled in 61 seconds. 52 already precompiled.
+warnings in the precompiles: 0
+NetworkDynamics' load warnings: 0
+== 04:43:44 2. gates (load 4.43)
+gates: 27 passed, 0 failed
+gates: 25 passed, 0 failed
+== 04:45:14 3. TraitDifferentialEquations' suite (load 2.73)
+tde exit 0
+Test Summary:                     | Pass  Total  Time
+Test Summary:                         | Pass  Total  Time
+Test Summary:                                               | Pass  Total  Time
+Test Summary:                                               | Pass  Total  Time
+Test Summary:                                       | Pass  Total  Time
+Test Summary:                                    | Pass  Total  Time
+Test Summary:                       | Pass  Total  Time
+Test Summary:                           | Pass  Total  Time
+== 04:45:47 4. open issue 162 (c): unused casts over the ports (load 2.47)
+TraitDifferentialEquations: 0 unused casts (0.1 s)
+TraitMakie: 0 unused casts (0.0 s)
+TraitTables: 0 unused casts (0.0 s)
+TraitCSV: 0 unused casts (0.0 s)
+Tables: 0 unused casts (0.0 s)
+CSV: 0 unused casts (0.0 s)
+DataFrames: 0 unused casts (0.1 s)
+NetworkDynamics: 0 unused casts (0.2 s)
+== 04:46:17 5. the census of facts code failing G2, the forks' session (load 2.28)
+read            0.434
+describe        0.038
+select_filter   0.124
+sort            0.263
+groupby         0.025
+user_function   0.418
+join            1.927
+write           0.226
+facts CodeInstances of CSV, DataFrames, Tables: 3468; G2 3400; not G2 68
+      47  inlined callee not G2
+      12  a dispatch edge not at a fact signature + inlined callee not G2
+       5  inlined callee, uncached and not G2
+       2  inlined callee's edge names an uncached instance; the cached one is G2
+       2  none found
+== 04:46:22 6. sessions (load 2.26)
+wall 1.632 wall 1.609 wall 1.585  f-unified-w321
+wall 2.981 wall 2.980 wall 2.989  forks-unified-w321
+total 2.730 total 2.729 total 2.711  d-unified-w321
+ t-unified-w321
+T again d 4176.8 compile 3933.4 recompile 0.0 gc 67.0
+P step_d 240.4 ms
+P step_d 262.2 ms
+P step_d 236.1 ms
+== 04:47:59 7. census, the goal's environment (load 2.26)
+CSV                                      facts   1230  plain     0 (from an image 0)
+CSV.ColumnParsers                        facts     53  plain     0 (from an image 0)
+DataFrames                               facts   1753  plain     0 (from an image 0)
+DataFrames.ColumnKernels                 facts    197  plain     0 (from an image 0)
+TraitMakie.PlotCore                      facts    146  plain     0 (from an image 0)
+TraitWorld.BaseTraits                    facts      5  plain     0 (from an image 0)
+== 04:48:02 8. battery w321 (load 2.26)
+gates: 27 passed, 0 failed
+gates: 25 passed, 0 failed
+w321 core                 exit 0  wall 71.0 s      SUCCESS
+w321 subtype              exit 0  wall 19.0 s      SUCCESS
+w321 worlds               exit 0  wall 10.1 s      SUCCESS
+w321 ambiguous            exit 0  wall 9.9 s      SUCCESS
+w321 reflection           exit 0  wall 18.9 s      SUCCESS
+w321 Compiler/inline      exit 0  wall 96.4 s      SUCCESS
+w321 Compiler/inference   exit 0  wall 83.5 s      SUCCESS
+w321 precompile           exit 0  wall 265.5 s      SUCCESS
+AC_01_redefinitions: OK
+AC_02_stdlib: OK
+AC_03_recursion: OK
+AC_04_return_type: OK
+AC_05_return_type_redef: OK
+AC_06_return_type_wide: OK
+AC_07_assert_fold_rtsite: OK
+AC_08_base_assertion: OK
+AC_09_assert_above_rtsite: OK
+AC_10_assert_many_methods: OK
+AC_11_worlds: OK
+AC_12_cycle_redef: OK
+AC_13_union_split_cost: OK
+AC_14_narrow_after_wide: OK
+AC_15b_runtime_site: OK
+AC_15_type_value_extension: OK
+AC_16_concrete_enforcement: OK
+AC_17_compiler_always_plain: OK
+AC_18_membership_seam: OK
+AC_19: OK   (detect_ambiguities(Base) = 0, unchanged under all)
+AC_20_chain_membership: OK
+traitworld exit 0
+columns exit 0
+ode exit 0
+== 05:08:46 8b. checks (load 2.44)
+digests equal: 26 steps
+repl exit 0; marks 20 of 20; errors 0, 0 expected (transcript: /tmp/forks_check/repl.txt)
+check_session: pass
+    tag    String, 4 distinct of 500
+CHECK items: (t) and (pt) print the same summary and draw the same PNG ok
+    name   String15, 200 distinct of 200
+    x      mean 50.25  std 28.9396  min 0.5  max 100.0  sum 10050.0
+    n      mean 100.5  std 57.8792  min 1.0  max 200.0  sum 20100.0
+ndtest exit 0
+TEST unused casts pass=1 fail=0 error=0 broken=0
+TEST massmatrix_test.jl pass=6 fail=0 error=0 broken=0
+TEST doctor_test.jl pass=26 fail=0 error=0 broken=0
+TEST diffusion_test.jl pass=108 fail=1 error=1 broken=24
+TEST inhomogeneous_test.jl pass=39 fail=0 error=1 broken=12
+== 05:10:59 done (load 2.28)

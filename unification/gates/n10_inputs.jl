@@ -1,4 +1,4 @@
-# Gate (C-32, T-103; compiler §4.6, traits §3.2): a member at several values of an input parameter.
+# Gate (C-32, T-103, C-27; compiler §4.6, traits §3.2): a member at several values of an input parameter.
 # A set with an input `N` takes one membership per value of `N`; a second instance at a value
 # already held is refused, and a set without inputs keeps one instance per member. Dispatch picks
 # by the input. The inputs survive a package image: after loading, a conflicting declaration at a
@@ -41,7 +41,48 @@ kind(::HP{:c}) = :c
 @assert refused(() -> setinputs!(Int, 0x01))
 setinputs!(HP, 0x01)                 # the same mask again is no change
 
-# 5. an image round trip
+# 5. a pattern's second instance (C-27): refused where a member of the pattern is in the set at the
+# same inputs at another instance already, through a concrete entry, a pattern's, a supertype's
+# pattern or a set it joins; the same instance, or other inputs, accepted; a refusal changes nothing
+@trait PQ{R}                         # no inputs
+struct W1{T} end
+@implement PQ{Int} W1{Float64}
+@assert refused(() -> @eval(@implement PQ{T} W1{T})) "a pattern against a concrete entry"
+@assert W1{Float64} <: PQ{Int} && !(W1{Float64} <: PQ{Float64}) && !(W1{Int} <: PQ)
+struct W2{T} end
+@implement PQ{T} W2{T}
+@assert refused(() -> @eval(@implement PQ{Int} W2{Float64})) "a concrete member against a pattern's entry"
+struct W3{T} end
+@implement PQ{Int} W3{T}             # every W3 in PQ{Int}
+@assert refused(() -> @eval(@implement PQ{T} W3{T})) "a pattern against a pattern"
+@assert W3{Float64} <: PQ{Int} && !(W3{Float64} <: PQ{Float64})
+struct W4{T} end
+@implement PQ{T} W4{T}
+@implement PQ{T} W4{T}               # a redeclaration: the old entry ends
+@assert count(e -> e.max_world == typemax(UInt), Base.unwrap_unionall(W4).name.memberships) == 1
+struct W5{T} end
+@implement PQ{Int} W5{Int}
+@implement PQ{T} W5{T}               # W5{Int} at the same instance: accepted
+@assert W5{Int} <: PQ{Int} && W5{Float64} <: PQ{Float64}
+abstract type AW{T} end
+struct W6{T} <: AW{T} end
+@implement PQ{Int} W6{Float64}
+@assert refused(() -> @eval(@implement PQ{T} AW{T})) "a supertype's pattern against an entry below it"
+@trait HP2{N, R}
+setinputs!(HP2, 0x01)
+struct W7{T} end
+@implement HP2{:a, Int} W7{Float64}
+@assert refused(() -> @eval(@implement HP2{:a, T} W7{T})) "at the same inputs"
+@implement HP2{:b, T} W7{T}          # at other inputs: accepted
+@assert W7{Float64} <: HP2{:a, Int} && W7{Float64} <: HP2{:b, Float64}
+@trait YJ{R}
+@implement PQ{R} YJ{R}               # YJ joins PQ at its own parameter
+struct W8{T} end
+@implement YJ{Int} W8{Float64}
+@assert W8{Float64} <: PQ{Int}
+@assert refused(() -> @eval(@implement PQ{T} W8{T})) "through a set it joins"
+
+# 6. an image round trip
 const ROOT = mktempdir()
 const PKGS = joinpath(ROOT, "pkgs")
 const DEPOT = joinpath(ROOT, "depot")
