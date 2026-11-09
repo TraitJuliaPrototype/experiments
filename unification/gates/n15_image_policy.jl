@@ -1,9 +1,10 @@
-# Gate for compiler C-74 (§2.3, §9): an image keeps the code of a method compiled by facts at its
+# Gate for compiler C-74 (§2.3, §9) and facts F-24's cache: an image keeps the code of a method compiled by facts at its
 # policy, whoever compiled it last. A module compiled by facts runs a closure in a task in its
 # workload; a method defined after the workload invalidates that closure's code, so the image's
 # native compile infers it again: under the closure's own policy, never the compiling interpreter's.
-# After the load, every CodeInstance of the module's methods (closures included) is facts. Runs child
-# processes on a fresh depot.
+# After the load, every CodeInstance of the module's methods (closures included) is facts. Reflection's
+# top frame of a facts method, plain (facts F-24), is never kept as the method's code, in the image or
+# in the session. Runs child processes on a fresh depot.
 include("util.jl")
 
 const ROOT = mktempdir()
@@ -26,6 +27,7 @@ end
 direct(v::Vector{Int}) = sum(x -> kernel(x), v)
 viatask([1, 2, 3])
 direct([1, 2, 3])
+Base.infer_return_type(kernel, (Int16,))   # reflection, as a membership check does: no plain code kept
 kernel(x::Int) = x + 1      # after the workload: the callers of `kernel(::Int)` are invalidated
 end
 """)
@@ -45,6 +47,7 @@ ok, out, err = child("using PolC")
 @assert ok "precompiling PolC: $err"
 ok, out, err = child("""
     using PolC
+    Base.infer_return_type(PolC.kernel, (Int8,))
     plain = String[]; n = 0
     for name in names(PolC; all = true)
         T = getfield(PolC, name)

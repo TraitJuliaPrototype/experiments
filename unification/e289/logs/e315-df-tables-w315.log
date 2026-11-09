@@ -1,0 +1,79 @@
+     Testing DataFrames
+== tables.jl
+Test Summary: | Pass  Total  Time
+Tables        |  101    101  6.3s
+Test Summary:                  | Pass  Total  Time
+DataFrame without copying cols |   13     13  0.2s
+Test Summary: | Pass  Total  Time
+columnindex   |   23     23  0.8s
+Test Summary:                   | Pass  Total  Time
+eachrow and eachcol integration |   29     29  0.5s
+Test Summary:                 | Pass  Total  Time
+test constructor with vectors |   18     18  1.6s
+Test Summary: | Pass  Total  Time
+materializer  |   14     14  0.0s
+
+Tables.subset: Error During Test at /p/projects/coen/julia-trait-bound/forks-unified/DataFrames/test/tables.jl:326
+  Got exception outside of a @test
+  return type DataFrame does not match inferred return type Any
+  Stacktrace:
+    [1] error(s::String)
+      @ Base ./error.jl:44
+    [2] macro expansion
+      @ /p/projects/coen/julia-trait-bound/forks-unified/DataFrames/test/tables.jl:340 [inlined]
+    [3] macro expansion
+      @ /p/projects/coen/julia-trait-bound/julia-unified/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:1967 [inlined]
+    [4] top-level scope
+      @ /p/projects/coen/julia-trait-bound/forks-unified/DataFrames/test/tables.jl:327
+    [5] include(mod::Module, _path::String)
+      @ Base ./Base.jl:310
+    [6] (::var"#2#3")()
+      @ Main /p/projects/coen/julia-trait-bound/experiments/unification/c36/df_subset.jl:13
+    [7] run_sandboxed_tests!(ctx::Pkg.Types.Context, pkg::PackageSpec, source_path::String, test_args::Cmd, coverage::Bool, julia_args::Cmd, test_fn::var"#2#3", pkgs_errored::Vector{Tuple{String, Base.Process}})
+      @ Pkg.Operations /p/projects/coen/julia-trait-bound/julia-unified/usr/share/julia/stdlib/v1.13/Pkg/src/Operations.jl:3188
+    [8] (::Pkg.Operations.var"#272#273"{Bool, Cmd, Cmd, var"#2#3", Pkg.Types.Context, Vector{Tuple{String, Base.Process}}, String, PackageSpec})()
+      @ Pkg.Operations /p/projects/coen/julia-trait-bound/julia-unified/usr/share/julia/stdlib/v1.13/Pkg/src/Operations.jl:3279
+    [9] withenv(::Pkg.Operations.var"#272#273"{Bool, Cmd, Cmd, var"#2#3", Pkg.Types.Context, Vector{Tuple{String, Base.Process}}, String, PackageSpec}, ::Pair{String, String}, ::Pair{String, Nothing})
+      @ Base ./env.jl:273
+   [10] (::Pkg.Operations.var"#246#247"{Bool, Bool, Bool, Pkg.Operations.var"#272#273"{Bool, Cmd, Cmd, var"#2#3", Pkg.Types.Context, Vector{Tuple{String, Base.Process}}, String, PackageSpec}, Pkg.Types.Context, PackageSpec, String, Bool, Pkg.Types.EnvCache})()
+      @ Pkg.Operations /p/projects/coen/julia-trait-bound/julia-unified/usr/share/julia/stdlib/v1.13/Pkg/src/Operations.jl:2978
+   [11] with_temp_env(fn::Pkg.Operations.var"#246#247"{Bool, Bool, Bool, Pkg.Operations.var"#272#273"{Bool, Cmd, Cmd, var"#2#3", Pkg.Types.Context, Vector{Tuple{String, Base.Process}}, String, PackageSpec}, Pkg.Types.Context, PackageSpec, String, Bool, Pkg.Types.EnvCache}, temp_env::String)
+      @ Pkg.Operations /p/projects/coen/julia-trait-bound/julia-unified/usr/share/julia/stdlib/v1.13/Pkg/src/Operations.jl:2880
+   [12] sandbox_with_temp_env(fn::Function, ctx::Pkg.Types.Context, target::PackageSpec, tmp::String, has_sandbox_project::Bool, sandbox_env::Pkg.Types.EnvCache; force_latest_compatible_version::Bool, allow_earlier_backwards_compatible_versions::Bool, allow_reresolve::Bool)
+      @ Pkg.Operations /p/projects/coen/julia-trait-bound/julia-unified/usr/share/julia/stdlib/v1.13/Pkg/src/Operations.jl:2937
+   [13] (::Pkg.Operations.var"#251#252"{Dict{String, Any}, Bool, Bool, Bool, Pkg.Operations.var"#272#273"{Bool, Cmd, Cmd, var"#2#3", Pkg.Types.Context, Vector{Tuple{String, Base.Process}}, String, PackageSpec}, Pkg.Types.Context, PackageSpec, String, Pkg.Types.Project, String})(tmp::String)
+      @ Pkg.Operations /p/projects/coen/julia-trait-bound/julia-unified/usr/share/julia/stdlib/v1.13/Pkg/src/Operations.jl:3047
+   [14] mktempdir(fn::Pkg.Operations.var"#251#252"{Dict{String, Any}, Bool, Bool, Bool, Pkg.Operations.var"#272#273"{Bool, Cmd, Cmd, var"#2#3", Pkg.Types.Context, Vector{Tuple{String, Base.Process}}, String, PackageSpec}, Pkg.Types.Context, PackageSpec, String, Pkg.Types.Project, String}, parent::String; prefix::String)
+      @ Base.Filesystem ./file.jl:975
+   [15] mktempdir(fn::Function, parent::String)
+      @ Base.Filesystem ./file.jl:971
+   [16] sandbox(fn::Function, ctx::Pkg.Types.Context, target::PackageSpec, sandbox_path::String, sandbox_project_override_in::Pkg.Types.Project; preferences::Dict{String, Any}, force_latest_compatible_version::Bool, allow_earlier_backwards_compatible_versions::Bool, allow_reresolve::Bool)
+      @ Pkg.Operations /p/projects/coen/julia-trait-bound/julia-unified/usr/share/julia/stdlib/v1.13/Pkg/src/Operations.jl:2993
+   [17] sandbox
+      @ /p/projects/coen/julia-trait-bound/julia-unified/usr/share/julia/stdlib/v1.13/Pkg/src/Operations.jl:2983 [inlined]
+   [18] test(ctx::Pkg.Types.Context, pkgs::Vector{PackageSpec}; coverage::Bool, julia_args::Cmd, test_args::Cmd, test_fn::Function, force_latest_compatible_version::Bool, allow_earlier_backwards_compatible_versions::Bool, allow_reresolve::Bool)
+      @ Pkg.Operations /p/projects/coen/julia-trait-bound/julia-unified/usr/share/julia/stdlib/v1.13/Pkg/src/Operations.jl:3272
+   [19] test
+      @ /p/projects/coen/julia-trait-bound/julia-unified/usr/share/julia/stdlib/v1.13/Pkg/src/Operations.jl:3197 [inlined]
+   [20] test(ctx::Pkg.Types.Context, pkgs::Vector{PackageSpec}; coverage::Bool, test_fn::Function, julia_args::Cmd, test_args::Cmd, force_latest_compatible_version::Bool, allow_earlier_backwards_compatible_versions::Bool, allow_reresolve::Bool, kwargs::@Kwargs{io::IOContext{IO}})
+      @ Pkg.API /p/projects/coen/julia-trait-bound/julia-unified/usr/share/julia/stdlib/v1.13/Pkg/src/API.jl:587
+   [21] test(pkgs::Vector{PackageSpec}; io::IOContext{IO}, kwargs::@Kwargs{test_fn::var"#2#3"})
+      @ Pkg.API /p/projects/coen/julia-trait-bound/julia-unified/usr/share/julia/stdlib/v1.13/Pkg/src/API.jl:172
+   [22] test(pkgs::Vector{String}; kwargs::@Kwargs{test_fn::var"#2#3"})
+      @ Pkg.API /p/projects/coen/julia-trait-bound/julia-unified/usr/share/julia/stdlib/v1.13/Pkg/src/API.jl:160
+   [23] test
+      @ /p/projects/coen/julia-trait-bound/julia-unified/usr/share/julia/stdlib/v1.13/Pkg/src/API.jl:160 [inlined]
+   [24] #test#84
+      @ /p/projects/coen/julia-trait-bound/julia-unified/usr/share/julia/stdlib/v1.13/Pkg/src/API.jl:159 [inlined]
+   [25] top-level scope
+      @ /p/projects/coen/julia-trait-bound/experiments/unification/c36/df_subset.jl:7
+   [26] include(mod::Module, _path::String)
+      @ Base ./Base.jl:310
+   [27] exec_options(opts::Base.JLOptions)
+      @ Base ./client.jl:344
+   [28] _start()
+      @ Base ./client.jl:577
+Test Summary: | Pass  Error  Total  Time
+Tables.subset |    6      1      7  0.9s
+RNG of the outermost testset: Xoshiro(0x4fd6ca49979a5d7a, 0xd0d729801d99d681, 0xb32f044df4cb1cc3, 0xda4fc4be7a597e1c, 0x3a75bd8510d1e390)
+FILE tables.jl ended: LoadError: Test.TestSetException(6, 0, 1, 0, Union{Test.Error, Test.Fail}[Test.Error(:nontest_error, "()", "ErrorException(\"return type DataFrame does not match inferred return type Any\")", "return type DataFrame does not match inferred return type Any\nStacktrace:\n  [1] error(s::String)\n    @ B
