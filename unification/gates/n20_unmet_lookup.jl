@@ -48,4 +48,32 @@ r = lookup(Tuple{typeof(k9), IO, Char})
 @assert r.ambig && length(r.matches) >= 1 "the ambiguity returns: $(r.ambig) $(r.matches)"
 @assert Base.isambiguous(mk, mq) "reflection reports it once a value exists"
 
+# (4) E-334, open issue 169: at a set closed after load (`IO`), an intersection no type is in is a final
+# negative with a cell (`AbstractString`, `IO`): `isa` folds to false, a match there is dropped even where
+# it would win (`write(::AbstractString, …)` ranks above `write(::IO, …)`), no instance is compiled
+# there; a membership that meets the intersection opens the cell and invalidates what relied on it
+latest(f, T...) = only([c for c in all_cis(f) if c.owner === nothing && c.max_world == typemax(UInt) &&
+                                                c.def.specTypes === Tuple{typeof(f), T...}])
+finalcells(ci) = [e for e in ci.edges if e isa Core.MembershipCell && e.isfinal != 0x00]
+isstr(io::IO) = io isa AbstractString
+@assert isstr(IOBuffer()) === false
+let ci = latest(isstr, IO)
+    @assert isdefined(ci, :rettype_const) && ci.rettype_const === false "isa folds: $(first(only(code_typed(isstr, (IO,)))))"
+    @assert any(c -> c.member === AbstractString, finalcells(ci)) "the cell (AbstractString, IO) recorded: $(ci.edges)"
+end
+w2(io::IO, a::UInt8, b::UInt8) = write(io, a, b)
+@assert w2(IOBuffer(), 0x01, 0x02) == 2
+let ir = first(only(code_typed(w2, (IO, UInt8, UInt8))))
+    @assert !any(st -> Meta.isexpr(st, :call) && any(a -> a isa Type && occursin("All{", string(a)), st.args), ir.code) "no branch at All{AbstractString, IO}: $ir"
+end
+@assert !any(mi -> unmet(mi.specTypes), Base.specializations(which(write, (AbstractString, UInt8, UInt8)))) "no instance at the unmet intersection"
+module P20
+struct S20 <: AbstractString end
+end
+ccall(:jl_module_set_loaded, Cvoid, (Any,), P20)
+ci = latest(isstr, IO)
+Traits.declare_membership(P20.S20, IO, P20)
+@assert ci.max_world != typemax(UInt) "the membership meets the intersection: the fold is invalidated"
+@assert !unmet(Tuple{typeof(write), Core.All{Tuple{AbstractString, IO}}, UInt8})
+
 println("n20_unmet_lookup: OK")
