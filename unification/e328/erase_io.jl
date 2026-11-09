@@ -6,6 +6,12 @@
 #   known   IOContext{IOBuffer}: the stream's type known, as code compiled per type sees it
 #   erased  IOContext{IO}: every call on the stream dispatches when it runs, as in a method compiled
 #           once, without the split over the trait's first members (so the pessimistic case)
+#   dyn     DynIO: erased, each call on the stream dispatches when it runs, its result asserted at the
+#           operation's declared type (`unsafe_write` and `write(io, ::UInt8)` `::Int`), as a run-time
+#           site of the design does (compiler §7)
+#   split   SplitIO: as dyn, but the operations branch over four candidate types (IOBuffer, IOStream, TTY,
+#           PipeEndpoint) with direct calls, a dynamic call past them, as compiler §7's split over a
+#           trait's first members would
 # Base keeps an IOContext{IO} erased when code wraps it again (`IOContext(io::IOContext, dict)` keeps
 # `typeof(io)`), so `show`'s own `IOContext(io, :compact => true)` stays erased.
 #
@@ -20,7 +26,39 @@ WITH_PKGS && @eval using CSV, DataFrames
 raw(b) = b
 known(b) = IOContext(b)                                       # IOContext{IOBuffer}
 erased(b) = IOContext{IO}(b, Base.ImmutableDict{Symbol, Any}())
-const WAYS = (("raw", raw), ("known", known), ("erased", erased))
+
+abstract type ErasedIO <: Base.AbstractPipe end
+struct DynIO <: ErasedIO
+    io::IO
+end
+struct SplitIO <: ErasedIO
+    io::IO
+end
+Base.pipe_writer(s::ErasedIO) = s.io
+Base.pipe_reader(s::ErasedIO) = s.io
+@inline route(f::F, s::DynIO) where {F} = f(s.io)
+@inline function route(f::F, s::SplitIO) where {F}
+    io = s.io
+    if io isa IOBuffer
+        f(io)
+    elseif io isa IOStream
+        f(io)
+    elseif io isa Base.TTY
+        f(io)
+    elseif io isa Base.PipeEndpoint
+        f(io)
+    else
+        f(io)                                                 # past the candidates: a dynamic call
+    end
+end
+Base.write(s::ErasedIO, b::UInt8) = route(x -> write(x, b), s)::Int
+Base.unsafe_write(s::ErasedIO, p::Ptr{UInt8}, n::UInt) = route(x -> unsafe_write(x, p, n), s)::Int
+Base.lock(s::ErasedIO) = (route(lock, s); nothing)
+Base.unlock(s::ErasedIO) = (route(unlock, s); nothing)
+dyn(b) = DynIO(b)
+split(b) = SplitIO(b)
+
+const WAYS = (("raw", raw), ("known", known), ("erased", erased), ("dyn", dyn), ("split", split))
 
 const N5 = 100_000
 const FLOATS = [i / 7 for i in 1:N5]
@@ -100,13 +138,13 @@ for r in 1:RUNS, (name, f, kind) in WORKLOADS, (wn, way) in WAYS   # interleaved
     dt, _ = once(f, kind, way)
     push!(times[(name, wn)], dt)
 end
-@printf("%-24s %17s %17s %17s %15s %10s\n", "workload (ms: min med)", "raw", "known", "erased",
-        "erased/known", "bytes")
+@printf("%-22s %15s %15s %15s %15s %15s  %s\n", "workload (ms: min med)", "raw", "known", "erased",
+        "dyn", "split", "against known, by min: erased dyn split; bytes")
 for (name, _, _) in WORKLOADS
     s = [(minimum(times[(name, wn)]), med(times[(name, wn)])) for (wn, _) in WAYS]
     same = allequal(bytes[(name, wn)] for (wn, _) in WAYS)
-    @printf("%-24s %8.2f %8.2f %8.2f %8.2f %8.2f %8.2f   %5.2f %5.2f   %10d%s\n", name,
-            s[1]..., s[2]..., s[3]..., s[3][1] / s[2][1], s[3][2] / s[2][2],
+    @printf("%-22s %7.2f %7.2f %7.2f %7.2f %7.2f %7.2f %7.2f %7.2f %7.2f %7.2f   %5.2f %5.2f %5.2f  %9d%s\n", name,
+            s[1]..., s[2]..., s[3]..., s[4]..., s[5]..., s[3][1] / s[2][1], s[4][1] / s[2][1], s[5][1] / s[2][1],
             bytes[(name, "known")], same ? "" : "  OUTPUT DIFFERS")
 end
 println("load at end ", strip(read("/proc/loadavg", String)))
