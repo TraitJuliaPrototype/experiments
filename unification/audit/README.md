@@ -30,6 +30,10 @@ julia-unified/julia --startup-file=no experiments/unification/audit/unmet_instan
 # (`all`: every operation; a proposed declaration: `write=Int,unsafe_write=Int`, `-` for none)
 julia-unified/julia --startup-file=no experiments/unification/audit/declared_results.jl [Pkg,…] [n] [f=T,…] [core|all]
 
+# the result-by-inference probe (open issue 171): an operation's result at a value typed IO, the stream's type
+# known, through IO and through Any; run as is and with --compile=min (logs/probe-result-by-inference-*.log)
+julia-unified/julia --startup-file=no [--compile=min] experiments/unification/audit/probe_result_by_inference.jl
+
 # the typemap report: methods a lookup tests one by one, in a level's linear list, by function; the
 # longest single lists (a list at the root is walked by every lookup of every function)
 julia-unified/julia --startup-file=no experiments/unification/audit/typemap_linear.jl [Pkg,…] [n]

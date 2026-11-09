@@ -1,0 +1,15 @@
+# unified b05ae361e0, 2026-11-09
+## compiled
+UInt count, the type known  UInt64 0x0000000000000007
+UInt count, through IO      Int64 7
+UInt count, through Any     UInt64 0x0000000000000007
+String, the type known      String "seven"
+String, through IO          raises MethodError
+String, through Any         String "seven"
+## --compile=min
+UInt count, the type known  UInt64 0x0000000000000007
+UInt count, through IO      UInt64 0x0000000000000007
+UInt count, through Any     UInt64 0x0000000000000007
+String, the type known      String "seven"
+String, through IO          String "seven"
+String, through Any         String "seven"
