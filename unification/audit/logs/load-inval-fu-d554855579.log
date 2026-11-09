@@ -1,0 +1,139 @@
+# loaded CSV, DataFrames, TraitMakie in 10.37 s; log entries: 37861
+# tags: jl_method_table_insert 131; invalidate_mt_cache 4
+# invalidated at an insertion: 18781 instances by 68 methods
+# by the inserting package: TraitWorld 13857; SentinelArrays 1685; FixedPointNumbers 1095; InlineStrings 703; CSV 468; Dates 314; DataStrings 259; Missings 98; PooledArrays 79; TranscodingStreams 69; OrderedCollections 54; Tables 30; DataFrames 29; LaTeXStrings 21; Crayons 17; DataStructures 3; Base64 0; FixedPointNumbersStatisticsExt 0
+# by the inserted method's shape (methods, instances):
+    typeof(length)(<set TraitWorld.BaseTraits.HasLength>)                     1  11994
+    typeof(iterate)(<set TraitWorld.BaseTraits.Iterable{T}>)                  1   1755
+    Type{T<:Union{Signed, Unsigned}}(_)                                       1   1341
+    typeof(zero)(_)                                                           1    679
+    Type{Base.IteratorSize}(_)                                                6    574
+    typeof(oneunit)(_)                                                        1    366
+    typeof(Base.TOML.Printer.is_valid_toml_value)(_)                          1    314
+    typeof(convert)(_, _)                                                     3    257
+    Type{String}(_)                                                           1    238
+    typeof(iterate)(_)                                                        1    224
+    Type{IndexStyle}(_)                                                       1    165
+    typeof(Base.unsafe_convert)(_, _)                                         1    123
+    typeof(setproperty!)(_, _, _)                                             1    108
+    typeof(+)(_, _)                                                           1     81
+    typeof(lastindex)(_)                                                      1     62
+    typeof(getkey)(_, _, _)                                                   1     41
+    typeof(Core.kwcall)(_, _, _, _)                                           1     37
+    typeof(one)(_)                                                            1     36
+    typeof(ncodeunits)(_)                                                     1     34
+    typeof(startswith)(_, _)                                                  2     30
+# the methods that invalidated most:
+ 11994  TraitWorld.BaseTraits: Tuple{typeof(length), TraitWorld.BaseTraits.HasLength}
+            Tuple{typeof(Base.gen_bitarray), Base.HasLength, LinearAlgebra.Factorization}  [Base]
+            Tuple{typeof(Base.gen_bitarrayN), Type{BitVector}, Base.HasLength, LinearAlgebra.Factorization}  [Base]
+            Tuple{Type{BitVector}, LinearAlgebra.Factorization}  [Base]
+  1755  TraitWorld.BaseTraits: Tuple{typeof(iterate), TraitWorld.BaseTraits.Iterable{T}} where T
+            Tuple{typeof(Base.escape_raw_string), IO, All{AbstractString, IO}, Char}  [Base]
+            Tuple{typeof(Base.escape_raw_string), All{AbstractString, IO}, Char}  [Base]
+            Tuple{typeof(Base.show_unquoted), IO, Expr, Int64, Int64, Int64}  [Base]
+  1341  SentinelArrays: Tuple{Type{T}, SentinelArrays.ChainedVectorIndex} where T<:Union{Signed, Unsigned}
+            Tuple{Type{SubString}, AbstractString, Integer, Int64}  [Base]
+            Tuple{Type{SubString}, AbstractString, Integer, Integer}  [Base]
+            Tuple{typeof(nextind), AbstractVector, Integer}  [Base]
+   679  FixedPointNumbers: Tuple{typeof(zero), Type{X}} where X<:FixedPointNumbers.FixedPoint
+            Tuple{typeof(Base.gen_bitarray), Base.HasLength, LinearAlgebra.Factorization}  [Base]
+            Tuple{typeof(Base.gen_bitarrayN), Type{BitVector}, Base.HasLength, LinearAlgebra.Factorization}  [Base]
+            Tuple{Type{BitVector}, LinearAlgebra.Factorization}  [Base]
+   453  CSV: Tuple{Type{Base.IteratorSize}, Type{CSV._IndexedRows}}
+            Tuple{Base.Iterators.var"#IteratorSize##0#IteratorSize##1"{Is} where Is<:Tuple{Vector{Symbol}, Base.Iterators.Flatten{I} where I<:Tuple{Any, Any, Vector{Union{Nothing, St
+            Tuple{typeof(ntuple), Base.Iterators.var"#IteratorSize##0#IteratorSize##1"{Is} where Is<:Tuple{Vector{Symbol}, Base.Iterators.Flatten{I} where I<:Tuple{Any, Any, Vector{U
+            Tuple{Type{Base.IteratorSize}, Type{Base.Iterators.Zip{Is}} where Is<:Tuple{Vector{Symbol}, Base.Iterators.Flatten{I} where I<:Tuple{Any, Any, Vector{Union{Nothing, Strin
+   366  FixedPointNumbers: Tuple{typeof(oneunit), Type{X}} where X<:FixedPointNumbers.FixedPoint
+            Tuple{Base.BottomRF{typeof(Base.add_sum)}, Base._InitialValue, Any}  [Base]
+            Tuple{Base.MappingRF{Base.var"#861#862", Base.BottomRF{typeof(Base.add_sum)}}, Base._InitialValue, Any}  [Base]
+            Tuple{typeof(Base._foldl_impl), Base.MappingRF{Base.var"#861#862", Base.BottomRF{typeof(Base.add_sum)}}, Base._InitialValue, Vector{Any}}  [Base]
+   314  Dates: Tuple{typeof(Base.TOML.Printer.is_valid_toml_value), Union{Dates.Date, Dates.DateTime, Dates.Time}}
+            Tuple{typeof(mark), IO}  [Base]
+            Tuple{typeof(mark), Base.LibuvStream}  [Base]
+            Tuple{typeof(startswith), IO, Char}  [Base]
+   238  InlineStrings: Tuple{Type{String}, T} where T<:InlineStrings.InlineString
+            Tuple{typeof(findnext), Base.Fix2{typeof(isequal), Char}, AbstractString, Int64}  [Base]
+            Tuple{typeof(iterate), Base.SplitIterator{S, Base.Fix2{typeof(isequal), Char}} where S<:AbstractString, Tuple{Int64, Int64, Int64}}  [Base]
+            Tuple{typeof(iterate), Base.SplitIterator{S, Base.Fix2{typeof(isequal), Char}} where S<:AbstractString}  [Base]
+   224  InlineStrings: Tuple{typeof(iterate), InlineStrings.InlineString}
+            Tuple{typeof(print), IO, All{AbstractString, IO}}  [Base]
+            Tuple{typeof(Base.escape_raw_string), IO, All{AbstractString, IO}, Char}  [Base]
+            Tuple{typeof(prevind), AbstractString, Int64, Int64}  [Base]
+   165  SentinelArrays.BufferedVectors: Tuple{Type{IndexStyle}, SentinelArrays.BufferedVectors.BufferedVector}
+            Tuple{typeof(convert), Type{String}, All{AbstractString, IO}}  [Base]
+            Tuple{typeof(write), All{AbstractString, IO}, Vararg{UInt8, 4}}  [Base]
+            Tuple{typeof(Base.show_invalid), IO, Char}  [Base]
+   144  DataStrings: Tuple{typeof(convert), Type{String}, DataStrings.DataString}
+            Tuple{typeof(setproperty!), Base.CacheHeaderIncludes, Symbol, Any}  [Base]
+            Tuple{typeof(setproperty!), Base.CacheHeaderIncludes, Symbol, Any}  [Base]
+            Tuple{Base.var"#cvt1#convert##0"{Tuple{String, Int32}, <:Tuple{Any, Int32}}, Int64}  [Base]
+   123  InlineStrings: Tuple{typeof(Base.unsafe_convert), Type{Ptr{Int8}}, Ref{T}} where T<:InlineStrings.InlineString
+            Tuple{typeof(pointer), Array}  [Base]
+            Tuple{typeof(pointer), Array}  [Base]
+            Tuple{typeof(pointer), Array, Int64}  [Base]
+   108  TraitWorld: Tuple{typeof(setproperty!), Core.Dynamic{X}, Symbol, Any} where X
+            Tuple{typeof(Base.show_typealias), IOBuffer, GlobalRef, Type, Core.SimpleVector, Vector{TypeVar}}  [Base]
+            Tuple{typeof(Base.show_typealias), IOBuffer, GlobalRef, Union, Core.SimpleVector, Vector{TypeVar}}  [Base]
+            Tuple{typeof(Base.show_typealias), IOBuffer, GlobalRef, Type, Core.SimpleVector, Vector{TypeVar}}  [Base]
+    98  Missings: Tuple{Type{Base.IteratorSize}, Type{<:Missings.EachReplaceMissing{T}}} where T
+            Tuple{typeof(Base._copyto_bitarray!), BitVector, AbstractVector}  [Base]
+            Tuple{Type{BitVector}, AbstractVector{T}} where T  [Base]
+            Tuple{typeof(convert), Type{BitVector}, AbstractArray}  [Base]
+    96  DataStrings: Tuple{typeof(convert), Type{Vector{UInt8}}, DataStrings.DataBytes}
+            Tuple{Type{Base.ImageTarget}, Vararg{Any, 5}}  [Base]
+            Tuple{typeof(read), AbstractString, Type{String}}  [Base]
+            Tuple{typeof(push!), Vector{String}, AbstractString}  [Base]
+    81  SentinelArrays: Tuple{typeof(+), Integer, SentinelArrays.ChainedVectorIndex}
+            Tuple{typeof(size), LinearAlgebra.HessenbergQ, Int64}  [LinearAlgebra]
+            Tuple{typeof(Base.cat_size), LinearAlgebra.AbstractQ, Int64}  [LinearAlgebra]
+            Tuple{Base.var"#__cat_offset1!##2#__cat_offset1!##3"{Tuple{Bool}, Tuple{Int64}}, Int64}  [Base]
+    62  PooledArrays: Tuple{typeof(lastindex), PooledArrays.PooledArray}
+            Tuple{typeof(Base._join_preserve_annotations), Tuple{Vararg{Symbol}}, String}  [Base]
+            Tuple{typeof(join), Tuple{Vararg{Symbol}}, String}  [Base]
+            Tuple{typeof(Base.CoreLogging.log_record_id), Any, Any, Any, Tuple{}}  [Base.CoreLogging]
+    41  OrderedCollections: Tuple{typeof(getkey), OrderedCollections.LittleDict, Any, Any}
+            Tuple{Base.var"#getkey##0#getkey##1"}  [Base]
+            Tuple{typeof(lock), Base.var"#getkey##0#getkey##1", ReentrantLock}  [Base]
+            Tuple{typeof(lock), Base.var"#getkey##0#getkey##1"{WeakKeyDict{K, V}} where {K, V}, WeakKeyDict}  [Base]
+    37  TranscodingStreams: Tuple{typeof(Core.kwcall), NamedTuple, typeof(readuntil), TranscodingStreams.TranscodingStream, UInt8}
+            Tuple{typeof(seek), IOBuffer, Int64}  [Base]
+            Tuple{typeof(seek), Base.AnnotatedIOBuffer, Int64}  [Base]
+            Tuple{Type{Base.JuliaSyntax.ParseStream}, Vector{UInt8}, String, Int64, VersionNumber}  [Base.JuliaSyntax]
+    36  FixedPointNumbers: Tuple{typeof(one), Type{X}} where X<:FixedPointNumbers.FixedPoint
+            Tuple{Statistics.var"#_mean##2#_mean##3"{typeof(identity)}, Any}  [Statistics]
+            Tuple{typeof(Base.mapreduce_first), Statistics.var"#_mean##2#_mean##3"{typeof(identity)}, typeof(Base.add_sum), Any}  [Base]
+            Tuple{typeof(Base.mapreduce_impl), Statistics.var"#_mean##2#_mean##3"{typeof(identity)}, typeof(Base.add_sum), DataFrames.ColumnKernels.CellVector{InlineStrings.String15,
+# the roots (depth 0) under the methods that invalidated most:
+  TraitWorld.BaseTraits: Tuple{typeof(length), TraitWorld.BaseTraits.HasLength}: 1 roots
+       1  pruned Tuple{typeof(length), LinearAlgebra.Factorization}
+  TraitWorld.BaseTraits: Tuple{typeof(iterate), TraitWorld.BaseTraits.Iterable{T}} where T: 3 roots
+       3  pruned Tuple{typeof(iterate), All{AbstractString, IO}}
+  SentinelArrays: Tuple{Type{T}, SentinelArrays.ChainedVectorIndex} where T<:Union{Signed, Unsigned}: 62 roots
+      54  pruned Tuple{Type{Int64}, Integer}
+       4  pruned Tuple{Type{UInt64}, Integer}
+       3  pruned Tuple{Type{Int32}, Integer}
+       1  pruned Tuple{Type{UInt16}, Integer}
+  FixedPointNumbers: Tuple{typeof(zero), Type{X}} where X<:FixedPointNumbers.FixedPoint: 0 roots
+# through a split's branch: 30797 instances under 880 edges (operation, candidate: edges, instances):
+   13117  typeof(get) at Base.TTY (257 edges)
+    6257  typeof(read) at Base.PipeEndpoint (16 edges)
+    6218  typeof(read) at IO (3 edges)
+    1325  typeof(write) at All{AbstractString, IO} (22 edges)
+    1042  typeof(unsafe_write) at Base.PipeEndpoint (33 edges)
+    1003  typeof(write) at Base.PipeEndpoint (53 edges)
+     902  typeof(write) at IO (156 edges)
+     287  typeof(unsafe_write) at IO (10 edges)
+     193  typeof(write) at Base.AnnotatedIOBuffer (7 edges)
+     122  typeof(eof) at Base.PipeEndpoint (46 edges)
+      95  typeof(read) at Base.GenericIOBuffer (95 edges)
+      56  typeof(write) at Base.TTY (53 edges)
+      46  typeof(eof) at Base.TTY (46 edges)
+      41  typeof(unsafe_read) at Base.PipeEndpoint (9 edges)
+      33  typeof(unsafe_write) at Base.TTY (33 edges)
+      31  typeof(unsafe_read) at IO (13 edges)
+      16  typeof(read) at Base.TTY (16 edges)
+       9  typeof(unsafe_read) at Base.TTY (9 edges)
+       3  typeof(length) at Base.EnvDict (2 edges)
+       1  typeof(read) at All{Base.AbstractCmd, IO} (1 edges)
+# rejected at an image's validation: 0 instances, 0 causes

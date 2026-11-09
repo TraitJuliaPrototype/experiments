@@ -1,0 +1,817 @@
+Running parallel tests with:
+  getpid() = 999240
+  nworkers() = 1
+  nthreads(:interactive) = 1
+  nthreads(:default) = 4
+  Sys.CPU_THREADS = 1
+  Sys.total_memory() = 754.783 GiB
+  Sys.free_memory() = 616.300 GiB
+  Sys.uptime() = 414462.67 (115.1 hours)
+
+Test  (Worker) | Time (s) | GC (s) | GC % | Alloc (MB) | RSS (MB)
+ambiguous  (1) |        started at 2026-11-09T12:12:46.591
+ambiguous  (1) |         failed at 2026-11-09T12:12:53.180
+Test Failed at /p/projects/coen/julia-trait-bound/julia-unified/usr/share/julia/test/ambiguous.jl:182
+  Expression: sig1 === sig2
+   Evaluated: read(filename::AbstractString, ::Type{T}) where T
+     @ Base io.jl:526 === read(s::IO, ::Type{Bool})
+     @ Base io.jl:932
+Test Failed at /p/projects/coen/julia-trait-bound/julia-unified/usr/share/julia/test/ambiguous.jl:182
+  Expression: sig1 === sig2
+   Evaluated: readuntil(filename::AbstractString, delim; kw...)
+     @ Base io.jl:564 === readuntil(stream::IO, delim::Union{AbstractChar, AbstractString})
+     @ Base io.jl:566
+Test Failed at /p/projects/coen/julia-trait-bound/julia-unified/usr/share/julia/test/ambiguous.jl:182
+  Expression: sig1 === sig2
+   Evaluated: read!(s::IO, B::BitArray)
+     @ Base bitarray.jl:1928 === read!(filename::AbstractString, a)
+     @ Base io.jl:536
+Test Failed at /p/projects/coen/julia-trait-bound/julia-unified/usr/share/julia/test/ambiguous.jl:182
+  Expression: sig1 === sig2
+   Evaluated: kwcall(::NamedTuple, ::typeof(escape_string), io::IO, s::AbstractString)
+     @ Base strings/io.jl:431 === kwcall(::NamedTuple, ::typeof(escape_string), s::AbstractString, esc)
+     @ Base strings/io.jl:460
+Test Failed at /p/projects/coen/julia-trait-bound/julia-unified/usr/share/julia/test/ambiguous.jl:182
+  Expression: sig1 === sig2
+   Evaluated: escape_string(io::IO, s::AbstractString)
+     @ Base strings/io.jl:431 === escape_string(s::AbstractString, esc; keep, ascii, fullhex)
+     @ Base strings/io.jl:460
+Test Failed at /p/projects/coen/julia-trait-bound/julia-unified/usr/share/julia/test/ambiguous.jl:182
+  Expression: sig1 === sig2
+   Evaluated: kwcall(::NamedTuple, ::typeof(copyuntil), out::IO, filename::AbstractString, delim)
+     @ Base io.jl:600 === kwcall(::NamedTuple, ::typeof(copyuntil), out::IO, s::IO, delim::AbstractChar)
+     @ Base io.jl:1003
+Test Failed at /p/projects/coen/julia-trait-bound/julia-unified/usr/share/julia/test/ambiguous.jl:182
+  Expression: sig1 === sig2
+   Evaluated: pipeline(cmd::Base.AbstractCmd, dest::Union{RawFD, Base.AbstractCmd, Base.FileRedirect, Base.IOServer, AbstractString, IO})
+     @ Base cmd.jl:477 === pipeline(src::Union{RawFD, Base.FileRedirect, Base.IOServer, AbstractString, IO}, cmd::Base.AbstractCmd)
+     @ Base cmd.jl:478
+Test Failed at /p/projects/coen/julia-trait-bound/julia-unified/usr/share/julia/test/ambiguous.jl:182
+  Expression: sig1 === sig2
+   Evaluated: write(filename::AbstractString, a1, args...)
+     @ Base io.jl:508 === write(to::IO, from::IO)
+     @ Base io.jl:905
+Test Failed at /p/projects/coen/julia-trait-bound/julia-unified/usr/share/julia/test/ambiguous.jl:182
+  Expression: sig1 === sig2
+   Evaluated: write(filename::AbstractString, a1, args...)
+     @ Base io.jl:508 === write(io::IO, s::Symbol)
+     @ Base io.jl:900
+Test Failed at /p/projects/coen/julia-trait-bound/julia-unified/usr/share/julia/test/ambiguous.jl:182
+  Expression: sig1 === sig2
+   Evaluated: write(filename::AbstractString, a1, args...)
+     @ Base io.jl:508 === write(s::IO, x::Union{Float16, Float32, Float64, Int128, Int16, Int32, Int64, UInt128, UInt16, UInt32, UInt64})
+     @ Base io.jl:837
+Test Failed at /p/projects/coen/julia-trait-bound/julia-unified/usr/share/julia/test/ambiguous.jl:182
+  Expression: sig1 === sig2
+   Evaluated: write(filename::AbstractString, a1, args...)
+     @ Base io.jl:508 === write(io::IO, s::Union{SubString{String}, String})
+     @ Base strings/io.jl:239
+Test Failed at /p/projects/coen/julia-trait-bound/julia-unified/usr/share/julia/test/ambiguous.jl:182
+  Expression: sig1 === sig2
+   Evaluated: write(filename::AbstractString, a1, args...)
+     @ Base io.jl:508 === write(io::IO, aio::Base.AnnotatedIOBuffer)
+     @ Base.AnnotatedDisplay strings/annotated_io.jl:367
+Test Failed at /p/projects/coen/julia-trait-bound/julia-unified/usr/share/julia/test/ambiguous.jl:182
+  Expression: sig1 === sig2
+   Evaluated: read(filename::AbstractString, ::Type{T}) where T
+     @ Base io.jl:526 === read(s::IO, ::Type{String})
+     @ Base io.jl:1203
+Test Failed at /p/projects/coen/julia-trait-bound/julia-unified/usr/share/julia/test/ambiguous.jl:182
+  Expression: sig1 === sig2
+   Evaluated: read(filename::AbstractString, ::Type{T}) where T
+     @ Base io.jl:526 === read(s::IO, ::Type{Int8})
+     @ Base io.jl:925
+Test Failed at /p/projects/coen/julia-trait-bound/julia-unified/usr/share/julia/test/ambiguous.jl:182
+  Expression: sig1 === sig2
+   Evaluated: write(filename::AbstractString, a1, args...)
+     @ Base io.jl:508 === write(s::IO, z::Rational)
+     @ Base rational.jl:129
+Test Failed at /p/projects/coen/julia-trait-bound/julia-unified/usr/share/julia/test/ambiguous.jl:182
+  Expression: sig1 === sig2
+   Evaluated: readuntil(filename::AbstractString, delim; kw...)
+     @ Base io.jl:564 === readuntil(io::IO, target::AbstractVector{T}) where T
+     @ Base io.jl:1136
+Test Failed at /p/projects/coen/julia-trait-bound/julia-unified/usr/share/julia/test/ambiguous.jl:182
+  Expression: sig1 === sig2
+   Evaluated: copyline(out::IO, filename::AbstractString)
+     @ Base io.jl:678 === copyline(out::Base.GenericIOBuffer, s::IO)
+     @ Base iobuffer.jl:994
+Test Failed at /p/projects/coen/julia-trait-bound/julia-unified/usr/share/julia/test/ambiguous.jl:182
+  Expression: sig1 === sig2
+   Evaluated: read(filename::AbstractString, ::Type{T}) where T
+     @ Base io.jl:526 === read(s::IO, ::Type{Ptr{T}}) where T
+     @ Base io.jl:933
+Test Failed at /p/projects/coen/julia-trait-bound/julia-unified/usr/share/julia/test/ambiguous.jl:182
+  Expression: sig1 === sig2
+   Evaluated: copyuntil(out::IO, filename::AbstractString, delim)
+     @ Base io.jl:600 === copyuntil(out::IO, s::IO, delim::AbstractChar)
+     @ Base io.jl:1003
+Test Failed at /p/projects/coen/julia-trait-bound/julia-unified/usr/share/julia/test/ambiguous.jl:182
+  Expression: sig1 === sig2
+   Evaluated: kwcall(::NamedTuple, ::typeof(replace), new::Union{Function, Type}, A)
+     @ Base set.jl:868 === kwcall(::NamedTuple, ::typeof(replace), out::IO, str::Base.AnnotatedString, pat_f::Pair...)
+     @ Base strings/annotated_io.jl:331
+Test Failed at /p/projects/coen/julia-trait-bound/julia-unified/usr/share/julia/test/ambiguous.jl:182
+  Expression: sig1 === sig2
+   Evaluated: read(filename::AbstractString, ::Type{T}) where T
+     @ Base io.jl:526 === read(io::IO, ::Type{Char})
+     @ Base io.jl:985
+Test Failed at /p/projects/coen/julia-trait-bound/julia-unified/usr/share/julia/test/ambiguous.jl:182
+  Expression: sig1 === sig2
+   Evaluated: read(s::IO, ::Type{UInt8})
+     @ Base io.jl:324 === read(filename::AbstractString, ::Type{T}) where T
+     @ Base io.jl:526
+Test Failed at /p/projects/coen/julia-trait-bound/julia-unified/usr/share/julia/test/ambiguous.jl:182
+  Expression: sig1 === sig2
+   Evaluated: write(filename::AbstractString, a1, args...)
+     @ Base io.jl:508 === write(to::IO, from::Base.GenericIOBuffer)
+     @ Base iobuffer.jl:883
+Test Failed at /p/projects/coen/julia-trait-bound/julia-unified/usr/share/julia/test/ambiguous.jl:182
+  Expression: sig1 === sig2
+   Evaluated: write(filename::AbstractString, a1, args...)
+     @ Base io.jl:508 === write(io::IO, s::Base.SecretBuffer)
+     @ Base secretbuffer.jl:147
+Test Failed at /p/projects/coen/julia-trait-bound/julia-unified/usr/share/julia/test/ambiguous.jl:182
+  Expression: sig1 === sig2
+   Evaluated: readuntil(filename::AbstractString, delim; kw...)
+     @ Base io.jl:564 === readuntil(stream::IO, delim::UInt8)
+     @ Base io.jl:565
+Test Failed at /p/projects/coen/julia-trait-bound/julia-unified/usr/share/julia/test/ambiguous.jl:182
+  Expression: sig1 === sig2
+   Evaluated: unescape_string(io::IO, s::AbstractString)
+     @ Base strings/io.jl:507 === unescape_string(s::AbstractString, keep)
+     @ Base strings/io.jl:564
+Test Failed at /p/projects/coen/julia-trait-bound/julia-unified/usr/share/julia/test/ambiguous.jl:182
+  Expression: sig1 === sig2
+   Evaluated: startswith(a::AbstractString, b::AbstractString)
+     @ Base strings/util.jl:31 === startswith(io::IO, prefix::Union{SubString{String}, String})
+     @ Base strings/util.jl:93
+Test Failed at /p/projects/coen/julia-trait-bound/julia-unified/usr/share/julia/test/ambiguous.jl:182
+  Expression: sig1 === sig2
+   Evaluated: kwcall(::NamedTuple, ::typeof(copyuntil), out::IO, filename::AbstractString, delim)
+     @ Base io.jl:600 === kwcall(::NamedTuple, ::typeof(copyuntil), out::IO, io::IO, target::AbstractVector)
+     @ Base io.jl:1141
+Test Failed at /p/projects/coen/julia-trait-bound/julia-unified/usr/share/julia/test/ambiguous.jl:182
+  Expression: sig1 === sig2
+   Evaluated: replace(new::Union{Function, Type}, A; count)
+     @ Base set.jl:868 === replace(out::IO, str::Base.AnnotatedString, pat_f::Pair...)
+     @ Base strings/annotated_io.jl:331
+Test Failed at /p/projects/coen/julia-trait-bound/julia-unified/usr/share/julia/test/ambiguous.jl:182
+  Expression: sig1 === sig2
+   Evaluated: write(filename::AbstractString, a1, args...)
+     @ Base io.jl:508 === write(io::IO, c::Base.AnnotatedChar)
+     @ Base.AnnotatedDisplay strings/annotated_io.jl:364
+Test Failed at /p/projects/coen/julia-trait-bound/julia-unified/usr/share/julia/test/ambiguous.jl:182
+  Expression: sig1 === sig2
+   Evaluated: write(s::IO, x::UInt8)
+     @ Base io.jl:325 === write(filename::AbstractString, a1, args...)
+     @ Base io.jl:508
+Test Failed at /p/projects/coen/julia-trait-bound/julia-unified/usr/share/julia/test/ambiguous.jl:182
+  Expression: sig1 === sig2
+   Evaluated: write(filename::AbstractString, a1, args...)
+     @ Base io.jl:508 === write(to::IO, p::Ptr)
+     @ Base io.jl:842
+Test Failed at /p/projects/coen/julia-trait-bound/julia-unified/usr/share/julia/test/ambiguous.jl:182
+  Expression: sig1 === sig2
+   Evaluated: write(filename::AbstractString, a1, args...)
+     @ Base io.jl:508 === write(s::IO, x::Bool)
+     @ Base io.jl:841
+Test Failed at /p/projects/coen/julia-trait-bound/julia-unified/usr/share/julia/test/ambiguous.jl:182
+  Expression: sig1 === sig2
+   Evaluated: write(filename::AbstractString, a1, args...)
+     @ Base io.jl:508 === write(s::IO, x::Ref{T}) where T
+     @ Base io.jl:828
+Test Failed at /p/projects/coen/julia-trait-bound/julia-unified/usr/share/julia/test/ambiguous.jl:182
+  Expression: sig1 === sig2
+   Evaluated: read!(filename::AbstractString, a)
+     @ Base io.jl:536 === read!(s::IO, x::Ref{T}) where T
+     @ Base io.jl:915
+Test Failed at /p/projects/coen/julia-trait-bound/julia-unified/usr/share/julia/test/ambiguous.jl:182
+  Expression: sig1 === sig2
+   Evaluated: kwcall(::NamedTuple, ::typeof(escape_string), io::IO, s::Union{Base.AnnotatedString, SubString{<:Base.AnnotatedString}})
+     @ Base.AnnotatedDisplay strings/annotated_io.jl:406 === kwcall(::NamedTuple, ::typeof(escape_string), s::AbstractString, esc)
+     @ Base strings/io.jl:460
+Test Failed at /p/projects/coen/julia-trait-bound/julia-unified/usr/share/julia/test/ambiguous.jl:182
+  Expression: sig1 === sig2
+   Evaluated: kwcall(::NamedTuple, ::typeof(replace), new::Union{Function, Type}, A)
+     @ Base set.jl:868 === kwcall(::NamedTuple, ::typeof(replace), io::IO, s::AbstractString, pat_f::Pair...)
+     @ Base strings/util.jl:1163
+Test Failed at /p/projects/coen/julia-trait-bound/julia-unified/usr/share/julia/test/ambiguous.jl:182
+  Expression: sig1 === sig2
+   Evaluated: copyuntil(out::IO, filename::AbstractString, delim)
+     @ Base io.jl:600 === copyuntil(out::IO, io::IO, target::AbstractVector)
+     @ Base io.jl:1141
+Test Failed at /p/projects/coen/julia-trait-bound/julia-unified/usr/share/julia/test/ambiguous.jl:182
+  Expression: sig1 === sig2
+   Evaluated: kwcall(::NamedTuple, ::typeof(copyuntil), out::IO, filename::AbstractString, delim)
+     @ Base io.jl:600 === kwcall(::NamedTuple, ::typeof(copyuntil), out::IO, io::IO, target::AbstractString)
+     @ Base io.jl:1120
+Test Failed at /p/projects/coen/julia-trait-bound/julia-unified/usr/share/julia/test/ambiguous.jl:182
+  Expression: sig1 === sig2
+   Evaluated: write(filename::AbstractString, a1, args...)
+     @ Base io.jl:508 === write(io::IO, s::Base.CodeUnits)
+     @ Base strings/basic.jl:800
+Test Failed at /p/projects/coen/julia-trait-bound/julia-unified/usr/share/julia/test/ambiguous.jl:182
+  Expression: sig1 === sig2
+   Evaluated: kwcall(::NamedTuple, ::typeof(readuntil), filename::AbstractString, delim)
+     @ Base io.jl:564 === kwcall(::NamedTuple, ::typeof(readuntil), stream::IO, delim::UInt8)
+     @ Base io.jl:565
+Test Failed at /p/projects/coen/julia-trait-bound/julia-unified/usr/share/julia/test/ambiguous.jl:182
+  Expression: sig1 === sig2
+   Evaluated: kwcall(::NamedTuple, ::typeof(readuntil), filename::AbstractString, delim)
+     @ Base io.jl:564 === kwcall(::NamedTuple, ::typeof(readuntil), stream::IO, delim::Union{AbstractChar, AbstractString})
+     @ Base io.jl:566
+Test Failed at /p/projects/coen/julia-trait-bound/julia-unified/usr/share/julia/test/ambiguous.jl:182
+  Expression: sig1 === sig2
+   Evaluated: write(filename::AbstractString, a1, args...)
+     @ Base io.jl:508 === write(io::IO, c::Char)
+     @ Base io.jl:889
+Test Failed at /p/projects/coen/julia-trait-bound/julia-unified/usr/share/julia/test/ambiguous.jl:182
+  Expression: sig1 === sig2
+   Evaluated: read(filename::AbstractString, args...)
+     @ Base io.jl:524 === read(s::IO, nb::Integer)
+     @ Base io.jl:1195
+Test Failed at /p/projects/coen/julia-trait-bound/julia-unified/usr/share/julia/test/ambiguous.jl:182
+  Expression: sig1 === sig2
+   Evaluated: escape_string(io::IO, s::Union{Base.AnnotatedString, SubString{<:Base.AnnotatedString}})
+     @ Base.AnnotatedDisplay strings/annotated_io.jl:406 === escape_string(s::AbstractString, esc; keep, ascii, fullhex)
+     @ Base strings/io.jl:460
+Test Failed at /p/projects/coen/julia-trait-bound/julia-unified/usr/share/julia/test/ambiguous.jl:182
+  Expression: sig1 === sig2
+   Evaluated: kwcall(::NamedTuple, ::typeof(readuntil), filename::AbstractString, delim)
+     @ Base io.jl:564 === kwcall(::NamedTuple, ::typeof(readuntil), io::IO, target::AbstractVector{T}) where T
+     @ Base io.jl:1136
+Test Failed at /p/projects/coen/julia-trait-bound/julia-unified/usr/share/julia/test/ambiguous.jl:182
+  Expression: sig1 === sig2
+   Evaluated: write(filename::AbstractString, a1, args...)
+     @ Base io.jl:508 === write(s::IO, A::AbstractArray)
+     @ Base io.jl:844
+Test Failed at /p/projects/coen/julia-trait-bound/julia-unified/usr/share/julia/test/ambiguous.jl:182
+  Expression: sig1 === sig2
+   Evaluated: kwcall(::NamedTuple, ::typeof(copyline), out::IO, filename::AbstractString)
+     @ Base io.jl:678 === kwcall(::NamedTuple, ::typeof(copyline), out::Base.GenericIOBuffer, s::IO)
+     @ Base iobuffer.jl:994
+Test Failed at /p/projects/coen/julia-trait-bound/julia-unified/usr/share/julia/test/ambiguous.jl:182
+  Expression: sig1 === sig2
+   Evaluated: write(to::IO, from::Base.AbstractPipe)
+     @ Base io.jl:470 === write(filename::AbstractString, a1, args...)
+     @ Base io.jl:508
+Test Failed at /p/projects/coen/julia-trait-bound/julia-unified/usr/share/julia/test/ambiguous.jl:182
+  Expression: sig1 === sig2
+   Evaluated: write(filename::AbstractString, a1, args...)
+     @ Base io.jl:508 === write(s::IO, x::Int8)
+     @ Base io.jl:836
+Test Failed at /p/projects/coen/julia-trait-bound/julia-unified/usr/share/julia/test/ambiguous.jl:182
+  Expression: sig1 === sig2
+   Evaluated: read(filename::AbstractString, ::Type{T}) where T
+     @ Base io.jl:526 === read(data::IO, ::Type{Base.TermInfoRaw})
+     @ Base terminfo.jl:74
+Test Failed at /p/projects/coen/julia-trait-bound/julia-unified/usr/share/julia/test/ambiguous.jl:182
+  Expression: sig1 === sig2
+   Evaluated: write(filename::AbstractString, a1, args...)
+     @ Base io.jl:508 === write(s::IO, A::StridedArray)
+     @ Base io.jl:857
+Test Failed at /p/projects/coen/julia-trait-bound/julia-unified/usr/share/julia/test/ambiguous.jl:182
+  Expression: sig1 === sig2
+   Evaluated: write(io::IO, k::Base.JuliaSyntax.Kind)
+     @ Base.JuliaSyntax /p/projects/coen/julia-trait-bound/julia-unified/base/JuliaSyntax/src/julia/kinds.jl:63 === write(filename::AbstractString, a1, args...)
+     @ Base io.jl:508
+Test Failed at /p/projects/coen/julia-trait-bound/julia-unified/usr/share/julia/test/ambiguous.jl:182
+  Expression: sig1 === sig2
+   Evaluated: write(filename::AbstractString, a1, args...)
+     @ Base io.jl:508 === write(io::IO, s::AbstractString)
+     @ Base strings/io.jl:193
+Test Failed at /p/projects/coen/julia-trait-bound/julia-unified/usr/share/julia/test/ambiguous.jl:182
+  Expression: sig1 === sig2
+   Evaluated: copyuntil(out::IO, filename::AbstractString, delim)
+     @ Base io.jl:600 === copyuntil(out::IO, io::IO, target::AbstractString)
+     @ Base io.jl:1120
+Test Failed at /p/projects/coen/julia-trait-bound/julia-unified/usr/share/julia/test/ambiguous.jl:182
+  Expression: sig1 === sig2
+   Evaluated: write(io::IO, x::Enum{T}) where T<:Integer
+     @ Base.Enums Enums.jl:21 === write(filename::AbstractString, a1, args...)
+     @ Base io.jl:508
+Test Failed at /p/projects/coen/julia-trait-bound/julia-unified/usr/share/julia/test/ambiguous.jl:182
+  Expression: sig1 === sig2
+   Evaluated: replace(new::Union{Function, Type}, A; count)
+     @ Base set.jl:868 === replace(io::IO, s::AbstractString, pat_f::Pair...)
+     @ Base strings/util.jl:1163
+Test Failed at /p/projects/coen/julia-trait-bound/julia-unified/usr/share/julia/test/ambiguous.jl:182
+  Expression: sig1 === sig2
+   Evaluated: read(filename::AbstractString, ::Type{T}) where T
+     @ Base io.jl:526 === read(s::IO, ::Type{Rational{T}}) where T<:Integer
+     @ Base rational.jl:124
+Test Failed at /p/projects/coen/julia-trait-bound/julia-unified/usr/share/julia/test/ambiguous.jl:182
+  Expression: sig1 === sig2
+   Evaluated: read(s::IO, ::Type{Complex{T}}) where T<:Real
+     @ Base complex.jl:228 === read(filename::AbstractString, ::Type{T}) where T
+     @ Base io.jl:526
+Test Failed at /p/projects/coen/julia-trait-bound/julia-unified/usr/share/julia/test/ambiguous.jl:182
+  Expression: sig1 === sig2
+   Evaluated: read!(filename::AbstractString, a)
+     @ Base io.jl:536 === read!(s::IO, A::AbstractArray{T}) where T
+     @ Base io.jl:935
+Test Failed at /p/projects/coen/julia-trait-bound/julia-unified/usr/share/julia/test/ambiguous.jl:182
+  Expression: sig1 === sig2
+   Evaluated: write(s::IO, z::Complex)
+     @ Base complex.jl:233 === write(filename::AbstractString, a1, args...)
+     @ Base io.jl:508
+Test Failed at /p/projects/coen/julia-trait-bound/julia-unified/usr/share/julia/test/ambiguous.jl:182
+  Expression: sig1 === sig2
+   Evaluated: read!(filename::AbstractString, a)
+     @ Base io.jl:536 === read!(s::IO, A::StridedArray{T}) where T
+     @ Base io.jl:954
+Test Failed at /p/projects/coen/julia-trait-bound/julia-unified/usr/share/julia/test/ambiguous.jl:182
+  Expression: sig1 === sig2
+   Evaluated: read(io::IO, ::Type{T}) where T<:Enum
+     @ Base.Enums Enums.jl:22 === read(filename::AbstractString, ::Type{T}) where T
+     @ Base io.jl:526
+Test Failed at /p/projects/coen/julia-trait-bound/julia-unified/usr/share/julia/test/ambiguous.jl:182
+  Expression: sig1 === sig2
+   Evaluated: read(io::IO, ::Type{Base.JuliaSyntax.Kind})
+     @ Base.JuliaSyntax /p/projects/coen/julia-trait-bound/julia-unified/base/JuliaSyntax/src/julia/kinds.jl:67 === read(filename::AbstractString, ::Type{T}) where T
+     @ Base io.jl:526
+Test Failed at /p/projects/coen/julia-trait-bound/julia-unified/usr/share/julia/test/ambiguous.jl:182
+  Expression: sig1 === sig2
+   Evaluated: write(filename::AbstractString, a1, args...)
+     @ Base io.jl:508 === write(io::IO, s::Union{Base.AnnotatedString, SubString{<:Base.AnnotatedString}})
+     @ Base.AnnotatedDisplay strings/annotated_io.jl:361
+Test Failed at /p/projects/coen/julia-trait-bound/julia-unified/usr/share/julia/test/ambiguous.jl:182
+  Expression: sig1 === sig2
+   Evaluated: write(s::IO, B::BitArray)
+     @ Base bitarray.jl:1927 === write(filename::AbstractString, a1, args...)
+     @ Base io.jl:508
+Test Failed at /p/projects/coen/julia-trait-bound/julia-unified/usr/share/julia/test/ambiguous.jl:185
+  Expression: good
+Test Failed at /p/projects/coen/julia-trait-bound/julia-unified/usr/share/julia/test/ambiguous.jl:200
+  Expression: isempty(detect_ambiguities(modules...; recursive = true, allowed_undefineds))
+   Evaluated: isempty(Tuple{Method, Method}[(print_test_results(ts::Test.AbstractTestSet, depth_pad)
+     @ Test /p/projects/coen/julia-trait-bound/julia-unified/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:1367, print_test_results(io::IO, ts::Test.AbstractTestSet)
+     @ Test /p/projects/coen/julia-trait-bound/julia-unified/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:1371)])
+
+
+Test Summary: | Pass  Fail  Broken  Total  Time
+  Overall     |  153    68       3    224  8.6s
+    ambiguous |  153    68       3    224  7.9s
+    FAILURE
+
+The global RNG seed was 0x369772843d39749ab13c4d5ebb7d2580.
+
+Error in testset ambiguous:
+Test Failed at /p/projects/coen/julia-trait-bound/julia-unified/usr/share/julia/test/ambiguous.jl:182
+  Expression: sig1 === sig2
+   Evaluated: read(filename::AbstractString, ::Type{T}) where T
+     @ Base io.jl:526 === read(s::IO, ::Type{Bool})
+     @ Base io.jl:932
+Error in testset ambiguous:
+Test Failed at /p/projects/coen/julia-trait-bound/julia-unified/usr/share/julia/test/ambiguous.jl:182
+  Expression: sig1 === sig2
+   Evaluated: readuntil(filename::AbstractString, delim; kw...)
+     @ Base io.jl:564 === readuntil(stream::IO, delim::Union{AbstractChar, AbstractString})
+     @ Base io.jl:566
+Error in testset ambiguous:
+Test Failed at /p/projects/coen/julia-trait-bound/julia-unified/usr/share/julia/test/ambiguous.jl:182
+  Expression: sig1 === sig2
+   Evaluated: read!(s::IO, B::BitArray)
+     @ Base bitarray.jl:1928 === read!(filename::AbstractString, a)
+     @ Base io.jl:536
+Error in testset ambiguous:
+Test Failed at /p/projects/coen/julia-trait-bound/julia-unified/usr/share/julia/test/ambiguous.jl:182
+  Expression: sig1 === sig2
+   Evaluated: kwcall(::NamedTuple, ::typeof(escape_string), io::IO, s::AbstractString)
+     @ Base strings/io.jl:431 === kwcall(::NamedTuple, ::typeof(escape_string), s::AbstractString, esc)
+     @ Base strings/io.jl:460
+Error in testset ambiguous:
+Test Failed at /p/projects/coen/julia-trait-bound/julia-unified/usr/share/julia/test/ambiguous.jl:182
+  Expression: sig1 === sig2
+   Evaluated: escape_string(io::IO, s::AbstractString)
+     @ Base strings/io.jl:431 === escape_string(s::AbstractString, esc; keep, ascii, fullhex)
+     @ Base strings/io.jl:460
+Error in testset ambiguous:
+Test Failed at /p/projects/coen/julia-trait-bound/julia-unified/usr/share/julia/test/ambiguous.jl:182
+  Expression: sig1 === sig2
+   Evaluated: kwcall(::NamedTuple, ::typeof(copyuntil), out::IO, filename::AbstractString, delim)
+     @ Base io.jl:600 === kwcall(::NamedTuple, ::typeof(copyuntil), out::IO, s::IO, delim::AbstractChar)
+     @ Base io.jl:1003
+Error in testset ambiguous:
+Test Failed at /p/projects/coen/julia-trait-bound/julia-unified/usr/share/julia/test/ambiguous.jl:182
+  Expression: sig1 === sig2
+   Evaluated: pipeline(cmd::Base.AbstractCmd, dest::Union{RawFD, Base.AbstractCmd, Base.FileRedirect, Base.IOServer, AbstractString, IO})
+     @ Base cmd.jl:477 === pipeline(src::Union{RawFD, Base.FileRedirect, Base.IOServer, AbstractString, IO}, cmd::Base.AbstractCmd)
+     @ Base cmd.jl:478
+Error in testset ambiguous:
+Test Failed at /p/projects/coen/julia-trait-bound/julia-unified/usr/share/julia/test/ambiguous.jl:182
+  Expression: sig1 === sig2
+   Evaluated: write(filename::AbstractString, a1, args...)
+     @ Base io.jl:508 === write(to::IO, from::IO)
+     @ Base io.jl:905
+Error in testset ambiguous:
+Test Failed at /p/projects/coen/julia-trait-bound/julia-unified/usr/share/julia/test/ambiguous.jl:182
+  Expression: sig1 === sig2
+   Evaluated: write(filename::AbstractString, a1, args...)
+     @ Base io.jl:508 === write(io::IO, s::Symbol)
+     @ Base io.jl:900
+Error in testset ambiguous:
+Test Failed at /p/projects/coen/julia-trait-bound/julia-unified/usr/share/julia/test/ambiguous.jl:182
+  Expression: sig1 === sig2
+   Evaluated: write(filename::AbstractString, a1, args...)
+     @ Base io.jl:508 === write(s::IO, x::Union{Float16, Float32, Float64, Int128, Int16, Int32, Int64, UInt128, UInt16, UInt32, UInt64})
+     @ Base io.jl:837
+Error in testset ambiguous:
+Test Failed at /p/projects/coen/julia-trait-bound/julia-unified/usr/share/julia/test/ambiguous.jl:182
+  Expression: sig1 === sig2
+   Evaluated: write(filename::AbstractString, a1, args...)
+     @ Base io.jl:508 === write(io::IO, s::Union{SubString{String}, String})
+     @ Base strings/io.jl:239
+Error in testset ambiguous:
+Test Failed at /p/projects/coen/julia-trait-bound/julia-unified/usr/share/julia/test/ambiguous.jl:182
+  Expression: sig1 === sig2
+   Evaluated: write(filename::AbstractString, a1, args...)
+     @ Base io.jl:508 === write(io::IO, aio::Base.AnnotatedIOBuffer)
+     @ Base.AnnotatedDisplay strings/annotated_io.jl:367
+Error in testset ambiguous:
+Test Failed at /p/projects/coen/julia-trait-bound/julia-unified/usr/share/julia/test/ambiguous.jl:182
+  Expression: sig1 === sig2
+   Evaluated: read(filename::AbstractString, ::Type{T}) where T
+     @ Base io.jl:526 === read(s::IO, ::Type{String})
+     @ Base io.jl:1203
+Error in testset ambiguous:
+Test Failed at /p/projects/coen/julia-trait-bound/julia-unified/usr/share/julia/test/ambiguous.jl:182
+  Expression: sig1 === sig2
+   Evaluated: read(filename::AbstractString, ::Type{T}) where T
+     @ Base io.jl:526 === read(s::IO, ::Type{Int8})
+     @ Base io.jl:925
+Error in testset ambiguous:
+Test Failed at /p/projects/coen/julia-trait-bound/julia-unified/usr/share/julia/test/ambiguous.jl:182
+  Expression: sig1 === sig2
+   Evaluated: write(filename::AbstractString, a1, args...)
+     @ Base io.jl:508 === write(s::IO, z::Rational)
+     @ Base rational.jl:129
+Error in testset ambiguous:
+Test Failed at /p/projects/coen/julia-trait-bound/julia-unified/usr/share/julia/test/ambiguous.jl:182
+  Expression: sig1 === sig2
+   Evaluated: readuntil(filename::AbstractString, delim; kw...)
+     @ Base io.jl:564 === readuntil(io::IO, target::AbstractVector{T}) where T
+     @ Base io.jl:1136
+Error in testset ambiguous:
+Test Failed at /p/projects/coen/julia-trait-bound/julia-unified/usr/share/julia/test/ambiguous.jl:182
+  Expression: sig1 === sig2
+   Evaluated: copyline(out::IO, filename::AbstractString)
+     @ Base io.jl:678 === copyline(out::Base.GenericIOBuffer, s::IO)
+     @ Base iobuffer.jl:994
+Error in testset ambiguous:
+Test Failed at /p/projects/coen/julia-trait-bound/julia-unified/usr/share/julia/test/ambiguous.jl:182
+  Expression: sig1 === sig2
+   Evaluated: read(filename::AbstractString, ::Type{T}) where T
+     @ Base io.jl:526 === read(s::IO, ::Type{Ptr{T}}) where T
+     @ Base io.jl:933
+Error in testset ambiguous:
+Test Failed at /p/projects/coen/julia-trait-bound/julia-unified/usr/share/julia/test/ambiguous.jl:182
+  Expression: sig1 === sig2
+   Evaluated: copyuntil(out::IO, filename::AbstractString, delim)
+     @ Base io.jl:600 === copyuntil(out::IO, s::IO, delim::AbstractChar)
+     @ Base io.jl:1003
+Error in testset ambiguous:
+Test Failed at /p/projects/coen/julia-trait-bound/julia-unified/usr/share/julia/test/ambiguous.jl:182
+  Expression: sig1 === sig2
+   Evaluated: kwcall(::NamedTuple, ::typeof(replace), new::Union{Function, Type}, A)
+     @ Base set.jl:868 === kwcall(::NamedTuple, ::typeof(replace), out::IO, str::Base.AnnotatedString, pat_f::Pair...)
+     @ Base strings/annotated_io.jl:331
+Error in testset ambiguous:
+Test Failed at /p/projects/coen/julia-trait-bound/julia-unified/usr/share/julia/test/ambiguous.jl:182
+  Expression: sig1 === sig2
+   Evaluated: read(filename::AbstractString, ::Type{T}) where T
+     @ Base io.jl:526 === read(io::IO, ::Type{Char})
+     @ Base io.jl:985
+Error in testset ambiguous:
+Test Failed at /p/projects/coen/julia-trait-bound/julia-unified/usr/share/julia/test/ambiguous.jl:182
+  Expression: sig1 === sig2
+   Evaluated: read(s::IO, ::Type{UInt8})
+     @ Base io.jl:324 === read(filename::AbstractString, ::Type{T}) where T
+     @ Base io.jl:526
+Error in testset ambiguous:
+Test Failed at /p/projects/coen/julia-trait-bound/julia-unified/usr/share/julia/test/ambiguous.jl:182
+  Expression: sig1 === sig2
+   Evaluated: write(filename::AbstractString, a1, args...)
+     @ Base io.jl:508 === write(to::IO, from::Base.GenericIOBuffer)
+     @ Base iobuffer.jl:883
+Error in testset ambiguous:
+Test Failed at /p/projects/coen/julia-trait-bound/julia-unified/usr/share/julia/test/ambiguous.jl:182
+  Expression: sig1 === sig2
+   Evaluated: write(filename::AbstractString, a1, args...)
+     @ Base io.jl:508 === write(io::IO, s::Base.SecretBuffer)
+     @ Base secretbuffer.jl:147
+Error in testset ambiguous:
+Test Failed at /p/projects/coen/julia-trait-bound/julia-unified/usr/share/julia/test/ambiguous.jl:182
+  Expression: sig1 === sig2
+   Evaluated: readuntil(filename::AbstractString, delim; kw...)
+     @ Base io.jl:564 === readuntil(stream::IO, delim::UInt8)
+     @ Base io.jl:565
+Error in testset ambiguous:
+Test Failed at /p/projects/coen/julia-trait-bound/julia-unified/usr/share/julia/test/ambiguous.jl:182
+  Expression: sig1 === sig2
+   Evaluated: unescape_string(io::IO, s::AbstractString)
+     @ Base strings/io.jl:507 === unescape_string(s::AbstractString, keep)
+     @ Base strings/io.jl:564
+Error in testset ambiguous:
+Test Failed at /p/projects/coen/julia-trait-bound/julia-unified/usr/share/julia/test/ambiguous.jl:182
+  Expression: sig1 === sig2
+   Evaluated: startswith(a::AbstractString, b::AbstractString)
+     @ Base strings/util.jl:31 === startswith(io::IO, prefix::Union{SubString{String}, String})
+     @ Base strings/util.jl:93
+Error in testset ambiguous:
+Test Failed at /p/projects/coen/julia-trait-bound/julia-unified/usr/share/julia/test/ambiguous.jl:182
+  Expression: sig1 === sig2
+   Evaluated: kwcall(::NamedTuple, ::typeof(copyuntil), out::IO, filename::AbstractString, delim)
+     @ Base io.jl:600 === kwcall(::NamedTuple, ::typeof(copyuntil), out::IO, io::IO, target::AbstractVector)
+     @ Base io.jl:1141
+Error in testset ambiguous:
+Test Failed at /p/projects/coen/julia-trait-bound/julia-unified/usr/share/julia/test/ambiguous.jl:182
+  Expression: sig1 === sig2
+   Evaluated: replace(new::Union{Function, Type}, A; count)
+     @ Base set.jl:868 === replace(out::IO, str::Base.AnnotatedString, pat_f::Pair...)
+     @ Base strings/annotated_io.jl:331
+Error in testset ambiguous:
+Test Failed at /p/projects/coen/julia-trait-bound/julia-unified/usr/share/julia/test/ambiguous.jl:182
+  Expression: sig1 === sig2
+   Evaluated: write(filename::AbstractString, a1, args...)
+     @ Base io.jl:508 === write(io::IO, c::Base.AnnotatedChar)
+     @ Base.AnnotatedDisplay strings/annotated_io.jl:364
+Error in testset ambiguous:
+Test Failed at /p/projects/coen/julia-trait-bound/julia-unified/usr/share/julia/test/ambiguous.jl:182
+  Expression: sig1 === sig2
+   Evaluated: write(s::IO, x::UInt8)
+     @ Base io.jl:325 === write(filename::AbstractString, a1, args...)
+     @ Base io.jl:508
+Error in testset ambiguous:
+Test Failed at /p/projects/coen/julia-trait-bound/julia-unified/usr/share/julia/test/ambiguous.jl:182
+  Expression: sig1 === sig2
+   Evaluated: write(filename::AbstractString, a1, args...)
+     @ Base io.jl:508 === write(to::IO, p::Ptr)
+     @ Base io.jl:842
+Error in testset ambiguous:
+Test Failed at /p/projects/coen/julia-trait-bound/julia-unified/usr/share/julia/test/ambiguous.jl:182
+  Expression: sig1 === sig2
+   Evaluated: write(filename::AbstractString, a1, args...)
+     @ Base io.jl:508 === write(s::IO, x::Bool)
+     @ Base io.jl:841
+Error in testset ambiguous:
+Test Failed at /p/projects/coen/julia-trait-bound/julia-unified/usr/share/julia/test/ambiguous.jl:182
+  Expression: sig1 === sig2
+   Evaluated: write(filename::AbstractString, a1, args...)
+     @ Base io.jl:508 === write(s::IO, x::Ref{T}) where T
+     @ Base io.jl:828
+Error in testset ambiguous:
+Test Failed at /p/projects/coen/julia-trait-bound/julia-unified/usr/share/julia/test/ambiguous.jl:182
+  Expression: sig1 === sig2
+   Evaluated: read!(filename::AbstractString, a)
+     @ Base io.jl:536 === read!(s::IO, x::Ref{T}) where T
+     @ Base io.jl:915
+Error in testset ambiguous:
+Test Failed at ERROR: LoadError: Test run finished with errors
+in expression starting at /p/projects/coen/julia-trait-bound/julia-unified/usr/share/julia/test/runtests.jl:103
+/p/projects/coen/julia-trait-bound/julia-unified/usr/share/julia/test/ambiguous.jl:182
+  Expression: sig1 === sig2
+   Evaluated: kwcall(::NamedTuple, ::typeof(escape_string), io::IO, s::Union{Base.AnnotatedString, SubString{<:Base.AnnotatedString}})
+     @ Base.AnnotatedDisplay strings/annotated_io.jl:406 === kwcall(::NamedTuple, ::typeof(escape_string), s::AbstractString, esc)
+     @ Base strings/io.jl:460
+Error in testset ambiguous:
+Test Failed at /p/projects/coen/julia-trait-bound/julia-unified/usr/share/julia/test/ambiguous.jl:182
+  Expression: sig1 === sig2
+   Evaluated: kwcall(::NamedTuple, ::typeof(replace), new::Union{Function, Type}, A)
+     @ Base set.jl:868 === kwcall(::NamedTuple, ::typeof(replace), io::IO, s::AbstractString, pat_f::Pair...)
+     @ Base strings/util.jl:1163
+Error in testset ambiguous:
+Test Failed at /p/projects/coen/julia-trait-bound/julia-unified/usr/share/julia/test/ambiguous.jl:182
+  Expression: sig1 === sig2
+   Evaluated: copyuntil(out::IO, filename::AbstractString, delim)
+     @ Base io.jl:600 === copyuntil(out::IO, io::IO, target::AbstractVector)
+     @ Base io.jl:1141
+Error in testset ambiguous:
+Test Failed at /p/projects/coen/julia-trait-bound/julia-unified/usr/share/julia/test/ambiguous.jl:182
+  Expression: sig1 === sig2
+   Evaluated: kwcall(::NamedTuple, ::typeof(copyuntil), out::IO, filename::AbstractString, delim)
+     @ Base io.jl:600 === kwcall(::NamedTuple, ::typeof(copyuntil), out::IO, io::IO, target::AbstractString)
+     @ Base io.jl:1120
+Error in testset ambiguous:
+Test Failed at /p/projects/coen/julia-trait-bound/julia-unified/usr/share/julia/test/ambiguous.jl:182
+  Expression: sig1 === sig2
+   Evaluated: write(filename::AbstractString, a1, args...)
+     @ Base io.jl:508 === write(io::IO, s::Base.CodeUnits)
+     @ Base strings/basic.jl:800
+Error in testset ambiguous:
+Test Failed at /p/projects/coen/julia-trait-bound/julia-unified/usr/share/julia/test/ambiguous.jl:182
+  Expression: sig1 === sig2
+   Evaluated: kwcall(::NamedTuple, ::typeof(readuntil), filename::AbstractString, delim)
+     @ Base io.jl:564 === kwcall(::NamedTuple, ::typeof(readuntil), stream::IO, delim::UInt8)
+     @ Base io.jl:565
+Error in testset ambiguous:
+Test Failed at /p/projects/coen/julia-trait-bound/julia-unified/usr/share/julia/test/ambiguous.jl:182
+  Expression: sig1 === sig2
+   Evaluated: kwcall(::NamedTuple, ::typeof(readuntil), filename::AbstractString, delim)
+     @ Base io.jl:564 === kwcall(::NamedTuple, ::typeof(readuntil), stream::IO, delim::Union{AbstractChar, AbstractString})
+     @ Base io.jl:566
+Error in testset ambiguous:
+Test Failed at /p/projects/coen/julia-trait-bound/julia-unified/usr/share/julia/test/ambiguous.jl:182
+  Expression: sig1 === sig2
+   Evaluated: write(filename::AbstractString, a1, args...)
+     @ Base io.jl:508 === write(io::IO, c::Char)
+     @ Base io.jl:889
+Error in testset ambiguous:
+Test Failed at /p/projects/coen/julia-trait-bound/julia-unified/usr/share/julia/test/ambiguous.jl:182
+  Expression: sig1 === sig2
+   Evaluated: read(filename::AbstractString, args...)
+     @ Base io.jl:524 === read(s::IO, nb::Integer)
+     @ Base io.jl:1195
+Error in testset ambiguous:
+Test Failed at /p/projects/coen/julia-trait-bound/julia-unified/usr/share/julia/test/ambiguous.jl:182
+  Expression: sig1 === sig2
+   Evaluated: escape_string(io::IO, s::Union{Base.AnnotatedString, SubString{<:Base.AnnotatedString}})
+     @ Base.AnnotatedDisplay strings/annotated_io.jl:406 === escape_string(s::AbstractString, esc; keep, ascii, fullhex)
+     @ Base strings/io.jl:460
+Error in testset ambiguous:
+Test Failed at /p/projects/coen/julia-trait-bound/julia-unified/usr/share/julia/test/ambiguous.jl:182
+  Expression: sig1 === sig2
+   Evaluated: kwcall(::NamedTuple, ::typeof(readuntil), filename::AbstractString, delim)
+     @ Base io.jl:564 === kwcall(::NamedTuple, ::typeof(readuntil), io::IO, target::AbstractVector{T}) where T
+     @ Base io.jl:1136
+Error in testset ambiguous:
+Test Failed at /p/projects/coen/julia-trait-bound/julia-unified/usr/share/julia/test/ambiguous.jl:182
+  Expression: sig1 === sig2
+   Evaluated: write(filename::AbstractString, a1, args...)
+     @ Base io.jl:508 === write(s::IO, A::AbstractArray)
+     @ Base io.jl:844
+Error in testset ambiguous:
+Test Failed at /p/projects/coen/julia-trait-bound/julia-unified/usr/share/julia/test/ambiguous.jl:182
+  Expression: sig1 === sig2
+   Evaluated: kwcall(::NamedTuple, ::typeof(copyline), out::IO, filename::AbstractString)
+     @ Base io.jl:678 === kwcall(::NamedTuple, ::typeof(copyline), out::Base.GenericIOBuffer, s::IO)
+     @ Base iobuffer.jl:994
+Error in testset ambiguous:
+Test Failed at /p/projects/coen/julia-trait-bound/julia-unified/usr/share/julia/test/ambiguous.jl:182
+  Expression: sig1 === sig2
+   Evaluated: write(to::IO, from::Base.AbstractPipe)
+     @ Base io.jl:470 === write(filename::AbstractString, a1, args...)
+     @ Base io.jl:508
+Error in testset ambiguous:
+Test Failed at /p/projects/coen/julia-trait-bound/julia-unified/usr/share/julia/test/ambiguous.jl:182
+  Expression: sig1 === sig2
+   Evaluated: write(filename::AbstractString, a1, args...)
+     @ Base io.jl:508 === write(s::IO, x::Int8)
+     @ Base io.jl:836
+Error in testset ambiguous:
+Test Failed at /p/projects/coen/julia-trait-bound/julia-unified/usr/share/julia/test/ambiguous.jl:182
+  Expression: sig1 === sig2
+   Evaluated: read(filename::AbstractString, ::Type{T}) where T
+     @ Base io.jl:526 === read(data::IO, ::Type{Base.TermInfoRaw})
+     @ Base terminfo.jl:74
+Error in testset ambiguous:
+Test Failed at /p/projects/coen/julia-trait-bound/julia-unified/usr/share/julia/test/ambiguous.jl:182
+  Expression: sig1 === sig2
+   Evaluated: write(filename::AbstractString, a1, args...)
+     @ Base io.jl:508 === write(s::IO, A::StridedArray)
+     @ Base io.jl:857
+Error in testset ambiguous:
+Test Failed at /p/projects/coen/julia-trait-bound/julia-unified/usr/share/julia/test/ambiguous.jl:182
+  Expression: sig1 === sig2
+   Evaluated: write(io::IO, k::Base.JuliaSyntax.Kind)
+     @ Base.JuliaSyntax /p/projects/coen/julia-trait-bound/julia-unified/base/JuliaSyntax/src/julia/kinds.jl:63 === write(filename::AbstractString, a1, args...)
+     @ Base io.jl:508
+Error in testset ambiguous:
+Test Failed at /p/projects/coen/julia-trait-bound/julia-unified/usr/share/julia/test/ambiguous.jl:182
+  Expression: sig1 === sig2
+   Evaluated: write(filename::AbstractString, a1, args...)
+     @ Base io.jl:508 === write(io::IO, s::AbstractString)
+     @ Base strings/io.jl:193
+Error in testset ambiguous:
+Test Failed at /p/projects/coen/julia-trait-bound/julia-unified/usr/share/julia/test/ambiguous.jl:182
+  Expression: sig1 === sig2
+   Evaluated: copyuntil(out::IO, filename::AbstractString, delim)
+     @ Base io.jl:600 === copyuntil(out::IO, io::IO, target::AbstractString)
+     @ Base io.jl:1120
+Error in testset ambiguous:
+Test Failed at /p/projects/coen/julia-trait-bound/julia-unified/usr/share/julia/test/ambiguous.jl:182
+  Expression: sig1 === sig2
+   Evaluated: write(io::IO, x::Enum{T}) where T<:Integer
+     @ Base.Enums Enums.jl:21 === write(filename::AbstractString, a1, args...)
+     @ Base io.jl:508
+Error in testset ambiguous:
+Test Failed at /p/projects/coen/julia-trait-bound/julia-unified/usr/share/julia/test/ambiguous.jl:182
+  Expression: sig1 === sig2
+   Evaluated: replace(new::Union{Function, Type}, A; count)
+     @ Base set.jl:868 === replace(io::IO, s::AbstractString, pat_f::Pair...)
+     @ Base strings/util.jl:1163
+Error in testset ambiguous:
+Test Failed at /p/projects/coen/julia-trait-bound/julia-unified/usr/share/julia/test/ambiguous.jl:182
+  Expression: sig1 === sig2
+   Evaluated: read(filename::AbstractString, ::Type{T}) where T
+     @ Base io.jl:526 === read(s::IO, ::Type{Rational{T}}) where T<:Integer
+     @ Base rational.jl:124
+Error in testset ambiguous:
+Test Failed at /p/projects/coen/julia-trait-bound/julia-unified/usr/share/julia/test/ambiguous.jl:182
+  Expression: sig1 === sig2
+   Evaluated: read(s::IO, ::Type{Complex{T}}) where T<:Real
+     @ Base complex.jl:228 === read(filename::AbstractString, ::Type{T}) where T
+     @ Base io.jl:526
+Error in testset ambiguous:
+Test Failed at /p/projects/coen/julia-trait-bound/julia-unified/usr/share/julia/test/ambiguous.jl:182
+  Expression: sig1 === sig2
+   Evaluated: read!(filename::AbstractString, a)
+     @ Base io.jl:536 === read!(s::IO, A::AbstractArray{T}) where T
+     @ Base io.jl:935
+Error in testset ambiguous:
+Test Failed at /p/projects/coen/julia-trait-bound/julia-unified/usr/share/julia/test/ambiguous.jl:182
+  Expression: sig1 === sig2
+   Evaluated: write(s::IO, z::Complex)
+     @ Base complex.jl:233 === write(filename::AbstractString, a1, args...)
+     @ Base io.jl:508
+Error in testset ambiguous:
+Test Failed at /p/projects/coen/julia-trait-bound/julia-unified/usr/share/julia/test/ambiguous.jl:182
+  Expression: sig1 === sig2
+   Evaluated: read!(filename::AbstractString, a)
+     @ Base io.jl:536 === read!(s::IO, A::StridedArray{T}) where T
+     @ Base io.jl:954
+Error in testset ambiguous:
+Test Failed at /p/projects/coen/julia-trait-bound/julia-unified/usr/share/julia/test/ambiguous.jl:182
+  Expression: sig1 === sig2
+   Evaluated: read(io::IO, ::Type{T}) where T<:Enum
+     @ Base.Enums Enums.jl:22 === read(filename::AbstractString, ::Type{T}) where T
+     @ Base io.jl:526
+Error in testset ambiguous:
+Test Failed at /p/projects/coen/julia-trait-bound/julia-unified/usr/share/julia/test/ambiguous.jl:182
+  Expression: sig1 === sig2
+   Evaluated: read(io::IO, ::Type{Base.JuliaSyntax.Kind})
+     @ Base.JuliaSyntax /p/projects/coen/julia-trait-bound/julia-unified/base/JuliaSyntax/src/julia/kinds.jl:67 === read(filename::AbstractString, ::Type{T}) where T
+     @ Base io.jl:526
+Error in testset ambiguous:
+Test Failed at /p/projects/coen/julia-trait-bound/julia-unified/usr/share/julia/test/ambiguous.jl:182
+  Expression: sig1 === sig2
+   Evaluated: write(filename::AbstractString, a1, args...)
+     @ Base io.jl:508 === write(io::IO, s::Union{Base.AnnotatedString, SubString{<:Base.AnnotatedString}})
+     @ Base.AnnotatedDisplay strings/annotated_io.jl:361
+Error in testset ambiguous:
+Test Failed at /p/projects/coen/julia-trait-bound/julia-unified/usr/share/julia/test/ambiguous.jl:182
+  Expression: sig1 === sig2
+   Evaluated: write(s::IO, B::BitArray)
+     @ Base bitarray.jl:1927 === write(filename::AbstractString, a1, args...)
+     @ Base io.jl:508
+Error in testset ambiguous:
+Test Failed at /p/projects/coen/julia-trait-bound/julia-unified/usr/share/julia/test/ambiguous.jl:185
+  Expression: good
+Error in testset ambiguous:
+Test Failed at /p/projects/coen/julia-trait-bound/julia-unified/usr/share/julia/test/ambiguous.jl:200
+  Expression: isempty(detect_ambiguities(modules...; recursive = true, allowed_undefineds))
+   Evaluated: isempty(Tuple{Method, Method}[(print_test_results(ts::Test.AbstractTestSet, depth_pad)
+     @ Test /p/projects/coen/julia-trait-bound/julia-unified/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:1367, print_test_results(io::IO, ts::Test.AbstractTestSet)
+     @ Test /p/projects/coen/julia-trait-bound/julia-unified/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:1371)])
+ERROR: A test has failed. Please submit a bug report (https://github.com/JuliaLang/julia/issues)
+including error messages above and the output of versioninfo():
+Julia Version 1.13.2
+Commit bf447db25e* (2026-11-09 09:41 UTC)
+Platform Info:
+  OS: Linux (x86_64-pc-linux-gnu)
+  CPU: 128 × AMD EPYC 9354 32-Core Processor
+  WORD_SIZE: 64
+  LLVM: libLLVM-20.1.8 (ORCJIT, znver4)
+  GC: Built with stock GC
+Threads: 4 default, 1 interactive, 4 GC (on 4 virtual cores)
+Environment:
+  JULIA_CPU_THREADS = 4
+  JULIA_NUM_PRECOMPILE_TASKS = 4
+  JULIA_DEPOT_PATH = /p/projects/coen/julia-trait-bound/.julia-depot
+  LD_LIBRARY_PATH = /p/system/packages_rhel9/tools/git/2.52.0/lib64:/p/system/packages_rhel9/tools/git/2.52.0/lib:/p/system/packages_rhel9/libraries/mpc/1.3.1/lib64:/p/system/packages_rhel9/libraries/mpc/1.3.1/lib:/p/system/packages_rhel9/libraries/mpfr/4.2.1/lib64:/p/system/packages_rhel9/libraries/mpfr/4.2.1/lib:/p/system/packages_rhel9/libraries/gmp/6.3.0/lib64:/p/system/packages_rhel9/libraries/gmp/6.3.0/lib:/p/system/packages_rhel9/compiler/gcc/13.2.0/lib64:/usr/local/lib::/home/hellmann/gurobi/lib
+  JULIA_NUM_THREADS = 4
+
+Stacktrace:
+ [1] error(s::String)
+   @ Base ./error.jl:44
+ [2] runtests(tests::Vector{String}; ncores::Int64, exit_on_error::Bool, revise::Bool, propagate_project::Bool, seed::Nothing, julia_args::Cmd)
+   @ Base ./util.jl:726
+ [3] top-level scope
+   @ none:1
+ [4] eval(m::Module, e::Any)
+   @ Core ./boot.jl:521
+ [5] exec_options(opts::Base.JLOptions)
+   @ Base ./client.jl:310
+ [6] _start()
+   @ Base ./client.jl:577
+
+caused by: failed process: Process(setenv(`/p/projects/coen/julia-trait-bound/julia-unified/usr/bin/julia -C native -J/p/projects/coen/julia-trait-bound/julia-unified/usr/lib/julia/sys.so -g1 --startup-file=no /p/projects/coen/julia-trait-bound/julia-unified/usr/bin/../share/julia/test/runtests.jl ambiguous`,["TERM=screen", "__LMOD_REF_COUNT_C_INCLUDE_PATH=/p/system/packages_rhel9/tools/git/2.52.0/include:1;/p/system/packages_rhel9/libraries/mpc/1.3.1/include:1;/p/system/packages_rhel9/libraries/mpfr/4.2.1/include:1;/p/system/packages_rhel9/libraries/gmp/6.3.0/include:1", "_ModuleTable005_=ZmlsZXNfcmhlbDkvcGFyYWxsZWw6L3Avc3lzdGVtL21vZHVsZWZpbGVzX3JoZWw5L3Rvb2xzIiwKfQo=", "__LMOD_REF_COUNT_PATH=/p/system/packages_rhel9/tools/git/2.52.0/bin:1;/p/system/packages_rhel9/libraries/mpc/1.3.1/bin:1;/p/system/packages_rhel9/libraries/mpfr/4.2.1/bin:1;/p/system/packages_rhel9/libraries/gmp/6.3.0/bin:1;/p/system/packages_rhel9/compiler/gcc/13.2.0/libexec:1;/p/system/packages_rhel9/compiler/gcc/13.2.0/bin:1;.:2;/p/system/packages/bin:2;/home/hellmann/.juliaup/bin:1;/home/hellmann/.local/bin:1;/usr/local/bin:3;/usr/bin:1;/usr/local/sbin:1;/usr/sbin:3;/opt/mellanox/doca/tools:2;/usr/lpp/X11/bin:2;/usr/lpp/bin:4;/usr/local/frame/bin:2;/home/hellmann/bin:2;/usr/lpp/xgmon/bin:2;/home/hellmann/gurobi/bin:2", "OPENBLAS_NUM_THREADS=1", "LMOD_ROOT=/usr/share/lmod", "AI_AGENT=claude-code_2-1-319_agent", "CLAUDE_CODE_SESSION_ID=24a7c1e0-a2ec-401b-8a6e-3d7a1561fce2", "OPENBLAS_MAIN_FREE=1", "SHELL=/bin/bash", "MANPATH=/p/system/packages_rhel9/tools/git/2.52.0/share/man:/p/system/packages_rhel9/libraries/mpc/1.3.1/share/man:/p/system/packages_rhel9/libraries/mpfr/4.2.1/share/man:/p/system/packages_rhel9/libraries/gmp/6.3.0/share/man:/p/system/packages_rhel9/compiler/gcc/13.2.0/share/man:/usr/local/share/man:/usr/share/man", "BASH_FUNC_module%%=() {  if [ -z \"\${LMOD_SH_DBG_ON+x}\" ]; then\n case \"\$-\" in \n *v*x*)\n __lmod_sh_dbg='vx'\n ;;\n *v*)\n __lmod_sh_dbg='v'\n ;;\n *x*)\n __lmod_sh_dbg='x'\n ;;\n esac;\n fi;\n if [ -n \"\${__lmod_sh_dbg:-}\" ]; then\n set +\$__lmod_sh_dbg;\n echo \"Shell debugging temporarily silenced: export LMOD_SH_DBG_ON=1 for Lmod's output\" 1>&2;\n fi;\n eval \"\$(\$LMOD_CMD shell \"\$@\")\" && eval \"\$(\${LMOD_SETTARG_CMD:-:} -s sh)\";\n __lmod_my_status=\$?;\n if [ -n \"\${__lmod_sh_dbg:-}\" ]; then\n echo \"Shell debugging restarted\" 1>&2;\n set -\$__lmod_sh_dbg;\n fi;\n unset __lmod_sh_dbg;\n return \$__lmod_my_status\n}", "LMOD_VERSION=8.7.65", "JULIA_LOAD_PATH=@:@stdlib", "FMHOME=/usr/local/frame", "SSH_CLIENT=193.174.19.69 44320 22", "HISTCONTROL=ignoredups", "JULIA_DEPOT_PATH=/tmp/jl_YRnnBd:", "__LMOD_REF_COUNT_CPLUS_INCLUDE_PATH=/p/system/packages_rhel9/tools/git/2.52.0/include:1;/p/system/packages_rhel9/libraries/mpc/1.3.1/include:1;/p/system/packages_rhel9/libraries/mpfr/4.2.1/include:1;/p/system/packages_rhel9/libraries/gmp/6.3.0/include:1", "LMOD_sys=Linux", "MPC_ROOT=/p/system/packages_rhel9/libraries/mpc/1.3.1", "OLDPWD=/p/projects/coen/julia-trait-bound/experiments/unification", "TMUX=/tmp/tmux-3147/default,2520063,0", "LMOD_SETTARG_FULL_SUPPORT=no", "which_declare=declare -f", "LMOD_CMD=/usr/share/lmod/lmod/libexec/lmod", "GCC_ROOT_DIR=/p/system/packages_rhel9/compiler/gcc/13.2.0", "GMP_ROOT=/p/system/packages_rhel9/libraries/gmp/6.3.0", "XDG_RUNTIME_DIR=/run/user/3147", "JL_SLOTS=1", "JSTOCK=/home/hellmann/.juliaup/bin/julia +1.13.2", "PPROJECTS=/p/projects", "BASH_ENV=/usr/share/lmod/lmod/init/bash", "_ModuleTable004_=MDAwMDAyLjAwMDAwMDAwMS4qemZpbmFsIiwKfSwKfSwKbXBhdGhBID0gewoiL3Avc3lzdGVtL21vZHVsZWZpbGVzX3JoZWw5L2NvbXBpbGVyIiwgIi9wL3N5c3RlbS9tb2R1bGVmaWxlc19yaGVsOS9ncHUiCiwgIi9wL3N5c3RlbS9tb2R1bGVmaWxlc19yaGVsOS9saWJyYXJpZXMiCiwgIi9wL3N5c3RlbS9tb2R1bGVmaWxlc19yaGVsOS9wYXJhbGxlbCIsICIvcC9zeXN0ZW0vbW9kdWxlZmlsZXNfcmhlbDkvdG9vbHMiLAp9LApzeXN0ZW1CYXNlTVBBVEggPSAiL3Avc3lzdGVtL21vZHVsZWZpbGVzX3JoZWw5L2NvbXBpbGVyOi9wL3N5c3RlbS9tb2R1bGVmaWxlc19yaGVsOS9ncHU6L3Avc3lzdGVtL21vZHVsZWZpbGVzX3JoZWw5L2xpYnJhcmllczovcC9zeXN0ZW0vbW9kdWxl", "_ModuleTable001_=X01vZHVsZVRhYmxlXyA9IHsKTVR2ZXJzaW9uID0gMywKY19yZWJ1aWxkVGltZSA9IGZhbHNlLApjX3Nob3J0VGltZSA9IGZhbHNlLApkZXB0aFQgPSB7fSwKZmFtaWx5ID0ge30sCm1UID0gewpnY2MgPSB7CmZuID0gIi9wL3N5c3RlbS9tb2R1bGVmaWxlc19yaGVsOS9jb21waWxlci9nY2MvMTMuMi4wIiwKZnVsbE5hbWUgPSAiZ2NjLzEzLjIuMCIsCmxvYWRPcmRlciA9IDQsCnByb3BUID0ge30sCnN0YWNrRGVwdGggPSAwLApzdGF0dXMgPSAiYWN0aXZlIiwKdXNlck5hbWUgPSAiZ2NjLzEzLjIuMCIsCndWID0gIjAwMDAwMDAxMy4wMDAwMDAwMDIuKnpmaW5hbCIsCn0sCmdpdCA9IHsKZm4gPSAiL3Avc3lzdGVtL21vZHVsZWZpbGVzX3JoZWw5L3Rvb2xzL2dpdC8yLjUyLjAi", "USER=hellmann", "LIBRARY_PATH=/p/system/packages_rhel9/tools/git/2.52.0/lib64:/p/system/packages_rhel9/tools/git/2.52.0/lib:/p/system/packages_rhel9/libraries/mpc/1.3.1/lib64:/p/system/packages_rhel9/libraries/mpc/1.3.1/lib:/p/system/packages_rhel9/libraries/mpfr/4.2.1/lib64:/p/system/packages_rhel9/libraries/mpfr/4.2.1/lib:/p/system/packages_rhel9/libraries/gmp/6.3.0/lib64:/p/system/packages_rhel9/libraries/gmp/6.3.0/lib", "PKG_CONFIG_PATH=/p/system/packages_rhel9/tools/git/2.52.0/lib64/pkgconfig:/p/system/packages_rhel9/tools/git/2.52.0/lib/pkgconfig:/p/system/packages_rhel9/libraries/mpfr/4.2.1/lib64/pkgconfig:/p/system/packages_rhel9/libraries/mpfr/4.2.1/lib/pkgconfig:/p/system/packages_rhel9/libraries/gmp/6.3.0/lib64/pkgconfig:/p/system/packages_rhel9/libraries/gmp/6.3.0/lib/pkgconfig::/opt/mellanox/dpdk/lib64/pkgconfig", "__LMOD_REF_COUNT_PKG_CONFIG_PATH=/p/system/packages_rhel9/tools/git/2.52.0/lib64/pkgconfig:1;/p/system/packages_rhel9/tools/git/2.52.0/lib/pkgconfig:1;/p/system/packages_rhel9/libraries/mpfr/4.2.1/lib64/pkgconfig:1;/p/system/packages_rhel9/libraries/mpfr/4.2.1/lib/pkgconfig:1;/p/system/packages_rhel9/libraries/gmp/6.3.0/lib64/pkgconfig:1;/p/system/packages_rhel9/libraries/gmp/6.3.0/lib/pkgconfig:1;:1;/opt/mellanox/dpdk/lib64/pkgconfig:2", "__LMOD_REF_COUNT_LD_LIBRARY_PATH=/p/system/packages_rhel9/tools/git/2.52.0/lib64:1;/p/system/packages_rhel9/tools/git/2.52.0/lib:1;/p/system/packages_rhel9/libraries/mpc/1.3.1/lib64:1;/p/system/packages_rhel9/libraries/mpc/1.3.1/lib:1;/p/system/packages_rhel9/libraries/mpfr/4.2.1/lib64:1;/p/system/packages_rhel9/libraries/mpfr/4.2.1/lib:1;/p/system/packages_rhel9/libraries/gmp/6.3.0/lib64:1;/p/system/packages_rhel9/libraries/gmp/6.3.0/lib:1;/p/system/packages_rhel9/compiler/gcc/13.2.0/lib64:1;/usr/local/lib:2;:1;/home/hellmann/gurobi/lib:2", "FPATH=/usr/share/lmod/lmod/init/ksh_funcs", "MODULEPATH_ROOT=/usr/share/modulefiles", "SHLVL=4", "MODULESHOME=/usr/share/lmod/lmod", "MAIL=/var/spool/mail/hellmann", "MPFR_ROOT=/p/system/packages_rhel9/libraries/mpfr/4.2.1", "LMOD_DIR=/usr/share/lmod/lmod/libexec", "CLAUDE_CODE_CHILD_SESSION=1", "TERM_PROGRAM=tmux", "__LMOD_REF_COUNT_MODULEPATH=/p/system/modulefiles_rhel9/compiler:1;/p/system/modulefiles_rhel9/gpu:1;/p/system/modulefiles_rhel9/libraries:1;/p/system/modulefiles_rhel9/parallel:1;/p/system/modulefiles_rhel9/tools:1", "LD_LIBRARY_PATH=/p/system/packages_rhel9/tools/git/2.52.0/lib64:/p/system/packages_rhel9/tools/git/2.52.0/lib:/p/system/packages_rhel9/libraries/mpc/1.3.1/lib64:/p/system/packages_rhel9/libraries/mpc/1.3.1/lib:/p/system/packages_rhel9/libraries/mpfr/4.2.1/lib64:/p/system/packages_rhel9/libraries/mpfr/4.2.1/lib:/p/system/packages_rhel9/libraries/gmp/6.3.0/lib64:/p/system/packages_rhel9/libraries/gmp/6.3.0/lib:/p/system/packages_rhel9/compiler/gcc/13.2.0/lib64:/usr/local/lib::/home/hellmann/gurobi/lib", "MAKEFLAGS=-j4", "INCLUDE=/p/system/packages_rhel9/compiler/gcc/13.2.0/include", "C_INCLUDE_PATH=/p/system/packages_rhel9/tools/git/2.52.0/include:/p/system/packages_rhel9/libraries/mpc/1.3.1/include:/p/system/packages_rhel9/libraries/mpfr/4.2.1/include:/p/system/packages_rhel9/libraries/gmp/6.3.0/include", "OMP_NUM_THREADS=1", "MODULEPATH=/p/system/modulefiles_rhel9/compiler:/p/system/modulefiles_rhel9/gpu:/p/system/modulefiles_rhel9/libraries:/p/system/modulefiles_rhel9/parallel:/p/system/modulefiles_rhel9/tools", "DISPLAY=localhost:16.0", "_=/usr/bin/nice", "MOTD_SHOWN=pam", "LS_COLORS=rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=01;37;41:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=01;36:*.au=01;36:*.flac=01;36:*.m4a=01;36:*.mid=01;36:*.midi=01;36:*.mka=01;36:*.mp3=01;36:*.mpc=01;36:*.ogg=01;36:*.ra=01;36:*.wav=01;36:*.oga=01;36:*.opus=01;36:*.spx=01;36:*.xspf=01;36:", "LANG=en_US.UTF-8", "CMAKE_PREFIX_PATH=/p/system/packages_rhel9/tools/git/2.52.0:/p/system/packages_rhel9/libraries/mpc/1.3.1:/p/system/packages_rhel9/libraries/mpfr/4.2.1:/p/system/packages_rhel9/libraries/gmp/6.3.0", "LMOD_PKG=/usr/share/lmod/lmod", "DEBUGINFOD_IMA_CERT_PATH=/etc/keys/ima:", "CLAUDE_CODE_WORKER_EPOCH=1", "GS_LIB=/usr/local/gs", "JL_DEPOTS=/p/projects/coen/julia-trait-bound/.julia-depot/agent-depots", "CLAUDE_CODE_SESSION_ATTENDED=0", "SSH_CONNECTION=193.174.19.69 44320 192.168.120.6 22", "TMUX_PANE=%0", "GIT_EDITOR=true", "__LMOD_REF_COUNT_MANPATH=/p/system/packages_rhel9/tools/git/2.52.0/share/man:1;/p/system/packages_rhel9/libraries/mpc/1.3.1/share/man:1;/p/system/packages_rhel9/libraries/mpfr/4.2.1/share/man:1;/p/system/packages_rhel9/libraries/gmp/6.3.0/share/man:1;/p/system/packages_rhel9/compiler/gcc/13.2.0/share/man:1;/usr/local/share/man:1;/usr/share/man:1", "CLAUDE_CODE_BRIDGE_MCP_CARRIER=spent", "LESSOPEN=||/usr/bin/lesspipe.sh %s", "JULIA_TESTS=true", "UV_CACHE_DIR=/p/projects/coen/uv_cache", "CLAUDE_CODE_BRIDGE_OWNER_ORG_UUID=9d243610-31cf-4a6d-b7c3-a73cae432d81", "XDG_SESSION_ID=73140", "CLAUDE_CODE_ENVIRONMENT_KIND=bridge", "CLAUDE_EFFORT=xhigh", "CLAUDE_CODE_BRIDGE_OWNER_ACCOUNT_UUID=6e5c1108-df62-4a8f-8889-4b749ad73243", "XDG_DATA_DIRS=/home/hellmann/.local/share/flatpak/exports/share:/var/lib/flatpak/exports/share:/usr/local/share:/usr/share", "_LMFILES_=/p/system/modulefiles_rhel9/libraries/gmp/6.3.0:/p/system/modulefiles_rhel9/libraries/mpfr/4.2.1:/p/system/modulefiles_rhel9/libraries/mpc/1.3.1:/p/system/modulefiles_rhel9/compiler/gcc/13.2.0:/p/system/modulefiles_rhel9/tools/git/2.52.0", "JL_CORES=4", "PATH=/p/system/packages_rhel9/tools/git/2.52.0/bin:/p/system/packages_rhel9/libraries/mpc/1.3.1/bin:/p/system/packages_rhel9/libraries/mpfr/4.2.1/bin:/p/system/packages_rhel9/libraries/gmp/6.3.0/bin:/p/system/packages_rhel9/compiler/gcc/13.2.0/libexec:/p/system/packages_rhel9/compiler/gcc/13.2.0/bin:.:/p/system/packages/bin:/home/hellmann/.juliaup/bin:/home/hellmann/.local/bin:/usr/local/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/opt/mellanox/doca/tools:/usr/lpp/X11/bin:/usr/lpp/bin:/usr/local/frame/bin:/home/hellmann/bin:/usr/lpp/xgmon/bin:/home/hellmann/gurobi/bin", "CLAUDE_PID=2543498", "LOADEDMODULES=gmp/6.3.0:mpfr/4.2.1:mpc/1.3.1:gcc/13.2.0:git/2.52.0", "PROJECTS=/data", "SSH_TTY=/dev/pts/14", "LOGNAME=hellmann", "HOSTNAME=login02", "__LMOD_REF_COUNT_INCLUDE=/p/system/packages_rhel9/compiler/gcc/13.2.0/include:1", "_ModuleTable_Sz_=5", "COREPACK_ENABLE_AUTO_PIN=0", "TERM_PROGRAM_VERSION=3.2a", "NoDefaultCurrentDirectoryInExePath=1", "MOZILLA_HOME=/usr/local/netscape470", "PTMP=/p/tmp/hellmann", "UV_INDEX=https://download.pytorch.org/whl/cu126", "HISTSIZE=1000", "CLAUDE_CODE_ENTRYPOINT=sdk-cli", "CLAUDE_CODE_EXECPATH=/home/hellmann/.local/share/claude/versions/2.1.319", "__LMOD_REF_COUNT_LIBRARY_PATH=/p/system/packages_rhel9/tools/git/2.52.0/lib64:1;/p/system/packages_rhel9/tools/git/2.52.0/lib:1;/p/system/packages_rhel9/libraries/mpc/1.3.1/lib64:1;/p/system/packages_rhel9/libraries/mpc/1.3.1/lib:1;/p/system/packages_rhel9/libraries/mpfr/4.2.1/lib64:1;/p/system/packages_rhel9/libraries/mpfr/4.2.1/lib:1;/p/system/packages_rhel9/libraries/gmp/6.3.0/lib64:1;/p/system/packages_rhel9/libraries/gmp/6.3.0/lib:1", "BASH_FUNC_ml%%=() {  eval \"\$(\$LMOD_DIR/ml_cmd \"\$@\")\"\n}", "JL_NOPIN=1", "__LMOD_REF_COUNT_CMAKE_PREFIX_PATH=/p/system/packages_rhel9/tools/git/2.52.0:1;/p/system/packages_rhel9/libraries/mpc/1.3.1:1;/p/system/packages_rhel9/libraries/mpfr/4.2.1:1;/p/system/packages_rhel9/libraries/gmp/6.3.0:1", "JULIA_CPU_THREADS=1", "J=/p/projects/coen/julia-trait-bound/julia-1.13/julia", "CLAUDE_CODE_MESSAGING_TOKEN=fcc1da810861670dc679a0a23028ac93", "XDG_SESSION_TYPE=tty", "CLAUDE_CODE_MESSAGING_SOCKET=/run/user/3147/cc-socks/2543498.sock", "JL_LOCKDIR=/p/projects/coen/julia-trait-bound/.jl-locks", "ENV=/home/hellmann/.kshrc", "JULIA_NUM_PRECOMPILE_TASKS=4", "PWD=/p/projects/coen/julia-trait-bound", "CPLUS_INCLUDE_PATH=/p/system/packages_rhel9/tools/git/2.52.0/include:/p/system/packages_rhel9/libraries/mpc/1.3.1/include:/p/system/packages_rhel9/libraries/mpfr/4.2.1/include:/p/system/packages_rhel9/libraries/gmp/6.3.0/include", "CLAUDECODE=1", "HOME=/home/hellmann", "TW_ROOT=/p/projects/coen/julia-trait-bound", "GIT_ROOT=/p/system/packages_rhel9/tools/git/2.52.0", "JULIA_NUM_THREADS=4", "DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/3147/bus", "_ModuleTable003_=bW9kdWxlZmlsZXNfcmhlbDkvbGlicmFyaWVzL21wYy8xLjMuMSIsCmZ1bGxOYW1lID0gIm1wYy8xLjMuMSIsCmxvYWRPcmRlciA9IDMsCnByb3BUID0ge30sCnN0YWNrRGVwdGggPSAxLApzdGF0dXMgPSAiYWN0aXZlIiwKdXNlck5hbWUgPSAibXBjIiwKd1YgPSAiMDAwMDAwMDAxLjAwMDAwMDAwMy4wMDAwMDAwMDEuKnpmaW5hbCIsCn0sCm1wZnIgPSB7CmZuID0gIi9wL3N5c3RlbS9tb2R1bGVmaWxlc19yaGVsOS9saWJyYXJpZXMvbXBmci80LjIuMSIsCmZ1bGxOYW1lID0gIm1wZnIvNC4yLjEiLApsb2FkT3JkZXIgPSAyLApwcm9wVCA9IHt9LApzdGFja0RlcHRoID0gMSwKc3RhdHVzID0gImFjdGl2ZSIsCnVzZXJOYW1lID0gIm1wZnIiLAp3ViA9ICIwMDAwMDAwMDQuMDAw", "_ModuleTable002_=LApmdWxsTmFtZSA9ICJnaXQvMi41Mi4wIiwKbG9hZE9yZGVyID0gNSwKcHJvcFQgPSB7fSwKc3RhY2tEZXB0aCA9IDAsCnN0YXR1cyA9ICJhY3RpdmUiLAp1c2VyTmFtZSA9ICJnaXQvMi41Mi4wIiwKd1YgPSAiMDAwMDAwMDAyLjAwMDAwMDA1Mi4qemZpbmFsIiwKfSwKZ21wID0gewpmbiA9ICIvcC9zeXN0ZW0vbW9kdWxlZmlsZXNfcmhlbDkvbGlicmFyaWVzL2dtcC82LjMuMCIsCmZ1bGxOYW1lID0gImdtcC82LjMuMCIsCmxvYWRPcmRlciA9IDEsCnByb3BUID0ge30sCnN0YWNrRGVwdGggPSAxLApzdGF0dXMgPSAiYWN0aXZlIiwKdXNlck5hbWUgPSAiZ21wIiwKd1YgPSAiMDAwMDAwMDA2LjAwMDAwMDAwMy4qemZpbmFsIiwKfSwKbXBjID0gewpmbiA9ICIvcC9zeXN0ZW0v", "XDG_SESSION_CLASS=user"]), ProcessExited(1)) [1]
+
+Stacktrace:
+ [1] pipeline_error
+   @ ./process.jl:610 [inlined]
+ [2] run(::Cmd; wait::Bool)
+   @ Base ./process.jl:525
+ [3] run
+   @ ./process.jl:522 [inlined]
+ [4] runtests(tests::Vector{String}; ncores::Int64, exit_on_error::Bool, revise::Bool, propagate_project::Bool, seed::Nothing, julia_args::Cmd)
+   @ Base ./util.jl:718
+ [5] top-level scope
+   @ none:1
+ [6] eval(m::Module, e::Any)
+   @ Core ./boot.jl:521
+ [7] exec_options(opts::Base.JLOptions)
+   @ Base ./client.jl:310
+ [8] _start()
+   @ Base ./client.jl:577
