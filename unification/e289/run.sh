@@ -20,7 +20,8 @@ OUT=$H/out; mkdir -p "$OUT" "$H/logs"; export MPLCONFIGDIR=$OUT/mpl JULIA_PKG_OF
 export JULIA_LOCK=$H/.lock JULIA_GATE=$H/.gate
 LOG=$H/logs/$label.log
 rev() { git -C "$R/$1" log -1 --format=%h; }
-{ echo "# E-289 $label $(date -Is) load $(cut -d' ' -f1-3 /proc/loadavg) | julia-1.13 $(rev julia-1.13) TraitWorld $(rev TraitWorld) TraitReport $(rev TraitReport) forks $(rev forks) TDE $(rev TraitDifferentialEquations) TraitMakie $(rev TraitMakie) | unified $(rev julia-unified) TraitWorld-unified $(rev TraitWorld-unified) TraitReport-unified $(rev TraitReport-unified) forks-unified $(rev forks-unified) TDE-unified $(rev TraitDifferentialEquations-unified) TraitMakie-unified $(rev TraitMakie-unified)"; } > "$LOG"
+bin() { [ -x "$R/$1/julia" ] && "$R/$1/julia" --startup-file=no -e 'print(Base.GIT_VERSION_INFO.commit_short)' 2>/dev/null || echo "?"; }   # the binary's own commit, * if built from a dirty tree
+{ echo "# E-289 $label $(date -Is) load $(cut -d' ' -f1-3 /proc/loadavg) | julia-1.13 $(rev julia-1.13) TraitWorld $(rev TraitWorld) TraitReport $(rev TraitReport) forks $(rev forks) TDE $(rev TraitDifferentialEquations) TraitMakie $(rev TraitMakie) | unified $(rev julia-unified) (binary $(bin julia-unified)) TraitWorld-unified $(rev TraitWorld-unified) TraitReport-unified $(rev TraitReport-unified) forks-unified $(rev forks-unified) TDE-unified $(rev TraitDifferentialEquations-unified) TraitMakie-unified $(rev TraitMakie-unified)"; } > "$LOG"
 
 phases() {   # marks "T t1 t2 ..." -> startup, the steps, exit, wall (as TraitReport's measure.sh)
     awk -v s="$1" -v e="$2" -v names="$3" '/^T / {

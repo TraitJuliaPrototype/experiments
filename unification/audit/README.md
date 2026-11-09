@@ -34,6 +34,10 @@ julia-unified/julia --startup-file=no experiments/unification/audit/declared_res
 # known, through IO and through Any; run as is and with --compile=min (logs/probe-result-by-inference-*.log)
 julia-unified/julia --startup-file=no [--compile=min] experiments/unification/audit/probe_result_by_inference.jl
 
+# the unmet-Callable probe (open issue 172, compiler C-82): whether dispatch's lookup judges All{AbstractString, Callable}
+# unmet while a string type with a call method is in it (logs/probe-unmet-callable-*.log)
+julia-unified/julia --startup-file=no experiments/unification/audit/probe_unmet_callable.jl
+
 # the typemap report: methods a lookup tests one by one, in a level's linear list, by function; the
 # longest single lists (a list at the root is walked by every lookup of every function)
 julia-unified/julia --startup-file=no experiments/unification/audit/typemap_linear.jl [Pkg,…] [n]
