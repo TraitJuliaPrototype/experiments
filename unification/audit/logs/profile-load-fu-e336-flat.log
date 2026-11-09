@@ -1,0 +1,104 @@
+ Count  Overhead File                    Line Function
+ =====  ======== ====                    ==== ========
+   155         0 @juliasrc/subtype.c    2992 forall_exists_subtype
+   155         0 @juliasrc/subtype.c    2963 exists_subtype
+   158         0 @juliasrc/gf.c         8115 ml_matches_i
+   171         0 @juliasrc/jitlayers.cpp  681 jl_compile_codeinst_now
+   180         0 @juliasrc/staticdata.c 4034 jl_restore_system_image_from_stre…
+   185         0 @juliasrc/gf.c         6004 jl_compile_method_internal_policy
+   185         0 @juliasrc/jitlayers.cpp  875 jl_compile_codeinst_impl
+   187         0 @Base/loading.jl       4217 stale_cachefile
+   203         4 @Compiler/src/typeinfer.jl 1007 store_backedges(caller::Core.Code…
+   204         0 @juliasrc/gc-stock.c   2590 gc_mark_and_steal
+   230         0 @juliasrc/gf.c         4235 invalidate_unguarded_callers
+   231         0 @juliasrc/gc-stock.c   3754 jl_parallel_gc_threadfun
+   233         3 @juliasrc/subtype.c    3451 ijl_subtype_env
+   240         0 @juliasrc/gc-stock.c   2745 gc_mark_loop_parallel
+   242         0 @juliasrc/gf.c         4407 jl_method_table_activate
+   246         0 @juliasrc/typemap.c     753 jl_typemap_intersection_visitor
+   255         0 @Compiler/src/reinfer.jl  233 verify_method(codeinst::Core.Code…
+   267         0 @Base/loading.jl       1496 run_package_callbacks(modkey::Bas…
+   275         0 @juliasrc/typemap.c     549 jl_typemap_intersection_node_visi…
+   291         0 @Compiler/src/reinfer.jl  598 verify_call(sig::Any, expecteds::…
+   294         1 @Base/runtime_internals.jl 1611 _methods_by_ftype
+   296         0 @juliasrc/gf.c         6498 _jl_invoke
+   297         0 @juliasrc/gf.c         7243 apply_generic_reach
+   298         0 @Base/loading.jl       2232 _require_search_from_serialized(p…
+   302         0 @juliasrc/gf.c         7973 ml_matches_i
+   317         0 @Compiler/src/reinfer.jl  357 verify_method(codeinst::Core.Code…
+   343         0 @juliasrc/staticdata_utils.c  984 jl_activate_methods
+   346         0 @juliasrc/staticdata.c 4540 jl_restore_package_image_from_str…
+   361         0 @juliasrc/staticdata.c 4510 jl_restore_package_image_from_str…
+   521         0 @juliasrc/gf.c         5096 ijl_matching_methods
+   521         0 @juliasrc/gf.c         5109 ijl_matching_methods
+   522         0 @juliasrc/gf.c         1280 ml_matches
+   629         0 @Base/loading.jl       2200 _require_search_from_serialized(p…
+   754         0 @juliasrc/staticdata.c 4655 ijl_restore_package_image_from_fi…
+   754         0 @juliasrc/staticdata.c 4589 jl_restore_incremental_from_buf
+   781         0 @Base/loading.jl       1327 _include_from_serialized(pkg::Bas…
+   807         1 @Compiler/src/reinfer.jl  101 verify_method_graph(codeinst::Cor…
+   813         0 @Compiler/src/reinfer.jl   87 scan_new_code!(internal_methods::…
+   825         0 @Compiler/src/reinfer.jl   77 insert_backedges(internal_methods…
+   845         0 @Base/loading.jl       1344 _include_from_serialized(pkg::Bas…
+   845         0 @Compiler/src/reinfer.jl  681 insert_backedges_typeinf
+   845         0 @juliasrc/gf.c          655 ijl_call_in_typeinf_world
+   845         0 @julialib/julia/sys.so    ? jfptr_insert_backedges_103515
+  1032         0 @Base/loading.jl       2213 _require_search_from_serialized(p…
+  1661         0 @Base/loading.jl       1303 _include_from_serialized
+  2168         0 @Base/loading.jl       2758 __require_prelocked(pkg::Base.Pkg…
+  2168         0 @Base/loading.jl       2098 _require_search_from_serialized
+  2170         0 @Base/loading.jl       2626 _require_prelocked(uuidkey::Base.…
+  2171         0 @Base/loading.jl       2554 macro expansion
+  2172         0 @Base/module.jl         137 _eval_using(to::Module, path::Exp…
+  2172         0 @Base/module.jl          60 eval_import_path_all(at::Module, …
+  2172         0 @Base/module.jl          36 eval_import_path
+  2172         0 @Base/loading.jl       2494 require
+  2172         0 @julialib/julia/sys.so    ? jfptr___require_75606
+  2172         0 @Base/loading.jl       2518 __require(into::Module, mod::Symb…
+  2172         0 @Base/lock.jl           376 macro expansion
+  2173         0 @juliasrc/interpreter.c  589 eval_body
+  2173         0 @julialib/julia/sys.so    ? jfptr_eval_21126
+  2173         0 @julialib/julia/sys.so    ? jfptr__eval_using_41129
+  2183         0 @juliasrc/interpreter.c  566 eval_body
+  2186         0 @julialib/julia/sys.so    ? jfptr_YY.start_profile_listenerYY…
+  2186         0 @Base/Base.jl           361 (::Base.var"#start_profile_listen…
+  2186         0 @Base/Base.jl           341 profile_printing_listener(cond::B…
+  2186         0 @Base/asyncevent.jl     186 _trywait(t::Base.AsyncCondition)
+  2186         0 @Base/condition.jl      136 wait
+  2186         0 @Base/condition.jl      141 wait(c::Base.GenericCondition{Bas…
+  2186         0 ../julia-unified/julia    ? _start
+  2186         0 /lib64/libc.so.6          ? __libc_start_main
+  2186         0 /lib64/libc.so.6          ? __libc_start_call_main
+  2186         0 …fied/cli/loader_exe.c   58 main
+  2186         0 @juliasrc/jlapi.c      1152 jl_repl_entrypoint
+  2186         0 @juliasrc/jlapi.c       985 true_main
+  2186         0 @julialib/julia/sys.so    ? jfptr__start_48935
+  2186         0 @Base/client.jl         577 _start()
+  2186         0 @Base/client.jl         344 exec_options(opts::Base.JLOptions)
+  2186         0 @Base/Base.jl           315 include(mod::Module, _path::Strin…
+  2186         0 @Base/loading.jl       3109 _include(mapexpr::Function, mod::…
+  2186         0 @Base/loading.jl       3049 include_string(mapexpr::typeof(id…
+  2186         0 @Base/boot.jl           521 eval(m::Module, e::Any)
+  2186         0 @juliasrc/toplevel.c    801 ijl_toplevel_eval_in
+  2186         0 @juliasrc/toplevel.c    756 ijl_toplevel_eval
+  2186         0 @juliasrc/toplevel.c    685 jl_toplevel_eval_flex
+  2186         0 @juliasrc/toplevel.c    587 jl_eval_toplevel_stmts
+  2186         0 @juliasrc/toplevel.c    744 jl_toplevel_eval_flex
+  2186         0 @juliasrc/interpreter.c  907 jl_interpret_toplevel_thunk
+  2186         0 @juliasrc/interpreter.c  695 eval_body
+  2186         0 @juliasrc/interpreter.c  202 eval_stmt_value
+  2186         0 @juliasrc/interpreter.c  251 eval_value
+  2186         0 @juliasrc/interpreter.c  130 do_call
+  6318         0 @juliasrc/gc-stock.c   3750 jl_parallel_gc_threadfun
+  6558         0 /lib64/libc.so.6          ? __clone3
+  6558         0 /lib64/libc.so.6          ? start_thread
+  6558         0 @julialib/julia/sys.so    ? jfptr_wait_forever_71010
+  6558         0 @Base/task.jl          1196 wait_forever()
+  8744         0 @juliasrc/task.c       1288 start_task
+  8744         0 @Base/task.jl          1297 wait()
+  8744         0 @juliasrc/scheduler.c   614 ijl_task_get_next
+ 10930         0 @juliasrc/julia.h      2396 jl_apply
+ 15061     15061 /lib64/libc.so.6          ? __futex_abstimed_wait_common
+ 15062         0 …buv/src/unix/thread.c  822 uv_cond_wait
+ 15062         0 /lib64/libc.so.6          ? pthread_cond_wait
+Total snapshots: 17488. Utilization: 50% across all threads and tasks. Use the `groupby` kwarg to break down by thread and/or task.

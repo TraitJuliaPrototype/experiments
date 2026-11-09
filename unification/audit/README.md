@@ -80,6 +80,8 @@ carries that instance's invalidation to every caller of an instance compiled onc
 | 45fa624462 | the profile of the goal's load (`profile-load-fu-e335-{flat,tree}.log`) | 2.4 s against 5.0 s; validation 0.70 s, image restore 0.76 s, activation 0.33 s |
 | 45fa624462 | the read's profile and machine code (`profile-read-fu-e335-flat.log`, `codegen-read-fu-e335.log`, `trace-read-fu-e335.log`) | no inference; 1.4 s of LLVM: `show_unquoted(::IO, ::Expr, …)` 577 ms, `show_list` about 140 ms, CSV's internals; revalidated code, invalidated at load |
 | 45fa624462 | set roots (`set-roots-fu-e335.log`) | 1,659 of 4,194 instances invalidated at insertions under a root at `IO`: `seekstart(::IO)` 584, `print(::IO, ::AbstractString)` 460, `setproperty!(::IO, …)` 304, `get(::IO, ::Symbol, ::Bool)` 88, `close(::IO)` 68, `ismarked(::IO)` 60 (E-336) |
+| E-336 | set roots (`set-roots-fu-e336.log`) | 950 of 3,841 under a root at `IO`: `seekstart(::IO)` 584 → 0, `get(::IO, …)` 88 → 0, `ismarked(::IO)` 60 → 2; left `print(::IO, ::AbstractString)` 460 (new string types, as in plain Julia), `setproperty!(::IO, …)` 305 (TraitWorld's method for `Dynamic`), `close(::IO)` 75 |
+| E-336 | the profile of the goal's load (`profile-load-fu-e336-{flat,tree}.log`) | 2.19 s; validation and backedges 0.85 s, of which storing backedges 0.20 s |
 | 1906196731 | typemap (`typemap-linear-base-e334.log`) | of Base's 24,905 methods, 2,258 in linear lists, 1,199 with an open set; one list at the root holds those 1,199, so every lookup of every function walks them (E-335); per function `show` 239, `Core.kwcall` 165, `showerror` 47 |
 
 The load report's `split_edge` over-matches (the Fable plan, §2.2): its rows "at `IO`" and "at `All{…}`" are not branches of a split.
