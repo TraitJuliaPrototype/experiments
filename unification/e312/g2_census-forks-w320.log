@@ -1,0 +1,27 @@
+read            0.429
+describe        0.042
+select_filter   0.117
+sort            0.261
+groupby         0.025
+user_function   0.418
+join            1.888
+write           0.174
+facts CodeInstances of CSV, DataFrames, Tables: 3468; G2 3400; not G2 68
+      47  inlined callee not G2
+          Tuple{typeof(CSV._normalizetypemap), Dict{DataType, DataType}}
+          Tuple{DataFrames.var"##dropmissing#78", Bool, Bool, typeof(dropmissing), DataFrame, Vector{Symbol}}
+          Tuple{DataFrames.var"##dropmissing#78", Bool, Bool, typeof(dropmissing), DataFrame, Colon}
+      12  a dispatch edge not at a fact signature + inlined callee not G2
+          Tuple{DataFrames.var"##unstack#702", Function, Bool, Bool, Function, Missing, Bool, typeof(unstack), DataFrame, Symbol, Symbol}
+          Tuple{DataFrames.var"##unstack#702", typeof(identity), Bool, Bool, typeof(only), Missing, Bool, typeof(unstack), DataFrame, Symbol, Symbol}
+          Tuple{DataFrames.var"##unstack#702", typeof(identity), Bool, Bool, typeof(sum), Missing, Bool, typeof(unstack), DataFrame, Symbol, Symbol}
+       5  inlined callee, uncached and not G2
+          Tuple{DataFrames.var"##mapcols#653", All{Tuple{}}, typeof(mapcols), DataFrames.var"#143#144"{Int64}, DataFrame}
+          Tuple{DataFrames.var"##mapcols#653", All{Tuple{}}, typeof(mapcols), DataFrames.var"#151#152"{Int64, Int64}, DataFrame}
+          Tuple{typeof(dropmissing), DataFrame, Colon}
+       2  inlined callee's edge names an uncached instance; the cached one is G2
+          Tuple{typeof(CSV._writeshortest_default), Vector{UInt8}, Int64, Float64, UInt8}
+          Tuple{typeof(CSV._writeshortest_default), CSV._WriteBuffer, Int64, Float64, UInt8}
+       2  none found
+          Tuple{CSV.var"##index#19", Int64, Int64, Int64, Int64, Bool, Int64, Bool, Nothing, typeof(CSV.index), Vector{UInt8}, CSV.Dialect}
+          Tuple{CSV.var"##index#19", Int64, Int64, Int64, Int64, Bool, Nothing, Bool, Nothing, typeof(CSV.index), Vector{UInt8}, CSV.Dialect}
