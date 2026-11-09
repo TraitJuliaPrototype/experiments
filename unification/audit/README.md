@@ -33,6 +33,9 @@ julia-unified/julia --startup-file=no experiments/unification/audit/declared_res
 # longest single lists (a list at the root is walked by every lookup of every function)
 julia-unified/julia --startup-file=no experiments/unification/audit/typemap_linear.jl [Pkg,…] [n]
 
+# the set-root report: how much of a load's invalidation starts at an instance compiled at a set
+julia-unified/julia --startup-file=no --project=<env> experiments/unification/audit/set_roots.jl Pkg,… [n]
+
 # the chain report: for each invalidated instance matching a pattern, its chain from the root and the cause
 julia-unified/julia --startup-file=no --project=<env> experiments/unification/audit/invalidation_chains.jl '<regex>' Pkg,…
 
@@ -73,6 +76,10 @@ carries that instance's invalidation to every caller of an instance compiled onc
 | 1906196731 (E-334) | unmet instances (`unmet-instances-base-e334.log`) | 0 with valid code (28 objects, compiled while Base was built, their code invalidated once Base counts as loaded) |
 | 1906196731 | load (`load-inval-fu-e334.log`) | 4,271 instances invalidated; 191 under a split's branch; TraitWorld's hooks still recompiled through plain chains (`trace-imports-fu-e334.log`: `_strict_at_load!` under `showerror`, `_atexit` under `length(::HasLength)` at `Factorization`) |
 | 1906196731 | the profile of the goal's load (`profile-load-fu-e334-{flat,tree}.log`) | of 5.0 s, validation's `verify_call` 2.8 s, nearly all in the typemap visitor's linear list (`typemap.c:832`) |
+| 45fa624462 (E-335) | typemap (`typemap-linear-base-e335.log`) | 1,663 in linear lists, 602 with an open set; no list at the root; the longest `show`'s, 222 |
+| 45fa624462 | the profile of the goal's load (`profile-load-fu-e335-{flat,tree}.log`) | 2.4 s against 5.0 s; validation 0.70 s, image restore 0.76 s, activation 0.33 s |
+| 45fa624462 | the read's profile and machine code (`profile-read-fu-e335-flat.log`, `codegen-read-fu-e335.log`, `trace-read-fu-e335.log`) | no inference; 1.4 s of LLVM: `show_unquoted(::IO, ::Expr, …)` 577 ms, `show_list` about 140 ms, CSV's internals; revalidated code, invalidated at load |
+| 45fa624462 | set roots (`set-roots-fu-e335.log`) | 1,659 of 4,194 instances invalidated at insertions under a root at `IO`: `seekstart(::IO)` 584, `print(::IO, ::AbstractString)` 460, `setproperty!(::IO, …)` 304, `get(::IO, ::Symbol, ::Bool)` 88, `close(::IO)` 68, `ismarked(::IO)` 60 (E-336) |
 | 1906196731 | typemap (`typemap-linear-base-e334.log`) | of Base's 24,905 methods, 2,258 in linear lists, 1,199 with an open set; one list at the root holds those 1,199, so every lookup of every function walks them (E-335); per function `show` 239, `Core.kwcall` 165, `showerror` 47 |
 
 The load report's `split_edge` over-matches (the Fable plan, §2.2): its rows "at `IO`" and "at `All{…}`" are not branches of a split.
