@@ -1,11 +1,12 @@
-# §18 of writeup/intro/traits-by-example.md: strict mode refuses a pirate that would change
-# compiled trait code. In its own process, since it changes Base's methods. Run from TraitWorld/:
-#   JULIA_PKG_OFFLINE=true nice -n 19 ../julia-1.13/julia --project=. --startup-file=no ../experiments/docs-examples/strict.jl
+# §18 of writeup/intro/traits-by-example.md: strict mode refuses a pirate that would change code
+# compiled by facts. In its own process, since it changes Base's methods. Run from TraitWorld-unified/:
+#   JULIA_PKG_OFFLINE=true nice -n 19 ../julia-unified/julia --project=. --startup-file=no ../experiments/docs-examples/strict.jl
 include(joinpath(@__DIR__, "common.jl"))
 using TraitWorld
 
-@trait_module module Norms
+module Norms
 using TraitWorld
+@trait_module
 export Values, vals, sq
 @trait Values begin
     vals(v::Values)::Vector{Float64}
@@ -29,7 +30,7 @@ e isa Exception && println("      message: ", replace(first(msg(e), 500), '\n' =
 check("§18 sq is unchanged", Base.invokelatest(sq, [1.0, 2.0, 3.0]) == 14.0)
 check("§18 the pirate was never defined", abs2(2.0) == 4.0)
 e = thrown(:(module Meddler3; Base.abs2(x::Int8) = Int8(7); end))
-check("§18 a pirate that changes no compiled trait code is accepted", e === nothing)
+check("§18 a pirate that changes no code compiled by facts is accepted", e === nothing)
 TraitWorld.strict!(false)
 
 summary()
