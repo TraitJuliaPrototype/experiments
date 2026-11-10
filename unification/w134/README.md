@@ -1,6 +1,6 @@
 # W-134: the guarantee's controls on the unified build
 
-The controls behind goal G-1 (`writeup/goals.md`), measured again on the unified build. Current numbers: `writeup/design/evidence.md` §1. Registry: E-355 and E-356 in `writeup/record/experiments.md`.
+The controls behind goal G-1 (`writeup/goals.md`), measured again on the unified build. Current numbers: `writeup/design/evidence.md` §1. Registry: E-355, E-356 and E-357 in `writeup/record/experiments.md`.
 
 ## E-355: what nine unrelated loads cost upstream CSV and DataFrames, and the forks
 
@@ -124,3 +124,48 @@ The load of the two packages scatters between 0.64 and 1.11 s in every configura
 ### Logs
 
 `logs/e356.log`, `e356-steady.log`, `e356-cause.log`, `e356-probe.log`.
+
+## E-357: the control for the demonstrators' images
+
+**The question.** E-355's control for idiomatic trait code: do the nine unrelated loads end code of the demonstrators' images, and what does the work cost after them?
+
+**Sessions** (`demo_session.jl`, environment `env_demo`).
+- D: TraitDifferentialEquations and TraitMakie; two solves (Tsit5, Rodas5) and their plot.
+- T: TraitCSV, TraitTables, TraitMakie; a read, a summary, a histogram. Tp: its plain twin, PlainTables and PlainPlots.
+- Dp, D's plain twin (PlainODE, PlainPlots), does not load on the unified build: PlainODE defines `compiled_for` (open issue 160).
+
+### How to run
+
+```
+source ../../../env.sh
+julia-unified/julia --project=env_demo -e 'using Pkg; Pkg.precompile()'
+bash run_demo.sh e357 2                 # KINDS="D T Tp", ORDERS="A B": logs/e357.log
+CAUSE_DEMO=D CAUSE_CSV=<csv> CAUSE_ROOTS=TraitDifferentialEquations,ODECore,… julia-unified/julia --project=env_demo cause.jl <loads…>
+```
+
+`lost_demo.jl <kind> A|B <csv> <outdir> <loads…>` counts the valid instances of every root module the session brings, and after the loads lists what the work compiles (`SHOW_AFTER=n` prints the first n).
+
+### Results (2026-11-10)
+
+Build: `unified` 36b653bb3b, TraitWorld-unified 048c44e, TraitMakie c9e294b, TraitCSV 92c46d0, TraitTables 160639e, TraitReport a4bcf33. Product setting, strict mode off, one thread. A warm-up and 2 runs per session and order; the counts are identical in all. Load 1.9–2.6 of 128 cores. Measures idiomatic trait code against a plain twin.
+
+| session | own instances lost / of the image | facts instances lost | work: first / repeated / after the loads |
+|---|---|---|---|
+| T | 0 of the trait packages (6 of Colors, a plain dependency) / 3,728 | 0 / 616 | 148–150 / 29 / 30 ms, nothing compiled |
+| Tp | 28 (PlainPlots 15, PlainTables 13; Colors 6, PrecompileTools 2) / 3,266 | — | 150–152 / 29 / 476–483 ms |
+| D, TDE f903e40 (the top module plain) | 13 of TraitDifferentialEquations (10 of the image, 3 the work made; ForwardDiff 14, CommonSubexpressions 6) / 4,791 | 0 / 929 | 1.81 s / 17 / 97–98 ms |
+| D, TDE 6658c65 (the top module a trait module) | 0 of the trait packages (ForwardDiff 7, CommonSubexpressions 6) / 4,735 | 0 / 972 | 1.82 s / 17 / 77 ms |
+
+- The loads first (order B): T's first work 128 ms, Tp's 363–370 ms; D's 0.94–0.96 s.
+- D after the loads, with the top module a trait module, compiles two instances: the script's own plain functions (`work_d`, `comp`), 58 ms.
+
+**What ended D's 13** (`logs/e357-cause.log`): the top module of TraitDifferentialEquations was compiled plainly. Its front end `solve` was lost through `_cbs`'s comprehension over `Union{Tuple, AbstractVector}` (SparseArrays' `IteratorSize` method), and `gradient` through ForwardDiff's plain code (Unitful's `Colon`). The pattern is the one of E-141. The fix at the rule: the top module is a trait module as the libraries under it are (TraitDifferentialEquations-unified 6658c65; its 34 testsets pass).
+
+**Reading.**
+- No facts instance of a demonstrator is lost. Idiomatic trait code holds the guarantee where a port to upstream's types loses its entry chain (E-355, GT-8).
+- A module of a trait package that is compiled plainly is lost as plain code is. The guideline: every module of a trait package is a trait module, the front end included.
+- What remains after the loads is the user's own plain script, and plain dependencies (ForwardDiff, Colors).
+
+### Logs
+
+`logs/e357.log` (TDE f903e40), `e357-front.log` (D with TDE 6658c65), `e357-cause.log`, `e357-precompile.log`.

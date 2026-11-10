@@ -2,14 +2,22 @@
 # log of the nine loads, grouped by the method that closes each group of entries.
 #     julia --project=env_* cause.jl <package>...
 # CAUSE_WORK=<csv>: E-355's work runs before the loads, so the instances it made are in the session (E-356).
+# CAUSE_DEMO=D|T with CAUSE_CSV=<csv>: a demonstrator's session and work before the loads (E-357).
 # CAUSE_ROOTS=A,B,...: the root modules whose instances are reported, in place of the eight.
 const FACTS = 0x20
 const CORE8 = haskey(ENV, "CAUSE_ROOTS") ? Tuple(Symbol.(split(ENV["CAUSE_ROOTS"], ","))) :
     (:CSV, :DataFrames, :Tables, :Parsers, :InlineStrings, :PooledArrays, :WeakRefStrings, :SentinelArrays)
-using CSV, DataFrames
-if haskey(ENV, "CAUSE_WORK")
-    let csv = ENV["CAUSE_WORK"]
-        df = CSV.read(csv, DataFrame); describe(df); c = names(df)[1]; sort(df, c); combine(groupby(df, names(df)[end]), c => sum)
+if haskey(ENV, "CAUSE_DEMO")     # E-357: a demonstrator's session (demo_session.jl) and its work before the loads
+    const kind = ENV["CAUSE_DEMO"]; const csv = ENV["CAUSE_CSV"]; const out = mktempdir()
+    include("demo_session.jl"); Base.invokelatest(w); Base.invokelatest(w)
+else
+    @eval using CSV, DataFrames
+    if haskey(ENV, "CAUSE_WORK")
+        let csv = ENV["CAUSE_WORK"]
+            Base.invokelatest() do
+                df = CSV.read(csv, DataFrame); describe(df); c = names(df)[1]; sort(df, c); combine(groupby(df, names(df)[end]), c => sum)
+            end
+        end
     end
 end
 inv = ccall(:jl_debug_method_invalidation, Any, (Cint,), 1)
