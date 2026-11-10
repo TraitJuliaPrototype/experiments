@@ -61,7 +61,7 @@ Each load takes 3.2–6.2 ms and ends no instance.
 
 - **A declaration costs no instance.** The image of a package that only declares a member holds none, in the trait form and in the plain form.
 - **The trait member with its work carries 0.29× the plain twin's instances and 0.40× its added bytes** (42 against 146; 96.8 kB against 240.0 kB). The plain twin compiles Base's `AbstractVector` code for its type (123 instances of Base's methods against 21).
-- **No image carries the library's generic code again.** The instances that do not name the member are the workload's own calls into Base: a range collected, a `Vector{Float64}` sorted, the keyword arguments of the call to `solve`. They are the same 14 in the trait form and the plain twin.
+- **No image carries the library's generic code again, but for one instance.** The instances that do not name the member are the workload's own calls into Base: a range collected, a `Vector{Float64}` sorted, the keyword arguments of the call to `solve`. Twelve of the 14 are the same in the trait form and the plain twin. The trait form has one of the library's methods among them: `TableCore.sortperm_col` at `Vector{Float64}`, a type that is no member's.
 - **A second solver adds 3 instances and 14 kB** to the parameter struct's image (ProbA2 over ProbA1).
 - The library's instances for a member are per member type: 9 of TraitTables' for two cell types of `Rep`, 22 of the ODE library's for `LP` with one solver.
 
