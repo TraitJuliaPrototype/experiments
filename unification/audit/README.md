@@ -56,6 +56,11 @@ julia-unified/julia --startup-file=no --project=<env> experiments/unification/au
 # the type-closure report: a module's closures compiled once per type they capture (E-322's pattern; E-344
 # found it in the records' `_forget_records!`), from a compile trace taken with --trace-compile-timing
 julia-unified/julia --startup-file=no experiments/unification/audit/type_closures.jl <trace.log> [Module] [n]
+
+# the uncompiled-instance report: the system image's instances with inferred code and no machine code that a
+# session compiles because a package image's code calls them (E-351), from a compile trace taken with
+# --trace-compile-timing; each traced signature that evaluates with no package loaded is looked up
+julia-unified/julia --startup-file=no experiments/unification/audit/image_uncompiled.jl <trace.log> [n]
 ```
 
 The compile trace of the imports (`trace-imports-*.log`) is Julia's own: `--trace-compile=<log> --trace-compile-timing -e 'using …'`.
@@ -101,3 +106,4 @@ carries that instance's invalidation to every caller of an instance compiled onc
 
 The load report's `split_edge` over-matches (the Fable plan, §2.2): its rows "at `IO`" and "at `All{…}`" are not branches of a split.
 | E-344 (`unified` e42047dba2, TraitWorld 6871ea9) | type closures (`type-closures-e344.log`, trace `trace-typeclosures-e344.log`: the goal's imports and one definition) | 1 instance of `_forget_records!`'s closure, 12.7 ms; a full sync of the goal's 122 activated memberships from the cursor at 0 compiled it per trait: 141 ms the first time, 2.6–3.2 ms after. Fixed by a loop in TraitWorld (E-344's addendum) |
+| 352b916899 (E-351) | uncompiled instances, the goal's task (`trace-task-fu-e351.log`, `image-uncompiled-task-fu-e351.log`) | 28 instances compiled in the session, 310 ms; 8 are the system image's with inferred code and no machine code, 45.6 ms: `iterate(::Enumerate{Vector{Symbol}})` 13.6 + 5.1 ms and `length(::Vector{Pair{Symbol,Any}})` 3.4 ms under TraitWorld's records' walk, `issorted(::Vector{String}, ::ReverseOrdering)` 12.1 ms; the imports alone (`image-uncompiled-imports-fu-e345b.log`): 4 of 6, 34.4 of 73.5 ms |

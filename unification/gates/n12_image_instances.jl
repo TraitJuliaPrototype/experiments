@@ -5,6 +5,8 @@
 # And compiler C-83 (§9; E-344): an entry an image keeps on its own TypeName (`SubBox{T}` in `Box{T}`,
 # both BoxA's) is in its set's index once activated, so a pattern that would give a member of `SubBox`
 # a second instance of `Box` through it is refused, as through an entry declared in the session.
+# And compiler §4.6, §9 (C-84; E-348): two images each declaring one member in one instance leave one
+# entry in force, the later image's, in either load order.
 include("util.jl")
 
 const ROOT = mktempdir()
@@ -35,6 +37,18 @@ using Traits, BoxA
 @implement BoxA.Box{String} Vector{UInt8}
 end
 """)
+pkg("BoxD", """
+module BoxD
+using Traits, BoxA
+@implement BoxA.Box{Int} Vector{Int8}
+end
+""")
+pkg("BoxE", """
+module BoxE
+using Traits, BoxA
+@implement BoxA.Box{Int} Vector{Int8}
+end
+""")
 
 const UNIF = dirname(@__DIR__)
 const JULIA = Base.julia_cmd()
@@ -48,7 +62,7 @@ function child(code)
     return ok, String(take!(out)), String(take!(err))
 end
 
-for p in ("BoxA", "BoxB", "BoxC")
+for p in ("BoxA", "BoxB", "BoxC", "BoxD", "BoxE")
     local ok, out, err = child("using $p")
     @assert ok "precompiling $p: $err"
 end
@@ -78,4 +92,20 @@ ok2, out2, err2 = child("""
 @assert ok2 "the index case: $err2"
 @assert occursin("second instance refused", out2) && occursin("another instance", out2) "through an image's own-TypeName entry: $out2"
 @assert occursin("F{Float64} in Box{Int} false", out2) "one instance: $out2"
+for (first_, second) in (("BoxD", "BoxE"), ("BoxE", "BoxD"))
+    local ok, out, err = child("""
+        using $first_; using $second
+        using BoxA
+        ens = collect(getfield(Vector{Int8}.name, :memberships, :acquire))
+        live = [e for e in ens if getfield(e, :set) === BoxA.Box.body.name &&
+                getfield(e, :member) == Vector{Int8} && getfield(e, :max_world, :acquire) == typemax(UInt64)]
+        println("live ", length(live), " of ", count(e -> getfield(e, :member) == Vector{Int8}, ens),
+                " by ", isempty(live) ? "none" : getfield(live[1], :declarer))
+        println("holds ", Int8[1] isa BoxA.Box{Int})
+    """)
+    @assert ok "loading $first_ then $second: $err"
+    @assert occursin("live 1 of 2 by $second", out) "one entry in force, the later image's ($first_, $second): $out $err"
+    @assert occursin("holds true", out) "the membership holds ($first_, $second): $out"
+    @assert !occursin("is refused", err) "the same instance is no refusal ($first_, $second): $err"
+end
 println("n12_image_instances: OK")
