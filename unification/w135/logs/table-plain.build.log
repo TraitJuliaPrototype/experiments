@@ -1,0 +1,165 @@
+# E-361 table 2026-11-10T22:39:03+01:00 load 2.46 2.21 2.44 | julia-unified 564a2288e2 TraitWorld-unified 05991fc trim=safe
+Error #1: unresolved call from statement floats(
+  memoryrefget((…)::MemoryRef{AbstractVector}, :not_atomic::Symbol, false::Bool)::AbstractVector
+)::Vector{Float64}
+
+Stacktrace:
+ [1] floats(t::Table, name::String; kw::@Kwargs{})
+   @ PlainTables /p/projects/coen/julia-trait-bound/TraitReport-unified/PlainTables/src/PlainTables.jl:55
+ [2] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/table.jl:11
+ [3] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-unified/test/trimming/juliac-buildscript.jl:35
+
+Error #2: unresolved invoke from statement repeat(p::Char, (…)::Int64)::String
+
+Stacktrace:
+ [1] repeat(c::Char, r::Int64)
+   @ Base strings/string.jl:586 [inlined]
+ [2] ^(s::Char, r::Int64)
+   @ Base strings/basic.jl:771 [inlined]
+ [3] rpad(s::String, n::Int64, p::Char)
+   @ Base strings/util.jl:567
+ [4] rpad(s::String, n::Int64)
+   @ Base strings/util.jl:555 [inlined]
+ [5] summary_text(t::Table)
+   @ PlainTables /p/projects/coen/julia-trait-bound/TraitReport-unified/PlainTables/src/PlainTables.jl:106
+ [6] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/table.jl:10
+ [7] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-unified/test/trimming/juliac-buildscript.jl:35
+
+Error #3: unresolved invoke from statement repeat(p::Char, (…)::Int64)::String
+
+Stacktrace:
+ [1] repeat(c::Char, r::Int64)
+   @ Base strings/string.jl:586 [inlined]
+ [2] ^(s::Char, r::Int64)
+   @ Base strings/basic.jl:771 [inlined]
+ [3] rpad(s::String, n::Int64, p::Char)
+   @ Base strings/util.jl:567
+ [4] rpad(s::String, n::Int64)
+   @ Base strings/util.jl:555 [inlined]
+ [5] summary_text(t::Table)
+   @ PlainTables /p/projects/coen/julia-trait-bound/TraitReport-unified/PlainTables/src/PlainTables.jl:106
+ [6] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/table.jl:10
+ [7] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-unified/test/trimming/juliac-buildscript.jl:35
+
+Error #4: unresolved call from statement summarize(
+  memoryrefget((…)::MemoryRef{AbstractVector}, :not_atomic::Symbol, false::Bool)::AbstractVector,
+  (…)::String
+)::ColSummary
+
+Stacktrace:
+ [1] describe(t::Table)
+   @ PlainTables /p/projects/coen/julia-trait-bound/TraitReport-unified/PlainTables/src/PlainTables.jl:100
+ [2] summary_text(t::Table)
+   @ PlainTables /p/projects/coen/julia-trait-bound/TraitReport-unified/PlainTables/src/PlainTables.jl:104
+ [3] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/table.jl:10
+ [4] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-unified/test/trimming/juliac-buildscript.jl:35
+
+Error #5: unresolved call from statement fillcolumn(
+  :(φ (%78 => %73, %137 => %131))::Type,
+  text::String,
+  (…)::Vector{UnitRange{Int64}}
+)::Union{Nothing, Vector}
+
+Stacktrace:
+ [1] parsecsv(text::String; delim::Char, types::Vector{Type})
+   @ PlainTables /p/projects/coen/julia-trait-bound/TraitReport-unified/PlainTables/src/PlainTables.jl:199
+ [2] parsecsv(text::String)
+   @ PlainTables /p/projects/coen/julia-trait-bound/TraitReport-unified/PlainTables/src/PlainTables.jl:192 [inlined]
+ [3] readcsv(path::String; kw::@Kwargs{})
+   @ PlainTables /p/projects/coen/julia-trait-bound/TraitReport-unified/PlainTables/src/PlainTables.jl:208 [inlined]
+ [4] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/table.jl:9
+ [5] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-unified/test/trimming/juliac-buildscript.jl:35
+
+Error #6: unresolved call from statement floats(
+  memoryrefget((…)::MemoryRef{AbstractVector}, :not_atomic::Symbol, false::Bool)::AbstractVector
+)::Vector{Float64}
+
+Stacktrace:
+ [1] floats(t::Table, name::String; kw::@Kwargs{})
+   @ PlainTables /p/projects/coen/julia-trait-bound/TraitReport-unified/PlainTables/src/PlainTables.jl:55
+ [2] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/table.jl:11
+ [3] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-unified/test/trimming/juliac-buildscript.jl:35
+
+Error #7: unresolved invoke from statement repeat(p::Char, (…)::Int64)::String
+
+Stacktrace:
+ [1] repeat(c::Char, r::Int64)
+   @ Base strings/string.jl:586 [inlined]
+ [2] ^(s::Char, r::Int64)
+   @ Base strings/basic.jl:771 [inlined]
+ [3] rpad(s::String, n::Int64, p::Char)
+   @ Base strings/util.jl:567
+ [4] rpad(s::String, n::Int64)
+   @ Base strings/util.jl:555 [inlined]
+ [5] summary_text(t::Table)
+   @ PlainTables /p/projects/coen/julia-trait-bound/TraitReport-unified/PlainTables/src/PlainTables.jl:106
+ [6] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/table.jl:10
+ [7] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-unified/test/trimming/juliac-buildscript.jl:35
+
+Error #8: unresolved invoke from statement repeat(p::Char, (…)::Int64)::String
+
+Stacktrace:
+ [1] repeat(c::Char, r::Int64)
+   @ Base strings/string.jl:586 [inlined]
+ [2] ^(s::Char, r::Int64)
+   @ Base strings/basic.jl:771 [inlined]
+ [3] rpad(s::String, n::Int64, p::Char)
+   @ Base strings/util.jl:567
+ [4] rpad(s::String, n::Int64)
+   @ Base strings/util.jl:555 [inlined]
+ [5] summary_text(t::Table)
+   @ PlainTables /p/projects/coen/julia-trait-bound/TraitReport-unified/PlainTables/src/PlainTables.jl:106
+ [6] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/table.jl:10
+ [7] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-unified/test/trimming/juliac-buildscript.jl:35
+
+Error #9: unresolved call from statement summarize(
+  memoryrefget((…)::MemoryRef{AbstractVector}, :not_atomic::Symbol, false::Bool)::AbstractVector,
+  (…)::String
+)::ColSummary
+
+Stacktrace:
+ [1] describe(t::Table)
+   @ PlainTables /p/projects/coen/julia-trait-bound/TraitReport-unified/PlainTables/src/PlainTables.jl:100
+ [2] summary_text(t::Table)
+   @ PlainTables /p/projects/coen/julia-trait-bound/TraitReport-unified/PlainTables/src/PlainTables.jl:104
+ [3] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/table.jl:10
+ [4] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-unified/test/trimming/juliac-buildscript.jl:35
+
+Error #10: unresolved call from statement fillcolumn(
+  :(φ (%78 => %73, %137 => %131))::Type,
+  text::String,
+  (…)::Vector{UnitRange{Int64}}
+)::Union{Nothing, Vector}
+
+Stacktrace:
+ [1] parsecsv(text::String; delim::Char, types::Vector{Type})
+   @ PlainTables /p/projects/coen/julia-trait-bound/TraitReport-unified/PlainTables/src/PlainTables.jl:199
+ [2] parsecsv(text::String)
+   @ PlainTables /p/projects/coen/julia-trait-bound/TraitReport-unified/PlainTables/src/PlainTables.jl:192 [inlined]
+ [3] readcsv(path::String; kw::@Kwargs{})
+   @ PlainTables /p/projects/coen/julia-trait-bound/TraitReport-unified/PlainTables/src/PlainTables.jl:208 [inlined]
+ [4] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/table.jl:9
+ [5] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-unified/test/trimming/juliac-buildscript.jl:35
+
+Trim verify finished with 10 errors, 0 warnings.
+object: exit 1 after 6 s

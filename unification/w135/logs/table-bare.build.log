@@ -1,0 +1,153 @@
+# E-361 table 2026-11-10T22:38:48+01:00 load 2.60 2.22 2.45 | julia-unified 564a2288e2 TraitWorld-unified 05991fc trim=safe
+Error #1: unresolved invoke from statement repeat(p::Char, (…)::Int64)::String
+
+Stacktrace:
+ [1] repeat(c::Char, r::Int64)
+   @ Base strings/string.jl:586 [inlined]
+ [2] ^(s::Char, r::Int64)
+   @ Base strings/basic.jl:771 [inlined]
+ [3] rpad(s::String, n::Int64, p::Char)
+   @ Base strings/util.jl:567
+ [4] rpad(s::String, n::Int64)
+   @ Base strings/util.jl:555 [inlined]
+ [5] summary_text(t::Table)
+   @ TraitTables /p/projects/coen/julia-trait-bound/TraitTables-unified/src/TraitTables.jl:63
+ [6] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/table.jl:10
+ [7] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-unified/test/trimming/juliac-buildscript.jl:35
+
+Error #2: unresolved invoke from statement repeat(p::Char, (…)::Int64)::String
+
+Stacktrace:
+ [1] repeat(c::Char, r::Int64)
+   @ Base strings/string.jl:586 [inlined]
+ [2] ^(s::Char, r::Int64)
+   @ Base strings/basic.jl:771 [inlined]
+ [3] rpad(s::String, n::Int64, p::Char)
+   @ Base strings/util.jl:567
+ [4] rpad(s::String, n::Int64)
+   @ Base strings/util.jl:555 [inlined]
+ [5] summary_text(t::Table)
+   @ TraitTables /p/projects/coen/julia-trait-bound/TraitTables-unified/src/TraitTables.jl:63
+ [6] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/table.jl:10
+ [7] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-unified/test/trimming/juliac-buildscript.jl:35
+
+Error #3: unresolved call from statement emptylike(
+  :(φ (%59 => %54, %127 => %121))::CSVColumn
+)::Any
+
+Stacktrace:
+ [1] readtable(s::String, delim::UInt8, types::Vector{CSVColumn})
+   @ TraitCSV.CSVCore /p/projects/coen/julia-trait-bound/TraitCSV-unified/src/CSVCore.jl:123
+ [2] parse(text::String; delim::Char, types::Nothing)
+   @ TraitCSV /p/projects/coen/julia-trait-bound/TraitCSV-unified/src/TraitCSV.jl:35 [inlined]
+ [3] read(path::String; delim::Char, types::Nothing)
+   @ TraitCSV /p/projects/coen/julia-trait-bound/TraitCSV-unified/src/TraitCSV.jl:24 [inlined]
+ [4] read(path::String)
+   @ TraitCSV /p/projects/coen/julia-trait-bound/TraitCSV-unified/src/TraitCSV.jl:23 [inlined]
+ [5] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/table.jl:9
+ [6] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-unified/test/trimming/juliac-buildscript.jl:35
+
+Error #4: unresolved call from statement push!(
+  (…)::Vector{Column},
+  :(φ (%126 => %89, %128 => %89, %59 => TraitCSV.CSVCore.nothing))::CSVColumn
+)::Any
+
+Stacktrace:
+ [1] getindex(A::Vector{String}, i::Int64)
+   @ Base essentials.jl:979 [inlined]
+ [2] readtable(s::String, delim::UInt8, types::Vector{CSVColumn})
+   @ TraitCSV.CSVCore /p/projects/coen/julia-trait-bound/TraitCSV-unified/src/CSVCore.jl:127
+ [3] parse(text::String; delim::Char, types::Nothing)
+   @ TraitCSV /p/projects/coen/julia-trait-bound/TraitCSV-unified/src/TraitCSV.jl:35 [inlined]
+ [4] read(path::String; delim::Char, types::Nothing)
+   @ TraitCSV /p/projects/coen/julia-trait-bound/TraitCSV-unified/src/TraitCSV.jl:24 [inlined]
+ [5] read(path::String)
+   @ TraitCSV /p/projects/coen/julia-trait-bound/TraitCSV-unified/src/TraitCSV.jl:23 [inlined]
+ [6] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/table.jl:9
+ [7] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-unified/test/trimming/juliac-buildscript.jl:35
+
+Error #5: unresolved invoke from statement repeat(p::Char, (…)::Int64)::String
+
+Stacktrace:
+ [1] repeat(c::Char, r::Int64)
+   @ Base strings/string.jl:586 [inlined]
+ [2] ^(s::Char, r::Int64)
+   @ Base strings/basic.jl:771 [inlined]
+ [3] rpad(s::String, n::Int64, p::Char)
+   @ Base strings/util.jl:567
+ [4] rpad(s::String, n::Int64)
+   @ Base strings/util.jl:555 [inlined]
+ [5] summary_text(t::Table)
+   @ TraitTables /p/projects/coen/julia-trait-bound/TraitTables-unified/src/TraitTables.jl:63
+ [6] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/table.jl:10
+ [7] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-unified/test/trimming/juliac-buildscript.jl:35
+
+Error #6: unresolved invoke from statement repeat(p::Char, (…)::Int64)::String
+
+Stacktrace:
+ [1] repeat(c::Char, r::Int64)
+   @ Base strings/string.jl:586 [inlined]
+ [2] ^(s::Char, r::Int64)
+   @ Base strings/basic.jl:771 [inlined]
+ [3] rpad(s::String, n::Int64, p::Char)
+   @ Base strings/util.jl:567
+ [4] rpad(s::String, n::Int64)
+   @ Base strings/util.jl:555 [inlined]
+ [5] summary_text(t::Table)
+   @ TraitTables /p/projects/coen/julia-trait-bound/TraitTables-unified/src/TraitTables.jl:63
+ [6] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/table.jl:10
+ [7] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-unified/test/trimming/juliac-buildscript.jl:35
+
+Error #7: unresolved call from statement emptylike(
+  :(φ (%59 => %54, %127 => %121))::CSVColumn
+)::Any
+
+Stacktrace:
+ [1] readtable(s::String, delim::UInt8, types::Vector{CSVColumn})
+   @ TraitCSV.CSVCore /p/projects/coen/julia-trait-bound/TraitCSV-unified/src/CSVCore.jl:123
+ [2] parse(text::String; delim::Char, types::Nothing)
+   @ TraitCSV /p/projects/coen/julia-trait-bound/TraitCSV-unified/src/TraitCSV.jl:35 [inlined]
+ [3] read(path::String; delim::Char, types::Nothing)
+   @ TraitCSV /p/projects/coen/julia-trait-bound/TraitCSV-unified/src/TraitCSV.jl:24 [inlined]
+ [4] read(path::String)
+   @ TraitCSV /p/projects/coen/julia-trait-bound/TraitCSV-unified/src/TraitCSV.jl:23 [inlined]
+ [5] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/table.jl:9
+ [6] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-unified/test/trimming/juliac-buildscript.jl:35
+
+Error #8: unresolved call from statement push!(
+  (…)::Vector{Column},
+  :(φ (%126 => %89, %128 => %89, %59 => TraitCSV.CSVCore.nothing))::CSVColumn
+)::Any
+
+Stacktrace:
+ [1] getindex(A::Vector{String}, i::Int64)
+   @ Base essentials.jl:979 [inlined]
+ [2] readtable(s::String, delim::UInt8, types::Vector{CSVColumn})
+   @ TraitCSV.CSVCore /p/projects/coen/julia-trait-bound/TraitCSV-unified/src/CSVCore.jl:127
+ [3] parse(text::String; delim::Char, types::Nothing)
+   @ TraitCSV /p/projects/coen/julia-trait-bound/TraitCSV-unified/src/TraitCSV.jl:35 [inlined]
+ [4] read(path::String; delim::Char, types::Nothing)
+   @ TraitCSV /p/projects/coen/julia-trait-bound/TraitCSV-unified/src/TraitCSV.jl:24 [inlined]
+ [5] read(path::String)
+   @ TraitCSV /p/projects/coen/julia-trait-bound/TraitCSV-unified/src/TraitCSV.jl:23 [inlined]
+ [6] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/table.jl:9
+ [7] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-unified/test/trimming/juliac-buildscript.jl:35
+
+Trim verify finished with 8 errors, 0 warnings.
+object: exit 1 after 6 s
