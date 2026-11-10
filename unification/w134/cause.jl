@@ -1,9 +1,17 @@
 # E-355, the follow-up: which new method ends which of the packages' image instances? The invalidation
 # log of the nine loads, grouped by the method that closes each group of entries.
 #     julia --project=env_* cause.jl <package>...
+# CAUSE_WORK=<csv>: E-355's work runs before the loads, so the instances it made are in the session (E-356).
+# CAUSE_ROOTS=A,B,...: the root modules whose instances are reported, in place of the eight.
 const FACTS = 0x20
-const CORE8 = (:CSV, :DataFrames, :Tables, :Parsers, :InlineStrings, :PooledArrays, :WeakRefStrings, :SentinelArrays)
+const CORE8 = haskey(ENV, "CAUSE_ROOTS") ? Tuple(Symbol.(split(ENV["CAUSE_ROOTS"], ","))) :
+    (:CSV, :DataFrames, :Tables, :Parsers, :InlineStrings, :PooledArrays, :WeakRefStrings, :SentinelArrays)
 using CSV, DataFrames
+if haskey(ENV, "CAUSE_WORK")
+    let csv = ENV["CAUSE_WORK"]
+        df = CSV.read(csv, DataFrame); describe(df); c = names(df)[1]; sort(df, c); combine(groupby(df, names(df)[end]), c => sum)
+    end
+end
 inv = ccall(:jl_debug_method_invalidation, Any, (Cint,), 1)
 for p in ARGS; Core.eval(Main, Meta.parse("using $p")); end
 ccall(:jl_debug_method_invalidation, Any, (Cint,), 0)

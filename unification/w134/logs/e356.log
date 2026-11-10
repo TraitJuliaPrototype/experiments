@@ -1,0 +1,134 @@
+# E-356 e356 2026-11-10T20:18:53+01:00 load 1.72 2.42 13.53 | vanilla 45b6d15e34 unified 36b653bb3b TraitWorld-unified 048c44e experiments 13ab010
+== V run w | load 1.72
+using CSV, DataFrames 1318.83 ms
+first work 3259.0 ms, compile 3254.63 ms
+repeated: median 0.18 ms, least 0.17 ms
+== U run w | load 1.74
+using CSV, DataFrames 1083.51 ms
+first work 3056.69 ms, compile 3052.57 ms
+repeated: median 0.2 ms, least 0.19 ms
+== L run w | load 1.84
+using TraitWorld 96.81 ms
+using CSV, DataFrames 793.39 ms
+first work 3146.18 ms, compile 3143.42 ms
+repeated: median 0.2 ms, least 0.19 ms
+== U-late run w | load 1.85
+using CSV, DataFrames 1063.82 ms
+first work 3024.42 ms, compile 3021.83 ms
+repeated: median 0.18 ms, least 0.18 ms
+using TraitWorld (late) 66.15 ms
+ended by the library's load: 197 of 123269 | Base 85, DataFrames 77, Statistics 30, Main 3, PooledArrays 2
+  Tuple{typeof(Base._similar_shape), DataFrames.DataFrameColumns, Base.HasShape{1}}
+  Tuple{typeof(Base._similar_shape), DataFrames.DataFrameColumns{T} where T<:SubDataFrame, Base.HasShape{1}}
+  Tuple{typeof(Base._sum), typeof(identity), PooledArrays.PooledVector{String, UInt32, Vector{UInt32}}, Function}
+  Tuple{typeof(Base._sum), typeof(identity), Vector{String}, Function}
+  Tuple{typeof(DataFrames._ncol), AbstractDataFrame}
+  Tuple{DataFrames.var"##_combine_prepare#775", Bool, Bool, Bool, Bool, Bool, Bool, typeof(DataFrames._combine_prepare), GroupedDataFrame{DataFrame}, Base.RefValue{Any}}
+  Tuple{typeof(DataFrames._permutation_helper!), typeof(invpermute!), AbstractDataFrame, AbstractVector{<:Integer}}
+  Tuple{typeof(DataFrames._permutation_helper!), typeof(permute!), AbstractDataFrame, Vector{Int64}}
+  Tuple{typeof(hasproperty), AbstractDataFrame, String}
+  Tuple{typeof(hasproperty), AbstractDataFrame, Symbol}
+  Tuple{typeof(copyto!), Vector, DataFrames.DataFrameColumns}
+  Tuple{typeof(copyto!), Vector, DataFrames.DataFrameColumns{T} where T<:SubDataFrame}
+work after the library's load 253.99 ms, compile 246.08 ms
+repeated after: median 0.18 ms, least 0.18 ms
+== V run 1 | load 1.95
+using CSV, DataFrames 1051.21 ms
+first work 3239.93 ms, compile 3236.47 ms
+repeated: median 0.18 ms, least 0.18 ms
+== U run 1 | load 1.95
+using CSV, DataFrames 847.4 ms
+first work 3022.33 ms, compile 3019.24 ms
+repeated: median 0.19 ms, least 0.19 ms
+== L run 1 | load 1.96
+using TraitWorld 69.14 ms
+using CSV, DataFrames 781.04 ms
+first work 3135.23 ms, compile 3132.22 ms
+repeated: median 0.2 ms, least 0.19 ms
+== U-late run 1 | load 1.96
+using CSV, DataFrames 1023.05 ms
+first work 3029.9 ms, compile 3027.33 ms
+repeated: median 0.2 ms, least 0.18 ms
+using TraitWorld (late) 74.68 ms
+ended by the library's load: 197 of 123269 | Base 85, DataFrames 77, Statistics 30, Main 3, PooledArrays 2
+  Tuple{typeof(Base._similar_shape), DataFrames.DataFrameColumns, Base.HasShape{1}}
+  Tuple{typeof(Base._similar_shape), DataFrames.DataFrameColumns{T} where T<:SubDataFrame, Base.HasShape{1}}
+  Tuple{typeof(Base._sum), typeof(identity), PooledArrays.PooledVector{String, UInt32, Vector{UInt32}}, Function}
+  Tuple{typeof(Base._sum), typeof(identity), Vector{String}, Function}
+  Tuple{typeof(DataFrames._ncol), AbstractDataFrame}
+  Tuple{DataFrames.var"##_combine_prepare#775", Bool, Bool, Bool, Bool, Bool, Bool, typeof(DataFrames._combine_prepare), GroupedDataFrame{DataFrame}, Base.RefValue{Any}}
+  Tuple{typeof(DataFrames._permutation_helper!), typeof(invpermute!), AbstractDataFrame, AbstractVector{<:Integer}}
+  Tuple{typeof(DataFrames._permutation_helper!), typeof(permute!), AbstractDataFrame, Vector{Int64}}
+  Tuple{typeof(hasproperty), AbstractDataFrame, String}
+  Tuple{typeof(hasproperty), AbstractDataFrame, Symbol}
+  Tuple{typeof(copyto!), Vector, DataFrames.DataFrameColumns}
+  Tuple{typeof(copyto!), Vector, DataFrames.DataFrameColumns{T} where T<:SubDataFrame}
+work after the library's load 254.6 ms, compile 245.89 ms
+repeated after: median 0.2 ms, least 0.19 ms
+== V run 2 | load 1.97
+using CSV, DataFrames 1067.76 ms
+first work 3239.93 ms, compile 3236.09 ms
+repeated: median 0.18 ms, least 0.18 ms
+== U run 2 | load 1.97
+using CSV, DataFrames 887.49 ms
+first work 3030.96 ms, compile 3028.27 ms
+repeated: median 0.19 ms, least 0.19 ms
+== L run 2 | load 2.05
+using TraitWorld 80.09 ms
+using CSV, DataFrames 776.41 ms
+first work 3139.26 ms, compile 3136.55 ms
+repeated: median 0.18 ms, least 0.18 ms
+== U-late run 2 | load 2.05
+using CSV, DataFrames 765.44 ms
+first work 3098.23 ms, compile 3095.28 ms
+repeated: median 0.19 ms, least 0.19 ms
+using TraitWorld (late) 50.06 ms
+ended by the library's load: 197 of 123269 | Base 85, DataFrames 77, Statistics 30, Main 3, PooledArrays 2
+  Tuple{typeof(Base._similar_shape), DataFrames.DataFrameColumns, Base.HasShape{1}}
+  Tuple{typeof(Base._similar_shape), DataFrames.DataFrameColumns{T} where T<:SubDataFrame, Base.HasShape{1}}
+  Tuple{typeof(Base._sum), typeof(identity), PooledArrays.PooledVector{String, UInt32, Vector{UInt32}}, Function}
+  Tuple{typeof(Base._sum), typeof(identity), Vector{String}, Function}
+  Tuple{typeof(DataFrames._ncol), AbstractDataFrame}
+  Tuple{DataFrames.var"##_combine_prepare#775", Bool, Bool, Bool, Bool, Bool, Bool, typeof(DataFrames._combine_prepare), GroupedDataFrame{DataFrame}, Base.RefValue{Any}}
+  Tuple{typeof(DataFrames._permutation_helper!), typeof(invpermute!), AbstractDataFrame, AbstractVector{<:Integer}}
+  Tuple{typeof(DataFrames._permutation_helper!), typeof(permute!), AbstractDataFrame, Vector{Int64}}
+  Tuple{typeof(hasproperty), AbstractDataFrame, String}
+  Tuple{typeof(hasproperty), AbstractDataFrame, Symbol}
+  Tuple{typeof(copyto!), Vector, DataFrames.DataFrameColumns}
+  Tuple{typeof(copyto!), Vector, DataFrames.DataFrameColumns{T} where T<:SubDataFrame}
+work after the library's load 261.62 ms, compile 253.39 ms
+repeated after: median 0.19 ms, least 0.19 ms
+== V run 3 | load 2.04
+using CSV, DataFrames 643.31 ms
+first work 3242.21 ms, compile 3239.85 ms
+repeated: median 0.17 ms, least 0.16 ms
+== U run 3 | load 2.04
+using CSV, DataFrames 755.13 ms
+first work 3035.15 ms, compile 3032.2 ms
+repeated: median 0.19 ms, least 0.19 ms
+== L run 3 | load 2.04
+using TraitWorld 106.47 ms
+using CSV, DataFrames 1109.26 ms
+first work 3139.82 ms, compile 3137.03 ms
+repeated: median 0.2 ms, least 0.19 ms
+== U-late run 3 | load 2.11
+using CSV, DataFrames 753.67 ms
+first work 3037.68 ms, compile 3035.11 ms
+repeated: median 0.19 ms, least 0.19 ms
+using TraitWorld (late) 66.47 ms
+ended by the library's load: 197 of 123269 | Base 85, DataFrames 77, Statistics 30, Main 3, PooledArrays 2
+  Tuple{typeof(Base._similar_shape), DataFrames.DataFrameColumns, Base.HasShape{1}}
+  Tuple{typeof(Base._similar_shape), DataFrames.DataFrameColumns{T} where T<:SubDataFrame, Base.HasShape{1}}
+  Tuple{typeof(Base._sum), typeof(identity), PooledArrays.PooledVector{String, UInt32, Vector{UInt32}}, Function}
+  Tuple{typeof(Base._sum), typeof(identity), Vector{String}, Function}
+  Tuple{typeof(DataFrames._ncol), AbstractDataFrame}
+  Tuple{DataFrames.var"##_combine_prepare#775", Bool, Bool, Bool, Bool, Bool, Bool, typeof(DataFrames._combine_prepare), GroupedDataFrame{DataFrame}, Base.RefValue{Any}}
+  Tuple{typeof(DataFrames._permutation_helper!), typeof(invpermute!), AbstractDataFrame, AbstractVector{<:Integer}}
+  Tuple{typeof(DataFrames._permutation_helper!), typeof(permute!), AbstractDataFrame, Vector{Int64}}
+  Tuple{typeof(hasproperty), AbstractDataFrame, String}
+  Tuple{typeof(hasproperty), AbstractDataFrame, Symbol}
+  Tuple{typeof(copyto!), Vector, DataFrames.DataFrameColumns}
+  Tuple{typeof(copyto!), Vector, DataFrames.DataFrameColumns{T} where T<:SubDataFrame}
+work after the library's load 252.6 ms, compile 244.66 ms
+repeated after: median 0.19 ms, least 0.19 ms
+# done 2026-11-10T20:20:24+01:00

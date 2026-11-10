@@ -1,6 +1,6 @@
 # W-134: the guarantee's controls on the unified build
 
-The controls behind goal G-1 (`writeup/goals.md`), measured again on the unified build. Current numbers: `writeup/design/evidence.md` §1. Registry: E-355 in `writeup/record/experiments.md`.
+The controls behind goal G-1 (`writeup/goals.md`), measured again on the unified build. Current numbers: `writeup/design/evidence.md` §1. Registry: E-355 and E-356 in `writeup/record/experiments.md`.
 
 ## E-355: what nine unrelated loads cost upstream CSV and DataFrames, and the forks
 
@@ -72,3 +72,55 @@ Building `env_facts`'s images aborted: "argextype called on Expr with head :call
 ### Logs
 
 `logs/e355.log` (counts and times), `e355-after.log`, `e355-cause.log`, `e355-precompile*.log`, `e355-build.log`, `e355-gates.log` (the gates on the rebuilt tree).
+
+## E-356: what the unified build, and the library loaded, cost plain code
+
+**The question.** A session of plain code only (upstream CSV 1.3.0 and DataFrames 1.8.2, E-355's work): what does it cost on the unified build against vanilla Julia, and what does loading the library add?
+
+**Configurations.** V: `julia-vanilla`, `env_up`. U: `julia-unified`, `env_up`. L: `julia-unified`, `env_lib` (`env_up` with TraitWorld-unified), the library loaded first. U-late: `env_lib`, the library loaded after the work.
+
+### How to run
+
+```
+source ../../../env.sh
+bash plain.sh e356 3                                             # load, first work, repeated work, the late load: logs/e356.log
+julia-unified/julia --project=env_lib steady.jl <csv> none|first   # the repeated work by step
+CAUSE_WORK=<csv> CAUSE_ROOTS=Base,DataFrames,Statistics julia-unified/julia --project=env_lib cause.jl TraitWorld
+julia-unified/julia --project=env_lib probe_insert.jl            # which plain callers a method at an open set ends
+```
+
+- `plain.jl <csv> none|first|late`: times `using CSV, DataFrames`, the first work with its compile time, and 200 repetitions. `late` loads TraitWorld after the work, counts the valid instances ended by root module, and times the work after.
+- `steady.jl`: the least and the median of 2,000 repetitions of each step.
+- `cause.jl` with `CAUSE_WORK` (run the work before the loads) and `CAUSE_ROOTS` (the root modules reported): **the tool for the pattern below,** for any library and session.
+- `probe_insert.jl`: callers of `length` compiled at a concrete type, a struct family, a plain abstract type, `Any` and Base's types, before the library loads.
+
+### Results (2026-11-10)
+
+Build: vanilla 45b6d15e34, `unified` 36b653bb3b, TraitWorld-unified 048c44e. Product setting, strict mode off, one thread. A warm-up and 3 runs, interleaved. Load 1.7–2.2 of 128 cores. Measures plain code only.
+
+| | V | U | L |
+|---|---|---|---|
+| first work | 3.24 s | 3.02–3.04 s | 3.14 s |
+| read, least of 2,000 | 104–111 µs | 104–115 µs | 113–114 µs |
+| `describe` | 17.5–17.8 µs | 19.2–19.3 µs | 19.3–19.6 µs |
+| `sort` | 6.8–7.0 µs | 7.8–8.2 µs | 7.9–8.0 µs |
+| `groupby`-`combine` | 40.0–40.7 µs | 45.0–45.3 µs | 45.6–45.9 µs |
+
+The load of the two packages scatters between 0.64 and 1.11 s in every configuration. `using TraitWorld`: 69–106 ms first, 50–75 ms late.
+
+**The library loaded late** ends 197 of 123,269 valid plain instances (Base 85, DataFrames 77, Statistics 30, Main 3, PooledArrays 2), identical in 4 runs. The work after it: 0.25–0.26 s, nearly all compilation, against 0.19 ms repeated.
+
+**What ends them** (`logs/e356-cause.log`): three of BaseTraits' methods at open sets on Base's functions.
+- `length(::HasLength)`: 191 log entries, as `ncol(::AbstractDataFrame)` through `size` and `length(::DataFrameColumns)`.
+- `iterate(::Iterable{T})`: 71, as `Base._check_valid_region(::Function)`.
+- `haskey(::Keyed{K,V}, ::Any)`: 10, as `haskey(::SubIndex, ::Symbol)` and `hasproperty(::AbstractDataFrame, …)`.
+
+**The pattern** (`logs/e356-probe.log`). A method at an open set meets every plain abstract type, since any subtype may be a member. A plain caller compiled at such a type, whose call was resolved to the few methods there, is ended when the method is added. Kept: callers at concrete types, at a struct family, at `Any`, and at Base's abstract types (their call was never resolved).
+
+**Reading.**
+- The first work is not slower on the unified build. DataFrames' repeated steps are 8–18 % slower: the build's cost to plain code (GT-9). The library adds nothing to them.
+- The library belongs before plain work: loaded first it ends nothing and costs 3 % on the first work. Loaded late it ends plain code (GT-11, `writeup/open-issues.md` §1).
+
+### Logs
+
+`logs/e356.log`, `e356-steady.log`, `e356-cause.log`, `e356-probe.log`.
