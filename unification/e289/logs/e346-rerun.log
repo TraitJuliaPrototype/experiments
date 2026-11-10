@@ -1,0 +1,61 @@
+unified 2ee5569252 (binary 2ee5569252*), TraitWorld d107c36, forks ddc20f6
+== 13:21:36 the ambiguity gates (load 2.05)
+PASS m2_ambiguity_predates.jl
+PASS m2_ambiguity_called_before.jl
+PASS m2_ambiguity_report.jl
+PASS m2_ambiguity_arity.jl
+PASS n20_unmet_lookup.jl
+PASS n12_image_instances.jl
+== 13:21:49 the ports' environments precompiled (load 2.03)
+== 13:21:54 the forks' checks (load 2.03)
+digests equal: 26 steps
+repl exit 0; marks 20 of 20; errors 0, 0 expected (transcript: /tmp/forks_check/repl.txt)
+check_session: pass
+== 13:22:23 TraitDifferentialEquations' suite (load 5.77)
+tde tests exit 0
+Test Summary:             | Pass  Total  Time
+Test Summary:                                               | Pass  Total  Time
+Test Summary:                     | Pass  Total  Time
+Test Summary:                                       | Pass  Total  Time
+== 13:22:54 the battery (load 9.00)
+gates: 29 passed, 0 failed
+gates: 32 passed, 0 failed
+w346 core                 exit 0  wall 71.7 s      SUCCESS
+w346 subtype              exit 0  wall 20.3 s      SUCCESS
+w346 worlds               exit 0  wall 11.1 s      SUCCESS
+w346 ambiguous            exit 0  wall 10.3 s      SUCCESS
+w346 reflection           exit 0  wall 19.6 s      SUCCESS
+w346 Compiler/inline      exit 0  wall 100.7 s      SUCCESS
+w346 Compiler/inference   exit 0  wall 84.1 s      SUCCESS
+w346 precompile           exit 0  wall 269.6 s      SUCCESS
+AC_01_redefinitions: OK
+AC_02_stdlib: OK
+AC_03_recursion: OK
+AC_04_return_type: OK
+AC_05_return_type_redef: OK
+AC_06_return_type_wide: OK
+AC_07_assert_fold_rtsite: OK
+AC_08_base_assertion: OK
+AC_09_assert_above_rtsite: OK
+AC_10_assert_many_methods: OK
+AC_11_worlds: OK
+AC_12_cycle_redef: OK
+AC_13_union_split_cost: OK
+AC_14_narrow_after_wide: OK
+AC_15b_runtime_site: OK
+AC_15_type_value_extension: OK
+AC_16_concrete_enforcement: OK
+AC_17_compiler_always_plain: OK
+AC_18_membership_seam: OK
+AC_19: OK   (detect_ambiguities(Base) = 0, unchanged under all)
+AC_20_chain_membership: OK
+traitworld exit 1
+columns exit 0
+ode exit 0
+strict mode   |   33     33  0.2s
+strict mode at a membership |   13     13  0.0s
+strict mode refuses the membership that creates an ambiguity, not a later one |    4      4  0.0s
+strict mode at a declared subtype: Test Failed at /p/projects/coen/julia-trait-bound/TraitWorld-unified/test/declared.jl:114
+strict mode at a declared subtype: Test Failed at /p/projects/coen/julia-trait-bound/TraitWorld-unified/test/declared.jl:115
+strict mode at a declared subtype |    2     2      4  1.2s
+== 13:44:40 done (load 18.10)

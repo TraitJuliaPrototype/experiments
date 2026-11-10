@@ -5,6 +5,8 @@
 # compiled code relies on no negative there, so a call that is ambiguous at the intersection dispatches.
 # A `Callable` component is met (its members are methods), and a `Vararg` tail is met by its empty tail.
 # Reflection (`Base.isambiguous`) reports no ambiguity over an intersection with no value.
+# Two of its memberships meet such an intersection and make a real ambiguity (`k9`, `w1`): the report
+# at the membership warns for each (compiler §5.4, E-347).
 using Traits
 include("util.jl")
 const CC = Base.Compiler

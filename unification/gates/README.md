@@ -33,7 +33,11 @@ file name is the milestone whose gate it belongs to:
 - `m2_*.jl`                — dispatch at sets (W-98's second commit, W-99); among them
   `m2_ambiguity_report.jl` (one warning at the second membership; a set-in-set method
   on both sides suppresses it) and `m2_ambiguity_arity.jl` (the report asks at the
-  methods' own arity and names the joint signature: the audit's A7, compiler §5.4)
+  methods' own arity and names the joint signature: the audit's A7, compiler §5.4),
+  `m2_ambiguity_predates.jl` (only the ambiguities a membership creates, E-346) and
+  `m2_ambiguity_declared_super.jl` (each method the membership makes applicable asked at the
+  member: ties with a method at a closed declared supertype, at `Any`, a superset's, a joint
+  method's; no finding through a set the member is not in; W-132, E-347)
 - `n2_*.jl`                — intersections `All{X, Y}` (W-107, compiler §4.9), on `unified`
   8a9144928e: `n2_all_probe.jl` (subtyping and the normal form), `n2_all_form.jl` (the
   encoding where the runtime reads names, parameters and wrappers: the review of 2026-11-07, §6),
