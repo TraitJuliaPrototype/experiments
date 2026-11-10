@@ -169,3 +169,52 @@ Build: `unified` 36b653bb3b, TraitWorld-unified 048c44e, TraitMakie c9e294b, Tra
 ### Logs
 
 `logs/e357.log` (TDE f903e40), `e357-front.log` (D with TDE 6658c65), `e357-cause.log`, `e357-precompile.log`.
+
+## E-359: a REPL row per demonstrator: a new type, a new closure, an edit
+
+W-134 (d), E-110's form. Registry: E-359. Current numbers: `writeup/design/evidence.md` §1.
+
+**The question.** In a session whose work has run: what does a new type cost, a new closure, an edit of a method? What does each end, and what does it compile?
+
+**The sessions** (`repl.jl <kind> <csv> <outdir>`, on `demo_session.jl`):
+- T (TraitCSV, TraitTables, TraitMakie) and its plain twin Tp (PlainTables, PlainPlots): a table with columns of new cell types (`Int32`, `Float32`), summarized, sorted and plotted; the same with a column of a new struct type (T: `@implement Column{T} Rep{T}`; Tp: `Rep{T} <: AbstractVector{T}`); `summarize`'s methods evaluated again from the source, as an edit does, then the work; the same edit again.
+- D (TraitDifferentialEquations, TraitMakie; no plain twin, open issue 160): a solve and plot with a new right-hand side; with a new parameter struct; `ODECore.save_step!` evaluated again, twice, then `ODECore.initdt`, each followed by the work.
+
+### How to run
+
+```
+bash run_repl.sh e359 2     # KINDS="T Tp D"; a warm-up and 2 fresh processes per session; logs/e359.log
+julia --project=env_demo probes/probe_edit.jl <csv>   # the profile of the edit's definition in T
+```
+
+### Results (2026-11-10)
+
+Build: `unified` 36b653bb3b, TraitWorld-unified 048c44e, TDE 6658c65, TraitMakie c9e294b, TraitCSV 92c46d0, TraitTables 160639e, TraitReport a4bcf33. Product setting, strict mode off, one thread, images built. A warm-up and 2 runs, counts identical; load 5–12 of 128 cores. Idiomatic trait code against a plain twin.
+
+| step | T, trait packages | Tp, plain twin |
+|---|---|---|
+| new cell types: first use | 518–544 ms; ends 0; 17 own instances | 565–573 ms; ends 0; 13 |
+| a new column struct: first use | 148–151 ms (defining 33 ms); ends 0; 6 | 166–177 ms (defining 5 ms); ends 0; 5 |
+| an edit of `summarize`: evaluating it | **2.82 s the first time in a session, 0.40–0.42 s the second** | 82–94 ms, then 8–9 ms |
+| the edit: instances ended | **0** | 3 (`describe`, `numericnames`; one valid again after the work) |
+| the edit: the work after it | 116–118 ms, 4 instances | 124–127 ms, 6 instances |
+
+| step | D, trait packages |
+|---|---|
+| a new right-hand side | 55–57 ms; ends 0; 5 own instances, all facts code |
+| a new parameter struct | 191–202 ms; ends 0; 26, all facts code |
+| an edit of `save_step!` (an untyped argument) | evaluating 106 ms, then 13 ms; ends 16 facts instances (its callers `advance!`, `solve_core`, `_rodas5_run` at every problem type of the image); the work after it 306–314 ms |
+| an edit of `initdt` | evaluating 22 ms; ends 6; the work after it 313 ms |
+
+**Reading.**
+- A new type or closure ends nothing and costs what it costs plain Julia, or less.
+- An edit of a method called through a cast (`compiled_for` in `describe`) ends no caller; the plain twin's callers are compiled again. An edit of a method called directly ends its callers, as in plain Julia.
+- **The cost found:** a method at a trait is checked when it is defined (compiler §6.7). At an edit that check is 2.8 s the first time in a session and 0.4 s after, where plain Julia takes 0.08 s and 0.008 s. The profile (`logs/e359-probe.log`): all of it under `TraitWorld._classify` → `typeinf_frame(DefinitionCheckInterpreter…)`; the first time compiles the check interpreter's own code, which no image holds. Recorded as a tension (GT-12).
+
+### Found on the way
+
+`Rep{T}` without `Base.eltype` is refused at its first use in a table: "ImplementError: Rep{Float64} cannot be a member of Column{Float64} - the parameter T is Float64 (stated) but its equation T = eltype(Self) gives Any". The error names the equation; it is raised at the use, not at the `@implement`.
+
+### Logs
+
+`logs/e359.log`, `logs/e359-probe.log`.

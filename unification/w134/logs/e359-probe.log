@@ -1,0 +1,41 @@
+edit 1: 9388.0 ms (compile 3827.2)
+edit 2: 386.7 ms
+ Count  Overhead File                                     Line Function
+ =====  ======== ====                                     ==== ========
+   431       143 @Compiler/src/abstractinterpretation.jl  614 abstract_call_gf_by_type(interp::Compiler.DefinitionCheckInterpreter, func::Any, arginfo::Compiler.ArgInfo, si::Compiler.StmtInfo, atype::Any, sv::Compiler.I…
+   452         0 @Compiler/src/typeinfer.jl              1653 typeinf_ext(interp::Compiler.NativeInterpreter, mi::Core.MethodInstance, source_mode::UInt8)
+   484         0 @Compiler/src/abstractinterpretation.jl 3370 abstract_call_known(interp::Compiler.DefinitionCheckInterpreter, f::Any, arginfo::Compiler.ArgInfo, si::Compiler.StmtInfo, sv::Compiler.InferenceState, max_m…
+   486         0 @Compiler/src/abstractinterpretation.jl  321 abstract_call_gf_by_type
+   543         0 @Compiler/src/abstractinterpretation.jl 3689 abstract_call(interp::Compiler.DefinitionCheckInterpreter, arginfo::Compiler.ArgInfo, sstate::Compiler.StatementState, sv::Compiler.InferenceState)
+   543         0 @Compiler/src/abstractinterpretation.jl 3536 abstract_call(interp::Compiler.DefinitionCheckInterpreter, arginfo::Compiler.ArgInfo, si::Compiler.StmtInfo, sv::Compiler.InferenceState, max_methods::Int64)
+   543         1 @Compiler/src/abstractinterpretation.jl 3204 abstract_call_known
+   544         2 @Compiler/src/abstractinterpretation.jl 3529 abstract_call
+   545         0 @Compiler/src/abstractinterpretation.jl 3707 abstract_eval_call
+   546         0 @Compiler/src/optimize.jl               1039 optimize(interp::Compiler.DefinitionCheckInterpreter, opt::Compiler.OptimizationState{Compiler.DefinitionCheckInterpreter}, caller::Compiler.InferenceResult)
+   546         0 @Compiler/src/optimize.jl               1067 run_passes_ipo_safe
+   546         0 @Compiler/src/optimize.jl               1054 run_passes_ipo_safe(ci::Core.CodeInfo, sv::Compiler.OptimizationState{Compiler.DefinitionCheckInterpreter}, optimize_until::Nothing)
+   554         0 @Compiler/src/abstractinterpretation.jl 4063 abstract_eval_statement_expr(interp::Compiler.DefinitionCheckInterpreter, e::Expr, sstate::Compiler.StatementState, sv::Compiler.InferenceState)
+   593         0 @Compiler/src/typeinfer.jl              1903 typeinf_ext_toplevel(mi::Core.MethodInstance, world::UInt64, source_mode::UInt8, trim_mode::UInt8, facts::Bool)
+   788         1 @Compiler/src/abstractinterpretation.jl 4460 abstract_eval_basic_statement
+   791         0 @Compiler/src/abstractinterpretation.jl 4966 typeinf_local(interp::Compiler.DefinitionCheckInterpreter, frame::Compiler.InferenceState, nextresult::Compiler.CurrentState)
+   791         0 @Compiler/src/abstractinterpretation.jl 4417 abstract_eval_basic_statement
+   827         8 @Compiler/src/typeinfer.jl               414 finish_nocycle(::Compiler.DefinitionCheckInterpreter, frame::Compiler.InferenceState, time_before::UInt64)
+   975        14 @Compiler/src/abstractinterpretation.jl 5134 typeinf(interp::Compiler.DefinitionCheckInterpreter, frame::Compiler.InferenceState)
+  1941       755 @Compiler/src/abstractinterpretation.jl 5127 typeinf(interp::Compiler.DefinitionCheckInterpreter, frame::Compiler.InferenceState)
+  2806         0 @TraitWorld/src/implement.jl             293 _definition_hook(m::Method, after::Bool)
+  2806         0 @TraitWorld/src/classify.jl              418 _check_bounded(m::Method)
+  2806         0 @TraitWorld/src/classify.jl              423 _decide_bounded
+  2806         0 @TraitWorld/src/classify.jl              424 _decide_bounded(m::Method; final::Bool)
+  2806         0 @TraitWorld/src/classify.jl              266 _classify
+  2806         0 @TraitWorld/src/classify.jl              276 _classify(m::Method; world::UInt64)
+  2806         0 @Compiler/src/typeinfer.jl              1505 typeinf_frame(interp::Compiler.DefinitionCheckInterpreter, method::Method, atype::Any, sparams::Core.SimpleVector, run_optimizer::Bool)
+  2806         0 @Compiler/src/typeinfer.jl              1511 typeinf_frame(interp::Compiler.DefinitionCheckInterpreter, mi::Core.MethodInstance, run_optimizer::Bool)
+  2811         0 @Base/client.jl                          577 _start()
+  2811         0 @Base/client.jl                          344 exec_options(opts::Base.JLOptions)
+  2811         0 @Base/Base.jl                            315 include(mod::Module, _path::String)
+  2811         0 @Base/loading.jl                        3109 _include(mapexpr::Function, mod::Module, _path::String)
+  2811         0 @Base/loading.jl                        3049 include_string(mapexpr::typeof(identity), mod::Module, code::String, filename::String)
+  2811         0 @Base/boot.jl                            521 eval(m::Module, e::Any)
+  2811         0 @Base/timing.jl                          463 top-level scope
+  2811         0 @Profile/src/Profile.jl                   60 macro expansion
+Total snapshots: 2811. Utilization: 100% across all threads and tasks. Use the `groupby` kwarg to break down by thread and/or task.
