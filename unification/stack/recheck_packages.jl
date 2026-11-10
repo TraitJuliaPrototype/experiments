@@ -132,7 +132,7 @@ ok4, out4 = run_probe("""
 using TraitWorld, TA
 thrown(ex) = try Core.eval(Main, ex); "accepted" catch e; while e isa LoadError; e = e.error; end; string(nameof(typeof(e))) end
 println("square outside: ", thrown(:(TA.area(::Square, k::Int) = 1)))
-println("square within: ", thrown(:(TA.area(::Square, k::Int) = 2.0)), " ", area(Square(1.0), 2))
+println("square within: ", thrown(:(TA.area(::Square, k::Int) = 2.0)), " ", Base.invokelatest(area, Square(1.0), 2))
 println("wrap forwarder: ", thrown(:(TA.area(::Wrap, k::Int) = 3.0)))
 println("tri2 uncovered: ", thrown(:(TA.area(::Tri2, k::Int) = 1)))
 n = count(r -> r.member === BitVector, get(TraitWorld._CHECKED_RESULTS, Base.getindex, Any[]))
