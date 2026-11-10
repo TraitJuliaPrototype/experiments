@@ -1,0 +1,6 @@
+precompile TA, TC: ok
+1: before: 1.0 | ┌ Warning: TC: a method left inactive | │   method = | │    area(::Fam{Int64}, k::Int64) | │         @ TC /tmp/jl_IRubmq/TC/src/TC.jl:3 | │   exception = | │    ImplementError: Fam{Int64} cannot be a member of Shape | │      - the method area(::Fam{Int64}, k::Int64) @ TC /tmp/jl_IRubmq/TC/src/TC.jl:3 would serve Tuple{typeof(area), Fam{Int64}, Int64}, the member Fam{Int64}'s call of Shape's area(s::Shape, k::Int)::Float64, and infers its result as Int64, outside the declared Float64: return within Float64, or do not define the method at this member | └ @ TraitWorld /p/projects/coen/julia-trait-bound/TraitWorld-unified/src/implement.jl:402 | after: 1.0 1.0 | 
+2: failed: : TD.Tri cannot be a member of TA.Shape
+3: failed: : TA.Square cannot be a member of TA.Shape
+4-6: square outside: ImplementError | square within: accepted 2.0 | wrap forwarder: ImplementError | tri2 uncovered: accepted | bitvector records: 1 1 | 
+recheck_packages: OK

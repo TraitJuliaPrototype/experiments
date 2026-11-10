@@ -12,9 +12,11 @@
 #     inactive would need an image built without the records; case 1 covers the image hook's path.)
 #  4. In a session: at Square, a method outside the declared result refused, one within accepted; at the
 #     forwarding member Wrap, a method that would take its forwarder's call refused.
-#  5. Not covered: a `struct S <: X` member (Tri2) has no entry, so its image's check is not kept
-#     (traits §5.10's status; W-131): accepted. This line flips when that is built.
+#  5. A `struct S <: X` member (Tri2) has its entry (W-131, E-345): a method outside the declared result
+#     refused.
 #  6. TraitWorld's own image's memberships (BitVector's) have their records once, however often made.
+#  7. An abstract member from an image (AShape <: Shape): a subtype defined in the session without the
+#     operation raises ImplementError at its first use (W-131).
 # Usage: julia recheck_packages.jl <TraitWorld-unified path>
 tw = abspath(ARGS[1])
 root = mktempdir()
@@ -26,7 +28,7 @@ srcs = Dict(
 module TA
 using TraitWorld
 @trait_module
-export Shape, area, via, Fam, Square, Wrap, Tri2
+export Shape, area, via, Fam, Square, Wrap, Tri2, AShape
 @trait Shape begin
     area(s::Shape, k::Int)::Float64
 end
@@ -42,6 +44,8 @@ struct Wrap; s::Square; end
 struct Tri2 <: Shape; side::Float64; end
 area(t::Tri2, k::Integer) = t.side
 @implement Shape Tri2
+abstract type AShape <: Shape end
+@implement Shape AShape
 end
 """,
 "TC" => """
@@ -134,7 +138,9 @@ thrown(ex) = try Core.eval(Main, ex); "accepted" catch e; while e isa LoadError;
 println("square outside: ", thrown(:(TA.area(::Square, k::Int) = 1)))
 println("square within: ", thrown(:(TA.area(::Square, k::Int) = 2.0)), " ", Base.invokelatest(area, Square(1.0), 2))
 println("wrap forwarder: ", thrown(:(TA.area(::Wrap, k::Int) = 3.0)))
-println("tri2 uncovered: ", thrown(:(TA.area(::Tri2, k::Int) = 1)))
+println("tri2: ", thrown(:(TA.area(::Tri2, k::Int) = 1)))
+eval(:(struct BadA <: AShape end))
+println("abstract member's subtype: ", try Base.invokelatest(via, Base.invokelatest(BadA), 1); "ran" catch e; string(nameof(typeof(e))) end)
 n = count(r -> r.member === BitVector, get(TraitWorld._CHECKED_RESULTS, Base.getindex, Any[]))
 TraitWorld._ENTRY_CURSOR[] = 0
 eval(:(f_trigger_sync(x::Int) = x))
@@ -153,7 +159,8 @@ println("4-6: ", replace(out4, "\n" => " | "))
 @assert ok4 "the session's probe: $out4"
 @assert occursin("square outside: ImplementError", out4) && occursin("square within: accepted 2.0", out4)
 @assert occursin("wrap forwarder: ImplementError", out4)
-@assert occursin("tri2 uncovered: accepted", out4) "struct S <: X: not covered (flip when W-131 is built)"
+@assert occursin("tri2: ImplementError", out4) "struct S <: X: its entry keeps the check"
+@assert occursin("abstract member's subtype: ImplementError", out4) "an abstract member's subtype checked at its first use"
 m6 = match(r"bitvector records: (\d+) (\d+)", out4)
 @assert m6 !== nothing && m6[1] == m6[2] && m6[1] != "0" "the records once: $out4"
 println("recheck_packages: OK")
