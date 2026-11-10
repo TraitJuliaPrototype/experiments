@@ -63,7 +63,9 @@ let r = lookup(Tuple{typeof(k9), X9, Char})
 end
 kc(@nospecialize(x::X9)) = k9(x, 'a')
 let code = first(only(code_typed(kc, (X9,)))).code
-    @assert any(st -> Meta.isexpr(st, :call) && st.args[1] == GlobalRef(@__MODULE__, :k9), code) "kc dispatches: $code"
+    # a dynamic call (through `Core.attributed_call`, the argument being a trait's), no static invoke
+    @assert any(st -> Meta.isexpr(st, :call) && any(a -> a == GlobalRef(@__MODULE__, :k9), st.args), code) &&
+            !any(st -> Meta.isexpr(st, :invoke), code) "kc dispatches: $code"
 end
 f9(::Any) = 0
 f9(::X9) = 1                                           # at All{Q9, X9} more specific than f9(::Any)

@@ -11,6 +11,7 @@ julia-unified/julia --startup-file=no experiments/unification/stack/core_by_expr
 ```
 
 - `tests.sh`: Base's test files on a built tree, one core, niced. Logs: `logs/<label>-<test>.log`.
+- `recheck_packages.jl <TraitWorld-unified path>`: a member's check kept across packages (traits §5.10; E-342): an image's method that would break an in-session check left inactive, a package that breaks its own member's check failing to precompile, and the case lowering L-55 leaves uncovered asserted as accepted (it flips with W-130).
 - `core_by_expr.jl`: Base's `test/core.jl` one top-level expression at a time. For each expression it writes the line, the seconds, the live heap and the maximum RSS (MB), to find where one build spends more than another.
 
 ## Results (2026-11-06; load 3–11 of 128)
