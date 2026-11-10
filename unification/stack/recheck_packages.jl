@@ -1,13 +1,20 @@
-# Gate (traits §5.10, §5.11; compiler §10.1; lowering L-55): a member's check holds while it is a member,
-# across packages. Package TA declares a trait, a family member and a concrete member.
+# Gate (traits §5.10, §5.11; compiler §9, §10.1; lowering L-55; E-342, E-344): a member's check holds
+# while it is a member, across packages. Package TA declares a trait, a family member, a concrete member,
+# a forwarding member and a `struct S <: X` member.
 #  1. The session checks the family's member Fam{Int} at its first use; then package TC, precompiled
 #     before, loads a method that would serve Fam{Int}'s checked call with an Int: its image's method is
 #     left inactive with a warning, and the call keeps its Float64.
 #  2. Package TD redefines its own member's serving method after its `@implement`, outside the declared
 #     result: its precompilation fails with ImplementError.
-#  3. The case not covered (L-55): package TE loads a method at TA's concrete member Square, whose
-#     membership comes from TA's image, so no record of its check is in the session: accepted. When
-#     L-55's rebuild of the records at load is built, this line flips.
+#  3. Package TE defines a method at TA's concrete member Square, whose membership comes from TA's image:
+#     the records of TA's memberships are made again from the runtime's list of activated memberships,
+#     so TE fails to precompile with ImplementError. (An image's method at a concrete member left
+#     inactive would need an image built without the records; case 1 covers the image hook's path.)
+#  4. In a session: at Square, a method outside the declared result refused, one within accepted; at the
+#     forwarding member Wrap, a method that would take its forwarder's call refused.
+#  5. Not covered: a `struct S <: X` member (Tri2) has no entry, so its image's check is not kept
+#     (traits §5.10's status; W-131): accepted. This line flips when that is built.
+#  6. TraitWorld's own image's memberships (BitVector's) have their records once, however often made.
 # Usage: julia recheck_packages.jl <TraitWorld-unified path>
 tw = abspath(ARGS[1])
 root = mktempdir()
@@ -19,7 +26,7 @@ srcs = Dict(
 module TA
 using TraitWorld
 @trait_module
-export Shape, area, via, Fam, Square
+export Shape, area, via, Fam, Square, Wrap, Tri2
 @trait Shape begin
     area(s::Shape, k::Int)::Float64
 end
@@ -30,6 +37,11 @@ area(::Fam, k::Integer) = 1.0
 struct Square; side::Float64; end
 area(s::Square, k::Integer) = s.side^2
 @implement Shape Square
+struct Wrap; s::Square; end
+@implement Shape Wrap by s
+struct Tri2 <: Shape; side::Float64; end
+area(t::Tri2, k::Integer) = t.side
+@implement Shape Tri2
 end
 """,
 "TC" => """
@@ -104,9 +116,9 @@ function run_probe(code::String)
     p = run(pipeline(ignorestatus(cmd), stdout = out, stderr = out))
     return success(p), String(take!(out))
 end
-# the images first: TC and TE precompile in a session with no record; TD fails
-ok0, pre = run_probe("using TA, TC, TE")
-println("precompile TA, TC, TE: ", ok0 ? "ok" : "FAILED\n" * pre)
+# the images first: TC precompiles in a session with no record of Fam{Int}; TD and TE fail
+ok0, pre = run_probe("using TA, TC")
+println("precompile TA, TC: ", ok0 ? "ok" : "FAILED\n" * pre)
 ok1, out1 = run_probe("""
 using TraitWorld, TA
 TraitWorld.check_first_use(Fam{Int}, Shape)
@@ -115,16 +127,33 @@ using TC
 println("after: ", via(Fam(1), 2), " ", area(Fam(1), 2))
 """)
 ok2, out2 = run_probe("using TD")
-ok3, out3 = run_probe("""
-using TA, TE
-println("uncovered: ", area(Square(1.0), 2))
+ok3, out3 = run_probe("using TE")
+ok4, out4 = run_probe("""
+using TraitWorld, TA
+thrown(ex) = try Core.eval(Main, ex); "accepted" catch e; while e isa LoadError; e = e.error; end; string(nameof(typeof(e))) end
+println("square outside: ", thrown(:(TA.area(::Square, k::Int) = 1)))
+println("square within: ", thrown(:(TA.area(::Square, k::Int) = 2.0)), " ", area(Square(1.0), 2))
+println("wrap forwarder: ", thrown(:(TA.area(::Wrap, k::Int) = 3.0)))
+println("tri2 uncovered: ", thrown(:(TA.area(::Tri2, k::Int) = 1)))
+n = count(r -> r.member === BitVector, get(TraitWorld._CHECKED_RESULTS, Base.getindex, Any[]))
+TraitWorld._ENTRY_CURSOR[] = 0
+eval(:(f_trigger_sync(x::Int) = x))
+n2 = count(r -> r.member === BitVector, get(TraitWorld._CHECKED_RESULTS, Base.getindex, Any[]))
+println("bitvector records: ", n, " ", n2)
 """)
 println("1: ", replace(out1, "\n" => " | "))
 println("2: ", ok2 ? "loaded" : "failed: " * first(split(split(out2, "ImplementError")[end], "\n")))
-println("3: ", replace(out3, "\n" => " | "))
-@assert ok0 "TA, TC and TE precompile"
+println("3: ", ok3 ? "loaded" : "failed: " * first(split(split(out3, "ImplementError")[end], "\n")))
+println("4-6: ", replace(out4, "\n" => " | "))
+@assert ok0 "TA and TC precompile"
 @assert ok1 && occursin("before: 1.0", out1) && occursin("after: 1.0 1.0", out1) "TC's method is left inactive"
 @assert occursin("a method left inactive", out1) "with a warning"
 @assert !ok2 && occursin("ImplementError", out2) "TD fails to precompile with ImplementError"
-@assert ok3 && occursin(r"uncovered: 1(\n|$)", out3) "the case L-55 covers: accepted (flip when the records are rebuilt at load)"
+@assert !ok3 && occursin("ImplementError", out3) "TE fails to precompile with ImplementError"
+@assert ok4 "the session's probe: $out4"
+@assert occursin("square outside: ImplementError", out4) && occursin("square within: accepted 2.0", out4)
+@assert occursin("wrap forwarder: ImplementError", out4)
+@assert occursin("tri2 uncovered: accepted", out4) "struct S <: X: not covered (flip when W-131 is built)"
+m6 = match(r"bitvector records: (\d+) (\d+)", out4)
+@assert m6 !== nothing && m6[1] == m6[2] && m6[1] != "0" "the records once: $out4"
 println("recheck_packages: OK")

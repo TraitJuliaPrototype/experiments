@@ -1,0 +1,65 @@
+unified 0bb8f38830 (binary 0bb8f38830*), TraitWorld 960b99e, forks ddc20f6
+== 02:03:06 the ambiguity gates (load 6.33)
+PASS m2_ambiguity_called_before.jl
+PASS m2_ambiguity_report.jl
+PASS m2_ambiguity_arity.jl
+FAIL m3_ambiguity_dominance.jl (exit 1)
+      [8] #open#326
+        @ ./io.jl:429 [inlined]
+      [9] open
+        @ ./io.jl:426 [inlined]
+     [10] child(body::String)
+        @ Main /p/projects/coen/julia-trait-bound/experiments/unification/gates/m3_ambiguity_dominance.jl:48
+     [11] top-level scope
+== 02:03:16 the ports' environments precompiled (load 5.97)
+  1 dependency successfully precompiled in 0 seconds. 4 already precompiled.
+  21 dependencies successfully precompiled in 28 seconds. 6 already precompiled.
+  36 dependencies successfully precompiled in 99 seconds. 25 already precompiled.
+== 02:06:40 the forks' checks (load 5.57)
+digests equal: 26 steps
+repl exit 0; marks 20 of 20; errors 0, 0 expected (transcript: /tmp/forks_check/repl.txt)
+check_session: pass
+== 02:08:43 TraitDifferentialEquations' suite (load 4.65)
+tde tests exit 0
+Test Summary:             | Pass  Total  Time
+Test Summary:                                               | Pass  Total  Time
+Test Summary:                     | Pass  Total  Time
+Test Summary:                                       | Pass  Total  Time
+== 02:09:12 the battery (load 4.53)
+gates: 28 passed, 0 failed
+gates: 32 passed, 0 failed
+w343 core                 exit 0  wall 71.7 s      SUCCESS
+w343 subtype              exit 0  wall 19.0 s      SUCCESS
+w343 worlds               exit 0  wall 10.2 s      SUCCESS
+w343 ambiguous            exit 0  wall 9.9 s      SUCCESS
+w343 reflection           exit 0  wall 19.2 s      SUCCESS
+w343 Compiler/inline      exit 0  wall 100.1 s      SUCCESS
+w343 Compiler/inference   exit 0  wall 82.8 s      SUCCESS
+w343 precompile           exit 0  wall 265.8 s      SUCCESS
+AC_01_redefinitions: OK
+AC_02_stdlib: OK
+AC_03_recursion: OK
+AC_04_return_type: OK
+AC_05_return_type_redef: OK
+AC_06_return_type_wide: OK
+AC_07_assert_fold_rtsite: OK
+AC_08_base_assertion: OK
+AC_09_assert_above_rtsite: OK
+AC_10_assert_many_methods: OK
+AC_11_worlds: OK
+AC_12_cycle_redef: OK
+AC_13_union_split_cost: OK
+AC_14_narrow_after_wide: OK
+AC_15b_runtime_site: OK
+AC_15_type_value_extension: OK
+AC_16_concrete_enforcement: OK
+AC_17_compiler_always_plain: OK
+AC_18_membership_seam: OK
+AC_19: OK   (detect_ambiguities(Base) = 0, unchanged under all)
+AC_20_chain_membership: OK
+traitworld exit 0
+columns exit 0
+ode exit 0
+strict mode at a membership |   13     13  0.1s
+a redeclaration refused keeps the membership |    4      4  0.0s
+== 02:30:33 done (load 4.63)
