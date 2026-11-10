@@ -218,3 +218,7 @@ Build: `unified` 36b653bb3b, TraitWorld-unified 048c44e, TDE 6658c65, TraitMakie
 ### Logs
 
 `logs/e359.log`, `logs/e359-probe.log`.
+
+## E-360: what a member costs on a real library
+
+W-134 (d), E-112's form. Scripts, results and logs: [`member/`](member/README.md).
