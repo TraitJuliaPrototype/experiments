@@ -1,0 +1,34 @@
+Precompiling packages...
+   0.8 s  ✓ CSV → CSVFilePathsBaseExt
+   0.8 s  ✓ CSV → CSVInlineStringsExt
+argextype called on Expr with head :call which is not valid for IR in argument-position.
+fatal: error thrown and no exception handler available.
+MethodError(f=Base.string, args=(false,), world=0x0000000000002de4)
+jl_method_error_bare at /p/projects/coen/julia-trait-bound/julia-unified/src/gf.c:5051
+jl_method_error at /p/projects/coen/julia-trait-bound/julia-unified/src/gf.c:5069
+jl_f_throw_methoderror at /p/projects/coen/julia-trait-bound/julia-unified/src/builtins.c:616 [inlined]
+jl_f_throw_methoderror at /p/projects/coen/julia-trait-bound/julia-unified/src/builtins.c:612
+__assert_tostring at ./error.jl:248
+unknown function (ip: 0x7f39894df4a7) at (unknown file)
+_assert_tostring at ./error.jl:247
+argextype at ./../usr/share/julia/Compiler/src/optimize.jl:522
+argextype at ./../usr/share/julia/Compiler/src/optimize.jl:504 [inlined]
+rtsite_target at ./../usr/share/julia/Compiler/src/facts.jl:299
+rtsite_targets at ./../usr/share/julia/Compiler/src/facts.jl:289
+unknown function (ip: 0x7f39894dcb4c) at (unknown file)
+#compile!#206 at ./../usr/share/julia/Compiler/src/typeinfer.jl:1972
+compile! at ./../usr/share/julia/Compiler/src/typeinfer.jl:1906 [inlined]
+typeinf_ext_toplevel at ./../usr/share/julia/Compiler/src/typeinfer.jl:2021
+compile_and_emit_native at ./../usr/share/julia/Compiler/src/precompile.jl:425
+unknown function (ip: 0x7f39894dbc25) at (unknown file)
+jl_apply at /p/projects/coen/julia-trait-bound/julia-unified/src/julia.h:2396 [inlined]
+jl_create_native_impl at /p/projects/coen/julia-trait-bound/julia-unified/src/aotcompile.cpp:734
+ijl_create_system_image at /p/projects/coen/julia-trait-bound/julia-unified/src/staticdata.c:3455
+ijl_write_compiler_output at /p/projects/coen/julia-trait-bound/julia-unified/src/precompile.c:140
+ijl_atexit_hook at /p/projects/coen/julia-trait-bound/julia-unified/src/init.c:279
+jl_repl_entrypoint at /p/projects/coen/julia-trait-bound/julia-unified/src/jlapi.c:1153
+main at /p/projects/coen/julia-trait-bound/julia-unified/cli/loader_exe.c:58
+__libc_start_call_main at /lib64/libc.so.6 (unknown line)
+__libc_start_main at /lib64/libc.so.6 (unknown line)
+_start at /p/projects/coen/julia-trait-bound/julia-unified/usr/bin/julia (unknown line)
+  26.5 s  ✓ DataFrames

@@ -71,4 +71,24 @@ ok, out, err = child("""
 @assert occursin("spec String[]", out) "a method that specializes on its argument adds nothing: $out"
 @assert occursin("two String[]", out) "a site that matches two methods adds nothing: $out"
 @assert occursin("result 21", out) "results: $out"
+
+# A call with an argument that is no value of the IR (`cglobal`'s tuple stays an expression nested in
+# the call) names no target, and the image is built (E-355: Base.GMP's `cglobal` inlined into upstream
+# Parsers compiled by facts ended the build of JSON's image).
+mkpath(joinpath(PKGS, "RtG", "src"))
+write(joinpath(PKGS, "RtG", "src", "RtG.jl"), """
+module RtG
+Base.Experimental.@compiler_options facts=true
+clearfn() = cglobal((:__gmpz_clear, Base.GMP.libgmp))
+precompile(clearfn, ())
+end
+""")
+ok, out, err = child("""
+    using RtG
+    src = only(code_typed(RtG.clearfn, ()))[1]
+    println("nested ", any(st -> Meta.isexpr(st, :call) && any(a -> a isa Expr, st.args), src.code))
+    println("pointer ", RtG.clearfn() != C_NULL)
+""")
+@assert ok "building and loading RtG: $err"
+@assert occursin("nested true", out) && occursin("pointer true", out) "a nested expression at a call in facts code: $out"
 println("n17_rtsite_targets: OK")

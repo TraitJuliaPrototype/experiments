@@ -1,0 +1,155 @@
+# E-355 after.jl 2026-11-10T20:10:29+01:00 binary fcdfd0da36* (facts.jl guard), forks-unified ddc20f6, TraitWorld-unified 048c44e
+== env_up run 1 load 1.91
+first work 3061.2 ms, compile 3056.3 ms, of it recompile 526.1 ms
+after the loads 4202.5 ms, compile 4200.4 ms, of it recompile 3897.3 ms
+made after the loads: 900 | Base 541, CSV 107, DataFrames 88, Statistics 17, OffsetArrays 17, StaticArrays 16, FixedPointNumbers 14, Core 13, StructArrays 13, Printf 13, PooledArrays 10, Unitful 9, SparseArrays 5, Tables 4, StaticArraysCore 4, MappedArrays 3, FillArrays 3, ColorTypes 3, Downloads 3, InvertedIndices 3, PrintfExt 3, FillArraysStatisticsExt 2, Observables 2, FilePathsBase 2, Compiler 1, Main 1, CSVFilePathsBaseExt 1, ColorVectorSpace 1, GeometryBasics 1
+  Printf: Tuple{typeof(Printf.fmt), Vector{UInt8}, Int64, Tuple{Any}, Int64, Printf.Spec{Val{'d'}}}
+  Printf: Tuple{typeof(Printf.fmt), Vector{UInt8}, Int64, Char, Printf.Spec{Val{'c'}}}
+  Printf: Tuple{typeof(Printf.fmt), Vector{UInt8}, Int64, Any, Printf.Spec{Val{'s'}}}
+  Printf: Tuple{typeof(Printf.fmt), Vector{UInt8}, Int64, Any, Printf.Spec{Val{'d'}}}
+  FillArraysStatisticsExt: Tuple{typeof(Core.kwcall), NamedTuple{(:corrected, :mean), <:Tuple{Bool, Any}}, typeof(var), FillArrays.AbstractFill{T, 1}} where T<:AbstractFloat
+  FillArraysStatisticsExt: Tuple{FillArraysStatisticsExt.var"##var#6", Bool, Any, Colon, typeof(var), FillArrays.AbstractFill{T, 1} where T<:AbstractFloat}
+  Compiler: Tuple{typeof(Compiler.dominates_ssa), Compiler.IncrementalCompact, Compiler.GenericDomTree{false}, Compiler.NewSSAValue, Compiler.NewSSAValue}
+  PrintfExt: Tuple{typeof(Printf.fmt), Vector{UInt8}, Int64, Unitful.AbstractQuantity{<:Real}, Printf.Spec{Val{'d'}}}
+  PrintfExt: Tuple{typeof(Printf.plength), Printf.Spec{Val{'d'}}, Unitful.AbstractQuantity{<:Real}}
+  PrintfExt: Tuple{typeof(PrintfExt._fmt), Vector{UInt8}, Int64, Unitful.AbstractQuantity{<:Real}, Printf.Spec{Val{'d'}}}
+  FillArrays: Tuple{typeof(FillArrays.fillsimilar), FillArrays.Ones{T, 1}, Tuple{Base.OneTo{Int64}}} where T
+  FillArrays: Tuple{typeof(FillArrays._fill_getindex), FillArrays.AbstractFill{T, 1} where T, Vector{Int64}}
+  FillArrays: Tuple{typeof(view), FillArrays.AbstractFill{T, 1} where T, Vector{Int64}}
+  StaticArrays: Tuple{StaticArrays.var"##all#298", Colon, typeof(all), DataFrames.var"#2#3", StaticArray{S, T, 1} where {T, S<:Tuple}}
+  StaticArrays: Tuple{typeof(all), DataFrames.var"#2#3", StaticArray{S, T, 1} where {T, S<:Tuple}}
+  StaticArrays: Tuple{typeof(to_indices), Vector{Symbol}, Tuple{StaticArray{<:Tuple, Int64, 1}}}
+  StaticArrays: Tuple{typeof(to_indices), SubArray{_A, _B, P, _C, true} where {_A, _B, P<:AbstractArray, _C}, Tuple{StaticArray{<:Tuple, Int64, 1}}}
+  Downloads: Tuple{Downloads.var"##download#5", Nothing, Vector{Pair{String, String}}, Float64, Nothing, Bool, Nothing, Nothing, typeof(Downloads.download), String, Nothing}
+  Downloads: Tuple{typeof(Downloads.download), String}
+  Downloads: Tuple{typeof(Downloads.download), String, Nothing}
+  CSVFilePathsBaseExt: Tuple{typeof(CSV._sourcename), FilePathsBase.AbstractPath}
+  FixedPointNumbers: Tuple{typeof(typemin), Type{F} where {T<:Signed, f, F<:FixedPointNumbers.Fixed{T, f}}}
+  FixedPointNumbers: Tuple{typeof(FixedPointNumbers._unsafe_trunc), Type{T} where T<:Signed, Int64}
+  FixedPointNumbers: Tuple{typeof(show), IOContext{IOBuffer}, FixedPointNumbers.Fixed}
+  FixedPointNumbers: Tuple{typeof(Base.unitrange_last), F, F} where F<:FixedPointNumbers.Fixed
+  FilePathsBase: Tuple{typeof(print), IOBuffer, FilePathsBase.AbstractPath}
+  FilePathsBase: Tuple{typeof(getproperty), FilePathsBase.AbstractPath, Symbol}
+  InvertedIndices: Tuple{typeof(Base.ensure_indexable), Tuple{InvertedIndices.InvertedIndexIterator}}
+  InvertedIndices: Tuple{typeof(collect), InvertedIndices.InvertedIndexIterator}
+  InvertedIndices: Tuple{typeof(iterate), InvertedIndices.InvertedIndexIterator, Tuple{Any, Any}}
+  Base: Tuple{typeof(showerror), IO, MethodError}
+  Base: Tuple{typeof(showerror), IOBuffer, MethodError}
+  Base: Tuple{typeof(similar), Type{Vector{T}} where T, Tuple{Base.OneTo}}
+  Base: Tuple{typeof(==), Ptr{SparseArrays.LibSuiteSparse.cholmod_dense_struct}, Ptr{Nothing}}
+  Core: Tuple{Type{BoundsError}, FillArrays.AbstractFill{T, 1} where T, Tuple{Vector{Int64}}}
+  Core: Tuple{Type{UInt64}, Ptr{SparseArrays.LibSuiteSparse.cholmod_dense_struct}}
+  Core: Tuple{Type{Union{}}, UnitRange{T} where T<:Integer}
+== env_up run 2 load 1.93
+first work 3033.8 ms, compile 3030.9 ms, of it recompile 523.1 ms
+after the loads 4183.3 ms, compile 4180.2 ms, of it recompile 3877.0 ms
+made after the loads: 900 | Base 541, CSV 107, DataFrames 88, Statistics 17, OffsetArrays 17, StaticArrays 16, FixedPointNumbers 14, Core 13, StructArrays 13, Printf 13, PooledArrays 10, Unitful 9, SparseArrays 5, Tables 4, StaticArraysCore 4, MappedArrays 3, FillArrays 3, ColorTypes 3, Downloads 3, InvertedIndices 3, PrintfExt 3, FillArraysStatisticsExt 2, Observables 2, FilePathsBase 2, Compiler 1, Main 1, CSVFilePathsBaseExt 1, ColorVectorSpace 1, GeometryBasics 1
+  Printf: Tuple{typeof(Printf.fmt), Vector{UInt8}, Int64, Tuple{Any}, Int64, Printf.Spec{Val{'d'}}}
+  Printf: Tuple{typeof(Printf.fmt), Vector{UInt8}, Int64, Char, Printf.Spec{Val{'c'}}}
+  Printf: Tuple{typeof(Printf.fmt), Vector{UInt8}, Int64, Any, Printf.Spec{Val{'s'}}}
+  Printf: Tuple{typeof(Printf.fmt), Vector{UInt8}, Int64, Any, Printf.Spec{Val{'d'}}}
+  FillArraysStatisticsExt: Tuple{typeof(Core.kwcall), NamedTuple{(:corrected, :mean), <:Tuple{Bool, Any}}, typeof(var), FillArrays.AbstractFill{T, 1}} where T<:AbstractFloat
+  FillArraysStatisticsExt: Tuple{FillArraysStatisticsExt.var"##var#6", Bool, Any, Colon, typeof(var), FillArrays.AbstractFill{T, 1} where T<:AbstractFloat}
+  Compiler: Tuple{typeof(Compiler.dominates_ssa), Compiler.IncrementalCompact, Compiler.GenericDomTree{false}, Compiler.NewSSAValue, Compiler.NewSSAValue}
+  PrintfExt: Tuple{typeof(Printf.fmt), Vector{UInt8}, Int64, Unitful.AbstractQuantity{<:Real}, Printf.Spec{Val{'d'}}}
+  PrintfExt: Tuple{typeof(Printf.plength), Printf.Spec{Val{'d'}}, Unitful.AbstractQuantity{<:Real}}
+  PrintfExt: Tuple{typeof(PrintfExt._fmt), Vector{UInt8}, Int64, Unitful.AbstractQuantity{<:Real}, Printf.Spec{Val{'d'}}}
+  FillArrays: Tuple{typeof(FillArrays.fillsimilar), FillArrays.Ones{T, 1}, Tuple{Base.OneTo{Int64}}} where T
+  FillArrays: Tuple{typeof(FillArrays._fill_getindex), FillArrays.AbstractFill{T, 1} where T, Vector{Int64}}
+  FillArrays: Tuple{typeof(view), FillArrays.AbstractFill{T, 1} where T, Vector{Int64}}
+  StaticArrays: Tuple{StaticArrays.var"##all#298", Colon, typeof(all), DataFrames.var"#2#3", StaticArray{S, T, 1} where {T, S<:Tuple}}
+  StaticArrays: Tuple{typeof(all), DataFrames.var"#2#3", StaticArray{S, T, 1} where {T, S<:Tuple}}
+  StaticArrays: Tuple{typeof(to_indices), Vector{Symbol}, Tuple{StaticArray{<:Tuple, Int64, 1}}}
+  StaticArrays: Tuple{typeof(to_indices), SubArray{_A, _B, P, _C, true} where {_A, _B, P<:AbstractArray, _C}, Tuple{StaticArray{<:Tuple, Int64, 1}}}
+  Downloads: Tuple{Downloads.var"##download#5", Nothing, Vector{Pair{String, String}}, Float64, Nothing, Bool, Nothing, Nothing, typeof(Downloads.download), String, Nothing}
+  Downloads: Tuple{typeof(Downloads.download), String}
+  Downloads: Tuple{typeof(Downloads.download), String, Nothing}
+  CSVFilePathsBaseExt: Tuple{typeof(CSV._sourcename), FilePathsBase.AbstractPath}
+  FixedPointNumbers: Tuple{typeof(typemin), Type{F} where {T<:Signed, f, F<:FixedPointNumbers.Fixed{T, f}}}
+  FixedPointNumbers: Tuple{typeof(FixedPointNumbers._unsafe_trunc), Type{T} where T<:Signed, Int64}
+  FixedPointNumbers: Tuple{typeof(show), IOContext{IOBuffer}, FixedPointNumbers.Fixed}
+  FixedPointNumbers: Tuple{typeof(Base.unitrange_last), F, F} where F<:FixedPointNumbers.Fixed
+  FilePathsBase: Tuple{typeof(print), IOBuffer, FilePathsBase.AbstractPath}
+  FilePathsBase: Tuple{typeof(getproperty), FilePathsBase.AbstractPath, Symbol}
+  InvertedIndices: Tuple{typeof(Base.ensure_indexable), Tuple{InvertedIndices.InvertedIndexIterator}}
+  InvertedIndices: Tuple{typeof(collect), InvertedIndices.InvertedIndexIterator}
+  InvertedIndices: Tuple{typeof(iterate), InvertedIndices.InvertedIndexIterator, Tuple{Any, Any}}
+  Base: Tuple{typeof(showerror), IO, MethodError}
+  Base: Tuple{typeof(showerror), IOBuffer, MethodError}
+  Base: Tuple{typeof(similar), Type{Vector{T}} where T, Tuple{Base.OneTo}}
+  Base: Tuple{typeof(==), Ptr{SparseArrays.LibSuiteSparse.cholmod_dense_struct}, Ptr{Nothing}}
+  Core: Tuple{Type{BoundsError}, FillArrays.AbstractFill{T, 1} where T, Tuple{Vector{Int64}}}
+  Core: Tuple{Type{UInt64}, Ptr{SparseArrays.LibSuiteSparse.cholmod_dense_struct}}
+  Core: Tuple{Type{Union{}}, UnitRange{T} where T<:Integer}
+== env_facts run 1 load 2.44
+first work 668.7 ms, compile 662.4 ms, of it recompile 0.0 ms
+after the loads 477.3 ms, compile 473.9 ms, of it recompile 473.9 ms
+made after the loads: 43 | Base 31, CSV (facts) 6, Downloads 3, Core 1, Main 1, SparseArrays 1
+  Downloads: Tuple{Downloads.var"##download#5", Nothing, Vector{Pair{String, String}}, Float64, Nothing, Bool, Nothing, Nothing, typeof(Downloads.download), String, Nothing}
+  Downloads: Tuple{typeof(Downloads.download), String}
+  Downloads: Tuple{typeof(Downloads.download), String, Nothing}
+  Main: Tuple{var"#6#7"}
+  CSV: Tuple{CSV.var"##_prepareindexed#114", Base.Pairs{Symbol, Union{Nothing, Integer}, Nothing, @NamedTuple{parallel::Bool, ntasks::Nothing, maxproblems::Int64, validate::Bool}}, typeof(CSV._prepareindexed), String, Nothing}
+  CSV: Tuple{typeof(Core.kwcall), @NamedTuple{buffer_in_memory::Bool, prefetch::Bool, workers::Vector{Task}}, typeof(CSV.resolvesource), String}
+  CSV: Tuple{typeof(Core.kwcall), @NamedTuple{parallel::Bool, ntasks::Nothing, maxproblems::Int64, validate::Bool}, typeof(CSV._prepareindexed), String}
+  CSV: Tuple{typeof(Core.kwcall), @NamedTuple{parallel::Bool, ntasks::Nothing, maxproblems::Int64, validate::Bool}, typeof(CSV._prepareindexed), String, Nothing}
+  Base: Tuple{typeof(Core.kwcall), @NamedTuple{init::Int64}, typeof(sum), Vector{Int64}}
+  Base: Tuple{typeof(Core.kwcall), @NamedTuple{init::Int64}, typeof(sum), typeof(CSV.nrows), Vector{CSV.ChunkIndex}}
+  Base: Tuple{typeof(Core.kwcall), @NamedTuple{init::Int64}, typeof(mapreduce), typeof(identity), typeof(Base.add_sum), Vector{Int64}}
+  Base: Tuple{typeof(Core.kwcall), @NamedTuple{init::Int64}, typeof(mapreduce), typeof(CSV.nrows), typeof(Base.add_sum), Vector{CSV.ChunkIndex}}
+  SparseArrays: Tuple{typeof(vcat), Int64, Vector{Int64}}
+  Core: Tuple{Type{Memory{Tuple{Symbol, Bool}}}, UndefInitializer, Int64}
+== env_facts run 2 load 2.84
+first work 699.3 ms, compile 692.6 ms, of it recompile 0.0 ms
+after the loads 661.5 ms, compile 658.2 ms, of it recompile 658.2 ms
+made after the loads: 43 | Base 31, CSV (facts) 6, Downloads 3, Core 1, Main 1, SparseArrays 1
+  Downloads: Tuple{Downloads.var"##download#5", Nothing, Vector{Pair{String, String}}, Float64, Nothing, Bool, Nothing, Nothing, typeof(Downloads.download), String, Nothing}
+  Downloads: Tuple{typeof(Downloads.download), String}
+  Downloads: Tuple{typeof(Downloads.download), String, Nothing}
+  Main: Tuple{var"#6#7"}
+  CSV: Tuple{CSV.var"##_prepareindexed#114", Base.Pairs{Symbol, Union{Nothing, Integer}, Nothing, @NamedTuple{parallel::Bool, ntasks::Nothing, maxproblems::Int64, validate::Bool}}, typeof(CSV._prepareindexed), String, Nothing}
+  CSV: Tuple{typeof(Core.kwcall), @NamedTuple{buffer_in_memory::Bool, prefetch::Bool, workers::Vector{Task}}, typeof(CSV.resolvesource), String}
+  CSV: Tuple{typeof(Core.kwcall), @NamedTuple{parallel::Bool, ntasks::Nothing, maxproblems::Int64, validate::Bool}, typeof(CSV._prepareindexed), String}
+  CSV: Tuple{typeof(Core.kwcall), @NamedTuple{parallel::Bool, ntasks::Nothing, maxproblems::Int64, validate::Bool}, typeof(CSV._prepareindexed), String, Nothing}
+  Base: Tuple{typeof(Core.kwcall), @NamedTuple{init::Int64}, typeof(sum), Vector{Int64}}
+  Base: Tuple{typeof(Core.kwcall), @NamedTuple{init::Int64}, typeof(sum), typeof(CSV.nrows), Vector{CSV.ChunkIndex}}
+  Base: Tuple{typeof(Core.kwcall), @NamedTuple{init::Int64}, typeof(mapreduce), typeof(identity), typeof(Base.add_sum), Vector{Int64}}
+  Base: Tuple{typeof(Core.kwcall), @NamedTuple{init::Int64}, typeof(mapreduce), typeof(CSV.nrows), typeof(Base.add_sum), Vector{CSV.ChunkIndex}}
+  SparseArrays: Tuple{typeof(vcat), Int64, Vector{Int64}}
+  Core: Tuple{Type{Memory{Tuple{Symbol, Bool}}}, UndefInitializer, Int64}
+== env_forks run 1 load 2.87
+first work 62.5 ms, compile 52.9 ms, of it recompile 7.4 ms
+after the loads 962.4 ms, compile 959.1 ms, of it recompile 959.1 ms
+made after the loads: 69 | Base 44, CSV (facts) 19, Downloads 3, Core 1, Main 1, SparseArrays 1
+  Downloads: Tuple{Downloads.var"##download#5", Nothing, Vector{Pair{String, String}}, Float64, Nothing, Bool, Nothing, Nothing, typeof(Downloads.download), String, Nothing}
+  Downloads: Tuple{typeof(Downloads.download), String}
+  Downloads: Tuple{typeof(Downloads.download), String, Nothing}
+  Main: Tuple{var"#6#7"}
+  CSV: Tuple{Type{CSV.File}, String}
+  CSV: Tuple{typeof(CSV.read), String, Type{DataFrame}}
+  CSV: Tuple{typeof(Core.kwcall), @NamedTuple{parallel::Bool, ntasks::Nothing, maxproblems::Int64, validate::Bool}, typeof(CSV._prepareindexed), String}
+  CSV: Tuple{typeof(Core.kwcall), @NamedTuple{buffer_in_memory::Bool, prefetch::Bool, workers::Vector{Task}}, typeof(CSV.resolvesource), String}
+  Base: Tuple{typeof(==), Core.MembershipEntry, Core.MembershipEntry}
+  Base: Tuple{typeof(Core.kwcall), @NamedTuple{init::Int64}, typeof(sum), Vector{Int64}}
+  Base: Tuple{typeof(Core.kwcall), @NamedTuple{init::Int64}, typeof(sum), typeof(CSV.nrows), Vector{CSV.ChunkIndex}}
+  Base: Tuple{typeof(Core.kwcall), @NamedTuple{init::Int64}, typeof(mapreduce), typeof(identity), typeof(Base.add_sum), Vector{Int64}}
+  SparseArrays: Tuple{typeof(vcat), Int64, Vector{Int64}}
+  Core: Tuple{Type{Memory{Tuple{Symbol, Bool}}}, UndefInitializer, Int64}
+== env_forks run 2 load 3.48
+first work 63.3 ms, compile 54.2 ms, of it recompile 7.5 ms
+after the loads 977.6 ms, compile 974.1 ms, of it recompile 974.1 ms
+made after the loads: 69 | Base 44, CSV (facts) 19, Downloads 3, Core 1, Main 1, SparseArrays 1
+  Downloads: Tuple{Downloads.var"##download#5", Nothing, Vector{Pair{String, String}}, Float64, Nothing, Bool, Nothing, Nothing, typeof(Downloads.download), String, Nothing}
+  Downloads: Tuple{typeof(Downloads.download), String}
+  Downloads: Tuple{typeof(Downloads.download), String, Nothing}
+  Main: Tuple{var"#6#7"}
+  CSV: Tuple{Type{CSV.File}, String}
+  CSV: Tuple{typeof(CSV.read), String, Type{DataFrame}}
+  CSV: Tuple{typeof(Core.kwcall), @NamedTuple{parallel::Bool, ntasks::Nothing, maxproblems::Int64, validate::Bool}, typeof(CSV._prepareindexed), String}
+  CSV: Tuple{typeof(Core.kwcall), @NamedTuple{buffer_in_memory::Bool, prefetch::Bool, workers::Vector{Task}}, typeof(CSV.resolvesource), String}
+  Base: Tuple{typeof(==), Core.MembershipEntry, Core.MembershipEntry}
+  Base: Tuple{typeof(Core.kwcall), @NamedTuple{init::Int64}, typeof(sum), Vector{Int64}}
+  Base: Tuple{typeof(Core.kwcall), @NamedTuple{init::Int64}, typeof(sum), typeof(CSV.nrows), Vector{CSV.ChunkIndex}}
+  Base: Tuple{typeof(Core.kwcall), @NamedTuple{init::Int64}, typeof(mapreduce), typeof(identity), typeof(Base.add_sum), Vector{Int64}}
+  SparseArrays: Tuple{typeof(vcat), Int64, Vector{Int64}}
+  Core: Tuple{Type{Memory{Tuple{Symbol, Bool}}}, UndefInitializer, Int64}
