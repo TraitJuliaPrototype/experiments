@@ -27,3 +27,20 @@ Run it before a commit that renumbers a reference's sections. Hits in rows that 
 |---|---|---|---|
 | 2026-11-09 | before the review's fixes | 112 (the review's first version, without the link rule) | 37 |
 | 2026-11-09 | after the fixes (design repository, this date) | 48 | 3, dated rows of `evidence.md` and `record/INDEX.md` citing their day's numbering |
+
+## `check_tables.py`: every row with its table's number of cells
+
+Found on 2026-11-10: the scripts that write an experiment's outcome split a registered row (`| where | | |`) into five cells, not six, and wrote two outcomes into the status cell, losing the where cell (E-339, E-340). The same check then found the work queue's rows W-72 to W-130 under the three-column table of the items carried over, so they rendered broken, and julia-changes' rows 73 to 85 without their *Kind* cell.
+
+```sh
+python3 -I experiments/docs-checks/check_tables.py writeup/record/*.md writeup/design/*.md writeup/reference/*.md writeup/open-issues.md writeup/state.md
+```
+
+One line per row whose cell count differs from its table's header, `file:line: n cells, the header has m: <ID>`; the count on stderr. A `|` inside a code span, or escaped, does not split a cell. Run it after a script writes rows.
+
+### Results
+
+| Date | Build of the documents | Rows | Left |
+|---|---|---|---|
+| 2026-11-10 | before the fixes | 90 | — |
+| 2026-11-10 | after the fixes (E-339, E-340, E-329 to E-331, the queue, julia-changes) | 14 | the registry's E-190, E-233, E-234, E-238, E-241 (a cell short since they were written); 8 rows of the record index's reviews without the column of what was done; one row of `evidence.md` §2 in two cells |
