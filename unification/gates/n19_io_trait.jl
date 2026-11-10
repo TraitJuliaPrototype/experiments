@@ -1,8 +1,10 @@
 # Gate (W-129 (c), E-337; traits §3.4, §9b; compiler §7.1, §7.2, §7.5): `IO`'s contract. `IO` is Julia's
 # closed abstract type: a method typed `io::IO` is compiled per stream type, as in Julia, and `isa` folds
 # with no cell or guard. Its contract, written by Base and kept by the system image, gives an operation on
-# a value typed `IO` (an argument declared `@nospecialize`, a field) its declared result, split over
-# `IO`'s first candidates and through the table past them, the result converted to the declared result.
+# a value typed `IO` (an argument declared `@nospecialize`, a field) a split over `IO`'s first
+# candidates and through the table past them. A closed type promises no result (open issue 171): each
+# operation's result is `Any`, and a call through `IO` returns what the stream's own method returns, as
+# a dynamic call and the interpreter do.
 # The erased stream is `IOContext{IO}`: one type whatever the stream, its properties reaching `show`, its
 # operations on the stream it holds split.
 using Traits
@@ -21,9 +23,9 @@ folded_false(c) = isdefined(c, :rettype_const) && (c.rettype_const === false ||
 cands = ccall(:jl_candidates_of, Any, (Any,), IO)::Vector{Any}
 @assert cands == Any[IOBuffer, IOStream, Base.TTY, Base.PipeEndpoint] "IO's candidates: $cands"
 ops = ccall(:jl_contract_operations, Any, (Any,), IO)::Core.SimpleVector
-for (f, n, rt) in ((write, 3, Int), (unsafe_write, 4, Int), (read, 3, UInt8), (haskey, 3, Bool),
-                   (get, 4, Any), (flush, 2, Any), (lock, 2, Any), (unlock, 2, Any), (unsafe_read, 4, Any))
-    @assert any(m -> m.name === nameof(f) && m.declared_result === rt && m.nargs == n, ops) "$f's operation, declared $rt: $ops"
+for (f, n) in ((write, 3), (unsafe_write, 4), (read, 3), (haskey, 3), (get, 4), (flush, 2), (lock, 2),
+               (unlock, 2), (unsafe_read, 4))
+    @assert any(m -> m.name === nameof(f) && m.declared_result === Any && m.nargs == n, ops) "$f's operation, its result Any: $ops"
 end
 @assert !any(m -> m.name in (:eof, :isopen, :close), ops) "eof, isopen and close are not operations"
 @assert !hasmethod(eof, Tuple{IO}) && !hasmethod(close, Tuple{IO}) "no defaults at ::IO"
@@ -42,9 +44,9 @@ specs = Set(mi.specTypes for mi in Base.specializations(only(methods(emit))))
 @assert String(take!(b)) == "1 2 "
 @assert typeof(IOContext(IOBuffer())) === IOContext{IOBuffer} "IOContext keeps the stream's type"
 
-# (2) an operation at a value typed `IO`: its declared result, split, converted
+# (2) an operation at a value typed `IO`: split, its result the stream's own
 wb(@nospecialize(io::IO), x::UInt8) = write(io, x)
-@assert Base.return_types(wb, (IO, UInt8)) == Any[Int]
+@assert Base.return_types(wb, (IO, UInt8)) == Any[Any]
 @assert wb(IOBuffer(), 0x41) == 1 && wb(IOContext(IOBuffer()), 0x41) == 1
 let ir = first(only(code_typed(wb, (IO, UInt8))))
     # a branch whose body calls further (`write(::IOBuffer, ::UInt8)` may grow the buffer) calls its target
@@ -62,16 +64,32 @@ Base.write(c::CountIO, ::UInt8) = (c.n += 1; 1)
 let c = CountIO(0)
     @assert wb(c, 0x41) == 1 && c.n == 1
 end
-struct UIntIO <: IO end                              # another integer type: converted, as `f(…)::Int` would
+struct UIntIO <: IO end                              # another integer type: the stream's own result
 Base.write(::UIntIO, ::UInt8) = UInt(1)
 Base.unsafe_write(::UIntIO, ::Ptr{UInt8}, n::UInt) = n
-@assert wb(UIntIO(), 0x41) === 1 && wb(IOContext{IO}(UIntIO()), 0x41) === 1
-struct BadIO <: IO end                               # a result that does not convert raises
+@assert wb(UIntIO(), 0x41) === UInt(1) && wb(IOContext{IO}(UIntIO()), 0x41) === UInt(1)
+@assert write(Any[UIntIO()][1], 0x41) === UInt(1) && write(IO[UIntIO()][1], 0x41) === UInt(1) "through Any and through IO alike"
+struct BadIO <: IO end                               # any result: the stream's own
 Base.write(::BadIO, ::UInt8) = "one"
-@assert try wb(BadIO(), 0x41); false catch e; e isa MethodError || e isa TypeError end "the declared result enforced"
+@assert wb(BadIO(), 0x41) == "one" && write(IO[BadIO()][1], 0x41) == "one"
+# the eraser built in the caller's frame: constant propagation sees the stream's type, inference at the
+# eraser does not; the code returns what its type says (the documentation's H4, the plan review's H1)
+struct V7 <: IO end
+Base.write(::V7, x::UInt8) = UInt(7)
+wbs(io::IO, x::UInt8) = write(io, x)
+let f = () -> wbs(IOContext{IO}(V7()), 0x01), g = () -> wb(V7(), 0x01)
+    @assert f() === UInt(7) && g() === UInt(7)
+    @assert all(T -> UInt <: T, Base.return_types(f, ())) "the closure's type admits its value: $(Base.return_types(f, ()))"
+end
+# the interpreter gives the same answers
+let out = read(`$(Base.julia_cmd()) --startup-file=no --compile=min -e '
+        struct U <: IO end; Base.write(::U, ::UInt8) = UInt(1); w(@nospecialize(io::IO)) = write(io, 0x41)
+        print(repr(w(U())), " ", repr(write(IO[U()][1], 0x41)))'`, String)
+    @assert out == "0x0000000000000001 0x0000000000000001" "--compile=min: $out"
+end
 struct Holder; io::IO; end                           # a field typed `IO`
 wh(h::Holder) = write(h.io, 0x42)
-@assert Base.return_types(wh, (Holder,)) == Any[Int] && wh(Holder(IOBuffer())) == 1
+@assert Base.return_types(wh, (Holder,)) == Any[Any] && wh(Holder(IOBuffer())) == 1
 
 # a caller in an old world of Base's build (a generated function's generator runs in the world it was
 # defined in): the pointer's target and the table's miss serve it

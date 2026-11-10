@@ -1,0 +1,52 @@
+unified 999777ab77 (binary 18bbbf0841*), TraitWorld 4443d2c, forks ddc20f6
+== 00:51:42 the night's gates (load 4.79)
+PASS n19_io_trait.jl
+gates: 1 passed, 0 failed
+PASS n21_callsig_backedge.jl
+PASS n22_declared_assert.jl
+PASS n23_contract_image.jl
+FAIL n20_unmet_lookup.jl (exit 1)
+    ERROR: LoadError: AssertionError: the cell on the caller: svec(CodeInstance for MethodInstance for getproperty(::Module, ::Symbol), CodeInstance for MethodInstance for Main.P20.w1(::Main.P20.X20, ::Char))
+    Stacktrace:
+     [1] top-level scope
+       @ /p/projects/coen/julia-trait-bound/experiments/unification/gates/n20_unmet_lookup.jl:46
+     [2] include(mod::Module, _path::String)
+       @ Base ./Base.jl:315
+     [3] exec_options(opts::Base.JLOptions)
+PASS n18_closed_after_load.jl
+== 00:52:01 the keep counts while TraitWorld and the forks precompile (load 4.76)
+external CI dropped: in(Module, Array{Any, 1}) from in(Any, Any) (flags 8)
+external CI dropped: isequal(Any, Module) from isequal(Any, Any) (flags 8)
+external CI dropped: var"=="(WeakRef, Module) from var"=="(WeakRef, Any) (flags 11)
+external CIs: 24918 newly inferred; kept 22064 by a backedge or a tag, 289 by G2; dropped 40 with no backedge to the worklist (0 of them facts), 0 replaced methods, 623 without a hash, 0 without inferred code, 1902 internal, 0 other
+│  external CI dropped: visit(Base.Compiler.var"#method_visitor#collect_all_method_defs##0"{Array{Any, 1}, Array{Any, 1}}, Core.TypeMapLevel) from visit(Any, Core.TypeMapLevel) (flags 8)
+│  external CI dropped: visit(Base.Compiler.var"#method_visitor#collect_all_method_defs##0"{Array{Any, 1}, Array{Any, 1}}, Core.MethodTable) from visit(Any, Core.MethodTable) (flags 8)
+│  external CI dropped: visit(Base.Compiler.var"#method_visitor#collect_all_method_defs##0"{Array{Any, 1}, Array{Any, 1}}, Core.TypeMapEntry) from visit(Any, Core.TypeMapEntry) (flags 11)
+│  external CI dropped: (::Base.Compiler.var"#method_visitor#collect_all_method_defs##0"{Array{Any, 1}, Array{Any, 1}})(Any) from (::Base.Compiler.var"#method_visitor#collect_all_method_defs##0"{newmodules, allmeths})(Any) (flags 8)
+│  external CI dropped: in(Module, Array{Any, 1}) from in(Any, Any) (flags 8)
+│  external CI dropped: isequal(Any, Module) from isequal(Any, Any) (flags 8)
+│  external CI dropped: var"=="(WeakRef, Module) from var"=="(WeakRef, Any) (flags 11)
+│  external CIs: 18081 newly inferred; kept 15723 by a backedge or a tag, 156 by G2; dropped 174 with no backedge to the worklist (1 of them facts), 0 replaced methods, 203 without a hash, 0 without inferred code, 1825 internal, 0 other
+== 00:54:40 the ports' environments precompiled (load 6.14)
+  3 dependencies successfully precompiled in 19 seconds. 45 already precompiled.
+  17 dependencies successfully precompiled in 26 seconds. 10 already precompiled.
+== 00:55:28 sessions (load 5.56)
+imports 1.956 read 0.095 wall 2.644 imports 1.833 read 0.095 wall 2.535 imports 1.834 read 0.095 wall 2.526  f-early-w340a
+imports 1.196 read 0.047 wall 1.806 imports 1.186 read 0.047 wall 1.797 imports 1.165 read 0.047 wall 1.770  f-unified-w340
+imports 1.226 read 0.116 show 0.050 write 0.148 show 0.008 3_read_show 0.021 wall 2.935 imports 0.941 read 0.123 show 0.050 write 0.148 show 0.007 3_read_show 0.021 wall 2.623 imports 0.950 read 0.118 show 0.050 write 0.145 show 0.007 3_read_show 0.021 wall 2.613  forks-unified-w340
+ t-unified-w340
+ d-unified-w340
+imports 1.851 read 0.094 wall 2.495 imports 1.813 read 0.095 wall 2.503 imports 1.803 read 0.095 wall 2.498  f-early-w340b
+== 00:56:21 the forks' checks (load 4.92)
+digests equal: 26 steps
+repl exit 0; marks 20 of 20; errors 0, 0 expected (transcript: /tmp/forks_check/repl.txt)
+check_session: pass
+== 00:58:22 E-328's workloads (load 5.24)
+e328 exit 0
+== 00:58:53 TraitDifferentialEquations' suite (load 4.93)
+tde tests exit 0
+Test Summary:             | Pass  Total  Time
+Test Summary:                                               | Pass  Total  Time
+Test Summary:                     | Pass  Total  Time
+Test Summary:                                       | Pass  Total  Time
+== 00:59:23 done (load 4.85)

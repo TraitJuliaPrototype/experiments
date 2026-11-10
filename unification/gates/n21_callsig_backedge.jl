@@ -32,12 +32,41 @@ P21.skip(::B21) = :b21
 @assert g21(A21()) === :generic
 @assert h21(B21()) === :b21 "the caller at the set, compiled again, reaches the new method"
 
+# C-57: G2 asks the call's own signature, which the backedge carries (compiler §3.2, §6.3): a caller at a
+# concrete member that reaches the instance at the set is G2, by the call's fact signature; a caller at
+# the set is not. The backedge also carries the callee's own invalidation: a member's method defined
+# later that changes the instance's result invalidates the caller (above, at the set)
+g2(ci) = (ci.flags & 0x10) != 0
+module P21b
+using Traits
+@trait X21b
+@noinline skipn(x::X21b) = :generic                 # not inlined: the call's edge is the instance's
+skipi(x::X21b) = :generic                           # inlined
+end
+ccall(:jl_set_default_attribute, Cvoid, (Any, Cint), P21b.X21b, 2)
+struct A21b end
+Traits.declare_membership(A21b, P21b.X21b, Main)
+g21n(a::A21b) = P21b.skipn(a)
+g21i(a::A21b) = P21b.skipi(a)
+h21n(x::P21b.X21b) = P21b.skipn(x)
+module FM21
+Base.Experimental.@compiler_options facts=true
+using Main: P21b, A21b
+fg(a::A21b) = P21b.skipn(a)                         # a facts caller
+end
+@assert g21n(A21b()) === :generic && g21i(A21b()) === :generic && h21n(A21b()) === :generic && FM21.fg(A21b()) === :generic
+@assert g2(latest(g21n, A21b)) "a plain caller at a member, the callee not inlined: G2 at the call's signature"
+@assert g2(latest(g21i, A21b)) "the callee inlined"
+@assert any(g2, [c for c in all_cis(FM21.fg) if c.max_world == typemax(UInt) && c.def.specTypes === Tuple{typeof(FM21.fg), A21b}]) "a facts caller"
+@assert !g2(latest(h21n, P21b.X21b)) "a caller at the set is not G2"
+
 # (2) a `@nospecialize` method
 k336(@nospecialize(x)) = x isa Int ? 1 : 2
 c336(x::Int) = k336(x)
 d336(@nospecialize(x)) = k336(x)
 @assert c336(1) == 1 && d336(1) == 1
 cc = latest(c336, Int); cd = latest(d336, Any)
+@assert !g2(cd) "a caller at Any is not G2"
 k336(x::String) = 3
 @assert cc.max_world == typemax(UInt) "a caller at Int stays valid when a method for String is defined"
 @assert cd.max_world != typemax(UInt) "a caller at Any is invalidated"
