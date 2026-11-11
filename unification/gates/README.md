@@ -73,6 +73,11 @@ file name is the milestone whose gate it belongs to:
   load or after (`../w140/image_then_method.jl`, with the packages `../w140/PlainF`, `PlainG`)
 - `n26_callable_late_method.jl` — W-140: a compiled caller that passes a function where a method at
   `Callable` does not match follows a later method of that function (`../w140/callable_late_method.jl`)
+- `n27_invariant_parameter.jl` — W-140: a membership replays no method that names the set only as an
+  invariant parameter (`Vector{X}`); where the set bounds a variable (`Vector{<:X}`) it reaches the caller
+- `n28_wide_caller.jl` — W-140: a membership adds no method: a caller at `Any` or at an abstract argument
+  and the wide instance of another method stay valid; the caller and the instance at the member's own
+  type, and a caller at a union of non-members, follow
 - `n8_callable.jl` — W-113: `Callable{A, S}` by a function's own methods, dispatch by signature,
   a definition or deletion that begins or ends a membership, the result checked on return, E-267's
   question that reaches itself, never a builtin

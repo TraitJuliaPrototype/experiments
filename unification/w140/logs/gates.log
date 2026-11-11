@@ -196,6 +196,19 @@ PASS n23_contract_image.jl
 PASS n24_hook_compile_queue.jl
 PASS n25_image_before_set_method.jl
 PASS n26_callable_late_method.jl
+PASS n27_invariant_parameter.jl
+FAIL n28_wide_caller.jl (exit 1)
+    ERROR: LoadError: AssertionError: the wide instance and the callers at Any stay valid: Tuple{DataType, Bool}[(Tuple{typeof(f), X}, 1), (Tuple{typeof(f), Any}, 1), (Tuple{typeof(f), S}, 0), (Tuple{typeof(callf), Any}, 1), (Tuple{typeof(callw), W}, 1)]
+    Stacktrace:
+     [1] top-level scope
+       @ /p/projects/coen/julia-trait-bound/experiments/unification/gates/n28_wide_caller.jl:21
+     [2] include(mod::Module, _path::String)
+       @ Base ./Base.jl:315
+     [3] exec_options(opts::Base.JLOptions)
+       @ Base ./client.jl:344
+     [4] _start()
+       @ Base ./client.jl:577
+    in expression starting at /p/projects/coen/julia-trait-bound/experiments/unification/gates/n28_wide_caller.jl:21
 PASS n2_all_dispatch.jl
 PASS n2_all_form.jl
 PASS n2_all_probe.jl
@@ -207,4 +220,4 @@ PASS n6_attribute.jl
 PASS n7_guards.jl
 PASS n8_callable.jl
 PASS n9_fully_typed.jl
-gates: 65 passed, 9 failed
+gates: 66 passed, 10 failed
