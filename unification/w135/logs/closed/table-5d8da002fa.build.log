@@ -1,0 +1,1061 @@
+# E-361 table 2026-11-11T18:02:57+01:00 load 2.56 3.14 3.19 | julia-unified a19d937eaa TraitWorld-unified 4718b6e trim=safe
+Error #1: unresolved call from statement nrows(
+  c::Column
+)::Any
+
+Stacktrace:
+ [1] floats(c::Column, skip::Bool)
+   @ TraitTables.TableCore /p/projects/coen/julia-trait-bound/TraitTables-unified/src/TableCore.jl:99
+ [2] floats(t::Table, name::String; skipmissing::Bool)
+   @ TraitTables /p/projects/coen/julia-trait-bound/TraitTables-unified/src/TraitTables.jl:51
+ [3] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/table.jl:11
+ [4] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-unified/test/trimming/juliac-buildscript.jl:35
+
+Error #2: unresolved call from statement cell(
+  c::Column,
+  :(φ (%23 => %20, %77 => %72))::Int64
+)::Any
+
+Stacktrace:
+ [1] floats(c::Column, skip::Bool)
+   @ TraitTables.TableCore /p/projects/coen/julia-trait-bound/TraitTables-unified/src/TableCore.jl:103
+ [2] floats(t::Table, name::String; skipmissing::Bool)
+   @ TraitTables /p/projects/coen/julia-trait-bound/TraitTables-unified/src/TraitTables.jl:51
+ [3] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/table.jl:11
+ [4] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-unified/test/trimming/juliac-buildscript.jl:35
+
+Error #3: unresolved call from statement Float64(
+  cell(
+    c::Column,
+    :(φ (%23 => %20, %77 => %72))::Int64
+  )::Any
+)::Any
+
+Stacktrace:
+ [1] floats(c::Column, skip::Bool)
+   @ TraitTables.TableCore /p/projects/coen/julia-trait-bound/TraitTables-unified/src/TableCore.jl:108
+ [2] floats(t::Table, name::String; skipmissing::Bool)
+   @ TraitTables /p/projects/coen/julia-trait-bound/TraitTables-unified/src/TraitTables.jl:51
+ [3] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/table.jl:11
+ [4] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-unified/test/trimming/juliac-buildscript.jl:35
+
+Error #4: unresolved call from statement convert(
+  Float64::Type{Float64},
+  Float64(
+    cell(
+      c::Column,
+      :(φ (%23 => %20, %77 => %72))::Int64
+    )::Any
+  )::Any
+)::Any
+
+Stacktrace:
+ [1] push!(a::Vector{Float64}, item::Any)
+   @ Base array.jl:1344 [inlined]
+ [2] floats(c::Column, skip::Bool)
+   @ TraitTables.TableCore /p/projects/coen/julia-trait-bound/TraitTables-unified/src/TableCore.jl:108
+ [3] floats(t::Table, name::String; skipmissing::Bool)
+   @ TraitTables /p/projects/coen/julia-trait-bound/TraitTables-unified/src/TraitTables.jl:51
+ [4] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/table.jl:11
+ [5] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-unified/test/trimming/juliac-buildscript.jl:35
+
+Error #5: unresolved invoke from statement repeat(p::Char, (…)::Int64)::String
+
+Stacktrace:
+ [1] repeat(c::Char, r::Int64)
+   @ Base strings/string.jl:586 [inlined]
+ [2] ^(s::Char, r::Int64)
+   @ Base strings/basic.jl:771 [inlined]
+ [3] rpad(s::String, n::Int64, p::Char)
+   @ Base strings/util.jl:567
+ [4] rpad(s::String, n::Int64)
+   @ Base strings/util.jl:555 [inlined]
+ [5] summary_text(t::Table)
+   @ TraitTables /p/projects/coen/julia-trait-bound/TraitTables-unified/src/TraitTables.jl:63
+ [6] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/table.jl:10
+ [7] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-unified/test/trimming/juliac-buildscript.jl:35
+
+Error #6: unresolved invoke from statement repeat(p::Char, (…)::Int64)::String
+
+Stacktrace:
+ [1] repeat(c::Char, r::Int64)
+   @ Base strings/string.jl:586 [inlined]
+ [2] ^(s::Char, r::Int64)
+   @ Base strings/basic.jl:771 [inlined]
+ [3] rpad(s::String, n::Int64, p::Char)
+   @ Base strings/util.jl:567
+ [4] rpad(s::String, n::Int64)
+   @ Base strings/util.jl:555 [inlined]
+ [5] summary_text(t::Table)
+   @ TraitTables /p/projects/coen/julia-trait-bound/TraitTables-unified/src/TraitTables.jl:63
+ [6] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/table.jl:10
+ [7] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-unified/test/trimming/juliac-buildscript.jl:35
+
+Error #7: unresolved call from statement nrows(
+  c::Column
+)::Any
+
+Stacktrace:
+ [1] summarize(c::Column, name::String)
+   @ TraitTables.TableCore /p/projects/coen/julia-trait-bound/TraitTables-unified/src/TableCore.jl:167
+ [2] describe(t::Table)
+   @ TraitTables.TableCore /p/projects/coen/julia-trait-bound/TraitTables-unified/src/TableCore.jl:188
+ [3] summary_text(t::Table)
+   @ TraitTables /p/projects/coen/julia-trait-bound/TraitTables-unified/src/TraitTables.jl:61
+ [4] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/table.jl:10
+ [5] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-unified/test/trimming/juliac-buildscript.jl:35
+
+Error #8: unresolved call from statement cell(
+  c::Column,
+  :(φ (%23 => %20, %48 => %43))::Int64
+)::Any
+
+Stacktrace:
+ [1] summarize(c::Column, name::String)
+   @ TraitTables.TableCore /p/projects/coen/julia-trait-bound/TraitTables-unified/src/TableCore.jl:172
+ [2] describe(t::Table)
+   @ TraitTables.TableCore /p/projects/coen/julia-trait-bound/TraitTables-unified/src/TableCore.jl:188
+ [3] summary_text(t::Table)
+   @ TraitTables /p/projects/coen/julia-trait-bound/TraitTables-unified/src/TraitTables.jl:61
+ [4] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/table.jl:10
+ [5] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-unified/test/trimming/juliac-buildscript.jl:35
+
+Error #9: unresolved call from statement cell(
+  c::Column,
+  :(φ (%47 => %36, %23 => 0))::Int64
+)::Any
+
+Stacktrace:
+ [1] summarize(c::Column, name::String)
+   @ TraitTables.TableCore /p/projects/coen/julia-trait-bound/TraitTables-unified/src/TableCore.jl:179
+ [2] describe(t::Table)
+   @ TraitTables.TableCore /p/projects/coen/julia-trait-bound/TraitTables-unified/src/TableCore.jl:188
+ [3] summary_text(t::Table)
+   @ TraitTables /p/projects/coen/julia-trait-bound/TraitTables-unified/src/TraitTables.jl:61
+ [4] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/table.jl:10
+ [5] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-unified/test/trimming/juliac-buildscript.jl:35
+
+Error #10: unresolved call from statement cell(
+  c::Column,
+  :(φ (%25 => %22, %43 => %38))::Int64
+)::Any
+
+Stacktrace:
+ [1] othersummary(c::Column, name::String, n::Int64, nmiss::Int64, T::String)
+   @ TraitTables.TableCore /p/projects/coen/julia-trait-bound/TraitTables-unified/src/TableCore.jl:156
+ [2] summarize(c::Column, name::String)
+   @ TraitTables.TableCore /p/projects/coen/julia-trait-bound/TraitTables-unified/src/TableCore.jl:181
+ [3] describe(t::Table)
+   @ TraitTables.TableCore /p/projects/coen/julia-trait-bound/TraitTables-unified/src/TableCore.jl:188
+ [4] summary_text(t::Table)
+   @ TraitTables /p/projects/coen/julia-trait-bound/TraitTables-unified/src/TraitTables.jl:61
+ [5] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/table.jl:10
+ [6] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-unified/test/trimming/juliac-buildscript.jl:35
+
+Error #11: unresolved call from statement push!(
+  (…)::Set{Any},
+  cell(
+    c::Column,
+    :(φ (%25 => %22, %43 => %38))::Int64
+  )::Any
+)::Any
+
+Stacktrace:
+ [1] othersummary(c::Column, name::String, n::Int64, nmiss::Int64, T::String)
+   @ TraitTables.TableCore /p/projects/coen/julia-trait-bound/TraitTables-unified/src/TableCore.jl:157
+ [2] summarize(c::Column, name::String)
+   @ TraitTables.TableCore /p/projects/coen/julia-trait-bound/TraitTables-unified/src/TableCore.jl:181
+ [3] describe(t::Table)
+   @ TraitTables.TableCore /p/projects/coen/julia-trait-bound/TraitTables-unified/src/TableCore.jl:188
+ [4] summary_text(t::Table)
+   @ TraitTables /p/projects/coen/julia-trait-bound/TraitTables-unified/src/TraitTables.jl:61
+ [5] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/table.jl:10
+ [6] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-unified/test/trimming/juliac-buildscript.jl:35
+
+Error #12: unresolved call from statement cell(
+  c::Column,
+  :(φ (%16 => %13, %43 => %38))::Int64
+)::Any
+
+Stacktrace:
+ [1] numsummary(c::Column, name::String, n::Int64, nmiss::Int64, T::String)
+   @ TraitTables.TableCore /p/projects/coen/julia-trait-bound/TraitTables-unified/src/TableCore.jl:136
+ [2] summarize(c::Column, name::String)
+   @ TraitTables.TableCore /p/projects/coen/julia-trait-bound/TraitTables-unified/src/TableCore.jl:181
+ [3] describe(t::Table)
+   @ TraitTables.TableCore /p/projects/coen/julia-trait-bound/TraitTables-unified/src/TableCore.jl:188
+ [4] summary_text(t::Table)
+   @ TraitTables /p/projects/coen/julia-trait-bound/TraitTables-unified/src/TraitTables.jl:61
+ [5] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/table.jl:10
+ [6] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-unified/test/trimming/juliac-buildscript.jl:35
+
+Error #13: unresolved call from statement Float64(
+  cell(
+    c::Column,
+    :(φ (%16 => %13, %43 => %38))::Int64
+  )::Any
+)::Any
+
+Stacktrace:
+ [1] numsummary(c::Column, name::String, n::Int64, nmiss::Int64, T::String)
+   @ TraitTables.TableCore /p/projects/coen/julia-trait-bound/TraitTables-unified/src/TableCore.jl:138
+ [2] summarize(c::Column, name::String)
+   @ TraitTables.TableCore /p/projects/coen/julia-trait-bound/TraitTables-unified/src/TableCore.jl:181
+ [3] describe(t::Table)
+   @ TraitTables.TableCore /p/projects/coen/julia-trait-bound/TraitTables-unified/src/TableCore.jl:188
+ [4] summary_text(t::Table)
+   @ TraitTables /p/projects/coen/julia-trait-bound/TraitTables-unified/src/TraitTables.jl:61
+ [5] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/table.jl:10
+ [6] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-unified/test/trimming/juliac-buildscript.jl:35
+
+Error #14: unresolved call from statement +(
+  :(φ (%16 => 0.0, %43 => %32))::Any,
+  Float64(
+    cell(
+      c::Column,
+      :(φ (%16 => %13, %43 => %38))::Int64
+    )::Any
+  )::Any
+)::Any
+
+Stacktrace:
+ [1] numsummary(c::Column, name::String, n::Int64, nmiss::Int64, T::String)
+   @ TraitTables.TableCore /p/projects/coen/julia-trait-bound/TraitTables-unified/src/TableCore.jl:139
+ [2] summarize(c::Column, name::String)
+   @ TraitTables.TableCore /p/projects/coen/julia-trait-bound/TraitTables-unified/src/TableCore.jl:181
+ [3] describe(t::Table)
+   @ TraitTables.TableCore /p/projects/coen/julia-trait-bound/TraitTables-unified/src/TableCore.jl:188
+ [4] summary_text(t::Table)
+   @ TraitTables /p/projects/coen/julia-trait-bound/TraitTables-unified/src/TraitTables.jl:61
+ [5] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/table.jl:10
+ [6] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-unified/test/trimming/juliac-buildscript.jl:35
+
+Error #15: unresolved call from statement min(
+  :(φ (%16 => TraitTables.TableCore.Inf, %43 => %31))::Any,
+  Float64(
+    cell(
+      c::Column,
+      :(φ (%16 => %13, %43 => %38))::Int64
+    )::Any
+  )::Any
+)::Any
+
+Stacktrace:
+ [1] numsummary(c::Column, name::String, n::Int64, nmiss::Int64, T::String)
+   @ TraitTables.TableCore /p/projects/coen/julia-trait-bound/TraitTables-unified/src/TableCore.jl:140
+ [2] summarize(c::Column, name::String)
+   @ TraitTables.TableCore /p/projects/coen/julia-trait-bound/TraitTables-unified/src/TableCore.jl:181
+ [3] describe(t::Table)
+   @ TraitTables.TableCore /p/projects/coen/julia-trait-bound/TraitTables-unified/src/TableCore.jl:188
+ [4] summary_text(t::Table)
+   @ TraitTables /p/projects/coen/julia-trait-bound/TraitTables-unified/src/TraitTables.jl:61
+ [5] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/table.jl:10
+ [6] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-unified/test/trimming/juliac-buildscript.jl:35
+
+Error #16: unresolved call from statement max(
+  :(φ (%16 => -Inf, %43 => %30))::Any,
+  Float64(
+    cell(
+      c::Column,
+      :(φ (%16 => %13, %43 => %38))::Int64
+    )::Any
+  )::Any
+)::Any
+
+Stacktrace:
+ [1] numsummary(c::Column, name::String, n::Int64, nmiss::Int64, T::String)
+   @ TraitTables.TableCore /p/projects/coen/julia-trait-bound/TraitTables-unified/src/TableCore.jl:141
+ [2] summarize(c::Column, name::String)
+   @ TraitTables.TableCore /p/projects/coen/julia-trait-bound/TraitTables-unified/src/TableCore.jl:181
+ [3] describe(t::Table)
+   @ TraitTables.TableCore /p/projects/coen/julia-trait-bound/TraitTables-unified/src/TableCore.jl:188
+ [4] summary_text(t::Table)
+   @ TraitTables /p/projects/coen/julia-trait-bound/TraitTables-unified/src/TraitTables.jl:61
+ [5] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/table.jl:10
+ [6] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-unified/test/trimming/juliac-buildscript.jl:35
+
+Error #17: unresolved call from statement /(
+  :(φ (%42 => %32, %16 => 0.0))::Any,
+  (…)::Int64
+)::Any
+
+Stacktrace:
+ [1] numsummary(c::Column, name::String, n::Int64, nmiss::Int64, T::String)
+   @ TraitTables.TableCore /p/projects/coen/julia-trait-bound/TraitTables-unified/src/TableCore.jl:144
+ [2] summarize(c::Column, name::String)
+   @ TraitTables.TableCore /p/projects/coen/julia-trait-bound/TraitTables-unified/src/TableCore.jl:181
+ [3] describe(t::Table)
+   @ TraitTables.TableCore /p/projects/coen/julia-trait-bound/TraitTables-unified/src/TableCore.jl:188
+ [4] summary_text(t::Table)
+   @ TraitTables /p/projects/coen/julia-trait-bound/TraitTables-unified/src/TraitTables.jl:61
+ [5] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/table.jl:10
+ [6] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-unified/test/trimming/juliac-buildscript.jl:35
+
+Error #18: unresolved call from statement cell(
+  c::Column,
+  :(φ (%64 => %61, %87 => %82))::Int64
+)::Any
+
+Stacktrace:
+ [1] numsummary(c::Column, name::String, n::Int64, nmiss::Int64, T::String)
+   @ TraitTables.TableCore /p/projects/coen/julia-trait-bound/TraitTables-unified/src/TableCore.jl:147
+ [2] summarize(c::Column, name::String)
+   @ TraitTables.TableCore /p/projects/coen/julia-trait-bound/TraitTables-unified/src/TableCore.jl:181
+ [3] describe(t::Table)
+   @ TraitTables.TableCore /p/projects/coen/julia-trait-bound/TraitTables-unified/src/TableCore.jl:188
+ [4] summary_text(t::Table)
+   @ TraitTables /p/projects/coen/julia-trait-bound/TraitTables-unified/src/TraitTables.jl:61
+ [5] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/table.jl:10
+ [6] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-unified/test/trimming/juliac-buildscript.jl:35
+
+Error #19: unresolved call from statement Float64(
+  cell(
+    c::Column,
+    :(φ (%64 => %61, %87 => %82))::Int64
+  )::Any
+)::Any
+
+Stacktrace:
+ [1] numsummary(c::Column, name::String, n::Int64, nmiss::Int64, T::String)
+   @ TraitTables.TableCore /p/projects/coen/julia-trait-bound/TraitTables-unified/src/TableCore.jl:149
+ [2] summarize(c::Column, name::String)
+   @ TraitTables.TableCore /p/projects/coen/julia-trait-bound/TraitTables-unified/src/TableCore.jl:181
+ [3] describe(t::Table)
+   @ TraitTables.TableCore /p/projects/coen/julia-trait-bound/TraitTables-unified/src/TableCore.jl:188
+ [4] summary_text(t::Table)
+   @ TraitTables /p/projects/coen/julia-trait-bound/TraitTables-unified/src/TraitTables.jl:61
+ [5] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/table.jl:10
+ [6] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-unified/test/trimming/juliac-buildscript.jl:35
+
+Error #20: unresolved call from statement -(
+  Float64(
+    cell(
+      c::Column,
+      :(φ (%64 => %61, %87 => %82))::Int64
+    )::Any
+  )::Any,
+  /(
+    :(φ (%42 => %32, %16 => 0.0))::Any,
+    (…)::Int64
+  )::Any
+)::Any
+
+Stacktrace:
+ [1] numsummary(c::Column, name::String, n::Int64, nmiss::Int64, T::String)
+   @ TraitTables.TableCore /p/projects/coen/julia-trait-bound/TraitTables-unified/src/TableCore.jl:149
+ [2] summarize(c::Column, name::String)
+   @ TraitTables.TableCore /p/projects/coen/julia-trait-bound/TraitTables-unified/src/TableCore.jl:181
+ [3] describe(t::Table)
+   @ TraitTables.TableCore /p/projects/coen/julia-trait-bound/TraitTables-unified/src/TableCore.jl:188
+ [4] summary_text(t::Table)
+   @ TraitTables /p/projects/coen/julia-trait-bound/TraitTables-unified/src/TraitTables.jl:61
+ [5] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/table.jl:10
+ [6] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-unified/test/trimming/juliac-buildscript.jl:35
+
+Error #21: unresolved call from statement literal_pow(
+  ^::typeof(^),
+  -(
+    Float64(
+      cell(
+        c::Column,
+        :(φ (%64 => %61, %87 => %82))::Int64
+      )::Any
+    )::Any,
+    /(
+      :(φ (%42 => %32, %16 => 0.0))::Any,
+      (…)::Int64
+    )::Any
+  )::Any,
+  Val{2}()::Val{2}
+)::Any
+
+Stacktrace:
+ [1] numsummary(c::Column, name::String, n::Int64, nmiss::Int64, T::String)
+   @ TraitTables.TableCore /p/projects/coen/julia-trait-bound/TraitTables-unified/src/TableCore.jl:149
+ [2] summarize(c::Column, name::String)
+   @ TraitTables.TableCore /p/projects/coen/julia-trait-bound/TraitTables-unified/src/TableCore.jl:181
+ [3] describe(t::Table)
+   @ TraitTables.TableCore /p/projects/coen/julia-trait-bound/TraitTables-unified/src/TableCore.jl:188
+ [4] summary_text(t::Table)
+   @ TraitTables /p/projects/coen/julia-trait-bound/TraitTables-unified/src/TraitTables.jl:61
+ [5] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/table.jl:10
+ [6] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-unified/test/trimming/juliac-buildscript.jl:35
+
+Error #22: unresolved call from statement +(
+  :(φ (%64 => 0.0, %87 => %76))::Any,
+  literal_pow(
+    ^::typeof(^),
+    -(
+      Float64(
+        cell(
+          c::Column,
+          :(φ (%64 => %61, %87 => %82))::Int64
+        )::Any
+      )::Any,
+      /(
+        :(φ (%42 => %32, %16 => 0.0))::Any,
+        (…)::Int64
+      )::Any
+    )::Any,
+    Val{2}()::Val{2}
+  )::Any
+)::Any
+
+Stacktrace:
+ [1] numsummary(c::Column, name::String, n::Int64, nmiss::Int64, T::String)
+   @ TraitTables.TableCore /p/projects/coen/julia-trait-bound/TraitTables-unified/src/TableCore.jl:149
+ [2] summarize(c::Column, name::String)
+   @ TraitTables.TableCore /p/projects/coen/julia-trait-bound/TraitTables-unified/src/TableCore.jl:181
+ [3] describe(t::Table)
+   @ TraitTables.TableCore /p/projects/coen/julia-trait-bound/TraitTables-unified/src/TableCore.jl:188
+ [4] summary_text(t::Table)
+   @ TraitTables /p/projects/coen/julia-trait-bound/TraitTables-unified/src/TraitTables.jl:61
+ [5] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/table.jl:10
+ [6] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-unified/test/trimming/juliac-buildscript.jl:35
+
+Error #23: unresolved call from statement /(
+  :(φ (%86 => %76, %64 => 0.0))::Any,
+  (…)::Int64
+)::Any
+
+Stacktrace:
+ [1] numsummary(c::Column, name::String, n::Int64, nmiss::Int64, T::String)
+   @ TraitTables.TableCore /p/projects/coen/julia-trait-bound/TraitTables-unified/src/TableCore.jl:151
+ [2] summarize(c::Column, name::String)
+   @ TraitTables.TableCore /p/projects/coen/julia-trait-bound/TraitTables-unified/src/TableCore.jl:181
+ [3] describe(t::Table)
+   @ TraitTables.TableCore /p/projects/coen/julia-trait-bound/TraitTables-unified/src/TableCore.jl:188
+ [4] summary_text(t::Table)
+   @ TraitTables /p/projects/coen/julia-trait-bound/TraitTables-unified/src/TraitTables.jl:61
+ [5] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/table.jl:10
+ [6] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-unified/test/trimming/juliac-buildscript.jl:35
+
+Error #24: unresolved call from statement sqrt(
+  /(
+    :(φ (%86 => %76, %64 => 0.0))::Any,
+    (…)::Int64
+  )::Any
+)::Any
+
+Stacktrace:
+ [1] numsummary(c::Column, name::String, n::Int64, nmiss::Int64, T::String)
+   @ TraitTables.TableCore /p/projects/coen/julia-trait-bound/TraitTables-unified/src/TableCore.jl:151
+ [2] summarize(c::Column, name::String)
+   @ TraitTables.TableCore /p/projects/coen/julia-trait-bound/TraitTables-unified/src/TableCore.jl:181
+ [3] describe(t::Table)
+   @ TraitTables.TableCore /p/projects/coen/julia-trait-bound/TraitTables-unified/src/TableCore.jl:188
+ [4] summary_text(t::Table)
+   @ TraitTables /p/projects/coen/julia-trait-bound/TraitTables-unified/src/TraitTables.jl:61
+ [5] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/table.jl:10
+ [6] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-unified/test/trimming/juliac-buildscript.jl:35
+
+Error #25: unresolved call from statement ColSummary(
+  name::String,
+  T::String,
+  n::Int64,
+  true::Bool,
+  /(
+    :(φ (%42 => %32, %16 => 0.0))::Any,
+    (…)::Int64
+  )::Any,
+  :(φ (%94 => %93, %95 => TraitTables.TableCore.NaN))::Any,
+  :(φ (%42 => %31, %16 => TraitTables.TableCore.Inf))::Any,
+  :(φ (%42 => %30, %16 => -Inf))::Any,
+  :(φ (%42 => %32, %16 => 0.0))::Any,
+  0::Int64,
+  nmiss::Int64
+)::ColSummary
+
+Stacktrace:
+ [1] numsummary(c::Column, name::String, n::Int64, nmiss::Int64, T::String)
+   @ TraitTables.TableCore /p/projects/coen/julia-trait-bound/TraitTables-unified/src/TableCore.jl:151
+ [2] summarize(c::Column, name::String)
+   @ TraitTables.TableCore /p/projects/coen/julia-trait-bound/TraitTables-unified/src/TableCore.jl:181
+ [3] describe(t::Table)
+   @ TraitTables.TableCore /p/projects/coen/julia-trait-bound/TraitTables-unified/src/TableCore.jl:188
+ [4] summary_text(t::Table)
+   @ TraitTables /p/projects/coen/julia-trait-bound/TraitTables-unified/src/TraitTables.jl:61
+ [5] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/table.jl:10
+ [6] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-unified/test/trimming/juliac-buildscript.jl:35
+
+Error #26: unresolved call from statement nrows(
+  c::Column
+)::Any
+
+Stacktrace:
+ [1] floats(c::Column, skip::Bool)
+   @ TraitTables.TableCore /p/projects/coen/julia-trait-bound/TraitTables-unified/src/TableCore.jl:99
+ [2] floats(t::Table, name::String; skipmissing::Bool)
+   @ TraitTables /p/projects/coen/julia-trait-bound/TraitTables-unified/src/TraitTables.jl:51
+ [3] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/table.jl:11
+ [4] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-unified/test/trimming/juliac-buildscript.jl:35
+
+Error #27: unresolved call from statement cell(
+  c::Column,
+  :(φ (%23 => %20, %77 => %72))::Int64
+)::Any
+
+Stacktrace:
+ [1] floats(c::Column, skip::Bool)
+   @ TraitTables.TableCore /p/projects/coen/julia-trait-bound/TraitTables-unified/src/TableCore.jl:103
+ [2] floats(t::Table, name::String; skipmissing::Bool)
+   @ TraitTables /p/projects/coen/julia-trait-bound/TraitTables-unified/src/TraitTables.jl:51
+ [3] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/table.jl:11
+ [4] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-unified/test/trimming/juliac-buildscript.jl:35
+
+Error #28: unresolved call from statement Float64(
+  cell(
+    c::Column,
+    :(φ (%23 => %20, %77 => %72))::Int64
+  )::Any
+)::Any
+
+Stacktrace:
+ [1] floats(c::Column, skip::Bool)
+   @ TraitTables.TableCore /p/projects/coen/julia-trait-bound/TraitTables-unified/src/TableCore.jl:108
+ [2] floats(t::Table, name::String; skipmissing::Bool)
+   @ TraitTables /p/projects/coen/julia-trait-bound/TraitTables-unified/src/TraitTables.jl:51
+ [3] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/table.jl:11
+ [4] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-unified/test/trimming/juliac-buildscript.jl:35
+
+Error #29: unresolved call from statement convert(
+  Float64::Type{Float64},
+  Float64(
+    cell(
+      c::Column,
+      :(φ (%23 => %20, %77 => %72))::Int64
+    )::Any
+  )::Any
+)::Any
+
+Stacktrace:
+ [1] push!(a::Vector{Float64}, item::Any)
+   @ Base array.jl:1344 [inlined]
+ [2] floats(c::Column, skip::Bool)
+   @ TraitTables.TableCore /p/projects/coen/julia-trait-bound/TraitTables-unified/src/TableCore.jl:108
+ [3] floats(t::Table, name::String; skipmissing::Bool)
+   @ TraitTables /p/projects/coen/julia-trait-bound/TraitTables-unified/src/TraitTables.jl:51
+ [4] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/table.jl:11
+ [5] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-unified/test/trimming/juliac-buildscript.jl:35
+
+Error #30: unresolved invoke from statement repeat(p::Char, (…)::Int64)::String
+
+Stacktrace:
+ [1] repeat(c::Char, r::Int64)
+   @ Base strings/string.jl:586 [inlined]
+ [2] ^(s::Char, r::Int64)
+   @ Base strings/basic.jl:771 [inlined]
+ [3] rpad(s::String, n::Int64, p::Char)
+   @ Base strings/util.jl:567
+ [4] rpad(s::String, n::Int64)
+   @ Base strings/util.jl:555 [inlined]
+ [5] summary_text(t::Table)
+   @ TraitTables /p/projects/coen/julia-trait-bound/TraitTables-unified/src/TraitTables.jl:63
+ [6] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/table.jl:10
+ [7] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-unified/test/trimming/juliac-buildscript.jl:35
+
+Error #31: unresolved invoke from statement repeat(p::Char, (…)::Int64)::String
+
+Stacktrace:
+ [1] repeat(c::Char, r::Int64)
+   @ Base strings/string.jl:586 [inlined]
+ [2] ^(s::Char, r::Int64)
+   @ Base strings/basic.jl:771 [inlined]
+ [3] rpad(s::String, n::Int64, p::Char)
+   @ Base strings/util.jl:567
+ [4] rpad(s::String, n::Int64)
+   @ Base strings/util.jl:555 [inlined]
+ [5] summary_text(t::Table)
+   @ TraitTables /p/projects/coen/julia-trait-bound/TraitTables-unified/src/TraitTables.jl:63
+ [6] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/table.jl:10
+ [7] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-unified/test/trimming/juliac-buildscript.jl:35
+
+Error #32: unresolved call from statement nrows(
+  c::Column
+)::Any
+
+Stacktrace:
+ [1] summarize(c::Column, name::String)
+   @ TraitTables.TableCore /p/projects/coen/julia-trait-bound/TraitTables-unified/src/TableCore.jl:167
+ [2] describe(t::Table)
+   @ TraitTables.TableCore /p/projects/coen/julia-trait-bound/TraitTables-unified/src/TableCore.jl:188
+ [3] summary_text(t::Table)
+   @ TraitTables /p/projects/coen/julia-trait-bound/TraitTables-unified/src/TraitTables.jl:61
+ [4] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/table.jl:10
+ [5] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-unified/test/trimming/juliac-buildscript.jl:35
+
+Error #33: unresolved call from statement cell(
+  c::Column,
+  :(φ (%23 => %20, %48 => %43))::Int64
+)::Any
+
+Stacktrace:
+ [1] summarize(c::Column, name::String)
+   @ TraitTables.TableCore /p/projects/coen/julia-trait-bound/TraitTables-unified/src/TableCore.jl:172
+ [2] describe(t::Table)
+   @ TraitTables.TableCore /p/projects/coen/julia-trait-bound/TraitTables-unified/src/TableCore.jl:188
+ [3] summary_text(t::Table)
+   @ TraitTables /p/projects/coen/julia-trait-bound/TraitTables-unified/src/TraitTables.jl:61
+ [4] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/table.jl:10
+ [5] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-unified/test/trimming/juliac-buildscript.jl:35
+
+Error #34: unresolved call from statement cell(
+  c::Column,
+  :(φ (%47 => %36, %23 => 0))::Int64
+)::Any
+
+Stacktrace:
+ [1] summarize(c::Column, name::String)
+   @ TraitTables.TableCore /p/projects/coen/julia-trait-bound/TraitTables-unified/src/TableCore.jl:179
+ [2] describe(t::Table)
+   @ TraitTables.TableCore /p/projects/coen/julia-trait-bound/TraitTables-unified/src/TableCore.jl:188
+ [3] summary_text(t::Table)
+   @ TraitTables /p/projects/coen/julia-trait-bound/TraitTables-unified/src/TraitTables.jl:61
+ [4] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/table.jl:10
+ [5] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-unified/test/trimming/juliac-buildscript.jl:35
+
+Error #35: unresolved call from statement cell(
+  c::Column,
+  :(φ (%25 => %22, %43 => %38))::Int64
+)::Any
+
+Stacktrace:
+ [1] othersummary(c::Column, name::String, n::Int64, nmiss::Int64, T::String)
+   @ TraitTables.TableCore /p/projects/coen/julia-trait-bound/TraitTables-unified/src/TableCore.jl:156
+ [2] summarize(c::Column, name::String)
+   @ TraitTables.TableCore /p/projects/coen/julia-trait-bound/TraitTables-unified/src/TableCore.jl:181
+ [3] describe(t::Table)
+   @ TraitTables.TableCore /p/projects/coen/julia-trait-bound/TraitTables-unified/src/TableCore.jl:188
+ [4] summary_text(t::Table)
+   @ TraitTables /p/projects/coen/julia-trait-bound/TraitTables-unified/src/TraitTables.jl:61
+ [5] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/table.jl:10
+ [6] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-unified/test/trimming/juliac-buildscript.jl:35
+
+Error #36: unresolved call from statement push!(
+  (…)::Set{Any},
+  cell(
+    c::Column,
+    :(φ (%25 => %22, %43 => %38))::Int64
+  )::Any
+)::Any
+
+Stacktrace:
+ [1] othersummary(c::Column, name::String, n::Int64, nmiss::Int64, T::String)
+   @ TraitTables.TableCore /p/projects/coen/julia-trait-bound/TraitTables-unified/src/TableCore.jl:157
+ [2] summarize(c::Column, name::String)
+   @ TraitTables.TableCore /p/projects/coen/julia-trait-bound/TraitTables-unified/src/TableCore.jl:181
+ [3] describe(t::Table)
+   @ TraitTables.TableCore /p/projects/coen/julia-trait-bound/TraitTables-unified/src/TableCore.jl:188
+ [4] summary_text(t::Table)
+   @ TraitTables /p/projects/coen/julia-trait-bound/TraitTables-unified/src/TraitTables.jl:61
+ [5] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/table.jl:10
+ [6] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-unified/test/trimming/juliac-buildscript.jl:35
+
+Error #37: unresolved call from statement cell(
+  c::Column,
+  :(φ (%16 => %13, %43 => %38))::Int64
+)::Any
+
+Stacktrace:
+ [1] numsummary(c::Column, name::String, n::Int64, nmiss::Int64, T::String)
+   @ TraitTables.TableCore /p/projects/coen/julia-trait-bound/TraitTables-unified/src/TableCore.jl:136
+ [2] summarize(c::Column, name::String)
+   @ TraitTables.TableCore /p/projects/coen/julia-trait-bound/TraitTables-unified/src/TableCore.jl:181
+ [3] describe(t::Table)
+   @ TraitTables.TableCore /p/projects/coen/julia-trait-bound/TraitTables-unified/src/TableCore.jl:188
+ [4] summary_text(t::Table)
+   @ TraitTables /p/projects/coen/julia-trait-bound/TraitTables-unified/src/TraitTables.jl:61
+ [5] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/table.jl:10
+ [6] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-unified/test/trimming/juliac-buildscript.jl:35
+
+Error #38: unresolved call from statement Float64(
+  cell(
+    c::Column,
+    :(φ (%16 => %13, %43 => %38))::Int64
+  )::Any
+)::Any
+
+Stacktrace:
+ [1] numsummary(c::Column, name::String, n::Int64, nmiss::Int64, T::String)
+   @ TraitTables.TableCore /p/projects/coen/julia-trait-bound/TraitTables-unified/src/TableCore.jl:138
+ [2] summarize(c::Column, name::String)
+   @ TraitTables.TableCore /p/projects/coen/julia-trait-bound/TraitTables-unified/src/TableCore.jl:181
+ [3] describe(t::Table)
+   @ TraitTables.TableCore /p/projects/coen/julia-trait-bound/TraitTables-unified/src/TableCore.jl:188
+ [4] summary_text(t::Table)
+   @ TraitTables /p/projects/coen/julia-trait-bound/TraitTables-unified/src/TraitTables.jl:61
+ [5] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/table.jl:10
+ [6] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-unified/test/trimming/juliac-buildscript.jl:35
+
+Error #39: unresolved call from statement +(
+  :(φ (%16 => 0.0, %43 => %32))::Any,
+  Float64(
+    cell(
+      c::Column,
+      :(φ (%16 => %13, %43 => %38))::Int64
+    )::Any
+  )::Any
+)::Any
+
+Stacktrace:
+ [1] numsummary(c::Column, name::String, n::Int64, nmiss::Int64, T::String)
+   @ TraitTables.TableCore /p/projects/coen/julia-trait-bound/TraitTables-unified/src/TableCore.jl:139
+ [2] summarize(c::Column, name::String)
+   @ TraitTables.TableCore /p/projects/coen/julia-trait-bound/TraitTables-unified/src/TableCore.jl:181
+ [3] describe(t::Table)
+   @ TraitTables.TableCore /p/projects/coen/julia-trait-bound/TraitTables-unified/src/TableCore.jl:188
+ [4] summary_text(t::Table)
+   @ TraitTables /p/projects/coen/julia-trait-bound/TraitTables-unified/src/TraitTables.jl:61
+ [5] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/table.jl:10
+ [6] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-unified/test/trimming/juliac-buildscript.jl:35
+
+Error #40: unresolved call from statement min(
+  :(φ (%16 => TraitTables.TableCore.Inf, %43 => %31))::Any,
+  Float64(
+    cell(
+      c::Column,
+      :(φ (%16 => %13, %43 => %38))::Int64
+    )::Any
+  )::Any
+)::Any
+
+Stacktrace:
+ [1] numsummary(c::Column, name::String, n::Int64, nmiss::Int64, T::String)
+   @ TraitTables.TableCore /p/projects/coen/julia-trait-bound/TraitTables-unified/src/TableCore.jl:140
+ [2] summarize(c::Column, name::String)
+   @ TraitTables.TableCore /p/projects/coen/julia-trait-bound/TraitTables-unified/src/TableCore.jl:181
+ [3] describe(t::Table)
+   @ TraitTables.TableCore /p/projects/coen/julia-trait-bound/TraitTables-unified/src/TableCore.jl:188
+ [4] summary_text(t::Table)
+   @ TraitTables /p/projects/coen/julia-trait-bound/TraitTables-unified/src/TraitTables.jl:61
+ [5] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/table.jl:10
+ [6] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-unified/test/trimming/juliac-buildscript.jl:35
+
+Error #41: unresolved call from statement max(
+  :(φ (%16 => -Inf, %43 => %30))::Any,
+  Float64(
+    cell(
+      c::Column,
+      :(φ (%16 => %13, %43 => %38))::Int64
+    )::Any
+  )::Any
+)::Any
+
+Stacktrace:
+ [1] numsummary(c::Column, name::String, n::Int64, nmiss::Int64, T::String)
+   @ TraitTables.TableCore /p/projects/coen/julia-trait-bound/TraitTables-unified/src/TableCore.jl:141
+ [2] summarize(c::Column, name::String)
+   @ TraitTables.TableCore /p/projects/coen/julia-trait-bound/TraitTables-unified/src/TableCore.jl:181
+ [3] describe(t::Table)
+   @ TraitTables.TableCore /p/projects/coen/julia-trait-bound/TraitTables-unified/src/TableCore.jl:188
+ [4] summary_text(t::Table)
+   @ TraitTables /p/projects/coen/julia-trait-bound/TraitTables-unified/src/TraitTables.jl:61
+ [5] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/table.jl:10
+ [6] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-unified/test/trimming/juliac-buildscript.jl:35
+
+Error #42: unresolved call from statement /(
+  :(φ (%42 => %32, %16 => 0.0))::Any,
+  (…)::Int64
+)::Any
+
+Stacktrace:
+ [1] numsummary(c::Column, name::String, n::Int64, nmiss::Int64, T::String)
+   @ TraitTables.TableCore /p/projects/coen/julia-trait-bound/TraitTables-unified/src/TableCore.jl:144
+ [2] summarize(c::Column, name::String)
+   @ TraitTables.TableCore /p/projects/coen/julia-trait-bound/TraitTables-unified/src/TableCore.jl:181
+ [3] describe(t::Table)
+   @ TraitTables.TableCore /p/projects/coen/julia-trait-bound/TraitTables-unified/src/TableCore.jl:188
+ [4] summary_text(t::Table)
+   @ TraitTables /p/projects/coen/julia-trait-bound/TraitTables-unified/src/TraitTables.jl:61
+ [5] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/table.jl:10
+ [6] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-unified/test/trimming/juliac-buildscript.jl:35
+
+Error #43: unresolved call from statement cell(
+  c::Column,
+  :(φ (%64 => %61, %87 => %82))::Int64
+)::Any
+
+Stacktrace:
+ [1] numsummary(c::Column, name::String, n::Int64, nmiss::Int64, T::String)
+   @ TraitTables.TableCore /p/projects/coen/julia-trait-bound/TraitTables-unified/src/TableCore.jl:147
+ [2] summarize(c::Column, name::String)
+   @ TraitTables.TableCore /p/projects/coen/julia-trait-bound/TraitTables-unified/src/TableCore.jl:181
+ [3] describe(t::Table)
+   @ TraitTables.TableCore /p/projects/coen/julia-trait-bound/TraitTables-unified/src/TableCore.jl:188
+ [4] summary_text(t::Table)
+   @ TraitTables /p/projects/coen/julia-trait-bound/TraitTables-unified/src/TraitTables.jl:61
+ [5] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/table.jl:10
+ [6] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-unified/test/trimming/juliac-buildscript.jl:35
+
+Error #44: unresolved call from statement Float64(
+  cell(
+    c::Column,
+    :(φ (%64 => %61, %87 => %82))::Int64
+  )::Any
+)::Any
+
+Stacktrace:
+ [1] numsummary(c::Column, name::String, n::Int64, nmiss::Int64, T::String)
+   @ TraitTables.TableCore /p/projects/coen/julia-trait-bound/TraitTables-unified/src/TableCore.jl:149
+ [2] summarize(c::Column, name::String)
+   @ TraitTables.TableCore /p/projects/coen/julia-trait-bound/TraitTables-unified/src/TableCore.jl:181
+ [3] describe(t::Table)
+   @ TraitTables.TableCore /p/projects/coen/julia-trait-bound/TraitTables-unified/src/TableCore.jl:188
+ [4] summary_text(t::Table)
+   @ TraitTables /p/projects/coen/julia-trait-bound/TraitTables-unified/src/TraitTables.jl:61
+ [5] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/table.jl:10
+ [6] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-unified/test/trimming/juliac-buildscript.jl:35
+
+Error #45: unresolved call from statement -(
+  Float64(
+    cell(
+      c::Column,
+      :(φ (%64 => %61, %87 => %82))::Int64
+    )::Any
+  )::Any,
+  /(
+    :(φ (%42 => %32, %16 => 0.0))::Any,
+    (…)::Int64
+  )::Any
+)::Any
+
+Stacktrace:
+ [1] numsummary(c::Column, name::String, n::Int64, nmiss::Int64, T::String)
+   @ TraitTables.TableCore /p/projects/coen/julia-trait-bound/TraitTables-unified/src/TableCore.jl:149
+ [2] summarize(c::Column, name::String)
+   @ TraitTables.TableCore /p/projects/coen/julia-trait-bound/TraitTables-unified/src/TableCore.jl:181
+ [3] describe(t::Table)
+   @ TraitTables.TableCore /p/projects/coen/julia-trait-bound/TraitTables-unified/src/TableCore.jl:188
+ [4] summary_text(t::Table)
+   @ TraitTables /p/projects/coen/julia-trait-bound/TraitTables-unified/src/TraitTables.jl:61
+ [5] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/table.jl:10
+ [6] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-unified/test/trimming/juliac-buildscript.jl:35
+
+Error #46: unresolved call from statement literal_pow(
+  ^::typeof(^),
+  -(
+    Float64(
+      cell(
+        c::Column,
+        :(φ (%64 => %61, %87 => %82))::Int64
+      )::Any
+    )::Any,
+    /(
+      :(φ (%42 => %32, %16 => 0.0))::Any,
+      (…)::Int64
+    )::Any
+  )::Any,
+  Val{2}()::Val{2}
+)::Any
+
+Stacktrace:
+ [1] numsummary(c::Column, name::String, n::Int64, nmiss::Int64, T::String)
+   @ TraitTables.TableCore /p/projects/coen/julia-trait-bound/TraitTables-unified/src/TableCore.jl:149
+ [2] summarize(c::Column, name::String)
+   @ TraitTables.TableCore /p/projects/coen/julia-trait-bound/TraitTables-unified/src/TableCore.jl:181
+ [3] describe(t::Table)
+   @ TraitTables.TableCore /p/projects/coen/julia-trait-bound/TraitTables-unified/src/TableCore.jl:188
+ [4] summary_text(t::Table)
+   @ TraitTables /p/projects/coen/julia-trait-bound/TraitTables-unified/src/TraitTables.jl:61
+ [5] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/table.jl:10
+ [6] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-unified/test/trimming/juliac-buildscript.jl:35
+
+Error #47: unresolved call from statement +(
+  :(φ (%64 => 0.0, %87 => %76))::Any,
+  literal_pow(
+    ^::typeof(^),
+    -(
+      Float64(
+        cell(
+          c::Column,
+          :(φ (%64 => %61, %87 => %82))::Int64
+        )::Any
+      )::Any,
+      /(
+        :(φ (%42 => %32, %16 => 0.0))::Any,
+        (…)::Int64
+      )::Any
+    )::Any,
+    Val{2}()::Val{2}
+  )::Any
+)::Any
+
+Stacktrace:
+ [1] numsummary(c::Column, name::String, n::Int64, nmiss::Int64, T::String)
+   @ TraitTables.TableCore /p/projects/coen/julia-trait-bound/TraitTables-unified/src/TableCore.jl:149
+ [2] summarize(c::Column, name::String)
+   @ TraitTables.TableCore /p/projects/coen/julia-trait-bound/TraitTables-unified/src/TableCore.jl:181
+ [3] describe(t::Table)
+   @ TraitTables.TableCore /p/projects/coen/julia-trait-bound/TraitTables-unified/src/TableCore.jl:188
+ [4] summary_text(t::Table)
+   @ TraitTables /p/projects/coen/julia-trait-bound/TraitTables-unified/src/TraitTables.jl:61
+ [5] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/table.jl:10
+ [6] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-unified/test/trimming/juliac-buildscript.jl:35
+
+Error #48: unresolved call from statement /(
+  :(φ (%86 => %76, %64 => 0.0))::Any,
+  (…)::Int64
+)::Any
+
+Stacktrace:
+ [1] numsummary(c::Column, name::String, n::Int64, nmiss::Int64, T::String)
+   @ TraitTables.TableCore /p/projects/coen/julia-trait-bound/TraitTables-unified/src/TableCore.jl:151
+ [2] summarize(c::Column, name::String)
+   @ TraitTables.TableCore /p/projects/coen/julia-trait-bound/TraitTables-unified/src/TableCore.jl:181
+ [3] describe(t::Table)
+   @ TraitTables.TableCore /p/projects/coen/julia-trait-bound/TraitTables-unified/src/TableCore.jl:188
+ [4] summary_text(t::Table)
+   @ TraitTables /p/projects/coen/julia-trait-bound/TraitTables-unified/src/TraitTables.jl:61
+ [5] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/table.jl:10
+ [6] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-unified/test/trimming/juliac-buildscript.jl:35
+
+Error #49: unresolved call from statement sqrt(
+  /(
+    :(φ (%86 => %76, %64 => 0.0))::Any,
+    (…)::Int64
+  )::Any
+)::Any
+
+Stacktrace:
+ [1] numsummary(c::Column, name::String, n::Int64, nmiss::Int64, T::String)
+   @ TraitTables.TableCore /p/projects/coen/julia-trait-bound/TraitTables-unified/src/TableCore.jl:151
+ [2] summarize(c::Column, name::String)
+   @ TraitTables.TableCore /p/projects/coen/julia-trait-bound/TraitTables-unified/src/TableCore.jl:181
+ [3] describe(t::Table)
+   @ TraitTables.TableCore /p/projects/coen/julia-trait-bound/TraitTables-unified/src/TableCore.jl:188
+ [4] summary_text(t::Table)
+   @ TraitTables /p/projects/coen/julia-trait-bound/TraitTables-unified/src/TraitTables.jl:61
+ [5] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/table.jl:10
+ [6] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-unified/test/trimming/juliac-buildscript.jl:35
+
+Error #50: unresolved call from statement ColSummary(
+  name::String,
+  T::String,
+  n::Int64,
+  true::Bool,
+  /(
+    :(φ (%42 => %32, %16 => 0.0))::Any,
+    (…)::Int64
+  )::Any,
+  :(φ (%94 => %93, %95 => TraitTables.TableCore.NaN))::Any,
+  :(φ (%42 => %31, %16 => TraitTables.TableCore.Inf))::Any,
+  :(φ (%42 => %30, %16 => -Inf))::Any,
+  :(φ (%42 => %32, %16 => 0.0))::Any,
+  0::Int64,
+  nmiss::Int64
+)::ColSummary
+
+Stacktrace:
+ [1] numsummary(c::Column, name::String, n::Int64, nmiss::Int64, T::String)
+   @ TraitTables.TableCore /p/projects/coen/julia-trait-bound/TraitTables-unified/src/TableCore.jl:151
+ [2] summarize(c::Column, name::String)
+   @ TraitTables.TableCore /p/projects/coen/julia-trait-bound/TraitTables-unified/src/TableCore.jl:181
+ [3] describe(t::Table)
+   @ TraitTables.TableCore /p/projects/coen/julia-trait-bound/TraitTables-unified/src/TableCore.jl:188
+ [4] summary_text(t::Table)
+   @ TraitTables /p/projects/coen/julia-trait-bound/TraitTables-unified/src/TraitTables.jl:61
+ [5] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/table.jl:10
+ [6] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-unified/test/trimming/juliac-buildscript.jl:35
+
+Trim verify finished with 50 errors, 0 warnings.
+object: exit 1 after 100 s

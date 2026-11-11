@@ -11,6 +11,7 @@
 | `typed_*` | `report(Circle(1.0))`, `report(Rect(2.0, 3.0))`: every call at a concrete member |
 | `vector_*` | a loop over a `Vector{Shape}` of three items: each item is known only by its trait |
 | `dynamic_trait` | a struct with a field `Dynamic{Shape}`, filled with a `Circle` or a `Rect` by the arguments |
+| `barrier_trait` | `report(compiled_for(s))` in a loop over a `Vector{Shape}`: a cast to `Compiled` on a value known only by its trait |
 | `family_trait` | a family of members, `@implement Shape Scaled{T} where {T}`, at `Scaled{Rect}`, `Scaled{Circle}` and `Scaled{Scaled{Rect}}`, in a `Vector{Shape}` |
 
 ## How to run
@@ -68,6 +69,17 @@ E-361's programs again (`../w135/logs/closed/`; the same packages): none builds 
 
 - The counts moved because the verifier now sees the attributed calls, which it passed over before: the table's two more are `attributed_call(floats, ::Any, …)` and `attributed_call(summarize, ::Any, …)`.
 - What refuses them now is not the trait: a value typed `Any` passed to a method at a trait, Base's `repeat(::Char, ::Int)`, a JLL's `__init__`, and sets with pattern members. The demonstrators are not fully typed.
+
+### A cast on a value known by its trait, and the table again (2026-11-11, `unified` 5d8da002fa)
+
+`logs/run-w139b.log`; `../w135/logs/closed/table-a19d937eaa.build.log` (before), `table-5d8da002fa.build.log` (after); `dbg_table.jl` (the rule seen from a session). One build each, load 2 to 5 of 128.
+
+- **`barrier_trait` builds and runs:** 0 errors, 2,546,984 bytes, output equal to the session's. Before, the call was `Core.attributed_call(…, ::Any)`, which the verifier refuses.
+- **The table's three trait errors named one shape:** `f(compiled_for(x), …)` with `x` known by its trait (`fillcolumn`, `summarize`, `floats`). Two causes, both in the compiler:
+  - the cast's result was `Any`: `Core._cast_compiled` passes a `Dynamic`'s object, typed `Any`. It is of the trait now.
+  - a session leaves such a call to dispatch when it runs. A closed build now branches over the trait's members.
+- **`readtable`'s call is split over `CSVColumn`'s five members.** 9 invokes become 18; no call is left to run time there.
+- **`Column`'s members cannot be listed, and the table's count rises from 10 to 50.** `Column{T}` has the family `Vector{T} where T`: the build lists every `Vector` instance of the process, 250 in a session, past the limit of 64. `summarize` and `floats` at `Column` are compiled once, and each of their operations (`nrows`, `cell`) is left to run time: 44 errors in `TableCore`, 6 in Base (`repeat`). The trait's members are four types in this program. The tension: `writeup/open-issues.md` §1, GT-15.
 
 ## `make_executable` and `make_library` (TraitWorld 19862aa)
 

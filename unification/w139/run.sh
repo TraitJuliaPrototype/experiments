@@ -21,3 +21,4 @@ U=julia-unified; V=julia-vanilla
 for a in typed vector; do one ${a}_trait $U; one ${a}_plain $U; one ${a}_plain $V; done
 one dynamic_trait $U
 one family_trait $U
+one barrier_trait $U
