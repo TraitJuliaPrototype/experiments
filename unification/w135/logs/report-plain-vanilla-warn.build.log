@@ -1,0 +1,1330 @@
+# E-361 report 2026-11-11T07:48:08+01:00 load 4.80 5.63 4.84 | julia-vanilla 45b6d15e34 TraitWorld-unified 05991fc trim=unsafe-warn
+Error #1: unresolved call from statement issorted(
+  itr::Vector{String},
+  ord(
+    lt::Function,
+    by::Function,
+    true::Bool,
+    order::Base.Order.ForwardOrdering
+  )::Union{Base.Order.By, Base.Order.Lt{T} where T<:Function, Base.Order.ReverseOrdering, Base.Order.DirectOrdering}
+)::Bool
+
+Stacktrace:
+ [1] issorted(itr::Vector{String}; lt::Function, by::Function, rev::Bool, order::Base.Order.ForwardOrdering)
+   @ Base.Sort sort.jl:93
+ [2] unique!(itr::Vector{String})
+   @ Base set.jl:473
+ [3] macro expansion
+   @ /p/projects/coen/julia-trait-bound/.julia-depot/packages/JLLWrappers/Kp7TC/src/wrapper_generators.jl:64 [inlined]
+ [4] __init__()
+   @ Pango_jll /p/projects/coen/julia-trait-bound/.julia-depot/packages/Pango_jll/16ssY/src/wrappers/x86_64-linux-gnu.jl:34
+
+Error #2: unresolved call from statement issorted(
+  itr::Vector{String},
+  :(φ (%161 => %159, %163 => %162))::Union{Base.Order.ForwardOrdering, Base.Order.By, Base.Order.Lt{T} where T<:Function}
+)::Bool
+
+Stacktrace:
+ [1] issorted(itr::Vector{String}; lt::Function, by::Function, rev::Bool, order::Base.Order.ForwardOrdering)
+   @ Base.Sort sort.jl:95
+ [2] unique!(itr::Vector{String})
+   @ Base set.jl:473
+ [3] macro expansion
+   @ /p/projects/coen/julia-trait-bound/.julia-depot/packages/JLLWrappers/Kp7TC/src/wrapper_generators.jl:64 [inlined]
+ [4] __init__()
+   @ Pango_jll /p/projects/coen/julia-trait-bound/.julia-depot/packages/Pango_jll/16ssY/src/wrappers/x86_64-linux-gnu.jl:34
+
+Error #3: unresolved call from statement Lt(
+  lt::Function
+)::Base.Order.Lt{T} where T<:Function
+
+Stacktrace:
+ [1] _ord(lt::Function, by::Function, order::Base.Order.ForwardOrdering)
+   @ Base.Order ordering.jl:133
+ [2] ord(lt::Function, by::Function, rev::Nothing, order::Base.Order.ForwardOrdering)
+   @ Base.Order ordering.jl:155 [inlined]
+ [3] issorted(itr::Vector{String}; lt::Function, by::Function, rev::Bool, order::Base.Order.ForwardOrdering)
+   @ Base.Sort sort.jl:95
+ [4] unique!(itr::Vector{String})
+   @ Base set.jl:473
+ [5] macro expansion
+   @ /p/projects/coen/julia-trait-bound/.julia-depot/packages/JLLWrappers/Kp7TC/src/wrapper_generators.jl:64 [inlined]
+ [6] __init__()
+   @ Pango_jll /p/projects/coen/julia-trait-bound/.julia-depot/packages/Pango_jll/16ssY/src/wrappers/x86_64-linux-gnu.jl:34
+
+Error #4: unresolved call from statement _by(
+  by::Function,
+  Lt(
+    lt::Function
+  )::Base.Order.Lt{T} where T<:Function
+)::Union{Base.Order.By{T, O} where {T<:Function, O<:(Base.Order.Lt{T} where T<:Function)}, Base.Order.Lt{T} where T<:Function}
+
+Stacktrace:
+ [1] _ord(lt::Function, by::Function, order::Base.Order.ForwardOrdering)
+   @ Base.Order ordering.jl:133
+ [2] ord(lt::Function, by::Function, rev::Nothing, order::Base.Order.ForwardOrdering)
+   @ Base.Order ordering.jl:155 [inlined]
+ [3] issorted(itr::Vector{String}; lt::Function, by::Function, rev::Bool, order::Base.Order.ForwardOrdering)
+   @ Base.Sort sort.jl:95
+ [4] unique!(itr::Vector{String})
+   @ Base set.jl:473
+ [5] macro expansion
+   @ /p/projects/coen/julia-trait-bound/.julia-depot/packages/JLLWrappers/Kp7TC/src/wrapper_generators.jl:64 [inlined]
+ [6] __init__()
+   @ Pango_jll /p/projects/coen/julia-trait-bound/.julia-depot/packages/Pango_jll/16ssY/src/wrappers/x86_64-linux-gnu.jl:34
+
+Error #5: unresolved call from statement By(
+  by::Function,
+  order::Base.Order.ForwardOrdering
+)::Base.Order.By{T, Base.Order.ForwardOrdering} where T<:Function
+
+Stacktrace:
+ [1] _by(by::Function, order::Base.Order.ForwardOrdering)
+   @ Base.Order ordering.jl:136
+ [2] _ord(lt::typeof(isless), by::Function, order::Base.Order.ForwardOrdering)
+   @ Base.Order ordering.jl:131 [inlined]
+ [3] ord(lt::Function, by::Function, rev::Nothing, order::Base.Order.ForwardOrdering)
+   @ Base.Order ordering.jl:155 [inlined]
+ [4] issorted(itr::Vector{String}; lt::Function, by::Function, rev::Bool, order::Base.Order.ForwardOrdering)
+   @ Base.Sort sort.jl:95
+ [5] unique!(itr::Vector{String})
+   @ Base set.jl:473
+ [6] macro expansion
+   @ /p/projects/coen/julia-trait-bound/.julia-depot/packages/JLLWrappers/Kp7TC/src/wrapper_generators.jl:64 [inlined]
+ [7] __init__()
+   @ Pango_jll /p/projects/coen/julia-trait-bound/.julia-depot/packages/Pango_jll/16ssY/src/wrappers/x86_64-linux-gnu.jl:34
+
+Error #6: unresolved call from statement ReverseOrdering(
+  :(φ (%10 => %8, %13 => %12))::Union{Base.Order.ForwardOrdering, Base.Order.By, Base.Order.Lt{T} where T<:Function}
+)::Union{Base.Order.ReverseOrdering{Base.Order.ForwardOrdering}, Base.Order.By, Base.Order.ReverseOrdering{Fwd} where Fwd<:(Base.Order.Lt{T} where T<:Function)}
+
+Stacktrace:
+ [1] ord(lt::Function, by::Function, rev::Bool, order::Base.Order.ForwardOrdering)
+   @ Base.Order ordering.jl:159
+ [2] issorted(itr::Vector{String}; lt::Function, by::Function, rev::Bool, order::Base.Order.ForwardOrdering)
+   @ Base.Sort sort.jl:93
+ [3] unique!(itr::Vector{String})
+   @ Base set.jl:473
+ [4] macro expansion
+   @ /p/projects/coen/julia-trait-bound/.julia-depot/packages/JLLWrappers/Kp7TC/src/wrapper_generators.jl:64 [inlined]
+ [5] __init__()
+   @ Pango_jll /p/projects/coen/julia-trait-bound/.julia-depot/packages/Pango_jll/16ssY/src/wrappers/x86_64-linux-gnu.jl:34
+
+Error #7: unresolved call from statement drawbars(
+  (…)::Matrix{Float64},
+  c::PlainPlots.Canvas,
+  t::PlainPlots.Transform2D,
+  getindex((…)::Dict{Symbol, Any}, :color::Symbol)::Any,
+  getfield(
+    _histbars((…)::Dict{Symbol, Any})::Tuple{Matrix{Float64}, Any},
+    2::Int64
+  )::Any
+)::Any
+
+Stacktrace:
+ [1] draw!(p::PlainPlots.PlotObj, c::PlainPlots.Canvas, t::PlainPlots.Transform2D)
+   @ PlainPlots /p/projects/coen/julia-trait-bound/TraitMakie-unified/baselines/PlainPlots/src/PlainPlots.jl:302
+ [2] render_png(f::PlainPlots.Figure, path::String)
+   @ PlainPlots /p/projects/coen/julia-trait-bound/TraitMakie-unified/baselines/PlainPlots/src/PlainPlots.jl:381
+ [3] save(path::String, fig::PlainPlots.Figure)
+   @ PlainPlots /p/projects/coen/julia-trait-bound/TraitMakie-unified/baselines/PlainPlots/src/PlainPlots.jl:467 [inlined]
+ [4] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/report.jl:17
+ [5] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-vanilla/test/trimming/juliac-buildscript.jl:35
+
+Error #8: unresolved call from statement rgba(
+  getindex((…)::Dict{Symbol, Any}, :color::Symbol)::Any,
+  1::Int64
+)::Any
+
+Stacktrace:
+ [1] draw!(p::PlainPlots.PlotObj, c::PlainPlots.Canvas, t::PlainPlots.Transform2D)
+   @ PlainPlots /p/projects/coen/julia-trait-bound/TraitMakie-unified/baselines/PlainPlots/src/PlainPlots.jl:306
+ [2] render_png(f::PlainPlots.Figure, path::String)
+   @ PlainPlots /p/projects/coen/julia-trait-bound/TraitMakie-unified/baselines/PlainPlots/src/PlainPlots.jl:381
+ [3] save(path::String, fig::PlainPlots.Figure)
+   @ PlainPlots /p/projects/coen/julia-trait-bound/TraitMakie-unified/baselines/PlainPlots/src/PlainPlots.jl:467 [inlined]
+ [4] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/report.jl:17
+ [5] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-vanilla/test/trimming/juliac-buildscript.jl:35
+
+Error #9: unresolved call from statement points(
+  getindex((…)::Dict{Symbol, Any}, :lower::Symbol)::Any
+)::Any
+
+Stacktrace:
+ [1] draw!(p::PlainPlots.PlotObj, c::PlainPlots.Canvas, t::PlainPlots.Transform2D)
+   @ PlainPlots /p/projects/coen/julia-trait-bound/TraitMakie-unified/baselines/PlainPlots/src/PlainPlots.jl:309
+ [2] render_png(f::PlainPlots.Figure, path::String)
+   @ PlainPlots /p/projects/coen/julia-trait-bound/TraitMakie-unified/baselines/PlainPlots/src/PlainPlots.jl:381
+ [3] save(path::String, fig::PlainPlots.Figure)
+   @ PlainPlots /p/projects/coen/julia-trait-bound/TraitMakie-unified/baselines/PlainPlots/src/PlainPlots.jl:467 [inlined]
+ [4] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/report.jl:17
+ [5] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-vanilla/test/trimming/juliac-buildscript.jl:35
+
+Error #10: unresolved call from statement points(
+  getindex((…)::Dict{Symbol, Any}, :upper::Symbol)::Any
+)::Any
+
+Stacktrace:
+ [1] draw!(p::PlainPlots.PlotObj, c::PlainPlots.Canvas, t::PlainPlots.Transform2D)
+   @ PlainPlots /p/projects/coen/julia-trait-bound/TraitMakie-unified/baselines/PlainPlots/src/PlainPlots.jl:309
+ [2] render_png(f::PlainPlots.Figure, path::String)
+   @ PlainPlots /p/projects/coen/julia-trait-bound/TraitMakie-unified/baselines/PlainPlots/src/PlainPlots.jl:381
+ [3] save(path::String, fig::PlainPlots.Figure)
+   @ PlainPlots /p/projects/coen/julia-trait-bound/TraitMakie-unified/baselines/PlainPlots/src/PlainPlots.jl:467 [inlined]
+ [4] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/report.jl:17
+ [5] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-vanilla/test/trimming/juliac-buildscript.jl:35
+
+Error #11: unresolved call from statement bandoutline(
+  points(
+    getindex((…)::Dict{Symbol, Any}, :lower::Symbol)::Any
+  )::Any,
+  points(
+    getindex((…)::Dict{Symbol, Any}, :upper::Symbol)::Any
+  )::Any
+)::Matrix{Float64}
+
+Stacktrace:
+ [1] draw!(p::PlainPlots.PlotObj, c::PlainPlots.Canvas, t::PlainPlots.Transform2D)
+   @ PlainPlots /p/projects/coen/julia-trait-bound/TraitMakie-unified/baselines/PlainPlots/src/PlainPlots.jl:309
+ [2] render_png(f::PlainPlots.Figure, path::String)
+   @ PlainPlots /p/projects/coen/julia-trait-bound/TraitMakie-unified/baselines/PlainPlots/src/PlainPlots.jl:381
+ [3] save(path::String, fig::PlainPlots.Figure)
+   @ PlainPlots /p/projects/coen/julia-trait-bound/TraitMakie-unified/baselines/PlainPlots/src/PlainPlots.jl:467 [inlined]
+ [4] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/report.jl:17
+ [5] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-vanilla/test/trimming/juliac-buildscript.jl:35
+
+Error #12: unresolved call from statement rgba(
+  getindex((…)::Dict{Symbol, Any}, :color::Symbol)::Any,
+  1::Int64
+)::Any
+
+Stacktrace:
+ [1] draw!(p::PlainPlots.PlotObj, c::PlainPlots.Canvas, t::PlainPlots.Transform2D)
+   @ PlainPlots /p/projects/coen/julia-trait-bound/TraitMakie-unified/baselines/PlainPlots/src/PlainPlots.jl:310
+ [2] render_png(f::PlainPlots.Figure, path::String)
+   @ PlainPlots /p/projects/coen/julia-trait-bound/TraitMakie-unified/baselines/PlainPlots/src/PlainPlots.jl:381
+ [3] save(path::String, fig::PlainPlots.Figure)
+   @ PlainPlots /p/projects/coen/julia-trait-bound/TraitMakie-unified/baselines/PlainPlots/src/PlainPlots.jl:467 [inlined]
+ [4] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/report.jl:17
+ [5] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-vanilla/test/trimming/juliac-buildscript.jl:35
+
+Error #13: unresolved call from statement points(
+  getindex((…)::Dict{Symbol, Any}, :pos::Symbol)::Any
+)::Any
+
+Stacktrace:
+ [1] draw!(p::PlainPlots.PlotObj, c::PlainPlots.Canvas, t::PlainPlots.Transform2D)
+   @ PlainPlots /p/projects/coen/julia-trait-bound/TraitMakie-unified/baselines/PlainPlots/src/PlainPlots.jl:313
+ [2] render_png(f::PlainPlots.Figure, path::String)
+   @ PlainPlots /p/projects/coen/julia-trait-bound/TraitMakie-unified/baselines/PlainPlots/src/PlainPlots.jl:381
+ [3] save(path::String, fig::PlainPlots.Figure)
+   @ PlainPlots /p/projects/coen/julia-trait-bound/TraitMakie-unified/baselines/PlainPlots/src/PlainPlots.jl:467 [inlined]
+ [4] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/report.jl:17
+ [5] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-vanilla/test/trimming/juliac-buildscript.jl:35
+
+Error #14: unresolved call from statement pixels(
+  points(
+    getindex((…)::Dict{Symbol, Any}, :pos::Symbol)::Any
+  )::Any,
+  t::PlainPlots.Transform2D
+)::Tuple{Any, Any}
+
+Stacktrace:
+ [1] draw!(p::PlainPlots.PlotObj, c::PlainPlots.Canvas, t::PlainPlots.Transform2D)
+   @ PlainPlots /p/projects/coen/julia-trait-bound/TraitMakie-unified/baselines/PlainPlots/src/PlainPlots.jl:315
+ [2] render_png(f::PlainPlots.Figure, path::String)
+   @ PlainPlots /p/projects/coen/julia-trait-bound/TraitMakie-unified/baselines/PlainPlots/src/PlainPlots.jl:381
+ [3] save(path::String, fig::PlainPlots.Figure)
+   @ PlainPlots /p/projects/coen/julia-trait-bound/TraitMakie-unified/baselines/PlainPlots/src/PlainPlots.jl:467 [inlined]
+ [4] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/report.jl:17
+ [5] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-vanilla/test/trimming/juliac-buildscript.jl:35
+
+Error #15: unresolved call from statement rgba(
+  getindex((…)::Dict{Symbol, Any}, :color::Symbol)::Any,
+  1::Int64
+)::Any
+
+Stacktrace:
+ [1] draw!(p::PlainPlots.PlotObj, c::PlainPlots.Canvas, t::PlainPlots.Transform2D)
+   @ PlainPlots /p/projects/coen/julia-trait-bound/TraitMakie-unified/baselines/PlainPlots/src/PlainPlots.jl:316
+ [2] render_png(f::PlainPlots.Figure, path::String)
+   @ PlainPlots /p/projects/coen/julia-trait-bound/TraitMakie-unified/baselines/PlainPlots/src/PlainPlots.jl:381
+ [3] save(path::String, fig::PlainPlots.Figure)
+   @ PlainPlots /p/projects/coen/julia-trait-bound/TraitMakie-unified/baselines/PlainPlots/src/PlainPlots.jl:467 [inlined]
+ [4] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/report.jl:17
+ [5] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-vanilla/test/trimming/juliac-buildscript.jl:35
+
+Error #16: unresolved call from statement pixels(
+  points(
+    getindex((…)::Dict{Symbol, Any}, :pos::Symbol)::Any
+  )::Any,
+  t::PlainPlots.Transform2D
+)::Tuple{Any, Any}
+
+Stacktrace:
+ [1] draw!(p::PlainPlots.PlotObj, c::PlainPlots.Canvas, t::PlainPlots.Transform2D)
+   @ PlainPlots /p/projects/coen/julia-trait-bound/TraitMakie-unified/baselines/PlainPlots/src/PlainPlots.jl:318
+ [2] render_png(f::PlainPlots.Figure, path::String)
+   @ PlainPlots /p/projects/coen/julia-trait-bound/TraitMakie-unified/baselines/PlainPlots/src/PlainPlots.jl:381
+ [3] save(path::String, fig::PlainPlots.Figure)
+   @ PlainPlots /p/projects/coen/julia-trait-bound/TraitMakie-unified/baselines/PlainPlots/src/PlainPlots.jl:467 [inlined]
+ [4] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/report.jl:17
+ [5] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-vanilla/test/trimming/juliac-buildscript.jl:35
+
+Error #17: unresolved call from statement length(
+  getfield(
+    pixels(
+      points(
+        getindex((…)::Dict{Symbol, Any}, :pos::Symbol)::Any
+      )::Any,
+      t::PlainPlots.Transform2D
+    )::Tuple{Any, Any},
+    1::Int64
+  )::Any
+)::Any
+
+Stacktrace:
+ [1] draw!(p::PlainPlots.PlotObj, c::PlainPlots.Canvas, t::PlainPlots.Transform2D)
+   @ PlainPlots /p/projects/coen/julia-trait-bound/TraitMakie-unified/baselines/PlainPlots/src/PlainPlots.jl:319
+ [2] render_png(f::PlainPlots.Figure, path::String)
+   @ PlainPlots /p/projects/coen/julia-trait-bound/TraitMakie-unified/baselines/PlainPlots/src/PlainPlots.jl:381
+ [3] save(path::String, fig::PlainPlots.Figure)
+   @ PlainPlots /p/projects/coen/julia-trait-bound/TraitMakie-unified/baselines/PlainPlots/src/PlainPlots.jl:467 [inlined]
+ [4] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/report.jl:17
+ [5] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-vanilla/test/trimming/juliac-buildscript.jl:35
+
+Error #18: unresolved call from statement colors(
+  getindex((…)::Dict{Symbol, Any}, :color::Symbol)::Any,
+  length(
+    getfield(
+      pixels(
+        points(
+          getindex((…)::Dict{Symbol, Any}, :pos::Symbol)::Any
+        )::Any,
+        t::PlainPlots.Transform2D
+      )::Tuple{Any, Any},
+      1::Int64
+    )::Any
+  )::Any
+)::Vector{NTuple{4, Float64}}
+
+Stacktrace:
+ [1] draw!(p::PlainPlots.PlotObj, c::PlainPlots.Canvas, t::PlainPlots.Transform2D)
+   @ PlainPlots /p/projects/coen/julia-trait-bound/TraitMakie-unified/baselines/PlainPlots/src/PlainPlots.jl:319
+ [2] render_png(f::PlainPlots.Figure, path::String)
+   @ PlainPlots /p/projects/coen/julia-trait-bound/TraitMakie-unified/baselines/PlainPlots/src/PlainPlots.jl:381
+ [3] save(path::String, fig::PlainPlots.Figure)
+   @ PlainPlots /p/projects/coen/julia-trait-bound/TraitMakie-unified/baselines/PlainPlots/src/PlainPlots.jl:467 [inlined]
+ [4] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/report.jl:17
+ [5] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-vanilla/test/trimming/juliac-buildscript.jl:35
+
+Error #19: unresolved call from statement drawmarkers(
+  getindex((…)::Dict{Symbol, Any}, :marker::Symbol)::Any,
+  c::PlainPlots.Canvas,
+  getfield(
+    pixels(
+      points(
+        getindex((…)::Dict{Symbol, Any}, :pos::Symbol)::Any
+      )::Any,
+      t::PlainPlots.Transform2D
+    )::Tuple{Any, Any},
+    1::Int64
+  )::Any,
+  getfield(
+    pixels(
+      points(
+        getindex((…)::Dict{Symbol, Any}, :pos::Symbol)::Any
+      )::Any,
+      t::PlainPlots.Transform2D
+    )::Tuple{Any, Any},
+    2::Int64
+  )::Any,
+  (…)::Vector{NTuple{4, Float64}},
+  (…)::Float64
+)::Any
+
+Stacktrace:
+ [1] draw!(p::PlainPlots.PlotObj, c::PlainPlots.Canvas, t::PlainPlots.Transform2D)
+   @ PlainPlots /p/projects/coen/julia-trait-bound/TraitMakie-unified/baselines/PlainPlots/src/PlainPlots.jl:319
+ [2] render_png(f::PlainPlots.Figure, path::String)
+   @ PlainPlots /p/projects/coen/julia-trait-bound/TraitMakie-unified/baselines/PlainPlots/src/PlainPlots.jl:381
+ [3] save(path::String, fig::PlainPlots.Figure)
+   @ PlainPlots /p/projects/coen/julia-trait-bound/TraitMakie-unified/baselines/PlainPlots/src/PlainPlots.jl:467 [inlined]
+ [4] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/report.jl:17
+ [5] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-vanilla/test/trimming/juliac-buildscript.jl:35
+
+Error #20: unresolved call from statement drawbars(
+  points(
+    getindex((…)::Dict{Symbol, Any}, :pos::Symbol)::Any
+  )::Any,
+  c::PlainPlots.Canvas,
+  t::PlainPlots.Transform2D,
+  getindex((…)::Dict{Symbol, Any}, :color::Symbol)::Any,
+  (…)::Float64
+)::Any
+
+Stacktrace:
+ [1] draw!(p::PlainPlots.PlotObj, c::PlainPlots.Canvas, t::PlainPlots.Transform2D)
+   @ PlainPlots /p/projects/coen/julia-trait-bound/TraitMakie-unified/baselines/PlainPlots/src/PlainPlots.jl:321
+ [2] render_png(f::PlainPlots.Figure, path::String)
+   @ PlainPlots /p/projects/coen/julia-trait-bound/TraitMakie-unified/baselines/PlainPlots/src/PlainPlots.jl:381
+ [3] save(path::String, fig::PlainPlots.Figure)
+   @ PlainPlots /p/projects/coen/julia-trait-bound/TraitMakie-unified/baselines/PlainPlots/src/PlainPlots.jl:467 [inlined]
+ [4] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/report.jl:17
+ [5] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-vanilla/test/trimming/juliac-buildscript.jl:35
+
+Error #21: unresolved call from statement pixels(
+  points(
+    getindex((…)::Dict{Symbol, Any}, :pos::Symbol)::Any
+  )::Any,
+  t::PlainPlots.Transform2D
+)::Tuple{Any, Any}
+
+Stacktrace:
+ [1] draw!(p::PlainPlots.PlotObj, c::PlainPlots.Canvas, t::PlainPlots.Transform2D)
+   @ PlainPlots /p/projects/coen/julia-trait-bound/TraitMakie-unified/baselines/PlainPlots/src/PlainPlots.jl:323
+ [2] render_png(f::PlainPlots.Figure, path::String)
+   @ PlainPlots /p/projects/coen/julia-trait-bound/TraitMakie-unified/baselines/PlainPlots/src/PlainPlots.jl:381
+ [3] save(path::String, fig::PlainPlots.Figure)
+   @ PlainPlots /p/projects/coen/julia-trait-bound/TraitMakie-unified/baselines/PlainPlots/src/PlainPlots.jl:467 [inlined]
+ [4] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/report.jl:17
+ [5] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-vanilla/test/trimming/juliac-buildscript.jl:35
+
+Error #22: unresolved call from statement rgba(
+  getindex((…)::Dict{Symbol, Any}, :color::Symbol)::Any,
+  1::Int64
+)::Any
+
+Stacktrace:
+ [1] draw!(p::PlainPlots.PlotObj, c::PlainPlots.Canvas, t::PlainPlots.Transform2D)
+   @ PlainPlots /p/projects/coen/julia-trait-bound/TraitMakie-unified/baselines/PlainPlots/src/PlainPlots.jl:324
+ [2] render_png(f::PlainPlots.Figure, path::String)
+   @ PlainPlots /p/projects/coen/julia-trait-bound/TraitMakie-unified/baselines/PlainPlots/src/PlainPlots.jl:381
+ [3] save(path::String, fig::PlainPlots.Figure)
+   @ PlainPlots /p/projects/coen/julia-trait-bound/TraitMakie-unified/baselines/PlainPlots/src/PlainPlots.jl:467 [inlined]
+ [4] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/report.jl:17
+ [5] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-vanilla/test/trimming/juliac-buildscript.jl:35
+
+Error #23: unresolved call from statement drawlabels(
+  points(
+    getindex((…)::Dict{Symbol, Any}, :pos::Symbol)::Any
+  )::Any,
+  c::PlainPlots.Canvas,
+  t::PlainPlots.Transform2D,
+  (…)::Vector{String},
+  getindex((…)::Dict{Symbol, Any}, :color::Symbol)::Any,
+  (…)::Float64,
+  (…)::Symbol
+)::Any
+
+Stacktrace:
+ [1] draw!(p::PlainPlots.PlotObj, c::PlainPlots.Canvas, t::PlainPlots.Transform2D)
+   @ PlainPlots /p/projects/coen/julia-trait-bound/TraitMakie-unified/baselines/PlainPlots/src/PlainPlots.jl:326
+ [2] render_png(f::PlainPlots.Figure, path::String)
+   @ PlainPlots /p/projects/coen/julia-trait-bound/TraitMakie-unified/baselines/PlainPlots/src/PlainPlots.jl:381
+ [3] save(path::String, fig::PlainPlots.Figure)
+   @ PlainPlots /p/projects/coen/julia-trait-bound/TraitMakie-unified/baselines/PlainPlots/src/PlainPlots.jl:467 [inlined]
+ [4] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/report.jl:17
+ [5] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-vanilla/test/trimming/juliac-buildscript.jl:35
+
+Error #24: unresolved call from statement drawvlines(
+  points(
+    getindex((…)::Dict{Symbol, Any}, :pos::Symbol)::Any
+  )::Any,
+  c::PlainPlots.Canvas,
+  t::PlainPlots.Transform2D,
+  getindex((…)::Dict{Symbol, Any}, :color::Symbol)::Any,
+  (…)::Float64
+)::Any
+
+Stacktrace:
+ [1] draw!(p::PlainPlots.PlotObj, c::PlainPlots.Canvas, t::PlainPlots.Transform2D)
+   @ PlainPlots /p/projects/coen/julia-trait-bound/TraitMakie-unified/baselines/PlainPlots/src/PlainPlots.jl:328
+ [2] render_png(f::PlainPlots.Figure, path::String)
+   @ PlainPlots /p/projects/coen/julia-trait-bound/TraitMakie-unified/baselines/PlainPlots/src/PlainPlots.jl:381
+ [3] save(path::String, fig::PlainPlots.Figure)
+   @ PlainPlots /p/projects/coen/julia-trait-bound/TraitMakie-unified/baselines/PlainPlots/src/PlainPlots.jl:467 [inlined]
+ [4] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/report.jl:17
+ [5] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-vanilla/test/trimming/juliac-buildscript.jl:35
+
+Error #25: unresolved call from statement points(
+  getindex(a::Dict{Symbol, Any}, :pos::Symbol)::Any
+)::Any
+
+Stacktrace:
+ [1] _stairpoints(a::Dict{Symbol, Any})
+   @ PlainPlots /p/projects/coen/julia-trait-bound/TraitMakie-unified/baselines/PlainPlots/src/PlainPlots.jl:270
+ [2] draw!(p::PlainPlots.PlotObj, c::PlainPlots.Canvas, t::PlainPlots.Transform2D)
+   @ PlainPlots /p/projects/coen/julia-trait-bound/TraitMakie-unified/baselines/PlainPlots/src/PlainPlots.jl:305
+ [3] render_png(f::PlainPlots.Figure, path::String)
+   @ PlainPlots /p/projects/coen/julia-trait-bound/TraitMakie-unified/baselines/PlainPlots/src/PlainPlots.jl:381
+ [4] save(path::String, fig::PlainPlots.Figure)
+   @ PlainPlots /p/projects/coen/julia-trait-bound/TraitMakie-unified/baselines/PlainPlots/src/PlainPlots.jl:467 [inlined]
+ [5] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/report.jl:17
+ [6] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-vanilla/test/trimming/juliac-buildscript.jl:35
+
+Error #26: unresolved call from statement steppoints(
+  points(
+    getindex(a::Dict{Symbol, Any}, :pos::Symbol)::Any
+  )::Any,
+  getindex(a::Dict{Symbol, Any}, :step::Symbol)::Any
+)::Matrix{Float64}
+
+Stacktrace:
+ [1] _stairpoints(a::Dict{Symbol, Any})
+   @ PlainPlots /p/projects/coen/julia-trait-bound/TraitMakie-unified/baselines/PlainPlots/src/PlainPlots.jl:270
+ [2] draw!(p::PlainPlots.PlotObj, c::PlainPlots.Canvas, t::PlainPlots.Transform2D)
+   @ PlainPlots /p/projects/coen/julia-trait-bound/TraitMakie-unified/baselines/PlainPlots/src/PlainPlots.jl:305
+ [3] render_png(f::PlainPlots.Figure, path::String)
+   @ PlainPlots /p/projects/coen/julia-trait-bound/TraitMakie-unified/baselines/PlainPlots/src/PlainPlots.jl:381
+ [4] save(path::String, fig::PlainPlots.Figure)
+   @ PlainPlots /p/projects/coen/julia-trait-bound/TraitMakie-unified/baselines/PlainPlots/src/PlainPlots.jl:467 [inlined]
+ [5] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/report.jl:17
+ [6] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-vanilla/test/trimming/juliac-buildscript.jl:35
+
+Error #27: unresolved call from statement string(
+  "stairs: step is :pre, :post or :center, not :"::String,
+  getindex(a::Dict{Symbol, Any}, :step::Symbol)::Any
+)::String
+
+Stacktrace:
+ [1] _stairpoints(a::Dict{Symbol, Any})
+   @ PlainPlots /p/projects/coen/julia-trait-bound/TraitMakie-unified/baselines/PlainPlots/src/PlainPlots.jl:269
+ [2] draw!(p::PlainPlots.PlotObj, c::PlainPlots.Canvas, t::PlainPlots.Transform2D)
+   @ PlainPlots /p/projects/coen/julia-trait-bound/TraitMakie-unified/baselines/PlainPlots/src/PlainPlots.jl:305
+ [3] render_png(f::PlainPlots.Figure, path::String)
+   @ PlainPlots /p/projects/coen/julia-trait-bound/TraitMakie-unified/baselines/PlainPlots/src/PlainPlots.jl:381
+ [4] save(path::String, fig::PlainPlots.Figure)
+   @ PlainPlots /p/projects/coen/julia-trait-bound/TraitMakie-unified/baselines/PlainPlots/src/PlainPlots.jl:467 [inlined]
+ [5] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/report.jl:17
+ [6] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-vanilla/test/trimming/juliac-buildscript.jl:35
+
+Error #28: unresolved call from statement >=(
+  getindex(a::Dict{Symbol, Any}, :bins::Symbol)::Any,
+  1::Int64
+)::Any
+
+Stacktrace:
+ [1] _histbars(a::Dict{Symbol, Any})
+   @ PlainPlots /p/projects/coen/julia-trait-bound/TraitMakie-unified/baselines/PlainPlots/src/PlainPlots.jl:265
+ [2] draw!(p::PlainPlots.PlotObj, c::PlainPlots.Canvas, t::PlainPlots.Transform2D)
+   @ PlainPlots /p/projects/coen/julia-trait-bound/TraitMakie-unified/baselines/PlainPlots/src/PlainPlots.jl:301
+ [3] render_png(f::PlainPlots.Figure, path::String)
+   @ PlainPlots /p/projects/coen/julia-trait-bound/TraitMakie-unified/baselines/PlainPlots/src/PlainPlots.jl:381
+ [4] save(path::String, fig::PlainPlots.Figure)
+   @ PlainPlots /p/projects/coen/julia-trait-bound/TraitMakie-unified/baselines/PlainPlots/src/PlainPlots.jl:467 [inlined]
+ [5] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/report.jl:17
+ [6] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-vanilla/test/trimming/juliac-buildscript.jl:35
+
+Error #29: unresolved call from statement samples(
+  getindex(a::Dict{Symbol, Any}, :values::Symbol)::Any
+)::Any
+
+Stacktrace:
+ [1] _histbars(a::Dict{Symbol, Any})
+   @ PlainPlots /p/projects/coen/julia-trait-bound/TraitMakie-unified/baselines/PlainPlots/src/PlainPlots.jl:266
+ [2] draw!(p::PlainPlots.PlotObj, c::PlainPlots.Canvas, t::PlainPlots.Transform2D)
+   @ PlainPlots /p/projects/coen/julia-trait-bound/TraitMakie-unified/baselines/PlainPlots/src/PlainPlots.jl:301
+ [3] render_png(f::PlainPlots.Figure, path::String)
+   @ PlainPlots /p/projects/coen/julia-trait-bound/TraitMakie-unified/baselines/PlainPlots/src/PlainPlots.jl:381
+ [4] save(path::String, fig::PlainPlots.Figure)
+   @ PlainPlots /p/projects/coen/julia-trait-bound/TraitMakie-unified/baselines/PlainPlots/src/PlainPlots.jl:467 [inlined]
+ [5] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/report.jl:17
+ [6] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-vanilla/test/trimming/juliac-buildscript.jl:35
+
+Error #30: unresolved call from statement binned(
+  samples(
+    getindex(a::Dict{Symbol, Any}, :values::Symbol)::Any
+  )::Any,
+  (…)::Int64
+)::Tuple{Matrix{Float64}, Any}
+
+Stacktrace:
+ [1] _histbars(a::Dict{Symbol, Any})
+   @ PlainPlots /p/projects/coen/julia-trait-bound/TraitMakie-unified/baselines/PlainPlots/src/PlainPlots.jl:266
+ [2] draw!(p::PlainPlots.PlotObj, c::PlainPlots.Canvas, t::PlainPlots.Transform2D)
+   @ PlainPlots /p/projects/coen/julia-trait-bound/TraitMakie-unified/baselines/PlainPlots/src/PlainPlots.jl:301
+ [3] render_png(f::PlainPlots.Figure, path::String)
+   @ PlainPlots /p/projects/coen/julia-trait-bound/TraitMakie-unified/baselines/PlainPlots/src/PlainPlots.jl:381
+ [4] save(path::String, fig::PlainPlots.Figure)
+   @ PlainPlots /p/projects/coen/julia-trait-bound/TraitMakie-unified/baselines/PlainPlots/src/PlainPlots.jl:467 [inlined]
+ [5] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/report.jl:17
+ [6] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-vanilla/test/trimming/juliac-buildscript.jl:35
+
+Error #31: unresolved call from statement string(
+  "hist: bins must be at least 1, not "::String,
+  getindex(a::Dict{Symbol, Any}, :bins::Symbol)::Any
+)::String
+
+Stacktrace:
+ [1] _histbars(a::Dict{Symbol, Any})
+   @ PlainPlots /p/projects/coen/julia-trait-bound/TraitMakie-unified/baselines/PlainPlots/src/PlainPlots.jl:265
+ [2] draw!(p::PlainPlots.PlotObj, c::PlainPlots.Canvas, t::PlainPlots.Transform2D)
+   @ PlainPlots /p/projects/coen/julia-trait-bound/TraitMakie-unified/baselines/PlainPlots/src/PlainPlots.jl:301
+ [3] render_png(f::PlainPlots.Figure, path::String)
+   @ PlainPlots /p/projects/coen/julia-trait-bound/TraitMakie-unified/baselines/PlainPlots/src/PlainPlots.jl:381
+ [4] save(path::String, fig::PlainPlots.Figure)
+   @ PlainPlots /p/projects/coen/julia-trait-bound/TraitMakie-unified/baselines/PlainPlots/src/PlainPlots.jl:467 [inlined]
+ [5] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/report.jl:17
+ [6] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-vanilla/test/trimming/juliac-buildscript.jl:35
+
+Error #32: unresolved call from statement /(
+  getfield(
+    _histbars((…)::Dict{Symbol, Any})::Tuple{Matrix{Float64}, Any},
+    2::Int64
+  )::Any,
+  2::Int64
+)::Any
+
+Stacktrace:
+ [1] datalimits(p::PlainPlots.PlotObj)
+   @ PlainPlots /p/projects/coen/julia-trait-bound/TraitMakie-unified/baselines/PlainPlots/src/PlainPlots.jl:279
+ [2] render_png(f::PlainPlots.Figure, path::String)
+   @ PlainPlots /p/projects/coen/julia-trait-bound/TraitMakie-unified/baselines/PlainPlots/src/PlainPlots.jl:353
+ [3] save(path::String, fig::PlainPlots.Figure)
+   @ PlainPlots /p/projects/coen/julia-trait-bound/TraitMakie-unified/baselines/PlainPlots/src/PlainPlots.jl:467 [inlined]
+ [4] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/report.jl:17
+ [5] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-vanilla/test/trimming/juliac-buildscript.jl:35
+
+Error #33: unresolved call from statement -(
+  :(φ (%174 => %161, %26 => PlainPlots.Inf))::Float64,
+  /(
+    getfield(
+      _histbars((…)::Dict{Symbol, Any})::Tuple{Matrix{Float64}, Any},
+      2::Int64
+    )::Any,
+    2::Int64
+  )::Any
+)::Any
+
+Stacktrace:
+ [1] datalimits(p::PlainPlots.PlotObj)
+   @ PlainPlots /p/projects/coen/julia-trait-bound/TraitMakie-unified/baselines/PlainPlots/src/PlainPlots.jl:279
+ [2] render_png(f::PlainPlots.Figure, path::String)
+   @ PlainPlots /p/projects/coen/julia-trait-bound/TraitMakie-unified/baselines/PlainPlots/src/PlainPlots.jl:353
+ [3] save(path::String, fig::PlainPlots.Figure)
+   @ PlainPlots /p/projects/coen/julia-trait-bound/TraitMakie-unified/baselines/PlainPlots/src/PlainPlots.jl:467 [inlined]
+ [4] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/report.jl:17
+ [5] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-vanilla/test/trimming/juliac-buildscript.jl:35
+
+Error #34: unresolved call from statement /(
+  getfield(
+    _histbars((…)::Dict{Symbol, Any})::Tuple{Matrix{Float64}, Any},
+    2::Int64
+  )::Any,
+  2::Int64
+)::Any
+
+Stacktrace:
+ [1] datalimits(p::PlainPlots.PlotObj)
+   @ PlainPlots /p/projects/coen/julia-trait-bound/TraitMakie-unified/baselines/PlainPlots/src/PlainPlots.jl:279
+ [2] render_png(f::PlainPlots.Figure, path::String)
+   @ PlainPlots /p/projects/coen/julia-trait-bound/TraitMakie-unified/baselines/PlainPlots/src/PlainPlots.jl:353
+ [3] save(path::String, fig::PlainPlots.Figure)
+   @ PlainPlots /p/projects/coen/julia-trait-bound/TraitMakie-unified/baselines/PlainPlots/src/PlainPlots.jl:467 [inlined]
+ [4] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/report.jl:17
+ [5] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-vanilla/test/trimming/juliac-buildscript.jl:35
+
+Error #35: unresolved call from statement +(
+  :(φ (%174 => %162, %26 => -Inf))::Float64,
+  /(
+    getfield(
+      _histbars((…)::Dict{Symbol, Any})::Tuple{Matrix{Float64}, Any},
+      2::Int64
+    )::Any,
+    2::Int64
+  )::Any
+)::Any
+
+Stacktrace:
+ [1] datalimits(p::PlainPlots.PlotObj)
+   @ PlainPlots /p/projects/coen/julia-trait-bound/TraitMakie-unified/baselines/PlainPlots/src/PlainPlots.jl:279
+ [2] render_png(f::PlainPlots.Figure, path::String)
+   @ PlainPlots /p/projects/coen/julia-trait-bound/TraitMakie-unified/baselines/PlainPlots/src/PlainPlots.jl:353
+ [3] save(path::String, fig::PlainPlots.Figure)
+   @ PlainPlots /p/projects/coen/julia-trait-bound/TraitMakie-unified/baselines/PlainPlots/src/PlainPlots.jl:467 [inlined]
+ [4] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/report.jl:17
+ [5] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-vanilla/test/trimming/juliac-buildscript.jl:35
+
+Error #36: unresolved call from statement points(
+  getindex((…)::Dict{Symbol, Any}, :lower::Symbol)::Any
+)::Any
+
+Stacktrace:
+ [1] datalimits(p::PlainPlots.PlotObj)
+   @ PlainPlots /p/projects/coen/julia-trait-bound/TraitMakie-unified/baselines/PlainPlots/src/PlainPlots.jl:283
+ [2] render_png(f::PlainPlots.Figure, path::String)
+   @ PlainPlots /p/projects/coen/julia-trait-bound/TraitMakie-unified/baselines/PlainPlots/src/PlainPlots.jl:353
+ [3] save(path::String, fig::PlainPlots.Figure)
+   @ PlainPlots /p/projects/coen/julia-trait-bound/TraitMakie-unified/baselines/PlainPlots/src/PlainPlots.jl:467 [inlined]
+ [4] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/report.jl:17
+ [5] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-vanilla/test/trimming/juliac-buildscript.jl:35
+
+Error #37: unresolved call from statement points(
+  getindex((…)::Dict{Symbol, Any}, :upper::Symbol)::Any
+)::Any
+
+Stacktrace:
+ [1] datalimits(p::PlainPlots.PlotObj)
+   @ PlainPlots /p/projects/coen/julia-trait-bound/TraitMakie-unified/baselines/PlainPlots/src/PlainPlots.jl:283
+ [2] render_png(f::PlainPlots.Figure, path::String)
+   @ PlainPlots /p/projects/coen/julia-trait-bound/TraitMakie-unified/baselines/PlainPlots/src/PlainPlots.jl:353
+ [3] save(path::String, fig::PlainPlots.Figure)
+   @ PlainPlots /p/projects/coen/julia-trait-bound/TraitMakie-unified/baselines/PlainPlots/src/PlainPlots.jl:467 [inlined]
+ [4] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/report.jl:17
+ [5] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-vanilla/test/trimming/juliac-buildscript.jl:35
+
+Error #38: unresolved call from statement bandoutline(
+  points(
+    getindex((…)::Dict{Symbol, Any}, :lower::Symbol)::Any
+  )::Any,
+  points(
+    getindex((…)::Dict{Symbol, Any}, :upper::Symbol)::Any
+  )::Any
+)::Matrix{Float64}
+
+Stacktrace:
+ [1] datalimits(p::PlainPlots.PlotObj)
+   @ PlainPlots /p/projects/coen/julia-trait-bound/TraitMakie-unified/baselines/PlainPlots/src/PlainPlots.jl:283
+ [2] render_png(f::PlainPlots.Figure, path::String)
+   @ PlainPlots /p/projects/coen/julia-trait-bound/TraitMakie-unified/baselines/PlainPlots/src/PlainPlots.jl:353
+ [3] save(path::String, fig::PlainPlots.Figure)
+   @ PlainPlots /p/projects/coen/julia-trait-bound/TraitMakie-unified/baselines/PlainPlots/src/PlainPlots.jl:467 [inlined]
+ [4] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/report.jl:17
+ [5] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-vanilla/test/trimming/juliac-buildscript.jl:35
+
+Error #39: unresolved call from statement points(
+  getindex((…)::Dict{Symbol, Any}, :pos::Symbol)::Any
+)::Any
+
+Stacktrace:
+ [1] datalimits(p::PlainPlots.PlotObj)
+   @ PlainPlots /p/projects/coen/julia-trait-bound/TraitMakie-unified/baselines/PlainPlots/src/PlainPlots.jl:285
+ [2] render_png(f::PlainPlots.Figure, path::String)
+   @ PlainPlots /p/projects/coen/julia-trait-bound/TraitMakie-unified/baselines/PlainPlots/src/PlainPlots.jl:353
+ [3] save(path::String, fig::PlainPlots.Figure)
+   @ PlainPlots /p/projects/coen/julia-trait-bound/TraitMakie-unified/baselines/PlainPlots/src/PlainPlots.jl:467 [inlined]
+ [4] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/report.jl:17
+ [5] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-vanilla/test/trimming/juliac-buildscript.jl:35
+
+Error #40: unresolved call from statement limits(
+  points(
+    getindex((…)::Dict{Symbol, Any}, :pos::Symbol)::Any
+  )::Any
+)::NTuple{4, Any}
+
+Stacktrace:
+ [1] datalimits(p::PlainPlots.PlotObj)
+   @ PlainPlots /p/projects/coen/julia-trait-bound/TraitMakie-unified/baselines/PlainPlots/src/PlainPlots.jl:288
+ [2] render_png(f::PlainPlots.Figure, path::String)
+   @ PlainPlots /p/projects/coen/julia-trait-bound/TraitMakie-unified/baselines/PlainPlots/src/PlainPlots.jl:353
+ [3] save(path::String, fig::PlainPlots.Figure)
+   @ PlainPlots /p/projects/coen/julia-trait-bound/TraitMakie-unified/baselines/PlainPlots/src/PlainPlots.jl:467 [inlined]
+ [4] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/report.jl:17
+ [5] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-vanilla/test/trimming/juliac-buildscript.jl:35
+
+Error #41: unresolved call from statement -(
+  getfield(
+    limits(
+      points(
+        getindex((…)::Dict{Symbol, Any}, :pos::Symbol)::Any
+      )::Any
+    )::NTuple{4, Any},
+    1::Int64
+  )::Any,
+  (…)::Float64
+)::Any
+
+Stacktrace:
+ [1] datalimits(p::PlainPlots.PlotObj)
+   @ PlainPlots /p/projects/coen/julia-trait-bound/TraitMakie-unified/baselines/PlainPlots/src/PlainPlots.jl:289
+ [2] render_png(f::PlainPlots.Figure, path::String)
+   @ PlainPlots /p/projects/coen/julia-trait-bound/TraitMakie-unified/baselines/PlainPlots/src/PlainPlots.jl:353
+ [3] save(path::String, fig::PlainPlots.Figure)
+   @ PlainPlots /p/projects/coen/julia-trait-bound/TraitMakie-unified/baselines/PlainPlots/src/PlainPlots.jl:467 [inlined]
+ [4] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/report.jl:17
+ [5] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-vanilla/test/trimming/juliac-buildscript.jl:35
+
+Error #42: unresolved call from statement +(
+  getfield(
+    limits(
+      points(
+        getindex((…)::Dict{Symbol, Any}, :pos::Symbol)::Any
+      )::Any
+    )::NTuple{4, Any},
+    2::Int64
+  )::Any,
+  (…)::Float64
+)::Any
+
+Stacktrace:
+ [1] datalimits(p::PlainPlots.PlotObj)
+   @ PlainPlots /p/projects/coen/julia-trait-bound/TraitMakie-unified/baselines/PlainPlots/src/PlainPlots.jl:289
+ [2] render_png(f::PlainPlots.Figure, path::String)
+   @ PlainPlots /p/projects/coen/julia-trait-bound/TraitMakie-unified/baselines/PlainPlots/src/PlainPlots.jl:353
+ [3] save(path::String, fig::PlainPlots.Figure)
+   @ PlainPlots /p/projects/coen/julia-trait-bound/TraitMakie-unified/baselines/PlainPlots/src/PlainPlots.jl:467 [inlined]
+ [4] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/report.jl:17
+ [5] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-vanilla/test/trimming/juliac-buildscript.jl:35
+
+Error #43: unresolved call from statement min(
+  getfield(
+    limits(
+      points(
+        getindex((…)::Dict{Symbol, Any}, :pos::Symbol)::Any
+      )::Any
+    )::NTuple{4, Any},
+    3::Int64
+  )::Any,
+  0.0::Float64
+)::Any
+
+Stacktrace:
+ [1] datalimits(p::PlainPlots.PlotObj)
+   @ PlainPlots /p/projects/coen/julia-trait-bound/TraitMakie-unified/baselines/PlainPlots/src/PlainPlots.jl:289
+ [2] render_png(f::PlainPlots.Figure, path::String)
+   @ PlainPlots /p/projects/coen/julia-trait-bound/TraitMakie-unified/baselines/PlainPlots/src/PlainPlots.jl:353
+ [3] save(path::String, fig::PlainPlots.Figure)
+   @ PlainPlots /p/projects/coen/julia-trait-bound/TraitMakie-unified/baselines/PlainPlots/src/PlainPlots.jl:467 [inlined]
+ [4] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/report.jl:17
+ [5] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-vanilla/test/trimming/juliac-buildscript.jl:35
+
+Error #44: unresolved call from statement max(
+  getfield(
+    limits(
+      points(
+        getindex((…)::Dict{Symbol, Any}, :pos::Symbol)::Any
+      )::Any
+    )::NTuple{4, Any},
+    4::Int64
+  )::Any,
+  0.0::Float64
+)::Any
+
+Stacktrace:
+ [1] datalimits(p::PlainPlots.PlotObj)
+   @ PlainPlots /p/projects/coen/julia-trait-bound/TraitMakie-unified/baselines/PlainPlots/src/PlainPlots.jl:289
+ [2] render_png(f::PlainPlots.Figure, path::String)
+   @ PlainPlots /p/projects/coen/julia-trait-bound/TraitMakie-unified/baselines/PlainPlots/src/PlainPlots.jl:353
+ [3] save(path::String, fig::PlainPlots.Figure)
+   @ PlainPlots /p/projects/coen/julia-trait-bound/TraitMakie-unified/baselines/PlainPlots/src/PlainPlots.jl:467 [inlined]
+ [4] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/report.jl:17
+ [5] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-vanilla/test/trimming/juliac-buildscript.jl:35
+
+Error #45: unresolved call from statement limits(
+  points(
+    getindex((…)::Dict{Symbol, Any}, :pos::Symbol)::Any
+  )::Any
+)::NTuple{4, Any}
+
+Stacktrace:
+ [1] datalimits(p::PlainPlots.PlotObj)
+   @ PlainPlots /p/projects/coen/julia-trait-bound/TraitMakie-unified/baselines/PlainPlots/src/PlainPlots.jl:291
+ [2] render_png(f::PlainPlots.Figure, path::String)
+   @ PlainPlots /p/projects/coen/julia-trait-bound/TraitMakie-unified/baselines/PlainPlots/src/PlainPlots.jl:353
+ [3] save(path::String, fig::PlainPlots.Figure)
+   @ PlainPlots /p/projects/coen/julia-trait-bound/TraitMakie-unified/baselines/PlainPlots/src/PlainPlots.jl:467 [inlined]
+ [4] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/report.jl:17
+ [5] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-vanilla/test/trimming/juliac-buildscript.jl:35
+
+Error #46: unresolved call from statement limits(
+  points(
+    getindex((…)::Dict{Symbol, Any}, :pos::Symbol)::Any
+  )::Any
+)::NTuple{4, Any}
+
+Stacktrace:
+ [1] datalimits(p::PlainPlots.PlotObj)
+   @ PlainPlots /p/projects/coen/julia-trait-bound/TraitMakie-unified/baselines/PlainPlots/src/PlainPlots.jl:294
+ [2] render_png(f::PlainPlots.Figure, path::String)
+   @ PlainPlots /p/projects/coen/julia-trait-bound/TraitMakie-unified/baselines/PlainPlots/src/PlainPlots.jl:353
+ [3] save(path::String, fig::PlainPlots.Figure)
+   @ PlainPlots /p/projects/coen/julia-trait-bound/TraitMakie-unified/baselines/PlainPlots/src/PlainPlots.jl:467 [inlined]
+ [4] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/report.jl:17
+ [5] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-vanilla/test/trimming/juliac-buildscript.jl:35
+
+Error #47: unresolved call from statement kwcall(
+  (…)::@NamedTuple{skipmissing::Bool},
+  floats::typeof(floats),
+  memoryrefget((…)::MemoryRef{AbstractVector}, :not_atomic::Symbol, false::Bool)::AbstractVector
+)::Vector{Float64}
+
+Stacktrace:
+ [1] floats(t::Table, name::String; kw::@Kwargs{skipmissing::Bool})
+   @ PlainTables /p/projects/coen/julia-trait-bound/TraitReport-unified/PlainTables/src/PlainTables.jl:55
+ [2] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/report.jl:14
+ [3] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-vanilla/test/trimming/juliac-buildscript.jl:35
+
+Error #48: unresolved call from statement summarize(
+  memoryrefget((…)::MemoryRef{AbstractVector}, :not_atomic::Symbol, false::Bool)::AbstractVector,
+  (…)::String
+)::ColSummary
+
+Stacktrace:
+ [1] describe(t::Table)
+   @ PlainTables /p/projects/coen/julia-trait-bound/TraitReport-unified/PlainTables/src/PlainTables.jl:100
+ [2] numericnames(t::Table)
+   @ PlainTables /p/projects/coen/julia-trait-bound/TraitReport-unified/PlainTables/src/PlainTables.jl:56 [inlined]
+ [3] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/report.jl:13
+ [4] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-vanilla/test/trimming/juliac-buildscript.jl:35
+
+Error #49: unresolved invoke from statement repeat(p::Char, (…)::Int64)::String
+
+Stacktrace:
+ [1] repeat(c::Char, r::Int64)
+   @ Base strings/string.jl:586 [inlined]
+ [2] ^(s::Char, r::Int64)
+   @ Base strings/basic.jl:771 [inlined]
+ [3] rpad(s::String, n::Int64, p::Char)
+   @ Base strings/util.jl:567
+ [4] rpad(s::String, n::Int64)
+   @ Base strings/util.jl:555 [inlined]
+ [5] summary_text(t::Table)
+   @ PlainTables /p/projects/coen/julia-trait-bound/TraitReport-unified/PlainTables/src/PlainTables.jl:106
+ [6] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/report.jl:12
+ [7] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-vanilla/test/trimming/juliac-buildscript.jl:35
+
+Error #50: unresolved invoke from statement repeat(p::Char, (…)::Int64)::String
+
+Stacktrace:
+ [1] repeat(c::Char, r::Int64)
+   @ Base strings/string.jl:586 [inlined]
+ [2] ^(s::Char, r::Int64)
+   @ Base strings/basic.jl:771 [inlined]
+ [3] rpad(s::String, n::Int64, p::Char)
+   @ Base strings/util.jl:567
+ [4] rpad(s::String, n::Int64)
+   @ Base strings/util.jl:555 [inlined]
+ [5] summary_text(t::Table)
+   @ PlainTables /p/projects/coen/julia-trait-bound/TraitReport-unified/PlainTables/src/PlainTables.jl:106
+ [6] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/report.jl:12
+ [7] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-vanilla/test/trimming/juliac-buildscript.jl:35
+
+Error #51: unresolved call from statement print(
+  io::IOBuffer,
+  getfield(
+    xs::Tuple{String, String, Float64, String, Float64, String, Float64, String, Float64, Vararg{Any}},
+    :(φ (%19 => %16, %35 => %30))::Int64,
+    :($(Expr(:boundscheck, true)))::Bool
+  )::Any
+)::Any
+
+Stacktrace:
+ [1] print(::IOBuffer, ::String, ::String, ::Float64, ::String, ::Float64, ::String, ::Float64, ::String, ::Float64, ::Vararg{Any})
+   @ Base strings/io.jl:48
+ [2] summary_text(t::Table)
+   @ PlainTables /p/projects/coen/julia-trait-bound/TraitReport-unified/PlainTables/src/PlainTables.jl:106
+ [3] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/report.jl:12
+ [4] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-vanilla/test/trimming/juliac-buildscript.jl:35
+
+Error #52: unresolved call from statement fillcolumn(
+  :(φ (%78 => %73, %137 => %131))::Type,
+  text::String,
+  (…)::Vector{UnitRange{Int64}}
+)::Union{Nothing, Vector}
+
+Stacktrace:
+ [1] parsecsv(text::String; delim::Char, types::Vector{Type})
+   @ PlainTables /p/projects/coen/julia-trait-bound/TraitReport-unified/PlainTables/src/PlainTables.jl:199
+ [2] parsecsv(text::String)
+   @ PlainTables /p/projects/coen/julia-trait-bound/TraitReport-unified/PlainTables/src/PlainTables.jl:192 [inlined]
+ [3] readcsv(path::String; kw::@Kwargs{})
+   @ PlainTables /p/projects/coen/julia-trait-bound/TraitReport-unified/PlainTables/src/PlainTables.jl:208 [inlined]
+ [4] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/report.jl:11
+ [5] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-vanilla/test/trimming/juliac-buildscript.jl:35
+
+Error #53: unresolved call from statement drawbars(
+  (…)::Matrix{Float64},
+  c::PlainPlots.Canvas,
+  t::PlainPlots.Transform2D,
+  getindex((…)::Dict{Symbol, Any}, :color::Symbol)::Any,
+  getfield(
+    _histbars((…)::Dict{Symbol, Any})::Tuple{Matrix{Float64}, Any},
+    2::Int64
+  )::Any
+)::Any
+
+Stacktrace:
+ [1] draw!(p::PlainPlots.PlotObj, c::PlainPlots.Canvas, t::PlainPlots.Transform2D)
+   @ PlainPlots /p/projects/coen/julia-trait-bound/TraitMakie-unified/baselines/PlainPlots/src/PlainPlots.jl:302
+ [2] render_png(f::PlainPlots.Figure, path::String)
+   @ PlainPlots /p/projects/coen/julia-trait-bound/TraitMakie-unified/baselines/PlainPlots/src/PlainPlots.jl:381
+ [3] save(path::String, fig::PlainPlots.Figure)
+   @ PlainPlots /p/projects/coen/julia-trait-bound/TraitMakie-unified/baselines/PlainPlots/src/PlainPlots.jl:467 [inlined]
+ [4] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/report.jl:17
+ [5] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-vanilla/test/trimming/juliac-buildscript.jl:35
+
+Error #54: unresolved call from statement rgba(
+  getindex((…)::Dict{Symbol, Any}, :color::Symbol)::Any,
+  1::Int64
+)::Any
+
+Stacktrace:
+ [1] draw!(p::PlainPlots.PlotObj, c::PlainPlots.Canvas, t::PlainPlots.Transform2D)
+   @ PlainPlots /p/projects/coen/julia-trait-bound/TraitMakie-unified/baselines/PlainPlots/src/PlainPlots.jl:306
+ [2] render_png(f::PlainPlots.Figure, path::String)
+   @ PlainPlots /p/projects/coen/julia-trait-bound/TraitMakie-unified/baselines/PlainPlots/src/PlainPlots.jl:381
+ [3] save(path::String, fig::PlainPlots.Figure)
+   @ PlainPlots /p/projects/coen/julia-trait-bound/TraitMakie-unified/baselines/PlainPlots/src/PlainPlots.jl:467 [inlined]
+ [4] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/report.jl:17
+ [5] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-vanilla/test/trimming/juliac-buildscript.jl:35
+
+Error #55: unresolved call from statement points(
+  getindex((…)::Dict{Symbol, Any}, :lower::Symbol)::Any
+)::Any
+
+Stacktrace:
+ [1] draw!(p::PlainPlots.PlotObj, c::PlainPlots.Canvas, t::PlainPlots.Transform2D)
+   @ PlainPlots /p/projects/coen/julia-trait-bound/TraitMakie-unified/baselines/PlainPlots/src/PlainPlots.jl:309
+ [2] render_png(f::PlainPlots.Figure, path::String)
+   @ PlainPlots /p/projects/coen/julia-trait-bound/TraitMakie-unified/baselines/PlainPlots/src/PlainPlots.jl:381
+ [3] save(path::String, fig::PlainPlots.Figure)
+   @ PlainPlots /p/projects/coen/julia-trait-bound/TraitMakie-unified/baselines/PlainPlots/src/PlainPlots.jl:467 [inlined]
+ [4] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/report.jl:17
+ [5] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-vanilla/test/trimming/juliac-buildscript.jl:35
+
+Error #56: unresolved call from statement points(
+  getindex((…)::Dict{Symbol, Any}, :upper::Symbol)::Any
+)::Any
+
+Stacktrace:
+ [1] draw!(p::PlainPlots.PlotObj, c::PlainPlots.Canvas, t::PlainPlots.Transform2D)
+   @ PlainPlots /p/projects/coen/julia-trait-bound/TraitMakie-unified/baselines/PlainPlots/src/PlainPlots.jl:309
+ [2] render_png(f::PlainPlots.Figure, path::String)
+   @ PlainPlots /p/projects/coen/julia-trait-bound/TraitMakie-unified/baselines/PlainPlots/src/PlainPlots.jl:381
+ [3] save(path::String, fig::PlainPlots.Figure)
+   @ PlainPlots /p/projects/coen/julia-trait-bound/TraitMakie-unified/baselines/PlainPlots/src/PlainPlots.jl:467 [inlined]
+ [4] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/report.jl:17
+ [5] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-vanilla/test/trimming/juliac-buildscript.jl:35
+
+Error #57: unresolved call from statement bandoutline(
+  points(
+    getindex((…)::Dict{Symbol, Any}, :lower::Symbol)::Any
+  )::Any,
+  points(
+    getindex((…)::Dict{Symbol, Any}, :upper::Symbol)::Any
+  )::Any
+)::Matrix{Float64}
+
+Stacktrace:
+ [1] draw!(p::PlainPlots.PlotObj, c::PlainPlots.Canvas, t::PlainPlots.Transform2D)
+   @ PlainPlots /p/projects/coen/julia-trait-bound/TraitMakie-unified/baselines/PlainPlots/src/PlainPlots.jl:309
+ [2] render_png(f::PlainPlots.Figure, path::String)
+   @ PlainPlots /p/projects/coen/julia-trait-bound/TraitMakie-unified/baselines/PlainPlots/src/PlainPlots.jl:381
+ [3] save(path::String, fig::PlainPlots.Figure)
+   @ PlainPlots /p/projects/coen/julia-trait-bound/TraitMakie-unified/baselines/PlainPlots/src/PlainPlots.jl:467 [inlined]
+ [4] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/report.jl:17
+ [5] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-vanilla/test/trimming/juliac-buildscript.jl:35
+
+Error #58: unresolved call from statement rgba(
+  getindex((…)::Dict{Symbol, Any}, :color::Symbol)::Any,
+  1::Int64
+)::Any
+
+Stacktrace:
+ [1] draw!(p::PlainPlots.PlotObj, c::PlainPlots.Canvas, t::PlainPlots.Transform2D)
+   @ PlainPlots /p/projects/coen/julia-trait-bound/TraitMakie-unified/baselines/PlainPlots/src/PlainPlots.jl:310
+ [2] render_png(f::PlainPlots.Figure, path::String)
+   @ PlainPlots /p/projects/coen/julia-trait-bound/TraitMakie-unified/baselines/PlainPlots/src/PlainPlots.jl:381
+ [3] save(path::String, fig::PlainPlots.Figure)
+   @ PlainPlots /p/projects/coen/julia-trait-bound/TraitMakie-unified/baselines/PlainPlots/src/PlainPlots.jl:467 [inlined]
+ [4] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/report.jl:17
+ [5] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-vanilla/test/trimming/juliac-buildscript.jl:35
+
+Error #59: unresolved call from statement points(
+  getindex((…)::Dict{Symbol, Any}, :pos::Symbol)::Any
+)::Any
+
+Stacktrace:
+ [1] draw!(p::PlainPlots.PlotObj, c::PlainPlots.Canvas, t::PlainPlots.Transform2D)
+   @ PlainPlots /p/projects/coen/julia-trait-bound/TraitMakie-unified/baselines/PlainPlots/src/PlainPlots.jl:313
+ [2] render_png(f::PlainPlots.Figure, path::String)
+   @ PlainPlots /p/projects/coen/julia-trait-bound/TraitMakie-unified/baselines/PlainPlots/src/PlainPlots.jl:381
+ [3] save(path::String, fig::PlainPlots.Figure)
+   @ PlainPlots /p/projects/coen/julia-trait-bound/TraitMakie-unified/baselines/PlainPlots/src/PlainPlots.jl:467 [inlined]
+ [4] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/report.jl:17
+ [5] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-vanilla/test/trimming/juliac-buildscript.jl:35
+
+Error #60: unresolved call from statement pixels(
+  points(
+    getindex((…)::Dict{Symbol, Any}, :pos::Symbol)::Any
+  )::Any,
+  t::PlainPlots.Transform2D
+)::Tuple{Any, Any}
+
+Stacktrace:
+ [1] draw!(p::PlainPlots.PlotObj, c::PlainPlots.Canvas, t::PlainPlots.Transform2D)
+   @ PlainPlots /p/projects/coen/julia-trait-bound/TraitMakie-unified/baselines/PlainPlots/src/PlainPlots.jl:315
+ [2] render_png(f::PlainPlots.Figure, path::String)
+   @ PlainPlots /p/projects/coen/julia-trait-bound/TraitMakie-unified/baselines/PlainPlots/src/PlainPlots.jl:381
+ [3] save(path::String, fig::PlainPlots.Figure)
+   @ PlainPlots /p/projects/coen/julia-trait-bound/TraitMakie-unified/baselines/PlainPlots/src/PlainPlots.jl:467 [inlined]
+ [4] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/report.jl:17
+ [5] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-vanilla/test/trimming/juliac-buildscript.jl:35
+
+Error #61: unresolved call from statement rgba(
+  getindex((…)::Dict{Symbol, Any}, :color::Symbol)::Any,
+  1::Int64
+)::Any
+
+Stacktrace:
+ [1] draw!(p::PlainPlots.PlotObj, c::PlainPlots.Canvas, t::PlainPlots.Transform2D)
+   @ PlainPlots /p/projects/coen/julia-trait-bound/TraitMakie-unified/baselines/PlainPlots/src/PlainPlots.jl:316
+ [2] render_png(f::PlainPlots.Figure, path::String)
+   @ PlainPlots /p/projects/coen/julia-trait-bound/TraitMakie-unified/baselines/PlainPlots/src/PlainPlots.jl:381
+ [3] save(path::String, fig::PlainPlots.Figure)
+   @ PlainPlots /p/projects/coen/julia-trait-bound/TraitMakie-unified/baselines/PlainPlots/src/PlainPlots.jl:467 [inlined]
+ [4] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/report.jl:17
+ [5] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-vanilla/test/trimming/juliac-buildscript.jl:35
+
+Error #62: unresolved call from statement pixels(
+  points(
+    getindex((…)::Dict{Symbol, Any}, :pos::Symbol)::Any
+  )::Any,
+  t::PlainPlots.Transform2D
+)::Tuple{Any, Any}
+
+Stacktrace:
+ [1] draw!(p::PlainPlots.PlotObj, c::PlainPlots.Canvas, t::PlainPlots.Transform2D)
+   @ PlainPlots /p/projects/coen/julia-trait-bound/TraitMakie-unified/baselines/PlainPlots/src/PlainPlots.jl:318
+ [2] render_png(f::PlainPlots.Figure, path::String)
+   @ PlainPlots /p/projects/coen/julia-trait-bound/TraitMakie-unified/baselines/PlainPlots/src/PlainPlots.jl:381
+ [3] save(path::String, fig::PlainPlots.Figure)
+   @ PlainPlots /p/projects/coen/julia-trait-bound/TraitMakie-unified/baselines/PlainPlots/src/PlainPlots.jl:467 [inlined]
+ [4] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/report.jl:17
+ [5] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-vanilla/test/trimming/juliac-buildscript.jl:35
+
+Error #63: unresolved call from statement length(
+  getfield(
+    pixels(
+      points(
+        getindex((…)::Dict{Symbol, Any}, :pos::Symbol)::Any
+      )::Any,
+      t::PlainPlots.Transform2D
+    )::Tuple{Any, Any},
+    1::Int64
+  )::Any
+)::Any
+
+Stacktrace:
+ [1] draw!(p::PlainPlots.PlotObj, c::PlainPlots.Canvas, t::PlainPlots.Transform2D)
+   @ PlainPlots /p/projects/coen/julia-trait-bound/TraitMakie-unified/baselines/PlainPlots/src/PlainPlots.jl:319
+ [2] render_png(f::PlainPlots.Figure, path::String)
+   @ PlainPlots /p/projects/coen/julia-trait-bound/TraitMakie-unified/baselines/PlainPlots/src/PlainPlots.jl:381
+ [3] save(path::String, fig::PlainPlots.Figure)
+   @ PlainPlots /p/projects/coen/julia-trait-bound/TraitMakie-unified/baselines/PlainPlots/src/PlainPlots.jl:467 [inlined]
+ [4] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/report.jl:17
+ [5] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-vanilla/test/trimming/juliac-buildscript.jl:35
+
+Error #64: unresolved call from statement colors(
+  getindex((…)::Dict{Symbol, Any}, :color::Symbol)::Any,
+  length(
+    getfield(
+      pixels(
+        points(
+          getindex((…)::Dict{Symbol, Any}, :pos::Symbol)::Any
+        )::Any,
+        t::PlainPlots.Transform2D
+      )::Tuple{Any, Any},
+      1::Int64
+    )::Any
+  )::Any
+)::Vector{NTuple{4, Float64}}
+
+Stacktrace:
+ [1] draw!(p::PlainPlots.PlotObj, c::PlainPlots.Canvas, t::PlainPlots.Transform2D)
+   @ PlainPlots /p/projects/coen/julia-trait-bound/TraitMakie-unified/baselines/PlainPlots/src/PlainPlots.jl:319
+ [2] render_png(f::PlainPlots.Figure, path::String)
+   @ PlainPlots /p/projects/coen/julia-trait-bound/TraitMakie-unified/baselines/PlainPlots/src/PlainPlots.jl:381
+ [3] save(path::String, fig::PlainPlots.Figure)
+   @ PlainPlots /p/projects/coen/julia-trait-bound/TraitMakie-unified/baselines/PlainPlots/src/PlainPlots.jl:467 [inlined]
+ [4] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/report.jl:17
+ [5] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-vanilla/test/trimming/juliac-buildscript.jl:35
+
+Error #65: unresolved call from statement drawmarkers(
+  getindex((…)::Dict{Symbol, Any}, :marker::Symbol)::Any,
+  c::PlainPlots.Canvas,
+  getfield(
+    pixels(
+      points(
+        getindex((…)::Dict{Symbol, Any}, :pos::Symbol)::Any
+      )::Any,
+      t::PlainPlots.Transform2D
+    )::Tuple{Any, Any},
+    1::Int64
+  )::Any,
+  getfield(
+    pixels(
+      points(
+        getindex((…)::Dict{Symbol, Any}, :pos::Symbol)::Any
+      )::Any,
+      t::PlainPlots.Transform2D
+    )::Tuple{Any, Any},
+    2::Int64
+  )::Any,
+  (…)::Vector{NTuple{4, Float64}},
+  (…)::Float64
+)::Any
+
+Stacktrace:
+ [1] draw!(p::PlainPlots.PlotObj, c::PlainPlots.Canvas, t::PlainPlots.Transform2D)
+   @ PlainPlots /p/projects/coen/julia-trait-bound/TraitMakie-unified/baselines/PlainPlots/src/PlainPlots.jl:319
+ [2] render_png(f::PlainPlots.Figure, path::String)
+   @ PlainPlots /p/projects/coen/julia-trait-bound/TraitMakie-unified/baselines/PlainPlots/src/PlainPlots.jl:381
+ [3] save(path::String, fig::PlainPlots.Figure)
+   @ PlainPlots /p/projects/coen/julia-trait-bound/TraitMakie-unified/baselines/PlainPlots/src/PlainPlots.jl:467 [inlined]
+ [4] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/report.jl:17
+ [5] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-vanilla/test/trimming/juliac-buildscript.jl:35
+
+Error #66: unresolved call from statement drawbars(
+  points(
+    getindex((…)::Dict{Symbol, Any}, :pos::Symbol)::Any
+  )::Any,
+  c::PlainPlots.Canvas,
+  t::PlainPlots.Transform2D,
+  getindex((…)::Dict{Symbol, Any}, :color::Symbol)::Any,
+  (…)::Float64
+)::Any
+
+Stacktrace:
+ [1] draw!(p::PlainPlots.PlotObj, c::PlainPlots.Canvas, t::PlainPlots.Transform2D)
+   @ PlainPlots /p/projects/coen/julia-trait-bound/TraitMakie-unified/baselines/PlainPlots/src/PlainPlots.jl:321
+ [2] render_png(f::PlainPlots.Figure, path::String)
+   @ PlainPlots /p/projects/coen/julia-trait-bound/TraitMakie-unified/baselines/PlainPlots/src/PlainPlots.jl:381
+ [3] save(path::String, fig::PlainPlots.Figure)
+   @ PlainPlots /p/projects/coen/julia-trait-bound/TraitMakie-unified/baselines/PlainPlots/src/PlainPlots.jl:467 [inlined]
+ [4] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/report.jl:17
+ [5] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-vanilla/test/trimming/juliac-buildscript.jl:35
+
+Error #67: unresolved call from statement pixels(
+  points(
+    getindex((…)::Dict{Symbol, Any}, :pos::Symbol)::Any
+  )::Any,
+  t::PlainPlots.Transform2D
+)::Tuple{Any, Any}
+
+Stacktrace:
+ [1] draw!(p::PlainPlots.PlotObj, c::PlainPlots.Canvas, t::PlainPlots.Transform2D)
+   @ PlainPlots /p/projects/coen/julia-trait-bound/TraitMakie-unified/baselines/PlainPlots/src/PlainPlots.jl:323
+ [2] object: exit 0 after 8 s
+link: exit 0, 4257912 bytes

@@ -1,0 +1,302 @@
+# E-361 ode 2026-11-11T07:42:48+01:00 load 5.90 4.21 4.07 | julia-unified 564a2288e2 TraitWorld-unified 05991fc trim=safe
+Error #1: unresolved call from statement issorted(
+  itr::Vector{String},
+  ord(
+    lt::Function,
+    by::Function,
+    true::Bool,
+    order::Base.Order.ForwardOrdering
+  )::Union{Base.Order.By, Base.Order.Lt{T} where T<:Function, Base.Order.ReverseOrdering, Base.Order.DirectOrdering}
+)::Bool
+
+Stacktrace:
+ [1] issorted(itr::Vector{String}; lt::Function, by::Function, rev::Bool, order::Base.Order.ForwardOrdering)
+   @ Base.Sort sort.jl:93
+ [2] unique!(itr::Vector{String})
+   @ Base set.jl:473
+ [3] macro expansion
+   @ /p/projects/coen/julia-trait-bound/.julia-depot/packages/JLLWrappers/Kp7TC/src/wrapper_generators.jl:64 [inlined]
+ [4] __init__()
+   @ OpenSpecFun_jll /p/projects/coen/julia-trait-bound/.julia-depot/packages/OpenSpecFun_jll/4QIOW/src/wrappers/x86_64-linux-gnu-libgfortran5.jl:15
+
+Error #2: unresolved call from statement issorted(
+  itr::Vector{String},
+  :(φ (%161 => %159, %163 => %162))::Union{Base.Order.ForwardOrdering, Base.Order.By, Base.Order.Lt{T} where T<:Function}
+)::Bool
+
+Stacktrace:
+ [1] issorted(itr::Vector{String}; lt::Function, by::Function, rev::Bool, order::Base.Order.ForwardOrdering)
+   @ Base.Sort sort.jl:95
+ [2] unique!(itr::Vector{String})
+   @ Base set.jl:473
+ [3] macro expansion
+   @ /p/projects/coen/julia-trait-bound/.julia-depot/packages/JLLWrappers/Kp7TC/src/wrapper_generators.jl:64 [inlined]
+ [4] __init__()
+   @ OpenSpecFun_jll /p/projects/coen/julia-trait-bound/.julia-depot/packages/OpenSpecFun_jll/4QIOW/src/wrappers/x86_64-linux-gnu-libgfortran5.jl:15
+
+Error #3: unresolved call from statement Lt(
+  lt::Function
+)::Base.Order.Lt{T} where T<:Function
+
+Stacktrace:
+ [1] _ord(lt::Function, by::Function, order::Base.Order.ForwardOrdering)
+   @ Base.Order ordering.jl:133
+ [2] ord(lt::Function, by::Function, rev::Nothing, order::Base.Order.ForwardOrdering)
+   @ Base.Order ordering.jl:155 [inlined]
+ [3] issorted(itr::Vector{String}; lt::Function, by::Function, rev::Bool, order::Base.Order.ForwardOrdering)
+   @ Base.Sort sort.jl:95
+ [4] unique!(itr::Vector{String})
+   @ Base set.jl:473
+ [5] macro expansion
+   @ /p/projects/coen/julia-trait-bound/.julia-depot/packages/JLLWrappers/Kp7TC/src/wrapper_generators.jl:64 [inlined]
+ [6] __init__()
+   @ OpenSpecFun_jll /p/projects/coen/julia-trait-bound/.julia-depot/packages/OpenSpecFun_jll/4QIOW/src/wrappers/x86_64-linux-gnu-libgfortran5.jl:15
+
+Error #4: unresolved call from statement _by(
+  by::Function,
+  Lt(
+    lt::Function
+  )::Base.Order.Lt{T} where T<:Function
+)::Union{Base.Order.By{T, O} where {T<:Function, O<:(Base.Order.Lt{T} where T<:Function)}, Base.Order.Lt{T} where T<:Function}
+
+Stacktrace:
+ [1] _ord(lt::Function, by::Function, order::Base.Order.ForwardOrdering)
+   @ Base.Order ordering.jl:133
+ [2] ord(lt::Function, by::Function, rev::Nothing, order::Base.Order.ForwardOrdering)
+   @ Base.Order ordering.jl:155 [inlined]
+ [3] issorted(itr::Vector{String}; lt::Function, by::Function, rev::Bool, order::Base.Order.ForwardOrdering)
+   @ Base.Sort sort.jl:95
+ [4] unique!(itr::Vector{String})
+   @ Base set.jl:473
+ [5] macro expansion
+   @ /p/projects/coen/julia-trait-bound/.julia-depot/packages/JLLWrappers/Kp7TC/src/wrapper_generators.jl:64 [inlined]
+ [6] __init__()
+   @ OpenSpecFun_jll /p/projects/coen/julia-trait-bound/.julia-depot/packages/OpenSpecFun_jll/4QIOW/src/wrappers/x86_64-linux-gnu-libgfortran5.jl:15
+
+Error #5: unresolved call from statement By(
+  by::Function,
+  order::Base.Order.ForwardOrdering
+)::Base.Order.By{T, Base.Order.ForwardOrdering} where T<:Function
+
+Stacktrace:
+ [1] _by(by::Function, order::Base.Order.ForwardOrdering)
+   @ Base.Order ordering.jl:136
+ [2] _ord(lt::typeof(isless), by::Function, order::Base.Order.ForwardOrdering)
+   @ Base.Order ordering.jl:131 [inlined]
+ [3] ord(lt::Function, by::Function, rev::Nothing, order::Base.Order.ForwardOrdering)
+   @ Base.Order ordering.jl:155 [inlined]
+ [4] issorted(itr::Vector{String}; lt::Function, by::Function, rev::Bool, order::Base.Order.ForwardOrdering)
+   @ Base.Sort sort.jl:95
+ [5] unique!(itr::Vector{String})
+   @ Base set.jl:473
+ [6] macro expansion
+   @ /p/projects/coen/julia-trait-bound/.julia-depot/packages/JLLWrappers/Kp7TC/src/wrapper_generators.jl:64 [inlined]
+ [7] __init__()
+   @ OpenSpecFun_jll /p/projects/coen/julia-trait-bound/.julia-depot/packages/OpenSpecFun_jll/4QIOW/src/wrappers/x86_64-linux-gnu-libgfortran5.jl:15
+
+Error #6: unresolved call from statement ReverseOrdering(
+  :(φ (%10 => %8, %13 => %12))::Union{Base.Order.ForwardOrdering, Base.Order.By, Base.Order.Lt{T} where T<:Function}
+)::Union{Base.Order.ReverseOrdering{Base.Order.ForwardOrdering}, Base.Order.By, Base.Order.ReverseOrdering{Fwd} where Fwd<:(Base.Order.Lt{T} where T<:Function)}
+
+Stacktrace:
+ [1] ord(lt::Function, by::Function, rev::Bool, order::Base.Order.ForwardOrdering)
+   @ Base.Order ordering.jl:159
+ [2] issorted(itr::Vector{String}; lt::Function, by::Function, rev::Bool, order::Base.Order.ForwardOrdering)
+   @ Base.Sort sort.jl:93
+ [3] unique!(itr::Vector{String})
+   @ Base set.jl:473
+ [4] macro expansion
+   @ /p/projects/coen/julia-trait-bound/.julia-depot/packages/JLLWrappers/Kp7TC/src/wrapper_generators.jl:64 [inlined]
+ [5] __init__()
+   @ OpenSpecFun_jll /p/projects/coen/julia-trait-bound/.julia-depot/packages/OpenSpecFun_jll/4QIOW/src/wrappers/x86_64-linux-gnu-libgfortran5.jl:15
+
+Error #7: unresolved call from statement getproperty(
+  getfield(
+    prob::ODEProblem,
+    :f::Symbol
+  )::Any,
+  :f::Symbol
+)::Any
+
+Stacktrace:
+ [1] solve(prob::ODEProblem, alg::Rodas5; callback::Nothing, kw::@Kwargs{saveat::Vector{Float64}, reltol::Float64, abstol::Float64})
+   @ PlainODE /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/baselines/PlainODE/src/PlainODE.jl:698
+ [2] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/ode.jl:32
+ [3] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-unified/test/trimming/juliac-buildscript.jl:35
+
+Error #8: unresolved call from statement _solve_ad(
+  :(φ (%11 => %10, %12 => %12))::Any,
+  getfield(
+    prob::ODEProblem,
+    :u0::Symbol
+  )::Vector,
+  (…)::Tuple{Float64, Float64},
+  alg::Rodas5,
+  getfield(
+    prob::ODEProblem,
+    :p::Symbol
+  )::Any,
+  (…)::Vector{Any},
+  (…)::PlainODE.SolverOptions,
+  (:(Core.apply_type(Base.Val, %5))::Type{Val{_A}} where _A)()::Val
+)::PlainODE.ODESolution{Float64}
+
+Stacktrace:
+ [1] solve(prob::ODEProblem, alg::Rodas5; callback::Nothing, kw::@Kwargs{saveat::Vector{Float64}, reltol::Float64, abstol::Float64})
+   @ PlainODE /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/baselines/PlainODE/src/PlainODE.jl:698
+ [2] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/ode.jl:32
+ [3] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-unified/test/trimming/juliac-buildscript.jl:35
+
+Error #9: unresolved call from statement _promote_state(
+  getfield(
+    prob::ODEProblem,
+    :u0::Symbol
+  )::Vector,
+  getfield(
+    prob::ODEProblem,
+    :p::Symbol
+  )::Any
+)::Vector
+
+Stacktrace:
+ [1] solve(prob::ODEProblem, alg::Tsit5; callback::Nothing, kw::@Kwargs{saveat::Vector{Float64}, reltol::Float64, abstol::Float64})
+   @ PlainODE /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/baselines/PlainODE/src/PlainODE.jl:674
+ [2] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/ode.jl:29
+ [3] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-unified/test/trimming/juliac-buildscript.jl:35
+
+Error #10: unresolved call from statement _solve(
+  getfield(
+    prob::ODEProblem,
+    :f::Symbol
+  )::Any,
+  _promote_state(
+    getfield(
+      prob::ODEProblem,
+      :u0::Symbol
+    )::Vector,
+    getfield(
+      prob::ODEProblem,
+      :p::Symbol
+    )::Any
+  )::Vector,
+  (…)::Tuple{Float64, Float64},
+  alg::Tsit5,
+  getfield(
+    prob::ODEProblem,
+    :p::Symbol
+  )::Any,
+  (…)::Vector{Any},
+  (…)::PlainODE.SolverOptions,
+  (…)::Vector{Any}
+)::PlainODE.ODESolution
+
+Stacktrace:
+ [1] solve(prob::ODEProblem, alg::Tsit5; callback::Nothing, kw::@Kwargs{saveat::Vector{Float64}, reltol::Float64, abstol::Float64})
+   @ PlainODE /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/baselines/PlainODE/src/PlainODE.jl:676
+ [2] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/ode.jl:29
+ [3] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-unified/test/trimming/juliac-buildscript.jl:35
+
+Error #11: unresolved call from statement getproperty(
+  getfield(
+    prob::ODEProblem,
+    :f::Symbol
+  )::Any,
+  :f::Symbol
+)::Any
+
+Stacktrace:
+ [1] solve(prob::ODEProblem, alg::Rodas5; callback::Nothing, kw::@Kwargs{saveat::Vector{Float64}, reltol::Float64, abstol::Float64})
+   @ PlainODE /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/baselines/PlainODE/src/PlainODE.jl:698
+ [2] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/ode.jl:32
+ [3] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-unified/test/trimming/juliac-buildscript.jl:35
+
+Error #12: unresolved call from statement _solve_ad(
+  :(φ (%11 => %10, %12 => %12))::Any,
+  getfield(
+    prob::ODEProblem,
+    :u0::Symbol
+  )::Vector,
+  (…)::Tuple{Float64, Float64},
+  alg::Rodas5,
+  getfield(
+    prob::ODEProblem,
+    :p::Symbol
+  )::Any,
+  (…)::Vector{Any},
+  (…)::PlainODE.SolverOptions,
+  (:(Core.apply_type(Base.Val, %5))::Type{Val{_A}} where _A)()::Val
+)::PlainODE.ODESolution{Float64}
+
+Stacktrace:
+ [1] solve(prob::ODEProblem, alg::Rodas5; callback::Nothing, kw::@Kwargs{saveat::Vector{Float64}, reltol::Float64, abstol::Float64})
+   @ PlainODE /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/baselines/PlainODE/src/PlainODE.jl:698
+ [2] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/ode.jl:32
+ [3] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-unified/test/trimming/juliac-buildscript.jl:35
+
+Error #13: unresolved call from statement _promote_state(
+  getfield(
+    prob::ODEProblem,
+    :u0::Symbol
+  )::Vector,
+  getfield(
+    prob::ODEProblem,
+    :p::Symbol
+  )::Any
+)::Vector
+
+Stacktrace:
+ [1] solve(prob::ODEProblem, alg::Tsit5; callback::Nothing, kw::@Kwargs{saveat::Vector{Float64}, reltol::Float64, abstol::Float64})
+   @ PlainODE /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/baselines/PlainODE/src/PlainODE.jl:674
+ [2] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/ode.jl:29
+ [3] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-unified/test/trimming/juliac-buildscript.jl:35
+
+Error #14: unresolved call from statement _solve(
+  getfield(
+    prob::ODEProblem,
+    :f::Symbol
+  )::Any,
+  _promote_state(
+    getfield(
+      prob::ODEProblem,
+      :u0::Symbol
+    )::Vector,
+    getfield(
+      prob::ODEProblem,
+      :p::Symbol
+    )::Any
+  )::Vector,
+  (…)::Tuple{Float64, Float64},
+  alg::Tsit5,
+  getfield(
+    prob::ODEProblem,
+    :p::Symbol
+  )::Any,
+  (…)::Vector{Any},
+  (…)::PlainODE.SolverOptions,
+  (…)::Vector{Any}
+)::PlainODE.ODESolution
+
+Stacktrace:
+ [1] solve(prob::ODEProblem, alg::Tsit5; callback::Nothing, kw::@Kwargs{saveat::Vector{Float64}, reltol::Float64, abstol::Float64})
+   @ PlainODE /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/baselines/PlainODE/src/PlainODE.jl:676
+ [2] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/ode.jl:29
+ [3] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-unified/test/trimming/juliac-buildscript.jl:35
+
+Trim verify finished with 14 errors, 0 warnings.
+object: exit 1 after 6 s

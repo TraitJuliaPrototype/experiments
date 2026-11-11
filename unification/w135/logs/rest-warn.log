@@ -1,0 +1,50 @@
+# E-361 run_rest 2026-11-11T07:42:34+01:00 load 6.32 4.20 4.07 | julia-unified 564a2288e2 julia-vanilla 45b6d15e34 TraitWorld-unified 05991fc
+ode-plain2-warn | object: exit 0 after 6 s link: exit 0, 2436584 bytes | binary exit 1 | session exit 0 | output equal: -
+    fatal: error thrown and no exception handler available.
+    Core.MethodError(f=PlainODE.var"#_promote_state"(), args=(Array{Core.Float64, 1}(dims=(3,), mem=Memory{Core.Float64}(3, 0x7f28a019fd10)[1.0000000000000000, 0.0000000000000000, 0.0000000000000000]), Array{Core.Float64, 1}(dims=(3,), mem=Memo
+    jl_method_error_bare at /p/projects/coen/julia-trait-bound/julia-unified/src/gf.c:5051
+    jl_method_error at /p/projects/coen/julia-trait-bound/julia-unified/src/gf.c:5069
+    jl_lookup_generic_ at /p/projects/coen/julia-trait-bound/julia-unified/src/gf.c:7527 [inlined]
+    apply_generic_reach at /p/projects/coen/julia-trait-bound/julia-unified/src/gf.c:7551
+csvdf-unified-warn | object: exit 0 after 26 s link: exit 0, 7668264 bytes | binary exit 1 | session exit 0 | output equal: -
+    fatal: error thrown and no exception handler available.
+    Core.MethodError(f=CSV.var"#_stringsink"(), args=(DataStrings.DataString,), world=0x0000000000009b6c)
+    jl_method_error_bare at /p/projects/coen/julia-trait-bound/julia-unified/src/gf.c:5051
+    jl_method_error at /p/projects/coen/julia-trait-bound/julia-unified/src/gf.c:5069
+    jl_lookup_generic_ at /p/projects/coen/julia-trait-bound/julia-unified/src/gf.c:7527 [inlined]
+    apply_generic_reach at /p/projects/coen/julia-trait-bound/julia-unified/src/gf.c:7551
+csvdf-vanilla-warn | object: exit 0 after 22 s link: exit 0, 6813128 bytes | binary exit 1 | session exit 0 | output equal: -
+    fatal: error thrown and no exception handler available.
+    Core.MethodError(f=CSV.var"#_stringsink"(), args=(DataStrings.DataString,), world=0x00000000000099ff)
+    jl_method_error_bare at /home/hellmann/julia-trait-bound/julia-vanilla/src/gf.c:3230
+    jl_method_error at /home/hellmann/julia-trait-bound/julia-vanilla/src/gf.c:3248
+    jl_lookup_generic_ at /home/hellmann/julia-trait-bound/julia-vanilla/src/gf.c:4376 [inlined]
+    ijl_apply_generic at /home/hellmann/julia-trait-bound/julia-vanilla/src/gf.c:4394
+report-bare-warn | object: exit 0 after 10 s link: exit 0, 5112896 bytes | binary exit 1 | session exit 0 | output equal: -
+    fatal: error thrown and no exception handler available.
+    Core.MethodError(f=TraitCSV.CSVCore.var"#emptylike"(), args=(Array{Core.Int64, 1}(dims=(0,), mem=Memory{Core.Int64}(0, 0x6f7f50)[]),), world=0x0000000000009b68)
+    jl_method_error_bare at /p/projects/coen/julia-trait-bound/julia-unified/src/gf.c:5051
+    jl_method_error at /p/projects/coen/julia-trait-bound/julia-unified/src/gf.c:5069
+    jl_lookup_generic_ at /p/projects/coen/julia-trait-bound/julia-unified/src/gf.c:7527 [inlined]
+    apply_generic_reach at /p/projects/coen/julia-trait-bound/julia-unified/src/gf.c:7551
+report-verify-warn | object: exit 0 after 14 s link: exit 0, 5330056 bytes | binary exit 1 | session exit 0 | output equal: -
+    fatal: error thrown and no exception handler available.
+    Core.MethodError(f=Base.var"#push!"(), args=(Array{TraitTables.TableCore.Column{T} where T, 1}(dims=(0,), mem=Memory{TraitTables.TableCore.Column{T} where T}(0, 0x55a350)[]), Array{Core.Float64, 1}(dims=(500,), mem=Memory{Core.Float64}(534,
+    jl_method_error_bare at /p/projects/coen/julia-trait-bound/julia-unified/src/gf.c:5051
+    jl_method_error at /p/projects/coen/julia-trait-bound/julia-unified/src/gf.c:5069
+    jl_lookup_generic_ at /p/projects/coen/julia-trait-bound/julia-unified/src/gf.c:7527 [inlined]
+    apply_generic_reach at /p/projects/coen/julia-trait-bound/julia-unified/src/gf.c:7551
+report-plain-warn | object: exit 0 after 8 s link: exit 0, 4420608 bytes | binary exit 1 | session exit 0 | output equal: -
+    fatal: error thrown and no exception handler available.
+    Core.MethodError(f=PlainTables.var"#fillcolumn"(), args=(Core.Int64, "t,s1,s2,s3,n,tag\n0.1,0.2999,0.8530,2.9409,16,alpha\n0.2,1.2315,1.3498,3.0000,14,delta\n0.3,0.6714,3.8648,0.9331,11,gamma\n0.4,-0.1215,3.5165,2.6161,12,gamma\n0.5,0.6418,
+    jl_method_error_bare at /p/projects/coen/julia-trait-bound/julia-unified/src/gf.c:5051
+    jl_method_error at /p/projects/coen/julia-trait-bound/julia-unified/src/gf.c:5069
+    jl_lookup_generic_ at /p/projects/coen/julia-trait-bound/julia-unified/src/gf.c:7527 [inlined]
+    apply_generic_reach at /p/projects/coen/julia-trait-bound/julia-unified/src/gf.c:7551
+report-plain-vanilla-warn | object: exit 0 after 8 s link: exit 0, 4257912 bytes | binary exit 1 | session exit 0 | output equal: -
+    fatal: error thrown and no exception handler available.
+    Core.MethodError(f=PlainTables.var"#fillcolumn"(), args=(Core.Int64, "t,s1,s2,s3,n,tag\n0.1,0.2999,0.8530,2.9409,16,alpha\n0.2,1.2315,1.3498,3.0000,14,delta\n0.3,0.6714,3.8648,0.9331,11,gamma\n0.4,-0.1215,3.5165,2.6161,12,gamma\n0.5,0.6418,
+    jl_method_error_bare at /home/hellmann/julia-trait-bound/julia-vanilla/src/gf.c:3230
+    jl_method_error at /home/hellmann/julia-trait-bound/julia-vanilla/src/gf.c:3248
+    jl_lookup_generic_ at /home/hellmann/julia-trait-bound/julia-vanilla/src/gf.c:4376 [inlined]
+    ijl_apply_generic at /home/hellmann/julia-trait-bound/julia-vanilla/src/gf.c:4394

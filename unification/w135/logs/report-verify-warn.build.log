@@ -1,0 +1,800 @@
+# E-361 report 2026-11-11T07:47:20+01:00 load 5.62 5.82 4.85 | julia-unified 564a2288e2 TraitWorld-unified 05991fc trim=unsafe-warn
+verify_main: 1548 targets, 40 entry points, 63 run-time sites, complete true, 3.9 s
+  site: dispatch /p/projects/coen/julia-trait-bound/TraitTables-unified/src/TableCore.jl:188 Core.attributed_call(::Int64, ::typeof(summarize), ::Any, ::String) | the result of a call dispatched when it runs: `_cast_compiled(…)` is Any
+  site: dispatch /p/projects/coen/julia-trait-bound/TraitTables-unified/src/TraitTables.jl:51 Core.attributed_call(::Int64, ::typeof(floats), ::Any, ::Bool) | the result of a call dispatched when it runs: `_cast_compiled(…)` is Any
+  site: dispatch /p/projects/coen/julia-trait-bound/TraitMakie-unified/src/PlotCore.jl:735 TraitMakie.PlotCore.Transform2D(::Float64, ::Float64, ::Float64, ::Float64, ::Float64, ::Float64, ::Scale, ::Scale) | its argument types are not known when compiled
+  site: dispatch /p/projects/coen/julia-trait-bound/TraitMakie-unified/src/PlotCore.jl:740 TraitMakie.PlotCore.px(::Any, ::Float64) | the result of a call dispatched when it runs: `TraitMakie.PlotCore.Transform2D(…)` is Any
+  site: dispatch /p/projects/coen/julia-trait-bound/TraitMakie-unified/src/PlotCore.jl:740 TraitMakie.PlotCore.px(::Any, ::Float64) | the result of a call dispatched when it runs: `TraitMakie.PlotCore.Transform2D(…)` is Any
+  site: dispatch /p/projects/coen/julia-trait-bound/TraitMakie-unified/src/PlotCore.jl:740 Base.vect(::Any, ::Any) | the result of a call dispatched when it runs: `px(…)` is Any
+  site: dispatch /p/projects/coen/julia-trait-bound/TraitMakie-unified/src/PlotCore.jl:740 TraitMakie.PlotCore.polyline!(::Canvas, ::Any, ::Vector{Float64}, ::NTuple{4, Float64}, ::Float64) | the result of a call dispatched when it runs: `vect(…)` is Any
+  site: dispatch /p/projects/coen/julia-trait-bound/TraitMakie-unified/src/PlotCore.jl:741 TraitMakie.PlotCore.px(::Any, ::Float64) | the result of a call dispatched when it runs: `TraitMakie.PlotCore.Transform2D(…)` is Any
+  site: dispatch /p/projects/coen/julia-trait-bound/TraitMakie-unified/src/PlotCore.jl:741 TraitMakie.PlotCore.text!(::Canvas, ::Any, ::Float64, ::String, ::Float64, ::Symbol, ::NTuple{4, Float64}) | the result of a call dispatched when it runs: `px(…)` is Any
+  site: dispatch /p/projects/coen/julia-trait-bound/TraitMakie-unified/src/PlotCore.jl:744 TraitMakie.PlotCore.py(::Any, ::Float64) | the result of a call dispatched when it runs: `TraitMakie.PlotCore.Transform2D(…)` is Any
+  site: dispatch /p/projects/coen/julia-trait-bound/TraitMakie-unified/src/PlotCore.jl:744 TraitMakie.PlotCore.py(::Any, ::Float64) | the result of a call dispatched when it runs: `TraitMakie.PlotCore.Transform2D(…)` is Any
+  site: dispatch /p/projects/coen/julia-trait-bound/TraitMakie-unified/src/PlotCore.jl:744 Base.vect(::Any, ::Any) | the result of a call dispatched when it runs: `py(…)` is Any
+  site: dispatch /p/projects/coen/julia-trait-bound/TraitMakie-unified/src/PlotCore.jl:744 TraitMakie.PlotCore.polyline!(::Canvas, ::Vector{Float64}, ::Any, ::NTuple{4, Float64}, ::Float64) | the result of a call dispatched when it runs: `vect(…)` is Any
+  site: dispatch /p/projects/coen/julia-trait-bound/TraitMakie-unified/src/PlotCore.jl:745 TraitMakie.PlotCore.py(::Any, ::Float64) | the result of a call dispatched when it runs: `TraitMakie.PlotCore.Transform2D(…)` is Any
+  site: dispatch /p/projects/coen/julia-trait-bound/TraitMakie-unified/src/PlotCore.jl:745 +(::Any, ::Float64) | the result of a call dispatched when it runs: `py(…)` is Any
+  site: dispatch /p/projects/coen/julia-trait-bound/TraitMakie-unified/src/PlotCore.jl:745 TraitMakie.PlotCore.text!(::Canvas, ::Float64, ::Any, ::String, ::Float64, ::Symbol, ::NTuple{4, Float64}) | the result of a call dispatched when it runs: `+(…)` is Any
+  site: dispatch /p/projects/coen/julia-trait-bound/TraitCSV-unified/src/CSVCore.jl:128 push!(::Vector{Column}, ::Any) | a variable whose type differs between paths: Any, Nothing
+  site: dispatch io.jl:385 !==(::Bool, ::Bool) | its argument types are not known when compiled
+  site: dispatch /p/projects/coen/julia-trait-bound/TraitMakie-unified/src/PlotCore.jl:685 VLines(::Positions, ::ColorSpec, ::Float64) | its argument types are not known when compiled
+  site: dispatch /p/projects/coen/julia-trait-bound/TraitMakie-unified/src/PlotCore.jl:686 Dynamic{Plot}(::Any) | the result of a call dispatched when it runs: `VLines(…)` is Any
+  site: dispatch /p/projects/coen/julia-trait-bound/TraitMakie-unified/src/PlotCore.jl:686 push!(::Vector{Plot}, ::Any) | the result of a call dispatched when it runs: `Dynamic{Plot}(…)` is Any
+  site: dispatch /p/projects/coen/julia-trait-bound/TraitMakie-unified/src/PlotCore.jl:448 TraitMakie.PlotCore.limits(::Positions) | its argument types are not known when compiled
+  site: dispatch /p/projects/coen/julia-trait-bound/TraitMakie-unified/src/PlotCore.jl:449 TraitMakie.PlotCore.limits(::Positions) | its argument types are not known when compiled
+  site: dispatch /p/projects/coen/julia-trait-bound/TraitMakie-unified/src/PlotCore.jl:450 TraitMakie.PlotCore.barlimits(::Positions, ::Float64) | its argument types are not known when compiled
+  site: dispatch /p/projects/coen/julia-trait-bound/TraitMakie-unified/src/PlotCore.jl:451 TraitMakie.PlotCore.vlimits(::Positions) | its argument types are not known when compiled
+  site: dispatch /p/projects/coen/julia-trait-bound/TraitMakie-unified/src/PlotCore.jl:452 TraitMakie.PlotCore.limits(::Positions) | its argument types are not known when compiled
+  site: dispatch /p/projects/coen/julia-trait-bound/TraitMakie-unified/src/PlotCore.jl:453 TraitMakie.PlotCore.limits(::Positions) | its argument types are not known when compiled
+  site: dispatch array.jl:1186 !==(::MemoryRef{ColSummary}, ::MemoryRef{ColSummary}) | its argument types are not known when compiled
+  site: callee array.jl:2454 (::Base.Fix2{typeof(==), String})(::String) | the argument `testf` is Base.Fix2{typeof(==), String}
+  site: dispatch /p/projects/coen/julia-trait-bound/TraitMakie-unified/src/PlotCore.jl:577 TraitMakie.PlotCore.steppoints(::Positions, ::Symbol) | its argument types are not known when compiled
+  site: dispatch /p/projects/coen/julia-trait-bound/TraitMakie-unified/src/PlotCore.jl:577 Dynamic{Positions}(::Any) | the result of a call dispatched when it runs: `steppoints(…)` is Any
+  site: dispatch /p/projects/coen/julia-trait-bound/TraitMakie-unified/src/PlotCore.jl:577 setproperty!(::Lines, ::Symbol, ::Any) | the result of a call dispatched when it runs: `Dynamic{Positions}(…)` is Any
+  site: dispatch /p/projects/coen/julia-trait-bound/TraitMakie-unified/src/PlotCore.jl:578 setproperty!(::Lines, ::Symbol, ::ColorSpec) | its argument types are not known when compiled
+  site: dispatch /p/projects/coen/julia-trait-bound/TraitMakie-unified/src/PlotCore.jl:584 TraitMakie.PlotCore.binned(::Sample, ::Int64) | its argument types are not known when compiled
+  site: dispatch /p/projects/coen/julia-trait-bound/TraitMakie-unified/src/PlotCore.jl:584 Base.indexed_iterate(::Any, ::Int64) | the result of a call dispatched when it runs: `binned(…)` is Any
+  site: dispatch /p/projects/coen/julia-trait-bound/TraitMakie-unified/src/PlotCore.jl:584 Base.indexed_iterate(::Any, ::Int64, ::Any) | the result of a call dispatched when it runs: `binned(…)` is Any
+  site: dispatch /p/projects/coen/julia-trait-bound/TraitMakie-unified/src/PlotCore.jl:586 Dynamic{Positions}(::Any) | a field of Any, read by a name not known when compiled
+  site: dispatch /p/projects/coen/julia-trait-bound/TraitMakie-unified/src/PlotCore.jl:586 setproperty!(::Bars, ::Symbol, ::Any) | the result of a call dispatched when it runs: `Dynamic{Positions}(…)` is Any
+  site: dispatch /p/projects/coen/julia-trait-bound/TraitMakie-unified/src/PlotCore.jl:587 setproperty!(::Bars, ::Symbol, ::Any) | a field of Any, read by a name not known when compiled
+  site: dispatch /p/projects/coen/julia-trait-bound/TraitMakie-unified/src/PlotCore.jl:588 setproperty!(::Bars, ::Symbol, ::ColorSpec) | its argument types are not known when compiled
+  site: dispatch /p/projects/coen/julia-trait-bound/TraitMakie-unified/src/PlotCore.jl:593 TraitMakie.PlotCore.bandoutline(::Positions, ::Positions) | its argument types are not known when compiled
+  site: dispatch /p/projects/coen/julia-trait-bound/TraitMakie-unified/src/PlotCore.jl:593 Dynamic{Positions}(::Any) | the result of a call dispatched when it runs: `bandoutline(…)` is Any
+  site: dispatch /p/projects/coen/julia-trait-bound/TraitMakie-unified/src/PlotCore.jl:593 setproperty!(::Poly, ::Symbol, ::Any) | the result of a call dispatched when it runs: `Dynamic{Positions}(…)` is Any
+  site: dispatch /p/projects/coen/julia-trait-bound/TraitMakie-unified/src/PlotCore.jl:594 setproperty!(::Poly, ::Symbol, ::ColorSpec) | its argument types are not known when compiled
+  site: dispatch array.jl:837 TypeVar(::Symbol, ::Type{String}) | its argument types are not known when compiled
+  site: dispatch array.jl:837 UnionAll(::TypeVar, ::Type{AbstractArray{var"#s188"<:String, 1}}) | its argument types are not known when compiled
+  site: dispatch array.jl:837 TypeVar(::Symbol, ::Type{Vector{UnitRange{Int64}}}) | its argument types are not known when compiled
+  site: dispatch array.jl:837 UnionAll(::TypeVar, ::Type{AbstractArray{var"#s188"<:Vector{UnitRange{Int64}}, 1}}) | its argument types are not known when compiled
+  site: dispatch array.jl:1186 !==(::MemoryRef{String}, ::MemoryRef{String}) | its argument types are not known when compiled
+  site: dispatch array.jl:837 TypeVar(::Symbol, ::Type{Float64}) | its argument types are not known when compiled
+  site: dispatch array.jl:837 UnionAll(::TypeVar, ::Type{AbstractArray{var"#s188"<:Float64, 2}}) | its argument types are not known when compiled
+  site: callee generator.jl:48 (::var"#scan##0#scan##1"{String})(::UnitRange{Int64}) | field `f` of `Base.Generator{Vector{UnitRange{Int64}}, TraitCSV.CSVCore.var"#scan##0#scan##1"{String}}` is declared var"#scan##0#scan##1"{String}
+  site: dispatch array.jl:1186 !==(::MemoryRef{UInt8}, ::MemoryRef{UInt8}) | its argument types are not known when compiled
+  site: callee generator.jl:48 (::Base.var"#hcat##0#hcat##1"{Float64, Tuple{Vector{Float64}, Vector{Float64}}})(::Tuple{Int64, Int64}) | field `f` of `Base.Generator{Base.Iterators.ProductIterator{Tuple{UnitRange{Int64}, UnitRange{Int64}}}, Base.var"#hcat##0#hcat##1"{Float64, Tuple{Vector{Float64}, Vector{Float64}}}}` is declared Base.var"#hcat##0#hcat##1"{Float64, Tuple{Vector{Float64}, Vector{Float64}}}
+  site: dispatch array.jl:1186 !==(::MemoryRef{Vector{UnitRange{Int64}}}, ::MemoryRef{Vector{UnitRange{Int64}}}) | its argument types are not known when compiled
+  site: dispatch array.jl:1186 !==(::MemoryRef{UnitRange{Int64}}, ::MemoryRef{UnitRange{Int64}}) | its argument types are not known when compiled
+  site: callee generator.jl:48 (::var"#scan##0#scan##1"{String})(::UnitRange{Int64}) | field `f` of `Base.Generator{Vector{UnitRange{Int64}}, TraitCSV.CSVCore.var"#scan##0#scan##1"{String}}` is declared var"#scan##0#scan##1"{String}
+  site: callee generator.jl:48 (::Base.var"#hcat##0#hcat##1"{Float64, Tuple{Vector{Float64}, Vector{Float64}}})(::Tuple{Int64, Int64}) | field `f` of `Base.Generator{Base.Iterators.ProductIterator{Tuple{UnitRange{Int64}, UnitRange{Int64}}}, Base.var"#hcat##0#hcat##1"{Float64, Tuple{Vector{Float64}, Vector{Float64}}}}` is declared Base.var"#hcat##0#hcat##1"{Float64, Tuple{Vector{Float64}, Vector{Float64}}}
+  site: dispatch array.jl:1186 !==(::MemoryRef{Int64}, ::MemoryRef{Int64}) | its argument types are not known when compiled
+  site: dispatch array.jl:1186 !==(::MemoryRef{Float64}, ::MemoryRef{Float64}) | its argument types are not known when compiled
+Error #1: unresolved call from statement issorted(
+  itr::Vector{String},
+  ord(
+    lt::Function,
+    by::Function,
+    true::Bool,
+    order::Base.Order.ForwardOrdering
+  )::Union{Base.Order.By, Base.Order.Lt{T} where T<:Function, Base.Order.ReverseOrdering, Base.Order.DirectOrdering}
+)::Bool
+
+Stacktrace:
+ [1] issorted(itr::Vector{String}; lt::Function, by::Function, rev::Bool, order::Base.Order.ForwardOrdering)
+   @ Base.Sort sort.jl:93
+ [2] unique!(itr::Vector{String})
+   @ Base set.jl:473
+ [3] macro expansion
+   @ /p/projects/coen/julia-trait-bound/.julia-depot/packages/JLLWrappers/Kp7TC/src/wrapper_generators.jl:64 [inlined]
+ [4] __init__()
+   @ Pango_jll /p/projects/coen/julia-trait-bound/.julia-depot/packages/Pango_jll/16ssY/src/wrappers/x86_64-linux-gnu.jl:34
+
+Error #2: unresolved call from statement issorted(
+  itr::Vector{String},
+  :(φ (%161 => %159, %163 => %162))::Union{Base.Order.ForwardOrdering, Base.Order.By, Base.Order.Lt{T} where T<:Function}
+)::Bool
+
+Stacktrace:
+ [1] issorted(itr::Vector{String}; lt::Function, by::Function, rev::Bool, order::Base.Order.ForwardOrdering)
+   @ Base.Sort sort.jl:95
+ [2] unique!(itr::Vector{String})
+   @ Base set.jl:473
+ [3] macro expansion
+   @ /p/projects/coen/julia-trait-bound/.julia-depot/packages/JLLWrappers/Kp7TC/src/wrapper_generators.jl:64 [inlined]
+ [4] __init__()
+   @ Pango_jll /p/projects/coen/julia-trait-bound/.julia-depot/packages/Pango_jll/16ssY/src/wrappers/x86_64-linux-gnu.jl:34
+
+Error #3: unresolved call from statement Lt(
+  lt::Function
+)::Base.Order.Lt{T} where T<:Function
+
+Stacktrace:
+ [1] _ord(lt::Function, by::Function, order::Base.Order.ForwardOrdering)
+   @ Base.Order ordering.jl:133
+ [2] ord(lt::Function, by::Function, rev::Nothing, order::Base.Order.ForwardOrdering)
+   @ Base.Order ordering.jl:155 [inlined]
+ [3] issorted(itr::Vector{String}; lt::Function, by::Function, rev::Bool, order::Base.Order.ForwardOrdering)
+   @ Base.Sort sort.jl:95
+ [4] unique!(itr::Vector{String})
+   @ Base set.jl:473
+ [5] macro expansion
+   @ /p/projects/coen/julia-trait-bound/.julia-depot/packages/JLLWrappers/Kp7TC/src/wrapper_generators.jl:64 [inlined]
+ [6] __init__()
+   @ Pango_jll /p/projects/coen/julia-trait-bound/.julia-depot/packages/Pango_jll/16ssY/src/wrappers/x86_64-linux-gnu.jl:34
+
+Error #4: unresolved call from statement _by(
+  by::Function,
+  Lt(
+    lt::Function
+  )::Base.Order.Lt{T} where T<:Function
+)::Union{Base.Order.By{T, O} where {T<:Function, O<:(Base.Order.Lt{T} where T<:Function)}, Base.Order.Lt{T} where T<:Function}
+
+Stacktrace:
+ [1] _ord(lt::Function, by::Function, order::Base.Order.ForwardOrdering)
+   @ Base.Order ordering.jl:133
+ [2] ord(lt::Function, by::Function, rev::Nothing, order::Base.Order.ForwardOrdering)
+   @ Base.Order ordering.jl:155 [inlined]
+ [3] issorted(itr::Vector{String}; lt::Function, by::Function, rev::Bool, order::Base.Order.ForwardOrdering)
+   @ Base.Sort sort.jl:95
+ [4] unique!(itr::Vector{String})
+   @ Base set.jl:473
+ [5] macro expansion
+   @ /p/projects/coen/julia-trait-bound/.julia-depot/packages/JLLWrappers/Kp7TC/src/wrapper_generators.jl:64 [inlined]
+ [6] __init__()
+   @ Pango_jll /p/projects/coen/julia-trait-bound/.julia-depot/packages/Pango_jll/16ssY/src/wrappers/x86_64-linux-gnu.jl:34
+
+Error #5: unresolved call from statement By(
+  by::Function,
+  order::Base.Order.ForwardOrdering
+)::Base.Order.By{T, Base.Order.ForwardOrdering} where T<:Function
+
+Stacktrace:
+ [1] _by(by::Function, order::Base.Order.ForwardOrdering)
+   @ Base.Order ordering.jl:136
+ [2] _ord(lt::typeof(isless), by::Function, order::Base.Order.ForwardOrdering)
+   @ Base.Order ordering.jl:131 [inlined]
+ [3] ord(lt::Function, by::Function, rev::Nothing, order::Base.Order.ForwardOrdering)
+   @ Base.Order ordering.jl:155 [inlined]
+ [4] issorted(itr::Vector{String}; lt::Function, by::Function, rev::Bool, order::Base.Order.ForwardOrdering)
+   @ Base.Sort sort.jl:95
+ [5] unique!(itr::Vector{String})
+   @ Base set.jl:473
+ [6] macro expansion
+   @ /p/projects/coen/julia-trait-bound/.julia-depot/packages/JLLWrappers/Kp7TC/src/wrapper_generators.jl:64 [inlined]
+ [7] __init__()
+   @ Pango_jll /p/projects/coen/julia-trait-bound/.julia-depot/packages/Pango_jll/16ssY/src/wrappers/x86_64-linux-gnu.jl:34
+
+Error #6: unresolved call from statement ReverseOrdering(
+  :(φ (%10 => %8, %13 => %12))::Union{Base.Order.ForwardOrdering, Base.Order.By, Base.Order.Lt{T} where T<:Function}
+)::Union{Base.Order.ReverseOrdering{Base.Order.ForwardOrdering}, Base.Order.By, Base.Order.ReverseOrdering{Fwd} where Fwd<:(Base.Order.Lt{T} where T<:Function)}
+
+Stacktrace:
+ [1] ord(lt::Function, by::Function, rev::Bool, order::Base.Order.ForwardOrdering)
+   @ Base.Order ordering.jl:159
+ [2] issorted(itr::Vector{String}; lt::Function, by::Function, rev::Bool, order::Base.Order.ForwardOrdering)
+   @ Base.Sort sort.jl:93
+ [3] unique!(itr::Vector{String})
+   @ Base set.jl:473
+ [4] macro expansion
+   @ /p/projects/coen/julia-trait-bound/.julia-depot/packages/JLLWrappers/Kp7TC/src/wrapper_generators.jl:64 [inlined]
+ [5] __init__()
+   @ Pango_jll /p/projects/coen/julia-trait-bound/.julia-depot/packages/Pango_jll/16ssY/src/wrappers/x86_64-linux-gnu.jl:34
+
+Error #7: unresolved call from statement datalimits(
+  :(φ (%36 => %31, %92 => %86))::Plot
+)::Any
+
+Stacktrace:
+ [1] drawaxis!(c::TraitMakie.PlotCore.Canvas, ax::Axis, x0::Float64, y0::Float64, w::Float64, h::Float64)
+   @ TraitMakie.PlotCore /p/projects/coen/julia-trait-bound/TraitMakie-unified/src/PlotCore.jl:723
+
+Error #8: unresolved call from statement scaled(
+  getfield(ax::Axis, :xscale::Symbol)::Scale,
+  :(φ (%91 => %48, %36 => TraitMakie.PlotCore.Inf))::Float64
+)::Any
+
+Stacktrace:
+ [1] drawaxis!(c::TraitMakie.PlotCore.Canvas, ax::Axis, x0::Float64, y0::Float64, w::Float64, h::Float64)
+   @ TraitMakie.PlotCore /p/projects/coen/julia-trait-bound/TraitMakie-unified/src/PlotCore.jl:727
+
+Error #9: unresolved call from statement scaled(
+  getfield(ax::Axis, :xscale::Symbol)::Scale,
+  :(φ (%91 => %51, %36 => -Inf))::Float64
+)::Any
+
+Stacktrace:
+ [1] drawaxis!(c::TraitMakie.PlotCore.Canvas, ax::Axis, x0::Float64, y0::Float64, w::Float64, h::Float64)
+   @ TraitMakie.PlotCore /p/projects/coen/julia-trait-bound/TraitMakie-unified/src/PlotCore.jl:727
+
+Error #10: unresolved call from statement scaled(
+  getfield(ax::Axis, :yscale::Symbol)::Scale,
+  :(φ (%91 => %54, %36 => TraitMakie.PlotCore.Inf))::Float64
+)::Any
+
+Stacktrace:
+ [1] drawaxis!(c::TraitMakie.PlotCore.Canvas, ax::Axis, x0::Float64, y0::Float64, w::Float64, h::Float64)
+   @ TraitMakie.PlotCore /p/projects/coen/julia-trait-bound/TraitMakie-unified/src/PlotCore.jl:728
+
+Error #11: unresolved call from statement scaled(
+  getfield(ax::Axis, :yscale::Symbol)::Scale,
+  :(φ (%91 => %57, %36 => -Inf))::Float64
+)::Any
+
+Stacktrace:
+ [1] drawaxis!(c::TraitMakie.PlotCore.Canvas, ax::Axis, x0::Float64, y0::Float64, w::Float64, h::Float64)
+   @ TraitMakie.PlotCore /p/projects/coen/julia-trait-bound/TraitMakie-unified/src/PlotCore.jl:728
+
+Error #12: unresolved call from statement scaled(
+  getfield(ax::Axis, :xscale::Symbol)::Scale,
+  (…)::Float64
+)::Any
+
+Stacktrace:
+ [1] drawaxis!(c::TraitMakie.PlotCore.Canvas, ax::Axis, x0::Float64, y0::Float64, w::Float64, h::Float64)
+   @ TraitMakie.PlotCore /p/projects/coen/julia-trait-bound/TraitMakie-unified/src/PlotCore.jl:732
+
+Error #13: unresolved call from statement scaled(
+  getfield(ax::Axis, :xscale::Symbol)::Scale,
+  (…)::Float64
+)::Any
+
+Stacktrace:
+ [1] drawaxis!(c::TraitMakie.PlotCore.Canvas, ax::Axis, x0::Float64, y0::Float64, w::Float64, h::Float64)
+   @ TraitMakie.PlotCore /p/projects/coen/julia-trait-bound/TraitMakie-unified/src/PlotCore.jl:732
+
+Error #14: unresolved call from statement scaled(
+  getfield(ax::Axis, :yscale::Symbol)::Scale,
+  (…)::Float64
+)::Any
+
+Stacktrace:
+ [1] drawaxis!(c::TraitMakie.PlotCore.Canvas, ax::Axis, x0::Float64, y0::Float64, w::Float64, h::Float64)
+   @ TraitMakie.PlotCore /p/projects/coen/julia-trait-bound/TraitMakie-unified/src/PlotCore.jl:733
+
+Error #15: unresolved call from statement scaled(
+  getfield(ax::Axis, :yscale::Symbol)::Scale,
+  (…)::Float64
+)::Any
+
+Stacktrace:
+ [1] drawaxis!(c::TraitMakie.PlotCore.Canvas, ax::Axis, x0::Float64, y0::Float64, w::Float64, h::Float64)
+   @ TraitMakie.PlotCore /p/projects/coen/julia-trait-bound/TraitMakie-unified/src/PlotCore.jl:733
+
+Error #16: unresolved call from statement scaleticks(
+  getfield(ax::Axis, :xscale::Symbol)::Scale,
+  :(φ (%153 => %141, %156 => %156))::Float64,
+  :(φ (%161 => %142, %164 => %164))::Float64,
+  6::Int64
+)::Any
+
+Stacktrace:
+ [1] drawaxis!(c::TraitMakie.PlotCore.Canvas, ax::Axis, x0::Float64, y0::Float64, w::Float64, h::Float64)
+   @ TraitMakie.PlotCore /p/projects/coen/julia-trait-bound/TraitMakie-unified/src/PlotCore.jl:739
+
+Error #17: unresolved call from statement ticklabel(
+  getfield(ax::Axis, :xscale::Symbol)::Scale,
+  :(φ (%245 => %240, %338 => %332))::Float64
+)::Any
+
+Stacktrace:
+ [1] drawaxis!(c::TraitMakie.PlotCore.Canvas, ax::Axis, x0::Float64, y0::Float64, w::Float64, h::Float64)
+   @ TraitMakie.PlotCore /p/projects/coen/julia-trait-bound/TraitMakie-unified/src/PlotCore.jl:741
+
+Error #18: unresolved call from statement scaleticks(
+  getfield(ax::Axis, :yscale::Symbol)::Scale,
+  :(φ (%169 => %143, %172 => %172))::Float64,
+  :(φ (%177 => %144, %180 => %180))::Float64,
+  5::Int64
+)::Any
+
+Stacktrace:
+ [1] drawaxis!(c::TraitMakie.PlotCore.Canvas, ax::Axis, x0::Float64, y0::Float64, w::Float64, h::Float64)
+   @ TraitMakie.PlotCore /p/projects/coen/julia-trait-bound/TraitMakie-unified/src/PlotCore.jl:743
+
+Error #19: unresolved call from statement ticklabel(
+  getfield(ax::Axis, :yscale::Symbol)::Scale,
+  :(φ (%376 => %371, %470 => %464))::Float64
+)::Any
+
+Stacktrace:
+ [1] drawaxis!(c::TraitMakie.PlotCore.Canvas, ax::Axis, x0::Float64, y0::Float64, w::Float64, h::Float64)
+   @ TraitMakie.PlotCore /p/projects/coen/julia-trait-bound/TraitMakie-unified/src/PlotCore.jl:745
+
+Error #20: unresolved call from statement draw!(
+  :(φ (%640 => %635, %679 => %673))::Plot,
+  c::TraitMakie.PlotCore.Canvas,
+  (…)::TraitMakie.PlotCore.Transform2D
+)::Any
+
+Stacktrace:
+ [1] drawaxis!(c::TraitMakie.PlotCore.Canvas, ax::Axis, x0::Float64, y0::Float64, w::Float64, h::Float64)
+   @ TraitMakie.PlotCore /p/projects/coen/julia-trait-bound/TraitMakie-unified/src/PlotCore.jl:757
+
+Error #21: unresolved call from statement _cast_compiled(
+  memoryrefget((…)::MemoryRef{Column}, :not_atomic::Symbol, false::Bool)::Column
+)::Any
+
+Stacktrace:
+ [1] describe(t::Table)
+   @ TraitTables.TableCore /p/projects/coen/julia-trait-bound/TraitTables-unified/src/TableCore.jl:188
+
+Error #22: unresolved invoke from statement repeat(p::Char, (…)::Int64)::String
+
+Stacktrace:
+ [1] repeat(c::Char, r::Int64)
+   @ Base strings/string.jl:586 [inlined]
+ [2] ^(s::Char, r::Int64)
+   @ Base strings/basic.jl:771 [inlined]
+ [3] rpad(s::String, n::Int64, p::Char)
+   @ Base strings/util.jl:567
+ [4] rpad(s::String, n::Int64)
+   @ Base strings/util.jl:555 [inlined]
+ [5] summary_text(t::Table)
+   @ TraitTables /p/projects/coen/julia-trait-bound/TraitTables-unified/src/TraitTables.jl:63
+ [6] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/report.jl:12
+ [7] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-unified/test/trimming/juliac-buildscript.jl:35
+
+Error #23: unresolved invoke from statement repeat(p::Char, (…)::Int64)::String
+
+Stacktrace:
+ [1] repeat(c::Char, r::Int64)
+   @ Base strings/string.jl:586 [inlined]
+ [2] ^(s::Char, r::Int64)
+   @ Base strings/basic.jl:771 [inlined]
+ [3] rpad(s::String, n::Int64, p::Char)
+   @ Base strings/util.jl:567
+ [4] rpad(s::String, n::Int64)
+   @ Base strings/util.jl:555 [inlined]
+ [5] summary_text(t::Table)
+   @ TraitTables /p/projects/coen/julia-trait-bound/TraitTables-unified/src/TraitTables.jl:63
+ [6] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/report.jl:12
+ [7] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-unified/test/trimming/juliac-buildscript.jl:35
+
+Error #24: unresolved call from statement emptylike(
+  :(φ (%59 => %54, %127 => %121))::CSVColumn
+)::Any
+
+Stacktrace:
+ [1] readtable(s::String, delim::UInt8, types::Vector{CSVColumn})
+   @ TraitCSV.CSVCore /p/projects/coen/julia-trait-bound/TraitCSV-unified/src/CSVCore.jl:123
+ [2] parse(text::String; delim::Char, types::Nothing)
+   @ TraitCSV /p/projects/coen/julia-trait-bound/TraitCSV-unified/src/TraitCSV.jl:35 [inlined]
+ [3] read(path::String; delim::Char, types::Nothing)
+   @ TraitCSV /p/projects/coen/julia-trait-bound/TraitCSV-unified/src/TraitCSV.jl:24 [inlined]
+ [4] read(path::String)
+   @ TraitCSV /p/projects/coen/julia-trait-bound/TraitCSV-unified/src/TraitCSV.jl:23 [inlined]
+ [5] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/report.jl:11
+ [6] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-unified/test/trimming/juliac-buildscript.jl:35
+
+Error #25: unresolved call from statement push!(
+  (…)::Vector{Column},
+  :(φ (%126 => %89, %128 => %89, %59 => TraitCSV.CSVCore.nothing))::CSVColumn
+)::Any
+
+Stacktrace:
+ [1] getindex(A::Vector{String}, i::Int64)
+   @ Base essentials.jl:979 [inlined]
+ [2] readtable(s::String, delim::UInt8, types::Vector{CSVColumn})
+   @ TraitCSV.CSVCore /p/projects/coen/julia-trait-bound/TraitCSV-unified/src/CSVCore.jl:127
+ [3] parse(text::String; delim::Char, types::Nothing)
+   @ TraitCSV /p/projects/coen/julia-trait-bound/TraitCSV-unified/src/TraitCSV.jl:35 [inlined]
+ [4] read(path::String; delim::Char, types::Nothing)
+   @ TraitCSV /p/projects/coen/julia-trait-bound/TraitCSV-unified/src/TraitCSV.jl:24 [inlined]
+ [5] read(path::String)
+   @ TraitCSV /p/projects/coen/julia-trait-bound/TraitCSV-unified/src/TraitCSV.jl:23 [inlined]
+ [6] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/report.jl:11
+ [7] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-unified/test/trimming/juliac-buildscript.jl:35
+
+Error #26: unresolved call from statement parsecell!(
+  c::CSVColumn,
+  s::String,
+  (…)::Int64,
+  (…)::Int64
+)::Any
+
+Stacktrace:
+ [1] fillcolumn(c::CSVColumn, s::String, spans::Vector{UnitRange{Int64}})
+   @ TraitCSV.CSVCore /p/projects/coen/julia-trait-bound/TraitCSV-unified/src/CSVCore.jl:111
+
+Error #27: unresolved call from statement limits(
+  getfield(p::Poly, :pos::Symbol)::Positions
+)::NTuple{4, Float64}
+
+Stacktrace:
+ [1] datalimits(p::Poly)
+   @ TraitMakie.PlotCore /p/projects/coen/julia-trait-bound/TraitMakie-unified/src/PlotCore.jl:452
+ [2] datalimits(b::Band)
+   @ TraitMakie.PlotCore /p/projects/coen/julia-trait-bound/TraitMakie-unified/src/PlotCore.jl:600
+
+Error #28: unresolved call from statement bandoutline(
+  getfield(b::Band, :lower::Symbol)::Positions,
+  getfield(b::Band, :upper::Symbol)::Positions
+)::Matrix{Float64}
+
+Stacktrace:
+ [1] refresh!(b::Band)
+   @ TraitMakie.PlotCore /p/projects/coen/julia-trait-bound/TraitMakie-unified/src/PlotCore.jl:593
+
+Error #29: unresolved call from statement convert((…)::Union{Type{ColorSpec}, Type{Positions}}, v::Dynamic{Positions})::Any
+
+Stacktrace:
+ [1] setproperty!(x::Poly, f::Symbol, v::Dynamic{Positions})
+   @ Base Base_compiler.jl:60
+ [2] refresh!(b::Band)
+   @ TraitMakie.PlotCore /p/projects/coen/julia-trait-bound/TraitMakie-unified/src/PlotCore.jl:593
+
+Error #30: unresolved call from statement binned(
+  getfield(h::Hist, :values::Symbol)::Sample,
+  (…)::Int64
+)::Tuple{Matrix{Float64}, Float64}
+
+Stacktrace:
+ [1] refresh!(h::Hist)
+   @ TraitMakie.PlotCore /p/projects/coen/julia-trait-bound/TraitMakie-unified/src/PlotCore.jl:584
+ [2] datalimits(h::Hist)
+   @ TraitMakie.PlotCore /p/projects/coen/julia-trait-bound/TraitMakie-unified/src/PlotCore.jl:599
+
+Error #31: unresolved call from statement convert((…)::Union{Type{Float64}, Type{ColorSpec}, Type{Positions}}, v::Dynamic{Positions})::Any
+
+Stacktrace:
+ [1] setproperty!(x::Bars, f::Symbol, v::Dynamic{Positions})
+   @ Base Base_compiler.jl:60
+ [2] refresh!(h::Hist)
+   @ TraitMakie.PlotCore /p/projects/coen/julia-trait-bound/TraitMakie-unified/src/PlotCore.jl:586
+ [3] datalimits(h::Hist)
+   @ TraitMakie.PlotCore /p/projects/coen/julia-trait-bound/TraitMakie-unified/src/PlotCore.jl:599
+
+Error #32: unresolved call from statement limits(
+  getfield(p::Lines, :pos::Symbol)::Positions
+)::NTuple{4, Float64}
+
+Stacktrace:
+ [1] datalimits(p::Lines)
+   @ TraitMakie.PlotCore /p/projects/coen/julia-trait-bound/TraitMakie-unified/src/PlotCore.jl:448
+ [2] datalimits(s::Stairs)
+   @ TraitMakie.PlotCore /p/projects/coen/julia-trait-bound/TraitMakie-unified/src/PlotCore.jl:598
+
+Error #33: unresolved call from statement steppoints(
+  getfield(s::Stairs, :pos::Symbol)::Positions,
+  (…)::Symbol
+)::Matrix{Float64}
+
+Stacktrace:
+ [1] refresh!(s::Stairs)
+   @ TraitMakie.PlotCore /p/projects/coen/julia-trait-bound/TraitMakie-unified/src/PlotCore.jl:577
+
+Error #34: unresolved call from statement convert((…)::Union{Type{Float64}, Type{ColorSpec}, Type{Positions}}, v::Dynamic{Positions})::Any
+
+Stacktrace:
+ [1] setproperty!(x::Lines, f::Symbol, v::Dynamic{Positions})
+   @ Base Base_compiler.jl:60
+ [2] refresh!(s::Stairs)
+   @ TraitMakie.PlotCore /p/projects/coen/julia-trait-bound/TraitMakie-unified/src/PlotCore.jl:577
+
+Error #35: unresolved call from statement limits(
+  getfield(p::Labels, :pos::Symbol)::Positions
+)::NTuple{4, Float64}
+
+Stacktrace:
+ [1] datalimits(p::Labels)
+   @ TraitMakie.PlotCore /p/projects/coen/julia-trait-bound/TraitMakie-unified/src/PlotCore.jl:453
+
+Error #36: unresolved call from statement limits(
+  getfield(p::Poly, :pos::Symbol)::Positions
+)::NTuple{4, Float64}
+
+Stacktrace:
+ [1] datalimits(p::Poly)
+   @ TraitMakie.PlotCore /p/projects/coen/julia-trait-bound/TraitMakie-unified/src/PlotCore.jl:452
+ [2] datalimits(b::Band)
+   @ TraitMakie.PlotCore /p/projects/coen/julia-trait-bound/TraitMakie-unified/src/PlotCore.jl:600
+
+Error #37: unresolved call from statement vlimits(
+  getfield(p::VLines, :pos::Symbol)::Positions
+)::NTuple{4, Float64}
+
+Stacktrace:
+ [1] datalimits(p::VLines)
+   @ TraitMakie.PlotCore /p/projects/coen/julia-trait-bound/TraitMakie-unified/src/PlotCore.jl:451
+
+Error #38: unresolved call from statement barlimits(
+  getfield(p::Bars, :pos::Symbol)::Positions,
+  (…)::Float64
+)::NTuple{4, Float64}
+
+Stacktrace:
+ [1] datalimits(p::Bars)
+   @ TraitMakie.PlotCore /p/projects/coen/julia-trait-bound/TraitMakie-unified/src/PlotCore.jl:450
+
+Error #39: unresolved call from statement limits(
+  getfield(p::Scatter, :pos::Symbol)::Positions
+)::NTuple{4, Float64}
+
+Stacktrace:
+ [1] datalimits(p::Scatter)
+   @ TraitMakie.PlotCore /p/projects/coen/julia-trait-bound/TraitMakie-unified/src/PlotCore.jl:449
+
+Error #40: unresolved call from statement limits(
+  getfield(p::Lines, :pos::Symbol)::Positions
+)::NTuple{4, Float64}
+
+Stacktrace:
+ [1] datalimits(p::Lines)
+   @ TraitMakie.PlotCore /p/projects/coen/julia-trait-bound/TraitMakie-unified/src/PlotCore.jl:448
+ [2] datalimits(s::Stairs)
+   @ TraitMakie.PlotCore /p/projects/coen/julia-trait-bound/TraitMakie-unified/src/PlotCore.jl:598
+
+Error #41: unresolved call from statement datalimits(
+  :(φ (%36 => %31, %92 => %86))::Plot
+)::Any
+
+Stacktrace:
+ [1] drawaxis!(c::TraitMakie.PlotCore.Canvas, ax::Axis, x0::Float64, y0::Float64, w::Float64, h::Float64)
+   @ TraitMakie.PlotCore /p/projects/coen/julia-trait-bound/TraitMakie-unified/src/PlotCore.jl:723
+ [2] render_png(f::Figure, path::String, px_per_unit::Float64)
+   @ TraitMakie.PlotCore /p/projects/coen/julia-trait-bound/TraitMakie-unified/src/PlotCore.jl:775
+ [3] getindex(A::Vector{String}, i::Int64)
+   @ Base essentials.jl:978 [inlined]
+ [4] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/report.jl:18
+ [5] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-unified/test/trimming/juliac-buildscript.jl:35
+
+Error #42: unresolved call from statement scaled(
+  getfield(ax::Axis, :xscale::Symbol)::Scale,
+  :(φ (%91 => %48, %36 => TraitMakie.PlotCore.Inf))::Float64
+)::Any
+
+Stacktrace:
+ [1] iterate(A::Vector{Plot}, state::Int64)
+   @ Base abstractarray.jl:1247 [inlined]
+ [2] drawaxis!(c::TraitMakie.PlotCore.Canvas, ax::Axis, x0::Float64, y0::Float64, w::Float64, h::Float64)
+   @ TraitMakie.PlotCore /p/projects/coen/julia-trait-bound/TraitMakie-unified/src/PlotCore.jl:725
+ [3] render_png(f::Figure, path::String, px_per_unit::Float64)
+   @ TraitMakie.PlotCore /p/projects/coen/julia-trait-bound/TraitMakie-unified/src/PlotCore.jl:775
+ [4] getindex(A::Vector{String}, i::Int64)
+   @ Base essentials.jl:978 [inlined]
+ [5] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/report.jl:18
+ [6] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-unified/test/trimming/juliac-buildscript.jl:35
+
+Error #43: unresolved call from statement scaled(
+  getfield(ax::Axis, :xscale::Symbol)::Scale,
+  :(φ (%91 => %51, %36 => -Inf))::Float64
+)::Any
+
+Stacktrace:
+ [1] iterate(A::Vector{Plot}, state::Int64)
+   @ Base abstractarray.jl:0 [inlined]
+ [2] drawaxis!(c::TraitMakie.PlotCore.Canvas, ax::Axis, x0::Float64, y0::Float64, w::Float64, h::Float64)
+   @ TraitMakie.PlotCore /p/projects/coen/julia-trait-bound/TraitMakie-unified/src/PlotCore.jl:725
+ [3] render_png(f::Figure, path::String, px_per_unit::Float64)
+   @ TraitMakie.PlotCore /p/projects/coen/julia-trait-bound/TraitMakie-unified/src/PlotCore.jl:775
+ [4] getindex(A::Vector{String}, i::Int64)
+   @ Base essentials.jl:978 [inlined]
+ [5] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/report.jl:18
+ [6] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-unified/test/trimming/juliac-buildscript.jl:35
+
+Error #44: unresolved call from statement scaled(
+  getfield(ax::Axis, :yscale::Symbol)::Scale,
+  :(φ (%91 => %54, %36 => TraitMakie.PlotCore.Inf))::Float64
+)::Any
+
+Stacktrace:
+ [1] ==(x::Float64, y::Float64)
+   @ Base float.jl:621 [inlined]
+ [2] !=(x::Float64, y::Float64)
+   @ Base operators.jl:320 [inlined]
+ [3] isnan(x::Float64)
+   @ Base float.jl:708 [inlined]
+ [4] isfinite(x::Float64)
+   @ Base float.jl:711 [inlined]
+ [5] drawaxis!(c::TraitMakie.PlotCore.Canvas, ax::Axis, x0::Float64, y0::Float64, w::Float64, h::Float64)
+   @ TraitMakie.PlotCore /p/projects/coen/julia-trait-bound/TraitMakie-unified/src/PlotCore.jl:727
+ [6] render_png(f::Figure, path::String, px_per_unit::Float64)
+   @ TraitMakie.PlotCore /p/projects/coen/julia-trait-bound/TraitMakie-unified/src/PlotCore.jl:775
+ [7] getindex(A::Vector{String}, i::Int64)
+   @ Base essentials.jl:978 [inlined]
+ [8] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/report.jl:18
+ [9] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-unified/test/trimming/juliac-buildscript.jl:35
+
+Error #45: unresolved call from statement scaled(
+  getfield(ax::Axis, :yscale::Symbol)::Scale,
+  :(φ (%91 => %57, %36 => -Inf))::Float64
+)::Any
+
+Stacktrace:
+ [1] !(x::Bool)
+   @ Base bool.jl:37 [inlined]
+ [2] isfinite(x::Float64)
+   @ Base float.jl:711 [inlined]
+ [3] drawaxis!(c::TraitMakie.PlotCore.Canvas, ax::Axis, x0::Float64, y0::Float64, w::Float64, h::Float64)
+   @ TraitMakie.PlotCore /p/projects/coen/julia-trait-bound/TraitMakie-unified/src/PlotCore.jl:727
+ [4] render_png(f::Figure, path::String, px_per_unit::Float64)
+   @ TraitMakie.PlotCore /p/projects/coen/julia-trait-bound/TraitMakie-unified/src/PlotCore.jl:775
+ [5] getindex(A::Vector{String}, i::Int64)
+   @ Base essentials.jl:978 [inlined]
+ [6] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/report.jl:18
+ [7] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-unified/test/trimming/juliac-buildscript.jl:35
+
+Error #46: unresolved call from statement scaled(
+  getfield(ax::Axis, :xscale::Symbol)::Scale,
+  (…)::Float64
+)::Any
+
+Stacktrace:
+ [1] drawaxis!(c::TraitMakie.PlotCore.Canvas, ax::Axis, x0::Float64, y0::Float64, w::Float64, h::Float64)
+   @ TraitMakie.PlotCore /p/projects/coen/julia-trait-bound/TraitMakie-unified/src/PlotCore.jl:727
+ [2] render_png(f::Figure, path::String, px_per_unit::Float64)
+   @ TraitMakie.PlotCore /p/projects/coen/julia-trait-bound/TraitMakie-unified/src/PlotCore.jl:775
+ [3] getindex(A::Vector{String}, i::Int64)
+   @ Base essentials.jl:978 [inlined]
+ [4] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/report.jl:18
+ [5] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-unified/test/trimming/juliac-buildscript.jl:35
+
+Error #47: unresolved call from statement scaled(
+  getfield(ax::Axis, :xscale::Symbol)::Scale,
+  (…)::Float64
+)::Any
+
+Stacktrace:
+ [1] !(x::Bool)
+   @ Base bool.jl:37 [inlined]
+ [2] isfinite(x::Float64)
+   @ Base float.jl:711 [inlined]
+ [3] drawaxis!(c::TraitMakie.PlotCore.Canvas, ax::Axis, x0::Float64, y0::Float64, w::Float64, h::Float64)
+   @ TraitMakie.PlotCore /p/projects/coen/julia-trait-bound/TraitMakie-unified/src/PlotCore.jl:728
+ [4] render_png(f::Figure, path::String, px_per_unit::Float64)
+   @ TraitMakie.PlotCore /p/projects/coen/julia-trait-bound/TraitMakie-unified/src/PlotCore.jl:775
+ [5] getindex(A::Vector{String}, i::Int64)
+   @ Base essentials.jl:978 [inlined]
+ [6] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/report.jl:18
+ [7] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-unified/test/trimming/juliac-buildscript.jl:35
+
+Error #48: unresolved call from statement scaled(
+  getfield(ax::Axis, :yscale::Symbol)::Scale,
+  (…)::Float64
+)::Any
+
+Stacktrace:
+ [1] drawaxis!(c::TraitMakie.PlotCore.Canvas, ax::Axis, x0::Float64, y0::Float64, w::Float64, h::Float64)
+   @ TraitMakie.PlotCore /p/projects/coen/julia-trait-bound/TraitMakie-unified/src/PlotCore.jl:728
+ [2] render_png(f::Figure, path::String, px_per_unit::Float64)
+   @ TraitMakie.PlotCore /p/projects/coen/julia-trait-bound/TraitMakie-unified/src/PlotCore.jl:775
+ [3] getindex(A::Vector{String}, i::Int64)
+   @ Base essentials.jl:978 [inlined]
+ [4] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/report.jl:18
+ [5] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-unified/test/trimming/juliac-buildscript.jl:35
+
+Error #49: unresolved call from statement scaled(
+  getfield(ax::Axis, :yscale::Symbol)::Scale,
+  (…)::Float64
+)::Any
+
+Stacktrace:
+ [1] drawaxis!(c::TraitMakie.PlotCore.Canvas, ax::Axis, x0::Float64, y0::Float64, w::Float64, h::Float64)
+   @ TraitMakie.PlotCore /p/projects/coen/julia-trait-bound/TraitMakie-unified/src/PlotCore.jl:728
+ [2] render_png(f::Figure, path::String, px_per_unit::Float64)
+   @ TraitMakie.PlotCore /p/projects/coen/julia-trait-bound/TraitMakie-unified/src/PlotCore.jl:775
+ [3] getindex(A::Vector{String}, i::Int64)
+   @ Base essentials.jl:978 [inlined]
+ [4] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/report.jl:18
+ [5] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-unified/test/trimming/juliac-buildscript.jl:35
+
+Error #50: unresolved call from statement scaleticks(
+  getfield(ax::Axis, :xscale::Symbol)::Scale,
+  :(φ (%153 => %141, %156 => %156))::Float64,
+  :(φ (%161 => %142, %164 => %164))::Float64,
+  6::Int64
+)::Any
+
+Stacktrace:
+ [1] indexed_iterate(t::NTuple{4, Float64}, i::Int64, state::Int64)
+   @ Base tuple.jl:163 [inlined]
+ [2] drawaxis!(c::TraitMakie.PlotCore.Canvas, ax::Axis, x0::Float64, y0::Float64, w::Float64, h::Float64)
+   @ TraitMakie.PlotCore /p/projects/coen/julia-trait-bound/TraitMakie-unified/src/PlotCore.jl:731
+ [3] render_png(f::Figure, path::String, px_per_unit::Float64)
+   @ TraitMakie.PlotCore /p/projects/coen/julia-trait-bound/TraitMakie-unified/src/PlotCore.jl:775
+ [4] getindex(A::Vector{String}, i::Int64)
+   @ Base essentials.jl:978 [inlined]
+ [5] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/report.jl:18
+ [6] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-unified/test/trimming/juliac-buildscript.jl:35
+
+Error #51: unresolved call from statement ticklabel(
+  getfield(ax::Axis, :xscale::Symbol)::Scale,
+  :(φ (%245 => %240, %338 => %332))::Float64
+)::Any
+
+Stacktrace:
+ [1] /(x::Float64, y::Float64)
+   @ Base float.jl:495 [inlined]
+ [2] drawaxis!(c::TraitMakie.PlotCore.Canvas, ax::Axis, x0::Float64, y0::Float64, w::Float64, h::Float64)
+   @ TraitMakie.PlotCore /p/projects/coen/julia-trait-bound/TraitMakie-unified/src/PlotCore.jl:735
+ [3] render_png(f::Figure, path::String, px_per_unit::Float64)
+   @ TraitMakie.PlotCore /p/projects/coen/julia-trait-bound/TraitMakie-unified/src/PlotCore.jl:775
+ [4] getindex(A::Vector{String}, i::Int64)
+   @ Base essentials.jl:978 [inlined]
+ [5] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/report.jl:18
+ [6] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-unified/test/trimming/juliac-buildscript.jl:35
+
+Error #52: unresolved call from statement scaleticks(
+  getfield(ax::Axis, :yscale::Symbol)::Scale,
+  :(φ (%169 => %143, %172 => %172))::Float64,
+  :(φ (%177 => %144, %180 => %180))::Float64,
+  5::Int64
+)::Any
+
+Stacktrace:
+ [1] drawaxis!(c::TraitMakie.PlotCore.Canvas, ax::Axis, x0::Float64, y0::Float64, w::Float64, h::Float64)
+   @ TraitMakie.PlotCore /p/projects/coen/julia-trait-bound/TraitMakie-unified/src/PlotCore.jl:721
+ [2] render_png(f::Figure, path::String, px_per_unit::Float64)
+   @ TraitMakie.PlotCore /p/projects/coen/julia-trait-bound/TraitMakie-unified/src/PlotCore.jl:775
+ [3] getindex(A::Vector{String}, i::Int64)
+   @ Base essentials.jl:978 [inlined]
+ [4] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/report.jl:18
+ [5] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-unified/test/trimming/juliac-buildscript.jl:35
+
+Error #53: unresolved call from statement ticklabel(
+  getfield(ax::Axis, :yscale::Symbol)::Scale,
+  :(φ (%376 => %371, %470 => %464))::Float64
+)::Any
+
+Stacktrace:
+  [1] checkbounds(::Type{Bool}, A::Vector{Float64}, i::Int64)
+    @ Base essentials.jl:385 [inlined]
+  [2] checkbounds(A::Vector{Float64}, i::Int64)
+    @ Base essentials.jl:389 [inlined]
+  [3] getindex(A::Vector{Float64}, i::Int64)
+    @ Base essentials.jl:978 [inlined]
+  [4] _iterate_abstractarray(A::Vector{Float64}, state::Int64)
+    @ Base abstractarray.jl:1255 [inlined]
+  [5] iterate(A::Vector{Float64}, state::Int64)
+    @ Base abstractarray.jl:1247 [inlined]
+  [6] drawaxis!(c::TraitMakie.PlotCore.Canvas, ax::Axis, x0::Float64, y0::Float64, w::Float64, h::Float64)
+    @ TraitMakie.PlotCore /p/projects/coen/julia-trait-bound/TraitMakie-unified/src/PlotCore.jl:742
+  [7] render_png(f::Figure, path::String, px_per_unit::Float64)
+    @ TraitMakie.PlotCore /p/projects/coen/julia-trait-bound/TraitMakie-unified/src/PlotCore.jl:775
+  [8] getindex(A::Vector{String}, i::Int64)
+    @ Base essentials.jl:978 [inlined]
+  [9] main(args::Vector{String})
+    @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/report.jl:18
+ [10] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+    @ Main /p/projects/coen/julia-trait-bound/julia-unified/test/trimming/juliac-buildscript.jl:35
+
+Error #54: unresolved call from statement draw!(
+  :(φ (%640 => %635, %679 => %673))::Plot,
+  c::TraitMakie.PlotCore.Canvas,
+  (…)::TraitMakie.PlotCore.Transform2D
+)::Any
+
+Stacktrace:
+ [1] iterate(r::UnitRange{Int64}, i::Int64)
+   @ Base range.jl:928 [inlined]
+ [2] vect(::Float64, ::Float64, ::Float64, ::Float64, ::Float64)
+   @ Base array.jl:164 [inlined]
+ [3] drawaxis!(c::TraitMakie.PlotCore.Canvas, ax::Axis, x0::Float64, y0::Float64, w::Float64, h::Float64)
+   @ TraitMakie.PlotCore /p/projects/coen/julia-trait-bound/TraitMakie-unified/src/PlotCore.jl:748
+ [4] render_png(f::Figure, path::String, px_per_unit::Float64)
+   @ TraitMakie.PlotCore /p/projects/coen/julia-trait-bound/TraitMakie-unified/src/PlotCore.jl:775
+ [5] object: exit 0 after 14 s
+link: exit 0, 5330056 bytes

@@ -1,0 +1,42 @@
+# E-361 run_rest 2026-11-11T07:42:34+01:00 load 6.32 4.20 4.07 | julia-unified 564a2288e2 julia-vanilla 45b6d15e34 TraitWorld-unified 05991fc
+logs/ode-plain2.build.log: 14 errors, 0 warnings | Trim verify finished with 14 errors, 0 warnings. | object: exit 1 after 6 s
+  in module: PlainODE E8, Base.Order E4, Base.Sort E2
+  reached from: Main E8, OpenSpecFun_jll E6
+    root    8  Main _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+    root    6  OpenSpecFun_jll __init__()
+logs/csvdf-unified.build.log: 772 errors, 0 warnings | Trim verify finished with 770 errors, 2 warnings. | object: exit 1 after 20 s
+  in module: Base E526, CSV E148, DataFrames E50, Tables E20, Base.Order E8, Base.Experimental E8, Main E4, Core E4, Base.AnnotatedDisplay E4
+  reached from: Main E759, Base E12, Core E1
+    root  759  Main _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+    root    6  Base show_generator(io::IOBuffer, ex::Expr, indent::Int64, quote_level::Int
+    root    6  Base show_generator(io::IOContext{IOBuffer}, ex::Expr, indent::Int64, quote
+    root    1  Core Pair(a::Int64, b::Type)
+logs/csvdf-vanilla.build.log: 768 errors, 0 warnings | Trim verify finished with 766 errors, 2 warnings. | object: exit 1 after 16 s
+  in module: Base E524, CSV E148, DataFrames E50, Tables E20, Base.Order E8, Base.Experimental E8, Main E4, Base.AnnotatedDisplay E4, Core E2
+  reached from: Main E767, Core E1
+    root  767  Main _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+    root    1  Core Pair(a::Int64, b::Type)
+logs/report-bare.build.log: 44 errors, 0 warnings | Trim verify finished with 44 errors, 0 warnings. | object: exit 1 after 6 s
+  in module: TraitMakie.PlotCore E19, Base E15, Base.Order E4, Base.Sort E2, TraitTables.TableCore E2, TraitCSV.CSVCore E2
+  reached from: Main E22, TraitMakie.PlotCore E14, Pango_jll E6, TraitTables.TableCore E2
+    root   22  Main _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+    root   14  TraitMakie.PlotCore drawaxis!(c::TraitMakie.PlotCore.Canvas, ax::Axis, x0::Float64, y0::Fl
+    root    6  Pango_jll __init__()
+    root    2  TraitTables.TableCore describe(t::Table)
+logs/report-verify.build.log: 59 errors, 0 warnings | verify_main: 1548 targets, 40 entry points, 63 run-time sites, complete true, 4.1 s | Trim verify finished with 59 errors, 0 warnings. | object: exit 1 after 12 s
+  in module: TraitMakie.PlotCore E30, Base E18, Base.Order E4, TraitCSV.CSVCore E3, Base.Sort E2, TraitTables.TableCore E2
+  reached from: TraitMakie.PlotCore E28, Main E22, Pango_jll E6, TraitTables.TableCore E2, TraitCSV.CSVCore E1
+    root   22  Main _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+    root   14  TraitMakie.PlotCore drawaxis!(c::TraitMakie.PlotCore.Canvas, ax::Axis, x0::Float64, y0::Fl
+    root    6  Pango_jll __init__()
+    root    2  TraitTables.TableCore describe(t::Table)
+logs/report-plain.build.log: 96 errors, 0 warnings | Trim verify finished with 96 errors, 0 warnings. | object: exit 1 after 6 s
+  in module: PlainPlots E80, PlainTables E6, Base.Order E4, Base E4, Base.Sort E2
+  reached from: Main E90, Pango_jll E6
+    root   90  Main _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+    root    6  Pango_jll __init__()
+logs/report-plain-vanilla.build.log: 98 errors, 0 warnings | Trim verify finished with 98 errors, 0 warnings. | object: exit 1 after 6 s
+  in module: PlainPlots E80, PlainTables E6, Base E6, Base.Order E4, Base.Sort E2
+  reached from: Main E92, Pango_jll E6
+    root   92  Main _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+    root    6  Pango_jll __init__()
