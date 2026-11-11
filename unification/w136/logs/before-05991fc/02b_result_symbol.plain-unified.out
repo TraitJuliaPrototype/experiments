@@ -1,0 +1,27 @@
+ERROR: LoadError: MethodError: no method matching uppercasefirst(::Symbol)
+The function `uppercasefirst` exists, but no method is defined for this combination of argument types.
+
+Closest candidates are:
+  uppercasefirst(!Matched::SubString{<:Base.AnnotatedString})
+   @ Base strings/unicode.jl:762
+  uppercasefirst(!Matched::Base.AnnotatedString)
+   @ Base strings/unicode.jl:753
+  uppercasefirst(!Matched::AbstractString)
+   @ Base strings/unicode.jl:744
+
+Stacktrace:
+ [1] title(s::Circle)
+   @ Main.Geometry /p/projects/coen/julia-trait-bound/experiments/unification/w136/lib_plain.jl:15
+ [2] report(s::Circle)
+   @ Main.Geometry /p/projects/coen/julia-trait-bound/experiments/unification/w136/lib_plain.jl:16
+ [3] top-level scope
+   @ /p/projects/coen/julia-trait-bound/experiments/unification/w136/cases/02b_result_symbol.plain.jl:10
+ [4] include(mod::Module, _path::String)
+   @ Base ./Base.jl:315
+ [5] exec_options(opts::Base.JLOptions)
+   @ Base ./client.jl:344
+ [6] _start()
+   @ Base ./client.jl:577
+in expression starting at /p/projects/coen/julia-trait-bound/experiments/unification/w136/cases/02b_result_symbol.plain.jl:10
+PHASE definition
+PHASE call

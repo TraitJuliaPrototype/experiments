@@ -1,0 +1,25 @@
+WARNING: method tag at tag(Geometry.Named) is ambiguous for Main.Sprite, a member of Geometry.Named, with the method at tag(Geometry.Shape); a method at tag(All{Geometry.Named, Geometry.Shape}) would resolve it
+ERROR: LoadError: MethodError: tag(::Sprite) is ambiguous.
+
+Candidates:
+  tag(s::Shape)
+    @ Main.Geometry /p/projects/coen/julia-trait-bound/experiments/unification/w136/lib_trait.jl:20
+  tag(n::Named)
+    @ Main.Geometry /p/projects/coen/julia-trait-bound/experiments/unification/w136/lib_trait.jl:19
+
+Possible fix, define
+  tag(::All{Named, Shape})
+
+Stacktrace:
+ [1] top-level scope
+   @ /p/projects/coen/julia-trait-bound/experiments/unification/w136/cases/04a_ambiguity_two_traits.trait.jl:14
+ [2] include(mod::Module, _path::String)
+   @ Base ./Base.jl:315
+ [3] exec_options(opts::Base.JLOptions)
+   @ Base ./client.jl:344
+ [4] _start()
+   @ Base ./client.jl:577
+in expression starting at /p/projects/coen/julia-trait-bound/experiments/unification/w136/cases/04a_ambiguity_two_traits.trait.jl:14
+PHASE definition
+PHASE second membership
+PHASE call

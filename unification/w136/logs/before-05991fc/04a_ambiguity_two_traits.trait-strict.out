@@ -1,0 +1,41 @@
+ERROR: LoadError: ImplementError: Sprite cannot be a member of Named
+  - strict mode refuses the membership of Main.Sprite in Geometry.Named: it makes methods ambiguous for Main.Sprite
+  method tag at Tuple{typeof(Geometry.tag), Geometry.Named} with the method at Tuple{typeof(Geometry.tag), Geometry.Shape}: a method at Tuple{typeof(Geometry.tag), All{Geometry.Named, Geometry.Shape}} would resolve it
+Stacktrace:
+ [1] _implement_one!(mod::Module, X::Any, member::Any, how::TraitWorld.How)
+   @ TraitWorld /p/projects/coen/julia-trait-bound/TraitWorld-unified/src/implement.jl:137
+ [2] _implement!(mod::Module, traits::Vector{Any}, member::Any, by::Nothing, block::Nothing)
+   @ TraitWorld /p/projects/coen/julia-trait-bound/TraitWorld-unified/src/implement.jl:96
+ [3] _implement_vars!(mod::Module, traits::Vector{Any}, body::Any, tvs::Vector{Any}, by::Nothing, block::Nothing)
+   @ TraitWorld /p/projects/coen/julia-trait-bound/TraitWorld-unified/src/implement.jl:82
+ [4] top-level scope
+   @ /p/projects/coen/julia-trait-bound/experiments/unification/w136/cases/04a_ambiguity_two_traits.trait.jl:12
+ [5] include(mod::Module, _path::String)
+   @ Base ./Base.jl:315
+ [6] exec_options(opts::Base.JLOptions)
+   @ Base ./client.jl:344
+ [7] _start()
+   @ Base ./client.jl:577
+in expression starting at /p/projects/coen/julia-trait-bound/experiments/unification/w136/cases/04a_ambiguity_two_traits.trait.jl:12
+
+caused by: strict mode refuses the membership of Main.Sprite in Geometry.Named: it makes methods ambiguous for Main.Sprite
+  method tag at Tuple{typeof(Geometry.tag), Geometry.Named} with the method at Tuple{typeof(Geometry.tag), Geometry.Shape}: a method at Tuple{typeof(Geometry.tag), All{Geometry.Named, Geometry.Shape}} would resolve it
+Stacktrace:
+ [1] _declare!(member::Any, instance::Any, mod::Module, by::Any, receiver::Symbol)
+   @ TraitWorld /p/projects/coen/julia-trait-bound/TraitWorld-unified/src/runtime.jl:11
+ [2] _implement_one!(mod::Module, X::Any, member::Any, how::TraitWorld.How)
+   @ TraitWorld /p/projects/coen/julia-trait-bound/TraitWorld-unified/src/implement.jl:131
+ [3] _implement!(mod::Module, traits::Vector{Any}, member::Any, by::Nothing, block::Nothing)
+   @ TraitWorld /p/projects/coen/julia-trait-bound/TraitWorld-unified/src/implement.jl:96
+ [4] _implement_vars!(mod::Module, traits::Vector{Any}, body::Any, tvs::Vector{Any}, by::Nothing, block::Nothing)
+   @ TraitWorld /p/projects/coen/julia-trait-bound/TraitWorld-unified/src/implement.jl:82
+ [5] top-level scope
+   @ /p/projects/coen/julia-trait-bound/experiments/unification/w136/cases/04a_ambiguity_two_traits.trait.jl:12
+ [6] include(mod::Module, _path::String)
+   @ Base ./Base.jl:315
+ [7] exec_options(opts::Base.JLOptions)
+   @ Base ./client.jl:344
+ [8] _start()
+   @ Base ./client.jl:577
+PHASE definition
+PHASE second membership

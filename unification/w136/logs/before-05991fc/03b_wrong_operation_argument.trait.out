@@ -1,0 +1,24 @@
+ERROR: LoadError: MethodError: no method matching scale(::Circle, ::Int64)
+This error has been manually thrown, explicitly, so the method may exist but be intentionally marked as unimplemented.
+Hint: `scale` is declared `scale(s::Scalable, k::Float64)::Self` by Scalable
+
+Closest candidates are:
+  scale(::Scalable, ::Any)
+   @ Main.Geometry /p/projects/coen/julia-trait-bound/TraitWorld-unified/src/trait.jl:345
+  scale(::Circle, !Matched::Float64)
+   @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w136/cases/03b_wrong_operation_argument.trait.jl:11
+
+Stacktrace:
+ [1] scale(s::Scalable, k::Int64)
+   @ Main.Geometry /p/projects/coen/julia-trait-bound/TraitWorld-unified/src/trait.jl:347
+ [2] top-level scope
+   @ /p/projects/coen/julia-trait-bound/experiments/unification/w136/cases/03b_wrong_operation_argument.trait.jl:14
+ [3] include(mod::Module, _path::String)
+   @ Base ./Base.jl:315
+ [4] exec_options(opts::Base.JLOptions)
+   @ Base ./client.jl:344
+ [5] _start()
+   @ Base ./client.jl:577
+in expression starting at /p/projects/coen/julia-trait-bound/experiments/unification/w136/cases/03b_wrong_operation_argument.trait.jl:14
+PHASE definition
+PHASE call

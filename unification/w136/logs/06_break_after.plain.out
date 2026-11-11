@@ -1,0 +1,32 @@
+ERROR: LoadError: MethodError: no method matching round(::String, ::RoundingMode{:Nearest}; digits::Int64)
+The function `round` exists, but no method is defined for this combination of argument types.
+
+Closest candidates are:
+  round(!Matched::BigFloat, ::RoundingMode{:Nearest}) got unsupported keyword argument "digits"
+   @ Base mpfr.jl:1122
+  round(!Matched::Missing, ::RoundingMode; sigdigits, digits, base)
+   @ Base missing.jl:141
+  round(!Matched::Type{T}, ::Any, !Matched::RoundingMode) where T>:Missing got unsupported keyword argument "digits"
+   @ Base missing.jl:145
+  ...
+
+Stacktrace:
+ [1] round(x::String; kws::@Kwargs{digits::Int64})
+   @ Base ./rounding.jl:481
+ [2] title(s::Circle)
+   @ Main.Geometry /p/projects/coen/julia-trait-bound/experiments/unification/w136/lib_plain.jl:15
+ [3] report(s::Circle)
+   @ Main.Geometry /p/projects/coen/julia-trait-bound/experiments/unification/w136/lib_plain.jl:16
+ [4] top-level scope
+   @ /p/projects/coen/julia-trait-bound/experiments/unification/w136/cases/06_break_after.plain.jl:12
+ [5] include(mod::Module, _path::String)
+   @ Base ./Base.jl:309
+ [6] exec_options(opts::Base.JLOptions)
+   @ Base ./client.jl:344
+ [7] _start()
+   @ Base ./client.jl:577
+in expression starting at /p/projects/coen/julia-trait-bound/experiments/unification/w136/cases/06_break_after.plain.jl:12
+PHASE definition
+Shape of area 3.142, ratio 0.5
+PHASE later method
+PHASE call

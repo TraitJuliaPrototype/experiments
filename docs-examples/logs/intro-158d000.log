@@ -1,0 +1,28 @@
+PASS  Measurements <: ColTable
+PASS  m isa ColTable
+PASS  colmean(m, 1) == 1.5
+PASS  colmean(r, 2) == 3.0
+PASS  meandiff(m, r, 1) == 0.0
+PASS  colmap(x -> 2x, m, 2) == [6.0, 10.0]
+PASS  colmap(compiled_for(x -> 2x), m, 2)
+PASS  colmean(with_dynamic(m), 1) == 1.5
+PASS  means(s, 1) == [1.5, 1.5]
+PASS  the shelf holds the members' own values
+PASS  Dynamic{ColTable}(r) isa ColTable
+PASS  colmean(d, 2) == 3.0
+PASS  unwrap(d) === r
+PASS  @implement ColTable Counts raises ImplementError
+MESSAGE ImplementError:
+ImplementError: Counts cannot be a member of ColTable
+  - col's method at Counts infers its result as Vector{Int64}, outside the declared Vector{Float64}
+PASS  Counts is no member
+PASS  a closure returning an Int raises TypeError
+MESSAGE TypeError:
+TypeError: in typeassert, expected Float64, got a value of type Int64
+PASS  an open method in a trait module raises TraitUseError
+MESSAGE TraitUseError:
+TraitUseError: colsum is declared bounded, and is open:
+  sum(ColTable) at line 112 is not in the contract of ColTable
+PASS  colmean(42, 1) raises MethodError
+
+18 pass, 0 fail

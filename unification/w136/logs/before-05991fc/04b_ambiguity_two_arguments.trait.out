@@ -1,0 +1,24 @@
+WARNING: method overlap at Tuple{typeof(Layout.overlap), Geometry.Shape, Any} is ambiguous for Main.Circle, a member of Geometry.Shape, with the method at Tuple{typeof(Layout.overlap), Any, Geometry.Shape}; a method at Tuple{typeof(Layout.overlap), Geometry.Shape, Geometry.Shape} would resolve it
+ERROR: LoadError: MethodError: overlap(::Circle, ::Circle) is ambiguous.
+
+Candidates:
+  overlap(a, b::Shape)
+    @ Main.Layout /p/projects/coen/julia-trait-bound/experiments/unification/w136/cases/04b_ambiguity_two_arguments.trait.jl:7
+  overlap(a::Shape, b)
+    @ Main.Layout /p/projects/coen/julia-trait-bound/experiments/unification/w136/cases/04b_ambiguity_two_arguments.trait.jl:6
+
+Possible fix, define
+  overlap(::Shape, ::Shape)
+
+Stacktrace:
+ [1] top-level scope
+   @ /p/projects/coen/julia-trait-bound/experiments/unification/w136/cases/04b_ambiguity_two_arguments.trait.jl:19
+ [2] include(mod::Module, _path::String)
+   @ Base ./Base.jl:315
+ [3] exec_options(opts::Base.JLOptions)
+   @ Base ./client.jl:344
+ [4] _start()
+   @ Base ./client.jl:577
+in expression starting at /p/projects/coen/julia-trait-bound/experiments/unification/w136/cases/04b_ambiguity_two_arguments.trait.jl:19
+PHASE definition
+PHASE call

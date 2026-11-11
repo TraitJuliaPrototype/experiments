@@ -1,0 +1,21 @@
+ERROR: LoadError: TraitUseError: density is declared bounded, and is open:
+  getproperty(Main.Geometry.Shape, Symbol) at line 10 is not in the contract of Main.Geometry.Shape
+Stacktrace:
+ [1] _decide_bounded(m::Method; final::Bool)
+   @ TraitWorld /p/projects/coen/julia-trait-bound/TraitWorld-unified/src/classify.jl:434
+ [2] _decide_bounded
+   @ /p/projects/coen/julia-trait-bound/TraitWorld-unified/src/classify.jl:423 [inlined]
+ [3] _check_bounded(m::Method)
+   @ TraitWorld /p/projects/coen/julia-trait-bound/TraitWorld-unified/src/classify.jl:418
+ [4] _definition_hook(m::Method, after::Bool)
+   @ TraitWorld /p/projects/coen/julia-trait-bound/TraitWorld-unified/src/implement.jl:293
+ [5] top-level scope
+   @ /p/projects/coen/julia-trait-bound/experiments/unification/w136/cases/09_library_outside_contract.trait.jl:10
+ [6] include(mod::Module, _path::String)
+   @ Base ./Base.jl:315
+ [7] exec_options(opts::Base.JLOptions)
+   @ Base ./client.jl:344
+ [8] _start()
+   @ Base ./client.jl:577
+in expression starting at /p/projects/coen/julia-trait-bound/experiments/unification/w136/cases/09_library_outside_contract.trait.jl:2
+PHASE library
