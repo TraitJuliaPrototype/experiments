@@ -28,6 +28,26 @@ Run it before a commit that renumbers a reference's sections. Hits in rows that 
 | 2026-11-09 | before the review's fixes | 112 (the review's first version, without the link rule) | 37 |
 | 2026-11-09 | after the fixes (design repository, this date) | 48 | 3, dated rows of `evidence.md` and `record/INDEX.md` citing their day's numbering |
 
+## `check_quotes.py`: the ports' code a document quotes
+
+Found on 2026-11-11 by [the review of the introduction and the rationale](../../writeup/reviews/2026-11-11-intro-and-rationale.md) (M2): `intro/porting.md` quotes the ports' code by file and line, and the ports move under it.
+
+```sh
+python3 -I experiments/docs-checks/check_quotes.py writeup/intro/porting.md
+```
+
+For every citation `path/file.jl:LINE` (in prose, or as a comment on a quoted line in a code block; `# :LINE` reuses the last file; `…/file.jl` is found by its suffix among the ports' tracked files):
+- the file exists and has the line;
+- a quoted line is the file's line, compared without runs of whitespace.
+
+One line per citation: `OK`, `MOVED to line n`, `DIFFERS`, `NOLINE`, `NOFILE`, `AMBIGUOUS`, or `CITED` with the file's line, for a prose citation that quotes nothing on its own line (to be read). The count of problems on stderr; exit status 1 if any. Run it when a port's source files change, and before a commit of the guide.
+
+### Results
+
+| Date | Ports | Citations | Problems |
+|---|---|---|---|
+| 2026-11-11 | forks ddc20f6, TraitDifferentialEquations 6658c65, TraitMakie c9e294b, NetworkDynamics d8c9c49 | 23 | 3 found by the check (`core.jl:97` and `frontend.jl:62` a line off, `coreloop.jl:154` quoted without its `@inline`) and one by reading a `CITED` line (`TraitMakie.jl:229`, now 232); corrected, 0 left |
+
 ## `check_tables.py`: every row with its table's number of cells
 
 Found on 2026-11-10: the scripts that write an experiment's outcome split a registered row (`| where | | |`) into five cells, not six, and wrote two outcomes into the status cell, losing the where cell (E-339, E-340). The same check then found the work queue's rows W-72 to W-130 under the three-column table of the items carried over, so they rendered broken, and julia-changes' rows 73 to 85 without their *Kind* cell.
