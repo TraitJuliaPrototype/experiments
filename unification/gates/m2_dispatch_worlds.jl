@@ -26,11 +26,11 @@ r3 = dc(MDW())                    # the compiled call site after the flip
 r4 = Base.invoke_in_world(w_pre, dc, MDW())
 @assert r4 === 0 "and the old-world call through it is bounded (leaf entry bump)"
 
-# the compiled ranges themselves: some live CI answers :set now, and the old one stays valid (a
-# membership invalidates nothing, compiler §5.5): the leaf dispatch cache entry is what was bounded
+# the compiled ranges themselves: some live CI answers :set now, and the old one ends at the membership
+# (a membership invalidates as a method does, compiler §5.5)
 cis = all_cis(d)
 @assert any(c -> c.rettype === Symbol && c.min_world <= curworld() <= c.max_world, cis) "a live CI answers Symbol"
-@assert any(c -> c.rettype === Int && c.max_world == typemax(UInt), cis) "the pre-membership Int CI stays valid"
+@assert any(c -> c.rettype === Int && w_pre <= c.max_world < curworld(), cis) "the pre-membership Int CI ends at the membership"
 
 @assert !(Int isa DW) "no unrelated widening (I1)"
 println("m2_dispatch_worlds: OK")

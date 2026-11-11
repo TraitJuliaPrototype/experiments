@@ -1,8 +1,8 @@
 # Gate (E-331, E-334, C-82; compiler §4.8, §4.9, §5.4): a match met only at an intersection that no type
 # of the world is in. At a final pair (a set closed after load) dispatch's lookup drops it, whatever its
 # specificity and however many matches there are, and reports the pair's final cell, which the caller
-# records: a membership that meets the intersection invalidates it. At an open set the match stays:
-# compiled code relies on no negative there, so a call that is ambiguous at the intersection dispatches.
+# records: a membership that meets the intersection invalidates it. Every set is such a set, and a
+# pair of Main is settled as a loaded package's is (W-140).
 # A `Callable` component is met (its members are methods), and a `Vararg` tail is met by its empty tail.
 # Reflection (`Base.isambiguous`) reports no ambiguity over an intersection with no value.
 # Two of its memberships meet such an intersection and make a real ambiguity (`k9`, `w1`): the report
@@ -54,28 +54,22 @@ wc2(@nospecialize(x::P20.X20), c::Char) = (P20.w1(x, c), P20.w1(x, c))
 l8(s::AbstractString) = 1
 @assert isempty(lookup(Tuple{typeof(l8), P20.X20}).matches) "the lone unmet match dropped at the final pair"
 
-# (2) a type of Main and an open set: the match that would win stays; the one that would tie leaves
+# (2) a type and a set of Main are settled as a loaded package's are (W-140, stage 2): the match met only
+# at the intersection leaves, its final cell on the caller
 abstract type Q9 end
 k9(::X9, ::Char) = 1
 k9(::Q9, ::Any) = 2                                    # ties with k9(::X9, ::Char) at All{Q9, X9}
-# at the open set the match stays (C-82): the runtime returns the covering match, ambiguous, and the
-# caller dispatches; its result type stays the covering method's
 let r = lookup(Tuple{typeof(k9), X9, Char})
-    @assert r.ambig "ambiguous at the open set: $(r.ambig) $(r.matches)"
+    @assert !r.ambig && length(r.matches) == 1 "one match at the set of Main: $(r.ambig) $(r.matches)"
 end
 kc(@nospecialize(x::X9)) = k9(x, 'a')
-let code = first(only(code_typed(kc, (X9,)))).code
-    # a dynamic call (through `Core.attributed_call`, the argument being a trait's), no static invoke
-    @assert any(st -> Meta.isexpr(st, :call) && any(a -> a == GlobalRef(@__MODULE__, :k9), st.args), code) &&
-            !any(st -> Meta.isexpr(st, :invoke), code) "kc dispatches: $code"
-end
+@assert isempty(dyncalls(kc, (X9,))) && Base.return_types(kc, (X9,)) == Any[Int] "kc is static: $(first(only(code_typed(kc, (X9,)))))"
 f9(::Any) = 0
 f9(::X9) = 1                                           # at All{Q9, X9} more specific than f9(::Any)
-@assert length(lookup(Tuple{typeof(f9), Q9}).matches) == 2 "a match that would win stays"
-g9(::X9) = 1                                           # no covering match at Q9: a pruned arm
+@assert length(lookup(Tuple{typeof(f9), Q9}).matches) == 1 "the match at the unmet intersection leaves, though it would win"
+g9(::X9) = 1                                           # no other match at Q9
 callg(x::Q9) = g9(x)
-@assert length(lookup(Tuple{typeof(g9), Q9}).matches) == 1 "a match with no covering one stays"
-@assert Base.return_types(callg, (Q9,)) != Any[Union{}] "the arm is not pruned"
+@assert isempty(lookup(Tuple{typeof(g9), Q9}).matches) "the lone unmet match leaves"
 
 # (3) a member in both components: met; the match and the ambiguity return
 struct S9 <: Q9 end

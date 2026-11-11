@@ -1,0 +1,11 @@
+final(AbstractVector, PX) = 0
+final(AbstractVector{Int}, PX) = 0
+final(AbstractVector{Float64}, PX) = 1
+final(AbstractString, PX) = 1
+typeintersect(AbstractVector, PX) = All{AbstractVector{T}, PX} where T
+g(Int[1]) = :px
+g(Float64[1]) = :any
+Base.code_typed(g, (AbstractVector,)) = Any[CodeInfo(
+1 ─ %1 =   dynamic Main.f(x)::Symbol
+└──      return %1
+) => Symbol]

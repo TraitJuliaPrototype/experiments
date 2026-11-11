@@ -1,11 +1,11 @@
-# Gate (W-129, W-140 stage 1; compiler §4.8; traits §3.4; facts §2.2, §10): every set is closed after
-# load, with the option `jl_set_closed_after_load` or without (`P.Y`). Once a pair's
-# declarers have finished loading (the set's module and the type's), its negative is final: a call
-# that a membership could change carries no guard, `isa` folds, and the code records the pair's final
-# cell. A membership declared later opens the cell and invalidates that code; a task in an older world
-# keeps the old answer. A type of Main is never settled. In package
-# images: the code an image compiled with a final negative is kept at load, and invalidated by a later
-# membership; an image loaded after the membership is not kept. Runs child processes on a fresh depot.
+# Gate (W-129, W-140; compiler §4.8, §5.5; traits §3.4; facts §2.2, §10): a non-membership is relied on,
+# at every set, with the option `jl_set_closed_after_load` or without (`P.Y`), before the pair's declarers
+# have finished loading and after, and for a type of Main. `isa` folds and the code records the pair's
+# final cell; a call selects its method with no guard and no cell. A membership declared later opens
+# the cell and invalidates the code that folded, and invalidates the caller whose selection it changes,
+# as a method's insertion does; a task in an older world keeps the old answer. In package images: the
+# code an image compiled with a negative is kept at load, and invalidated by a later membership; an
+# image loaded after the membership is not kept. Runs child processes on a fresh depot.
 using Traits
 include("util.jl")
 
@@ -32,45 +32,48 @@ end
 ccall(:jl_set_closed_after_load, Cvoid, (Any,), P.X)
 @assert ccall(:jl_is_closed_after_load, Cint, (Any,), P.X) == 1 && ccall(:jl_is_closed_after_load, Cint, (Any,), P.Y) == 1
 
-# (1) before P has finished loading the negative is relied on too (W-140, stage 2): a final cell, no guard
+# (1) before P has finished loading the negative is relied on too: no guard; a folded isa has its cell
 callf0(s::P.S) = P.f(s)
-@assert callf0(P.S()) === :any
+isx0(s::P.S) = s isa P.X
+@assert callf0(P.S()) === :any && isx0(P.S()) === false
 ci0 = latest(callf0, P.S)
-@assert isempty(guards(ci0)) && length(finals(ci0)) == 1 "a final cell before the load: $(ci0.edges)"
+@assert isempty(guards(ci0)) && isempty(finals(ci0)) "no cell at a call before the load: $(ci0.edges)"
+@assert length(finals(latest(isx0, P.S))) == 1 "the folded isa's cell before the load"
 @assert !loaded(P)
 
-# (2) once P has loaded: no guard, a final cell; `isa` folds
+# (2) once P has loaded: the same
 ccall(:jl_module_set_loaded, Cvoid, (Any,), P)
 @assert loaded(P)
 callf(s::P.S) = P.f(s)
 isx(s::P.S) = s isa P.X
 @assert callf(P.S()) === :any && isx(P.S()) === false
 ci = latest(callf, P.S)
-@assert isempty(guards(ci)) && length(finals(ci)) == 1 "a final cell, no guard: $(ci.edges)"
-cell = only(finals(ci))
-@assert cell.member === P.S && cell.min_world == typemax(UInt)
+@assert isempty(guards(ci)) && isempty(finals(ci)) "no guard, no cell at a call: $(ci.edges)"
 cix = latest(isx, P.S)
+cell = only(finals(cix))
+@assert cell.member === P.S && cell.min_world == typemax(UInt)
 folded_false(c) = isdefined(c, :rettype_const) && (c.rettype_const === false ||
     (c.rettype_const isa Core.InterConditional && c.rettype_const.thentype === Union{}))
 @assert folded_false(cix) "isa folded to false: $(cix.rettype)"
 @assert length(finals(cix)) == 1 "the folded isa records the final cell: $(cix.edges)"
-@assert any(b -> b === ci, cell.backedges) && any(b -> b === cix, cell.backedges) "the cell keeps its dependents"
+@assert any(b -> b === cix, cell.backedges) "the cell keeps its dependent"
 
-# a set declared without the option is closed after load too: a final cell, no guard
+# a set declared without the option: the same
 callg(s::P.S2) = P.g(s)
 @assert callg(P.S2()) === :any
 cig = latest(callg, P.S2)
-@assert isempty(guards(cig)) && length(finals(cig)) == 1
+@assert isempty(guards(cig)) && isempty(finals(cig))
 
 # a type of Main is relied on too (W-140, stage 2), and a type with a parameter of Main
 struct M end
 callm(m::M) = P.f(m)
 callv(v::Vector{M}) = P.f(v)
 @assert callm(M()) === :any && callv(M[]) === :any
-@assert isempty(guards(latest(callm, M))) && length(finals(latest(callm, M))) == 1
-@assert isempty(guards(latest(callv, Vector{M}))) && length(finals(latest(callv, Vector{M}))) == 1
+@assert isempty(guards(latest(callm, M))) && isempty(guards(latest(callv, Vector{M})))
+ism(m::M) = m isa P.X
+@assert ism(M()) === false && length(finals(latest(ism, M))) == 1 "a type of Main is settled"
 
-# (3) a late membership opens the final cell and invalidates its dependents
+# (3) a late membership opens the final cell and invalidates its dependents, and the caller
 w_before = curworld()
 e = @implement P.X P.S
 @assert cell.min_world == e.min_world "the final cell opened at the entry's world"
@@ -140,21 +143,21 @@ probe = """
         return ci
     end
 """
-# PkgY's image code: kept at load, no guard, a final cell; a late membership invalidates it
+# PkgY's image code: kept at load; a late membership invalidates it
 let (ok, out, err) = child(probe * """
     using PkgX, PkgY
     println("loaded ", ccall(:jl_module_is_loaded, Cint, (Any,), PkgX))
-    ci = imgci(PkgY.h)
-    println("image ", ci.max_world == typemax(UInt), " ", length(finals(ci)), " ", PkgY.h(PkgX.S()), " ", PkgY.isx(PkgX.S()))
-    println("kept ", imgci(PkgY.h) === ci, " ", any(b -> b === ci, only(finals(ci)).backedges))
+    ci = imgci(PkgY.h); cix = imgci(PkgY.isx)
+    println("image ", ci.max_world == typemax(UInt), " ", cix.max_world == typemax(UInt), " ", length(finals(cix)), " ", PkgY.h(PkgX.S()), " ", PkgY.isx(PkgX.S()))
+    println("kept ", imgci(PkgY.h) === ci, " ", any(b -> b === cix, only(finals(cix)).backedges))
     using PkgZ
-    println("late ", ci.max_world < typemax(UInt), " ", PkgY.h(PkgX.S()), " ", PkgY.isx(PkgX.S()))
+    println("late ", ci.max_world < typemax(UInt), " ", cix.max_world < typemax(UInt), " ", PkgY.h(PkgX.S()), " ", PkgY.isx(PkgX.S()))
 """)
     @assert ok "image, then a late membership: $err"
     @assert occursin("loaded 1", out) "PkgX loaded: $out"
-    @assert occursin("image true 1 any false", out) "PkgY's image code with its final cell: $out"
+    @assert occursin("image true true 1 any false", out) "PkgY's image code, the folded isa with its final cell: $out"
     @assert occursin("kept true true", out) "the image code kept, the cell's dependent: $out"
-    @assert occursin("late true set true", out) "a late membership invalidates the image code: $out"
+    @assert occursin("late true true set true", out) "a late membership invalidates the image code: $out"
 end
 # PkgZ's membership loaded first: PkgY's image code is not kept
 let (ok, out, err) = child(probe * """

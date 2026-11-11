@@ -64,9 +64,15 @@ file name is the milestone whose gate it belongs to:
 - `n6_attribute.jl` — W-111: each trait argument's attribute by the five steps of traits §7.5 (the
   runtime at a dynamic call, inference at a static one), the casts and `Core.attributed_call`, `keep`,
   the run-time site that passes `Dynamic` on, the reserved names, identical results
-- `n7_guards.jl` — W-112: a membership invalidates no code; a guarded call opens with its cell, an
-  older world keeps the old answer, no guard through the type's own supertypes, a method at a set defined
-  later invalidates the callers it shadows, the guarded call's result, the facts mode
+- `n7_guards.jl` — W-140: a membership invalidates as a method does. A call holds no guard and no cell;
+  the membership invalidates the caller whose selection it changes, an older world keeps the old
+  answer; a caller matched through the type's own supertypes stays valid; a method at a set defined
+  later invalidates no caller at a non-member; the call's own result; the facts mode
+- `n25_image_before_set_method.jl` — W-140: code in a package image, compiled where its callee had no
+  method at a trait, is invalidated by a later membership, whether the method came before the image's
+  load or after (`../w140/image_then_method.jl`, with the packages `../w140/PlainF`, `PlainG`)
+- `n26_callable_late_method.jl` — W-140: a compiled caller that passes a function where a method at
+  `Callable` does not match follows a later method of that function (`../w140/callable_late_method.jl`)
 - `n8_callable.jl` — W-113: `Callable{A, S}` by a function's own methods, dispatch by signature,
   a definition or deletion that begins or ends a membership, the result checked on return, E-267's
   question that reaches itself, never a builtin
