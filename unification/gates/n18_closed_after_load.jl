@@ -1,8 +1,9 @@
-# Gate (W-129; compiler §4.8; traits §3.4; facts §2.2, §10): a set closed after load. Once a pair's
+# Gate (W-129, W-140 stage 1; compiler §4.8; traits §3.4; facts §2.2, §10): every set is closed after
+# load, with the option `jl_set_closed_after_load` or without (`P.Y`). Once a pair's
 # declarers have finished loading (the set's module and the type's), its negative is final: a call
 # that a membership could change carries no guard, `isa` folds, and the code records the pair's final
 # cell. A membership declared later opens the cell and invalidates that code; a task in an older world
-# keeps the old answer. An open set keeps its guards, and a type of Main is never settled. In package
+# keeps the old answer. A type of Main is never settled. In package
 # images: the code an image compiled with a final negative is kept at load, and invalidated by a later
 # membership; an image loaded after the membership is not kept. Runs child processes on a fresh depot.
 using Traits
@@ -29,7 +30,7 @@ g(x) = :any
 g(y::Y) = :set
 end
 ccall(:jl_set_closed_after_load, Cvoid, (Any,), P.X)
-@assert ccall(:jl_is_closed_after_load, Cint, (Any,), P.X) == 1 && ccall(:jl_is_closed_after_load, Cint, (Any,), P.Y) == 0
+@assert ccall(:jl_is_closed_after_load, Cint, (Any,), P.X) == 1 && ccall(:jl_is_closed_after_load, Cint, (Any,), P.Y) == 1
 
 # (1) before P has finished loading: the negative is not final, the call is guarded
 callf0(s::P.S) = P.f(s)
@@ -55,11 +56,11 @@ folded_false(c) = isdefined(c, :rettype_const) && (c.rettype_const === false ||
 @assert length(finals(cix)) == 1 "the folded isa records the final cell: $(cix.edges)"
 @assert any(b -> b === ci, cell.backedges) && any(b -> b === cix, cell.backedges) "the cell keeps its dependents"
 
-# an open set keeps its guard
+# a set declared without the option is closed after load too: a final cell, no guard
 callg(s::P.S2) = P.g(s)
 @assert callg(P.S2()) === :any
 cig = latest(callg, P.S2)
-@assert length(guards(cig)) == 1 && isempty(finals(cig))
+@assert isempty(guards(cig)) && length(finals(cig)) == 1
 
 # a type of Main is never settled; nor a type with a parameter of Main
 struct M end
@@ -78,9 +79,10 @@ e = @implement P.X P.S
 @assert Base.invoke_in_world(w_before, callf, P.S()) === :any "an older world keeps the old answer"
 @assert Base.invoke_in_world(w_before, isx, P.S()) === false
 
-# the open set's membership invalidates nothing, and the guard follows it
+# the same for the set declared without the option: its late membership invalidates the code that
+# relied on its absence, as a method definition does
 e2 = @implement P.Y P.S2
-@assert cig.max_world == typemax(UInt) && callg(P.S2()) === :set
+@assert cig.max_world == e2.min_world - 1 && callg(P.S2()) === :set
 
 # (4) package images
 const ROOT = mktempdir()
