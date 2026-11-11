@@ -46,25 +46,27 @@ end
 @assert (only(methods(a1)).declared_covers & 0x01) == 0 "lowering's record does not claim to cover every member"
 @assert a1(1) === 1.0 && a3(1) == [1]
 
-# (2) a guarded call joins the shadow's declared result
+# (2) a call that relies on a non-membership has its own result (W-140: no guard, no join with the
+# shadowing method's declared result); the membership invalidates it
 @trait Z
 struct W end
 h(x) = 1
 h(z::Z)::Float64 = 2.0
 callh(w::W) = h(w)
 @assert callh(W()) === 1
-@assert Base.infer_return_type(callh, (W,)) == Union{Int, Float64} "the join with the declared result: $(Base.infer_return_type(callh, (W,)))"
+@assert Base.infer_return_type(callh, (W,)) == Int "the call's own result: $(Base.infer_return_type(callh, (W,)))"
 @implement Z W
 @assert callh(W()) === 2.0
 
-# (3) a declared result at the method's static parameters: `Any` at the guarded call
+# (3) a declared result at the method's static parameters does not reach a call that relies on the
+# non-membership (W-140)
 @trait Z2
 struct W2 end
 hp(x) = [1]
 (hp(z::T)::Vector{T}) where {T <: Z2} = [z]
 callhp(w::W2) = hp(w)
 @assert callhp(W2()) == [1]
-@assert Base.infer_return_type(callhp, (W2,)) === Any
+@assert Base.infer_return_type(callhp, (W2,)) == Vector{Int}
 
 # (4) declared `Union{}`: raises only, so no shadow and no guard
 @trait Z3
@@ -86,5 +88,5 @@ k(x::Z)::Float64 = 2.0
 callk(p::P) = k(p)
 end
 @assert FM.callk(FM.P()) === 1
-@assert Base.infer_return_type(FM.callk, (FM.P,)) == Union{Int, Float64}
+@assert Base.infer_return_type(FM.callk, (FM.P,)) == Int     # the call's own result (W-140)
 println("n16_declared_result: OK")

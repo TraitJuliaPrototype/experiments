@@ -32,12 +32,12 @@ cs = cells(ci)
 @assert length(cs) == 1 && cs[1].member === S && cs[1].min_world == typemax(UInt) "one closed cell: $cs"
 w_before = curworld()
 
-# (2) the membership opens the cell, invalidates nothing, and the call dispatches
+# (2) the membership opens the cell and invalidates the caller that relied on its absence (W-140)
 e = @implement X S
 @assert cs[1].min_world == e.min_world "the cell opened at the entry's world"
-@assert ci.max_world == typemax(UInt) "the caller is not invalidated"
+@assert ci.max_world == e.min_world - 1 "the caller is invalidated at the entry"
 @assert callf(S()) === :set
-@assert latest(callf, S) === ci "the same code runs"
+@assert latest(callf, S) !== ci "new code runs"
 @assert Base.invoke_in_world(w_before, callf, S()) === :any "an older world keeps the old answer"
 
 # (3) matched through the type's own supertypes: no guard, the closed method stays more specific
@@ -63,16 +63,16 @@ g(y::Y) = :set
 cig2 = latest(callg, V)
 @assert length(cells(cig2)) == 1
 @implement Y V
-@assert callg(V()) === :set && latest(callg, V) === cig2
+@assert callg(V()) === :set && latest(callg, V) !== cig2
 
-# (6) the guarded call's result: the selected method's or the shadowing one's
+# (6) the call's result is the selected method's (W-140: no join with the shadowing method's)
 @trait Z
 struct W end
 h(x) = 1
 h(z::Z) = 2.0
 callh(w::W) = h(w)
 @assert callh(W()) === 1
-@assert Base.infer_return_type(callh, (W,)) == Union{Int, Float64} || Base.infer_return_type(callh, (W,)) === Any
+@assert Base.infer_return_type(callh, (W,)) == Int
 @implement Z W
 @assert callh(W()) === 2.0
 
@@ -88,6 +88,6 @@ end
 @assert FM.callk(FM.P()) === :any
 cik = latest(FM.callk, FM.P)
 @implement X FM.P
-@assert FM.callk(FM.P()) === :set && cik.max_world == typemax(UInt)
+@assert FM.callk(FM.P()) === :set && cik.max_world != typemax(UInt)
 
 println("n7_guards: OK")

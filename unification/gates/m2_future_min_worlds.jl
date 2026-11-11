@@ -18,7 +18,8 @@ wu = curworld()
 eu = @implement UF UM                  # the union's UF arm gains the member
 @assert Base.invoke_in_world(eu.min_world - 1, calu, UM()) === :any "A: below the flip, :any is truth"
 @assert Base.invoke_in_world(eu.min_world, calu, UM()) === :set "A: cached caller flips AT the entry (F2: union position must be bounded)"
-@assert all(c -> c.max_world == typemax(UInt), all_cis(calu)) "A: the guarded caller is not invalidated"
+# (W-140: the caller relied on UM's absence from UF, with the pair's cell; the membership ends it)
+@assert any(c -> c.max_world == eu.min_world - 1, all_cis(calu)) "A: the caller that relied on the absence is invalidated at the entry"
 @assert du(UK()) === :set "A: closed union arm unaffected"
 
 # ---- (B) two competing chains — earliest completion wins (F3) ----
@@ -39,7 +40,7 @@ flip = max(e2.min_world, e3.min_world) # chain-2's completion world
 @assert flip < e4.min_world "B: construction — the first-scanned chain completes strictly later"
 @assert Base.invoke_in_world(flip - 1, calm, MM()) === :any "B: below the earliest flip, :any is truth"
 @assert Base.invoke_in_world(flip, calm, MM()) === :set "B: cached caller must flip at the EARLIEST completing chain (F3)"
-@assert all(c -> c.max_world == typemax(UInt), all_cis(calm)) "B: the guarded caller is not invalidated"
+@assert any(c -> c.max_world != typemax(UInt), all_cis(calm)) "B: the caller that relied on the absence is invalidated"
 @assert Base.invoke_in_world(curworld(), calm, MM()) === :set "B: current world answers"
 
 println("m2_future_min_worlds: OK")

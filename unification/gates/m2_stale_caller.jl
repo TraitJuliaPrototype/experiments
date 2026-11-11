@@ -22,7 +22,7 @@ ci0 = [c for c in all_cis(caller) if c.min_world <= w_pre <= c.max_world]
 @assert all(c -> c.max_world == typemax(UInt), ci0) "not bounded yet (fresh CIs carry the UInt64 ceiling)"
 
 before = (stat(1), stat(2), stat(4), stat(5))
-@implement ST SSt
+e_st = @implement ST SSt
 after = (stat(1), stat(2), stat(4), stat(5))
 println("m2_stale_caller stats (replays, visits, spec-invalidations, cache-lowerings): ",
         before, " -> ", after)
@@ -33,7 +33,8 @@ r1 = caller(SSt())
 r2 = Base.invoke_in_world(w_pre, caller, SSt())
 @assert r2 === 0 "old-world call keeps the old answer"
 
-@assert all(c -> c.max_world == typemax(UInt), ci0) "a membership invalidates nothing: the guarded caller stays"
+# (W-140: a membership invalidates the code that relied on its absence, as a method definition does)
+@assert any(c -> c.max_world == e_st.min_world - 1, ci0) "the caller that relied on the absence is invalidated at the entry"
 @assert !(SSt isa ST && Int isa ST) "sanity (I1)"
 
 println("m2_stale_caller: OK")

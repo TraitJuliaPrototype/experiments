@@ -32,11 +32,11 @@ end
 ccall(:jl_set_closed_after_load, Cvoid, (Any,), P.X)
 @assert ccall(:jl_is_closed_after_load, Cint, (Any,), P.X) == 1 && ccall(:jl_is_closed_after_load, Cint, (Any,), P.Y) == 1
 
-# (1) before P has finished loading: the negative is not final, the call is guarded
+# (1) before P has finished loading the negative is relied on too (W-140, stage 2): a final cell, no guard
 callf0(s::P.S) = P.f(s)
 @assert callf0(P.S()) === :any
 ci0 = latest(callf0, P.S)
-@assert length(guards(ci0)) == 1 && isempty(finals(ci0)) "guarded before the load: $(ci0.edges)"
+@assert isempty(guards(ci0)) && length(finals(ci0)) == 1 "a final cell before the load: $(ci0.edges)"
 @assert !loaded(P)
 
 # (2) once P has loaded: no guard, a final cell; `isa` folds
@@ -62,13 +62,13 @@ callg(s::P.S2) = P.g(s)
 cig = latest(callg, P.S2)
 @assert isempty(guards(cig)) && length(finals(cig)) == 1
 
-# a type of Main is never settled; nor a type with a parameter of Main
+# a type of Main is relied on too (W-140, stage 2), and a type with a parameter of Main
 struct M end
 callm(m::M) = P.f(m)
 callv(v::Vector{M}) = P.f(v)
 @assert callm(M()) === :any && callv(M[]) === :any
-@assert length(guards(latest(callm, M))) == 1 && isempty(finals(latest(callm, M)))
-@assert length(guards(latest(callv, Vector{M}))) == 1 && isempty(finals(latest(callv, Vector{M})))
+@assert isempty(guards(latest(callm, M))) && length(finals(latest(callm, M))) == 1
+@assert isempty(guards(latest(callv, Vector{M}))) && length(finals(latest(callv, Vector{M}))) == 1
 
 # (3) a late membership opens the final cell and invalidates its dependents
 w_before = curworld()
