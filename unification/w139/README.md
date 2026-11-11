@@ -17,6 +17,7 @@
 ```
 source ../../../env.sh
 bash run.sh            # each app in a session, built with --trim=safe, run; the outputs compared -> logs/run.log
+julia --project=../../../TraitWorld-unified make.jl > logs/make.log    # make_executable and make_library
 julia --project=../../../TraitWorld-unified dbg_closed.jl    # the closed split's typed code, from a session
 ```
 
@@ -63,6 +64,20 @@ E-361's programs again (`../w135/logs/closed/`; the same packages): none builds 
 
 - The counts moved because the verifier now sees the attributed calls, which it passed over before: the table's two more are `attributed_call(floats, ::Any, …)` and `attributed_call(summarize, ::Any, …)`.
 - What refuses them now is not the trait: a value typed `Any` passed to a method at a trait, Base's `repeat(::Char, ::Int)`, a JLL's `__init__`, and sets with pattern members. The demonstrators are not fully typed.
+
+## `make_executable` and `make_library` (TraitWorld 19862aa)
+
+`make.jl` (`logs/make.log`), from a session, on `apps/program.jl`, whose functions loop over a `Vector{Shape}`:
+
+| Call | Result |
+|---|---|
+| `make_executable(shapes_main, "out/made")` | 2,543,792 bytes; runs, prints the three reports |
+| `make_library([total_area => (Cdouble, (Cint,))], "out/libmade.so")` | 2,392,456 bytes; a C program linked against it prints `total_area(2) = 9.1416` |
+| `make_executable(untyped_main, …)`, a call on a value typed `Any` | `BuildError: the build refuses 6 calls it cannot resolve; the program is not fully typed there`, with the build's report |
+| `make_executable(args -> 0, …)` | `ArgumentError`: a build takes a function its process can name |
+
+- The build's process loads the file the function is written in. The first version took an anonymous function written in `make.jl` itself: the build loaded `make.jl`, which called `make_executable` again, and so on, a chain of twenty processes. Now such a function is refused, and inside a build's own process the two functions do nothing.
+- The check before the build is the build's own verifier. `verify_main` in a session reports the loop's `report(::Shape)` as a run-time site, which the closed build resolves (traits T-107).
 
 ## Observed, not diagnosed
 
