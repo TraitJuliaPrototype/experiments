@@ -1,0 +1,87 @@
+MethodError: no method matching Float64(::ForwardDiff.Dual{ForwardDiff.Tag{PlainODE.Sig{Tuple{Vector{Float64}}, Float64}, Float64}, Float64, 3})
+The type `Float64` exists, but no method is defined for this combination of argument types when trying to construct it.
+
+Closest candidates are:
+  (::Type{T})(::Real, !Matched::RoundingMode) where T<:AbstractFloat
+   @ Base rounding.jl:265
+  (::Type{T})(::T) where T<:Number
+   @ Core boot.jl:1018
+  Float64(!Matched::IrrationalConstants.Sqrt2π)
+   @ IrrationalConstants /p/projects/coen/julia-trait-bound/.julia-depot/packages/IrrationalConstants/sUNmT/src/macro.jl:111
+  ...
+
+Stacktrace:
+  [1] convert(::Type{Float64}, x::ForwardDiff.Dual{ForwardDiff.Tag{PlainODE.Sig{Tuple{…}, Float64}, Float64}, Float64, 3})
+    @ Base ./number.jl:7
+  [2] setindex!
+    @ ./genericmemory.jl:266 [inlined]
+  [3] unsafe_copyto!(dest::Memory{Float64}, doffs::Int64, src::Memory{ForwardDiff.Dual{…}}, soffs::Int64, n::Int64)
+    @ Base ./genericmemory.jl:172
+  [4] unsafe_copyto!
+    @ ./genericmemory.jl:151 [inlined]
+  [5] _copyto_impl!
+    @ ./array.jl:300 [inlined]
+  [6] copyto!
+    @ ./array.jl:286 [inlined]
+  [7] _copyto2arg!
+    @ ./array.jl:311 [inlined]
+  [8] copyto!
+    @ ./array.jl:313 [inlined]
+  [9] copyto!
+    @ ./broadcast.jl:993 [inlined]
+ [10] copyto!
+    @ ./broadcast.jl:952 [inlined]
+ [11] materialize!
+    @ ./broadcast.jl:910 [inlined]
+ [12] materialize!
+    @ ./broadcast.jl:907 [inlined]
+ [13] cached!(du::Vector{ForwardDiff.Dual{…}}, u::Vector{ForwardDiff.Dual{…}}, p::Vector{ForwardDiff.Dual{…}}, t::Float64)
+    @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w136/sciml/port.jl:18
+ [14] (::FunctionWrappers.CallWrapper{…})(f::typeof(cached!), arg1::Vector{…}, arg2::Vector{…}, arg3::Vector{…}, arg4::Float64)
+    @ FunctionWrappers /p/projects/coen/julia-trait-bound/.julia-depot/packages/FunctionWrappers/Q5cBx/src/FunctionWrappers.jl:65
+ [15] macro expansion
+    @ /p/projects/coen/julia-trait-bound/.julia-depot/packages/FunctionWrappers/Q5cBx/src/FunctionWrappers.jl:137 [inlined]
+ [16] do_ccall
+    @ /p/projects/coen/julia-trait-bound/.julia-depot/packages/FunctionWrappers/Q5cBx/src/FunctionWrappers.jl:125 [inlined]
+ [17] FunctionWrapper
+    @ /p/projects/coen/julia-trait-bound/.julia-depot/packages/FunctionWrappers/Q5cBx/src/FunctionWrappers.jl:144 [inlined]
+ [18] solve_ode(m::FunctionWrappers.FunctionWrapper{…}, u0::Vector{…}, tspan::Tuple{…}, alg::Tsit5, p::Vector{…}, callbacks::Vector{…}, opts::PlainODE.SolverOptions, events::Vector{…})
+    @ PlainODE /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/baselines/PlainODE/src/PlainODE.jl:249
+ [19] _solve(f::Any, u0::Vector{…}, tspan::Tuple{…}, alg::Tsit5, p::Vector{…}, cbs::Vector{…}, opts::PlainODE.SolverOptions, evs::Vector{…})
+    @ PlainODE /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/baselines/PlainODE/src/PlainODE.jl:681
+ [20] solve(prob::ODEProblem, alg::Tsit5; callback::Nothing, kw::@Kwargs{})
+    @ PlainODE /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/baselines/PlainODE/src/PlainODE.jl:676
+ [21] solve
+    @ /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/baselines/PlainODE/src/PlainODE.jl:673 [inlined]
+ [22] loss(p::Vector{ForwardDiff.Dual{ForwardDiff.Tag{PlainODE.Sig{Tuple{Vector{Float64}}, Float64}, Float64}, Float64, 3}})
+    @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w136/sciml/port.jl:21
+ [23] (::FunctionWrappers.CallWrapper{ForwardDiff.Dual{…}})(f::typeof(loss), arg1::Vector{ForwardDiff.Dual{…}})
+    @ FunctionWrappers /p/projects/coen/julia-trait-bound/.julia-depot/packages/FunctionWrappers/Q5cBx/src/FunctionWrappers.jl:65
+ [24] macro expansion
+    @ /p/projects/coen/julia-trait-bound/.julia-depot/packages/FunctionWrappers/Q5cBx/src/FunctionWrappers.jl:137 [inlined]
+ [25] do_ccall
+    @ /p/projects/coen/julia-trait-bound/.julia-depot/packages/FunctionWrappers/Q5cBx/src/FunctionWrappers.jl:125 [inlined]
+ [26] FunctionWrapper
+    @ /p/projects/coen/julia-trait-bound/.julia-depot/packages/FunctionWrappers/Q5cBx/src/FunctionWrappers.jl:144 [inlined]
+ [27] vector_mode_dual_eval!(f::FunctionWrappers.FunctionWrapper{…}, cfg::ForwardDiff.GradientConfig{…}, x::Vector{…})
+    @ ForwardDiff /p/projects/coen/julia-trait-bound/.julia-depot/packages/ForwardDiff/ix15H/src/apiutils.jl:24
+ [28] vector_mode_gradient
+    @ /p/projects/coen/julia-trait-bound/.julia-depot/packages/ForwardDiff/ix15H/src/gradient.jl:98 [inlined]
+ [29] gradient(f::FunctionWrappers.FunctionWrapper{…}, x::Vector{…}, cfg::ForwardDiff.GradientConfig{…}, ::Val{…})
+    @ ForwardDiff /p/projects/coen/julia-trait-bound/.julia-depot/packages/ForwardDiff/ix15H/src/gradient.jl:20
+ [30] _gradient(loss::Any, p::Vector{Float64}, ::Val{3})
+    @ PlainODE /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/baselines/PlainODE/src/PlainODE.jl:719
+ [31] gradient(loss::Any, p::Vector{Float64})
+    @ PlainODE /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/baselines/PlainODE/src/PlainODE.jl:713
+ [32] #9
+    @ /p/projects/coen/julia-trait-bound/experiments/unification/w136/sciml/port.jl:22 [inlined]
+ [33] report(form::String, tag::String, f::var"#9#10")
+    @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w136/sciml/report.jl:6
+ [34] top-level scope
+    @ /p/projects/coen/julia-trait-bound/experiments/unification/w136/sciml/port.jl:22
+ [35] include(mod::Module, _path::String)
+    @ Base ./Base.jl:309
+ [36] exec_options(opts::Base.JLOptions)
+    @ Base ./client.jl:344
+ [37] _start()
+    @ Base ./client.jl:577

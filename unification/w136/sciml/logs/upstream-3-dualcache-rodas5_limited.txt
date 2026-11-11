@@ -1,0 +1,81 @@
+First call to automatic differentiation for the Jacobian
+failed. This means that the user `f` function is not compatible
+with automatic differentiation. Methods to fix this include:
+
+1. Turn off automatic differentiation (e.g. Rosenbrock23() becomes
+   Rosenbrock23(autodiff = AutoFiniteDiff())). More details can befound at
+   https://docs.sciml.ai/DiffEqDocs/stable/features/performance_overloads/
+2. Improving the compatibility of `f` with ForwardDiff.jl automatic
+   differentiation (using tools like PreallocationTools.jl). More details
+   can be found at https://docs.sciml.ai/DiffEqDocs/stable/basics/faq/#Autodifferentiation-and-Dual-Numbers
+3. Defining analytical Jacobians. More details can be
+   found at https://docs.sciml.ai/DiffEqDocs/stable/types/ode_types/#SciMLBase.ODEFunction
+
+Note: turning off automatic differentiation tends to have a very minimal
+performance impact (for this use case, because it's forward mode for a
+square Jacobian. This is different from optimization gradient scenarios).
+However, one should be careful as some methods are more sensitive to
+accurate gradients than others. Specifically, Rodas methods like `Rodas4`
+and `Rodas5P` require accurate Jacobians in order to have good convergence,
+while many other methods like BDF (`QNDF`, `FBDF`), SDIRK (`KenCarp4`),
+and Rosenbrock-W (`Rosenbrock23`) do not. Thus if using an algorithm which
+is sensitive to autodiff and solving at a low tolerance, please change the
+algorithm as well.
+
+MethodError: no method matching Float64(::ForwardDiff.Dual{ForwardDiff.Tag{DiffEqBase.OrdinaryDiffEqTag, Float64}, Float64, 1})
+The type `Float64` exists, but no method is defined for this combination of argument types when trying to construct it.
+
+Closest candidates are:
+  (::Type{T})(::Real, !Matched::RoundingMode) where T<:AbstractFloat
+   @ Base rounding.jl:265
+  (::Type{T})(::T) where T<:Number
+   @ Core boot.jl:1018
+  Float64(!Matched::IrrationalConstants.Sqrt2π)
+   @ IrrationalConstants /p/projects/coen/julia-trait-bound/.julia-depot/packages/IrrationalConstants/sUNmT/src/macro.jl:111
+  ...
+
+Stacktrace:
+  [1] jacobian!(J::Matrix{…}, f::SciMLBase.UJacobianWrapper{…}, x::Vector{…}, fx::Vector{…}, integrator::OrdinaryDiffEqCore.ODEIntegrator{…}, jac_config::Tuple{…})
+    @ OrdinaryDiffEqDifferentiation ~/.julia/packages/OrdinaryDiffEqDifferentiation/By9ZT/src/derivative_wrappers.jl:242
+  [2] calc_J!
+    @ ~/.julia/packages/OrdinaryDiffEqDifferentiation/By9ZT/src/derivative_utils.jl:430 [inlined]
+  [3] calc_W!
+    @ ~/.julia/packages/OrdinaryDiffEqDifferentiation/By9ZT/src/derivative_utils.jl:937 [inlined]
+  [4] calc_W!
+    @ ~/.julia/packages/OrdinaryDiffEqDifferentiation/By9ZT/src/derivative_utils.jl:826 [inlined]
+  [5] calc_rosenbrock_differentiation!
+    @ ~/.julia/packages/OrdinaryDiffEqDifferentiation/By9ZT/src/derivative_utils.jl:1053 [inlined]
+  [6] perform_step!(integrator::OrdinaryDiffEqCore.ODEIntegrator{…}, cache::OrdinaryDiffEqRosenbrock.RosenbrockCache{…}, repeat_step::Bool)
+    @ OrdinaryDiffEqRosenbrock ~/.julia/packages/OrdinaryDiffEqRosenbrock/kn9tJ/src/rosenbrock_perform_step.jl:756
+  [7] perform_step!
+    @ ~/.julia/packages/OrdinaryDiffEqRosenbrock/kn9tJ/src/rosenbrock_perform_step.jl:735 [inlined]
+  [8] solve!(integrator::OrdinaryDiffEqCore.ODEIntegrator{…})
+    @ OrdinaryDiffEqCore ~/.julia/packages/OrdinaryDiffEqCore/ynHO8/src/solve.jl:917
+  [9] #__solve#96
+    @ ~/.julia/packages/OrdinaryDiffEqCore/ynHO8/src/solve.jl:10 [inlined]
+ [10] __solve
+    @ ~/.julia/packages/OrdinaryDiffEqCore/ynHO8/src/solve.jl:1 [inlined]
+ [11] #solve_call#27
+    @ ~/.julia/packages/DiffEqBase/wRYJL/src/solve.jl:190 [inlined]
+ [12] solve_call
+    @ ~/.julia/packages/DiffEqBase/wRYJL/src/solve.jl:155 [inlined]
+ [13] #solve_up#34
+    @ ~/.julia/packages/DiffEqBase/wRYJL/src/solve.jl:667 [inlined]
+ [14] solve_up
+    @ ~/.julia/packages/DiffEqBase/wRYJL/src/solve.jl:637 [inlined]
+ [15] #solve#33
+    @ ~/.julia/packages/DiffEqBase/wRYJL/src/solve.jl:621 [inlined]
+ [16] solve
+    @ ~/.julia/packages/DiffEqBase/wRYJL/src/solve.jl:609 [inlined]
+ [17] #12
+    @ /p/projects/coen/julia-trait-bound/experiments/unification/w136/sciml/upstream.jl:21 [inlined]
+ [18] report(form::String, tag::String, f::var"#12#13")
+    @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w136/sciml/report.jl:6
+ [19] top-level scope
+    @ /p/projects/coen/julia-trait-bound/experiments/unification/w136/sciml/upstream.jl:21
+ [20] include(mod::Module, _path::String)
+    @ Base ./Base.jl:309
+ [21] exec_options(opts::Base.JLOptions)
+    @ Base ./client.jl:344
+ [22] _start()
+    @ Base ./client.jl:577

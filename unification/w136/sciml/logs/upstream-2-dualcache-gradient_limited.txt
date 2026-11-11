@@ -1,0 +1,106 @@
+MethodError: no method matching Float64(::ForwardDiff.Dual{ForwardDiff.Tag{typeof(loss), Float64}, Float64, 3})
+The type `Float64` exists, but no method is defined for this combination of argument types when trying to construct it.
+
+Closest candidates are:
+  (::Type{T})(::Real, !Matched::RoundingMode) where T<:AbstractFloat
+   @ Base rounding.jl:265
+  (::Type{T})(::T) where T<:Number
+   @ Core boot.jl:1018
+  Float64(!Matched::IrrationalConstants.Sqrt2π)
+   @ IrrationalConstants /p/projects/coen/julia-trait-bound/.julia-depot/packages/IrrationalConstants/sUNmT/src/macro.jl:111
+  ...
+
+Stacktrace:
+   [1] convert(::Type{Float64}, x::ForwardDiff.Dual{ForwardDiff.Tag{typeof(loss), Float64}, Float64, 3})
+     @ Base ./number.jl:7
+   [2] setindex!
+     @ ./genericmemory.jl:266 [inlined]
+   [3] unsafe_copyto!(dest::Memory{Float64}, doffs::Int64, src::Memory{ForwardDiff.Dual{…}}, soffs::Int64, n::Int64)
+     @ Base ./genericmemory.jl:172
+   [4] unsafe_copyto!
+     @ ./genericmemory.jl:151 [inlined]
+   [5] _copyto_impl!
+     @ ./array.jl:300 [inlined]
+   [6] copyto!
+     @ ./array.jl:286 [inlined]
+   [7] _copyto2arg!
+     @ ./array.jl:311 [inlined]
+   [8] copyto!
+     @ ./array.jl:313 [inlined]
+   [9] copyto!
+     @ ./broadcast.jl:993 [inlined]
+  [10] copyto!
+     @ ./broadcast.jl:952 [inlined]
+  [11] materialize!
+     @ ./broadcast.jl:910 [inlined]
+  [12] materialize!
+     @ ./broadcast.jl:907 [inlined]
+  [13] cached!(du::Vector{ForwardDiff.Dual{…}}, u::Vector{ForwardDiff.Dual{…}}, p::Vector{ForwardDiff.Dual{…}}, t::Float64)
+     @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w136/sciml/upstream.jl:15
+  [14] Void
+     @ ~/.julia/packages/SciMLBase/1DcFZ/src/utils.jl:703 [inlined]
+  [15] (::FunctionWrappers.CallWrapper{…})(f::SciMLBase.Void{…}, arg1::Vector{…}, arg2::Vector{…}, arg3::Vector{…}, arg4::Float64)
+     @ FunctionWrappers ~/.julia/packages/FunctionWrappers/Q5cBx/src/FunctionWrappers.jl:65
+  [16] macro expansion
+     @ ~/.julia/packages/FunctionWrappers/Q5cBx/src/FunctionWrappers.jl:137 [inlined]
+  [17] do_ccall
+     @ ~/.julia/packages/FunctionWrappers/Q5cBx/src/FunctionWrappers.jl:125 [inlined]
+  [18] FunctionWrapper
+     @ ~/.julia/packages/FunctionWrappers/Q5cBx/src/FunctionWrappers.jl:144 [inlined]
+  [19] _call
+     @ ~/.julia/packages/FunctionWrappersWrappers/7CPBX/src/FunctionWrappersWrappers.jl:392 [inlined]
+  [20] FunctionWrappersWrapper
+     @ ~/.julia/packages/FunctionWrappersWrappers/7CPBX/src/FunctionWrappersWrappers.jl:384 [inlined]
+  [21] ODEFunction
+     @ ~/.julia/packages/SciMLBase/1DcFZ/src/scimlfunctions.jl:2964 [inlined]
+  [22] initialize!(integrator::OrdinaryDiffEqCore.ODEIntegrator{…}, cache::OrdinaryDiffEqTsit5.Tsit5Cache{…})
+     @ OrdinaryDiffEqTsit5 ~/.julia/packages/OrdinaryDiffEqTsit5/74X3C/src/tsit_perform_step.jl:199
+  [23] _ode_init(prob::ODEProblem{…}, alg::Tsit5{…}, timeseries_init::Tuple{}, ts_init::Tuple{}, ks_init::Tuple{}; saveat::Float64, tstops::Tuple{}, d_discontinuities::Tuple{}, save_idxs::Nothing, save_everystep::Bool, save_on::Bool, save_discretes::Bool, save_start::Bool, save_end::Nothing, callback::Nothing, dense::Bool, calck::Bool, dt::Nothing, dtmin::Float64, dtmax::Float64, force_dtmin::Bool, adaptive::Bool, abstol::Nothing, reltol::Nothing, controller::Nothing, fullnormalize::Bool, failfactor::Int64, maxiters::Int64, internalnorm::typeof(DiffEqBase.ODE_DEFAULT_NORM), internalopnorm::typeof(LinearAlgebra.opnorm), stage_limiter::typeof(OrdinaryDiffEqCore.trivial_limiter!), step_limiter::typeof(OrdinaryDiffEqCore.trivial_limiter!), isoutofdomain::typeof(DiffEqBase.ODE_DEFAULT_ISOUTOFDOMAIN), unstable_check::typeof(DiffEqBase.ODE_DEFAULT_UNSTABLE_CHECK), verbose::DiffEqBase.DEVerbosity{…}, timeseries_errors::Bool, dense_errors::Bool, advance_to_tstop::Bool, stop_at_next_tstop::Bool, initialize_save::Bool, progress::Bool, progress_steps::Int64, progress_name::String, progress_message::typeof(DiffEqBase.ODE_DEFAULT_PROG_MESSAGE), progress_id::Symbol, userdata::Nothing, allow_extrapolation::Bool, initialize_integrator::Bool, alias::ODEAliasSpecifier, initializealg::DiffEqBase.DefaultInit, rng::Nothing, save_noise::Bool, delta::Nothing, W::Nothing, P::Nothing, sqdt::Nothing, noise::Nothing, c::Nothing, rate_constants::Nothing, _cache::Nothing, _u::Nothing, _uprev::Nothing, seed::UInt64, kwargs::@Kwargs{})
+     @ OrdinaryDiffEqCore ~/.julia/packages/OrdinaryDiffEqCore/ynHO8/src/solve.jl:831
+  [24] _ode_init
+     @ ~/.julia/packages/OrdinaryDiffEqCore/ynHO8/src/solve.jl:128 [inlined]
+  [25] #__init#97
+     @ ~/.julia/packages/OrdinaryDiffEqCore/ynHO8/src/solve.jl:71 [inlined]
+ ┌[26] __init
+ │   @ ~/.julia/packages/OrdinaryDiffEqCore/ynHO8/src/solve.jl:53 [inlined]
+ ╰──── repeated 2 times
+  [28] #__solve#96
+     @ ~/.julia/packages/OrdinaryDiffEqCore/ynHO8/src/solve.jl:9 [inlined]
+  [29] __solve
+     @ ~/.julia/packages/OrdinaryDiffEqCore/ynHO8/src/solve.jl:1 [inlined]
+  [30] #solve_call#27
+     @ ~/.julia/packages/DiffEqBase/wRYJL/src/solve.jl:190 [inlined]
+  [31] solve_call
+     @ ~/.julia/packages/DiffEqBase/wRYJL/src/solve.jl:155 [inlined]
+  [32] #solve_up#34
+     @ ~/.julia/packages/DiffEqBase/wRYJL/src/solve.jl:667 [inlined]
+  [33] solve_up
+     @ ~/.julia/packages/DiffEqBase/wRYJL/src/solve.jl:637 [inlined]
+  [34] #solve#33
+     @ ~/.julia/packages/DiffEqBase/wRYJL/src/solve.jl:621 [inlined]
+  [35] solve
+     @ ~/.julia/packages/DiffEqBase/wRYJL/src/solve.jl:609 [inlined]
+  [36] loss(p::Vector{ForwardDiff.Dual{ForwardDiff.Tag{typeof(loss), Float64}, Float64, 3}})
+     @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w136/sciml/upstream.jl:19
+  [37] vector_mode_dual_eval!
+     @ /p/projects/coen/julia-trait-bound/.julia-depot/packages/ForwardDiff/ix15H/src/apiutils.jl:24 [inlined]
+  [38] vector_mode_gradient(f::typeof(loss), x::Vector{…}, cfg::ForwardDiff.GradientConfig{…})
+     @ ForwardDiff /p/projects/coen/julia-trait-bound/.julia-depot/packages/ForwardDiff/ix15H/src/gradient.jl:98
+  [39] gradient
+     @ /p/projects/coen/julia-trait-bound/.julia-depot/packages/ForwardDiff/ix15H/src/gradient.jl:20 [inlined]
+  [40] gradient(f::typeof(loss), x::Vector{…}, cfg::ForwardDiff.GradientConfig{…})
+     @ ForwardDiff /p/projects/coen/julia-trait-bound/.julia-depot/packages/ForwardDiff/ix15H/src/gradient.jl:17
+  [41] gradient(f::typeof(loss), x::Vector{Float64})
+     @ ForwardDiff /p/projects/coen/julia-trait-bound/.julia-depot/packages/ForwardDiff/ix15H/src/gradient.jl:17
+  [42] #9
+     @ /p/projects/coen/julia-trait-bound/experiments/unification/w136/sciml/upstream.jl:20 [inlined]
+  [43] report(form::String, tag::String, f::var"#9#10")
+     @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w136/sciml/report.jl:6
+  [44] top-level scope
+     @ /p/projects/coen/julia-trait-bound/experiments/unification/w136/sciml/upstream.jl:20
+  [45] include(mod::Module, _path::String)
+     @ Base ./Base.jl:309
+  [46] exec_options(opts::Base.JLOptions)
+     @ Base ./client.jl:344
+  [47] _start()
+     @ Base ./client.jl:577

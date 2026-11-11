@@ -1,0 +1,35 @@
+MethodError: no method matching getindex(::Nothing, ::Int64)
+The function `getindex` exists, but no method is defined for this combination of argument types.
+Stacktrace:
+  [1] lorenz!(du::Vector{Float64}, u::Vector{Float64}, p::Nothing, t::Float64)
+    @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w136/sciml/port.jl:11
+  [2] (::ODECore.PartialFn{typeof(lorenz!), Nothing})(a::Vector{Float64}, u::Vector{Float64}, t::Float64)
+    @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/ODECore/src/core.jl:391
+  [3] (::Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}})(::Vector{Float64}, ::Vector{Float64}, ::Float64)
+    @ TraitWorld /p/projects/coen/julia-trait-bound/TraitWorld-unified/src/callable.jl:25
+  [4] core_rhs!
+    @ /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/ODECore/src/core.jl:520 [inlined]
+  [5] tsit5_init(m::ODECore.CoreProblem{Float64, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}, u0::Vector{Float64}, tspan::Tuple{Float64, Float64}, callbacks::Vector{Any}, opts::ODECore.SolverOptions)
+    @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/ODECore/src/core.jl:1361
+  [6] solve_core(a::Tsit5, m::ODECore.CoreProblem{Float64, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}, callbacks::Vector{Any}, opts::ODECore.SolverOptions)
+    @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/ODECore/src/core.jl:1330
+  [7] solve_ode(prob::Any, alg::Tsit5, callbacks::Vector{Any}, opts::ODECore.SolverOptions)
+    @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/ODECore/src/core.jl:1253
+  [8] _solve(prob::ODEProblem{Float64, Nothing, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}, alg::Tsit5, cbs::Vector{Any}, opts::ODECore.SolverOptions)
+    @ TraitDifferentialEquations /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/src/TraitDifferentialEquations.jl:71
+  [9] solve(prob::Any, alg::Any; callback::Any, kw::@Kwargs{})
+    @ TraitDifferentialEquations /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/src/TraitDifferentialEquations.jl:63
+ [10] solve(prob::Any, alg::Any)
+    @ TraitDifferentialEquations /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/src/TraitDifferentialEquations.jl:60
+ [11] #9
+    @ /p/projects/coen/julia-trait-bound/experiments/unification/w136/sciml/port.jl:15 [inlined]
+ [12] report(form::String, tag::String, f::var"#9#10")
+    @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w136/sciml/report.jl:6
+ [13] top-level scope
+    @ /p/projects/coen/julia-trait-bound/experiments/unification/w136/sciml/port.jl:15
+ [14] include(mod::Module, _path::String)
+    @ Base ./Base.jl:315
+ [15] exec_options(opts::Base.JLOptions)
+    @ Base ./client.jl:344
+ [16] _start()
+    @ Base ./client.jl:577

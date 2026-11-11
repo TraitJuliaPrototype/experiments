@@ -22,7 +22,7 @@ bash run.sh 06         # the cases whose name matches
 
 ## Results, 2026-11-11
 
-`julia-unified` dd3f6d839b, `julia-vanilla` v1.13.2 45b6d15e34, TraitWorld 158d000. Product setting. One run each (the outputs do not vary), load 7 of 128 cores. The plain form's output on the unified build equals vanilla's in every case.
+`julia-unified` dd3f6d839b, `julia-vanilla` v1.13.2 45b6d15e34, TraitWorld 158d000 (the outputs are the same on 99c4934). Product setting. One run each (the outputs do not vary), load 7 of 128 cores. The plain form's output on the unified build equals vanilla's in every case.
 
 | # | The mistake | Trait form | Plain Julia |
 |---|---|---|---|
@@ -74,6 +74,6 @@ Left, recorded as open issue 177 (`writeup/open-issues.md`):
 
 ## Limits
 
-- The library is small and the mistakes are single. A port's error (a solver's integrator type in a `MethodError`, `experiments/errors/`) is not measured here; the gate for those cases is traits T-99.
+- The library is small and the mistakes are single. A port's messages against upstream's and against its plain twin's are E-363, `sciml/`: SciML's three error cases, none of them a mistake against a contract, where the port is shorter than upstream and no better than its twin.
 - "Names the contract" is read from the messages by hand, case by case; the lines, bytes and frames are counted by `summarize.py`.
 - One library author's plain form. A plain library can check an interface by hand (a `hasmethod` test, a test suite for implementers); none is written here.

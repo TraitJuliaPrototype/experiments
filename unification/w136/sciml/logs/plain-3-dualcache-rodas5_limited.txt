@@ -1,0 +1,71 @@
+MethodError: no method matching Float64(::ForwardDiff.Dual{PlainODE.ODETag, Float64, 3})
+The type `Float64` exists, but no method is defined for this combination of argument types when trying to construct it.
+
+Closest candidates are:
+  (::Type{T})(::Real, !Matched::RoundingMode) where T<:AbstractFloat
+   @ Base rounding.jl:265
+  (::Type{T})(::T) where T<:Number
+   @ Core boot.jl:1018
+  Float64(!Matched::IrrationalConstants.Sqrt2π)
+   @ IrrationalConstants /p/projects/coen/julia-trait-bound/.julia-depot/packages/IrrationalConstants/sUNmT/src/macro.jl:111
+  ...
+
+Stacktrace:
+  [1] convert(::Type{Float64}, x::ForwardDiff.Dual{PlainODE.ODETag, Float64, 3})
+    @ Base ./number.jl:7
+  [2] setindex!
+    @ ./genericmemory.jl:266 [inlined]
+  [3] unsafe_copyto!(dest::Memory{Float64}, doffs::Int64, src::Memory{ForwardDiff.Dual{…}}, soffs::Int64, n::Int64)
+    @ Base ./genericmemory.jl:172
+  [4] unsafe_copyto!
+    @ ./genericmemory.jl:151 [inlined]
+  [5] _copyto_impl!
+    @ ./array.jl:300 [inlined]
+  [6] copyto!
+    @ ./array.jl:286 [inlined]
+  [7] _copyto2arg!
+    @ ./array.jl:311 [inlined]
+  [8] copyto!
+    @ ./array.jl:313 [inlined]
+  [9] copyto!
+    @ ./broadcast.jl:993 [inlined]
+ [10] copyto!
+    @ ./broadcast.jl:952 [inlined]
+ [11] materialize!
+    @ ./broadcast.jl:910 [inlined]
+ [12] materialize!
+    @ ./broadcast.jl:907 [inlined]
+ [13] cached!(du::Vector{ForwardDiff.Dual{…}}, u::Vector{ForwardDiff.Dual{…}}, p::Vector{Float64}, t::Float64)
+    @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w136/sciml/port.jl:18
+ [14] (::FunctionWrappers.CallWrapper{…})(f::typeof(cached!), arg1::Vector{…}, arg2::Vector{…}, arg3::Vector{…}, arg4::Float64)
+    @ FunctionWrappers /p/projects/coen/julia-trait-bound/.julia-depot/packages/FunctionWrappers/Q5cBx/src/FunctionWrappers.jl:65
+ [15] macro expansion
+    @ /p/projects/coen/julia-trait-bound/.julia-depot/packages/FunctionWrappers/Q5cBx/src/FunctionWrappers.jl:137 [inlined]
+ [16] do_ccall
+    @ /p/projects/coen/julia-trait-bound/.julia-depot/packages/FunctionWrappers/Q5cBx/src/FunctionWrappers.jl:125 [inlined]
+ [17] FunctionWrapper
+    @ /p/projects/coen/julia-trait-bound/.julia-depot/packages/FunctionWrappers/Q5cBx/src/FunctionWrappers.jl:144 [inlined]
+ [18] pjacobian!(m::PlainODE.WrappedAD{Vector{…}, 3}, J::Matrix{Float64}, u::Vector{Float64}, p::Vector{Float64}, t::Float64)
+    @ PlainODE /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/baselines/PlainODE/src/PlainODE.jl:443
+ [19] rodas5_step!(m::PlainODE.WrappedAD{…}, i::PlainODE.Rodas5Integrator{…}, dt::Float64, abstol::Float64, reltol::Float64)
+    @ PlainODE /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/baselines/PlainODE/src/PlainODE.jl:520
+ [20] solve_ode(m::PlainODE.WrappedAD{…}, u0::Vector{…}, tspan::Tuple{…}, alg::Rodas5, p::Vector{…}, callbacks::Vector{…}, opts::PlainODE.SolverOptions)
+    @ PlainODE /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/baselines/PlainODE/src/PlainODE.jl:617
+ [21] _solve_ad(f::Any, u0::Vector{…}, tspan::Tuple{…}, alg::Rodas5, p::Vector{…}, cbs::Vector{…}, opts::PlainODE.SolverOptions, ::Val{…})
+    @ PlainODE /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/baselines/PlainODE/src/PlainODE.jl:700
+ [22] solve(prob::ODEProblem, alg::Rodas5; callback::Nothing, kw::@Kwargs{})
+    @ PlainODE /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/baselines/PlainODE/src/PlainODE.jl:698
+ [23] solve
+    @ /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/baselines/PlainODE/src/PlainODE.jl:696 [inlined]
+ [24] #12
+    @ /p/projects/coen/julia-trait-bound/experiments/unification/w136/sciml/port.jl:23 [inlined]
+ [25] report(form::String, tag::String, f::var"#12#13")
+    @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w136/sciml/report.jl:6
+ [26] top-level scope
+    @ /p/projects/coen/julia-trait-bound/experiments/unification/w136/sciml/port.jl:23
+ [27] include(mod::Module, _path::String)
+    @ Base ./Base.jl:309
+ [28] exec_options(opts::Base.JLOptions)
+    @ Base ./client.jl:344
+ [29] _start()
+    @ Base ./client.jl:577
