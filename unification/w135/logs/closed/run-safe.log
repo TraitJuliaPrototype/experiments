@@ -1,0 +1,80 @@
+# E-361 run_safe 2026-11-11T11:41:34+01:00 load 11.79 12.03 13.60 | julia-unified dd3f6d839b julia-vanilla 45b6d15e34 TraitWorld-unified 99c4934
+logs/hello.build.log: 0 errors, 0 warnings | object: exit 0 after 6 s | link: exit 0, 1837280 bytes
+  in module: 
+  reached from: 
+logs/jll-safe-unified.build.log: 6 errors, 0 warnings | Trim verify finished with 6 errors, 0 warnings. | object: exit 1 after 7 s
+  in module: Base.Order E4, Base.Sort E2
+  reached from: Libiconv_jll E6
+    root    6  Libiconv_jll __init__()
+logs/jll-safe-vanilla.build.log: 6 errors, 0 warnings | Trim verify finished with 6 errors, 0 warnings. | object: exit 1 after 4 s
+  in module: Base.Order E4, Base.Sort E2
+  reached from: Libiconv_jll E6
+    root    6  Libiconv_jll __init__()
+logs/table-bare.build.log: 10 errors, 0 warnings | Trim verify finished with 10 errors, 0 warnings. | object: exit 1 after 6 s
+  in module: Base E4, TraitTables E2, TraitTables.TableCore E2, TraitCSV.CSVCore E2
+  reached from: Main E10
+    root   10  Main _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+logs/table-verify.build.log: 10 errors, 0 warnings | verify_main: 1165 targets, 16 entry points, 20 run-time sites, complete true, 3.1 s | Trim verify finished with 10 errors, 0 warnings. | object: exit 1 after 10 s
+  in module: Base E4, TraitTables E2, TraitTables.TableCore E2, TraitCSV.CSVCore E2
+  reached from: Main E10
+    root   10  Main _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+logs/table-plain.build.log: 10 errors, 0 warnings | Trim verify finished with 10 errors, 0 warnings. | object: exit 1 after 6 s
+  in module: PlainTables E6, Base E4
+  reached from: Main E10
+    root   10  Main _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+logs/table-plain-vanilla.build.log: 12 errors, 0 warnings | Trim verify finished with 12 errors, 0 warnings. | object: exit 1 after 4 s
+  in module: PlainTables E6, Base E6
+  reached from: Main E12
+    root   12  Main _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+logs/ode-bare.build.log: 120 errors, 0 warnings | Trim verify finished with 120 errors, 0 warnings. | object: exit 1 after 8 s
+  in module: ODECore E82, TraitDifferentialEquations E14, Main E12, TraitNonlinearSolve E6, Base.Order E4, Base.Sort E2
+  reached from: Main E114, OpenSpecFun_jll E6
+    root  114  Main _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+    root    6  OpenSpecFun_jll __init__()
+logs/ode-verify.build.log: 120 errors, 0 warnings | verify_main: 140 targets, 0 entry points, 9 run-time sites, complete true, 2.0 s | Trim verify finished with 120 errors, 0 warnings. | object: exit 1 after 10 s
+  in module: ODECore E82, TraitDifferentialEquations E14, Main E12, TraitNonlinearSolve E6, Base.Order E4, Base.Sort E2
+  reached from: Main E114, OpenSpecFun_jll E6
+    root  114  Main _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+    root    6  OpenSpecFun_jll __init__()
+logs/ode-ad-bare.build.log: 158 errors, 0 warnings | Trim verify finished with 158 errors, 0 warnings. | object: exit 1 after 8 s
+  in module: ODECore E82, TraitDifferentialEquations E38, Main E26, TraitNonlinearSolve E6, Base.Order E4, Base.Sort E2
+  reached from: Main E136, TraitDifferentialEquations E16, OpenSpecFun_jll E6
+    root  136  Main _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+    root   16  TraitDifferentialEquations _holds_duals(T::Type)
+    root    6  OpenSpecFun_jll __init__()
+logs/ode-ad-verify.build.log: 158 errors, 0 warnings | verify_main: 170 targets, 0 entry points, 23 run-time sites, complete true, 3.3 s | Trim verify finished with 158 errors, 0 warnings. | object: exit 1 after 10 s
+  in module: ODECore E82, TraitDifferentialEquations E38, Main E26, TraitNonlinearSolve E6, Base.Order E4, Base.Sort E2
+  reached from: Main E136, TraitDifferentialEquations E16, OpenSpecFun_jll E6
+    root  136  Main _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+    root   16  TraitDifferentialEquations _holds_duals(T::Type)
+    root    6  OpenSpecFun_jll __init__()
+logs/ode-plain.build.log: 14 errors, 0 warnings | Trim verify finished with 14 errors, 0 warnings. | object: exit 1 after 6 s
+  in module: PlainODE E8, Base.Order E4, Base.Sort E2
+  reached from: Main E8, OpenSpecFun_jll E6
+    root    8  Main _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+    root    6  OpenSpecFun_jll __init__()
+logs/ode-plain-vanilla.build.log: 14 errors, 0 warnings | Trim verify finished with 14 errors, 0 warnings. | object: exit 1 after 4 s
+  in module: PlainODE E8, Base.Order E4, Base.Sort E2
+  reached from: Main E8, OpenSpecFun_jll E6
+    root    8  Main _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+    root    6  OpenSpecFun_jll __init__()
+logs/plot-bare.build.log: 46 errors, 0 warnings | Trim verify finished with 46 errors, 0 warnings. | object: exit 1 after 10 s
+  in module: TraitMakie.PlotCore E40, Base.Order E4, Base.Sort E2
+  reached from: TraitMakie.PlotCore E40, Pango_jll E6
+    root   40  TraitMakie.PlotCore render_png(f::Figure, path::String, px_per_unit::Float64)
+    root    6  Pango_jll __init__()
+logs/plot-verify.build.log: 47 errors, 0 warnings | verify_main: 1081 targets, 24 entry points, 44 run-time sites, complete true, 3.5 s | Trim verify finished with 47 errors, 0 warnings. | object: exit 1 after 13 s
+  in module: TraitMakie.PlotCore E41, Base.Order E4, Base.Sort E2
+  reached from: Main E41, Pango_jll E6
+    root   41  Main _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+    root    6  Pango_jll __init__()
+logs/plot_plain.build.log: 86 errors, 0 warnings | Trim verify finished with 86 errors, 0 warnings. | object: exit 1 after 7 s
+  in module: PlainPlots E80, Base.Order E4, Base.Sort E2
+  reached from: Main E80, Pango_jll E6
+    root   80  Main _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+    root    6  Pango_jll __init__()
+logs/plot_plain-vanilla.build.log: 88 errors, 0 warnings | Trim verify finished with 88 errors, 0 warnings. | object: exit 1 after 6 s
+  in module: PlainPlots E82, Base.Order E4, Base.Sort E2
+  reached from: Main E82, Pango_jll E6
+    root   82  Main _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+    root    6  Pango_jll __init__()

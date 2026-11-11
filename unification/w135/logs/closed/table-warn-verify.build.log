@@ -1,0 +1,24 @@
+# E-361 table 2026-11-11T11:37:36+01:00 load 11.04 12.89 14.30 | julia-unified dd3f6d839b TraitWorld-unified 99c4934 trim=unsafe-warn
+verify_main: 1165 targets, 16 entry points, 20 run-time sites, complete true, 3.0 s
+  site: dispatch /p/projects/coen/julia-trait-bound/TraitTables-unified/src/TableCore.jl:188 Core.attributed_call(::Int64, ::typeof(summarize), ::Any, ::String) | the result of a call dispatched when it runs: `_cast_compiled(…)` is Any
+  site: dispatch /p/projects/coen/julia-trait-bound/TraitTables-unified/src/TraitTables.jl:51 Core.attributed_call(::Int64, ::typeof(floats), ::Any, ::Bool) | the result of a call dispatched when it runs: `_cast_compiled(…)` is Any
+  site: dispatch /p/projects/coen/julia-trait-bound/TraitCSV-unified/src/CSVCore.jl:128 push!(::Vector{Column}, ::Any) | a variable whose type differs between paths: Any, Nothing
+  site: dispatch io.jl:385 !==(::Bool, ::Bool) | its argument types are not known when compiled
+  site: dispatch array.jl:1186 !==(::MemoryRef{ColSummary}, ::MemoryRef{ColSummary}) | its argument types are not known when compiled
+  site: callee array.jl:2454 (::Base.Fix2{typeof(==), String})(::String) | the argument `testf` is Base.Fix2{typeof(==), String}
+  site: dispatch array.jl:837 TypeVar(::Symbol, ::Type{String}) | its argument types are not known when compiled
+  site: dispatch array.jl:837 UnionAll(::TypeVar, ::Type{AbstractArray{var"#s188"<:String, 1}}) | its argument types are not known when compiled
+  site: dispatch array.jl:837 TypeVar(::Symbol, ::Type{Vector{UnitRange{Int64}}}) | its argument types are not known when compiled
+  site: dispatch array.jl:837 UnionAll(::TypeVar, ::Type{AbstractArray{var"#s188"<:Vector{UnitRange{Int64}}, 1}}) | its argument types are not known when compiled
+  site: callee generator.jl:48 (::var"#scan##0#scan##1"{String})(::UnitRange{Int64}) | field `f` of `Base.Generator{Vector{UnitRange{Int64}}, TraitCSV.CSVCore.var"#scan##0#scan##1"{String}}` is declared var"#scan##0#scan##1"{String}
+  site: dispatch array.jl:1186 !==(::MemoryRef{UInt8}, ::MemoryRef{UInt8}) | its argument types are not known when compiled
+  site: dispatch array.jl:1186 !==(::MemoryRef{String}, ::MemoryRef{String}) | its argument types are not known when compiled
+  site: dispatch array.jl:1186 !==(::MemoryRef{Vector{UnitRange{Int64}}}, ::MemoryRef{Vector{UnitRange{Int64}}}) | its argument types are not known when compiled
+  site: dispatch array.jl:1186 !==(::MemoryRef{UnitRange{Int64}}, ::MemoryRef{UnitRange{Int64}}) | its argument types are not known when compiled
+  site: callee generator.jl:48 (::var"#scan##0#scan##1"{String})(::UnitRange{Int64}) | field `f` of `Base.Generator{Vector{UnitRange{Int64}}, TraitCSV.CSVCore.var"#scan##0#scan##1"{String}}` is declared var"#scan##0#scan##1"{String}
+  site: dispatch array.jl:1186 !==(::MemoryRef{Int64}, ::MemoryRef{Int64}) | its argument types are not known when compiled
+  site: dispatch array.jl:1186 !==(::MemoryRef{Float64}, ::MemoryRef{Float64}) | its argument types are not known when compiled
+  site: dispatch array.jl:1186 !==(::MemoryRef{Union{Missing, Int64}}, ::MemoryRef{Union{Missing, Int64}}) | its argument types are not known when compiled
+  site: dispatch array.jl:1186 !==(::MemoryRef{Union{Missing, Float64}}, ::MemoryRef{Union{Missing, Float64}}) | its argument types are not known when compiled
+object: exit 0 after 10 s
+link: exit 0, 2907536 bytes

@@ -1,0 +1,204 @@
+# E-361 table 2026-11-11T11:42:01+01:00 load 12.17 12.08 13.57 | julia-unified dd3f6d839b TraitWorld-unified 99c4934 trim=safe
+verify_main: 1165 targets, 16 entry points, 20 run-time sites, complete true, 3.1 s
+  site: dispatch /p/projects/coen/julia-trait-bound/TraitTables-unified/src/TableCore.jl:188 Core.attributed_call(::Int64, ::typeof(summarize), ::Any, ::String) | the result of a call dispatched when it runs: `_cast_compiled(…)` is Any
+  site: dispatch /p/projects/coen/julia-trait-bound/TraitTables-unified/src/TraitTables.jl:51 Core.attributed_call(::Int64, ::typeof(floats), ::Any, ::Bool) | the result of a call dispatched when it runs: `_cast_compiled(…)` is Any
+  site: dispatch /p/projects/coen/julia-trait-bound/TraitCSV-unified/src/CSVCore.jl:128 push!(::Vector{Column}, ::Any) | a variable whose type differs between paths: Any, Nothing
+  site: dispatch io.jl:385 !==(::Bool, ::Bool) | its argument types are not known when compiled
+  site: dispatch array.jl:1186 !==(::MemoryRef{ColSummary}, ::MemoryRef{ColSummary}) | its argument types are not known when compiled
+  site: callee array.jl:2454 (::Base.Fix2{typeof(==), String})(::String) | the argument `testf` is Base.Fix2{typeof(==), String}
+  site: dispatch array.jl:837 TypeVar(::Symbol, ::Type{String}) | its argument types are not known when compiled
+  site: dispatch array.jl:837 UnionAll(::TypeVar, ::Type{AbstractArray{var"#s188"<:String, 1}}) | its argument types are not known when compiled
+  site: dispatch array.jl:837 TypeVar(::Symbol, ::Type{Vector{UnitRange{Int64}}}) | its argument types are not known when compiled
+  site: dispatch array.jl:837 UnionAll(::TypeVar, ::Type{AbstractArray{var"#s188"<:Vector{UnitRange{Int64}}, 1}}) | its argument types are not known when compiled
+  site: callee generator.jl:48 (::var"#scan##0#scan##1"{String})(::UnitRange{Int64}) | field `f` of `Base.Generator{Vector{UnitRange{Int64}}, TraitCSV.CSVCore.var"#scan##0#scan##1"{String}}` is declared var"#scan##0#scan##1"{String}
+  site: dispatch array.jl:1186 !==(::MemoryRef{UInt8}, ::MemoryRef{UInt8}) | its argument types are not known when compiled
+  site: dispatch array.jl:1186 !==(::MemoryRef{String}, ::MemoryRef{String}) | its argument types are not known when compiled
+  site: dispatch array.jl:1186 !==(::MemoryRef{Vector{UnitRange{Int64}}}, ::MemoryRef{Vector{UnitRange{Int64}}}) | its argument types are not known when compiled
+  site: dispatch array.jl:1186 !==(::MemoryRef{UnitRange{Int64}}, ::MemoryRef{UnitRange{Int64}}) | its argument types are not known when compiled
+  site: callee generator.jl:48 (::var"#scan##0#scan##1"{String})(::UnitRange{Int64}) | field `f` of `Base.Generator{Vector{UnitRange{Int64}}, TraitCSV.CSVCore.var"#scan##0#scan##1"{String}}` is declared var"#scan##0#scan##1"{String}
+  site: dispatch array.jl:1186 !==(::MemoryRef{Int64}, ::MemoryRef{Int64}) | its argument types are not known when compiled
+  site: dispatch array.jl:1186 !==(::MemoryRef{Float64}, ::MemoryRef{Float64}) | its argument types are not known when compiled
+  site: dispatch array.jl:1186 !==(::MemoryRef{Union{Missing, Int64}}, ::MemoryRef{Union{Missing, Int64}}) | its argument types are not known when compiled
+  site: dispatch array.jl:1186 !==(::MemoryRef{Union{Missing, Float64}}, ::MemoryRef{Union{Missing, Float64}}) | its argument types are not known when compiled
+Error #1: unresolved call (with its arguments' attributes) from statement attributed_call(
+  1::Int64,
+  TraitTables.TableCore.floats::typeof(floats),
+  :(φ (%68 => %67, %69 => %62))::Any,
+  skipmissing::Bool
+)::Vector{Float64}
+
+Stacktrace:
+ [1] floats(t::Table, name::String; skipmissing::Bool)
+   @ TraitTables /p/projects/coen/julia-trait-bound/TraitTables-unified/src/TraitTables.jl:51
+ [2] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/table.jl:11
+ [3] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-unified/test/trimming/juliac-buildscript.jl:35
+
+Error #2: unresolved invoke from statement repeat(p::Char, (…)::Int64)::String
+
+Stacktrace:
+ [1] repeat(c::Char, r::Int64)
+   @ Base strings/string.jl:586 [inlined]
+ [2] ^(s::Char, r::Int64)
+   @ Base strings/basic.jl:771 [inlined]
+ [3] rpad(s::String, n::Int64, p::Char)
+   @ Base strings/util.jl:567
+ [4] rpad(s::String, n::Int64)
+   @ Base strings/util.jl:555 [inlined]
+ [5] summary_text(t::Table)
+   @ TraitTables /p/projects/coen/julia-trait-bound/TraitTables-unified/src/TraitTables.jl:63
+ [6] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/table.jl:10
+ [7] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-unified/test/trimming/juliac-buildscript.jl:35
+
+Error #3: unresolved invoke from statement repeat(p::Char, (…)::Int64)::String
+
+Stacktrace:
+ [1] repeat(c::Char, r::Int64)
+   @ Base strings/string.jl:586 [inlined]
+ [2] ^(s::Char, r::Int64)
+   @ Base strings/basic.jl:771 [inlined]
+ [3] rpad(s::String, n::Int64, p::Char)
+   @ Base strings/util.jl:567
+ [4] rpad(s::String, n::Int64)
+   @ Base strings/util.jl:555 [inlined]
+ [5] summary_text(t::Table)
+   @ TraitTables /p/projects/coen/julia-trait-bound/TraitTables-unified/src/TraitTables.jl:63
+ [6] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/table.jl:10
+ [7] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-unified/test/trimming/juliac-buildscript.jl:35
+
+Error #4: unresolved call (with its arguments' attributes) from statement attributed_call(
+  1::Int64,
+  summarize::typeof(TraitTables.TableCore.summarize),
+  :(φ (%41 => %40, %42 => %36))::Any,
+  (…)::String
+)::ColSummary
+
+Stacktrace:
+ [1] describe(t::Table)
+   @ TraitTables.TableCore /p/projects/coen/julia-trait-bound/TraitTables-unified/src/TableCore.jl:188
+ [2] summary_text(t::Table)
+   @ TraitTables /p/projects/coen/julia-trait-bound/TraitTables-unified/src/TraitTables.jl:61
+ [3] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/table.jl:10
+ [4] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-unified/test/trimming/juliac-buildscript.jl:35
+
+Error #5: unresolved call (with its arguments' attributes) from statement attributed_call(
+  1::Int64,
+  fillcolumn::typeof(TraitCSV.CSVCore.fillcolumn),
+  :(φ (%98 => %97, %99 => %94))::Any,
+  s::String,
+  (…)::Vector{UnitRange{Int64}}
+)::Union{Nothing, CSVColumn}
+
+Stacktrace:
+ [1] readtable(s::String, delim::UInt8, types::Vector{CSVColumn})
+   @ TraitCSV.CSVCore /p/projects/coen/julia-trait-bound/TraitCSV-unified/src/CSVCore.jl:123
+ [2] parse(text::String; delim::Char, types::Nothing)
+   @ TraitCSV /p/projects/coen/julia-trait-bound/TraitCSV-unified/src/TraitCSV.jl:35 [inlined]
+ [3] read(path::String; delim::Char, types::Nothing)
+   @ TraitCSV /p/projects/coen/julia-trait-bound/TraitCSV-unified/src/TraitCSV.jl:24 [inlined]
+ [4] read(path::String)
+   @ TraitCSV /p/projects/coen/julia-trait-bound/TraitCSV-unified/src/TraitCSV.jl:23 [inlined]
+ [5] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/table.jl:9
+ [6] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-unified/test/trimming/juliac-buildscript.jl:35
+
+Error #6: unresolved call (with its arguments' attributes) from statement attributed_call(
+  1::Int64,
+  TraitTables.TableCore.floats::typeof(floats),
+  :(φ (%68 => %67, %69 => %62))::Any,
+  skipmissing::Bool
+)::Vector{Float64}
+
+Stacktrace:
+ [1] floats(t::Table, name::String; skipmissing::Bool)
+   @ TraitTables /p/projects/coen/julia-trait-bound/TraitTables-unified/src/TraitTables.jl:51
+ [2] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/table.jl:11
+ [3] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-unified/test/trimming/juliac-buildscript.jl:35
+
+Error #7: unresolved invoke from statement repeat(p::Char, (…)::Int64)::String
+
+Stacktrace:
+ [1] repeat(c::Char, r::Int64)
+   @ Base strings/string.jl:586 [inlined]
+ [2] ^(s::Char, r::Int64)
+   @ Base strings/basic.jl:771 [inlined]
+ [3] rpad(s::String, n::Int64, p::Char)
+   @ Base strings/util.jl:567
+ [4] rpad(s::String, n::Int64)
+   @ Base strings/util.jl:555 [inlined]
+ [5] summary_text(t::Table)
+   @ TraitTables /p/projects/coen/julia-trait-bound/TraitTables-unified/src/TraitTables.jl:63
+ [6] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/table.jl:10
+ [7] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-unified/test/trimming/juliac-buildscript.jl:35
+
+Error #8: unresolved invoke from statement repeat(p::Char, (…)::Int64)::String
+
+Stacktrace:
+ [1] repeat(c::Char, r::Int64)
+   @ Base strings/string.jl:586 [inlined]
+ [2] ^(s::Char, r::Int64)
+   @ Base strings/basic.jl:771 [inlined]
+ [3] rpad(s::String, n::Int64, p::Char)
+   @ Base strings/util.jl:567
+ [4] rpad(s::String, n::Int64)
+   @ Base strings/util.jl:555 [inlined]
+ [5] summary_text(t::Table)
+   @ TraitTables /p/projects/coen/julia-trait-bound/TraitTables-unified/src/TraitTables.jl:63
+ [6] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/table.jl:10
+ [7] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-unified/test/trimming/juliac-buildscript.jl:35
+
+Error #9: unresolved call (with its arguments' attributes) from statement attributed_call(
+  1::Int64,
+  summarize::typeof(TraitTables.TableCore.summarize),
+  :(φ (%41 => %40, %42 => %36))::Any,
+  (…)::String
+)::ColSummary
+
+Stacktrace:
+ [1] describe(t::Table)
+   @ TraitTables.TableCore /p/projects/coen/julia-trait-bound/TraitTables-unified/src/TableCore.jl:188
+ [2] summary_text(t::Table)
+   @ TraitTables /p/projects/coen/julia-trait-bound/TraitTables-unified/src/TraitTables.jl:61
+ [3] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/table.jl:10
+ [4] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-unified/test/trimming/juliac-buildscript.jl:35
+
+Error #10: unresolved call (with its arguments' attributes) from statement attributed_call(
+  1::Int64,
+  fillcolumn::typeof(TraitCSV.CSVCore.fillcolumn),
+  :(φ (%98 => %97, %99 => %94))::Any,
+  s::String,
+  (…)::Vector{UnitRange{Int64}}
+)::Union{Nothing, CSVColumn}
+
+Stacktrace:
+ [1] readtable(s::String, delim::UInt8, types::Vector{CSVColumn})
+   @ TraitCSV.CSVCore /p/projects/coen/julia-trait-bound/TraitCSV-unified/src/CSVCore.jl:123
+ [2] parse(text::String; delim::Char, types::Nothing)
+   @ TraitCSV /p/projects/coen/julia-trait-bound/TraitCSV-unified/src/TraitCSV.jl:35 [inlined]
+ [3] read(path::String; delim::Char, types::Nothing)
+   @ TraitCSV /p/projects/coen/julia-trait-bound/TraitCSV-unified/src/TraitCSV.jl:24 [inlined]
+ [4] read(path::String)
+   @ TraitCSV /p/projects/coen/julia-trait-bound/TraitCSV-unified/src/TraitCSV.jl:23 [inlined]
+ [5] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/table.jl:9
+ [6] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-unified/test/trimming/juliac-buildscript.jl:35
+
+Trim verify finished with 10 errors, 0 warnings.
+object: exit 1 after 10 s

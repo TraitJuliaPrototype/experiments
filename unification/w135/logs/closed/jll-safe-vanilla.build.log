@@ -1,0 +1,114 @@
+# E-361 jll 2026-11-11T11:41:49+01:00 load 11.62 11.98 13.56 | julia-vanilla 45b6d15e34 TraitWorld-unified 99c4934 trim=safe
+Error #1: unresolved call from statement issorted(
+  itr::Vector{String},
+  ord(
+    lt::Function,
+    by::Function,
+    true::Bool,
+    order::Base.Order.ForwardOrdering
+  )::Union{Base.Order.By, Base.Order.Lt{T} where T<:Function, Base.Order.ReverseOrdering, Base.Order.DirectOrdering}
+)::Bool
+
+Stacktrace:
+ [1] issorted(itr::Vector{String}; lt::Function, by::Function, rev::Bool, order::Base.Order.ForwardOrdering)
+   @ Base.Sort sort.jl:93
+ [2] unique!(itr::Vector{String})
+   @ Base set.jl:473
+ [3] macro expansion
+   @ /p/projects/coen/julia-trait-bound/.julia-depot/packages/JLLWrappers/Kp7TC/src/wrapper_generators.jl:64 [inlined]
+ [4] __init__()
+   @ Libiconv_jll /p/projects/coen/julia-trait-bound/.julia-depot/packages/Libiconv_jll/sE4g7/src/wrappers/x86_64-linux-gnu.jl:21
+
+Error #2: unresolved call from statement issorted(
+  itr::Vector{String},
+  :(φ (%161 => %159, %163 => %162))::Union{Base.Order.ForwardOrdering, Base.Order.By, Base.Order.Lt{T} where T<:Function}
+)::Bool
+
+Stacktrace:
+ [1] issorted(itr::Vector{String}; lt::Function, by::Function, rev::Bool, order::Base.Order.ForwardOrdering)
+   @ Base.Sort sort.jl:95
+ [2] unique!(itr::Vector{String})
+   @ Base set.jl:473
+ [3] macro expansion
+   @ /p/projects/coen/julia-trait-bound/.julia-depot/packages/JLLWrappers/Kp7TC/src/wrapper_generators.jl:64 [inlined]
+ [4] __init__()
+   @ Libiconv_jll /p/projects/coen/julia-trait-bound/.julia-depot/packages/Libiconv_jll/sE4g7/src/wrappers/x86_64-linux-gnu.jl:21
+
+Error #3: unresolved call from statement Lt(
+  lt::Function
+)::Base.Order.Lt{T} where T<:Function
+
+Stacktrace:
+ [1] _ord(lt::Function, by::Function, order::Base.Order.ForwardOrdering)
+   @ Base.Order ordering.jl:133
+ [2] ord(lt::Function, by::Function, rev::Nothing, order::Base.Order.ForwardOrdering)
+   @ Base.Order ordering.jl:155 [inlined]
+ [3] issorted(itr::Vector{String}; lt::Function, by::Function, rev::Bool, order::Base.Order.ForwardOrdering)
+   @ Base.Sort sort.jl:95
+ [4] unique!(itr::Vector{String})
+   @ Base set.jl:473
+ [5] macro expansion
+   @ /p/projects/coen/julia-trait-bound/.julia-depot/packages/JLLWrappers/Kp7TC/src/wrapper_generators.jl:64 [inlined]
+ [6] __init__()
+   @ Libiconv_jll /p/projects/coen/julia-trait-bound/.julia-depot/packages/Libiconv_jll/sE4g7/src/wrappers/x86_64-linux-gnu.jl:21
+
+Error #4: unresolved call from statement _by(
+  by::Function,
+  Lt(
+    lt::Function
+  )::Base.Order.Lt{T} where T<:Function
+)::Union{Base.Order.By{T, O} where {T<:Function, O<:(Base.Order.Lt{T} where T<:Function)}, Base.Order.Lt{T} where T<:Function}
+
+Stacktrace:
+ [1] _ord(lt::Function, by::Function, order::Base.Order.ForwardOrdering)
+   @ Base.Order ordering.jl:133
+ [2] ord(lt::Function, by::Function, rev::Nothing, order::Base.Order.ForwardOrdering)
+   @ Base.Order ordering.jl:155 [inlined]
+ [3] issorted(itr::Vector{String}; lt::Function, by::Function, rev::Bool, order::Base.Order.ForwardOrdering)
+   @ Base.Sort sort.jl:95
+ [4] unique!(itr::Vector{String})
+   @ Base set.jl:473
+ [5] macro expansion
+   @ /p/projects/coen/julia-trait-bound/.julia-depot/packages/JLLWrappers/Kp7TC/src/wrapper_generators.jl:64 [inlined]
+ [6] __init__()
+   @ Libiconv_jll /p/projects/coen/julia-trait-bound/.julia-depot/packages/Libiconv_jll/sE4g7/src/wrappers/x86_64-linux-gnu.jl:21
+
+Error #5: unresolved call from statement By(
+  by::Function,
+  order::Base.Order.ForwardOrdering
+)::Base.Order.By{T, Base.Order.ForwardOrdering} where T<:Function
+
+Stacktrace:
+ [1] _by(by::Function, order::Base.Order.ForwardOrdering)
+   @ Base.Order ordering.jl:136
+ [2] _ord(lt::typeof(isless), by::Function, order::Base.Order.ForwardOrdering)
+   @ Base.Order ordering.jl:131 [inlined]
+ [3] ord(lt::Function, by::Function, rev::Nothing, order::Base.Order.ForwardOrdering)
+   @ Base.Order ordering.jl:155 [inlined]
+ [4] issorted(itr::Vector{String}; lt::Function, by::Function, rev::Bool, order::Base.Order.ForwardOrdering)
+   @ Base.Sort sort.jl:95
+ [5] unique!(itr::Vector{String})
+   @ Base set.jl:473
+ [6] macro expansion
+   @ /p/projects/coen/julia-trait-bound/.julia-depot/packages/JLLWrappers/Kp7TC/src/wrapper_generators.jl:64 [inlined]
+ [7] __init__()
+   @ Libiconv_jll /p/projects/coen/julia-trait-bound/.julia-depot/packages/Libiconv_jll/sE4g7/src/wrappers/x86_64-linux-gnu.jl:21
+
+Error #6: unresolved call from statement ReverseOrdering(
+  :(φ (%10 => %8, %13 => %12))::Union{Base.Order.ForwardOrdering, Base.Order.By, Base.Order.Lt{T} where T<:Function}
+)::Union{Base.Order.ReverseOrdering{Base.Order.ForwardOrdering}, Base.Order.By, Base.Order.ReverseOrdering{Fwd} where Fwd<:(Base.Order.Lt{T} where T<:Function)}
+
+Stacktrace:
+ [1] ord(lt::Function, by::Function, rev::Bool, order::Base.Order.ForwardOrdering)
+   @ Base.Order ordering.jl:159
+ [2] issorted(itr::Vector{String}; lt::Function, by::Function, rev::Bool, order::Base.Order.ForwardOrdering)
+   @ Base.Sort sort.jl:93
+ [3] unique!(itr::Vector{String})
+   @ Base set.jl:473
+ [4] macro expansion
+   @ /p/projects/coen/julia-trait-bound/.julia-depot/packages/JLLWrappers/Kp7TC/src/wrapper_generators.jl:64 [inlined]
+ [5] __init__()
+   @ Libiconv_jll /p/projects/coen/julia-trait-bound/.julia-depot/packages/Libiconv_jll/sE4g7/src/wrappers/x86_64-linux-gnu.jl:21
+
+Trim verify finished with 6 errors, 0 warnings.
+object: exit 1 after 4 s
