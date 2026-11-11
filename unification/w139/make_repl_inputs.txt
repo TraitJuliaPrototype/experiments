@@ -1,0 +1,12 @@
+using TraitWorld
+@trait Shape begin; area(s::Shape)::Float64; end
+struct Circle; r::Float64; end
+struct Square; a::Float64; end
+@implement Shape Circle begin; area(c) = pi * c.r^2; end
+@implement Shape Square begin; area(s) = s.a^2; end
+total(v::Vector{Shape}) = (t = 0.0; for s in v; t += area(s); end; t)
+total(Shape[Circle(1.0)])
+main(args::Vector{String}) = (println(Core.stdout, "total area ", round(total(Shape[Circle(1.0), Square(2.0), Circle(0.5)]); digits = 4)); 0)
+exe = make_executable(main, "out/made_repl")
+println("BUILT ", filesize(exe)); print(read(`$exe`, String))
+exit()
