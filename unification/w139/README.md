@@ -81,6 +81,24 @@ E-361's programs again (`../w135/logs/closed/`; the same packages): none builds 
 - **`readtable`'s call is split over `CSVColumn`'s five members.** 9 invokes become 18; no call is left to run time there.
 - **`Column`'s members cannot be listed, and the table's count rises from 10 to 50.** `Column{T}` has the family `Vector{T} where T`: the build lists every `Vector` instance of the process, 250 in a session, past the limit of 64. `summarize` and `floats` at `Column` are compiled once, and each of their operations (`nrows`, `cell`) is left to run time: 44 errors in `TableCore`, 6 in Base (`repeat`). The trait's members are four types in this program. The tension: `writeup/open-issues.md` §1, GT-15.
 
+### Members by use, and the table program as a binary (2026-11-11, `unified` d8cebc40fe, TraitTables c339175)
+
+`logs/run-d8cebc40fe.log`; `../w135/logs/closed/table-d8cebc40fe.build.log` and `.bin.out`; `dbg_used.jl` (the driver run from a session, with what it noted). One build each, load 2 to 5 of 128. The build's report: `JULIA_CLOSED_BUILD_REPORT=1`.
+
+- **The rule** (`writeup/reference/compiler.md` §7.6): a family's members, and an abstract type's, are the types under it that the build's code forgets at a place typed under the trait, or at a wider place that a test narrows to the trait.
+- **The five small programs build and run.** `family_trait` takes 2 rounds: `Scaled{Rect}`, `Scaled{Circle}` and `Scaled{Scaled{Rect}}` are forgotten at `Shape` in `main`'s array, and join `Circle` and `Rect`.
+- **The table program builds under `--trim=safe`: 0 errors, 3,069,328 bytes, no LLVM, the session's output.** `Column` has 5 members, `CSVColumn` 5, where the type's cache gave 250.
+
+| Rule for a family's members | `Column`'s members | The table's errors |
+|---|---|---|
+| every instantiation in the type's cache (`unified` 5d8da002fa) | 250 in a session; not split | 50 (44 at `Column`'s operations) |
+| every concrete type the build's code computes (`closed/table-every-used-type.build.log`) | every `Vector` the program uses: `Vector{Any}`, `Vector{Column}`, `Vector{CSVColumn}`, … | 72: `floats`, `numsummary` compiled for vectors that are no columns of numbers |
+| the types forgotten at a place under the trait (`closed/table-d8cebc40fe-before-port.build.log`) | 5 | 12, none at a trait: Base's `repeat` and a `Set{Any}` in the port |
+| the same, the port typed (TraitTables c339175) | 5 | 0 |
+
+- **The two changes in the port** are plain Julia's: `othersummary`'s `Set{Any}` typed by the column's cells, and the summary padded without `rpad` (Base's `repeat` is an `:invoke` with no code under `--trim`, on vanilla too).
+- **Found on the way:** the build's driver runs in the compiler's own world, where the program's memberships do not exist; between rounds it asked `T <: Shape` there and found no member. A caller kept over a callee's equal result went on invoking the instance with fewer members; the callers of a re-inferred instance are inferred again.
+
 ## `make_executable` and `make_library` (TraitWorld 19862aa)
 
 `make.jl` (`logs/make.log`), from a session, on `apps/program.jl`, whose functions loop over a `Vector{Shape}`:

@@ -1,0 +1,203 @@
+# E-361 table 2026-11-11T21:34:55+01:00 load 5.35 6.30 5.67 | julia-unified 5d8da002fa TraitWorld-unified 4718b6e trim=safe
+WARNING: Imported binding TraitTables.Table was undeclared at import time during import to TraitCSV.
+closed build: 1 rounds, 72 types forgotten, 2 entries by a test
+  TraitCSV.CSVCore.CSVColumn{T} where T: split with 5 members; it has 5
+    Array{Int64, 1}
+    Array{Float64, 1}
+    Array{Union{Base.Missing, Int64}, 1}
+    Array{Union{Base.Missing, Float64}, 1}
+    Array{String, 1}
+  TraitTables.TableCore.Column{T} where T: split with 5 members; it has 5
+    Array{Int64, 1}
+    Array{String, 1}
+    Array{Float64, 1}
+    Array{Union{Base.Missing, Float64}, 1}
+    Array{Union{Base.Missing, Int64}, 1}
+  forgotten: Array{Int64, 1} at TraitCSV.CSVCore.CSVColumn{T} where T
+  forgotten: Array{String, 1} at TraitCSV.CSVCore.CSVColumn{T} where T
+  forgotten: Array{Float64, 1} at TraitCSV.CSVCore.CSVColumn{T} where T
+  forgotten: Array{Union{Base.Missing, Float64}, 1} at TraitCSV.CSVCore.CSVColumn{T} where T
+  forgotten: Array{Union{Base.Missing, Int64}, 1} at TraitCSV.CSVCore.CSVColumn{T} where T
+  instances 671, with code 671, with statement types 671
+Error #1: unresolved invoke from statement repeat(p::Char, (…)::Int64)::String
+
+Stacktrace:
+ [1] repeat(c::Char, r::Int64)
+   @ Base strings/string.jl:586 [inlined]
+ [2] ^(s::Char, r::Int64)
+   @ Base strings/basic.jl:771 [inlined]
+ [3] rpad(s::String, n::Int64, p::Char)
+   @ Base strings/util.jl:567
+ [4] rpad(s::String, n::Int64)
+   @ Base strings/util.jl:555 [inlined]
+ [5] summary_text(t::Table)
+   @ TraitTables /p/projects/coen/julia-trait-bound/TraitTables-unified/src/TraitTables.jl:63
+ [6] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/table.jl:10
+ [7] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-unified/test/trimming/juliac-buildscript.jl:35
+
+Error #2: unresolved invoke from statement repeat(p::Char, (…)::Int64)::String
+
+Stacktrace:
+ [1] repeat(c::Char, r::Int64)
+   @ Base strings/string.jl:586 [inlined]
+ [2] ^(s::Char, r::Int64)
+   @ Base strings/basic.jl:771 [inlined]
+ [3] rpad(s::String, n::Int64, p::Char)
+   @ Base strings/util.jl:567
+ [4] rpad(s::String, n::Int64)
+   @ Base strings/util.jl:555 [inlined]
+ [5] summary_text(t::Table)
+   @ TraitTables /p/projects/coen/julia-trait-bound/TraitTables-unified/src/TraitTables.jl:63
+ [6] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/table.jl:10
+ [7] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-unified/test/trimming/juliac-buildscript.jl:35
+
+Error #3: unresolved call from statement hashindex(
+  memoryrefget((…)::MemoryRef{Any}, :not_atomic::Symbol, false::Bool)::Any,
+  :(φ (%7 => 16, %18 => %17))::Int64
+)::Tuple{Int64, UInt8}
+
+Stacktrace:
+  [1] rehash!(h::Dict{Any, Nothing}, newsz::Int64)
+    @ Base dict.jl:169
+  [2] _setindex!(h::Dict{Any, Nothing}, v::Nothing, key::String, index::Int64, sh::UInt8)
+    @ Base dict.jl:339 [inlined]
+  [3] setindex!(h::Dict{Any, Nothing}, v0::Nothing, key::String)
+    @ Base dict.jl:365
+  [4] push!(s::Set{Any}, x::String)
+    @ Base set.jl:137 [inlined]
+  [5] othersummary(c::Vector{String}, name::String, n::Int64, nmiss::Int64, T::String)
+    @ TraitTables.TableCore /p/projects/coen/julia-trait-bound/TraitTables-unified/src/TableCore.jl:157
+  [6] summarize(c::Vector{String}, name::String)
+    @ TraitTables.TableCore /p/projects/coen/julia-trait-bound/TraitTables-unified/src/TableCore.jl:181
+  [7] describe(t::Table)
+    @ TraitTables.TableCore /p/projects/coen/julia-trait-bound/TraitTables-unified/src/TableCore.jl:188
+  [8] summary_text(t::Table)
+    @ TraitTables /p/projects/coen/julia-trait-bound/TraitTables-unified/src/TraitTables.jl:61
+  [9] main(args::Vector{String})
+    @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/table.jl:10
+ [10] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+    @ Main /p/projects/coen/julia-trait-bound/julia-unified/test/trimming/juliac-buildscript.jl:35
+
+Error #4: unresolved call from statement isequal(
+  key::String,
+  memoryrefget((…)::MemoryRef{Any}, :not_atomic::Symbol, false::Bool)::Any
+)::Bool
+
+Stacktrace:
+ [1] ht_keyindex2_shorthash!(h::Dict{Any, Nothing}, key::String)
+   @ Base dict.jl:293
+
+Error #5: unresolved call from statement isequal(
+  key::Float64,
+  memoryrefget((…)::MemoryRef{Any}, :not_atomic::Symbol, false::Bool)::Any
+)::Any
+
+Stacktrace:
+ [1] ht_keyindex2_shorthash!(h::Dict{Any, Nothing}, key::Float64)
+   @ Base dict.jl:293
+
+Error #6: unresolved call from statement isequal(
+  key::Int64,
+  memoryrefget((…)::MemoryRef{Any}, :not_atomic::Symbol, false::Bool)::Any
+)::Any
+
+Stacktrace:
+ [1] ht_keyindex2_shorthash!(h::Dict{Any, Nothing}, key::Int64)
+   @ Base dict.jl:293
+
+Error #7: unresolved invoke from statement repeat(p::Char, (…)::Int64)::String
+
+Stacktrace:
+ [1] repeat(c::Char, r::Int64)
+   @ Base strings/string.jl:586 [inlined]
+ [2] ^(s::Char, r::Int64)
+   @ Base strings/basic.jl:771 [inlined]
+ [3] rpad(s::String, n::Int64, p::Char)
+   @ Base strings/util.jl:567
+ [4] rpad(s::String, n::Int64)
+   @ Base strings/util.jl:555 [inlined]
+ [5] summary_text(t::Table)
+   @ TraitTables /p/projects/coen/julia-trait-bound/TraitTables-unified/src/TraitTables.jl:63
+ [6] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/table.jl:10
+ [7] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-unified/test/trimming/juliac-buildscript.jl:35
+
+Error #8: unresolved invoke from statement repeat(p::Char, (…)::Int64)::String
+
+Stacktrace:
+ [1] repeat(c::Char, r::Int64)
+   @ Base strings/string.jl:586 [inlined]
+ [2] ^(s::Char, r::Int64)
+   @ Base strings/basic.jl:771 [inlined]
+ [3] rpad(s::String, n::Int64, p::Char)
+   @ Base strings/util.jl:567
+ [4] rpad(s::String, n::Int64)
+   @ Base strings/util.jl:555 [inlined]
+ [5] summary_text(t::Table)
+   @ TraitTables /p/projects/coen/julia-trait-bound/TraitTables-unified/src/TraitTables.jl:63
+ [6] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/table.jl:10
+ [7] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-unified/test/trimming/juliac-buildscript.jl:35
+
+Error #9: unresolved call from statement hashindex(
+  memoryrefget((…)::MemoryRef{Any}, :not_atomic::Symbol, false::Bool)::Any,
+  :(φ (%7 => 16, %18 => %17))::Int64
+)::Tuple{Int64, UInt8}
+
+Stacktrace:
+  [1] rehash!(h::Dict{Any, Nothing}, newsz::Int64)
+    @ Base dict.jl:169
+  [2] _setindex!(h::Dict{Any, Nothing}, v::Nothing, key::String, index::Int64, sh::UInt8)
+    @ Base dict.jl:339 [inlined]
+  [3] setindex!(h::Dict{Any, Nothing}, v0::Nothing, key::String)
+    @ Base dict.jl:365
+  [4] push!(s::Set{Any}, x::String)
+    @ Base set.jl:137 [inlined]
+  [5] othersummary(c::Vector{String}, name::String, n::Int64, nmiss::Int64, T::String)
+    @ TraitTables.TableCore /p/projects/coen/julia-trait-bound/TraitTables-unified/src/TableCore.jl:157
+  [6] summarize(c::Vector{String}, name::String)
+    @ TraitTables.TableCore /p/projects/coen/julia-trait-bound/TraitTables-unified/src/TableCore.jl:181
+  [7] describe(t::Table)
+    @ TraitTables.TableCore /p/projects/coen/julia-trait-bound/TraitTables-unified/src/TableCore.jl:188
+  [8] summary_text(t::Table)
+    @ TraitTables /p/projects/coen/julia-trait-bound/TraitTables-unified/src/TraitTables.jl:61
+  [9] main(args::Vector{String})
+    @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/table.jl:10
+ [10] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+    @ Main /p/projects/coen/julia-trait-bound/julia-unified/test/trimming/juliac-buildscript.jl:35
+
+Error #10: unresolved call from statement isequal(
+  key::String,
+  memoryrefget((…)::MemoryRef{Any}, :not_atomic::Symbol, false::Bool)::Any
+)::Bool
+
+Stacktrace:
+ [1] ht_keyindex2_shorthash!(h::Dict{Any, Nothing}, key::String)
+   @ Base dict.jl:293
+
+Error #11: unresolved call from statement isequal(
+  key::Float64,
+  memoryrefget((…)::MemoryRef{Any}, :not_atomic::Symbol, false::Bool)::Any
+)::Any
+
+Stacktrace:
+ [1] ht_keyindex2_shorthash!(h::Dict{Any, Nothing}, key::Float64)
+   @ Base dict.jl:293
+
+Error #12: unresolved call from statement isequal(
+  key::Int64,
+  memoryrefget((…)::MemoryRef{Any}, :not_atomic::Symbol, false::Bool)::Any
+)::Any
+
+Stacktrace:
+ [1] ht_keyindex2_shorthash!(h::Dict{Any, Nothing}, key::Int64)
+   @ Base dict.jl:293
+
+Trim verify finished with 12 errors, 0 warnings.
+object: exit 1 after 18 s
