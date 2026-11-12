@@ -1,0 +1,15 @@
+# W-142 2026-11-12T03:32:49+01:00 load 0.93 1.16 1.64 | julia-unified f6ad3008b4 TraitWorld-unified 4a1dc03
+program                | the session's check                | the build              | agree
+typed_trait            | fully typed                        | builds                 | yes
+typed_plain            | fully typed                        | builds                 | yes
+vector_trait           | not: 2 sites                       | builds                 | NO
+vector_plain           | not: 2 sites                       | refused: 2 errors      | yes
+dynamic_trait          | fully typed                        | builds                 | yes
+family_trait           | not: 2 sites                       | builds                 | NO
+barrier_trait          | not: 1 sites                       | builds                 | NO
+ft_union               | fully typed                        | builds                 | yes
+ft_abstract_result     | fully typed                        | builds                 | yes
+ft_plain_hole          | fully typed                        | refused: 2 errors      | NO
+ft_any_call            | not: 2 sites                       | builds                 | NO
+ft_abstract_member     | fully typed                        | builds                 | yes
+ft_many_members        | fully typed                        | refused: 2 errors      | NO
