@@ -104,4 +104,18 @@ Membership edges in a session's code (`edges_stats.jl`): with TraitTables loaded
 | The gates | 69 pass; the nine `m3_*` fail as before (`logs/gates_kept.log`) |
 | The suites | TraitWorld 82 test sets, TraitTables 3, TraitDifferentialEquations 34: all pass (`logs/*_kept.log`) |
 
+## A pirate's membership by the method's rule (2026-11-12, `unified` 7fee959383, TraitWorld a2ca7be, one run each, load 2 to 16 of 128)
+
+The user: "Pirate method rule is approved. That was the point of "behaves as a method"."
+
+| Check | Result |
+|---|---|
+| Under strict mode, a pirate's membership where no code compiled by facts relied on its absence | accepted, with the warning (`test/strict.jl`) |
+| One that would change a folded "is no member" in code compiled by facts | `PirateError` before the declaration; no membership, no method |
+| One that would change the method selected at a call of such code | `PirateError` before the declaration |
+| In a `no_pirates` scope | `OwnershipError` (`test/ownership.jl`) |
+| In a package image, loaded under strict mode | refused at the load, reported at error level; one that changes nothing holds (`stack/strict_pirate_membership.jl`) |
+| The gates | 69 pass; the nine `m3_*` fail as before (`logs/gates_pirate_rule.log`) |
+| The suites | TraitWorld 83 test sets, TraitTables 3, TraitDifferentialEquations 34: all pass (`logs/*_pirate_rule.log`) |
+
 The review of the built state, with its addendum on the decision: `writeup/reviews/2026-11-12-w141-membership-as-method.md`.
