@@ -71,9 +71,12 @@ for (first_, second, kept, refused) in (("BoxB", "BoxC", "Int", "String"), ("Box
         using $first_; using $second
         using BoxA
         println("kept ", UInt8[1] isa BoxA.Box{$kept}, " refused ", UInt8[1] isa BoxA.Box{$refused})
+        impl(R) = length(methods(Core.implements, Tuple{Type{BoxA.Box{R}}, Type{Vector{UInt8}}}))
+        println("methods kept ", impl($kept), " refused ", impl($refused))
     """)
     @assert ok "loading $first_ then $second: $err"
     @assert occursin("kept true refused false", out) "one instance, the first image's ($first_, $second): $out"
+    @assert occursin("methods kept 1 refused 0", out) "the refused membership's method is in force in no world (W-141): $out"
     @assert occursin("is refused", err) "the refusal is said ($first_, $second): $err"
 end
 ok2, out2, err2 = child("""

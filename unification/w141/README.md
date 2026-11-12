@@ -19,6 +19,8 @@ cd ../experiments/unification
 JULIA_LOAD_PATH="$PWD:@stdlib" ../../julia-unified/julia --startup-file=no w141/probe_refused.jl
 ```
 
+**Decided (2026-11-12, the user):** a membership behaves as a method does and is not defined as one. Stage 1 is kept as the implementation of the edges (compiler §5.6); stage 2 is removed on `unified` 8b4fde6e84: a program defines no method of `Core.implements`. So `by_hand.jl` (2) and (3) and `probe_refused.jl` ran on the builds named with their results and are refused at the head. The tables below are the record of what was built and measured.
+
 **The baseline** is `julia-unified-base/`: a copy of the tree with the sources of `unified` b1c0b50f4c (the build with cells), built beside it. It is not a git checkout. A copy's `usr/share/julia/{base,Compiler,test}` links point into the original tree and must be pointed at the copy, and the copy's `Compiler/src` touched, before it is built: otherwise it compiles the original's compiler.
 
 The logs are in `logs/`.
@@ -92,4 +94,14 @@ Membership edges in a session's code (`edges_stats.jl`): with TraitTables loaded
 | R16 | A refused membership written by hand (2026-11-12, `unified` f6ad3008b4, `probe_refused.jl`) | The method is added to the table before the checks. Refused for a second instance, it stays in the table: one entry at the signature, never activated, seen by no query | not handled | open issue 180 (h): add the method after the checks |
 | R17 | Another spelling: the member as an argument type, `(::Type{X}, ::S)` (2026-11-12, plain functions, `probe_valuesig.jl`, one run, load 2 of 128) | 2,000 concrete members 0.72 to 0.75 ms each; 2,000 abstract members 0.52 to 0.57 ms each, constant (`Type{<:A}`: 1.5, 3.3, 6.1, 12.5 ms); `methods` 1.4 ms (19.6 s). `Test.detect_ambiguities` reports nothing for 20 abstract members under either spelling | not tried in the runtime | open issue 180 (j) |
 
-The review of the built state: `writeup/reviews/2026-11-12-w141-membership-as-method.md`.
+## After the decision (2026-11-12, `unified` 8b4fde6e84, one run each, load 15 to 19 of 128)
+
+| Check | Result |
+|---|---|
+| A method of `Core.implements` written by a program | refused; nothing in the table (gate `n29_membership_method` (3)) |
+| A membership refused for a second instance | no method in the table (R16 fixed; the same gate) |
+| A membership refused at an image's load, both load orders | its method is in force in no world: `methods` at the pair is empty (R12 fixed; gate `n12_image_instances`) |
+| The gates | 69 pass; the nine `m3_*` fail as before (`logs/gates_kept.log`) |
+| The suites | TraitWorld 82 test sets, TraitTables 3, TraitDifferentialEquations 34: all pass (`logs/*_kept.log`) |
+
+The review of the built state, with its addendum on the decision: `writeup/reviews/2026-11-12-w141-membership-as-method.md`.
