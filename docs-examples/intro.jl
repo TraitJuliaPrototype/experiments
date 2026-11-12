@@ -39,7 +39,7 @@ struct Shelf
     tables::Vector{ColTable}
 end
 shelf() = Shelf(ColTable[])
-add!(s::Shelf, t::ColTable) = (push!(s.tables, keep(t)); s)
+add!(s::Shelf, t::ColTable) = (push!(s.tables, t); s)
 function means(s::Shelf, i::Int)
     out = Float64[]
     for t in s.tables
@@ -84,7 +84,7 @@ check("colmean(with_dynamic(m), 1) == 1.5", colmean(with_dynamic(m), 1) == 1.5)
 s = shelf()
 add!(s, m); add!(s, r)
 check("means(s, 1) == [1.5, 1.5]", means(s, 1) == [1.5, 1.5])
-check("the shelf holds the members' own values", s.tables[1] === m || unwrap(s.tables[1]) === m)
+check("the shelf holds the members' own values", s.tables[1] === m)
 
 d = Dynamic{ColTable}(r)
 check("Dynamic{ColTable}(r) isa ColTable", d isa ColTable)

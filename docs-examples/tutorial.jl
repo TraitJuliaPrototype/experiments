@@ -61,7 +61,7 @@ struct Scene
     shapes::Vector{Shape}
 end
 Scene() = Scene(Shape[])
-add!(sc::Scene, s::Shape) = (push!(sc.shapes, keep(s)); sc)
+add!(sc::Scene, s::Shape) = (push!(sc.shapes, s); sc)
 function totalarea(sc::Scene)
     a = 0.0
     for s in sc.shapes
@@ -212,11 +212,13 @@ check("§11 nudged(sp): a new Sprite", n2 isa Sprite && n2.x == 2.0 && sp.x == 1
 sc = Scene()
 add!(sc, Circle(1.0)); add!(sc, Rect(2.0, 3.0)); add!(sc, Tile("door", Rect(1.0, 2.0)))
 check("§12 totalarea", totalarea(sc) == π + 6.0 + 2.0)
-check("§12 at the prompt the item is kept Dynamic", sc.shapes[1] isa Dynamic{Shape})
-check("§12 the kept Dynamic is a Shape and nothing else: not a Scalable", !(sc.shapes[1] isa Scalable))
-check("§12 the kept Dynamic is not == the circle; unwrap gives it back", sc.shapes[1] != Circle(1.0) && unwrap(sc.shapes[1]) == Circle(1.0))
-add!(sc, compiled_for(Circle(1.0)))
-check("§12 a cast to Compiled stores the member itself", sc.shapes[4] isa Circle)
+check("§12 the scene holds the circle itself, added at the prompt", sc.shapes[1] isa Circle)
+check("§12 the item answers for itself: a Scalable, == the circle", sc.shapes[1] isa Scalable && sc.shapes[1] == Circle(1.0))
+fill_scene() = (b = Scene(); add!(b, Circle(1.0)); b)
+check("§12 the same from a function that knows the type", fill_scene().shapes[1] isa Circle)
+ks = Kept{Shape}[]; push!(ks, Dynamic{Shape}(Circle(1.0))); push!(ks, Circle(1.0))
+check("§12 Kept{Shape}: one type, the attribute beside the object", typeof(ks[1]) === typeof(ks[2]) === Kept{Shape} && isdynamic(ks[1]) && !isdynamic(ks[2]))
+check("§12 kept_call runs under the kept attribute", kept_call(area, ks[1]) == kept_call(area, ks[2]) == area(Circle(1.0)) && unwrap(ks[1]) == Circle(1.0))
 d = Dynamic{Shape}(Circle(2.0))
 check("§12 Dynamic{Shape} isa Shape", d isa Shape)
 check("§12 area(d)", area(d) == 4π)
