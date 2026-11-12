@@ -14,7 +14,7 @@ cd TraitWorld-unified && source ../env.sh
 
 The first argument is a budget in seconds; functions left when it runs out are counted.
 
-## Results, 2026-11-12 (`unified` f6ad3008b4, TraitWorld `unified` with `Kept`; one run each; load 2 to 5 of 128; `logs/base.log`, `logs/stdlibs.log`)
+## Results, 2026-11-12 (`unified` f6ad3008b4, TraitWorld `unified` 4a1dc03; one run each; load 2 to 5 of 128; `logs/base.log`, `logs/stdlibs.log`)
 
 | | Base | LinearAlgebra, Statistics, Random, Dates, Printf |
 |---|---|---|

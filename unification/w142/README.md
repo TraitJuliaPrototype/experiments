@@ -10,7 +10,7 @@ bash experiments/unification/w142/agree.sh [tag] [apps…]
 
 For each program of `../w139/apps/` it asks `fully_typed(main, (Vector{String},))` in a session and builds the program under `--trim=safe`. The table goes to `logs/agree[-tag].log`; the builds' logs to `../w139/logs/w142-<app>.build.log`. About ten seconds a program.
 
-## Results, 2026-11-12 (`unified` f6ad3008b4, TraitWorld `unified` 4e1b0bc or later; one run; load 2 to 5 of 128; `logs/agree.log`)
+## Results, 2026-11-12 (`unified` f6ad3008b4, TraitWorld `unified` 4a1dc03; one run; load 2 to 5 of 128; `logs/agree.log`)
 
 | Program | The session's check | The build | Agree |
 |---|---|---|---|
