@@ -111,7 +111,7 @@ e = thrown(:(module Broken
     using ..Columns: ColTable, col
     colsum(t::ColTable) = sum(t)      # meant: sum(col(t, 1))
     end))
-check("an open method in a trait module raises TraitUseError", e isa TraitWorld.TraitUseError)
+check("an unbounded method in a trait module raises TraitUseError", e isa TraitWorld.TraitUseError)
 e === nothing || println("MESSAGE TraitUseError:\n", sprint(showerror, e))
 
 e = try colmean(42, 1); nothing catch err; err end
