@@ -1,0 +1,114 @@
+modules Module[Base]; exported functions looked at 837 (0 left when the budget of 600.0 s ran out)
+signatures with a method and a result: 6179; fully typed 4413 (71.4 %); with a hole 1244; the report failed 522
+
+functions with a hole at some signature: 164
+
+the holes by root cause (signatures it appears in):
+   578  its argument types are not known when compiled
+          e.g. !=(Dict{String, Int64}, Dict{String, Int64}): !==(::Union{Int64, Symbol}, ::Symbol) at abstractdict.jl:23
+   351  the result of a call dispatched when it runs: `fieldtype(…)` is Type
+          e.g. active_manifest(String,): convert(::Type, ::UInt64) at Base_compiler.jl:60
+   108  an element of Vector{Any}, whose element type is Any
+          e.g. include_dependency(String,): Base._reformat_bt(::Any, ::Any) at error.jl:166
+   104  a value of type IO
+          e.g. print(String,): print(::IO, ::String) at coreio.jl:3
+   100  an element of Base.ExceptionStack, whose element type is NamedTuple{(:exception, :backtrace)}
+          e.g. active_manifest(String,): getindex(::NamedTuple{(:exception, :backtrace)}, ::Int64) at task.jl:167
+    96  the result of a call dispatched when it runs: `tuple(…)` is Tuple{Any, Any}
+          e.g. include_dependency(String,): NamedTuple{(:exception, :backtrace)}(::Tuple{Any, Any}) at error.jl:167
+    96  the result of a call dispatched when it runs: `NamedTuple{(:exception, :backtrace)}(…)` is Any
+          e.g. include_dependency(String,): push!(::Vector{NamedTuple{(:exception, :backtrace)}}, ::Any) at error.jl:167
+    80  the result of a call dispatched when it runs: `rewrap_unionall(…)` is Any
+          e.g. code_lowered(String,): Core.kwcall(::@NamedTuple{generated::Bool, debuginfo::Symbol}, ::typeof(code_lowered), ::Type) at reflection.jl:51
+    80  `_apply_iterate` returns Type
+          e.g. code_lowered(String,): Base.rewrap_unionall(::Type, ::Type{Tuple}) at runtime_internals.jl:1420
+    73  field `parameters` of `DataType` is declared Core.SimpleVector
+          e.g. code_lowered(Tuple{Int64, Int64},): iterate(::Any) at runtime_internals.jl:1402
+    61  a variable whose type differs between paths: Any
+          e.g. intersect(String, Int64): getindex(::Memory{UInt8}, ::Any) at dict.jl:171
+    47  a field of Any, read by a name not known when compiled
+          e.g. functionloc(Vector{Int64}, Vector{Int64}): getproperty(::Any, ::Symbol) at reflection.jl:973
+    46  the result of a call dispatched when it runs: `length(…)` is Any
+          e.g. summarysize(String,): *(::Any, ::Any) at summarysize.jl:67
+    45  field `parameters` of a value of type Type{Tuple}
+          e.g. code_lowered(String,): iterate(::Any) at runtime_internals.jl:1402
+    39  a call in the latest world, which is not known when compiled
+          e.g. active_project(Bool,): invokelatest(::typeof(Base.CoreLogging.shouldlog), ::Base.CoreLogging.AbstractLogger, ::Base.CoreLogging.LogLevel, ::Module, ::
+    37  the argument `msg` is Any
+          e.g. depwarn(String, String): Base.var"#depwarn#966"(::Bool, ::typeof(Base.depwarn), ::Any, ::Any) at deprecated.jl:252
+    37  a field of Tuple{Any, IntN}, read by a name not known when compiled
+          e.g. splice!(Vector{Int64}, Int64): setindex!(::Vector{Int64}, ::Any, ::Int64) at array.jl:2055
+    35  the result of a call dispatched when it runs: `+(…)` is Any
+          e.g. shell_split(String,): +(::Any, ::Int64) at shell.jl:114
+    35  the result of a call dispatched when it runs: `getindex(…)` is Any
+          e.g. shell_split(String,): Base.var"#push_nonempty!#483"()(::Vector{Any}, ::Any) at shell.jl:142
+    34  the argument `a` is Any
+          e.g. typejoin(String, String): typejoin(::Any, ::Any) at promotion.jl:31
+    34  field `body` of `UnionAll` is declared Any
+          e.g. typejoin(String, String): typejoin(::Any, ::Type) at promotion.jl:41
+    34  the result of a call dispatched when it runs: `unwrapva(…)` is Any
+          e.g. typejoin(String, String): typejoin(::Any, ::Any) at promotion.jl:70
+    34  the result of a call dispatched when it runs: `typejoin(…)` is Any
+          e.g. typejoin(String, String): typejoin(::Any, ::Type) at promotion.jl:45
+    34  field `ub` of `TypeVar` is declared Any
+          e.g. typejoin(String, String): typejoin(::Any, ::Any) at promotion.jl:29
+    34  the result of a call dispatched when it runs: `full_va_len(…)` is Any
+          e.g. typejoin(String, String): Base.indexed_iterate(::Any, ::Int64) at promotion.jl:65
+
+signatures whose only cause is a call whose argument types are not known (a union the session does not split): 166 of 1244
+
+the functions the holes sit in: 106 functions, 11819 sites; the first 5 hold 73.0 %, the first 20 91.0 %
+  3808  Base.typejoin
+  2082  Base.ntuple
+  2020  Base.setproperty!
+   364  Base.rehash!
+   312  Base._growend_internal!
+   288  Base.#current_exceptions#35
+   275  Base.#summarysize#839
+   246  Base.to_tuple_type
+   230  Base.collect
+   169  Base.iterate
+   160  Base._growbeg_internal!
+   150  Base.signature_type
+   126  Base.Filesystem.tempdir
+   100  Base.filter!
+   100  Base.getproperty
+    84  Base._collect
+    77  Base._foldl_impl
+    55  Base._any
+    53  Base.map
+    47  Base.print
+    46  Base.println
+    44  Base._methods
+    42  Base.Multimedia.redisplay
+    42  Base.which
+    37  Base.depwarn
+
+exported functions with the most signatures with a hole:
+    46  Base.print
+    46  Base.task_local_storage
+    46  Base.println
+    34  Base.depwarn
+    34  Base.typejoin
+    32  Base.foldl
+    32  Base.accumulate
+    31  Base.issetequal
+    31  Base.setdiff
+    31  Base.⊋
+    31  Base.⊊
+    31  Base.foldr
+    29  Base.∩
+    29  Base.intersect
+    27  Base.isdisjoint
+    23  Base.rand
+    21  Base.allunique
+    17  Base.code_lowered
+    17  Base.functionloc
+    17  Base.methods
+    17  Base.code_typed
+    16  Base.filter
+    15  Base.issubset
+    15  Base.union!
+    15  Base.symdiff!
+
+elapsed 76.0 s

@@ -1,0 +1,115 @@
+modules Module[LinearAlgebra, Statistics, Random, Dates, Printf]; exported functions looked at 183 (0 left when the budget of 400.0 s ran out)
+signatures with a method and a result: 474; fully typed 326 (68.8 %); with a hole 148; the report failed 0
+
+functions with a hole at some signature: 36
+
+the holes by root cause (signatures it appears in):
+    68  its argument types are not known when compiled
+          e.g. checksquare(Int64, Int64): !==(::MemoryRef{Int64}, ::MemoryRef{Int64}) at array.jl:1186
+    40  an element of Vector{Any}, whose element type is Any
+          e.g. bitrand(Int64,): Base._reformat_bt(::Any, ::Any) at error.jl:166
+    40  the result of a call dispatched when it runs: `tuple(…)` is Tuple{Any, Any}
+          e.g. bitrand(Int64,): NamedTuple{(:exception, :backtrace)}(::Tuple{Any, Any}) at error.jl:167
+    40  the result of a call dispatched when it runs: `NamedTuple{(:exception, :backtrace)}(…)` is Any
+          e.g. bitrand(Int64,): push!(::Vector{NamedTuple{(:exception, :backtrace)}}, ::Any) at error.jl:167
+    40  an element of Base.ExceptionStack, whose element type is NamedTuple{(:exception, :backtrace)}
+          e.g. bitrand(Int64,): getindex(::NamedTuple{(:exception, :backtrace)}, ::Int64) at task.jl:167
+    17  the argument `#self#` is Type{Random.Sampler}
+          e.g. rand!(Vector{Int64}, Vector{Int64}): (::Type{Random.Sampler})(::TaskLocalRNG, ::Vector{Int64}, ::Val{Inf}) at /p/projects/coen/julia-trait-bound/julia
+    12  the argument `f` is var"#_mean##N#_mean##N"{typeof(identity), FloatN}
+          e.g. cor(Vector{Int64}, Vector{Int64}): (::var"#_mean##2#_mean##3"{typeof(identity), Float64})(::Int64) at reduce.jl:440
+    11  the argument `f` is Base.var"#view##N#view##N"{Matrix{FloatN}}
+          e.g. eigen(Int64, Int64): (::Base.var"#view##0#view##1"{Matrix{Float64}})(::Base.Slice{Base.OneTo{Int64}}) at tuple.jl:355
+    11  the argument `f` is Base.var"#reverse##N#reverse##N"{Tuple{Base.OneTo{IntN}, Base.OneTo{IntN}}}
+          e.g. eigen(Int64, Int64): (::Base.var"#reverse##0#reverse##1"{Tuple{Base.OneTo{Int64}, Base.OneTo{Int64}}})(::Int64) at ntuple.jl:68
+    10  the result of a call dispatched when it runs: `isempty(…)` is Any
+          e.g. eigen(Int64, Int64): !(::Any) at version.jl:209
+    10  field `prerelease` of `VersionNumber` is declared Tuple{Vararg{Union{UIntN, String}}}
+          e.g. eigen(Int64, Int64): isempty(::Tuple{Vararg{Union{UInt64, String}}}) at version.jl:209
+    10  field `build` of `VersionNumber` is declared Tuple{Vararg{Union{UIntN, String}}}
+          e.g. eigen(Int64, Int64): Base.ident_cmp(::Tuple{Vararg{Union{UInt64, String}}}, ::Tuple{Vararg{Union{UInt64, String}}}) at version.jl:216
+    10  the result of a call dispatched when it runs: `ident_cmp(…)` is Any
+          e.g. eigen(Int64, Int64): <(::Any, ::Int64) at version.jl:212
+    10  the result of a call dispatched when it runs: `getindex(…)` is Any
+          e.g. eigen(Int64, Int64): isempty(::Any) at version.jl:200
+    10  the result of a call dispatched when it runs: `length(…)` is Any
+          e.g. eigen(Int64, Int64): ==(::Any, ::Int64) at version.jl:200
+     8  the argument `#self#` is Type{Base.Sort.ScratchQuickSort}
+          e.g. median(Int64,): (::Type{Base.Sort.ScratchQuickSort})(::Int64, ::Base.Sort.InsertionSortAlg) at sort.jl:1083
+     8  field `f` of `Base.Generator{Tuple{Tuple{IntN, FloatN}, Tuple{IntN, FloatN}}, Base.Sort.var"#_sort!##N#_sort!#
+          e.g. median(Int64,): (::Base.Sort.var"#_sort!##8#_sort!##9"{Float64, Int64})(::Tuple{Int64, Float64}) at generator.jl:48
+     7  a variable whose type differs between paths: Any
+          e.g. peakflops(Int64,): fill(::Int64, ::Any) at /p/projects/coen/julia-trait-bound/julia-unified/usr/share/julia/stdlib/v1.13/LinearAlgebra/src/LinearAlgeb
+     6  the argument `f` is var"#N#N"{FloatN}
+          e.g. nullspace(Vector{Int64},): (::var"#42#43"{Float64})(::Float64) at reduce.jl:440
+     6  the argument `f` is Base.FixN{typeof(Base.to_index), LinearAlgebra.Transpose{FloatN, Vector{FloatN}}}
+          e.g. pinv(Vector{Int64},): (::Base.Fix1{typeof(Base.to_index), LinearAlgebra.Transpose{Float64, Vector{Float64}}})(::Int64) at tuple.jl:355
+     5  the argument `#self#` is Type{LinearAlgebra.Hermitian}
+          e.g. eigen(Int64, Int64): (::Type{LinearAlgebra.Hermitian})(::Matrix{Float64}, ::Symbol) at /p/projects/coen/julia-trait-bound/julia-unified/usr/share/juli
+     5  the argument `f` is var"#centralizedabsNfun##N#centralizedabsNfun##N"{IntN}
+          e.g. stdm(Vector{Int64}, Int64): (::var"#centralizedabs2fun##0#centralizedabs2fun##1"{Int64})(::Int64) at reduce.jl:440
+     5  the argument `#self#` is Type{LinearAlgebra.Symmetric}
+          e.g. eigen(Int64, Int64): (::Type{LinearAlgebra.Symmetric})(::Matrix{Float64}, ::Symbol) at /p/projects/coen/julia-trait-bound/julia-unified/usr/share/juli
+     5  the argument `f` is var"#centralizedabsNfun##N#centralizedabsNfun##N"{FloatN}
+          e.g. std(Vector{Int64},): (::var"#centralizedabs2fun##0#centralizedabs2fun##1"{Float64})(::Int64) at reduce.jl:440
+     5  the result of a call dispatched when it runs: `tuple(…)` is Tuple{VecOrMat{FloatN}, VecOrMat{FloatN}, VecOrMat
+          e.g. svd(Int64, Int64): Base.indexed_iterate(::Tuple{VecOrMat{Float64}, VecOrMat{Float64}, VecOrMat{Float64}, Vector{Float64}, Vector{Float64}, Int64, Int6
+
+signatures whose only cause is a call whose argument types are not known (a union the session does not split): 36 of 148
+
+the functions the holes sit in: 27 functions, 932 sites; the first 5 hold 52.0 %, the first 20 98.0 %
+   120  Base.#current_exceptions#35
+   110  Base.isless
+    95  LinearAlgebra.svd!
+    84  Base._mapreduce
+    75  Base.mapreduce_impl
+    56  Base.map
+    54  Base.iterate
+    51  Base._growend_internal!
+    46  Base.ntuple
+    40  Base.getproperty
+    40  Base.issupbuild
+    38  Base._collect
+    28  Base.mapreduce_first
+    17  Random.Sampler
+    16  Base.Sort.ScratchQuickSort
+    16  LinearAlgebra.#peakflops#331
+    10  Base.Sort.issorted
+     6  Base.setproperty!
+     5  LinearAlgebra.Hermitian
+     5  LinearAlgebra.Symmetric
+     4  Base._growbeg_internal!
+     4  LinearAlgebra._modify!
+     4  Statistics._var
+     3  Base._all
+     2  Base.require
+
+exported functions with the most signatures with a hole:
+    23  LinearAlgebra.checksquare
+    14  Random.rand!
+     8  LinearAlgebra.svd
+     6  LinearAlgebra.nullspace
+     6  Statistics.median
+     6  LinearAlgebra.pinv
+     6  Statistics.cov
+     6  Random.bitrand
+     5  Random.shuffle
+     5  Random.randstring
+     5  LinearAlgebra.eigen
+     4  Statistics.quantile
+     4  Random.randsubseq
+     4  Statistics.std
+     4  Statistics.stdm
+     3  Statistics.varm
+     3  Statistics.mean
+     3  Random.seed!
+     3  Statistics.var
+     3  Statistics.median!
+     3  Random.shuffle!
+     3  Statistics.cor
+     3  LinearAlgebra.lq
+     3  Statistics.quantile!
+     2  Random.randperm
+
+elapsed 19.0 s
+DONE
