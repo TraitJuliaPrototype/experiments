@@ -39,7 +39,7 @@ The logs are in `logs/`.
 |---|---|---|
 | 1 | `unified` 90fb8ff97a | Each membership has a method of `Core.implements`, defined by the runtime in the declarer's module, in the entry's world. A folded negative holds a missing-method edge at the pair's signature; the method's insertion ends the code. A folded positive holds an edge to the method. Cells are not used |
 | 2 | `unified` 5d036a41db | A method of `Core.implements` written by a program declares the membership: the pair from the signature, the receiver from the body. A folded positive holds an `invoke` edge to the method's instance. Deleting such a method is refused |
-| cleanup | the commit after | The cell type and the entry's check as an edge removed; the library's definition hook sees a membership's method written by hand |
+| cleanup | `unified` b66cdc66f2 | The cell type and the entry's check as an edge removed; the library's definition hook sees a membership's method written by hand |
 
 **Not built:** the method as the only record (the entries stay as the index subtyping reads, with their worlds); an image's own list of memberships and their activation; the library's `@implement` lowering to the method's definition; the library's membership rule in `ownership.jl` replaced by the method's; taking a membership back.
 
