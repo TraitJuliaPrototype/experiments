@@ -5,7 +5,8 @@
 using Traits
 include("util.jl")
 
-entries(ci) = [e for e in ci.edges if e isa Core.MembershipEntry]
+# the memberships a CodeInstance relied on (W-141): edges to their methods of `Core.implements`
+entries(ci) = (es = ci.edges; [es[i+1].def for i in 1:length(es)-1 if es[i+1] isa Core.MethodInstance && es[i+1].def isa Method && es[i+1].def.name === :implements && es[i] === es[i+1].def.sig])
 latest(f) = only([c for c in all_cis(f) if c.owner === nothing && c.max_world == typemax(UInt)])
 # the code folds the answer to `true` (its result type stays `Bool`, a conditional, as in plain Julia)
 folded(f, T) = (src = only(code_typed(f, (T,))).first; src.code[end] == Core.ReturnNode(true))
@@ -33,7 +34,7 @@ e_zx = @implement X7 Z7
 @assert isa7(S7())
 ci = latest(isa7)
 @assert folded(isa7, S7) "folded: $(code_typed(isa7, (S7,)))"
-@assert entries(ci) == [e_s] "the entry in the record: $(entries(ci))"
+@assert entries(ci) == [e_s.method] "the entry in the record: $(entries(ci))"
 @assert ci.min_world >= e_s.min_world "worlds start at the entry's: $(ci.min_world) < $(e_s.min_world)"
 
 # (2) an older world compiles its own answer and never runs the folded code
@@ -44,24 +45,24 @@ ci = latest(isa7)
 @assert isa7(C7())
 cic = only([c for c in all_cis(isa7) if c.owner === nothing && c.max_world == typemax(UInt) &&
                                          c.def.specTypes === Tuple{typeof(isa7), C7}])
-@assert Set(entries(cic)) == Set([e_cz, e_zx]) "both links: $(entries(cic))"
+@assert Set(entries(cic)) == Set([e_cz.method, e_zx.method]) "both links: $(entries(cic))"
 @assert cic.min_world >= e_zx.min_world
 @assert Base.invoke_in_world(e_zx.min_world - 1, isa7, C7()) === false "below the chain's top, no chain"
 
 # (4) `<:` at a type
 @assert sub7(S7)
 cis = only([c for c in all_cis(sub7) if c.owner === nothing && c.max_world == typemax(UInt)])
-@assert folded(sub7, Type{S7}) && entries(cis) == [e_s]
+@assert folded(sub7, Type{S7}) && entries(cis) == [e_s.method]
 
 # (5) a member inside a tuple
 @assert tup7((S7(), 1))
 cit = only([c for c in all_cis(tup7) if c.owner === nothing && c.max_world == typemax(UInt)])
-@assert folded(tup7, Tuple{S7, Int}) && entries(cit) == [e_s] "the entry at a parameter: $(entries(cit))"
+@assert folded(tup7, Tuple{S7, Int}) && entries(cit) == [e_s.method] "the entry at a parameter: $(entries(cit))"
 
 # (6) a dispatch match through the entry: the dispatch edge and the entry
 @assert call7(S7()) === :set
 cid = only([c for c in all_cis(call7) if c.owner === nothing && c.max_world == typemax(UInt)])
-@assert entries(cid) == [e_s] "the match's entry: $(entries(cid))"
+@assert entries(cid) == [e_s.method] "the match's entry: $(entries(cid))"
 @assert cid.min_world >= e_s.min_world
 
 # (7) a member by its declared supertype folds with no entry

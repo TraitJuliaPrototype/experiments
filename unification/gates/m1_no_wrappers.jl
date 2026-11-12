@@ -10,7 +10,7 @@ for n in (:Keyed, :Compiled, :Kept)
 end
 @assert isstructtype(Core.Dynamic) && !ismutabletype(Core.Dynamic) && fieldnames(Core.Dynamic) == (:object,)
 @assert fieldnames(Core.MembershipEntry) ==
-        (:set, :member, :instance, :receiver, :min_world, :max_world, :declarer, :by)
+        (:set, :member, :instance, :receiver, :min_world, :max_world, :declarer, :by, :method)
 @assert :contract in fieldnames(Core.TypeName) "a set's TypeName has a slot for its contract"
 
 @trait X7

@@ -11,8 +11,8 @@ include("util.jl")
 
 latest(f, T) = only([c for c in all_cis(f) if c.owner === nothing && c.max_world == typemax(UInt) &&
                                                c.def.specTypes === Tuple{typeof(f), T}])
-guards(ci) = [e for e in ci.edges if e isa Core.MembershipCell && e.isfinal == 0x00]
-finals(ci) = [e for e in ci.edges if e isa Core.MembershipCell && e.isfinal != 0x00]
+guards(ci) = Any[]                 # no guard exists (W-140)
+finals(ci) = absences(ci)          # the negatives relied on: edges at Core.implements (W-141)
 loaded(m) = ccall(:jl_module_is_loaded, Cint, (Any,), m) != 0
 
 # (0) the system image's modules have loaded; Main never has
@@ -51,12 +51,12 @@ ci = latest(callf, P.S)
 @assert isempty(guards(ci)) && isempty(finals(ci)) "no guard, no cell at a call: $(ci.edges)"
 cix = latest(isx, P.S)
 cell = only(finals(cix))
-@assert cell.member === P.S && cell.min_world == typemax(UInt)
+@assert absence_member(cell) === P.S && absence_set(cell) === P.X
 folded_false(c) = isdefined(c, :rettype_const) && (c.rettype_const === false ||
     (c.rettype_const isa Core.InterConditional && c.rettype_const.thentype === Union{}))
 @assert folded_false(cix) "isa folded to false: $(cix.rettype)"
 @assert length(finals(cix)) == 1 "the folded isa records the final cell: $(cix.edges)"
-@assert any(b -> b === cix, cell.backedges) "the cell keeps its dependent"
+@assert absence_kept(cell, cix) "the method table keeps the dependent"
 
 # a set declared without the option: the same
 callg(s::P.S2) = P.g(s)
@@ -76,7 +76,7 @@ ism(m::M) = m isa P.X
 # (3) a late membership opens the final cell and invalidates its dependents, and the caller
 w_before = curworld()
 e = @implement P.X P.S
-@assert cell.min_world == e.min_world "the final cell opened at the entry's world"
+@assert !isempty(methods(Core.implements, Tuple{Type{P.X}, Type{P.S}})) "the membership has its method"
 @assert ci.max_world == e.min_world - 1 && cix.max_world == e.min_world - 1 "its dependents invalidated"
 @assert callf(P.S()) === :set && isx(P.S()) === true
 @assert Base.invoke_in_world(w_before, callf, P.S()) === :any "an older world keeps the old answer"
@@ -136,7 +136,28 @@ for p in ("PkgX", "PkgY", "PkgZ")
     @assert ok "precompiling $p: $err"
 end
 probe = """
-    finals(ci) = [e for e in ci.edges if e isa Core.MembershipCell && e.isfinal != 0x00]
+    function finals(ci)
+        es = ci.edges; out = Any[]
+        for i in 1:length(es)-1
+            s = es[i]
+            (es[i+1] === Core.methodtable && s isa Type) || continue
+            u = Base.unwrap_unionall(s)
+            u isa DataType && u <: Tuple && length(u.parameters) == 3 && u.parameters[1] === typeof(Core.implements) && push!(out, s)
+        end
+        return out
+    end
+    function kept(sig, ci)
+        be = Core.methodtable.backedges
+        for k in 2:2:length(be)
+            isassigned(be, k) || continue
+            v = be[k]
+            v isa Vector || continue
+            for i in 1:2:length(v)-1
+                v[i+1] === ci && v[i] == sig && return true
+            end
+        end
+        return false
+    end
     function imgci(f)
         mi = only(Base.specializations(only(methods(f))))
         ci = mi.cache
@@ -149,7 +170,7 @@ let (ok, out, err) = child(probe * """
     println("loaded ", ccall(:jl_module_is_loaded, Cint, (Any,), PkgX))
     ci = imgci(PkgY.h); cix = imgci(PkgY.isx)
     println("image ", ci.max_world == typemax(UInt), " ", cix.max_world == typemax(UInt), " ", length(finals(cix)), " ", PkgY.h(PkgX.S()), " ", PkgY.isx(PkgX.S()))
-    println("kept ", imgci(PkgY.h) === ci, " ", any(b -> b === cix, only(finals(cix)).backedges))
+    println("kept ", imgci(PkgY.h) === ci, " ", kept(only(finals(cix)), cix))
     using PkgZ
     println("late ", ci.max_world < typemax(UInt), " ", cix.max_world < typemax(UInt), " ", PkgY.h(PkgX.S()), " ", PkgY.isx(PkgX.S()))
 """)

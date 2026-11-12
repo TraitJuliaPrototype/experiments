@@ -76,7 +76,7 @@ hn(z::Z3)::Union{} = error("no member is served")
 callhn(w::W3) = hn(w)
 @assert callhn(W3()) === 1
 @assert Base.infer_return_type(callhn, (W3,)) === Int
-@assert isempty([e for e in latest_ci(callhn, W3).edges if e isa Core.MembershipCell]) "no guard"
+@assert isempty(absences(latest_ci(callhn, W3))) "no absence edge at a call"
 
 # (5) under facts
 module FM

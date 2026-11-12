@@ -9,7 +9,7 @@ include("util.jl")
 
 latest(f, T) = only([c for c in all_cis(f) if c.owner === nothing && c.max_world == typemax(UInt) &&
                                                c.def.specTypes === Tuple{typeof(f), T}])
-cells(ci) = [e for e in ci.edges if e isa Core.MembershipCell]
+cells(ci) = absences(ci)
 dyncalls(f, T) = [st for st in first(only(code_typed(f, T))).code if Meta.isexpr(st, :call) && !(st.args[1] isa GlobalRef && st.args[1].mod === Core)]
 
 @trait X

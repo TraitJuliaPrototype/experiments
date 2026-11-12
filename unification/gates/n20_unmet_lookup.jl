@@ -17,7 +17,7 @@ dyncalls(f, T) = [st for st in first(only(code_typed(f, T))).code
                   if Meta.isexpr(st, :call) && st.args[1] == GlobalRef(Core, :attributed_call)]
 latest(f, T...) = only([c for c in all_cis(f) if c.owner === nothing && c.max_world == typemax(UInt) &&
                                                 c.def.specTypes === Tuple{typeof(f), T...}])
-finalcells(ci) = [e for e in ci.edges if e isa Core.MembershipCell && e.isfinal != 0x00]
+finalcells(ci) = absences(ci)
 
 # a set closed after load, its module loaded, with a member of its own; and an open set
 module P20
@@ -45,11 +45,11 @@ wc(@nospecialize(x::P20.X20), c::Char) = P20.w1(x, c)
 @assert wc(P20.M20(), 'a') == 1
 # the incomparable match the lookup dropped: its final cell is on the caller (C-82), so a membership that
 # meets the intersection invalidates it (case (4) below)
-@assert any(c -> c.member === AbstractString, finalcells(latest(wc, P20.X20, Char))) "the cell on the caller: $(latest(wc, P20.X20, Char).edges)"
+@assert any(c -> absence_member(c) === AbstractString, finalcells(latest(wc, P20.X20, Char))) "the cell on the caller: $(latest(wc, P20.X20, Char).edges)"
 # a repeated site carries it too
 wc2(@nospecialize(x::P20.X20), c::Char) = (P20.w1(x, c), P20.w1(x, c))
 @assert wc2(P20.M20(), 'a') == (1, 1)
-@assert any(c -> c.member === AbstractString, finalcells(latest(wc2, P20.X20, Char))) "a repeated site"
+@assert any(c -> absence_member(c) === AbstractString, finalcells(latest(wc2, P20.X20, Char))) "a repeated site"
 # a lone match met only at the final pair: dropped, the call at X20 has no method
 l8(s::AbstractString) = 1
 @assert isempty(lookup(Tuple{typeof(l8), P20.X20}).matches) "the lone unmet match dropped at the final pair"
@@ -93,7 +93,7 @@ let ci = latest(isstr, P20.X20)
     folded = isdefined(ci, :rettype_const) && (ci.rettype_const === false ||
              (ci.rettype_const isa Core.InterConditional && ci.rettype_const.thentype === Union{}))
     @assert folded "isa folds: $(first(only(code_typed(isstr, (P20.X20,)))))"
-    @assert any(c -> c.member === AbstractString, finalcells(ci)) "the cell (AbstractString, X20) recorded: $(ci.edges)"
+    @assert any(c -> absence_member(c) === AbstractString, finalcells(ci)) "the cell (AbstractString, X20) recorded: $(ci.edges)"
 end
 cw(@nospecialize(x::P20.X20)) = P20.w2(x, 0x01)
 @assert cw(P20.M20()) == 1

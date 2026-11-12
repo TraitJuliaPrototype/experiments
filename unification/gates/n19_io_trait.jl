@@ -12,7 +12,7 @@ include("util.jl")
 
 latest(f, T...) = only([c for c in all_cis(f) if c.owner === nothing && c.max_world == typemax(UInt) &&
                                                 c.def.specTypes === Tuple{typeof(f), T...}])
-cells(ci) = [e for e in ci.edges if e isa Core.MembershipCell]
+cells(ci) = absences(ci)
 folded_false(c) = isdefined(c, :rettype_const) && (c.rettype_const === false ||
     (c.rettype_const isa Core.InterConditional && c.rettype_const.thentype === Union{}))
 
