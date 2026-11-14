@@ -1,0 +1,120 @@
+[ Info: TraitWorld: overview.jl
+[ Info: TraitWorld: core.jl
+[ Info: TraitWorld: acceptance.jl
+[ Info: TraitWorld: attribute.jl
+[ Info: TraitWorld: callable.jl
+[ Info: TraitWorld: fullytyped.jl
+ERROR: LoadError: Some tests did not pass: 20 passed, 2 failed, 0 errored, 0 broken.
+in expression starting at /p/projects/coen/julia-trait-bound/TraitWorld-unified/test/fullytyped.jl:79
+in expression starting at /p/projects/coen/julia-trait-bound/TraitWorld-unified/test/runtests.jl:3
+Test Summary: | Pass  Total  Time
+overview      |    8      8  0.2s
+Test Summary: | Pass  Total  Time
+parameters    |    8      8  0.0s
+Test Summary: | Pass  Total  Time
+refusals      |    6      6  0.1s
+Test Summary: | Pass  Total  Time
+fields        |    3      3  0.0s
+Test Summary:        | Pass  Total  Time
+block and forwarding |   15     15  2.8s
+Test Summary:            | Pass  Total  Time
+forwarding at the member |    4      4  0.1s
+Test Summary: | Pass  Total  Time
+supertraits   |    3      3  0.0s
+Test Summary: | Pass  Total  Time
+Dynamic       |   13     13  0.3s
+Test Summary: | Pass  Total  Time
+families      |    3      3  0.0s
+Test Summary: | Pass  Total  Time
+dispatch      |    4      4  0.0s
+Test Summary: | Pass  Total  Time
+first use     |   11     11  0.0s
+Test Summary:        | Pass  Total  Time
+Union-bounded family |    2      2  0.0s
+Test Summary: | Pass  Total  Time
+intersections |    8      8  0.0s
+Test Summary: | Pass  Total  Time
+override rule |    5      5  0.0s
+Test Summary: | Pass  Total  Time
+module end    |    2      2  0.1s
+Test Summary:     | Pass  Total  Time
+operation results |    7      7  0.0s
+Test Summary: | Pass  Total  Time
+split         |    3      3  2.0s
+Test Summary: | Pass  Total  Time
+table         |    3      3  0.1s
+Test Summary:   | Pass  Total  Time
+declared fields |    3      3  0.0s
+Test Summary:  | Pass  Total  Time
+classification |    9      9  2.3s
+Test Summary:                 | Pass  Total  Time
+classification: further rules |    6      6  0.7s
+Test Summary:                     | Pass  Total  Time
+a family's variables in its block |    2      2  0.0s
+Test Summary:                               | Pass  Total  Time
+Dynamic{All{Callable…}} at either signature |    2      2  0.2s
+Test Summary:                             | Pass  Total  Time
+F1: a trait stands wherever a type stands |   10     10  0.1s
+Test Summary:                                                | Pass  Total  Time
+F2, F3: the bare name is a UnionAll; parameters follow Julia |    5      5  0.0s
+Test Summary:                                | Pass  Total  Time
+F4: a member's value is a value of the trait |    3      3  0.0s
+Test Summary:                  | Pass  Total  Time
+F5: supertraits are supertypes |    2      2  0.0s
+Test Summary:           | Pass  Total  Time
+F6: dispatch is Julia's |    2      2  0.0s
+Test Summary: | Pass  Total  Time
+F7: storage   |    4      4  0.0s
+Test Summary:                                   | Pass  Total  Time
+F8: defaults and forwarding reach plain callers |    4      4  0.0s
+Test Summary:                                      | Pass  Total  Time
+F10: a family's member is checked at its first use |    5      5  0.0s
+Test Summary:                                                              | Pass  Total  Time
+F10b (compiler C-71): a failed member's other operations raise its failure |    3      3  0.0s
+Test Summary:                                   | Pass  Total  Time
+F11: a generic implementation is a set in a set |    3      3  0.0s
+Test Summary: | Pass  Total  Time
+F14: errors   |    3      3  0.0s
+Test Summary:       | Pass  Total  Time
+the trait's default |    3      3  0.0s
+Test Summary: | Pass  Total  Time
+casts         |    5      5  0.0s
+Test Summary: | Pass  Total  Time
+keep          |    2      2  0.0s
+Test Summary: | Pass  Total  Time
+trait modules |    4      4  0.0s
+Test Summary: | Pass  Total  Time
+reports       |    5      5  0.3s
+Test Summary:             | Pass  Total  Time
+bounded in a trait module |   10     10  0.2s
+Test Summary: | Pass  Total  Time
+Callable      |   13     13  0.1s
+
+fully typed mode: Test Failed at /p/projects/coen/julia-trait-bound/TraitWorld-unified/test/fullytyped.jl:87
+  Expression: occursin("field `data` of `Holder` is declared AbstractVector", s)
+   Evaluated: occursin("field `data` of `Holder` is declared AbstractVector", "not fully typed: Tuple{typeof(Main.fullytyped.total), Main.fullytyped.Holder}\n  1 call is left to run time, which a closed build refuses:\n  reducedim.jl:999  _sum(\n  sink::typeof(Main.fullytyped.sink),\n  getfield(h::Main.fullytyped.Holder, :data::Symbol)::AbstractVector,\n  :::Colon\n)::Any\n      unresolved call\n      ← reached from sum at reducedim.jl:999\n      ← reached from total at /p/projects/coen/julia-trait-bound/TraitWorld-unified/test/fullytyped.jl:10\n      (give the values concrete types (a typed field or container, a function barrier), or type them by a trait that declares the result)\n  the result is Any: `sum` returns Any at Tuple{typeof(sum), typeof(Main.fullytyped.sink), AbstractVector} ← `#sum#749` returns Any at Tuple{Base.var\"##sum#749\", Colon, Base.Pairs{Symbol, Union{}, Nothing, @NamedTuple{}}, typeof(sum), typeof(Main.fullytyped.sink), AbstractVector} ← `_sum` returns Any at Tuple{typeof(Base._sum), typeof(Main.fullytyped.sink), AbstractVector, Colon} ← `#_sum#751` returns Any at Tuple{Base.var\"##_sum#751\", Base.Pairs{Symbol, Union{}, Nothing, @NamedTuple{}}, typeof(Base._sum), typeof(Main.fullytyped.sink), AbstractVector, Colon}")
+  Stacktrace:
+   [1] top-level scope
+     @ /p/projects/coen/julia-trait-bound/TraitWorld-unified/test/fullytyped.jl:82
+   [2] macro expansion
+     @ /p/projects/coen/julia-trait-bound/julia-unified/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:1967 [inlined]
+   [3] macro expansion
+     @ /p/projects/coen/julia-trait-bound/TraitWorld-unified/test/fullytyped.jl:87 [inlined]
+   [4] macro expansion
+     @ /p/projects/coen/julia-trait-bound/julia-unified/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:758 [inlined]
+
+fully typed mode: Test Failed at /p/projects/coen/julia-trait-bound/TraitWorld-unified/test/fullytyped.jl:109
+  Expression: occursin("field `data` of `Holder`", sprint(showerror, e))
+   Evaluated: occursin("field `data` of `Holder`", "NotFullyTypedError: not fully typed: Tuple{typeof(Main.fullytyped.etotal), Main.fullytyped.Holder}\n  1 call is left to run time, which a closed build refuses:\n  reducedim.jl:999  _sum(\n  sink::typeof(Main.fullytyped.sink),\n  getfield(h::Main.fullytyped.Holder, :data::Symbol)::AbstractVector,\n  :::Colon\n)::Any\n      unresolved call\n      ← reached from sum at reducedim.jl:999\n      ← reached from etotal at /p/projects/coen/julia-trait-bound/TraitWorld-unified/test/fullytyped.jl:27\n      (give the values concrete types (a typed field or container, a function barrier), or type them by a trait that declares the result)\n  the result is Any: `sum` returns Any at Tuple{typeof(sum), typeof(Main.fullytyped.sink), AbstractVector} ← `#sum#749` returns Any at Tuple{Base.var\"##sum#749\", Colon, Base.Pairs{Symbol, Union{}, Nothing, @NamedTuple{}}, typeof(sum), typeof(Main.fullytyped.sink), AbstractVector} ← `_sum` returns Any at Tuple{typeof(Base._sum), typeof(Main.fullytyped.sink), AbstractVector, Colon} ← `#_sum#751` returns Any at Tuple{Base.var\"##_sum#751\", Base.Pairs{Symbol, Union{}, Nothing, @NamedTuple{}}, typeof(Base._sum), typeof(Main.fullytyped.sink), AbstractVector, Colon}")
+  Stacktrace:
+   [1] top-level scope
+     @ /p/projects/coen/julia-trait-bound/TraitWorld-unified/test/fullytyped.jl:82
+   [2] macro expansion
+     @ /p/projects/coen/julia-trait-bound/julia-unified/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:1967 [inlined]
+   [3] macro expansion
+     @ /p/projects/coen/julia-trait-bound/TraitWorld-unified/test/fullytyped.jl:109 [inlined]
+   [4] macro expansion
+     @ /p/projects/coen/julia-trait-bound/julia-unified/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:758 [inlined]
+Test Summary:    | Pass  Fail  Total  Time
+fully typed mode |   20     2     22  3.2s
+RNG of the outermost testset: Random.Xoshiro(0xc2e5a00e6dd1d676, 0x50f71fba2f7b9c74, 0x49799ded56c13a8b, 0xd04ef5260e8a5bd6, 0xd753c8ea13d35363)

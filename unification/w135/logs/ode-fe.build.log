@@ -1,0 +1,1356 @@
+# E-361 ode 2026-11-14T15:45:56+01:00 load 2.42 2.03 2.11 | julia-unified 86deee2f98 TraitWorld-unified baadf9f trim=safe
+Error #1: unresolved call from statement issorted(
+  itr::Vector{String},
+  ord(
+    lt::Function,
+    by::Function,
+    true::Bool,
+    order::Base.Order.ForwardOrdering
+  )::Union{Base.Order.By, Base.Order.Lt{T} where T<:Function, Base.Order.ReverseOrdering, Base.Order.DirectOrdering}
+)::Bool
+
+Stacktrace:
+ [1] issorted(itr::Vector{String}; lt::Function, by::Function, rev::Bool, order::Base.Order.ForwardOrdering)
+   @ Base.Sort sort.jl:93
+ [2] unique!(itr::Vector{String})
+   @ Base set.jl:473
+ [3] macro expansion
+   @ /p/projects/coen/julia-trait-bound/.julia-depot/packages/JLLWrappers/Kp7TC/src/wrapper_generators.jl:64 [inlined]
+ [4] __init__()
+   @ OpenSpecFun_jll /p/projects/coen/julia-trait-bound/.julia-depot/packages/OpenSpecFun_jll/4QIOW/src/wrappers/x86_64-linux-gnu-libgfortran5.jl:15
+
+Error #2: unresolved call from statement issorted(
+  itr::Vector{String},
+  :(φ (%161 => %159, %163 => %162))::Union{Base.Order.ForwardOrdering, Base.Order.By, Base.Order.Lt{T} where T<:Function}
+)::Bool
+
+Stacktrace:
+ [1] issorted(itr::Vector{String}; lt::Function, by::Function, rev::Bool, order::Base.Order.ForwardOrdering)
+   @ Base.Sort sort.jl:95
+ [2] unique!(itr::Vector{String})
+   @ Base set.jl:473
+ [3] macro expansion
+   @ /p/projects/coen/julia-trait-bound/.julia-depot/packages/JLLWrappers/Kp7TC/src/wrapper_generators.jl:64 [inlined]
+ [4] __init__()
+   @ OpenSpecFun_jll /p/projects/coen/julia-trait-bound/.julia-depot/packages/OpenSpecFun_jll/4QIOW/src/wrappers/x86_64-linux-gnu-libgfortran5.jl:15
+
+Error #3: unresolved call from statement Lt(
+  lt::Function
+)::Base.Order.Lt{T} where T<:Function
+
+Stacktrace:
+ [1] _ord(lt::Function, by::Function, order::Base.Order.ForwardOrdering)
+   @ Base.Order ordering.jl:133
+ [2] ord(lt::Function, by::Function, rev::Nothing, order::Base.Order.ForwardOrdering)
+   @ Base.Order ordering.jl:155 [inlined]
+ [3] issorted(itr::Vector{String}; lt::Function, by::Function, rev::Bool, order::Base.Order.ForwardOrdering)
+   @ Base.Sort sort.jl:95
+ [4] unique!(itr::Vector{String})
+   @ Base set.jl:473
+ [5] macro expansion
+   @ /p/projects/coen/julia-trait-bound/.julia-depot/packages/JLLWrappers/Kp7TC/src/wrapper_generators.jl:64 [inlined]
+ [6] __init__()
+   @ OpenSpecFun_jll /p/projects/coen/julia-trait-bound/.julia-depot/packages/OpenSpecFun_jll/4QIOW/src/wrappers/x86_64-linux-gnu-libgfortran5.jl:15
+
+Error #4: unresolved call from statement _by(
+  by::Function,
+  Lt(
+    lt::Function
+  )::Base.Order.Lt{T} where T<:Function
+)::Union{Base.Order.By{T, O} where {T<:Function, O<:(Base.Order.Lt{T} where T<:Function)}, Base.Order.Lt{T} where T<:Function}
+
+Stacktrace:
+ [1] _ord(lt::Function, by::Function, order::Base.Order.ForwardOrdering)
+   @ Base.Order ordering.jl:133
+ [2] ord(lt::Function, by::Function, rev::Nothing, order::Base.Order.ForwardOrdering)
+   @ Base.Order ordering.jl:155 [inlined]
+ [3] issorted(itr::Vector{String}; lt::Function, by::Function, rev::Bool, order::Base.Order.ForwardOrdering)
+   @ Base.Sort sort.jl:95
+ [4] unique!(itr::Vector{String})
+   @ Base set.jl:473
+ [5] macro expansion
+   @ /p/projects/coen/julia-trait-bound/.julia-depot/packages/JLLWrappers/Kp7TC/src/wrapper_generators.jl:64 [inlined]
+ [6] __init__()
+   @ OpenSpecFun_jll /p/projects/coen/julia-trait-bound/.julia-depot/packages/OpenSpecFun_jll/4QIOW/src/wrappers/x86_64-linux-gnu-libgfortran5.jl:15
+
+Error #5: unresolved call from statement By(
+  by::Function,
+  order::Base.Order.ForwardOrdering
+)::Base.Order.By{T, Base.Order.ForwardOrdering} where T<:Function
+
+Stacktrace:
+ [1] _by(by::Function, order::Base.Order.ForwardOrdering)
+   @ Base.Order ordering.jl:136
+ [2] _ord(lt::typeof(isless), by::Function, order::Base.Order.ForwardOrdering)
+   @ Base.Order ordering.jl:131 [inlined]
+ [3] ord(lt::Function, by::Function, rev::Nothing, order::Base.Order.ForwardOrdering)
+   @ Base.Order ordering.jl:155 [inlined]
+ [4] issorted(itr::Vector{String}; lt::Function, by::Function, rev::Bool, order::Base.Order.ForwardOrdering)
+   @ Base.Sort sort.jl:95
+ [5] unique!(itr::Vector{String})
+   @ Base set.jl:473
+ [6] macro expansion
+   @ /p/projects/coen/julia-trait-bound/.julia-depot/packages/JLLWrappers/Kp7TC/src/wrapper_generators.jl:64 [inlined]
+ [7] __init__()
+   @ OpenSpecFun_jll /p/projects/coen/julia-trait-bound/.julia-depot/packages/OpenSpecFun_jll/4QIOW/src/wrappers/x86_64-linux-gnu-libgfortran5.jl:15
+
+Error #6: unresolved call from statement ReverseOrdering(
+  :(φ (%10 => %8, %13 => %12))::Union{Base.Order.ForwardOrdering, Base.Order.By, Base.Order.Lt{T} where T<:Function}
+)::Union{Base.Order.ReverseOrdering{Base.Order.ForwardOrdering}, Base.Order.By, Base.Order.ReverseOrdering{Fwd} where Fwd<:(Base.Order.Lt{T} where T<:Function)}
+
+Stacktrace:
+ [1] ord(lt::Function, by::Function, rev::Bool, order::Base.Order.ForwardOrdering)
+   @ Base.Order ordering.jl:159
+ [2] issorted(itr::Vector{String}; lt::Function, by::Function, rev::Bool, order::Base.Order.ForwardOrdering)
+   @ Base.Sort sort.jl:93
+ [3] unique!(itr::Vector{String})
+   @ Base set.jl:473
+ [4] macro expansion
+   @ /p/projects/coen/julia-trait-bound/.julia-depot/packages/JLLWrappers/Kp7TC/src/wrapper_generators.jl:64 [inlined]
+ [5] __init__()
+   @ OpenSpecFun_jll /p/projects/coen/julia-trait-bound/.julia-depot/packages/OpenSpecFun_jll/4QIOW/src/wrappers/x86_64-linux-gnu-libgfortran5.jl:15
+
+Error #7: unresolved call from statement _rodas5_run(
+  rodas5_init(m::ODECore.CoreProblem{Float64, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU}, u0::Vector{Float64}, tspan::Tuple{Float64, Float64}, callbacks::Vector{Any}, opts::ODECore.SolverOptions)::Union{TraitRodas.Rodas5Integrator{Nothing, ODECore.CoreProblem{Float64, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}}, TraitRodas.Rodas5Integrator{TraitRodas.DualJacobian{N, FD}, ODECore.CoreProblem{Float64, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}} where {N, FD<:Callable{Tuple{Array{ForwardDiff.Dual{ODECore.ODETag, Float64, N}, 1}, Array{ForwardDiff.Dual{ODECore.ODETag, Float64, N}, 1}, Float64}, Nothing}}}
+)::ODECore.CoreSolution
+
+Stacktrace:
+ [1] rodas5_solve(m::ODECore.CoreProblem{Float64, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU}, u0::Vector{Float64}, tspan::Tuple{Float64, Float64}, callbacks::Vector{Any}, opts::ODECore.SolverOptions)
+   @ TraitRodas /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/TraitRodas/src/rodas5.jl:273
+ [2] solve_core(a::Rodas5{DenseLU}, m::ODECore.CoreProblem{Float64, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, callbacks::Vector{Any}, opts::ODECore.SolverOptions)
+   @ TraitRodas /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/TraitRodas/src/rodas5.jl:245 [inlined]
+ [3] solve_ode(prob::ODEProblem{Float64, Vector{Float64}, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU}, callbacks::Vector{Any}, opts::ODECore.SolverOptions)
+   @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/ODECore/src/core.jl:1237
+ [4] _solve(prob::ODEProblem{Float64, Vector{Float64}, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU}, callback::Nothing, kw::@NamedTuple{saveat::Vector{Float64}, reltol::Float64, abstol::Float64})
+   @ TraitDifferentialEquations /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/src/TraitDifferentialEquations.jl:64 [inlined]
+ [5] solve(prob::ODEProblem{Float64, Vector{Float64}, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU}; callback::Nothing, kw::@Kwargs{saveat::Vector{Float64}, reltol::Float64, abstol::Float64})
+   @ TraitDifferentialEquations /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/src/TraitDifferentialEquations.jl:61 [inlined]
+ [6] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/ode.jl:32
+ [7] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-unified/test/trimming/juliac-buildscript.jl:35
+
+Error #8: unresolved call from statement step_event_condition(
+  memoryrefget((…)::MemoryRef{ODECore.StepEvent{Vector{Float64}, Float64}}, :not_atomic::Symbol, false::Bool)::ODECore.StepEvent{Vector{Float64}, Float64},
+  (…)::Vector{Float64},
+  (…)::Float64,
+  (…)::Dynamic{ODECore.StepView{Vector{Float64}, Float64}}
+)::Any
+
+Stacktrace:
+  [1] rodas5_advance!(i::TraitRodas.Rodas5Integrator{Nothing, ODECore.CoreProblem{Float64, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}})
+    @ TraitRodas /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/TraitRodas/src/rodas5.jl:330
+  [2] advance!(i::TraitRodas.Rodas5Integrator{Nothing, ODECore.CoreProblem{Float64, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}})
+    @ TraitRodas /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/TraitRodas/src/rodas5.jl:166 [inlined]
+  [3] run_to_end!(i::TraitRodas.Rodas5Integrator{Nothing, ODECore.CoreProblem{Float64, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}})
+    @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/ODECore/src/core.jl:927 [inlined]
+  [4] _rodas5_run(i::TraitRodas.Rodas5Integrator{Nothing, ODECore.CoreProblem{Float64, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}})
+    @ TraitRodas /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/TraitRodas/src/rodas5.jl:275 [inlined]
+  [5] rodas5_solve(m::ODECore.CoreProblem{Float64, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU}, u0::Vector{Float64}, tspan::Tuple{Float64, Float64}, callbacks::Vector{Any}, opts::ODECore.SolverOptions)
+    @ TraitRodas /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/TraitRodas/src/rodas5.jl:273
+  [6] solve_core(a::Rodas5{DenseLU}, m::ODECore.CoreProblem{Float64, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, callbacks::Vector{Any}, opts::ODECore.SolverOptions)
+    @ TraitRodas /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/TraitRodas/src/rodas5.jl:245 [inlined]
+  [7] solve_ode(prob::ODEProblem{Float64, Vector{Float64}, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU}, callbacks::Vector{Any}, opts::ODECore.SolverOptions)
+    @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/ODECore/src/core.jl:1237
+  [8] _solve(prob::ODEProblem{Float64, Vector{Float64}, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU}, callback::Nothing, kw::@NamedTuple{saveat::Vector{Float64}, reltol::Float64, abstol::Float64})
+    @ TraitDifferentialEquations /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/src/TraitDifferentialEquations.jl:64 [inlined]
+  [9] solve(prob::ODEProblem{Float64, Vector{Float64}, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU}; callback::Nothing, kw::@Kwargs{saveat::Vector{Float64}, reltol::Float64, abstol::Float64})
+    @ TraitDifferentialEquations /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/src/TraitDifferentialEquations.jl:61 [inlined]
+ [10] main(args::Vector{String})
+    @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/ode.jl:32
+ [11] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+    @ Main /p/projects/coen/julia-trait-bound/julia-unified/test/trimming/juliac-buildscript.jl:35
+
+Error #9: unresolved call from statement event_affect_dir!(
+  memoryrefget((…)::MemoryRef{ODECore.StepEvent{Vector{Float64}, Float64}}, :not_atomic::Symbol, false::Bool)::ODECore.StepEvent{Vector{Float64}, Float64},
+  (…)::Dynamic{ODECore.StepView{Vector{Float64}, Float64}},
+  :(φ (%568 => %426, %429 => %426, %416 => false))::Bool
+)::Any
+
+Stacktrace:
+  [1] rodas5_advance!(i::TraitRodas.Rodas5Integrator{Nothing, ODECore.CoreProblem{Float64, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}})
+    @ TraitRodas /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/TraitRodas/src/rodas5.jl:377
+  [2] advance!(i::TraitRodas.Rodas5Integrator{Nothing, ODECore.CoreProblem{Float64, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}})
+    @ TraitRodas /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/TraitRodas/src/rodas5.jl:166 [inlined]
+  [3] run_to_end!(i::TraitRodas.Rodas5Integrator{Nothing, ODECore.CoreProblem{Float64, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}})
+    @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/ODECore/src/core.jl:927 [inlined]
+  [4] _rodas5_run(i::TraitRodas.Rodas5Integrator{Nothing, ODECore.CoreProblem{Float64, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}})
+    @ TraitRodas /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/TraitRodas/src/rodas5.jl:275 [inlined]
+  [5] rodas5_solve(m::ODECore.CoreProblem{Float64, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU}, u0::Vector{Float64}, tspan::Tuple{Float64, Float64}, callbacks::Vector{Any}, opts::ODECore.SolverOptions)
+    @ TraitRodas /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/TraitRodas/src/rodas5.jl:273
+  [6] solve_core(a::Rodas5{DenseLU}, m::ODECore.CoreProblem{Float64, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, callbacks::Vector{Any}, opts::ODECore.SolverOptions)
+    @ TraitRodas /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/TraitRodas/src/rodas5.jl:245 [inlined]
+  [7] solve_ode(prob::ODEProblem{Float64, Vector{Float64}, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU}, callbacks::Vector{Any}, opts::ODECore.SolverOptions)
+    @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/ODECore/src/core.jl:1237
+  [8] _solve(prob::ODEProblem{Float64, Vector{Float64}, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU}, callback::Nothing, kw::@NamedTuple{saveat::Vector{Float64}, reltol::Float64, abstol::Float64})
+    @ TraitDifferentialEquations /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/src/TraitDifferentialEquations.jl:64 [inlined]
+  [9] solve(prob::ODEProblem{Float64, Vector{Float64}, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU}; callback::Nothing, kw::@Kwargs{saveat::Vector{Float64}, reltol::Float64, abstol::Float64})
+    @ TraitDifferentialEquations /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/src/TraitDifferentialEquations.jl:61 [inlined]
+ [10] main(args::Vector{String})
+    @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/ode.jl:32
+ [11] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+    @ Main /p/projects/coen/julia-trait-bound/julia-unified/test/trimming/juliac-buildscript.jl:35
+
+Error #10: unresolved call from statement step_event_condition(
+  memoryrefget((…)::MemoryRef{ODECore.StepEvent{Vector{Float64}, Float64}}, :not_atomic::Symbol, false::Bool)::ODECore.StepEvent{Vector{Float64}, Float64},
+  (…)::Vector{Float64},
+  (…)::Float64,
+  (…)::Dynamic{ODECore.StepView{Vector{Float64}, Float64}}
+)::Any
+
+Stacktrace:
+  [1] rodas5_advance!(i::TraitRodas.Rodas5Integrator{Nothing, ODECore.CoreProblem{Float64, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}})
+    @ TraitRodas /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/TraitRodas/src/rodas5.jl:382
+  [2] advance!(i::TraitRodas.Rodas5Integrator{Nothing, ODECore.CoreProblem{Float64, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}})
+    @ TraitRodas /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/TraitRodas/src/rodas5.jl:166 [inlined]
+  [3] run_to_end!(i::TraitRodas.Rodas5Integrator{Nothing, ODECore.CoreProblem{Float64, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}})
+    @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/ODECore/src/core.jl:927 [inlined]
+  [4] _rodas5_run(i::TraitRodas.Rodas5Integrator{Nothing, ODECore.CoreProblem{Float64, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}})
+    @ TraitRodas /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/TraitRodas/src/rodas5.jl:275 [inlined]
+  [5] rodas5_solve(m::ODECore.CoreProblem{Float64, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU}, u0::Vector{Float64}, tspan::Tuple{Float64, Float64}, callbacks::Vector{Any}, opts::ODECore.SolverOptions)
+    @ TraitRodas /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/TraitRodas/src/rodas5.jl:273
+  [6] solve_core(a::Rodas5{DenseLU}, m::ODECore.CoreProblem{Float64, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, callbacks::Vector{Any}, opts::ODECore.SolverOptions)
+    @ TraitRodas /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/TraitRodas/src/rodas5.jl:245 [inlined]
+  [7] solve_ode(prob::ODEProblem{Float64, Vector{Float64}, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU}, callbacks::Vector{Any}, opts::ODECore.SolverOptions)
+    @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/ODECore/src/core.jl:1237
+  [8] _solve(prob::ODEProblem{Float64, Vector{Float64}, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU}, callback::Nothing, kw::@NamedTuple{saveat::Vector{Float64}, reltol::Float64, abstol::Float64})
+    @ TraitDifferentialEquations /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/src/TraitDifferentialEquations.jl:64 [inlined]
+  [9] solve(prob::ODEProblem{Float64, Vector{Float64}, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU}; callback::Nothing, kw::@Kwargs{saveat::Vector{Float64}, reltol::Float64, abstol::Float64})
+    @ TraitDifferentialEquations /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/src/TraitDifferentialEquations.jl:61 [inlined]
+ [10] main(args::Vector{String})
+    @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/ode.jl:32
+ [11] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+    @ Main /p/projects/coen/julia-trait-bound/julia-unified/test/trimming/juliac-buildscript.jl:35
+
+Error #11: unresolved call from statement step_condition(
+  :(φ (%791 => %786, %847 => %841))::ODECore.StepCallback{Vector{Float64}, Float64},
+  (…)::Vector{Float64},
+  (…)::Float64,
+  (…)::Dynamic{ODECore.StepView{Vector{Float64}, Float64}}
+)::Any
+
+Stacktrace:
+  [1] rodas5_advance!(i::TraitRodas.Rodas5Integrator{Nothing, ODECore.CoreProblem{Float64, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}})
+    @ TraitRodas /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/TraitRodas/src/rodas5.jl:386
+  [2] advance!(i::TraitRodas.Rodas5Integrator{Nothing, ODECore.CoreProblem{Float64, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}})
+    @ TraitRodas /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/TraitRodas/src/rodas5.jl:166 [inlined]
+  [3] run_to_end!(i::TraitRodas.Rodas5Integrator{Nothing, ODECore.CoreProblem{Float64, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}})
+    @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/ODECore/src/core.jl:927 [inlined]
+  [4] _rodas5_run(i::TraitRodas.Rodas5Integrator{Nothing, ODECore.CoreProblem{Float64, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}})
+    @ TraitRodas /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/TraitRodas/src/rodas5.jl:275 [inlined]
+  [5] rodas5_solve(m::ODECore.CoreProblem{Float64, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU}, u0::Vector{Float64}, tspan::Tuple{Float64, Float64}, callbacks::Vector{Any}, opts::ODECore.SolverOptions)
+    @ TraitRodas /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/TraitRodas/src/rodas5.jl:273
+  [6] solve_core(a::Rodas5{DenseLU}, m::ODECore.CoreProblem{Float64, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, callbacks::Vector{Any}, opts::ODECore.SolverOptions)
+    @ TraitRodas /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/TraitRodas/src/rodas5.jl:245 [inlined]
+  [7] solve_ode(prob::ODEProblem{Float64, Vector{Float64}, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU}, callbacks::Vector{Any}, opts::ODECore.SolverOptions)
+    @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/ODECore/src/core.jl:1237
+  [8] _solve(prob::ODEProblem{Float64, Vector{Float64}, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU}, callback::Nothing, kw::@NamedTuple{saveat::Vector{Float64}, reltol::Float64, abstol::Float64})
+    @ TraitDifferentialEquations /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/src/TraitDifferentialEquations.jl:64 [inlined]
+  [9] solve(prob::ODEProblem{Float64, Vector{Float64}, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU}; callback::Nothing, kw::@Kwargs{saveat::Vector{Float64}, reltol::Float64, abstol::Float64})
+    @ TraitDifferentialEquations /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/src/TraitDifferentialEquations.jl:61 [inlined]
+ [10] main(args::Vector{String})
+    @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/ode.jl:32
+ [11] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+    @ Main /p/projects/coen/julia-trait-bound/julia-unified/test/trimming/juliac-buildscript.jl:35
+
+Error #12: unresolved call from statement step_affect!(
+  :(φ (%791 => %786, %847 => %841))::ODECore.StepCallback{Vector{Float64}, Float64},
+  (…)::Dynamic{ODECore.StepView{Vector{Float64}, Float64}}
+)::Any
+
+Stacktrace:
+  [1] rodas5_advance!(i::TraitRodas.Rodas5Integrator{Nothing, ODECore.CoreProblem{Float64, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}})
+    @ TraitRodas /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/TraitRodas/src/rodas5.jl:389
+  [2] advance!(i::TraitRodas.Rodas5Integrator{Nothing, ODECore.CoreProblem{Float64, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}})
+    @ TraitRodas /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/TraitRodas/src/rodas5.jl:166 [inlined]
+  [3] run_to_end!(i::TraitRodas.Rodas5Integrator{Nothing, ODECore.CoreProblem{Float64, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}})
+    @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/ODECore/src/core.jl:927 [inlined]
+  [4] _rodas5_run(i::TraitRodas.Rodas5Integrator{Nothing, ODECore.CoreProblem{Float64, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}})
+    @ TraitRodas /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/TraitRodas/src/rodas5.jl:275 [inlined]
+  [5] rodas5_solve(m::ODECore.CoreProblem{Float64, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU}, u0::Vector{Float64}, tspan::Tuple{Float64, Float64}, callbacks::Vector{Any}, opts::ODECore.SolverOptions)
+    @ TraitRodas /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/TraitRodas/src/rodas5.jl:273
+  [6] solve_core(a::Rodas5{DenseLU}, m::ODECore.CoreProblem{Float64, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, callbacks::Vector{Any}, opts::ODECore.SolverOptions)
+    @ TraitRodas /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/TraitRodas/src/rodas5.jl:245 [inlined]
+  [7] solve_ode(prob::ODEProblem{Float64, Vector{Float64}, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU}, callbacks::Vector{Any}, opts::ODECore.SolverOptions)
+    @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/ODECore/src/core.jl:1237
+  [8] _solve(prob::ODEProblem{Float64, Vector{Float64}, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU}, callback::Nothing, kw::@NamedTuple{saveat::Vector{Float64}, reltol::Float64, abstol::Float64})
+    @ TraitDifferentialEquations /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/src/TraitDifferentialEquations.jl:64 [inlined]
+  [9] solve(prob::ODEProblem{Float64, Vector{Float64}, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU}; callback::Nothing, kw::@Kwargs{saveat::Vector{Float64}, reltol::Float64, abstol::Float64})
+    @ TraitDifferentialEquations /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/src/TraitDifferentialEquations.jl:61 [inlined]
+ [10] main(args::Vector{String})
+    @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/ode.jl:32
+ [11] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+    @ Main /p/projects/coen/julia-trait-bound/julia-unified/test/trimming/juliac-buildscript.jl:35
+
+Error #13: unresolved call from statement step_event_condition(
+  memoryrefget((…)::MemoryRef{ODECore.StepEvent{Vector{Float64}, Float64}}, :not_atomic::Symbol, false::Bool)::ODECore.StepEvent{Vector{Float64}, Float64},
+  u::Vector{Float64},
+  t::Float64,
+  iv::Dynamic{ODECore.StepView{Vector{Float64}, Float64}}
+)::Any
+
+Stacktrace:
+  [1] locate_events!(events::Vector{ODECore.StepEvent{Vector{Float64}, Float64}}, evprev::Vector{Float64}, iv::Dynamic{ODECore.StepView{Vector{Float64}, Float64}}, u::Vector{Float64}, utilde::Vector{Float64}, tprev::Float64, t::Float64, dt::Float64)
+    @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/ODECore/src/core.jl:1424
+  [2] rodas5_advance!(i::TraitRodas.Rodas5Integrator{Nothing, ODECore.CoreProblem{Float64, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}})
+    @ TraitRodas /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/TraitRodas/src/rodas5.jl:364
+  [3] advance!(i::TraitRodas.Rodas5Integrator{Nothing, ODECore.CoreProblem{Float64, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}})
+    @ TraitRodas /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/TraitRodas/src/rodas5.jl:166 [inlined]
+  [4] run_to_end!(i::TraitRodas.Rodas5Integrator{Nothing, ODECore.CoreProblem{Float64, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}})
+    @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/ODECore/src/core.jl:927 [inlined]
+  [5] _rodas5_run(i::TraitRodas.Rodas5Integrator{Nothing, ODECore.CoreProblem{Float64, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}})
+    @ TraitRodas /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/TraitRodas/src/rodas5.jl:275 [inlined]
+  [6] rodas5_solve(m::ODECore.CoreProblem{Float64, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU}, u0::Vector{Float64}, tspan::Tuple{Float64, Float64}, callbacks::Vector{Any}, opts::ODECore.SolverOptions)
+    @ TraitRodas /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/TraitRodas/src/rodas5.jl:273
+  [7] solve_core(a::Rodas5{DenseLU}, m::ODECore.CoreProblem{Float64, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, callbacks::Vector{Any}, opts::ODECore.SolverOptions)
+    @ TraitRodas /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/TraitRodas/src/rodas5.jl:245 [inlined]
+  [8] solve_ode(prob::ODEProblem{Float64, Vector{Float64}, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU}, callbacks::Vector{Any}, opts::ODECore.SolverOptions)
+    @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/ODECore/src/core.jl:1237
+  [9] _solve(prob::ODEProblem{Float64, Vector{Float64}, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU}, callback::Nothing, kw::@NamedTuple{saveat::Vector{Float64}, reltol::Float64, abstol::Float64})
+    @ TraitDifferentialEquations /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/src/TraitDifferentialEquations.jl:64 [inlined]
+ [10] solve(prob::ODEProblem{Float64, Vector{Float64}, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU}; callback::Nothing, kw::@Kwargs{saveat::Vector{Float64}, reltol::Float64, abstol::Float64})
+    @ TraitDifferentialEquations /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/src/TraitDifferentialEquations.jl:61 [inlined]
+ [11] main(args::Vector{String})
+    @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/ode.jl:32
+ [12] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+    @ Main /p/projects/coen/julia-trait-bound/julia-unified/test/trimming/juliac-buildscript.jl:35
+
+Error #14: unresolved call from statement step_event_condition(
+  memoryrefget((…)::MemoryRef{ODECore.StepEvent{Vector{Float64}, Float64}}, :not_atomic::Symbol, false::Bool)::ODECore.StepEvent{Vector{Float64}, Float64},
+  utilde::Vector{Float64},
+  (…)::Float64,
+  iv::Dynamic{ODECore.StepView{Vector{Float64}, Float64}}
+)::Any
+
+Stacktrace:
+  [1] locate_events!(events::Vector{ODECore.StepEvent{Vector{Float64}, Float64}}, evprev::Vector{Float64}, iv::Dynamic{ODECore.StepView{Vector{Float64}, Float64}}, u::Vector{Float64}, utilde::Vector{Float64}, tprev::Float64, t::Float64, dt::Float64)
+    @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/ODECore/src/core.jl:1430
+  [2] rodas5_advance!(i::TraitRodas.Rodas5Integrator{Nothing, ODECore.CoreProblem{Float64, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}})
+    @ TraitRodas /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/TraitRodas/src/rodas5.jl:364
+  [3] advance!(i::TraitRodas.Rodas5Integrator{Nothing, ODECore.CoreProblem{Float64, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}})
+    @ TraitRodas /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/TraitRodas/src/rodas5.jl:166 [inlined]
+  [4] run_to_end!(i::TraitRodas.Rodas5Integrator{Nothing, ODECore.CoreProblem{Float64, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}})
+    @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/ODECore/src/core.jl:927 [inlined]
+  [5] _rodas5_run(i::TraitRodas.Rodas5Integrator{Nothing, ODECore.CoreProblem{Float64, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}})
+    @ TraitRodas /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/TraitRodas/src/rodas5.jl:275 [inlined]
+  [6] rodas5_solve(m::ODECore.CoreProblem{Float64, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU}, u0::Vector{Float64}, tspan::Tuple{Float64, Float64}, callbacks::Vector{Any}, opts::ODECore.SolverOptions)
+    @ TraitRodas /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/TraitRodas/src/rodas5.jl:273
+  [7] solve_core(a::Rodas5{DenseLU}, m::ODECore.CoreProblem{Float64, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, callbacks::Vector{Any}, opts::ODECore.SolverOptions)
+    @ TraitRodas /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/TraitRodas/src/rodas5.jl:245 [inlined]
+  [8] solve_ode(prob::ODEProblem{Float64, Vector{Float64}, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU}, callbacks::Vector{Any}, opts::ODECore.SolverOptions)
+    @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/ODECore/src/core.jl:1237
+  [9] _solve(prob::ODEProblem{Float64, Vector{Float64}, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU}, callback::Nothing, kw::@NamedTuple{saveat::Vector{Float64}, reltol::Float64, abstol::Float64})
+    @ TraitDifferentialEquations /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/src/TraitDifferentialEquations.jl:64 [inlined]
+ [10] solve(prob::ODEProblem{Float64, Vector{Float64}, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU}; callback::Nothing, kw::@Kwargs{saveat::Vector{Float64}, reltol::Float64, abstol::Float64})
+    @ TraitDifferentialEquations /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/src/TraitDifferentialEquations.jl:61 [inlined]
+ [11] main(args::Vector{String})
+    @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/ode.jl:32
+ [12] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+    @ Main /p/projects/coen/julia-trait-bound/julia-unified/test/trimming/juliac-buildscript.jl:35
+
+Error #15: unresolved call (with its arguments' attributes) from statement attributed_call(
+  2::Int64,
+  event_time::typeof(ODECore.event_time),
+  memoryrefget((…)::MemoryRef{ODECore.StepEvent{Vector{Float64}, Float64}}, :not_atomic::Symbol, false::Bool)::ODECore.StepEvent{Vector{Float64}, Float64},
+  iv::Dynamic{ODECore.StepView{Vector{Float64}, Float64}},
+  utilde::Vector{Float64},
+  :(φ (%122 => %61, %59 => _7))::Float64,
+  t::Float64,
+  :(φ (%122 => %122, %59 => %55))::Float64
+)::Float64
+
+Stacktrace:
+  [1] locate_events!(events::Vector{ODECore.StepEvent{Vector{Float64}, Float64}}, evprev::Vector{Float64}, iv::Dynamic{ODECore.StepView{Vector{Float64}, Float64}}, u::Vector{Float64}, utilde::Vector{Float64}, tprev::Float64, t::Float64, dt::Float64)
+    @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/ODECore/src/core.jl:1433
+  [2] rodas5_advance!(i::TraitRodas.Rodas5Integrator{Nothing, ODECore.CoreProblem{Float64, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}})
+    @ TraitRodas /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/TraitRodas/src/rodas5.jl:364
+  [3] advance!(i::TraitRodas.Rodas5Integrator{Nothing, ODECore.CoreProblem{Float64, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}})
+    @ TraitRodas /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/TraitRodas/src/rodas5.jl:166 [inlined]
+  [4] run_to_end!(i::TraitRodas.Rodas5Integrator{Nothing, ODECore.CoreProblem{Float64, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}})
+    @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/ODECore/src/core.jl:927 [inlined]
+  [5] _rodas5_run(i::TraitRodas.Rodas5Integrator{Nothing, ODECore.CoreProblem{Float64, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}})
+    @ TraitRodas /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/TraitRodas/src/rodas5.jl:275 [inlined]
+  [6] rodas5_solve(m::ODECore.CoreProblem{Float64, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU}, u0::Vector{Float64}, tspan::Tuple{Float64, Float64}, callbacks::Vector{Any}, opts::ODECore.SolverOptions)
+    @ TraitRodas /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/TraitRodas/src/rodas5.jl:273
+  [7] solve_core(a::Rodas5{DenseLU}, m::ODECore.CoreProblem{Float64, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, callbacks::Vector{Any}, opts::ODECore.SolverOptions)
+    @ TraitRodas /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/TraitRodas/src/rodas5.jl:245 [inlined]
+  [8] solve_ode(prob::ODEProblem{Float64, Vector{Float64}, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU}, callbacks::Vector{Any}, opts::ODECore.SolverOptions)
+    @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/ODECore/src/core.jl:1237
+  [9] _solve(prob::ODEProblem{Float64, Vector{Float64}, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU}, callback::Nothing, kw::@NamedTuple{saveat::Vector{Float64}, reltol::Float64, abstol::Float64})
+    @ TraitDifferentialEquations /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/src/TraitDifferentialEquations.jl:64 [inlined]
+ [10] solve(prob::ODEProblem{Float64, Vector{Float64}, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU}; callback::Nothing, kw::@Kwargs{saveat::Vector{Float64}, reltol::Float64, abstol::Float64})
+    @ TraitDifferentialEquations /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/src/TraitDifferentialEquations.jl:61 [inlined]
+ [11] main(args::Vector{String})
+    @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/ode.jl:32
+ [12] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+    @ Main /p/projects/coen/julia-trait-bound/julia-unified/test/trimming/juliac-buildscript.jl:35
+
+Error #16: unresolved call from statement dual_jacobian(
+  :(φ (%35 => %34, %36 => %31))::Any,
+  (…)::Int64,
+  :(φ (%40 => Val{nothing}(), %45 => %44))::Val
+)::TraitRodas.DualJacobian
+
+Stacktrace:
+ [1] rodas5_init(m::ODECore.CoreProblem{Float64, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU}, u0::Vector{Float64}, tspan::Tuple{Float64, Float64}, callbacks::Vector{Any}, opts::ODECore.SolverOptions)
+   @ TraitRodas /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/TraitRodas/src/rodas5.jl:269
+ [2] rodas5_solve(m::ODECore.CoreProblem{Float64, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU}, u0::Vector{Float64}, tspan::Tuple{Float64, Float64}, callbacks::Vector{Any}, opts::ODECore.SolverOptions)
+   @ TraitRodas /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/TraitRodas/src/rodas5.jl:273
+ [3] solve_core(a::Rodas5{DenseLU}, m::ODECore.CoreProblem{Float64, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, callbacks::Vector{Any}, opts::ODECore.SolverOptions)
+   @ TraitRodas /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/TraitRodas/src/rodas5.jl:245 [inlined]
+ [4] solve_ode(prob::ODEProblem{Float64, Vector{Float64}, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU}, callbacks::Vector{Any}, opts::ODECore.SolverOptions)
+   @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/ODECore/src/core.jl:1237
+ [5] _solve(prob::ODEProblem{Float64, Vector{Float64}, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU}, callback::Nothing, kw::@NamedTuple{saveat::Vector{Float64}, reltol::Float64, abstol::Float64})
+   @ TraitDifferentialEquations /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/src/TraitDifferentialEquations.jl:64 [inlined]
+ [6] solve(prob::ODEProblem{Float64, Vector{Float64}, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU}; callback::Nothing, kw::@Kwargs{saveat::Vector{Float64}, reltol::Float64, abstol::Float64})
+   @ TraitDifferentialEquations /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/src/TraitDifferentialEquations.jl:61 [inlined]
+ [7] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/ode.jl:32
+ [8] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-unified/test/trimming/juliac-buildscript.jl:35
+
+Error #17: unresolved call from statement rodas5_start(
+  m::ODECore.CoreProblem{Float64, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)},
+  u0::Vector{Float64},
+  tspan::Tuple{Float64, Float64},
+  callbacks::Vector{Any},
+  opts::ODECore.SolverOptions,
+  dual_jacobian(
+    :(φ (%35 => %34, %36 => %31))::Any,
+    (…)::Int64,
+    :(φ (%40 => Val{nothing}(), %45 => %44))::Val
+  )::TraitRodas.DualJacobian,
+  DenseLU()::DenseLU
+)::TraitRodas.Rodas5Integrator{TraitRodas.DualJacobian{N, FD}, ODECore.CoreProblem{Float64, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}} where {N, FD<:Callable{Tuple{Array{ForwardDiff.Dual{ODECore.ODETag, Float64, N}, 1}, Array{ForwardDiff.Dual{ODECore.ODETag, Float64, N}, 1}, Float64}, Nothing}}
+
+Stacktrace:
+ [1] rodas5_init(m::ODECore.CoreProblem{Float64, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU}, u0::Vector{Float64}, tspan::Tuple{Float64, Float64}, callbacks::Vector{Any}, opts::ODECore.SolverOptions)
+   @ TraitRodas /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/TraitRodas/src/rodas5.jl:270
+ [2] rodas5_solve(m::ODECore.CoreProblem{Float64, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU}, u0::Vector{Float64}, tspan::Tuple{Float64, Float64}, callbacks::Vector{Any}, opts::ODECore.SolverOptions)
+   @ TraitRodas /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/TraitRodas/src/rodas5.jl:273
+ [3] solve_core(a::Rodas5{DenseLU}, m::ODECore.CoreProblem{Float64, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, callbacks::Vector{Any}, opts::ODECore.SolverOptions)
+   @ TraitRodas /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/TraitRodas/src/rodas5.jl:245 [inlined]
+ [4] solve_ode(prob::ODEProblem{Float64, Vector{Float64}, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU}, callbacks::Vector{Any}, opts::ODECore.SolverOptions)
+   @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/ODECore/src/core.jl:1237
+ [5] _solve(prob::ODEProblem{Float64, Vector{Float64}, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU}, callback::Nothing, kw::@NamedTuple{saveat::Vector{Float64}, reltol::Float64, abstol::Float64})
+   @ TraitDifferentialEquations /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/src/TraitDifferentialEquations.jl:64 [inlined]
+ [6] solve(prob::ODEProblem{Float64, Vector{Float64}, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU}; callback::Nothing, kw::@Kwargs{saveat::Vector{Float64}, reltol::Float64, abstol::Float64})
+   @ TraitDifferentialEquations /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/src/TraitDifferentialEquations.jl:61 [inlined]
+ [7] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/ode.jl:32
+ [8] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-unified/test/trimming/juliac-buildscript.jl:35
+
+Error #18: unresolved call from statement step_event_condition(
+  memoryrefget((…)::MemoryRef{ODECore.StepEvent{Vector{Float64}, Float64}}, :not_atomic::Symbol, false::Bool)::ODECore.StepEvent{Vector{Float64}, Float64},
+  (…)::Vector{Float64},
+  (…)::Float64,
+  (…)::Dynamic{ODECore.StepView{Vector{Float64}, Float64}}
+)::Any
+
+Stacktrace:
+ [1] rodas5_start(m::ODECore.CoreProblem{Float64, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, u0::Vector{Float64}, tspan::Tuple{Float64, Float64}, callbacks::Vector{Any}, opts::ODECore.SolverOptions, jc::Nothing, ls::DenseLU)
+   @ TraitRodas /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/TraitRodas/src/rodas5.jl:304
+ [2] rodas5_init(m::ODECore.CoreProblem{Float64, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU}, u0::Vector{Float64}, tspan::Tuple{Float64, Float64}, callbacks::Vector{Any}, opts::ODECore.SolverOptions)
+   @ TraitRodas /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/TraitRodas/src/rodas5.jl:262
+ [3] rodas5_solve(m::ODECore.CoreProblem{Float64, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU}, u0::Vector{Float64}, tspan::Tuple{Float64, Float64}, callbacks::Vector{Any}, opts::ODECore.SolverOptions)
+   @ TraitRodas /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/TraitRodas/src/rodas5.jl:273
+ [4] solve_core(a::Rodas5{DenseLU}, m::ODECore.CoreProblem{Float64, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, callbacks::Vector{Any}, opts::ODECore.SolverOptions)
+   @ TraitRodas /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/TraitRodas/src/rodas5.jl:245 [inlined]
+ [5] solve_ode(prob::ODEProblem{Float64, Vector{Float64}, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU}, callbacks::Vector{Any}, opts::ODECore.SolverOptions)
+   @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/ODECore/src/core.jl:1237
+ [6] _solve(prob::ODEProblem{Float64, Vector{Float64}, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU}, callback::Nothing, kw::@NamedTuple{saveat::Vector{Float64}, reltol::Float64, abstol::Float64})
+   @ TraitDifferentialEquations /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/src/TraitDifferentialEquations.jl:64 [inlined]
+ [7] solve(prob::ODEProblem{Float64, Vector{Float64}, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU}; callback::Nothing, kw::@Kwargs{saveat::Vector{Float64}, reltol::Float64, abstol::Float64})
+   @ TraitDifferentialEquations /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/src/TraitDifferentialEquations.jl:61 [inlined]
+ [8] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/ode.jl:32
+ [9] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-unified/test/trimming/juliac-buildscript.jl:35
+
+Error #19: unresolved call from statement step_event_initialize!(
+  :(φ (%35 => %30, %74 => %68))::ODECore.StepEvent{Vector{Float64}, Float64},
+  u::Vector{Float64},
+  t::Float64,
+  sv::Dynamic{ODECore.StepView{Vector{Float64}, Float64}}
+)::Any
+
+Stacktrace:
+  [1] initialize_step_callbacks!(d::Vector{ODECore.StepCallback{Vector{Float64}, Float64}}, c::Vector{ODECore.StepEvent{Vector{Float64}, Float64}}, u::Vector{Float64}, t::Float64, sv::Dynamic{ODECore.StepView{Vector{Float64}, Float64}})
+    @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/ODECore/src/core.jl:759
+  [2] rodas5_start(m::ODECore.CoreProblem{Float64, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, u0::Vector{Float64}, tspan::Tuple{Float64, Float64}, callbacks::Vector{Any}, opts::ODECore.SolverOptions, jc::Nothing, ls::DenseLU)
+    @ TraitRodas /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/TraitRodas/src/rodas5.jl:299
+  [3] rodas5_init(m::ODECore.CoreProblem{Float64, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU}, u0::Vector{Float64}, tspan::Tuple{Float64, Float64}, callbacks::Vector{Any}, opts::ODECore.SolverOptions)
+    @ TraitRodas /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/TraitRodas/src/rodas5.jl:262
+  [4] rodas5_solve(m::ODECore.CoreProblem{Float64, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU}, u0::Vector{Float64}, tspan::Tuple{Float64, Float64}, callbacks::Vector{Any}, opts::ODECore.SolverOptions)
+    @ TraitRodas /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/TraitRodas/src/rodas5.jl:273
+  [5] solve_core(a::Rodas5{DenseLU}, m::ODECore.CoreProblem{Float64, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, callbacks::Vector{Any}, opts::ODECore.SolverOptions)
+    @ TraitRodas /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/TraitRodas/src/rodas5.jl:245 [inlined]
+  [6] solve_ode(prob::ODEProblem{Float64, Vector{Float64}, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU}, callbacks::Vector{Any}, opts::ODECore.SolverOptions)
+    @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/ODECore/src/core.jl:1237
+  [7] _solve(prob::ODEProblem{Float64, Vector{Float64}, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU}, callback::Nothing, kw::@NamedTuple{saveat::Vector{Float64}, reltol::Float64, abstol::Float64})
+    @ TraitDifferentialEquations /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/src/TraitDifferentialEquations.jl:64 [inlined]
+  [8] solve(prob::ODEProblem{Float64, Vector{Float64}, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU}; callback::Nothing, kw::@Kwargs{saveat::Vector{Float64}, reltol::Float64, abstol::Float64})
+    @ TraitDifferentialEquations /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/src/TraitDifferentialEquations.jl:61 [inlined]
+  [9] main(args::Vector{String})
+    @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/ode.jl:32
+ [10] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+    @ Main /p/projects/coen/julia-trait-bound/julia-unified/test/trimming/juliac-buildscript.jl:35
+
+Error #20: unresolved call from statement step_initialize!(
+  :(φ (%109 => %104, %148 => %142))::ODECore.StepCallback{Vector{Float64}, Float64},
+  u::Vector{Float64},
+  t::Float64,
+  sv::Dynamic{ODECore.StepView{Vector{Float64}, Float64}}
+)::Any
+
+Stacktrace:
+  [1] initialize_step_callbacks!(d::Vector{ODECore.StepCallback{Vector{Float64}, Float64}}, c::Vector{ODECore.StepEvent{Vector{Float64}, Float64}}, u::Vector{Float64}, t::Float64, sv::Dynamic{ODECore.StepView{Vector{Float64}, Float64}})
+    @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/ODECore/src/core.jl:760
+  [2] rodas5_start(m::ODECore.CoreProblem{Float64, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, u0::Vector{Float64}, tspan::Tuple{Float64, Float64}, callbacks::Vector{Any}, opts::ODECore.SolverOptions, jc::Nothing, ls::DenseLU)
+    @ TraitRodas /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/TraitRodas/src/rodas5.jl:299
+  [3] rodas5_init(m::ODECore.CoreProblem{Float64, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU}, u0::Vector{Float64}, tspan::Tuple{Float64, Float64}, callbacks::Vector{Any}, opts::ODECore.SolverOptions)
+    @ TraitRodas /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/TraitRodas/src/rodas5.jl:262
+  [4] rodas5_solve(m::ODECore.CoreProblem{Float64, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU}, u0::Vector{Float64}, tspan::Tuple{Float64, Float64}, callbacks::Vector{Any}, opts::ODECore.SolverOptions)
+    @ TraitRodas /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/TraitRodas/src/rodas5.jl:273
+  [5] solve_core(a::Rodas5{DenseLU}, m::ODECore.CoreProblem{Float64, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, callbacks::Vector{Any}, opts::ODECore.SolverOptions)
+    @ TraitRodas /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/TraitRodas/src/rodas5.jl:245 [inlined]
+  [6] solve_ode(prob::ODEProblem{Float64, Vector{Float64}, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU}, callbacks::Vector{Any}, opts::ODECore.SolverOptions)
+    @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/ODECore/src/core.jl:1237
+  [7] _solve(prob::ODEProblem{Float64, Vector{Float64}, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU}, callback::Nothing, kw::@NamedTuple{saveat::Vector{Float64}, reltol::Float64, abstol::Float64})
+    @ TraitDifferentialEquations /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/src/TraitDifferentialEquations.jl:64 [inlined]
+  [8] solve(prob::ODEProblem{Float64, Vector{Float64}, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU}; callback::Nothing, kw::@Kwargs{saveat::Vector{Float64}, reltol::Float64, abstol::Float64})
+    @ TraitDifferentialEquations /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/src/TraitDifferentialEquations.jl:61 [inlined]
+  [9] main(args::Vector{String})
+    @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/ode.jl:32
+ [10] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+    @ Main /p/projects/coen/julia-trait-bound/julia-unified/test/trimming/juliac-buildscript.jl:35
+
+Error #21: unresolved call from statement _enter_step_callback!(
+  (…)::Vector{ODECore.StepCallback{Vector{Float64}, Float64}},
+  (…)::Vector{ODECore.StepEvent{Vector{Float64}, Float64}},
+  :(φ (%41 => %36, %79 => %73))::Any
+)::Any
+
+Stacktrace:
+  [1] enter_step_callbacks(cbs::Vector{Any}, ::Type{Vector{Float64}})
+    @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/ODECore/src/core.jl:745
+  [2] rodas5_start(m::ODECore.CoreProblem{Float64, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, u0::Vector{Float64}, tspan::Tuple{Float64, Float64}, callbacks::Vector{Any}, opts::ODECore.SolverOptions, jc::Nothing, ls::DenseLU)
+    @ TraitRodas /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/TraitRodas/src/rodas5.jl:287
+  [3] rodas5_init(m::ODECore.CoreProblem{Float64, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU}, u0::Vector{Float64}, tspan::Tuple{Float64, Float64}, callbacks::Vector{Any}, opts::ODECore.SolverOptions)
+    @ TraitRodas /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/TraitRodas/src/rodas5.jl:262
+  [4] rodas5_solve(m::ODECore.CoreProblem{Float64, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU}, u0::Vector{Float64}, tspan::Tuple{Float64, Float64}, callbacks::Vector{Any}, opts::ODECore.SolverOptions)
+    @ TraitRodas /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/TraitRodas/src/rodas5.jl:273
+  [5] solve_core(a::Rodas5{DenseLU}, m::ODECore.CoreProblem{Float64, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, callbacks::Vector{Any}, opts::ODECore.SolverOptions)
+    @ TraitRodas /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/TraitRodas/src/rodas5.jl:245 [inlined]
+  [6] solve_ode(prob::ODEProblem{Float64, Vector{Float64}, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU}, callbacks::Vector{Any}, opts::ODECore.SolverOptions)
+    @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/ODECore/src/core.jl:1237
+  [7] _solve(prob::ODEProblem{Float64, Vector{Float64}, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU}, callback::Nothing, kw::@NamedTuple{saveat::Vector{Float64}, reltol::Float64, abstol::Float64})
+    @ TraitDifferentialEquations /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/src/TraitDifferentialEquations.jl:64 [inlined]
+  [8] solve(prob::ODEProblem{Float64, Vector{Float64}, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU}; callback::Nothing, kw::@Kwargs{saveat::Vector{Float64}, reltol::Float64, abstol::Float64})
+    @ TraitDifferentialEquations /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/src/TraitDifferentialEquations.jl:61 [inlined]
+  [9] main(args::Vector{String})
+    @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/ode.jl:32
+ [10] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+    @ Main /p/projects/coen/julia-trait-bound/julia-unified/test/trimming/juliac-buildscript.jl:35
+
+Error #22: unresolved call from statement _enter_callback!(
+  (…)::Vector{Callback{Vector{Float64}, Float64, Vector{Float64}}},
+  (…)::Vector{EventCallback{Vector{Float64}, Float64, Vector{Float64}}},
+  :(φ (%41 => %36, %219 => %213))::Any
+)::Any
+
+Stacktrace:
+ [1] enter_callbacks(cbs::Vector{Any}, ::Type{Vector{Float64}}, ::Type{Vector{Float64}})
+   @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/ODECore/src/core.jl:602
+ [2] adapt_callbacks!(pi::ODECore.ParamIntegrator{Vector{Float64}, Float64, Vector{Float64}}, cbs::Vector{Any})
+   @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/ODECore/src/core.jl:728
+ [3] solve_ode(prob::ODEProblem{Float64, Vector{Float64}, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU}, callbacks::Vector{Any}, opts::ODECore.SolverOptions)
+   @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/ODECore/src/core.jl:1239
+ [4] _solve(prob::ODEProblem{Float64, Vector{Float64}, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU}, callback::Nothing, kw::@NamedTuple{saveat::Vector{Float64}, reltol::Float64, abstol::Float64})
+   @ TraitDifferentialEquations /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/src/TraitDifferentialEquations.jl:64 [inlined]
+ [5] solve(prob::ODEProblem{Float64, Vector{Float64}, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU}; callback::Nothing, kw::@Kwargs{saveat::Vector{Float64}, reltol::Float64, abstol::Float64})
+   @ TraitDifferentialEquations /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/src/TraitDifferentialEquations.jl:61 [inlined]
+ [6] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/ode.jl:32
+ [7] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-unified/test/trimming/juliac-buildscript.jl:35
+
+Error #23: unresolved call from statement step_event_condition(
+  memoryrefget((…)::MemoryRef{ODECore.StepEvent{Vector{Float64}, Float64}}, :not_atomic::Symbol, false::Bool)::ODECore.StepEvent{Vector{Float64}, Float64},
+  (…)::Vector{Float64},
+  (…)::Float64,
+  (…)::Dynamic{ODECore.StepView{Vector{Float64}, Float64}}
+)::Any
+
+Stacktrace:
+ [1] tsit5_advance!(i::ODECore.Tsit5Integrator{Float64, ODECore.CoreProblem{Float64, ODECore.PartialFn{typeof(lorenz!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}})
+   @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/ODECore/src/core.jl:1459
+ [2] advance!(i::ODECore.Tsit5Integrator{Float64, ODECore.CoreProblem{Float64, ODECore.PartialFn{typeof(lorenz!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}})
+   @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/ODECore/src/core.jl:1074 [inlined]
+ [3] run_to_end!(i::ODECore.Tsit5Integrator{Float64, ODECore.CoreProblem{Float64, ODECore.PartialFn{typeof(lorenz!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}})
+   @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/ODECore/src/core.jl:927 [inlined]
+ [4] solve_core(a::Tsit5, m::ODECore.CoreProblem{Float64, ODECore.PartialFn{typeof(lorenz!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, callbacks::Vector{Any}, opts::ODECore.SolverOptions)
+   @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/ODECore/src/core.jl:1314 [inlined]
+ [5] solve_ode(prob::ODEProblem{Float64, Vector{Float64}, ODECore.PartialFn{typeof(lorenz!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, alg::Tsit5, callbacks::Vector{Any}, opts::ODECore.SolverOptions)
+   @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/ODECore/src/core.jl:1237
+ [6] _solve(prob::ODEProblem{Float64, Vector{Float64}, ODECore.PartialFn{typeof(lorenz!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, alg::Tsit5, callback::Nothing, kw::@NamedTuple{saveat::Vector{Float64}, reltol::Float64, abstol::Float64})
+   @ TraitDifferentialEquations /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/src/TraitDifferentialEquations.jl:64 [inlined]
+ [7] solve(prob::ODEProblem{Float64, Vector{Float64}, ODECore.PartialFn{typeof(lorenz!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, alg::Tsit5; callback::Nothing, kw::@Kwargs{saveat::Vector{Float64}, reltol::Float64, abstol::Float64})
+   @ TraitDifferentialEquations /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/src/TraitDifferentialEquations.jl:61 [inlined]
+ [8] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/ode.jl:29
+ [9] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-unified/test/trimming/juliac-buildscript.jl:35
+
+Error #24: unresolved call from statement event_affect_dir!(
+  memoryrefget((…)::MemoryRef{ODECore.StepEvent{Vector{Float64}, Float64}}, :not_atomic::Symbol, false::Bool)::ODECore.StepEvent{Vector{Float64}, Float64},
+  (…)::Dynamic{ODECore.StepView{Vector{Float64}, Float64}},
+  :(φ (%1029 => %887, %890 => %887, %877 => false))::Bool
+)::Any
+
+Stacktrace:
+ [1] tsit5_advance!(i::ODECore.Tsit5Integrator{Float64, ODECore.CoreProblem{Float64, ODECore.PartialFn{typeof(lorenz!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}})
+   @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/ODECore/src/core.jl:1510
+ [2] advance!(i::ODECore.Tsit5Integrator{Float64, ODECore.CoreProblem{Float64, ODECore.PartialFn{typeof(lorenz!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}})
+   @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/ODECore/src/core.jl:1074 [inlined]
+ [3] run_to_end!(i::ODECore.Tsit5Integrator{Float64, ODECore.CoreProblem{Float64, ODECore.PartialFn{typeof(lorenz!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}})
+   @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/ODECore/src/core.jl:927 [inlined]
+ [4] solve_core(a::Tsit5, m::ODECore.CoreProblem{Float64, ODECore.PartialFn{typeof(lorenz!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, callbacks::Vector{Any}, opts::ODECore.SolverOptions)
+   @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/ODECore/src/core.jl:1314 [inlined]
+ [5] solve_ode(prob::ODEProblem{Float64, Vector{Float64}, ODECore.PartialFn{typeof(lorenz!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, alg::Tsit5, callbacks::Vector{Any}, opts::ODECore.SolverOptions)
+   @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/ODECore/src/core.jl:1237
+ [6] _solve(prob::ODEProblem{Float64, Vector{Float64}, ODECore.PartialFn{typeof(lorenz!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, alg::Tsit5, callback::Nothing, kw::@NamedTuple{saveat::Vector{Float64}, reltol::Float64, abstol::Float64})
+   @ TraitDifferentialEquations /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/src/TraitDifferentialEquations.jl:64 [inlined]
+ [7] solve(prob::ODEProblem{Float64, Vector{Float64}, ODECore.PartialFn{typeof(lorenz!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, alg::Tsit5; callback::Nothing, kw::@Kwargs{saveat::Vector{Float64}, reltol::Float64, abstol::Float64})
+   @ TraitDifferentialEquations /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/src/TraitDifferentialEquations.jl:61 [inlined]
+ [8] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/ode.jl:29
+ [9] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-unified/test/trimming/juliac-buildscript.jl:35
+
+Error #25: unresolved call from statement step_event_condition(
+  memoryrefget((…)::MemoryRef{ODECore.StepEvent{Vector{Float64}, Float64}}, :not_atomic::Symbol, false::Bool)::ODECore.StepEvent{Vector{Float64}, Float64},
+  (…)::Vector{Float64},
+  (…)::Float64,
+  (…)::Dynamic{ODECore.StepView{Vector{Float64}, Float64}}
+)::Any
+
+Stacktrace:
+ [1] tsit5_advance!(i::ODECore.Tsit5Integrator{Float64, ODECore.CoreProblem{Float64, ODECore.PartialFn{typeof(lorenz!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}})
+   @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/ODECore/src/core.jl:1517
+ [2] advance!(i::ODECore.Tsit5Integrator{Float64, ODECore.CoreProblem{Float64, ODECore.PartialFn{typeof(lorenz!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}})
+   @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/ODECore/src/core.jl:1074 [inlined]
+ [3] run_to_end!(i::ODECore.Tsit5Integrator{Float64, ODECore.CoreProblem{Float64, ODECore.PartialFn{typeof(lorenz!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}})
+   @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/ODECore/src/core.jl:927 [inlined]
+ [4] solve_core(a::Tsit5, m::ODECore.CoreProblem{Float64, ODECore.PartialFn{typeof(lorenz!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, callbacks::Vector{Any}, opts::ODECore.SolverOptions)
+   @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/ODECore/src/core.jl:1314 [inlined]
+ [5] solve_ode(prob::ODEProblem{Float64, Vector{Float64}, ODECore.PartialFn{typeof(lorenz!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, alg::Tsit5, callbacks::Vector{Any}, opts::ODECore.SolverOptions)
+   @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/ODECore/src/core.jl:1237
+ [6] _solve(prob::ODEProblem{Float64, Vector{Float64}, ODECore.PartialFn{typeof(lorenz!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, alg::Tsit5, callback::Nothing, kw::@NamedTuple{saveat::Vector{Float64}, reltol::Float64, abstol::Float64})
+   @ TraitDifferentialEquations /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/src/TraitDifferentialEquations.jl:64 [inlined]
+ [7] solve(prob::ODEProblem{Float64, Vector{Float64}, ODECore.PartialFn{typeof(lorenz!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, alg::Tsit5; callback::Nothing, kw::@Kwargs{saveat::Vector{Float64}, reltol::Float64, abstol::Float64})
+   @ TraitDifferentialEquations /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/src/TraitDifferentialEquations.jl:61 [inlined]
+ [8] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/ode.jl:29
+ [9] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-unified/test/trimming/juliac-buildscript.jl:35
+
+Error #26: unresolved call from statement step_condition(
+  :(φ (%1525 => %1520, %1850 => %1844))::ODECore.StepCallback{Vector{Float64}, Float64},
+  (…)::Vector{Float64},
+  (…)::Float64,
+  (…)::Dynamic{ODECore.StepView{Vector{Float64}, Float64}}
+)::Any
+
+Stacktrace:
+ [1] tsit5_advance!(i::ODECore.Tsit5Integrator{Float64, ODECore.CoreProblem{Float64, ODECore.PartialFn{typeof(lorenz!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}})
+   @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/ODECore/src/core.jl:1521
+ [2] advance!(i::ODECore.Tsit5Integrator{Float64, ODECore.CoreProblem{Float64, ODECore.PartialFn{typeof(lorenz!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}})
+   @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/ODECore/src/core.jl:1074 [inlined]
+ [3] run_to_end!(i::ODECore.Tsit5Integrator{Float64, ODECore.CoreProblem{Float64, ODECore.PartialFn{typeof(lorenz!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}})
+   @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/ODECore/src/core.jl:927 [inlined]
+ [4] solve_core(a::Tsit5, m::ODECore.CoreProblem{Float64, ODECore.PartialFn{typeof(lorenz!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, callbacks::Vector{Any}, opts::ODECore.SolverOptions)
+   @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/ODECore/src/core.jl:1314 [inlined]
+ [5] solve_ode(prob::ODEProblem{Float64, Vector{Float64}, ODECore.PartialFn{typeof(lorenz!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, alg::Tsit5, callbacks::Vector{Any}, opts::ODECore.SolverOptions)
+   @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/ODECore/src/core.jl:1237
+ [6] _solve(prob::ODEProblem{Float64, Vector{Float64}, ODECore.PartialFn{typeof(lorenz!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, alg::Tsit5, callback::Nothing, kw::@NamedTuple{saveat::Vector{Float64}, reltol::Float64, abstol::Float64})
+   @ TraitDifferentialEquations /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/src/TraitDifferentialEquations.jl:64 [inlined]
+ [7] solve(prob::ODEProblem{Float64, Vector{Float64}, ODECore.PartialFn{typeof(lorenz!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, alg::Tsit5; callback::Nothing, kw::@Kwargs{saveat::Vector{Float64}, reltol::Float64, abstol::Float64})
+   @ TraitDifferentialEquations /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/src/TraitDifferentialEquations.jl:61 [inlined]
+ [8] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/ode.jl:29
+ [9] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-unified/test/trimming/juliac-buildscript.jl:35
+
+Error #27: unresolved call from statement step_affect!(
+  :(φ (%1525 => %1520, %1850 => %1844))::ODECore.StepCallback{Vector{Float64}, Float64},
+  (…)::Dynamic{ODECore.StepView{Vector{Float64}, Float64}}
+)::Any
+
+Stacktrace:
+ [1] tsit5_advance!(i::ODECore.Tsit5Integrator{Float64, ODECore.CoreProblem{Float64, ODECore.PartialFn{typeof(lorenz!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}})
+   @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/ODECore/src/core.jl:1524
+ [2] advance!(i::ODECore.Tsit5Integrator{Float64, ODECore.CoreProblem{Float64, ODECore.PartialFn{typeof(lorenz!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}})
+   @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/ODECore/src/core.jl:1074 [inlined]
+ [3] run_to_end!(i::ODECore.Tsit5Integrator{Float64, ODECore.CoreProblem{Float64, ODECore.PartialFn{typeof(lorenz!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}})
+   @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/ODECore/src/core.jl:927 [inlined]
+ [4] solve_core(a::Tsit5, m::ODECore.CoreProblem{Float64, ODECore.PartialFn{typeof(lorenz!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, callbacks::Vector{Any}, opts::ODECore.SolverOptions)
+   @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/ODECore/src/core.jl:1314 [inlined]
+ [5] solve_ode(prob::ODEProblem{Float64, Vector{Float64}, ODECore.PartialFn{typeof(lorenz!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, alg::Tsit5, callbacks::Vector{Any}, opts::ODECore.SolverOptions)
+   @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/ODECore/src/core.jl:1237
+ [6] _solve(prob::ODEProblem{Float64, Vector{Float64}, ODECore.PartialFn{typeof(lorenz!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, alg::Tsit5, callback::Nothing, kw::@NamedTuple{saveat::Vector{Float64}, reltol::Float64, abstol::Float64})
+   @ TraitDifferentialEquations /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/src/TraitDifferentialEquations.jl:64 [inlined]
+ [7] solve(prob::ODEProblem{Float64, Vector{Float64}, ODECore.PartialFn{typeof(lorenz!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, alg::Tsit5; callback::Nothing, kw::@Kwargs{saveat::Vector{Float64}, reltol::Float64, abstol::Float64})
+   @ TraitDifferentialEquations /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/src/TraitDifferentialEquations.jl:61 [inlined]
+ [8] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/ode.jl:29
+ [9] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-unified/test/trimming/juliac-buildscript.jl:35
+
+Error #28: unresolved call from statement step_event_condition(
+  memoryrefget((…)::MemoryRef{ODECore.StepEvent{Vector{Float64}, Float64}}, :not_atomic::Symbol, false::Bool)::ODECore.StepEvent{Vector{Float64}, Float64},
+  (…)::Vector{Float64},
+  (…)::Float64,
+  (…)::Dynamic{ODECore.StepView{Vector{Float64}, Float64}}
+)::Any
+
+Stacktrace:
+ [1] tsit5_init(m::ODECore.CoreProblem{Float64, ODECore.PartialFn{typeof(lorenz!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, u0::Vector{Float64}, tspan::Tuple{Float64, Float64}, callbacks::Vector{Any}, opts::ODECore.SolverOptions)
+   @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/ODECore/src/core.jl:1350
+ [2] solve_core(a::Tsit5, m::ODECore.CoreProblem{Float64, ODECore.PartialFn{typeof(lorenz!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, callbacks::Vector{Any}, opts::ODECore.SolverOptions)
+   @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/ODECore/src/core.jl:1314 [inlined]
+ [3] solve_ode(prob::ODEProblem{Float64, Vector{Float64}, ODECore.PartialFn{typeof(lorenz!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, alg::Tsit5, callbacks::Vector{Any}, opts::ODECore.SolverOptions)
+   @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/ODECore/src/core.jl:1237
+ [4] _solve(prob::ODEProblem{Float64, Vector{Float64}, ODECore.PartialFn{typeof(lorenz!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, alg::Tsit5, callback::Nothing, kw::@NamedTuple{saveat::Vector{Float64}, reltol::Float64, abstol::Float64})
+   @ TraitDifferentialEquations /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/src/TraitDifferentialEquations.jl:64 [inlined]
+ [5] solve(prob::ODEProblem{Float64, Vector{Float64}, ODECore.PartialFn{typeof(lorenz!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, alg::Tsit5; callback::Nothing, kw::@Kwargs{saveat::Vector{Float64}, reltol::Float64, abstol::Float64})
+   @ TraitDifferentialEquations /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/src/TraitDifferentialEquations.jl:61 [inlined]
+ [6] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/ode.jl:29
+ [7] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-unified/test/trimming/juliac-buildscript.jl:35
+
+Error #29: unresolved call from statement _rodas5_run(
+  rodas5_init(m::ODECore.CoreProblem{Float64, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU}, u0::Vector{Float64}, tspan::Tuple{Float64, Float64}, callbacks::Vector{Any}, opts::ODECore.SolverOptions)::Union{TraitRodas.Rodas5Integrator{Nothing, ODECore.CoreProblem{Float64, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}}, TraitRodas.Rodas5Integrator{TraitRodas.DualJacobian{N, FD}, ODECore.CoreProblem{Float64, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}} where {N, FD<:Callable{Tuple{Array{ForwardDiff.Dual{ODECore.ODETag, Float64, N}, 1}, Array{ForwardDiff.Dual{ODECore.ODETag, Float64, N}, 1}, Float64}, Nothing}}}
+)::ODECore.CoreSolution
+
+Stacktrace:
+ [1] rodas5_solve(m::ODECore.CoreProblem{Float64, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU}, u0::Vector{Float64}, tspan::Tuple{Float64, Float64}, callbacks::Vector{Any}, opts::ODECore.SolverOptions)
+   @ TraitRodas /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/TraitRodas/src/rodas5.jl:273
+ [2] solve_core(a::Rodas5{DenseLU}, m::ODECore.CoreProblem{Float64, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, callbacks::Vector{Any}, opts::ODECore.SolverOptions)
+   @ TraitRodas /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/TraitRodas/src/rodas5.jl:245 [inlined]
+ [3] solve_ode(prob::ODEProblem{Float64, Vector{Float64}, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU}, callbacks::Vector{Any}, opts::ODECore.SolverOptions)
+   @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/ODECore/src/core.jl:1237
+ [4] _solve(prob::ODEProblem{Float64, Vector{Float64}, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU}, callback::Nothing, kw::@NamedTuple{saveat::Vector{Float64}, reltol::Float64, abstol::Float64})
+   @ TraitDifferentialEquations /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/src/TraitDifferentialEquations.jl:64 [inlined]
+ [5] solve(prob::ODEProblem{Float64, Vector{Float64}, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU}; callback::Nothing, kw::@Kwargs{saveat::Vector{Float64}, reltol::Float64, abstol::Float64})
+   @ TraitDifferentialEquations /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/src/TraitDifferentialEquations.jl:61 [inlined]
+ [6] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/ode.jl:32
+ [7] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-unified/test/trimming/juliac-buildscript.jl:35
+
+Error #30: unresolved call from statement step_event_condition(
+  memoryrefget((…)::MemoryRef{ODECore.StepEvent{Vector{Float64}, Float64}}, :not_atomic::Symbol, false::Bool)::ODECore.StepEvent{Vector{Float64}, Float64},
+  (…)::Vector{Float64},
+  (…)::Float64,
+  (…)::Dynamic{ODECore.StepView{Vector{Float64}, Float64}}
+)::Any
+
+Stacktrace:
+  [1] rodas5_advance!(i::TraitRodas.Rodas5Integrator{Nothing, ODECore.CoreProblem{Float64, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}})
+    @ TraitRodas /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/TraitRodas/src/rodas5.jl:330
+  [2] advance!(i::TraitRodas.Rodas5Integrator{Nothing, ODECore.CoreProblem{Float64, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}})
+    @ TraitRodas /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/TraitRodas/src/rodas5.jl:166 [inlined]
+  [3] run_to_end!(i::TraitRodas.Rodas5Integrator{Nothing, ODECore.CoreProblem{Float64, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}})
+    @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/ODECore/src/core.jl:927 [inlined]
+  [4] _rodas5_run(i::TraitRodas.Rodas5Integrator{Nothing, ODECore.CoreProblem{Float64, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}})
+    @ TraitRodas /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/TraitRodas/src/rodas5.jl:275 [inlined]
+  [5] rodas5_solve(m::ODECore.CoreProblem{Float64, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU}, u0::Vector{Float64}, tspan::Tuple{Float64, Float64}, callbacks::Vector{Any}, opts::ODECore.SolverOptions)
+    @ TraitRodas /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/TraitRodas/src/rodas5.jl:273
+  [6] solve_core(a::Rodas5{DenseLU}, m::ODECore.CoreProblem{Float64, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, callbacks::Vector{Any}, opts::ODECore.SolverOptions)
+    @ TraitRodas /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/TraitRodas/src/rodas5.jl:245 [inlined]
+  [7] solve_ode(prob::ODEProblem{Float64, Vector{Float64}, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU}, callbacks::Vector{Any}, opts::ODECore.SolverOptions)
+    @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/ODECore/src/core.jl:1237
+  [8] _solve(prob::ODEProblem{Float64, Vector{Float64}, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU}, callback::Nothing, kw::@NamedTuple{saveat::Vector{Float64}, reltol::Float64, abstol::Float64})
+    @ TraitDifferentialEquations /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/src/TraitDifferentialEquations.jl:64 [inlined]
+  [9] solve(prob::ODEProblem{Float64, Vector{Float64}, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU}; callback::Nothing, kw::@Kwargs{saveat::Vector{Float64}, reltol::Float64, abstol::Float64})
+    @ TraitDifferentialEquations /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/src/TraitDifferentialEquations.jl:61 [inlined]
+ [10] main(args::Vector{String})
+    @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/ode.jl:32
+ [11] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+    @ Main /p/projects/coen/julia-trait-bound/julia-unified/test/trimming/juliac-buildscript.jl:35
+
+Error #31: unresolved call from statement event_affect_dir!(
+  memoryrefget((…)::MemoryRef{ODECore.StepEvent{Vector{Float64}, Float64}}, :not_atomic::Symbol, false::Bool)::ODECore.StepEvent{Vector{Float64}, Float64},
+  (…)::Dynamic{ODECore.StepView{Vector{Float64}, Float64}},
+  :(φ (%568 => %426, %429 => %426, %416 => false))::Bool
+)::Any
+
+Stacktrace:
+  [1] rodas5_advance!(i::TraitRodas.Rodas5Integrator{Nothing, ODECore.CoreProblem{Float64, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}})
+    @ TraitRodas /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/TraitRodas/src/rodas5.jl:377
+  [2] advance!(i::TraitRodas.Rodas5Integrator{Nothing, ODECore.CoreProblem{Float64, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}})
+    @ TraitRodas /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/TraitRodas/src/rodas5.jl:166 [inlined]
+  [3] run_to_end!(i::TraitRodas.Rodas5Integrator{Nothing, ODECore.CoreProblem{Float64, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}})
+    @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/ODECore/src/core.jl:927 [inlined]
+  [4] _rodas5_run(i::TraitRodas.Rodas5Integrator{Nothing, ODECore.CoreProblem{Float64, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}})
+    @ TraitRodas /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/TraitRodas/src/rodas5.jl:275 [inlined]
+  [5] rodas5_solve(m::ODECore.CoreProblem{Float64, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU}, u0::Vector{Float64}, tspan::Tuple{Float64, Float64}, callbacks::Vector{Any}, opts::ODECore.SolverOptions)
+    @ TraitRodas /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/TraitRodas/src/rodas5.jl:273
+  [6] solve_core(a::Rodas5{DenseLU}, m::ODECore.CoreProblem{Float64, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, callbacks::Vector{Any}, opts::ODECore.SolverOptions)
+    @ TraitRodas /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/TraitRodas/src/rodas5.jl:245 [inlined]
+  [7] solve_ode(prob::ODEProblem{Float64, Vector{Float64}, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU}, callbacks::Vector{Any}, opts::ODECore.SolverOptions)
+    @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/ODECore/src/core.jl:1237
+  [8] _solve(prob::ODEProblem{Float64, Vector{Float64}, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU}, callback::Nothing, kw::@NamedTuple{saveat::Vector{Float64}, reltol::Float64, abstol::Float64})
+    @ TraitDifferentialEquations /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/src/TraitDifferentialEquations.jl:64 [inlined]
+  [9] solve(prob::ODEProblem{Float64, Vector{Float64}, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU}; callback::Nothing, kw::@Kwargs{saveat::Vector{Float64}, reltol::Float64, abstol::Float64})
+    @ TraitDifferentialEquations /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/src/TraitDifferentialEquations.jl:61 [inlined]
+ [10] main(args::Vector{String})
+    @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/ode.jl:32
+ [11] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+    @ Main /p/projects/coen/julia-trait-bound/julia-unified/test/trimming/juliac-buildscript.jl:35
+
+Error #32: unresolved call from statement step_event_condition(
+  memoryrefget((…)::MemoryRef{ODECore.StepEvent{Vector{Float64}, Float64}}, :not_atomic::Symbol, false::Bool)::ODECore.StepEvent{Vector{Float64}, Float64},
+  (…)::Vector{Float64},
+  (…)::Float64,
+  (…)::Dynamic{ODECore.StepView{Vector{Float64}, Float64}}
+)::Any
+
+Stacktrace:
+  [1] rodas5_advance!(i::TraitRodas.Rodas5Integrator{Nothing, ODECore.CoreProblem{Float64, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}})
+    @ TraitRodas /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/TraitRodas/src/rodas5.jl:382
+  [2] advance!(i::TraitRodas.Rodas5Integrator{Nothing, ODECore.CoreProblem{Float64, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}})
+    @ TraitRodas /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/TraitRodas/src/rodas5.jl:166 [inlined]
+  [3] run_to_end!(i::TraitRodas.Rodas5Integrator{Nothing, ODECore.CoreProblem{Float64, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}})
+    @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/ODECore/src/core.jl:927 [inlined]
+  [4] _rodas5_run(i::TraitRodas.Rodas5Integrator{Nothing, ODECore.CoreProblem{Float64, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}})
+    @ TraitRodas /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/TraitRodas/src/rodas5.jl:275 [inlined]
+  [5] rodas5_solve(m::ODECore.CoreProblem{Float64, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU}, u0::Vector{Float64}, tspan::Tuple{Float64, Float64}, callbacks::Vector{Any}, opts::ODECore.SolverOptions)
+    @ TraitRodas /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/TraitRodas/src/rodas5.jl:273
+  [6] solve_core(a::Rodas5{DenseLU}, m::ODECore.CoreProblem{Float64, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, callbacks::Vector{Any}, opts::ODECore.SolverOptions)
+    @ TraitRodas /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/TraitRodas/src/rodas5.jl:245 [inlined]
+  [7] solve_ode(prob::ODEProblem{Float64, Vector{Float64}, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU}, callbacks::Vector{Any}, opts::ODECore.SolverOptions)
+    @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/ODECore/src/core.jl:1237
+  [8] _solve(prob::ODEProblem{Float64, Vector{Float64}, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU}, callback::Nothing, kw::@NamedTuple{saveat::Vector{Float64}, reltol::Float64, abstol::Float64})
+    @ TraitDifferentialEquations /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/src/TraitDifferentialEquations.jl:64 [inlined]
+  [9] solve(prob::ODEProblem{Float64, Vector{Float64}, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU}; callback::Nothing, kw::@Kwargs{saveat::Vector{Float64}, reltol::Float64, abstol::Float64})
+    @ TraitDifferentialEquations /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/src/TraitDifferentialEquations.jl:61 [inlined]
+ [10] main(args::Vector{String})
+    @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/ode.jl:32
+ [11] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+    @ Main /p/projects/coen/julia-trait-bound/julia-unified/test/trimming/juliac-buildscript.jl:35
+
+Error #33: unresolved call from statement step_condition(
+  :(φ (%791 => %786, %847 => %841))::ODECore.StepCallback{Vector{Float64}, Float64},
+  (…)::Vector{Float64},
+  (…)::Float64,
+  (…)::Dynamic{ODECore.StepView{Vector{Float64}, Float64}}
+)::Any
+
+Stacktrace:
+  [1] rodas5_advance!(i::TraitRodas.Rodas5Integrator{Nothing, ODECore.CoreProblem{Float64, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}})
+    @ TraitRodas /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/TraitRodas/src/rodas5.jl:386
+  [2] advance!(i::TraitRodas.Rodas5Integrator{Nothing, ODECore.CoreProblem{Float64, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}})
+    @ TraitRodas /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/TraitRodas/src/rodas5.jl:166 [inlined]
+  [3] run_to_end!(i::TraitRodas.Rodas5Integrator{Nothing, ODECore.CoreProblem{Float64, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}})
+    @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/ODECore/src/core.jl:927 [inlined]
+  [4] _rodas5_run(i::TraitRodas.Rodas5Integrator{Nothing, ODECore.CoreProblem{Float64, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}})
+    @ TraitRodas /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/TraitRodas/src/rodas5.jl:275 [inlined]
+  [5] rodas5_solve(m::ODECore.CoreProblem{Float64, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU}, u0::Vector{Float64}, tspan::Tuple{Float64, Float64}, callbacks::Vector{Any}, opts::ODECore.SolverOptions)
+    @ TraitRodas /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/TraitRodas/src/rodas5.jl:273
+  [6] solve_core(a::Rodas5{DenseLU}, m::ODECore.CoreProblem{Float64, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, callbacks::Vector{Any}, opts::ODECore.SolverOptions)
+    @ TraitRodas /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/TraitRodas/src/rodas5.jl:245 [inlined]
+  [7] solve_ode(prob::ODEProblem{Float64, Vector{Float64}, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU}, callbacks::Vector{Any}, opts::ODECore.SolverOptions)
+    @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/ODECore/src/core.jl:1237
+  [8] _solve(prob::ODEProblem{Float64, Vector{Float64}, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU}, callback::Nothing, kw::@NamedTuple{saveat::Vector{Float64}, reltol::Float64, abstol::Float64})
+    @ TraitDifferentialEquations /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/src/TraitDifferentialEquations.jl:64 [inlined]
+  [9] solve(prob::ODEProblem{Float64, Vector{Float64}, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU}; callback::Nothing, kw::@Kwargs{saveat::Vector{Float64}, reltol::Float64, abstol::Float64})
+    @ TraitDifferentialEquations /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/src/TraitDifferentialEquations.jl:61 [inlined]
+ [10] main(args::Vector{String})
+    @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/ode.jl:32
+ [11] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+    @ Main /p/projects/coen/julia-trait-bound/julia-unified/test/trimming/juliac-buildscript.jl:35
+
+Error #34: unresolved call from statement step_affect!(
+  :(φ (%791 => %786, %847 => %841))::ODECore.StepCallback{Vector{Float64}, Float64},
+  (…)::Dynamic{ODECore.StepView{Vector{Float64}, Float64}}
+)::Any
+
+Stacktrace:
+  [1] rodas5_advance!(i::TraitRodas.Rodas5Integrator{Nothing, ODECore.CoreProblem{Float64, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}})
+    @ TraitRodas /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/TraitRodas/src/rodas5.jl:389
+  [2] advance!(i::TraitRodas.Rodas5Integrator{Nothing, ODECore.CoreProblem{Float64, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}})
+    @ TraitRodas /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/TraitRodas/src/rodas5.jl:166 [inlined]
+  [3] run_to_end!(i::TraitRodas.Rodas5Integrator{Nothing, ODECore.CoreProblem{Float64, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}})
+    @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/ODECore/src/core.jl:927 [inlined]
+  [4] _rodas5_run(i::TraitRodas.Rodas5Integrator{Nothing, ODECore.CoreProblem{Float64, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}})
+    @ TraitRodas /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/TraitRodas/src/rodas5.jl:275 [inlined]
+  [5] rodas5_solve(m::ODECore.CoreProblem{Float64, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU}, u0::Vector{Float64}, tspan::Tuple{Float64, Float64}, callbacks::Vector{Any}, opts::ODECore.SolverOptions)
+    @ TraitRodas /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/TraitRodas/src/rodas5.jl:273
+  [6] solve_core(a::Rodas5{DenseLU}, m::ODECore.CoreProblem{Float64, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, callbacks::Vector{Any}, opts::ODECore.SolverOptions)
+    @ TraitRodas /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/TraitRodas/src/rodas5.jl:245 [inlined]
+  [7] solve_ode(prob::ODEProblem{Float64, Vector{Float64}, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU}, callbacks::Vector{Any}, opts::ODECore.SolverOptions)
+    @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/ODECore/src/core.jl:1237
+  [8] _solve(prob::ODEProblem{Float64, Vector{Float64}, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU}, callback::Nothing, kw::@NamedTuple{saveat::Vector{Float64}, reltol::Float64, abstol::Float64})
+    @ TraitDifferentialEquations /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/src/TraitDifferentialEquations.jl:64 [inlined]
+  [9] solve(prob::ODEProblem{Float64, Vector{Float64}, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU}; callback::Nothing, kw::@Kwargs{saveat::Vector{Float64}, reltol::Float64, abstol::Float64})
+    @ TraitDifferentialEquations /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/src/TraitDifferentialEquations.jl:61 [inlined]
+ [10] main(args::Vector{String})
+    @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/ode.jl:32
+ [11] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+    @ Main /p/projects/coen/julia-trait-bound/julia-unified/test/trimming/juliac-buildscript.jl:35
+
+Error #35: unresolved call from statement step_event_condition(
+  memoryrefget((…)::MemoryRef{ODECore.StepEvent{Vector{Float64}, Float64}}, :not_atomic::Symbol, false::Bool)::ODECore.StepEvent{Vector{Float64}, Float64},
+  u::Vector{Float64},
+  t::Float64,
+  iv::Dynamic{ODECore.StepView{Vector{Float64}, Float64}}
+)::Any
+
+Stacktrace:
+  [1] locate_events!(events::Vector{ODECore.StepEvent{Vector{Float64}, Float64}}, evprev::Vector{Float64}, iv::Dynamic{ODECore.StepView{Vector{Float64}, Float64}}, u::Vector{Float64}, utilde::Vector{Float64}, tprev::Float64, t::Float64, dt::Float64)
+    @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/ODECore/src/core.jl:1424
+  [2] rodas5_advance!(i::TraitRodas.Rodas5Integrator{Nothing, ODECore.CoreProblem{Float64, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}})
+    @ TraitRodas /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/TraitRodas/src/rodas5.jl:364
+  [3] advance!(i::TraitRodas.Rodas5Integrator{Nothing, ODECore.CoreProblem{Float64, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}})
+    @ TraitRodas /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/TraitRodas/src/rodas5.jl:166 [inlined]
+  [4] run_to_end!(i::TraitRodas.Rodas5Integrator{Nothing, ODECore.CoreProblem{Float64, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}})
+    @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/ODECore/src/core.jl:927 [inlined]
+  [5] _rodas5_run(i::TraitRodas.Rodas5Integrator{Nothing, ODECore.CoreProblem{Float64, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}})
+    @ TraitRodas /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/TraitRodas/src/rodas5.jl:275 [inlined]
+  [6] rodas5_solve(m::ODECore.CoreProblem{Float64, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU}, u0::Vector{Float64}, tspan::Tuple{Float64, Float64}, callbacks::Vector{Any}, opts::ODECore.SolverOptions)
+    @ TraitRodas /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/TraitRodas/src/rodas5.jl:273
+  [7] solve_core(a::Rodas5{DenseLU}, m::ODECore.CoreProblem{Float64, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, callbacks::Vector{Any}, opts::ODECore.SolverOptions)
+    @ TraitRodas /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/TraitRodas/src/rodas5.jl:245 [inlined]
+  [8] solve_ode(prob::ODEProblem{Float64, Vector{Float64}, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU}, callbacks::Vector{Any}, opts::ODECore.SolverOptions)
+    @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/ODECore/src/core.jl:1237
+  [9] _solve(prob::ODEProblem{Float64, Vector{Float64}, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU}, callback::Nothing, kw::@NamedTuple{saveat::Vector{Float64}, reltol::Float64, abstol::Float64})
+    @ TraitDifferentialEquations /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/src/TraitDifferentialEquations.jl:64 [inlined]
+ [10] solve(prob::ODEProblem{Float64, Vector{Float64}, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU}; callback::Nothing, kw::@Kwargs{saveat::Vector{Float64}, reltol::Float64, abstol::Float64})
+    @ TraitDifferentialEquations /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/src/TraitDifferentialEquations.jl:61 [inlined]
+ [11] main(args::Vector{String})
+    @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/ode.jl:32
+ [12] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+    @ Main /p/projects/coen/julia-trait-bound/julia-unified/test/trimming/juliac-buildscript.jl:35
+
+Error #36: unresolved call from statement step_event_condition(
+  memoryrefget((…)::MemoryRef{ODECore.StepEvent{Vector{Float64}, Float64}}, :not_atomic::Symbol, false::Bool)::ODECore.StepEvent{Vector{Float64}, Float64},
+  utilde::Vector{Float64},
+  (…)::Float64,
+  iv::Dynamic{ODECore.StepView{Vector{Float64}, Float64}}
+)::Any
+
+Stacktrace:
+  [1] locate_events!(events::Vector{ODECore.StepEvent{Vector{Float64}, Float64}}, evprev::Vector{Float64}, iv::Dynamic{ODECore.StepView{Vector{Float64}, Float64}}, u::Vector{Float64}, utilde::Vector{Float64}, tprev::Float64, t::Float64, dt::Float64)
+    @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/ODECore/src/core.jl:1430
+  [2] rodas5_advance!(i::TraitRodas.Rodas5Integrator{Nothing, ODECore.CoreProblem{Float64, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}})
+    @ TraitRodas /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/TraitRodas/src/rodas5.jl:364
+  [3] advance!(i::TraitRodas.Rodas5Integrator{Nothing, ODECore.CoreProblem{Float64, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}})
+    @ TraitRodas /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/TraitRodas/src/rodas5.jl:166 [inlined]
+  [4] run_to_end!(i::TraitRodas.Rodas5Integrator{Nothing, ODECore.CoreProblem{Float64, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}})
+    @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/ODECore/src/core.jl:927 [inlined]
+  [5] _rodas5_run(i::TraitRodas.Rodas5Integrator{Nothing, ODECore.CoreProblem{Float64, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}})
+    @ TraitRodas /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/TraitRodas/src/rodas5.jl:275 [inlined]
+  [6] rodas5_solve(m::ODECore.CoreProblem{Float64, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU}, u0::Vector{Float64}, tspan::Tuple{Float64, Float64}, callbacks::Vector{Any}, opts::ODECore.SolverOptions)
+    @ TraitRodas /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/TraitRodas/src/rodas5.jl:273
+  [7] solve_core(a::Rodas5{DenseLU}, m::ODECore.CoreProblem{Float64, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, callbacks::Vector{Any}, opts::ODECore.SolverOptions)
+    @ TraitRodas /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/TraitRodas/src/rodas5.jl:245 [inlined]
+  [8] solve_ode(prob::ODEProblem{Float64, Vector{Float64}, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU}, callbacks::Vector{Any}, opts::ODECore.SolverOptions)
+    @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/ODECore/src/core.jl:1237
+  [9] _solve(prob::ODEProblem{Float64, Vector{Float64}, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU}, callback::Nothing, kw::@NamedTuple{saveat::Vector{Float64}, reltol::Float64, abstol::Float64})
+    @ TraitDifferentialEquations /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/src/TraitDifferentialEquations.jl:64 [inlined]
+ [10] solve(prob::ODEProblem{Float64, Vector{Float64}, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU}; callback::Nothing, kw::@Kwargs{saveat::Vector{Float64}, reltol::Float64, abstol::Float64})
+    @ TraitDifferentialEquations /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/src/TraitDifferentialEquations.jl:61 [inlined]
+ [11] main(args::Vector{String})
+    @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/ode.jl:32
+ [12] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+    @ Main /p/projects/coen/julia-trait-bound/julia-unified/test/trimming/juliac-buildscript.jl:35
+
+Error #37: unresolved call (with its arguments' attributes) from statement attributed_call(
+  2::Int64,
+  event_time::typeof(ODECore.event_time),
+  memoryrefget((…)::MemoryRef{ODECore.StepEvent{Vector{Float64}, Float64}}, :not_atomic::Symbol, false::Bool)::ODECore.StepEvent{Vector{Float64}, Float64},
+  iv::Dynamic{ODECore.StepView{Vector{Float64}, Float64}},
+  utilde::Vector{Float64},
+  :(φ (%122 => %61, %59 => _7))::Float64,
+  t::Float64,
+  :(φ (%122 => %122, %59 => %55))::Float64
+)::Float64
+
+Stacktrace:
+  [1] locate_events!(events::Vector{ODECore.StepEvent{Vector{Float64}, Float64}}, evprev::Vector{Float64}, iv::Dynamic{ODECore.StepView{Vector{Float64}, Float64}}, u::Vector{Float64}, utilde::Vector{Float64}, tprev::Float64, t::Float64, dt::Float64)
+    @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/ODECore/src/core.jl:1433
+  [2] rodas5_advance!(i::TraitRodas.Rodas5Integrator{Nothing, ODECore.CoreProblem{Float64, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}})
+    @ TraitRodas /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/TraitRodas/src/rodas5.jl:364
+  [3] advance!(i::TraitRodas.Rodas5Integrator{Nothing, ODECore.CoreProblem{Float64, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}})
+    @ TraitRodas /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/TraitRodas/src/rodas5.jl:166 [inlined]
+  [4] run_to_end!(i::TraitRodas.Rodas5Integrator{Nothing, ODECore.CoreProblem{Float64, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}})
+    @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/ODECore/src/core.jl:927 [inlined]
+  [5] _rodas5_run(i::TraitRodas.Rodas5Integrator{Nothing, ODECore.CoreProblem{Float64, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}})
+    @ TraitRodas /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/TraitRodas/src/rodas5.jl:275 [inlined]
+  [6] rodas5_solve(m::ODECore.CoreProblem{Float64, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU}, u0::Vector{Float64}, tspan::Tuple{Float64, Float64}, callbacks::Vector{Any}, opts::ODECore.SolverOptions)
+    @ TraitRodas /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/TraitRodas/src/rodas5.jl:273
+  [7] solve_core(a::Rodas5{DenseLU}, m::ODECore.CoreProblem{Float64, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, callbacks::Vector{Any}, opts::ODECore.SolverOptions)
+    @ TraitRodas /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/TraitRodas/src/rodas5.jl:245 [inlined]
+  [8] solve_ode(prob::ODEProblem{Float64, Vector{Float64}, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU}, callbacks::Vector{Any}, opts::ODECore.SolverOptions)
+    @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/ODECore/src/core.jl:1237
+  [9] _solve(prob::ODEProblem{Float64, Vector{Float64}, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU}, callback::Nothing, kw::@NamedTuple{saveat::Vector{Float64}, reltol::Float64, abstol::Float64})
+    @ TraitDifferentialEquations /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/src/TraitDifferentialEquations.jl:64 [inlined]
+ [10] solve(prob::ODEProblem{Float64, Vector{Float64}, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU}; callback::Nothing, kw::@Kwargs{saveat::Vector{Float64}, reltol::Float64, abstol::Float64})
+    @ TraitDifferentialEquations /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/src/TraitDifferentialEquations.jl:61 [inlined]
+ [11] main(args::Vector{String})
+    @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/ode.jl:32
+ [12] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+    @ Main /p/projects/coen/julia-trait-bound/julia-unified/test/trimming/juliac-buildscript.jl:35
+
+Error #38: unresolved call from statement dual_jacobian(
+  :(φ (%35 => %34, %36 => %31))::Any,
+  (…)::Int64,
+  :(φ (%40 => Val{nothing}(), %45 => %44))::Val
+)::TraitRodas.DualJacobian
+
+Stacktrace:
+ [1] rodas5_init(m::ODECore.CoreProblem{Float64, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU}, u0::Vector{Float64}, tspan::Tuple{Float64, Float64}, callbacks::Vector{Any}, opts::ODECore.SolverOptions)
+   @ TraitRodas /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/TraitRodas/src/rodas5.jl:269
+ [2] rodas5_solve(m::ODECore.CoreProblem{Float64, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU}, u0::Vector{Float64}, tspan::Tuple{Float64, Float64}, callbacks::Vector{Any}, opts::ODECore.SolverOptions)
+   @ TraitRodas /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/TraitRodas/src/rodas5.jl:273
+ [3] solve_core(a::Rodas5{DenseLU}, m::ODECore.CoreProblem{Float64, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, callbacks::Vector{Any}, opts::ODECore.SolverOptions)
+   @ TraitRodas /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/TraitRodas/src/rodas5.jl:245 [inlined]
+ [4] solve_ode(prob::ODEProblem{Float64, Vector{Float64}, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU}, callbacks::Vector{Any}, opts::ODECore.SolverOptions)
+   @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/ODECore/src/core.jl:1237
+ [5] _solve(prob::ODEProblem{Float64, Vector{Float64}, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU}, callback::Nothing, kw::@NamedTuple{saveat::Vector{Float64}, reltol::Float64, abstol::Float64})
+   @ TraitDifferentialEquations /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/src/TraitDifferentialEquations.jl:64 [inlined]
+ [6] solve(prob::ODEProblem{Float64, Vector{Float64}, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU}; callback::Nothing, kw::@Kwargs{saveat::Vector{Float64}, reltol::Float64, abstol::Float64})
+   @ TraitDifferentialEquations /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/src/TraitDifferentialEquations.jl:61 [inlined]
+ [7] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/ode.jl:32
+ [8] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-unified/test/trimming/juliac-buildscript.jl:35
+
+Error #39: unresolved call from statement rodas5_start(
+  m::ODECore.CoreProblem{Float64, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)},
+  u0::Vector{Float64},
+  tspan::Tuple{Float64, Float64},
+  callbacks::Vector{Any},
+  opts::ODECore.SolverOptions,
+  dual_jacobian(
+    :(φ (%35 => %34, %36 => %31))::Any,
+    (…)::Int64,
+    :(φ (%40 => Val{nothing}(), %45 => %44))::Val
+  )::TraitRodas.DualJacobian,
+  DenseLU()::DenseLU
+)::TraitRodas.Rodas5Integrator{TraitRodas.DualJacobian{N, FD}, ODECore.CoreProblem{Float64, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}} where {N, FD<:Callable{Tuple{Array{ForwardDiff.Dual{ODECore.ODETag, Float64, N}, 1}, Array{ForwardDiff.Dual{ODECore.ODETag, Float64, N}, 1}, Float64}, Nothing}}
+
+Stacktrace:
+ [1] rodas5_init(m::ODECore.CoreProblem{Float64, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU}, u0::Vector{Float64}, tspan::Tuple{Float64, Float64}, callbacks::Vector{Any}, opts::ODECore.SolverOptions)
+   @ TraitRodas /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/TraitRodas/src/rodas5.jl:270
+ [2] rodas5_solve(m::ODECore.CoreProblem{Float64, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU}, u0::Vector{Float64}, tspan::Tuple{Float64, Float64}, callbacks::Vector{Any}, opts::ODECore.SolverOptions)
+   @ TraitRodas /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/TraitRodas/src/rodas5.jl:273
+ [3] solve_core(a::Rodas5{DenseLU}, m::ODECore.CoreProblem{Float64, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, callbacks::Vector{Any}, opts::ODECore.SolverOptions)
+   @ TraitRodas /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/TraitRodas/src/rodas5.jl:245 [inlined]
+ [4] solve_ode(prob::ODEProblem{Float64, Vector{Float64}, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU}, callbacks::Vector{Any}, opts::ODECore.SolverOptions)
+   @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/ODECore/src/core.jl:1237
+ [5] _solve(prob::ODEProblem{Float64, Vector{Float64}, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU}, callback::Nothing, kw::@NamedTuple{saveat::Vector{Float64}, reltol::Float64, abstol::Float64})
+   @ TraitDifferentialEquations /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/src/TraitDifferentialEquations.jl:64 [inlined]
+ [6] solve(prob::ODEProblem{Float64, Vector{Float64}, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU}; callback::Nothing, kw::@Kwargs{saveat::Vector{Float64}, reltol::Float64, abstol::Float64})
+   @ TraitDifferentialEquations /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/src/TraitDifferentialEquations.jl:61 [inlined]
+ [7] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/ode.jl:32
+ [8] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-unified/test/trimming/juliac-buildscript.jl:35
+
+Error #40: unresolved call from statement step_event_condition(
+  memoryrefget((…)::MemoryRef{ODECore.StepEvent{Vector{Float64}, Float64}}, :not_atomic::Symbol, false::Bool)::ODECore.StepEvent{Vector{Float64}, Float64},
+  (…)::Vector{Float64},
+  (…)::Float64,
+  (…)::Dynamic{ODECore.StepView{Vector{Float64}, Float64}}
+)::Any
+
+Stacktrace:
+ [1] rodas5_start(m::ODECore.CoreProblem{Float64, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, u0::Vector{Float64}, tspan::Tuple{Float64, Float64}, callbacks::Vector{Any}, opts::ODECore.SolverOptions, jc::Nothing, ls::DenseLU)
+   @ TraitRodas /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/TraitRodas/src/rodas5.jl:304
+ [2] rodas5_init(m::ODECore.CoreProblem{Float64, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU}, u0::Vector{Float64}, tspan::Tuple{Float64, Float64}, callbacks::Vector{Any}, opts::ODECore.SolverOptions)
+   @ TraitRodas /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/TraitRodas/src/rodas5.jl:262
+ [3] rodas5_solve(m::ODECore.CoreProblem{Float64, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU}, u0::Vector{Float64}, tspan::Tuple{Float64, Float64}, callbacks::Vector{Any}, opts::ODECore.SolverOptions)
+   @ TraitRodas /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/TraitRodas/src/rodas5.jl:273
+ [4] solve_core(a::Rodas5{DenseLU}, m::ODECore.CoreProblem{Float64, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, callbacks::Vector{Any}, opts::ODECore.SolverOptions)
+   @ TraitRodas /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/TraitRodas/src/rodas5.jl:245 [inlined]
+ [5] solve_ode(prob::ODEProblem{Float64, Vector{Float64}, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU}, callbacks::Vector{Any}, opts::ODECore.SolverOptions)
+   @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/ODECore/src/core.jl:1237
+ [6] _solve(prob::ODEProblem{Float64, Vector{Float64}, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU}, callback::Nothing, kw::@NamedTuple{saveat::Vector{Float64}, reltol::Float64, abstol::Float64})
+   @ TraitDifferentialEquations /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/src/TraitDifferentialEquations.jl:64 [inlined]
+ [7] solve(prob::ODEProblem{Float64, Vector{Float64}, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU}; callback::Nothing, kw::@Kwargs{saveat::Vector{Float64}, reltol::Float64, abstol::Float64})
+   @ TraitDifferentialEquations /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/src/TraitDifferentialEquations.jl:61 [inlined]
+ [8] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/ode.jl:32
+ [9] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-unified/test/trimming/juliac-buildscript.jl:35
+
+Error #41: unresolved call from statement step_event_initialize!(
+  :(φ (%35 => %30, %74 => %68))::ODECore.StepEvent{Vector{Float64}, Float64},
+  u::Vector{Float64},
+  t::Float64,
+  sv::Dynamic{ODECore.StepView{Vector{Float64}, Float64}}
+)::Any
+
+Stacktrace:
+  [1] initialize_step_callbacks!(d::Vector{ODECore.StepCallback{Vector{Float64}, Float64}}, c::Vector{ODECore.StepEvent{Vector{Float64}, Float64}}, u::Vector{Float64}, t::Float64, sv::Dynamic{ODECore.StepView{Vector{Float64}, Float64}})
+    @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/ODECore/src/core.jl:759
+  [2] rodas5_start(m::ODECore.CoreProblem{Float64, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, u0::Vector{Float64}, tspan::Tuple{Float64, Float64}, callbacks::Vector{Any}, opts::ODECore.SolverOptions, jc::Nothing, ls::DenseLU)
+    @ TraitRodas /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/TraitRodas/src/rodas5.jl:299
+  [3] rodas5_init(m::ODECore.CoreProblem{Float64, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU}, u0::Vector{Float64}, tspan::Tuple{Float64, Float64}, callbacks::Vector{Any}, opts::ODECore.SolverOptions)
+    @ TraitRodas /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/TraitRodas/src/rodas5.jl:262
+  [4] rodas5_solve(m::ODECore.CoreProblem{Float64, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU}, u0::Vector{Float64}, tspan::Tuple{Float64, Float64}, callbacks::Vector{Any}, opts::ODECore.SolverOptions)
+    @ TraitRodas /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/TraitRodas/src/rodas5.jl:273
+  [5] solve_core(a::Rodas5{DenseLU}, m::ODECore.CoreProblem{Float64, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, callbacks::Vector{Any}, opts::ODECore.SolverOptions)
+    @ TraitRodas /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/TraitRodas/src/rodas5.jl:245 [inlined]
+  [6] solve_ode(prob::ODEProblem{Float64, Vector{Float64}, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU}, callbacks::Vector{Any}, opts::ODECore.SolverOptions)
+    @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/ODECore/src/core.jl:1237
+  [7] _solve(prob::ODEProblem{Float64, Vector{Float64}, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU}, callback::Nothing, kw::@NamedTuple{saveat::Vector{Float64}, reltol::Float64, abstol::Float64})
+    @ TraitDifferentialEquations /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/src/TraitDifferentialEquations.jl:64 [inlined]
+  [8] solve(prob::ODEProblem{Float64, Vector{Float64}, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU}; callback::Nothing, kw::@Kwargs{saveat::Vector{Float64}, reltol::Float64, abstol::Float64})
+    @ TraitDifferentialEquations /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/src/TraitDifferentialEquations.jl:61 [inlined]
+  [9] main(args::Vector{String})
+    @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/ode.jl:32
+ [10] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+    @ Main /p/projects/coen/julia-trait-bound/julia-unified/test/trimming/juliac-buildscript.jl:35
+
+Error #42: unresolved call from statement step_initialize!(
+  :(φ (%109 => %104, %148 => %142))::ODECore.StepCallback{Vector{Float64}, Float64},
+  u::Vector{Float64},
+  t::Float64,
+  sv::Dynamic{ODECore.StepView{Vector{Float64}, Float64}}
+)::Any
+
+Stacktrace:
+  [1] initialize_step_callbacks!(d::Vector{ODECore.StepCallback{Vector{Float64}, Float64}}, c::Vector{ODECore.StepEvent{Vector{Float64}, Float64}}, u::Vector{Float64}, t::Float64, sv::Dynamic{ODECore.StepView{Vector{Float64}, Float64}})
+    @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/ODECore/src/core.jl:760
+  [2] rodas5_start(m::ODECore.CoreProblem{Float64, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, u0::Vector{Float64}, tspan::Tuple{Float64, Float64}, callbacks::Vector{Any}, opts::ODECore.SolverOptions, jc::Nothing, ls::DenseLU)
+    @ TraitRodas /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/TraitRodas/src/rodas5.jl:299
+  [3] rodas5_init(m::ODECore.CoreProblem{Float64, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU}, u0::Vector{Float64}, tspan::Tuple{Float64, Float64}, callbacks::Vector{Any}, opts::ODECore.SolverOptions)
+    @ TraitRodas /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/TraitRodas/src/rodas5.jl:262
+  [4] rodas5_solve(m::ODECore.CoreProblem{Float64, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU}, u0::Vector{Float64}, tspan::Tuple{Float64, Float64}, callbacks::Vector{Any}, opts::ODECore.SolverOptions)
+    @ TraitRodas /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/TraitRodas/src/rodas5.jl:273
+  [5] solve_core(a::Rodas5{DenseLU}, m::ODECore.CoreProblem{Float64, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, callbacks::Vector{Any}, opts::ODECore.SolverOptions)
+    @ TraitRodas /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/TraitRodas/src/rodas5.jl:245 [inlined]
+  [6] solve_ode(prob::ODEProblem{Float64, Vector{Float64}, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU}, callbacks::Vector{Any}, opts::ODECore.SolverOptions)
+    @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/ODECore/src/core.jl:1237
+  [7] _solve(prob::ODEProblem{Float64, Vector{Float64}, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU}, callback::Nothing, kw::@NamedTuple{saveat::Vector{Float64}, reltol::Float64, abstol::Float64})
+    @ TraitDifferentialEquations /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/src/TraitDifferentialEquations.jl:64 [inlined]
+  [8] solve(prob::ODEProblem{Float64, Vector{Float64}, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU}; callback::Nothing, kw::@Kwargs{saveat::Vector{Float64}, reltol::Float64, abstol::Float64})
+    @ TraitDifferentialEquations /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/src/TraitDifferentialEquations.jl:61 [inlined]
+  [9] main(args::Vector{String})
+    @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/ode.jl:32
+ [10] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+    @ Main /p/projects/coen/julia-trait-bound/julia-unified/test/trimming/juliac-buildscript.jl:35
+
+Error #43: unresolved call from statement _enter_step_callback!(
+  (…)::Vector{ODECore.StepCallback{Vector{Float64}, Float64}},
+  (…)::Vector{ODECore.StepEvent{Vector{Float64}, Float64}},
+  :(φ (%41 => %36, %79 => %73))::Any
+)::Any
+
+Stacktrace:
+  [1] enter_step_callbacks(cbs::Vector{Any}, ::Type{Vector{Float64}})
+    @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/ODECore/src/core.jl:745
+  [2] rodas5_start(m::ODECore.CoreProblem{Float64, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, u0::Vector{Float64}, tspan::Tuple{Float64, Float64}, callbacks::Vector{Any}, opts::ODECore.SolverOptions, jc::Nothing, ls::DenseLU)
+    @ TraitRodas /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/TraitRodas/src/rodas5.jl:287
+  [3] rodas5_init(m::ODECore.CoreProblem{Float64, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU}, u0::Vector{Float64}, tspan::Tuple{Float64, Float64}, callbacks::Vector{Any}, opts::ODECore.SolverOptions)
+    @ TraitRodas /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/TraitRodas/src/rodas5.jl:262
+  [4] rodas5_solve(m::ODECore.CoreProblem{Float64, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU}, u0::Vector{Float64}, tspan::Tuple{Float64, Float64}, callbacks::Vector{Any}, opts::ODECore.SolverOptions)
+    @ TraitRodas /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/TraitRodas/src/rodas5.jl:273
+  [5] solve_core(a::Rodas5{DenseLU}, m::ODECore.CoreProblem{Float64, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, callbacks::Vector{Any}, opts::ODECore.SolverOptions)
+    @ TraitRodas /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/TraitRodas/src/rodas5.jl:245 [inlined]
+  [6] solve_ode(prob::ODEProblem{Float64, Vector{Float64}, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU}, callbacks::Vector{Any}, opts::ODECore.SolverOptions)
+    @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/ODECore/src/core.jl:1237
+  [7] _solve(prob::ODEProblem{Float64, Vector{Float64}, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU}, callback::Nothing, kw::@NamedTuple{saveat::Vector{Float64}, reltol::Float64, abstol::Float64})
+    @ TraitDifferentialEquations /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/src/TraitDifferentialEquations.jl:64 [inlined]
+  [8] solve(prob::ODEProblem{Float64, Vector{Float64}, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU}; callback::Nothing, kw::@Kwargs{saveat::Vector{Float64}, reltol::Float64, abstol::Float64})
+    @ TraitDifferentialEquations /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/src/TraitDifferentialEquations.jl:61 [inlined]
+  [9] main(args::Vector{String})
+    @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/ode.jl:32
+ [10] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+    @ Main /p/projects/coen/julia-trait-bound/julia-unified/test/trimming/juliac-buildscript.jl:35
+
+Error #44: unresolved call from statement _enter_callback!(
+  (…)::Vector{Callback{Vector{Float64}, Float64, Vector{Float64}}},
+  (…)::Vector{EventCallback{Vector{Float64}, Float64, Vector{Float64}}},
+  :(φ (%41 => %36, %219 => %213))::Any
+)::Any
+
+Stacktrace:
+ [1] enter_callbacks(cbs::Vector{Any}, ::Type{Vector{Float64}}, ::Type{Vector{Float64}})
+   @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/ODECore/src/core.jl:602
+ [2] adapt_callbacks!(pi::ODECore.ParamIntegrator{Vector{Float64}, Float64, Vector{Float64}}, cbs::Vector{Any})
+   @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/ODECore/src/core.jl:728
+ [3] solve_ode(prob::ODEProblem{Float64, Vector{Float64}, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU}, callbacks::Vector{Any}, opts::ODECore.SolverOptions)
+   @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/ODECore/src/core.jl:1239
+ [4] _solve(prob::ODEProblem{Float64, Vector{Float64}, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU}, callback::Nothing, kw::@NamedTuple{saveat::Vector{Float64}, reltol::Float64, abstol::Float64})
+   @ TraitDifferentialEquations /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/src/TraitDifferentialEquations.jl:64 [inlined]
+ [5] solve(prob::ODEProblem{Float64, Vector{Float64}, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU}; callback::Nothing, kw::@Kwargs{saveat::Vector{Float64}, reltol::Float64, abstol::Float64})
+   @ TraitDifferentialEquations /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/src/TraitDifferentialEquations.jl:61 [inlined]
+ [6] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/ode.jl:32
+ [7] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-unified/test/trimming/juliac-buildscript.jl:35
+
+Error #45: unresolved call from statement step_event_condition(
+  memoryrefget((…)::MemoryRef{ODECore.StepEvent{Vector{Float64}, Float64}}, :not_atomic::Symbol, false::Bool)::ODECore.StepEvent{Vector{Float64}, Float64},
+  (…)::Vector{Float64},
+  (…)::Float64,
+  (…)::Dynamic{ODECore.StepView{Vector{Float64}, Float64}}
+)::Any
+
+Stacktrace:
+ [1] tsit5_advance!(i::ODECore.Tsit5Integrator{Float64, ODECore.CoreProblem{Float64, ODECore.PartialFn{typeof(lorenz!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}})
+   @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/ODECore/src/core.jl:1459
+ [2] advance!(i::ODECore.Tsit5Integrator{Float64, ODECore.CoreProblem{Float64, ODECore.PartialFn{typeof(lorenz!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}})
+   @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/ODECore/src/core.jl:1074 [inlined]
+ [3] run_to_end!(i::ODECore.Tsit5Integrator{Float64, ODECore.CoreProblem{Float64, ODECore.PartialFn{typeof(lorenz!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}})
+   @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/ODECore/src/core.jl:927 [inlined]
+ [4] solve_core(a::Tsit5, m::ODECore.CoreProblem{Float64, ODECore.PartialFn{typeof(lorenz!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, callbacks::Vector{Any}, opts::ODECore.SolverOptions)
+   @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/ODECore/src/core.jl:1314 [inlined]
+ [5] solve_ode(prob::ODEProblem{Float64, Vector{Float64}, ODECore.PartialFn{typeof(lorenz!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, alg::Tsit5, callbacks::Vector{Any}, opts::ODECore.SolverOptions)
+   @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/ODECore/src/core.jl:1237
+ [6] _solve(prob::ODEProblem{Float64, Vector{Float64}, ODECore.PartialFn{typeof(lorenz!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, alg::Tsit5, callback::Nothing, kw::@NamedTuple{saveat::Vector{Float64}, reltol::Float64, abstol::Float64})
+   @ TraitDifferentialEquations /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/src/TraitDifferentialEquations.jl:64 [inlined]
+ [7] solve(prob::ODEProblem{Float64, Vector{Float64}, ODECore.PartialFn{typeof(lorenz!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, alg::Tsit5; callback::Nothing, kw::@Kwargs{saveat::Vector{Float64}, reltol::Float64, abstol::Float64})
+   @ TraitDifferentialEquations /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/src/TraitDifferentialEquations.jl:61 [inlined]
+ [8] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/ode.jl:29
+ [9] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-unified/test/trimming/juliac-buildscript.jl:35
+
+Error #46: unresolved call from statement event_affect_dir!(
+  memoryrefget((…)::MemoryRef{ODECore.StepEvent{Vector{Float64}, Float64}}, :not_atomic::Symbol, false::Bool)::ODECore.StepEvent{Vector{Float64}, Float64},
+  (…)::Dynamic{ODECore.StepView{Vector{Float64}, Float64}},
+  :(φ (%1029 => %887, %890 => %887, %877 => false))::Bool
+)::Any
+
+Stacktrace:
+ [1] tsit5_advance!(i::ODECore.Tsit5Integrator{Float64, ODECore.CoreProblem{Float64, ODECore.PartialFn{typeof(lorenz!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}})
+   @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/ODECore/src/core.jl:1510
+ [2] advance!(i::ODECore.Tsit5Integrator{Float64, ODECore.CoreProblem{Float64, ODECore.PartialFn{typeof(lorenz!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}})
+   @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/ODECore/src/core.jl:1074 [inlined]
+ [3] run_to_end!(i::ODECore.Tsit5Integrator{Float64, ODECore.CoreProblem{Float64, ODECore.PartialFn{typeof(lorenz!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}})
+   @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/ODECore/src/core.jl:927 [inlined]
+ [4] solve_core(a::Tsit5, m::ODECore.CoreProblem{Float64, ODECore.PartialFn{typeof(lorenz!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, callbacks::Vector{Any}, opts::ODECore.SolverOptions)
+   @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/ODECore/src/core.jl:1314 [inlined]
+ [5] solve_ode(prob::ODEProblem{Float64, Vector{Float64}, ODECore.PartialFn{typeof(lorenz!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, alg::Tsit5, callbacks::Vector{Any}, opts::ODECore.SolverOptions)
+   @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/ODECore/src/core.jl:1237
+ [6] _solve(prob::ODEProblem{Float64, Vector{Float64}, ODECore.PartialFn{typeof(lorenz!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, alg::Tsit5, callback::Nothing, kw::@NamedTuple{saveat::Vector{Float64}, reltol::Float64, abstol::Float64})
+   @ TraitDifferentialEquations /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/src/TraitDifferentialEquations.jl:64 [inlined]
+ [7] solve(prob::ODEProblem{Float64, Vector{Float64}, ODECore.PartialFn{typeof(lorenz!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, alg::Tsit5; callback::Nothing, kw::@Kwargs{saveat::Vector{Float64}, reltol::Float64, abstol::Float64})
+   @ TraitDifferentialEquations /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/src/TraitDifferentialEquations.jl:61 [inlined]
+ [8] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/ode.jl:29
+ [9] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-unified/test/trimming/juliac-buildscript.jl:35
+
+Error #47: unresolved call from statement step_event_condition(
+  memoryrefget((…)::MemoryRef{ODECore.StepEvent{Vector{Float64}, Float64}}, :not_atomic::Symbol, false::Bool)::ODECore.StepEvent{Vector{Float64}, Float64},
+  (…)::Vector{Float64},
+  (…)::Float64,
+  (…)::Dynamic{ODECore.StepView{Vector{Float64}, Float64}}
+)::Any
+
+Stacktrace:
+ [1] tsit5_advance!(i::ODECore.Tsit5Integrator{Float64, ODECore.CoreProblem{Float64, ODECore.PartialFn{typeof(lorenz!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}})
+   @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/ODECore/src/core.jl:1517
+ [2] advance!(i::ODECore.Tsit5Integrator{Float64, ODECore.CoreProblem{Float64, ODECore.PartialFn{typeof(lorenz!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}})
+   @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/ODECore/src/core.jl:1074 [inlined]
+ [3] run_to_end!(i::ODECore.Tsit5Integrator{Float64, ODECore.CoreProblem{Float64, ODECore.PartialFn{typeof(lorenz!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}})
+   @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/ODECore/src/core.jl:927 [inlined]
+ [4] solve_core(a::Tsit5, m::ODECore.CoreProblem{Float64, ODECore.PartialFn{typeof(lorenz!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, callbacks::Vector{Any}, opts::ODECore.SolverOptions)
+   @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/ODECore/src/core.jl:1314 [inlined]
+ [5] solve_ode(prob::ODEProblem{Float64, Vector{Float64}, ODECore.PartialFn{typeof(lorenz!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, alg::Tsit5, callbacks::Vector{Any}, opts::ODECore.SolverOptions)
+   @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/ODECore/src/core.jl:1237
+ [6] _solve(prob::ODEProblem{Float64, Vector{Float64}, ODECore.PartialFn{typeof(lorenz!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, alg::Tsit5, callback::Nothing, kw::@NamedTuple{saveat::Vector{Float64}, reltol::Float64, abstol::Float64})
+   @ TraitDifferentialEquations /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/src/TraitDifferentialEquations.jl:64 [inlined]
+ [7] solve(prob::ODEProblem{Float64, Vector{Float64}, ODECore.PartialFn{typeof(lorenz!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, alg::Tsit5; callback::Nothing, kw::@Kwargs{saveat::Vector{Float64}, reltol::Float64, abstol::Float64})
+   @ TraitDifferentialEquations /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/src/TraitDifferentialEquations.jl:61 [inlined]
+ [8] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/ode.jl:29
+ [9] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-unified/test/trimming/juliac-buildscript.jl:35
+
+Error #48: unresolved call from statement step_condition(
+  :(φ (%1525 => %1520, %1850 => %1844))::ODECore.StepCallback{Vector{Float64}, Float64},
+  (…)::Vector{Float64},
+  (…)::Float64,
+  (…)::Dynamic{ODECore.StepView{Vector{Float64}, Float64}}
+)::Any
+
+Stacktrace:
+ [1] tsit5_advance!(i::ODECore.Tsit5Integrator{Float64, ODECore.CoreProblem{Float64, ODECore.PartialFn{typeof(lorenz!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}})
+   @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/ODECore/src/core.jl:1521
+ [2] advance!(i::ODECore.Tsit5Integrator{Float64, ODECore.CoreProblem{Float64, ODECore.PartialFn{typeof(lorenz!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}})
+   @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/ODECore/src/core.jl:1074 [inlined]
+ [3] run_to_end!(i::ODECore.Tsit5Integrator{Float64, ODECore.CoreProblem{Float64, ODECore.PartialFn{typeof(lorenz!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}})
+   @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/ODECore/src/core.jl:927 [inlined]
+ [4] solve_core(a::Tsit5, m::ODECore.CoreProblem{Float64, ODECore.PartialFn{typeof(lorenz!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, callbacks::Vector{Any}, opts::ODECore.SolverOptions)
+   @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/ODECore/src/core.jl:1314 [inlined]
+ [5] solve_ode(prob::ODEProblem{Float64, Vector{Float64}, ODECore.PartialFn{typeof(lorenz!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, alg::Tsit5, callbacks::Vector{Any}, opts::ODECore.SolverOptions)
+   @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/ODECore/src/core.jl:1237
+ [6] _solve(prob::ODEProblem{Float64, Vector{Float64}, ODECore.PartialFn{typeof(lorenz!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, alg::Tsit5, callback::Nothing, kw::@NamedTuple{saveat::Vector{Float64}, reltol::Float64, abstol::Float64})
+   @ TraitDifferentialEquations /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/src/TraitDifferentialEquations.jl:64 [inlined]
+ [7] solve(prob::ODEProblem{Float64, Vector{Float64}, ODECore.PartialFn{typeof(lorenz!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, alg::Tsit5; callback::Nothing, kw::@Kwargs{saveat::Vector{Float64}, reltol::Float64, abstol::Float64})
+   @ TraitDifferentialEquations /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/src/TraitDifferentialEquations.jl:61 [inlined]
+ [8] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/ode.jl:29
+ [9] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-unified/test/trimming/juliac-buildscript.jl:35
+
+Error #49: unresolved call from statement step_affect!(
+  :(φ (%1525 => %1520, %1850 => %1844))::ODECore.StepCallback{Vector{Float64}, Float64},
+  (…)::Dynamic{ODECore.StepView{Vector{Float64}, Float64}}
+)::Any
+
+Stacktrace:
+ [1] tsit5_advance!(i::ODECore.Tsit5Integrator{Float64, ODECore.CoreProblem{Float64, ODECore.PartialFn{typeof(lorenz!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}})
+   @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/ODECore/src/core.jl:1524
+ [2] advance!(i::ODECore.Tsit5Integrator{Float64, ODECore.CoreProblem{Float64, ODECore.PartialFn{typeof(lorenz!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}})
+   @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/ODECore/src/core.jl:1074 [inlined]
+ [3] run_to_end!(i::ODECore.Tsit5Integrator{Float64, ODECore.CoreProblem{Float64, ODECore.PartialFn{typeof(lorenz!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}})
+   @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/ODECore/src/core.jl:927 [inlined]
+ [4] solve_core(a::Tsit5, m::ODECore.CoreProblem{Float64, ODECore.PartialFn{typeof(lorenz!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, callbacks::Vector{Any}, opts::ODECore.SolverOptions)
+   @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/ODECore/src/core.jl:1314 [inlined]
+ [5] solve_ode(prob::ODEProblem{Float64, Vector{Float64}, ODECore.PartialFn{typeof(lorenz!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, alg::Tsit5, callbacks::Vector{Any}, opts::ODECore.SolverOptions)
+   @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/ODECore/src/core.jl:1237
+ [6] _solve(prob::ODEProblem{Float64, Vector{Float64}, ODECore.PartialFn{typeof(lorenz!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, alg::Tsit5, callback::Nothing, kw::@NamedTuple{saveat::Vector{Float64}, reltol::Float64, abstol::Float64})
+   @ TraitDifferentialEquations /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/src/TraitDifferentialEquations.jl:64 [inlined]
+ [7] solve(prob::ODEProblem{Float64, Vector{Float64}, ODECore.PartialFn{typeof(lorenz!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, alg::Tsit5; callback::Nothing, kw::@Kwargs{saveat::Vector{Float64}, reltol::Float64, abstol::Float64})
+   @ TraitDifferentialEquations /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/src/TraitDifferentialEquations.jl:61 [inlined]
+ [8] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/ode.jl:29
+ [9] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-unified/test/trimming/juliac-buildscript.jl:35
+
+Error #50: unresolved call from statement step_event_condition(
+  memoryrefget((…)::MemoryRef{ODECore.StepEvent{Vector{Float64}, Float64}}, :not_atomic::Symbol, false::Bool)::ODECore.StepEvent{Vector{Float64}, Float64},
+  (…)::Vector{Float64},
+  (…)::Float64,
+  (…)::Dynamic{ODECore.StepView{Vector{Float64}, Float64}}
+)::Any
+
+Stacktrace:
+ [1] tsit5_init(m::ODECore.CoreProblem{Float64, ODECore.PartialFn{typeof(lorenz!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, u0::Vector{Float64}, tspan::Tuple{Float64, Float64}, callbacks::Vector{Any}, opts::ODECore.SolverOptions)
+   @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/ODECore/src/core.jl:1350
+ [2] solve_core(a::Tsit5, m::ODECore.CoreProblem{Float64, ODECore.PartialFn{typeof(lorenz!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, callbacks::Vector{Any}, opts::ODECore.SolverOptions)
+   @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/ODECore/src/core.jl:1314 [inlined]
+ [3] solve_ode(prob::ODEProblem{Float64, Vector{Float64}, ODECore.PartialFn{typeof(lorenz!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, alg::Tsit5, callbacks::Vector{Any}, opts::ODECore.SolverOptions)
+   @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/ODECore/src/core.jl:1237
+ [4] _solve(prob::ODEProblem{Float64, Vector{Float64}, ODECore.PartialFn{typeof(lorenz!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, alg::Tsit5, callback::Nothing, kw::@NamedTuple{saveat::Vector{Float64}, reltol::Float64, abstol::Float64})
+   @ TraitDifferentialEquations /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/src/TraitDifferentialEquations.jl:64 [inlined]
+ [5] solve(prob::ODEProblem{Float64, Vector{Float64}, ODECore.PartialFn{typeof(lorenz!), Vector{Float64}}, typeof(ODECore.core_no_jacobian)}, alg::Tsit5; callback::Nothing, kw::@Kwargs{saveat::Vector{Float64}, reltol::Float64, abstol::Float64})
+   @ TraitDifferentialEquations /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/src/TraitDifferentialEquations.jl:61 [inlined]
+ [6] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/ode.jl:29
+ [7] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-unified/test/trimming/juliac-buildscript.jl:35
+
+Trim verify finished with 50 errors, 0 warnings.
+object: exit 1 after 10 s

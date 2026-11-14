@@ -84,6 +84,13 @@ end
 castc(x) = mkind(compiled_for(x))
 castd(x) = kind(with_dynamic(x))
 @assert castc(c) === :compiled && castd(c) === :dynamic
+# a cast at the call of a parametric type's constructor, from compiled code (the called value is a
+# constant that is no singleton type: the cast was dropped there)
+struct PBox{T}; kind::Symbol; x::T; end
+PBox(s::Model, x::T) where {T} = PBox{T}(Core.keep(s) isa Core.Dynamic ? :dynamic : :compiled, x)
+pcast(x) = PBox(compiled_for(x), 1).kind
+pplain(x) = PBox(x, 1).kind
+@assert pplain(c) === :dynamic && pcast(c) === :compiled "a cast at a parametric constructor, compiled caller: $(pcast(c))"
 @assert castc(s) === :compiled && castd(s) === :dynamic        # the runtime's cache, a second type
 d = Core.Dynamic{Shape}(c)
 @assert Core.Dynamic{Shape}(d) === d || Core.Dynamic{Shape}(d).object === c
