@@ -1,0 +1,114 @@
+PASS  §3 area(Circle(1.0)) == 3.141592653589793
+PASS  §3 describe(Rect(2.0, 3.0))
+PASS  §3 describe(Circle(1.0)): the default, reached from plain code
+PASS  §3 Circle <: Shape
+PASS  §3 Circle(1.0) isa Shape
+PASS  §3 Int is no Shape
+PASS  §4 ratio(Circle(1.0)) == 0.5
+PASS  §4 ratio(Rect(2.0, 3.0)) == 0.6
+PASS  §4 bigger(Rect, Circle)
+PASS  §4 title(Circle(1.0))
+PASS  §4 title(Rect(2.0, 3.0))
+PASS  §4 circle_ratio
+PASS  §4 ratio(compiled_for(Circle(1.0)))
+PASS  §4 ratio(with_dynamic(Circle(1.0)))
+PASS  §5 area(Tile(…)) == 2.0
+PASS  §5 ratio(Tile(…))
+PASS  §5 ratio(Window(…))
+PASS  §5 describe(Tile(…)): the default, at the field
+PASS  §6 move! wrote the user's object
+PASS  §6 greet(sp)
+PASS  §6 greet(Book)
+PASS  §6 a writable field needs a mutable type: ImplementError
+PASS  §7 report(sp)
+PASS  §7 Sprite <: All{Shape, Placed}
+PASS  §7 Circle is no All{Shape, Placed}
+PASS  §8 a later override is refused with ImplementError
+MESSAGE §8:
+ImplementError: a method is refused: Circle is a member of Shape, and the method would break its check
+  - a default of Shape serves describe at Circle since its membership: define the method before `@implement`, or in its block
+PASS  §8 title(Circle(1.0)) unchanged
+PASS  §9 fits(Circle; within = Rect)
+PASS  §9 fits(Rect; within = Circle) is false
+PASS  §9 scaled_area(Rect(2.0, 3.0)) == 24.0
+PASS  §9 largest of three types
+PASS  §9 margin = 1 raises TypeError
+PASS  §9 within = 42 raises TypeError
+PASS  §10 kind([1.0, 2.0])
+PASS  §10 kind(Circle(1.0))
+PASS  §10 kind(42)
+PASS  §11 doubled(Circle(1.0))
+PASS  §11 doubled(Tile): the label kept
+PASS  §11 nudged(sp): a new Sprite
+PASS  §12 totalarea
+PASS  §12 the scene holds the circle itself, added at the prompt
+PASS  §12 the item answers for itself: a Scalable, == the circle
+PASS  §12 the same from a function that knows the type
+PASS  §12 Kept{Shape}: one type, the attribute beside the object
+PASS  §12 kept_call runs under the kept attribute
+PASS  §12 Dynamic{Shape} isa Shape
+PASS  §12 area(d)
+PASS  §12 ratio(d)
+PASS  §12 unwrap(d)
+PASS  §12 Dynamic{Shape}(42) raises TypeError
+PASS  §13 total([1.0, 2.0, 3.5])
+PASS  §13 total([1, 2, 3]) is an Int
+PASS  §13 total(Series(Float32[1, 2]))
+PASS  §13 mean64(Series([1.0, 4.0]))
+PASS  §13 Vector{Int} <: Samples{Int}
+PASS  §13 mean64([1, 2]) raises MethodError
+PASS  §13 a stated parameter against its equation: ImplementError
+PASS  §13 dotp
+PASS  §13 dotp([1.0], [1]) raises MethodError
+PASS  §14 transform(x -> 2x, …)
+PASS  §14 transform(compiled_for(…), …)
+PASS  §14 sumby(abs2, …)
+PASS  §14 sumby(with_dynamic(…), …)
+PASS  §14 a result of the wrong type raises TypeError
+PASS  §14 a function with no method at Float64 raises MethodError
+PASS  §14 sin isa Callable{Tuple{Float64}, Float64}
+PASS  §14 uppercase is no Callable{Tuple{Float64}}
+PASS  §14 countif
+PASS  §14 Gate(f): F is the function's type
+PASS  §14 Gate(Dynamic{…}(f)): F is the Dynamic
+PASS  §14 countgate
+PASS  §15 energy([1.0, 2.0])
+PASS  §15 energy(Ring([3.0, 4.0]))
+PASS  §15 Ring <: Signal, transitively
+PASS  §15 Vector{Float64} <: Signal
+PASS  §16 a result of the wrong type: ImplementError
+MESSAGE §16 Square:
+ImplementError: Square cannot be a member of Shape
+  - area's method at Square infers its result as Int64, outside the declared Float64
+PASS  §16 a missing operation: ImplementError
+MESSAGE §16 Dot:
+ImplementError: Dot cannot be a member of Shape
+  - no method serves perimeter(s::Shape)::Float64 at Dot
+PASS  §16 ratio(42) raises MethodError
+MESSAGE §16 ratio(42):
+MethodError: no method matching ratio(::Int64)
+The function `ratio` exists, but no method is defined for this combination of argument types.
+Hint: `Int64` is not a member of `Shape`; `@implement Shape Int64` declares it
+
+Closest candidates are:
+  ratio(!Matched::Shape)
+   @ Main.Geometry /p/projects/coen/julia-trait-bound/experiments/docs-examples/tutorial.jl:23
+
+PASS  §16 an unbounded method in a trait module: TraitUseError
+MESSAGE §16 Sloppy:
+TraitUseError: outline is declared bounded, and is unbounded:
+  length(Shape) at line 420 is not in the contract of Shape
+PASS  §16 a pirate in a trait module: OwnershipError
+MESSAGE §16 Meddler:
+OwnershipError: sum(::Vector{Int8}) in Main.Meddler is a pirate: Main.Meddler owns neither the function nor a type in each of its signatures, and the scope declares `no_pirates`
+PASS  §17 an abstract field refused by @enforce_concrete_only: ImplementError
+MESSAGE §17 Crate:
+ImplementError: Crate cannot be a member of Weighted
+  - Self is AbstractVector{Float64}, which is not concrete (@enforce_concrete_only Self in Weighted)
+PASS  §17 Box joins
+PASS  §17 firstsample([1.5, 2.0])
+PASS  §17 firstsample(Real[…]) raises TraitUseError
+PASS  §17 totalarea is fully typed
+PASS  §17 wscaled is not
+
+86 pass, 0 fail
