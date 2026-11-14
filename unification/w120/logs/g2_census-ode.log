@@ -1,0 +1,31 @@
+600 valid instances of TraitDifferentialEquations, ODECore, TraitRodas, TraitNonlinearSolve, TraitIndexing, TraitWorld; 561 satisfy G2 (93.5 %), 39 do not
+  TraitWorld: 30 of 298 fail
+  ODECore: 7 of 180 fail
+  TraitRodas: 1 of 32 fail
+  TraitDifferentialEquations: 1 of 26 fail
+  TraitNonlinearSolve: 0 of 57 fail
+  TraitIndexing: 0 of 7 fail
+the edges at the end of the failing chains, by the instances they keep out (12 failing instances show none):
+     7  at an instance: Tuple{typeof(getindex), Tuple{Any, Int64}, Int64}
+     3  at an instance: Tuple{typeof(Base.get_nospecializeinfer_sig), Method, Any, Core.SimpleVector}
+     3  at an instance: Tuple{typeof(Base.specialize_method), Method, Type, Core.SimpleVector}
+     3  at an instance: Tuple{typeof(Base.normalize_typevars), Method, UnionAll, Core.SimpleVector}
+     3  at an instance: Tuple{Base.var"##specialize_method#8", Bool, typeof(Base.specialize_method), Method, Type, Core.SimpleVector}
+     2  at a table: Tuple{typeof(Core.implements), Type{X}, Type{TraitWorld.NoForward}} where X<:IntegratorView
+     2  at an instance: Tuple{Type{Pair{Any, Vector{Any}}}, Any, Vector{Any}}
+     2  at an instance: Tuple{Type{Val{_A}} where _A}
+     2  at an instance: Tuple{TraitWorld.var"#_implement_vars!##0#_implement_vars!##1", Any}
+     2  at a table: Tuple{typeof(Core.implements), Type{X}, Type{TraitWorld.NoForward}} where X<:ODECore.StepView
+     2  at an instance: Tuple{TraitWorld.var"#_in_contract##0#_in_contract##1", Any}
+     2  at a table: Tuple{typeof(Core.implements), Type{X}, Type{TraitWorld.NoForward}} where X<:ODECore.StepCallback
+     1  at an instance: Tuple{Type{Base.MethodSpecializations}, Union{Nothing, Core.MethodInstance, Core.SimpleVector}}
+     1  at an instance: Tuple{typeof(convert), Type{Union{Core.MethodInstance, Core.SimpleVector}}, Union{Core.MethodInstance, Core.SimpleVector}}
+     1  at an instance: Tuple{Type{Base.MethodSpecializations}, Any}
+     1  at an instance: Tuple{typeof(Core.convert), Type{ODECore.StepView{Vector{Float64}, Float64}}, ODECore.StepView{Vector{Float64}, Float64}}
+     1  at an instance: Tuple{Type{TypeError}, Symbol, String, Type{ODECore.StepView{Vector{Float64}, Float64}}, ODECore.StepView{Vector{Float64}, Float64}}
+     1  at an instance: Tuple{typeof(convert), Type{Union{Nothing, Core.MethodInstance, Core.SimpleVector}}, Union{Nothing, Core.MethodInstance, Core.SimpleVector}}
+     1  at an instance: Tuple{typeof(convert), Type{Union{Nothing, Core.MethodInstance, Core.SimpleVector}}, Any}
+     1  at a table: Tuple{typeof(convert), Type{Union{Core.MethodInstance, Core.SimpleVector}}, Any}
+     1  at an instance: Tuple{Type{Pair{Symbol, Any}}, Symbol, Any}
+lorenz -8.02113
+robertson 0.0178659

@@ -64,3 +64,7 @@ The table session compiles 16 pieces in 126 ms: `main` (63 ms) and Julia's own s
 - Two sessions, the two ports that run on the head. The other ports are phase 4; their sessions are the measurement round's (W-145).
 - The "before" numbers are one run with another driver. The classes do not depend on the driver; the wall times differ by the harness (0.06 s).
 - The classes are read from names: a type printed without its module (an alias) is counted as Julia's.
+
+## The census of G2 after a session (`g2_census.jl`)
+
+The pattern of finding 1, as a tool: after a program's session, every valid instance of the named packages' methods, how many satisfy G2, and the edges at the end of each failing chain, counted. `logs/g2_census-ode.log` (2026-11-14, `unified` add2f921c9): of 600 instances of the ODE port's packages and TraitWorld, 561 satisfy G2 (93.5 %). 30 of the 39 that fail are TraitWorld's own check code (reflection: `specialize_method`, a tuple with an `Any`); 7 are ODECore's, 1 TraitRodas', 1 the umbrella's: edges to `Core.implements` at a family (`X <: IntegratorView`), a `convert` and a `TypeError` at `StepView`.
