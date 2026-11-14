@@ -1,0 +1,19 @@
+# E-374 run 1 2026-11-14T13:17:08+01:00 load 4.33 3.95 3.04 | julia-unified 86deee2f98 TraitWorld baadf9f
+| Row | Form | ns a call |
+|---|---|---|
+| 1 operation at a known type | trait | 0.79 |
+| 1 operation at a known type | plain | 0.79 |
+| 2 method at the trait, known type | trait | 0.79 |
+| 2 method at the trait, known type | plain | 0.79 |
+| 3 trait with a Dynamic default | trait, as it is (once) | 8.26 |
+| 3 trait with a Dynamic default | trait, compiled_for | 2.38 |
+| 3 trait with a Dynamic default | plain | 2.38 |
+| 4 element of a vector, two types | trait, Vector{Shape} | 2.87 |
+| 4 element of a vector, two types | plain, Vector{abstract} | 2.7 |
+| 4 element of a vector, two types | plain, Vector{Union} | 3.19 |
+| 4 element of a vector, two types | plain, Vector{Circle} (one type) | 2.28 |
+| 5 a field | trait, ::Dynamic{Shape} | 5.56 |
+| 5 a field | plain, ::abstract | 0.79 |
+| 6 a function argument | Callable, compiled_for(f) | 1.34 |
+| 6 a function argument | Callable, with_dynamic(f) | 343.81 |
+| 6 a function argument | plain | 0.79 |
