@@ -33,6 +33,7 @@ They need the unified build (`julia-unified/`); TraitWorld does not run on stock
 | 2026-11-11 | `unified` binary 36b653bb3b with local changes (the branch at 564a2288e2), TraitWorld `unified` 05991fc | 18 pass | 85 pass (two checks added for §12's kept item) | 5 pass |
 | 2026-11-11 | `unified` dd3f6d839b, TraitWorld `unified` 158d000 (the messages' form, E-362) | 18 pass | 85 pass | 5 pass |
 | 2026-11-12 | `unified` 22db66e23c, TraitWorld `unified` 4a1dc03 (W-149: §12 stores without `keep`, and shows `Kept`) | 18 pass | 86 pass | 5 pass |
+| 2026-11-14 | `unified` 381cc8b953, TraitWorld `unified` 78a78af (`@unbounded`; `fully_typed` as the build's check; errors at the user's line) | 18 pass | 86 pass | 5 pass |
 
 `keep_at_prompt.jl` on the build of the row before (`logs/keep_at_prompt-05991fc.log`): at the prompt the item is a `Dynamic{Shape}`, not a `Scalable`, not `==` the circle, and the scene counts 0 scalable items; from a function it is the `Circle`, a `Scalable`, `==`, and the count is 1.
 
