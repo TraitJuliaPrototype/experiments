@@ -1,0 +1,16 @@
+# W-145 cache 2026-11-14T13:23:45+01:00 load 2.51 3.58 3.25 | julia-unified 86deee2f98 TraitWorld baadf9f | N=1, one thread
+tc-byB run 1: wall 1.223 s | load 124.7 ms | body 1.5 ms | first run 155.7 ms, of it compiling 155.4 ms | second run 0.1 ms
+tc-byB class Julia's own | 58 | 49.0 | 29.2
+tc-byB class the session's own | 1 | 51.9 | 29.8
+p-byB run 1: wall 1.244 s | load 9.1 ms | body 1.4 ms | first run 285.0 ms, of it compiling 284.7 ms | second run 0.1 ms
+p-byB class A's method at B's type | 8 | 36.0 | 98.8
+p-byB class B's method | 2 | 0.4 | 0.0
+p-byB class Julia's own | 55 | 69.7 | 26.1
+p-byB class the session's own | 1 | 33.9 | 29.1
+tc-session run 1: wall 1.532 s | load 124.5 ms | body 142.9 ms | first run 311.8 ms, of it compiling 311.6 ms | second run 0.1 ms
+tc-session class A's method at B's type | 8 | 56.3 | 99.6
+tc-session class Julia's own | 96 | 76.3 | 108.4
+tc-session class TraitWorld's | 1 | 0.9 | 7.4
+tc-session class the session's own | 3 | 103.1 | 29.7
+tc-session !! ┌ Warning: @implement Series Ring in Main: Main owns neither the trait (owned by SeriesA) nor the type (owned by RingB): a pirate's membership. It is followed; code that relied on its absence is compiled again. The trait's owner or the type's owner declares it, a foreign pair in the trait owner's package extension
+tc-session !! └ @ TraitWorld /p/projects/coen/julia-trait-bound/TraitWorld-unified/src/ownership.jl:253
