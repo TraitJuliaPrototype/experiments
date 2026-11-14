@@ -40,4 +40,27 @@ callw(n) = w(Box(mf, n))
 cw = latest(callw)
 mf(x::Int) = x
 @assert callw(1) === :callable "a caller that inferred the call again with a constant is invalidated"
+
+# where `A` names the method's variables, the call's other arguments fix them: the edge is at that `A`
+# (compiler §7.4). A method of the function at another type leaves the caller valid
+keep2(f::C{Tuple{T}, Bool}, xs::Vector{T}) where {T} = :callable
+keep2(f, xs) = :any
+pred2(x::String) = true
+callk2() = keep2(pred2, [1, 2])
+@assert callk2() === :any
+ck = latest(callk2)
+pred2(x::Float64) = true
+@assert ck.max_world == typemax(UInt) "a method at another type than the call's leaves the caller valid"
+pred2(x::Int) = x > 1
+@assert ck.max_world != typemax(UInt) && callk2() === :callable "the method at the call's type invalidates it"
+
+# a method the call's other arguments cannot reach takes the call whatever the argument's methods: no
+# edge. Another type's constructor with a `Callable` argument leaves this type's constructor's caller
+# with a record of facts only (the G2 bit, compiler §3.2), so an image keeps it
+struct Getter2; f; Getter2(f::C) = new(f); end
+struct Sol2; t::Vector{Float64}; n::Int; end
+mk2(n) = Sol2([1.0], n)
+mk2(1)
+g2(ci) = (getfield(ci, :flags, :monotonic)::UInt8 & 0x10) != 0
+@assert g2(latest(mk2)) "a constructor's caller holds no edge to its argument's call methods"
 println("n26_callable_late_method: OK")

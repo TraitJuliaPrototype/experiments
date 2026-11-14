@@ -1,0 +1,28 @@
+5924 log entries, 117 tagged groups
+
+jl_method_table_insert: 14 groups, 7 methods as the cause, 2825 instances ended (625 distinct)
+  by the module of the instance's method: Compiler 502, Base 123
+    1×  Tuple{Type{TraitRodas.Rodas5Steps}}  in TraitRodas
+    1×  Tuple{typeof(convert), Type{D}, D} where D<:ForwardDiff.Dual  in ForwardDiff
+    1×  Tuple{typeof(convert), Type{ForwardDiff.Dual{T, V, N}}, Number} where {T, V, N}  in ForwardDiff
+    1×  Tuple{typeof(getproperty), ODECore.ParamIntegrator, Symbol}  in ODECore
+    1×  Tuple{Type{NonlinearPolyalg}}  in TraitNonlinearSolve
+    1×  Tuple{typeof(Base.TOML.Printer.is_valid_toml_value), Union{Dates.Date, Dates.DateTime, Dates.Time}}  in Dates
+    1×  Tuple{typeof(promote_rule), Type{R}, Type{ForwardDiff.Dual{T, V, N}}} where {R<:Real, T, V, N}  in ForwardDiff
+
+jl_membership_dispatch_walk: 1 groups, 1 methods as the cause, 19 instances ended (14 distinct)
+  by the module of the instance's method: Base 14
+    1×  Tuple{typeof(iterate), TraitWorld.BaseTraits.Iterable{T}, Any} where T  in TraitWorld.BaseTraits
+
+jl_method_table_disable: 102 groups, 8 methods as the cause, 53 instances ended (9 distinct)
+  by the module of the instance's method: ODECore 6, TraitIndexing 3
+    11×  Tuple{typeof(getparam), All{IndexProvider{Symbol}, ValueProvider{U, P}}, Symbol} where {U, P}  in TraitIndexing
+    11×  Tuple{typeof(getstate), All{IndexProvider{Symbol}, ValueProvider{U, P}}, Symbol} where {U, P}  in TraitIndexing
+    8×  Tuple{typeof(TraitIndexing._read), All{SeriesProvider{U, P}, ValueProvider{U2, P2}}, Any} where {U, P, U2, P2}  in TraitIndexing
+    6×  Tuple{typeof(getseries), All{Trajectory{U, Float64}, IndexProvider{Symbol}}, Symbol} where U  in ODECore
+    4×  Tuple{typeof(ODECore._enter_step_callback!), Array{ODECore.StepCallback{U, T}, 1}, Array{ODECore.StepEvent{U, T}, 1}, All{ODECore.StepCallback{U, T},   in ODECore
+    4×  Tuple{typeof(ODECore._enter_callback!), Array{Callback{U, T, P}, 1}, Array{EventCallback{U, T, P}, 1}, All{Callback{U, T, P}, EventCallback{U, T, P}}}  in ODECore
+    3×  Tuple{Type{ODESolution}, Vector{Float64}, Array{Vector{T}, 1}, Symbol, Int64, Int64, Int64, ODEProblemTrait{T, P}, Any, Union{Nothing, Core.Dynamic{In  in ODECore
+    2×  Tuple{Type{ODECore.Newton}, L, Int64, Float64} where L<:LinearSolver  in ODECore
+
+instances ended that match "solve_core":
