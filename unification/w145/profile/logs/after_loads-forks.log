@@ -1,0 +1,29 @@
+## load: 1498.4 ms, 2086 samples
+  image validation                               46.7 %    700 ms | of it % inf 100, sub 37, mem 0, gc 10 | leaves % obvious_subtype 12; has_free_typevars 4; verify_method 4; ijl_get_nth_field 3; gc_marked 3
+  image restore                                  21.2 %    317 ms | of it % inf 1, gen 9, sub 5 | leaves % jl_read_reloclist 33; get_item_for_reloc 7; LLVM (C++) 6; symtab_lookup 3; jl_restore_system_image_from_stream_ 3
+  loading, the rest                              13.4 %    201 ms | of it %  | leaves % file system calls 85; crc32c_sse42 3; llseek 2; __memmove_avx512_unaligned_erms 1; explicit_manifest_deps_get 1
+  a method's activation                           7.6 %    114 ms | of it % sub 74 | leaves % obvious_subtype 10; obviously_disjoint 8; jl_to_typeof 8; invalidate_mt_cache 7; ijl_unwrap_unionall 4
+  membership walk                                 3.5 %     52 ms | of it % sub 92 | leaves % obvious_subtype 10; has_free_typevars 7; subtype 5; obviously_in_union 5; subtype_membership 4
+  membership activation                           3.0 %     45 ms | of it % sub 85, mem 3 | leaves % obvious_subtype 15; obviously_egal 8; subtype 3; reach_memo_get 3; ml_matches_i 3
+  package callbacks: the rest                     2.5 %     37 ms | of it % sub 12 | leaves % file system calls 27; jl_read_reloclist 8; crc32c_sse42 4; lookup_type_set 4; obviously_egal 4
+  package callbacks: inferring                    2.1 %     31 ms | of it % inf 100, sub 60 | leaves % obvious_subtype 21; has_free_typevars 7; subtype 5; undefref_check 5; getindex 5
+## the work, first: 109.1 ms, 92 samples
+  code generation                                82.6 %     90 ms | of it % gen 100 | leaves % LLVM (C++) 84; malloc 8; ZSTD_compressLiterals 1; SparseBitVector 1; destroyAll 1
+  inference                                       6.5 %      7 ms | of it % inf 100, sub 17 | leaves % merge_effectbits 17; ijl_new_method_instance_uninit 17; ijl_gc_small_alloc 17; < 17; jl_svecref 17
+  method lookup                                   5.4 %      6 ms | of it % sub 40 | leaves % jl_typemap_entry_assoc_by_type 20; ijl_unwrap_unionall 20; jl_compilation_sig 20; obviously_disjoint 20; jl_to_typeof 20
+  compiling while inferring                       3.3 %      4 ms | of it % inf 100, gen 100 | leaves % bindingkey_eq 33; LLVM (C++) 33; codelocs_parseheader 33
+  the work itself                                 2.2 %      2 ms | of it %  | leaves % objectid 50; _combine_process_agg 50
+## nine unrelated loads: 6766.4 ms, 9697 samples
+  image validation                               37.4 %   2532 ms | of it % inf 100, sub 46, mem 0, gc 13 | leaves % obvious_subtype 11; gc_old 6; has_free_typevars 4; verify_method 3; gc_marked 3
+  loading, the rest                              21.8 %   1477 ms | of it % sub 0 | leaves % file system calls 91; crc32c_sse42 2; __memmove_avx512_unaligned_erms 1; llseek 1; explicit_manifest_deps_get 0
+  image restore                                  21.5 %   1452 ms | of it % inf 0, gen 2, sub 3, mem 0 | leaves % jl_read_reloclist 30; jl_specializations_get_linfo_ 9; file system calls 9; get_item_for_reloc 4; symtab_lookup 4
+  a method's activation                          16.5 %   1118 ms | of it % sub 88 | leaves % has_free_typevars 12; obvious_subtype 7; jl_has_bound_typevars 6; obviously_disjoint 6; invalidate_intersecting 4
+  package callbacks: the rest                     1.7 %    114 ms | of it % sub 1 | leaves % file system calls 77; jl_read_reloclist 4;  2; __utimensat64_helper 2; getindex 1
+  package callbacks: inferring                    1.0 %     68 ms | of it % inf 100, sub 4, gc 78 | leaves % gc_old 22; gc_marked 16; gc_mark_objarray 8; gc_sweep_page 7; gc_try_claim_and_push 4
+## the work after the loads: 1812.8 ms, 1853 samples
+  code generation                                50.7 %    920 ms | of it % gen 100, sub 0 | leaves % LLVM (C++) 91; malloc 5; unlink_chunk.constprop.0 1; __memcmp_evex_movbe 0; ZSTD_RowFindBestMatch_noDict_4_4 0
+  inference                                      44.3 %    802 ms | of it % inf 100, sub 3, gc 47 | leaves % gc_old 20; gc_mark_objarray 7; gc_marked 7; .plt 5; gc_mark_outrefs 5
+  compiling while inferring                       4.6 %     84 ms | of it % inf 100, gen 100, sub 1 | leaves % LLVM (C++) 44; __memcmp_evex_movbe 6; malloc 6; emit_expr 6; operator() 3
+## the work again: 1.9 ms, 2 samples
+  method lookup                                  50.0 %      1 ms | of it %  | leaves % jl_typemap_entry_assoc_exact 100
+  the work itself                                50.0 %      1 ms | of it %  | leaves % jl_symbol_name_ 100
