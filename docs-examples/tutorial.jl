@@ -53,8 +53,8 @@ kind(x) = "something else"
 @trait Scalable begin
     scale(s::Scalable, k::Float64)::Self
 end
-@open doubled(s::Scalable) = like(s, scale(s, 2.0))     # a result of the member's own type: open
-@open nudged(p::Placed) = withfields(p; x = p.x + 1.0)
+@unbounded doubled(s::Scalable) = like(s, scale(s, 2.0))     # a result of the member's own type: open
+@unbounded nudged(p::Placed) = withfields(p; x = p.x + 1.0)
 
 # §12
 struct Scene
@@ -419,7 +419,7 @@ e = thrown(:(module Sloppy
     halfarea(s::Shape) = area(s) / 2
     outline(s::Shape) = length(s)
     end))
-check("§16 an open method in a trait module: TraitUseError", e isa TraitUseError)
+check("§16 an unbounded method in a trait module: TraitUseError", e isa TraitUseError)
 e === nothing || println("MESSAGE §16 Sloppy:\n", msg(e))
 
 e = thrown(:(module Meddler

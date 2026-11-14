@@ -117,12 +117,21 @@ kc(x::Shape) = Core.keep(x)
 total(xs) = sum(area, xs)
 @assert marea(c) + marea(s) == total([c, s]) == area(c) + area(s)
 
-# the casts are reserved names, written as an argument of the call they decide
-@assert !lowers(:(compiled_for(x)))
-@assert !lowers(:(y = with_dynamic(x)))
-@assert !lowers(:(compiled_for = 1))
-@assert !lowers(:(with_dynamic(x) = x))
-@assert !lowers(:(let compiled_for = 1; end))
+# the casts' names are not reserved (traits §7.6; open issue 160): a call is a cast's where the name is
+# bound to Core's cast, and the ordinary call of whatever else the name is bound to
+@assert lowers(:(compiled_for = 1)) && lowers(:(with_dynamic(x) = x)) && lowers(:(let compiled_for = 1; end))
 @assert lowers(:(f(compiled_for(x), with_dynamic(y), z)))
+@assert try compiled_for(c); false catch e; e isa ErrorException end "a cast called by its name raises"
+module OwnNames               # a plain module with functions of these names
+compiled_for(f) = (:own, f)
+with_dynamic(x; k = 1) = (:own, x, k)
+g(a, b) = (a, b)
+h() = g(compiled_for(1), with_dynamic(2))
+hk() = g(compiled_for(1), with_dynamic(2; k = 3))
+l(compiled_for) = g(compiled_for(1), 2)                  # a local of that name
+end
+@assert OwnNames.h() == ((:own, 1), (:own, 2, 1)) "a module's own functions of the casts' names are called"
+@assert OwnNames.hk() == ((:own, 1), (:own, 2, 3))
+@assert OwnNames.l(x -> x + 1) == (2, 2) "a local of a cast's name is called"
 
 println("n6_attribute: OK")

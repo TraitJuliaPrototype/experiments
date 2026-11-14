@@ -6,6 +6,10 @@ module Traits
 
 export @trait, @implement, isopen, declare_membership
 
+# the casts (compiler §6.9): their names are bound, not reserved; a module that uses them imports them
+import Core: compiled_for, with_dynamic
+export compiled_for, with_dynamic
+
 ## Runtime hooks (src/datatype.c)
 
 # open a set: before its binding is published (compiler §4.1)

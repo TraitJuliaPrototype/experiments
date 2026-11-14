@@ -26,4 +26,18 @@ callk() = keep(pred, [1, 2])
 @assert callk() === :any
 pred(x::Int) = x > 1
 @assert callk() === :callable
+
+# the call inferred again with a constant (compiler §5.5, §7.4): `w` at a `Box` passes a value typed
+# `Any`; its caller knows the function, and infers `w`'s code again at it. The edge is the caller's
+struct Box; f; n::Int; end
+apply3(f::C{Tuple{Int}, Int}) = :callable
+apply3(f) = :any
+mf(x::Float64) = x
+w(b::Box) = apply3(b.f)
+callw(n) = w(Box(mf, n))
+@assert callw(1) === :any
+@assert only(Base.return_types(callw, (Int,))) === Symbol || Base.infer_return_type(callw, (Int,)) === Symbol
+cw = latest(callw)
+mf(x::Int) = x
+@assert callw(1) === :callable "a caller that inferred the call again with a constant is invalidated"
 println("n26_callable_late_method: OK")
