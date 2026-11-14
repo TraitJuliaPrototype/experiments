@@ -1,0 +1,134 @@
+# E-356 r381 2026-11-14T16:41:46+01:00 load 1.20 1.33 1.76 | vanilla 45b6d15e34 unified 21c9b33e39 TraitWorld-unified 2072e75 experiments 43668d0
+== V run w | load 1.20
+using CSV, DataFrames 1065.02 ms
+first work 3278.25 ms, compile 3273.0 ms
+repeated: median 0.18 ms, least 0.18 ms
+== U run w | load 1.18
+using CSV, DataFrames 915.92 ms
+first work 3009.52 ms, compile 3005.74 ms
+repeated: median 0.2 ms, least 0.19 ms
+== L run w | load 1.17
+using TraitWorld 72.35 ms
+using CSV, DataFrames 766.87 ms
+first work 3111.11 ms, compile 3108.26 ms
+repeated: median 0.19 ms, least 0.19 ms
+== U-late run w | load 1.15
+using CSV, DataFrames 738.63 ms
+first work 3008.49 ms, compile 3005.11 ms
+repeated: median 0.2 ms, least 0.19 ms
+using TraitWorld (late) 61.6 ms
+ended by the library's load: 209 of 122403 | Base 94, DataFrames 80, Statistics 30, Main 3, PooledArrays 2
+  Tuple{typeof(findfirst), DataFrames.var"#685#686"{Symbol}, Vector{AbstractDataFrame}}
+  Tuple{typeof(Base._check_valid_region), Function}
+  Tuple{typeof(copyto!), Vector, DataFrames.DataFrameColumns}
+  Tuple{var"#5#6"}
+  Tuple{typeof(reps), var"#5#6", Int64}
+  Tuple{typeof(DataFrames.row_group_slots!), Tuple{Vector{Int64}}, Val{false}, Vector{Int64}, Bool, Nothing, Bool}
+  Tuple{typeof(DataFrames.row_group_slots!), Tuple{Vector{Bool}}, Val{false}, Vector{Int64}, Bool, Nothing, Bool}
+  Tuple{typeof(DataFrames.row_group_slots!), Tuple{Vector{Int64}, Vector{Int64}}, Val{false}, Vector{Int64}, Bool, Nothing, Bool}
+  Tuple{typeof(DataFrames.row_group_slots!), Tuple{Vector{Int64}, Vector{Int64}, PooledArrays.PooledVector{String, UInt32, Vector{UInt32}}}, Val{false}, Vector{Int64}, Bool, Nothing, Bool}
+  Tuple{typeof(DataFrames.row_group_slots!), Tuple{Vector{Float64}}, Val{false}, Vector{Int64}, Bool, Nothing, Bool}
+  Tuple{typeof(DataFrames.row_group_slots!), Tuple{Vector{Float64}}, Tuple{AbstractVector}, Tuple{Union{Missings.EachReplaceMissing{<:AbstractVector{<:Union{Missing, Real}}}, AbstractVector{<:Real}}}, Val{false}, Vector{Int64}, Bool, Bool, Bool}
+  Tuple{typeof(DataFrames.row_group_slots!), Tuple{Vector{Int64}, Vector{Int64}, PooledArrays.PooledVector{String, UInt32, Vector{UInt32}}}, Tuple{AbstractVector, AbstractVector, AbstractVector}, Tuple{Union{Missings.EachReplaceMissing{<:AbstractVector{<:Union{Missing, Real}}}, AbstractVector{<:Real}}, Union{Missings.EachReplaceMissing{<:AbstractVector{<:Union{Missing, Real}}}, AbstractVector{<:Re
+work after the library's load 299.73 ms, compile 291.96 ms
+repeated after: median 0.2 ms, least 0.19 ms
+== V run 1 | load 1.38
+using CSV, DataFrames 950.82 ms
+first work 3287.11 ms, compile 3283.54 ms
+repeated: median 0.18 ms, least 0.17 ms
+== U run 1 | load 1.40
+using CSV, DataFrames 772.05 ms
+first work 3006.68 ms, compile 3004.01 ms
+repeated: median 0.2 ms, least 0.19 ms
+== L run 1 | load 1.40
+using TraitWorld 70.56 ms
+using CSV, DataFrames 761.12 ms
+first work 3114.23 ms, compile 3111.44 ms
+repeated: median 0.19 ms, least 0.19 ms
+== U-late run 1 | load 1.37
+using CSV, DataFrames 735.83 ms
+first work 3014.51 ms, compile 3011.97 ms
+repeated: median 0.19 ms, least 0.19 ms
+using TraitWorld (late) 50.2 ms
+ended by the library's load: 209 of 122403 | Base 94, DataFrames 80, Statistics 30, Main 3, PooledArrays 2
+  Tuple{typeof(findfirst), DataFrames.var"#685#686"{Symbol}, Vector{AbstractDataFrame}}
+  Tuple{typeof(Base._check_valid_region), Function}
+  Tuple{typeof(copyto!), Vector, DataFrames.DataFrameColumns}
+  Tuple{var"#5#6"}
+  Tuple{typeof(reps), var"#5#6", Int64}
+  Tuple{typeof(DataFrames.row_group_slots!), Tuple{Vector{Int64}}, Val{false}, Vector{Int64}, Bool, Nothing, Bool}
+  Tuple{typeof(DataFrames.row_group_slots!), Tuple{Vector{Bool}}, Val{false}, Vector{Int64}, Bool, Nothing, Bool}
+  Tuple{typeof(DataFrames.row_group_slots!), Tuple{Vector{Int64}, Vector{Int64}}, Val{false}, Vector{Int64}, Bool, Nothing, Bool}
+  Tuple{typeof(DataFrames.row_group_slots!), Tuple{Vector{Int64}, Vector{Int64}, PooledArrays.PooledVector{String, UInt32, Vector{UInt32}}}, Val{false}, Vector{Int64}, Bool, Nothing, Bool}
+  Tuple{typeof(DataFrames.row_group_slots!), Tuple{Vector{Float64}}, Val{false}, Vector{Int64}, Bool, Nothing, Bool}
+  Tuple{typeof(DataFrames.row_group_slots!), Tuple{Vector{Float64}}, Tuple{AbstractVector}, Tuple{Union{Missings.EachReplaceMissing{<:AbstractVector{<:Union{Missing, Real}}}, AbstractVector{<:Real}}}, Val{false}, Vector{Int64}, Bool, Bool, Bool}
+  Tuple{typeof(DataFrames.row_group_slots!), Tuple{Vector{Int64}, Vector{Int64}, PooledArrays.PooledVector{String, UInt32, Vector{UInt32}}}, Tuple{AbstractVector, AbstractVector, AbstractVector}, Tuple{Union{Missings.EachReplaceMissing{<:AbstractVector{<:Union{Missing, Real}}}, AbstractVector{<:Real}}, Union{Missings.EachReplaceMissing{<:AbstractVector{<:Union{Missing, Real}}}, AbstractVector{<:Re
+work after the library's load 273.31 ms, compile 265.36 ms
+repeated after: median 0.19 ms, least 0.19 ms
+== V run 2 | load 1.38
+using CSV, DataFrames 609.87 ms
+first work 3285.55 ms, compile 3283.02 ms
+repeated: median 0.17 ms, least 0.16 ms
+== U run 2 | load 1.35
+using CSV, DataFrames 728.21 ms
+first work 3018.75 ms, compile 3016.15 ms
+repeated: median 0.19 ms, least 0.18 ms
+== L run 2 | load 1.32
+using TraitWorld 70.32 ms
+using CSV, DataFrames 760.4 ms
+first work 3119.65 ms, compile 3116.85 ms
+repeated: median 0.2 ms, least 0.19 ms
+== U-late run 2 | load 1.30
+using CSV, DataFrames 725.85 ms
+first work 3016.08 ms, compile 3013.54 ms
+repeated: median 0.19 ms, least 0.19 ms
+using TraitWorld (late) 49.49 ms
+ended by the library's load: 209 of 122403 | Base 94, DataFrames 80, Statistics 30, Main 3, PooledArrays 2
+  Tuple{typeof(findfirst), DataFrames.var"#685#686"{Symbol}, Vector{AbstractDataFrame}}
+  Tuple{typeof(Base._check_valid_region), Function}
+  Tuple{typeof(copyto!), Vector, DataFrames.DataFrameColumns}
+  Tuple{var"#5#6"}
+  Tuple{typeof(reps), var"#5#6", Int64}
+  Tuple{typeof(DataFrames.row_group_slots!), Tuple{Vector{Int64}}, Val{false}, Vector{Int64}, Bool, Nothing, Bool}
+  Tuple{typeof(DataFrames.row_group_slots!), Tuple{Vector{Bool}}, Val{false}, Vector{Int64}, Bool, Nothing, Bool}
+  Tuple{typeof(DataFrames.row_group_slots!), Tuple{Vector{Int64}, Vector{Int64}}, Val{false}, Vector{Int64}, Bool, Nothing, Bool}
+  Tuple{typeof(DataFrames.row_group_slots!), Tuple{Vector{Int64}, Vector{Int64}, PooledArrays.PooledVector{String, UInt32, Vector{UInt32}}}, Val{false}, Vector{Int64}, Bool, Nothing, Bool}
+  Tuple{typeof(DataFrames.row_group_slots!), Tuple{Vector{Float64}}, Val{false}, Vector{Int64}, Bool, Nothing, Bool}
+  Tuple{typeof(DataFrames.row_group_slots!), Tuple{Vector{Float64}}, Tuple{AbstractVector}, Tuple{Union{Missings.EachReplaceMissing{<:AbstractVector{<:Union{Missing, Real}}}, AbstractVector{<:Real}}}, Val{false}, Vector{Int64}, Bool, Bool, Bool}
+  Tuple{typeof(DataFrames.row_group_slots!), Tuple{Vector{Int64}, Vector{Int64}, PooledArrays.PooledVector{String, UInt32, Vector{UInt32}}}, Tuple{AbstractVector, AbstractVector, AbstractVector}, Tuple{Union{Missings.EachReplaceMissing{<:AbstractVector{<:Union{Missing, Real}}}, AbstractVector{<:Real}}, Union{Missings.EachReplaceMissing{<:AbstractVector{<:Union{Missing, Real}}}, AbstractVector{<:Re
+work after the library's load 271.23 ms, compile 263.33 ms
+repeated after: median 0.19 ms, least 0.19 ms
+== V run 3 | load 1.27
+using CSV, DataFrames 616.17 ms
+first work 3276.31 ms, compile 3273.76 ms
+repeated: median 0.18 ms, least 0.18 ms
+== U run 3 | load 1.25
+using CSV, DataFrames 728.65 ms
+first work 3023.03 ms, compile 3020.45 ms
+repeated: median 0.19 ms, least 0.19 ms
+== L run 3 | load 1.23
+using TraitWorld 70.14 ms
+using CSV, DataFrames 759.06 ms
+first work 3114.42 ms, compile 3111.56 ms
+repeated: median 0.2 ms, least 0.19 ms
+== U-late run 3 | load 1.29
+using CSV, DataFrames 737.57 ms
+first work 3025.45 ms, compile 3022.87 ms
+repeated: median 0.19 ms, least 0.19 ms
+using TraitWorld (late) 50.44 ms
+ended by the library's load: 209 of 122403 | Base 94, DataFrames 80, Statistics 30, Main 3, PooledArrays 2
+  Tuple{typeof(findfirst), DataFrames.var"#685#686"{Symbol}, Vector{AbstractDataFrame}}
+  Tuple{typeof(Base._check_valid_region), Function}
+  Tuple{typeof(copyto!), Vector, DataFrames.DataFrameColumns}
+  Tuple{var"#5#6"}
+  Tuple{typeof(reps), var"#5#6", Int64}
+  Tuple{typeof(DataFrames.row_group_slots!), Tuple{Vector{Int64}}, Val{false}, Vector{Int64}, Bool, Nothing, Bool}
+  Tuple{typeof(DataFrames.row_group_slots!), Tuple{Vector{Bool}}, Val{false}, Vector{Int64}, Bool, Nothing, Bool}
+  Tuple{typeof(DataFrames.row_group_slots!), Tuple{Vector{Int64}, Vector{Int64}}, Val{false}, Vector{Int64}, Bool, Nothing, Bool}
+  Tuple{typeof(DataFrames.row_group_slots!), Tuple{Vector{Int64}, Vector{Int64}, PooledArrays.PooledVector{String, UInt32, Vector{UInt32}}}, Val{false}, Vector{Int64}, Bool, Nothing, Bool}
+  Tuple{typeof(DataFrames.row_group_slots!), Tuple{Vector{Float64}}, Val{false}, Vector{Int64}, Bool, Nothing, Bool}
+  Tuple{typeof(DataFrames.row_group_slots!), Tuple{Vector{Float64}}, Tuple{AbstractVector}, Tuple{Union{Missings.EachReplaceMissing{<:AbstractVector{<:Union{Missing, Real}}}, AbstractVector{<:Real}}}, Val{false}, Vector{Int64}, Bool, Bool, Bool}
+  Tuple{typeof(DataFrames.row_group_slots!), Tuple{Vector{Int64}, Vector{Int64}, PooledArrays.PooledVector{String, UInt32, Vector{UInt32}}}, Tuple{AbstractVector, AbstractVector, AbstractVector}, Tuple{Union{Missings.EachReplaceMissing{<:AbstractVector{<:Union{Missing, Real}}}, AbstractVector{<:Real}}, Union{Missings.EachReplaceMissing{<:AbstractVector{<:Union{Missing, Real}}}, AbstractVector{<:Re
+work after the library's load 300.12 ms, compile 291.52 ms
+repeated after: median 0.2 ms, least 0.19 ms
+# done 2026-11-14T16:43:13+01:00

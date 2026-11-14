@@ -1,0 +1,398 @@
+# E-359 r379 2026-11-14T16:38:32+01:00 load 1.15 1.46 1.90 | unified 21c9b33e39 (binary 86deee2f98*) TraitWorld-unified 2072e75 TDE b730628 TraitMakie c862914 TraitCSV 92c46d0 TraitTables c339175 TraitReport a4bcf33 experiments 43668d0
+== T run w | load 1.15
+kind T | import 640.4 ms | roots 45 | own instances 3757
+the work                     first 130.7 ms (compile 69.4 ms, recompile 0.0 ms), again 29.3 ms | defining 0.1 ms | ended 0 by the definition, 0 at the end (facts 0) | compiled own 0 (facts 0)
+a new cell type (Int32)      first 527.8 ms (compile 519.4 ms, recompile 0.0 ms), again 8.4 ms | defining 0.0 ms | ended 0 by the definition, 0 at the end (facts 0) | compiled own 17 (facts 14)  [TraitTables 16, TraitMakie 1]
+    compiled: facts Tuple{typeof(TraitTables.TableCore.sortperm_col), Vector{Int32}}
+    compiled: facts Tuple{typeof(cell), Vector{Int32}, Int64}
+    compiled: facts Tuple{typeof(cell), Vector{Float32}, Int64}
+    compiled: facts Tuple{typeof(nrows), Vector{Int32}}
+    compiled: facts Tuple{typeof(nrows), Vector{Float32}}
+    compiled: facts Tuple{typeof(floats), Vector{Int32}, Bool}
+a new column struct          first 147.0 ms (compile 138.8 ms, recompile 0.0 ms), again 7.4 ms | defining 33.4 ms | ended 0 by the definition, 0 at the end (facts 0) | compiled own 6 (facts 5)  [TraitTables 6]
+    compiled: facts Tuple{typeof(TraitTables.TableCore.sortperm_col), Vector{Float64}}
+    compiled: facts Tuple{typeof(TraitTables.TableCore.summarize), Rep{Float64}, String}
+    compiled: facts Tuple{typeof(addcolumn!), Table, String, Rep{Float64}}
+    compiled: plain Tuple{typeof(TraitTables.table), Pair{String, Vector{Float64}}, Pair{String, Rep{Float64}}}
+    compiled: facts Tuple{typeof(TraitTables.TableCore.numsummary), Rep{Float64}, String, Int64, Int64, String}
+    compiled: facts Tuple{typeof(TraitTables.TableCore.take), Rep{Float64}, Vector{Int64}}
+the work, before the edit    first 28.9 ms (compile 0.0 ms, recompile 0.0 ms), again 28.5 ms | defining 0.0 ms | ended 0 by the definition, 0 at the end (facts 0) | compiled own 0 (facts 0)
+    methods evaluated again: 1
+an edit of `summarize`       first 113.9 ms (compile 82.9 ms, recompile 0.0 ms), again 30.1 ms | defining 2642.6 ms | ended 0 by the definition, 0 at the end (facts 0) | compiled own 4 (facts 4)  [TraitTables 4]
+    compiled: facts Tuple{typeof(TraitTables.TableCore.summarize), Vector{Float64}, String}
+    compiled: facts Tuple{typeof(TraitTables.TableCore.summarize), Vector{Union{Missing, Float64}}, String}
+    compiled: facts Tuple{typeof(TraitTables.TableCore.summarize), Vector{Union{Missing, Int64}}, String}
+    compiled: facts Tuple{typeof(TraitTables.TableCore.summarize), Vector{String}, String}
+the same edit again          first 113.4 ms (compile 83.2 ms, recompile 0.0 ms), again 28.5 ms | defining 463.7 ms | ended 0 by the definition, 0 at the end (facts 0) | compiled own 4 (facts 4)  [TraitTables 4]
+    compiled: facts Tuple{typeof(TraitTables.TableCore.summarize), Vector{Float64}, String}
+    compiled: facts Tuple{typeof(TraitTables.TableCore.summarize), Vector{Union{Missing, Float64}}, String}
+    compiled: facts Tuple{typeof(TraitTables.TableCore.summarize), Vector{Union{Missing, Int64}}, String}
+    compiled: facts Tuple{typeof(TraitTables.TableCore.summarize), Vector{String}, String}
+digest 786caf13d1d383f6 (equal after the edit)
+== T run 1 | load 1.12
+kind T | import 365.8 ms | roots 45 | own instances 3757
+the work                     first 129.5 ms (compile 69.6 ms, recompile 0.0 ms), again 29.2 ms | defining 0.1 ms | ended 0 by the definition, 0 at the end (facts 0) | compiled own 0 (facts 0)
+a new cell type (Int32)      first 528.5 ms (compile 520.0 ms, recompile 0.0 ms), again 7.7 ms | defining 0.0 ms | ended 0 by the definition, 0 at the end (facts 0) | compiled own 17 (facts 14)  [TraitTables 16, TraitMakie 1]
+    compiled: facts Tuple{typeof(TraitTables.TableCore.sortperm_col), Vector{Int32}}
+    compiled: facts Tuple{typeof(cell), Vector{Int32}, Int64}
+    compiled: facts Tuple{typeof(cell), Vector{Float32}, Int64}
+    compiled: facts Tuple{typeof(nrows), Vector{Int32}}
+    compiled: facts Tuple{typeof(nrows), Vector{Float32}}
+    compiled: facts Tuple{typeof(floats), Vector{Int32}, Bool}
+a new column struct          first 147.2 ms (compile 138.8 ms, recompile 0.0 ms), again 7.4 ms | defining 33.0 ms | ended 0 by the definition, 0 at the end (facts 0) | compiled own 6 (facts 5)  [TraitTables 6]
+    compiled: facts Tuple{typeof(TraitTables.TableCore.sortperm_col), Vector{Float64}}
+    compiled: facts Tuple{typeof(TraitTables.TableCore.summarize), Rep{Float64}, String}
+    compiled: facts Tuple{typeof(addcolumn!), Table, String, Rep{Float64}}
+    compiled: plain Tuple{typeof(TraitTables.table), Pair{String, Vector{Float64}}, Pair{String, Rep{Float64}}}
+    compiled: facts Tuple{typeof(TraitTables.TableCore.numsummary), Rep{Float64}, String, Int64, Int64, String}
+    compiled: facts Tuple{typeof(TraitTables.TableCore.take), Rep{Float64}, Vector{Int64}}
+the work, before the edit    first 29.5 ms (compile 0.0 ms, recompile 0.0 ms), again 29.4 ms | defining 0.0 ms | ended 0 by the definition, 0 at the end (facts 0) | compiled own 0 (facts 0)
+    methods evaluated again: 1
+an edit of `summarize`       first 111.6 ms (compile 81.1 ms, recompile 0.0 ms), again 30.1 ms | defining 2635.4 ms | ended 0 by the definition, 0 at the end (facts 0) | compiled own 4 (facts 4)  [TraitTables 4]
+    compiled: facts Tuple{typeof(TraitTables.TableCore.summarize), Vector{Float64}, String}
+    compiled: facts Tuple{typeof(TraitTables.TableCore.summarize), Vector{Union{Missing, Float64}}, String}
+    compiled: facts Tuple{typeof(TraitTables.TableCore.summarize), Vector{Union{Missing, Int64}}, String}
+    compiled: facts Tuple{typeof(TraitTables.TableCore.summarize), Vector{String}, String}
+the same edit again          first 112.7 ms (compile 83.3 ms, recompile 0.0 ms), again 28.5 ms | defining 452.2 ms | ended 0 by the definition, 0 at the end (facts 0) | compiled own 4 (facts 4)  [TraitTables 4]
+    compiled: facts Tuple{typeof(TraitTables.TableCore.summarize), Vector{Float64}, String}
+    compiled: facts Tuple{typeof(TraitTables.TableCore.summarize), Vector{Union{Missing, Float64}}, String}
+    compiled: facts Tuple{typeof(TraitTables.TableCore.summarize), Vector{Union{Missing, Int64}}, String}
+    compiled: facts Tuple{typeof(TraitTables.TableCore.summarize), Vector{String}, String}
+digest 786caf13d1d383f6 (equal after the edit)
+== T run 2 | load 1.11
+kind T | import 357.0 ms | roots 45 | own instances 3757
+the work                     first 127.6 ms (compile 69.5 ms, recompile 0.0 ms), again 29.3 ms | defining 0.1 ms | ended 0 by the definition, 0 at the end (facts 0) | compiled own 0 (facts 0)
+a new cell type (Int32)      first 527.2 ms (compile 518.7 ms, recompile 0.0 ms), again 7.8 ms | defining 0.0 ms | ended 0 by the definition, 0 at the end (facts 0) | compiled own 17 (facts 14)  [TraitTables 16, TraitMakie 1]
+    compiled: facts Tuple{typeof(TraitTables.TableCore.sortperm_col), Vector{Int32}}
+    compiled: facts Tuple{typeof(cell), Vector{Int32}, Int64}
+    compiled: facts Tuple{typeof(cell), Vector{Float32}, Int64}
+    compiled: facts Tuple{typeof(nrows), Vector{Int32}}
+    compiled: facts Tuple{typeof(nrows), Vector{Float32}}
+    compiled: facts Tuple{typeof(floats), Vector{Int32}, Bool}
+a new column struct          first 147.3 ms (compile 138.9 ms, recompile 0.0 ms), again 7.4 ms | defining 33.0 ms | ended 0 by the definition, 0 at the end (facts 0) | compiled own 6 (facts 5)  [TraitTables 6]
+    compiled: facts Tuple{typeof(TraitTables.TableCore.sortperm_col), Vector{Float64}}
+    compiled: facts Tuple{typeof(TraitTables.TableCore.summarize), Rep{Float64}, String}
+    compiled: facts Tuple{typeof(addcolumn!), Table, String, Rep{Float64}}
+    compiled: plain Tuple{typeof(TraitTables.table), Pair{String, Vector{Float64}}, Pair{String, Rep{Float64}}}
+    compiled: facts Tuple{typeof(TraitTables.TableCore.numsummary), Rep{Float64}, String, Int64, Int64, String}
+    compiled: facts Tuple{typeof(TraitTables.TableCore.take), Rep{Float64}, Vector{Int64}}
+the work, before the edit    first 28.9 ms (compile 0.0 ms, recompile 0.0 ms), again 28.6 ms | defining 0.0 ms | ended 0 by the definition, 0 at the end (facts 0) | compiled own 0 (facts 0)
+    methods evaluated again: 1
+an edit of `summarize`       first 112.1 ms (compile 81.1 ms, recompile 0.0 ms), again 29.6 ms | defining 2635.3 ms | ended 0 by the definition, 0 at the end (facts 0) | compiled own 4 (facts 4)  [TraitTables 4]
+    compiled: facts Tuple{typeof(TraitTables.TableCore.summarize), Vector{Float64}, String}
+    compiled: facts Tuple{typeof(TraitTables.TableCore.summarize), Vector{Union{Missing, Float64}}, String}
+    compiled: facts Tuple{typeof(TraitTables.TableCore.summarize), Vector{Union{Missing, Int64}}, String}
+    compiled: facts Tuple{typeof(TraitTables.TableCore.summarize), Vector{String}, String}
+the same edit again          first 113.0 ms (compile 83.6 ms, recompile 0.0 ms), again 28.5 ms | defining 454.8 ms | ended 0 by the definition, 0 at the end (facts 0) | compiled own 4 (facts 4)  [TraitTables 4]
+    compiled: facts Tuple{typeof(TraitTables.TableCore.summarize), Vector{Float64}, String}
+    compiled: facts Tuple{typeof(TraitTables.TableCore.summarize), Vector{Union{Missing, Float64}}, String}
+    compiled: facts Tuple{typeof(TraitTables.TableCore.summarize), Vector{Union{Missing, Int64}}, String}
+    compiled: facts Tuple{typeof(TraitTables.TableCore.summarize), Vector{String}, String}
+digest 786caf13d1d383f6 (equal after the edit)
+== Tp run w | load 1.10
+kind Tp | import 218.5 ms | roots 44 | own instances 3266
+the work                     first 134.7 ms (compile 77.8 ms, recompile 0.0 ms), again 29.1 ms | defining 0.1 ms | ended 0 by the definition, 0 at the end (facts 0) | compiled own 1 (facts 0)  [PlainTables 1]
+    compiled: plain Tuple{typeof(colnames), Table}
+a new cell type (Int32)      first 546.4 ms (compile 538.0 ms, recompile 0.0 ms), again 7.7 ms | defining 0.0 ms | ended 0 by the definition, 0 at the end (facts 0) | compiled own 13 (facts 0)  [PlainTables 12, PlainPlots 1]
+    compiled: plain Tuple{typeof(PlainTables.take), Vector{Int32}, Vector{Int64}}
+    compiled: plain Tuple{typeof(PlainTables.take), Vector{Float32}, Vector{Int64}}
+    compiled: plain Tuple{typeof(floats), Vector{Int32}}
+    compiled: plain Tuple{PlainTables.var"##floats#1", Bool, typeof(floats), Vector{Int32}}
+    compiled: plain Tuple{typeof(PlainTables.table), Pair{String, Vector{Int32}}, Vararg{Pair}}
+    compiled: plain Tuple{typeof(PlainTables.table), Pair{String, Vector{Int32}}, Pair{String, Vector{Float32}}}
+a new column struct          first 170.4 ms (compile 162.7 ms, recompile 0.0 ms), again 7.4 ms | defining 4.7 ms | ended 0 by the definition, 0 at the end (facts 0) | compiled own 5 (facts 0)  [PlainTables 5]
+    compiled: plain Tuple{typeof(PlainTables.take), Rep{Float64}, Vector{Int64}}
+    compiled: plain Tuple{typeof(PlainTables.table), Pair{String, Vector{Float64}}, Pair{String, Rep{Float64}}}
+    compiled: plain Tuple{typeof(addcolumn!), Table, String, Rep{Float64}}
+    compiled: plain Tuple{typeof(PlainTables.numsummary), Rep{Float64}, String, Int64, String}
+    compiled: plain Tuple{typeof(PlainTables.summarize), Rep{Float64}, String}
+the work, before the edit    first 30.2 ms (compile 0.0 ms, recompile 0.0 ms), again 29.1 ms | defining 0.0 ms | ended 0 by the definition, 0 at the end (facts 0) | compiled own 0 (facts 0)
+    methods evaluated again: 1
+an edit of `summarize`       first 122.4 ms (compile 92.5 ms, recompile 0.0 ms), again 29.8 ms | defining 79.7 ms | ended 3 by the definition, 2 at the end (facts 0)  [PlainTables 2] | compiled own 6 (facts 0)  [PlainTables 6]
+    ended:    plain Tuple{typeof(numericnames), Table}
+    ended:    plain Tuple{typeof(describe), Table}
+    compiled: plain Tuple{typeof(PlainTables.summarize), AbstractVector, String}
+    compiled: plain Tuple{typeof(PlainTables.summarize), Vector{Float64}, String}
+    compiled: plain Tuple{typeof(PlainTables.summarize), Vector{Union{Missing, Float64}}, String}
+    compiled: plain Tuple{typeof(PlainTables.summarize), Vector{Union{Missing, Int64}}, String}
+    compiled: plain Tuple{typeof(PlainTables.summarize), Vector{String}, String}
+    compiled: plain Tuple{typeof(describe), Table}
+the same edit again          first 121.9 ms (compile 91.9 ms, recompile 0.0 ms), again 29.1 ms | defining 7.8 ms | ended 2 by the definition, 1 at the end (facts 0)  [PlainTables 1] | compiled own 6 (facts 0)  [PlainTables 6]
+    ended:    plain Tuple{typeof(describe), Table}
+    compiled: plain Tuple{typeof(PlainTables.summarize), AbstractVector, String}
+    compiled: plain Tuple{typeof(PlainTables.summarize), Vector{Float64}, String}
+    compiled: plain Tuple{typeof(PlainTables.summarize), Vector{Union{Missing, Float64}}, String}
+    compiled: plain Tuple{typeof(PlainTables.summarize), Vector{Union{Missing, Int64}}, String}
+    compiled: plain Tuple{typeof(PlainTables.summarize), Vector{String}, String}
+    compiled: plain Tuple{typeof(describe), Table}
+digest 786caf13d1d383f6 (equal after the edit)
+== Tp run 1 | load 1.10
+kind Tp | import 193.5 ms | roots 44 | own instances 3266
+the work                     first 139.5 ms (compile 76.2 ms, recompile 0.0 ms), again 29.2 ms | defining 0.1 ms | ended 0 by the definition, 0 at the end (facts 0) | compiled own 1 (facts 0)  [PlainTables 1]
+    compiled: plain Tuple{typeof(colnames), Table}
+a new cell type (Int32)      first 555.0 ms (compile 546.5 ms, recompile 0.0 ms), again 7.7 ms | defining 0.0 ms | ended 0 by the definition, 0 at the end (facts 0) | compiled own 13 (facts 0)  [PlainTables 12, PlainPlots 1]
+    compiled: plain Tuple{typeof(PlainTables.take), Vector{Int32}, Vector{Int64}}
+    compiled: plain Tuple{typeof(PlainTables.take), Vector{Float32}, Vector{Int64}}
+    compiled: plain Tuple{typeof(floats), Vector{Int32}}
+    compiled: plain Tuple{PlainTables.var"##floats#1", Bool, typeof(floats), Vector{Int32}}
+    compiled: plain Tuple{typeof(PlainTables.table), Pair{String, Vector{Int32}}, Vararg{Pair}}
+    compiled: plain Tuple{typeof(PlainTables.table), Pair{String, Vector{Int32}}, Pair{String, Vector{Float32}}}
+a new column struct          first 170.1 ms (compile 162.4 ms, recompile 0.0 ms), again 7.3 ms | defining 4.8 ms | ended 0 by the definition, 0 at the end (facts 0) | compiled own 5 (facts 0)  [PlainTables 5]
+    compiled: plain Tuple{typeof(PlainTables.take), Rep{Float64}, Vector{Int64}}
+    compiled: plain Tuple{typeof(PlainTables.table), Pair{String, Vector{Float64}}, Pair{String, Rep{Float64}}}
+    compiled: plain Tuple{typeof(addcolumn!), Table, String, Rep{Float64}}
+    compiled: plain Tuple{typeof(PlainTables.numsummary), Rep{Float64}, String, Int64, String}
+    compiled: plain Tuple{typeof(PlainTables.summarize), Rep{Float64}, String}
+the work, before the edit    first 28.9 ms (compile 0.0 ms, recompile 0.0 ms), again 29.0 ms | defining 0.0 ms | ended 0 by the definition, 0 at the end (facts 0) | compiled own 0 (facts 0)
+    methods evaluated again: 1
+an edit of `summarize`       first 122.1 ms (compile 92.3 ms, recompile 0.0 ms), again 29.1 ms | defining 79.5 ms | ended 3 by the definition, 2 at the end (facts 0)  [PlainTables 2] | compiled own 6 (facts 0)  [PlainTables 6]
+    ended:    plain Tuple{typeof(numericnames), Table}
+    ended:    plain Tuple{typeof(describe), Table}
+    compiled: plain Tuple{typeof(PlainTables.summarize), AbstractVector, String}
+    compiled: plain Tuple{typeof(PlainTables.summarize), Vector{Float64}, String}
+    compiled: plain Tuple{typeof(PlainTables.summarize), Vector{Union{Missing, Float64}}, String}
+    compiled: plain Tuple{typeof(PlainTables.summarize), Vector{Union{Missing, Int64}}, String}
+    compiled: plain Tuple{typeof(PlainTables.summarize), Vector{String}, String}
+    compiled: plain Tuple{typeof(describe), Table}
+the same edit again          first 121.7 ms (compile 91.8 ms, recompile 0.0 ms), again 29.1 ms | defining 7.8 ms | ended 2 by the definition, 1 at the end (facts 0)  [PlainTables 1] | compiled own 6 (facts 0)  [PlainTables 6]
+    ended:    plain Tuple{typeof(describe), Table}
+    compiled: plain Tuple{typeof(PlainTables.summarize), AbstractVector, String}
+    compiled: plain Tuple{typeof(PlainTables.summarize), Vector{Float64}, String}
+    compiled: plain Tuple{typeof(PlainTables.summarize), Vector{Union{Missing, Float64}}, String}
+    compiled: plain Tuple{typeof(PlainTables.summarize), Vector{Union{Missing, Int64}}, String}
+    compiled: plain Tuple{typeof(PlainTables.summarize), Vector{String}, String}
+    compiled: plain Tuple{typeof(describe), Table}
+digest 786caf13d1d383f6 (equal after the edit)
+== Tp run 2 | load 1.09
+kind Tp | import 196.2 ms | roots 44 | own instances 3266
+the work                     first 135.9 ms (compile 76.8 ms, recompile 0.0 ms), again 29.1 ms | defining 0.1 ms | ended 0 by the definition, 0 at the end (facts 0) | compiled own 1 (facts 0)  [PlainTables 1]
+    compiled: plain Tuple{typeof(colnames), Table}
+a new cell type (Int32)      first 560.2 ms (compile 551.6 ms, recompile 0.0 ms), again 8.3 ms | defining 0.0 ms | ended 0 by the definition, 0 at the end (facts 0) | compiled own 13 (facts 0)  [PlainTables 12, PlainPlots 1]
+    compiled: plain Tuple{typeof(PlainTables.take), Vector{Int32}, Vector{Int64}}
+    compiled: plain Tuple{typeof(PlainTables.take), Vector{Float32}, Vector{Int64}}
+    compiled: plain Tuple{typeof(floats), Vector{Int32}}
+    compiled: plain Tuple{PlainTables.var"##floats#1", Bool, typeof(floats), Vector{Int32}}
+    compiled: plain Tuple{typeof(PlainTables.table), Pair{String, Vector{Int32}}, Vararg{Pair}}
+    compiled: plain Tuple{typeof(PlainTables.table), Pair{String, Vector{Int32}}, Pair{String, Vector{Float32}}}
+a new column struct          first 189.0 ms (compile 181.1 ms, recompile 0.0 ms), again 8.0 ms | defining 5.8 ms | ended 0 by the definition, 0 at the end (facts 0) | compiled own 5 (facts 0)  [PlainTables 5]
+    compiled: plain Tuple{typeof(PlainTables.take), Rep{Float64}, Vector{Int64}}
+    compiled: plain Tuple{typeof(PlainTables.table), Pair{String, Vector{Float64}}, Pair{String, Rep{Float64}}}
+    compiled: plain Tuple{typeof(addcolumn!), Table, String, Rep{Float64}}
+    compiled: plain Tuple{typeof(PlainTables.numsummary), Rep{Float64}, String, Int64, String}
+    compiled: plain Tuple{typeof(PlainTables.summarize), Rep{Float64}, String}
+the work, before the edit    first 29.0 ms (compile 0.0 ms, recompile 0.0 ms), again 28.8 ms | defining 0.0 ms | ended 0 by the definition, 0 at the end (facts 0) | compiled own 0 (facts 0)
+    methods evaluated again: 1
+an edit of `summarize`       first 129.5 ms (compile 99.2 ms, recompile 0.0 ms), again 29.2 ms | defining 87.7 ms | ended 3 by the definition, 2 at the end (facts 0)  [PlainTables 2] | compiled own 6 (facts 0)  [PlainTables 6]
+    ended:    plain Tuple{typeof(numericnames), Table}
+    ended:    plain Tuple{typeof(describe), Table}
+    compiled: plain Tuple{typeof(PlainTables.summarize), AbstractVector, String}
+    compiled: plain Tuple{typeof(PlainTables.summarize), Vector{Float64}, String}
+    compiled: plain Tuple{typeof(PlainTables.summarize), Vector{Union{Missing, Float64}}, String}
+    compiled: plain Tuple{typeof(PlainTables.summarize), Vector{Union{Missing, Int64}}, String}
+    compiled: plain Tuple{typeof(PlainTables.summarize), Vector{String}, String}
+    compiled: plain Tuple{typeof(describe), Table}
+the same edit again          first 127.7 ms (compile 97.4 ms, recompile 0.0 ms), again 29.4 ms | defining 9.1 ms | ended 2 by the definition, 1 at the end (facts 0)  [PlainTables 1] | compiled own 6 (facts 0)  [PlainTables 6]
+    ended:    plain Tuple{typeof(describe), Table}
+    compiled: plain Tuple{typeof(PlainTables.summarize), AbstractVector, String}
+    compiled: plain Tuple{typeof(PlainTables.summarize), Vector{Float64}, String}
+    compiled: plain Tuple{typeof(PlainTables.summarize), Vector{Union{Missing, Float64}}, String}
+    compiled: plain Tuple{typeof(PlainTables.summarize), Vector{Union{Missing, Int64}}, String}
+    compiled: plain Tuple{typeof(PlainTables.summarize), Vector{String}, String}
+    compiled: plain Tuple{typeof(describe), Table}
+digest 786caf13d1d383f6 (equal after the edit)
+== D run w | load 1.32
+kind D | import 841.7 ms | roots 60 | own instances 4806
+the work                     first 640.6 ms (compile 573.0 ms, recompile 0.0 ms), again 17.3 ms | defining 0.1 ms | ended 0 by the definition, 0 at the end (facts 0) | compiled own 37 (facts 25)  [ODECore 12, TraitDifferentialEquations 9, TraitMakie 6, ForwardDiff 5, TraitArrayTools 4, Printf 1]
+    compiled: plain Tuple{typeof(lines), Any}
+    compiled: plain Tuple{typeof(lines), Matrix{Float64}}
+    compiled: facts Tuple{typeof(TraitArrayTools.times), ODESolution{T, P}} where {T, P}
+    compiled: facts Tuple{typeof(TraitArrayTools.times), ODESolution{Float64, Vector{Float64}}}
+    compiled: facts Tuple{typeof(TraitArrayTools.times), DiffEqArray{E}} where E
+    compiled: plain Tuple{typeof(ForwardDiff.add_tuples), NTuple{8, Float64}, NTuple{8, Float64}}
+a new closure (the RHS)      first 59.0 ms (compile 49.5 ms, recompile 0.0 ms), again 9.1 ms | defining 0.0 ms | ended 0 by the definition, 0 at the end (facts 0) | compiled own 7 (facts 7)  [ODECore 7]
+    compiled: facts Tuple{typeof(ODECore._problem_of), All{Core.Callable{Tuple{Vector{Float64}, Vector{Float64}, P, Float64}, Nothing}, Function} where P>:Vector{Float64}, All{Core.Callable{Tuple{Vector{Float64}, Vector{Float64}, P, Float64}, Nothing}, Function} where P>:Vector{Float64}, Vector{Float64}, Tuple{Float64, Float64}, Vector{Float64}, Vector{Any}}
+    compiled: facts Tuple{typeof(ODECore._problem_of), Function, Function, Vector{Float64}, Tuple{Float64, Float64}, Vector{Float64}, Vector{Any}}
+    compiled: facts Tuple{ODECore.var"##ODEProblem#22", Nothing, Type{ODEProblem}, All{Core.Callable{Tuple{Vector{Float64}, Vector{Float64}, P, Float64}, Nothing}, Function}, Vector{Float64}, Tuple{Float64, Float64}, Vector{Float64}} where P>:Vector{Float64}
+    compiled: facts Tuple{Type{ODECore.PartialFn}, typeof(vdp!), Vector{Float64}}
+    compiled: facts Tuple{ODECore.PartialFn{typeof(vdp!), Vector{Float64}}, Vector{Float64}, Vector{Float64}, Float64}
+    compiled: facts Tuple{Type{ODEProblem}, All{Core.Callable{Tuple{Vector{Float64}, Vector{Float64}, P, Float64}, Nothing}, Function}, Vector{Float64}, Tuple{Float64, Float64}, Vector{Float64}} where P
+a new parameter struct       first 223.9 ms (compile 213.0 ms, recompile 0.0 ms), again 9.0 ms | defining 5.1 ms | ended 0 by the definition, 0 at the end (facts 0) | compiled own 41 (facts 41)  [ODECore 35, TraitDifferentialEquations 3, TraitArrayTools 1, TraitIndexing 1, TraitWorld 1]
+    compiled: facts Tuple{typeof(ODECore._system), ODEProblem{Float64, LP, Core.Dynamic{All{Core.Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Core.Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}}
+    compiled: facts Tuple{typeof(TraitArrayTools.times), ODESolution{Float64, LP}}
+    compiled: facts Tuple{typeof(ODECore.check_properties), ODEProblem{Float64, LP, Core.Dynamic{All{Core.Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Core.Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}, Tsit5}
+    compiled: facts Tuple{typeof(ODECore._member_checked), ODEProblem{Float64, LP, Core.Dynamic{All{Core.Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Core.Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}}
+    compiled: facts Tuple{typeof(ODECore._erased_function), Any, LP, Vector{Float64}, Nothing}
+    compiled: facts Tuple{typeof(TraitArrayTools.state), ODESolution{Float64, LP}, Int64}
+the work, before the edit    first 16.9 ms (compile 0.0 ms, recompile 0.0 ms), again 16.6 ms | defining 0.0 ms | ended 0 by the definition, 0 at the end (facts 0) | compiled own 0 (facts 0)
+    methods evaluated again: 1
+an edit of `save_step!`      first 358.9 ms (compile 341.5 ms, recompile 289.5 ms), again 16.8 ms | defining 103.4 ms | ended 44 by the definition, 42 at the end (facts 42)  [TraitDifferentialEquations 23, ODECore 14, TraitRodas 5] | compiled own 12 (facts 12)  [ODECore 8, TraitRodas 2, TraitDifferentialEquations 2]
+    ended:    facts Tuple{typeof(ODECore.run_to_end!), ODECore.Tsit5Integrator{Float64, ODECore.CoreProblem{Float64, Core.Dynamic{All{Core.Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Core.Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}}}
+    ended:    facts Tuple{typeof(ODECore.run_to_end!), TraitRodas.Rodas5Integrator{Nothing, ODECore.CoreProblem{Float64, Core.Dynamic{All{Core.Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Core.Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}}}
+    ended:    facts Tuple{typeof(ODECore.run_to_end!), ODECore.Tsit5Integrator{ForwardDiff.Dual{ForwardDiff.Tag{TraitDifferentialEquations.Sig{Tuple{Vector{Float64}}, Float64}, Float64}, Float64, 3}, ODECore.CoreProblem{ForwardDiff.Dual{ForwardDiff.Tag{TraitDifferentialEquations.Sig{Tuple{Vector{Float64}}, Float64}, Float64}, Float64, 3}, Core.Dynamic{Core.Callable{Tuple{Vector{ForwardDiff.Dual{ForwardDiff.Tag{TraitD
+    ended:    facts Tuple{typeof(ODECore.run_to_end!), TraitRodas.Rodas5Integrator{TraitRodas.DualJacobian{3, ODECore.PartialFn{typeof(TraitDifferentialEquations._wl_rhs!), Vector{Float64}}}, ODECore.CoreProblem{Float64, Core.Dynamic{All{Core.Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Core.Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.OD
+    ended:    facts Tuple{typeof(ODECore.tsit5_advance!), ODECore.Tsit5Integrator{Float64, ODECore.CoreProblem{Float64, Core.Dynamic{All{Core.Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Core.Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}}}
+    ended:    facts Tuple{typeof(ODECore.tsit5_advance!), ODECore.Tsit5Integrator{ForwardDiff.Dual{ForwardDiff.Tag{TraitDifferentialEquations.Sig{Tuple{Vector{Float64}}, Float64}, Float64}, Float64, 3}, ODECore.CoreProblem{ForwardDiff.Dual{ForwardDiff.Tag{TraitDifferentialEquations.Sig{Tuple{Vector{Float64}}, Float64}, Float64}, Float64, 3}, Core.Dynamic{Core.Callable{Tuple{Vector{ForwardDiff.Dual{ForwardDiff.Tag{Tra
+    compiled: facts Tuple{typeof(ODECore.run_to_end!), ODECore.Tsit5Integrator{Float64, ODECore.CoreProblem{Float64, Core.Dynamic{All{Core.Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Core.Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}}}
+    compiled: facts Tuple{typeof(ODECore.run_to_end!), TraitRodas.Rodas5Integrator{Nothing, ODECore.CoreProblem{Float64, Core.Dynamic{All{Core.Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Core.Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}}}
+    compiled: facts Tuple{typeof(ODECore.tsit5_advance!), ODECore.Tsit5Integrator{Float64, ODECore.CoreProblem{Float64, Core.Dynamic{All{Core.Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Core.Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}}}
+    compiled: facts Tuple{typeof(TraitRodas._rodas5_run), TraitRodas.Rodas5Integrator{Nothing, ODECore.CoreProblem{Float64, Core.Dynamic{All{Core.Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Core.Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}}}
+    compiled: facts Tuple{typeof(TraitRodas.rodas5_advance!), TraitRodas.Rodas5Integrator{Nothing, ODECore.CoreProblem{Float64, Core.Dynamic{All{Core.Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Core.Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}}}
+    compiled: facts Tuple{typeof(ODECore.advance!), ODECore.Tsit5Integrator{Float64, ODECore.CoreProblem{Float64, Core.Dynamic{All{Core.Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Core.Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}}}
+the same edit again          first 351.4 ms (compile 334.0 ms, recompile 282.7 ms), again 16.3 ms | defining 13.0 ms | ended 12 by the definition, 10 at the end (facts 10)  [ODECore 6, TraitRodas 2, TraitDifferentialEquations 2] | compiled own 12 (facts 12)  [ODECore 8, TraitRodas 2, TraitDifferentialEquations 2]
+    ended:    facts Tuple{typeof(ODECore.run_to_end!), ODECore.Tsit5Integrator{Float64, ODECore.CoreProblem{Float64, Core.Dynamic{All{Core.Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Core.Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}}}
+    ended:    facts Tuple{typeof(ODECore.run_to_end!), TraitRodas.Rodas5Integrator{Nothing, ODECore.CoreProblem{Float64, Core.Dynamic{All{Core.Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Core.Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}}}
+    ended:    facts Tuple{typeof(ODECore.tsit5_advance!), ODECore.Tsit5Integrator{Float64, ODECore.CoreProblem{Float64, Core.Dynamic{All{Core.Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Core.Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}}}
+    ended:    facts Tuple{typeof(TraitRodas._rodas5_run), TraitRodas.Rodas5Integrator{Nothing, ODECore.CoreProblem{Float64, Core.Dynamic{All{Core.Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Core.Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}}}
+    ended:    facts Tuple{typeof(TraitRodas.rodas5_advance!), TraitRodas.Rodas5Integrator{Nothing, ODECore.CoreProblem{Float64, Core.Dynamic{All{Core.Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Core.Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}}}
+    ended:    facts Tuple{typeof(ODECore.advance!), ODECore.Tsit5Integrator{Float64, ODECore.CoreProblem{Float64, Core.Dynamic{All{Core.Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Core.Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}}}
+    compiled: facts Tuple{typeof(ODECore.run_to_end!), ODECore.Tsit5Integrator{Float64, ODECore.CoreProblem{Float64, Core.Dynamic{All{Core.Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Core.Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}}}
+    compiled: facts Tuple{typeof(ODECore.run_to_end!), TraitRodas.Rodas5Integrator{Nothing, ODECore.CoreProblem{Float64, Core.Dynamic{All{Core.Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Core.Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}}}
+    compiled: facts Tuple{typeof(ODECore.tsit5_advance!), ODECore.Tsit5Integrator{Float64, ODECore.CoreProblem{Float64, Core.Dynamic{All{Core.Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Core.Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}}}
+    compiled: facts Tuple{typeof(TraitRodas._rodas5_run), TraitRodas.Rodas5Integrator{Nothing, ODECore.CoreProblem{Float64, Core.Dynamic{All{Core.Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Core.Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}}}
+    compiled: facts Tuple{typeof(TraitRodas.rodas5_advance!), TraitRodas.Rodas5Integrator{Nothing, ODECore.CoreProblem{Float64, Core.Dynamic{All{Core.Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Core.Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}}}
+    compiled: facts Tuple{typeof(ODECore.advance!), ODECore.Tsit5Integrator{Float64, ODECore.CoreProblem{Float64, Core.Dynamic{All{Core.Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Core.Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}}}
+an edit of `initdt`          first 360.5 ms (compile 343.2 ms, recompile 282.5 ms), again 16.2 ms | defining 21.2 ms | ended 10 by the definition, 9 at the end (facts 9)  [ODECore 7, TraitDifferentialEquations 2] | compiled own 13 (facts 13)  [ODECore 11, TraitDifferentialEquations 2]
+    ended:    facts Tuple{typeof(ODECore.run_to_end!), ODECore.Tsit5Integrator{Float64, ODECore.CoreProblem{Float64, Core.Dynamic{All{Core.Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Core.Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}}}
+    ended:    facts Tuple{typeof(ODECore.tsit5_advance!), ODECore.Tsit5Integrator{Float64, ODECore.CoreProblem{Float64, Core.Dynamic{All{Core.Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Core.Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}}}
+    ended:    facts Tuple{typeof(ODECore.tsit5_init), ODECore.CoreProblem{Float64, Core.Dynamic{All{Core.Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Core.Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}, Vector{Float64}, Tuple{Float64, Float64}, Vector{Any}, ODECor
+    ended:    facts Tuple{typeof(ODECore.tsit5_init), ODECore.CoreProblem{ForwardDiff.Dual{ForwardDiff.Tag{TraitDifferentialEquations.Sig{Tuple{Vector{Float64}}, Float64}, Float64}, Float64, 3}, Core.Dynamic{Core.Callable{Tuple{Vector{ForwardDiff.Dual{ForwardDiff.Tag{TraitDifferentialEquations.Sig{Tuple{Vector{Float64}}, Float64}, Float64}, Float64, 3}}, Vector{ForwardDiff.Dual{ForwardDiff.Tag{TraitDifferentialEquati
+    ended:    facts Tuple{typeof(ODECore.advance!), ODECore.Tsit5Integrator{Float64, ODECore.CoreProblem{Float64, Core.Dynamic{All{Core.Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Core.Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}}}
+    ended:    facts Tuple{typeof(Core.kwcall), @NamedTuple{saveat::Vector{Float64}, reltol::Float64, abstol::Float64}, typeof(solve), ODEProblem{Float64, Vector{Float64}, Core.Dynamic{All{Core.Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Core.Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(O
+    compiled: facts Tuple{typeof(ODECore.run_to_end!), ODECore.Tsit5Integrator{Float64, ODECore.CoreProblem{Float64, Core.Dynamic{All{Core.Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Core.Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}}}
+    compiled: facts Tuple{typeof(ODECore.tsit5_advance!), ODECore.Tsit5Integrator{Float64, ODECore.CoreProblem{Float64, Core.Dynamic{All{Core.Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Core.Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}}}
+    compiled: facts Tuple{typeof(ODECore.tsit5_init), ODECore.CoreProblem{Float64, Core.Dynamic{All{Core.Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Core.Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}, Vector{Float64}, Tuple{Float64, Float64}, Vector{Any}, ODECor
+    compiled: facts Tuple{typeof(ODECore.advance!), ODECore.Tsit5Integrator{Float64, ODECore.CoreProblem{Float64, Core.Dynamic{All{Core.Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Core.Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}}}
+    compiled: facts Tuple{typeof(ODECore.initdt), ODECore.CoreProblem{Float64, Core.Dynamic{All{Core.Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Core.Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}, ODECore.Tsit5Integrator{Float64, ODECore.CoreProblem{Float64, Cor
+    compiled: facts Tuple{typeof(Core.kwcall), @NamedTuple{saveat::Vector{Float64}, reltol::Float64, abstol::Float64}, typeof(solve), ODEProblem{Float64, Vector{Float64}, Core.Dynamic{All{Core.Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Core.Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(O
+digest 6de3e9fbbdc7903a (equal after the edit)
+== D run 1 | load 1.29
+kind D | import 501.4 ms | roots 60 | own instances 4806
+the work                     first 623.8 ms (compile 575.8 ms, recompile 0.0 ms), again 17.1 ms | defining 0.1 ms | ended 0 by the definition, 0 at the end (facts 0) | compiled own 37 (facts 25)  [ODECore 12, TraitDifferentialEquations 9, TraitMakie 6, ForwardDiff 5, TraitArrayTools 4, Printf 1]
+    compiled: plain Tuple{typeof(lines), Any}
+    compiled: plain Tuple{typeof(lines), Matrix{Float64}}
+    compiled: facts Tuple{typeof(TraitArrayTools.times), ODESolution{T, P}} where {T, P}
+    compiled: facts Tuple{typeof(TraitArrayTools.times), ODESolution{Float64, Vector{Float64}}}
+    compiled: facts Tuple{typeof(TraitArrayTools.times), DiffEqArray{E}} where E
+    compiled: plain Tuple{typeof(ForwardDiff.add_tuples), NTuple{8, Float64}, NTuple{8, Float64}}
+a new closure (the RHS)      first 59.3 ms (compile 49.6 ms, recompile 0.0 ms), again 9.4 ms | defining 0.0 ms | ended 0 by the definition, 0 at the end (facts 0) | compiled own 7 (facts 7)  [ODECore 7]
+    compiled: facts Tuple{typeof(ODECore._problem_of), All{Core.Callable{Tuple{Vector{Float64}, Vector{Float64}, P, Float64}, Nothing}, Function} where P>:Vector{Float64}, All{Core.Callable{Tuple{Vector{Float64}, Vector{Float64}, P, Float64}, Nothing}, Function} where P>:Vector{Float64}, Vector{Float64}, Tuple{Float64, Float64}, Vector{Float64}, Vector{Any}}
+    compiled: facts Tuple{typeof(ODECore._problem_of), Function, Function, Vector{Float64}, Tuple{Float64, Float64}, Vector{Float64}, Vector{Any}}
+    compiled: facts Tuple{ODECore.var"##ODEProblem#22", Nothing, Type{ODEProblem}, All{Core.Callable{Tuple{Vector{Float64}, Vector{Float64}, P, Float64}, Nothing}, Function}, Vector{Float64}, Tuple{Float64, Float64}, Vector{Float64}} where P>:Vector{Float64}
+    compiled: facts Tuple{Type{ODECore.PartialFn}, typeof(vdp!), Vector{Float64}}
+    compiled: facts Tuple{ODECore.PartialFn{typeof(vdp!), Vector{Float64}}, Vector{Float64}, Vector{Float64}, Float64}
+    compiled: facts Tuple{Type{ODEProblem}, All{Core.Callable{Tuple{Vector{Float64}, Vector{Float64}, P, Float64}, Nothing}, Function}, Vector{Float64}, Tuple{Float64, Float64}, Vector{Float64}} where P
+a new parameter struct       first 221.4 ms (compile 210.5 ms, recompile 0.0 ms), again 9.1 ms | defining 4.8 ms | ended 0 by the definition, 0 at the end (facts 0) | compiled own 41 (facts 41)  [ODECore 35, TraitDifferentialEquations 3, TraitArrayTools 1, TraitIndexing 1, TraitWorld 1]
+    compiled: facts Tuple{typeof(ODECore._system), ODEProblem{Float64, LP, Core.Dynamic{All{Core.Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Core.Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}}
+    compiled: facts Tuple{typeof(TraitArrayTools.times), ODESolution{Float64, LP}}
+    compiled: facts Tuple{typeof(ODECore.check_properties), ODEProblem{Float64, LP, Core.Dynamic{All{Core.Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Core.Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}, Tsit5}
+    compiled: facts Tuple{typeof(ODECore._member_checked), ODEProblem{Float64, LP, Core.Dynamic{All{Core.Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Core.Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}}
+    compiled: facts Tuple{typeof(ODECore._erased_function), Any, LP, Vector{Float64}, Nothing}
+    compiled: facts Tuple{typeof(TraitArrayTools.state), ODESolution{Float64, LP}, Int64}
+the work, before the edit    first 17.4 ms (compile 0.0 ms, recompile 0.0 ms), again 16.5 ms | defining 0.0 ms | ended 0 by the definition, 0 at the end (facts 0) | compiled own 0 (facts 0)
+    methods evaluated again: 1
+an edit of `save_step!`      first 361.0 ms (compile 343.4 ms, recompile 291.2 ms), again 16.1 ms | defining 102.9 ms | ended 44 by the definition, 42 at the end (facts 42)  [TraitDifferentialEquations 23, ODECore 14, TraitRodas 5] | compiled own 12 (facts 12)  [ODECore 8, TraitRodas 2, TraitDifferentialEquations 2]
+    ended:    facts Tuple{typeof(ODECore.run_to_end!), ODECore.Tsit5Integrator{Float64, ODECore.CoreProblem{Float64, Core.Dynamic{All{Core.Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Core.Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}}}
+    ended:    facts Tuple{typeof(ODECore.run_to_end!), TraitRodas.Rodas5Integrator{Nothing, ODECore.CoreProblem{Float64, Core.Dynamic{All{Core.Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Core.Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}}}
+    ended:    facts Tuple{typeof(ODECore.run_to_end!), ODECore.Tsit5Integrator{ForwardDiff.Dual{ForwardDiff.Tag{TraitDifferentialEquations.Sig{Tuple{Vector{Float64}}, Float64}, Float64}, Float64, 3}, ODECore.CoreProblem{ForwardDiff.Dual{ForwardDiff.Tag{TraitDifferentialEquations.Sig{Tuple{Vector{Float64}}, Float64}, Float64}, Float64, 3}, Core.Dynamic{Core.Callable{Tuple{Vector{ForwardDiff.Dual{ForwardDiff.Tag{TraitD
+    ended:    facts Tuple{typeof(ODECore.run_to_end!), TraitRodas.Rodas5Integrator{TraitRodas.DualJacobian{3, ODECore.PartialFn{typeof(TraitDifferentialEquations._wl_rhs!), Vector{Float64}}}, ODECore.CoreProblem{Float64, Core.Dynamic{All{Core.Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Core.Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.OD
+    ended:    facts Tuple{typeof(ODECore.tsit5_advance!), ODECore.Tsit5Integrator{Float64, ODECore.CoreProblem{Float64, Core.Dynamic{All{Core.Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Core.Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}}}
+    ended:    facts Tuple{typeof(ODECore.tsit5_advance!), ODECore.Tsit5Integrator{ForwardDiff.Dual{ForwardDiff.Tag{TraitDifferentialEquations.Sig{Tuple{Vector{Float64}}, Float64}, Float64}, Float64, 3}, ODECore.CoreProblem{ForwardDiff.Dual{ForwardDiff.Tag{TraitDifferentialEquations.Sig{Tuple{Vector{Float64}}, Float64}, Float64}, Float64, 3}, Core.Dynamic{Core.Callable{Tuple{Vector{ForwardDiff.Dual{ForwardDiff.Tag{Tra
+    compiled: facts Tuple{typeof(ODECore.run_to_end!), ODECore.Tsit5Integrator{Float64, ODECore.CoreProblem{Float64, Core.Dynamic{All{Core.Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Core.Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}}}
+    compiled: facts Tuple{typeof(ODECore.run_to_end!), TraitRodas.Rodas5Integrator{Nothing, ODECore.CoreProblem{Float64, Core.Dynamic{All{Core.Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Core.Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}}}
+    compiled: facts Tuple{typeof(ODECore.tsit5_advance!), ODECore.Tsit5Integrator{Float64, ODECore.CoreProblem{Float64, Core.Dynamic{All{Core.Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Core.Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}}}
+    compiled: facts Tuple{typeof(TraitRodas._rodas5_run), TraitRodas.Rodas5Integrator{Nothing, ODECore.CoreProblem{Float64, Core.Dynamic{All{Core.Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Core.Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}}}
+    compiled: facts Tuple{typeof(TraitRodas.rodas5_advance!), TraitRodas.Rodas5Integrator{Nothing, ODECore.CoreProblem{Float64, Core.Dynamic{All{Core.Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Core.Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}}}
+    compiled: facts Tuple{typeof(ODECore.advance!), ODECore.Tsit5Integrator{Float64, ODECore.CoreProblem{Float64, Core.Dynamic{All{Core.Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Core.Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}}}
+the same edit again          first 353.5 ms (compile 335.5 ms, recompile 283.8 ms), again 16.3 ms | defining 13.0 ms | ended 12 by the definition, 10 at the end (facts 10)  [ODECore 6, TraitRodas 2, TraitDifferentialEquations 2] | compiled own 12 (facts 12)  [ODECore 8, TraitRodas 2, TraitDifferentialEquations 2]
+    ended:    facts Tuple{typeof(ODECore.run_to_end!), ODECore.Tsit5Integrator{Float64, ODECore.CoreProblem{Float64, Core.Dynamic{All{Core.Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Core.Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}}}
+    ended:    facts Tuple{typeof(ODECore.run_to_end!), TraitRodas.Rodas5Integrator{Nothing, ODECore.CoreProblem{Float64, Core.Dynamic{All{Core.Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Core.Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}}}
+    ended:    facts Tuple{typeof(ODECore.tsit5_advance!), ODECore.Tsit5Integrator{Float64, ODECore.CoreProblem{Float64, Core.Dynamic{All{Core.Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Core.Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}}}
+    ended:    facts Tuple{typeof(TraitRodas._rodas5_run), TraitRodas.Rodas5Integrator{Nothing, ODECore.CoreProblem{Float64, Core.Dynamic{All{Core.Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Core.Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}}}
+    ended:    facts Tuple{typeof(TraitRodas.rodas5_advance!), TraitRodas.Rodas5Integrator{Nothing, ODECore.CoreProblem{Float64, Core.Dynamic{All{Core.Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Core.Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}}}
+    ended:    facts Tuple{typeof(ODECore.advance!), ODECore.Tsit5Integrator{Float64, ODECore.CoreProblem{Float64, Core.Dynamic{All{Core.Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Core.Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}}}
+    compiled: facts Tuple{typeof(ODECore.run_to_end!), ODECore.Tsit5Integrator{Float64, ODECore.CoreProblem{Float64, Core.Dynamic{All{Core.Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Core.Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}}}
+    compiled: facts Tuple{typeof(ODECore.run_to_end!), TraitRodas.Rodas5Integrator{Nothing, ODECore.CoreProblem{Float64, Core.Dynamic{All{Core.Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Core.Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}}}
+    compiled: facts Tuple{typeof(ODECore.tsit5_advance!), ODECore.Tsit5Integrator{Float64, ODECore.CoreProblem{Float64, Core.Dynamic{All{Core.Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Core.Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}}}
+    compiled: facts Tuple{typeof(TraitRodas._rodas5_run), TraitRodas.Rodas5Integrator{Nothing, ODECore.CoreProblem{Float64, Core.Dynamic{All{Core.Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Core.Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}}}
+    compiled: facts Tuple{typeof(TraitRodas.rodas5_advance!), TraitRodas.Rodas5Integrator{Nothing, ODECore.CoreProblem{Float64, Core.Dynamic{All{Core.Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Core.Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}}}
+    compiled: facts Tuple{typeof(ODECore.advance!), ODECore.Tsit5Integrator{Float64, ODECore.CoreProblem{Float64, Core.Dynamic{All{Core.Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Core.Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}}}
+an edit of `initdt`          first 362.1 ms (compile 344.8 ms, recompile 283.5 ms), again 16.2 ms | defining 21.0 ms | ended 10 by the definition, 9 at the end (facts 9)  [ODECore 7, TraitDifferentialEquations 2] | compiled own 13 (facts 13)  [ODECore 11, TraitDifferentialEquations 2]
+    ended:    facts Tuple{typeof(ODECore.run_to_end!), ODECore.Tsit5Integrator{Float64, ODECore.CoreProblem{Float64, Core.Dynamic{All{Core.Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Core.Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}}}
+    ended:    facts Tuple{typeof(ODECore.tsit5_advance!), ODECore.Tsit5Integrator{Float64, ODECore.CoreProblem{Float64, Core.Dynamic{All{Core.Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Core.Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}}}
+    ended:    facts Tuple{typeof(ODECore.tsit5_init), ODECore.CoreProblem{Float64, Core.Dynamic{All{Core.Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Core.Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}, Vector{Float64}, Tuple{Float64, Float64}, Vector{Any}, ODECor
+    ended:    facts Tuple{typeof(ODECore.tsit5_init), ODECore.CoreProblem{ForwardDiff.Dual{ForwardDiff.Tag{TraitDifferentialEquations.Sig{Tuple{Vector{Float64}}, Float64}, Float64}, Float64, 3}, Core.Dynamic{Core.Callable{Tuple{Vector{ForwardDiff.Dual{ForwardDiff.Tag{TraitDifferentialEquations.Sig{Tuple{Vector{Float64}}, Float64}, Float64}, Float64, 3}}, Vector{ForwardDiff.Dual{ForwardDiff.Tag{TraitDifferentialEquati
+    ended:    facts Tuple{typeof(ODECore.advance!), ODECore.Tsit5Integrator{Float64, ODECore.CoreProblem{Float64, Core.Dynamic{All{Core.Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Core.Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}}}
+    ended:    facts Tuple{typeof(Core.kwcall), @NamedTuple{saveat::Vector{Float64}, reltol::Float64, abstol::Float64}, typeof(solve), ODEProblem{Float64, Vector{Float64}, Core.Dynamic{All{Core.Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Core.Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(O
+    compiled: facts Tuple{typeof(ODECore.run_to_end!), ODECore.Tsit5Integrator{Float64, ODECore.CoreProblem{Float64, Core.Dynamic{All{Core.Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Core.Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}}}
+    compiled: facts Tuple{typeof(ODECore.tsit5_advance!), ODECore.Tsit5Integrator{Float64, ODECore.CoreProblem{Float64, Core.Dynamic{All{Core.Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Core.Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}}}
+    compiled: facts Tuple{typeof(ODECore.tsit5_init), ODECore.CoreProblem{Float64, Core.Dynamic{All{Core.Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Core.Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}, Vector{Float64}, Tuple{Float64, Float64}, Vector{Any}, ODECor
+    compiled: facts Tuple{typeof(ODECore.advance!), ODECore.Tsit5Integrator{Float64, ODECore.CoreProblem{Float64, Core.Dynamic{All{Core.Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Core.Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}}}
+    compiled: facts Tuple{typeof(ODECore.initdt), ODECore.CoreProblem{Float64, Core.Dynamic{All{Core.Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Core.Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}, ODECore.Tsit5Integrator{Float64, ODECore.CoreProblem{Float64, Cor
+    compiled: facts Tuple{typeof(Core.kwcall), @NamedTuple{saveat::Vector{Float64}, reltol::Float64, abstol::Float64}, typeof(solve), ODEProblem{Float64, Vector{Float64}, Core.Dynamic{All{Core.Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Core.Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(O
+digest 6de3e9fbbdc7903a (equal after the edit)
+== D run 2 | load 1.27
+kind D | import 498.6 ms | roots 60 | own instances 4806
+the work                     first 628.4 ms (compile 574.8 ms, recompile 0.0 ms), again 17.1 ms | defining 0.1 ms | ended 0 by the definition, 0 at the end (facts 0) | compiled own 37 (facts 25)  [ODECore 12, TraitDifferentialEquations 9, TraitMakie 6, ForwardDiff 5, TraitArrayTools 4, Printf 1]
+    compiled: plain Tuple{typeof(lines), Any}
+    compiled: plain Tuple{typeof(lines), Matrix{Float64}}
+    compiled: facts Tuple{typeof(TraitArrayTools.times), ODESolution{T, P}} where {T, P}
+    compiled: facts Tuple{typeof(TraitArrayTools.times), ODESolution{Float64, Vector{Float64}}}
+    compiled: facts Tuple{typeof(TraitArrayTools.times), DiffEqArray{E}} where E
+    compiled: plain Tuple{typeof(ForwardDiff.add_tuples), NTuple{8, Float64}, NTuple{8, Float64}}
+a new closure (the RHS)      first 59.0 ms (compile 49.5 ms, recompile 0.0 ms), again 9.1 ms | defining 0.0 ms | ended 0 by the definition, 0 at the end (facts 0) | compiled own 7 (facts 7)  [ODECore 7]
+    compiled: facts Tuple{typeof(ODECore._problem_of), All{Core.Callable{Tuple{Vector{Float64}, Vector{Float64}, P, Float64}, Nothing}, Function} where P>:Vector{Float64}, All{Core.Callable{Tuple{Vector{Float64}, Vector{Float64}, P, Float64}, Nothing}, Function} where P>:Vector{Float64}, Vector{Float64}, Tuple{Float64, Float64}, Vector{Float64}, Vector{Any}}
+    compiled: facts Tuple{typeof(ODECore._problem_of), Function, Function, Vector{Float64}, Tuple{Float64, Float64}, Vector{Float64}, Vector{Any}}
+    compiled: facts Tuple{ODECore.var"##ODEProblem#22", Nothing, Type{ODEProblem}, All{Core.Callable{Tuple{Vector{Float64}, Vector{Float64}, P, Float64}, Nothing}, Function}, Vector{Float64}, Tuple{Float64, Float64}, Vector{Float64}} where P>:Vector{Float64}
+    compiled: facts Tuple{Type{ODECore.PartialFn}, typeof(vdp!), Vector{Float64}}
+    compiled: facts Tuple{ODECore.PartialFn{typeof(vdp!), Vector{Float64}}, Vector{Float64}, Vector{Float64}, Float64}
+    compiled: facts Tuple{Type{ODEProblem}, All{Core.Callable{Tuple{Vector{Float64}, Vector{Float64}, P, Float64}, Nothing}, Function}, Vector{Float64}, Tuple{Float64, Float64}, Vector{Float64}} where P
+a new parameter struct       first 222.7 ms (compile 211.4 ms, recompile 0.0 ms), again 8.9 ms | defining 5.0 ms | ended 0 by the definition, 0 at the end (facts 0) | compiled own 41 (facts 41)  [ODECore 35, TraitDifferentialEquations 3, TraitArrayTools 1, TraitIndexing 1, TraitWorld 1]
+    compiled: facts Tuple{typeof(ODECore._system), ODEProblem{Float64, LP, Core.Dynamic{All{Core.Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Core.Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}}
+    compiled: facts Tuple{typeof(TraitArrayTools.times), ODESolution{Float64, LP}}
+    compiled: facts Tuple{typeof(ODECore.check_properties), ODEProblem{Float64, LP, Core.Dynamic{All{Core.Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Core.Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}, Tsit5}
+    compiled: facts Tuple{typeof(ODECore._member_checked), ODEProblem{Float64, LP, Core.Dynamic{All{Core.Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Core.Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}}
+    compiled: facts Tuple{typeof(ODECore._erased_function), Any, LP, Vector{Float64}, Nothing}
+    compiled: facts Tuple{typeof(TraitArrayTools.state), ODESolution{Float64, LP}, Int64}
+the work, before the edit    first 16.8 ms (compile 0.0 ms, recompile 0.0 ms), again 16.5 ms | defining 0.0 ms | ended 0 by the definition, 0 at the end (facts 0) | compiled own 0 (facts 0)
+    methods evaluated again: 1
+an edit of `save_step!`      first 360.7 ms (compile 343.2 ms, recompile 290.7 ms), again 16.2 ms | defining 103.0 ms | ended 44 by the definition, 42 at the end (facts 42)  [TraitDifferentialEquations 23, ODECore 14, TraitRodas 5] | compiled own 12 (facts 12)  [ODECore 8, TraitRodas 2, TraitDifferentialEquations 2]
+    ended:    facts Tuple{typeof(ODECore.run_to_end!), ODECore.Tsit5Integrator{Float64, ODECore.CoreProblem{Float64, Core.Dynamic{All{Core.Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Core.Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}}}
+    ended:    facts Tuple{typeof(ODECore.run_to_end!), TraitRodas.Rodas5Integrator{Nothing, ODECore.CoreProblem{Float64, Core.Dynamic{All{Core.Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Core.Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}}}
+    ended:    facts Tuple{typeof(ODECore.run_to_end!), ODECore.Tsit5Integrator{ForwardDiff.Dual{ForwardDiff.Tag{TraitDifferentialEquations.Sig{Tuple{Vector{Float64}}, Float64}, Float64}, Float64, 3}, ODECore.CoreProblem{ForwardDiff.Dual{ForwardDiff.Tag{TraitDifferentialEquations.Sig{Tuple{Vector{Float64}}, Float64}, Float64}, Float64, 3}, Core.Dynamic{Core.Callable{Tuple{Vector{ForwardDiff.Dual{ForwardDiff.Tag{TraitD
+    ended:    facts Tuple{typeof(ODECore.run_to_end!), TraitRodas.Rodas5Integrator{TraitRodas.DualJacobian{3, ODECore.PartialFn{typeof(TraitDifferentialEquations._wl_rhs!), Vector{Float64}}}, ODECore.CoreProblem{Float64, Core.Dynamic{All{Core.Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Core.Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.OD
+    ended:    facts Tuple{typeof(ODECore.tsit5_advance!), ODECore.Tsit5Integrator{Float64, ODECore.CoreProblem{Float64, Core.Dynamic{All{Core.Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Core.Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}}}
+    ended:    facts Tuple{typeof(ODECore.tsit5_advance!), ODECore.Tsit5Integrator{ForwardDiff.Dual{ForwardDiff.Tag{TraitDifferentialEquations.Sig{Tuple{Vector{Float64}}, Float64}, Float64}, Float64, 3}, ODECore.CoreProblem{ForwardDiff.Dual{ForwardDiff.Tag{TraitDifferentialEquations.Sig{Tuple{Vector{Float64}}, Float64}, Float64}, Float64, 3}, Core.Dynamic{Core.Callable{Tuple{Vector{ForwardDiff.Dual{ForwardDiff.Tag{Tra
+    compiled: facts Tuple{typeof(ODECore.run_to_end!), ODECore.Tsit5Integrator{Float64, ODECore.CoreProblem{Float64, Core.Dynamic{All{Core.Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Core.Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}}}
+    compiled: facts Tuple{typeof(ODECore.run_to_end!), TraitRodas.Rodas5Integrator{Nothing, ODECore.CoreProblem{Float64, Core.Dynamic{All{Core.Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Core.Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}}}
+    compiled: facts Tuple{typeof(ODECore.tsit5_advance!), ODECore.Tsit5Integrator{Float64, ODECore.CoreProblem{Float64, Core.Dynamic{All{Core.Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Core.Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}}}
+    compiled: facts Tuple{typeof(TraitRodas._rodas5_run), TraitRodas.Rodas5Integrator{Nothing, ODECore.CoreProblem{Float64, Core.Dynamic{All{Core.Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Core.Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}}}
+    compiled: facts Tuple{typeof(TraitRodas.rodas5_advance!), TraitRodas.Rodas5Integrator{Nothing, ODECore.CoreProblem{Float64, Core.Dynamic{All{Core.Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Core.Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}}}
+    compiled: facts Tuple{typeof(ODECore.advance!), ODECore.Tsit5Integrator{Float64, ODECore.CoreProblem{Float64, Core.Dynamic{All{Core.Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Core.Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}}}
+the same edit again          first 352.8 ms (compile 335.4 ms, recompile 283.3 ms), again 16.3 ms | defining 12.9 ms | ended 12 by the definition, 10 at the end (facts 10)  [ODECore 6, TraitRodas 2, TraitDifferentialEquations 2] | compiled own 12 (facts 12)  [ODECore 8, TraitRodas 2, TraitDifferentialEquations 2]
+    ended:    facts Tuple{typeof(ODECore.run_to_end!), ODECore.Tsit5Integrator{Float64, ODECore.CoreProblem{Float64, Core.Dynamic{All{Core.Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Core.Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}}}
+    ended:    facts Tuple{typeof(ODECore.run_to_end!), TraitRodas.Rodas5Integrator{Nothing, ODECore.CoreProblem{Float64, Core.Dynamic{All{Core.Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Core.Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}}}
+    ended:    facts Tuple{typeof(ODECore.tsit5_advance!), ODECore.Tsit5Integrator{Float64, ODECore.CoreProblem{Float64, Core.Dynamic{All{Core.Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Core.Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}}}
+    ended:    facts Tuple{typeof(TraitRodas._rodas5_run), TraitRodas.Rodas5Integrator{Nothing, ODECore.CoreProblem{Float64, Core.Dynamic{All{Core.Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Core.Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}}}
+    ended:    facts Tuple{typeof(TraitRodas.rodas5_advance!), TraitRodas.Rodas5Integrator{Nothing, ODECore.CoreProblem{Float64, Core.Dynamic{All{Core.Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Core.Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}}}
+    ended:    facts Tuple{typeof(ODECore.advance!), ODECore.Tsit5Integrator{Float64, ODECore.CoreProblem{Float64, Core.Dynamic{All{Core.Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Core.Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}}}
+    compiled: facts Tuple{typeof(ODECore.run_to_end!), ODECore.Tsit5Integrator{Float64, ODECore.CoreProblem{Float64, Core.Dynamic{All{Core.Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Core.Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}}}
+    compiled: facts Tuple{typeof(ODECore.run_to_end!), TraitRodas.Rodas5Integrator{Nothing, ODECore.CoreProblem{Float64, Core.Dynamic{All{Core.Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Core.Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}}}
+    compiled: facts Tuple{typeof(ODECore.tsit5_advance!), ODECore.Tsit5Integrator{Float64, ODECore.CoreProblem{Float64, Core.Dynamic{All{Core.Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Core.Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}}}
+    compiled: facts Tuple{typeof(TraitRodas._rodas5_run), TraitRodas.Rodas5Integrator{Nothing, ODECore.CoreProblem{Float64, Core.Dynamic{All{Core.Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Core.Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}}}
+    compiled: facts Tuple{typeof(TraitRodas.rodas5_advance!), TraitRodas.Rodas5Integrator{Nothing, ODECore.CoreProblem{Float64, Core.Dynamic{All{Core.Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Core.Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}}}
+    compiled: facts Tuple{typeof(ODECore.advance!), ODECore.Tsit5Integrator{Float64, ODECore.CoreProblem{Float64, Core.Dynamic{All{Core.Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Core.Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}}}
+an edit of `initdt`          first 360.8 ms (compile 343.5 ms, recompile 282.5 ms), again 16.2 ms | defining 20.9 ms | ended 10 by the definition, 9 at the end (facts 9)  [ODECore 7, TraitDifferentialEquations 2] | compiled own 13 (facts 13)  [ODECore 11, TraitDifferentialEquations 2]
+    ended:    facts Tuple{typeof(ODECore.run_to_end!), ODECore.Tsit5Integrator{Float64, ODECore.CoreProblem{Float64, Core.Dynamic{All{Core.Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Core.Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}}}
+    ended:    facts Tuple{typeof(ODECore.tsit5_advance!), ODECore.Tsit5Integrator{Float64, ODECore.CoreProblem{Float64, Core.Dynamic{All{Core.Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Core.Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}}}
+    ended:    facts Tuple{typeof(ODECore.tsit5_init), ODECore.CoreProblem{Float64, Core.Dynamic{All{Core.Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Core.Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}, Vector{Float64}, Tuple{Float64, Float64}, Vector{Any}, ODECor
+    ended:    facts Tuple{typeof(ODECore.tsit5_init), ODECore.CoreProblem{ForwardDiff.Dual{ForwardDiff.Tag{TraitDifferentialEquations.Sig{Tuple{Vector{Float64}}, Float64}, Float64}, Float64, 3}, Core.Dynamic{Core.Callable{Tuple{Vector{ForwardDiff.Dual{ForwardDiff.Tag{TraitDifferentialEquations.Sig{Tuple{Vector{Float64}}, Float64}, Float64}, Float64, 3}}, Vector{ForwardDiff.Dual{ForwardDiff.Tag{TraitDifferentialEquati
+    ended:    facts Tuple{typeof(ODECore.advance!), ODECore.Tsit5Integrator{Float64, ODECore.CoreProblem{Float64, Core.Dynamic{All{Core.Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Core.Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}}}
+    ended:    facts Tuple{typeof(Core.kwcall), @NamedTuple{saveat::Vector{Float64}, reltol::Float64, abstol::Float64}, typeof(solve), ODEProblem{Float64, Vector{Float64}, Core.Dynamic{All{Core.Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Core.Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(O
+    compiled: facts Tuple{typeof(ODECore.run_to_end!), ODECore.Tsit5Integrator{Float64, ODECore.CoreProblem{Float64, Core.Dynamic{All{Core.Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Core.Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}}}
+    compiled: facts Tuple{typeof(ODECore.tsit5_advance!), ODECore.Tsit5Integrator{Float64, ODECore.CoreProblem{Float64, Core.Dynamic{All{Core.Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Core.Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}}}
+    compiled: facts Tuple{typeof(ODECore.tsit5_init), ODECore.CoreProblem{Float64, Core.Dynamic{All{Core.Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Core.Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}, Vector{Float64}, Tuple{Float64, Float64}, Vector{Any}, ODECor
+    compiled: facts Tuple{typeof(ODECore.advance!), ODECore.Tsit5Integrator{Float64, ODECore.CoreProblem{Float64, Core.Dynamic{All{Core.Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Core.Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}}}
+    compiled: facts Tuple{typeof(ODECore.initdt), ODECore.CoreProblem{Float64, Core.Dynamic{All{Core.Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Core.Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}, ODECore.Tsit5Integrator{Float64, ODECore.CoreProblem{Float64, Cor
+    compiled: facts Tuple{typeof(Core.kwcall), @NamedTuple{saveat::Vector{Float64}, reltol::Float64, abstol::Float64}, typeof(solve), ODEProblem{Float64, Vector{Float64}, Core.Dynamic{All{Core.Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Core.Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(O
+digest 6de3e9fbbdc7903a (equal after the edit)
+# done 2026-11-14T16:39:20+01:00
