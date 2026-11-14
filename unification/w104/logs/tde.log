@@ -1,6 +1,6 @@
-# E-373 tde 2026-11-14T10:47:15+01:00 load 2.67 1.61 1.21 | julia-unified 42681be784 TraitWorld-unified 78da5cb
+# E-373 tde 2026-11-14T12:21:38+01:00 load 2.77 2.27 2.65 | julia-unified 86deee2f98 TraitWorld-unified baadf9f
      Testing TraitDifferentialEquations
-      Status `/tmp/jl_p0vHoy/Project.toml`
+      Status `/tmp/jl_Lg501Z/Project.toml`
   [f6369f11] ForwardDiff v1.4.7
   [dde65c3d] ODECore v0.0.1 `/p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/ODECore`
   [1b9b79cd] TraitArrayTools v0.0.1 `/p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/TraitArrayTools`
@@ -11,7 +11,7 @@
   [7a3c1e52] TraitWorld v0.2.0 `/p/projects/coen/julia-trait-bound/TraitWorld-unified`
   [37e2e46d] LinearAlgebra v1.13.0
   [8dfed614] Test v1.11.0
-      Status `/tmp/jl_p0vHoy/Manifest.toml`
+      Status `/tmp/jl_Lg501Z/Manifest.toml`
   [bbf7d656] CommonSubexpressions v0.3.1
   [163ba53b] DiffResults v1.1.0
   [b552c78f] DiffRules v1.16.0
@@ -55,6 +55,16 @@
   [05823500] OpenLibm_jll v0.8.7+0
   [8e850b90] libblastrampoline_jll v5.15.0+0
         Info Packages marked with ⌃ have new versions available and may be upgradable.
+Precompiling for configuration --code-coverage=none --color=auto --warn-overwrite=yes --depwarn=yes --inline=yes --startup-file=no --track-allocation=none
+   1.1 s  ✓ DocStringExtensions
+   0.5 s  ✓ LogExpFunctions
+   2.4 s  ✓ SpecialFunctions
+   3.0 s  ✓ ForwardDiff
+  15.1 s  ✓ ODECore
+   2.0 s  ✓ TraitRodas
+   4.3 s  ✓ TraitNonlinearSolve
+   5.2 s  ✓ TraitDifferentialEquations
+  8 dependencies successfully precompiled in 32 seconds. 27 already precompiled.
      Testing Running tests...
 Test Summary:                     | Pass  Total  Time
 TraitDifferentialEquations: Tsit5 |    6      6  1.1s
@@ -69,7 +79,7 @@ TraitDifferentialEquations: a Float32 state (row 6) |    2      2  0.8s
 Test Summary:                                    | Pass  Total  Time
 A problem type with its own cache (LorenzModels) |    5      5  0.7s
 Test Summary:                       | Pass  Total  Time
-Callback types (Bounce, RaiseSigma) |    8      8  0.9s
+Callback types (Bounce, RaiseSigma) |    8      8  1.0s
 Test Summary:                           | Pass  Total  Time
 A problem type: gradients through Tsit5 |    3      3  1.0s
 Test Summary:                             | Pass  Total  Time
@@ -79,9 +89,9 @@ Compiled: a right-hand side with a declared signature |    9      9  2.0s
 Test Summary:                          | Pass  Total  Time
 Compiled: a wrong signature is refused |    7      7  0.2s
 Test Summary:                                          | Pass  Total  Time
-W-34: ODEFunction, a given Jacobian, the chunk at init |   11     11  2.0s
+W-34: ODEFunction, a given Jacobian, the chunk at init |   11     11  1.9s
 Test Summary:                                      | Pass  Total  Time
-W-34: a callable model enters form B (ChainModels) |    5      5  1.9s
+W-34: a callable model enters form B (ChainModels) |    5      5  1.8s
 Test Summary:                      | Pass  Total  Time
 W-34: the solution as a Trajectory |    6      6  0.3s
 Test Summary:                                                        | Pass  Total  Time
@@ -121,7 +131,7 @@ W-96: events on Tsit5's interpolant, the states saved there |   10     10  0.2s
 Test Summary:                     | Pass  Total  Time
 W-96: a discrete callback's saves |    6      6  0.1s
 Test Summary:                                       | Pass  Total  Time
-TraitDifferentialEquations: no casts without effect |    1      1  0.1s
+TraitDifferentialEquations: no casts without effect |    2      2  2.1s
 Test Summary:                                                               | Pass  Total  Time
 TraitDifferentialEquations: no pair of trait methods without a joint method |    2      2  0.5s
      Testing TraitDifferentialEquations tests passed 

@@ -1,6 +1,6 @@
-# E-373 forks-DataFrames 2026-11-14T11:04:01+01:00 load 1.06 1.86 2.28 | julia-unified 42681be784 TraitWorld-unified baadf9f
+# E-373 forks-DataFrames 2026-11-14T12:38:36+01:00 load 1.62 2.57 2.89 | julia-unified 86deee2f98 TraitWorld-unified baadf9f
      Testing DataFrames
-      Status `/tmp/jl_CjZNh9/Project.toml`
+      Status `/tmp/jl_CcIHBW/Project.toml`
   [324d7699] CategoricalArrays v1.1.1
   [861a8166] Combinatorics v1.1.0
   [34da2185] Compat v4.18.1
@@ -36,7 +36,7 @@
   [2f01184e] SparseArrays v1.13.0
   [8dfed614] Test v1.11.0
   [4ec0a83e] Unicode v1.11.0
-      Status `/tmp/jl_CjZNh9/Manifest.toml`
+      Status `/tmp/jl_CcIHBW/Manifest.toml`
   [324d7699] CategoricalArrays v1.1.1
   [861a8166] Combinatorics v1.1.0
   [34da2185] Compat v4.18.1
@@ -98,16 +98,16 @@
   [8e850b90] libblastrampoline_jll v5.15.0+0
         Info Packages marked with ⌅ have new versions available but compatibility constraints restrict them from upgrading.
 Precompiling for configuration --code-coverage=none --color=auto --warn-overwrite=yes --depwarn=yes --inline=yes --startup-file=no --track-allocation=none
-   0.5 s  ✓ ShiftedArrays
    0.5 s  ✓ StableRNGs
+   0.5 s  ✓ ShiftedArrays
    0.9 s  ✓ OffsetArrays
    1.0 s  ✓ Combinatorics
    1.2 s  ✓ CategoricalArrays
    0.6 s  ✓ CategoricalArrays → CategoricalArraysSentinelArraysExt
    0.9 s  ✓ Tables → TablesCategoricalArraysExt
-  14.7 s  ✓ Unitful
+  14.6 s  ✓ Unitful
    0.7 s  ✓ Unitful → PrintfExt
-  9 dependencies successfully precompiled in 16 seconds. 47 already precompiled.
+  9 dependencies successfully precompiled in 17 seconds. 47 already precompiled.
      Testing Running tests...
 Running tests:
 Test Summary: | Pass  Total  Time
@@ -146,9 +146,9 @@ vcat >2 args  |    4      4  0.2s
 Test Summary:       | Pass  Total  Time
 vcat mixed coltypes |   19     19  4.7s
 Test Summary:     | Pass  Total  Time
-vcat out of order |   21     21  0.5s
+vcat out of order |   21     21  0.6s
 Test Summary:         | Pass  Total  Time
-vcat with cols=:union |    6      6  0.4s
+vcat with cols=:union |    6      6  0.3s
 Test Summary:             | Pass  Total  Time
 vcat with cols=:intersect |    6      6  0.1s
 Test Summary:          | Pass  Total  Time
@@ -163,9 +163,9 @@ Test Summary:    | Pass  Total  Time
 vcat type piracy |    5      5  0.3s
 	[1m[32mPASSED[0m: cat.jl
 Test Summary: | Pass  Total  Time
-constructors  |   40     40  2.8s
+constructors  |   40     40  2.9s
 Test Summary:                 | Pass  Total  Time
-completecases and dropmissing |  278    278  6.9s
+completecases and dropmissing |  278    278  7.0s
 Test Summary:                                                          | Pass  Total  Time
 deleteat! https://github.com/JuliaLang/julia/pull/41646 bug workaround |    2      2  0.3s
 
@@ -197,7 +197,7 @@ dropmissing and unique view kwarg test: Error During Test at /p/projects/coen/ju
       @ Base ./client.jl:577
 Test Summary:                          | Pass  Error  Total  Time
 dropmissing and unique view kwarg test |    9      1     10  1.7s
-RNG of the outermost testset: Xoshiro(0x5db4cc10ad3c00a1, 0x42ff1a715f7102ea, 0xcdc28120c3f555b9, 0xc8227556dab133e2, 0xa46fd6689a32212a)
+RNG of the outermost testset: Xoshiro(0xd6632399daef2811, 0x69a944a1f0845bf3, 0x664e582248c36500, 0x976ac8314e80ab14, 0x36d223843dd1e276)
 	[1m[31mFAILED[0m: data.jl
 LoadError: Some tests did not pass: 9 passed, 0 failed, 1 errored, 0 broken.
 in expression starting at /p/projects/coen/julia-trait-bound/forks-unified/DataFrames/test/data.jl:1
@@ -226,14 +226,14 @@ views         |   11     11  0.2s
 Test Summary: | Pass  Total  Time
 merge         |   19     19  1.1s
 Test Summary:       | Pass  Total  Time
-AsTable constructor |   32     32  0.9s
+AsTable constructor |   32     32  0.8s
 	[1m[32mPASSED[0m: index.jl
 Test Summary:                | Pass  Total  Time
-randomized tests for rename! | 6995   6995  0.4s
+randomized tests for rename! | 6995   6995  0.5s
 Test Summary:            | Pass  Total  Time
 additional rename! tests | 6643   6643  0.3s
 Test Summary:              | Pass  Total  Time
-rename with integer source |   29     29  0.5s
+rename with integer source |   29     29  0.4s
 Test Summary: | Pass  Total  Time
 equality      |    9      9  0.1s
 Test Summary: | Pass  Total  Time
@@ -265,11 +265,11 @@ append! default options |   11     11  0.5s
 Test Summary:            | Pass  Total  Time
 prepend! default options |   11     11  0.2s
 Test Summary:            | Pass  Total  Time
-append! advanced options |  184    184  0.7s
+append! advanced options |  184    184  0.6s
 Test Summary:             | Pass  Total  Time
 prepend! advanced options |  184    184  0.3s
 Test Summary: | Pass  Total  Time
-rename        |  131    131  1.3s
+rename        |  131    131  1.2s
 Test Summary:             | Pass  Total  Time
 flexible rename arguments |   30     30  0.3s
 Test Summary: | Pass  Total  Time
@@ -303,7 +303,7 @@ first, last and only: Error During Test at /p/projects/coen/julia-trait-bound/fo
       @ Base ./client.jl:577
 Test Summary:        | Pass  Error  Total  Time
 first, last and only |   20      1     21  0.2s
-RNG of the outermost testset: Xoshiro(0x5db4cc10ad3c00a1, 0x42ff1a715f7102ea, 0xcdc28120c3f555b9, 0xc8227556dab133e2, 0xa46fd6689a32212a)
+RNG of the outermost testset: Xoshiro(0xd6632399daef2811, 0x69a944a1f0845bf3, 0x664e582248c36500, 0x976ac8314e80ab14, 0x36d223843dd1e276)
 	[1m[31mFAILED[0m: dataframe.jl
 LoadError: Some tests did not pass: 20 passed, 0 failed, 1 errored, 0 broken.
 in expression starting at /p/projects/coen/julia-trait-bound/forks-unified/DataFrames/test/dataframe.jl:1
@@ -328,7 +328,7 @@ push!/pushfirst!/insert! with :intersect |   28     28  1.1s
 Test Summary:     | Pass  Total  Time
 push! with :union |   56     56  2.0s
 Test Summary:          | Pass  Total  Time
-pushfirst! with :union |   56     56  1.4s
+pushfirst! with :union |   56     56  1.5s
 Test Summary:       | Pass  Total  Time
 insert! with :union |   56     56  1.5s
 Test Summary:                                 | Pass  Total  Time
@@ -340,7 +340,7 @@ push!/pushfirst!/insert! with self |    7      7  0.2s
 Test Summary:        | Pass  Total  Time
 multicolumn aliasing |   18     18  1.0s
 Test Summary:                | Pass  Total  Time
-Tables.AbstractRow insertion |   34     34  4.9s
+Tables.AbstractRow insertion |   34     34  5.0s
 Test Summary:           | Pass  Total  Time
 PooledArray error #3356 |   10     10  1.5s
 Test Summary:                                   | Pass  Total  Time
@@ -395,7 +395,7 @@ AsTable tests |   18     18  3.1s
 Test Summary:                      | Pass  Total  Time
 make sure select! is safe on error |    3      3  0.1s
 Test Summary:             | Pass  Total  Time
-combine AbstractDataFrame |   23     23  2.7s
+combine AbstractDataFrame |   23     23  2.8s
 Test Summary:                          | Pass  Total  Time
 select and transform AbstractDataFrame |   30     30  1.0s
 Test Summary:                            | Pass  Total  Time
@@ -405,7 +405,7 @@ renamecols=false tests |   13     13  0.4s
 Test Summary:                                             | Pass  Total  Time
 transformation function with a function as first argument |  155    155  2.1s
 Test Summary:                                                | Pass  Total  Time
-transformation function with multiple columns as destination |  156    156  5.4s
+transformation function with multiple columns as destination |  156    156  5.3s
 Test Summary:                               | Pass  Total  Time
 check correctness of duplicate column names |   14     14  0.5s
 Test Summary: | Pass  Total  Time
@@ -417,19 +417,19 @@ test resizing via a vector of columns after scalars |    4      4  0.4s
 Test Summary:       | Pass  Total  Time
 normalize_selection |    3      3  0.1s
 Test Summary:                      | Pass  Total  Time
-copying in transform when renaming |   72     72  0.0s
+copying in transform when renaming |   72     72  0.1s
 Test Summary:                    | Pass  Total  Time
 :col => AsTable and :col => cols |   12     12  1.5s
 Test Summary:                                     | Pass  Total  Time
 ByRow on PooledArray calls function on each entry |    1      1  0.3s
 Test Summary:   | Pass  Total  Time
-wide reductions |   26     26  6.4s
+wide reductions |   26     26  6.3s
 Test Summary:                                        | Pass  Total  Time
 vectors of pairs with non-specific type are accepted |    8      8  0.8s
 Test Summary:                           | Pass  Total  Time
-fast reductions positional: cols => ... |   19     19  4.0s
+fast reductions positional: cols => ... |   19     19  4.1s
 Test Summary:                                                        | Pass  Total   Time
-fast reductions: AsTable(cols)=>sum, mean, minimum, maximum variants |   86     86  15.3s
+fast reductions: AsTable(cols)=>sum, mean, minimum, maximum variants |   86     86  15.2s
 Test Summary:                                   | Pass  Total  Time
 fast reductions: AsTable(cols)=>length variants |    5      5  0.4s
 Test Summary:                                       | Pass  Total  Time
@@ -437,9 +437,9 @@ pathological cases that get custom eltype promotion |    4      4  0.7s
 Test Summary:                             | Pass  Total  Time
 tests of reductions over empty selections |   42     42  1.4s
 Test Summary:                                           | Pass  Total     Time
-test AsTable(...) => fun∘collect and ByRow(fun∘collect) |  221    221  2m55.0s
+test AsTable(...) => fun∘collect and ByRow(fun∘collect) |  221    221  2m54.6s
 Test Summary:                             | Pass  Total  Time
-function as target column names specifier |   32     32  2.1s
+function as target column names specifier |   32     32  2.2s
 Test Summary:                                          | Pass  Total   Time
 broadcasting column selectors: All, Cols, Between, Not | 1204   1204  24.7s
 Test Summary:               | Pass  Total  Time
@@ -455,9 +455,9 @@ handling of operation specification in select!/transform! |   11     11  3.3s
 Test Summary:                       | Pass  Total  Time
 selection on a view without copying |    4      4  0.1s
 Test Summary:                     | Pass  Total   Time
-corner cases of fast aggregations |  582    582  39.6s
+corner cases of fast aggregations |  582    582  39.7s
 Test Summary:                | Pass  Total   Time
-Tables.AbstractRow interface |  284    284  32.9s
+Tables.AbstractRow interface |  284    284  32.7s
 Test Summary: | Pass  Total  Time
 empty vector  |   11     11  0.6s
 	[1m[32mPASSED[0m: select.jl
@@ -472,39 +472,39 @@ missing values in colkey |   10     10  0.7s
 Test Summary:             | Pass  Total  Time
 stack-unstack correctness |    4      4  1.5s
 Test Summary: | Pass  Total  Time
-reshape       |   78     78  4.7s
+reshape       |   78     78  4.8s
 Test Summary:           | Pass  Total  Time
 column names duplicates |    5      5  0.5s
 Test Summary:         | Pass  Total  Time
-flatten single column |   19     19  1.5s
+flatten single column |   19     19  1.6s
 Test Summary:            | Pass  Total  Time
 flatten multiple columns |   18     18  0.9s
 Test Summary:       | Pass  Total  Time
-flatten with scalar |   20     20  4.1s
+flatten with scalar |   20     20  4.2s
 Test Summary:          | Pass  Total  Time
-stack categorical test |   31     31  2.8s
+stack categorical test |   31     31  2.9s
 Test Summary:     | Pass  Total  Time
 test stack eltype |    8      8  0.0s
 Test Summary:            | Pass  Total  Time
-additional unstack tests |  205    205  2.4s
+additional unstack tests |  205    205  2.3s
 Test Summary:                         | Pass  Total  Time
-additional unstack tests not sortable |    2      2  0.7s
+additional unstack tests not sortable |    2      2  0.8s
 Test Summary: | Pass  Total  Time
-permutedims   |   44     44  2.3s
+permutedims   |   44     44  2.4s
 Test Summary:                    | Pass  Total  Time
 stack view=true additional tests |    2      2  0.1s
 Test Summary:     | Pass  Total  Time
-unstack with fill |   67     67  5.2s
+unstack with fill |   67     67  5.3s
 Test Summary: | Pass  Total  Time
 empty unstack |    3      3  0.0s
 Test Summary:     | Pass  Total  Time
-no rowkey unstack |    7      7  1.0s
+no rowkey unstack |    7      7  1.1s
 Test Summary: | Pass  Total  Time
 combine kwarg |  134    134  2.2s
 Test Summary:                  | Pass  Total  Time
 variable_eltype in stack tests |    9      9  1.1s
 Test Summary:      | Pass  Total  Time
-unstack hard cases | 1706   1706  5.9s
+unstack hard cases | 1706   1706  6.0s
 Test Summary:         | Pass  Total  Time
 better unstack errors |    7      7  0.5s
 Test Summary:       | Pass  Total  Time
@@ -525,7 +525,7 @@ getproperty, setproperty! and propertynames |    6      6  0.1s
 Test Summary:                    | Pass  Total  Time
 keys, values and iteration, size |   31     31  0.8s
 Test Summary:           | Pass  Total  Time
-convert, copy and merge |   19     19  0.4s
+convert, copy and merge |   19     19  0.5s
 Test Summary:            | Pass  Total  Time
 parent and parentindices |   34     34  0.1s
 Test Summary:         | Pass  Total  Time
@@ -535,7 +535,7 @@ duplicate column |    2      2  0.1s
 Test Summary:        | Pass  Total  Time
 conversion and push! |   16     16  0.7s
 Test Summary: | Pass  Total  Time
-show          |   13     13  3.5s
+show          |   13     13  3.6s
 Test Summary:     | Pass  Total  Time
 check Vector type |    1      1  0.0s
 Test Summary: | Pass  Total  Time
@@ -545,14 +545,14 @@ rownumber     |   39     39  0.1s
 Test Summary: | Pass  Total  Time
 broadcasting  |    1      1  0.0s
 Test Summary:                                           | Pass  Total  Time
-comparison tests: DataFrameRow, NamedTuple and GroupKey |  421    421  3.7s
+comparison tests: DataFrameRow, NamedTuple and GroupKey |  421    421  3.8s
 	[1m[32mPASSED[0m: dataframerow.jl
 Test Summary: | Pass  Total  Time
-LaTeX export  |    4      4  0.5s
+LaTeX export  |    4      4  0.6s
 Test Summary:     | Pass  Total  Time
 Huge LaTeX export |    2      2  0.3s
 Test Summary: | Pass  Total  Time
-HTML output   |   27     27  1.0s
+HTML output   |   27     27  1.1s
 Test Summary:   | Pass  Total  Time
 limit attribute |    2      2  0.0s
 Test Summary: | Pass  Total  Time
@@ -560,7 +560,7 @@ printtable    |    1      1  0.3s
 Test Summary:  | Pass  Total  Time
 csv/tsv output |    6      6  0.0s
 Test Summary:                          | Pass  Total  Time
-Markdown as text/plain and as text/csv |    2      2  0.9s
+Markdown as text/plain and as text/csv |    2      2  1.0s
 Test Summary:    | Pass  Total  Time
 Markdown as HTML |    1      1  0.0s
 Test Summary:                     | Pass  Total  Time
@@ -614,14 +614,14 @@ Test Summary:                                   | Pass  Total  Time
 forks: a column that does not conform to Column |    5      5  0.3s
 	[1m[32mPASSED[0m: constructors.jl
 Test Summary:              | Pass  Total  Time
-Constructors to Base types |   50     50  1.8s
+Constructors to Base types |   50     50  1.9s
 Test Summary:    | Pass  Total  Time
 conversion tests |   12     12  0.1s
 	[1m[32mPASSED[0m: conversions.jl
 Test Summary:  | Pass  Total  Time
-standard tests |  194    194  3.8s
+standard tests |  194    194  3.9s
 Test Summary:                      | Pass  Total  Time
-correctness of checkunique keyword |   65     65  3.5s
+correctness of checkunique keyword |   65     65  3.6s
 Test Summary:          | Pass  Total  Time
 non standard selectors |    4      4  0.7s
 
@@ -664,7 +664,7 @@ consistency   |    2      2  0.0s
 Test Summary:    | Pass  Total  Time
 accepted columns |   14     14  0.2s
 Test Summary:                                       | Pass  Total   Time
-groupby and combine(::Function, ::GroupedDataFrame) | 1552   1552  25.0s
+groupby and combine(::Function, ::GroupedDataFrame) | 1552   1552  24.9s
 Test Summary:          | Pass  Total  Time
 grouping with missings | 1381   1381  3.8s
 Test Summary:                                       | Pass  Total  Time
@@ -676,11 +676,11 @@ grouping on integer columns |  723    723  5.1s
 Test Summary:            | Pass  Total  Time
 grouping with three keys | 2744   2744  2.8s
 Test Summary:                 | Pass  Total   Time
-grouping with hash collisions |    2      2  11.6s
+grouping with hash collisions |    2      2  11.7s
 Test Summary:               | Pass  Total   Time
 combine with pair interface |  133    133  18.7s
 Test Summary:                                                                     | Pass  Total   Time
-combine with aggregation functions (skipmissing=false, sort=false, indices=false) |  511    511  43.8s
+combine with aggregation functions (skipmissing=false, sort=false, indices=false) |  511    511  44.5s
 Test Summary:                                                                    | Pass  Total  Time
 combine with aggregation functions (skipmissing=false, sort=false, indices=true) |  651    651  0.1s
 Test Summary:                                                                    | Pass  Total  Time
@@ -696,17 +696,17 @@ combine with aggregation functions (skipmissing=true, sort=true, indices=false) 
 Test Summary:                                                                  | Pass  Total  Time
 combine with aggregation functions (skipmissing=true, sort=true, indices=true) |  651    651  0.1s
 Test Summary:                                 | Pass  Total  Time
-combine with columns named like grouping keys |   17     17  1.4s
+combine with columns named like grouping keys |   17     17  1.5s
 Test Summary:      | Pass  Total  Time
 iteration protocol |    6      6  0.0s
 Test Summary:                  | Pass  Total  Time
 type stability of index fields |    1      1  0.0s
 Test Summary:       | Pass  Total  Time
-Array-like getindex |   49     49  0.5s
+Array-like getindex |   49     49  0.4s
 Test Summary:  | Pass  Total  Time
 == and isequal |   19     19  0.1s
 Test Summary: | Pass  Total  Time
-show          |   16     16  2.1s
+show          |   16     16  2.2s
 Test Summary: | Pass  Total  Time
 DataFrame     |   22     22  2.3s
 Test Summary:                          | Pass  Total  Time
@@ -730,11 +730,11 @@ haskey for GroupKey |   26     26  0.2s
 Test Summary:                                            | Pass  Total  Time
 Check aggregation of DataFrameRow and Tables.AbstractRow |    6      6  1.0s
 Test Summary:                                             | Pass  Total  Time
-Allow returning DataFrame() or NamedTuple() to drop group | 3026   3026  8.4s
+Allow returning DataFrame() or NamedTuple() to drop group | 3026   3026  8.3s
 Test Summary:                              | Pass  Total  Time
 auto-splatting, ByRow, and column renaming |    9      9  0.5s
 Test Summary:                   | Pass  Total  Time
-hard tabular return value cases |   26     26  3.1s
+hard tabular return value cases |   26     26  3.0s
 Test Summary:                                   | Pass  Total  Time
 last Pair interface with multiple return values |    9      9  1.1s
 Test Summary: | Pass  Total  Time
@@ -748,7 +748,7 @@ passing columns |   29     29  1.7s
 Test Summary:              | Pass  Total  Time
 correct dropping of groups |    6      6  0.3s
 Test Summary: | Pass  Total  Time
-AsTable tests |   15     15  4.1s
+AsTable tests |   15     15  4.0s
 Test Summary:                  | Pass  Total  Time
 test correctness of ungrouping |    5      5  0.1s
 Test Summary:            | Pass  Total  Time
@@ -764,7 +764,7 @@ handling empty data frame / selectors / groupcols |   99     99  0.7s
 Test Summary:                          | Pass  Total  Time
 groupcols order after select/transform |    8      8  0.1s
 Test Summary:                | Pass  Total  Time
-corner cases of group_reduce |   72     72  7.3s
+corner cases of group_reduce |   72     72  7.2s
 Test Summary: | Pass  Total  Time
 filter        |  416    416  4.0s
 Test Summary:                 | Pass  Total  Time
@@ -774,7 +774,7 @@ combine on empty data frame |    7      7  0.2s
 Test Summary:                    | Pass  Total  Time
 disallowed tuple column selector |    2      2  0.1s
 Test Summary:                                            | Pass  Total     Time
-check isagg correctly uses fast path only when it should | 1191   1191  1m21.1s
+check isagg correctly uses fast path only when it should | 1191   1191  1m20.8s
 Test Summary:          | Pass  Total  Time
 renamecols=false tests |   14     14  0.5s
 Test Summary: | Pass  Total  Time
@@ -783,186 +783,6 @@ Test Summary:                   | Pass  Total  Time
 aggregation of reordered groups |   36     36  3.6s
 Test Summary:                                         | Pass  Total  Time
 basic tests of advanced rules with multicolumn output |   30     30  4.0s
-
-======================================================================================
-Information request received. A stacktrace will print followed by a 1.0 second profile.
---trace-compile is enabled during profile collection.
-======================================================================================
-
-cmd: /p/projects/coen/julia-trait-bound/julia-unified/usr/bin/julia 1404810 running 4 of 8
-
-signal (10): User defined signal 1
-__futex_abstimed_wait_common at /lib64/libc.so.6 (unknown line)
-pthread_cond_wait at /lib64/libc.so.6 (unknown line)
-uv_cond_wait at /workspace/srcdir/libuv/src/unix/thread.c:822
-jl_parallel_gc_threadfun at /p/projects/coen/julia-trait-bound/julia-unified/src/gc-stock.c:3754
-start_thread at /lib64/libc.so.6 (unknown line)
-__clone3 at /lib64/libc.so.6 (unknown line)
-unknown function (ip: (nil)) at (unknown file)
-__futex_abstimed_wait_common at /lib64/libc.so.6 (unknown line)
-pthread_cond_wait at /lib64/libc.so.6 (unknown line)
-uv_cond_wait at /workspace/srcdir/libuv/src/unix/thread.c:822
-jl_parallel_gc_threadfun at /p/projects/coen/julia-trait-bound/julia-unified/src/gc-stock.c:3754
-start_thread at /lib64/libc.so.6 (unknown line)
-__clone3 at /lib64/libc.so.6 (unknown line)
-unknown function (ip: (nil)) at (unknown file)
-__futex_abstimed_wait_common at /lib64/libc.so.6 (unknown line)
-pthread_cond_wait at /lib64/libc.so.6 (unknown line)
-uv_cond_wait at /workspace/srcdir/libuv/src/unix/thread.c:822
-jl_parallel_gc_threadfun at /p/projects/coen/julia-trait-bound/julia-unified/src/gc-stock.c:3754
-start_thread at /lib64/libc.so.6 (unknown line)
-__clone3 at /lib64/libc.so.6 (unknown line)
-unknown function (ip: (nil)) at (unknown file)
-__futex_abstimed_wait_common at /lib64/libc.so.6 (unknown line)
-pthread_cond_wait at /lib64/libc.so.6 (unknown line)
-uv_cond_wait at /workspace/srcdir/libuv/src/unix/thread.c:822
-ijl_task_get_next at /p/projects/coen/julia-trait-bound/julia-unified/src/scheduler.c:614
-wait at ./task.jl:1297
-wait_forever at ./task.jl:1196
-jfptr_wait_forever_74657 at /p/projects/coen/julia-trait-bound/julia-unified/usr/lib/julia/sys.so (unknown line)
-jl_apply at /p/projects/coen/julia-trait-bound/julia-unified/src/julia.h:2382 [inlined]
-start_task at /p/projects/coen/julia-trait-bound/julia-unified/src/task.c:1288
-unknown function (ip: (nil)) at (unknown file)
-__futex_abstimed_wait_common at /lib64/libc.so.6 (unknown line)
-pthread_cond_wait at /lib64/libc.so.6 (unknown line)
-uv_cond_wait at /workspace/srcdir/libuv/src/unix/thread.c:822
-ijl_task_get_next at /p/projects/coen/julia-trait-bound/julia-unified/src/scheduler.c:614
-wait at ./task.jl:1297
-wait_forever at ./task.jl:1196
-jfptr_wait_forever_74657 at /p/projects/coen/julia-trait-bound/julia-unified/usr/lib/julia/sys.so (unknown line)
-jl_apply at /p/projects/coen/julia-trait-bound/julia-unified/src/julia.h:2382 [inlined]
-start_task at /p/projects/coen/julia-trait-bound/julia-unified/src/task.c:1288
-unknown function (ip: (nil)) at (unknown file)
-__futex_abstimed_wait_common at /lib64/libc.so.6 (unknown line)
-pthread_cond_wait at /lib64/libc.so.6 (unknown line)
-uv_cond_wait at /workspace/srcdir/libuv/src/unix/thread.c:822
-ijl_task_get_next at /p/projects/coen/julia-trait-bound/julia-unified/src/scheduler.c:614
-wait at ./task.jl:1297
-wait_forever at ./task.jl:1196
-jfptr_wait_forever_74657 at /p/projects/coen/julia-trait-bound/julia-unified/usr/lib/julia/sys.so (unknown line)
-jl_apply at /p/projects/coen/julia-trait-bound/julia-unified/src/julia.h:2382 [inlined]
-start_task at /p/projects/coen/julia-trait-bound/julia-unified/src/task.c:1288
-unknown function (ip: (nil)) at (unknown file)
-__futex_abstimed_wait_common at /lib64/libc.so.6 (unknown line)
-pthread_cond_wait at /lib64/libc.so.6 (unknown line)
-uv_cond_wait at /workspace/srcdir/libuv/src/unix/thread.c:822
-ijl_task_get_next at /p/projects/coen/julia-trait-bound/julia-unified/src/scheduler.c:614
-wait at ./task.jl:1297
-wait_forever at ./task.jl:1196
-jfptr_wait_forever_74657 at /p/projects/coen/julia-trait-bound/julia-unified/usr/lib/julia/sys.so (unknown line)
-jl_apply at /p/projects/coen/julia-trait-bound/julia-unified/src/julia.h:2382 [inlined]
-start_task at /p/projects/coen/julia-trait-bound/julia-unified/src/task.c:1288
-unknown function (ip: (nil)) at (unknown file)
-pick_union_decision at /p/projects/coen/julia-trait-bound/julia-unified/src/subtype.c:196
-pick_union_element at /p/projects/coen/julia-trait-bound/julia-unified/src/subtype.c:206 [inlined]
-subtype at /p/projects/coen/julia-trait-bound/julia-unified/src/subtype.c:2561
-exists_subtype at /p/projects/coen/julia-trait-bound/julia-unified/src/subtype.c:2939 [inlined]
-forall_exists_subtype at /p/projects/coen/julia-trait-bound/julia-unified/src/subtype.c:2968
-ijl_types_equal at /p/projects/coen/julia-trait-bound/julia-unified/src/subtype.c:3532
-typekey_eq at /p/projects/coen/julia-trait-bound/julia-unified/src/jltypes.c:1150
-lookup_type_idx_linear at /p/projects/coen/julia-trait-bound/julia-unified/src/jltypes.c:1257 [inlined]
-lookup_type at /p/projects/coen/julia-trait-bound/julia-unified/src/jltypes.c:1296
-inst_datatype_inner at /p/projects/coen/julia-trait-bound/julia-unified/src/jltypes.c:2316
-inst_type_w_ at /p/projects/coen/julia-trait-bound/julia-unified/src/jltypes.c:2958
-jl_substitute_var_nothrow at /p/projects/coen/julia-trait-bound/julia-unified/src/jltypes.c:1727
-subtype_entry_body at /p/projects/coen/julia-trait-bound/julia-unified/src/subtype.c:1352 [inlined]
-subtype_entry at /p/projects/coen/julia-trait-bound/julia-unified/src/subtype.c:1363 [inlined]
-subtype_entry at /p/projects/coen/julia-trait-bound/julia-unified/src/subtype.c:1380
-subtype_membership at /p/projects/coen/julia-trait-bound/julia-unified/src/subtype.c:1507
-subtype_unionall at /p/projects/coen/julia-trait-bound/julia-unified/src/subtype.c:1070
-exists_subtype at /p/projects/coen/julia-trait-bound/julia-unified/src/subtype.c:2939 [inlined]
-forall_exists_subtype at /p/projects/coen/julia-trait-bound/julia-unified/src/subtype.c:2968
-ijl_subtype_env at /p/projects/coen/julia-trait-bound/julia-unified/src/subtype.c:3439
-ijl_isa at /p/projects/coen/julia-trait-bound/julia-unified/src/subtype.c:3693
-_setindex! at ./array.jl:1025 [inlined]
-setindex! at ./array.jl:1020
-jfptr_setindexNOT._41834 at /p/projects/coen/julia-trait-bound/.julia-depot/compiled/v1.13/DataFrames/AR9oZ_bqY8z.so (unknown line)
-_ at /p/projects/coen/julia-trait-bound/forks-unified/DataFrames/src/dataframe/dataframe.jl:239
-DataFrame at /p/projects/coen/julia-trait-bound/forks-unified/DataFrames/src/dataframe/dataframe.jl:195 [inlined]
-#DataFrame#228 at /p/projects/coen/julia-trait-bound/forks-unified/DataFrames/src/dataframe/dataframe.jl:361
-DataFrame at /p/projects/coen/julia-trait-bound/forks-unified/DataFrames/src/dataframe/dataframe.jl:361
-jfptr_DataFrame_36136 at /p/projects/coen/julia-trait-bound/.julia-depot/compiled/v1.13/DataFrames/AR9oZ_bqY8z.so (unknown line)
-_compose_joined_table at /p/projects/coen/julia-trait-bound/forks-unified/DataFrames/src/join/composer.jl:446
-unknown function (ip: 0x7f2491033256) at (unknown file)
-compose_joined_table at /p/projects/coen/julia-trait-bound/forks-unified/DataFrames/src/join/composer.jl:320
-jfptr_compose_joined_table_32695 at /p/projects/coen/julia-trait-bound/.julia-depot/compiled/v1.13/DataFrames/AR9oZ_bqY8z.so (unknown line)
-#_join#724 at /p/projects/coen/julia-trait-bound/forks-unified/DataFrames/src/join/composer.jl:593
-_join at /p/projects/coen/julia-trait-bound/forks-unified/DataFrames/src/join/composer.jl:489
-#outerjoin#738 at /p/projects/coen/julia-trait-bound/forks-unified/DataFrames/src/join/composer.jl:1268 [inlined]
-outerjoin at /p/projects/coen/julia-trait-bound/forks-unified/DataFrames/src/join/composer.jl:1245
-unknown function (ip: 0x7f245c5485b8) at (unknown file)
-#outerjoin#742 at /p/projects/coen/julia-trait-bound/forks-unified/DataFrames/src/join/composer.jl:1281
-apply_iterate_reach at /p/projects/coen/julia-trait-bound/julia-unified/src/builtins.c:907
-outerjoin at /p/projects/coen/julia-trait-bound/forks-unified/DataFrames/src/join/composer.jl:1274
-apply_iterate_reach at /p/projects/coen/julia-trait-bound/julia-unified/src/builtins.c:907
-do_call at /p/projects/coen/julia-trait-bound/julia-unified/src/interpreter.c:130
-eval_value at /p/projects/coen/julia-trait-bound/julia-unified/src/interpreter.c:251
-eval_body at /p/projects/coen/julia-trait-bound/julia-unified/src/interpreter.c:589
-eval_body at /p/projects/coen/julia-trait-bound/julia-unified/src/interpreter.c:558
-eval_body at /p/projects/coen/julia-trait-bound/julia-unified/src/interpreter.c:566
-eval_body at /p/projects/coen/julia-trait-bound/julia-unified/src/interpreter.c:566
-eval_body at /p/projects/coen/julia-trait-bound/julia-unified/src/interpreter.c:566
-jl_interpret_toplevel_thunk at /p/projects/coen/julia-trait-bound/julia-unified/src/interpreter.c:907
-jl_toplevel_eval_flex at /p/projects/coen/julia-trait-bound/julia-unified/src/toplevel.c:744
-jl_eval_toplevel_stmts at /p/projects/coen/julia-trait-bound/julia-unified/src/toplevel.c:587
-jl_eval_module_expr at /p/projects/coen/julia-trait-bound/julia-unified/src/toplevel.c:248 [inlined]
-jl_toplevel_eval_flex at /p/projects/coen/julia-trait-bound/julia-unified/src/toplevel.c:652
-jl_eval_toplevel_stmts at /p/projects/coen/julia-trait-bound/julia-unified/src/toplevel.c:587
-jl_toplevel_eval_flex at /p/projects/coen/julia-trait-bound/julia-unified/src/toplevel.c:685
-ijl_toplevel_eval at /p/projects/coen/julia-trait-bound/julia-unified/src/toplevel.c:756
-ijl_toplevel_eval_in at /p/projects/coen/julia-trait-bound/julia-unified/src/toplevel.c:801
-eval at ./boot.jl:532
-include_string at ./loading.jl:3049
-_include at ./loading.jl:3109
-include at ./Base.jl:316
-IncludeInto at ./Base.jl:317
-jfptr_IncludeInto_32785 at /p/projects/coen/julia-trait-bound/julia-unified/usr/lib/julia/sys.so (unknown line)
-top-level scope at /p/projects/coen/julia-trait-bound/forks-unified/DataFrames/test/runtests.jl:73
-jl_toplevel_eval_flex at /p/projects/coen/julia-trait-bound/julia-unified/src/toplevel.c:733
-jl_eval_toplevel_stmts at /p/projects/coen/julia-trait-bound/julia-unified/src/toplevel.c:587
-jl_toplevel_eval_flex at /p/projects/coen/julia-trait-bound/julia-unified/src/toplevel.c:685
-ijl_toplevel_eval at /p/projects/coen/julia-trait-bound/julia-unified/src/toplevel.c:756
-ijl_toplevel_eval_in at /p/projects/coen/julia-trait-bound/julia-unified/src/toplevel.c:801
-eval at ./boot.jl:532
-include_string at ./loading.jl:3049
-_include at ./loading.jl:3109
-include at ./Base.jl:316
-IncludeInto at ./Base.jl:317
-jfptr_IncludeInto_32785 at /p/projects/coen/julia-trait-bound/julia-unified/usr/lib/julia/sys.so (unknown line)
-do_call at /p/projects/coen/julia-trait-bound/julia-unified/src/interpreter.c:130
-eval_value at /p/projects/coen/julia-trait-bound/julia-unified/src/interpreter.c:251
-eval_stmt_value at /p/projects/coen/julia-trait-bound/julia-unified/src/interpreter.c:202 [inlined]
-eval_body at /p/projects/coen/julia-trait-bound/julia-unified/src/interpreter.c:695
-jl_interpret_toplevel_thunk at /p/projects/coen/julia-trait-bound/julia-unified/src/interpreter.c:907
-jl_toplevel_eval_flex at /p/projects/coen/julia-trait-bound/julia-unified/src/toplevel.c:744
-jl_eval_toplevel_stmts at /p/projects/coen/julia-trait-bound/julia-unified/src/toplevel.c:587
-jl_toplevel_eval_flex at /p/projects/coen/julia-trait-bound/julia-unified/src/toplevel.c:685
-ijl_toplevel_eval at /p/projects/coen/julia-trait-bound/julia-unified/src/toplevel.c:756
-ijl_toplevel_eval_in at /p/projects/coen/julia-trait-bound/julia-unified/src/toplevel.c:801
-eval at ./boot.jl:532
-exec_options at ./client.jl:310
-_start at ./client.jl:577
-jfptr__start_37379 at /p/projects/coen/julia-trait-bound/julia-unified/usr/lib/julia/sys.so (unknown line)
-jl_apply at /p/projects/coen/julia-trait-bound/julia-unified/src/julia.h:2382 [inlined]
-true_main at /p/projects/coen/julia-trait-bound/julia-unified/src/jlapi.c:985
-jl_repl_entrypoint at /p/projects/coen/julia-trait-bound/julia-unified/src/jlapi.c:1152
-main at /p/projects/coen/julia-trait-bound/julia-unified/cli/loader_exe.c:58
-__libc_start_call_main at /lib64/libc.so.6 (unknown line)
-__libc_start_main at /lib64/libc.so.6 (unknown line)
-_start at /p/projects/coen/julia-trait-bound/julia-unified/usr/bin/julia (unknown line)
-unknown function (ip: (nil)) at (unknown file)
-
-
-==============================================================
-Profile collected. A report will print at the next yield point.
-Disabling --trace-compile
-==============================================================
-
-WARNING: Method definition show_annot(IO, Base.Multimedia.MIME{:var"text/html"}, Union{Base.AnnotatedString{S} where S<:AbstractString, Base.SubString{var"#s74"} where var"#s74"<:(Base.AnnotatedString{S} where S<:AbstractString)}) in module StyledStrings at /p/projects/coen/julia-trait-bound/julia-unified/usr/share/julia/stdlib/v1.13/StyledStrings/src/io.jl:291 overwritten in module StyledStrings on the same line (check for duplicate calls to `include`).
-WARNING: Method definition show_annot(IO, Base.AnnotatedChar{C} where C<:AbstractChar) in module StyledStrings at /p/projects/coen/julia-trait-bound/julia-unified/usr/share/julia/stdlib/v1.13/StyledStrings/src/io.jl:278 overwritten in module StyledStrings on the same line (check for duplicate calls to `include`).
-WARNING: Method definition ansi_write(typeof(Base.write), IO, Base.AnnotatedChar{C} where C<:AbstractChar) in module StyledStrings at /p/projects/coen/julia-trait-bound/julia-unified/usr/share/julia/stdlib/v1.13/StyledStrings/src/io.jl:267 overwritten in module StyledStrings on the same line (check for duplicate calls to `include`).
-WARNING: Method definition ansi_write(F, IO, Union{Base.AnnotatedString{S} where S<:AbstractString, Base.SubString{var"#s74"} where var"#s74"<:(Base.AnnotatedString{S} where S<:AbstractString)}) where {F<:Function} in module StyledStrings at /p/projects/coen/julia-trait-bound/julia-unified/usr/share/julia/stdlib/v1.13/StyledStrings/src/io.jl:264 overwritten in module StyledStrings on the same line (check for duplicate calls to `include`).
-WARNING: Method definition styled_print(Base.AnnotatedIOBuffer, Tuple, Base.Pairs{K, V, I, A} where A where I where V where K) in module Legacy at /p/projects/coen/julia-trait-bound/julia-unified/usr/share/julia/stdlib/v1.13/StyledStrings/src/legacy.jl:127 overwritten in module Legacy on the same line (check for duplicate calls to `include`).
 [ Info: Running tests with 4 threads
 ┌ Warning: All(args...) is deprecated, use Cols(args...) instead
 │   caller = top-level scope at index.jl:423
@@ -973,144 +793,6 @@ WARNING: Method definition styled_print(Base.AnnotatedIOBuffer, Tuple, Base.Pair
 ┌ Warning: Using ErrorException to test field access is deprecated; use FieldError instead.
 │   caller = do_test_throws(result::Test.ExecutionResult, orig_expr::Any, extype::Any) at Test.jl:915
 └ @ Core /p/projects/coen/julia-trait-bound/julia-unified/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:915
-┌ Warning: There were no samples collected in one or more groups.
-│ This may be due to idle threads, or you may need to run your
-│ program longer (perhaps by running it multiple times),
-│ or adjust the delay between samples with `Profile.init()`.
-└ @ Profile /p/projects/coen/julia-trait-bound/julia-unified/usr/share/julia/stdlib/v1.13/Profile/src/Profile.jl:1361
-Overhead ╎ [+additional indent] Count File:Line  Function
-=========================================================
-Thread 1 (interactive) Task 0x00007f24d79d8010 Total snapshots: 65. Utilization: 100%
-  ╎65 @Base/client.jl:577  _start()
-  ╎ 65 @Base/client.jl:310  exec_options(opts::Base.JLOptions)
-  ╎  65 @Base/boot.jl:532  eval(m::Module, e::Any)
-  ╎   65 @Base/Base.jl:317  (::Base.IncludeInto)(fname::String)
-  ╎    65 @Base/Base.jl:316  include(mapexpr::Function, mod::Module, _path::Str…
-  ╎     65 @Base/loading.jl:3109  _include(mapexpr::Function, mod::Module, _pat…
-  ╎    ╎ 65 @Base/loading.jl:3049  include_string(mapexpr::typeof(identity), mo…
-  ╎    ╎  65 @Base/boot.jl:532  eval(m::Module, e::Any)
-  ╎    ╎   65 @DataFrames/…tests.jl:73  top-level scope
-  ╎    ╎    65 @Base/Base.jl:317  (::Base.IncludeInto)(fname::String)
-  ╎    ╎     65 @Base/Base.jl:316  include(mapexpr::Function, mod::Module, _pat…
-  ╎    ╎    ╎ 65 @Base/loading.jl:3109  _include(mapexpr::Function, mod::Module…
-  ╎    ╎    ╎  65 @Base/loading.jl:3049  include_string(mapexpr::typeof(identit…
-  ╎    ╎    ╎   65 @Base/boot.jl:532  eval(m::Module, e::Any)
-  ╎    ╎    ╎    65 @DataFrames/…er.jl:1274  kwcall(::@NamedTuple{on::String}, …
-  ╎    ╎    ╎     65 @DataFrames/…er.jl:1281  outerjoin(::DataFrame, ::DataFram…
-  ╎    ╎    ╎    ╎ 65 @DataFrames/…r.jl:1245  kwcall(::@NamedTuple{on::String, …
-  ╎    ╎    ╎    ╎  65 @DataFrames/…r.jl:1268  #outerjoin#738
-  ╎    ╎    ╎    ╎   65 @DataFrames/…r.jl:489  kwcall(::@NamedTuple{on::String,…
-  ╎    ╎    ╎    ╎    14 @DataFrames/….jl:496  _join(df1::DataFrame, df2::DataF…
- 1╎    ╎    ╎    ╎     3  @DataFrames/….jl:524  _check_consistency(df::DataFram…
- 1╎    ╎    ╎    ╎    ╎ 2  @Base/tuple.jl:163  indexed_iterate(t::Tuple{Int64, …
- 1╎    ╎    ╎    ╎    ╎  1  @Base/tuple.jl:163  indexed_iterate
-  ╎    ╎    ╎    ╎     7  @DataFrames/….jl:526  _check_consistency(df::DataFram…
-  ╎    ╎    ╎    ╎    ╎ 6  @Base/…rators.jl:203  iterate
-  ╎    ╎    ╎    ╎    ╎  6  @Base/…array.jl:1247  iterate
-  ╎    ╎    ╎    ╎    ╎   6  @Base/…rray.jl:1255  _iterate_abstractarray
- 5╎    ╎    ╎    ╎    ╎    6  @DataFrames/…l:464  getindex
- 1╎    ╎    ╎    ╎    ╎ 1  @Base/…rators.jl:205  iterate
- 1╎    ╎    ╎    ╎     4  @DataFrames/….jl:533  _check_consistency(df::DataFram…
- 3╎    ╎    ╎    ╎    ╎ 3  @DataFrames/….jl:464  getindex
-  ╎    ╎    ╎    ╎    51 @DataFrames/….jl:593  _join(df1::DataFrame, df2::DataF…
-  ╎    ╎    ╎    ╎     51 @DataFrames/….jl:320  compose_joined_table(joiner::Da…
-  ╎    ╎    ╎    ╎    ╎ 19 @DataFrames/….jl:340  _compose_joined_table(joiner::…
-  ╎    ╎    ╎    ╎    ╎  19 @DataFrames/…jl:1303  kwcall(::@NamedTuple{copycols…
-  ╎    ╎    ╎    ╎    ╎   19 @DataFrames/…l:1303  select(df::DataFrame, args::A…
-  ╎    ╎    ╎    ╎    ╎    19 @DataFrames/…l:1856  kwcall(::@NamedTuple{copycol…
-  ╎    ╎    ╎    ╎    ╎     19 @DataFrames/…l:1862  manipulate(df::DataFrame, c…
-  ╎    ╎    ╎    ╎    ╎    ╎ 18 @DataFrames/…:1849  manipulate
-  ╎    ╎    ╎    ╎    ╎    ╎  18 @DataFrames/…:1851  manipulate(df::DataFrame, …
-  ╎    ╎    ╎    ╎    ╎    ╎   3  @DataFrames/…:195  DataFrame
-  ╎    ╎    ╎    ╎    ╎    ╎    1  @DataFrames/…:206  DataFrame(columns::Vector…
-  ╎    ╎    ╎    ╎    ╎    ╎     1  @Base/…le.jl:163  indexed_iterate(t::Tuple{…
- 1╎    ╎    ╎    ╎    ╎    ╎    ╎ 1  @Base/…le.jl:163  indexed_iterate
- 2╎    ╎    ╎    ╎    ╎    ╎    2  @DataFrames/…:207  DataFrame(columns::Vector…
- 2╎    ╎    ╎    ╎    ╎    ╎   15 @DataFrames/…:465  getindex
-  ╎    ╎    ╎    ╎    ╎    ╎    12 @Base/…ay.jl:1363  getindex
-  ╎    ╎    ╎    ╎    ╎    ╎     12 @Base/…al.jl:984  _getindex
-  ╎    ╎    ╎    ╎    ╎    ╎    ╎ 12 @Base/…al.jl:998  _unsafe_getindex(::Index…
-  ╎    ╎    ╎    ╎    ╎    ╎    ╎  12 @Base/…al.jl:1007  _unsafe_getindex!
-  ╎    ╎    ╎    ╎    ╎    ╎    ╎   12 @Base/…an.jl:65  macro expansion
- 3╎    ╎    ╎    ╎    ╎    ╎    ╎    12 @Base/…al.jl:1009  macro expansion
-  ╎    ╎    ╎    ╎    ╎    ╎    ╎     9  @Base/…et.jl:20  (::Base._SplitTarget{…
-  ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎ 9  @Base/…ay.jl:1020  setindex!
- 9╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎  9  @Base/…ay.jl:1025  _setindex!
-  ╎    ╎    ╎    ╎    ╎    ╎    1  @Base/…ay.jl:704  _array_for
-  ╎    ╎    ╎    ╎    ╎    ╎     1  @Base/…ay.jl:701  _array_for_inner
-  ╎    ╎    ╎    ╎    ╎    ╎    ╎ 1  @Base/…ay.jl:876  similar
-  ╎    ╎    ╎    ╎    ╎    ╎    ╎  1  @Base/…ay.jl:409  similar
-  ╎    ╎    ╎    ╎    ╎    ╎    ╎   1  @Base/…ay.jl:877  similar
-  ╎    ╎    ╎    ╎    ╎    ╎    ╎    1  @Base/…ot.jl:718  Array
-  ╎    ╎    ╎    ╎    ╎    ╎    ╎     1  @Base/…ot.jl:708  Array
-  ╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎ 1  @Base/…ot.jl:695  Array
- 1╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎  1  @Base/…ot.jl:635  GenericMemory
-  ╎    ╎    ╎    ╎    ╎    ╎ 1  @DataFrames/…:231  getindex
-  ╎    ╎    ╎    ╎    ╎    ╎  1  @Base/…ray.jl:3186  setdiff(itr::UnitRange{Int…
-  ╎    ╎    ╎    ╎    ╎    ╎   1  @Base/…ay.jl:3175  vectorfilter
-  ╎    ╎    ╎    ╎    ╎    ╎    1  @Base/…ay.jl:672  collect
-  ╎    ╎    ╎    ╎    ╎    ╎     1  @Base/…ay.jl:680  _collect(::Type{Int64}, i…
-  ╎    ╎    ╎    ╎    ╎    ╎    ╎ 1  @Base/…or.jl:45  iterate
-  ╎    ╎    ╎    ╎    ╎    ╎    ╎  1  @Base/…rs.jl:547  iterate
-  ╎    ╎    ╎    ╎    ╎    ╎    ╎   1  none:?  #vectorfilter##0
-  ╎    ╎    ╎    ╎    ╎    ╎    ╎    1  @Base/…ay.jl:3141  (::Base.var"#_unique…
-  ╎    ╎    ╎    ╎    ╎    ╎    ╎     1  @Base/set.jl:152  pop!(s::Set{Int64}, …
- 1╎    ╎    ╎    ╎    ╎    ╎    ╎    ╎ 1  @Base/…ct.jl:251  ht_keyindex
-  ╎    ╎    ╎    ╎    ╎ 2  @DataFrames/….jl:419  _compose_joined_table(joiner::…
-  ╎    ╎    ╎    ╎    ╎  2  @DataFrames/…jl:263  iterate(itr::DataFrames.DataFr…
-  ╎    ╎    ╎    ╎    ╎   2  @DataFrames/…jl:265  getindex
-  ╎    ╎    ╎    ╎    ╎    2  @DataFrames/…l:594  getindex
- 2╎    ╎    ╎    ╎    ╎     2  @DataFrames/…l:464  getindex
-  ╎    ╎    ╎    ╎    ╎ 3  @DataFrames/….jl:444  _compose_joined_table(joiner::…
-  ╎    ╎    ╎    ╎    ╎  3  @DataFrames/…jl:113  _rename_cols(old_names::Vector…
-  ╎    ╎    ╎    ╎    ╎   2  @Base/boot.jl:740  Symbol(s::String)
- 2╎    ╎    ╎    ╎    ╎    2  @Base/boot.jl:733  _Symbol
-  ╎    ╎    ╎    ╎    ╎   1  @Base/…gs/io.jl:188  string
-  ╎    ╎    ╎    ╎    ╎    1  @Base/…ring.jl:145  String
- 1╎    ╎    ╎    ╎    ╎     1  @Base/…ring.jl:130  unsafe_string
-  ╎    ╎    ╎    ╎    ╎ 27 @DataFrames/….jl:446  _compose_joined_table(joiner::…
-  ╎    ╎    ╎    ╎    ╎  27 @DataFrames/…jl:361  kwcall(::@NamedTuple{makeuniqu…
-  ╎    ╎    ╎    ╎    ╎   27 @DataFrames/…jl:361  DataFrame(columns::Vector{Abs…
-  ╎    ╎    ╎    ╎    ╎    27 @DataFrames/…l:195  DataFrame
-  ╎    ╎    ╎    ╎    ╎     2  @DataFrames/…l:206  DataFrame(columns::Vector{Ab…
- 1╎    ╎    ╎    ╎    ╎    ╎ 2  @Base/tuple.jl:163  indexed_iterate(t::Tuple{In…
- 1╎    ╎    ╎    ╎    ╎    ╎  1  @Base/…ple.jl:163  indexed_iterate
- 3╎    ╎    ╎    ╎    ╎     3  @DataFrames/…l:207  DataFrame(columns::Vector{Ab…
- 1╎    ╎    ╎    ╎    ╎     1  @DataFrames/…l:211  DataFrame(columns::Vector{Ab…
-  ╎    ╎    ╎    ╎    ╎     1  @DataFrames/…l:218  DataFrame(columns::Vector{Ab…
- 1╎    ╎    ╎    ╎    ╎    ╎ 1  @Base/…tors.jl:205  iterate
- 2╎    ╎    ╎    ╎    ╎     2  @DataFrames/…l:231  DataFrame(columns::Vector{Ab…
- 2╎    ╎    ╎    ╎    ╎     4  @DataFrames/…l:235  DataFrame(columns::Vector{Ab…
- 1╎    ╎    ╎    ╎    ╎    ╎ 2  @Base/tuple.jl:163  indexed_iterate(t::Tuple{In…
- 1╎    ╎    ╎    ╎    ╎    ╎  1  @Base/…ple.jl:163  indexed_iterate
-  ╎    ╎    ╎    ╎    ╎     2  @DataFrames/…l:237  DataFrame(columns::Vector{Ab…
- 2╎    ╎    ╎    ╎    ╎    ╎ 2  @Base/…tors.jl:205  iterate
-  ╎    ╎    ╎    ╎    ╎     12 @DataFrames/…l:239  DataFrame(columns::Vector{Ab…
-  ╎    ╎    ╎    ╎    ╎    ╎ 12 @Base/…ray.jl:1020  setindex!(A::Vector{Tables.…
-12╎    ╎    ╎    ╎    ╎    ╎  12 @Base/…ray.jl:1025  _setindex!
-
-Thread 2 (default) Task 0x00007f24db9d4100 Total snapshots: 65. Utilization: 0%
-  ╎65 @Base/task.jl:1196  wait_forever()
-64╎ 65 @Base/task.jl:1297  wait()
-
-Thread 3 (default) Task 0x00007f24db9d0100 Total snapshots: 65. Utilization: 0%
-  ╎65 @Base/task.jl:1196  wait_forever()
-64╎ 65 @Base/task.jl:1297  wait()
-
-Thread 4 (default) Task 0x00007f24db9cc100 Total snapshots: 65. Utilization: 0%
-  ╎65 @Base/task.jl:1196  wait_forever()
-64╎ 65 @Base/task.jl:1297  wait()
-
-Thread 5 (default) Task 0x00007f24db9c4100 Total snapshots: 65. Utilization: 0%
-  ╎65 @Base/task.jl:1196  wait_forever()
-64╎ 65 @Base/task.jl:1297  wait()
-
-Thread 6 (foreign: gc) Task 0x00007f24db9c8010 Total snapshots: 65. Utilization: 100%
-
-Thread 7 (foreign: gc) Task 0x00007f24db9c0010 Total snapshots: 65. Utilization: 100%
-
-Thread 8 (foreign: gc) Task 0x00007f24db9bc010 Total snapshots: 65. Utilization: 100%
-
 ┌ Warning: `indicator` keyword argument is deprecated and will be removed in 2.0 release of DataFrames.jl. Use `source` keyword argument instead.
 │   caller = top-level scope at deprecated.jl:8
 └ @ Core /p/projects/coen/julia-trait-bound/forks-unified/DataFrames/test/deprecated.jl:8
@@ -1219,15 +901,15 @@ select and transform! tests with function as first argument |    6      6  0.9s
 Test Summary:                                               | Pass  Total  Time
 make sure we handle idx correctly when groups are reordered |    4      4  0.2s
 Test Summary:                           |  Pass  Total   Time
-permutations of operations with combine | 16921  16921  25.0s
+permutations of operations with combine | 16921  16921  24.6s
 Test Summary:                               | Pass  Total   Time
-result eltype widening from different tasks |   35     35  22.3s
+result eltype widening from different tasks |   35     35  22.7s
 Test Summary:                  | Pass  Total  Time
-CategoricalArray thread safety |    3      3  1.8s
+CategoricalArray thread safety |    3      3  1.9s
 Test Summary:                | Pass  Total  Time
 grouped data frame iteration |    6      6  1.4s
-Test Summary:          | Pass  Total  Time
-groupby multithreading |   32     32  9.9s
+Test Summary:          | Pass  Total   Time
+groupby multithreading |   32     32  10.0s
 Test Summary:           | Pass  Total  Time
 map on GroupedDataFrame |    2      2  0.0s
 Test Summary:              | Pass  Total  Time
@@ -1235,40 +917,40 @@ aggregation of PooledArray |    5      5  1.1s
 Test Summary:                       | Pass  Total  Time
 extra tests of wrapper corner cases |    4      4  0.5s
 Test Summary:                       | Pass  Total   Time
-grouping correctness with threading |  296    296  50.1s
+grouping correctness with threading |  296    296  49.5s
 Test Summary:   | Pass  Total  Time
 grouping floats |    6      6  0.0s
 Test Summary:                   | Pass  Total  Time
 aggregation with matrix of Pair |   13     13  0.5s
 Test Summary: |   Pass   Total  Time
-subset! tests | 116069  116069  9.4s
+subset! tests | 116069  116069  9.2s
 Test Summary:     | Pass  Total  Time
 consistency check |    2      2  0.0s
 Test Summary:                          | Pass  Total  Time
 check sort keyword argument of groupby |   72     72  0.5s
 Test Summary:                              | Pass  Total  Time
-eachindex, groupindices, and proprow tests |   48     48  1.7s
+eachindex, groupindices, and proprow tests |   48     48  1.8s
 Test Summary:                | Pass  Total  Time
 fillfirst! correctness tests |  404    404  0.0s
 Test Summary:                  | Pass  Total  Time
-maximum and minimum on missing |    5      5  0.2s
+maximum and minimum on missing |    5      5  0.3s
 Test Summary:            | Pass  Total  Time
 corner cases of indexing |   21     21  0.6s
 Test Summary:                                           | Pass  Total  Time
 aggregation of empty GroupedDataFrame with table output |   31     31  5.6s
 Test Summary: | Pass  Total  Time
-sorting API   |  370    370  5.9s
+sorting API   |  370    370  5.8s
 Test Summary:                          | Pass  Total  Time
 no levels in pooled grouping bug #3393 |    2      2  2.2s
 	[1m[32mPASSED[0m: grouping.jl
 Test Summary:      | Pass  Total   Time
-subset and subset! |  238    238  18.8s
+subset and subset! |  238    238  18.2s
 Test Summary:                                           | Pass  Total  Time
-subsetting requires passing vector for data frame input |   29     29  2.7s
+subsetting requires passing vector for data frame input |   29     29  2.9s
 Test Summary:         | Pass  Total  Time
-multicolumn selectors |   45     45  5.3s
+multicolumn selectors |   45     45  5.0s
 Test Summary:   | Pass  Total   Time
-wide subsetting |  260    260  40.4s
+wide subsetting |  260    260  38.6s
 Test Summary:                           | Pass  Total  Time
 test grouping order after the operation | 1609   1609  0.7s
 Test Summary: | Pass  Total  Time
@@ -1283,11 +965,11 @@ Test empty inputs 1 |   21     21  0.1s
 Test Summary:       | Pass  Total  Time
 Test empty inputs 2 |   21     21  0.0s
 Test Summary: | Pass  Total  Time
-issue #960    |    4      4  0.7s
+issue #960    |    4      4  0.6s
 Test Summary: | Pass  Total  Time
 all joins     |   30     30  1.0s
 Test Summary:                    | Pass  Total  Time
-all joins with CategoricalArrays |   32     32  3.1s
+all joins with CategoricalArrays |   32     32  3.0s
 Test Summary:                                                     | Pass  Total  Time
 maintain CategoricalArray levels ordering on join - non-`on` cols |    6      6  0.6s
 Test Summary:                                                          | Pass  Total  Time
@@ -1297,13 +979,13 @@ maintain CategoricalArray levels ordering on join - left is categorical |   10  
 Test Summary:                                   | Pass  Total  Time
 join on columns with different left/right names |   19     19  1.1s
 Test Summary:                  | Pass  Total  Time
-join with a column of type Any |   16     16  0.7s
+join with a column of type Any |   16     16  0.8s
 Test Summary:                                       | Pass  Total  Time
 joins with categorical columns and no matching rows |   24     24  0.6s
 Test Summary:  | Pass  Total  Time
 source columns |    4      4  0.7s
 Test Summary:                       | Pass  Total  Time
-test checks of merge key uniqueness |   46     46  3.9s
+test checks of merge key uniqueness |   46     46  3.8s
 Test Summary: | Pass  Total  Time
 consistency   |    3      3  0.0s
 Test Summary:         | Pass  Total  Time
@@ -1315,23 +997,23 @@ check naming of source |    6      6  0.3s
 Test Summary:                      | Pass  Total  Time
 validate error message composition |   47     47  0.6s
 Test Summary:    | Pass  Total  Time
-renamecols tests |  613    613  8.8s
+renamecols tests |  613    613  8.5s
 Test Summary:       | Pass  Total  Time
-careful source test | 1452   1452  0.6s
+careful source test | 1452   1452  0.5s
 Test Summary:         | Pass  Total  Time
 removed join function |    2      2  0.0s
 Test Summary:                          | Pass  Total  Time
 join mixing DataFrame and SubDataFrame |    1      1  1.2s
 Test Summary:           |    Pass    Total  Time
-OnCol correctness tests | 1203049  1203049  8.0s
+OnCol correctness tests | 1203049  1203049  7.8s
 Test Summary:          |  Pass  Total     Time
-join correctness tests | 92253  92253  4m11.0s
+join correctness tests | 92253  92253  4m03.1s
 Test Summary:      | Pass  Total  Time
-legacy merge tests |   21     21  1.2s
+legacy merge tests |   21     21  1.1s
 Test Summary:     | Pass  Total  Time
 legacy join tests |    3      3  0.9s
 Test Summary:        | Pass  Total  Time
-threaded correctness |   36     36  6.6s
+threaded correctness |   36     36  6.7s
 Test Summary:                      | Pass  Total  Time
 matchmissing :notequal correctness | 1194   1194  6.2s
 Test Summary: | Pass  Total  Time
@@ -1339,13 +1021,13 @@ leftjoin!     |  215    215  3.0s
 Test Summary:                                                    | Pass  Total  Time
 passing matchmissing in multi-data frame innerjoin and outerjoin |    3      3  0.2s
 Test Summary:   |  Pass  Total  Time
-_count_sortperm | 12680  12680  0.1s
+_count_sortperm | 12680  12680  0.2s
 Test Summary:               | Pass  Total  Time
 basic join tests with order |  132    132  0.4s
 Test Summary:                   |   Pass   Total  Time
-randomized join tests with sort | 141120  141120  9.2s
+randomized join tests with sort | 141120  141120  8.9s
 Test Summary: |  Pass  Total     Time
-wide joins    | 12002  12002  9m18.3s
+wide joins    | 12002  12002  9m12.8s
 	[1m[32mPASSED[0m: join.jl
 Test Summary:       | Pass  Total  Time
 eachrow and eachcol |   53     53  0.7s
@@ -1373,20 +1055,20 @@ Test Summary:                       | Pass  Total  Time
 haskey and get for DataFrameColumns |   48     48  0.3s
 	[1m[32mPASSED[0m: iteration.jl
 Test Summary: | Pass  Total  Time
-nonunique     |   20     20  2.7s
+nonunique     |   20     20  2.8s
 Test Summary:                                     | Pass  Total  Time
-nonunique, nonunique, unique! with extra argument |   45     45  1.6s
+nonunique, nonunique, unique! with extra argument |   45     45  1.5s
 Test Summary:                             | Pass  Total  Time
-keep argument to nonunique/unique/unique! |  153    153  6.4s
+keep argument to nonunique/unique/unique! |  153    153  6.5s
 Test Summary:                                           | Pass  Total  Time
-case when groups are not compressed in row_group_slots! |    4      4  0.1s
+case when groups are not compressed in row_group_slots! |    4      4  0.0s
 	[1m[32mPASSED[0m: duplicates.jl
 Test Summary:                            | Pass  Total  Time
 Basic show test with allrows and allcols |    9      9  0.1s
 Test Summary:    | Pass  Total  Time
 displaysize test |    4      4  0.0s
 Test Summary:                     |  Pass  Total  Time
-GroupedDataFrame displaysize test | 61208  61208  7.6s
+GroupedDataFrame displaysize test | 61208  61208  7.7s
 Test Summary:             | Pass  Total  Time
 IOContext parameters test |    2      2  0.1s
 Test Summary:          | Pass  Total  Time
@@ -1435,9 +1117,9 @@ copy - SubDataFrame |    5      5  0.2s
 Test Summary:     | Pass  Total  Time
 view -- DataFrame |   77     77  1.3s
 Test Summary:        | Pass  Total  Time
-view -- SubDataFrame |   62     62  1.8s
+view -- SubDataFrame |   62     62  1.9s
 Test Summary:                               | Pass  Total  Time
-getproperty, setproperty! and propertynames |    8      8  0.3s
+getproperty, setproperty! and propertynames |    8      8  0.4s
 Test Summary: | Pass  Total  Time
 index         |   11     11  0.1s
 Test Summary: | Pass  Total  Time
@@ -1464,7 +1146,7 @@ mutating SubDataFrame with broadcasting assignment to [!, col] |  105    105  1.
 Test Summary:                                      | Pass  Total  Time
 mutating SubDataFrame with assignment to [!, cols] |  149    149  1.6s
 Test Summary:                                                   | Pass  Total  Time
-mutating SubDataFrame with broadcasting assignment to [!, cols] |  162    162  1.0s
+mutating SubDataFrame with broadcasting assignment to [!, cols] |  162    162  1.1s
 Test Summary:                                     | Pass  Total  Time
 mutating SubDataFrame with assignment to [:, col] |  104    104  1.3s
 Test Summary:                                                  | Pass  Total  Time
@@ -1472,7 +1154,7 @@ mutating SubDataFrame with broadcasting assignment to [:, col] |  109    109  0.
 Test Summary:                                      | Pass  Total  Time
 mutating SubDataFrame with assignment to [:, cols] |  143    143  0.6s
 Test Summary:                                                   | Pass  Total  Time
-mutating SubDataFrame with broadcasting assignment to [:, cols] |  162    162  1.1s
+mutating SubDataFrame with broadcasting assignment to [:, cols] |  162    162  1.0s
 Test Summary:                                    | Pass  Total  Time
 mutating SubDataFrame with assignment to sdf.col |    6      6  0.1s
 Test Summary:                                                 | Pass  Total  Time
@@ -1484,18 +1166,18 @@ select! on SubDataFrame |   15     15  0.9s
 Test Summary:              | Pass  Total  Time
 transform! on SubDataFrame |   12     12  0.4s
 Test Summary:                             | Pass  Total  Time
-select! on GroupedDataFrame{SubDataFrame} |    8      8  2.0s
+select! on GroupedDataFrame{SubDataFrame} |    8      8  2.1s
 Test Summary:                                | Pass  Total  Time
 transform! on GroupedDataFrame{SubDataFrame} |    6      6  0.8s
 Test Summary:      | Pass  Total  Time
 promote_type tests |   46     46  1.4s
 	[1m[32mPASSED[0m: subdataframe_mutation.jl
 Test Summary: | Pass  Total  Time
-Tables        |  101    101  2.8s
+Tables        |  101    101  2.9s
 Test Summary:                  | Pass  Total  Time
 DataFrame without copying cols |   13     13  0.1s
 Test Summary: | Pass  Total  Time
-columnindex   |   23     23  0.8s
+columnindex   |   23     23  0.7s
 Test Summary:                   | Pass  Total  Time
 eachrow and eachcol integration |   29     29  0.5s
 Test Summary:                 | Pass  Total  Time
@@ -1539,7 +1221,7 @@ Test Summary: | Pass  Total  Time
 TableTraits   |   10     10  0.7s
 	[1m[32mPASSED[0m: tabletraits.jl
 Test Summary:      | Pass  Total  Time
-getindex DataFrame |  104    104  2.5s
+getindex DataFrame |  104    104  2.6s
 Test Summary:       | Pass  Total  Time
 getindex df[!, col] |   13     13  0.0s
 Test Summary:  | Pass  Total  Time
@@ -1596,13 +1278,13 @@ fix #2969 (passing Pairs as selectors) |   40     40  0.1s
 Test Summary:  | Pass  Total  Time
 CartesianIndex |   24     24  0.1s
 Test Summary:                             | Pass  Total  Time
-broadcasting of AbstractDataFrame objects |   28     28  4.9s
+broadcasting of AbstractDataFrame objects |   28     28  4.8s
 Test Summary:                                               | Pass  Total  Time
 broadcasting of AbstractDataFrame objects thrown exceptions |   10     10  0.7s
 Test Summary:            | Pass  Total  Time
 broadcasting data frames |   11     11  0.5s
 Test Summary:                                          | Pass  Total  Time
-broadcasting of AbstractDataFrame objects corner cases |   34     34  6.4s
+broadcasting of AbstractDataFrame objects corner cases |   34     34  6.5s
 Test Summary:                                                               | Pass  Total  Time
 normal data frame and data frame row in broadcasted assignment - one column |  115    115  2.2s
 Test Summary:                                                                 | Pass  Total  Time
@@ -1634,7 +1316,7 @@ data frame only on left hand side broadcasting assignment |   26     26  2.1s
 Test Summary:                          | Pass  Total  Time
 broadcasting with 3-dimensional object |    4      4  0.3s
 Test Summary:                                  | Pass  Total  Time
-additional checks of post-! broadcasting rules |  169    169  2.7s
+additional checks of post-! broadcasting rules |  169    169  2.8s
 Test Summary:                                   | Pass  Total  Time
 DataFrameRow getproperty broadcasted assignment |    8      8  0.1s
 Test Summary:                                | Pass  Total  Time
@@ -1644,7 +1326,7 @@ add new correct rules for df[row, col] .= v broadcasting |   12     12  0.0s
 Test Summary:                 | Pass  Total  Time
 broadcasting into df[!, cols] |  223    223  0.5s
 Test Summary:                           | Pass  Total  Time
-broadcasting over heterogeneous columns |    1      1  0.2s
+broadcasting over heterogeneous columns |    1      1  0.3s
 Test Summary:        | Pass  Total  Time
 @views on df[!, col] |    3      3  0.2s
 Test Summary:                      | Pass  Total  Time
@@ -1659,17 +1341,17 @@ test coverage for corner cases that are not normally called |    5      5  0.0s
 Test Summary: | Pass  Total  Time
 iteration     |   12     12  0.1s
 Test Summary: | Pass  Total  Time
-joins         |   24     24  2.6s
+joins         |   24     24  2.5s
 Test Summary: | Pass  Total  Time
-reshape       |    6      6  1.2s
+reshape       |    6      6  1.3s
 Test Summary: | Pass  Total  Time
 selection     |   13     13  0.3s
 Test Summary: | Pass  Total  Time
 tables        |    4      4  0.0s
 Test Summary:       | Pass  Total  Time
-split-apply-combine |   15     15  0.9s
+split-apply-combine |   15     15  0.8s
 Test Summary: | Pass  Total  Time
-DataFrameRow  |   13     13  0.7s
+DataFrameRow  |   13     13  0.8s
 Test Summary:                        | Pass  Total  Time
 names, propertynames and hasproperty |   43     43  0.2s
 Test Summary:     | Pass  Total  Time
@@ -1689,7 +1371,7 @@ metadatasupport |   22     22  0.0s
 Test Summary:        | Pass  Total  Time
 table-level metadata |  244    244  0.7s
 Test Summary:         | Pass  Total   Time
-column-level metadata | 7756   7756  11.8s
+column-level metadata | 7756   7756  11.9s
 Test Summary:    | Pass  Total  Time
 metadata default |    6      6  0.0s
 Test Summary:                                    | Pass  Total  Time
@@ -1705,7 +1387,7 @@ describe      |    8      8  0.1s
 Test Summary:                    | Pass  Total  Time
 functions that keep all metadata |   32     32  0.1s
 Test Summary:                                | Pass  Total   Time
-functions that keep all :note-style metadata | 1662   1662  10.0s
+functions that keep all :note-style metadata | 1662   1662  10.1s
 Test Summary:    | Pass  Total  Time
 fillcombinations |   22     22  1.0s
 Test Summary: | Pass  Total  Time
@@ -1746,7 +1428,7 @@ insertcols! and insertcols |   35     35  3.3s
 Test Summary:      | Pass  Total  Time
 indicator in joins |    6      6  0.4s
 Test Summary:    | Pass  Total  Time
-hcat with vector |   59     59  0.4s
+hcat with vector |   59     59  0.5s
 Test Summary: | Pass  Total  Time
 delete!       |    5      5  0.1s
 Test Summary:   | Pass  Total  Time
