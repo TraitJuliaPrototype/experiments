@@ -1,0 +1,34 @@
+# E-388 ode 2026-11-14T19:08:13+01:00 load 0.78 1.63 2.57 | /p/projects/coen/julia-trait-bound/julia-unified/julia 21c9b33e39* TraitWorld 2072e75 TDE b730628 forks 439bae7 | one thread, product setting, strict mode off
+## load: 328.5 ms unprofiled
+## first solve (Lorenz, Tsit5): 170.6 ms unprofiled
+## first stiff solve (Robertson, Rodas5): 128.4 ms unprofiled
+## a new right-hand side (a closure): 93.0 ms unprofiled
+## the solves again: 3.4 ms unprofiled
+## load: 528.2 ms, 657 samples
+  image validation                               31.1 %    164 ms | of it % inf 100, sub 43 | leaves % obvious_subtype 14; has_free_typevars 4; jl_field_isptr 4; jl_table_peek_bp 3; get_ci_mi 3
+  image restore                                  29.7 %    157 ms | of it % inf 3, gen 33, sub 3, mem 1 | leaves % LLVM (C++) 25; jl_read_reloclist 23; malloc 6; symtab_lookup 5;  3
+  loading, the rest                              17.7 %     93 ms | of it % gc 31 | leaves % file system calls 51; gc_mark_objarray 14; gc_old 8; gc_marked 6; __memmove_avx512_unaligned_erms 4
+  a method's activation                          13.1 %     69 ms | of it % sub 84 | leaves % has_free_typevars 12; obviously_disjoint 8; obvious_subtype 6; obviously_egal 5; intersect 3
+  membership activation                           5.2 %     27 ms | of it % sub 94 | leaves % subtype 6; jl_gc_small_alloc_inner 6; has_existential_typevar 6; subtype_membership 6; local_forall_exists_subtype 6
+  membership walk                                 3.3 %     18 ms | of it % sub 68, mem 5 | leaves % disable_mt_cache 18; has_free_typevars 14; jl_to_typeof 9; lookup 5; membership_shadow_visitor 5
+## first solve (Lorenz, Tsit5): 339.9 ms, 309 samples
+  code generation                                58.9 %    200 ms | of it % gen 100 | leaves % LLVM (C++) 85; malloc 7; __memmove_avx512_unaligned_erms 2; name 1; __memcmp_evex_movbe 1
+  inference                                      25.6 %     87 ms | of it % inf 100, sub 3 | leaves % .plt 10; gc_page_data 4; getindex 4; scan_specified_partitions 4; apply_iterate_reach 3
+  compiling while inferring                      13.3 %     45 ms | of it % inf 100, gen 100 | leaves % LLVM (C++) 59; malloc 10; bindingkey_eq 2; HIST_count_wksp 2; codelocs_parseheader 2
+  method lookup                                   1.6 %      5 ms | of it % sub 60, mem 40 | leaves % subtype 20; typekey_hash 20; bitmix 20; kind_meets_set 20; jl_compilation_sig 20
+## first stiff solve (Robertson, Rodas5): 388.1 ms, 307 samples
+  code generation                                39.1 %    152 ms | of it % gen 100 | leaves % LLVM (C++) 78; malloc 12;  2; getModRefInfo 1; next 1
+  compiling while inferring                      34.5 %    134 ms | of it % inf 100, gen 65, sub 4, mem 1 | leaves % LLVM (C++) 50; malloc 8; .plt 4; __memcmp_evex_movbe 2; obvious_subtype 2
+  inference                                      24.8 %     96 ms | of it % inf 100, gc 28 | leaves % .plt 8; gc_sweep_page 7; gc_marked 7; gc_mark_objarray 5; setindex! 4
+  method lookup                                   1.3 %      5 ms | of it % sub 50, mem 50 | leaves % obviously_unequal 25; jl_lookup_generic_ 25; maybe_subtype_of_cache 25; re_save_env 25
+## a new right-hand side (a closure): 178.1 ms, 153 samples
+  code generation                                53.6 %     95 ms | of it % gen 100 | leaves % LLVM (C++) 84; malloc 10; isRequired 1; CreateExtractValue 1; ZSTD_encodeSequences_bmi2 1
+  inference                                      34.6 %     62 ms | of it % inf 100, sub 8 | leaves % .plt 9; gc_page_data 4; getindex 4; jl_method_compiled_callptr 4; symtab_lookup 4
+  compiling while inferring                       7.8 %     14 ms | of it % inf 100, gen 100 | leaves % LLVM (C++) 58; operator= 8; emit_call_specfun_other 8; jl_is_datatype_singleton 8; malloc 8
+  method lookup                                   2.6 %      5 ms | of it % sub 100, mem 100 | leaves % intersect_var 25; local_forall_exists_subtype 25; obvious_subtype 25; ijl_has_typevar 25
+  lowering and parsing                            1.3 %      2 ms | of it %  | leaves % num_to_ptr 50; fl_memq 50
+## the solves again: 5.4 ms, 6 samples
+  method lookup                                  33.3 %      2 ms | of it %  | leaves % int64hash 100
+  lowering and parsing                           33.3 %      2 ms | of it %  | leaves % apply_cl 100
+  the work itself                                33.3 %      2 ms | of it %  | leaves % << 50; gc_page_data 50
+# done 2026-11-14T19:08:22+01:00 load 0.81 1.61 2.55

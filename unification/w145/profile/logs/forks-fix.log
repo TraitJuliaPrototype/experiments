@@ -1,0 +1,70 @@
+# E-388 forks 2026-11-14T19:08:22+01:00 load 0.81 1.61 2.55 | /p/projects/coen/julia-trait-bound/julia-unified/julia 21c9b33e39* TraitWorld 2072e75 TDE b730628 forks 439bae7 | one thread, product setting, strict mode off
+## load: 1015.3 ms unprofiled
+## read: 35.0 ms unprofiled
+## show: 207.4 ms unprofiled
+## describe: 780.8 ms unprofiled
+## select and filter: 74.8 ms unprofiled
+## sort: 35.1 ms unprofiled
+## groupby and combine: 25.8 ms unprofiled
+## a user's function by row: 167.0 ms unprofiled
+## join: 76.2 ms unprofiled
+## describe again: 3.1 ms unprofiled
+## load: 1453.0 ms, 2038 samples
+  image validation                               44.2 %    642 ms | of it % inf 100, sub 44, mem 0, gc 4 | leaves % obvious_subtype 16; verify_method 3; has_free_typevars 3; get_ci_mi 3; jl_field_isptr 2
+  image restore                                  25.5 %    370 ms | of it % inf 1, gen 8, sub 3, gc 14 | leaves % jl_read_reloclist 28; LLVM (C++) 6; get_item_for_reloc 6; gc_old 4; symtab_lookup 3
+  loading, the rest                              10.0 %    145 ms | of it % sub 0 | leaves % file system calls 85; crc32c_sse42 3; __memmove_avx512_unaligned_erms 1; llseek 1; getdents64 1
+  a method's activation                           7.6 %    111 ms | of it % sub 78 | leaves % obvious_subtype 12; obviously_disjoint 8; has_free_typevars 6; jl_to_typeof 6; jl_is_va_tuple 5
+  membership walk                                 4.6 %     67 ms | of it % sub 77, mem 20 | leaves % obvious_subtype 16; disable_mt_cache 12; membership_shadow_visitor 7; has_free_typevars 5; obviously_egal 3
+  membership activation                           3.2 %     46 ms | of it % sub 98, mem 2 | leaves % obvious_subtype 14; ijl_unwrap_unionall 8; typekey_eq 5; obviously_egal 5; inst_type_w_ 5
+  package callbacks: inferring                    2.6 %     38 ms | of it % inf 100, sub 46 | leaves % obvious_subtype 15; ijl_get_nth_field 11; verify_method 6; obviously_disjoint 4; jl_is_type_type 4
+  package callbacks: the rest                     2.2 %     32 ms | of it % sub 27 | leaves % file system calls 18; jl_read_reloclist 9; get_item_for_reloc 7; obvious_subtype 7; jl_specializations_get_linfo_ 4
+## read: 83.6 ms, 74 samples
+  code generation                                52.7 %     44 ms | of it % gen 100 | leaves % LLVM (C++) 85; unlink_chunk.constprop.0 5; HIST_count_wksp 3; __memcmp_evex_movbe 3; __memchr_evex 3
+  definition-time check: compiling its own code  25.7 %     21 ms | of it % inf 5, gen 100 | leaves % LLVM (C++) 95; jl_nth_slot_type 5
+  the work itself                                 9.5 %      8 ms | of it %  | leaves % == 14; < 14; jfptr__preprocess_column_35165 14; _float_fast 14; _parsecivilexact 14
+  lowering and parsing                            4.1 %      3 ms | of it %  | leaves % apply_cl 67; jl_svecref 33
+  method lookup                                   2.7 %      2 ms | of it %  | leaves % jl_typemap_entry_assoc_exact 50; jl_is_type_type 50
+  inference                                       2.7 %      2 ms | of it % inf 100 | leaves % jl_table_peek_bp 50; getindex 50
+  compiling while inferring                       1.4 %      1 ms | of it % inf 100, gen 100 | leaves % LLVM (C++) 100
+  definition-time check: the rest                 1.4 %      1 ms | of it %  | leaves % int64hash 100
+## show: 327.5 ms, 327 samples
+  code generation                                82.9 %    271 ms | of it % gen 100 | leaves % LLVM (C++) 86; malloc 6; ZSTD_HcFindBestMatch_noDict_4 1; operator delete 1; __memset_avx512_unaligned_erms 1
+  inference                                       8.9 %     29 ms | of it % inf 100, sub 7 | leaves % .plt 10; src_inlining_policy 7; partition_restriction 3; jl_gc_small_alloc_inner 3; gc_page_data 3
+  compiling while inferring                       6.1 %     20 ms | of it % inf 100, gen 100 | leaves % LLVM (C++) 55; __memcmp_evex_movbe 15; malloc 15; end 5; grow 5
+  the work itself                                 1.2 %      4 ms | of it %  | leaves % jl_f_getglobal 25; enumerate 25; ijl_array_grow_end 25; append_module_names 25
+## describe: 8574.5 ms, 1583 samples
+  code generation                                83.5 %   7161 ms | of it % gen 100, sub 0 | leaves % LLVM (C++) 89; malloc 5; unlink_chunk.constprop.0 1; __memmove_avx512_unaligned_erms 1; __memcmp_evex_movbe 0
+  inference                                      11.6 %    997 ms | of it % inf 100, sub 3 | leaves % .plt 9; ijl_invoke_plain 5; jl_method_compiled_callptr 4; getindex 4; argextype 3
+  compiling while inferring                       4.0 %    347 ms | of it % inf 100, gen 100 | leaves % LLVM (C++) 31; malloc 11; operator() 8; emit_stmtpos 3; jl_uncompress1_codeloc 3
+## select and filter: 192.1 ms, 164 samples
+  code generation                                79.9 %    153 ms | of it % gen 100 | leaves % LLVM (C++) 79; malloc 14; __memmove_avx512_unaligned_erms 2; operator= 1; getType 1
+  inference                                       6.7 %     13 ms | of it % inf 100, sub 9 | leaves % .plt 27; ⊑ 9; fixemup! 9; jl_lookup_generic_ 9; obvious_subtype 9
+  compiling while inferring                       6.1 %     12 ms | of it % inf 100, gen 100 | leaves % LLVM (C++) 50; unlink_chunk.constprop.0 20; malloc 20; jl_datatype_layout 10
+  the work itself                                 4.3 %      8 ms | of it % sub 14 | leaves % __memmove_avx512_unaligned_erms 14; obviously_in_union 14; utf8proc_get_property 14; jfptr_emptycolmetadataNOT._33517 14; jl_smallintset_lookup 14
+  method lookup                                   1.8 %      4 ms | of it % sub 33 | leaves % obvious_subtype 33; layoutcache_peek_bp_r 33; jl_to_typeof 33
+## sort: 64.2 ms, 99 samples
+  the work itself                                48.5 %     31 ms | of it % sub 2 | leaves % apply_generic_reach 15; jl_gc_small_alloc_inner 10; getindex 10; jfptr_cell_43695 8; jfptr_cell_4007 6
+  collector                                      31.3 %     20 ms | of it % gc 100 | leaves % gc_marked 26; gc_sweep_page 26; gc_mark_objarray 16; gc_old 16; gc_setmark_pool_ 6
+  method lookup                                  19.2 %     12 ms | of it %  | leaves % jl_lookup_generic_ 89; sig_match_fast 11
+  lowering and parsing                            1.0 %      1 ms | of it %  | leaves % ijl_box_int32 100
+## groupby and combine: 61.4 ms, 56 samples
+  code generation                                82.1 %     50 ms | of it % gen 100 | leaves % LLVM (C++) 78; malloc 11;  2; __memcmp_evex_movbe 2; _Rb_tree_insert_and_rebalance 2
+  compiling while inferring                       7.1 %      4 ms | of it % inf 100, gen 100 | leaves % LLVM (C++) 75; __GI___pthread_mutex_unlock_usercnt 25
+  the work itself                                 5.4 %      3 ms | of it %  | leaves % jlcapi__SplitTarget_41022 33; jl_gc_state_set 33; jl_bpart_get_kind 33
+  method lookup                                   3.6 %      2 ms | of it % sub 100 | leaves % subtype 50; ijl_subtype_env 50
+  inference                                       1.8 %      1 ms | of it % inf 100, sub 100 | leaves % obvious_subtype 100
+## a user's function by row: 287.0 ms, 259 samples
+  code generation                                84.6 %    243 ms | of it % gen 100 | leaves % LLVM (C++) 79; malloc 11; operator delete 2; __memcmp_evex_movbe 1; run 1
+  compiling while inferring                       5.4 %     16 ms | of it % inf 100, gen 100 | leaves % LLVM (C++) 43; malloc 14; _dl_addr 14; __memcmp_evex_movbe 7; tbaa_decorate 7
+  inference                                       5.0 %     14 ms | of it % inf 100, sub 23 | leaves % .plt 15; widenslotwrapper 8; getindex 8; <= 8; jl_method_compiled_callptr 8
+  the work itself                                 2.7 %      8 ms | of it % sub 14 | leaves % has_free_typevars 14; jl_gc_small_alloc_inner 14; obvious_subtype 14; <= 14; ijl_get_pgcstack 14
+  method lookup                                   1.5 %      4 ms | of it % sub 25 | leaves % jl_typemap_alloc 25; subtype_tuple_tail 25; _hash_layout_djb2 25; compare_svec 25
+## join: 156.0 ms, 176 samples
+  code generation                                45.5 %     71 ms | of it % gen 100 | leaves % LLVM (C++) 75; malloc 12; __memmove_avx512_unaligned_erms 4;  1; memcpy 1
+  the work itself                                29.0 %     45 ms | of it % sub 2 | leaves % __memset_avx512_unaligned_erms 6; xor 4; checked_trunc_sint 4; <= 4; jl_gc_alloc_ 4
+  method lookup                                  13.1 %     20 ms | of it % sub 4, gc 4 | leaves % jl_lookup_generic_ 22; int64hash 17; lookup_type_setvalue 13; sig_match_fast 9; jl_is_type_type 9
+  collector                                       9.1 %     14 ms | of it % gc 100 | leaves % gc_marked 38; gc_mark_objarray 25; gc_sweep_page 19; gc_old 12; mprotect 6
+  compiling while inferring                       2.8 %      4 ms | of it % inf 100, gen 100 | leaves % malloc 40; __memmove_avx512_unaligned_erms 20; isVectorTy 20; LLVM (C++) 20
+## describe again: 6.8 ms, 7 samples
+  the work itself                               100.0 %      7 ms | of it %  | leaves % make_typealias 14; getindex 14; <= 14; show_delim_array 14; __memset_avx512_unaligned_erms 14
+# done 2026-11-14T19:08:45+01:00 load 0.78 1.55 2.51

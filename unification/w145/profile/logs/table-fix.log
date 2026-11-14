@@ -1,0 +1,37 @@
+# E-388 table 2026-11-14T19:07:41+01:00 load 0.76 1.71 2.63 | /p/projects/coen/julia-trait-bound/julia-unified/julia 21c9b33e39* TraitWorld 2072e75 TDE b730628 forks 439bae7 | one thread, product setting, strict mode off
+## load: 384.7 ms unprofiled
+## read: 4.2 ms unprofiled
+## summary: 2.9 ms unprofiled
+## plot: 84.0 ms unprofiled
+## edit of summarize, first: 2513.9 ms unprofiled
+## edit of summarize, second: 454.7 ms unprofiled
+## summary after the edit: 17.4 ms unprofiled
+## load: 588.3 ms, 751 samples
+  image restore                                  38.6 %    227 ms | of it % inf 2, gen 24, gc 14 | leaves % LLVM (C++) 20; jl_read_reloclist 19; file system calls 8; gc_mark_objarray 6; get_item_for_reloc 4
+  image validation                               33.6 %    197 ms | of it % inf 100, sub 42, mem 0 | leaves % obvious_subtype 16; verify_method 5; get_ci_mi 4; ijl_array_grow_end 3; ijl_get_nth_field 3
+  loading, the rest                              13.7 %     81 ms | of it %  | leaves % file system calls 82; crc32c_sse42 4; llseek 3; __memmove_avx512_unaligned_erms 2; toUInt128 1
+  a method's activation                           8.9 %     52 ms | of it % sub 87 | leaves % obviously_disjoint 9; has_free_typevars 7; obvious_subtype 7; ijl_unwrap_unionall 6; jl_typemap_intersection_node_visitor 4
+  membership activation                           1.9 %     11 ms | of it % sub 86 | leaves % lookup 7; has_free_typevars 7; int64hash 7; malloc 7; has_existential_typevar 7
+  membership walk                                 1.3 %      8 ms | of it % sub 80 | leaves % open_set_witness 10; jl_typemap_intersection_node_visitor 10; disable_mt_cache 10; subtype 10; check_datatype_parameters 10
+## read: 10.5 ms, 8 samples
+  code generation                                75.0 %      8 ms | of it % gen 100 | leaves % LLVM (C++) 83; unlink_chunk.constprop.0 17
+  compiling while inferring                      12.5 %      1 ms | of it % inf 100, gen 100 | leaves % __memmove_avx512_unaligned_erms 100
+  the work itself                                12.5 %      1 ms | of it %  | leaves % file system calls 100
+## summary: 10.1 ms, 6 samples
+  code generation                                66.7 %      7 ms | of it % gen 100 | leaves % LLVM (C++) 100
+  inference                                      33.3 %      3 ms | of it % inf 100, sub 50 | leaves % subtype_tuple_tail 50; record_slot_assign! 50
+## plot: 120.6 ms, 141 samples
+  the work itself                                68.1 %     82 ms | of it %  | leaves % png_write_find_filter 28; file system calls 28; deflate_slow 9; fill_window 9; sse2_fill 3
+  code generation                                27.7 %     33 ms | of it % gen 100 | leaves % LLVM (C++) 79; malloc 8; name 3; __memcmp_evex_movbe 3; unlink_chunk.constprop.0 3
+  compiling while inferring                       2.8 %      3 ms | of it % inf 100, gen 100 | leaves % LLVM (C++) 50; operator() 25; emit_varinfo 25
+  lowering and parsing                            1.4 %      2 ms | of it %  | leaves % __strcmp_evex 50; apply_cl 50
+## edit of summarize, first: 12146.2 ms, 5155 samples
+  definition-time check: compiling its own code  82.0 %   9960 ms | of it % inf 100, gen 82, sub 1, mem 0, gc 3 | leaves % LLVM (C++) 72; malloc 5; .plt 2; getindex 1; unlink_chunk.constprop.0 1
+  definition-time check: inferring               17.9 %   2177 ms | of it % inf 100, sub 6, gc 7 | leaves % .plt 6; jl_lookup_generic_ 4; getindex 3; gc_page_data 3; gc_sweep_page 2
+## edit of summarize, second: 879.8 ms, 957 samples
+  definition-time check: inferring               99.6 %    876 ms | of it % inf 100, sub 5, gc 11 | leaves % .plt 7; gc_sweep_page 3; jl_lookup_generic_ 3; gc_page_data 3; getindex 3
+## summary after the edit: 38.5 ms, 36 samples
+  code generation                                86.1 %     33 ms | of it % gen 100 | leaves % LLVM (C++) 87; _M_create 3; begin 3; ~PassModel 3; malloc 3
+  inference                                       8.3 %      3 ms | of it % inf 100, sub 33 | leaves % jl_lookup_generic_ 33; _count_added_node! 33; maybe_subtype_of_cache 33
+  compiling while inferring                       5.6 %      2 ms | of it % inf 100, gen 100 | leaves % LLVM (C++) 50; getenv 50
+# done 2026-11-14T19:08:13+01:00 load 0.78 1.63 2.57

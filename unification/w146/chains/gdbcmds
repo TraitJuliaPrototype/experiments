@@ -1,0 +1,14 @@
+set pagination off
+set breakpoint pending on
+set follow-fork-mode child
+set detach-on-fork on
+handle SIGSEGV nostop noprint pass
+handle SIGUSR1 nostop noprint pass
+handle SIGUSR2 nostop noprint pass
+handle SIGPIPE nostop noprint pass
+break gf.c:887
+commands
+bt 30
+continue
+end
+run
