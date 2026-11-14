@@ -1,0 +1,12 @@
+# E-388 nd 2026-11-14T17:38:17+01:00 load 1.05 0.84 1.08 | /p/projects/coen/julia-trait-bound/julia-unified/julia 86deee2f98* TraitWorld 2072e75 TDE b730628 forks 439bae7 | one thread, product setting, strict mode off
+## the whole workload (load, first pass, again, parameters, a changed model, a graph type): 44032.9 ms unprofiled
+## the whole workload (load, first pass, again, parameters, a changed model, a graph type): 124388.3 ms, 92137 samples
+  code generation                                57.7 %  71734 ms | of it % gen 100, sub 0 | leaves % LLVM (C++) 55; .plt 33; .plt.sec 7; malloc 2; operator delete 0
+  inference                                      26.1 %  32494 ms | of it % inf 100, gen 0, sub 5, mem 0, gc 9 | leaves % jl_method_compiled_callptr 11; .plt 7; ci_policy_is 5; getindex 2; gc_page_data 2
+  compiling while inferring                       5.6 %   6914 ms | of it % inf 100, gen 89, sub 2, mem 0, gc 1 | leaves % LLVM (C++) 35; .plt 18; .plt.sec 13; malloc 3; operator() 2
+  the work itself                                 3.6 %   4438 ms | of it % sub 9, mem 0 | leaves % png_write_find_filter 7; jl_f__svec_ref 7; declared_field_in 6; longest_match 3; deflate_slow 3
+  image restore                                   1.5 %   1877 ms | of it % inf 16, gen 14, sub 1, gc 15 | leaves % jl_read_reloclist 21; LLVM (C++) 8; file system calls 6; .plt 5; gc_old 4
+  a method's activation                           1.5 %   1821 ms | of it % sub 90, mem 0, gc 4 | leaves % has_free_typevars 13; obvious_subtype 7; jl_has_bound_typevars 7; obviously_disjoint 5; obviously_in_union 3
+  loading, the rest                               1.4 %   1742 ms | of it % gc 4 | leaves % file system calls 87; .plt.sec 2; gc_old 1; gc_mark_objarray 1; crc32c_sse42 1
+  image validation                                1.2 %   1477 ms | of it % inf 100, sub 48, mem 0 | leaves % obvious_subtype 12; has_free_typevars 3; ijl_unwrap_unionall 3; ijl_get_nth_field 2; scan_new_method! 2
+# done 2026-11-14T17:42:14+01:00 load 1.25 1.04 1.10

@@ -1,0 +1,52 @@
+# E-388 upstream 2026-11-14T17:36:06+01:00 load 0.79 0.70 1.08 | /p/projects/coen/julia-trait-bound/julia-unified/julia 86deee2f98* TraitWorld 2072e75 TDE b730628 forks 439bae7 | one thread, product setting, strict mode off
+## load: 752.0 ms unprofiled
+## read: 3070.0 ms unprofiled
+## show: 1442.6 ms unprofiled
+## describe: 1529.6 ms unprofiled
+## select and filter: 229.5 ms unprofiled
+## sort: 1551.4 ms unprofiled
+## groupby and combine: 827.6 ms unprofiled
+## a user's function by row: 334.9 ms unprofiled
+## join: 1353.6 ms unprofiled
+## describe again: 3.5 ms unprofiled
+## load: 1010.9 ms, 1454 samples
+  image validation                               52.5 %    531 ms | of it % inf 100, sub 45, gc 11 | leaves % obvious_subtype 13; has_free_typevars 4; gc_old 4; get_ci_mi 2; verify_method 2
+  image restore                                  25.7 %    260 ms | of it % sub 5, gc 11 | leaves % jl_read_reloclist 30; get_item_for_reloc 6; symtab_lookup 4; jl_specializations_get_linfo_ 4; gc_mark_objarray 4
+  loading, the rest                              11.5 %    116 ms | of it %  | leaves % file system calls 81; crc32c_sse42 7; __memmove_avx512_unaligned_erms 2; llseek 2; readbytes_all! 1
+  a method's activation                           9.9 %    100 ms | of it % sub 78 | leaves % obvious_subtype 8; invalidate_mt_cache 8; has_free_typevars 7; obviously_disjoint 6; jl_is_va_tuple 5
+## read: 5971.0 ms, 6314 samples
+  code generation                                67.2 %   4015 ms | of it % gen 100, sub 0 | leaves % LLVM (C++) 55; .plt 35; malloc 6; unlink_chunk.constprop.0 1; __memmove_avx512_unaligned_erms 0
+  inference                                      28.6 %   1710 ms | of it % inf 100, sub 5, gc 14 | leaves % jl_method_compiled_callptr 10; .plt 7; ci_policy_is 5; getindex 3; gc_mark_objarray 3
+  compiling while inferring                       4.0 %    237 ms | of it % inf 100, gen 100, sub 0 | leaves % LLVM (C++) 31; .plt 10; malloc 8; __memcmp_evex_movbe 6; operator() 5
+## show: 2706.8 ms, 2989 samples
+  code generation                                70.0 %   1894 ms | of it % gen 100, sub 0 | leaves % LLVM (C++) 50; .plt 39; malloc 6; __memmove_avx512_unaligned_erms 1; unlink_chunk.constprop.0 1
+  inference                                      25.6 %    692 ms | of it % inf 100, sub 4, gc 18 | leaves % jl_method_compiled_callptr 12; .plt 5; gc_mark_objarray 4; gc_old 4; getindex 4
+  compiling while inferring                       4.1 %    112 ms | of it % inf 100, gen 100, sub 2 | leaves % LLVM (C++) 40; .plt 13; malloc 8; __memcmp_evex_movbe 3; set_size 2
+## describe: 6576.3 ms, 3275 samples
+  code generation                                50.1 %   3293 ms | of it % gen 100, sub 0 | leaves % LLVM (C++) 51; .plt 36; malloc 7; unlink_chunk.constprop.0 1; __memmove_avx512_unaligned_erms 1
+  inference                                      45.3 %   2982 ms | of it % inf 100, sub 4, gc 11 | leaves % jl_method_compiled_callptr 12; .plt 7; ci_policy_is 6; getindex 3; gc_mark_objarray 3
+  compiling while inferring                       4.3 %    281 ms | of it % inf 100, gen 100, sub 1 | leaves % LLVM (C++) 31; .plt 18; malloc 10; __memcmp_evex_movbe 4; operator() 4
+## select and filter: 565.7 ms, 524 samples
+  code generation                                68.7 %    389 ms | of it % gen 100, sub 0 | leaves % LLVM (C++) 56; .plt 28; malloc 8; ZSTD_HcFindBestMatch_noDict_4 1; __memmove_avx512_unaligned_erms 1
+  inference                                      25.2 %    143 ms | of it % inf 100, sub 3, gc 17 | leaves % jl_method_compiled_callptr 7; .plt 5; gc_mark_objarray 5; gc_sweep_page 5; gc_marked 5
+  compiling while inferring                       4.4 %     25 ms | of it % inf 100, gen 100 | leaves % LLVM (C++) 26; .plt 22; malloc 9; general_use_analysis<emit_function(llvm: 4; __memcmp_evex_movbe 4
+  the work itself                                 1.3 %      8 ms | of it %  | leaves % make_typealias 14; bindingkey_eq 14; _update_data_cell_indices 14; _get_subset_conditions 14; #_validate_payload#1 14
+## sort: 9229.4 ms, 3207 samples
+  inference                                      58.7 %   5416 ms | of it % inf 100, sub 5, gc 9 | leaves % jl_method_compiled_callptr 11; .plt 8; ci_policy_is 5; getindex 2; gc_sweep_page 2
+  code generation                                36.3 %   3353 ms | of it % gen 100, sub 0 | leaves % LLVM (C++) 51; .plt 35; malloc 7; unlink_chunk.constprop.0 1; __memmove_avx512_unaligned_erms 1
+  compiling while inferring                       4.7 %    432 ms | of it % inf 100, gen 99 | leaves % LLVM (C++) 33; .plt 17; malloc 11; __memcmp_evex_movbe 5; operator() 4
+## groupby and combine: 1751.6 ms, 1797 samples
+  code generation                                65.3 %   1143 ms | of it % gen 100, sub 0 | leaves % LLVM (C++) 56; .plt 34; malloc 5; __memmove_avx512_unaligned_erms 1; unlink_chunk.constprop.0 1
+  inference                                      29.7 %    520 ms | of it % inf 100, sub 7, gc 20 | leaves % jl_method_compiled_callptr 10; gc_old 7; .plt 5; gc_mark_objarray 4; ci_policy_is 4
+  compiling while inferring                       4.8 %     85 ms | of it % inf 100, gen 100, sub 5 | leaves % LLVM (C++) 37; .plt 10; malloc 10; __memcmp_evex_movbe 7; codelocs_parseheader 2
+## a user's function by row: 833.0 ms, 722 samples
+  code generation                                69.9 %    583 ms | of it % gen 100 | leaves % LLVM (C++) 54; .plt 32; malloc 6; unlink_chunk.constprop.0 1; __memmove_avx512_unaligned_erms 1
+  inference                                      22.3 %    186 ms | of it % inf 100, sub 2 | leaves % jl_method_compiled_callptr 13; .plt 8; ci_policy_is 4; _useref_getindex 3; gc_page_data 2
+  compiling while inferring                       6.5 %     54 ms | of it % inf 100, gen 100, sub 2 | leaves % LLVM (C++) 45; .plt 11; operator() 6; malloc 4; __memmove_avx512_unaligned_erms 4
+## join: 2693.2 ms, 2733 samples
+  code generation                                66.5 %   1792 ms | of it % gen 100, sub 0 | leaves % LLVM (C++) 54; .plt 35; malloc 6; unlink_chunk.constprop.0 1; __memmove_avx512_unaligned_erms 1
+  inference                                      25.0 %    672 ms | of it % inf 100, sub 5, gc 10 | leaves % jl_method_compiled_callptr 10; .plt 7; ci_policy_is 5; gc_marked 3; getindex 3
+  compiling while inferring                       7.4 %    199 ms | of it % inf 100, gen 100, sub 0 | leaves % LLVM (C++) 39; .plt 20; malloc 10; __memcmp_evex_movbe 4; jl_uncompress1_codeloc 2
+## describe again: 8.3 ms, 8 samples
+  the work itself                               100.0 %      8 ms | of it %  | leaves % bindingkey_eq 25; make_typealias 12; getindex 12; <= 12; isassigned 12
+# done 2026-11-14T17:37:14+01:00 load 0.97 0.78 1.08

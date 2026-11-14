@@ -1,0 +1,38 @@
+# E-388 table 2026-11-14T17:44:29+01:00 load 0.26 0.71 0.97 | /p/projects/coen/julia-trait-bound/julia-unified/julia 86deee2f98* TraitWorld 2072e75 TDE b730628 forks 439bae7 | one thread, product setting, strict mode off
+## load: 382.1 ms unprofiled
+## read: 4.1 ms unprofiled
+## summary: 3.0 ms unprofiled
+## plot: 78.0 ms unprofiled
+## edit of summarize, first: 2576.6 ms unprofiled
+## edit of summarize, second: 446.3 ms unprofiled
+## summary after the edit: 17.6 ms unprofiled
+## load: 586.5 ms, 758 samples
+  image restore                                  36.9 %    217 ms | of it % inf 2, gen 23, sub 2, gc 15 | leaves % jl_read_reloclist 20; LLVM (C++) 20; file system calls 10; gc_mark_objarray 6;  4
+  image validation                               34.8 %    204 ms | of it % inf 100, sub 37 | leaves % obvious_subtype 16; verify_method 4; jl_field_isptr 4; get_ci_mi 4; ijl_array_grow_end 3
+  loading, the rest                              13.7 %     80 ms | of it %  | leaves % file system calls 84; llseek 4; crc32c_sse42 2; ijl_alloc_string 2; gc_page_data 1
+  a method's activation                           9.2 %     54 ms | of it % sub 84 | leaves % obvious_subtype 11; jl_typemap_intersection_visitor 6; invalidate_mt_cache 6; invalidate_intersecting 4; obviously_disjoint 4
+  membership activation                           1.6 %      9 ms | of it % sub 75 | leaves % has_free_typevars 8; has_existential_typevar 8; jl_get_pgcstack_static 8; reach_memo_get 8; find_method_in_matches 8
+  membership walk                                 1.5 %      9 ms | of it % sub 73 | leaves % lookup_type_set 18; intersect_tuple 9; reach_memo_get 9; has_free_typevars 9; var_occurs_inside 9
+## read: 11.0 ms, 8 samples
+  code generation                                75.0 %      8 ms | of it % gen 100 | leaves % LLVM (C++) 83; malloc 17
+  compiling while inferring                      12.5 %      1 ms | of it % inf 100, gen 100 | leaves % basic_string<> 100
+  the work itself                                12.5 %      1 ms | of it %  | leaves % file system calls 100
+## summary: 10.9 ms, 7 samples
+  code generation                                71.4 %      8 ms | of it % gen 100 | leaves % LLVM (C++) 100
+  inference                                      28.6 %      3 ms | of it % inf 100 | leaves % has_key 50; ijl_compress_ir 50
+## plot: 117.6 ms, 141 samples
+  the work itself                                68.1 %     80 ms | of it %  | leaves % file system calls 30; png_write_find_filter 28; deflate_slow 11; convert_data_to_bytes 4; fill_window 4
+  code generation                                27.0 %     32 ms | of it % gen 100 | leaves % LLVM (C++) 92; _M_append 3; malloc 3; run 3
+  lowering and parsing                            2.1 %      3 ms | of it %  | leaves % apply_cl 100
+  compiling while inferring                       1.4 %      2 ms | of it % inf 100, gen 100 | leaves % LLVM (C++) 50; malloc 50
+  member check: the rest                          1.4 %      2 ms | of it %  | leaves % jl_is_layout_opaque 50; jl_f_getfield 50
+## edit of summarize, first: 10399.7 ms, 5315 samples
+  definition-time check: compiling its own code  82.4 %   8570 ms | of it % inf 100, gen 81, sub 1, gc 3 | leaves % LLVM (C++) 70; malloc 5; jl_method_compiled_callptr 2; ci_policy_is 1; unlink_chunk.constprop.0 1
+  definition-time check: inferring               17.5 %   1820 ms | of it % inf 100, sub 7, gc 7 | leaves % getindex 3; jl_lookup_generic_ 2; gc_sweep_page 2; gc_mark_objarray 2; _useref_getindex 2
+## edit of summarize, second: 917.5 ms, 1016 samples
+  definition-time check: inferring               99.6 %    914 ms | of it % inf 100, sub 8, gc 15 | leaves % gc_sweep_page 3; gc_mark_objarray 3; gc_old 3; gc_marked 2; getindex 2
+## summary after the edit: 41.8 ms, 36 samples
+  code generation                                86.1 %     36 ms | of it % gen 100 | leaves % LLVM (C++) 84; malloc 6; _M_initialize_dispatch<std::_List_const_ 3; ZSTD_HcFindBestMatch_noDict_4 3; __strlen_evex 3
+  inference                                       8.3 %      3 ms | of it % inf 100 | leaves % is_nospecializeinfer 33; jfptr_iterate_compact_88394 33; abstract_call 33
+  compiling while inferring                       5.6 %      2 ms | of it % inf 100, gen 100 | leaves % malloc 50; _dl_addr 50
+# done 2026-11-14T17:44:56+01:00 load 0.54 0.74 0.97

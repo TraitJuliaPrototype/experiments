@@ -1,0 +1,34 @@
+# E-388 ode 2026-11-14T17:44:56+01:00 load 0.54 0.74 0.97 | /p/projects/coen/julia-trait-bound/julia-unified/julia 86deee2f98* TraitWorld 2072e75 TDE b730628 forks 439bae7 | one thread, product setting, strict mode off
+## load: 333.0 ms unprofiled
+## first solve (Lorenz, Tsit5): 181.3 ms unprofiled
+## first stiff solve (Robertson, Rodas5): 138.6 ms unprofiled
+## a new right-hand side (a closure): 99.7 ms unprofiled
+## the solves again: 3.4 ms unprofiled
+## load: 536.8 ms, 669 samples
+  image validation                               30.5 %    164 ms | of it % inf 100, sub 44 | leaves % obvious_subtype 14; has_free_typevars 4; store_backedges 4; jl_to_typeof 4; get_ci_mi 3
+  image restore                                  30.0 %    161 ms | of it % inf 4, gen 36, sub 3 | leaves % LLVM (C++) 29; jl_read_reloclist 18; get_item_for_reloc 5; symtab_lookup 5; file system calls 5
+  loading, the rest                              17.6 %     95 ms | of it % gc 33 | leaves % file system calls 49; gc_mark_objarray 11; gc_old 8; gc_marked 7; crc32c_sse42 3
+  a method's activation                          13.3 %     71 ms | of it % sub 83 | leaves % obvious_subtype 12; obviously_disjoint 7; invalidate_mt_cache 7; obviously_egal 6; jl_to_typeof 6
+  membership activation                           5.4 %     29 ms | of it % sub 97 | leaves % has_free_typevars 6; forall_exists_equal 6; int64hash 6; has_existential_typevar 6; local_forall_exists_subtype 6
+  membership walk                                 3.0 %     16 ms | of it % sub 65 | leaves % disable_mt_cache 15; membership_shadow_visitor 10; jl_to_typeof 10; jl_has_bound_typevars 5; lookup 5
+## first solve (Lorenz, Tsit5): 377.4 ms, 337 samples
+  code generation                                57.6 %    217 ms | of it % gen 100 | leaves % LLVM (C++) 81; malloc 12; __memset_avx512_unaligned_erms 2; __memcmp_evex_movbe 1; HIST_countFast_wksp 1
+  inference                                      27.6 %    104 ms | of it % inf 100, sub 1 | leaves % ci_policy_is 8; jl_method_compiled_callptr 4; jl_is_layout_opaque 2; getindex 2; j__advance_30863 2
+  compiling while inferring                      12.8 %     48 ms | of it % inf 100, gen 100 | leaves % LLVM (C++) 77; malloc 9; operator() 2; lock 2; _dl_lookup_symbol_x 2
+  method lookup                                   1.8 %      7 ms | of it % sub 67, mem 50 | leaves % ijl_unwrap_unionall 33; has_free_typevars 17; free_env 17; typekeyvalue_eq 17; int64hash 17
+## first stiff solve (Robertson, Rodas5): 439.9 ms, 339 samples
+  code generation                                36.6 %    161 ms | of it % gen 100 | leaves % LLVM (C++) 84; malloc 10; __memset_avx512_unaligned_erms 2; __memmove_avx512_unaligned_erms 1; ZSTD_compressBlock_lazy 1
+  compiling while inferring                      35.7 %    157 ms | of it % inf 100, gen 63, sub 5 | leaves % LLVM (C++) 46; malloc 7; ci_policy_is 3; gc_page_data 2; symtab_lookup 2
+  inference                                      25.7 %    113 ms | of it % inf 100, sub 6, gc 25 | leaves % jl_method_compiled_callptr 10; gc_sweep_page 8; gc_marked 8; _advance 3; ci_policy_is 3
+  method lookup                                   1.2 %      5 ms | of it % sub 75, mem 50 | leaves % subtype_unionall 50; open_set_witness 25; type_object_id_ 25
+## a new right-hand side (a closure): 196.8 ms, 174 samples
+  code generation                                51.7 %    102 ms | of it % gen 100 | leaves % LLVM (C++) 87; malloc 10; ZSTD_HcFindBestMatch_noDict_4 2; __memcmp_evex_movbe 1
+  inference                                      37.9 %     75 ms | of it % inf 100, sub 6 | leaves % jl_method_compiled_callptr 12; gc_page_data 5; jl_gc_small_alloc_inner 5; jl_lookup_generic_ 5; argextype 3
+  compiling while inferring                       6.9 %     14 ms | of it % inf 100, gen 100 | leaves % LLVM (C++) 58; operator() 8; get_specsig_function 8; __memcmp_evex_movbe 8; codelocs_parseheader 8
+  method lookup                                   1.7 %      3 ms | of it % sub 100, mem 100 | leaves % next_union_state 33; subtype_unionall 33; jl_membership_world_range 33
+  lowering and parsing                            1.1 %      2 ms | of it %  | leaves % apply_cl 50; fl_map1 50
+## the solves again: 6.6 ms, 6 samples
+  the work itself                                50.0 %      3 ms | of it %  | leaves % apply_generic_reach 33; muladd 33; _setindex! 33
+  lowering and parsing                           33.3 %      2 ms | of it %  | leaves % apply_cl 100
+  method lookup                                  16.7 %      1 ms | of it %  | leaves % int64hash 100
+# done 2026-11-14T17:45:05+01:00 load 0.93 0.81 0.99
