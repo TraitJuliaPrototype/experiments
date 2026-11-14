@@ -6,9 +6,20 @@ include("ac_util.jl")
 push!(LOAD_PATH, normpath(joinpath(@__DIR__, "..", "..", "..", "..", "TraitWorld-unified")))
 using TraitWorld
 
-sink16(a) = a
+# (re-judged with W-142, traits §14: the fault is what a closed build refuses. A function with one
+# method takes a value typed `Any` in a build, so the call is resolved there, and a few methods are
+# branched over; one with more methods than inference follows is not)
+sink16(a::Int) = a
+sink16(a::String) = a
+sink16(a::Float64) = a
+sink16(a::Symbol) = a
+sink16(a::Char) = a
+one16(a) = a
 
-@enforce_fully_typed cbad16(v::Vector{Any}) = sink16(v[1])    # the mode + a run-time site
+@enforce_fully_typed cone16(v::Vector{Any}) = one16(v[1])     # the mode + a call a build resolves: runs
+@assert cone16(Any[1]) == 1 "a call that a closed build resolves is no fault"
+
+@enforce_fully_typed cbad16(v::Vector{Any}) = sink16(v[1])    # the mode + a call a build refuses
 err = try
     cbad16(Any[1])
     nothing

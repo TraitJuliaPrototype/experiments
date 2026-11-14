@@ -26,9 +26,12 @@ callee_mi(e) = e isa Core.CodeInstance ? e.def : e
 haspair = any(e -> (mi = callee_mi(e); mi isa Core.MethodInstance && mi.specTypes === Tuple{typeof(g18), M18}), ci.edges)
 @assert haspair "dispatch edge at the concrete member sig: $(collect(ci.edges))"
 @assert ci.min_world >= e18.min_world "world bound above the declare: $(ci.min_world) >= $(e18.min_world)"
-fes = [e for e in ci.edges if isa(e, Core.MembershipEntry)]
+# (re-judged with W-141, compiler §5.6: the record names the membership by its method, an instance of
+# `Core.implements` at the pair, not by its entry)
+impl_edges(ci) = [mi.specTypes for mi in (callee_mi(e) for e in ci.edges) if mi isa Core.MethodInstance && mi.def isa Method && mi.def.name === :implements]
+fes = impl_edges(ci)
 @assert length(fes) == 1 "exactly one positive membership: $(collect(ci.edges))"
-@assert fes[1] === e18 "the record names the entry: $(fes[1])"
+@assert fes[1] === Tuple{typeof(Core.implements), Type{S18}, Type{M18}} "the record names the membership's method: $(fes[1])"
 
 cib = only([c for c in all_cis(mk18b) if c.min_world > 0 && c.owner === nothing])
 @assert cib.rettype === Any "abstract query over the set: rettype Any, got $(cib.rettype)"
