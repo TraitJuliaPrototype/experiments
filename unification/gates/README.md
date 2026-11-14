@@ -84,3 +84,6 @@ file name is the milestone whose gate it belongs to:
 - `n9_fully_typed.jl` — W-114: fully typed mode, by a method's meta and a module's option: compiled by
   facts; code with a run-time site (in it or a facts callee) or an abstract result starts with the check,
   fully typed code has none; warn once, enforce at every run, Julia's error without a hook
+- `n31_isa_narrows.jl` — compiler §4.8 (E-373): a test `x isa X` at a set narrows the true branch to the
+  set and folds no negative; a result annotation at a trait is inferred as the trait; a membership
+  declared later is followed

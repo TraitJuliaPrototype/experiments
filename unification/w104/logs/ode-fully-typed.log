@@ -1,0 +1,19 @@
+VERDICT not: 4 sites  6.1 s
+not fully typed: Tuple{typeof(main), Vector{String}}
+  4 calls are left to run time, which a closed build refuses:
+  /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/ode.jl:31  Main.last1(::Any)
+      argument 1 is Any
+      ← the result of a call dispatched when it runs: `kwcall(…)` is Any
+      (give the values concrete types (a typed field or container, a function barrier), or type them by a trait that declares the result)
+  /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/ode.jl:34  Main.last1(::Any)
+      argument 1 is Any
+      ← the result of a call dispatched when it runs: `kwcall(…)` is Any
+      (give the values concrete types (a typed field or container, a function barrier), or type them by a trait that declares the result)
+  /p/projects/coen/julia-trait-bound/experiments/unification/w135/apps/ode.jl:29  Core.kwcall(::@NamedTuple{saveat::Vector{Float64}, reltol::Float64, abstol::Float64}, ::typeof(solve), ::Any, ::Tsit5)
+      argument 3 is Any
+      ← `ODEProblem` returns Any at Tuple{Type{ODEProblem}, Callable{Tuple{Vector{Float64}, Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Vector{Float64}, Tuple{Float64, Float64}, Vector{Float64}}
+      ← the result of a call dispatched when it runs: `#ODEProblem#22(…)` is Any
+      (give the values concrete types (a typed field or container, a function barrier), or type them by a trait that declares the result)
+  /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/ODECore/src/frontend.jl:62  ODECore.var"#ODEProblem#22"(::Nothing, ::Type{ODEProblem}, ::Callable{Tuple{Vector{Float64}, Vector{Float64}, Vector{Float64}, Float64}, Nothing}, ::Vector{Float64}, ::Tuple{Float64, Float64}, ::Vector{Float64})
+      its argument types are not known when compiled
+      (give the values concrete types (a typed field or container, a function barrier), or type them by a trait that declares the result)
