@@ -54,6 +54,28 @@ call1(f::C{Tuple{Int}, Int}) = f(1)
 strresult(x::Int) = "s"
 @assert try call1(strresult); false catch e; e isa TypeError end
 
+# the declaration decides the check, not what the instance knows of the function (compiler §7.4): an
+# instance compiled for the function's type, and one that has the function as a constant, check the
+# arguments against `A` and assert `S` as the instance compiled once does
+raises(f, E) = try f(); false catch e; e isa E end
+viaconst() = call1(strresult)                       # the function a constant of the caller
+viacompiled() = call1(compiled_for(strresult))      # compiled for typeof(strresult)
+viadynamic() = call1(with_dynamic(strresult))
+@assert raises(viaconst, TypeError) && raises(viacompiled, TypeError) && raises(viadynamic, TypeError) "S asserted under every attribute"
+call2(f::C{Tuple{Float64}, Float64}, x::Float64) = f(x) + 1     # the result used, not returned
+intresult(x::Float64) = 1
+@assert raises(() -> call2(intresult, 1.0), TypeError) && raises(() -> call2(compiled_for(intresult), 1.0), TypeError)
+okresult(x::Float64) = 2x
+@assert call2(okresult, 1.0) == call2(compiled_for(okresult), 1.0) == call2(with_dynamic(okresult), 1.0) == 3.0
+# the arguments: a call outside `A` raises `MethodError` though the function has a method for it
+wide(x) = 1
+callwide(f::C{Tuple{Int}, Int}) = f(1.5)
+@assert raises(() -> callwide(wide), MethodError) && raises(() -> callwide(compiled_for(wide)), MethodError) &&
+        raises(() -> callwide(with_dynamic(wide)), MethodError) "A checked under every attribute"
+# with the method's variables: `S` at the instance's values
+samet(f::C{Tuple{T}, T}, x::T) where {T} = f(x)
+@assert samet(compiled_for(okresult), 1.0) == 2.0 && raises(() -> samet(compiled_for(intresult), 1.0), TypeError)
+
 # a question that reaches itself (E-267's case): the least fixed point, the same in either order
 function p end
 p(x::C{Tuple{typeof(p)}}) = :callable

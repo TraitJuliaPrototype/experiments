@@ -91,6 +91,20 @@ unwrapped(x) = kind(compiled_for(x))
 declare_membership(Core.Dynamic{Shape}, Shape, @__MODULE__, :object, :field)
 @assert unwrapped(d) === :compiled "compiled_for of a Dynamic passes its object"
 
+# a cast in a call with keyword arguments (lowering L-56): through Core.kwcall, the cast's bits two
+# places up; with the keywords splatted and empty, the call without them
+kkind(x::Shape; scale = 1, tag = :none) = (Core.keep(x) isa Core.Dynamic ? :dynamic : :compiled, scale, tag)
+kwd(x) = kkind(with_dynamic(x); scale = 3, tag = :t)
+kwc(x) = kkind(compiled_for(x); scale = 3)
+kwm(x) = kkind(with_dynamic(x), tag = :a)
+kws(x, kw) = kkind(with_dynamic(x); kw...)
+kwe(x) = kkind(with_dynamic(x);)
+@assert kwd(c) === (:dynamic, 3, :t) && kwc(c) === (:compiled, 3, :none) "a cast with keywords: $(kwd(c)), $(kwc(c))"
+@assert kwm(c) === (:dynamic, 1, :a)
+@assert kws(c, (scale = 5,)) === (:dynamic, 5, :none) && kws(c, (;)) === (:dynamic, 1, :none)
+@assert kwe(c) === (:dynamic, 1, :none)
+@assert kkind(compiled_for(c); scale = 2) === (:compiled, 2, :none)
+
 # step 2: the attribute the value carries
 #   an argument passed on keeps the attribute of the instance it is in
 passn(@nospecialize(x::Shape)) = kind(x)    # compiled once: passes Dynamic
