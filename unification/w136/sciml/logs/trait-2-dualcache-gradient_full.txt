@@ -5,9 +5,9 @@ Closest candidates are:
   (::Type{T})(::Real, !Matched::RoundingMode) where T<:AbstractFloat
    @ Base rounding.jl:265
   (::Type{T})(::T) where T<:Number
-   @ Core boot.jl:1054
-  Float64(!Matched::Int8)
-   @ Base float.jl:245
+   @ Core boot.jl:1065
+  Float64(!Matched::IrrationalConstants.Loghalf)
+   @ IrrationalConstants /p/projects/coen/julia-trait-bound/.julia-depot/packages/IrrationalConstants/sUNmT/src/macro.jl:111
   ...
 
 Stacktrace:
@@ -38,46 +38,44 @@ Stacktrace:
  [13] cached!(du::Vector{ForwardDiff.Dual{ForwardDiff.Tag{TraitDifferentialEquations.Sig{Tuple{Vector{Float64}}, Float64}, Float64}, Float64, 3}}, u::Vector{ForwardDiff.Dual{ForwardDiff.Tag{TraitDifferentialEquations.Sig{Tuple{Vector{Float64}}, Float64}, Float64}, Float64, 3}}, p::Vector{ForwardDiff.Dual{ForwardDiff.Tag{TraitDifferentialEquations.Sig{Tuple{Vector{Float64}}, Float64}, Float64}, Float64, 3}}, t::Float64)
     @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w136/sciml/port.jl:18
  [14] (::ODECore.PartialFn{typeof(cached!), Vector{ForwardDiff.Dual{ForwardDiff.Tag{TraitDifferentialEquations.Sig{Tuple{Vector{Float64}}, Float64}, Float64}, Float64, 3}}})(a::Vector{ForwardDiff.Dual{ForwardDiff.Tag{TraitDifferentialEquations.Sig{Tuple{Vector{Float64}}, Float64}, Float64}, Float64, 3}}, u::Vector{ForwardDiff.Dual{ForwardDiff.Tag{TraitDifferentialEquations.Sig{Tuple{Vector{Float64}}, Float64}, Float64}, Float64, 3}}, t::Float64)
-    @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/ODECore/src/core.jl:391
+    @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/ODECore/src/core.jl:365
  [15] (::Dynamic{Callable{Tuple{Vector{ForwardDiff.Dual{ForwardDiff.Tag{TraitDifferentialEquations.Sig{Tuple{Vector{Float64}}, Float64}, Float64}, Float64, 3}}, Vector{ForwardDiff.Dual{ForwardDiff.Tag{TraitDifferentialEquations.Sig{Tuple{Vector{Float64}}, Float64}, Float64}, Float64, 3}}, Float64}, Nothing}})(::Vector{ForwardDiff.Dual{ForwardDiff.Tag{TraitDifferentialEquations.Sig{Tuple{Vector{Float64}}, Float64}, Float64}, Float64, 3}}, ::Vector{ForwardDiff.Dual{ForwardDiff.Tag{TraitDifferentialEquations.Sig{Tuple{Vector{Float64}}, Float64}, Float64}, Float64, 3}}, ::Float64)
     @ TraitWorld /p/projects/coen/julia-trait-bound/TraitWorld-unified/src/callable.jl:25
  [16] core_rhs!
-    @ /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/ODECore/src/core.jl:520 [inlined]
+    @ /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/ODECore/src/core.jl:495 [inlined]
  [17] tsit5_init(m::ODECore.CoreProblem{ForwardDiff.Dual{ForwardDiff.Tag{TraitDifferentialEquations.Sig{Tuple{Vector{Float64}}, Float64}, Float64}, Float64, 3}, Dynamic{Callable{Tuple{Vector{ForwardDiff.Dual{ForwardDiff.Tag{TraitDifferentialEquations.Sig{Tuple{Vector{Float64}}, Float64}, Float64}, Float64, 3}}, Vector{ForwardDiff.Dual{ForwardDiff.Tag{TraitDifferentialEquations.Sig{Tuple{Vector{Float64}}, Float64}, Float64}, Float64, 3}}, Float64}, Nothing}}, typeof(ODECore.core_no_jacobian)}, u0::Vector{ForwardDiff.Dual{ForwardDiff.Tag{TraitDifferentialEquations.Sig{Tuple{Vector{Float64}}, Float64}, Float64}, Float64, 3}}, tspan::Tuple{Float64, Float64}, callbacks::Vector{Any}, opts::ODECore.SolverOptions)
-    @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/ODECore/src/core.jl:1361
- [18] solve_core(a::Tsit5, m::ODECore.CoreProblem{ForwardDiff.Dual{ForwardDiff.Tag{TraitDifferentialEquations.Sig{Tuple{Vector{Float64}}, Float64}, Float64}, Float64, 3}, Dynamic{Callable{Tuple{Vector{ForwardDiff.Dual{ForwardDiff.Tag{TraitDifferentialEquations.Sig{Tuple{Vector{Float64}}, Float64}, Float64}, Float64, 3}}, Vector{ForwardDiff.Dual{ForwardDiff.Tag{TraitDifferentialEquations.Sig{Tuple{Vector{Float64}}, Float64}, Float64}, Float64, 3}}, Float64}, Nothing}}, typeof(ODECore.core_no_jacobian)}, callbacks::Vector{Any}, opts::ODECore.SolverOptions)
-    @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/ODECore/src/core.jl:1330
- [19] solve_ode(prob::Any, alg::Tsit5, callbacks::Vector{Any}, opts::ODECore.SolverOptions)
-    @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/ODECore/src/core.jl:1253
- [20] _solve(prob::ODEProblem{ForwardDiff.Dual{ForwardDiff.Tag{TraitDifferentialEquations.Sig{Tuple{Vector{Float64}}, Float64}, Float64}, Float64, 3}, Vector{ForwardDiff.Dual{ForwardDiff.Tag{TraitDifferentialEquations.Sig{Tuple{Vector{Float64}}, Float64}, Float64}, Float64, 3}}, Dynamic{Callable{Tuple{Vector{ForwardDiff.Dual{ForwardDiff.Tag{TraitDifferentialEquations.Sig{Tuple{Vector{Float64}}, Float64}, Float64}, Float64, 3}}, Vector{ForwardDiff.Dual{ForwardDiff.Tag{TraitDifferentialEquations.Sig{Tuple{Vector{Float64}}, Float64}, Float64}, Float64, 3}}, Float64}, Nothing}}, typeof(ODECore.core_no_jacobian)}, alg::Tsit5, cbs::Vector{Any}, opts::ODECore.SolverOptions)
-    @ TraitDifferentialEquations /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/src/TraitDifferentialEquations.jl:71
- [21] solve(prob::Any, alg::Any; callback::Any, kw::@Kwargs{})
-    @ TraitDifferentialEquations /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/src/TraitDifferentialEquations.jl:63
- [22] solve(prob::Any, alg::Any)
-    @ TraitDifferentialEquations /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/src/TraitDifferentialEquations.jl:60
- [23] loss(p::Vector{ForwardDiff.Dual{ForwardDiff.Tag{TraitDifferentialEquations.Sig{Tuple{Vector{Float64}}, Float64}, Float64}, Float64, 3}})
+    @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/ODECore/src/core.jl:1345
+ [18] solve_core
+    @ /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/ODECore/src/core.jl:1314 [inlined]
+ [19] solve_ode(prob::ODEProblem{ForwardDiff.Dual{ForwardDiff.Tag{TraitDifferentialEquations.Sig{Tuple{Vector{Float64}}, Float64}, Float64}, Float64, 3}, Vector{ForwardDiff.Dual{ForwardDiff.Tag{TraitDifferentialEquations.Sig{Tuple{Vector{Float64}}, Float64}, Float64}, Float64, 3}}, Dynamic{Callable{Tuple{Vector{ForwardDiff.Dual{ForwardDiff.Tag{TraitDifferentialEquations.Sig{Tuple{Vector{Float64}}, Float64}, Float64}, Float64, 3}}, Vector{ForwardDiff.Dual{ForwardDiff.Tag{TraitDifferentialEquations.Sig{Tuple{Vector{Float64}}, Float64}, Float64}, Float64, 3}}, Float64}, Nothing}}, typeof(ODECore.core_no_jacobian)}, alg::Tsit5, callbacks::Vector{Any}, opts::ODECore.SolverOptions)
+    @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/ODECore/src/core.jl:1237
+ [20] _solve
+    @ /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/src/TraitDifferentialEquations.jl:64 [inlined]
+ [21] solve(prob::ODEProblem{ForwardDiff.Dual{ForwardDiff.Tag{TraitDifferentialEquations.Sig{Tuple{Vector{Float64}}, Float64}, Float64}, Float64, 3}, Vector{ForwardDiff.Dual{ForwardDiff.Tag{TraitDifferentialEquations.Sig{Tuple{Vector{Float64}}, Float64}, Float64}, Float64, 3}}, Dynamic{Callable{Tuple{Vector{ForwardDiff.Dual{ForwardDiff.Tag{TraitDifferentialEquations.Sig{Tuple{Vector{Float64}}, Float64}, Float64}, Float64, 3}}, Vector{ForwardDiff.Dual{ForwardDiff.Tag{TraitDifferentialEquations.Sig{Tuple{Vector{Float64}}, Float64}, Float64}, Float64, 3}}, Float64}, Nothing}}, typeof(ODECore.core_no_jacobian)}, alg::Tsit5)
+    @ TraitDifferentialEquations /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/src/TraitDifferentialEquations.jl:61
+ [22] loss(p::Vector{ForwardDiff.Dual{ForwardDiff.Tag{TraitDifferentialEquations.Sig{Tuple{Vector{Float64}}, Float64}, Float64}, Float64, 3}})
     @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w136/sciml/port.jl:21
- [24] (::Dynamic{Callable{Tuple{Vector{ForwardDiff.Dual{ForwardDiff.Tag{TraitDifferentialEquations.Sig{Tuple{Vector{Float64}}, Float64}, Float64}, Float64, 3}}}, ForwardDiff.Dual{ForwardDiff.Tag{TraitDifferentialEquations.Sig{Tuple{Vector{Float64}}, Float64}, Float64}, Float64, 3}}})(args::Vector{ForwardDiff.Dual{ForwardDiff.Tag{TraitDifferentialEquations.Sig{Tuple{Vector{Float64}}, Float64}, Float64}, Float64, 3}})
+ [23] (::Dynamic{Callable{Tuple{Vector{ForwardDiff.Dual{ForwardDiff.Tag{TraitDifferentialEquations.Sig{Tuple{Vector{Float64}}, Float64}, Float64}, Float64, 3}}}, ForwardDiff.Dual{ForwardDiff.Tag{TraitDifferentialEquations.Sig{Tuple{Vector{Float64}}, Float64}, Float64}, Float64, 3}}})(args::Vector{ForwardDiff.Dual{ForwardDiff.Tag{TraitDifferentialEquations.Sig{Tuple{Vector{Float64}}, Float64}, Float64}, Float64, 3}})
     @ TraitWorld /p/projects/coen/julia-trait-bound/TraitWorld-unified/src/callable.jl:25
- [25] vector_mode_dual_eval!
+ [24] vector_mode_dual_eval!
     @ /p/projects/coen/julia-trait-bound/.julia-depot/packages/ForwardDiff/ix15H/src/apiutils.jl:24 [inlined]
- [26] vector_mode_gradient(f::Dynamic{Callable{Tuple{Vector{ForwardDiff.Dual{ForwardDiff.Tag{TraitDifferentialEquations.Sig{Tuple{Vector{Float64}}, Float64}, Float64}, Float64, 3}}}, ForwardDiff.Dual{ForwardDiff.Tag{TraitDifferentialEquations.Sig{Tuple{Vector{Float64}}, Float64}, Float64}, Float64, 3}}}, x::Vector{Float64}, cfg::ForwardDiff.GradientConfig{ForwardDiff.Tag{TraitDifferentialEquations.Sig{Tuple{Vector{Float64}}, Float64}, Float64}, Float64, 3, Vector{ForwardDiff.Dual{ForwardDiff.Tag{TraitDifferentialEquations.Sig{Tuple{Vector{Float64}}, Float64}, Float64}, Float64, 3}}})
+ [25] vector_mode_gradient(f::Dynamic{Callable{Tuple{Vector{ForwardDiff.Dual{ForwardDiff.Tag{TraitDifferentialEquations.Sig{Tuple{Vector{Float64}}, Float64}, Float64}, Float64, 3}}}, ForwardDiff.Dual{ForwardDiff.Tag{TraitDifferentialEquations.Sig{Tuple{Vector{Float64}}, Float64}, Float64}, Float64, 3}}}, x::Vector{Float64}, cfg::ForwardDiff.GradientConfig{ForwardDiff.Tag{TraitDifferentialEquations.Sig{Tuple{Vector{Float64}}, Float64}, Float64}, Float64, 3, Vector{ForwardDiff.Dual{ForwardDiff.Tag{TraitDifferentialEquations.Sig{Tuple{Vector{Float64}}, Float64}, Float64}, Float64, 3}}})
     @ ForwardDiff /p/projects/coen/julia-trait-bound/.julia-depot/packages/ForwardDiff/ix15H/src/gradient.jl:98
- [27] gradient(f::Dynamic{Callable{Tuple{Vector{ForwardDiff.Dual{ForwardDiff.Tag{TraitDifferentialEquations.Sig{Tuple{Vector{Float64}}, Float64}, Float64}, Float64, 3}}}, ForwardDiff.Dual{ForwardDiff.Tag{TraitDifferentialEquations.Sig{Tuple{Vector{Float64}}, Float64}, Float64}, Float64, 3}}}, x::Vector{Float64}, cfg::ForwardDiff.GradientConfig{ForwardDiff.Tag{TraitDifferentialEquations.Sig{Tuple{Vector{Float64}}, Float64}, Float64}, Float64, 3, Vector{ForwardDiff.Dual{ForwardDiff.Tag{TraitDifferentialEquations.Sig{Tuple{Vector{Float64}}, Float64}, Float64}, Float64, 3}}}, ::Val{false})
+ [26] gradient(f::Dynamic{Callable{Tuple{Vector{ForwardDiff.Dual{ForwardDiff.Tag{TraitDifferentialEquations.Sig{Tuple{Vector{Float64}}, Float64}, Float64}, Float64, 3}}}, ForwardDiff.Dual{ForwardDiff.Tag{TraitDifferentialEquations.Sig{Tuple{Vector{Float64}}, Float64}, Float64}, Float64, 3}}}, x::Vector{Float64}, cfg::ForwardDiff.GradientConfig{ForwardDiff.Tag{TraitDifferentialEquations.Sig{Tuple{Vector{Float64}}, Float64}, Float64}, Float64, 3, Vector{ForwardDiff.Dual{ForwardDiff.Tag{TraitDifferentialEquations.Sig{Tuple{Vector{Float64}}, Float64}, Float64}, Float64, 3}}}, ::Val{false})
     @ ForwardDiff /p/projects/coen/julia-trait-bound/.julia-depot/packages/ForwardDiff/ix15H/src/gradient.jl:0
- [28] _gradient_sig(loss::Any, p::Vector{Float64}, ::Val{3})
-    @ TraitDifferentialEquations /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/src/TraitDifferentialEquations.jl:128
- [29] gradient(loss::Any, p::Vector{Float64})
+ [27] _gradient_sig(loss::Any, p::Vector{Float64}, ::Val{3})
+    @ TraitDifferentialEquations /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/src/TraitDifferentialEquations.jl:126
+ [28] gradient(loss::Any, p::Vector{Float64})
     @ TraitDifferentialEquations /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/src/TraitDifferentialEquations.jl:0
- [30] #12
+ [29] #12
     @ /p/projects/coen/julia-trait-bound/experiments/unification/w136/sciml/port.jl:22 [inlined]
- [31] report(form::String, tag::String, f::var"#12#13")
+ [30] report(form::String, tag::String, f::var"#12#13")
     @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w136/sciml/report.jl:6
- [32] top-level scope
+ [31] top-level scope
     @ /p/projects/coen/julia-trait-bound/experiments/unification/w136/sciml/port.jl:22
- [33] include(mod::Module, _path::String)
+ [32] include(mod::Module, _path::String)
     @ Base ./Base.jl:315
- [34] exec_options(opts::Base.JLOptions)
+ [33] exec_options(opts::Base.JLOptions)
     @ Base ./client.jl:344
- [35] _start()
+ [34] _start()
     @ Base ./client.jl:577

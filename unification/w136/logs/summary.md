@@ -33,7 +33,7 @@
 | 07a_never_joined | plain-unified | call | MethodError | 6 | 311 | 4 | cases/07a_never_joined.plain.jl:9 ; cases/07a_never_joined.plain.jl:9 | 0 | 0 | 0 |
 | 07a_never_joined | plain | call | MethodError | 6 | 311 | 4 | cases/07a_never_joined.plain.jl:9 ; cases/07a_never_joined.plain.jl:9 | 0 | 0 | 0 |
 | 07a_never_joined | trait | call | MethodError | 7 | 392 | 4 | cases/07a_never_joined.trait.jl:9 ; cases/07a_never_joined.trait.jl:9 | 0 | 0 | 0 |
-| 07b_use_before_implement | trait | call | ImplementError | 2 | 140 | 6 | TraitWorld TraitWorld-unified/src/implement.jl:724 ; cases/07b_use_before_implement.trait.jl:9 | 0 | 0 | 2 |
+| 07b_use_before_implement | trait | call | ImplementError | 2 | 140 | 6 | TraitWorld TraitWorld-unified/src/implement.jl:721 ; cases/07b_use_before_implement.trait.jl:9 | 0 | 0 | 2 |
 | 08_member_in_running_loop | plain-unified | end | none |  |  |  |  | 1 | 0 |  |
 | 08_member_in_running_loop | plain | end | none |  |  |  |  | 1 | 0 |  |
 | 08_member_in_running_loop | trait | call | MethodError | 6 | 285 | 6 | ./array.jl:1344 [inlined] ; Main cases/08_member_in_running_loop.trait.jl:16 | 1 | 0 | 0 |

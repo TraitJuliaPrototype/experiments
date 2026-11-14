@@ -12,18 +12,19 @@ for p in ARGS
     push!(times, @elapsed @eval using $(Symbol(p)))
 end
 ccall(:jl_debug_method_invalidation, Any, (Cint,), 0)
-events = Dict{String, Int}(); ended = Dict{String, Int}()
+events = Dict{String, Int}(); ended = Dict{String, Int}(); seen = Base.IdSet{Any}()
 for x in log
     if x isa String
         events[x] = get(events, x, 0) + 1
-    elseif x isa Core.CodeInstance
-        d = x.def; d isa Core.MethodInstance || (d = d.def)
+    elseif x isa Core.CodeInstance || x isa Core.MethodInstance
+        d = x isa Core.MethodInstance ? x : x.def; d isa Core.MethodInstance || (d = d.def)
+        d in seen && continue; push!(seen, d)
         m = d.def
         r = string(Base.moduleroot(m isa Method ? m.module : m))
         ended[r] = get(ended, r, 0) + 1
     end
 end
 println("LOAD ", mode, " ", join(ARGS, "+"), " | ", join((string(p, " ", round(1e3 * t; digits = 1), " ms") for (p, t) in zip(ARGS, times)), ", "),
-        " | total ", round(1e3 * sum(times); digits = 1), " ms | log entries ", length(log), " | code instances ended ", sum(values(ended); init = 0))
+        " | total ", round(1e3 * sum(times); digits = 1), " ms | log entries ", length(log), " | instances in the log ", sum(values(ended); init = 0), " (distinct ", length(seen), ")")
 for (k, v) in sort!(collect(events); by = last, rev = true); println("  EVENT ", v, " ", k); end
 for (k, v) in sort!(collect(ended); by = last, rev = true); println("  ENDED ", v, " ", k); end
