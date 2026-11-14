@@ -64,7 +64,8 @@ case $part in
     d-early)   dsession "$EARLY" env_d ;;
     d-unified) dsession "$UNI" "$H/env_d_unified" ;;
     dprobe-unified) dsession "$UNI" "$H/env_d_unified" "$H/probe_c54.jl" ;;   # E-293: problems at Dynamic, past C-54
-    t-unified)     (cd "$R/TraitReport-unified" && JULIAS=$UNI PYENV=$PYENV bash scripts/measure.sh "$runs" "t") >> "$LOG" 2>&1 ;;
+    t-unified)     (cd "$R/TraitReport-unified" && "$UNI" --startup-file=no --project=env_t scripts/report_tables.jl "$CSV" "$OUT/warm.png" > /dev/null 2>&1; true)   # a warm-up: the first process after another environment's run reads its images slowly
+                   (cd "$R/TraitReport-unified" && JULIAS=$UNI PYENV=$PYENV bash scripts/measure.sh "$runs" "t") >> "$LOG" 2>&1 ;;
     py-app)
         for i in w $(seq "$runs"); do
             s=$(date +%s.%N); p=$("$PYENV/bin/python" "$R/experiments/interfaces/python/app.py" "$CSV" "$OUT/py.png" 2>&1 >/dev/null); e=$(date +%s.%N)
