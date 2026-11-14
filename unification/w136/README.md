@@ -66,10 +66,16 @@ The first run was on `julia-unified` 564a2288e2 with TraitWorld 05991fc (`logs/b
 | `@trait_module bounded` was refused, though the syntax summary lists the bare name | 09 | accepted, as `bounded = true` |
 | Signatures printed as tuple types, `Tuple{typeof(Geometry.tag), Geometry.Named}`: 12 in the 16 trait runs (the runtime's ambiguity warning, strict mode's refusal built from it, `PirateError`) | 04a, 04b, 05 | 0: `tag(Geometry.Named)` from the runtime, `uppercasefirst(::String)` from the library's one printer (`_callform`), which the pirate's and the untyped receiver's messages use too |
 
+## The trait runs again, 2026-11-14 (E-370)
+
+`unified` 381cc8b953, TraitWorld `unified` 78a78af; the fifteen trait runs, one run each, load 1 to 3 of 128; `logs/summary.md`, `logs/run.log`. The plain runs are those of 2026-11-11.
+
+- **The library's frames above the user's line: 2, where they were 24.** A check's error is returned by the definition hook and by `@implement`'s function, and raised at the user's line. The two left are at a use before the `@implement` (07b), raised by the member's check at the call.
+- **An operation called outside its declared signature (03b) raises `OperationError`:** 3 lines, 211 bytes, against plain Julia's `MethodError` of 6 lines, 350 bytes. It names the call, the declared signature with its trait, and the member's methods. Julia's sentence for a thrown `MethodError` is gone. The first frame is the operation's line in the `@trait`, the second the user's call.
+
 Left, recorded as open issue 177 (`writeup/open-issues.md`):
 
-- The library's own frames stand above the user's line: three at an `@implement`, two at a method's definition, four at the `bounded` check (24 in the 16 trait runs; plain Julia's runs have none of a library's checker, since nothing checks).
-- Julia's sentence for a thrown `MethodError` at an operation called outside its declared signature (03b).
+- A pirate is silent unless strict mode is on, as in plain Julia.
 - The message for a membership too new (08): the tension GT-14.
 
 ## Limits
