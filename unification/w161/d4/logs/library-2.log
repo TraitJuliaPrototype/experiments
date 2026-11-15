@@ -1,0 +1,139 @@
+[ Info: TraitWorld: overview.jl
+[ Info: TraitWorld: core.jl
+[ Info: TraitWorld: acceptance.jl
+ERROR: LoadError: Some tests did not pass: 3 passed, 2 failed, 0 errored, 0 broken.
+in expression starting at /p/projects/coen/julia-trait-bound/wt/w161-tw/test/acceptance.jl:113
+in expression starting at /p/projects/coen/julia-trait-bound/wt/w161-tw/test/runtests.jl:3
+Test Summary: | Pass  Total  Time
+overview      |    8      8  0.2s
+Test Summary: | Pass  Total  Time
+parameters    |    8      8  0.0s
+Test Summary: | Pass  Total  Time
+refusals      |    6      6  0.1s
+Test Summary: | Pass  Total  Time
+fields        |    3      3  0.0s
+Test Summary:        | Pass  Total  Time
+block and forwarding |   15     15  1.5s
+Test Summary:            | Pass  Total  Time
+forwarding at the member |    4      4  0.1s
+Test Summary: | Pass  Total  Time
+supertraits   |    3      3  0.0s
+Test Summary: | Pass  Total  Time
+Dynamic       |   13     13  0.3s
+Test Summary: | Pass  Total  Time
+families      |    3      3  0.0s
+Test Summary: | Pass  Total  Time
+dispatch      |    4      4  0.0s
+Test Summary: | Pass  Total  Time
+first use     |   12     12  0.3s
+Test Summary:        | Pass  Total  Time
+Union-bounded family |    2      2  0.0s
+Test Summary: | Pass  Total  Time
+intersections |    8      8  0.0s
+Test Summary: | Pass  Total  Time
+override rule |    5      5  0.0s
+Test Summary: | Pass  Total  Time
+module end    |    2      2  0.1s
+Test Summary:     | Pass  Total  Time
+operation results |    7      7  0.0s
+Test Summary: | Pass  Total  Time
+split         |    3      3  0.6s
+Test Summary: | Pass  Total  Time
+table         |    3      3  0.1s
+Test Summary:   | Pass  Total  Time
+declared fields |    3      3  0.0s
+Test Summary:  | Pass  Total  Time
+classification |   10     10  0.6s
+Test Summary:                 | Pass  Total  Time
+classification: further rules |    6      6  0.0s
+Test Summary:                     | Pass  Total  Time
+a family's variables in its block |    2      2  0.0s
+Test Summary:                               | Pass  Total  Time
+Dynamic{All{Callable…}} at either signature |    2      2  0.2s
+Test Summary:                             | Pass  Total  Time
+F1: a trait stands wherever a type stands |   10     10  0.1s
+Test Summary:                                                | Pass  Total  Time
+F2, F3: the bare name is a UnionAll; parameters follow Julia |    5      5  0.0s
+Test Summary:                                | Pass  Total  Time
+F4: a member's value is a value of the trait |    3      3  0.0s
+Test Summary:                  | Pass  Total  Time
+F5: supertraits are supertypes |    2      2  0.0s
+Test Summary:           | Pass  Total  Time
+F6: dispatch is Julia's |    2      2  0.0s
+Test Summary: | Pass  Total  Time
+F7: storage   |    4      4  0.0s
+Test Summary:                                   | Pass  Total  Time
+F8: defaults and forwarding reach plain callers |    4      4  0.0s
+
+F10: a family's member is checked at its first use: Test Failed at /p/projects/coen/julia-trait-bound/wt/w161-tw/test/acceptance.jl:116
+  Expression: Base.invokelatest(sz3, Fam3(1.0))
+    Expected: TraitWorld.ImplementError
+      Thrown: MethodError
+      MethodError: no method matching sz3(::Main.acceptance.Fam3{Float64})
+      The function `sz3` exists, but no method is defined for this combination of argument types.
+      Hint: `sz3` is declared `sz3(x::Sized3)::Int` by Sized3
+      Closest candidates are:
+        sz3(!Matched::Main.acceptance.Fam3{Int64})
+         @ Main.acceptance /p/projects/coen/julia-trait-bound/wt/w161-tw/test/acceptance.jl:111
+        sz3(!Matched::TraitWorld.Compiled{<:Main.acceptance.Sized3})
+         @ Main.acceptance /p/projects/coen/julia-trait-bound/wt/w161-tw/test/acceptance.jl:107
+        sz3(!Matched::Core.Dynamic{<:Main.acceptance.Sized3})
+         @ Main.acceptance /p/projects/coen/julia-trait-bound/wt/w161-tw/test/acceptance.jl:107
+      Stacktrace:
+       [1] top-level scope
+         @ /p/projects/coen/julia-trait-bound/wt/w161-tw/test/acceptance.jl:114
+       [2] macro expansion
+         @ /p/projects/coen/julia-trait-bound/julia-next/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:1967 [inlined]
+       [3] macro expansion
+         @ /p/projects/coen/julia-trait-bound/wt/w161-tw/test/acceptance.jl:116 [inlined]
+       [4] macro expansion
+         @ /p/projects/coen/julia-trait-bound/julia-next/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:870 [inlined]
+       [5] macro expansion
+         @ /p/projects/coen/julia-trait-bound/wt/w161-tw/test/acceptance.jl:116 [inlined]
+  Stacktrace:
+   [1] do_test_throws(result::Test.ExecutionResult, orig_expr::Any, extype::Any)
+     @ Test /p/projects/coen/julia-trait-bound/julia-next/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:915
+   [2] top-level scope
+     @ /p/projects/coen/julia-trait-bound/wt/w161-tw/test/acceptance.jl:114
+   [3] macro expansion
+     @ /p/projects/coen/julia-trait-bound/julia-next/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:1967 [inlined]
+   [4] macro expansion
+     @ /p/projects/coen/julia-trait-bound/wt/w161-tw/test/acceptance.jl:116 [inlined]
+
+F10: a family's member is checked at its first use: Test Failed at /p/projects/coen/julia-trait-bound/wt/w161-tw/test/acceptance.jl:117
+  Expression: Base.invokelatest(sz3, Fam3(2.0))
+    Expected: TraitWorld.ImplementError
+      Thrown: MethodError
+      MethodError: no method matching sz3(::Main.acceptance.Fam3{Float64})
+      The function `sz3` exists, but no method is defined for this combination of argument types.
+      Hint: `sz3` is declared `sz3(x::Sized3)::Int` by Sized3
+      Closest candidates are:
+        sz3(!Matched::Main.acceptance.Fam3{Int64})
+         @ Main.acceptance /p/projects/coen/julia-trait-bound/wt/w161-tw/test/acceptance.jl:111
+        sz3(!Matched::TraitWorld.Compiled{<:Main.acceptance.Sized3})
+         @ Main.acceptance /p/projects/coen/julia-trait-bound/wt/w161-tw/test/acceptance.jl:107
+        sz3(!Matched::Core.Dynamic{<:Main.acceptance.Sized3})
+         @ Main.acceptance /p/projects/coen/julia-trait-bound/wt/w161-tw/test/acceptance.jl:107
+      Stacktrace:
+       [1] top-level scope
+         @ /p/projects/coen/julia-trait-bound/wt/w161-tw/test/acceptance.jl:114
+       [2] macro expansion
+         @ /p/projects/coen/julia-trait-bound/julia-next/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:1967 [inlined]
+       [3] macro expansion
+         @ /p/projects/coen/julia-trait-bound/wt/w161-tw/test/acceptance.jl:117 [inlined]
+       [4] macro expansion
+         @ /p/projects/coen/julia-trait-bound/julia-next/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:870 [inlined]
+       [5] macro expansion
+         @ /p/projects/coen/julia-trait-bound/wt/w161-tw/test/acceptance.jl:117 [inlined]
+  Stacktrace:
+   [1] do_test_throws(result::Test.ExecutionResult, orig_expr::Any, extype::Any)
+     @ Test /p/projects/coen/julia-trait-bound/julia-next/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:915
+   [2] top-level scope
+     @ /p/projects/coen/julia-trait-bound/wt/w161-tw/test/acceptance.jl:114
+   [3] macro expansion
+     @ /p/projects/coen/julia-trait-bound/julia-next/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:1967 [inlined]
+   [4] macro expansion
+     @ /p/projects/coen/julia-trait-bound/wt/w161-tw/test/acceptance.jl:117 [inlined]
+Test Summary:                                      | Pass  Fail  Total  Time
+F10: a family's member is checked at its first use |    3     2      5  1.9s
+RNG of the outermost testset: Random.Xoshiro(0x6df8e7ab59b83617, 0x9f885cae3e33779a, 0xdcc71b4263980aea, 0x06f5b9f0bcf19d26, 0xcd2d9b9730e61f81)

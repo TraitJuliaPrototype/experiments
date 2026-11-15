@@ -1,0 +1,53 @@
+[ Info: TraitWorld: overview.jl
+[ Info: TraitWorld: core.jl
+ERROR: LoadError: Some tests did not pass: 9 passed, 2 failed, 0 errored, 0 broken.
+in expression starting at /p/projects/coen/julia-trait-bound/wt/w161-tw/test/core.jl:232
+in expression starting at /p/projects/coen/julia-trait-bound/wt/w161-tw/test/runtests.jl:3
+Test Summary: | Pass  Total  Time
+overview      |    8      8  0.1s
+Test Summary: | Pass  Total  Time
+parameters    |    8      8  0.0s
+Test Summary: | Pass  Total  Time
+refusals      |    6      6  0.1s
+Test Summary: | Pass  Total  Time
+fields        |    3      3  0.0s
+Test Summary:        | Pass  Total  Time
+block and forwarding |   15     15  1.5s
+Test Summary:            | Pass  Total  Time
+forwarding at the member |    4      4  0.0s
+Test Summary: | Pass  Total  Time
+supertraits   |    3      3  0.0s
+Test Summary: | Pass  Total  Time
+Dynamic       |   13     13  0.3s
+Test Summary: | Pass  Total  Time
+families      |    3      3  0.0s
+Test Summary: | Pass  Total  Time
+dispatch      |    4      4  0.0s
+
+first use: Test Failed at /p/projects/coen/julia-trait-bound/wt/w161-tw/test/core.jl:237
+  Expression: e isa ImplementError && occursin("sz", sprint(showerror, e))
+  Stacktrace:
+   [1] top-level scope
+     @ /p/projects/coen/julia-trait-bound/wt/w161-tw/test/core.jl:233
+   [2] macro expansion
+     @ /p/projects/coen/julia-trait-bound/julia-next/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:1967 [inlined]
+   [3] macro expansion
+     @ /p/projects/coen/julia-trait-bound/wt/w161-tw/test/core.jl:237 [inlined]
+   [4] macro expansion
+     @ /p/projects/coen/julia-trait-bound/julia-next/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:758 [inlined]
+
+first use: Test Failed at /p/projects/coen/julia-trait-bound/wt/w161-tw/test/core.jl:239
+  Expression: e2 === e
+   Evaluated: MethodError(Main.core.sz, (Main.core.W2{Float64}(2.0),), 0x0000000000009c0e) === MethodError(Main.core.sz, (Main.core.W2{Float64}(1.0),), 0x0000000000009c0e)
+  Stacktrace:
+   [1] top-level scope
+     @ /p/projects/coen/julia-trait-bound/wt/w161-tw/test/core.jl:233
+   [2] macro expansion
+     @ /p/projects/coen/julia-trait-bound/julia-next/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:1967 [inlined]
+   [3] macro expansion
+     @ /p/projects/coen/julia-trait-bound/wt/w161-tw/test/core.jl:239 [inlined]
+   [4] macro expansion
+     @ /p/projects/coen/julia-trait-bound/julia-next/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:758 [inlined]
+Test Summary: | Pass  Fail  Total  Time
+first use     |    9     2     11  1.2s
+RNG of the outermost testset: Random.Xoshiro(0xba71eadb64a57844, 0xa8e5f07cc92aa8b8, 0x7633538d2bfb7793, 0x2d3ad9e9b00b5c39, 0x40c053776c5e4dda)

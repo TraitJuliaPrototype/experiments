@@ -1,0 +1,222 @@
+WARNING: method amb at amb(hints.Bb) is ambiguous for hints.Both, a member of hints.Bb, with the method at amb(hints.Aa); a method at amb(All{hints.Aa, hints.Bb}) would resolve it
+WARNING: Detected access to binding `Main.StrictLib6` in a world prior to its definition world.
+  Julia 1.12 has introduced more strict world age semantics for global bindings.
+  !!! This code may malfunction under Revise.
+  !!! This code will error in future versions of Julia.
+Hint: Add an appropriate `invokelatest` around the access to this binding.
+To make this warning an error, and hence obtain a stack trace, use `julia --depwarn=error`.
+WARNING: method k at k(strict_membership.XR) is ambiguous for strict_membership.SR, a member of strict_membership.XR, with the method at k(strict_membership.YR); a method at k(All{strict_membership.XR, strict_membership.YR}) would resolve it
+WARNING: method fa at fa(declared.YF) is ambiguous for declared.SF3, a member of declared.YF, with the method at fa(declared.XF); a method at fa(All{declared.XF, declared.YF}) would resolve it
+[ Info: TraitWorld: overview.jl
+[ Info: TraitWorld: core.jl
+[ Info: TraitWorld: acceptance.jl
+[ Info: TraitWorld: attribute.jl
+[ Info: TraitWorld: callable.jl
+[ Info: TraitWorld: fullytyped.jl
+[ Info: TraitWorld: ownership.jl
+[ Info: TraitWorld: hints.jl
+[ Info: TraitWorld: verify.jl
+[ Info: TraitWorld: basetraits.jl
+[ Info: TraitWorld: strict.jl
+┌ Warning: a pirate ended code compiled by facts that only a stakeholder's change or a pirate can end: `abs2(::Float64)`, defined by Main.PirateF in Main.PirateF, which owns neither the function nor a type in it. It ended 1 instance: Main.StrictLib.sq. It is followed, as plain Julia follows it: that code is compiled again. Define it where a type it is for is owned, or name the definer a joint owner (`@joint_owners`); strict mode (`TraitWorld.strict!()`) refuses such a definition; `TraitWorld.report_pirates!(false)` silences this report.
+└ @ TraitWorld /p/projects/coen/julia-trait-bound/wt/w161-tw/src/report.jl:134
+[ Info: TraitWorld: strict_membership.jl
+[ Info: TraitWorld: report.jl
+[ Info: TraitWorld: owner_only.jl
+┌ Warning: a pirate ended code compiled by facts that only a stakeholder's change or a pirate can end: `helper(::T)`, defined by Main.OOThird in Main.OOThird, which does not own the function: an owner-only function of Main.OOLib, whose methods are its owner's. It ended 1 instance: Main.OOLib.useall. It is followed, as plain Julia follows it: that code is compiled again. Define it where a type it is for is owned, or name the definer a joint owner (`@joint_owners`); strict mode (`TraitWorld.strict!()`) refuses such a definition; `TraitWorld.report_pirates!(false)` silences this report.
+└ @ TraitWorld /p/projects/coen/julia-trait-bound/wt/w161-tw/src/report.jl:134
+[ Info: TraitWorld: delete.jl
+[ Info: TraitWorld: recheck.jl
+[ Info: TraitWorld: declared.jl
+[ Info: TraitWorld: messages.jl
+ERROR: LoadError: Some tests did not pass: 7 passed, 0 failed, 1 errored, 0 broken.
+in expression starting at /p/projects/coen/julia-trait-bound/wt/w161-tw/test/messages.jl:28
+in expression starting at /p/projects/coen/julia-trait-bound/wt/w161-tw/test/runtests.jl:3
+Test Summary: | Pass  Total  Time
+overview      |    8      8  0.1s
+Test Summary: | Pass  Total  Time
+parameters    |    8      8  0.0s
+Test Summary: | Pass  Total  Time
+refusals      |    6      6  0.1s
+Test Summary: | Pass  Total  Time
+fields        |    3      3  0.0s
+Test Summary:        | Pass  Total  Time
+block and forwarding |   15     15  1.4s
+Test Summary:            | Pass  Total  Time
+forwarding at the member |    4      4  0.0s
+Test Summary: | Pass  Total  Time
+supertraits   |    3      3  0.0s
+Test Summary: | Pass  Total  Time
+Dynamic       |   13     13  0.3s
+Test Summary: | Pass  Total  Time
+families      |    3      3  0.0s
+Test Summary: | Pass  Total  Time
+dispatch      |    4      4  0.0s
+Test Summary: | Pass  Total  Time
+first use     |   12     12  0.3s
+Test Summary:        | Pass  Total  Time
+Union-bounded family |    2      2  0.0s
+Test Summary: | Pass  Total  Time
+intersections |    8      8  0.0s
+Test Summary: | Pass  Total  Time
+override rule |    5      5  0.0s
+Test Summary: | Pass  Total  Time
+module end    |    2      2  0.1s
+Test Summary:     | Pass  Total  Time
+operation results |    7      7  0.0s
+Test Summary: | Pass  Total  Time
+split         |    3      3  0.6s
+Test Summary: | Pass  Total  Time
+table         |    3      3  0.0s
+Test Summary:   | Pass  Total  Time
+declared fields |    3      3  0.0s
+Test Summary:  | Pass  Total  Time
+classification |   10     10  0.6s
+Test Summary:                 | Pass  Total  Time
+classification: further rules |    6      6  0.3s
+Test Summary:                     | Pass  Total  Time
+a family's variables in its block |    2      2  0.0s
+Test Summary:                               | Pass  Total  Time
+Dynamic{All{Callable…}} at either signature |    2      2  0.2s
+Test Summary:                             | Pass  Total  Time
+F1: a trait stands wherever a type stands |   10     10  0.1s
+Test Summary:                                                | Pass  Total  Time
+F2, F3: the bare name is a UnionAll; parameters follow Julia |    5      5  0.0s
+Test Summary:                                | Pass  Total  Time
+F4: a member's value is a value of the trait |    3      3  0.0s
+Test Summary:                  | Pass  Total  Time
+F5: supertraits are supertypes |    2      2  0.0s
+Test Summary:           | Pass  Total  Time
+F6: dispatch is Julia's |    2      2  0.0s
+Test Summary: | Pass  Total  Time
+F7: storage   |    4      4  0.0s
+Test Summary:                                   | Pass  Total  Time
+F8: defaults and forwarding reach plain callers |    4      4  0.0s
+Test Summary:                                      | Pass  Total  Time
+F10: a family's member is checked at its first use |    6      6  0.0s
+Test Summary:                                                                    | Pass  Total  Time
+F10b (compiler C-71): a failed member's uses through the trait raise its failure |    3      3  0.0s
+Test Summary:                                   | Pass  Total  Time
+F11: a generic implementation is a set in a set |    3      3  0.0s
+Test Summary: | Pass  Total  Time
+F14: errors   |    3      3  0.0s
+Test Summary:       | Pass  Total  Time
+the trait's default |    6      6  0.0s
+Test Summary: | Pass  Total  Time
+casts         |    5      5  0.0s
+Test Summary: | Pass  Total  Time
+keep          |    4      4  0.1s
+Test Summary: | Pass  Total  Time
+trait modules |    4      4  0.0s
+Test Summary: | Pass  Total  Time
+reports       |    5      5  0.3s
+Test Summary:             | Pass  Total  Time
+bounded in a trait module |   10     10  0.3s
+Test Summary: | Pass  Total  Time
+Callable      |   13     13  0.1s
+Test Summary:    | Pass  Total  Time
+fully typed mode |   23     23  1.3s
+Test Summary:  | Pass  Total  Time
+concrete parts |   15     15  0.3s
+Test Summary: | Pass  Total  Time
+ownership     |    8      8  0.1s
+Test Summary: | Pass  Total  Time
+pirates       |    7      7  0.0s
+Test Summary: | Pass  Total  Time
+hints         |    7      7  1.1s
+Test Summary: | Pass  Total  Time
+verify_main   |    7      7  0.4s
+Test Summary:                 | Pass  Total  Time
+verify_main: a cast's members |    5      5  0.3s
+Test Summary:                           | Pass  Total  Time
+verify_main: entry points and the bound |    4      4  0.0s
+Test Summary:              | Pass  Total  Time
+BaseTraits: Base's members |   17     17  0.1s
+Test Summary:             | Pass  Total  Time
+BaseTraits: element types |    5      5  0.4s
+Test Summary:          | Pass  Total  Time
+BaseTraits: algorithms |    3      3  0.1s
+Test Summary:              | Pass  Total  Time
+BaseTraits: linear algebra |    8      8  1.6s
+Test Summary:           | Pass  Total  Time
+BaseTraits: BoundedText |    8      8  0.0s
+Test Summary:                                         | Pass  Total  Time
+BaseTraits: a fallback that takes any receiver serves |    3      3  0.1s
+Test Summary:                            | Pass  Total  Time
+BaseTraits: HasProperty at several names |   14     14  0.0s
+Test Summary:                                      | Pass  Total  Time
+the traits' operations: pairs with no joint method |    1      1  0.7s
+Test Summary:                      | Pass  Total  Time
+strict mode: a pirate's membership |   15     15  0.4s
+Test Summary: | Pass  Total  Time
+strict mode   |   33     33  0.3s
+Test Summary:               | Pass  Total  Time
+strict mode at a membership |   13     13  0.0s
+Test Summary:                                                                 | Pass  Total  Time
+strict mode refuses the membership that creates an ambiguity, not a later one |    4      4  0.0s
+Test Summary:       | Pass  Total  Time
+the pirate's report |   21     21  0.3s
+Test Summary:        | Pass  Total  Time
+owner-only functions |   22     22  0.1s
+Test Summary:           | Pass  Total  Time
+a membership taken back |   27     27  0.3s
+Test Summary:  | Pass  Total  Time
+a redefinition |    7      7  0.1s
+Test Summary:          | Pass  Total  Time
+a more specific method |    5      5  0.0s
+Test Summary:                | Pass  Total  Time
+an abstract further argument |    2      2  0.0s
+Test Summary:                      | Pass  Total  Time
+a method defined in another module |    2      2  0.0s
+Test Summary:              | Pass  Total  Time
+an ambiguity at the member |    2      2  0.0s
+Test Summary:                                | Pass  Total  Time
+deleted, then defined again (Revise's order) |    4      4  0.0s
+Test Summary:                     | Pass  Total  Time
+a pattern member at its first use |    6      6  0.0s
+Test Summary:       | Pass  Total  Time
+a forwarding member |    3      3  0.0s
+Test Summary:            | Pass  Total  Time
+the second trait's block |    3      3  0.0s
+Test Summary:  | Pass  Total  Time
+redeclarations |    9      9  0.0s
+Test Summary:              | Pass  Total  Time
+a declared subtype's entry |    2      2  0.0s
+Test Summary:                          | Pass  Total  Time
+parameters from the declared supertype |    6      6  0.0s
+Test Summary:                 | Pass  Total  Time
+an abstract member's subtypes |    3      3  0.0s
+Test Summary:                         | Pass  Total  Time
+a forwarding member by its definition |    2      2  0.0s
+Test Summary:              | Pass  Total  Time
+used before its @implement |    9      9  0.1s
+Test Summary:                     | Pass  Total  Time
+strict mode at a declared subtype |    6      6  0.0s
+
+the messages' form: Error During Test at /p/projects/coen/julia-trait-bound/wt/w161-tw/test/messages.jl:28
+  Got exception outside of a @test
+  ArgumentError: Collection is empty, must contain exactly 1 element
+  Stacktrace:
+    [1] _only
+      @ ./iterators.jl:1622 [inlined]
+    [2] only(x::Base.Generator{Base.Iterators.Filter{Main.messages.var"#2#3", Base.MethodList}, typeof(identity)})
+      @ Base.Iterators ./iterators.jl:1617
+    [3] top-level scope
+      @ /p/projects/coen/julia-trait-bound/wt/w161-tw/test/messages.jl:29
+    [4] macro expansion
+      @ /p/projects/coen/julia-trait-bound/julia-next/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:1967 [inlined]
+    [5] macro expansion
+      @ /p/projects/coen/julia-trait-bound/wt/w161-tw/test/messages.jl:66 [inlined]
+    [6] include(mod::Module, _path::String)
+      @ Base ./Base.jl:315
+    [7] top-level scope
+      @ /p/projects/coen/julia-trait-bound/wt/w161-tw/test/runtests.jl:5
+    [8] include(mod::Module, _path::String)
+      @ Base ./Base.jl:315
+    [9] exec_options(opts::Base.JLOptions)
+      @ Base ./client.jl:344
+   [10] _start()
+      @ Base ./client.jl:577
+Test Summary:      | Pass  Error  Total  Time
+the messages' form |    7      1      8  0.8s
+RNG of the outermost testset: Random.Xoshiro(0x9226499afd778aa4, 0x340d994d2012994b, 0xdfba5ffa25ab8976, 0x2c3556916f7c9134, 0xc268535f2670fe3f)
