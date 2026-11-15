@@ -1,0 +1,125 @@
+== env_forks | load 2.90 3.67 3.26 | next 7b374f39ce TraitWorld-base e11c7cc forks 439bae7 | 2026-11-15T11:06:44+01:00
+project env_forks | julia 7b374f39ce* | own instances: image 4799, made by the work 8 | reached through edges 40791
+image:     4799 | facts 3457 | bit 4667 | deep: walk 1367 (28 %), corrected 1983 (41 %) | throw-only refinement: facts callers 1367 (28 %), every caller 1420 (30 %), every caller corrected 2917 (61 %)
+made:      8 | facts 8 | bit 8 | deep: walk 4 (50 %), corrected 6 (75 %) | throw-only refinement: facts callers 4 (50 %), every caller 4 (50 %), every caller corrected 6 (75 %)
+own facts: 3465 | facts 3465 | bit 3396 | deep: walk 1078 (31 %), corrected 1531 (44 %) | throw-only refinement: facts callers 1078 (31 %), every caller 1103 (32 %), every caller corrected 1872 (54 %)
+reached instances where the bit and the walk disagree: 12975 (bit without walk 12975)
+   bit, walk not deep: Tuple{DataFrames.var"#809#810"{GroupedDataFrame{DataFrame}}, Pair{String, typeof(sum)}}
+   bit, walk not deep: Tuple{typeof(DataFrames.broadcast_pair), DataFrame, Pair{String, typeof(sum)}}
+   bit, walk not deep: Tuple{DataFrames.var"##first#66", Bool, typeof(first), DataFrame, Int64}
+   bit, walk not deep: Tuple{typeof(getindex), DataFrame, UnitRange{Int64}, Colon}
+   bit, walk not deep: Tuple{typeof(DataFrames._threaded_getindex), UnitRange{Int64}, UnitRange{Int64}, DataFrames.ColumnVectors, DataFrames.Index}
+   bit, walk not deep: Tuple{typeof(Core.kwcall), @NamedTuple{copycols::Bool}, Type{DataFrame}, Vector{AbstractVector}, DataFrames.Index}
+   bit, walk not deep: Tuple{typeof(pushfirst!), CompositeException, Base.ScheduledAfterSyncException}
+   bit, walk not deep: Tuple{typeof(pushfirst!), Vector{Any}, Base.ScheduledAfterSyncException}
+   bit, walk not deep: Tuple{typeof(Base._growbeg!), Vector{Any}, Int64}
+   bit, walk not deep: Tuple{typeof(Base._growbeg_internal!), Vector{Any}, Int64, Int64}
+reached instances without the bit whose edges are bindings only (open issue 187): 2564
+deep by the walk and naming a callee by MethodInstance or Method: 141 of 23306
+  of them with such a callee whose code now is not deep (or has no bit): 0
+callees that only throw, called directly by own facts instances: 35 instances; not deep by the walk 22
+  of them whose `Union{}` may rest on a callee: 20
+  by method: Statistics.mean 7, Statistics.std 7, Base.setindex! 6, Base.getindex 2, CSV._throwparseerror 2, DataFrames._onebased_check_error 1, DataFrames.wrap_row 1, CSV._rowtoolarge 1, CSV._lengthmismatch 1, CSV.LocatedProblem 1, Base.rethrow 1, DataFrames.prepare_on_col 1, CSV._extratoolarge 1, Base.error 1, CSV._throw_render_failure 1, CSV.ValueOpts 1
+   exposed: Tuple{typeof(setindex!), Vector{Missing}, Int64, Int64}
+   exposed: Tuple{typeof(setindex!), Vector{Missing}, Float64, Int64}
+   exposed: Tuple{typeof(setindex!), Vector{Missing}, String, Int64}
+   exposed: Tuple{typeof(getindex), Vector{Any}, Nothing}
+   exposed: Tuple{typeof(Statistics.mean), DataFrames.ColumnKernels.CellVector{String, Vector{String}}}
+   exposed: Tuple{typeof(Core.kwcall), @NamedTuple{mean::Nothing}, typeof(Statistics.std), DataFrames.ColumnKernels.CellVector{String, Vector{String}}}
+   exposed: Tuple{typeof(Statistics.mean), DataFrames.ColumnKernels.CellVector{String, PooledArrays.PooledVector{String, UInt32, Vector{UInt32}}}}
+   exposed: Tuple{typeof(Core.kwcall), @NamedTuple{mean::Nothing}, typeof(Statistics.std), DataFrames.ColumnKernels.CellVector{String, PooledArrays.PooledVector{String, UIn
+the loads: 5.7 s
+image: the loads end 49 of 4799 | facts 48 | bit 40 | deep: walk 0, corrected 0, throw-only facts callers 0, every caller 0
+   ended and deep (bit true, walk false, corrected false): Tuple{Type{CSV.File}, String}
+   ended and deep (bit true, walk false, corrected false): Tuple{typeof(CSV.read), String, Type{DataFrame}}
+   ended and deep (bit true, walk false, corrected false): Tuple{CSV.var"##File#118", Nothing, Nothing, Nothing, Nothing, Bool, Bool, Bool, Type{DataStrings.DataString}, Bool, Symbol, Nothing, Int64, Nothing, Bool, Bool
+   ended and deep (bit true, walk false, corrected false): Tuple{CSV.var"##File#118", Nothing, Nothing, Nothing, Nothing, Bool, Bool, Bool, Type{String}, Bool, Symbol, Nothing, Int64, Nothing, Bool, Bool, Base.Pairs{Sym
+   ended and deep (bit true, walk false, corrected false): Tuple{typeof(CSV._file), String, Nothing, Nothing, Nothing, Nothing, Bool, Bool, Bool, Val{DataStrings.DataString}, Symbol, Int64, Nothing, Bool, Bool, Base.Pai
+   ended and deep (bit true, walk false, corrected false): Tuple{typeof(CSV._file), String, Nothing, Nothing, Nothing, Nothing, Bool, Bool, Bool, Val{String}, Symbol, Int64, Nothing, Bool, Bool, Base.Pairs{Symbol, Union
+   ended and deep (bit true, walk false, corrected false): Tuple{typeof(CSV._file), String, Nothing, Nothing, Nothing, Nothing, Bool, Bool, Bool, Val{InlineStrings.InlineString}, Symbol, Int64, Nothing, Bool, Bool, Base
+   ended and deep (bit true, walk false, corrected false): Tuple{typeof(CSV._file), String, Nothing, Nothing, Nothing, Nothing, Bool, Bool, Bool, Val{InlineStrings.String15}, Symbol, Int64, Nothing, Bool, Bool, Base.Pai
+   ended and deep (bit true, walk false, corrected false): Tuple{typeof(DataFrames.ColumnKernels.colstats), Vector{String}, Vector{Symbol}}
+   ended and deep (bit true, walk false, corrected false): Tuple{typeof(DataFrames.ColumnKernels.colstats), PooledArrays.PooledVector{String, UInt32, Vector{UInt32}}, Vector{Symbol}}
+   ended and deep (bit true, walk false, corrected false): Tuple{typeof(DataFrames.ColumnKernels.colstats), Vector{InlineStrings.String15}, Vector{Symbol}}
+   ended and deep (bit true, walk false, corrected false): Tuple{typeof(DataFrames.ColumnKernels.colstats), DataStrings.StringVector{DataStrings.DataString}, Vector{Symbol}}
+   ended and deep (bit true, walk false, corrected false): Tuple{typeof(DataFrames.ColumnKernels.colstats), Vector{InlineStrings.String3}, Vector{Symbol}}
+   ended and deep (bit true, walk false, corrected false): Tuple{typeof(DataFrames.ColumnKernels.colstats), Vector{InlineStrings.String7}, Vector{Symbol}}
+   ended and deep (bit true, walk false, corrected false): Tuple{CSV.var"##_prepareindexed#115", Base.Pairs{Symbol, Union{Nothing, Integer}, Nothing, @NamedTuple{parallel::Bool, ntasks::Nothing, maxproblems::Int64, vali
+   ended and deep (bit true, walk false, corrected false): Tuple{typeof(CSV.ColumnParsers.readfile), String, Nothing, Nothing, Nothing, Nothing, Bool, Bool, Bool, Val{DataStrings.DataString}, Symbol, Int64, Nothing, Boo
+   ended and deep (bit true, walk false, corrected false): Tuple{typeof(CSV.ColumnParsers.readfile), String, Nothing, Nothing, Nothing, Nothing, Bool, Bool, Bool, Val{String}, Symbol, Int64, Nothing, Bool, Bool, Base.Pa
+   ended and deep (bit true, walk false, corrected false): Tuple{CSV.var"##_transposedfile#152", Nothing, Bool, Bool, DataType, Symbol, Int64, Bool, Nothing, Nothing, Char, Bool, Nothing, Bool, Bool, Nothing, Bool, Bool
+   ended and deep (bit true, walk false, corrected false): Tuple{CSV.var"##_transposedfile#152", Nothing, Bool, Bool, Type, Symbol, Int64, Bool, Nothing, Nothing, Char, Bool, Nothing, Bool, Bool, Nothing, Bool, Bool, Ba
+   ended and deep (bit true, walk false, corrected false): Tuple{CSV.var"##_transposedfile#152", Nothing, Bool, Bool, Type{DataStrings.DataString}, Symbol, Int64, Bool, Nothing, Nothing, Char, Bool, Nothing, Bool, Bool,
+   ended and deep (bit true, walk false, corrected false): Tuple{CSV.var"##_transposedfile#152", Nothing, Bool, Bool, Type{String}, Symbol, Int64, Bool, Nothing, Nothing, Char, Bool, Nothing, Bool, Bool, Nothing, Bool, 
+   ended and deep (bit true, walk false, corrected false): Tuple{CSV.var"##_transposedfile#152", Nothing, Bool, Bool, Type{InlineStrings.InlineString}, Symbol, Int64, Bool, Nothing, Nothing, Char, Bool, Nothing, Bool, B
+   ended and deep (bit true, walk false, corrected false): Tuple{CSV.var"##_transposedfile#152", Nothing, Bool, Bool, Type{InlineStrings.String15}, Symbol, Int64, Bool, Nothing, Nothing, Char, Bool, Nothing, Bool, Bool,
+   ended and deep (bit true, walk false, corrected false): Tuple{typeof(DataFrames.ColumnKernels._stats), DataFrames.ColumnKernels.CellVector{String, Vector{String}}, Vector{Symbol}}
+   ended and deep (bit true, walk false, corrected false): Tuple{typeof(DataFrames.ColumnKernels._stats), DataFrames.ColumnKernels.CellVector{String, PooledArrays.PooledVector{String, UInt32, Vector{UInt32}}}, Vector{Sy
+   ended and deep (bit true, walk false, corrected false): Tuple{typeof(DataFrames.ColumnKernels._stats), DataFrames.ColumnKernels.CellVector{InlineStrings.String15, Vector{InlineStrings.String15}}, Vector{Symbol}}
+   ended and deep (bit true, walk false, corrected false): Tuple{typeof(DataFrames.ColumnKernels._stats), DataFrames.ColumnKernels.CellVector{DataStrings.DataString, DataStrings.StringVector{DataStrings.DataString}}, Ve
+   ended and deep (bit true, walk false, corrected false): Tuple{typeof(DataFrames.ColumnKernels._stats), DataFrames.ColumnKernels.CellVector{InlineStrings.String3, Vector{InlineStrings.String3}}, Vector{Symbol}}
+   ended and deep (bit true, walk false, corrected false): Tuple{typeof(DataFrames.ColumnKernels._stats), DataFrames.ColumnKernels.CellVector{InlineStrings.String7, Vector{InlineStrings.String7}}, Vector{Symbol}}
+   ended and deep (bit true, walk false, corrected false): Tuple{CSV.var"##read#198", Base.Pairs{Symbol, Bool, Nothing, @NamedTuple{pool::Bool}}, typeof(CSV.read), String, Type{DataFrame}}
+   ended and deep (bit true, walk false, corrected false): Tuple{CSV.var"##read#198", Base.Pairs{Symbol, Union{}, Nothing, @NamedTuple{}}, typeof(CSV.read), String, Type{DataFrame}}
+   ended and deep (bit true, walk false, corrected false): Tuple{typeof(Core.kwcall), @NamedTuple{pool::Bool}, Type{CSV.File}, String}
+   ended and deep (bit true, walk false, corrected false): Tuple{typeof(Core.kwcall), @NamedTuple{pool::Bool}, typeof(CSV.read), String, Type{DataFrame}}
+   ended and deep (bit true, walk false, corrected false): Tuple{typeof(Core.kwcall), @NamedTuple{types::Nothing, pool::Bool, downcast::Bool, stringtype::DataType, on_error::Symbol, maxproblems::Int64, validate::Bool, p
+   ended and deep (bit true, walk false, corrected false): Tuple{typeof(Core.kwcall), @NamedTuple{buffer_in_memory::Bool, prefetch::Bool, workers::Vector{Task}}, typeof(CSV.resolvesource), String}
+   ended and deep (bit true, walk false, corrected false): Tuple{typeof(Core.kwcall), @NamedTuple{buffer_in_memory::Bool, prefetch::Bool}, typeof(CSV.resolvesource), String}
+   ended and deep (bit true, walk false, corrected false): Tuple{typeof(Core.kwcall), @NamedTuple{parallel::Bool, ntasks::Nothing, maxproblems::Int64, validate::Bool}, typeof(CSV._prepareindexed), String}
+   ended and deep (bit true, walk false, corrected false): Tuple{CSV.var"##resolvesource#101", Bool, Bool, Vector{Task}, typeof(CSV.resolvesource), String}
+   ended and deep (bit true, walk false, corrected false): Tuple{CSV.var"##resolvesource#101", Bool, Bool, Nothing, typeof(CSV.resolvesource), String}
+   ended and deep (bit true, walk false, corrected false): Tuple{CSV.var"#295#296"{String, String}, String, IOStream}
+made: the loads end 0 of 8 | facts 0 | bit 0 | deep: walk 0, corrected 0, throw-only facts callers 0, every caller 0
+below, outside the own modules: 35424 | ended 287 | of the ended: bit 59, deep by the walk 0, corrected 0, throw-only facts callers 261
+digest ce94074fa1261ca2 (equal after)
+== env_facts | load 2.76 3.61 3.24 | next 7b374f39ce TraitWorld-base e11c7cc forks 439bae7 | 2026-11-15T11:06:57+01:00
+project env_facts | julia 7b374f39ce* | own instances: image 3490, made by the work 77 | reached through edges 31354
+image:     3490 | facts 3490 | bit 3438 | deep: walk 1030 (30 %), corrected 1382 (40 %) | throw-only refinement: facts callers 1030 (30 %), every caller 1069 (31 %), every caller corrected 2215 (63 %)
+made:      77 | facts 77 | bit 77 | deep: walk 22 (29 %), corrected 29 (38 %) | throw-only refinement: facts callers 22 (29 %), every caller 22 (29 %), every caller corrected 33 (43 %)
+own facts: 3567 | facts 3567 | bit 3515 | deep: walk 1052 (29 %), corrected 1411 (40 %) | throw-only refinement: facts callers 1052 (29 %), every caller 1091 (31 %), every caller corrected 2248 (63 %)
+reached instances where the bit and the walk disagree: 10248 (bit without walk 10248)
+   bit, walk not deep: Tuple{DataFrames.var"#hashrows_col!##0#hashrows_col!##1"{Vector{UInt64}, Vector{Bool}, Vector{Float64}, Base.OneTo{Int64}}, UnitRange{Int64}}
+   bit, walk not deep: Tuple{typeof(schedule), Task}
+   bit, walk not deep: Tuple{typeof(Base.enq_work), Task}
+   bit, walk not deep: Tuple{typeof(Base.Threads._sym_to_tpid), Symbol}
+   bit, walk not deep: Tuple{Type{Int8}, Int64}
+   bit, walk not deep: Tuple{typeof(Core.toInt8), Int64}
+   bit, walk not deep: Tuple{typeof(Core.checked_trunc_sint), Type{Int8}, Int64}
+   bit, walk not deep: Tuple{typeof(Base.Partr.multiq_insert), Task, UInt16}
+   bit, walk not deep: Tuple{typeof(unlock), Base.Threads.SpinLock}
+   bit, walk not deep: Tuple{typeof(Base.GC.enable_finalizers)}
+reached instances without the bit whose edges are bindings only (open issue 187): 1791
+deep by the walk and naming a callee by MethodInstance or Method: 3 of 18074
+  of them with such a callee whose code now is not deep (or has no bit): 0
+callees that only throw, called directly by own facts instances: 27 instances; not deep by the walk 14
+  of them whose `Union{}` may rest on a callee: 8
+  by method: Parsers._throwintfailure 3, Base.getindex 3, Statistics.mean 2, CSV._throwparseerror 2, Statistics.std 2, DataFrames._onebased_check_error 1, DataFrames.wrap_row 1, CSV._rowtoolarge 1, CSV._lengthmismatch 1, CSV.LocatedProblem 1, Base.rethrow 1, Parsers._throwdateformatwhole 1, CSV._extratoolarge 1, Parsers._exactpositionoverflow 1, Parsers._prefixendoverflow 1, Base.error 1, CSV._throw_render_failure 1, Parsers._throwdateformatfailure 1, Base.Enums.enum_argument_error 1, CSV.ValueOpts 1
+   exposed: Tuple{typeof(CSV._throwparseerror), CSV.Problem, Int64}
+   exposed: Tuple{typeof(getindex), Vector{Any}, Nothing}
+   exposed: Tuple{typeof(Statistics.mean), Vector{String}}
+   exposed: Tuple{typeof(Core.kwcall), @NamedTuple{mean::Nothing}, typeof(Statistics.std), Vector{String}}
+   exposed: Tuple{typeof(Statistics.mean), PooledArrays.PooledVector{String, UInt32, Vector{UInt32}}}
+   exposed: Tuple{typeof(Core.kwcall), @NamedTuple{mean::Nothing}, typeof(Statistics.std), PooledArrays.PooledVector{String, UInt32, Vector{UInt32}}}
+   exposed: Tuple{typeof(getindex), Vector{DataFrames.TransformationResult}, Nothing}
+   exposed: Tuple{typeof(Parsers._throwdateformatwhole), Type{Dates.Date}, String, Dates.DateFormat{Symbol("mm/dd/yyyy"), Tuple{Dates.DatePart{'m'}, Dates.Delim{Char, 1}, D
+the loads: 5.3 s
+image: the loads end 14 of 3490 | facts 14 | bit 10 | deep: walk 0, corrected 0, throw-only facts callers 0, every caller 0
+   ended and deep (bit true, walk false, corrected false): Tuple{typeof(DataFrames.get_stats), Vector{String}, Vector{Symbol}}
+   ended and deep (bit true, walk false, corrected false): Tuple{typeof(DataFrames.get_stats), PooledArrays.PooledVector{String, UInt32, Vector{UInt32}}, Vector{Symbol}}
+   ended and deep (bit true, walk false, corrected false): Tuple{typeof(DataFrames.row_group_slots!), Tuple{PooledArrays.PooledVector{String, UInt32, Vector{UInt32}}}, Val{false}, Vector{Int64}, Bool, Nothing, Bool}
+   ended and deep (bit true, walk false, corrected false): Tuple{typeof(DataFrames.row_group_slots!), Tuple{Vector{Int64}}, Tuple{DataFrames.IntegerRefpool{Int64}}, Tuple{DataFrames.IntegerRefarray{Vector{Int64}}}, Val{
+   ended and deep (bit true, walk false, corrected false): Tuple{typeof(DataFrames.row_group_slots!), Tuple{PooledArrays.PooledVector{String, UInt32, Vector{UInt32}}}, Tuple{Vector{String}}, Tuple{Vector{UInt32}}, Val{f
+   ended and deep (bit true, walk false, corrected false): Tuple{typeof(DataFrames.row_group_slots!), Tuple{Vector{Bool}}, Tuple{DataFrames.IntegerRefpool{Int64}}, Tuple{DataFrames.IntegerRefarray{Vector{Bool}}}, Val{fa
+   ended and deep (bit true, walk false, corrected false): Tuple{typeof(DataFrames.row_group_slots!), Tuple{Vector{Int64}, Vector{Int64}}, Tuple{DataFrames.IntegerRefpool{Int64}, DataFrames.IntegerRefpool{Int64}}, Tuple
+   ended and deep (bit true, walk false, corrected false): Tuple{typeof(DataFrames.row_group_slots!), Tuple{Vector{Int64}, Vector{Int64}, PooledArrays.PooledVector{String, UInt32, Vector{UInt32}}}, Tuple{DataFrames.Inte
+   ended and deep (bit true, walk false, corrected false): Tuple{DataFrames.var"#_describe##12#_describe##13"{Vector{Symbol}, Vector{Any}}, Vector{String}}
+   ended and deep (bit true, walk false, corrected false): Tuple{DataFrames.var"#_describe##12#_describe##13"{Vector{Symbol}, Vector{Any}}, PooledArrays.PooledVector{String, UInt32, Vector{UInt32}}}
+made: the loads end 5 of 77 | facts 5 | bit 5 | deep: walk 0, corrected 0, throw-only facts callers 0, every caller 0
+   ended and deep (bit true, walk false, corrected false): Tuple{CSV.var"##resolvesource#101", Bool, Bool, Vector{Task}, typeof(CSV.resolvesource), String}
+   ended and deep (bit true, walk false, corrected false): Tuple{CSV.var"##_prepareindexed#114", Base.Pairs{Symbol, Union{Nothing, Integer}, Nothing, @NamedTuple{parallel::Bool, ntasks::Nothing, maxproblems::Int64, vali
+   ended and deep (bit true, walk false, corrected false): Tuple{typeof(Core.kwcall), @NamedTuple{parallel::Bool, ntasks::Nothing, maxproblems::Int64, validate::Bool}, typeof(CSV._prepareindexed), String}
+   ended and deep (bit true, walk false, corrected false): Tuple{typeof(Core.kwcall), @NamedTuple{parallel::Bool, ntasks::Nothing, maxproblems::Int64, validate::Bool}, typeof(CSV._prepareindexed), String, Nothing}
+   ended and deep (bit true, walk false, corrected false): Tuple{typeof(Core.kwcall), @NamedTuple{buffer_in_memory::Bool, prefetch::Bool, workers::Vector{Task}}, typeof(CSV.resolvesource), String}
+below, outside the own modules: 27517 | ended 109 | of the ended: bit 38, deep by the walk 0, corrected 0, throw-only facts callers 70
+digest ce94074fa1261ca2 (equal after)
