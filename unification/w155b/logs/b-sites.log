@@ -1,0 +1,139 @@
+# E-458 (a) sites | s3 1dc4c7b3ae | load 3.66 5.19 5.82 | 2026-11-15T14:29:24+01:00
+roots CSV,DataFrames,Tables | own facts instances 4187, inferred again 4148 (failed 39) in 24.2 s | calls left to run time 8966
+  7161   79.9 %  Base's or Core's function
+             enumerate in DataFrameJoiner [composer.jl:26]
+             iterate in DataFrameJoiner [composer.jl:26]
+             indexed_iterate in DataFrameJoiner [composer.jl:26]
+             indexed_iterate in DataFrameJoiner [composer.jl:26]
+             eachcol in DataFrameJoiner [composer.jl:26]
+             pairs in DataFrameJoiner [composer.jl:26]
+   932   10.4 %  own function, not public, every method the owner's
+             normalize_selection in _combine_prepare_norm [splitapplycombine.jl:56]
+             _copy_col_note_metadata! in _manipulate [selection.jl:1722]
+             select_transform! in _manipulate [selection.jl:1722]
+             _copy_col_note_metadata! in _manipulate [selection.jl:1722]
+             select_transform! in _manipulate [selection.jl:1722]
+             directwave! in _parse [core.jl:3721]
+   360    4.0 %  own function, public or exported
+             vector in _combine_prepare_norm [splitapplycombine.jl:56]
+             vector in _combine_prepare_norm [splitapplycombine.jl:56]
+             GroupedDataFrame in _combine_prepare_norm [splitapplycombine.jl:56]
+             GroupedDataFrame in _combine_prepare_norm [splitapplycombine.jl:56]
+             GroupedDataFrame in _combine_prepare_norm [splitapplycombine.jl:56]
+             vector in _manipulate [selection.jl:1722]
+   309    3.4 %  another package's function
+             nrow in _combine_prepare_norm [splitapplycombine.jl:56]
+             Base.Generator in map_refarray [core.jl:103]
+             missings in _sum_fast [selectionfast.jl:159]
+             Base.Fix1 in broadcast_pair [selection.jl:262]
+             missings in _mean_fast [selectionfast.jl:284]
+             emptycolmetadata! in _copy_col_note_metadata! [metadata.jl:697]
+   186    2.1 %  the callee is not a constant (a called value)
+             nothing in byrow [ColumnCore.jl:105]
+             nothing in byrow [ColumnCore.jl:105]
+             nothing in byrow [ColumnCore.jl:105]
+             nothing in byrow [ColumnCore.jl:105]
+             nothing in byrow [ColumnCore.jl:114]
+             nothing in byrow [ColumnCore.jl:114]
+    18    0.2 %  own function, not public, with another package's methods
+             columnindex in _propagate_join_metadata! [composer.jl:120]
+             columnindex in _propagate_join_metadata! [composer.jl:120]
+             columnindex in _propagate_join_metadata! [composer.jl:120]
+             columnindex in _propagate_join_metadata! [composer.jl:120]
+             rows in #_rowwriter#239 [write.jl:1462]
+             schema in #_rowwriter#239 [write.jl:1462]
+the own, owner-only sites, by what plain inference of the call gives: plain inference gives a concrete type 443; plain inference gives an abstract type or a union 217; plain inference gives Any 191; more than three methods match 81
+the own functions most called at such sites: CSV._taskforeach 40, DataFrames._names 37, DataFrames.groupreduce!_helper 30, DataFrames._rename_cols 23, CSV._ColumnEmitter 20, Tables.allocatecolumn 20, DataFrames._ncol 19, CSV.parsecolchunk! 19, CSV._parse 19, CSV.ParsedTable 18, CSV._fillslice! 17, CSV._saturatedint 16, DataFrames._sort_compose_helper 16, DataFrames._noon_compose_helper! 16, CSV._widenmissing 16, DataFrames._copy_col_note_metadata! 15, DataFrames.append_rows! 14, DataFrames._nrow 14, CSV._allocdirect 14, CSV.directwave! 14, DataFrames.DFPerm 13, DataFrames._combine_tables_with_first! 13, CSV.ColumnDecision 10, DataFrames.row_group_slots! 10, DataFrames.do_call 10
+roots TraitCSV,TraitTables,TraitMakie | own facts instances 270, inferred again 268 (failed 2) in 0.6 s | calls left to run time 155
+    95   61.3 %  own function, public or exported
+             Axis in Axis [PlotCore.jl:633]
+             Lines in add_stairs! [PlotCore.jl:701]
+             nrows in nrow [TableCore.jl:38]
+             nrows in addcolumn! [TableCore.jl:48]
+             nrows in addcolumn! [TableCore.jl:48]
+             parsecell! in fillcolumn [CSVCore.jl:109]
+    38   24.5 %  Base's or Core's function
+             Core.Dynamic{Plot} in add_stairs! [PlotCore.jl:701]
+             push! in add_stairs! [PlotCore.jl:701]
+             push! in addcolumn! [TableCore.jl:48]
+             Core.Dynamic{Plot} in add_hist! [PlotCore.jl:707]
+             push! in add_hist! [PlotCore.jl:707]
+             setindex! in select [TableCore.jl:58]
+    20   12.9 %  own function, not public, every method the owner's
+             pixels in draw! [PlotCore.jl:472]
+             drawlabels in draw! [PlotCore.jl:477]
+             drawvlines in draw! [PlotCore.jl:471]
+             pixels in draw! [PlotCore.jl:465]
+             colors in draw! [PlotCore.jl:465]
+             drawmarkers in draw! [PlotCore.jl:465]
+     2    1.3 %  the callee is not a constant (a called value)
+             nothing in sortperm_col [TableCore.jl:82]
+             nothing in take [TableCore.jl:63]
+the own, owner-only sites, by what plain inference of the call gives: plain inference gives a concrete type 20
+the own functions most called at such sites: TraitMakie.limits 4, TraitMakie.pixels 3, TraitMakie.colors 2, TraitMakie.drawbars 1, TraitMakie.drawmarkers 1, TraitMakie.binned 1, TraitMakie.drawlabels 1, TraitMakie.vlimits 1, TraitMakie.barlimits 1, TraitMakie.bandoutline 1, TraitMakie.mappedcolor 1, TraitMakie.drawvlines 1, TraitMakie.steppoints 1, TraitMakie.Transform2D 1
+ERROR: LoadError: OwnershipError: step_tstop!(::Rodas5Integrator, ::Float64) in TraitRodas is a pirate: TraitRodas owns neither the function nor a type in each of its signatures, and the scope declares `no_pirates`
+Stacktrace:
+  [1] top-level scope
+    @ /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-s3/lib/TraitRodas/src/rodas5.jl:156
+  [2] include(mapexpr::Function, mod::Module, _path::String)
+    @ Base ./Base.jl:316
+  [3] top-level scope
+    @ /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-s3/lib/TraitRodas/src/TraitRodas.jl:24
+  [4] include(mod::Module, _path::String)
+    @ Base ./Base.jl:315
+  [5] include_package_for_output(pkg::Base.PkgId, input::String, depot_path::Vector{String}, dl_load_path::Vector{String}, load_path::Vector{String}, concrete_deps::Vector{Pair{Base.PkgId, UInt128}}, source::Nothing, preresolved::Vector{Pair{Base.PkgId, String}})
+    @ Base ./loading.jl:3214
+  [6] top-level scope
+    @ stdin:5
+  [7] eval(m::Module, e::Any)
+    @ Core ./boot.jl:532
+  [8] include_string(mapexpr::typeof(identity), mod::Module, code::String, filename::String)
+    @ Base ./loading.jl:3049
+  [9] include_string
+    @ ./loading.jl:3059 [inlined]
+ [10] exec_options(opts::Base.JLOptions)
+    @ Base ./client.jl:342
+ [11] _start()
+    @ Base ./client.jl:577
+in expression starting at /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-s3/lib/TraitRodas/src/rodas5.jl:156
+in expression starting at /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-s3/lib/TraitRodas/src/TraitRodas.jl:1
+in expression starting at stdin:5
+ERROR: LoadError: OwnershipError: step_tstop!(::Rodas5Integrator, ::Float64) in TraitRodas is a pirate: TraitRodas owns neither the function nor a type in each of its signatures, and the scope declares `no_pirates`
+Stacktrace:
+  [1] top-level scope
+    @ /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-s3/lib/TraitRodas/src/rodas5.jl:156
+  [2] include(mapexpr::Function, mod::Module, _path::String)
+    @ Base ./Base.jl:316
+  [3] top-level scope
+    @ /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-s3/lib/TraitRodas/src/TraitRodas.jl:24
+  [4] include(mod::Module, _path::String)
+    @ Base ./Base.jl:315
+  [5] include_package_for_output(pkg::Base.PkgId, input::String, depot_path::Vector{String}, dl_load_path::Vector{String}, load_path::Vector{String}, concrete_deps::Vector{Pair{Base.PkgId, UInt128}}, source::Nothing, preresolved::Vector{Pair{Base.PkgId, String}})
+    @ Base ./loading.jl:3214
+  [6] top-level scope
+    @ stdin:5
+  [7] eval(m::Module, e::Any)
+    @ Core ./boot.jl:532
+  [8] include_string(mapexpr::typeof(identity), mod::Module, code::String, filename::String)
+    @ Base ./loading.jl:3049
+  [9] include_string
+    @ ./loading.jl:3059 [inlined]
+ [10] exec_options(opts::Base.JLOptions)
+    @ Base ./client.jl:342
+ [11] _start()
+    @ Base ./client.jl:577
+in expression starting at /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-s3/lib/TraitRodas/src/rodas5.jl:156
+in expression starting at /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-s3/lib/TraitRodas/src/TraitRodas.jl:1
+in expression starting at stdin:5
+
+  1 dependency had output during precompilation:
+┌ TraitRodas
+│  [Output was shown above]
+└  
+ERROR: LoadError: The following 1 package failed to precompile:
+
+TraitRodas 
+Failed to precompile TraitRodas [bf920f43-cef2-427b-965f-14169ab0c399] to "/p/projects/coen/julia-trait-bound/.julia-depot/agent-depots/w155b/compiled/v1.13/TraitRodas/jl_1ISVNL" (ProcessExited(1)).
+
+in expression starting at /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-s3/src/TraitDifferentialEquations.jl:1
+in expression starting at /p/projects/coen/julia-trait-bound/experiments/unification/w152/p5/sites.jl:7

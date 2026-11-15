@@ -1,0 +1,39 @@
+# E-458 (a) sites, the ODE packages (ODECore: public step interface, a local patch) | s3 $(git -C $TW_ROOT/julia-s3 rev-parse --short=10 HEAD) | load $(cut -d  -f1-3 /proc/loadavg) | $(date -Is)
+roots TraitDifferentialEquations,ODECore,TraitRodas,TraitNonlinearSolve,TraitLinSolvers,TraitNLSolvers,TraitImplicit,TraitIndexing,TraitArrayTools | own facts instances 515, inferred again 496 (failed 19) in 1.8 s | calls left to run time 472
+   254   53.8 %  Base's or Core's function
+             iterate in NonlinearPolyalg [solvers.jl:215]
+             push! in NonlinearPolyalg [solvers.jl:215]
+             iterate in NonlinearPolyalg [solvers.jl:215]
+             push! in enter_callbacks [core.jl:595]
+             push! in enter_callbacks [core.jl:595]
+             iterate in initialize_step_callbacks! [core.jl:761]
+   101   21.4 %  own function, not public, every method the owner's
+             ODECore.PartialFn in _plain_function [frontend.jl:113]
+             ODECore.PartialFn in _plain_function [frontend.jl:113]
+             ODECore.PartialFn in _plain_function [frontend.jl:113]
+             ODECore.PartialFn in _plain_function [frontend.jl:113]
+             _enter_callback! in enter_callbacks [core.jl:595]
+             step_event_initialize! in initialize_step_callbacks! [core.jl:761]
+    71   15.0 %  own function, public or exported
+             ContinuousCallback in ContinuousCallback [core.jl:555]
+             problem_callbacks in _problem_callbacks [core.jl:318]
+             ODECore.UserFunction in _plain_function [frontend.jl:113]
+             ODECore.UserFunction in _plain_function [frontend.jl:113]
+             ODECore.UserFunction in _plain_function [frontend.jl:113]
+             ODECore.UserFunction in _plain_function [frontend.jl:113]
+    28    5.9 %  the callee is not a constant (a called value)
+             nothing in event_condition [core.jl:581]
+             nothing in core_rhs! [core.jl:498]
+             nothing in core_rhs! [core.jl:498]
+             nothing in polyalg_solve [solvers.jl:226]
+             nothing in polyalg_solve [solvers.jl:226]
+             nothing in rodas5_start [rodas5.jl:282]
+    18    3.8 %  another package's function
+             unwrap in _plain_function [frontend.jl:113]
+             Base.Generator in rodas5_initdt! [rodas5.jl:310]
+             Base.Generator in rodas5_initdt! [rodas5.jl:310]
+             unwrap in _attime [problems.jl:111]
+             ForwardDiff.GradientConfig in _gradient_sig [TraitDifferentialEquations.jl:120]
+             gradient in _gradient_sig [TraitDifferentialEquations.jl:120]
+the own, owner-only sites, by what plain inference of the call gives: plain inference gives a concrete type 74; plain inference gives an abstract type or a union 20; plain inference gives Any 7
+the own functions most called at such sites: ODECore.step_event_condition 15, ODECore.with_problem 10, ODECore.PartialFn 8, ODECore.adapt_callbacks! 5, ODECore.param_integrator 5, ODECore._sync_in! 4, ODECore.step_condition 3, ODECore.step_affect! 3, ODECore.step_event_initialize! 3, ODECore.event_affect_dir! 3, ODECore._names 3, ODECore.step_initialize! 3, ODECore.core_rhs! 2, ODECore._sync_out! 2, TraitRodas.DualJacobian 2, ODECore._has_identity_mass 2, ODECore._problem 2, ODECore._enter_step_callback! 2, ODECore._plain_function 1, TraitDifferentialEquations.#_options#1 1, TraitNonlinearSolve.#_nloptions#5 1, TraitRodas.rodas5_start 1, ODECore.initialize_step_callbacks! 1, TraitNonlinearSolve.NLPartial 1, ODECore._is_identity 1

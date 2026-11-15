@@ -15,6 +15,7 @@ end
 const C = Base.Compiler
 isimpl(@nospecialize(sig)) = (b = Base.unwrap_unionall(sig); b isa DataType && length(b.parameters) == 3 && b.parameters[1] === typeof(Core.implements))
 ismembmi(mi::Core.MethodInstance) = (m = mi.def; m isa Method && isimpl(m.sig))
+# the predicate replayed with a reason, a positive membership's edge allowed (compiler §3.2, open issue 211)
 function reason(ci::Core.CodeInstance)
     mi = C.get_ci_mi(ci)
     for e in ci.edges
@@ -22,8 +23,7 @@ function reason(ci::Core.CodeInstance)
             e === ci && continue
             (e.flags & 0x10) == 0 && return "a callee's CodeInstance without the bit"
         elseif e isa Core.MethodInstance
-            e === mi && continue
-            ismembmi(e) && return "membership: a positive membership's instance (the pattern)"
+            (e === mi || ismembmi(e)) && continue
             return "a callee named by its MethodInstance alone"
         end
     end
@@ -31,11 +31,15 @@ function reason(ci::Core.CodeInstance)
         if item isa Core.MethodTable
             (C.is_fact_sig(invokesig) || isimpl(invokesig)) || return "a call that found no method, at a signature that is no fact"
         elseif item isa Core.MethodInstance
-            ismembmi(item) && return "membership: a positive membership's instance (the pattern)"
+            ismembmi(item) && continue
             (invokesig === nothing || invokesig isa C.CallSigBackedge) || continue
             C.is_fact_sig(invokesig isa C.CallSigBackedge ? invokesig.sig : item.specTypes) || return "a dispatch edge at a signature that is no fact"
         end
     end
+    # nothing keeps it out by the predicate: a positive membership's edge, if it holds one, is what the
+    # build's predicate refused (the pattern); else an inference cycle decided as one
+    any(e -> e isa Core.MethodInstance && ismembmi(e), ci.edges) &&
+        return "membership: only a positive membership's edge keeps it out (the pattern)"
     return "none found (an inference cycle decided as one, or a callee's bit set later)"
 end
 counts = Dict{String,Int}(); ex = Dict{String,Vector{String}}(); nall = 0; ndeep = 0; nmemb = 0
