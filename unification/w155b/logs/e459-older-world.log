@@ -1,0 +1,11 @@
+# older_world.jl | next-s3 with jl_membership_changed(world + 1) (amended D-13) | 2026-11-15T15:01:42+01:00
+Base.invokelatest(DS.calldesc, c) = "a shape"
+w = 0x0000000000009b07
+Base.get_world_counter() = 0x0000000000009b08
+Base.invoke_in_world(w, isa, c, DS.DShape) = true
+Base.invoke_in_world(w, DS.describe, c) = "a shape"
+Base.invoke_in_world(w, DS.calldesc, c) = "a shape"
+Base.invoke_in_world(w, which, DS.describe, (DS.Circ,)) = describe(x) @ Main.DS /p/projects/coen/julia-trait-bound/experiments/unification/w155b/diag/older_world.jl:14
+[m.method.sig for m = ms] = DataType[Tuple{typeof(Main.DS.describe), Main.DS.DShape}]
+Base.invokelatest(DS.describe, c) = "other"
+Base.invokelatest(DS.calldesc, c) = "other"
