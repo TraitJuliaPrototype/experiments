@@ -1,0 +1,48 @@
+ERROR: LoadError: Some tests did not pass: 9 passed, 3 failed, 0 errored, 0 broken.
+in expression starting at /p/projects/coen/julia-trait-bound/experiments/unification/w161/i204/summarize.jl:45
+
+open issue 204: a trait's parameters left open erase too: Test Failed at /p/projects/coen/julia-trait-bound/experiments/unification/w161/i204/summarize.jl:49
+  Expression: TC.form(v) === :boxed
+   Evaluated: plain === boxed
+  Stacktrace:
+   [1] top-level scope
+     @ /p/projects/coen/julia-trait-bound/experiments/unification/w161/i204/summarize.jl:46
+   [2] macro expansion
+     @ /p/projects/coen/julia-trait-bound/julia-next/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:1967 [inlined]
+   [3] macro expansion
+     @ /p/projects/coen/julia-trait-bound/experiments/unification/w161/i204/summarize.jl:49 [inlined]
+   [4] macro expansion
+     @ /p/projects/coen/julia-trait-bound/julia-next/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:758 [inlined]
+methods of summarize: 1 (as written: 1)
+the method as written: Tuple{typeof(Main.TC.summarize), Main.TC.Column, String}
+its instances after two member types at Column{Float64}: DataType[Tuple{typeof(Main.TC.summarize), Main.TC.Column, String}]
+after a member at Column{Int}: DataType[Tuple{typeof(Main.TC.summarize), Main.TC.Column, String}]
+
+open issue 204: a trait's parameters left open erase too: Test Failed at /p/projects/coen/julia-trait-bound/experiments/unification/w161/i204/summarize.jl:62
+  Expression: length(sigs2) == 2
+   Evaluated: 1 == 2
+  Stacktrace:
+   [1] top-level scope
+     @ /p/projects/coen/julia-trait-bound/experiments/unification/w161/i204/summarize.jl:46
+   [2] macro expansion
+     @ /p/projects/coen/julia-trait-bound/julia-next/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:1967 [inlined]
+   [3] macro expansion
+     @ /p/projects/coen/julia-trait-bound/experiments/unification/w161/i204/summarize.jl:62 [inlined]
+   [4] macro expansion
+     @ /p/projects/coen/julia-trait-bound/julia-next/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:758 [inlined]
+
+open issue 204: a trait's parameters left open erase too: Test Failed at /p/projects/coen/julia-trait-bound/experiments/unification/w161/i204/summarize.jl:65
+  Expression: length([mi for mi = instances(m)]) == 2
+   Evaluated: 1 == 2
+  Stacktrace:
+   [1] top-level scope
+     @ /p/projects/coen/julia-trait-bound/experiments/unification/w161/i204/summarize.jl:46
+   [2] macro expansion
+     @ /p/projects/coen/julia-trait-bound/julia-next/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:1967 [inlined]
+   [3] macro expansion
+     @ /p/projects/coen/julia-trait-bound/experiments/unification/w161/i204/summarize.jl:65 [inlined]
+   [4] macro expansion
+     @ /p/projects/coen/julia-trait-bound/julia-next/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:758 [inlined]
+Test Summary:                                            | Pass  Fail  Total  Time
+open issue 204: a trait's parameters left open erase too |    9     3     12  2.2s
+RNG of the outermost testset: Random.Xoshiro(0xe2efe858d9eab386, 0x72528fa4be07d6e8, 0xa201266f746f5803, 0x67b450b243a750d6, 0x39db8c5433c22627)
