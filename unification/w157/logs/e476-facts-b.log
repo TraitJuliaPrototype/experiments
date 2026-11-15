@@ -1,0 +1,216 @@
+# census | project env_facts | julia 1dc4c7b3ae* | load 2.7
+DEEP SHARE | own image instances 1373 (39.6 %) of 3464 | own facts instances 1402 (39.6 %) of 3541 | made by the work 29 (37.7 %) of 77
+reached through edges 31197; without the bit 7695; culprits (a fault of their own) 978; without the bit, no fault and every callee with it 2
+own facts instances outside the class 2139; culprits in a cone, median 6, most 210
+
+## by kind: culprit instances, method names, own facts instances whose cone holds one, whose cone lies in the kind (what fixing the kind buys)
+error_path          72 instances   33 names | in a cone  2068 | the kind alone   992
+other              542 instances  163 names | in a cone   930 | the kind alone    45
+type_join           41 instances   11 names | in a cone   473 | the kind alone    17
+by_instance         19 instances    9 names | in a cone   258 | the kind alone     9
+introspection      165 instances   57 names | in a cone   510 | the kind alone     0
+any_container      116 instances   37 names | in a cone   482 | the kind alone     0
+task_lock           15 instances   11 names | in a cone   481 | the kind alone     0
+ctor_kind            8 instances    6 names | in a cone   377 | the kind alone     0
+cycle_or_unset       2 instances    1 names | in a cone     4 | the kind alone     0
+
+## the kinds together, greedy (what each buys on top of the ones before): own facts instances in the class (of 3541)
+  + error_path      2394 (67.6 %)
+  + other           2633 (74.4 %)
+  + task_lock       2758 (77.9 %)
+  + ctor_kind       2842 (80.3 %)
+  + any_container   2920 (82.5 %)
+  + by_instance     2982 (84.2 %)
+  + introspection   3064 (86.5 %)
+  + type_join       3537 (99.9 %)
+  + cycle_or_unset  3541 (100.0 %)
+
+## by method name (top 40 by the cones they are in): instances, kind, in a cone, the name alone
+  2052  Core.throw_inexacterror                        10 inst  error_path                 alone 743
+  1047  Core.DomainError                                1 inst  error_path                 alone 0
+   679  Base.Val                                        6 inst  other                      alone 28
+   567  Base.string_index_err                           1 inst  error_path                 alone 0
+   481  Base.yieldto                                    1 inst  task_lock                  alone 0
+   481  Base.trypoptask                                 1 inst  task_lock                  alone 0
+   481  Base.istaskdone                                 1 inst  task_lock                  alone 0
+   469  Base.typesplit                                  1 inst  type_join                  alone 17
+   425  Base.typejoin                                   1 inst  type_join                  alone 0
+   425  Base.full_va_len                                1 inst  other                      alone 0
+   425  Base.supertype                                  1 inst  introspection              alone 0
+   425  Base.tailjoin                                   1 inst  type_join                  alone 0
+   421  Base._promote_typesubtract                      3 inst  type_join                  alone 0
+   421  Base.promote_typejoin                           4 inst  type_join                  alone 0
+   420  Base.collect                                   32 inst  introspection,other        alone 1
+   358  Base.IOContext                                  4 inst  ctor_kind,any_container    alone 0
+   329  Base.notify                                     3 inst  task_lock                  alone 0
+   329  Base.schedule                                   2 inst  task_lock                  alone 0
+   321  Base.push!                                      9 inst  other,any_container,introspection alone 0
+   291  Base.promote_typejoin_union                     1 inst  type_join                  alone 0
+   291  Base.typejoin_union_tuple                       2 inst  type_join                  alone 0
+   263  Base.indexed_iterate                            8 inst  other                      alone 0
+   241  Base.iterate                                   29 inst  other,ctor_kind,any_container alone 0
+   240  Base.notify_error                               1 inst  task_lock                  alone 0
+   240  Base.close                                      1 inst  task_lock                  alone 0
+   235  Base.sync_end                                   1 inst  task_lock                  alone 0
+   220  Base.Iterators.iterate                         16 inst  other                      alone 2
+   215  Base.setindex!                                 16 inst  other,any_container        alone 0
+   199  Base.print                                      8 inst  other,by_instance,introspection alone 0
+   193  Base.in                                         8 inst  other                      alone 0
+   159  Base._setindex!                                 7 inst  other,any_container        alone 0
+   143  Base.print_to_string                           22 inst  introspection,other        alone 0
+   140  Base.throw_boundserror                          4 inst  error_path                 alone 0
+   140  Core.Array                                      8 inst  other,introspection        alone 0
+   140  Base.checkbounds                                7 inst  other                      alone 0
+   140  Base.similar                                   23 inst  introspection,any_container,other alone 0
+   137  Base.axes                                       4 inst  other                      alone 0
+   135  Base.length                                     3 inst  other                      alone 0
+   134  Base.rewrap_unionall                           14 inst  introspection              alone 0
+   132  Base.merge                                      7 inst  other                      alone 0
+
+## greedy: the method name that buys most on top of the ones before (own facts instances in the class)
+  start 1402 (39.6 %)
+   1. + Core.throw_inexacterror                      [:error_path]                 2145 (60.6 %)
+   2. + Core.DomainError                             [:error_path]                 2265 (64.0 %)
+   3. + Base.string_index_err                        [:error_path]                 2394 (67.6 %)
+   4. + Base.Val                                     [:other]                      2577 (72.8 %)
+   5. + Base.IOContext                               [:ctor_kind, :any_container]  2650 (74.8 %)
+   6. + Base.typesplit                               [:type_join]                  2694 (76.1 %)
+   7. + Base.collect                                 [:introspection, :other]      2715 (76.7 %)
+   8. + Base._any                                    [:other, :any_container, :introspection]2724 (76.9 %)
+   9. + Base._iterate_dict                           [:ctor_kind, :any_container, :other]2731 (77.1 %)
+  10. + Base.hasmethod                               [:by_instance]                2738 (77.3 %)
+  11. + Base._collect                                [:any_container, :introspection, :other]2744 (77.5 %)
+  12. + DataFrames.getindex                          [:by_instance]                2749 (77.6 %)
+  13. + Base.Iterators.iterate                       [:other]                      2752 (77.7 %)
+  14. + Base.iterate                                 [:other, :ctor_kind, :any_container]2754 (77.8 %)
+  15. + Base.thrownonint                             [:error_path]                 2761 (78.0 %)
+  16. + DataFrames.compute_indices                   [:by_instance]                2763 (78.0 %)
+  17. + Base.Iterators._only                         [:other]                      2764 (78.1 %)
+  18. + CSV.#directchunk!##0                         [:by_instance]                2765 (78.1 %)
+  19. + Base.yieldto                                 [:task_lock]                  2765 (78.1 %)
+  20. + Base.trypoptask                              [:task_lock]                  2765 (78.1 %)
+  21. + Base.istaskdone                              [:task_lock]                  2863 (80.9 %)
+  22. + Base.typejoin                                [:type_join]                  2863 (80.9 %)
+  23. + Base.full_va_len                             [:other]                      2863 (80.9 %)
+  24. + Base.supertype                               [:introspection]              2863 (80.9 %)
+  25. + Base.tailjoin                                [:type_join]                  2864 (80.9 %)
+
+## the culprit instances most own facts instances rest on
+  1943  error_path     Tuple{typeof(Core.throw_inexacterror), Symbol, Type, Int64}
+            nofact: Tuple{Type{InexactError}, Symbol, Type, Int64}
+  1713  error_path     Tuple{typeof(Core.throw_inexacterror), Symbol, Type, UInt32}
+            nofact: Tuple{Type{InexactError}, Symbol, Type, UInt32}
+  1375  error_path     Tuple{typeof(Core.throw_inexacterror), Symbol, Type, UInt64}
+            nofact: Tuple{Type{InexactError}, Symbol, Type, UInt64}
+  1239  error_path     Tuple{typeof(Core.throw_inexacterror), Symbol, Type, Int128}
+            nofact: Tuple{Type{InexactError}, Symbol, Type, Int128}
+  1047  error_path     Tuple{Type{DomainError}, Any, Any}
+            nomethod: Tuple{typeof(Core.convert), Type{AbstractString}, Any}
+            nofact: Tuple{typeof(Core.convert), Type{AbstractString}, AbstractString}
+   938  error_path     Tuple{typeof(Core.throw_inexacterror), Symbol, Type, Int32}
+            nofact: Tuple{Type{InexactError}, Symbol, Type, Int32}
+   568  other          Tuple{Type{Val}, Int64}
+            nofact: Tuple{Type{Val{_A}} where _A}
+   567  error_path     Tuple{typeof(Base.string_index_err), AbstractString, Int64}
+            nofact: Tuple{Type{StringIndexError}, AbstractString, Int64}
+   481  task_lock      Tuple{typeof(yieldto), Task, Any}
+            nofact: Tuple{typeof(setproperty!), Task, Symbol, Any}
+   481  task_lock      Tuple{typeof(istaskdone), Task}
+            nofact: Tuple{typeof(!==), Any, Any}
+   481  task_lock      Tuple{typeof(Base.trypoptask), Base.IntrusiveLinkedListSynchronized{Task}}
+            nofact: Tuple{typeof(!==), Any, Any}
+   469  type_join      Tuple{typeof(Base.typesplit), Any, Any}
+            nofact: Tuple{typeof(getproperty), Union, Symbol}
+            nofact: Tuple{typeof(Base.typesplit), Any, Any}
+   451  error_path     Tuple{typeof(Core.throw_inexacterror), Symbol, Type, UInt8}
+            nofact: Tuple{Type{InexactError}, Symbol, Type, UInt8}
+   425  introspection  Tuple{typeof(supertype), DataType}
+            nofact: Tuple{typeof(getproperty), DataType, Symbol}
+   425  type_join      Tuple{typeof(typejoin), Any, Any}
+            nofact: Tuple{typeof(typejoin), Any, Any}
+            nofact: Tuple{typeof(getproperty), UnionAll, Symbol}
+   425  other          Tuple{typeof(Base.full_va_len), Core.SimpleVector}
+            nofact: Tuple{typeof(Base.isvarargtype), Any}
+   425  type_join      Tuple{typeof(Base.tailjoin), Core.SimpleVector, Int64}
+            nofact: Tuple{typeof(Base.unwrapva), Any}
+            nofact: Tuple{typeof(typejoin), Any, Any}
+   421  type_join      Tuple{typeof(Base._promote_typesubtract), Any}
+            nofact: Tuple{typeof(Base.typesplit), Any, Type{Union{Missing, Nothing}}}
+            nofact: Tuple{typeof(Base.typesplit), Any, Type{Nothing}}
+   361  type_join      Tuple{typeof(Base._promote_typesubtract), Type}
+            nofact: Tuple{typeof(Base.typesplit), Type, Type{Union{Missing, Nothing}}}
+            nofact: Tuple{typeof(Base.typesplit), Type, Type{Nothing}}
+   361  type_join      Tuple{typeof(Base.promote_typejoin), Type, Type}
+            nofact: Tuple{typeof(Base._promote_typesubtract), Type}
+            nofact: Tuple{typeof(typejoin), Any, Any}
+   334  error_path     Tuple{typeof(Core.throw_inexacterror), Symbol, Type, Int8}
+            nofact: Tuple{Type{InexactError}, Symbol, Type, Int8}
+   334  ctor_kind      Tuple{Type{IOContext}, IOContext{IOBuffer}, Pair{Symbol, DataType}}
+            nofact: Tuple{Type{Base.ImmutableDict{Symbol, Any}}, Base.ImmutableDict{Symbol, Any}, Symbol, DataType}
+   329  task_lock      Tuple{typeof(Core.kwcall), @NamedTuple{error::Bool}, typeof(schedule), Task, Any}
+            nofact: Tuple{Base.var"##schedule#610", Bool, typeof(schedule), Task, Any}
+   329  task_lock      Tuple{typeof(notify), Base.GenericCondition{Base.Threads.SpinLock}, Any, Bool, Bool}
+            nofact: Tuple{typeof(Core.kwcall), @NamedTuple{error::Bool}, typeof(schedule), Task, Any}
+   319  any_container  Tuple{typeof(push!), Vector{Any}, Any}
+            nofact: Tuple{typeof(Base.__safe_setindex!), Vector{Any}, Any, Int64}
+   292  other          Tuple{typeof(collect), Base.Generator{String, DataFrames.var"#_norm_eq##2#_norm_eq##3"}}
+            nofact: Tuple{Type{TypeVar}, Any, Any}
+            nofact: Tuple{Type{UnionAll}, Any, Any}
+   292  other          Tuple{typeof(collect), Base.Generator{String, DataFrames.var"#_norm_eq##0#_norm_eq##1"}}
+            nofact: Tuple{Type{TypeVar}, Any, Any}
+            nofact: Tuple{Type{UnionAll}, Any, Any}
+   291  other          Tuple{typeof(collect), Base.Generator{Base.KeySet{Symbol, Dict{Symbol, Int64}}, DataFrames.var"#fuzzymatch##0#fuzzymatch##1"{Strin
+            nofact: Tuple{Type{TypeVar}, Any, Any}
+            nofact: Tuple{Type{UnionAll}, Any, Any}
+   291  type_join      Tuple{typeof(Base.typejoin_union_tuple), Type{Tuple{Int64, Symbol}}}
+            nofact: Tuple{typeof(Base.unwrapva), Any}
+            nofact: Tuple{typeof(getproperty), Union, Symbol}
+   291  type_join      Tuple{typeof(Base.typejoin_union_tuple), DataType}
+            nofact: Tuple{typeof(getproperty), DataType, Symbol}
+            nofact: Tuple{typeof(Base.unwrapva), Any}
+
+## faults by the function called (top 40 by the cones of its culprits): culprits with such a fault, in a cone, the fault's function alone
+  2052  constructor InexactError                                         10 culprits  alone 743
+  1047  Core.convert                                                      2 culprits  alone 0
+   679  Type{Val{_A}} where _A                                            6 culprits  alone 28
+   583  Core.!==                                                         17 culprits  alone 0
+   567  constructor StringIndexError                                      1 culprits  alone 0
+   551  Base.getproperty                                                 83 culprits  alone 0
+   536  Base.setindex!                                                   77 culprits  alone 0
+   528  constructor UnionAll                                             48 culprits  alone 0
+   512  constructor TypeVar                                              41 culprits  alone 0
+   497  Base.inferencebarrier                                             4 culprits  alone 0
+   481  Base.setproperty!                                                 3 culprits  alone 0
+   469  Base.typesplit                                                    4 culprits  alone 0
+   437  Base.getindex                                                    58 culprits  alone 2
+   433  Base.rewrap_unionall                                             40 culprits  alone 0
+   425  Base.typejoin                                                     8 culprits  alone 0
+   425  Base.supertype                                                    1 culprits  alone 0
+   425  Base.isvarargtype                                                 4 culprits  alone 0
+   425  Base.unwrapva                                                    24 culprits  alone 0
+   421  Base._promote_typesubtract                                        4 culprits  alone 0
+   421  Base.promote_typejoin                                            29 culprits  alone 0
+   404  Core.kwcall                                                      61 culprits  alone 0
+   358  constructor ImmutableDict                                         4 culprits  alone 0
+   340  Base.__safe_setindex!                                             9 culprits  alone 0
+   329  Base.#schedule#610                                                2 culprits  alone 0
+   321  Base.push!                                                       14 culprits  alone 0
+   291  Base.promote_typejoin_union                                       3 culprits  alone 0
+   291  Base.typejoin_union_tuple                                         1 culprits  alone 0
+   272  Base.length                                                      17 culprits  alone 0
+   271  (by instance)                                                    32 culprits  alone 9
+   263  Base.indexed_iterate                                             68 culprits  alone 0
+   240  Base.notify                                                       1 culprits  alone 0
+   240  Base.notify_error                                                 1 culprits  alone 0
+   215  Base._setindex!                                                  11 culprits  alone 0
+   203  constructor Pair                                                  7 culprits  alone 0
+   145  constructor BoundsError                                           5 culprits  alone 0
+   143  Base.print                                                       23 culprits  alone 0
+   143  Base._str_sizehint                                               22 culprits  alone 0
+   140  Base.throw_boundserror                                            5 culprits  alone 0
+   140  Base.size                                                        12 culprits  alone 0
+   140  Base.checkbounds                                                 10 culprits  alone 0
+what-if: Base's and Core's functions owner-only by declaration, internal (neither exported nor public), no package method in the session: 260 culprits resolved; own facts instances in the class 1402 (39.6 %)
+what-if: Base's and Core's functions owner-only by declaration, any, no package method in the session: 280 culprits resolved; own facts instances in the class 1405 (39.7 %)
+
+own facts instances kept out only by callees named by instance alone, whose code has the bit now: 5

@@ -1,0 +1,596 @@
+== error_path  Tuple{typeof(Core.throw_inexacterror), Symbol, Type, Int8}  (in 656 cones)
+   fault nofact: Tuple{Type{InexactError}, Symbol, Type, Int8}
+   <- Tuple{typeof(CSV._appendint!), Vector{UInt8}, Union{Int128, Int16, Int32, Int64, Int8}}
+   <- Tuple{typeof(unsigned), Int8}
+   <- Tuple{typeof(convert), Type{Unsigned}, Int8}
+   <- Tuple{Type{Unsigned}, Int8}
+   <- Tuple{Type{UInt8}, Int8}
+   <- Tuple{typeof(Core.toUInt8), Int8}
+   <- Tuple{typeof(Core.check_sign_bit), Type{UInt8}, Int8}
+   <- Tuple{typeof(Core.throw_inexacterror), Symbol, Type, Int8}
+   direct callers: 1
+      Tuple{typeof(Core.check_sign_bit), Type{UInt8}, Int8}
+== error_path  Tuple{typeof(Base.kwerr), @NamedTuple{write::Bool, lock::Bool}, typeof(open), Base.AbstractCmd, IO}  (in 30 cones)
+   fault nofact: Tuple{Type{MethodError}, typeof(Core.kwcall), Tuple{@NamedTuple{write::Bool, lock::Bool}, typeof(open), Base.AbstractCmd, IO}, UInt64}
+   <- Tuple{CSV.var"##resolvesource#101", Bool, Bool, Vector{Task}, typeof(CSV.resolvesource), String}
+   <- Tuple{typeof(Downloads.download), String}
+   <- Tuple{typeof(Downloads.download), String, Nothing}
+   <- Tuple{Downloads.var"##download#5", Nothing, Vector{Pair{String, String}}, Float64, Nothing, Bool, Nothing, Nothing, typeof(Downloads.download), String, Nothing}
+   <- Tuple{typeof(ArgTools.arg_write), Function, String}
+   <- Tuple{typeof(Core.kwcall), @NamedTuple{write::Bool}, typeof(ArgTools.open_nolock), Function, String}
+   <- Tuple{ArgTools.var"##open_nolock#1", Base.Pairs{Symbol, Bool, Nothing, @NamedTuple{write::Bool}}, typeof(ArgTools.open_nolock), Function, Vararg{Any}}
+   <- Tuple{typeof(Core.kwcall), @NamedTuple{write::Bool, lock::Bool}, typeof(open), Function, Base.AbstractCmd, Vararg{Any}}
+   <- Tuple{Base.var"##open#710", Base.Pairs{Symbol, Bool, Nothing, @NamedTuple{write::Bool, lock::Bool}}, typeof(open), Function, Base.AbstractCmd, Vararg{Any}}
+   <- Tuple{typeof(Core.kwcall), @NamedTuple{write::Bool, lock::Bool}, typeof(open), Base.AbstractCmd, Union{RawFD, Base.FileRedirect, Base.IOServer, IO}}
+   <- Tuple{typeof(Base.kwerr), @NamedTuple{write::Bool, lock::Bool}, typeof(open), Base.AbstractCmd, IO}
+   direct callers: 1
+      Tuple{typeof(Core.kwcall), @NamedTuple{write::Bool, lock::Bool}, typeof(open), Base.AbstractCmd, Union{RawFD, Base.FileRedirect, Base.IOServer, IO}}
+== error_path  Tuple{typeof(pop!), IdDict{Any, Any}, Any}  (in 30 cones)
+   fault nofact: Tuple{typeof(pop!), IdDict{Any, Any}, Any, Symbol}
+   fault nofact: Tuple{Type{KeyError}, Any}
+   <- Tuple{CSV.var"##resolvesource#101", Bool, Bool, Vector{Task}, typeof(CSV.resolvesource), String}
+   <- Tuple{typeof(Downloads.download), String}
+   <- Tuple{typeof(Downloads.download), String, Nothing}
+   <- Tuple{Downloads.var"##download#5", Nothing, Vector{Pair{String, String}}, Float64, Nothing, Bool, Nothing, Nothing, typeof(Downloads.download), String, Nothing}
+   <- Tuple{typeof(ArgTools.arg_write), Downloads.var"#7#8"{Nothing, Vector{Pair{String, String}}, Float64, Nothing, Bool, Nothing, Nothing, String, Base.RefValue{Downloads.Response}}, S
+   <- Tuple{typeof(Core.kwcall), @NamedTuple{write::Bool}, typeof(ArgTools.open_nolock), Downloads.var"#7#8"{Nothing, Vector{Pair{String, String}}, Float64, Nothing, Bool, Nothing, Nothi
+   <- Tuple{ArgTools.var"##open_nolock#1", Base.Pairs{Symbol, Bool, Nothing, @NamedTuple{write::Bool}}, typeof(ArgTools.open_nolock), Downloads.var"#7#8"{Nothing, Vector{Pair{String, Str
+   <- Tuple{typeof(Core.kwcall), @NamedTuple{write::Bool, lock::Bool}, typeof(open), Downloads.var"#7#8"{Nothing, Vector{Pair{String, String}}, Float64, Nothing, Bool, Nothing, Nothing, 
+   <- Tuple{Base.var"##open#326", Base.Pairs{Symbol, Bool, Nothing, @NamedTuple{write::Bool, lock::Bool}}, typeof(open), Downloads.var"#7#8"{Nothing, Vector{Pair{String, String}}, Float6
+   <- Tuple{Downloads.var"#7#8"{Nothing, Vector{Pair{String, String}}, Float64, Nothing, Bool, Nothing, Nothing, String, Base.RefValue{Downloads.Response}}, IOStream}
+   <- Tuple{typeof(Core.kwcall), @NamedTuple{output::IOStream, method::Nothing, headers::Vector{Pair{String, String}}, timeout::Float64, progress::Nothing, verbose::Bool, debug::Nothing,
+   <- Tuple{Downloads.var"##request#9", Nothing, IOStream, Nothing, Vector{Pair{String, String}}, Float64, Nothing, Bool, Nothing, Bool, Nothing, Nothing, typeof(Downloads.request), Stri
+   direct callers: 1
+      Tuple{typeof(Base.unpreserve_handle), Any}
+== error_path  Tuple{typeof(Core.throw_inexacterror), Symbol, Type, Int64}  (in 2320 cones)
+   fault nofact: Tuple{Type{InexactError}, Symbol, Type, Int64}
+   <- Tuple{typeof(CSV._maybesentinel), CSV.ValueOpts, UInt8}
+   <- Tuple{Type{UInt64}, Int64}
+   <- Tuple{typeof(Core.toUInt64), Int64}
+   <- Tuple{typeof(Core.check_sign_bit), Type{UInt64}, Int64}
+   <- Tuple{typeof(Core.throw_inexacterror), Symbol, Type, Int64}
+   direct callers: 8
+      Tuple{typeof(Core.check_sign_bit), Type{UInt64}, Int64}
+      Tuple{typeof(Core.checked_trunc_sint), Type{Int32}, Int64}
+      Tuple{typeof(Core.checked_trunc_uint), Type{UInt32}, Int64}
+      Tuple{typeof(Core.checked_trunc_sint), Type{Int8}, Int64}
+      Tuple{typeof(Core.checked_trunc_uint), Type{UInt16}, Int64}
+      Tuple{typeof(Core.checked_trunc_sint), Type{Int16}, Int64}
+== error_path  Tuple{typeof(Base.throw_boundserror), Vector{T} where {T, T<:AbstractVector{T}}, Tuple{Int64}}  (in 1 cones)
+   fault nofact: Tuple{Type{BoundsError}, Vector{T} where {T, T<:AbstractVector{T}}, Tuple{Int64}}
+   <- Tuple{typeof(DataFrames._transformation_helper), DataFrame, Vector{Int64}, Base.RefValue{Any}}
+   <- Tuple{typeof(map), DataFrames.var"#_transformation_helper##0#_transformation_helper##1"{DataFrames.DataFrameColumns{DataFrame}}, Vector{Int64}}
+   <- Tuple{typeof(Base.collect_similar), Vector{Int64}, Base.Generator{Vector{Int64}, DataFrames.var"#_transformation_helper##0#_transformation_helper##1"{DataFrames.DataFrameColumns{Da
+   <- Tuple{typeof(Base._collect), Vector{Int64}, Base.Generator{Vector{Int64}, DataFrames.var"#_transformation_helper##0#_transformation_helper##1"{DataFrames.DataFrameColumns{DataFrame
+   <- Tuple{typeof(Base.collect_to_with_first!), Vector{<:AbstractVector{T}} where T, AbstractVector, Base.Generator{Vector{Int64}, DataFrames.var"#_transformation_helper##0#_transformat
+   <- Tuple{typeof(setindex!), Vector{<:AbstractVector{T}} where T, AbstractVector, Int64}
+   <- Tuple{typeof(Base._setindex!), Vector{T1}, AbstractVector{T}, Int64} where {T, T1<:AbstractVector{T}}
+   <- Tuple{typeof(Base.throw_boundserror), Vector{T} where {T, T<:AbstractVector{T}}, Tuple{Int64}}
+   direct callers: 1
+      Tuple{typeof(Base._setindex!), Vector{T1}, AbstractVector{T}, Int64} where {T, T1<:AbstractVector{T}}
+== error_path  Tuple{typeof(Core.throw_inexacterror), Symbol, Type, UInt128}  (in 428 cones)
+   fault nofact: Tuple{Type{InexactError}, Symbol, Type, UInt128}
+   <- Tuple{typeof(CSV._detectcontent), Vector{UInt8}, Int64, Int64, CSV.ValueOpts}
+   <- Tuple{typeof(Parsers.parseint), Type{Int128}, Vector{UInt8}, Int64, Int64}
+   <- Tuple{typeof(Parsers.parseint128), Vector{UInt8}, Int64, Int64}
+   <- Tuple{typeof(Parsers._parseint128exact), Vector{UInt8}, Int64, Int64}
+   <- Tuple{Type{Int128}, UInt128}
+   <- Tuple{typeof(Core.toInt128), UInt128}
+   <- Tuple{typeof(Core.check_sign_bit), Type{Int128}, UInt128}
+   <- Tuple{typeof(Core.throw_inexacterror), Symbol, Type, UInt128}
+   direct callers: 4
+      Tuple{typeof(Core.checked_trunc_uint), Type{UInt64}, UInt128}
+      Tuple{typeof(Core.check_sign_bit), Type{Int128}, UInt128}
+      Tuple{typeof(Core.checked_trunc_sint), Type{Int8}, UInt128}
+      Tuple{typeof(Core.check_sign_bit), Type{Int8}, UInt128}
+== error_path  Tuple{typeof(Base.throw_boundserror), Vector, Tuple{Int64}}  (in 430 cones)
+   fault nofact: Tuple{Type{BoundsError}, Vector, Tuple{Int64}}
+   <- Tuple{typeof(CSV._parse), Vector{UInt8}, CSV.Dialect, CSV.ValueOpts, Symbol, Union{Nothing, Dict{Type, Type}}, Int64, Bool, Int64, Int64, Symbol, Bool, Bool, Union{Nothing, Int64},
+   <- Tuple{typeof(collect), Base.Generator{Vector{CSV.ColumnDecision}, CSV.var"#_parse##12#_parse##13"}}
+   <- Tuple{typeof(Base.collect_to_with_first!), Vector, Any, Base.Generator{Vector{CSV.ColumnDecision}, CSV.var"#_parse##12#_parse##13"}, Int64}
+   <- Tuple{typeof(setindex!), Vector, Any, Int64}
+   <- Tuple{typeof(Base._setindex!), Vector{T}, Any, Int64} where T
+   <- Tuple{typeof(Base.throw_boundserror), Vector, Tuple{Int64}}
+   direct callers: 2
+      Tuple{typeof(checkbounds), Vector, Int64}
+      Tuple{typeof(Base._setindex!), Vector{T}, Any, Int64} where T
+== error_path  Tuple{typeof(Base.kwerr), @NamedTuple{write::Bool, lock::Bool}, typeof(open), Base.AbstractCmd, Base.DevNull}  (in 30 cones)
+   fault nofact: Tuple{Type{MethodError}, typeof(Core.kwcall), Tuple{@NamedTuple{write::Bool, lock::Bool}, typeof(open), Base.AbstractCmd, Base.DevNull}, UInt64}
+   <- Tuple{CSV.var"##resolvesource#101", Bool, Bool, Vector{Task}, typeof(CSV.resolvesource), String}
+   <- Tuple{typeof(Downloads.download), String}
+   <- Tuple{typeof(Downloads.download), String, Nothing}
+   <- Tuple{Downloads.var"##download#5", Nothing, Vector{Pair{String, String}}, Float64, Nothing, Bool, Nothing, Nothing, typeof(Downloads.download), String, Nothing}
+   <- Tuple{typeof(ArgTools.arg_write), Function, String}
+   <- Tuple{typeof(Core.kwcall), @NamedTuple{write::Bool}, typeof(ArgTools.open_nolock), Function, String}
+   <- Tuple{ArgTools.var"##open_nolock#1", Base.Pairs{Symbol, Bool, Nothing, @NamedTuple{write::Bool}}, typeof(ArgTools.open_nolock), Function, Vararg{Any}}
+   <- Tuple{typeof(Core.kwcall), @NamedTuple{write::Bool, lock::Bool}, typeof(open), Function, Base.AbstractCmd, Vararg{Any}}
+   <- Tuple{Base.var"##open#710", Base.Pairs{Symbol, Bool, Nothing, @NamedTuple{write::Bool, lock::Bool}}, typeof(open), Function, Base.AbstractCmd, Vararg{Any}}
+   <- Tuple{typeof(Core.kwcall), @NamedTuple{write::Bool, lock::Bool}, typeof(open), Base.AbstractCmd}
+   <- Tuple{typeof(Core.kwcall), @NamedTuple{write::Bool, lock::Bool}, typeof(open), Base.AbstractCmd, Base.DevNull}
+   <- Tuple{typeof(Base.kwerr), @NamedTuple{write::Bool, lock::Bool}, typeof(open), Base.AbstractCmd, Base.DevNull}
+   direct callers: 1
+      Tuple{typeof(Core.kwcall), @NamedTuple{write::Bool, lock::Bool}, typeof(open), Base.AbstractCmd, Base.DevNull}
+== error_path  Tuple{Base.var"#thrownonint#reinterpret##0", Type, Type, Int64}  (in 0 cones)
+   fault nofact: Tuple{Type{LazyString}, String, Type, String, Type, String, Int64, String}
+   direct callers: 1
+      Tuple{typeof(reinterpret), Type{UInt8}, Vector{UInt64}}
+== error_path  Tuple{typeof(length), Base.Generator{Nothing, Type{T}} where T}  (in 0 cones)
+   fault nofact: Tuple{typeof(getproperty), Base.Generator{Nothing, Type{T}} where T, Symbol}
+   direct callers: 1
+      Tuple{typeof(Base._similar_shape), Base.Generator{Nothing, Type{T}} where T, Base.HasLength}
+== error_path  Tuple{Base.var"#throw_field_access#fieldname##1", DataType, Int64, Int64}  (in 30 cones)
+   fault nofact: Tuple{typeof(string), String, Int64, String, DataType, String, Int64, String, String, String}
+   <- Tuple{CSV.var"##resolvesource#101", Bool, Bool, Vector{Task}, typeof(CSV.resolvesource), String}
+   <- Tuple{typeof(Downloads.download), String}
+   <- Tuple{typeof(Downloads.download), String, Nothing}
+   <- Tuple{Downloads.var"##download#5", Nothing, Vector{Pair{String, String}}, Float64, Nothing, Bool, Nothing, Nothing, typeof(Downloads.download), String, Nothing}
+   <- Tuple{typeof(ArgTools.arg_write), Downloads.var"#7#8"{Nothing, Vector{Pair{String, String}}, Float64, Nothing, Bool, Nothing, Nothing, String, Base.RefValue{Downloads.Response}}, S
+   <- Tuple{typeof(Core.kwcall), @NamedTuple{write::Bool}, typeof(ArgTools.open_nolock), Downloads.var"#7#8"{Nothing, Vector{Pair{String, String}}, Float64, Nothing, Bool, Nothing, Nothi
+   <- Tuple{ArgTools.var"##open_nolock#1", Base.Pairs{Symbol, Bool, Nothing, @NamedTuple{write::Bool}}, typeof(ArgTools.open_nolock), Downloads.var"#7#8"{Nothing, Vector{Pair{String, Str
+   <- Tuple{typeof(Core.kwcall), @NamedTuple{write::Bool, lock::Bool}, typeof(open), Downloads.var"#7#8"{Nothing, Vector{Pair{String, String}}, Float64, Nothing, Bool, Nothing, Nothing, 
+   <- Tuple{Base.var"##open#326", Base.Pairs{Symbol, Bool, Nothing, @NamedTuple{write::Bool, lock::Bool}}, typeof(open), Downloads.var"#7#8"{Nothing, Vector{Pair{String, String}}, Float6
+   <- Tuple{Downloads.var"#7#8"{Nothing, Vector{Pair{String, String}}, Float64, Nothing, Bool, Nothing, Nothing, String, Base.RefValue{Downloads.Response}}, IOStream}
+   <- Tuple{typeof(Core.kwcall), @NamedTuple{output::IOStream, method::Nothing, headers::Vector{Pair{String, String}}, timeout::Float64, progress::Nothing, verbose::Bool, debug::Nothing,
+   <- Tuple{Downloads.var"##request#9", Nothing, IOStream, Nothing, Vector{Pair{String, String}}, Float64, Nothing, Bool, Nothing, Bool, Nothing, Nothing, typeof(Downloads.request), Stri
+   direct callers: 1
+      Tuple{typeof(fieldname), DataType, Int64}
+== error_path  Tuple{typeof(Base.throw_boundserror), Memory, Tuple{Int64}}  (in 137 cones)
+   fault nofact: Tuple{Type{BoundsError}, Memory, Tuple{Int64}}
+   <- Tuple{DataFrames.Aggregate{typeof(first), Nothing}, PooledArrays.PooledVector{String, UInt32, Vector{UInt32}}, GroupedDataFrame{DataFrame}}
+   <- Tuple{typeof(similar), PooledArrays.PooledVector{String, UInt32, Vector{UInt32}}, Int64}
+   <- Tuple{typeof(similar), PooledArrays.PooledVector{String, UInt32, Vector{UInt32}}, Type, Tuple{Int64}}
+   <- Tuple{Type{PooledArrays.PooledArray}, PooledArrays.RefArray{Vector{UInt32}}, Dict{T, UInt32} where T}
+   <- Tuple{typeof(PooledArrays._invert), Dict{T, UInt32} where T}
+   <- Tuple{typeof(iterate), Dict{T, UInt32} where T, Int64}
+   <- Tuple{typeof(Base._iterate_dict), Dict{T, UInt32} where T, Int64}
+   <- Tuple{typeof(getindex), Memory, Int64}
+   <- Tuple{typeof(checkbounds), Memory, Int64}
+   <- Tuple{typeof(Base.throw_boundserror), Memory, Tuple{Int64}}
+   direct callers: 1
+      Tuple{typeof(checkbounds), Memory, Int64}
+== other  Tuple{typeof(length), Memory}  (in 137 cones)
+   fault nofact: Tuple{typeof(size), Memory}
+   <- Tuple{CSV.var"##_poolcolumns#180", Int64, typeof(CSV._poolcolumns), CSV.ParsedTable, Vector{Union{Nothing, Tuple{Float64, Int64}}}}
+   <- Tuple{typeof(collect), Base.Generator{Base.Iterators.Filter{CSV.var"#186#187"{Vector{Union{Nothing, Tuple{Float64, Int64}}}}, Base.Iterators.Enumerate{Vector{AbstractVector}}}, CSV
+   <- Tuple{typeof(Base.grow_to!), Vector{Any}, Base.Generator{Base.Iterators.Filter{CSV.var"#186#187"{Vector{Union{Nothing, Tuple{Float64, Int64}}}}, Base.Iterators.Enumerate{Vector{Abs
+   <- Tuple{typeof(push!), Vector, Any}
+   <- Tuple{typeof(Base._push!), Vector{T}, T} where T
+   <- Tuple{typeof(Base._growend!), Vector, Int64}
+   <- Tuple{typeof(length), Memory}
+   direct callers: 10
+      Tuple{typeof(Base._growend!), Vector, Int64}
+      Tuple{typeof(Base._growend_internal!), Vector, Int64, Int64}
+      Tuple{typeof(checkbounds), Type{Bool}, Memory, Int64}
+      Tuple{Base.var"##sizehint!#81", Bool, Bool, typeof(sizehint!), Vector, Int64}
+      Tuple{typeof(Base._growbeg_internal!), Vector, Int64, Int64}
+      Tuple{typeof(Base._setindex!), Dict{K, UInt32} where K, Any, Any, Int64, UInt8}
+== other  Tuple{typeof(<), Unsigned, Unsigned}  (in 12 cones)
+   fault nofact: Tuple{typeof(promote), T, T} where T<:Unsigned
+   fault nofact: Tuple{typeof(promote), Unsigned, Unsigned}
+   <- Tuple{typeof(DataFrames.ColumnKernels._stats), DataFrames.ColumnKernels.CellVector{InlineStrings.String3, Vector{InlineStrings.String3}}, Vector{Symbol}}
+   <- Tuple{typeof(Statistics.mean), DataFrames.ColumnKernels.CellVector{InlineStrings.String3, Vector{InlineStrings.String3}}}
+   <- Tuple{Statistics.var"##mean#2", Function, typeof(Statistics.mean), DataFrames.ColumnKernels.CellVector{InlineStrings.String3, Vector{InlineStrings.String3}}}
+   <- Tuple{typeof(Statistics._mean), typeof(identity), DataFrames.ColumnKernels.CellVector{InlineStrings.String3, Vector{InlineStrings.String3}}, Function}
+   <- Tuple{typeof(Core.kwcall), NamedTuple{(:dims,), <:Tuple{Function}}, typeof(sum), typeof(identity), DataFrames.ColumnKernels.CellVector{InlineStrings.String3, Vector{InlineStrings.S
+   <- Tuple{Base.var"##sum#749", Function, Base.Pairs{Symbol, Union{}, Nothing, @NamedTuple{}}, typeof(sum), typeof(identity), DataFrames.ColumnKernels.CellVector{InlineStrings.String3, 
+   <- Tuple{typeof(Base._sum), typeof(identity), DataFrames.ColumnKernels.CellVector{InlineStrings.String3, Vector{InlineStrings.String3}}, Function}
+   <- Tuple{Base.var"##_sum#775", Base.Pairs{Symbol, Union{}, Nothing, @NamedTuple{}}, typeof(Base._sum), typeof(identity), DataFrames.ColumnKernels.CellVector{InlineStrings.String3, Vec
+   <- Tuple{typeof(Core.kwcall), NamedTuple{(:dims,), <:Tuple{Function}}, typeof(mapreduce), typeof(identity), typeof(Base.add_sum), DataFrames.ColumnKernels.CellVector{InlineStrings.Str
+   <- Tuple{Base.var"##mapreduce#741", Function, Base._InitialValue, typeof(mapreduce), typeof(identity), typeof(Base.add_sum), DataFrames.ColumnKernels.CellVector{InlineStrings.String3,
+   <- Tuple{typeof(Base._mapreduce_dim), typeof(identity), typeof(Base.add_sum), Base._InitialValue, DataFrames.ColumnKernels.CellVector{InlineStrings.String3, Vector{InlineStrings.Strin
+   <- Tuple{typeof(Base.reducedim_init), Function, typeof(Base.add_sum), DataFrames.ColumnKernels.CellVector{InlineStrings.String3, Vector{InlineStrings.String3}}, Function}
+   direct callers: 1
+      Tuple{typeof(<=), T, T} where T<:Unsigned
+== error_path  Tuple{Type{TypeError}, Symbol, Type{DataType}, Any}  (in 34 cones)
+   fault nofact: Tuple{Type{TypeError}, Symbol, String, Type{DataType}, Any}
+   <- Tuple{typeof(DataFrames.default_table_transformation), DataFrame, ByRow{typeof(Statistics.mean)}}
+   <- Tuple{typeof(Tables.columntable), DataFrame}
+   <- Tuple{typeof(Tables.columntable), Tables.Schema{names, types}, DataFrames.DataFrameColumns{DataFrame}} where {names, types}
+   <- Tuple{typeof(fieldcount), Any}
+   <- Tuple{Type{TypeError}, Symbol, Type{DataType}, Any}
+   direct callers: 1
+      Tuple{typeof(fieldcount), Any}
+== error_path  Tuple{typeof(Base.throw_boundserror), Array, Tuple{Int64}}  (in 129 cones)
+   fault nofact: Tuple{Type{BoundsError}, Array, Tuple{Int64}}
+   <- Tuple{typeof(CSV._checkonerror), Symbol}
+   <- Tuple{typeof(repr), Symbol}
+   <- Tuple{Base.var"##repr#434", Nothing, typeof(repr), Symbol}
+   <- Tuple{typeof(Core.kwcall), @NamedTuple{context::Nothing}, typeof(sprint), typeof(show), Symbol}
+   <- Tuple{Base.var"##sprint#431", Nothing, Int64, typeof(sprint), typeof(show), Symbol}
+   <- Tuple{typeof(show), IOBuffer, Symbol}
+   <- Tuple{typeof(Base.show_unquoted_quote_expr), IOBuffer, Any, Int64, Int64, Int64}
+   <- Tuple{typeof(Base.show_unquoted), IOBuffer, Expr, Int64, Int64, Int64}
+   <- Tuple{typeof(Base.show_block), IOContext{IOBuffer}, String, Vector, Expr, Int64, Int64}
+   <- Tuple{typeof(Base.show_list), IOContext{IOBuffer}, Vector, String, Int64, Int64, Int64}
+   <- Tuple{typeof(Base.show_list), IOContext{IOBuffer}, Array, String, Int64, Int64, Int64, Bool, Bool}
+   <- Tuple{typeof(iterate), Array, Int64}
+   direct callers: 1
+      Tuple{typeof(checkbounds), Array, Int64}
+== other  Tuple{typeof(length), Array}  (in 129 cones)
+   fault nofact: Tuple{typeof(size), Array}
+   fault nofact: Tuple{typeof(prod), NTuple{N, Int64} where N}
+   <- Tuple{typeof(CSV._checkonerror), Symbol}
+   <- Tuple{typeof(repr), Symbol}
+   <- Tuple{Base.var"##repr#434", Nothing, typeof(repr), Symbol}
+   <- Tuple{typeof(Core.kwcall), @NamedTuple{context::Nothing}, typeof(sprint), typeof(show), Symbol}
+   <- Tuple{Base.var"##sprint#431", Nothing, Int64, typeof(sprint), typeof(show), Symbol}
+   <- Tuple{typeof(show), IOBuffer, Symbol}
+   <- Tuple{typeof(Base.show_unquoted_quote_expr), IOBuffer, Any, Int64, Int64, Int64}
+   <- Tuple{typeof(Base.show_unquoted), IOBuffer, Expr, Int64, Int64, Int64}
+   <- Tuple{typeof(Base.show_block), IOContext{IOBuffer}, String, Vector, Expr, Int64, Int64}
+   <- Tuple{typeof(Base.show_list), IOContext{IOBuffer}, Vector, String, Int64, Int64, Int64}
+   <- Tuple{typeof(Base.show_list), IOContext{IOBuffer}, Array, String, Int64, Int64, Int64, Bool, Bool}
+   <- Tuple{typeof(length), Array}
+   direct callers: 3
+      Tuple{typeof(Base.show_list), IOContext{IOBuffer}, Array, String, Int64, Int64, Int64, Bool, Bool}
+      Tuple{typeof(checkbounds), Type{Bool}, Array, Int64}
+      Tuple{typeof(eachindex), IndexLinear, Array}
+== other  Tuple{typeof(<), Ptr, Ptr}  (in 137 cones)
+   fault nofact: Tuple{Type{UInt64}, Ptr}
+   <- Tuple{CSV.var"##_poolcolumns#180", Int64, typeof(CSV._poolcolumns), CSV.ParsedTable, Vector{Union{Nothing, Tuple{Float64, Int64}}}}
+   <- Tuple{typeof(collect), Base.Generator{Base.Iterators.Filter{CSV.var"#186#187"{Vector{Union{Nothing, Tuple{Float64, Int64}}}}, Base.Iterators.Enumerate{Vector{AbstractVector}}}, CSV
+   <- Tuple{typeof(Base.grow_to!), Vector{Any}, Base.Generator{Base.Iterators.Filter{CSV.var"#186#187"{Vector{Union{Nothing, Tuple{Float64, Int64}}}}, Base.Iterators.Enumerate{Vector{Abs
+   <- Tuple{typeof(push!), Vector, Any}
+   <- Tuple{typeof(Base._push!), Vector{T}, T} where T
+   <- Tuple{typeof(Base._growend!), Vector, Int64}
+   <- Tuple{typeof(Base._growend_internal!), Vector, Int64, Int64}
+   <- Tuple{typeof(unsafe_copyto!), MemoryRef, MemoryRef, Int64}
+   <- Tuple{typeof(unsafe_copyto!), Memory, Int64, Memory, Int64, Int64}
+   <- Tuple{typeof(<), Ptr, Ptr}
+   direct callers: 2
+      Tuple{typeof(unsafe_copyto!), Memory, Int64, Memory, Int64, Int64}
+      Tuple{typeof(>), Ptr, Ptr}
+== error_path  Tuple{typeof(Core.throw_inexacterror), Symbol, Type, UInt32}  (in 2008 cones)
+   fault nofact: Tuple{Type{InexactError}, Symbol, Type, UInt32}
+   <- Tuple{typeof(CSV._parsebool), Vector{UInt8}, Int64, Int64}
+   <- Tuple{Type{UInt8}, Char}
+   <- Tuple{Type{UInt8}, UInt32}
+   <- Tuple{typeof(Core.toUInt8), UInt32}
+   <- Tuple{typeof(Core.checked_trunc_uint), Type{UInt8}, UInt32}
+   <- Tuple{typeof(Core.throw_inexacterror), Symbol, Type, UInt32}
+   direct callers: 5
+      Tuple{typeof(Core.checked_trunc_uint), Type{UInt8}, UInt32}
+      Tuple{typeof(Core.check_sign_bit), Type{Int32}, UInt32}
+      Tuple{typeof(Core.checked_trunc_uint), Type{UInt16}, UInt32}
+      Tuple{typeof(Core.checked_trunc_sint), Type{Int8}, UInt32}
+      Tuple{typeof(Core.check_sign_bit), Type{Int8}, UInt32}
+== error_path  Tuple{typeof(Core.throw_inexacterror), Symbol, Type, Int16}  (in 70 cones)
+   fault nofact: Tuple{Type{InexactError}, Symbol, Type, Int16}
+   <- Tuple{typeof(CSV._appendint!), Vector{UInt8}, Union{Int128, Int16, Int32, Int64, Int8}}
+   <- Tuple{typeof(unsigned), Int16}
+   <- Tuple{typeof(convert), Type{Unsigned}, Int16}
+   <- Tuple{Type{Unsigned}, Int16}
+   <- Tuple{Type{UInt16}, Int16}
+   <- Tuple{typeof(Core.toUInt16), Int16}
+   <- Tuple{typeof(Core.check_sign_bit), Type{UInt16}, Int16}
+   <- Tuple{typeof(Core.throw_inexacterror), Symbol, Type, Int16}
+   direct callers: 2
+      Tuple{typeof(Core.check_sign_bit), Type{UInt16}, Int16}
+      Tuple{typeof(Core.checked_trunc_sint), Type{Int8}, Int16}
+== error_path  Tuple{typeof(length), Base.Generator{Nothing, Type{T}} where T}  (in 4 cones)
+   fault nofact: Tuple{typeof(getproperty), Base.Generator{Nothing, Type{T}} where T, Symbol}
+   <- Tuple{typeof(DataFrames.default_table_transformation), DataFrame, ByRow{typeof(Statistics.mean)}}
+   <- Tuple{typeof(Tables.columntable), DataFrame}
+   <- Tuple{typeof(Tables.columntable), Tables.Schema{nothing, nothing}, DataFrames.DataFrameColumns{DataFrame}}
+   <- Tuple{typeof(map), Type, Nothing}
+   <- Tuple{typeof(collect), Base.Generator{Nothing, Type{T}} where T}
+   <- Tuple{typeof(Base._similar_shape), Base.Generator{Nothing, Type{T}} where T, Base.HasLength}
+   <- Tuple{typeof(length), Base.Generator{Nothing, Type{T}} where T}
+   direct callers: 1
+      Tuple{typeof(Base._similar_shape), Base.Generator{Nothing, Type{T}} where T, Base.HasLength}
+== error_path  Tuple{typeof(fieldname), Type{<:Tuple}, Int64}  (in 30 cones)
+   fault nofact: Tuple{typeof(fieldcount), Type{<:Tuple}}
+   fault nofact: Tuple{Type{BoundsError}, Type{<:Tuple}, Int64}
+   <- Tuple{CSV.var"##resolvesource#101", Bool, Bool, Vector{Task}, typeof(CSV.resolvesource), String}
+   <- Tuple{typeof(Downloads.download), String}
+   <- Tuple{typeof(Downloads.download), String, Nothing}
+   <- Tuple{Downloads.var"##download#5", Nothing, Vector{Pair{String, String}}, Float64, Nothing, Bool, Nothing, Nothing, typeof(Downloads.download), String, Nothing}
+   <- Tuple{typeof(ArgTools.arg_write), Downloads.var"#7#8"{Nothing, Vector{Pair{String, String}}, Float64, Nothing, Bool, Nothing, Nothing, String, Base.RefValue{Downloads.Response}}, S
+   <- Tuple{typeof(Core.kwcall), @NamedTuple{write::Bool}, typeof(ArgTools.open_nolock), Downloads.var"#7#8"{Nothing, Vector{Pair{String, String}}, Float64, Nothing, Bool, Nothing, Nothi
+   <- Tuple{ArgTools.var"##open_nolock#1", Base.Pairs{Symbol, Bool, Nothing, @NamedTuple{write::Bool}}, typeof(ArgTools.open_nolock), Downloads.var"#7#8"{Nothing, Vector{Pair{String, Str
+   <- Tuple{typeof(Core.kwcall), @NamedTuple{write::Bool, lock::Bool}, typeof(open), Downloads.var"#7#8"{Nothing, Vector{Pair{String, String}}, Float64, Nothing, Bool, Nothing, Nothing, 
+   <- Tuple{Base.var"##open#326", Base.Pairs{Symbol, Bool, Nothing, @NamedTuple{write::Bool, lock::Bool}}, typeof(open), Downloads.var"#7#8"{Nothing, Vector{Pair{String, String}}, Float6
+   <- Tuple{Downloads.var"#7#8"{Nothing, Vector{Pair{String, String}}, Float64, Nothing, Bool, Nothing, Nothing, String, Base.RefValue{Downloads.Response}}, IOStream}
+   <- Tuple{typeof(Core.kwcall), @NamedTuple{output::IOStream, method::Nothing, headers::Vector{Pair{String, String}}, timeout::Float64, progress::Nothing, verbose::Bool, debug::Nothing,
+   <- Tuple{Downloads.var"##request#9", Nothing, IOStream, Nothing, Vector{Pair{String, String}}, Float64, Nothing, Bool, Nothing, Bool, Nothing, Nothing, typeof(Downloads.request), Stri
+   direct callers: 1
+      Tuple{typeof(Base._show_default), IOBuffer, Any}
+== error_path  Tuple{typeof(<), T, T} where T<:Unsigned  (in 12 cones)
+   fault nofact: Tuple{typeof(Base.no_op_err), String, Type{T} where T<:Unsigned}
+   <- Tuple{typeof(DataFrames.ColumnKernels._stats), DataFrames.ColumnKernels.CellVector{InlineStrings.String3, Vector{InlineStrings.String3}}, Vector{Symbol}}
+   <- Tuple{typeof(Statistics.mean), DataFrames.ColumnKernels.CellVector{InlineStrings.String3, Vector{InlineStrings.String3}}}
+   <- Tuple{Statistics.var"##mean#2", Function, typeof(Statistics.mean), DataFrames.ColumnKernels.CellVector{InlineStrings.String3, Vector{InlineStrings.String3}}}
+   <- Tuple{typeof(Statistics._mean), typeof(identity), DataFrames.ColumnKernels.CellVector{InlineStrings.String3, Vector{InlineStrings.String3}}, Function}
+   <- Tuple{typeof(Core.kwcall), NamedTuple{(:dims,), <:Tuple{Function}}, typeof(sum), typeof(identity), DataFrames.ColumnKernels.CellVector{InlineStrings.String3, Vector{InlineStrings.S
+   <- Tuple{Base.var"##sum#749", Function, Base.Pairs{Symbol, Union{}, Nothing, @NamedTuple{}}, typeof(sum), typeof(identity), DataFrames.ColumnKernels.CellVector{InlineStrings.String3, 
+   <- Tuple{typeof(Base._sum), typeof(identity), DataFrames.ColumnKernels.CellVector{InlineStrings.String3, Vector{InlineStrings.String3}}, Function}
+   <- Tuple{Base.var"##_sum#775", Base.Pairs{Symbol, Union{}, Nothing, @NamedTuple{}}, typeof(Base._sum), typeof(identity), DataFrames.ColumnKernels.CellVector{InlineStrings.String3, Vec
+   <- Tuple{typeof(Core.kwcall), NamedTuple{(:dims,), <:Tuple{Function}}, typeof(mapreduce), typeof(identity), typeof(Base.add_sum), DataFrames.ColumnKernels.CellVector{InlineStrings.Str
+   <- Tuple{Base.var"##mapreduce#741", Function, Base._InitialValue, typeof(mapreduce), typeof(identity), typeof(Base.add_sum), DataFrames.ColumnKernels.CellVector{InlineStrings.String3,
+   <- Tuple{typeof(Base._mapreduce_dim), typeof(identity), typeof(Base.add_sum), Base._InitialValue, DataFrames.ColumnKernels.CellVector{InlineStrings.String3, Vector{InlineStrings.Strin
+   <- Tuple{typeof(Base.reducedim_init), Function, typeof(Base.add_sum), DataFrames.ColumnKernels.CellVector{InlineStrings.String3, Vector{InlineStrings.String3}}, Function}
+   direct callers: 1
+      Tuple{typeof(<=), T, T} where T<:Unsigned
+== introspection  Tuple{typeof(fieldname), DataType, Int64}  (in 30 cones)
+   fault mi: MethodInstance for (::Base.var"#throw_field_access#fieldname##1")(::Type, ::Int64, ::Int64)
+      its code: bit false, facts false, rettype Union{}
+   fault nofact: Tuple{typeof(isabstracttype), DataType}
+   fault nofact: Tuple{typeof(Base._fieldnames), DataType}
+   fault nofact: Tuple{Base.var"#throw_field_access#fieldname##1", DataType, Int64, Int64}
+   <- Tuple{CSV.var"##resolvesource#101", Bool, Bool, Vector{Task}, typeof(CSV.resolvesource), String}
+   <- Tuple{typeof(Downloads.download), String}
+   <- Tuple{typeof(Downloads.download), String, Nothing}
+   <- Tuple{Downloads.var"##download#5", Nothing, Vector{Pair{String, String}}, Float64, Nothing, Bool, Nothing, Nothing, typeof(Downloads.download), String, Nothing}
+   <- Tuple{typeof(ArgTools.arg_write), Downloads.var"#7#8"{Nothing, Vector{Pair{String, String}}, Float64, Nothing, Bool, Nothing, Nothing, String, Base.RefValue{Downloads.Response}}, S
+   <- Tuple{typeof(Core.kwcall), @NamedTuple{write::Bool}, typeof(ArgTools.open_nolock), Downloads.var"#7#8"{Nothing, Vector{Pair{String, String}}, Float64, Nothing, Bool, Nothing, Nothi
+   <- Tuple{ArgTools.var"##open_nolock#1", Base.Pairs{Symbol, Bool, Nothing, @NamedTuple{write::Bool}}, typeof(ArgTools.open_nolock), Downloads.var"#7#8"{Nothing, Vector{Pair{String, Str
+   <- Tuple{typeof(Core.kwcall), @NamedTuple{write::Bool, lock::Bool}, typeof(open), Downloads.var"#7#8"{Nothing, Vector{Pair{String, String}}, Float64, Nothing, Bool, Nothing, Nothing, 
+   <- Tuple{Base.var"##open#326", Base.Pairs{Symbol, Bool, Nothing, @NamedTuple{write::Bool, lock::Bool}}, typeof(open), Downloads.var"#7#8"{Nothing, Vector{Pair{String, String}}, Float6
+   <- Tuple{Downloads.var"#7#8"{Nothing, Vector{Pair{String, String}}, Float64, Nothing, Bool, Nothing, Nothing, String, Base.RefValue{Downloads.Response}}, IOStream}
+   <- Tuple{typeof(Core.kwcall), @NamedTuple{output::IOStream, method::Nothing, headers::Vector{Pair{String, String}}, timeout::Float64, progress::Nothing, verbose::Bool, debug::Nothing,
+   <- Tuple{Downloads.var"##request#9", Nothing, IOStream, Nothing, Vector{Pair{String, String}}, Float64, Nothing, Bool, Nothing, Bool, Nothing, Nothing, typeof(Downloads.request), Stri
+   direct callers: 1
+      Tuple{typeof(Base._show_default), IOBuffer, Any}
+== error_path  Tuple{typeof(Base.kwerr), @NamedTuple{write::Bool, lock::Bool}, typeof(open), Base.AbstractCmd, Base.FileRedirect}  (in 30 cones)
+   fault nofact: Tuple{Type{MethodError}, typeof(Core.kwcall), Tuple{@NamedTuple{write::Bool, lock::Bool}, typeof(open), Base.AbstractCmd, Base.FileRedirect}, UInt64}
+   <- Tuple{CSV.var"##resolvesource#101", Bool, Bool, Vector{Task}, typeof(CSV.resolvesource), String}
+   <- Tuple{typeof(Downloads.download), String}
+   <- Tuple{typeof(Downloads.download), String, Nothing}
+   <- Tuple{Downloads.var"##download#5", Nothing, Vector{Pair{String, String}}, Float64, Nothing, Bool, Nothing, Nothing, typeof(Downloads.download), String, Nothing}
+   <- Tuple{typeof(ArgTools.arg_write), Function, String}
+   <- Tuple{typeof(Core.kwcall), @NamedTuple{write::Bool}, typeof(ArgTools.open_nolock), Function, String}
+   <- Tuple{ArgTools.var"##open_nolock#1", Base.Pairs{Symbol, Bool, Nothing, @NamedTuple{write::Bool}}, typeof(ArgTools.open_nolock), Function, Vararg{Any}}
+   <- Tuple{typeof(Core.kwcall), @NamedTuple{write::Bool, lock::Bool}, typeof(open), Function, Base.AbstractCmd, Vararg{Any}}
+   <- Tuple{Base.var"##open#710", Base.Pairs{Symbol, Bool, Nothing, @NamedTuple{write::Bool, lock::Bool}}, typeof(open), Function, Base.AbstractCmd, Vararg{Any}}
+   <- Tuple{typeof(Core.kwcall), @NamedTuple{write::Bool, lock::Bool}, typeof(open), Base.AbstractCmd, Union{RawFD, Base.FileRedirect, Base.IOServer, IO}}
+   <- Tuple{typeof(Base.kwerr), @NamedTuple{write::Bool, lock::Bool}, typeof(open), Base.AbstractCmd, Base.FileRedirect}
+   direct callers: 1
+      Tuple{typeof(Core.kwcall), @NamedTuple{write::Bool, lock::Bool}, typeof(open), Base.AbstractCmd, Union{RawFD, Base.FileRedirect, Base.IOServer, IO}}
+== error_path  Tuple{typeof(Base.kwerr), @NamedTuple{write::Bool, lock::Bool}, typeof(open), Base.AbstractCmd, RawFD}  (in 30 cones)
+   fault nofact: Tuple{Type{MethodError}, typeof(Core.kwcall), Tuple{@NamedTuple{write::Bool, lock::Bool}, typeof(open), Base.AbstractCmd, RawFD}, UInt64}
+   <- Tuple{CSV.var"##resolvesource#101", Bool, Bool, Vector{Task}, typeof(CSV.resolvesource), String}
+   <- Tuple{typeof(Downloads.download), String}
+   <- Tuple{typeof(Downloads.download), String, Nothing}
+   <- Tuple{Downloads.var"##download#5", Nothing, Vector{Pair{String, String}}, Float64, Nothing, Bool, Nothing, Nothing, typeof(Downloads.download), String, Nothing}
+   <- Tuple{typeof(ArgTools.arg_write), Function, String}
+   <- Tuple{typeof(Core.kwcall), @NamedTuple{write::Bool}, typeof(ArgTools.open_nolock), Function, String}
+   <- Tuple{ArgTools.var"##open_nolock#1", Base.Pairs{Symbol, Bool, Nothing, @NamedTuple{write::Bool}}, typeof(ArgTools.open_nolock), Function, Vararg{Any}}
+   <- Tuple{typeof(Core.kwcall), @NamedTuple{write::Bool, lock::Bool}, typeof(open), Function, Base.AbstractCmd, Vararg{Any}}
+   <- Tuple{Base.var"##open#710", Base.Pairs{Symbol, Bool, Nothing, @NamedTuple{write::Bool, lock::Bool}}, typeof(open), Function, Base.AbstractCmd, Vararg{Any}}
+   <- Tuple{typeof(Core.kwcall), @NamedTuple{write::Bool, lock::Bool}, typeof(open), Base.AbstractCmd, Union{RawFD, Base.FileRedirect, Base.IOServer, IO}}
+   <- Tuple{typeof(Base.kwerr), @NamedTuple{write::Bool, lock::Bool}, typeof(open), Base.AbstractCmd, RawFD}
+   direct callers: 1
+      Tuple{typeof(Core.kwcall), @NamedTuple{write::Bool, lock::Bool}, typeof(open), Base.AbstractCmd, Union{RawFD, Base.FileRedirect, Base.IOServer, IO}}
+== error_path  Tuple{typeof(Core.throw_inexacterror), Symbol, Type, Int128}  (in 1732 cones)
+   fault nofact: Tuple{Type{InexactError}, Symbol, Type, Int128}
+   <- Tuple{typeof(CSV.totimestamp), Type{Durations.Timestamp{Dates.Microsecond}}, Parsers.CivilParts}
+   <- Tuple{Type{Int64}, Int128}
+   <- Tuple{typeof(Core.toInt64), Int128}
+   <- Tuple{typeof(Core.checked_trunc_sint), Type{Int64}, Int128}
+   <- Tuple{typeof(Core.throw_inexacterror), Symbol, Type, Int128}
+   direct callers: 5
+      Tuple{typeof(Core.checked_trunc_sint), Type{Int64}, Int128}
+      Tuple{typeof(Core.checked_trunc_sint), Type{Int32}, Int128}
+      Tuple{typeof(Core.check_sign_bit), Type{UInt128}, Int128}
+      Tuple{typeof(Core.checked_trunc_uint), Type{UInt64}, Int128}
+      Tuple{typeof(Core.checked_trunc_sint), Type{Int8}, Int128}
+== other  Tuple{typeof(length), Vector{T} where {T, T<:AbstractVector{T}}}  (in 1 cones)
+   fault nofact: Tuple{typeof(size), Vector{T} where {T, T<:AbstractVector{T}}}
+   <- Tuple{typeof(DataFrames._transformation_helper), DataFrame, Vector{Int64}, Base.RefValue{Any}}
+   <- Tuple{typeof(map), DataFrames.var"#_transformation_helper##0#_transformation_helper##1"{DataFrames.DataFrameColumns{DataFrame}}, Vector{Int64}}
+   <- Tuple{typeof(Base.collect_similar), Vector{Int64}, Base.Generator{Vector{Int64}, DataFrames.var"#_transformation_helper##0#_transformation_helper##1"{DataFrames.DataFrameColumns{Da
+   <- Tuple{typeof(Base._collect), Vector{Int64}, Base.Generator{Vector{Int64}, DataFrames.var"#_transformation_helper##0#_transformation_helper##1"{DataFrames.DataFrameColumns{DataFrame
+   <- Tuple{typeof(Base.collect_to_with_first!), Vector{<:AbstractVector{T}} where T, AbstractVector, Base.Generator{Vector{Int64}, DataFrames.var"#_transformation_helper##0#_transformat
+   <- Tuple{typeof(setindex!), Vector{<:AbstractVector{T}} where T, AbstractVector, Int64}
+   <- Tuple{typeof(Base._setindex!), Vector{T1}, AbstractVector{T}, Int64} where {T, T1<:AbstractVector{T}}
+   <- Tuple{typeof(checkbounds), Type{Bool}, Vector{T} where {T, T<:AbstractVector{T}}, Int64}
+   <- Tuple{typeof(length), Vector{T} where {T, T<:AbstractVector{T}}}
+   direct callers: 1
+      Tuple{typeof(checkbounds), Type{Bool}, Vector{T} where {T, T<:AbstractVector{T}}, Int64}
+== error_path  Tuple{Type{TypeError}, Symbol, Type{DataType}, Type{<:Tuple}}  (in 30 cones)
+   fault nofact: Tuple{Type{TypeError}, Symbol, String, Type{DataType}, Type{<:Tuple}}
+   <- Tuple{CSV.var"##resolvesource#101", Bool, Bool, Vector{Task}, typeof(CSV.resolvesource), String}
+   <- Tuple{typeof(Downloads.download), String}
+   <- Tuple{typeof(Downloads.download), String, Nothing}
+   <- Tuple{Downloads.var"##download#5", Nothing, Vector{Pair{String, String}}, Float64, Nothing, Bool, Nothing, Nothing, typeof(Downloads.download), String, Nothing}
+   <- Tuple{typeof(ArgTools.arg_write), Downloads.var"#7#8"{Nothing, Vector{Pair{String, String}}, Float64, Nothing, Bool, Nothing, Nothing, String, Base.RefValue{Downloads.Response}}, S
+   <- Tuple{typeof(Core.kwcall), @NamedTuple{write::Bool}, typeof(ArgTools.open_nolock), Downloads.var"#7#8"{Nothing, Vector{Pair{String, String}}, Float64, Nothing, Bool, Nothing, Nothi
+   <- Tuple{ArgTools.var"##open_nolock#1", Base.Pairs{Symbol, Bool, Nothing, @NamedTuple{write::Bool}}, typeof(ArgTools.open_nolock), Downloads.var"#7#8"{Nothing, Vector{Pair{String, Str
+   <- Tuple{typeof(Core.kwcall), @NamedTuple{write::Bool, lock::Bool}, typeof(open), Downloads.var"#7#8"{Nothing, Vector{Pair{String, String}}, Float64, Nothing, Bool, Nothing, Nothing, 
+   <- Tuple{Base.var"##open#326", Base.Pairs{Symbol, Bool, Nothing, @NamedTuple{write::Bool, lock::Bool}}, typeof(open), Downloads.var"#7#8"{Nothing, Vector{Pair{String, String}}, Float6
+   <- Tuple{Downloads.var"#7#8"{Nothing, Vector{Pair{String, String}}, Float64, Nothing, Bool, Nothing, Nothing, String, Base.RefValue{Downloads.Response}}, IOStream}
+   <- Tuple{typeof(Core.kwcall), @NamedTuple{output::IOStream, method::Nothing, headers::Vector{Pair{String, String}}, timeout::Float64, progress::Nothing, verbose::Bool, debug::Nothing,
+   <- Tuple{Downloads.var"##request#9", Nothing, IOStream, Nothing, Vector{Pair{String, String}}, Float64, Nothing, Bool, Nothing, Bool, Nothing, Nothing, typeof(Downloads.request), Stri
+   direct callers: 1
+      Tuple{typeof(fieldcount), Type{<:Tuple}}
+== other  Tuple{typeof(length), Dict{T, UInt32} where T}  (in 5 cones)
+   fault nofact: Tuple{typeof(getproperty), Dict{T, UInt32} where T, Symbol}
+   <- Tuple{DataFrames.Aggregate{typeof(first), Nothing}, PooledArrays.PooledVector{String, UInt32, Vector{UInt32}}, GroupedDataFrame{DataFrame}}
+   <- Tuple{typeof(similar), PooledArrays.PooledVector{String, UInt32, Vector{UInt32}}, Int64}
+   <- Tuple{typeof(similar), PooledArrays.PooledVector{String, UInt32, Vector{UInt32}}, Type, Tuple{Int64}}
+   <- Tuple{Type{PooledArrays.PooledArray}, PooledArrays.RefArray{Vector{UInt32}}, Dict{T, UInt32} where T}
+   <- Tuple{typeof(PooledArrays._invert), Dict{T, UInt32} where T}
+   <- Tuple{typeof(length), Dict{T, UInt32} where T}
+   direct callers: 5
+      Tuple{Type{PooledArrays.PooledVector{T, UInt32, Vector{UInt32}}}, PooledArrays.RefArray{Vector{UInt32}}, Dict{T, UInt32}, Vector{T}, Base.Threads.Atomic{Int64}}
+      Tuple{typeof(convert), Type{<:Dict{_A, UInt32} where _A}, Dict{T, UInt32} where T}
+      Tuple{Type{Dict{K, UInt32}}, Dict{T, UInt32} where T} where K
+      Tuple{Base.var"##sizehint!#306", Bool, typeof(sizehint!), Dict{T, UInt32} where T, Int64}
+      Tuple{typeof(PooledArrays._invert), Dict{T, UInt32} where T}
+== other  Tuple{typeof(length), Vector}  (in 447 cones)
+   fault nofact: Tuple{typeof(size), Vector}
+   <- Tuple{CSV.var"##_poolcolumns#180", Int64, typeof(CSV._poolcolumns), CSV.ParsedTable, Vector{Union{Nothing, Tuple{Float64, Int64}}}}
+   <- Tuple{typeof(collect), Base.Generator{Base.Iterators.Filter{CSV.var"#186#187"{Vector{Union{Nothing, Tuple{Float64, Int64}}}}, Base.Iterators.Enumerate{Vector{AbstractVector}}}, CSV
+   <- Tuple{typeof(Base.grow_to!), Vector{Any}, Base.Generator{Base.Iterators.Filter{CSV.var"#186#187"{Vector{Union{Nothing, Tuple{Float64, Int64}}}}, Base.Iterators.Enumerate{Vector{Abs
+   <- Tuple{typeof(Base.grow_to!), Vector, Base.Generator{Base.Iterators.Filter{CSV.var"#186#187"{Vector{Union{Nothing, Tuple{Float64, Int64}}}}, Base.Iterators.Enumerate{Vector{Abstract
+   <- Tuple{typeof(Base.push_widen), Vector, Any}
+   <- Tuple{typeof(length), Vector}
+   direct callers: 12
+      Tuple{typeof(Base.push_widen), Vector, Any}
+      Tuple{typeof(Base._push!), Vector{T}, T} where T
+      Tuple{typeof(Base._growend!), Vector, Int64}
+      Tuple{typeof(Base._append!), Vector, Base.HasShape{1}, Vector}
+      Tuple{typeof(checkbounds), Type{Bool}, Vector, Int64}
+      Tuple{typeof(eachindex), IndexLinear, Vector}
+== error_path  Tuple{typeof(Core.throw_inexacterror), Symbol, Type, UInt16}  (in 42 cones)
+   fault nofact: Tuple{Type{InexactError}, Symbol, Type, UInt16}
+   <- Tuple{typeof(DataFrames.ColumnKernels._stats), DataFrames.ColumnKernels.CellVector{InlineStrings.String3, Vector{InlineStrings.String3}}, Vector{Symbol}}
+   <- Tuple{typeof(Statistics.mean), DataFrames.ColumnKernels.CellVector{InlineStrings.String3, Vector{InlineStrings.String3}}}
+   <- Tuple{Statistics.var"##mean#2", Function, typeof(Statistics.mean), DataFrames.ColumnKernels.CellVector{InlineStrings.String3, Vector{InlineStrings.String3}}}
+   <- Tuple{typeof(Statistics._mean), typeof(identity), DataFrames.ColumnKernels.CellVector{InlineStrings.String3, Vector{InlineStrings.String3}}, Function}
+   <- Tuple{typeof(Core.kwcall), NamedTuple{(:dims,), <:Tuple{Function}}, typeof(sum), typeof(identity), DataFrames.ColumnKernels.CellVector{InlineStrings.String3, Vector{InlineStrings.S
+   <- Tuple{Base.var"##sum#749", Function, Base.Pairs{Symbol, Union{}, Nothing, @NamedTuple{}}, typeof(sum), typeof(identity), DataFrames.ColumnKernels.CellVector{InlineStrings.String3, 
+   <- Tuple{typeof(Base._sum), typeof(identity), DataFrames.ColumnKernels.CellVector{InlineStrings.String3, Vector{InlineStrings.String3}}, Function}
+   <- Tuple{Base.var"##_sum#775", Base.Pairs{Symbol, Union{}, Nothing, @NamedTuple{}}, typeof(Base._sum), typeof(identity), DataFrames.ColumnKernels.CellVector{InlineStrings.String3, Vec
+   <- Tuple{typeof(Core.kwcall), NamedTuple{(:dims,), <:Tuple{Function}}, typeof(mapreduce), typeof(identity), typeof(Base.add_sum), DataFrames.ColumnKernels.CellVector{InlineStrings.Str
+   <- Tuple{Base.var"##mapreduce#741", Function, Base._InitialValue, typeof(mapreduce), typeof(identity), typeof(Base.add_sum), DataFrames.ColumnKernels.CellVector{InlineStrings.String3,
+   <- Tuple{typeof(Base._mapreduce_dim), typeof(identity), typeof(Base.add_sum), Base._InitialValue, DataFrames.ColumnKernels.CellVector{InlineStrings.String3, Vector{InlineStrings.Strin
+   <- Tuple{typeof(Base.reducedim_init), Function, typeof(Base.add_sum), DataFrames.ColumnKernels.CellVector{InlineStrings.String3, Vector{InlineStrings.String3}}, Function}
+   direct callers: 3
+      Tuple{typeof(Core.check_sign_bit), Type{Int16}, UInt16}
+      Tuple{typeof(Core.checked_trunc_sint), Type{Int8}, UInt16}
+      Tuple{typeof(Core.check_sign_bit), Type{Int8}, UInt16}
+== error_path  Tuple{Type{AssertionError}, Any}  (in 133 cones)
+   fault nomethod: Tuple{typeof(Core.convert), Type{AbstractString}, Any}
+   fault nofact: Tuple{typeof(Core.convert), Type{AbstractString}, AbstractString}
+   <- Tuple{DataFrames.var"#431#432"{GroupedDataFrame{DataFrame}, Symbol}}
+   <- Tuple{typeof(ntuple), DataFrames.var"#433#434"{GroupedDataFrame{DataFrame}}, Int64}
+   <- Tuple{DataFrames.var"#433#434"{GroupedDataFrame{DataFrame}}, Int64}
+   <- Tuple{typeof(getproperty), GroupedDataFrame{DataFrame}, Symbol}
+   <- Tuple{Type{AssertionError}, Any}
+   direct callers: 1
+      Tuple{typeof(getproperty), GroupedDataFrame{DataFrame}, Symbol}
+== error_path  Tuple{Base.var"#throw_field_access#fieldname##1", Type, Int64, Int64}  (in 30 cones)
+   fault nofact: Tuple{typeof(string), String, Int64, String, Type, String, Int64, String, String, String}
+   <- Tuple{CSV.var"##resolvesource#101", Bool, Bool, Vector{Task}, typeof(CSV.resolvesource), String}
+   <- Tuple{typeof(Downloads.download), String}
+   <- Tuple{typeof(Downloads.download), String, Nothing}
+   <- Tuple{Downloads.var"##download#5", Nothing, Vector{Pair{String, String}}, Float64, Nothing, Bool, Nothing, Nothing, typeof(Downloads.download), String, Nothing}
+   <- Tuple{typeof(ArgTools.arg_write), Downloads.var"#7#8"{Nothing, Vector{Pair{String, String}}, Float64, Nothing, Bool, Nothing, Nothing, String, Base.RefValue{Downloads.Response}}, S
+   <- Tuple{typeof(Core.kwcall), @NamedTuple{write::Bool}, typeof(ArgTools.open_nolock), Downloads.var"#7#8"{Nothing, Vector{Pair{String, String}}, Float64, Nothing, Bool, Nothing, Nothi
+   <- Tuple{ArgTools.var"##open_nolock#1", Base.Pairs{Symbol, Bool, Nothing, @NamedTuple{write::Bool}}, typeof(ArgTools.open_nolock), Downloads.var"#7#8"{Nothing, Vector{Pair{String, Str
+   <- Tuple{typeof(Core.kwcall), @NamedTuple{write::Bool, lock::Bool}, typeof(open), Downloads.var"#7#8"{Nothing, Vector{Pair{String, String}}, Float64, Nothing, Bool, Nothing, Nothing, 
+   <- Tuple{Base.var"##open#326", Base.Pairs{Symbol, Bool, Nothing, @NamedTuple{write::Bool, lock::Bool}}, typeof(open), Downloads.var"#7#8"{Nothing, Vector{Pair{String, String}}, Float6
+   <- Tuple{Downloads.var"#7#8"{Nothing, Vector{Pair{String, String}}, Float64, Nothing, Bool, Nothing, Nothing, String, Base.RefValue{Downloads.Response}}, IOStream}
+   <- Tuple{typeof(Core.kwcall), @NamedTuple{output::IOStream, method::Nothing, headers::Vector{Pair{String, String}}, timeout::Float64, progress::Nothing, verbose::Bool, debug::Nothing,
+   <- Tuple{Downloads.var"##request#9", Nothing, IOStream, Nothing, Vector{Pair{String, String}}, Float64, Nothing, Bool, Nothing, Bool, Nothing, Nothing, typeof(Downloads.request), Stri
+   direct callers: 1
+      Tuple{typeof(fieldname), DataType, Int64}
+== error_path  Tuple{typeof(Base.throw_boundserror), Memory, Tuple{UnitRange{Int64}}}  (in 5 cones)
+   fault nofact: Tuple{Type{BoundsError}, Memory, Tuple{UnitRange{Int64}}}
+   <- Tuple{DataFrames.Aggregate{typeof(first), Nothing}, PooledArrays.PooledVector{String, UInt32, Vector{UInt32}}, GroupedDataFrame{DataFrame}}
+   <- Tuple{typeof(similar), PooledArrays.PooledVector{String, UInt32, Vector{UInt32}}, Int64}
+   <- Tuple{typeof(similar), PooledArrays.PooledVector{String, UInt32, Vector{UInt32}}, Type, Tuple{Int64}}
+   <- Tuple{Type{Dict{T, UInt32}} where T}
+   <- Tuple{typeof(convert), Type{<:Memory}, Memory}
+   <- Tuple{Type{Memory{T}}, Memory{S}} where {T, S}
+   <- Tuple{typeof(Base.copyto_axcheck!), Memory, Memory}
+   <- Tuple{typeof(copyto!), Memory, Memory}
+   <- Tuple{typeof(copyto!), Memory, Int64, Memory, Int64, Int64}
+   <- Tuple{typeof(Base._copyto_impl!), Memory, Int64, Memory, Int64, Int64}
+   <- Tuple{typeof(checkbounds), Memory, UnitRange{Int64}}
+   <- Tuple{typeof(Base.throw_boundserror), Memory, Tuple{UnitRange{Int64}}}
+   direct callers: 1
+      Tuple{typeof(checkbounds), Memory, UnitRange{Int64}}
+== error_path  Tuple{typeof(Core.throw_inexacterror), Symbol, Type, UInt64}  (in 1762 cones)
+   fault nofact: Tuple{Type{InexactError}, Symbol, Type, UInt64}
+   <- Tuple{typeof(CSV._writereduce), Float64}
+   <- Tuple{Type{Int64}, UInt64}
+   <- Tuple{typeof(Core.toInt64), UInt64}
+   <- Tuple{typeof(Core.check_sign_bit), Type{Int64}, UInt64}
+   <- Tuple{typeof(Core.throw_inexacterror), Symbol, Type, UInt64}
+   direct callers: 8
+      Tuple{typeof(Core.check_sign_bit), Type{Int64}, UInt64}
+      Tuple{typeof(Core.checked_trunc_uint), Type{UInt8}, UInt64}
+      Tuple{typeof(Core.checked_trunc_uint), Type{UInt16}, UInt64}
+      Tuple{typeof(Core.checked_trunc_uint), Type{UInt32}, UInt64}
+      Tuple{typeof(Core.checked_trunc_sint), Type{Int32}, UInt64}
+      Tuple{typeof(Core.check_sign_bit), Type{Int32}, UInt64}
+== error_path  Tuple{typeof(Base.kwerr), @NamedTuple{write::Bool, lock::Bool}, typeof(open), Base.AbstractCmd, Base.IOServer}  (in 30 cones)
+   fault nofact: Tuple{Type{MethodError}, typeof(Core.kwcall), Tuple{@NamedTuple{write::Bool, lock::Bool}, typeof(open), Base.AbstractCmd, Base.IOServer}, UInt64}
+   <- Tuple{CSV.var"##resolvesource#101", Bool, Bool, Vector{Task}, typeof(CSV.resolvesource), String}
+   <- Tuple{typeof(Downloads.download), String}
+   <- Tuple{typeof(Downloads.download), String, Nothing}
+   <- Tuple{Downloads.var"##download#5", Nothing, Vector{Pair{String, String}}, Float64, Nothing, Bool, Nothing, Nothing, typeof(Downloads.download), String, Nothing}
+   <- Tuple{typeof(ArgTools.arg_write), Function, String}
+   <- Tuple{typeof(Core.kwcall), @NamedTuple{write::Bool}, typeof(ArgTools.open_nolock), Function, String}
+   <- Tuple{ArgTools.var"##open_nolock#1", Base.Pairs{Symbol, Bool, Nothing, @NamedTuple{write::Bool}}, typeof(ArgTools.open_nolock), Function, Vararg{Any}}
+   <- Tuple{typeof(Core.kwcall), @NamedTuple{write::Bool, lock::Bool}, typeof(open), Function, Base.AbstractCmd, Vararg{Any}}
+   <- Tuple{Base.var"##open#710", Base.Pairs{Symbol, Bool, Nothing, @NamedTuple{write::Bool, lock::Bool}}, typeof(open), Function, Base.AbstractCmd, Vararg{Any}}
+   <- Tuple{typeof(Core.kwcall), @NamedTuple{write::Bool, lock::Bool}, typeof(open), Base.AbstractCmd, Union{RawFD, Base.FileRedirect, Base.IOServer, IO}}
+   <- Tuple{typeof(Base.kwerr), @NamedTuple{write::Bool, lock::Bool}, typeof(open), Base.AbstractCmd, Base.IOServer}
+   direct callers: 1
+      Tuple{typeof(Core.kwcall), @NamedTuple{write::Bool, lock::Bool}, typeof(open), Base.AbstractCmd, Union{RawFD, Base.FileRedirect, Base.IOServer, IO}}
+== other  Tuple{typeof(<), Unsigned, Int64}  (in 12 cones)
+   fault nofact: Tuple{typeof(promote), Unsigned, Int64}
+   <- Tuple{typeof(DataFrames.ColumnKernels._stats), DataFrames.ColumnKernels.CellVector{InlineStrings.String3, Vector{InlineStrings.String3}}, Vector{Symbol}}
+   <- Tuple{typeof(Statistics.mean), DataFrames.ColumnKernels.CellVector{InlineStrings.String3, Vector{InlineStrings.String3}}}
+   <- Tuple{Statistics.var"##mean#2", Function, typeof(Statistics.mean), DataFrames.ColumnKernels.CellVector{InlineStrings.String3, Vector{InlineStrings.String3}}}
+   <- Tuple{typeof(Statistics._mean), typeof(identity), DataFrames.ColumnKernels.CellVector{InlineStrings.String3, Vector{InlineStrings.String3}}, Function}
+   <- Tuple{typeof(Core.kwcall), NamedTuple{(:dims,), <:Tuple{Function}}, typeof(sum), typeof(identity), DataFrames.ColumnKernels.CellVector{InlineStrings.String3, Vector{InlineStrings.S
+   <- Tuple{Base.var"##sum#749", Function, Base.Pairs{Symbol, Union{}, Nothing, @NamedTuple{}}, typeof(sum), typeof(identity), DataFrames.ColumnKernels.CellVector{InlineStrings.String3, 
+   <- Tuple{typeof(Base._sum), typeof(identity), DataFrames.ColumnKernels.CellVector{InlineStrings.String3, Vector{InlineStrings.String3}}, Function}
+   <- Tuple{Base.var"##_sum#775", Base.Pairs{Symbol, Union{}, Nothing, @NamedTuple{}}, typeof(Base._sum), typeof(identity), DataFrames.ColumnKernels.CellVector{InlineStrings.String3, Vec
+   <- Tuple{typeof(Core.kwcall), NamedTuple{(:dims,), <:Tuple{Function}}, typeof(mapreduce), typeof(identity), typeof(Base.add_sum), DataFrames.ColumnKernels.CellVector{InlineStrings.Str
+   <- Tuple{Base.var"##mapreduce#741", Function, Base._InitialValue, typeof(mapreduce), typeof(identity), typeof(Base.add_sum), DataFrames.ColumnKernels.CellVector{InlineStrings.String3,
+   <- Tuple{typeof(Base._mapreduce_dim), typeof(identity), typeof(Base.add_sum), Base._InitialValue, DataFrames.ColumnKernels.CellVector{InlineStrings.String3, Vector{InlineStrings.Strin
+   <- Tuple{typeof(Base.reducedim_init), Function, typeof(Base.add_sum), DataFrames.ColumnKernels.CellVector{InlineStrings.String3, Vector{InlineStrings.String3}}, Function}
+   direct callers: 1
+      Tuple{Base.var"##string#399", Int64, Int64, typeof(string), Unsigned}
+== error_path  Tuple{typeof(Core.throw_inexacterror), Symbol, Type, Int32}  (in 1491 cones)
+   fault nofact: Tuple{Type{InexactError}, Symbol, Type, Int32}
+   <- Tuple{typeof(CSV._appendint!), Vector{UInt8}, Union{Int128, Int16, Int32, Int64, Int8}}
+   <- Tuple{typeof(unsigned), Int32}
+   <- Tuple{typeof(convert), Type{Unsigned}, Int32}
+   <- Tuple{Type{Unsigned}, Int32}
+   <- Tuple{Type{UInt32}, Int32}
+   <- Tuple{typeof(Core.toUInt32), Int32}
+   <- Tuple{typeof(Core.check_sign_bit), Type{UInt32}, Int32}
+   <- Tuple{typeof(Core.throw_inexacterror), Symbol, Type, Int32}
+   direct callers: 2
+      Tuple{typeof(Core.check_sign_bit), Type{UInt32}, Int32}
+      Tuple{typeof(Core.checked_trunc_sint), Type{Int8}, Int32}
+== error_path  Tuple{typeof(Base.throw_boundserror), Matrix, Tuple{Int64, Int64}}  (in 5 cones)
+   fault nofact: Tuple{Type{BoundsError}, Matrix, Tuple{Int64, Int64}}
+   <- Tuple{typeof(DataFrames.broadcast_pair), DataFrame, Matrix{Pair{Symbol}}}
+   <- Tuple{typeof(Base.Broadcast.materialize), Base.Broadcast.Broadcasted{Base.Broadcast.DefaultArrayStyle{2}, Nothing, typeof(last), Tuple{Matrix{Pair{Symbol}}}}}
+   <- Tuple{typeof(copy), Base.Broadcast.Broadcasted{Base.Broadcast.DefaultArrayStyle{2}, Tuple{Base.OneTo{Int64}, Base.OneTo{Int64}}, typeof(last), Tuple{Matrix{Pair{Symbol}}}}}
+   <- Tuple{typeof(setindex!), Matrix, Any, CartesianIndex{2}}
+   <- Tuple{typeof(setindex!), Matrix, Any, Int64, Int64}
+   <- Tuple{typeof(Base._setindex!), Matrix{T}, Any, Int64, Int64} where T
+   <- Tuple{typeof(checkbounds), Matrix, Int64, Int64}
+   <- Tuple{typeof(Base.throw_boundserror), Matrix, Tuple{Int64, Int64}}
+   direct callers: 1
+      Tuple{typeof(checkbounds), Matrix, Int64, Int64}
+== error_path  Tuple{typeof(Core.throw_inexacterror), Symbol, Type, UInt8}  (in 733 cones)
+   fault nofact: Tuple{Type{InexactError}, Symbol, Type, UInt8}
+   <- Tuple{typeof(CSV._detectcontent), Vector{UInt8}, Int64, Int64, CSV.ValueOpts}
+   <- Tuple{typeof(Parsers.parsecivil), Vector{UInt8}, Int64, Int64, Parsers.DatePattern}
+   <- Tuple{typeof(Parsers._parsecivilvalidated), Vector{UInt8}, Int64, Int64, Parsers.DatePattern, UInt8}
+   <- Tuple{typeof(Parsers._parsecivilexact), Vector{UInt8}, Int64, Int64, Parsers.DatePattern, UInt8}
+   <- Tuple{typeof(Parsers._interpretcivil), Vector{UInt8}, Int64, Int64, Parsers.CivilPlanBox, UInt8}
+   <- Tuple{typeof(Parsers._matchdayfull), Vector{UInt8}, Int64, Int64, Parsers.CivilNamesBox, Int64}
+   <- Tuple{typeof(Parsers._matchname), Vector{UInt8}, Int64, Int64, Parsers.CivilNameTable{14}, Int64}
+   <- Tuple{typeof(Parsers._matchunicodename), Vector{UInt8}, Int64, Int64, Parsers.CivilNameTable{14}, Int64}
+   <- Tuple{typeof(Parsers._civiltrievalue), Parsers.CivilNameTrie, UInt16}
+   <- Tuple{Type{Int8}, UInt8}
+   <- Tuple{typeof(Core.toInt8), UInt8}
+   <- Tuple{typeof(Core.check_sign_bit), Type{Int8}, UInt8}
+   direct callers: 1
+      Tuple{typeof(Core.check_sign_bit), Type{Int8}, UInt8}
+== error_path  Tuple{Type{TypeError}, Symbol, Type, Any}  (in 5 cones)
+   fault nofact: Tuple{Type{TypeError}, Symbol, String, Type, Any}
+   <- Tuple{DataFrames.Aggregate{typeof(first), Nothing}, PooledArrays.PooledVector{String, UInt32, Vector{UInt32}}, GroupedDataFrame{DataFrame}}
+   <- Tuple{typeof(similar), PooledArrays.PooledVector{String, UInt32, Vector{UInt32}}, Int64}
+   <- Tuple{typeof(similar), PooledArrays.PooledVector{String, UInt32, Vector{UInt32}}, Type, Tuple{Int64}}
+   <- Tuple{Type{PooledArrays.PooledArray}, PooledArrays.RefArray{Vector{UInt32}}, Dict{T, UInt32} where T}
+   <- Tuple{Type{PooledArrays.PooledArray}, PooledArrays.RefArray{Vector{UInt32}}, Dict{T, UInt32}, Vector{T}} where T
+   <- Tuple{Type{PooledArrays.PooledArray}, PooledArrays.RefArray{Vector{UInt32}}, Dict{T, UInt32}, Vector{T}, Base.Threads.Atomic{Int64}} where T
+   <- Tuple{Type{PooledArrays.PooledVector{T, UInt32, Vector{UInt32}}}, PooledArrays.RefArray{Vector{UInt32}}, Dict{T, UInt32}, Vector{T}, Base.Threads.Atomic{Int64}} where T
+   <- Tuple{typeof(convert), Type{<:Dict{_A, UInt32} where _A}, Dict{T, UInt32} where T}
+   <- Tuple{Type{Dict{K, UInt32}}, Dict{T, UInt32} where T} where K
+   <- Tuple{typeof(setindex!), Dict{T, UInt32} where T, UInt32, Any}
+   <- Tuple{typeof(Base.KeyTypeError), Any, Any}
+   <- Tuple{Type{TypeError}, Symbol, Type, Any}
+   direct callers: 1
+      Tuple{typeof(Base.KeyTypeError), Any, Any}
