@@ -72,3 +72,12 @@ Before: `next` b54eab8c17 (the slot built). After: 7063158f42 with the removal i
 | TraitWorld's image: machine code; build | 5.33 MB; 7.9 s | 5.29 MB; 7.2 s |
 
 Load 6 to 7 before, 10 to 16 after. Julia's `core`, `subtype`, `Compiler/inline`, `Compiler/inference` pass on both; the forks' digests equal upstream's. The library's suite then failed strict mode's test of a pirate at `abs2`: an operation's split named an inlined branch by its MethodInstance (fixed, `next` 3037289af6; the checks on the head below).
+
+### The head (2026-11-15): `next` 9b6dacf5c5
+
+D-5 7063158f42, the split's branch edge 3037289af6, D-7 9b6dacf5c5; TraitWorld-w155 ca006e1. `logs/final-*`.
+
+- `gate_deep.jl` passes. Julia's `core`, `subtype`, `Compiler/inline`, `Compiler/inference` pass. The forks' digests equal upstream's at 26 steps.
+- The deep class: the forks 1,798 of 4,773 own image instances (38 %), upstream by facts 1,373 of 3,464 (40 %); the bit and the walk agree; the nine loads end 49, and 14 and 5, none with the bit.
+- TraitWorld's image: 5.29 MB of machine code, 209 external instances kept by the bit.
+- The library's suite passes on its branch `w155` ca006e1 (`logs/final-library-b.log`). Its test of a deleted pirate had a pirate whose body converts (`Int8(7)`), which rests on `Core.throw_inexacterror`, outside the class; strict mode secures the class only, so the test's pirate now computes in the class (open issue 194). `logs/final-library.log` is the run before that change.
