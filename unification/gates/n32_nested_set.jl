@@ -3,9 +3,9 @@
 # adds: under a union, in a tuple's component, in an intersection, and under the bound that a type
 # declares for its own parameter (`struct Cell{C<:X}`: no `Cell` at the member could be made before).
 # It reaches the callers at the new member and keeps every instance and caller at the other members.
-# The other shapes stay on the conservative path, and are still correct: a bound that the signature
-# sets (`Box{<:X}`: `Box{Union{Old, New}}` was made before), the set in several places (two
-# parameters, a `Vararg`).
+# A bound that the signature sets (`Box{<:X}`: `Box{Union{Old, New}}` was made before) and the set in
+# several places below a position's top (two parameters) replay at the method's own signature (W-160,
+# E-444); a `Vararg` stays on the conservative path. All are correct.
 using Traits
 const All = Core.All
 include("util.jl")

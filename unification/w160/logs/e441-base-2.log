@@ -1,0 +1,10 @@
+# E-441 stores, baseline run 2 2026-11-15T14:17:34+01:00 load 11.56 8.10 6.47 | julia-unified 7b374f39ce | TraitWorld-base e11c7cc
+store into Vector{Shape}        a run-time membership query
+push! into Vector{Shape}        a run-time membership query
+setfield! of a field ::Shape    a run-time membership query
+a struct with a field ::Shape   a run-time membership query
+typeassert c::Shape             no run-time query
+convert(Shape, c)               no run-time query
+Dynamic{Shape}(c)               a run-time membership query
+store into Vector{Shape}: 98.61 ns
+setfield! of a field ::Shape: 91.36 ns

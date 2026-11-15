@@ -1,0 +1,64 @@
+diff --git a/src/erasing.jl b/src/erasing.jl
+index df36dfb..370ba11 100644
+--- a/src/erasing.jl
++++ b/src/erasing.jl
+@@ -98,11 +98,26 @@ function _expand_definition(argdata::Core.SimpleVector, code::Core.CodeInfo, mod
+     _has_meta(code, :no_forwarder) && return nothing   # a method `@trait` makes (a default, lowering §2)
+     _code_names_fwd(code) && return nothing             # likewise, a trait's method of an image made before the meta
+     n = length(atypes)
++    # an argument at a trait with its parameters left open (`c::Column`, `c::Column{<:Real}`): the forwarder takes
++    # their variables as its own static parameters (`c::Column{T} where T`, the same signature), so that its box
++    # names the member's instance; the method at the kept forms keeps the type as written
++    fatypes = Any[atypes...]
++    ftvars = Any[tvars...]
++    for i in 2:n
++        T = atypes[i]
++        (T isa UnionAll && _erasing_trait(Base.unwrap_unionall(T)) !== nothing) || continue
++        while T isa UnionAll
++            v = TypeVar(Symbol("#", T.var.name, i), T.var.lb, T.var.ub)
++            push!(ftvars, v)
++            T = T{v}
++        end
++        fatypes[i] = T
++    end
+     pos = Int[]                       # the erasing arguments
+-    traits = Any[]                    # the trait each erases at
++    traits = Any[]                    # the trait each erases at (in the forwarder's variables)
+     vias = Any[]                      # the `where` variable that types it, or nothing
+     for i in 2:n
+-        T = atypes[i]
++        T = fatypes[i]
+         T isa Core.TypeofVararg && continue
+         via = nothing
+         if T isa TypeVar && any(v -> v === T, tvars)
+@@ -111,7 +126,7 @@ function _expand_definition(argdata::Core.SimpleVector, code::Core.CodeInfo, mod
+         end
+         X = _erasing_trait(T)
+         X === nothing && continue
+-        _box_formable(X, i, via, atypes) || continue
++        _box_formable(X, i, via, fatypes) || continue
+         push!(pos, i); push!(traits, X); push!(vias, via)
+     end
+     isempty(pos) && return nothing
+@@ -121,7 +136,7 @@ function _expand_definition(argdata::Core.SimpleVector, code::Core.CodeInfo, mod
+     for (k, i) in enumerate(pos)
+         v = vias[k]
+         if v === nothing
+-            katypes[i] = _kept_forms(traits[k])
++            katypes[i] = _kept_forms(fatypes[i] === atypes[i] ? traits[k] : atypes[i])
+         else
+             # the variable as it stands now (an earlier replacement may have rebuilt it), with its bound replaced
+             vi = findfirst(w -> w === v, collect(tvars))::Int
+@@ -132,9 +147,10 @@ function _expand_definition(argdata::Core.SimpleVector, code::Core.CodeInfo, mod
+         end
+     end
+     kept = Core.svec(Core.svec(katypes...), Core.svec(ktvars...), loc)
+-    fwd = _forwarder_code(atypes, tvars, loc, code, pos, traits, mod)
++    fwd = _forwarder_code(fatypes, ftvars, loc, code, pos, traits, mod)
+     fwd === nothing && return nothing
+-    return Core.svec(Core.svec(kept, code), Core.svec(argdata, fwd))
++    fdata = length(ftvars) == length(tvars) ? argdata : Core.svec(Core.svec(fatypes...), Core.svec(ftvars...), loc)
++    return Core.svec(Core.svec(kept, code), Core.svec(fdata, fwd))
+ end
+ 
+ # Whether the box `Dynamic{X}` can be formed at argument `i` once a call's types are known. A variable of `X` is

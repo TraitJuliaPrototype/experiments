@@ -1,0 +1,9 @@
+# e444 2026-11-15T15:24:35+01:00 load 3.74 4.31 4.24 | julia-next 75a7f1795b | library TraitWorld-unified 2bf59b9+dirty
+library | exit 1 | 17 s |   Expression: e isa TraitUseError && occursin("never", sprint(showerror, e)) Test Summary:             | Pass  Fail  Total  Time 
+test core | exit 0 | 68 s |     SUCCESS
+test subtype | exit 0 | 16 s |     SUCCESS
+test Compiler/inline | exit 0 | 94 s |     SUCCESS
+# e444 2026-11-15T15:29:14+01:00 load 6.30 4.20 4.11 | julia-next 75a7f1795b | TraitWorld 9c0912b TDE b5747a0 ND 6d311a3
+test Compiler/inference | exit 0 | 86 s |     SUCCESS
+tde | exit 0 | 46 s | 35 testsets |      Testing TraitDifferentialEquations tests passed 
+nd | exit 0 | 124 s | TEST unused casts pass=1 fail=0 error=0 broken=0;TEST massmatrix_test.jl pass=6 fail=0 error=0 broken=0;TEST doctor_test.jl pass=26 fail=0 error=0 broken=0;TEST diffusion_test.jl pass=108 fail=1 error=1 broken=24;TEST inhomogeneous_test.jl pass=39 fail=0 error=1 broken=12;

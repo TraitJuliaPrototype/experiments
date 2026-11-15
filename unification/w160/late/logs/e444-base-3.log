@@ -1,0 +1,32 @@
+# E-444 base run 3 2026-11-15T15:38:59+01:00 load 2.71 4.01 4.28 | julia-unified 7b374f39ce | TraitWorld-base e11c7cc
+== the library (using TraitWorld): plain instances ended 217 of 121250 | Base 103, DataFrames 80, Statistics 30, Main 2, PooledArrays 2
+log entries 583; tags: jl_method_table_insert, jl_membership_dispatch_walk
+unclosed tail: 0 entries; kinds in the log: Core.MethodInstance, Int32, DataType, Method, String
+   97 plain instances,   130 entries: BaseTraits.length  Tuple{typeof(length), TraitWorld.BaseTraits.HasLength}  [jl_method_table_insert]
+   75 plain instances,    88 entries: BaseTraits.iterate  Tuple{typeof(iterate), TraitWorld.BaseTraits.Iterable{T}} where T  [jl_method_table_insert]
+   26 plain instances,    37 entries: BaseTraits.haskey  Tuple{typeof(haskey), TraitWorld.BaseTraits.Keyed{K, V}, Any} where {K, V}  [jl_method_table_insert]
+   14 plain instances,    19 entries: BaseTraits.iterate  Tuple{typeof(iterate), TraitWorld.BaseTraits.Iterable{T}, Any} where T  [jl_membership_dispatch_walk]
+    5 plain instances,     7 entries: BaseTraits.resize!  Tuple{typeof(resize!), TraitWorld.BaseTraits.Resizable{T}, Any} where T  [jl_membership_dispatch_walk]
+attributed to a closing method: 217 of 217
+instances at a box: 1 valid before, 0 ended, 1 valid after the load; jl_method_table_disable entries: 0
+== the ODE port (using TraitDifferentialEquations): plain instances ended 757 of 123147 | Base 443, DataFrames 205, CSV 69, Statistics 16, PooledArrays 11, Printf 7, PrettyTables 3, SentinelArrays 1, OrderedCollections 1, Compiler 1
+log entries 2253; tags: jl_method_table_insert
+unclosed tail: 0 entries; kinds in the log: Core.MethodInstance, Int32, String, Method, DataType
+  682 plain instances,   991 entries: ForwardDiff.promote_rule  Tuple{typeof(promote_rule), Type{R}, Type{ForwardDiff.Dual{T, V, N}}} where {R<:Real, T, V, N}  [jl_method_table_insert]
+   28 plain instances,    36 entries: ForwardDiff.eps  Tuple{typeof(eps), Type{D}} where D<:ForwardDiff.Dual  [jl_method_table_insert]
+   22 plain instances,    24 entries: ForwardDiff.hash  Tuple{typeof(hash), ForwardDiff.Partials, UInt64}  [jl_method_table_insert]
+    8 plain instances,    12 entries: ForwardDiff.fma  Tuple{typeof(fma), Integer, AbstractFloat, ForwardDiff.Dual{Tz}} where Tz  [jl_method_table_insert]
+    7 plain instances,     8 entries: ForwardDiff.zero  Tuple{typeof(zero), ForwardDiff.Dual}  [jl_method_table_insert]
+    3 plain instances,     5 entries: ForwardDiff.mightalias  Tuple{typeof(Base.mightalias), AbstractArray, ForwardDiff.Partials}  [jl_method_table_insert]
+    2 plain instances,     2 entries: ForwardDiff.<  Tuple{typeof(<), ForwardDiff.Partials{N}, ForwardDiff.Partials{N}} where N  [jl_method_table_insert]
+    2 plain instances,     5 entries: ForwardDiff.convert  Tuple{typeof(convert), Type{D}, D} where D<:ForwardDiff.Dual  [jl_method_table_insert]
+    1 plain instances,     2 entries: ForwardDiff.isequal  Tuple{typeof(isequal), ForwardDiff.Dual{Tx}, Real} where Tx  [jl_method_table_insert]
+    1 plain instances,     5 entries: ForwardDiff.isnan  Tuple{typeof(isnan), ForwardDiff.Dual}  [jl_method_table_insert]
+    1 plain instances,     6 entries: ForwardDiff.convert  Tuple{typeof(convert), Type{ForwardDiff.Dual{T, V, N}}, Number} where {T, V, N}  [jl_method_table_insert]
+    0 plain instances,     3 entries: ForwardDiff.isless  Tuple{typeof(isless), ForwardDiff.Partials{N}, ForwardDiff.Partials{N}} where N  [jl_method_table_insert]
+    0 plain instances,     2 entries: ForwardDiff.isequal  Tuple{typeof(isequal), ForwardDiff.Partials{N}, ForwardDiff.Partials{N}} where N  [jl_method_table_insert]
+    0 plain instances,     6 entries: ForwardDiff.fma  Tuple{typeof(fma), ForwardDiff.Dual{Tx}, AbstractFloat, Real} where Tx  [jl_method_table_insert]
+    0 plain instances,     2 entries: ForwardDiff.rtoldefault  Tuple{typeof(Base.rtoldefault), Type{D}} where D<:ForwardDiff.Dual  [jl_method_table_insert]
+attributed to a closing method: 757 of 757
+instances at a box: 1 valid before, 0 ended, 513 valid after the load; jl_method_table_disable entries: 0
+rc=0

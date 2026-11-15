@@ -1,0 +1,32 @@
+# E-440 2026-11-15T15:27:43+01:00 load 2.49 3.34 3.87 | julia-next 75a7f1795b | TraitWorld 2bf59b9+check (the check read from Julia's cache)
+== Main.Plain: check_definitions
+  colsum at mistakes.jl:19: sum(Dynamic{Main.Plain.ColTable}) reaches iterate(Dynamic{Main.Plain.ColTable}), which has no method (through sum → mapreduce → mapfoldl → mapfoldl_impl → foldl_impl → _foldl_impl)
+  field at mistakes.jl:20: the field `data` is no declared field of Main.Plain.ColTable
+  spread at mistakes.jl:18: size(Dynamic{Main.Plain.ColTable}) has no method
+  through at mistakes.jl:24: helper(Dynamic{Main.Plain.ColTable}) reaches length(Dynamic{Main.Plain.ColTable}), which has no method
+good     line 17: bounded
+spread   line 18: line 18: size(Dynamic{Main.Plain.ColTable}) has no method
+colsum   line 19: line 19: sum(Dynamic{Main.Plain.ColTable}) reaches iterate(Dynamic{Main.Plain.ColTable}), which has no method (through sum → mapreduce → mapfoldl → mapfoldl_impl → foldl_impl → _foldl_impl)
+field    line 20: line 20: the field `data` is no declared field of Main.Plain.ColTable
+leak     line 21: bounded
+wrap     line 22: bounded
+through  line 24: line 24: helper(Dynamic{Main.Plain.ColTable}) reaches length(Dynamic{Main.Plain.ColTable}), which has no method
+== Main.Erasing: check_definitions
+  colsum at mistakes.jl:38: sum(Dynamic{Main.Erasing.ColTable}) reaches iterate(Dynamic{Main.Erasing.ColTable}), which has no method (through sum → mapreduce → mapfoldl → mapfoldl_impl → foldl_impl → _foldl_impl)
+  field at mistakes.jl:39: the field `data` is no declared field of Main.Erasing.ColTable
+  spread at mistakes.jl:37: size(Dynamic{Main.Erasing.ColTable}) has no method
+  through at mistakes.jl:43: helper(Dynamic{Main.Erasing.ColTable}) reaches length(Dynamic{Main.Erasing.ColTable}), which has no method
+good     line 36: bounded
+spread   line 37: line 37: size(Dynamic{Main.Erasing.ColTable}) has no method
+colsum   line 38: line 38: sum(Dynamic{Main.Erasing.ColTable}) reaches iterate(Dynamic{Main.Erasing.ColTable}), which has no method (through sum → mapreduce → mapfoldl → mapfoldl_impl → foldl_impl → _foldl_impl)
+field    line 39: line 39: the field `data` is no declared field of Main.Erasing.ColTable
+leak     line 40: bounded
+wrap     line 41: bounded
+through  line 43: line 43: helper(Dynamic{Main.Erasing.ColTable}) reaches length(Dynamic{Main.Erasing.ColTable}), which has no method
+== a module that declares `bounded`: each mistake refused where it is defined
+good    accepted
+spread  refused: TraitUseError: spread is declared bounded, and is not bounded at the box (Tuple{typeof(Main.Bounded.spread), Dynamic{Main.Bounded.ColTable}}): |   size(Dynamic{Main.Bounded.ColTable}) has no method, at line 74
+colsum  refused: TraitUseError: colsum is declared bounded, and is not bounded at the box (Tuple{typeof(Main.Bounded.colsum), Dynamic{Main.Bounded.ColTable}}): |   sum(Dynamic{Main.Bounded.ColTable}) reaches iterate(Dynamic{Main.Bounded.ColTable}), which has no method (through sum → mapreduce → mapfoldl → mapfoldl_impl → foldl_impl → _foldl_impl), at line 75
+field   refused: TraitUseError: field is declared bounded, and is not bounded at the box (Tuple{typeof(Main.Bounded.field), Dynamic{Main.Bounded.ColTable}}): |   the field `data` is no declared field of Main.Bounded.ColTable, at line 76
+leak    accepted
+through refused: TraitUseError: through is declared bounded, and is not bounded at the box (Tuple{typeof(Main.Bounded.through), Dynamic{Main.Bounded.ColTable}}): |   helper(Dynamic{Main.Bounded.ColTable}) reaches length(Dynamic{Main.Bounded.ColTable}), which has no method, at line 78

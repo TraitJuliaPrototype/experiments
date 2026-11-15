@@ -1,0 +1,124 @@
+WARNING: method amb at amb(hints.Bb) is ambiguous for hints.Both, a member of hints.Bb, with the method at amb(hints.Aa); a method at amb(All{hints.Aa, hints.Bb}) would resolve it
+[ Info: TraitWorld: overview.jl
+[ Info: TraitWorld: core.jl
+[ Info: TraitWorld: acceptance.jl
+[ Info: TraitWorld: attribute.jl
+[ Info: TraitWorld: callable.jl
+[ Info: TraitWorld: fullytyped.jl
+[ Info: TraitWorld: ownership.jl
+[ Info: TraitWorld: hints.jl
+[ Info: TraitWorld: verify.jl
+ERROR: LoadError: Some tests did not pass: 5 passed, 1 failed, 0 errored, 0 broken.
+in expression starting at /p/projects/coen/julia-trait-bound/TraitWorld-unified/test/verify.jl:22
+in expression starting at /p/projects/coen/julia-trait-bound/TraitWorld-unified/test/runtests.jl:3
+Test Summary: | Pass  Total  Time
+overview      |    8      8  0.2s
+Test Summary: | Pass  Total  Time
+parameters    |    8      8  0.0s
+Test Summary: | Pass  Total  Time
+refusals      |    6      6  0.1s
+Test Summary: | Pass  Total  Time
+fields        |    3      3  0.0s
+Test Summary:        | Pass  Total  Time
+block and forwarding |   15     15  1.4s
+Test Summary:            | Pass  Total  Time
+forwarding at the member |    4      4  0.1s
+Test Summary: | Pass  Total  Time
+supertraits   |    3      3  0.0s
+Test Summary: | Pass  Total  Time
+Dynamic       |   13     13  0.3s
+Test Summary: | Pass  Total  Time
+families      |    3      3  0.0s
+Test Summary: | Pass  Total  Time
+dispatch      |    4      4  0.0s
+Test Summary: | Pass  Total  Time
+first use     |   11     11  0.0s
+Test Summary:        | Pass  Total  Time
+Union-bounded family |    2      2  0.0s
+Test Summary: | Pass  Total  Time
+intersections |    8      8  0.0s
+Test Summary: | Pass  Total  Time
+override rule |    5      5  0.0s
+Test Summary: | Pass  Total  Time
+module end    |    2      2  0.1s
+Test Summary:     | Pass  Total  Time
+operation results |    7      7  0.0s
+Test Summary: | Pass  Total  Time
+split         |    3      3  0.6s
+Test Summary: | Pass  Total  Time
+table         |    3      3  0.1s
+Test Summary:   | Pass  Total  Time
+declared fields |    3      3  0.0s
+Test Summary:  | Pass  Total  Time
+classification |   10     10  0.6s
+Test Summary:                 | Pass  Total  Time
+classification: further rules |    6      6  0.3s
+Test Summary:                     | Pass  Total  Time
+a family's variables in its block |    2      2  0.0s
+Test Summary:                               | Pass  Total  Time
+Dynamic{All{Callable…}} at either signature |    2      2  0.2s
+Test Summary:                             | Pass  Total  Time
+F1: a trait stands wherever a type stands |   10     10  0.1s
+Test Summary:                                                | Pass  Total  Time
+F2, F3: the bare name is a UnionAll; parameters follow Julia |    5      5  0.0s
+Test Summary:                                | Pass  Total  Time
+F4: a member's value is a value of the trait |    3      3  0.0s
+Test Summary:                  | Pass  Total  Time
+F5: supertraits are supertypes |    2      2  0.0s
+Test Summary:           | Pass  Total  Time
+F6: dispatch is Julia's |    2      2  0.0s
+Test Summary: | Pass  Total  Time
+F7: storage   |    4      4  0.0s
+Test Summary:                                   | Pass  Total  Time
+F8: defaults and forwarding reach plain callers |    4      4  0.0s
+Test Summary:                                      | Pass  Total  Time
+F10: a family's member is checked at its first use |    5      5  0.0s
+Test Summary:                                                              | Pass  Total  Time
+F10b (compiler C-71): a failed member's other operations raise its failure |    3      3  0.0s
+Test Summary:                                   | Pass  Total  Time
+F11: a generic implementation is a set in a set |    3      3  0.0s
+Test Summary: | Pass  Total  Time
+F14: errors   |    3      3  0.0s
+Test Summary:       | Pass  Total  Time
+the trait's default |    6      6  0.0s
+Test Summary: | Pass  Total  Time
+casts         |    5      5  0.0s
+Test Summary: | Pass  Total  Time
+keep          |    4      4  0.0s
+Test Summary: | Pass  Total  Time
+trait modules |    4      4  0.0s
+Test Summary: | Pass  Total  Time
+reports       |    5      5  0.3s
+Test Summary:             | Pass  Total  Time
+bounded in a trait module |   10     10  0.3s
+Test Summary: | Pass  Total  Time
+Callable      |   13     13  0.1s
+Test Summary:    | Pass  Total  Time
+fully typed mode |   23     23  1.3s
+Test Summary:  | Pass  Total  Time
+concrete parts |   15     15  0.3s
+Test Summary: | Pass  Total  Time
+ownership     |    8      8  0.1s
+Test Summary: | Pass  Total  Time
+pirates       |    7      7  0.0s
+Test Summary: | Pass  Total  Time
+hints         |    7      7  0.9s
+
+verify_main: Test Failed at /p/projects/coen/julia-trait-bound/TraitWorld-unified/test/verify.jl:29
+  Expression: !(Tuple{typeof(double), Float64} in (verify_main((()->begin
+                    #= /p/projects/coen/julia-trait-bound/TraitWorld-unified/test/verify.jl:29 =#
+                    applyf(double, 1.0)
+                end), ())).targets)
+   Evaluated: !(Tuple{typeof(Main.verify.double), Float64} in Any[Tuple{Main.verify.var"#2#3"}, Tuple{typeof(Main.verify.applyf), Core.Callable{Tuple{Float64}, Float64}, Float64}, Tuple{typeof(Main.verify.double), Float64}, Tuple{typeof(*), Int64, Float64}, Tuple{typeof(promote), Int64, Float64}, Tuple{typeof(Base._promote), Int64, Float64}, Tuple{typeof(Base.indexed_iterate), Tuple{Float64, Float64}, Int64}, Tuple{typeof(Base.indexed_iterate), Tuple{Float64, Float64}, Int64, Int64}, Tuple{typeof(convert), Type{Float64}, Int64}, Tuple{typeof(convert), Type{Float64}, Float64}, Tuple{typeof(+), Int64, Int64}, Tuple{Type{Float64}, Int64}])
+  Stacktrace:
+   [1] top-level scope
+     @ /p/projects/coen/julia-trait-bound/TraitWorld-unified/test/verify.jl:23
+   [2] macro expansion
+     @ /p/projects/coen/julia-trait-bound/julia-next/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:1967 [inlined]
+   [3] macro expansion
+     @ /p/projects/coen/julia-trait-bound/TraitWorld-unified/test/verify.jl:29 [inlined]
+   [4] macro expansion
+     @ /p/projects/coen/julia-trait-bound/julia-next/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:758 [inlined]
+Test Summary: | Pass  Fail  Total  Time
+verify_main   |    5     1      6  1.5s
+RNG of the outermost testset: Random.Xoshiro(0x34efc2bb51d715f6, 0x40b7736e0648289b, 0xe141f9fcfe0f2e68, 0x00b8b84b4ec435ed, 0x626d09058258f14a)

@@ -1,0 +1,29 @@
+# E-444 head run 3 2026-11-15T15:43:44+01:00 load 1.50 2.38 3.49 | julia-next 75a7f1795b | TraitWorld-unified 9c0912b
+== the library (using TraitWorld): plain instances ended 224 of 120002 | Base 108, DataFrames 82, Statistics 30, Main 2, PooledArrays 2
+log entries 601; tags: jl_method_table_insert, jl_membership_dispatch_walk
+unclosed tail: 0 entries; kinds in the log: Core.MethodInstance, Int32, DataType, Method, String
+  104 plain instances,   139 entries: BaseTraits.length  Tuple{typeof(length), TraitWorld.BaseTraits.HasLength}  [jl_method_table_insert]
+   75 plain instances,    88 entries: BaseTraits.iterate  Tuple{typeof(iterate), TraitWorld.BaseTraits.Iterable{T}} where T  [jl_method_table_insert]
+   26 plain instances,    37 entries: BaseTraits.haskey  Tuple{typeof(haskey), TraitWorld.BaseTraits.Keyed{K, V}, Any} where {K, V}  [jl_method_table_insert]
+   14 plain instances,    19 entries: BaseTraits.iterate  Tuple{typeof(iterate), TraitWorld.BaseTraits.Iterable{T}, Any} where T  [jl_membership_dispatch_walk]
+    5 plain instances,     7 entries: BaseTraits.resize!  Tuple{typeof(resize!), TraitWorld.BaseTraits.Resizable{T}, Any} where T  [jl_membership_dispatch_walk]
+attributed to a closing method: 224 of 224
+instances at a box: 1 valid before, 0 ended, 1 valid after the load; jl_method_table_disable entries: 0
+== the ODE port (using TraitDifferentialEquations): plain instances ended 767 of 121916 | Base 452, DataFrames 206, CSV 69, Statistics 16, PooledArrays 11, Printf 7, PrettyTables 3, SentinelArrays 1, OrderedCollections 1, Compiler 1
+log entries 2248; tags: jl_method_table_insert
+unclosed tail: 0 entries; kinds in the log: Core.MethodInstance, Int32, String, Method, DataType
+  694 plain instances,   998 entries: ForwardDiff.promote_rule  Tuple{typeof(promote_rule), Type{R}, Type{ForwardDiff.Dual{T, V, N}}} where {R<:Real, T, V, N}  [jl_method_table_insert]
+   28 plain instances,    36 entries: ForwardDiff.eps  Tuple{typeof(eps), Type{D}} where D<:ForwardDiff.Dual  [jl_method_table_insert]
+   22 plain instances,    24 entries: ForwardDiff.hash  Tuple{typeof(hash), ForwardDiff.Partials, UInt64}  [jl_method_table_insert]
+    8 plain instances,    12 entries: ForwardDiff.fma  Tuple{typeof(fma), Irrational, AbstractFloat, ForwardDiff.Dual{Tz}} where Tz  [jl_method_table_insert]
+    7 plain instances,    11 entries: ForwardDiff.isnan  Tuple{typeof(isnan), ForwardDiff.Dual}  [jl_method_table_insert]
+    3 plain instances,     5 entries: ForwardDiff.mightalias  Tuple{typeof(Base.mightalias), AbstractArray, ForwardDiff.Partials}  [jl_method_table_insert]
+    2 plain instances,     3 entries: ForwardDiff.zero  Tuple{typeof(zero), ForwardDiff.Dual}  [jl_method_table_insert]
+    2 plain instances,     5 entries: ForwardDiff.convert  Tuple{typeof(convert), Type{D}, D} where D<:ForwardDiff.Dual  [jl_method_table_insert]
+    1 plain instances,     6 entries: ForwardDiff.convert  Tuple{typeof(convert), Type{ForwardDiff.Dual{T, V, N}}, Number} where {T, V, N}  [jl_method_table_insert]
+    0 plain instances,     6 entries: ForwardDiff.fma  Tuple{typeof(fma), ForwardDiff.Dual{Tx}, AbstractFloat, Real} where Tx  [jl_method_table_insert]
+    0 plain instances,     2 entries: ForwardDiff.rtoldefault  Tuple{typeof(Base.rtoldefault), Type{D}} where D<:ForwardDiff.Dual  [jl_method_table_insert]
+    0 plain instances,     2 entries: ForwardDiff.isequal  Tuple{typeof(isequal), ForwardDiff.Partials{N}, ForwardDiff.Partials{N}} where N  [jl_method_table_insert]
+attributed to a closing method: 767 of 767
+instances at a box: 1 valid before, 0 ended, 656 valid after the load; jl_method_table_disable entries: 0
+rc=0
