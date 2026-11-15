@@ -92,5 +92,5 @@ The same in the module with the trait's default and `@erasing`. In a module that
 ### E-406: the suites, and the check at the box over the ports (`check/ports.jl`, `logs/e406-*`)
 
 - TraitWorld's tests: 90 testsets pass (`test/bytype.jl` new). TDE's suite: 35 testsets pass. NetworkDynamics' test subset as at the baseline (massmatrix 6; doctor 26; diffusion 108 pass, 1 fail, 1 error, 24 broken; inhomogeneous 39 pass, 1 error, 12 broken).
-- `check_definitions` read at the box: the library and the table demonstrators 77 methods, the ODE packages 104 (2 not formed: a bare `Callable`, a bare `IndexProvider`), NetworkDynamics 21, the forks 47 (2 not formed): **no fault**. Every port loads under the `bounded` refusal that reads the box.
+- `check_definitions` read at the box: the library and the table demonstrators 77 methods, the ODE packages 104 (2 not read: `Getter(::Callable)`, a bare `Callable` that no box can be formed at, and one whose instance the reflection does not return), NetworkDynamics 21, the forks 47 (2 not read, the reflection's): **no fault**. Every port loads under the `bounded` refusal that reads the box.
 - Once, the first load of TraitTables, TraitCSV and TraitMakie after their images were made again crashed in the runtime's membership walk at an image's activation (`logs/e406-segfault.txt`); not reproduced in four later loads.
