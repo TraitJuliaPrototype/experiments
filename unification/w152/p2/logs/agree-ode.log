@@ -1,0 +1,30 @@
+== the ODE packages | load 0.46 | unified 7b374f39ce TraitWorld e11c7cc
+roots TraitDifferentialEquations,ODECore,TraitRodas,TraitNonlinearSolve,TraitLinSolvers,TraitNLSolvers,TraitImplicit,TraitIndexing,TraitArrayTools | modules 6 | methods at a trait argument 75; compared 73 (not formed or failed 2)
+the check passes, the box is clean:  68
+the check reports, the box has faults: 0
+the check passes, the box has faults:  1
+the check reports, the box is clean:   4   (marked @unbounded among all compared: 3)
+
+THE CHECK PASSES, THE BOX HAS FAULTS
+  ODECore._sync_in! [core.jl:671]   at Tuple{typeof(ODECore._sync_in!), ODECore.ParamIntegrator{Float64, Float64}, Dynamic{ODECore.StepView{Float64, 
+      box:   left to run time: setproperty!(ODECore.ParamIntegrator{Float64, Float64}, Symbol, Dynamic{ODECore.StepView{Float64, Float64}})
+
+THE CHECK REPORTS, THE BOX IS CLEAN
+  ODECore.#ODEProblem#22 [frontend.jl:67]  @unbounded   at Tuple{ODECore.var"##ODEProblem#22", Any, Type{ODEProblem}, Dynamic{Callable{Tuple{Vector{Float64}, Vector{Floa
+      check: _core_function(Callable{Tuple{Vector{T}, Vector{T}, P, Float64}, Nothing} where {T, P}, Any, Vector, Nothing)
+      check: _plain_function(Callable{Tuple{Vector{T}, Vector{T}, P, Float64}, Nothing} where {T, P}, Any)
+      check: _system(Callable{Tuple{Vector{T}, Vector{T}, P, Float64}, Nothing} where {T, P})
+  ODECore.#ODEProblem#23 [frontend.jl:71]   at Tuple{ODECore.var"##ODEProblem#23", Any, Type{ODEProblem}, Dynamic{Callable{Tuple{Vector{Float64}, Vector{Floa
+      check: _core_function(Callable{Tuple{Vector{T}, Vector{T}, Nothing, Float64}, Nothing} where T, Nothing, Vector, Nothing)
+      check: _plain_function(Callable{Tuple{Vector{T}, Vector{T}, Nothing, Float64}, Nothing} where T, Nothing)
+      check: _system(Callable{Tuple{Vector{T}, Vector{T}, Nothing, Float64}, Nothing} where T)
+  ODECore.ODEProblem [frontend.jl:67]  @unbounded   at Tuple{Type{ODEProblem}, Dynamic{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64, Float64}, Nothing}},
+      check: _core_function(Callable{Tuple{Vector{T}, Vector{T}, P, Float64}, Nothing} where {T, P}, Any, Vector, Nothing)
+      check: _plain_function(Callable{Tuple{Vector{T}, Vector{T}, P, Float64}, Nothing} where {T, P}, Any)
+      check: _system(Callable{Tuple{Vector{T}, Vector{T}, P, Float64}, Nothing} where {T, P})
+  ODECore.ODEProblem [frontend.jl:71]   at Tuple{Type{ODEProblem}, Dynamic{Callable{Tuple{Vector{Float64}, Vector{Float64}, Nothing, Float64}, Nothing}},
+      check: _core_function(Callable{Tuple{Vector{T}, Vector{T}, Nothing, Float64}, Nothing} where T, Nothing, Vector, Nothing)
+      check: _plain_function(Callable{Tuple{Vector{T}, Vector{T}, Nothing, Float64}, Nothing} where T, Nothing)
+      check: _system(Callable{Tuple{Vector{T}, Vector{T}, Nothing, Float64}, Nothing} where T)
+
+BOTH REPORT

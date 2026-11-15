@@ -1,0 +1,70 @@
+== table demonstrators | load 0.72
+roots TraitCSV,TraitTables,TraitMakie | own facts instances 236, inferred again 234 (failed 2) in 1.4 s | calls left to run time 152
+    62   40.8 %  own function, public or exported
+             Axis in Axis [PlotCore.jl:632]
+             outline in drawmarkers [PlotCore.jl:399]
+             npoints in drawlabels [PlotCore.jl:439]
+             pointx in drawlabels [PlotCore.jl:439]
+             scaled in drawlabels [PlotCore.jl:439]
+             pointy in drawlabels [PlotCore.jl:439]
+    57   37.5 %  Base's or Core's function
+             vect in drawaxis! [PlotCore.jl:720]
+             vect in drawaxis! [PlotCore.jl:720]
+             + in drawaxis! [PlotCore.jl:720]
+             setindex! in select [TableCore.jl:58]
+             Float64 in floats [TableCore.jl:98]
+             push! in floats [TableCore.jl:98]
+    33   21.7 %  own function, not public, every method the owner's
+             mappedcolor in rgba [PlotCore.jl:144]
+             TraitMakie.PlotCore.Transform2D in drawaxis! [PlotCore.jl:720]
+             px in drawaxis! [PlotCore.jl:720]
+             px in drawaxis! [PlotCore.jl:720]
+             polyline! in drawaxis! [PlotCore.jl:720]
+             px in drawaxis! [PlotCore.jl:720]
+the own, owner-only sites, by what plain inference of the call gives: plain inference gives a concrete type 33
+the own functions most called at such sites: TraitMakie.limits 4, TraitMakie.polyline! 3, TraitMakie.py 3, TraitMakie.pixels 3, TraitMakie.px 3, TraitMakie.colors 2, TraitMakie.text! 2, TraitMakie.drawbars 1, TraitMakie.gradientline! 1, TraitMakie.drawmarkers 1, TraitMakie.binned 1, TraitMakie.drawlabels 1, TraitMakie.vlimits 1, TraitMakie.barlimits 1, TraitMakie.mappedcolor 1, TraitMakie.bandoutline 1, TraitMakie.drawvlines 1, TraitMakie.steppoints 1, TraitMakie.Transform2D 1, TraitMakie.polygon! 1
+== ODE | load 0.72
+roots TraitDifferentialEquations,ODECore,TraitRodas,TraitNonlinearSolve,TraitLinSolvers,TraitNLSolvers,TraitImplicit,TraitIndexing,TraitArrayTools | own facts instances 428, inferred again 422 (failed 6) in 3.3 s | calls left to run time 280
+   116   41.4 %  own function, not public, every method the owner's
+             _ in DiscreteCallback [core.jl:544]
+             _ in ContinuousCallback [core.jl:552]
+             step_event_condition in tsit5_advance! [core.jl:1451]
+             event_affect_dir! in tsit5_advance! [core.jl:1451]
+             step_event_condition in tsit5_advance! [core.jl:1451]
+             step_condition in tsit5_advance! [core.jl:1451]
+   113   40.4 %  Base's or Core's function
+             iterate in NonlinearPolyalg [solvers.jl:215]
+             push! in NonlinearPolyalg [solvers.jl:215]
+             iterate in NonlinearPolyalg [solvers.jl:215]
+             _keep_dynamic in #ODEProblem#22 [frontend.jl:67]
+             _keep_dynamic in #ODEProblem#22 [frontend.jl:67]
+             _keep_dynamic in #ODEProblem#22 [frontend.jl:67]
+    24    8.6 %  own function, public or exported
+             ContinuousCallback in ContinuousCallback [core.jl:552]
+             linfactor in rodas5_step! [rodas5.jl:172]
+             linfactor in rodas5_step! [rodas5.jl:172]
+             event_condition in step_event_condition [core.jl:700]
+             terminate! in terminate! [core.jl:97]
+             ODECore.FunctionCallback{Vector{Float64}, Float64, Vector{Float64}} in enter_callbacks [core.jl:592]
+    12    4.3 %  the callee is not a constant (a called value)
+             nothing in _nlproblem [problems.jl:208]
+             nothing in initialize! [core.jl:568]
+             nothing in affect! [core.jl:567]
+             nothing in _problem [frontend.jl:123]
+             nothing in _problem [frontend.jl:123]
+             nothing in _problem [frontend.jl:123]
+    10    3.6 %  another package's function
+             ldiv! in rodas5_step! [rodas5.jl:172]
+             ldiv! in rodas5_step! [rodas5.jl:172]
+             ldiv! in rodas5_step! [rodas5.jl:172]
+             ldiv! in rodas5_step! [rodas5.jl:172]
+             ForwardDiff.GradientConfig in _gradient_sig [TraitDifferentialEquations.jl:120]
+             gradient in _gradient_sig [TraitDifferentialEquations.jl:120]
+     5    1.8 %  own function, not public, with another package's methods
+             step_interp! in tsit5_advance! [core.jl:1451]
+             step_tstop! in step_tstop! [core.jl:149]
+             step_interp! in step_interp! [core.jl:149]
+             step_interp! in rodas5_advance! [rodas5.jl:324]
+             step_interp! in rodas5_advance! [rodas5.jl:324]
+the own, owner-only sites, by what plain inference of the call gives: plain inference gives a concrete type 66; plain inference gives an abstract type or a union 38; plain inference gives Any 12
+the own functions most called at such sites: ODECore.step_event_condition 13, ODECore.with_problem 10, ODECore._system 6, ODECore.PartialFn 6, ODECore._problem_names 5, ODECore._jac_prototype 5, ODECore.adapt_callbacks! 5, ODECore.param_integrator 5, TraitNonlinearSolve._nlproblem 4, ODECore.step_condition 3, ODECore.step_affect! 3, ODECore._by_duals 3, ODECore._affect 3, ODECore.event_affect_dir! 3, ODECore._problem 3, ODECore._mass_matrix 3, TraitNonlinearSolve._attime 3, TraitNonlinearSolve._nlpartial 3, ODECore._names 3, ODECore._erased_function 3, ODECore.step_event_initialize! 2, ODECore._ 2, ODECore._enter_step_callback! 2, ODECore.step_initialize! 2, TraitNonlinearSolve.solve_nonlinear 1

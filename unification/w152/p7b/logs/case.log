@@ -1,0 +1,10 @@
+== GT-18's case | unified 7b374f39ce TraitWorld e11c7cc
+before the membership: v isa Vector{X}: false | T == Vector{X}: false | T === Vector{X}: false
+   h(v): the untyped method | k(v): the untyped method
+   at an abstract type: v isa AbstractVector{X}: false (compiled: false) | h2(v): the untyped method | k2(v): the untyped method
+after the membership:  v isa Vector{X}: false | T == Vector{X}: false | T === Vector{X}: false | T <: Vector{X}: true | Vector{X} <: T: true
+   h(v): the untyped method | k(v): the untyped method | which: Tuple{typeof(h), Any} | a call compiled now: the untyped method
+   the type written again: true | h(w): the untyped method
+   a caller compiled after: the untyped method
+   at an abstract type: v isa AbstractVector{X}: true (compiled before: false) | T <: AbstractVector{X}: true
+   h2(v): the untyped method | k2(v), compiled before: the untyped method | which: Tuple{typeof(h2), Any} | a caller compiled after: the untyped method

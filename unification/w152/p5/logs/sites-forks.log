@@ -1,0 +1,46 @@
+== forks | load 0.30 | unified 7b374f39ce forks 439bae7
+roots CSV,DataFrames,Tables | own facts instances 3453, inferred again 3440 (failed 13) in 29.2 s | calls left to run time 4606
+  3391   73.6 %  Base's or Core's function
+             enumerate in DataFrameJoiner [composer.jl:26]
+             iterate in DataFrameJoiner [composer.jl:26]
+             indexed_iterate in DataFrameJoiner [composer.jl:26]
+             indexed_iterate in DataFrameJoiner [composer.jl:26]
+             eachcol in DataFrameJoiner [composer.jl:26]
+             pairs in DataFrameJoiner [composer.jl:26]
+   678   14.7 %  own function, not public, every method the owner's
+             _conversionforeach in #_finishstrings#123 [api.jl:1338]
+             CSV.ParsedTable in #_finishstrings#123 [api.jl:1338]
+             _conversionforeach in #_finishstrings#123 [api.jl:1338]
+             CSV.ParsedTable in #_finishstrings#123 [api.jl:1338]
+             _conversionforeach in #_finishstrings#123 [api.jl:1338]
+             CSV.ParsedTable in #_finishstrings#123 [api.jl:1338]
+   327    7.1 %  own function, public or exported
+             vector in _add_col_check_copy [selection.jl:673]
+             vector in _add_col_check_copy [selection.jl:673]
+             vector in _add_col_check_copy [selection.jl:673]
+             vector in _add_col_check_copy [selection.jl:673]
+             vector in _add_col_check_copy [selection.jl:673]
+             vector in _add_col_check_copy [selection.jl:673]
+   148    3.2 %  another package's function
+             Base.IteratorSize in #lazy#200 [api.jl:2352]
+             LinearIndices in #lazy#200 [api.jl:2352]
+             Base.Generator in #lazy#200 [api.jl:2352]
+             Dict in #lazy#200 [api.jl:2352]
+             Base.IteratorSize in #lazy#200 [api.jl:2352]
+             LinearIndices in #lazy#200 [api.jl:2352]
+    56    1.2 %  the callee is not a constant (a called value)
+             nothing in #lazy#200 [api.jl:2352]
+             nothing in #lazy#200 [api.jl:2352]
+             nothing in #lazy#200 [api.jl:2352]
+             nothing in #lazy#200 [api.jl:2352]
+             nothing in #lazy#200 [api.jl:2352]
+             nothing in #lazy#200 [api.jl:2352]
+     6    0.1 %  own function, not public, with another package's methods
+             columnindex in _propagate_join_metadata! [composer.jl:120]
+             columnindex in _propagate_join_metadata! [composer.jl:120]
+             columnnames in _combine_with_first [complextransforms.jl:24]
+             columnnames in _combine_with_first [complextransforms.jl:24]
+             columnindex in _row_inserter! [insertion.jl:909]
+             columnindex in #_compose_joined_table##0 [none:0]
+the own, owner-only sites, by what plain inference of the call gives: plain inference gives a concrete type 356; plain inference gives an abstract type or a union 201; plain inference gives Any 88; more than three methods match 33
+the own functions most called at such sites: CSV._downcast 31, DataFrames.groupreduce!_helper 30, DataFrames._copy_all_note_metadata! 24, CSV._ColumnEmitter 20, CSV.accessparsetype 20, CSV._taskforeach 17, DataFrames.check_aggregate 16, CSV.promote_kernel 14, DataFrames._copy_col_note_metadata! 12, CSV._requestedstrings 12, CSV.totalrows 12, CSV.withlenient 12, DataFrames.ordering 12, CSV._hasstringrequest 12, DataFrames._names 11, CSV.IndexedSource 10, DataFrames.DFPerm 10, CSV.ParsedTable 9, CSV._settleschema 8, CSV._maptype 8, CSV._fillslice! 8, DataFrames._copy_table_note_metadata! 8, CSV.directwave! 8, DataFrames._sortperm 8, CSV._widenmissing 8

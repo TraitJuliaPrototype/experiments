@@ -1,0 +1,26 @@
+== the control: seven methods, five with a use outside the contract | load 0.36 | unified 7b374f39ce TraitWorld e11c7cc
+roots none | modules 1 | methods at a trait argument 7; compared 7 (not formed or failed 0)
+the check passes, the box is clean:  2
+the check reports, the box has faults: 4
+the check passes, the box has faults:  0
+the check reports, the box is clean:   1   (marked @unbounded among all compared: 0)
+
+THE CHECK PASSES, THE BOX HAS FAULTS
+
+THE CHECK REPORTS, THE BOX IS CLEAN
+  Main.Mist.leak [mistakes.jl:16]   at Tuple{typeof(Main.Mist.leak), Dynamic{Main.Mist.ColTable}}
+      check: typeof(Main.Mist.ColTable)
+
+BOTH REPORT
+  Main.Mist.colsum [mistakes.jl:14]   at Tuple{typeof(Main.Mist.colsum), Dynamic{Main.Mist.ColTable}}
+      check: sum(Main.Mist.ColTable)
+      box:   only throws: sum(Dynamic{Main.Mist.ColTable})
+  Main.Mist.field [mistakes.jl:15]   at Tuple{typeof(Main.Mist.field), Dynamic{Main.Mist.ColTable}}
+      check: the field `data` of a Main.Mist.ColTable
+      box:   only throws: getproperty(Dynamic{Main.Mist.ColTable}, Symbol)
+  Main.Mist.spread [mistakes.jl:13]   at Tuple{typeof(Main.Mist.spread), Dynamic{Main.Mist.ColTable}}
+      check: size(Main.Mist.ColTable)
+      box:   no method: typeof(size), Dynamic{Main.Mist.ColTable}
+  Main.Mist.through [mistakes.jl:19]   at Tuple{typeof(Main.Mist.through), Dynamic{Main.Mist.ColTable}}
+      check: length(Main.Mist.ColTable)
+      box:   only throws: helper(Dynamic{Main.Mist.ColTable})

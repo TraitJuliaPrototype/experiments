@@ -1,0 +1,49 @@
+== env_forks | load 0.50
+test bed: 1 | callees called directly by own facts instances, not deep G2: 701
+inferred by facts in 5.1 s: the same result type 520; wider 130; another 51; failed 0
+of the wider: to Any 70; the plain result was concrete in 63; was Union{} (a call that only throws) 5
+wider, by function (21): typeof(pairs) 36, typeof(iterate) 18, typeof(collect) 13, Type{NamedTuple} 12, typeof(nonmissingtype) 7, typeof(disallowmissing) 5, typeof(map) 5, typeof(Base.Broadcast.materialize) 4, typeof(any) 4, typeof(eltype) 3, typeof(Statistics.mean) 3, typeof(setindex!) 3, typeof(sum) 3, Type{Set} 3, typeof(extrema) 3, Type{Val} 2, typeof(Base.copymutable) 2, typeof(all) 1, typeof(CSV.ColumnParsers.textcolumn) 1, typeof(findall) 1, typeof(Core.kwcall) 1
+   Tuple{typeof(disallowmissing), Vector{Int64}}  plain Vector{Int64}  facts Any
+   Tuple{typeof(disallowmissing), Vector{Float64}}  plain Vector{Float64}  facts Any
+   Tuple{typeof(disallowmissing), Vector{Bool}}  plain Vector{Bool}  facts Any
+   Tuple{typeof(any), CSV.var"#126#127", Vector{AbstractVector}}  plain Bool  facts Union{Missing, Bool}
+   Tuple{typeof(findall), DataFrames.var"#stack##0#stack##1", Vector{AbstractVector}}  plain Vector{Int64}  facts Any
+   Tuple{typeof(any), CSV.var"#_pooledarrays##0#_pooledarrays##1", Vector{AbstractVector}}  plain Bool  facts Union{Missing, Bool}
+   Tuple{typeof(collect), Base.Generator{Vector{Int64}, DataFrames.var"#699#700"{DataFrame, Int64}}}  plain Vector  facts Any
+   Tuple{typeof(map), DataFrames.var"#_transformation_helper##0#_transformation_helper##1"{DataFrames.DataFrameColumns{DataFrame}}, Vector{Int64}}  plain Vector  facts Any
+   Tuple{typeof(iterate), Base.Generator{Base.Iterators.Filter{DataFrames.var"#colmetadatakeys##4#colmetadatakeys##5", Dict{String, Tuple{Any, Any}}}, Da  plain Union{Nothing, Tuple{String, Int64}}  facts Union{Nothing, Tuple{Any, Any}}
+   Tuple{typeof(iterate), Base.Generator{Base.Iterators.Filter{DataFrames.var"#colmetadatakeys##4#colmetadatakeys##5", Dict{String, Tuple{Any, Any}}}, Da  plain Union{Nothing, Tuple{String, Int64}}  facts Union{Nothing, Tuple{Any, Any}}
+   Tuple{typeof(collect), Base.Generator{Base.KeySet{Symbol, Dict{Symbol, Int64}}, DataFrames.var"#fuzzymatch##0#fuzzymatch##1"{String}}}  plain Vector{Tuple{Int64, Symbol}}  facts Any
+   Tuple{typeof(map), typeof(names), Vector{AbstractDataFrame}}  plain Vector  facts Any
+   Tuple{typeof(all), DataFrames.var"#684#685", Vector{AbstractDataFrame}}  plain Bool  facts Union{Missing, Bool}
+   Tuple{Type{Val}, Bool}  plain Val  facts Any
+   Tuple{typeof(iterate), Base.Iterators.Enumerate{Vector{Any}}}  plain Union{Nothing, Tuple{Tuple{Int64, Any}, Tuple{Int64, Int64}}  facts Union{Nothing, Tuple{Tuple{Int64, Any}, Tuple{Int64, Any}}}
+   Tuple{typeof(iterate), Base.Iterators.Enumerate{Vector{Any}}, Tuple{Int64, Int64}}  plain Union{Nothing, Tuple{Tuple{Int64, Any}, Tuple{Int64, Int64}}  facts Union{Nothing, Tuple{Tuple{Int64, Any}, Tuple{Int64, Any}}}
+   Tuple{Type{Val}, Symbol}  plain Val  facts Any
+   Tuple{typeof(iterate), Base.Iterators.Enumerate{DataFrames.ColumnVectors}}  plain Union{Nothing, Tuple{Tuple{Int64, AbstractVector}, Tuple{Int  facts Union{Nothing, Tuple{Tuple{Int64, Any}, Tuple{Int64, Any}}}
+   Tuple{typeof(iterate), Base.Iterators.Enumerate{DataFrames.ColumnVectors}, Tuple{Int64, Int64}}  plain Union{Nothing, Tuple{Tuple{Int64, AbstractVector}, Tuple{Int  facts Union{Nothing, Tuple{Tuple{Int64, Any}, Tuple{Int64, Any}}}
+   Tuple{typeof(collect), Base.Generator{Vector{CSV.ColumnDecision}, CSV.var"#_parse##12#_parse##13"}}  plain Vector  facts Any
+   Tuple{typeof(CSV.ColumnParsers.textcolumn), Vector{InlineStrings.InlineString}, Int64, Int64, Bool}  plain Vector  facts Any
+   Tuple{typeof(iterate), Dict{Symbol, DataType}}  plain Union{Nothing, Tuple{Pair{Symbol, DataType}, Int64}}  facts Union{Nothing, Tuple{Any, Int64}}
+   Tuple{typeof(iterate), Dict{Symbol, DataType}, Int64}  plain Union{Nothing, Tuple{Pair{Symbol, DataType}, Int64}}  facts Union{Nothing, Tuple{Any, Int64}}
+   Tuple{typeof(Base.Broadcast.materialize), Base.Broadcast.Broadcasted{Base.Broadcast.DefaultArrayStyle{2}, Nothing, typeof(first), Tuple{Matrix{Pair{Sy  plain Matrix{Symbol}  facts Any
+   Tuple{typeof(Base.Broadcast.materialize), Base.Broadcast.Broadcasted{Base.Broadcast.DefaultArrayStyle{2}, Nothing, typeof(last), Tuple{Matrix{Pair{Sym  plain Union{Matrix, BitMatrix}  facts Any
+   Tuple{typeof(Base.Broadcast.materialize), Base.Broadcast.Broadcasted{Base.Broadcast.DefaultArrayStyle{1}, Nothing, typeof(first), Tuple{Vector{Pair{As  plain Vector{AsTable}  facts Any
+   Tuple{typeof(Base.Broadcast.materialize), Base.Broadcast.Broadcasted{Base.Broadcast.DefaultArrayStyle{1}, Nothing, typeof(last), Tuple{Vector{Pair{AsT  plain Union{Vector, BitVector}  facts Any
+   Tuple{typeof(map), typeof(identity), DataFrames.DataFrameColumns{DataFrame}}  plain Vector  facts Any
+   Tuple{Type{NamedTuple}, Base.Generator{Base.Iterators.Filter{CSV.var"#_pickkwargs##0#_pickkwargs##1"{NTuple{8, Symbol}}, Base.Pairs{Symbol, Union{}, N  plain NamedTuple  facts Any
+   Tuple{Type{NamedTuple}, Base.Generator{Base.Iterators.Filter{CSV.var"#_pickkwargs##0#_pickkwargs##1"{NTuple{6, Symbol}}, Base.Pairs{Symbol, Union{}, N  plain NamedTuple  facts Any
+   Tuple{Type{NamedTuple}, Base.Generator{Base.Iterators.Filter{CSV.var"#_pickkwargs##0#_pickkwargs##1"{NTuple{8, Symbol}}, Base.Pairs{Symbol, Int64, Not  plain NamedTuple  facts Any
+   Tuple{Type{NamedTuple}, Base.Generator{Base.Iterators.Filter{CSV.var"#_pickkwargs##0#_pickkwargs##1"{NTuple{6, Symbol}}, Base.Pairs{Symbol, Int64, Not  plain NamedTuple  facts Any
+   Tuple{Type{NamedTuple}, Base.Generator{Base.Iterators.Filter{CSV.var"#_pickkwargs##0#_pickkwargs##1"{NTuple{8, Symbol}}, Base.Pairs{Symbol, String, No  plain NamedTuple  facts Any
+   Tuple{Type{NamedTuple}, Base.Generator{Base.Iterators.Filter{CSV.var"#_pickkwargs##0#_pickkwargs##1"{NTuple{6, Symbol}}, Base.Pairs{Symbol, String, No  plain NamedTuple  facts Any
+   Tuple{Type{NamedTuple}, Base.Generator{Base.Iterators.Filter{CSV.var"#_pickkwargs##0#_pickkwargs##1"{NTuple{8, Symbol}}, Base.Pairs{Symbol, Dict{DataT  plain NamedTuple  facts Any
+   Tuple{Type{NamedTuple}, Base.Generator{Base.Iterators.Filter{CSV.var"#_pickkwargs##0#_pickkwargs##1"{NTuple{6, Symbol}}, Base.Pairs{Symbol, Dict{DataT  plain NamedTuple  facts Any
+   Tuple{Type{NamedTuple}, Base.Generator{Base.Iterators.Filter{CSV.var"#_pickkwargs##0#_pickkwargs##1"{NTuple{8, Symbol}}, Base.Pairs{Symbol, Dict{Symbo  plain NamedTuple  facts Any
+   Tuple{Type{NamedTuple}, Base.Generator{Base.Iterators.Filter{CSV.var"#_pickkwargs##0#_pickkwargs##1"{NTuple{6, Symbol}}, Base.Pairs{Symbol, Dict{Symbo  plain NamedTuple  facts Any
+   Tuple{typeof(iterate), Dict{DataType, DataType}}  plain Union{Nothing, Tuple{Pair{DataType, DataType}, Int64}}  facts Union{Nothing, Tuple{Any, Int64}}
+   Tuple{typeof(iterate), Dict{DataType, DataType}, Int64}  plain Union{Nothing, Tuple{Pair{DataType, DataType}, Int64}}  facts Union{Nothing, Tuple{Any, Int64}}
+
+real	0m40.881s
+user	0m39.252s
+sys	0m0.917s
