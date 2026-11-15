@@ -1,0 +1,114 @@
+ERROR: LoadError: Some tests did not pass: 16 passed, 3 failed, 3 errored, 0 broken.
+in expression starting at /p/projects/coen/julia-trait-bound/experiments/unification/w161/d2/gate.jl:36
+
+D-2: Callable is a contract at the box: Error During Test at /p/projects/coen/julia-trait-bound/experiments/unification/w161/d2/gate.jl:45
+  Test threw exception
+  Expression: latest(G.colmap, sin, 1.0) == sin(1.0)
+  ImplementError: typeof(sin) cannot be a member of Callable
+    - Callable has no contract: it is not a trait
+  Stacktrace:
+   [1] check_first_use(T::Any, X::Any)
+     @ TraitWorld /p/projects/coen/julia-trait-bound/wt/w161-tw/src/implement.jl:744
+   [2] _member_hook(T::Any, X::Any)
+     @ TraitWorld /p/projects/coen/julia-trait-bound/wt/w161-tw/src/implement.jl:773
+   [3] latest(::Function, ::Function, ::Vararg{Any})
+     @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w161/d2/gate.jl:8
+   [4] top-level scope
+     @ /p/projects/coen/julia-trait-bound/experiments/unification/w161/d2/gate.jl:38
+   [5] macro expansion
+     @ /p/projects/coen/julia-trait-bound/julia-next/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:1967 [inlined]
+   [6] macro expansion
+     @ /p/projects/coen/julia-trait-bound/experiments/unification/w161/d2/gate.jl:45 [inlined]
+   [7] macro expansion
+     @ /p/projects/coen/julia-trait-bound/julia-next/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:755 [inlined]
+
+D-2: Callable is a contract at the box: Error During Test at /p/projects/coen/julia-trait-bound/experiments/unification/w161/d2/gate.jl:46
+  Test threw exception
+  Expression: latest(G.form, sin) === :box
+  ImplementError: typeof(sin) cannot be a member of Callable
+    - Callable has no contract: it is not a trait
+  Stacktrace:
+   [1] check_first_use(T::Any, X::Any)
+     @ TraitWorld /p/projects/coen/julia-trait-bound/wt/w161-tw/src/implement.jl:744
+   [2] _member_hook(T::Any, X::Any)
+     @ TraitWorld /p/projects/coen/julia-trait-bound/wt/w161-tw/src/implement.jl:773
+   [3] latest(::Function, ::Function, ::Vararg{Any})
+     @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w161/d2/gate.jl:8
+   [4] top-level scope
+     @ /p/projects/coen/julia-trait-bound/experiments/unification/w161/d2/gate.jl:38
+   [5] macro expansion
+     @ /p/projects/coen/julia-trait-bound/julia-next/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:1967 [inlined]
+   [6] macro expansion
+     @ /p/projects/coen/julia-trait-bound/experiments/unification/w161/d2/gate.jl:46 [inlined]
+   [7] macro expansion
+     @ /p/projects/coen/julia-trait-bound/julia-next/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:755 [inlined]
+
+D-2: Callable is a contract at the box: Test Failed at /p/projects/coen/julia-trait-bound/experiments/unification/w161/d2/gate.jl:48
+  Expression: e isa MethodError && e.f === G.colmap
+  Stacktrace:
+   [1] top-level scope
+     @ /p/projects/coen/julia-trait-bound/experiments/unification/w161/d2/gate.jl:38
+   [2] macro expansion
+     @ /p/projects/coen/julia-trait-bound/julia-next/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:1967 [inlined]
+   [3] macro expansion
+     @ /p/projects/coen/julia-trait-bound/experiments/unification/w161/d2/gate.jl:48 [inlined]
+   [4] macro expansion
+     @ /p/projects/coen/julia-trait-bound/julia-next/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:758 [inlined]
+ImplementError: typeof(uppercase) cannot be a member of Callable
+  - Callable has no contract: it is not a trait
+
+D-2: Callable is a contract at the box: Test Failed at /p/projects/coen/julia-trait-bound/experiments/unification/w161/d2/gate.jl:51
+  Expression: occursin("none of its methods takes", m)
+   Evaluated: occursin("none of its methods takes", "ImplementError: typeof(uppercase) cannot be a member of Callable\n  - Callable has no contract: it is not a trait")
+  Stacktrace:
+   [1] top-level scope
+     @ /p/projects/coen/julia-trait-bound/experiments/unification/w161/d2/gate.jl:38
+   [2] macro expansion
+     @ /p/projects/coen/julia-trait-bound/julia-next/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:1967 [inlined]
+   [3] macro expansion
+     @ /p/projects/coen/julia-trait-bound/experiments/unification/w161/d2/gate.jl:51 [inlined]
+   [4] macro expansion
+     @ /p/projects/coen/julia-trait-bound/julia-next/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:758 [inlined]
+
+D-2: Callable is a contract at the box: Test Failed at /p/projects/coen/julia-trait-bound/experiments/unification/w161/d2/gate.jl:53
+  Expression: thrown(G.colmap, (x->begin
+                #= /p/projects/coen/julia-trait-bound/experiments/unification/w161/d2/gate.jl:53 =#
+                "s"
+            end), 1.0) isa TypeError
+   Evaluated: ImplementError(Callable, var"#6#7", ["Callable has no contract: it is not a trait"], false) isa TypeError
+  Stacktrace:
+   [1] top-level scope
+     @ /p/projects/coen/julia-trait-bound/experiments/unification/w161/d2/gate.jl:38
+   [2] macro expansion
+     @ /p/projects/coen/julia-trait-bound/julia-next/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:1967 [inlined]
+   [3] macro expansion
+     @ /p/projects/coen/julia-trait-bound/experiments/unification/w161/d2/gate.jl:53 [inlined]
+   [4] macro expansion
+     @ /p/projects/coen/julia-trait-bound/julia-next/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:758 [inlined]
+TypeError: in Callable, in the result of the function at Tuple{Float64} infers as String, expected Float64, got a value of type var"#8#9"
+
+D-2: Callable is a contract at the box: Error During Test at /p/projects/coen/julia-trait-bound/experiments/unification/w161/d2/gate.jl:69
+  Test threw exception
+  Expression: latest(G.hh) == 1
+  ImplementError: typeof(Main.G.only_float) cannot be a member of Callable
+    - Callable has no contract: it is not a trait
+  Stacktrace:
+   [1] check_first_use(T::Any, X::Any)
+     @ TraitWorld /p/projects/coen/julia-trait-bound/wt/w161-tw/src/implement.jl:744
+   [2] _member_hook(T::Any, X::Any)
+     @ TraitWorld /p/projects/coen/julia-trait-bound/wt/w161-tw/src/implement.jl:773
+   [3] hh()
+     @ Main.G /p/projects/coen/julia-trait-bound/experiments/unification/w161/d2/gate.jl:33
+   [4] latest(::Function)
+     @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w161/d2/gate.jl:8
+   [5] top-level scope
+     @ /p/projects/coen/julia-trait-bound/experiments/unification/w161/d2/gate.jl:38
+   [6] macro expansion
+     @ /p/projects/coen/julia-trait-bound/julia-next/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:1967 [inlined]
+   [7] macro expansion
+     @ /p/projects/coen/julia-trait-bound/experiments/unification/w161/d2/gate.jl:69 [inlined]
+   [8] macro expansion
+     @ /p/projects/coen/julia-trait-bound/julia-next/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:755 [inlined]
+Test Summary:                          | Pass  Fail  Error  Total  Time
+D-2: Callable is a contract at the box |   16     3      3     22  2.3s
+RNG of the outermost testset: Random.Xoshiro(0xf3a687e6ea11b206, 0xd82c25d880bf81cf, 0x3afb0d4a3376499c, 0xb9f94d22c11c6e5e, 0xb8e357d6b566ac11)

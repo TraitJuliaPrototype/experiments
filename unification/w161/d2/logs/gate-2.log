@@ -1,0 +1,62 @@
+ERROR: LoadError: Some tests did not pass: 20 passed, 1 failed, 1 errored, 0 broken.
+in expression starting at /p/projects/coen/julia-trait-bound/experiments/unification/w161/d2/gate.jl:36
+MethodError: no method matching colmap(::typeof(uppercase), ::Float64)
+This error has been manually thrown, explicitly, so the method may exist but be intentionally marked as unimplemented.
+Hint: `uppercase` is given at `Callable{Tuple{Float64}, Float64}`, and none of its methods takes `Tuple{Float64}`; its methods take (::WrapperChar), (::SubString{<:Base.AnnotatedString}), (::Base.AnnotatedString), …
+
+Closest candidates are:
+  colmap(::Callable{Tuple{Float64}, Float64}, ::Float64)
+   @ Main.G /p/projects/coen/julia-trait-bound/experiments/unification/w161/d2/gate.jl:24
+  colmap(!Matched::Compiled{Z} where Z<:Callable{Tuple{Float64}, Float64}, ::Float64)
+   @ Main.G /p/projects/coen/julia-trait-bound/experiments/unification/w161/d2/gate.jl:24
+  colmap(!Matched::Union{Dynamic{<:Callable{Tuple{Float64}, Float64}}, Compiled{<:Callable{Tuple{Float64}, Float64}}}, ::Float64)
+   @ Main.G /p/projects/coen/julia-trait-bound/experiments/unification/w161/d2/gate.jl:24
+
+TypeError: in Callable, in the result of the function at Tuple{Float64} infers as String, expected Float64, got a value of type var"#8#9"
+
+D-2: Callable is a contract at the box: Error During Test at /p/projects/coen/julia-trait-bound/experiments/unification/w161/d2/gate.jl:69
+  Test threw exception
+  Expression: latest(G.hh) == 1
+  MethodError: no method matching g(::typeof(Main.G.only_float))
+  This error has been manually thrown, explicitly, so the method may exist but be intentionally marked as unimplemented.
+  Hint: `only_float` is given at `Callable{Tuple{Int64}, Int64}`, and none of its methods takes `Tuple{Int64}`; its methods take (::Float64)
+  Closest candidates are:
+    g(::Callable{Tuple{Int64}, Int64})
+     @ Main.G /p/projects/coen/julia-trait-bound/experiments/unification/w161/d2/gate.jl:32
+    g(!Matched::Compiled{Z} where Z<:Callable{Tuple{Int64}, Int64})
+     @ Main.G /p/projects/coen/julia-trait-bound/experiments/unification/w161/d2/gate.jl:32
+    g(!Matched::Union{Dynamic{<:Callable{Tuple{Int64}, Int64}}, Compiled{<:Callable{Tuple{Int64}, Int64}}})
+     @ Main.G /p/projects/coen/julia-trait-bound/experiments/unification/w161/d2/gate.jl:32
+  Stacktrace:
+   [1] _callable_box_check
+     @ /p/projects/coen/julia-trait-bound/wt/w161-tw/src/callable.jl:74 [inlined]
+   [2] g(f::Function)
+     @ Main.G /p/projects/coen/julia-trait-bound/experiments/unification/w161/d2/gate.jl:32
+   [3] hh()
+     @ Main.G /p/projects/coen/julia-trait-bound/experiments/unification/w161/d2/gate.jl:33
+   [4] latest(::Function)
+     @ Main /p/projects/coen/julia-trait-bound/experiments/unification/w161/d2/gate.jl:8
+   [5] top-level scope
+     @ /p/projects/coen/julia-trait-bound/experiments/unification/w161/d2/gate.jl:38
+   [6] macro expansion
+     @ /p/projects/coen/julia-trait-bound/julia-next/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:1967 [inlined]
+   [7] macro expansion
+     @ /p/projects/coen/julia-trait-bound/experiments/unification/w161/d2/gate.jl:69 [inlined]
+   [8] macro expansion
+     @ /p/projects/coen/julia-trait-bound/julia-next/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:755 [inlined]
+
+D-2: Callable is a contract at the box: Test Failed at /p/projects/coen/julia-trait-bound/experiments/unification/w161/d2/gate.jl:73
+  Expression: ci.max_world == typemax(UInt)
+   Evaluated: 0x0000000000009b1b == 0xffffffffffffffff
+  Stacktrace:
+   [1] top-level scope
+     @ /p/projects/coen/julia-trait-bound/experiments/unification/w161/d2/gate.jl:38
+   [2] macro expansion
+     @ /p/projects/coen/julia-trait-bound/julia-next/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:1967 [inlined]
+   [3] macro expansion
+     @ /p/projects/coen/julia-trait-bound/experiments/unification/w161/d2/gate.jl:73 [inlined]
+   [4] macro expansion
+     @ /p/projects/coen/julia-trait-bound/julia-next/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:758 [inlined]
+Test Summary:                          | Pass  Fail  Error  Total  Time
+D-2: Callable is a contract at the box |   20     1      1     22  2.9s
+RNG of the outermost testset: Random.Xoshiro(0x4912d2e8013d10da, 0xf171149394008869, 0x7ae77dc2bda04f16, 0x64a929f47cc8a501, 0x448bab1fdadcb88a)

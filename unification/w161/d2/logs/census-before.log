@@ -1,0 +1,202 @@
+methods whose signature names Callable: 96  ODECore 61, TraitNonlinearSolve 22, TraitRodas 6, TraitWorld 5, TraitIndexing 2
+  of them with an argument typed by a Callable (not only inside another type): 19
+    TraitIndexing Getter position 1: Callable   [TraitIndexing.jl:158]
+    ODECore #ODEProblem#23 position 3: Callable{Tuple{Array{T, 1}, Array{T, 1}, Nothing, Float64}, Nothing}   [frontend.jl:69]
+    ODECore #ODEProblem#22 position 3: Callable{Tuple{Array{T, 1}, Array{T, 1}, P, Float64}, Nothing}   [frontend.jl:65]
+    TraitNonlinearSolve _nl_ad_jacobian! position 1: Callable{Tuple{Array{ForwardDiff.Dual{ODECore.ODETag, Float64, N}, 1}, Array{ForwardDiff.Dual{ODECore.ODETag, Float64, N}, 1}}, Nothing}   [problems.jl:151]
+    ODECore _ad_jacobian! position 1: Callable{Tuple{Array{ForwardDiff.Dual{ODECore.ODETag, Float64, N}, 1}, Array{ForwardDiff.Dual{ODECore.ODETag, Float64, N}, 1}, Float64}, Nothing}   [core.jl:446]
+    TraitWorld retain! position 1: Callable{Tuple{T}, Bool}   [BaseTraits.jl:266]
+    ODECore ODEProblem position 3: Callable{Tuple{Array{T, 1}, Array{T, 1}, P, Float64}, Nothing}   [frontend.jl:65]
+    ODECore ODEProblem position 3: Callable{Tuple{Array{T, 1}, Array{T, 1}, Nothing, Float64}, Nothing}   [frontend.jl:69]
+    TraitNonlinearSolve NonlinearProblem position 1: F<:Callable{Tuple{Array{T, 1}, Array{T, 1}}, Nothing}   [problems.jl:128]
+    TraitNonlinearSolve NonlinearProblem position 4: J<:Callable{Tuple{Array{T, 2}, Array{T, 1}}, Nothing}   [problems.jl:128]
+    TraitNonlinearSolve NLCoreProblem position 1: F<:Callable{Tuple{Array{T, 1}, Array{T, 1}}, Nothing}   [problems.jl:226]
+    TraitNonlinearSolve NLCoreProblem position 3: J<:Callable{Tuple{Array{T, 2}, Array{T, 1}}, Nothing}   [problems.jl:226]
+    TraitRodas DualJacobian position 1: FD<:Callable{Tuple{Array{ForwardDiff.Dual{ODECore.ODETag, Float64, N}, 1}, Array{ForwardDiff.Dual{ODECore.ODETag, Float64, N}, 1}, Float64}, Nothing}   [rodas5.jl:57]
+    ODECore ODEProblem position 1: F<:Callable{Tuple{Array{T, 1}, Array{T, 1}, Float64}, Nothing}   [core.jl:417]
+    ODECore ODEProblem position 5: J<:Callable{Tuple{Array{T, 2}, Array{T, 1}, Float64}, Nothing}   [core.jl:417]
+    ODECore CoreProblem position 1: F<:Callable{Tuple{Array{T, 1}, Array{T, 1}, Float64}, Nothing}   [core.jl:492]
+    ODECore CoreProblem position 4: J<:Callable{Tuple{Array{T, 2}, Array{T, 1}, Float64}, Nothing}   [core.jl:492]
+    ODECore FunctionCallback position 1: C<:Callable{Tuple{U, T, Dynamic{IntegratorView{U, T, P}}}, Bool}   [core.jl:571]
+    ODECore FunctionCallback position 2: A<:Callable{Tuple{Dynamic{IntegratorView{U, T, P}}}, Nothing}   [core.jl:571]
+    ODECore FunctionCallback position 3: I<:Callable{Tuple{U, T, Dynamic{IntegratorView{U, T, P}}}, Nothing}   [core.jl:571]
+    ODECore FunctionCallback position 1: Callable{Tuple{U, T, Dynamic{IntegratorView{U, T, P}}}, Bool}   [core.jl:575]
+    ODECore FunctionCallback position 2: Callable{Tuple{Dynamic{IntegratorView{U, T, P}}}, Nothing}   [core.jl:575]
+    ODECore FunctionCallback position 3: Callable{Tuple{U, T, Dynamic{IntegratorView{U, T, P}}}, Nothing}   [core.jl:575]
+    ODECore FunctionEventCallback position 1: C<:Callable{Tuple{U, T, Dynamic{IntegratorView{U, T, P}}}, Float64}   [core.jl:586]
+    ODECore FunctionEventCallback position 2: A<:Callable{Tuple{Dynamic{IntegratorView{U, T, P}}}, Nothing}   [core.jl:586]
+    ODECore FunctionEventCallback position 3: N<:Callable{Tuple{Dynamic{IntegratorView{U, T, P}}}, Nothing}   [core.jl:586]
+    ODECore FunctionEventCallback position 4: I<:Callable{Tuple{U, T, Dynamic{IntegratorView{U, T, P}}}, Nothing}   [core.jl:586]
+    ODECore FunctionEventCallback position 1: Callable{Tuple{U, T, Dynamic{IntegratorView{U, T, P}}}, Float64}   [core.jl:591]
+    ODECore FunctionEventCallback position 2: Callable{Tuple{Dynamic{IntegratorView{U, T, P}}}, Nothing}   [core.jl:591]
+    ODECore FunctionEventCallback position 3: Callable{Tuple{Dynamic{IntegratorView{U, T, P}}}, Nothing}   [core.jl:591]
+    ODECore FunctionEventCallback position 4: Callable{Tuple{U, T, Dynamic{IntegratorView{U, T, P}}}, Nothing}   [core.jl:591]
+    ODECore ODEProblem position 1: Callable{Tuple{Array{T, 1}, Array{T, 1}, P, Float64}, Nothing}   [frontend.jl:65]
+    ODECore ODEProblem position 1: Callable{Tuple{Array{T, 1}, Array{T, 1}, Nothing, Float64}, Nothing}   [frontend.jl:69]
+
+(any) against an untyped method: TraitIndexing Getter position 1  Callable  |  /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/TraitIndexing/src/TraitIndexing.jl:158
+
+(b) against another type: ODECore #ODEProblem#23 position 3
+      Callable{Tuple{Array{T, 1}, Array{T, 1}, Nothing, Float64}, Nothing}
+      Union{Dynamic{<:Callable{Tuple{Array{T, 1}, Array{T, 1}, Nothing, Float64}, Nothing}}, Compiled{<:Callable{Tuple{Array{T, 1}, Array{T, 1}, Nothing, Float64}, Nothing}}}  (ODECore)
+      /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/ODECore/src/frontend.jl:69  |  /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/ODECore/src/frontend.jl:69
+
+(b) against another type: ODECore #ODEProblem#22 position 3
+      Callable{Tuple{Array{T, 1}, Array{T, 1}, P, Float64}, Nothing}
+      Union{Dynamic{<:Callable{Tuple{Array{T, 1}, Array{T, 1}, P, Float64}, Nothing}}, Compiled{<:Callable{Tuple{Array{T, 1}, Array{T, 1}, P, Float64}, Nothing}}}  (ODECore)
+      /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/ODECore/src/frontend.jl:65  |  /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/ODECore/src/frontend.jl:65
+
+(b) against another type: TraitNonlinearSolve _nl_ad_jacobian! position 1
+      Callable{Tuple{Array{ForwardDiff.Dual{ODECore.ODETag, Float64, N}, 1}, Array{ForwardDiff.Dual{ODECore.ODETag, Float64, N}, 1}}, Nothing}
+      Union{Dynamic{<:Callable{Tuple{Array{ForwardDiff.Dual{ODECore.ODETag, Float64, N}, 1}, Array{ForwardDiff.Dual{ODECore.ODETag, Float64, N}, 1}}, Nothing}}, Compiled{<:Callable{Tuple{Array{ForwardDiff.Dual{ODECore.ODETag, Float64, N}, 1}, Array{ForwardDiff.Dual{ODECore.ODETag, Float64, N}, 1}}, Nothing}}}  (TraitNonlinearSolve)
+      /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/TraitNonlinearSolve/src/problems.jl:151  |  /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/TraitNonlinearSolve/src/problems.jl:151
+
+(b) against another type: ODECore _ad_jacobian! position 1
+      Callable{Tuple{Array{ForwardDiff.Dual{ODECore.ODETag, Float64, N}, 1}, Array{ForwardDiff.Dual{ODECore.ODETag, Float64, N}, 1}, Float64}, Nothing}
+      Union{Dynamic{<:Callable{Tuple{Array{ForwardDiff.Dual{ODECore.ODETag, Float64, N}, 1}, Array{ForwardDiff.Dual{ODECore.ODETag, Float64, N}, 1}, Float64}, Nothing}}, Compiled{<:Callable{Tuple{Array{ForwardDiff.Dual{ODECore.ODETag, Float64, N}, 1}, Array{ForwardDiff.Dual{ODECore.ODETag, Float64, N}, 1}, Float64}, Nothing}}}  (ODECore)
+      /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/ODECore/src/core.jl:446  |  /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/ODECore/src/core.jl:446
+
+(b) against another type: ODECore ODEProblem position 3
+      Callable{Tuple{Array{T, 1}, Array{T, 1}, P, Float64}, Nothing}
+      Union{Dynamic{<:Callable{Tuple{Array{T, 1}, Array{T, 1}, P, Float64}, Nothing}}, Compiled{<:Callable{Tuple{Array{T, 1}, Array{T, 1}, P, Float64}, Nothing}}}  (ODECore)
+      /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/ODECore/src/frontend.jl:65  |  /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/ODECore/src/frontend.jl:65
+
+(any) against an untyped method: ODECore ODEProblem position 3  Callable{Tuple{Array{T, 1}, Array{T, 1}, P, Float64}, Nothing}  |  /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/ODECore/src/frontend.jl:73
+
+(b) against another type: ODECore ODEProblem position 3
+      Callable{Tuple{Array{T, 1}, Array{T, 1}, Nothing, Float64}, Nothing}
+      Union{Dynamic{<:Callable{Tuple{Array{T, 1}, Array{T, 1}, Nothing, Float64}, Nothing}}, Compiled{<:Callable{Tuple{Array{T, 1}, Array{T, 1}, Nothing, Float64}, Nothing}}}  (ODECore)
+      /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/ODECore/src/frontend.jl:69  |  /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/ODECore/src/frontend.jl:69
+
+(any) against an untyped method: ODECore ODEProblem position 3  Callable{Tuple{Array{T, 1}, Array{T, 1}, Nothing, Float64}, Nothing}  |  /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/ODECore/src/frontend.jl:73
+
+(b) against another type: TraitNonlinearSolve NonlinearProblem position 1
+      F<:Callable{Tuple{Array{T, 1}, Array{T, 1}}, Nothing}
+      F<:Union{Dynamic{<:Callable{Tuple{Array{T, 1}, Array{T, 1}}, Nothing}}, Compiled{<:Callable{Tuple{Array{T, 1}, Array{T, 1}}, Nothing}}}  (TraitNonlinearSolve)
+      /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/TraitNonlinearSolve/src/problems.jl:128  |  /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/TraitNonlinearSolve/src/problems.jl:128
+
+(b) against another type: TraitNonlinearSolve NonlinearProblem position 4
+      J<:Callable{Tuple{Array{T, 2}, Array{T, 1}}, Nothing}
+      J<:Union{Dynamic{<:Callable{Tuple{Array{T, 2}, Array{T, 1}}, Nothing}}, Compiled{<:Callable{Tuple{Array{T, 2}, Array{T, 1}}, Nothing}}}  (TraitNonlinearSolve)
+      /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/TraitNonlinearSolve/src/problems.jl:128  |  /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/TraitNonlinearSolve/src/problems.jl:128
+
+(b) against another type: TraitNonlinearSolve NLCoreProblem position 1
+      F<:Callable{Tuple{Array{T, 1}, Array{T, 1}}, Nothing}
+      F<:Union{Dynamic{<:Callable{Tuple{Array{T, 1}, Array{T, 1}}, Nothing}}, Compiled{<:Callable{Tuple{Array{T, 1}, Array{T, 1}}, Nothing}}}  (TraitNonlinearSolve)
+      /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/TraitNonlinearSolve/src/problems.jl:226  |  /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/TraitNonlinearSolve/src/problems.jl:226
+
+(b) against another type: TraitNonlinearSolve NLCoreProblem position 3
+      J<:Callable{Tuple{Array{T, 2}, Array{T, 1}}, Nothing}
+      J<:Union{Dynamic{<:Callable{Tuple{Array{T, 2}, Array{T, 1}}, Nothing}}, Compiled{<:Callable{Tuple{Array{T, 2}, Array{T, 1}}, Nothing}}}  (TraitNonlinearSolve)
+      /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/TraitNonlinearSolve/src/problems.jl:226  |  /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/TraitNonlinearSolve/src/problems.jl:226
+
+(b) against another type: TraitRodas DualJacobian position 1
+      FD<:Callable{Tuple{Array{ForwardDiff.Dual{ODECore.ODETag, Float64, N}, 1}, Array{ForwardDiff.Dual{ODECore.ODETag, Float64, N}, 1}, Float64}, Nothing}
+      FD<:Union{Dynamic{<:Callable{Tuple{Array{ForwardDiff.Dual{ODECore.ODETag, Float64, N}, 1}, Array{ForwardDiff.Dual{ODECore.ODETag, Float64, N}, 1}, Float64}, Nothing}}, Compiled{<:Callable{Tuple{Array{ForwardDiff.Dual{ODECore.ODETag, Float64, N}, 1}, Array{ForwardDiff.Dual{ODECore.ODETag, Float64, N}, 1}, Float64}, Nothing}}}  (TraitRodas)
+      /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/TraitRodas/src/rodas5.jl:57  |  /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/TraitRodas/src/rodas5.jl:57
+
+(b) against another type: ODECore ODEProblem position 1
+      F<:Callable{Tuple{Array{T, 1}, Array{T, 1}, Float64}, Nothing}
+      F<:Union{Dynamic{<:Callable{Tuple{Array{T, 1}, Array{T, 1}, Float64}, Nothing}}, Compiled{<:Callable{Tuple{Array{T, 1}, Array{T, 1}, Float64}, Nothing}}}  (ODECore)
+      /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/ODECore/src/core.jl:417  |  /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/ODECore/src/core.jl:417
+
+(b) against another type: ODECore ODEProblem position 5
+      J<:Callable{Tuple{Array{T, 2}, Array{T, 1}, Float64}, Nothing}
+      J<:Union{Dynamic{<:Callable{Tuple{Array{T, 2}, Array{T, 1}, Float64}, Nothing}}, Compiled{<:Callable{Tuple{Array{T, 2}, Array{T, 1}, Float64}, Nothing}}}  (ODECore)
+      /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/ODECore/src/core.jl:417  |  /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/ODECore/src/core.jl:417
+
+(b) against another type: ODECore CoreProblem position 1
+      F<:Callable{Tuple{Array{T, 1}, Array{T, 1}, Float64}, Nothing}
+      F<:Union{Dynamic{<:Callable{Tuple{Array{T, 1}, Array{T, 1}, Float64}, Nothing}}, Compiled{<:Callable{Tuple{Array{T, 1}, Array{T, 1}, Float64}, Nothing}}}  (ODECore)
+      /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/ODECore/src/core.jl:492  |  /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/ODECore/src/core.jl:492
+
+(b) against another type: ODECore CoreProblem position 4
+      J<:Callable{Tuple{Array{T, 2}, Array{T, 1}, Float64}, Nothing}
+      J<:Union{Dynamic{<:Callable{Tuple{Array{T, 2}, Array{T, 1}, Float64}, Nothing}}, Compiled{<:Callable{Tuple{Array{T, 2}, Array{T, 1}, Float64}, Nothing}}}  (ODECore)
+      /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/ODECore/src/core.jl:492  |  /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/ODECore/src/core.jl:492
+
+(b) against another type: ODECore FunctionCallback position 1
+      C<:Callable{Tuple{U, T, Dynamic{IntegratorView{U, T, P}}}, Bool}
+      C<:Union{Dynamic{<:Callable{Tuple{U, T, Dynamic{IntegratorView{U, T, P}}}, Bool}}, Compiled{<:Callable{Tuple{U, T, Dynamic{IntegratorView{U, T, P}}}, Bool}}}  (ODECore)
+      /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/ODECore/src/core.jl:571  |  /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/ODECore/src/core.jl:571
+
+(b) against another type: ODECore FunctionCallback position 2
+      A<:Callable{Tuple{Dynamic{IntegratorView{U, T, P}}}, Nothing}
+      A<:Union{Dynamic{<:Callable{Tuple{Dynamic{IntegratorView{U, T, P}}}, Nothing}}, Compiled{<:Callable{Tuple{Dynamic{IntegratorView{U, T, P}}}, Nothing}}}  (ODECore)
+      /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/ODECore/src/core.jl:571  |  /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/ODECore/src/core.jl:571
+
+(b) against another type: ODECore FunctionCallback position 3
+      I<:Callable{Tuple{U, T, Dynamic{IntegratorView{U, T, P}}}, Nothing}
+      I<:Union{Dynamic{<:Callable{Tuple{U, T, Dynamic{IntegratorView{U, T, P}}}, Nothing}}, Compiled{<:Callable{Tuple{U, T, Dynamic{IntegratorView{U, T, P}}}, Nothing}}}  (ODECore)
+      /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/ODECore/src/core.jl:571  |  /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/ODECore/src/core.jl:571
+
+(b) against another type: ODECore FunctionCallback position 1
+      Callable{Tuple{U, T, Dynamic{IntegratorView{U, T, P}}}, Bool}
+      Union{Dynamic{<:Callable{Tuple{U, T, Dynamic{IntegratorView{U, T, P}}}, Bool}}, Compiled{<:Callable{Tuple{U, T, Dynamic{IntegratorView{U, T, P}}}, Bool}}}  (ODECore)
+      /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/ODECore/src/core.jl:575  |  /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/ODECore/src/core.jl:575
+
+(b) against another type: ODECore FunctionCallback position 2
+      Callable{Tuple{Dynamic{IntegratorView{U, T, P}}}, Nothing}
+      Union{Dynamic{<:Callable{Tuple{Dynamic{IntegratorView{U, T, P}}}, Nothing}}, Compiled{<:Callable{Tuple{Dynamic{IntegratorView{U, T, P}}}, Nothing}}}  (ODECore)
+      /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/ODECore/src/core.jl:575  |  /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/ODECore/src/core.jl:575
+
+(b) against another type: ODECore FunctionCallback position 3
+      Callable{Tuple{U, T, Dynamic{IntegratorView{U, T, P}}}, Nothing}
+      Union{Dynamic{<:Callable{Tuple{U, T, Dynamic{IntegratorView{U, T, P}}}, Nothing}}, Compiled{<:Callable{Tuple{U, T, Dynamic{IntegratorView{U, T, P}}}, Nothing}}}  (ODECore)
+      /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/ODECore/src/core.jl:575  |  /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/ODECore/src/core.jl:575
+
+(b) against another type: ODECore FunctionEventCallback position 1
+      C<:Callable{Tuple{U, T, Dynamic{IntegratorView{U, T, P}}}, Float64}
+      C<:Union{Dynamic{<:Callable{Tuple{U, T, Dynamic{IntegratorView{U, T, P}}}, Float64}}, Compiled{<:Callable{Tuple{U, T, Dynamic{IntegratorView{U, T, P}}}, Float64}}}  (ODECore)
+      /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/ODECore/src/core.jl:586  |  /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/ODECore/src/core.jl:586
+
+(b) against another type: ODECore FunctionEventCallback position 2
+      A<:Callable{Tuple{Dynamic{IntegratorView{U, T, P}}}, Nothing}
+      A<:Union{Dynamic{<:Callable{Tuple{Dynamic{IntegratorView{U, T, P}}}, Nothing}}, Compiled{<:Callable{Tuple{Dynamic{IntegratorView{U, T, P}}}, Nothing}}}  (ODECore)
+      /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/ODECore/src/core.jl:586  |  /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/ODECore/src/core.jl:586
+
+(b) against another type: ODECore FunctionEventCallback position 3
+      N<:Callable{Tuple{Dynamic{IntegratorView{U, T, P}}}, Nothing}
+      N<:Union{Dynamic{<:Callable{Tuple{Dynamic{IntegratorView{U, T, P}}}, Nothing}}, Compiled{<:Callable{Tuple{Dynamic{IntegratorView{U, T, P}}}, Nothing}}}  (ODECore)
+      /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/ODECore/src/core.jl:586  |  /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/ODECore/src/core.jl:586
+
+(b) against another type: ODECore FunctionEventCallback position 4
+      I<:Callable{Tuple{U, T, Dynamic{IntegratorView{U, T, P}}}, Nothing}
+      I<:Union{Dynamic{<:Callable{Tuple{U, T, Dynamic{IntegratorView{U, T, P}}}, Nothing}}, Compiled{<:Callable{Tuple{U, T, Dynamic{IntegratorView{U, T, P}}}, Nothing}}}  (ODECore)
+      /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/ODECore/src/core.jl:586  |  /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/ODECore/src/core.jl:586
+
+(b) against another type: ODECore FunctionEventCallback position 1
+      Callable{Tuple{U, T, Dynamic{IntegratorView{U, T, P}}}, Float64}
+      Union{Dynamic{<:Callable{Tuple{U, T, Dynamic{IntegratorView{U, T, P}}}, Float64}}, Compiled{<:Callable{Tuple{U, T, Dynamic{IntegratorView{U, T, P}}}, Float64}}}  (ODECore)
+      /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/ODECore/src/core.jl:591  |  /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/ODECore/src/core.jl:591
+
+(b) against another type: ODECore FunctionEventCallback position 2
+      Callable{Tuple{Dynamic{IntegratorView{U, T, P}}}, Nothing}
+      Union{Dynamic{<:Callable{Tuple{Dynamic{IntegratorView{U, T, P}}}, Nothing}}, Compiled{<:Callable{Tuple{Dynamic{IntegratorView{U, T, P}}}, Nothing}}}  (ODECore)
+      /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/ODECore/src/core.jl:591  |  /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/ODECore/src/core.jl:591
+
+(b) against another type: ODECore FunctionEventCallback position 3
+      Callable{Tuple{Dynamic{IntegratorView{U, T, P}}}, Nothing}
+      Union{Dynamic{<:Callable{Tuple{Dynamic{IntegratorView{U, T, P}}}, Nothing}}, Compiled{<:Callable{Tuple{Dynamic{IntegratorView{U, T, P}}}, Nothing}}}  (ODECore)
+      /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/ODECore/src/core.jl:591  |  /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/ODECore/src/core.jl:591
+
+(b) against another type: ODECore FunctionEventCallback position 4
+      Callable{Tuple{U, T, Dynamic{IntegratorView{U, T, P}}}, Nothing}
+      Union{Dynamic{<:Callable{Tuple{U, T, Dynamic{IntegratorView{U, T, P}}}, Nothing}}, Compiled{<:Callable{Tuple{U, T, Dynamic{IntegratorView{U, T, P}}}, Nothing}}}  (ODECore)
+      /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/ODECore/src/core.jl:591  |  /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/ODECore/src/core.jl:591
+
+(b) against another type: ODECore ODEProblem position 1
+      Callable{Tuple{Array{T, 1}, Array{T, 1}, P, Float64}, Nothing}
+      Union{Dynamic{<:Callable{Tuple{Array{T, 1}, Array{T, 1}, P, Float64}, Nothing}}, Compiled{<:Callable{Tuple{Array{T, 1}, Array{T, 1}, P, Float64}, Nothing}}}  (ODECore)
+      /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/ODECore/src/frontend.jl:65  |  /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/ODECore/src/frontend.jl:65
+
+(any) against an untyped method: ODECore ODEProblem position 1  Callable{Tuple{Array{T, 1}, Array{T, 1}, P, Float64}, Nothing}  |  /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/ODECore/src/frontend.jl:73
+
+(b) against another type: ODECore ODEProblem position 1
+      Callable{Tuple{Array{T, 1}, Array{T, 1}, Nothing, Float64}, Nothing}
+      Union{Dynamic{<:Callable{Tuple{Array{T, 1}, Array{T, 1}, Nothing, Float64}, Nothing}}, Compiled{<:Callable{Tuple{Array{T, 1}, Array{T, 1}, Nothing, Float64}, Nothing}}}  (ODECore)
+      /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/ODECore/src/frontend.jl:69  |  /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/ODECore/src/frontend.jl:69
+
+(any) against an untyped method: ODECore ODEProblem position 1  Callable{Tuple{Array{T, 1}, Array{T, 1}, Nothing, Float64}, Nothing}  |  /p/projects/coen/julia-trait-bound/TraitDifferentialEquations-unified/lib/ODECore/src/frontend.jl:73
+
+pairs told apart at a Callable position, the other arguments open to one call: (a) two Callables of different signatures 0; (b) a Callable against another type 31; against an untyped method (Any) 5

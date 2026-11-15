@@ -1,0 +1,15 @@
+MethodError: no method matching colmap(::typeof(uppercase), ::Float64)
+This error has been manually thrown, explicitly, so the method may exist but be intentionally marked as unimplemented.
+Hint: `uppercase` is given at `Callable{Tuple{Float64}, Float64}`, and none of its methods takes `Tuple{Float64}`; its methods take (::WrapperChar), (::SubString{<:Base.AnnotatedString}), (::Base.AnnotatedString), …
+
+Closest candidates are:
+  colmap(::Callable{Tuple{Float64}, Float64}, ::Float64)
+   @ Main.G /p/projects/coen/julia-trait-bound/experiments/unification/w161/d2/gate.jl:24
+  colmap(!Matched::Compiled{Z} where Z<:Callable{Tuple{Float64}, Float64}, ::Float64)
+   @ Main.G /p/projects/coen/julia-trait-bound/experiments/unification/w161/d2/gate.jl:24
+  colmap(!Matched::Union{Dynamic{<:Callable{Tuple{Float64}, Float64}}, Compiled{<:Callable{Tuple{Float64}, Float64}}}, ::Float64)
+   @ Main.G /p/projects/coen/julia-trait-bound/experiments/unification/w161/d2/gate.jl:24
+
+TypeError: in Callable, in the result of the function at Tuple{Float64} infers as String, expected Float64, got a value of type var"#8#9"
+Test Summary:                          | Pass  Total  Time
+D-2: Callable is a contract at the box |   25     25  0.9s
