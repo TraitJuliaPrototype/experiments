@@ -1,0 +1,555 @@
+== other  Tuple{typeof(iterate), Base.Iterators.Filter{DataFrames.var"#_describe##0#_describe##1", Vector{Any}}, Int64}  (in 6 cones)
+   fault nofact: Tuple{typeof(Base.indexed_iterate), Tuple{Any, Int64}, Int64}
+   fault nofact: Tuple{typeof(Base.indexed_iterate), Tuple{Any, Int64}, Int64, Int64}
+   <- Tuple{typeof(DataFrames._describe), AbstractDataFrame, Vector{Any}}
+   <- Tuple{typeof(collect), Type{Symbol}, Base.Generator{Base.Iterators.Filter{DataFrames.var"#_describe##0#_describe##1", Vector{Any}}, typeof(identity)}}
+   <- Tuple{typeof(Base._collect), Type{Symbol}, Base.Generator{Base.Iterators.Filter{DataFrames.var"#_describe##0#_describe##1", Vector{Any}}, typeof(identity)}, Base.SizeUnknown}
+   <- Tuple{typeof(iterate), Base.Generator{Base.Iterators.Filter{DataFrames.var"#_describe##0#_describe##1", Vector{Any}}, typeof(identity)}, Int64}
+   <- Tuple{typeof(iterate), Base.Iterators.Filter{DataFrames.var"#_describe##0#_describe##1", Vector{Any}}, Int64}
+   direct callers: 1
+      Tuple{typeof(iterate), Base.Generator{Base.Iterators.Filter{DataFrames.var"#_describe##0#_describe##1", Vector{Any}}, typeof(identity)}, Int64}
+== other  Tuple{typeof(iterate), Base.Iterators.Enumerate{DataFrames.ColumnVectors}, Tuple{Int64, Int64}}  (in 82 cones)
+   fault nofact: Tuple{typeof(getindex), Tuple{AbstractVector, Int64}, Int64}
+   <- Tuple{typeof(DataFrames._check_consistency), DataFrame}
+   <- Tuple{typeof(iterate), Base.Iterators.Enumerate{DataFrames.ColumnVectors}, Tuple{Int64, Int64}}
+   direct callers: 6
+      Tuple{typeof(DataFrames._check_consistency), DataFrame}
+      Tuple{typeof(DataFrames._manipulate), SubDataFrame{DataFrame, DataFrames.Index, Vector{Int64}}, Vector{Any}, Bool, Bool}
+      Tuple{typeof(DataFrames._fix_existing_columns_for_vector), DataFrame, SubDataFrame{DataFrame, DataFrames.Index, Vector{Int64}}, Base.RefValue{Bool}, Int64, Ref{
+      Tuple{typeof(DataFrames._fix_existing_columns_for_vector), DataFrame, DataFrame, Base.RefValue{Bool}, Int64, Ref{Any}}
+      Tuple{typeof(DataFrames._manipulate), DataFrame, Vector{Any}, Bool, Bool}
+      Tuple{typeof(DataFrames._fix_existing_columns_for_vector), DataFrame, DataFrame, Base.RefValue{Bool}, Int64, Base.RefValue{Any}}
+== by_instance  Tuple{typeof(hasmethod), typeof(iterate), Type{Tuple{Matrix{Any}}}}  (in 0 cones)
+   fault mi: MethodInstance for iterate(::Matrix{Any})
+   direct callers: 1
+      Tuple{typeof(Base.isiterable), Type{Matrix{Any}}}
+== by_instance  Tuple{typeof(hasmethod), typeof(typemin), Type{Tuple{Bool}}}  (in 6 cones)
+   fault mi: MethodInstance for typemin(::Bool)
+   <- Tuple{typeof(DataFrames.groupreduce_init), typeof(max), ComposedFunction{typeof(!), typeof(ismissing)}, Nothing, Vector{Bool}, GroupedDataFrame{DataFrame}}
+   <- Tuple{typeof(hasmethod), typeof(typemin), Type{Tuple{Bool}}}
+   direct callers: 2
+      Tuple{typeof(DataFrames.groupreduce_init), typeof(max), ComposedFunction{typeof(!), typeof(ismissing)}, Nothing, Vector{Bool}, GroupedDataFrame{DataFrame}}
+      Tuple{typeof(DataFrames.groupreduce_init), typeof(max), Nothing, Nothing, Vector{Bool}, GroupedDataFrame{DataFrame}}
+== by_instance  Tuple{typeof(hasmethod), typeof(-), Type{Tuple{Durations.Timestamp{Dates.Nanosecond}, Durations.Timestamp{Dates.Nanosecond}}}}  (in 2 cones)
+   fault mi: MethodInstance for -(::Durations.Timestamp{Dates.Nanosecond}, ::Durations.Timestamp{Dates.Nanosecond})
+      its code: bit true, facts false, rettype Dates.Nanosecond
+   <- Tuple{typeof(DataFrames.ColumnKernels._stats), DataFrames.ColumnKernels.CellVector{Durations.Timestamp{Dates.Nanosecond}, Vector{Durations.Timestamp{Dates.Nanosecond}}}, Vector{Sym
+   <- Tuple{typeof(hasmethod), typeof(-), Type{Tuple{Durations.Timestamp{Dates.Nanosecond}, Durations.Timestamp{Dates.Nanosecond}}}}
+   direct callers: 1
+      Tuple{typeof(DataFrames.ColumnKernels._stats), DataFrames.ColumnKernels.CellVector{Durations.Timestamp{Dates.Nanosecond}, Vector{Durations.Timestamp{Dates.Nanos
+== other  Tuple{typeof(merge), @NamedTuple{}, Base.Generator{Base.Iterators.Filter{CSV.var"#_pickkwargs##0#_pickkwargs##1"{NTuple{8, Symbol}}, Base.Pairs{Symbol, Int64, Nothing, @NamedTuple{chunkbytes::Int64}}}  (in 9 cones)
+   fault nofact: Tuple{Type{NamedTuple{_A}} where _A, Tuple}
+   fault nofact: Tuple{typeof(merge), @NamedTuple{}, NamedTuple{()}}
+   fault nofact: Tuple{typeof(merge), @NamedTuple{}, NamedTuple}
+   <- Tuple{typeof(CSV._pickkwargs), Base.Pairs{Symbol, Int64, Nothing, @NamedTuple{chunkbytes::Int64}}, NTuple{8, Symbol}}
+   <- Tuple{Type{NamedTuple}, Base.Generator{Base.Iterators.Filter{CSV.var"#_pickkwargs##0#_pickkwargs##1"{NTuple{8, Symbol}}, Base.Pairs{Symbol, Int64, Nothing, @NamedTuple{chunkbytes::
+   <- Tuple{typeof(merge), @NamedTuple{}, Base.Generator{Base.Iterators.Filter{CSV.var"#_pickkwargs##0#_pickkwargs##1"{NTuple{8, Symbol}}, Base.Pairs{Symbol, Int64, Nothing, @NamedTuple{
+   direct callers: 1
+      Tuple{Type{NamedTuple}, Base.Generator{Base.Iterators.Filter{CSV.var"#_pickkwargs##0#_pickkwargs##1"{NTuple{8, Symbol}}, Base.Pairs{Symbol, Int64, Nothing, @Nam
+== other  Tuple{typeof(iterate), Base.Iterators.Filter{DataFrames.var"#661#662", Vector{AbstractDataFrame}}, Int64}  (in 2 cones)
+   fault nofact: Tuple{typeof(Base.indexed_iterate), Tuple{AbstractDataFrame, Int64}, Int64}
+   fault nofact: Tuple{typeof(Base.indexed_iterate), Tuple{AbstractDataFrame, Int64}, Int64, Int64}
+   <- Tuple{DataFrames.var"##reduce#658", Symbol, Nothing, DataFrame, typeof(reduce), typeof(vcat), Vector{DataFrame}}
+   <- Tuple{typeof(collect), Type{AbstractDataFrame}, Base.Generator{Base.Iterators.Filter{DataFrames.var"#661#662", Vector{AbstractDataFrame}}, typeof(identity)}}
+   <- Tuple{typeof(Base._collect), Type{AbstractDataFrame}, Base.Generator{Base.Iterators.Filter{DataFrames.var"#661#662", Vector{AbstractDataFrame}}, typeof(identity)}, Base.SizeUnknown
+   <- Tuple{typeof(iterate), Base.Generator{Base.Iterators.Filter{DataFrames.var"#661#662", Vector{AbstractDataFrame}}, typeof(identity)}, Int64}
+   <- Tuple{typeof(iterate), Base.Iterators.Filter{DataFrames.var"#661#662", Vector{AbstractDataFrame}}, Int64}
+   direct callers: 1
+      Tuple{typeof(iterate), Base.Generator{Base.Iterators.Filter{DataFrames.var"#661#662", Vector{AbstractDataFrame}}, typeof(identity)}, Int64}
+== other  Tuple{typeof(iterate), Base.Iterators.Enumerate{Vector{AbstractVector}}, Tuple{Int64}}  (in 132 cones)
+   fault nofact: Tuple{typeof(getindex), Tuple{AbstractVector, Int64}, Int64}
+   <- Tuple{CSV.var"##_poolcolumns#180", Int64, typeof(CSV._poolcolumns), CSV.ParsedTable, Vector{Union{Nothing, Tuple{Float64, Int64}}}}
+   <- Tuple{typeof(collect), Base.Generator{Base.Iterators.Filter{CSV.var"#186#187"{Vector{Union{Nothing, Tuple{Float64, Int64}}}}, Base.Iterators.Enumerate{Vector{AbstractVector}}}, CSV
+   <- Tuple{typeof(Base.grow_to!), Vector{Any}, Base.Generator{Base.Iterators.Filter{CSV.var"#186#187"{Vector{Union{Nothing, Tuple{Float64, Int64}}}}, Base.Iterators.Enumerate{Vector{Abs
+   <- Tuple{typeof(iterate), Base.Generator{Base.Iterators.Filter{CSV.var"#186#187"{Vector{Union{Nothing, Tuple{Float64, Int64}}}}, Base.Iterators.Enumerate{Vector{AbstractVector}}}, CSV
+   <- Tuple{typeof(iterate), Base.Iterators.Filter{CSV.var"#186#187"{Vector{Union{Nothing, Tuple{Float64, Int64}}}}, Base.Iterators.Enumerate{Vector{AbstractVector}}}}
+   <- Tuple{typeof(iterate), Base.Iterators.Enumerate{Vector{AbstractVector}}}
+   <- Tuple{typeof(iterate), Base.Iterators.Enumerate{Vector{AbstractVector}}, Tuple{Int64}}
+   direct callers: 1
+      Tuple{typeof(iterate), Base.Iterators.Enumerate{Vector{AbstractVector}}}
+== type_join  Tuple{typeof(Base.promote_typejoin_union), Type{T}} where T  (in 483 cones)
+   fault nofact: Tuple{typeof(getproperty), Type, Symbol}
+   fault nomethod: Tuple{typeof(Base.promote_typejoin_union), Any}
+   fault nofact: Tuple{typeof(Base.promote_typejoin), Type, Type}
+   fault nomethod: Tuple{typeof(Base.typejoin_union_tuple), Type}
+   fault nofact: Tuple{typeof(Base.typejoin_union_tuple), DataType}
+   <- Tuple{typeof(DataFrames.fuzzymatch), Dict{Symbol, Int64}, Symbol}
+   <- Tuple{typeof(collect), Base.Generator{Base.KeySet{Symbol, Dict{Symbol, Int64}}, DataFrames.var"#fuzzymatch##0#fuzzymatch##1"{String}}}
+   <- Tuple{typeof(Base.promote_typejoin_union), Type{Tuple{Int64, Symbol}}}
+   <- Tuple{typeof(Base.typejoin_union_tuple), Type{Tuple{Int64, Symbol}}}
+   <- Tuple{typeof(Base.promote_typejoin_union), Type{T}} where T
+   direct callers: 3
+      Tuple{typeof(Base.typejoin_union_tuple), Type{Tuple{Int64, Symbol}}}
+      Tuple{typeof(collect), Base.Generator{Nothing, Type{T}} where T}
+      Tuple{typeof(collect), Base.Generator{Nothing, Type{T}} where T}
+== other  Tuple{typeof(iterate), Base.Iterators.Rest{I, Int64} where I<:(NTuple{N, Int64} where N), Int64}  (in 129 cones)
+   fault nofact: Tuple{typeof(getproperty), Base.Iterators.Rest{I, Int64} where I<:(NTuple{N, Int64} where N), Symbol}
+   fault nofact: Tuple{typeof(iterate), NTuple{N, Int64} where N, Int64}
+   <- Tuple{typeof(CSV._checkonerror), Symbol}
+   <- Tuple{typeof(repr), Symbol}
+   <- Tuple{Base.var"##repr#434", Nothing, typeof(repr), Symbol}
+   <- Tuple{typeof(Core.kwcall), @NamedTuple{context::Nothing}, typeof(sprint), typeof(show), Symbol}
+   <- Tuple{Base.var"##sprint#431", Nothing, Int64, typeof(sprint), typeof(show), Symbol}
+   <- Tuple{typeof(show), IOBuffer, Symbol}
+   <- Tuple{typeof(Base.show_unquoted_quote_expr), IOBuffer, Any, Int64, Int64, Int64}
+   <- Tuple{typeof(Base.show_unquoted), IOBuffer, Expr, Int64, Int64, Int64}
+   <- Tuple{typeof(Base.show_block), IOContext{IOBuffer}, String, Vector, Expr, Int64, Int64}
+   <- Tuple{typeof(Base.show_list), IOContext{IOBuffer}, Vector, String, Int64, Int64, Int64}
+   <- Tuple{typeof(Base.show_list), IOContext{IOBuffer}, Array, String, Int64, Int64, Int64, Bool, Bool}
+   <- Tuple{typeof(length), Array}
+   direct callers: 2
+      Tuple{typeof(Base._foldl_impl), Base.BottomRF{typeof(Base.mul_prod)}, Base._InitialValue, NTuple{N, Int64} where N}
+      Tuple{typeof(iterate), Base.Iterators.Rest{I, Int64} where I<:(NTuple{N, Int64} where N)}
+== type_join  Tuple{typeof(Base.typejoin_union_tuple), DataType}  (in 483 cones)
+   fault nofact: Tuple{typeof(getproperty), DataType, Symbol}
+   fault nofact: Tuple{typeof(Base.unwrapva), Any}
+   fault nofact: Tuple{typeof(getproperty), Union, Symbol}
+   fault nofact: Tuple{typeof(typejoin), Any, Any}
+   fault nomethod: Tuple{typeof(Base.promote_typejoin_union), Any}
+   fault nofact: Tuple{typeof(Base.isvarargtype), Any}
+   fault nofact: Tuple{typeof(setindex!), Vector{Any}, Any, Int64}
+   fault nofact: Tuple{typeof(Base.rewrap_unionall), Type, DataType}
+   <- Tuple{typeof(DataFrames.fuzzymatch), Dict{Symbol, Int64}, Symbol}
+   <- Tuple{typeof(collect), Base.Generator{Base.KeySet{Symbol, Dict{Symbol, Int64}}, DataFrames.var"#fuzzymatch##0#fuzzymatch##1"{String}}}
+   <- Tuple{typeof(Base.promote_typejoin_union), Type{Tuple{Int64, Symbol}}}
+   <- Tuple{typeof(Base.typejoin_union_tuple), Type{Tuple{Int64, Symbol}}}
+   <- Tuple{typeof(Base.promote_typejoin_union), Type{T}} where T
+   <- Tuple{typeof(Base.typejoin_union_tuple), DataType}
+   direct callers: 1
+      Tuple{typeof(Base.promote_typejoin_union), Type{T}} where T
+== other  Tuple{typeof(iterate), Base.Iterators.Filter{CSV.var"#186#187"{Vector{Union{Nothing, Tuple{Float64, Int64}}}}, Base.Iterators.Enumerate{Vector{AbstractVector}}}, Tuple{Int64, Int64}}  (in 132 cones)
+   fault nofact: Tuple{typeof(Base.indexed_iterate), Tuple{Tuple{Int64, AbstractVector}, Tuple{Int64, Int64}}, Int64}
+   fault nofact: Tuple{typeof(Base.indexed_iterate), Tuple{Tuple{Int64, AbstractVector}, Tuple{Int64, Int64}}, Int64, Int64}
+   <- Tuple{CSV.var"##_poolcolumns#180", Int64, typeof(CSV._poolcolumns), CSV.ParsedTable, Vector{Union{Nothing, Tuple{Float64, Int64}}}}
+   <- Tuple{typeof(collect), Base.Generator{Base.Iterators.Filter{CSV.var"#186#187"{Vector{Union{Nothing, Tuple{Float64, Int64}}}}, Base.Iterators.Enumerate{Vector{AbstractVector}}}, CSV
+   <- Tuple{typeof(Base._iterator_upper_bound), Base.Generator{Base.Iterators.Filter{CSV.var"#186#187"{Vector{Union{Nothing, Tuple{Float64, Int64}}}}, Base.Iterators.Enumerate{Vector{Abs
+   <- Tuple{typeof(iterate), Base.Generator{Base.Iterators.Filter{CSV.var"#186#187"{Vector{Union{Nothing, Tuple{Float64, Int64}}}}, Base.Iterators.Enumerate{Vector{AbstractVector}}}, CSV
+   <- Tuple{typeof(iterate), Base.Iterators.Filter{CSV.var"#186#187"{Vector{Union{Nothing, Tuple{Float64, Int64}}}}, Base.Iterators.Enumerate{Vector{AbstractVector}}}, Tuple{Int64, Int64
+   direct callers: 1
+      Tuple{typeof(iterate), Base.Generator{Base.Iterators.Filter{CSV.var"#186#187"{Vector{Union{Nothing, Tuple{Float64, Int64}}}}, Base.Iterators.Enumerate{Vector{Ab
+== other  Tuple{typeof(merge), @NamedTuple{}, Base.Generator{Base.Iterators.Filter{CSV.var"#_pickkwargs##0#_pickkwargs##1"{NTuple{8, Symbol}}, Base.Pairs{Symbol, Dict{DataType, DataType}, Nothing, @NamedTuple{t  (in 9 cones)
+   fault nofact: Tuple{Type{NamedTuple{_A}} where _A, Tuple}
+   fault nofact: Tuple{typeof(merge), @NamedTuple{}, NamedTuple{()}}
+   fault nofact: Tuple{typeof(merge), @NamedTuple{}, NamedTuple}
+   <- Tuple{typeof(CSV._pickkwargs), Base.Pairs{Symbol, Dict{DataType, DataType}, Nothing, @NamedTuple{typemap::Dict{DataType, DataType}}}, NTuple{8, Symbol}}
+   <- Tuple{Type{NamedTuple}, Base.Generator{Base.Iterators.Filter{CSV.var"#_pickkwargs##0#_pickkwargs##1"{NTuple{8, Symbol}}, Base.Pairs{Symbol, Dict{DataType, DataType}, Nothing, @Name
+   <- Tuple{typeof(merge), @NamedTuple{}, Base.Generator{Base.Iterators.Filter{CSV.var"#_pickkwargs##0#_pickkwargs##1"{NTuple{8, Symbol}}, Base.Pairs{Symbol, Dict{DataType, DataType}, No
+   direct callers: 1
+      Tuple{Type{NamedTuple}, Base.Generator{Base.Iterators.Filter{CSV.var"#_pickkwargs##0#_pickkwargs##1"{NTuple{8, Symbol}}, Base.Pairs{Symbol, Dict{DataType, DataT
+== by_instance  Tuple{typeof(hasmethod), typeof(typemin), Type{Tuple{Float64}}}  (in 12 cones)
+   fault mi: MethodInstance for typemin(::Float64)
+   <- Tuple{typeof(DataFrames.groupreduce_init), typeof(max), ComposedFunction{typeof(!), typeof(ismissing)}, Nothing, Vector{Union{Missing, Float64}}, GroupedDataFrame{DataFrame}}
+   <- Tuple{typeof(hasmethod), typeof(typemin), Type{Tuple{Float64}}}
+   direct callers: 4
+      Tuple{typeof(DataFrames.groupreduce_init), typeof(max), ComposedFunction{typeof(!), typeof(ismissing)}, Nothing, Vector{Union{Missing, Float64}}, GroupedDataFra
+      Tuple{typeof(DataFrames.groupreduce_init), typeof(max), Nothing, Nothing, Vector{Union{Missing, Float64}}, GroupedDataFrame{DataFrame}}
+      Tuple{typeof(DataFrames.groupreduce_init), typeof(max), ComposedFunction{typeof(!), typeof(ismissing)}, Nothing, Vector{Float64}, GroupedDataFrame{DataFrame}}
+      Tuple{typeof(DataFrames.groupreduce_init), typeof(max), Nothing, Nothing, Vector{Float64}, GroupedDataFrame{DataFrame}}
+== type_join  Tuple{typeof(typejoin), Any, Any}  (in 796 cones)
+   fault nofact: Tuple{typeof(setindex!), Vector{Any}, Any, Int64}
+   fault nofact: Tuple{typeof(getproperty), Type{Type{T}}, Symbol}
+   <- Tuple{typeof(DataFrames.fuzzymatch), Dict{Symbol, Int64}, Symbol}
+   <- Tuple{typeof(collect), Base.Generator{Base.KeySet{Symbol, Dict{Symbol, Int64}}, DataFrames.var"#fuzzymatch##0#fuzzymatch##1"{String}}}
+   <- Tuple{typeof(Base.promote_typejoin_union), Type{Tuple{Int64, Symbol}}}
+   <- Tuple{typeof(Base.typejoin_union_tuple), Type{Tuple{Int64, Symbol}}}
+   <- Tuple{typeof(typejoin), Any, Any}
+   direct callers: 35
+      Tuple{typeof(Base.typejoin_union_tuple), Type{Tuple{Int64, Symbol}}}
+      Tuple{typeof(Base.typejoin_union_tuple), DataType}
+      Tuple{typeof(Base.tailjoin), Core.SimpleVector, Int64}
+      Tuple{typeof(Base.promote_typejoin), Type, Type}
+      Tuple{typeof(Base.promote_typejoin), Any, Type{<:AbstractVector{T}} where T}
+      Tuple{typeof(Base.promote_typejoin), Any, DataType}
+== type_join  Tuple{typeof(Base.typejoin_union_tuple), Type{Tuple{Int64, Symbol}}}  (in 483 cones)
+   fault nofact: Tuple{typeof(Base.unwrapva), Any}
+   fault nofact: Tuple{typeof(getproperty), Union, Symbol}
+   fault nofact: Tuple{typeof(typejoin), Any, Any}
+   fault nomethod: Tuple{typeof(Base.promote_typejoin_union), Any}
+   fault nofact: Tuple{typeof(Base.promote_typejoin_union), Type{T}} where T
+   fault nofact: Tuple{typeof(Base.isvarargtype), Any}
+   fault nofact: Tuple{typeof(setindex!), Vector{Any}, Any, Int64}
+   fault nofact: Tuple{typeof(Base.rewrap_unionall), Type, Type{Tuple{Int64, Symbol}}}
+   <- Tuple{typeof(DataFrames.fuzzymatch), Dict{Symbol, Int64}, Symbol}
+   <- Tuple{typeof(collect), Base.Generator{Base.KeySet{Symbol, Dict{Symbol, Int64}}, DataFrames.var"#fuzzymatch##0#fuzzymatch##1"{String}}}
+   <- Tuple{typeof(Base.promote_typejoin_union), Type{Tuple{Int64, Symbol}}}
+   <- Tuple{typeof(Base.typejoin_union_tuple), Type{Tuple{Int64, Symbol}}}
+   direct callers: 1
+      Tuple{typeof(Base.promote_typejoin_union), Type{Tuple{Int64, Symbol}}}
+== other  Tuple{typeof(merge), @NamedTuple{}, Base.Generator{Base.Iterators.Filter{CSV.var"#_pickkwargs##0#_pickkwargs##1"{NTuple{8, Symbol}}, Base.Pairs{Symbol, Union{}, Nothing, @NamedTuple{}}}, typeof(identi  (in 69 cones)
+   fault nofact: Tuple{Type{NamedTuple{_A}} where _A, Tuple}
+   fault nofact: Tuple{typeof(merge), @NamedTuple{}, NamedTuple{()}}
+   fault nofact: Tuple{typeof(merge), @NamedTuple{}, NamedTuple}
+   <- Tuple{typeof(CSV._pickkwargs), Base.Pairs{Symbol, Union{}, Nothing, @NamedTuple{}}, NTuple{8, Symbol}}
+   <- Tuple{Type{NamedTuple}, Base.Generator{Base.Iterators.Filter{CSV.var"#_pickkwargs##0#_pickkwargs##1"{NTuple{8, Symbol}}, Base.Pairs{Symbol, Union{}, Nothing, @NamedTuple{}}}, typeo
+   <- Tuple{typeof(merge), @NamedTuple{}, Base.Generator{Base.Iterators.Filter{CSV.var"#_pickkwargs##0#_pickkwargs##1"{NTuple{8, Symbol}}, Base.Pairs{Symbol, Union{}, Nothing, @NamedTupl
+   direct callers: 1
+      Tuple{Type{NamedTuple}, Base.Generator{Base.Iterators.Filter{CSV.var"#_pickkwargs##0#_pickkwargs##1"{NTuple{8, Symbol}}, Base.Pairs{Symbol, Union{}, Nothing, @N
+== other  Tuple{typeof(Base._iterate_dict), Dict{String, Tuple{Any, Any}}, Int64}  (in 23 cones)
+   fault nofact: Tuple{Type{Pair{String, Tuple{Any, Any}}}, String, Tuple{Any, Any}}
+   <- Tuple{typeof(DataFrames._copy_table_note_metadata!), DataFrame, SubDataFrame{DataFrame, DataFrames.Index, Vector{Int64}}}
+   <- Tuple{typeof(iterate), Base.Generator{Base.Iterators.Filter{DataFrames.var"#metadatakeys##2#metadatakeys##3", Dict{String, Tuple{Any, Any}}}, DataFrames.var"#metadatakeys##0#metada
+   <- Tuple{typeof(iterate), Base.Iterators.Filter{DataFrames.var"#metadatakeys##2#metadatakeys##3", Dict{String, Tuple{Any, Any}}}, Int64}
+   <- Tuple{typeof(iterate), Dict{String, Tuple{Any, Any}}, Int64}
+   <- Tuple{typeof(Base._iterate_dict), Dict{String, Tuple{Any, Any}}, Int64}
+   direct callers: 2
+      Tuple{typeof(iterate), Dict{String, Tuple{Any, Any}}, Int64}
+      Tuple{typeof(iterate), Dict{String, Tuple{Any, Any}}}
+== by_instance  Tuple{typeof(hasmethod), typeof(iterate), Type{Tuple{Vector{Union{Missing, Float64}}}}}  (in 0 cones)
+   fault mi: MethodInstance for iterate(::Vector{Union{Missing, Float64}})
+      its code: bit true, facts false, rettype Union{Nothing, Tuple{Union{Missing, Float64}, Int64}}
+   direct callers: 1
+      Tuple{typeof(Base.isiterable), Type{Vector{Union{Missing, Float64}}}}
+== other  Tuple{typeof(merge), @NamedTuple{}, Base.Generator{Base.Iterators.Filter{CSV.var"#214#215", Base.Pairs{Symbol, Int64, Nothing, @NamedTuple{chunkbytes::Int64}}}, typeof(identity)}}  (in 3 cones)
+   fault nofact: Tuple{Type{NamedTuple{_A}} where _A, Tuple}
+   fault nofact: Tuple{typeof(merge), @NamedTuple{}, NamedTuple{()}}
+   fault nofact: Tuple{typeof(merge), @NamedTuple{}, NamedTuple}
+   <- Tuple{CSV.var"##Chunks#212", Nothing, Nothing, Int64, Type, Bool, Nothing, Nothing, Bool, Symbol, Base.Pairs{Symbol, Int64, Nothing, @NamedTuple{chunkbytes::Int64}}, Type{CSV.Chunk
+   <- Tuple{Type{NamedTuple}, Base.Generator{Base.Iterators.Filter{CSV.var"#214#215", Base.Pairs{Symbol, Int64, Nothing, @NamedTuple{chunkbytes::Int64}}}, typeof(identity)}}
+   <- Tuple{typeof(merge), @NamedTuple{}, Base.Generator{Base.Iterators.Filter{CSV.var"#214#215", Base.Pairs{Symbol, Int64, Nothing, @NamedTuple{chunkbytes::Int64}}}, typeof(identity)}}
+   direct callers: 1
+      Tuple{Type{NamedTuple}, Base.Generator{Base.Iterators.Filter{CSV.var"#214#215", Base.Pairs{Symbol, Int64, Nothing, @NamedTuple{chunkbytes::Int64}}}, typeof(iden
+== other  Tuple{typeof(iterate), Base.Iterators.Filter{CSV.var"#186#187"{Vector{Union{Nothing, Tuple{Float64, Int64}}}}, Base.Iterators.Enumerate{Vector{AbstractVector}}}}  (in 132 cones)
+   fault nofact: Tuple{typeof(Base.indexed_iterate), Tuple{Tuple{Int64, AbstractVector}, Tuple{Int64, Int64}}, Int64}
+   fault nofact: Tuple{typeof(Base.indexed_iterate), Tuple{Tuple{Int64, AbstractVector}, Tuple{Int64, Int64}}, Int64, Int64}
+   <- Tuple{CSV.var"##_poolcolumns#180", Int64, typeof(CSV._poolcolumns), CSV.ParsedTable, Vector{Union{Nothing, Tuple{Float64, Int64}}}}
+   <- Tuple{typeof(collect), Base.Generator{Base.Iterators.Filter{CSV.var"#186#187"{Vector{Union{Nothing, Tuple{Float64, Int64}}}}, Base.Iterators.Enumerate{Vector{AbstractVector}}}, CSV
+   <- Tuple{typeof(Base.grow_to!), Vector{Any}, Base.Generator{Base.Iterators.Filter{CSV.var"#186#187"{Vector{Union{Nothing, Tuple{Float64, Int64}}}}, Base.Iterators.Enumerate{Vector{Abs
+   <- Tuple{typeof(iterate), Base.Generator{Base.Iterators.Filter{CSV.var"#186#187"{Vector{Union{Nothing, Tuple{Float64, Int64}}}}, Base.Iterators.Enumerate{Vector{AbstractVector}}}, CSV
+   <- Tuple{typeof(iterate), Base.Iterators.Filter{CSV.var"#186#187"{Vector{Union{Nothing, Tuple{Float64, Int64}}}}, Base.Iterators.Enumerate{Vector{AbstractVector}}}}
+   direct callers: 1
+      Tuple{typeof(iterate), Base.Generator{Base.Iterators.Filter{CSV.var"#186#187"{Vector{Union{Nothing, Tuple{Float64, Int64}}}}, Base.Iterators.Enumerate{Vector{Ab
+== other  Tuple{typeof(iterate), Base.Iterators.Rest{I, Int64} where I<:(NTuple{N, Int64} where N)}  (in 129 cones)
+   fault nofact: Tuple{typeof(getproperty), Base.Iterators.Rest{I, Int64} where I<:(NTuple{N, Int64} where N), Symbol}
+   fault nofact: Tuple{typeof(iterate), Base.Iterators.Rest{I, Int64} where I<:(NTuple{N, Int64} where N), Int64}
+   <- Tuple{typeof(CSV._checkonerror), Symbol}
+   <- Tuple{typeof(repr), Symbol}
+   <- Tuple{Base.var"##repr#434", Nothing, typeof(repr), Symbol}
+   <- Tuple{typeof(Core.kwcall), @NamedTuple{context::Nothing}, typeof(sprint), typeof(show), Symbol}
+   <- Tuple{Base.var"##sprint#431", Nothing, Int64, typeof(sprint), typeof(show), Symbol}
+   <- Tuple{typeof(show), IOBuffer, Symbol}
+   <- Tuple{typeof(Base.show_unquoted_quote_expr), IOBuffer, Any, Int64, Int64, Int64}
+   <- Tuple{typeof(Base.show_unquoted), IOBuffer, Expr, Int64, Int64, Int64}
+   <- Tuple{typeof(Base.show_block), IOContext{IOBuffer}, String, Vector, Expr, Int64, Int64}
+   <- Tuple{typeof(Base.show_list), IOContext{IOBuffer}, Vector, String, Int64, Int64, Int64}
+   <- Tuple{typeof(Base.show_list), IOContext{IOBuffer}, Array, String, Int64, Int64, Int64, Bool, Bool}
+   <- Tuple{typeof(length), Array}
+   direct callers: 1
+      Tuple{typeof(Base._foldl_impl), Base.BottomRF{typeof(Base.mul_prod)}, Base._InitialValue, NTuple{N, Int64} where N}
+== by_instance  Tuple{typeof(hasmethod), typeof(iterate), Type{Tuple{Matrix{Bool}}}}  (in 0 cones)
+   fault mi: MethodInstance for iterate(::Matrix{Bool})
+   direct callers: 1
+      Tuple{typeof(Base.isiterable), Type{Matrix{Bool}}}
+== other  Tuple{typeof(merge), NamedTuple{(:dims,), <:Tuple{Function}}, Base.Pairs{Symbol, Union{}, Nothing, @NamedTuple{}}}  (in 12 cones)
+   fault nofact: Tuple{typeof(merge), NamedTuple{(:dims,), <:Tuple{Function}}, @NamedTuple{}}
+   <- Tuple{typeof(DataFrames.ColumnKernels._stats), DataFrames.ColumnKernels.CellVector{InlineStrings.String3, Vector{InlineStrings.String3}}, Vector{Symbol}}
+   <- Tuple{typeof(Statistics.mean), DataFrames.ColumnKernels.CellVector{InlineStrings.String3, Vector{InlineStrings.String3}}}
+   <- Tuple{Statistics.var"##mean#2", Function, typeof(Statistics.mean), DataFrames.ColumnKernels.CellVector{InlineStrings.String3, Vector{InlineStrings.String3}}}
+   <- Tuple{typeof(Statistics._mean), typeof(identity), DataFrames.ColumnKernels.CellVector{InlineStrings.String3, Vector{InlineStrings.String3}}, Function}
+   <- Tuple{typeof(Core.kwcall), NamedTuple{(:dims,), <:Tuple{Function}}, typeof(sum), typeof(identity), DataFrames.ColumnKernels.CellVector{InlineStrings.String3, Vector{InlineStrings.S
+   <- Tuple{Base.var"##sum#749", Function, Base.Pairs{Symbol, Union{}, Nothing, @NamedTuple{}}, typeof(sum), typeof(identity), DataFrames.ColumnKernels.CellVector{InlineStrings.String3, 
+   <- Tuple{typeof(Base._sum), typeof(identity), DataFrames.ColumnKernels.CellVector{InlineStrings.String3, Vector{InlineStrings.String3}}, Function}
+   <- Tuple{Base.var"##_sum#775", Base.Pairs{Symbol, Union{}, Nothing, @NamedTuple{}}, typeof(Base._sum), typeof(identity), DataFrames.ColumnKernels.CellVector{InlineStrings.String3, Vec
+   <- Tuple{typeof(merge), NamedTuple{(:dims,), <:Tuple{Function}}, Base.Pairs{Symbol, Union{}, Nothing, @NamedTuple{}}}
+   direct callers: 6
+      Tuple{Base.var"##_sum#775", Base.Pairs{Symbol, Union{}, Nothing, @NamedTuple{}}, typeof(Base._sum), typeof(identity), DataFrames.ColumnKernels.CellVector{Inline
+      Tuple{Base.var"##_sum#775", Base.Pairs{Symbol, Union{}, Nothing, @NamedTuple{}}, typeof(Base._sum), typeof(identity), DataFrames.ColumnKernels.CellVector{Inline
+      Tuple{Base.var"##_sum#775", Base.Pairs{Symbol, Union{}, Nothing, @NamedTuple{}}, typeof(Base._sum), typeof(identity), DataFrames.ColumnKernels.CellVector{DataSt
+      Tuple{Base.var"##_sum#775", Base.Pairs{Symbol, Union{}, Nothing, @NamedTuple{}}, typeof(Base._sum), typeof(identity), DataFrames.ColumnKernels.CellVector{Inline
+      Tuple{Base.var"##_sum#775", Base.Pairs{Symbol, Union{}, Nothing, @NamedTuple{}}, typeof(Base._sum), typeof(identity), DataFrames.ColumnKernels.CellVector{String
+      Tuple{Base.var"##_sum#775", Base.Pairs{Symbol, Union{}, Nothing, @NamedTuple{}}, typeof(Base._sum), typeof(identity), DataFrames.ColumnKernels.CellVector{String
+== by_instance  Tuple{typeof(hasmethod), typeof(-), Type{Tuple{Dates.Date, Dates.Date}}}  (in 2 cones)
+   fault mi: MethodInstance for -(::Dates.Date, ::Dates.Date)
+      its code: bit true, facts false, rettype Dates.Day
+   <- Tuple{typeof(DataFrames.ColumnKernels._stats), DataFrames.ColumnKernels.CellVector{Dates.Date, Vector{Dates.Date}}, Vector{Symbol}}
+   <- Tuple{typeof(hasmethod), typeof(-), Type{Tuple{Dates.Date, Dates.Date}}}
+   direct callers: 1
+      Tuple{typeof(DataFrames.ColumnKernels._stats), DataFrames.ColumnKernels.CellVector{Dates.Date, Vector{Dates.Date}}, Vector{Symbol}}
+== other  Tuple{typeof(iterate), Base.Iterators.Enumerate{Vector{AbstractVector}}, Tuple{Int64, Int64}}  (in 132 cones)
+   fault nofact: Tuple{typeof(getindex), Tuple{AbstractVector, Int64}, Int64}
+   <- Tuple{CSV.var"##_poolcolumns#180", Int64, typeof(CSV._poolcolumns), CSV.ParsedTable, Vector{Union{Nothing, Tuple{Float64, Int64}}}}
+   <- Tuple{typeof(collect), Base.Generator{Base.Iterators.Filter{CSV.var"#186#187"{Vector{Union{Nothing, Tuple{Float64, Int64}}}}, Base.Iterators.Enumerate{Vector{AbstractVector}}}, CSV
+   <- Tuple{typeof(Base._iterator_upper_bound), Base.Generator{Base.Iterators.Filter{CSV.var"#186#187"{Vector{Union{Nothing, Tuple{Float64, Int64}}}}, Base.Iterators.Enumerate{Vector{Abs
+   <- Tuple{typeof(iterate), Base.Generator{Base.Iterators.Filter{CSV.var"#186#187"{Vector{Union{Nothing, Tuple{Float64, Int64}}}}, Base.Iterators.Enumerate{Vector{AbstractVector}}}, CSV
+   <- Tuple{typeof(iterate), Base.Iterators.Filter{CSV.var"#186#187"{Vector{Union{Nothing, Tuple{Float64, Int64}}}}, Base.Iterators.Enumerate{Vector{AbstractVector}}}, Tuple{Int64, Int64
+   <- Tuple{typeof(iterate), Base.Iterators.Enumerate{Vector{AbstractVector}}, Tuple{Int64, Int64}}
+   direct callers: 2
+      Tuple{typeof(iterate), Base.Iterators.Filter{CSV.var"#186#187"{Vector{Union{Nothing, Tuple{Float64, Int64}}}}, Base.Iterators.Enumerate{Vector{AbstractVector}}}
+      Tuple{typeof(iterate), Base.Iterators.Filter{CSV.var"#186#187"{Vector{Union{Nothing, Tuple{Float64, Int64}}}}, Base.Iterators.Enumerate{Vector{AbstractVector}}}
+== other  Tuple{typeof(iterate), Base.Iterators.Enumerate{Vector{Any}}, Tuple{Int64, Int64}}  (in 134 cones)
+   fault nofact: Tuple{typeof(getindex), Tuple{Any, Int64}, Int64}
+   <- Tuple{DataFrames.var"#_#186#188", Bool, Type{DataFrame}, Vector{Any}, DataFrames.Index}
+   <- Tuple{typeof(iterate), Base.Iterators.Enumerate{Vector{Any}}, Tuple{Int64, Int64}}
+   direct callers: 3
+      Tuple{DataFrames.var"#_#186#188", Bool, Type{DataFrame}, Vector{Any}, DataFrames.Index}
+      Tuple{typeof(DataFrames._preprocess_subset_args), DataFrame, Ref{Any}}
+      Tuple{typeof(DataFrames._preprocess_subset_args), DataFrame, Base.RefValue{Any}}
+== other  Tuple{typeof(Base._iterate_dict), Dict{T, UInt32} where T, Int64}  (in 5 cones)
+   fault nofact: Tuple{typeof(getproperty), Dict{T, UInt32} where T, Symbol}
+   fault nofact: Tuple{typeof(getindex), Memory, Int64}
+   fault nofact: Tuple{Type{Pair{_A, UInt32}} where _A, Any, UInt32}
+   <- Tuple{DataFrames.Aggregate{typeof(first), Nothing}, PooledArrays.PooledVector{String, UInt32, Vector{UInt32}}, GroupedDataFrame{DataFrame}}
+   <- Tuple{typeof(similar), PooledArrays.PooledVector{String, UInt32, Vector{UInt32}}, Int64}
+   <- Tuple{typeof(similar), PooledArrays.PooledVector{String, UInt32, Vector{UInt32}}, Type, Tuple{Int64}}
+   <- Tuple{Type{PooledArrays.PooledArray}, PooledArrays.RefArray{Vector{UInt32}}, Dict{T, UInt32} where T}
+   <- Tuple{typeof(PooledArrays._invert), Dict{T, UInt32} where T}
+   <- Tuple{typeof(iterate), Dict{T, UInt32} where T, Int64}
+   <- Tuple{typeof(Base._iterate_dict), Dict{T, UInt32} where T, Int64}
+   direct callers: 2
+      Tuple{typeof(iterate), Dict{T, UInt32} where T, Int64}
+      Tuple{typeof(iterate), Dict{T, UInt32} where T}
+== other  Tuple{typeof(merge), @NamedTuple{}, Base.Generator{Base.Iterators.Filter{CSV.var"#214#215", Base.Pairs{Symbol, Char, Nothing, @NamedTuple{delim::Char}}}, typeof(identity)}}  (in 3 cones)
+   fault nofact: Tuple{Type{NamedTuple{_A}} where _A, Tuple}
+   fault nofact: Tuple{typeof(merge), @NamedTuple{}, NamedTuple{()}}
+   fault nofact: Tuple{typeof(merge), @NamedTuple{}, NamedTuple}
+   <- Tuple{CSV.var"##Chunks#212", Nothing, Nothing, Int64, Type, Bool, Nothing, Nothing, Bool, Symbol, Base.Pairs{Symbol, Char, Nothing, @NamedTuple{delim::Char}}, Type{CSV.Chunks}, IOB
+   <- Tuple{Type{NamedTuple}, Base.Generator{Base.Iterators.Filter{CSV.var"#214#215", Base.Pairs{Symbol, Char, Nothing, @NamedTuple{delim::Char}}}, typeof(identity)}}
+   <- Tuple{typeof(merge), @NamedTuple{}, Base.Generator{Base.Iterators.Filter{CSV.var"#214#215", Base.Pairs{Symbol, Char, Nothing, @NamedTuple{delim::Char}}}, typeof(identity)}}
+   direct callers: 1
+      Tuple{Type{NamedTuple}, Base.Generator{Base.Iterators.Filter{CSV.var"#214#215", Base.Pairs{Symbol, Char, Nothing, @NamedTuple{delim::Char}}}, typeof(identity)}}
+== by_instance  Tuple{typeof(hasmethod), typeof(typemax), Type{Tuple{Float64}}}  (in 12 cones)
+   fault mi: MethodInstance for typemax(::Float64)
+   <- Tuple{typeof(DataFrames.groupreduce_init), typeof(min), ComposedFunction{typeof(!), typeof(ismissing)}, Nothing, Vector{Union{Missing, Float64}}, GroupedDataFrame{DataFrame}}
+   <- Tuple{typeof(hasmethod), typeof(typemax), Type{Tuple{Float64}}}
+   direct callers: 4
+      Tuple{typeof(DataFrames.groupreduce_init), typeof(min), ComposedFunction{typeof(!), typeof(ismissing)}, Nothing, Vector{Union{Missing, Float64}}, GroupedDataFra
+      Tuple{typeof(DataFrames.groupreduce_init), typeof(min), Nothing, Nothing, Vector{Union{Missing, Float64}}, GroupedDataFrame{DataFrame}}
+      Tuple{typeof(DataFrames.groupreduce_init), typeof(min), ComposedFunction{typeof(!), typeof(ismissing)}, Nothing, Vector{Float64}, GroupedDataFrame{DataFrame}}
+      Tuple{typeof(DataFrames.groupreduce_init), typeof(min), Nothing, Nothing, Vector{Float64}, GroupedDataFrame{DataFrame}}
+== other  Tuple{typeof(iterate), Base.Iterators.Filter{DataFrames.var"#_describe##0#_describe##1", Vector{Any}}}  (in 6 cones)
+   fault nofact: Tuple{typeof(Base.indexed_iterate), Tuple{Any, Int64}, Int64}
+   fault nofact: Tuple{typeof(Base.indexed_iterate), Tuple{Any, Int64}, Int64, Int64}
+   <- Tuple{typeof(DataFrames._describe), AbstractDataFrame, Vector{Any}}
+   <- Tuple{typeof(collect), Type{Symbol}, Base.Generator{Base.Iterators.Filter{DataFrames.var"#_describe##0#_describe##1", Vector{Any}}, typeof(identity)}}
+   <- Tuple{typeof(Base._collect), Type{Symbol}, Base.Generator{Base.Iterators.Filter{DataFrames.var"#_describe##0#_describe##1", Vector{Any}}, typeof(identity)}, Base.SizeUnknown}
+   <- Tuple{typeof(iterate), Base.Generator{Base.Iterators.Filter{DataFrames.var"#_describe##0#_describe##1", Vector{Any}}, typeof(identity)}}
+   <- Tuple{typeof(iterate), Base.Iterators.Filter{DataFrames.var"#_describe##0#_describe##1", Vector{Any}}}
+   direct callers: 1
+      Tuple{typeof(iterate), Base.Generator{Base.Iterators.Filter{DataFrames.var"#_describe##0#_describe##1", Vector{Any}}, typeof(identity)}}
+== ctor_kind  Tuple{typeof(Base._iterate_dict), Dict{DataType, DataType}, Int64}  (in 12 cones)
+   fault nofact: Tuple{Type{Pair{DataType, DataType}}, DataType, DataType}
+   <- Tuple{typeof(CSV._normalizetypemap), Dict{DataType, DataType}}
+   <- Tuple{typeof(iterate), Dict{DataType, DataType}, Int64}
+   <- Tuple{typeof(Base._iterate_dict), Dict{DataType, DataType}, Int64}
+   direct callers: 2
+      Tuple{typeof(iterate), Dict{DataType, DataType}, Int64}
+      Tuple{typeof(iterate), Dict{DataType, DataType}}
+== other  Tuple{typeof(merge), @NamedTuple{}, Base.Pairs{Symbol, V, Nothing, NT} where {V, NT<:NamedTuple}}  (in 150 cones)
+   fault nofact: Tuple{typeof(merge), @NamedTuple{}, NamedTuple{()}}
+   fault nofact: Tuple{typeof(merge), @NamedTuple{}, NamedTuple}
+   <- Tuple{CSV.var"##resolvesource#101", Bool, Bool, Vector{Task}, typeof(CSV.resolvesource), String}
+   <- Tuple{typeof(Downloads.download), String}
+   <- Tuple{typeof(Downloads.download), String, Nothing}
+   <- Tuple{Downloads.var"##download#5", Nothing, Vector{Pair{String, String}}, Float64, Nothing, Bool, Nothing, Nothing, typeof(Downloads.download), String, Nothing}
+   <- Tuple{typeof(mktempdir)}
+   <- Tuple{typeof(tempdir)}
+   <- Tuple{typeof(Core.kwcall), NamedTuple, typeof(Base.CoreLogging.handle_message_nothrow), Vararg{Any, 8}}
+   <- Tuple{Base.CoreLogging.var"##handle_message_nothrow#2", Base.Pairs{Symbol, V, Nothing, NT} where {V, NT<:NamedTuple}, typeof(Base.CoreLogging.handle_message_nothrow), Vararg{Any, 8
+   <- Tuple{typeof(merge), @NamedTuple{}, Base.Pairs{Symbol, V, Nothing, NT} where {V, NT<:NamedTuple}}
+   direct callers: 2
+      Tuple{Base.CoreLogging.var"##handle_message_nothrow#2", Base.Pairs{Symbol, V, Nothing, NT} where {V, NT<:NamedTuple}, typeof(Base.CoreLogging.handle_message_not
+      Tuple{Base.var"##invokelatest_gr#235", Base.Pairs{Symbol, _A, Nothing, A} where {_A, A<:NamedTuple}, typeof(Base.invokelatest_gr), GlobalRef, Vararg{Any, 8}}
+== other  Tuple{typeof(iterate), Base.Iterators.Enumerate{Vector{AbstractVector}}, Tuple{Int64}}  (in 235 cones)
+   fault nofact: Tuple{typeof(getindex), Tuple{AbstractVector, Int64}, Int64}
+   <- Tuple{DataFrames.var"#_#186#188", Bool, Type{DataFrame}, Vector{AbstractVector}, DataFrames.Index}
+   <- Tuple{typeof(iterate), Base.Iterators.Enumerate{Vector{AbstractVector}}}
+   <- Tuple{typeof(iterate), Base.Iterators.Enumerate{Vector{AbstractVector}}, Tuple{Int64}}
+   direct callers: 1
+      Tuple{typeof(iterate), Base.Iterators.Enumerate{Vector{AbstractVector}}}
+== other  Tuple{typeof(merge), @NamedTuple{}, Base.Generator{Base.Iterators.Filter{CSV.var"#_pickkwargs##0#_pickkwargs##1"{NTuple{8, Symbol}}, Base.Pairs{Symbol, Dict{Symbol, Dates.DateFormat{Symbol("yyyy-mm-dd  (in 9 cones)
+   fault nofact: Tuple{Type{NamedTuple{_A}} where _A, Tuple}
+   fault nofact: Tuple{typeof(merge), @NamedTuple{}, NamedTuple{()}}
+   fault nofact: Tuple{typeof(merge), @NamedTuple{}, NamedTuple}
+   <- Tuple{typeof(CSV._pickkwargs), Base.Pairs{Symbol, Dict{Symbol, Dates.DateFormat{Symbol("yyyy-mm-dd"), Tuple{Dates.DatePart{'y'}, Dates.Delim{Char, 1}, Dates.DatePart{'m'}, Dates.De
+   <- Tuple{Type{NamedTuple}, Base.Generator{Base.Iterators.Filter{CSV.var"#_pickkwargs##0#_pickkwargs##1"{NTuple{8, Symbol}}, Base.Pairs{Symbol, Dict{Symbol, Dates.DateFormat{Symbol("yy
+   <- Tuple{typeof(merge), @NamedTuple{}, Base.Generator{Base.Iterators.Filter{CSV.var"#_pickkwargs##0#_pickkwargs##1"{NTuple{8, Symbol}}, Base.Pairs{Symbol, Dict{Symbol, Dates.DateForma
+   direct callers: 1
+      Tuple{Type{NamedTuple}, Base.Generator{Base.Iterators.Filter{CSV.var"#_pickkwargs##0#_pickkwargs##1"{NTuple{8, Symbol}}, Base.Pairs{Symbol, Dict{Symbol, Dates.D
+== other  Tuple{typeof(merge), @NamedTuple{}, Base.Generator{Base.Iterators.Filter{CSV.var"#_pickkwargs##0#_pickkwargs##1"{NTuple{6, Symbol}}, Base.Pairs{Symbol, String, Nothing, @NamedTuple{comment::String, da  (in 9 cones)
+   fault nofact: Tuple{Type{NamedTuple{_A}} where _A, Tuple}
+   fault nofact: Tuple{typeof(merge), @NamedTuple{}, NamedTuple{()}}
+   fault nofact: Tuple{typeof(merge), @NamedTuple{}, NamedTuple}
+   <- Tuple{typeof(CSV._pickkwargs), Base.Pairs{Symbol, String, Nothing, @NamedTuple{comment::String, dateformat::String}}, NTuple{6, Symbol}}
+   <- Tuple{Type{NamedTuple}, Base.Generator{Base.Iterators.Filter{CSV.var"#_pickkwargs##0#_pickkwargs##1"{NTuple{6, Symbol}}, Base.Pairs{Symbol, String, Nothing, @NamedTuple{comment::St
+   <- Tuple{typeof(merge), @NamedTuple{}, Base.Generator{Base.Iterators.Filter{CSV.var"#_pickkwargs##0#_pickkwargs##1"{NTuple{6, Symbol}}, Base.Pairs{Symbol, String, Nothing, @NamedTuple
+   direct callers: 1
+      Tuple{Type{NamedTuple}, Base.Generator{Base.Iterators.Filter{CSV.var"#_pickkwargs##0#_pickkwargs##1"{NTuple{6, Symbol}}, Base.Pairs{Symbol, String, Nothing, @Na
+== by_instance  Tuple{typeof(hasmethod), typeof(iterate), Type{Tuple{Matrix{String}}}}  (in 0 cones)
+   fault mi: MethodInstance for iterate(::Matrix{String})
+   direct callers: 1
+      Tuple{typeof(Base.isiterable), Type{Matrix{String}}}
+== other  Tuple{typeof(merge), @NamedTuple{region::UnitRange{Int64}, label::Symbol, value}, @NamedTuple{region::UnitRange{Int64}}}  (in 242 cones)
+   fault nofact: Tuple{typeof(Base._new_NamedTuple), Type{@NamedTuple{region::UnitRange{Int64}, label::Symbol, value}}, Tuple{UnitRange{Int64}, Symbol, Any}}
+   <- Tuple{typeof(CSV._checkonerror), Symbol}
+   <- Tuple{typeof(repr), Symbol}
+   <- Tuple{Base.var"##repr#434", Nothing, typeof(repr), Symbol}
+   <- Tuple{typeof(Core.kwcall), @NamedTuple{context::Nothing}, typeof(sprint), typeof(show), Symbol}
+   <- Tuple{Base.var"##sprint#431", Nothing, Int64, typeof(sprint), typeof(show), Symbol}
+   <- Tuple{typeof(show), IOBuffer, Symbol}
+   <- Tuple{typeof(Base.show_unquoted_quote_expr), IOBuffer, Any, Int64, Int64, Int64}
+   <- Tuple{typeof(Base.show_unquoted), IOBuffer, Expr, Int64, Int64, Int64}
+   <- Tuple{typeof(join), Vector{Any}, String}
+   <- Tuple{typeof(Base._join_preserve_annotations), Vector{Any}, String}
+   <- Tuple{typeof(read), Base.AnnotatedIOBuffer, Type{Base.AnnotatedString{String}}}
+   <- Tuple{typeof(collect), Base.Generator{Base.Iterators.Filter{Base.var"#read##6#read##7"{Int64}, Vector{@NamedTuple{region::UnitRange{Int64}, label::Symbol, value}}}, Base.var"#read#
+   direct callers: 1
+      Tuple{typeof(Base.setindex), @NamedTuple{region::UnitRange{Int64}, label::Symbol, value}, UnitRange{Int64}, Symbol}
+== ctor_kind  Tuple{typeof(Base._iterate_dict), Dict{Symbol, DataType}, Int64}  (in 22 cones)
+   fault nofact: Tuple{Type{Pair{Symbol, DataType}}, Symbol, DataType}
+   <- Tuple{CSV.var"##_resolvekeys#38", Bool, typeof(CSV._resolvekeys), Dict{Symbol, DataType}, Vector{Symbol}, Int64, String}
+   <- Tuple{typeof(iterate), Dict{Symbol, DataType}, Int64}
+   <- Tuple{typeof(Base._iterate_dict), Dict{Symbol, DataType}, Int64}
+   direct callers: 2
+      Tuple{typeof(iterate), Dict{Symbol, DataType}, Int64}
+      Tuple{typeof(iterate), Dict{Symbol, DataType}}
+== other  Tuple{typeof(merge), @NamedTuple{}, Base.Generator{Base.Iterators.Filter{CSV.var"#_pickkwargs##0#_pickkwargs##1"{NTuple{8, Symbol}}, Base.Pairs{Symbol, String, Nothing, @NamedTuple{comment::String, da  (in 9 cones)
+   fault nofact: Tuple{Type{NamedTuple{_A}} where _A, Tuple}
+   fault nofact: Tuple{typeof(merge), @NamedTuple{}, NamedTuple{()}}
+   fault nofact: Tuple{typeof(merge), @NamedTuple{}, NamedTuple}
+   <- Tuple{typeof(CSV._pickkwargs), Base.Pairs{Symbol, String, Nothing, @NamedTuple{comment::String, dateformat::String}}, NTuple{8, Symbol}}
+   <- Tuple{Type{NamedTuple}, Base.Generator{Base.Iterators.Filter{CSV.var"#_pickkwargs##0#_pickkwargs##1"{NTuple{8, Symbol}}, Base.Pairs{Symbol, String, Nothing, @NamedTuple{comment::St
+   <- Tuple{typeof(merge), @NamedTuple{}, Base.Generator{Base.Iterators.Filter{CSV.var"#_pickkwargs##0#_pickkwargs##1"{NTuple{8, Symbol}}, Base.Pairs{Symbol, String, Nothing, @NamedTuple
+   direct callers: 1
+      Tuple{Type{NamedTuple}, Base.Generator{Base.Iterators.Filter{CSV.var"#_pickkwargs##0#_pickkwargs##1"{NTuple{8, Symbol}}, Base.Pairs{Symbol, String, Nothing, @Na
+== other  Tuple{typeof(merge), @NamedTuple{}, Base.Generator{Base.Iterators.Filter{CSV.var"#_pickkwargs##0#_pickkwargs##1"{NTuple{6, Symbol}}, Base.Pairs{Symbol, Dict{Symbol, Dates.DateFormat{Symbol("yyyy-mm-dd  (in 9 cones)
+   fault nofact: Tuple{Type{NamedTuple{_A}} where _A, Tuple}
+   fault nofact: Tuple{typeof(merge), @NamedTuple{}, NamedTuple{()}}
+   fault nofact: Tuple{typeof(merge), @NamedTuple{}, NamedTuple}
+   <- Tuple{typeof(CSV._pickkwargs), Base.Pairs{Symbol, Dict{Symbol, Dates.DateFormat{Symbol("yyyy-mm-dd"), Tuple{Dates.DatePart{'y'}, Dates.Delim{Char, 1}, Dates.DatePart{'m'}, Dates.De
+   <- Tuple{Type{NamedTuple}, Base.Generator{Base.Iterators.Filter{CSV.var"#_pickkwargs##0#_pickkwargs##1"{NTuple{6, Symbol}}, Base.Pairs{Symbol, Dict{Symbol, Dates.DateFormat{Symbol("yy
+   <- Tuple{typeof(merge), @NamedTuple{}, Base.Generator{Base.Iterators.Filter{CSV.var"#_pickkwargs##0#_pickkwargs##1"{NTuple{6, Symbol}}, Base.Pairs{Symbol, Dict{Symbol, Dates.DateForma
+   direct callers: 1
+      Tuple{Type{NamedTuple}, Base.Generator{Base.Iterators.Filter{CSV.var"#_pickkwargs##0#_pickkwargs##1"{NTuple{6, Symbol}}, Base.Pairs{Symbol, Dict{Symbol, Dates.D
+== any_container  Tuple{typeof(Base._iterate_dict), Dict{Int64, Any}, Int64}  (in 75 cones)
+   fault nofact: Tuple{Type{Pair{Int64, Any}}, Int64, Any}
+   <- Tuple{CSV.var"##_applytypes!#46", Bool, typeof(CSV._applytypes!), Vector{CSV.ColumnDecision}, Any, Vector{Symbol}, Vector{Int64}}
+   <- Tuple{typeof(iterate), Dict{Int64, Any}, Int64}
+   <- Tuple{typeof(Base._iterate_dict), Dict{Int64, Any}, Int64}
+   direct callers: 2
+      Tuple{typeof(iterate), Dict{Int64, Any}, Int64}
+      Tuple{typeof(iterate), Dict{Int64, Any}}
+== other  Tuple{typeof(iterate), Base.Iterators.Enumerate{DataFrames.ColumnVectors}, Tuple{Int64}}  (in 82 cones)
+   fault nofact: Tuple{typeof(getindex), Tuple{AbstractVector, Int64}, Int64}
+   <- Tuple{typeof(DataFrames._check_consistency), DataFrame}
+   <- Tuple{typeof(iterate), Base.Iterators.Enumerate{DataFrames.ColumnVectors}}
+   <- Tuple{typeof(iterate), Base.Iterators.Enumerate{DataFrames.ColumnVectors}, Tuple{Int64}}
+   direct callers: 1
+      Tuple{typeof(iterate), Base.Iterators.Enumerate{DataFrames.ColumnVectors}}
+== other  Tuple{typeof(merge), @NamedTuple{}, Base.Generator{Base.Iterators.Filter{CSV.var"#_pickkwargs##0#_pickkwargs##1"{NTuple{6, Symbol}}, Base.Pairs{Symbol, Dict{DataType, DataType}, Nothing, @NamedTuple{t  (in 9 cones)
+   fault nofact: Tuple{Type{NamedTuple{_A}} where _A, Tuple}
+   fault nofact: Tuple{typeof(merge), @NamedTuple{}, NamedTuple{()}}
+   fault nofact: Tuple{typeof(merge), @NamedTuple{}, NamedTuple}
+   <- Tuple{typeof(CSV._pickkwargs), Base.Pairs{Symbol, Dict{DataType, DataType}, Nothing, @NamedTuple{typemap::Dict{DataType, DataType}}}, NTuple{6, Symbol}}
+   <- Tuple{Type{NamedTuple}, Base.Generator{Base.Iterators.Filter{CSV.var"#_pickkwargs##0#_pickkwargs##1"{NTuple{6, Symbol}}, Base.Pairs{Symbol, Dict{DataType, DataType}, Nothing, @Name
+   <- Tuple{typeof(merge), @NamedTuple{}, Base.Generator{Base.Iterators.Filter{CSV.var"#_pickkwargs##0#_pickkwargs##1"{NTuple{6, Symbol}}, Base.Pairs{Symbol, Dict{DataType, DataType}, No
+   direct callers: 1
+      Tuple{Type{NamedTuple}, Base.Generator{Base.Iterators.Filter{CSV.var"#_pickkwargs##0#_pickkwargs##1"{NTuple{6, Symbol}}, Base.Pairs{Symbol, Dict{DataType, DataT
+== other  Tuple{typeof(iterate), Base.Iterators.Enumerate{DataFrames.DataFrameColumns{DataFrame}}, Tuple{Int64}}  (in 9 cones)
+   fault nofact: Tuple{typeof(getindex), Tuple{AbstractVector, Int64}, Int64}
+   <- Tuple{typeof(DataFrames._dealias_dataframe!), DataFrame}
+   <- Tuple{typeof(iterate), Base.Iterators.Enumerate{DataFrames.DataFrameColumns{DataFrame}}}
+   <- Tuple{typeof(iterate), Base.Iterators.Enumerate{DataFrames.DataFrameColumns{DataFrame}}, Tuple{Int64}}
+   direct callers: 1
+      Tuple{typeof(iterate), Base.Iterators.Enumerate{DataFrames.DataFrameColumns{DataFrame}}}
+== other  Tuple{typeof(iterate), Base.Iterators.Enumerate{Vector{Any}}, Tuple{Int64}}  (in 134 cones)
+   fault nofact: Tuple{typeof(getindex), Tuple{Any, Int64}, Int64}
+   <- Tuple{DataFrames.var"#_#186#188", Bool, Type{DataFrame}, Vector{Any}, DataFrames.Index}
+   <- Tuple{typeof(iterate), Base.Iterators.Enumerate{Vector{Any}}}
+   <- Tuple{typeof(iterate), Base.Iterators.Enumerate{Vector{Any}}, Tuple{Int64}}
+   direct callers: 1
+      Tuple{typeof(iterate), Base.Iterators.Enumerate{Vector{Any}}}
+== other  Tuple{typeof(merge), @NamedTuple{}, Base.Pairs{Symbol, T, Nothing, A} where {T, A<:(NamedTuple{(:maxlog, :form), <:Tuple{Int64, Type}})}}  (in 0 cones)
+   fault nofact: Tuple{typeof(merge), @NamedTuple{}, NamedTuple{(:maxlog, :form), <:Tuple{Int64, Type}}}
+   direct callers: 2
+      Tuple{Base.CoreLogging.var"##handle_message_nothrow#2", Base.Pairs{Symbol, T, Nothing, A} where {T, A<:(NamedTuple{(:maxlog, :form), <:Tuple{Int64, Type}})}, ty
+      Tuple{Base.var"##invokelatest_gr#235", Base.Pairs{Symbol, T, Nothing, A} where {T, A<:(NamedTuple{(:maxlog, :form), <:Tuple{Int64, Type}})}, typeof(Base.invokel
+== by_instance  Tuple{typeof(hasmethod), typeof(typemax), Type{Tuple{Bool}}}  (in 6 cones)
+   fault mi: MethodInstance for typemax(::Bool)
+   <- Tuple{typeof(DataFrames.groupreduce_init), typeof(min), ComposedFunction{typeof(!), typeof(ismissing)}, Nothing, Vector{Bool}, GroupedDataFrame{DataFrame}}
+   <- Tuple{typeof(hasmethod), typeof(typemax), Type{Tuple{Bool}}}
+   direct callers: 2
+      Tuple{typeof(DataFrames.groupreduce_init), typeof(min), ComposedFunction{typeof(!), typeof(ismissing)}, Nothing, Vector{Bool}, GroupedDataFrame{DataFrame}}
+      Tuple{typeof(DataFrames.groupreduce_init), typeof(min), Nothing, Nothing, Vector{Bool}, GroupedDataFrame{DataFrame}}
+== other  Tuple{typeof(merge), @NamedTuple{}, Base.Pairs{Symbol, T, Nothing, A} where {T, A<:(NamedTuple{(:_exception,), <:Tuple{Union{Base.IOError, SystemError}}})}}  (in 30 cones)
+   fault nofact: Tuple{typeof(merge), @NamedTuple{}, NamedTuple{(:_exception,), <:Tuple{Union{Base.IOError, SystemError}}}}
+   <- Tuple{CSV.var"##resolvesource#101", Bool, Bool, Vector{Task}, typeof(CSV.resolvesource), String}
+   <- Tuple{typeof(Downloads.download), String}
+   <- Tuple{typeof(Downloads.download), String, Nothing}
+   <- Tuple{Downloads.var"##download#5", Nothing, Vector{Pair{String, String}}, Float64, Nothing, Bool, Nothing, Nothing, typeof(Downloads.download), String, Nothing}
+   <- Tuple{typeof(mktempdir)}
+   <- Tuple{typeof(tempdir)}
+   <- Tuple{typeof(Core.kwcall), NamedTuple{(:_exception,), <:Tuple{Union{Base.IOError, SystemError}}}, typeof(Base.CoreLogging.handle_message_nothrow), Base.CoreLogging.AbstractLogger, 
+   <- Tuple{Base.CoreLogging.var"##handle_message_nothrow#2", Base.Pairs{Symbol, T, Nothing, A} where {T, A<:(NamedTuple{(:_exception,), <:Tuple{Union{Base.IOError, SystemError}}})}, typ
+   <- Tuple{typeof(merge), @NamedTuple{}, Base.Pairs{Symbol, T, Nothing, A} where {T, A<:(NamedTuple{(:_exception,), <:Tuple{Union{Base.IOError, SystemError}}})}}
+   direct callers: 2
+      Tuple{Base.CoreLogging.var"##handle_message_nothrow#2", Base.Pairs{Symbol, T, Nothing, A} where {T, A<:(NamedTuple{(:_exception,), <:Tuple{Union{Base.IOError, S
+      Tuple{Base.var"##invokelatest_gr#235", Base.Pairs{Symbol, T, Nothing, A} where {T, A<:(NamedTuple{(:_exception,), <:Tuple{Union{Base.IOError, SystemError}}})}, 
+== other  Tuple{typeof(merge), @NamedTuple{}, Base.Generator{Base.Iterators.Filter{CSV.var"#_pickkwargs##0#_pickkwargs##1"{NTuple{6, Symbol}}, Base.Pairs{Symbol, Union{}, Nothing, @NamedTuple{}}}, typeof(identi  (in 69 cones)
+   fault nofact: Tuple{Type{NamedTuple{_A}} where _A, Tuple}
+   fault nofact: Tuple{typeof(merge), @NamedTuple{}, NamedTuple{()}}
+   fault nofact: Tuple{typeof(merge), @NamedTuple{}, NamedTuple}
+   <- Tuple{typeof(CSV._pickkwargs), Base.Pairs{Symbol, Union{}, Nothing, @NamedTuple{}}, NTuple{6, Symbol}}
+   <- Tuple{Type{NamedTuple}, Base.Generator{Base.Iterators.Filter{CSV.var"#_pickkwargs##0#_pickkwargs##1"{NTuple{6, Symbol}}, Base.Pairs{Symbol, Union{}, Nothing, @NamedTuple{}}}, typeo
+   <- Tuple{typeof(merge), @NamedTuple{}, Base.Generator{Base.Iterators.Filter{CSV.var"#_pickkwargs##0#_pickkwargs##1"{NTuple{6, Symbol}}, Base.Pairs{Symbol, Union{}, Nothing, @NamedTupl
+   direct callers: 1
+      Tuple{Type{NamedTuple}, Base.Generator{Base.Iterators.Filter{CSV.var"#_pickkwargs##0#_pickkwargs##1"{NTuple{6, Symbol}}, Base.Pairs{Symbol, Union{}, Nothing, @N
+== other  Tuple{typeof(iterate), Base.Iterators.Filter{DataFrames.var"#661#662", Vector{AbstractDataFrame}}}  (in 2 cones)
+   fault nofact: Tuple{typeof(Base.indexed_iterate), Tuple{AbstractDataFrame, Int64}, Int64}
+   fault nofact: Tuple{typeof(Base.indexed_iterate), Tuple{AbstractDataFrame, Int64}, Int64, Int64}
+   <- Tuple{DataFrames.var"##reduce#658", Symbol, Nothing, DataFrame, typeof(reduce), typeof(vcat), Vector{DataFrame}}
+   <- Tuple{typeof(collect), Type{AbstractDataFrame}, Base.Generator{Base.Iterators.Filter{DataFrames.var"#661#662", Vector{AbstractDataFrame}}, typeof(identity)}}
+   <- Tuple{typeof(Base._collect), Type{AbstractDataFrame}, Base.Generator{Base.Iterators.Filter{DataFrames.var"#661#662", Vector{AbstractDataFrame}}, typeof(identity)}, Base.SizeUnknown
+   <- Tuple{typeof(iterate), Base.Generator{Base.Iterators.Filter{DataFrames.var"#661#662", Vector{AbstractDataFrame}}, typeof(identity)}}
+   <- Tuple{typeof(iterate), Base.Iterators.Filter{DataFrames.var"#661#662", Vector{AbstractDataFrame}}}
+   direct callers: 1
+      Tuple{typeof(iterate), Base.Generator{Base.Iterators.Filter{DataFrames.var"#661#662", Vector{AbstractDataFrame}}, typeof(identity)}}
+== by_instance  Tuple{typeof(hasmethod), typeof(-), Type{Tuple{Dates.DateTime, Dates.DateTime}}}  (in 2 cones)
+   fault mi: MethodInstance for -(::Dates.DateTime, ::Dates.DateTime)
+      its code: bit true, facts false, rettype Dates.Millisecond
+   <- Tuple{typeof(DataFrames.ColumnKernels._stats), DataFrames.ColumnKernels.CellVector{Dates.DateTime, Vector{Dates.DateTime}}, Vector{Symbol}}
+   <- Tuple{typeof(hasmethod), typeof(-), Type{Tuple{Dates.DateTime, Dates.DateTime}}}
+   direct callers: 1
+      Tuple{typeof(DataFrames.ColumnKernels._stats), DataFrames.ColumnKernels.CellVector{Dates.DateTime, Vector{Dates.DateTime}}, Vector{Symbol}}
+== other  Tuple{typeof(merge), @NamedTuple{}, Base.Generator{Base.Iterators.Filter{CSV.var"#_pickkwargs##0#_pickkwargs##1"{NTuple{6, Symbol}}, Base.Pairs{Symbol, Int64, Nothing, @NamedTuple{chunkbytes::Int64}}}  (in 9 cones)
+   fault nofact: Tuple{Type{NamedTuple{_A}} where _A, Tuple}
+   fault nofact: Tuple{typeof(merge), @NamedTuple{}, NamedTuple{()}}
+   fault nofact: Tuple{typeof(merge), @NamedTuple{}, NamedTuple}
+   <- Tuple{typeof(CSV._pickkwargs), Base.Pairs{Symbol, Int64, Nothing, @NamedTuple{chunkbytes::Int64}}, NTuple{6, Symbol}}
+   <- Tuple{Type{NamedTuple}, Base.Generator{Base.Iterators.Filter{CSV.var"#_pickkwargs##0#_pickkwargs##1"{NTuple{6, Symbol}}, Base.Pairs{Symbol, Int64, Nothing, @NamedTuple{chunkbytes::
+   <- Tuple{typeof(merge), @NamedTuple{}, Base.Generator{Base.Iterators.Filter{CSV.var"#_pickkwargs##0#_pickkwargs##1"{NTuple{6, Symbol}}, Base.Pairs{Symbol, Int64, Nothing, @NamedTuple{
+   direct callers: 1
+      Tuple{Type{NamedTuple}, Base.Generator{Base.Iterators.Filter{CSV.var"#_pickkwargs##0#_pickkwargs##1"{NTuple{6, Symbol}}, Base.Pairs{Symbol, Int64, Nothing, @Nam
+== other  Tuple{typeof(iterate), Base.Iterators.Enumerate{Vector{AbstractVector}}, Tuple{Int64, Int64}}  (in 235 cones)
+   fault nofact: Tuple{typeof(getindex), Tuple{AbstractVector, Int64}, Int64}
+   <- Tuple{DataFrames.var"#_#186#188", Bool, Type{DataFrame}, Vector{AbstractVector}, DataFrames.Index}
+   <- Tuple{typeof(iterate), Base.Iterators.Enumerate{Vector{AbstractVector}}, Tuple{Int64, Int64}}
+   direct callers: 1
+      Tuple{DataFrames.var"#_#186#188", Bool, Type{DataFrame}, Vector{AbstractVector}, DataFrames.Index}
+== other  Tuple{typeof(iterate), Base.Iterators.Filter{DataFrames.var"#_describe##8#_describe##9", Vector{Any}}, Int64}  (in 6 cones)
+   fault nofact: Tuple{typeof(Base.indexed_iterate), Tuple{Any, Int64}, Int64}
+   fault nofact: Tuple{typeof(Base.indexed_iterate), Tuple{Any, Int64}, Int64, Int64}
+   <- Tuple{typeof(DataFrames._describe), AbstractDataFrame, Vector{Any}}
+   <- Tuple{typeof(collect), Type{Any}, Base.Generator{Base.Iterators.Filter{DataFrames.var"#_describe##8#_describe##9", Vector{Any}}, DataFrames.var"#_describe##6#_describe##7"}}
+   <- Tuple{typeof(Base._collect), Type{Any}, Base.Generator{Base.Iterators.Filter{DataFrames.var"#_describe##8#_describe##9", Vector{Any}}, DataFrames.var"#_describe##6#_describe##7"}, 
+   <- Tuple{typeof(iterate), Base.Generator{Base.Iterators.Filter{DataFrames.var"#_describe##8#_describe##9", Vector{Any}}, DataFrames.var"#_describe##6#_describe##7"}, Int64}
+   <- Tuple{typeof(iterate), Base.Iterators.Filter{DataFrames.var"#_describe##8#_describe##9", Vector{Any}}, Int64}
+   direct callers: 1
+      Tuple{typeof(iterate), Base.Generator{Base.Iterators.Filter{DataFrames.var"#_describe##8#_describe##9", Vector{Any}}, DataFrames.var"#_describe##6#_describe##7"
+== other  Tuple{typeof(iterate), Base.Iterators.Enumerate{DataFrames.DataFrameColumns{DataFrame}}, Tuple{Int64, Int64}}  (in 9 cones)
+   fault nofact: Tuple{typeof(getindex), Tuple{AbstractVector, Int64}, Int64}
+   <- Tuple{typeof(DataFrames._dealias_dataframe!), DataFrame}
+   <- Tuple{typeof(iterate), Base.Iterators.Enumerate{DataFrames.DataFrameColumns{DataFrame}}, Tuple{Int64, Int64}}
+   direct callers: 4
+      Tuple{DataFrames.var"##dropmissing#78", Bool, Bool, typeof(dropmissing), DataFrame, Colon}
+      Tuple{typeof(DataFrames._dealias_dataframe!), DataFrame}
+      Tuple{DataFrames.var"##dropmissing#78", Bool, Bool, typeof(dropmissing), DataFrame, Vector{Symbol}}
+      Tuple{DataFrames.var"##dropmissing#78", Bool, Bool, typeof(dropmissing), DataFrame, Colon}
+== other  Tuple{typeof(iterate), Base.Iterators.Filter{DataFrames.var"#_describe##8#_describe##9", Vector{Any}}}  (in 6 cones)
+   fault nofact: Tuple{typeof(Base.indexed_iterate), Tuple{Any, Int64}, Int64}
+   fault nofact: Tuple{typeof(Base.indexed_iterate), Tuple{Any, Int64}, Int64, Int64}
+   <- Tuple{typeof(DataFrames._describe), AbstractDataFrame, Vector{Any}}
+   <- Tuple{typeof(collect), Type{Any}, Base.Generator{Base.Iterators.Filter{DataFrames.var"#_describe##8#_describe##9", Vector{Any}}, DataFrames.var"#_describe##6#_describe##7"}}
+   <- Tuple{typeof(Base._collect), Type{Any}, Base.Generator{Base.Iterators.Filter{DataFrames.var"#_describe##8#_describe##9", Vector{Any}}, DataFrames.var"#_describe##6#_describe##7"}, 
+   <- Tuple{typeof(iterate), Base.Generator{Base.Iterators.Filter{DataFrames.var"#_describe##8#_describe##9", Vector{Any}}, DataFrames.var"#_describe##6#_describe##7"}}
+   <- Tuple{typeof(iterate), Base.Iterators.Filter{DataFrames.var"#_describe##8#_describe##9", Vector{Any}}}
+   direct callers: 1
+      Tuple{typeof(iterate), Base.Generator{Base.Iterators.Filter{DataFrames.var"#_describe##8#_describe##9", Vector{Any}}, DataFrames.var"#_describe##6#_describe##7"

@@ -69,3 +69,36 @@ The deep class is the G2 bit ([compiler §3.2](../../../writeup/reference/compil
 - The cones are wide: a median of 16 culprits under one of the forks' instances. After the first few names, each further name buys a few instances only, and the task code, the containers of `Any` and the constructors at kinds count only together.
 - Two of the patterns are in how the compiler records an edge, not in Base: `!==`'s edge at `(Any, Any)`, and `Val(::Int)` folded by concrete evaluation, whose edge names the generic instance (`Val{x}()` at an unknown `x`).
 - The baseline's own image instances (5,566) are more than on `next` 9b6dacf5c5 with TraitWorld-w155 (4,773, E-417), and the nine loads end more of them (156 against 49). The library and the third wave's commits both differ between the two; this run does not separate them. None of the ended carries the bit.
+
+### E-477, E-478 (2026-11-15): the first batch
+
+`next-s3` 396cd65a48 (the binary names `396cd65a48*`): five commits on 213c759370, below; TraitWorld-s3 9e0e3f4, forks 439bae7; product setting, strict mode off, one thread, one process per row; load 5 to 8 of 128. `logs/b1-*`; `logs/build-b1.log`.
+
+| commit | what | kind |
+|---|---|---|
+| 0a07a715ca | an edge names the callee's CodeInstance where one exists when the caller finishes (open issue 195 (a)) | compiler |
+| 6b3175dc9c | the edge of a call of `!==` keeps the call's own signature | compiler |
+| 297d19aca1 | error paths build their exception at a concrete signature (`throw_inexacterror`, `DomainError`, `string_index_err`, `TypeError`) | general |
+| ab96564f36 | the type joins read type fields with `getfield` and call each other through `invoke` | general |
+| 396cd65a48 | `yieldto` sets the task's result with `setfield!` | general |
+
+| | the baseline 213c759370 | the first batch |
+|---|---|---|
+| the forks: own facts instances with the bit | 1,756 of 4,204 (41.8 %) | 2,460 of 4,204 (58.5 %) |
+| the forks: own image instances with the bit | 2,213 of 5,566 (39.8 %) | 3,517 of 5,568 (63.2 %) |
+| upstream by facts: own facts instances with the bit | 1,402 of 3,541 (39.6 %) | 2,503 of 3,542 (70.7 %) |
+| upstream by facts: own image instances with the bit | 1,373 of 3,464 (39.6 %) | 2,460 of 3,465 (71.0 %) |
+| below the own facts instances, outside the class (the copies P3's demand rule would make): the forks; upstream | (not counted) | 3,124 of 34,532; 2,345 of 27,390 |
+| the nine loads end: the forks' own image instances; with the bit | 156; 0 | 156; 0 |
+| the nine loads end: upstream's; with the bit | 14 (and 5); 0 | 14 (and 5); 0 |
+| below the own code ended; with the bit: the forks; upstream | 305, 0; 109, 0 | 305, 0; 109, 0 |
+| methods in the session (the forks, the library, the nine loads) the patches would not reach (`diag/intercept.jl`) | — | 0 |
+
+**Per commit, the culprits it removes** (`diag/compare.py logs/e476-forks.tsv logs/b1-forks.tsv`; instances, and the own facts instances whose cone held one; the forks):
+- 195 (a): callees by instance alone 41 to 33 culprit instances; `hasmethod` 19 to 11 (upstream: 19 to 16 by instance). The rest name a callee that had no code when the caller finished.
+- `!==`: `istaskdone`, `trypoptask` (1,029 cones each) and the other culprits whose only fault was `!==`.
+- The error paths: `throw_inexacterror` (10 instances, 2,352 cones), `DomainError` (1,712), `string_index_err` (817), `TypeError` (3, 39). On the baseline these four alone buy 16.1 points for the forks, 28.0 for upstream (E-476's greedy order).
+- The type joins: `typesplit` (1,050), `tailjoin`, `full_va_len`, `supertype` (796 each), `promote_typejoin`, `_promote_typesubtract` (768); `rewrap_unionall` 14 to 7 (the rest are callers at a kind). `typejoin` itself stays: its stores into a `Vector{Any}` go through `setindex!` and `_setindex!` at `Any`, the container-of-`Any` pattern. `typejoin_union_tuple` and `promote_typejoin_union` are not changed.
+- `yieldto` (1,029 cones).
+
+**What is left** (the forks; the greedy order on this build): `Val` 62.0 %, `IOContext` 63.1 %, then names worth a few instances each (68.9 % after 25). By kind, together: other 64.7 %, type joins 68.1 %, introspection 69.7 %, constructors at kinds 71.2 %, the task code 72.4 %, containers of `Any` 85.2 %, error paths 89.3 %, by instance 100 %. Upstream: `Val` 76.7 %, `IOContext` 78.9 %, 80.7 % after 11 names.

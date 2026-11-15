@@ -19,7 +19,9 @@ end
 for m in methods(setproperty!)
     own(m) && continue
     b = Base.unwrap_unionall(m.sig)
-    b isa DataType && length(b.parameters) >= 2 && Task <: b.parameters[2] && b.parameters[2] !== Any || continue
+    b isa DataType && length(b.parameters) >= 2 || continue
+    p = b.parameters[2]; p isa TypeVar && (p = p.ub)
+    p isa Type && Task <: p && p !== Any || continue
     global n += 1; println("  setproperty!: ", m.sig, " in ", m.module)
 end
 println("# intercept | julia ", Base.GIT_VERSION_INFO.commit_short, " | loaded: ", join(ARGS, " "), " | methods the patches would not reach: ", n)
