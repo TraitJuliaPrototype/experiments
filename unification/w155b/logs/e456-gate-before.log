@@ -1,0 +1,34 @@
+compiled before the membership: (:untyped, :untyped, false, false, false, :untyped, false)
+S <: X (the membership)                                         true
+T <: Vector{X}                                                  true   <-- want false
+Vector{X} <: T                                                  true   <-- want false
+T == Vector{X}                                                  false
+v isa Vector{X}                                                 false
+isvec(v), compiled before                                       false
+isvec(v), compiled after                                        true   <-- want false
+T <: AbstractVector{X}                                          true   <-- want false
+v isa AbstractVector{X}                                         true   <-- want false
+isit(v), compiled before                                        false
+typeintersect(T, Vector{X})                                     Union{}
+typeintersect(T, AbstractVector{X})                             Vector{Union{S, X}}   <-- want Union{}
+h(v), a method at Vector{X}                                     untyped
+k(v), a caller compiled before                                  untyped
+which(h, (T,)) is the untyped method                            Tuple{typeof(h), Any}
+a caller compiled after                                         untyped
+h2(v), a method at AbstractVector{X}                            absX   <-- want untyped
+k2(v), compiled before                                          untyped
+T <: Vector{<:X}                                                true
+v isa Vector{<:X}                                               true
+issub(v), compiled before                                       true
+Vector{S} <: Vector{<:X}                                        true
+issub(vs), compiled before                                      true
+h3(v), a method at Vector{<:X}                                  vecsubX
+k3(vs), compiled before                                         vecsubX
+typeintersect(Vector{S}, Vector{<:X})                           Vector{S}
+typeintersect(T, Vector{<:X})                                   Vector{Union{S, X}}
+Vector{Tuple{S}} <: Vector{Tuple{X}}                            false
+Vector{Tuple{S}} <: Vector{<:Tuple{X}}                          true
+Tuple{S} <: Tuple{X} (covariant)                                true
+Union{X, S} == X at the top level (subtype both ways)           true
+Vector{Union{X, S}} written again === T                         true
+gate_d11: FAIL 7: T <: Vector{X}; Vector{X} <: T; isvec(v), compiled after; T <: AbstractVector{X}; v isa AbstractVector{X}; typeintersect(T, AbstractVector{X}); h2(v), a method at AbstractVector{X}
