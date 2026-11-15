@@ -1,0 +1,142 @@
+# E-499 e499 2026-11-15T17:50:45+01:00 load 4.75 4.07 2.65 | vanilla 45b6d15e34 unified 7b374f39ce TraitWorld-base e11c7cc | next 5448a8b7bf TraitWorld-unified 4b6c1d6
+== V run w | load 4.75
+using CSV, DataFrames 1224.35 ms
+first work 3266.53 ms, compile 3260.6 ms
+repeated: median 0.18 ms, least 0.17 ms
+== B-first run w | load 4.61
+using TraitWorld 6035.46 ms
+using CSV, DataFrames 1202.83 ms
+first work 2953.53 ms, compile 2948.41 ms
+repeated: median 0.19 ms, least 0.18 ms
+== H-first run w | load 5.10
+using TraitWorld 66.68 ms
+using CSV, DataFrames 1001.55 ms
+first work 3330.06 ms, compile 3324.61 ms
+repeated: median 0.19 ms, least 0.18 ms
+== B-late run w | load 6.45
+using CSV, DataFrames 1265.28 ms
+first work 2898.4 ms, compile 2893.87 ms
+repeated: median 0.18 ms, least 0.18 ms
+using TraitWorld (late) 60.5 ms
+ended by the library's load: 209 of 120667 | Base 94, DataFrames 80, Statistics 30, Main 3, PooledArrays 2
+  Tuple{typeof(Base.reducedim_init), Function, typeof(Base.add_sum), PooledArrays.PooledVector{String, UInt32, Vector{UInt32}}, Function}
+  Tuple{typeof(Base.reducedim_init), Function, typeof(Base.add_sum), Vector{String}, Function}
+  Tuple{typeof(DataFrames._innerjoin_unsorted_int), AbstractVector{<:Union{Missing, Integer}}, AbstractVector{<:Union{Missing, Integer}}}
+  Tuple{typeof(ncol), SubDataFrame}
+  Tuple{typeof(ncol), AbstractDataFrame}
+  Tuple{typeof(mean), PooledArrays.PooledVector{String, UInt32, Vector{UInt32}}}
+  Tuple{typeof(mean), Vector{String}}
+== H-late run w | load 6.65
+using CSV, DataFrames 876.07 ms
+first work 3306.74 ms, compile 3303.89 ms
+repeated: median 0.19 ms, least 0.18 ms
+using TraitWorld (late) 51.98 ms
+ended by the library's load: 0 of 120236 | 
+work after the library's load 1.07 ms, compile 0.0 ms
+repeated after: median 0.19 ms, least 0.18 ms
+== V run 1 | load 6.84
+using CSV, DataFrames 912.18 ms
+first work 3245.76 ms, compile 3242.13 ms
+repeated: median 0.17 ms, least 0.16 ms
+== B-first run 1 | load 7.02
+using TraitWorld 93.09 ms
+using CSV, DataFrames 1029.47 ms
+first work 2995.97 ms, compile 2991.32 ms
+repeated: median 0.19 ms, least 0.19 ms
+== H-first run 1 | load 7.17
+using TraitWorld 65.0 ms
+using CSV, DataFrames 916.77 ms
+first work 3339.37 ms, compile 3335.43 ms
+repeated: median 0.18 ms, least 0.18 ms
+== B-late run 1 | load 7.24
+using CSV, DataFrames 943.92 ms
+first work 2892.69 ms, compile 2888.03 ms
+repeated: median 0.19 ms, least 0.19 ms
+using TraitWorld (late) 63.21 ms
+ended by the library's load: 209 of 120667 | Base 94, DataFrames 80, Statistics 30, Main 3, PooledArrays 2
+  Tuple{typeof(Base.reducedim_init), Function, typeof(Base.add_sum), PooledArrays.PooledVector{String, UInt32, Vector{UInt32}}, Function}
+  Tuple{typeof(Base.reducedim_init), Function, typeof(Base.add_sum), Vector{String}, Function}
+  Tuple{typeof(DataFrames._innerjoin_unsorted_int), AbstractVector{<:Union{Missing, Integer}}, AbstractVector{<:Union{Missing, Integer}}}
+  Tuple{typeof(ncol), SubDataFrame}
+  Tuple{typeof(ncol), AbstractDataFrame}
+  Tuple{typeof(mean), PooledArrays.PooledVector{String, UInt32, Vector{UInt32}}}
+  Tuple{typeof(mean), Vector{String}}
+== H-late run 1 | load 7.12
+using CSV, DataFrames 1096.61 ms
+first work 3357.6 ms, compile 3352.76 ms
+repeated: median 0.19 ms, least 0.18 ms
+using TraitWorld (late) 48.87 ms
+ended by the library's load: 0 of 120236 | 
+work after the library's load 1.01 ms, compile 0.0 ms
+repeated after: median 0.19 ms, least 0.18 ms
+== V run 2 | load 6.79
+using CSV, DataFrames 981.85 ms
+first work 3263.59 ms, compile 3258.39 ms
+repeated: median 0.18 ms, least 0.17 ms
+== B-first run 2 | load 6.64
+using TraitWorld 92.31 ms
+using CSV, DataFrames 1172.56 ms
+first work 2977.93 ms, compile 2973.8 ms
+repeated: median 0.19 ms, least 0.18 ms
+== H-first run 2 | load 6.35
+using TraitWorld 55.42 ms
+using CSV, DataFrames 902.03 ms
+first work 3335.12 ms, compile 3331.67 ms
+repeated: median 0.18 ms, least 0.18 ms
+== B-late run 2 | load 6.08
+using CSV, DataFrames 858.85 ms
+first work 2936.36 ms, compile 2932.84 ms
+repeated: median 0.19 ms, least 0.19 ms
+using TraitWorld (late) 44.87 ms
+ended by the library's load: 209 of 120667 | Base 94, DataFrames 80, Statistics 30, Main 3, PooledArrays 2
+  Tuple{typeof(Base.reducedim_init), Function, typeof(Base.add_sum), PooledArrays.PooledVector{String, UInt32, Vector{UInt32}}, Function}
+  Tuple{typeof(Base.reducedim_init), Function, typeof(Base.add_sum), Vector{String}, Function}
+  Tuple{typeof(DataFrames._innerjoin_unsorted_int), AbstractVector{<:Union{Missing, Integer}}, AbstractVector{<:Union{Missing, Integer}}}
+  Tuple{typeof(ncol), SubDataFrame}
+  Tuple{typeof(ncol), AbstractDataFrame}
+  Tuple{typeof(mean), PooledArrays.PooledVector{String, UInt32, Vector{UInt32}}}
+  Tuple{typeof(mean), Vector{String}}
+== H-late run 2 | load 6.00
+using CSV, DataFrames 763.32 ms
+first work 3373.8 ms, compile 3371.16 ms
+repeated: median 0.19 ms, least 0.18 ms
+using TraitWorld (late) 35.1 ms
+ended by the library's load: 0 of 120236 | 
+work after the library's load 1.03 ms, compile 0.0 ms
+repeated after: median 0.18 ms, least 0.17 ms
+== V run 3 | load 5.76
+using CSV, DataFrames 899.57 ms
+first work 3295.64 ms, compile 3291.19 ms
+repeated: median 0.18 ms, least 0.17 ms
+== B-first run 3 | load 5.54
+using TraitWorld 95.39 ms
+using CSV, DataFrames 1217.56 ms
+first work 2980.43 ms, compile 2976.67 ms
+repeated: median 0.19 ms, least 0.19 ms
+== H-first run 3 | load 5.34
+using TraitWorld 76.8 ms
+using CSV, DataFrames 935.4 ms
+first work 3471.42 ms, compile 3466.61 ms
+repeated: median 0.19 ms, least 0.18 ms
+== B-late run 3 | load 5.31
+using CSV, DataFrames 1182.44 ms
+first work 2908.58 ms, compile 2904.03 ms
+repeated: median 0.19 ms, least 0.19 ms
+using TraitWorld (late) 57.13 ms
+ended by the library's load: 209 of 120667 | Base 94, DataFrames 80, Statistics 30, Main 3, PooledArrays 2
+  Tuple{typeof(Base.reducedim_init), Function, typeof(Base.add_sum), PooledArrays.PooledVector{String, UInt32, Vector{UInt32}}, Function}
+  Tuple{typeof(Base.reducedim_init), Function, typeof(Base.add_sum), Vector{String}, Function}
+  Tuple{typeof(DataFrames._innerjoin_unsorted_int), AbstractVector{<:Union{Missing, Integer}}, AbstractVector{<:Union{Missing, Integer}}}
+  Tuple{typeof(ncol), SubDataFrame}
+  Tuple{typeof(ncol), AbstractDataFrame}
+  Tuple{typeof(mean), PooledArrays.PooledVector{String, UInt32, Vector{UInt32}}}
+  Tuple{typeof(mean), Vector{String}}
+== H-late run 3 | load 5.28
+using CSV, DataFrames 884.47 ms
+first work 3312.7 ms, compile 3309.78 ms
+repeated: median 0.19 ms, least 0.18 ms
+using TraitWorld (late) 47.23 ms
+ended by the library's load: 0 of 120236 | 
+work after the library's load 1.09 ms, compile 0.0 ms
+repeated after: median 0.19 ms, least 0.18 ms
+# done 2026-11-15T17:52:47+01:00 load 5.46 4.79 3.11
