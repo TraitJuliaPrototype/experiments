@@ -118,7 +118,7 @@ The deep class is the G2 bit ([compiler §3.2](../../../writeup/reference/compil
 | the forks: own image instances with the bit | 39.8 % | 63.2 % | 68.9 % (3,852 of 5,593) |
 | upstream by facts: own facts instances | 39.6 % (1,402 of 3,541) | 70.7 % | 79.0 % (2,818 of 3,567) |
 | upstream by facts: own image instances | 39.6 % | 71.0 % | 79.5 % (2,774 of 3,490) |
-| the copies P3's demand rule would make: the forks; upstream | see the controls | 3,124; 2,345 | 2,413; 1,782 |
+| the copies P3's demand rule would make: the forks; upstream | 6,791; 5,439 (`logs/c-base-census-*.log`) | 3,124; 2,345 | 2,413; 1,782 |
 | culprits in a cone, median (the forks; upstream) | 16; 6 | 11; 8 | 12; 19 |
 | the nine loads end, own image instances with the bit | 0 | 0 | 0 |
 | the nine loads end, below the own code, with the bit (the forks; upstream) | 0; 0 | 0; 0 | 30; 12 (below) |
@@ -128,3 +128,25 @@ The deep class is the G2 bit ([compiler §3.2](../../../writeup/reference/compil
 - **The suites** (`logs/b2-summary.log`): `w155/gate_deep.jl`; Julia's `core`, `subtype`, `Compiler/inline`, `Compiler/inference`; `errorshow`, `int`, `numbers`, `strings/basic`, `channels`, `ambiguous`; the library's suite; the forks' digests equal upstream's at 26 steps. All pass, as on the first batch. `diag/intercept.jl`: 0 methods in the session the patches would not reach.
 - **What is left** (the forks; the greedy order on the head): no name buys a point alone (`Iterators.iterate` +0.9, `hasmethod` by instance +0.8, then less; 68.9 % after 25 names). By kind together: other 66.1 %, type joins 69.5 %, introspection 71.1 %, … The kinds that count only together are the task code under a lock (a payload typed `Any` passed to `schedule`, `notify`, `push!` of a `CompositeException`), stores into containers of `Any` (`push!` and `setindex!` at `Any`, then `_setindex!`), keyword calls at an abstract argument, property reads and constructors at an abstract type or a computed type (`Vector{T}(undef, n)`, the generic paths of `collect` and `map`). Upstream: 81.2 % after 13 names; by kind together, other 80.6 %, type joins 84.0 %, the task code 84.7 %, containers of `Any` 87.7 %.
 - **Ownership by declaration** (the what-if, on the head): Base's functions no package extends, owner-only, would resolve 423 (internal) or 500 (all) of the forks' culprits: 63.2 % and 64.1 % (0.1 and 1.0 point); upstream 79.1 % and 79.3 %.
+
+### E-478's control, E-479, E-480 (2026-11-15): the controls on the head
+
+`controls.sh c`: the head (`next-s3` bc844be7c0) against stage 5's baseline image (213c759370's system image, kept before the first rebuild, run with `-J` on the same runtime; the runtime did not change in stage 5). With that image the census reproduces E-476's counts exactly (`logs/c-base-census-*.log`). One after another, alternating; load 3 to 28 of 128 (another agent's jobs), stated per run in the logs. `logs/c-*`.
+
+**The work after the nine loads** (W-134's `lost.jl`, order A; a warm-up and 1 run, twice each; `logs/c-{base,head}-{1,2}-runs.log`):
+
+| | first work | after the loads |
+|---|---|---|
+| upstream by facts, the baseline | 1.772–1.789 s | 1.458–1.476 s |
+| upstream by facts, the head | 1.748–1.769 s | 1.451–1.464 s |
+| the forks, the baseline | 150–154 ms | 2.331–2.343 s |
+| the forks, the head | 147–156 ms | 2.307–2.342 s |
+
+The same, within the runs' spread. The forks still lose 156 own image instances (CSV 143) to the loads and take 2.3 s after them: their entry chain's cones still hold open issue 218's culprits. The share moved; this time did not.
+
+**What plain Julia pays** (E-479):
+- Plain code's first work (W-134's `plain.jl`, upstream CSV and DataFrames compiled plainly; `logs/c-plain.log`, `c-plain-b.log`): the head 3.42–3.54 s at load 6 to 8 and 3.355–3.359 s at load 4; the baseline 3.37–3.42 s and 3.351–3.370 s. The same; `using CSV, DataFrames` 0.75–0.77 s both.
+- The system image: 211,712,744 bytes on the baseline, 212,052,920 on the head (+0.16 %; after the first batch 211,666,176). The build's stages (`logs/build-*.log`): Base 32.6 s, 32.9 s, 32.3 s; the standard libraries 12.7, 12.8, 12.6 s; the compiler 346 and 349 s on the two batches (the baseline's build did not rebuild it).
+- Base's `precompile` test: 223 s on the head (load 2.5 to 4.4). Under `-J` the baseline image took 311 s, not comparable: the standard libraries' caches in the tree are the head image's, so that run compiles them again. E-419 measured 224 s on `next` with the code slot removed.
+
+**P6's count** (E-480; `w152/p6/split.jl`, the forks' CSV and DataFrames after the nine loads; `logs/c-split-forks.log`): 7,484 instances from images; deep G2 5,110 (68.3 %), with 49.9 % of the edges and 129 of 701 calls by signature (18.4 %); no instance has the bit without being deep. E-399 on `unified`: 50.3 %, 21.6 %, 12.8 %. Deep code holds most of the instances, not a quarter of the lookups: by E-399's criterion P6 stays ended. The lookups sit in the instances without the bit (572 of 701).
