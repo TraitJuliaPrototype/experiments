@@ -90,3 +90,7 @@ E-499 (3 runs and a warm-up, load 4.7 to 7.2): the repeated work 0.18–0.19 ms 
 
 E-501 (3 runs each, the same hour, load 0.6 to 1.6): E-371's loop (`d2/logs/e371-*.log`): plain 0.79 ns on both; the wrapper 0.79 ns on both, one entry 0.79 ns against the baseline's 3.17; the box 26.5–27.0 ns a call against 22.9. E-372's sessions (`d2/logs/sessions-*.log`): the table session's first run 54.3–54.7 ms against 62.1–62.5; the ODE session's 651–653 ms against 398–399, of it `TraitRodas._rodas5_run` compiled in the session (315 ms), which `next`'s image does not hold, as `next-s3`'s does not (`d2/logs/image-*.txt`; open issue 228). The environments' `Project.toml` named the `-s3` trees until this date; their manifests, which is what loads, named the `-unified` ones.
 
+### E-496 again: the second merge
+
+`next` 32a2235abd (`next-s3` to bc844be7c0: W-157's `Val` and `IOContext`), with D-4 and D-2; TraitWorld `unified` d1febca, the ODE port ae1a966, forks bf6799b; load 1 to 5. `logs/m2-summary.log`: `gate_deep.jl` OK, `gate_d11.jl` OK, W-160's four pass, the library's suite (93 testsets), the ODE port's (35), TraitMakie's, NetworkDynamics' subset as before, digests equal (26 steps), Julia's four test files SUCCESS; `merge/delete_forwarder.jl` 19 of 19 (`logs/m2-delete_forwarder.log`); D-2's gate 25 of 25 (`d2/logs/gate-m2.log`).
+
