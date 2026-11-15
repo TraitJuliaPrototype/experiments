@@ -1,0 +1,13 @@
+the bit as the deep class (compiler §3.2):
+  ok   a leaf at facts carries it
+  ok   a caller of a deep callee carries it
+  ok   a binding edge needs nothing more
+  ok   a call at Any: no bit
+  FAIL a caller of a callee outside the class: no bit (one level deep it had one)
+  FAIL a cycle at facts: every member
+  FAIL a cycle with a member at Any: no member
+  ok   facts code with a run-time site carries it
+  FAIL facts code over a plain callee outside the class: no bit
+  (1 callee instances with binding edges only, 0 with none)
+  FAIL an instance whose edges are bindings only, or none, carries it
+gate_deep: FAILED

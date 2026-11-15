@@ -1,0 +1,54 @@
+== env_forks | load 7.30 6.87 5.46 | next b54eab8c17 (+ D-5 uncommitted) TraitWorld-w155 e682482 forks 439bae7 | 2026-11-15T11:38:20+01:00
+project env_forks | julia 7b374f39ce* | own instances: image 4772, made by the work 8 | reached through edges 40552
+image:     4772 | facts 3457 | bit 1784 | deep: walk 1784 (37 %), corrected 1784 (37 %) | throw-only refinement: facts callers 1784 (37 %), every caller 1784 (37 %); corrected: facts callers 1784 (37 %), every caller 1784 (37 %)
+made:      8 | facts 8 | bit 6 | deep: walk 6 (75 %), corrected 6 (75 %) | throw-only refinement: facts callers 6 (75 %), every caller 6 (75 %); corrected: facts callers 6 (75 %), every caller 6 (75 %)
+own facts: 3465 | facts 3465 | bit 1358 | deep: walk 1358 (39 %), corrected 1358 (39 %) | throw-only refinement: facts callers 1358 (39 %), every caller 1358 (39 %); corrected: facts callers 1358 (39 %), every caller 1358 (39 %)
+reached instances where the bit and the walk disagree: 2 (bit without walk 2)
+   bit, walk not deep: Tuple{typeof(getproperty), Task, Symbol}
+   bit, walk not deep: Tuple{typeof(getproperty), Task, Symbol}
+reached instances without the bit whose edges are bindings only (open issue 187): 0
+deep by the walk and naming a callee by MethodInstance or Method: 1 of 29446
+  of them with such a callee whose code now is not deep (or has no bit): 0
+callees that only throw, called directly by own facts instances: 35 instances; not deep by the walk 22
+  of them whose `Union{}` may rest on a callee: 20
+  by method: Statistics.mean 7, Statistics.std 7, Base.setindex! 6, Base.getindex 2, CSV._throwparseerror 2, DataFrames._onebased_check_error 1, DataFrames.wrap_row 1, CSV._rowtoolarge 1, CSV._lengthmismatch 1, CSV.LocatedProblem 1, Base.rethrow 1, DataFrames.prepare_on_col 1, CSV._extratoolarge 1, Base.error 1, CSV._throw_render_failure 1, CSV.ValueOpts 1
+   exposed: Tuple{typeof(setindex!), Vector{Missing}, Int64, Int64}
+   exposed: Tuple{typeof(setindex!), Vector{Missing}, Float64, Int64}
+   exposed: Tuple{typeof(setindex!), Vector{Missing}, String, Int64}
+   exposed: Tuple{typeof(Statistics.mean), DataFrames.ColumnKernels.CellVector{String, Vector{String}}}
+   exposed: Tuple{typeof(Core.kwcall), @NamedTuple{mean::Nothing}, typeof(Statistics.std), DataFrames.ColumnKernels.CellVector{String, Vector{String}}}
+   exposed: Tuple{typeof(Statistics.mean), DataFrames.ColumnKernels.CellVector{String, PooledArrays.PooledVector{String, UInt32, Vector{UInt32}}}}
+   exposed: Tuple{typeof(Core.kwcall), @NamedTuple{mean::Nothing}, typeof(Statistics.std), DataFrames.ColumnKernels.CellVector{String, PooledArrays.PooledVector{String, UIn
+   exposed: Tuple{typeof(Statistics.mean), Base.SkipMissing{DataFrames.ColumnKernels.CellVector{Union{Missing, String}, Vector{Union{Missing, String}}}}}
+the loads: 5.9 s
+image: the loads end 49 of 4772 | facts 48 | bit 0 | deep: walk 0, corrected 0, throw-only facts callers 0, every caller 0
+made: the loads end 0 of 8 | facts 0 | bit 0 | deep: walk 0, corrected 0, throw-only facts callers 0, every caller 0
+below, outside the own modules: 35218 | ended 287 | of the ended: bit 0, deep by the walk 0, corrected 0, throw-only facts callers 261
+digest ce94074fa1261ca2 (equal after)
+== env_facts | load 7.02 6.82 5.46 | next b54eab8c17 (+ D-5 uncommitted) TraitWorld-w155 e682482 forks 439bae7 | 2026-11-15T11:38:32+01:00
+project env_facts | julia 7b374f39ce* | own instances: image 3464, made by the work 77 | reached through edges 31126
+image:     3464 | facts 3464 | bit 1373 | deep: walk 1373 (40 %), corrected 1373 (40 %) | throw-only refinement: facts callers 1373 (40 %), every caller 1373 (40 %); corrected: facts callers 1373 (40 %), every caller 1373 (40 %)
+made:      77 | facts 77 | bit 29 | deep: walk 29 (38 %), corrected 29 (38 %) | throw-only refinement: facts callers 29 (38 %), every caller 29 (38 %); corrected: facts callers 29 (38 %), every caller 29 (38 %)
+own facts: 3541 | facts 3541 | bit 1402 | deep: walk 1402 (40 %), corrected 1402 (40 %) | throw-only refinement: facts callers 1402 (40 %), every caller 1402 (40 %); corrected: facts callers 1402 (40 %), every caller 1402 (40 %)
+reached instances where the bit and the walk disagree: 2 (bit without walk 2)
+   bit, walk not deep: Tuple{typeof(getproperty), Task, Symbol}
+   bit, walk not deep: Tuple{typeof(getproperty), Task, Symbol}
+reached instances without the bit whose edges are bindings only (open issue 187): 0
+deep by the walk and naming a callee by MethodInstance or Method: 1 of 23470
+  of them with such a callee whose code now is not deep (or has no bit): 0
+callees that only throw, called directly by own facts instances: 27 instances; not deep by the walk 14
+  of them whose `Union{}` may rest on a callee: 8
+  by method: Parsers._throwintfailure 3, Base.getindex 3, Statistics.mean 2, CSV._throwparseerror 2, Statistics.std 2, DataFrames._onebased_check_error 1, DataFrames.wrap_row 1, CSV._rowtoolarge 1, CSV._lengthmismatch 1, CSV.LocatedProblem 1, Base.rethrow 1, Parsers._throwdateformatwhole 1, CSV._extratoolarge 1, Parsers._exactpositionoverflow 1, Parsers._prefixendoverflow 1, Base.error 1, CSV._throw_render_failure 1, Parsers._throwdateformatfailure 1, Base.Enums.enum_argument_error 1, CSV.ValueOpts 1
+   exposed: Tuple{typeof(Statistics.mean), Vector{String}}
+   exposed: Tuple{typeof(Core.kwcall), @NamedTuple{mean::Nothing}, typeof(Statistics.std), Vector{String}}
+   exposed: Tuple{typeof(Statistics.mean), PooledArrays.PooledVector{String, UInt32, Vector{UInt32}}}
+   exposed: Tuple{typeof(Core.kwcall), @NamedTuple{mean::Nothing}, typeof(Statistics.std), PooledArrays.PooledVector{String, UInt32, Vector{UInt32}}}
+   exposed: Tuple{typeof(getindex), Vector{DataFrames.TransformationResult}, Nothing}
+   exposed: Tuple{typeof(Parsers._throwdateformatwhole), Type{Dates.Date}, String, Dates.DateFormat{Symbol("mm/dd/yyyy"), Tuple{Dates.DatePart{'m'}, Dates.Delim{Char, 1}, D
+   exposed: Tuple{typeof(CSV._throwparseerror), CSV.Problem, Int64}
+   exposed: Tuple{typeof(getindex), Vector{Any}, Nothing}
+the loads: 5.4 s
+image: the loads end 14 of 3464 | facts 14 | bit 0 | deep: walk 0, corrected 0, throw-only facts callers 0, every caller 0
+made: the loads end 5 of 77 | facts 5 | bit 0 | deep: walk 0, corrected 0, throw-only facts callers 0, every caller 0
+below, outside the own modules: 27321 | ended 109 | of the ended: bit 0, deep by the walk 0, corrected 0, throw-only facts callers 70
+digest ce94074fa1261ca2 (equal after)

@@ -66,6 +66,10 @@ _, dthrowf = classify(own, rawbit, (p, c) -> !(isfacts(p) && throwonly(c)))
 _, dthrowa = classify(own, rawbit, (p, c) -> !throwonly(c))
 _, dthrowa_c = classify(own, corrbit, (p, c) -> !throwonly(c))
 _, dthrowf_c = classify(own, corrbit, (p, c) -> !(isfacts(p) && throwonly(c)))
+# the corrected walk where an edge that names a callee by its MethodInstance alone (not the instance's own)
+# also counts as outside the class, as the build's rule has it (compiler §3.2)
+mionly(ci) = any(x -> x isa Core.MethodInstance && x !== ci.def, ci.edges)
+_, dcorr_mi = classify(own, ci -> corrbit(ci) && !mionly(ci), (_, _) -> true)
 println("project ", basename(dirname(Base.active_project())), " | julia ", Base.GIT_VERSION_INFO.commit_short,
         " | own instances: image ", length(image), ", made by the work ", length(made), " | reached through edges ", length(reach))
 pc(n, d) = string(n, " (", round(Int, 100n / d), " %)")
@@ -74,7 +78,8 @@ for (name, set) in (("image", image), ("made", made), ("own facts", factsown))
     println(rpad(name * ":", 11), n, " | facts ", count(isfacts, set), " | bit ", count(rawbit, set),
             " | deep: walk ", pc(count(dwalk, set), n), ", corrected ", pc(count(dcorr, set), n),
             " | throw-only refinement: facts callers ", pc(count(dthrowf, set), n), ", every caller ", pc(count(dthrowa, set), n),
-            "; corrected: facts callers ", pc(count(dthrowf_c, set), n), ", every caller ", pc(count(dthrowa_c, set), n))
+            "; corrected: facts callers ", pc(count(dthrowf_c, set), n), ", every caller ", pc(count(dthrowa_c, set), n),
+            " | corrected, a callee by MethodInstance outside: ", pc(count(dcorr_mi, set), n))
 end
 # D-5's gate: the bit is the deep class
 mism = [ci for ci in reach if rawbit(ci) != dwalk(ci)]
