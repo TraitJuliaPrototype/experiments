@@ -102,3 +102,29 @@ The deep class is the G2 bit ([compiler §3.2](../../../writeup/reference/compil
 - `yieldto` (1,029 cones).
 
 **What is left** (the forks; the greedy order on this build): `Val` 62.0 %, `IOContext` 63.1 %, then names worth a few instances each (68.9 % after 25). By kind, together: other 64.7 %, type joins 68.1 %, introspection 69.7 %, constructors at kinds 71.2 %, the task code 72.4 %, containers of `Any` 85.2 %, error paths 89.3 %, by instance 100 %. Upstream: `Val` 76.7 %, `IOContext` 78.9 %, 80.7 % after 11 names.
+
+### E-478 (2026-11-15): the second batch, and the head
+
+`next-s3` bc844be7c0 (the binary names `bc844be7c0*`): two commits on the first batch; TraitWorld-s3 9e0e3f4, forks 439bae7; product setting, strict mode off, one thread, one process per row; load 4 to 9 of 128. `logs/b2-*`; `logs/build-b2.log`.
+
+| commit | what | kind |
+|---|---|---|
+| 024755ee89 | `Val(x)` builds its singleton with `new{x}()` (an inner constructor) | general |
+| bc844be7c0 | `IOContext(io, key => value)` stores the property through `ImmutableDict`'s own constructor by `invoke` | general |
+
+| | the baseline | the first batch | the head |
+|---|---|---|---|
+| the forks: own facts instances with the bit | 41.8 % (1,756 of 4,204) | 58.5 % | 63.1 % (2,654 of 4,204) |
+| the forks: own image instances with the bit | 39.8 % | 63.2 % | 68.9 % (3,852 of 5,593) |
+| upstream by facts: own facts instances | 39.6 % (1,402 of 3,541) | 70.7 % | 79.0 % (2,818 of 3,567) |
+| upstream by facts: own image instances | 39.6 % | 71.0 % | 79.5 % (2,774 of 3,490) |
+| the copies P3's demand rule would make: the forks; upstream | see the controls | 3,124; 2,345 | 2,413; 1,782 |
+| culprits in a cone, median (the forks; upstream) | 16; 6 | 11; 8 | 12; 19 |
+| the nine loads end, own image instances with the bit | 0 | 0 | 0 |
+| the nine loads end, below the own code, with the bit (the forks; upstream) | 0; 0 | 0; 0 | 30; 12 (below) |
+
+- **The 30 and 12 instances with the bit that the loads end below the own code** (`diag/ended_deep.jl`, `logs/b2-ended-deep*.log`) are one case: `vcat(::Int64, ::Vector{Int64})`, its keyword call of `cat` and `cat`'s body (the constant-propagated edges of the forks' facts code, one per context). They are in the class since `Val(1)` is: before, they rested on the generic `Val(::Int64)`. SparseArrays, which two of the loads bring, defines Base's `_cat` and `vcat` at `Union{Number, AbstractVecOrMat{<:Number}}`, Base's own types. A standard library counts as Julia's own code, so its method is a stakeholder's change: one of G2's named exceptions (facts §2.2; open issue 19). G2 holds; the code this exception reaches is now in the class (E-392's case of SparseArrays' `vcat`).
+- **The culprits it removes:** `Val` (5 instances, 1,198 cones), `IOContext` (4, 657; `ImmutableDict` constructor faults gone).
+- **The suites** (`logs/b2-summary.log`): `w155/gate_deep.jl`; Julia's `core`, `subtype`, `Compiler/inline`, `Compiler/inference`; `errorshow`, `int`, `numbers`, `strings/basic`, `channels`, `ambiguous`; the library's suite; the forks' digests equal upstream's at 26 steps. All pass, as on the first batch. `diag/intercept.jl`: 0 methods in the session the patches would not reach.
+- **What is left** (the forks; the greedy order on the head): no name buys a point alone (`Iterators.iterate` +0.9, `hasmethod` by instance +0.8, then less; 68.9 % after 25 names). By kind together: other 66.1 %, type joins 69.5 %, introspection 71.1 %, … The kinds that count only together are the task code under a lock (a payload typed `Any` passed to `schedule`, `notify`, `push!` of a `CompositeException`), stores into containers of `Any` (`push!` and `setindex!` at `Any`, then `_setindex!`), keyword calls at an abstract argument, property reads and constructors at an abstract type or a computed type (`Vector{T}(undef, n)`, the generic paths of `collect` and `map`). Upstream: 81.2 % after 13 names; by kind together, other 80.6 %, type joins 84.0 %, the task code 84.7 %, containers of `Any` 87.7 %.
+- **Ownership by declaration** (the what-if, on the head): Base's functions no package extends, owner-only, would resolve 423 (internal) or 500 (all) of the forks' culprits: 63.2 % and 64.1 % (0.1 and 1.0 point); upstream 79.1 % and 79.3 %.

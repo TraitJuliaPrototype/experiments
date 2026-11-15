@@ -15,6 +15,11 @@ for jf in "" "$BASE"; do
   done
 done
 echo "images done $(date -Is)" >> logs/$L-controls.log
+# the census on the baseline's image: the copies P3's demand rule would make there (E-476's table)
+for e in env_forks env_facts; do
+  nice -n 10 $JS $BASE --startup-file=no --project=$e census.jl $CSVFILE > logs/$L-base-census-$e.log 2>&1
+done
+echo "baseline census done $(date -Is)" >> logs/$L-controls.log
 for r in 1 2; do
   JFLAGS="$BASE" bash runs.sh $L-base-$r 1; bash runs.sh $L-head-$r 1
 done
