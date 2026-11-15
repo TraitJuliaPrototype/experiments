@@ -1,0 +1,18 @@
+# E-406, 2026-11-15, the first load of TraitTables, TraitCSV and TraitMakie in w134/env_demo after their images were
+# made again for TraitWorld 6f86b4e (julia-unified 7b374f39ce, W-151's depot): a segmentation fault in the
+# runtime's membership walk at an image's activation. Not reproduced in four later loads of the same images (the same
+# command, and `using TraitTables, TraitCSV, TraitMakie` three times). The log of the run was overwritten by the
+# rerun; its stack, as printed:
+[2759303] signal 11 (1): Segmentation fault
+in expression starting at none:1
+jl_is_va_tuple at julia-unified/src/julia_internal.h:1387 [inlined]
+jl_typemap_alloc at julia-unified/src/typemap.c:1525
+jl_membership_dispatch_walk at julia-unified/src/gf.c:5059
+jl_memberships_activated at julia-unified/src/datatype.c:774
+jl_restore_package_image_from_stream at julia-unified/src/staticdata.c:4548
+jl_restore_incremental_from_buf at julia-unified/src/staticdata.c:4587
+ijl_restore_package_image_from_file at julia-unified/src/staticdata.c:4653
+#_include_from_serialized#894 at ./loading.jl:1327
+_tryrequire_from_serialized at ./loading.jl:2092
+__require_prelocked at ./loading.jl:2848
+... (Base's require, then) top-level scope at experiments/unification/w151/check/ports.jl:6

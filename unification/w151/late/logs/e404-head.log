@@ -1,0 +1,39 @@
+# E-404 head 2026-11-15T11:55:34+01:00 load 6.73 6.86 6.55 | julia-unified 7b374f39ce | TraitWorld 5a9d19d TDE 813808a
+== the library (using TraitWorld): plain instances ended 201 of 120962 | Base 88, DataFrames 80, Statistics 30, PooledArrays 2, Main 1
+log entries 548; tags: jl_method_table_insert, jl_membership_dispatch_walk
+unclosed tail: 0 entries; kinds in the log: Core.MethodInstance, Int32, DataType, Method, String
+   97 plain instances,   130 entries: BaseTraits.length  Tuple{typeof(length), TraitWorld.BaseTraits.HasLength}  [jl_method_table_insert]
+   59 plain instances,    71 entries: BaseTraits.iterate  Tuple{typeof(iterate), TraitWorld.BaseTraits.Iterable{T}} where T  [jl_method_table_insert]
+   26 plain instances,    37 entries: BaseTraits.haskey  Tuple{typeof(haskey), TraitWorld.BaseTraits.Keyed{K, V}, Any} where {K, V}  [jl_method_table_insert]
+   14 plain instances,    19 entries: BaseTraits.iterate  Tuple{typeof(iterate), TraitWorld.BaseTraits.Iterable{T}, Any} where T  [jl_membership_dispatch_walk]
+    5 plain instances,     7 entries: BaseTraits.resize!  Tuple{typeof(resize!), TraitWorld.BaseTraits.Resizable{T}, Any} where T  [jl_membership_dispatch_walk]
+attributed to a closing method: 201 of 201
+== the ODE port (using TraitDifferentialEquations): plain instances ended 757 of 122796 | Base 443, DataFrames 205, CSV 69, Statistics 16, PooledArrays 11, Printf 7, PrettyTables 3, SentinelArrays 1, OrderedCollections 1, Compiler 1
+log entries 2437; tags: jl_method_table_insert, jl_method_table_disable
+unclosed tail: 0 entries; kinds in the log: Core.MethodInstance, Int32, String, Method, DataType
+  682 plain instances,   991 entries: ForwardDiff.promote_rule  Tuple{typeof(promote_rule), Type{R}, Type{ForwardDiff.Dual{T, V, N}}} where {R<:Real, T, V, N}  [jl_method_table_insert]
+   28 plain instances,    36 entries: ForwardDiff.eps  Tuple{typeof(eps), Type{D}} where D<:ForwardDiff.Dual  [jl_method_table_insert]
+   22 plain instances,    24 entries: ForwardDiff.hash  Tuple{typeof(hash), ForwardDiff.Partials, UInt64}  [jl_method_table_insert]
+    8 plain instances,    12 entries: ForwardDiff.fma  Tuple{typeof(fma), Integer, AbstractFloat, ForwardDiff.Dual{Tz}} where Tz  [jl_method_table_insert]
+    7 plain instances,     8 entries: ForwardDiff.zero  Tuple{typeof(zero), ForwardDiff.Dual}  [jl_method_table_insert]
+    3 plain instances,     5 entries: ForwardDiff.mightalias  Tuple{typeof(Base.mightalias), AbstractArray, ForwardDiff.Partials}  [jl_method_table_insert]
+    2 plain instances,     2 entries: ForwardDiff.<  Tuple{typeof(<), ForwardDiff.Partials{N}, ForwardDiff.Partials{N}} where N  [jl_method_table_insert]
+    2 plain instances,     5 entries: ForwardDiff.convert  Tuple{typeof(convert), Type{D}, D} where D<:ForwardDiff.Dual  [jl_method_table_insert]
+    1 plain instances,     2 entries: ForwardDiff.isequal  Tuple{typeof(isequal), ForwardDiff.Dual{Tx}, Real} where Tx  [jl_method_table_insert]
+    1 plain instances,     5 entries: ForwardDiff.isnan  Tuple{typeof(isnan), ForwardDiff.Dual}  [jl_method_table_insert]
+    1 plain instances,     6 entries: ForwardDiff.convert  Tuple{typeof(convert), Type{ForwardDiff.Dual{T, V, N}}, Number} where {T, V, N}  [jl_method_table_insert]
+    0 plain instances,     3 entries: ForwardDiff.isless  Tuple{typeof(isless), ForwardDiff.Partials{N}, ForwardDiff.Partials{N}} where N  [jl_method_table_insert]
+    0 plain instances,     2 entries: ForwardDiff.isequal  Tuple{typeof(isequal), ForwardDiff.Partials{N}, ForwardDiff.Partials{N}} where N  [jl_method_table_insert]
+    0 plain instances,     6 entries: ForwardDiff.fma  Tuple{typeof(fma), ForwardDiff.Dual{Tx}, AbstractFloat, Real} where Tx  [jl_method_table_insert]
+    0 plain instances,     2 entries: ForwardDiff.rtoldefault  Tuple{typeof(Base.rtoldefault), Type{D}} where D<:ForwardDiff.Dual  [jl_method_table_insert]
+    0 plain instances,     1 entries: TraitIndexing.getparam  Tuple{typeof(TraitIndexing.getparam), Union{Dynamic{<:All{TraitIndexing.IndexProvider{Symbol}, TraitIndexing.ValueProvider{U, P}}}, Compiled{<:All{Tra  [jl_method_table_disable]
+    0 plain instances,     1 entries: TraitIndexing.getter  Tuple{typeof(TraitIndexing.getter), Union{Dynamic{<:TraitIndexing.IndexProvider{I}}, Compiled{<:TraitIndexing.IndexProvider{I}}}, Any} where I  [jl_method_table_disable]
+    0 plain instances,     1 entries: TraitIndexing.getstate  Tuple{typeof(TraitIndexing.getstate), Union{Dynamic{<:All{TraitIndexing.IndexProvider{Symbol}, TraitIndexing.ValueProvider{U, P}}}, Compiled{<:All{Tra  [jl_method_table_disable]
+    0 plain instances,     1 entries: TraitIndexing._getter_other  Tuple{typeof(TraitIndexing._getter_other), Union{Dynamic{<:TraitIndexing.IndexProvider{I}}, Compiled{<:TraitIndexing.IndexProvider{I}}}, Any} where I  [jl_method_table_disable]
+    0 plain instances,     1 entries: TraitIndexing.getparam  Tuple{typeof(TraitIndexing.getparam), Union{Dynamic{<:All{TraitIndexing.IndexProvider{Symbol}, TraitIndexing.ValueProvider{U, P}}}, Compiled{<:All{Tra  [jl_method_table_disable]
+    0 plain instances,     1 entries: TraitIndexing.getter  Tuple{typeof(TraitIndexing.getter), Union{Dynamic{<:TraitIndexing.IndexProvider{I}}, Compiled{<:TraitIndexing.IndexProvider{I}}}, Any} where I  [jl_method_table_disable]
+    0 plain instances,     1 entries: TraitIndexing.getstate  Tuple{typeof(TraitIndexing.getstate), Union{Dynamic{<:All{TraitIndexing.IndexProvider{Symbol}, TraitIndexing.ValueProvider{U, P}}}, Compiled{<:All{Tra  [jl_method_table_disable]
+    0 plain instances,     1 entries: TraitIndexing._getter_other  Tuple{typeof(TraitIndexing._getter_other), Union{Dynamic{<:TraitIndexing.IndexProvider{I}}, Compiled{<:TraitIndexing.IndexProvider{I}}}, Any} where I  [jl_method_table_disable]
+    0 plain instances,     1 entries: TraitIndexing.getparam  Tuple{typeof(TraitIndexing.getparam), Union{Dynamic{<:All{TraitIndexing.IndexProvider{Symbol}, TraitIndexing.ValueProvider{U, P}}}, Compiled{<:All{Tra  [jl_method_table_disable]
+    0 plain instances,     1 entries: TraitIndexing.getstate  Tuple{typeof(TraitIndexing.getstate), Union{Dynamic{<:All{TraitIndexing.IndexProvider{Symbol}, TraitIndexing.ValueProvider{U, P}}}, Compiled{<:All{Tra  [jl_method_table_disable]
+attributed to a closing method: 757 of 757

@@ -1,0 +1,12 @@
+# E-403, who_boxes.jl (step d profiled three times after the `again` pass; the callers of Julia's checked `Dynamic`
+# constructor, samples at 0.5 ms), env_head, 2026-11-15.
+# Before TraitWorld 5a9d19d (the head at 362f08b; the first E-403 runs, e403-*):
+B 95  _sync_in! core.jl:684 <- step_event_condition core.jl:712 <- jfptr_step_event_condition_5025 a1Gji_nKvJU.so:-1 <- locate_events! core.jl:1436
+B 7  _sync_in! core.jl:684 <- step_event_condition core.jl:712 <- event_time core.jl:1415 <-  :-1
+B 7  _sync_in! core.jl:684 <- step_event_condition core.jl:712 <- jfptr_step_event_condition_5025 a1Gji_nKvJU.so:-1 <- tsit5_advance! core.jl:1529
+B 6  _sync_in! core.jl:684 <- step_event_condition core.jl:712 <- _SplitTarget splittarget.jl:20 <-  :-1
+B 1  _sync_in! core.jl:684 <- step_condition core.jl:698 <- _SplitTarget splittarget.jl:20 <- jfptr__SplitTarget_5236 a1Gji_nKvJU.so:-1
+B 1  _sync_in! core.jl:684 <- step_event_initialize! core.jl:718 <- jfptr_step_event_initializeNOT._5018 a1Gji_nKvJU.so:-1 <- initialize_step_callbacks! core.jl:771
+B 1   :-1 <- _erased_function frontend.jl:106 <- _again frontend.jl:150 <- #remake#27 frontend.jl:146
+# After 5a9d19d (a box of the same trait is itself):
+B 1   :-1 <- _erased_function frontend.jl:106 <- _again frontend.jl:150 <- #remake#27 frontend.jl:146
