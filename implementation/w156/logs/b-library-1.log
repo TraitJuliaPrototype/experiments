@@ -1,0 +1,95 @@
+[ Info: TraitWorld: overview.jl
+[ Info: TraitWorld: core.jl
+[ Info: TraitWorld: acceptance.jl
+[ Info: TraitWorld: trait_modules.jl
+ERROR: LoadError: Some tests did not pass: 9 passed, 1 failed, 0 errored, 0 broken.
+in expression starting at /p/projects/coen/julia-trait-bound/TraitWorld/test/trait_modules.jl:87
+in expression starting at /p/projects/coen/julia-trait-bound/TraitWorld/test/runtests.jl:3
+Test Summary: | Pass  Total  Time
+overview      |    8      8  0.2s
+Test Summary: | Pass  Total  Time
+parameters    |    8      8  0.0s
+Test Summary: | Pass  Total  Time
+refusals      |    6      6  0.1s
+Test Summary: | Pass  Total  Time
+fields        |    3      3  0.0s
+Test Summary:        | Pass  Total  Time
+block and forwarding |   15     15  1.6s
+Test Summary:            | Pass  Total  Time
+forwarding at the member |    4      4  0.1s
+Test Summary: | Pass  Total  Time
+supertraits   |    3      3  0.0s
+Test Summary: | Pass  Total  Time
+Dynamic       |   13     13  0.3s
+Test Summary: | Pass  Total  Time
+families      |    3      3  0.0s
+Test Summary: | Pass  Total  Time
+dispatch      |    4      4  0.0s
+Test Summary: | Pass  Total  Time
+first use     |   12     12  0.3s
+Test Summary:        | Pass  Total  Time
+Union-bounded family |    2      2  0.0s
+Test Summary: | Pass  Total  Time
+intersections |    8      8  0.0s
+Test Summary: | Pass  Total  Time
+override rule |    5      5  0.0s
+Test Summary: | Pass  Total  Time
+module end    |    2      2  0.1s
+Test Summary:     | Pass  Total  Time
+operation results |    7      7  0.0s
+Test Summary: | Pass  Total  Time
+split         |    3      3  0.6s
+Test Summary: | Pass  Total  Time
+table         |    3      3  0.1s
+Test Summary:   | Pass  Total  Time
+declared fields |    3      3  0.0s
+Test Summary:  | Pass  Total  Time
+classification |   10     10  0.6s
+Test Summary:                 | Pass  Total  Time
+classification: further rules |    6      6  0.3s
+Test Summary:                     | Pass  Total  Time
+a family's variables in its block |    2      2  0.0s
+Test Summary:                               | Pass  Total  Time
+Dynamic{All{Callable…}} at either signature |    2      2  0.2s
+Test Summary:                             | Pass  Total  Time
+F1: a trait stands wherever a type stands |   10     10  0.1s
+Test Summary:                                                | Pass  Total  Time
+F2, F3: the bare name is a UnionAll; parameters follow Julia |    5      5  0.0s
+Test Summary:                                | Pass  Total  Time
+F4: a member's value is a value of the trait |    3      3  0.0s
+Test Summary:                  | Pass  Total  Time
+F5: supertraits are supertypes |    2      2  0.0s
+Test Summary:           | Pass  Total  Time
+F6: dispatch is Julia's |    2      2  0.0s
+Test Summary: | Pass  Total  Time
+F7: storage   |    4      4  0.0s
+Test Summary:                                   | Pass  Total  Time
+F8: defaults and forwarding reach plain callers |    4      4  0.0s
+Test Summary:                                      | Pass  Total  Time
+F10: a family's member is checked at its first use |    6      6  0.0s
+Test Summary:                                                                    | Pass  Total  Time
+F10b (compiler C-71): a failed member's uses through the trait raise its failure |    3      3  0.0s
+Test Summary:                                   | Pass  Total  Time
+F11: a generic implementation is a set in a set |    3      3  0.0s
+Test Summary: | Pass  Total  Time
+F14: errors   |    3      3  0.0s
+Test Summary:       | Pass  Total  Time
+the trait's default |    9      9  0.1s
+Test Summary:                       | Pass  Total  Time
+a struct parameter records the form |    5      5  0.1s
+
+trait modules: Test Failed at /p/projects/coen/julia-trait-bound/TraitWorld/test/trait_modules.jl:97
+  Expression: !(Tuple{typeof(Geometry.kind), Geometry.Shape} in specs)
+   Evaluated: !(Tuple{typeof(Main.trait_modules.Geometry.kind), Main.trait_modules.Geometry.Shape} in DataType[Tuple{typeof(Main.trait_modules.Geometry.kind), Core.Dynamic{Main.trait_modules.Geometry.Shape}}, Tuple{typeof(Main.trait_modules.Geometry.kind), Main.trait_modules.Geometry.Sq}, Tuple{typeof(Main.trait_modules.Geometry.kind), Main.trait_modules.Geometry.Shape}])
+  Stacktrace:
+   [1] macro expansion
+     @ /p/projects/coen/julia-trait-bound/julia-next/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:758 [inlined]
+   [2] macro expansion
+     @ /p/projects/coen/julia-trait-bound/TraitWorld/test/trait_modules.jl:97 [inlined]
+   [3] macro expansion
+     @ /p/projects/coen/julia-trait-bound/julia-next/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:1967 [inlined]
+   [4] top-level scope
+     @ /p/projects/coen/julia-trait-bound/TraitWorld/test/trait_modules.jl:88
+Test Summary: | Pass  Fail  Total  Time
+trait modules |    9     1     10  1.2s
+RNG of the outermost testset: Random.Xoshiro(0xa459f863ba4d6c3d, 0x9ff3f086e0c9d111, 0xd7f9955ed8acdd63, 0x586e390bc637bdcb, 0x27194425039162ec)

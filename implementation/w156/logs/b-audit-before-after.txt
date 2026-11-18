@@ -1,0 +1,127 @@
+instances with code: 4768 before, 4836 after (+68); methods with code: 1521 before, 1525 after
+  CSV: 1750 -> 1744 (-6)
+  CSVDataFramesExt: 14 -> 14 (+0)
+  CSVDataFramesInlineStringsExt: 1 -> 1 (+0)
+  CSVInlineStringsExt: 115 -> 112 (-3)
+  DataFrames: 2349 -> 2426 (+77)
+  Tables: 533 -> 533 (+0)
+  TablesPooledArraysExt: 6 -> 6 (+0)
+methods that grew: 21 (+81), shrank: 7 (-13)
+
+growth  before  after  method
+   +11       5     16  DataFrames._next_range  kernels.jl:343
+            + Tuple{typeof(DataFrames.ColumnKernels._next_range), Core.Dynamic{Tables.ColumnCore.Column{Bool}}, Int64, Bool}
+            + Tuple{typeof(DataFrames.ColumnKernels._next_range), Core.Dynamic{Tables.ColumnCore.Column{DataStrings.DataString}}, Int64, DataStrings.DataString}
+            + Tuple{typeof(DataFrames.ColumnKernels._next_range), Core.Dynamic{Tables.ColumnCore.Column{DateTime}}, Int64, DateTime}
+            … 12 more
+            - Tuple{typeof(DataFrames.ColumnKernels._next_range), Tables.ColumnCore.Column, Int64, Any}
+            - Tuple{typeof(DataFrames.ColumnKernels._next_range), Tables.ColumnCore.Column, Int64, DateTime}
+   +11       1     12  DataFrames.innerrows  kernels.jl:317
+            + Tuple{typeof(DataFrames.ColumnKernels.innerrows), Core.Dynamic{Tables.ColumnCore.Column{Bool}}, Core.Dynamic{Tables.ColumnCore.Column{Bool}}, Bool, Bool}
+            + Tuple{typeof(DataFrames.ColumnKernels.innerrows), Core.Dynamic{Tables.ColumnCore.Column{DataStrings.DataString}}, Core.Dynamic{Tables.ColumnCore.Column{DataStrings.DataString}}, Bool, Bool}
+            + Tuple{typeof(DataFrames.ColumnKernels.innerrows), Core.Dynamic{Tables.ColumnCore.Column{DateTime}}, Core.Dynamic{Tables.ColumnCore.Column{DateTime}}, Bool, Bool}
+            … 9 more
+            - Tuple{typeof(DataFrames.ColumnKernels.innerrows), Tables.ColumnCore.Column, Tables.ColumnCore.Column, Bool, Bool}
+   +10       2     12  DataFrames._innerjoin_sorted  kernels.jl:355
+            + Tuple{typeof(DataFrames.ColumnKernels._innerjoin_sorted), Core.Dynamic{Tables.ColumnCore.Column{Bool}}, Core.Dynamic{Tables.ColumnCore.Column{Bool}}}
+            + Tuple{typeof(DataFrames.ColumnKernels._innerjoin_sorted), Core.Dynamic{Tables.ColumnCore.Column{DataStrings.DataString}}, Core.Dynamic{Tables.ColumnCore.Column{DataStrings.DataString}}}
+            + Tuple{typeof(DataFrames.ColumnKernels._innerjoin_sorted), Core.Dynamic{Tables.ColumnCore.Column{DateTime}}, Core.Dynamic{Tables.ColumnCore.Column{DateTime}}}
+            … 8 more
+            - Tuple{typeof(DataFrames.ColumnKernels._innerjoin_sorted), Tables.ColumnCore.Column, Tables.ColumnCore.Column}
+   +10       2     12  DataFrames._innerjoin_unsorted  kernels.jl:404
+            + Tuple{typeof(DataFrames.ColumnKernels._innerjoin_unsorted), Core.Dynamic{Tables.ColumnCore.Column{Bool}}, Core.Dynamic{Tables.ColumnCore.Column{Bool}}}
+            + Tuple{typeof(DataFrames.ColumnKernels._innerjoin_unsorted), Core.Dynamic{Tables.ColumnCore.Column{DataStrings.DataString}}, Core.Dynamic{Tables.ColumnCore.Column{DataStrings.DataString}}}
+            + Tuple{typeof(DataFrames.ColumnKernels._innerjoin_unsorted), Core.Dynamic{Tables.ColumnCore.Column{DateTime}}, Core.Dynamic{Tables.ColumnCore.Column{DateTime}}}
+            … 8 more
+            - Tuple{typeof(DataFrames.ColumnKernels._innerjoin_unsorted), Tables.ColumnCore.Column, Tables.ColumnCore.Column}
+   +10       2     12  DataFrames._issorted  kernels.jl:336
+            + Tuple{typeof(DataFrames.ColumnKernels._issorted), Core.Dynamic{Tables.ColumnCore.Column{Bool}}}
+            + Tuple{typeof(DataFrames.ColumnKernels._issorted), Core.Dynamic{Tables.ColumnCore.Column{DataStrings.DataString}}}
+            + Tuple{typeof(DataFrames.ColumnKernels._issorted), Core.Dynamic{Tables.ColumnCore.Column{DateTime}}}
+            … 8 more
+            - Tuple{typeof(DataFrames.ColumnKernels._issorted), Tables.ColumnCore.Column}
+    +6       7     13  DataFrames._innerjoin_dup  kernels.jl:493
+            + Tuple{typeof(DataFrames.ColumnKernels._innerjoin_dup), Core.Dynamic{Tables.ColumnCore.Column{Bool}}, Core.Dynamic{Tables.ColumnCore.Column{Bool}}, Dict{Bool, Int64}, Int64}
+            + Tuple{typeof(DataFrames.ColumnKernels._innerjoin_dup), Core.Dynamic{Tables.ColumnCore.Column{DataStrings.DataString}}, Core.Dynamic{Tables.ColumnCore.Column{DataStrings.DataString}}, Dict{DataStrings.DataString, Int64}, Int64}
+            + Tuple{typeof(DataFrames.ColumnKernels._innerjoin_dup), Core.Dynamic{Tables.ColumnCore.Column{DateTime}}, Core.Dynamic{Tables.ColumnCore.Column{DateTime}}, Dict{DateTime, Int64}, Int64}
+            … 9 more
+            - Tuple{typeof(DataFrames.ColumnKernels._innerjoin_dup), Tables.ColumnCore.Column, Tables.ColumnCore.Column, Dict, Int64}
+            - Tuple{typeof(DataFrames.ColumnKernels._innerjoin_dup), Tables.ColumnCore.Column, Tables.ColumnCore.Column, Dict{Float64, Int64}, Int64}
+    +4       1      5  DataFrames._innerjoin_unsorted_int  kernels.jl:449
+            + Tuple{typeof(DataFrames.ColumnKernels._innerjoin_unsorted_int), Core.Dynamic{Tables.ColumnCore.Column{Bool}}, Core.Dynamic{Tables.ColumnCore.Column{Bool}}}
+            + Tuple{typeof(DataFrames.ColumnKernels._innerjoin_unsorted_int), Core.Dynamic{Tables.ColumnCore.Column{Float64}}, Core.Dynamic{Tables.ColumnCore.Column{Float64}}}
+            + Tuple{typeof(DataFrames.ColumnKernels._innerjoin_unsorted_int), Core.Dynamic{Tables.ColumnCore.Column{Int64}}, Core.Dynamic{Tables.ColumnCore.Column{Int64}}}
+            … 2 more
+            - Tuple{typeof(DataFrames.ColumnKernels._innerjoin_unsorted_int), Tables.ColumnCore.Column, Tables.ColumnCore.Column}
+    +3       2      5  DataFrames._extrema_missing  kernels.jl:432
+            + Tuple{typeof(DataFrames.ColumnKernels._extrema_missing), Core.Dynamic{Tables.ColumnCore.Column{Bool}}}
+            + Tuple{typeof(DataFrames.ColumnKernels._extrema_missing), Core.Dynamic{Tables.ColumnCore.Column{Int64}}}
+            + Tuple{typeof(DataFrames.ColumnKernels._extrema_missing), Core.Dynamic{Tables.ColumnCore.Column{UInt32}}}
+            … 1 more
+            - Tuple{typeof(DataFrames.ColumnKernels._extrema_missing), Tables.ColumnCore.Column}
+    +3       2      5  DataFrames._innerjoin_dup_int  kernels.jl:524
+            + Tuple{typeof(DataFrames.ColumnKernels._innerjoin_dup_int), Core.Dynamic{Tables.ColumnCore.Column{Bool}}, Core.Dynamic{Tables.ColumnCore.Column{Bool}}, Vector{Int64}, Vararg{Int64, 4}}
+            + Tuple{typeof(DataFrames.ColumnKernels._innerjoin_dup_int), Core.Dynamic{Tables.ColumnCore.Column{Int64}}, Core.Dynamic{Tables.ColumnCore.Column{Int64}}, Vector{Int64}, Vararg{Int64, 4}}
+            + Tuple{typeof(DataFrames.ColumnKernels._innerjoin_dup_int), Core.Dynamic{Tables.ColumnCore.Column{UInt32}}, Core.Dynamic{Tables.ColumnCore.Column{UInt32}}, Vector{Int64}, Vararg{Int64, 4}}
+            … 1 more
+            - Tuple{typeof(DataFrames.ColumnKernels._innerjoin_dup_int), Tables.ColumnCore.Column, Tables.ColumnCore.Column, Vector{Int64}, Vararg{Int64, 4}}
+    +2       2      4  CSV.filltext!  ColumnParsers.jl:139
+            + Tuple{typeof(CSV.ColumnParsers.filltext!), Core.Dynamic{CSV.ColumnParsers.TextColumn{Float64}}, DataStrings.StringVector, Int64}
+            + Tuple{typeof(CSV.ColumnParsers.filltext!), Vector{String3}, DataStrings.StringVector{DataStrings.DataString}, Int64}
+            + Tuple{typeof(CSV.ColumnParsers.filltext!), Vector{String7}, DataStrings.StringVector{DataStrings.DataString}, Int64}
+            - Tuple{typeof(CSV.ColumnParsers.filltext!), CSV.ColumnParsers.TextColumn, DataStrings.StringVector{DataStrings.DataString}, Int64}
+    +1      10     11  CSV.parsecells!  ColumnParsers.jl:73
+            + Tuple{typeof(CSV.ColumnParsers.parsecells!), Core.Dynamic{CSV.ColumnParsers.CSVColumn{Float64}}, Union{Nothing, Vector{Bool}}, Vector{UInt8}, CSV.ChunkIndex, Int64, Int64, CSV.ValueOpts, Bool, Any, Int64, Union{Nothing, Vector{Bool}}, Int64
+    +1      16     17  CSV.readfile  ColumnParsers.jl:39
+            + Tuple{typeof(CSV.ColumnParsers.readfile), Core.Dynamic{CSV.ColumnParsers.CSVSource}, Any, Any, Any, Any, Any, Bool, Bool, Val, Symbol, Int64, Any, Bool, Bool, Any}
+            + Tuple{typeof(CSV.ColumnParsers.readfile), IOBuffer, Nothing, Nothing, Nothing, Nothing, Bool, Bool, Bool, Val{String}, Symbol, Int64, Nothing, Bool, Bool, Base.Pairs{Symbol, Union{}, Nothing, @NamedTuple{}}}
+            + Tuple{typeof(CSV.ColumnParsers.readfile), IOBuffer, Type, Nothing, Nothing, Nothing, Bool, Bool, Bool, Val{DataStrings.DataString}, Symbol, Int64, Nothing, Bool, Bool, Base.Pairs{Symbol, Union{}, Nothing, @NamedTuple{}}}
+            … 2 more
+            - Tuple{typeof(CSV.ColumnParsers.readfile), CSV.ColumnParsers.CSVSource, Nothing, Nothing, Nothing, Nothing, Bool, Bool, Bool, Val{InlineString}, Symbol, Int64, Nothing, Bool, Bool, Base.Pairs{Symbol, Union{}, Nothing, @NamedTuple{}}}
+            - Tuple{typeof(CSV.ColumnParsers.readfile), CSV.ColumnParsers.CSVSource, Nothing, Nothing, Nothing, Nothing, Bool, Bool, Bool, Val{String15}, Symbol, Int64, Nothing, Bool, Bool, Base.Pairs{Symbol, Union{}, Nothing, @NamedTuple{}}}
+    +1      15     16  DataFrames.CellVector  kernels.jl:38
+            + Tuple{Type{DataFrames.ColumnKernels.CellVector}, Core.Dynamic{Tables.ColumnCore.Column{Float64}}}
+    +1      13     14  DataFrames._erased  core.jl:239
+            + Tuple{typeof(DataFrames._erased), DataStrings.StringVector{DataStrings.DataString}}
+            + Tuple{typeof(DataFrames._erased), Vector{Bool}}
+            + Tuple{typeof(DataFrames._erased), Vector{DataStrings.DataString}}
+            … 10 more
+            - Tuple{typeof(DataFrames._erased), Tables.ColumnCore.Column{Bool}}
+            - Tuple{typeof(DataFrames._erased), Tables.ColumnCore.Column{DataStrings.DataString}}
+    +1       1      2  DataFrames._numbercells!  kernels.jl:298
+            + Tuple{typeof(DataFrames.ColumnKernels._numbercells!), Vector{Int64}, Core.Dynamic{Tables.ColumnCore.Column{Float64}}, Dict, Int64}
+    +1       1      2  DataFrames._semijoin_dup  kernels.jl:714
+            + Tuple{typeof(DataFrames.ColumnKernels._semijoin_dup), Core.Dynamic{Tables.ColumnCore.Column{Float64}}, Core.Dynamic{Tables.ColumnCore.Column{Float64}}, Dict, Int64, BitVector}
+    +1       0      1  DataFrames._semijoin_unsorted_int  kernels.jl:673
+            + Tuple{typeof(DataFrames.ColumnKernels._semijoin_unsorted_int), Core.Dynamic{Tables.ColumnCore.Column{Float64}}, Core.Dynamic{Tables.ColumnCore.Column{Float64}}, BitVector, Bool}
+    +1       0      1  DataFrames.cells  kernels.jl:23
+            + Tuple{typeof(DataFrames.ColumnKernels.cells), Core.Dynamic{Tables.ColumnCore.Column{Float64}}}
+    +1       2      3  DataFrames.fromsource  kernels.jl:783
+            + Tuple{typeof(DataFrames.ColumnKernels.fromsource), Core.Dynamic{Tables.ColumnCore.TableSource}, Bool}
+    +1       0      1  DataFrames.jointcodes!  kernels.jl:273
+            + Tuple{typeof(DataFrames.ColumnKernels.jointcodes!), Vector{Int64}, Vector{Int64}, Core.Dynamic{Tables.ColumnCore.Column{Float64}}, Core.Dynamic{Tables.ColumnCore.Column{Float64}}, Bool}
+    +1       0      1  DataFrames.semirows  kernels.jl:597
+            + Tuple{typeof(DataFrames.ColumnKernels.semirows), Core.Dynamic{Tables.ColumnCore.Column{Float64}}, Core.Dynamic{Tables.ColumnCore.Column{Float64}}, Bool, Bool}
+
+shrank  before  after  method
+    -1      12     11  CSV.#_prepareindexed#115  api.jl:1102
+            - Tuple{CSV.var"##_prepareindexed#115", Base.Pairs{Symbol, Union{Nothing, Integer}, Nothing, @NamedTuple{parallel::Bool, ntasks::Nothing, maxproblems::Int64, validate::Bool}}, typeof(CSV._prepareindexed), Any}
+    -1      34     33  CSV.#_transposedfile#152  api.jl:1726
+            - Tuple{CSV.var"##_transposedfile#152", Nothing, Bool, Bool, DataType, Symbol, Int64, Bool, Nothing, Nothing, Char, Bool, Nothing, Bool, Bool, Nothing, Bool, Bool, Base.Pairs{Symbol, Union{}, Nothing, @NamedTuple{}}, typeof(CSV._transposedfil
+    -1      12     11  CSV._prepareindexed  api.jl:1102
+            - Tuple{typeof(Core.kwcall), @NamedTuple{parallel::Bool, ntasks::Nothing, maxproblems::Int64, validate::Bool}, typeof(CSV._prepareindexed), Any}
+    -1      12     11  CSV._transposedfile  api.jl:1726
+            - Tuple{typeof(Core.kwcall), @NamedTuple{types::Nothing, pool::Bool, downcast::Bool, stringtype::DataType, on_error::Symbol, maxproblems::Int64, validate::Bool, parallel::Bool, ntasks::Nothing}, typeof(CSV._transposedfile), Any}
+    -2     117    115  CSV._taskforeach  core.jl:3606
+            - Tuple{typeof(CSV._taskforeach), CSV.var"#165#166"{Int64, Int64, Vector{AbstractVector}, CSV.PendingProblemLog, Vector{Union{Nothing, Type}}, CSV.ColumnPlan, Vector{CSV.ValueOpts}, Int64, Vector{Tuple{CSV.ChunkIndex, Int64}}}, UnitRange{Int6
+            - Tuple{typeof(CSV._taskforeach), CSV.var"#165#166"{Int64, Int64, Vector{AbstractVector}, CSV.PendingProblemLog, Vector{Union{Nothing, Type}}, CSV.ColumnPlan, Vector{CSV.ValueOpts}, Int64, Vector{Tuple{CSV.ChunkIndex, Int64}}}, UnitRange{Int6
+    -3       6      3  CSVInlineStringsExt.settext!  CSVInlineStringsExt.jl:89
+            - Tuple{typeof(CSV.ColumnParsers.settext!), Vector{String1}, Int64, DataStrings.DataString}
+            - Tuple{typeof(CSV.ColumnParsers.settext!), Vector{Union{Missing, String1}}, Int64, DataStrings.DataString}
+    -4      21     17  CSV._file  api.jl:1201
+            - Tuple{typeof(CSV._file), Any, Nothing, Nothing, Nothing, Nothing, Bool, Bool, Bool, Val{InlineString}, Symbol, Int64, Nothing, Bool, Bool, Base.Pairs{Symbol, Union{}, Nothing, @NamedTuple{}}}
+            - Tuple{typeof(CSV._file), Any, Nothing, Nothing, Nothing, Nothing, Bool, Bool, Bool, Val{String15}, Symbol, Int64, Nothing, Bool, Bool, Base.Pairs{Symbol, Union{}, Nothing, @NamedTuple{}}}
+
+the session's compiles (224 in the trace) of a function that before had an instance at a trait's own type: 1, of 1 functions
+   1  CSV.ColumnParsers.filltext!    (before, at the trait: Tuple{typeof(CSV.ColumnParsers.filltext!), CSV.ColumnParsers.TextColumn, DataStrings.StringVector{DataStrings.DataString}, Int64})
+        Tuple{typeof(CSV.ColumnParsers.filltext!), Array{InlineStrings.String15, 1}, DataStrings.StringVector{DataStrings.DataString}, Int64}

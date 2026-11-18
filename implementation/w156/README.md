@@ -81,3 +81,73 @@ The 7 and 2 instances more are all at the box: the definition-time check's insta
 - `probes/forms.jl` (`logs/probe-forms.log`): in a trait module with `first_seen` on, a plain member at a dynamic call compiles the method once at the trait; the wrapper compiles it for `Compiled{T}`; Julia's cast for the member's type. With `first_seen` off, a plain member compiles for its type.
 - `probes/kept_tables.jl` (`logs/probe-kept-tables.log`): TraitTables' code given a box or a wrapper of a `Vector{Float64}` column gives the same summaries, but `take` and `sortby` return a `Vector{Any}` column where the plain column gives a `Vector{Float64}`: `eltype` of a kept form is `Any` (traits T-130).
 - `probes/byrow.jl` (`logs/probe-byrow.log`): the forks' `byrow` gives the same results for a plain function, a wrapper and a box, and is compiled once at `Callable{Tuple{Int64}}` for all three: the compiler resolves `Callable`'s default at a call, for the wrapper too (compiler C-112). `Dict` is no `Callable`, so upstream's `Tables.ByRow(Dict)` finds no method.
+
+# W-156, second part: the attribute's surface leaves the library (traits T-126, T-127)
+
+**The question:** when the library offers only the design's forms (the box, the wrapper `compiled_for(x)` as its exported function, `@default_dynamic`; no cast, no `keep`, no `Kept`, no module option `dynamic` or `first_seen`, no `@default_compiled`), do the library's tests, the gates, the examples and the demonstrators' suites hold, and does a session compile more where a trait module relied on `first_seen` (a trait argument at a call whose caller does not know the value's type, compiled once at the trait)? What would change the design: a site whose growth no box at a door, no trait that erases by default and no per-type code answers.
+
+## How to run
+
+```sh
+source experiments/implementation/w156/env.sh
+cd experiments/implementation/w156
+bash forks_session.sh <tag> [N]          # the forks' session: a warm-up and N runs; then one run that lists the instances
+python3 compare_instances.py logs/b-before-instances.tsv logs/b-after-instances.tsv [--trace logs/b-forks-after.trace] [-v]
+bash sessions.sh <tag> [N]               # the report's and the table's sessions (the first part's harness)
+bash suites.sh <label> tables csv report report-session makie makie-session tde tde-session forks-tables digests examples
+bash ../w161/suites.sh <label> nd        # NetworkDynamics' test subset
+bash census.sh [file]                    # the attribute's surface left in the demonstrators
+(cd ../../../TraitWorld && $JN --project=. ../experiments/implementation/w156/probes/first_seen_discriminates.jl)
+```
+
+- `forks_session.sh` runs `forks_session.jl`: the forks' session (`forks/scripts/session_check.jl`, its 26 steps as digests) in one process, timed: the load and the session, of it compiling (`Base.cumulative_compile_time_ns`), the number of compiles (`--trace-compile`), the digests against upstream's (`forks/env_upstream`, made once: `logs/b-digests-upstream.txt`). A last run, not timed, writes every instance with code in the forks' packages to `logs/b-<tag>-instances.tsv`. Log: `logs/b-forks-<tag>.log`; the last timed run's compiles: `logs/b-forks-<tag>.trace`.
+- `compare_instances.py` is the audit's tool: the forks' compiled instances before and after, by method, largest growth first, each with the instances it gained and lost. With `--trace`, the session's compiles of a function that before had an instance at a trait's own type (the sign that `first_seen` compiled it once there): the sites that now compile per type in the session.
+- `census.sh` now reads `compiled_for(` as the library's wrapper wherever a file binds the library (`using TraitWorld`, an import list with the name, a REPL entry's `"using …, TraitWorld"`, a package's module file for the files it includes); `ByType` is a name of the surface. It covers NetworkDynamics (`ndport/pkgs/NetworkDynamics-unified`) and `ndport/README.md` too.
+- `probes/first_seen_discriminates.jl`: the library's test of a trait module (`TraitWorld/test/trait_modules.jl`, "trait modules") fails where Julia's option `first_seen` is set by hand (`logs/b-probe-first-seen.log`).
+
+## Results, 2026-11-18
+
+`next` 02139b2168. Before: TraitWorld `unified` 3e64ede, the demonstrators' `unified` heads (TraitTables 3f3e5a9, TraitCSV 57ccb3c, TraitMakie 2c560cb, forks 2176f57). After: branch `w156` of each (TraitWorld ea72682, TraitTables 729f3ad, TraitCSV c95c67c, TraitMakie 106bed9, TraitDifferentialEquations 7956907, forks a3a37d6, NetworkDynamics 82513ee, ndport 0825fee). Product setting, strict mode off, one thread (NetworkDynamics' subset two). Fresh processes, niced.
+
+**The library** (`logs/b-library-3.log`): 90 testsets pass (93 before: the testsets of the casts, of the `detect_` functions and of `detect_kept_storage` deleted; `keep` and `Kept` rewritten to the struct parameter and to storage). One `@test_broken`: `verify_main`'s holes for the wrapper of a value known only by its trait, which the build's own check refuses (compiler C-114).
+
+**Gates and examples:** `run_all.sh julia-next`: 72 of 72 in force, 9 of 9 stage gates (`logs/b-gates.log`). The examples: intro 26 pass, 1 deviation (no row); tutorial 95 pass; strict 5 pass (`logs/b-examples-*.log`).
+
+**The suites** (`logs/b-after-summary.log`, `logs/b-nd-summary.log`):
+
+| | after |
+|---|---|
+| TraitTables | 26 pass, 3 testsets |
+| TraitCSV | 16 pass, 2 testsets |
+| TraitReport `check.sh`; its REPL session | 3 of 3 ok; 8 of 8 |
+| TraitMakie; its REPL session | 8 testsets pass; 10 of 10 |
+| TraitDifferentialEquations; its REPL session | 35 testsets pass; 14 checks ok, results equal the plain session's |
+| the forks' Tables | 1 error: upstream's `ByRow(Dict)` (open issue 240) |
+| the forks' session digests | equal at 26 steps |
+| NetworkDynamics' subset | massmatrix 6, doctor 26 pass; diffusion 1 fail, 1 error; inhomogeneous 1 error (the known failures) |
+
+**The regression control** (a warm-up and 3 runs each):
+
+| | before | after |
+|---|---|---|
+| the forks' session: wall | 7.10–7.37 s | 6.66–6.72 s |
+| its load and session, of it compiling | 6773–7055 ms, 4181–4424 ms | 6346–6425 ms, 4034–4070 ms |
+| compiles in the session | 236 | 224 |
+| instances with code in the forks' packages after the session | 4768 | 4836 |
+| the report: wall; first run, of it compiling | 1.030–1.108 s; 114.7–116.1 ms, 51.4–54.7 ms | 1.027–1.043 s; 113.2–115.6 ms, 51.4–51.7 ms |
+| its compiles | 25, 218 ms | 25, 217 ms |
+| the table session: wall; compiles | 0.650–0.681 s; 19, 179 ms | 0.651–0.699 s; 19, 169 ms |
+| instances TraitTables, TraitCSV, TraitMakie (report) | 103, 29, 305 (44 at a kept form) | 103, 29, 318 (54 at a kept form) |
+
+Load: the forks' session 17.4 → 14.2 before, 22.9 → 12.9 after; the report and table sessions 11.9 → 11.5 before, 10.3 → 10.1 after (of 128). Logs: `logs/b-forks-before.log`, `logs/b-forks-after.log`, `logs/b-sessions-before.log`, `logs/b-sessions-after.log`. (The before run kept no trace of its compiles; `logs/b-forks-after.trace` is the after run's.)
+
+**The audit of the forks** (`logs/b-audit-before-after.txt`). Before, 13 methods of the forks had 33 instances with an argument at a trait's own type (`Column{T}`, `TextColumn`, `CSVSource`, …; a container typed by the trait not counted): code compiled once there by `first_seen`. After:
+- **The join's kernels** (`innerrows`, `_innerjoin_sorted`, `_innerjoin_unsorted`, `_innerjoin_dup`, `_innerjoin_unsorted_int`, `_innerjoin_dup_int`, `_issorted`, `_next_range`, `_extrema_missing`, `semirows`, `jointcodes!`, …, `DataFrames/src/other/kernels.jl`): compiled at the box `Dynamic{Column{T}}`, once per cell type, as the join's door intends (`_erased`, `DataFrames/src/join/core.jl`). Before, `first_seen` compiled them at the bare `Column`, under the door. 77 more instances in DataFrames, all held by the images: the session compiles none of them.
+- **The door `_erased`** (`core.jl:239`): compiled per column type (13 of its 14 instances), where it was compiled at `Column{T}` once per cell type (10 of 13). A one-line function: nothing to do.
+- **`CSV.ColumnParsers.filltext!`** (`ColumnParsers.jl:139`): compiled per text column type. The session's one new compile: `filltext!` for `Vector{String15}` (step 3, `stringtype = String15`). A kernel over a column's cells: per-type code is what the design wants there (traits §7.10).
+- **`CSV.ColumnParsers.readfile`** (`ColumnParsers.jl:39`): per source type (`IOBuffer`, a path), in the images; one instance at `Dynamic{CSVSource}`. Nothing in the session.
+- `CSV.ColumnParsers.stagecells!` (`ColumnParsers.jl:151`) keeps its one instance at `Column`, before and after: not the option's.
+
+So no site needed a door or a trait that erases by default: the session compiles 12 fewer signatures than with the option, and its digests equal upstream's.
+
+**The census** (`logs/b-census-after.txt`): no name of the surface in the demonstrators' code. Left: three dated rows of `ndport/README.md`'s results table (history), and the word "casts" in a comment of NetworkDynamics' `coreloop.jl` (a number's conversion). The two scripts of the forks' closed experiments (`forks/scripts/d3_refcodes.jl`, `m7_stage_split.jl`; E-214, E-217) call `compiled_for(d)`, which is now the wrapper, not the cast they were written for: kept as history, not run.

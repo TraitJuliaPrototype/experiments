@@ -1,0 +1,119 @@
+WARNING: method amb at amb(hints.Bb) is ambiguous for hints.Both, a member of hints.Bb, with the method at amb(hints.Aa); a method at amb(All{hints.Aa, hints.Bb}) would resolve it
+[ Info: TraitWorld: overview.jl
+[ Info: TraitWorld: core.jl
+[ Info: TraitWorld: acceptance.jl
+[ Info: TraitWorld: trait_modules.jl
+[ Info: TraitWorld: callable.jl
+[ Info: TraitWorld: fullytyped.jl
+[ Info: TraitWorld: ownership.jl
+[ Info: TraitWorld: hints.jl
+[ Info: TraitWorld: verify.jl
+ERROR: LoadError: Some tests did not pass: 6 passed, 1 failed, 0 errored, 0 broken.
+in expression starting at /p/projects/coen/julia-trait-bound/TraitWorld/test/verify.jl:43
+in expression starting at /p/projects/coen/julia-trait-bound/TraitWorld/test/runtests.jl:3
+Test Summary: | Pass  Total  Time
+overview      |    8      8  0.2s
+Test Summary: | Pass  Total  Time
+parameters    |    8      8  0.0s
+Test Summary: | Pass  Total  Time
+refusals      |    6      6  0.1s
+Test Summary: | Pass  Total  Time
+fields        |    3      3  0.0s
+Test Summary:        | Pass  Total  Time
+block and forwarding |   15     15  1.5s
+Test Summary:            | Pass  Total  Time
+forwarding at the member |    4      4  0.0s
+Test Summary: | Pass  Total  Time
+supertraits   |    3      3  0.0s
+Test Summary: | Pass  Total  Time
+Dynamic       |   13     13  0.3s
+Test Summary: | Pass  Total  Time
+families      |    3      3  0.0s
+Test Summary: | Pass  Total  Time
+dispatch      |    4      4  0.0s
+Test Summary: | Pass  Total  Time
+first use     |   12     12  0.3s
+Test Summary:        | Pass  Total  Time
+Union-bounded family |    2      2  0.0s
+Test Summary: | Pass  Total  Time
+intersections |    8      8  0.0s
+Test Summary: | Pass  Total  Time
+override rule |    5      5  0.0s
+Test Summary: | Pass  Total  Time
+module end    |    2      2  0.1s
+Test Summary:     | Pass  Total  Time
+operation results |    7      7  0.0s
+Test Summary: | Pass  Total  Time
+split         |    3      3  0.6s
+Test Summary: | Pass  Total  Time
+table         |    3      3  0.0s
+Test Summary:   | Pass  Total  Time
+declared fields |    3      3  0.0s
+Test Summary:  | Pass  Total  Time
+classification |   10     10  0.6s
+Test Summary:                 | Pass  Total  Time
+classification: further rules |    6      6  0.3s
+Test Summary:                     | Pass  Total  Time
+a family's variables in its block |    2      2  0.0s
+Test Summary:                               | Pass  Total  Time
+Dynamic{All{Callable…}} at either signature |    2      2  0.2s
+Test Summary:                             | Pass  Total  Time
+F1: a trait stands wherever a type stands |   10     10  0.1s
+Test Summary:                                                | Pass  Total  Time
+F2, F3: the bare name is a UnionAll; parameters follow Julia |    5      5  0.0s
+Test Summary:                                | Pass  Total  Time
+F4: a member's value is a value of the trait |    3      3  0.0s
+Test Summary:                  | Pass  Total  Time
+F5: supertraits are supertypes |    2      2  0.0s
+Test Summary:           | Pass  Total  Time
+F6: dispatch is Julia's |    2      2  0.0s
+Test Summary: | Pass  Total  Time
+F7: storage   |    4      4  0.0s
+Test Summary:                                   | Pass  Total  Time
+F8: defaults and forwarding reach plain callers |    4      4  0.0s
+Test Summary:                                      | Pass  Total  Time
+F10: a family's member is checked at its first use |    6      6  0.0s
+Test Summary:                                                                    | Pass  Total  Time
+F10b (compiler C-71): a failed member's uses through the trait raise its failure |    3      3  0.0s
+Test Summary:                                   | Pass  Total  Time
+F11: a generic implementation is a set in a set |    3      3  0.0s
+Test Summary: | Pass  Total  Time
+F14: errors   |    3      3  0.0s
+Test Summary:       | Pass  Total  Time
+the trait's default |    9      9  0.1s
+Test Summary:                       | Pass  Total  Time
+a struct parameter records the form |    5      5  0.1s
+Test Summary: | Pass  Total  Time
+trait modules |   10     10  0.1s
+Test Summary:             | Pass  Total  Time
+bounded in a trait module |   10     10  0.1s
+Test Summary: | Pass  Total  Time
+Callable      |   16     16  0.1s
+Test Summary:    | Pass  Total  Time
+fully typed mode |   23     23  1.2s
+Test Summary:  | Pass  Total  Time
+concrete parts |   15     15  0.3s
+Test Summary: | Pass  Total  Time
+ownership     |    8      8  0.1s
+Test Summary: | Pass  Total  Time
+pirates       |    7      7  0.0s
+Test Summary: | Pass  Total  Time
+hints         |    8      8  1.2s
+Test Summary: | Pass  Total  Time
+verify_main   |    7      7  0.4s
+
+verify_main: the wrapper's members: Test Failed at /p/projects/coen/julia-trait-bound/TraitWorld/test/verify.jl:48
+  Expression: isempty(r.holes)
+   Evaluated: isempty(TraitWorld.RuntimeSite[TraitWorld.RuntimeSite(:dispatch, MethodInstance for Main.verify.wrapsum(::Vector{Main.verify.Shape2}), Symbol("/p/projects/coen/julia-trait-bound/TraitWorld/test/verify.jl"), 41, "compiled_for(\n  :(φ (%35 => %30, %76 => %70))::Main.verify.Shape2\n)::TraitWorld.Compiled", ["unresolved call"]), TraitWorld.RuntimeSite(:dispatch, MethodInstance for Main.verify.wrapsum(::Vector{Main.verify.Shape2}), Symbol("/p/projects/coen/julia-trait-bound/TraitWorld/test/verify.jl"), 41, "scaled2(\n  compiled_for(\n    :(φ (%35 => %30, %76 => %70))::Main.verify.Shape2\n  )::TraitWorld.Compiled,\n  2.0::Float64\n)::Float64", ["unresolved call"])])
+  Stacktrace:
+   [1] top-level scope
+     @ /p/projects/coen/julia-trait-bound/TraitWorld/test/verify.jl:44
+   [2] macro expansion
+     @ /p/projects/coen/julia-trait-bound/julia-next/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:1967 [inlined]
+   [3] macro expansion
+     @ /p/projects/coen/julia-trait-bound/TraitWorld/test/verify.jl:48 [inlined]
+   [4] macro expansion
+     @ /p/projects/coen/julia-trait-bound/julia-next/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:758 [inlined]
+Test Summary:                      | Pass  Fail  Total  Time
+verify_main: the wrapper's members |    6     1      7  1.4s
+RNG of the outermost testset: Random.Xoshiro(0xd33ed7da9b0c463b, 0x4657e2fc66c18e1d, 0x05514a325857f113, 0x25f63a13fce007bd, 0xca988a577328dc1c)
