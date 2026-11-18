@@ -1,6 +1,6 @@
 # The implementation's gates, acceptance cases and experiments
 
-The directory's name is that of the work that made traits abstract types. It holds what checks and measures the implementation.
+What checks and measures the implementation. Until 2026-11-18 the directory was `experiments/unification/`; logs name it so.
 
 - **The registry rows** are in `../../writeup/record/experiments.md`; a row's "Where" names a directory here.
 - **What to run after a change:** `../../writeup/record/playbook.md` §3.
