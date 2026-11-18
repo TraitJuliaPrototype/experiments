@@ -98,10 +98,11 @@ def broken_links(root, path, text):
 
 def main(argv):
     here = os.path.dirname(os.path.abspath(__file__))
-    args = [a for a in argv[1:] if not a.startswith("--")]
-    root = os.path.abspath(args[0]) if args else os.path.abspath(os.path.join(here, "..", "..", ".."))
     details = argv[argv.index("--details") + 1] if "--details" in argv else None
     only = argv[argv.index("--file") + 1] if "--file" in argv else None
+    skip = {argv.index(o) + 1 for o in ("--details", "--file") if o in argv}
+    args = [a for i, a in enumerate(argv) if i > 0 and i not in skip and not a.startswith("--")]
+    root = os.path.abspath(args[0]) if args else os.path.abspath(os.path.join(here, "..", "..", ".."))
     # Until the registry is split, an ID at or below this is the earlier build's.
     cur_ids, arch_ids = registry_ids(root)
     earlier_max = 261 if not arch_ids else None
