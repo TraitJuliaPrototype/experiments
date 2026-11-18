@@ -1,0 +1,9 @@
+mapc: 1 methods: Tuple{typeof(mapc), Callable{Tuple{T}}, Vector{T}} where T
+once: 3 methods: Tuple{typeof(once), Compiled{Z} where Z<:Callable{Tuple{Int64}, Int64}, Int64}; Tuple{typeof(once), Union{Dynamic{<:Callable{Tuple{Int64}, Int64}}, Compiled{<:Callable{Tuple{Int64}, Int64}}}, Int64}; Tuple{typeof(once), Callable{Tuple{Int64}, Int64}, Int64}
+plain f    [2, 4, 6] 6
+plain g    [2, 3, 4] 4
+wrapper f  [2, 4, 6] 6
+wrapper g  [2, 3, 4] 4
+box f      [2, 4, 6] 6
+mapc's instances: ["typeof(f)", "typeof(g)", "Compiled{typeof(f)}", "Compiled{typeof(g)}", "Dynamic{Callable{Tuple{Int64}, Int64}}"]
+once's instances: ["Compiled{typeof(f)}", "Compiled{typeof(g)}", "Dynamic{Callable{Tuple{Int64}, Int64}}", "Function", "typeof(f)", "typeof(g)"]
