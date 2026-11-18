@@ -5,7 +5,7 @@ include(joinpath(@__DIR__, "common.jl"))
 using TraitWorld
 # The page's `compiled_for` is the library's export, the wrapper's function.
 check("the library exports compiled_for, the wrapper's function",
-      compiled_for(1.0) isa TraitWorld.Compiled{Float64} && compiled_for !== Core.compiled_for)
+      compiled_for(1.0) isa TraitWorld.Compiled{Float64} && !isdefined(Core, :compiled_for))
 
 # --- the library ------------------------------------------------------------------------------
 

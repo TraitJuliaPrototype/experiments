@@ -1,8 +1,9 @@
-# Gate (W-156; compiler §2.1, §6.2; traits §7.1, §7.5): an argument is compiled as Julia compiles it. At a trait
+# Gate (W-156; compiler §2.1, §6.2, §6.9; traits §7.1, §7.5, §7.7): an argument is compiled as Julia compiles it. At a trait
 # argument a plain member's call runs the instance for its type, a box's the instance at the box (one per set
 # instance), and an argument declared `@nospecialize` the instance at the declared set; passed on from there it is a
 # run-time site. Nothing beside the values decides: neither the call's site (a static call, a dynamic call) nor the
 # method's module. No cast, no `keep`, no `Core.attributed_call`: the names are no part of Core, lowering knows none.
+# And the kept forms are Core's: the box `Dynamic{X}` and the wrapper `Compiled{T}`, with their constructors (§6.9).
 # It replaces `not-in-force/n6_attribute.jl`, which pinned the attribute.
 using Traits
 include("util.jl")
@@ -65,5 +66,26 @@ h() = g(compiled_for(1), with_dynamic(2))
 hk() = g(compiled_for(1), with_dynamic(2; k = 3))
 end
 @assert OwnNames.h() == ((:own, 1), (:own, 2, 1)) && OwnNames.hk() == ((:own, 1), (:own, 2, 3))
+
+# (7) the kept forms in Core (compiler §6.9, C-113): the box and the wrapper are Core's structs
+@assert isdefined(Core, :Compiled) && Core.Compiled{Circle} isa DataType && fieldnames(Core.Compiled) == (:object,)
+w = Core.Compiled(c)
+@assert w isa Core.Compiled{Circle} && getfield(w, :object) === c
+@assert Core.Compiled(w) === w "a wrapper is itself"
+@assert getfield(Core.Compiled(d), :object) === c && Core.Compiled(d) isa Core.Compiled{Circle} "a box gives its object wrapped"
+@assert Core.Dynamic{Shape}(d) === d "a box of X is itself"
+@assert getfield(Core.Dynamic{Shape}(w), :object) === c "a wrapper gives its object boxed"
+@assert (try Core.Dynamic{Shape}(1); false catch e; e isa TypeError end) "a value that is not a member: new's field test"
+@trait Sub
+@trait Other
+declare_membership(Sub, Shape, @__MODULE__)               # Sub is a subset of Shape
+@implement Sub Circle
+@implement Other Circle
+declare_membership(Core.Dynamic{Sub}, Sub, @__MODULE__, :object, :field)
+declare_membership(Core.Dynamic{Other}, Other, @__MODULE__, :object, :field)
+@assert Core.Dynamic{Shape}(Core.Dynamic{Sub}(c)) isa Core.Dynamic{Shape} && getfield(Core.Dynamic{Shape}(Core.Dynamic{Sub}(c)), :object) === c "a box of a subset gives its object boxed"
+@assert (try Core.Dynamic{Shape}(Core.Dynamic{Other}(c)); false catch e; e isa TypeError end) "a box of another set is no member"
+@trait Col{T}
+@assert (try Core.Dynamic{Col}(c); false catch e; e isa ArgumentError end) "a bare parametric set"
 
 println("n33_compiled_as_julia: OK")
