@@ -51,6 +51,10 @@ asserts. One Julia process per gate, niced, 4 cores (`source env.sh` first).
   `w161/suites.sh` (the library's, the ports', Julia's test files).
 - **Retired gates** go to `retired/`, with a line here: which rule replaced the gate's and which gate holds it.
   None is retired: W-164 rewrote each of the four gates that asserted a replaced rule.
+- **Not in force: `not-in-force/n6_attribute.jl`** (W-156, compiler C-112): W-111's gate of a trait argument's
+  attribute (the five steps, the casts, `Core.attributed_call`, `keep`, the module options `dynamic` and `first_seen`).
+  It only tests what is removed: Julia resolves no attribute at a call. `n33_compiled_as_julia.jl` holds the rule in
+  force. It fails when run (`keep` and the casts are gone).
 - **Not in force: `not-in-force/m3_*.jl`** (9). The earlier attempt's later stages (the facts policy and the record:
   run-time sites and effects, the record's kinds, the G2 bit and counts, fold records, an image round trip, the
   ambiguity report with dominance, the test bed `all`). They call the session marks `Compiler.mark_facts!` and
@@ -125,9 +129,12 @@ gates in its header comment.
   memberships in the record and the code's worlds from their entries' (§3.1, §4.8)
 - `util.jl`               — shared probes: a function's CodeInstances, the current world, the absence edges a
   CodeInstance holds
-- `n6_attribute.jl` — W-111: each trait argument's attribute by the five steps of traits §7.5 (the
-  runtime at a dynamic call, inference at a static one), the casts and `Core.attributed_call`, `keep`,
-  the run-time site that passes `Dynamic` on, the reserved names, identical results
+- `n33_compiled_as_julia.jl` — W-156 (stub; compiler §2.1, §6.2; traits §7.1, §7.5): an argument is compiled as Julia
+  compiles it: a plain member at a static and at a dynamic call per type, the box once at the box, `@nospecialize` at
+  the declared set and passed on as a run-time site, `@specialize` Julia's, a module compiled by facts per type; the
+  options `dynamic` and `first_seen` refused; no `compiled_for`, `with_dynamic`, `attributed_call`, `keep` in Core, the
+  names lowered as ordinary calls. *Catches:* an attribute resolved at a call. *Shown:* it fails on `next` 02139b2168
+  (the argument passed on from code compiled once is compiled once there). It replaces `not-in-force/n6_attribute.jl`.
 - `n7_guards.jl` — W-140: a membership invalidates as a method does. A call holds no guard and no cell;
   the membership invalidates the caller whose selection it changes, an older world keeps the old
   answer; a caller matched through the type's own supertypes stays valid; a method at a set defined

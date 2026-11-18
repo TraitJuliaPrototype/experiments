@@ -1,9 +1,9 @@
-# Gate (W-111; compiler §6.3, §6.9; traits §7.4–§7.8): each trait argument's attribute, decided by the
+# Not in force (W-156: the attribute is gone, compiler C-112). Gate (W-111; compiler §6.3, §6.9; traits §7.4–§7.8): each trait argument's attribute, decided by the
 # steps of traits §7.5, chooses the instance that runs: compiled once at the set (`Dynamic`) or for the
 # value's type (`Compiled`). `Core.keep` shows which: the argument in an instance compiled for its
 # type, a `Dynamic{X}` of it in one compiled once. Results are identical under every attribute.
 using Traits
-include("util.jl")
+include("../util.jl")
 
 dyn_default!(T, a) = ccall(:jl_set_default_attribute, Cvoid, (Any, Cint), T, a)
 lowers(ex) = !Meta.isexpr(Meta.lower(@__MODULE__, ex), :error)

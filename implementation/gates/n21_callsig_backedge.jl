@@ -1,8 +1,8 @@
 # Gate (E-336; compiler §3.1): a call that reaches an instance wider than its own signature keeps its
-# signature on the backedge. A method at a set whose default is `Dynamic` is compiled once, so plain code
-# that knows its member's type reaches the instance at the set; a member's own method defined later
-# invalidates the callers whose signature it meets (a caller at the set), not the others. The same for a
-# `@nospecialize` method, which plain Julia compiles once.
+# signature on the backedge. A method at a set declared `@nospecialize` (and inferred so, `@nospecializeinfer`) is
+# compiled once at the set (§6.2), so plain code that knows its member's type reaches the instance at the set; a member's
+# own method defined later invalidates the callers whose signature it meets (a caller at the set), not the
+# others. The same for a `@nospecialize` method at `Any`, which plain Julia compiles once.
 using Traits
 include("util.jl")
 
@@ -10,19 +10,18 @@ latest(f, T...) = only([c for c in all_cis(f) if c.owner === nothing && c.max_wo
                                                 c.def.specTypes === Tuple{typeof(f), T...}])
 callee_mis(ci) = [e isa Core.CodeInstance ? e.def : e for e in ci.edges if e isa Core.MethodInstance || e isa Core.CodeInstance]
 
-# (1) a method compiled once at a set (its default `Dynamic`; members from another module)
+# (1) a method compiled once at a set (`@nospecialize`; members from another module)
 module P21
 using Traits
 @trait X21
-skip(x::X21) = :generic
+Base.@nospecializeinfer skip(@nospecialize(x::X21)) = :generic
 end
-ccall(:jl_set_default_attribute, Cvoid, (Any, Cint), P21.X21, 2)
 struct A21 end
 struct B21 end
 Traits.declare_membership(A21, P21.X21, Main)
 Traits.declare_membership(B21, P21.X21, Main)
 g21(a::A21) = P21.skip(a)
-h21(x::P21.X21) = P21.skip(x)
+h21(@nospecialize(x::P21.X21)) = P21.skip(x)          # a caller at the set
 @assert g21(A21()) === :generic && h21(B21()) === :generic
 cg = latest(g21, A21); ch = latest(h21, P21.X21)
 @assert any(mi -> mi.specTypes === Tuple{typeof(P21.skip), P21.X21}, callee_mis(cg)) "the plain caller reaches the instance at the set: $(cg.edges)"
@@ -40,15 +39,14 @@ g2(ci) = (ci.flags & 0x10) != 0
 module P21b
 using Traits
 @trait X21b
-@noinline skipn(x::X21b) = :generic                 # not inlined: the call's edge is the instance's
-skipi(x::X21b) = :generic                           # inlined
+@noinline Base.@nospecializeinfer skipn(@nospecialize(x::X21b)) = :generic # not inlined: the call's edge is the instance's
+Base.@nospecializeinfer skipi(@nospecialize(x::X21b)) = :generic            # inlined
 end
-ccall(:jl_set_default_attribute, Cvoid, (Any, Cint), P21b.X21b, 2)
 struct A21b end
 Traits.declare_membership(A21b, P21b.X21b, Main)
 g21n(a::A21b) = P21b.skipn(a)
 g21i(a::A21b) = P21b.skipi(a)
-h21n(x::P21b.X21b) = P21b.skipn(x)
+h21n(@nospecialize(x::P21b.X21b)) = P21b.skipn(x)
 module FM21
 Base.Experimental.@compiler_options facts=true
 using Main: P21b, A21b

@@ -4,7 +4,7 @@
 # definition makes (keyword sorters, positional forwarders: C-43).
 include("util.jl")
 module FM
-Base.Experimental.@compiler_options facts=true bounded=true first_seen=true
+Base.Experimental.@compiler_options facts=true bounded=true no_pirates=true
 f(x) = x
 module Sub
 g(x) = x
@@ -14,7 +14,9 @@ mfacts(m::Module) = ccall(:jl_get_module_facts, Cint, (Any,), m)
 mopts(m::Module) = ccall(:jl_get_module_trait_options, Cint, (Any,), m)
 isfacts(m::Method) = ccall(:jl_method_is_facts, Cint, (Any,), m) != 0
 @assert mfacts(FM) == 1 && mfacts(FM.Sub) == 1 && mfacts(Main) == 0
-@assert mopts(FM) == 1 | 8 && mopts(FM.Sub) == 1 | 8 && mopts(Main) == 0
+@assert mopts(FM) == 1 | 2 && mopts(FM.Sub) == 1 | 2 && mopts(Main) == 0
+# the options that chose a trait argument's attribute are gone (compiler §2.1, §6.2)
+@assert all(o -> try macroexpand(Main, :(Base.Experimental.@compiler_options $(o)=true)); false catch; true end, (:dynamic, :first_seen))
 @assert isfacts(only(methods(FM.f))) && isfacts(only(methods(FM.Sub.g)))
 h(x) = x
 @assert !isfacts(only(methods(h))) && only(methods(h)).facts == 0

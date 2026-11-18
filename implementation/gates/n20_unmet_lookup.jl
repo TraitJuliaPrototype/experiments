@@ -14,8 +14,10 @@ const CC = Base.Compiler
 lookup(T) = CC.findall(T, CC.method_table(CC.NativeInterpreter()); limit = -1)
 unmet(T) = ccall(:jl_has_unmet_argument, Cint, (Any, UInt), T, Base.get_world_counter()) != 0
 invokes(f, T) = [st for st in first(only(code_typed(f, T))).code if Meta.isexpr(st, :invoke)]
+# the calls left to dispatch: a call of a function that is no builtin
 dyncalls(f, T) = [st for st in first(only(code_typed(f, T))).code
-                  if Meta.isexpr(st, :call) && st.args[1] == GlobalRef(Core, :attributed_call)]
+                  if Meta.isexpr(st, :call) && st.args[1] isa GlobalRef &&
+                     !(getglobal(st.args[1].mod, st.args[1].name) isa Core.Builtin)]
 latest(f, T...) = only([c for c in all_cis(f) if c.owner === nothing && c.max_world == typemax(UInt) &&
                                                 c.def.specTypes === Tuple{typeof(f), T...}])
 finalcells(ci) = absences(ci)
@@ -26,7 +28,7 @@ using Traits
 @trait X20
 struct M20 end
 struct S20 <: AbstractString end                       # joins X20 late, in (4)
-w1(x::X20, c::Char) = 1
+w1(@nospecialize(x::X20), c::Char) = 1                  # compiled once at the set: a call at X20 is static
 w1(s::AbstractString, xs...) = "two"                      # ties with w1(::X20, ::Char) at All{AbstractString, X20}
 w2(x::X20, a::UInt8) = 1
 w2(s::AbstractString, a::UInt8) = 2                    # ranks above w2(::X20, …): AbstractString is closed
@@ -58,7 +60,7 @@ l8(s::AbstractString) = 1
 # (2) a type and a set of Main are settled as a loaded package's are (W-140, stage 2): the match met only
 # at the intersection leaves, its final cell on the caller
 abstract type Q9 end
-k9(::X9, ::Char) = 1
+k9(@nospecialize(x::X9), ::Char) = 1
 k9(::Q9, ::Any) = 2                                    # ties with k9(::X9, ::Char) at All{Q9, X9}
 let r = lookup(Tuple{typeof(k9), X9, Char})
     @assert !r.ambig && length(r.matches) == 1 "one match at the set of Main: $(r.ambig) $(r.matches)"
@@ -123,7 +125,7 @@ Traits.declare_membership(P20.S20, P20.X20, P20)
 struct MyS20 <: AbstractString end
 (s::MyS20)(x) = 1
 f20(::AbstractString, xs...) = :str
-f20(::Core.Callable, ::Int) = :callable
+f20(@nospecialize(c::Core.Callable), ::Int) = :callable
 const AC20 = Tuple{typeof(f20), Core.All{Tuple{AbstractString, Core.Callable}}, Int}
 @assert !(MyS20 <: Core.Callable) "a call method makes no membership"
 @assert unmet(AC20) "All{AbstractString, Callable} is unmet before a declaration"
