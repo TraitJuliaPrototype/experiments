@@ -1,6 +1,6 @@
 # W-145: the measurement round (phase 5)
 
-The round's plan, with the frozen build and the parts: [`writeup/plans/2026-11-14-measurement-round.md`](../../../writeup/plans/2026-11-14-measurement-round.md). Parts that have scripts of their own are here; the others run the scripts of `../w134/`, `../w135/`, `../w136/`, `../w139/`, `../w140/`, `../w120/`. Current numbers: [the evidence](../../../writeup/design/evidence.md).
+The round's plan, with the frozen build and the parts: [`attic/writeup/plans/2026-11-14-measurement-round.md`](../../../attic/writeup/plans/2026-11-14-measurement-round.md) (archived; the method's traps are in `writeup/record/playbook.md` §4). Parts that have scripts of their own are here; the others run the scripts of `../w134/`, `../w135/`, `../w136/`, `../w139/`, `../w140/`, `../w120/`. Current numbers: [the evidence](../../../writeup/design/evidence.md).
 
 ## Part 1: calls (`calls/`, E-374)
 
