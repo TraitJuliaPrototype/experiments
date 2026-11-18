@@ -1,0 +1,11 @@
+HasProperty{:a, Int64} ∩ HasProperty{:b, String}                 = Union{}
+HasProperty{:a, Int64} ∩ HasProperty{:a, String}                 = Union{}
+HasProperty{:a} ∩ HasProperty{:b}                                = Union{}
+HasProperty{N, Int64} where N ∩ HasProperty{:a, String}          = Union{}
+isambiguous(prop at :a, prop at :b) = false
+prop(AB165(1, "x")) -> b   (a member at both names: a tie)
+prop(A165(1)) -> a   (a member at :a only)
+isambiguous(same at :a Int, same at :a String) = false
+same(A165(1)) -> int
+both(AB165(1, "x")) -> both; both(A165(1)) -> a
+hasproperty: OK

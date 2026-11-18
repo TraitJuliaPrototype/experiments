@@ -1,0 +1,11 @@
+HasProperty{:a, Int64} ∩ HasProperty{:b, String}                 = All{HasProperty{:a, Int64}, HasProperty{:b, String}}
+HasProperty{:a, Int64} ∩ HasProperty{:a, String}                 = Union{}
+HasProperty{:a} ∩ HasProperty{:b}                                = All{HasProperty{:a, T}, HasProperty{:b, U}} where {T, U}
+HasProperty{N, Int64} where N ∩ HasProperty{:a, String}          = All{HasProperty{N, Int64}, HasProperty{:a, String}} where N
+isambiguous(prop at :a, prop at :b) = true
+prop(AB165(1, "x")) -> MethodError   (a member at both names: a tie)
+prop(A165(1)) -> a   (a member at :a only)
+isambiguous(same at :a Int, same at :a String) = false
+same(A165(1)) -> int
+both(AB165(1, "x")) -> both; both(A165(1)) -> a
+hasproperty: OK

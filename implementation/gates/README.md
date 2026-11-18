@@ -25,17 +25,10 @@ asserts. One Julia process per gate, niced, 4 cores (`source env.sh` first).
   `@trait X`, `@implement X S`, `declare_membership`; no contract checks, no fields, no operations as entries). A gate
   whose header has the line `# project: TraitWorld` runs with the library's tree (`--project=TraitWorld`), since its
   rule is the library's: `n8_callable_box.jl`, `n26_callable_late_method.jl`.
-- **Expected failures inside a gate.** Two gates assert a defect of `next` a5bd871cce that has no deviation row yet,
-  so that its fix fails the gate and the check is flipped (found by W-164; the main session records them):
-  - `n8_callable.jl`: two methods at `Callable` instances that differ only in `A` or `S` do not tie (traits §9,
-    compiler §7.4 say they tie at every function). The intersection of two instances at other input values is
-    `Union{}`, by the parameters' invariance, though every function is in both; dispatch takes one method
-    (`apply(abs, 1) === :string`) and reflection reports no ambiguity. The same holds for any parametric set with a
-    member of every instance (`@implement Z S` at the bare name: `h(::Z{1})`, `h(::Z{2})`, `h(S())` takes one).
-  - `n20_unmet_lookup.jl` (5): the lookup at `(Callable, Int)` drops the match met only at the unmet
-    `All{AbstractString, Callable}`, and still reports an ambiguity, so the caller's call stays dynamic. The same at
-    a bare parametric set (`Z`); not at a set without parameters (cases (1), (2)), nor at a parametric set's
-    instance (`Z{1}`).
+- **Expected failures inside a gate.** None. W-165 flipped the two that W-164 wrote (`n8_callable.jl`, the tie of two
+  methods at `Callable` instances, compiler C-147; `n20_unmet_lookup.jl` (5), the unmet lookup's ambiguity at
+  `Callable` and at a bare parametric set, C-148): each now asserts the rule, and fails on `next` a5bd871cce
+  (`../w165/logs/gates-head-flipped.log`).
 - **The stage gates** are the gates of each stage of the running iteration, kept in the stage's directory and
   listed in `stage_gates.txt`, one line each: the path relative to `experiments/implementation/`, the project
   (`none`, `stub`, `TraitWorld`) and flags (`verdict`: the script exits 0 either way and its last line must hold
@@ -75,6 +68,7 @@ asserts. One Julia process per gate, niced, 4 cores (`source env.sh` first).
 | 2026-11-18 | `unified` 8fccf1e182 with the tag's library (`LIB=TraitWorld-base`, e11c7cc) | the two gates run with the library | `n26_callable_late_method` fails at the replaced rule (`typeof(nf) <: Callable{Tuple{Int}, Int}` is false there); `n8_callable_box` cannot run (`TraitWorld.ByType` is missing) (`logs/w164-julia-unified-traitworld-base.log`) |
 | 2026-11-18 | `next` a5bd871cce | `run_all.sh` with a pattern, as its callers run it: `'m1_*'`, a single name, a name not in force | 11 of 11; 1 of 1; `m3_g2_bit` found in `not-in-force/` and run (it fails); an unknown name runs nothing (`logs/w164-pattern-julia-next.log`) |
 | 2026-11-18 | `next` a5bd871cce, TraitWorld 3e64ede | one wrong assertion per rewritten case, the replaced rule's answer (`logs/w164_mutants.sh`) | 9 of 9 fail on the head, as they should (`logs/w164-mutants-julia-next.log`) |
+| 2026-11-18 | `w165` 02139b2168 (W-165; the binary reports `02139b2168*`), TraitWorld `unified` 3e64ede; load 3 to 5 of 128 | `run_all.sh wt/w165-julia`, with the two checks flipped | gates in force 72 of 72; stage gates 9 of 9 (`../w165/logs/gates-w165.log`); the two flipped gates fail on `next` a5bd871cce, as they should (`../w165/logs/gates-head-flipped.log`) |
 
 ## The gates in force
 
@@ -142,7 +136,11 @@ gates in its header comment.
   callable type that is no `Function` only by its declaration (`@implement Callable T`, lowering §9); a method's
   definition or deletion begins or ends no membership and ends no code compiled on the answer; the builtins' types
   never members (compiler §4.1); a method at `Callable` takes every function; E-267's question answered from the
-  entries in either order. The tie of two methods that differ only in `A` or `S`: an expected failure (above).
+  entries in either order. W-165 (compiler §4.6, §4.9, C-147): two methods that differ only in `A` or `S` tie at
+  every function (`All{X{A}, X{B}}`, neither more specific, `isambiguous`, a call's `MethodError`, in compiled code
+  too); a method at the intersection resolves it and ranks above each; a member of one instance only keeps its
+  method; for a set `HP20{N, R}` with the input `N`: disjoint at one name and another `R`, meeting at two names, unmet
+  until a member is at both, then the report at the membership, the tie and the earlier caller invalidated.
   *Catches:* membership by methods (`uppercase` no member at `Tuple{Int}`), a method definition that changes an
   answer. *Shown:* it fails on the tag's Julia (`logs/w164-julia-unified.log`), and its wrong assertions fail on
   the head (`logs/w164-mutants-julia-next.log`).
@@ -160,7 +158,9 @@ gates in its header comment.
 - `n20_unmet_lookup.jl` — E-331, E-334, C-82 (compiler §4.8, §4.9, §5.4): a match met only at an intersection no
   type is in is dropped from dispatch's lookup, its final cell on the caller; a membership that meets it returns the
   match and the ambiguity. Case (5), rewritten by W-164: a `Callable` component is a set as any, met only by a type
-  declared in both (a call method makes no membership); the expected failure of (5) above. *Catches:* a call method
+  declared in both (a call method makes no membership); W-165 (C-148): the lookup that drops the match reports no
+  ambiguity, at `Callable`, its instance and a bare parametric set, the caller's call is static with the cell
+  (`AbstractString`, `Callable`), and the declaration invalidates it. *Catches:* a call method
   that meets `All{AbstractString, Callable}`. *Shown:* it fails on the tag's Julia, and its wrong assertion fails
   on the head.
 - `n22_declared_assert.jl` — open issue 171, rewritten by W-164 (stub; traits §4.1, §7.9; compiler §4.1, §6.8,

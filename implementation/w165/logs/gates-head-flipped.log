@@ -1,0 +1,29 @@
+# 2026-11-18T13:19:38+01:00 julia-next a5bd871cce, the two gates as W-165 flipped them; load 7.62 3.91 4.21
+FAIL n8_callable.jl (exit 1)
+    ERROR: LoadError: AssertionError: the instances meet: Union{}
+    Stacktrace:
+     [1] top-level scope
+       @ /p/projects/coen/julia-trait-bound/experiments/implementation/gates/n8_callable.jl:63
+     [2] include(mod::Module, _path::String)
+       @ Base ./Base.jl:318
+     [3] exec_options(opts::Base.JLOptions)
+       @ Base ./client.jl:344
+     [4] _start()
+       @ Base ./client.jl:577
+    in expression starting at /p/projects/coen/julia-trait-bound/experiments/implementation/gates/n8_callable.jl:63
+gates: 0 passed, 1 failed
+FAIL n20_unmet_lookup.jl (exit 1)
+    WARNING: method k9 at k9(Main.X9, Char) is ambiguous for Main.S9, a member of Main.X9, with the method at k9(Main.Q9, Any); a method at k9(All{Main.Q9, Main.X9}, Char) would resolve it
+    WARNING: method w1 at w1(P20.X20, Char) is ambiguous for P20.S20, a member of P20.X20, with the method at w1(AbstractString, Any...); a method at w1(All{AbstractString, P20.X20}, Char) would resolve it
+    ERROR: LoadError: AssertionError: the lookup at (Callable, Int) is unambiguous: true
+    Stacktrace:
+     [1] top-level scope
+       @ /p/projects/coen/julia-trait-bound/experiments/implementation/gates/n20_unmet_lookup.jl:134
+     [2] include(mod::Module, _path::String)
+       @ Base ./Base.jl:318
+     [3] exec_options(opts::Base.JLOptions)
+       @ Base ./client.jl:344
+     [4] _start()
+       @ Base ./client.jl:577
+    in expression starting at /p/projects/coen/julia-trait-bound/experiments/implementation/gates/n20_unmet_lookup.jl:130
+gates: 0 passed, 1 failed

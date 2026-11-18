@@ -3,7 +3,9 @@
 # subtyping reads no method, so neither `A` nor `S` takes part in membership, and a method's definition or deletion
 # begins or ends none: code compiled on a membership answer stays valid. A callable type that is no `Function` is a
 # member only by its declaration. Neither input selects a method: two methods at instances that differ only there
-# tie at every function. A question that names the function itself is answered from the entries, in either order.
+# tie at every function: two instances of one set that differ only in inputs meet as `All{X{A}, X{B}}` (W-165,
+# compiler §4.9), and for any set with inputs they meet where they may differ in an input, and are disjoint at the
+# same input values. A question that names the function itself is answered from the entries, in either order.
 # The runtime's part only, with the stub library: the check at the box (the signature where a function is boxed or
 # a wrapper enters, the result on return) is the library's, gated by `n8_callable_box.jl` and `w161/d2/gate.jl`.
 using Traits
@@ -52,17 +54,78 @@ oldf(x::Int) = x + 1
 @assert Base.invoke_in_world(w_before, probe, oldf) && probe(oldf)
 
 # neither input selects a method: two methods at instances that differ only in A or S tie at every function
-# (traits §9, compiler §7.4). EXPECTED FAILURE on `next` a5bd871cce (found by W-164, no deviation row yet): the
-# intersection of two instances at other input values is `Union{}` (the parameters' invariance), though every
-# function is in both; dispatch then takes one method without a tie (`apply(abs, 1) === :string`) and reflection
-# reports none. The check asserts the defect, so that its fix fails here: then assert the tie (the lines below).
+# (traits §9, compiler §4.9, §7.4; W-165, C-147): two instances of one set that differ only in inputs meet as
+# `All{X{A}, X{B}}`, met here by every function (Core's entry leaves both inputs free)
 apply(f::C{Tuple{Int}, Int}, x) = :int
 apply(f::C{Tuple{String}, <:AbstractString}, x) = :string
-tie = Base.isambiguous(which(apply, (C{Tuple{Int}, Int}, Any)), which(apply, (C{Tuple{String}, <:AbstractString}, Any)))
-abs_tie = try apply(abs, 1); false catch e; e isa MethodError end
-upp_tie = try apply(uppercase, "a"); false catch e; e isa MethodError end
-@assert !tie && !abs_tie && !upp_tie && typeintersect(C{Tuple{Int}, Int}, C{Tuple{String}, String}) === Union{} "the defect is fixed: assert the tie (tie && abs_tie && upp_tie) and retire this expected failure"
-println("n8_callable: expected failure: two methods at Callable instances that differ only in A or S do not tie (apply(abs, 1) === $(repr(apply(abs, 1))))")
+ma = which(apply, (C{Tuple{Int}, Int}, Any)); mb = which(apply, (C{Tuple{String}, <:AbstractString}, Any))
+ti = typeintersect(C{Tuple{Int}, Int}, C{Tuple{String}, String})
+@assert ti == Core.All{Tuple{C{Tuple{Int}, Int}, C{Tuple{String}, String}}} "the instances meet: $ti"
+@assert !Base.morespecific(ma.sig, mb.sig) && !Base.morespecific(mb.sig, ma.sig) "neither more specific"
+@assert Base.isambiguous(ma, mb) "reflection reports the tie"
+@assert try apply(abs, 1); false catch e; e isa MethodError end "a call with a function is ambiguous"
+@assert try apply(uppercase, "a"); false catch e; e isa MethodError end "whatever the function's methods"
+@assert try apply(Halver20(), 1); false catch e; e isa MethodError end "a callable type declared at every instance"
+@assert try apply(Doubler20(), 1); false catch e; e isa MethodError && !occursin("ambiguous", sprint(showerror, e)) end "no member: no method, no tie"
+# compiled code agrees with dispatch: a caller compiled at a function's type
+callapply(f) = apply(f, 1)
+@assert try callapply(abs); false catch e; e isa MethodError end "compiled code: the tie"
+# a method at the intersection resolves the tie, and is more specific than each
+apply(f::Core.All{Tuple{C{Tuple{Int}, Int}, C{Tuple{String}, <:AbstractString}}}, x) = :both
+mab = which(apply, (Core.All{Tuple{C{Tuple{Int}, Int}, C{Tuple{String}, String}}}, Any))
+@assert Base.morespecific(mab.sig, ma.sig) && Base.morespecific(mab.sig, mb.sig) "the joint method ranks above each"
+@assert apply(abs, 1) === :both && callapply(abs) === :both && apply(Halver20(), 1) === :both "resolved"
+@assert !Base.isambiguous(ma, mb) "resolved by a method more specific than both"
+# instances that differ only in an input that a variable leaves open meet too
+@assert typeintersect(C{Tuple{T}, T} where T, C{Tuple{Int}, String}) != Union{} "a variable's input may differ"
+@assert typeintersect(C{Tuple{T}, T} where T, C{Tuple{Int}, Int}) == C{Tuple{Int}, Int} "unified where it can be"
+# a concrete member is in the instance its entry names: a value of one instance's box meets no other
+struct OnlyInt20 end
+declare_membership(OnlyInt20, C{Tuple{Int}, Int}, @__MODULE__)
+@assert typeintersect(OnlyInt20, C{Tuple{String}, String}) === Union{} && typeintersect(OnlyInt20, C{Tuple{Int}, Int}) === OnlyInt20
+@assert apply(OnlyInt20(), 1) === :int "a member of one instance only: its method"
+
+# The rule for any set with inputs (compiler §4.6, §4.9): a set `HP{N, R}` with the input `N` and the other
+# parameter `R`. At the same input values, instances that differ in `R` are disjoint (a member has one instance
+# there); at different input values they meet, where the entries put a type in both
+setinputs!(@nospecialize(T), m::UInt8) = ccall(:jl_set_input_params, Cvoid, (Any, UInt8), T, m)
+unmet(T) = ccall(:jl_has_unmet_argument, Cint, (Any, UInt), T, Base.get_world_counter()) != 0
+@trait HP20{N, R}
+setinputs!(HP20, 0x01)
+@trait HQ20{N, R}                                          # no inputs
+@assert typeintersect(HP20{:a, Int}, HP20{:a, String}) === Union{} "the same input, another R: disjoint"
+@assert typeintersect(HQ20{:a, Int}, HQ20{:b, String}) === Union{} "no inputs: disjoint"
+@assert typeintersect(HP20{:a, Int}, HP20{:b, String}) == Core.All{Tuple{HP20{:a, Int}, HP20{:b, String}}} "other inputs: they meet"
+@assert typeintersect(HP20{N, Int} where N, HP20{:a, String}) != Union{} "an input left open may differ"
+struct Both20 end                                          # a member at both names
+struct One20 end                                           # at one only
+declare_membership(Both20, HP20{:a, Int}, @__MODULE__)
+declare_membership(One20, HP20{:a, Int}, @__MODULE__)
+g20(::HP20{:a, Int}) = :a
+g20(::HP20{:b, String}) = :b
+h20(::HP20{:a, Int}) = :int
+h20(::HP20{:a, String}) = :string
+@assert !Base.isambiguous(which(h20, (HP20{:a, Int},)), which(h20, (HP20{:a, String},))) "disjoint: no tie"
+ga = which(g20, (HP20{:a, Int},)); gb = which(g20, (HP20{:b, String},))
+AB = Tuple{typeof(g20), Core.All{Tuple{HP20{:a, Int}, HP20{:b, String}}}}
+@assert unmet(AB) && !Base.isambiguous(ga, gb) "no type in both yet: unmet, no tie"
+cg(x) = g20(x)
+@assert cg(Both20()) === :a && cg(One20()) === :a
+ci = only([c for c in all_cis(cg) if c.def.specTypes === Tuple{typeof(cg), Both20} && c.max_world == typemax(UInt)])
+# the membership that puts Both20 in both: the report warns at it (compiler §5.4), the intersection is met, the
+# call is ambiguous, and the code compiled before it is invalidated
+report = mktemp() do path, io
+    redirect_stderr(io) do
+        declare_membership(Both20, HP20{:b, String}, @__MODULE__)
+    end
+    close(io); read(path, String)
+end
+@assert occursin(r"g20 at g20\(.*HP20\{:b, String\}\) is ambiguous for .*Both20", report) && occursin("would resolve it", report) "the report at the membership: $report"
+@assert !unmet(AB) && Base.isambiguous(ga, gb) "met: the tie"
+@assert ci.max_world != typemax(UInt) "the caller compiled before the membership is invalidated"
+@assert try g20(Both20()); false catch e; e isa MethodError end && try cg(Both20()); false catch e; e isa MethodError end "ambiguous"
+@assert g20(One20()) === :a && cg(One20()) === :a "a member at one name keeps its method"
+
 # never a member: the builtins' types (compiler §4.1, `never_member`)
 @assert !(typeof(getfield) <: C{Tuple{Any, Symbol}}) && typeof(getfield) <: Function
 # one method at Callable takes every function; a method at the function's type is more specific

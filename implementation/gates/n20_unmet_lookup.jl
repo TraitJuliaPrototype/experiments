@@ -129,22 +129,29 @@ const AC20 = Tuple{typeof(f20), Core.All{Tuple{AbstractString, Core.Callable}}, 
 @assert unmet(AC20) "All{AbstractString, Callable} is unmet before a declaration"
 let r = lookup(Tuple{typeof(f20), Core.Callable, Int})
     @assert length(r.matches) == 1 && only(r.matches).method === which(f20, (Core.Callable, Int)) "the match at AbstractString dropped: $(r.matches)"
-    # EXPECTED FAILURE on `next` a5bd871cce (found by W-164, no deviation row yet): the lookup that dropped the
-    # match still reports an ambiguity, at `Callable` (bare or an instance) and at a bare parametric set, where at
-    # a set without parameters (cases (1), (2)) and at a parametric set's instance it reports none; the caller's
-    # call then stays dynamic. The check asserts the defect, so that its fix fails here: then assert `!r.ambig`
-    @assert r.ambig "the defect is fixed: assert !r.ambig here and retire this expected failure"
-    println("n20_unmet_lookup: expected failure: the lookup at (Callable, Int) drops the unmet match and still reports an ambiguity")
+    # the lookup that dropped the match drops its ambiguity with it (C-148, W-165): `Callable` is closed after load as
+    # every set, and a set component with free variables names its pair by the set
+    @assert !r.ambig "the lookup at (Callable, Int) is unambiguous: $(r.ambig)"
+    @assert !lookup(Tuple{typeof(f20), Core.Callable{Tuple{Int}, Int}, Int}).ambig "and at an instance"
 end
 mk20 = which(f20, (AbstractString, Int)); mc20 = which(f20, (Core.Callable, Int))
 @assert !Base.isambiguous(mk20, mc20) "no value at All{AbstractString, Callable} yet"
 g20(@nospecialize(x::Core.Callable)) = f20(x, 1)
 @assert g20(sin) === :callable && f20(MyS20(), 1) === :str
+@assert isempty(dyncalls(g20, (Core.Callable,))) "the caller's call is static: $(first(only(code_typed(g20, (Core.Callable,)))))"
+@assert any(c -> absence_member(c) === AbstractString, finalcells(latest(g20, Core.Callable))) "the cell (AbstractString, Callable) on the caller"
+cig20 = latest(g20, Core.Callable)
+# a bare parametric set: the same
+@trait Z20{P}
+fz(::AbstractString, xs...) = :str
+fz(::Z20, ::Int) = :z
+@assert !lookup(Tuple{typeof(fz), Z20, Int}).ambig && length(lookup(Tuple{typeof(fz), Z20, Int}).matches) == 1 "at a bare parametric set"
 @assert (try g20(MyS20()); :none catch e; typeof(e) end) === MethodError "no member: g20 takes no MyS20"
 declare_membership(MyS20, Core.Callable, @__MODULE__)    # @implement Callable MyS20: every instance
 @assert MyS20 <: Core.Callable{Tuple{Int}, Int} && !unmet(AC20) "MyS20 is in both"
 @assert lookup(Tuple{typeof(f20), Core.Callable, Int}).ambig "the lookup at (Callable, Int) is ambiguous"
 @assert (try g20(MyS20()); :none catch e; typeof(e) end) === (try f20(MyS20(), 1); :none catch e; typeof(e) end) === MethodError "compiled code and dispatch agree"
+@assert cig20.max_world != typemax(UInt) "the membership meets the intersection: the caller that relied on the drop is invalidated"
 @assert Base.isambiguous(mk20, mc20) "reflection reports the Callable pair"
 
 # (6) a `Vararg` tail is met by its empty tail
