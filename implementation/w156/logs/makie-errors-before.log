@@ -1,0 +1,67 @@
+ERROR: LoadError: @trait_module: an option is facts, bounded, no_pirates, dynamic, first_seen or owner_only = true or false; got module MyRecipes
+#= /p/projects/coen/julia-trait-bound/TraitMakie/scripts/errors_before_w156.jl:32 =#
+#= /p/projects/coen/julia-trait-bound/TraitMakie/scripts/errors_before_w156.jl:33 =#
+using TraitWorld, TraitMakie
+#= /p/projects/coen/julia-trait-bound/TraitMakie/scripts/errors_before_w156.jl:34 =#
+using TraitMakie.PlotCore: Canvas, Transform2D
+#= /p/projects/coen/julia-trait-bound/TraitMakie/scripts/errors_before_w156.jl:35 =#
+export Dots
+#= /p/projects/coen/julia-trait-bound/TraitMakie/scripts/errors_before_w156.jl:36 =#
+mutable struct Dots
+    #= /p/projects/coen/julia-trait-bound/TraitMakie/scripts/errors_before_w156.jl:36 =#
+    pos::Positions
+end
+#= /p/projects/coen/julia-trait-bound/TraitMakie/scripts/errors_before_w156.jl:37 =#
+TraitMakie.PlotCore.datalimits(d::Dots) = begin
+        #= /p/projects/coen/julia-trait-bound/TraitMakie/scripts/errors_before_w156.jl:37 =#
+        (0.0, 1.0, 0.0, 1.0)
+    end
+#= /p/projects/coen/julia-trait-bound/TraitMakie/scripts/errors_before_w156.jl:38 =#
+count_points(p::Positions) = begin
+        #= /p/projects/coen/julia-trait-bound/TraitMakie/scripts/errors_before_w156.jl:38 =#
+        length(p)
+    end
+#= /p/projects/coen/julia-trait-bound/TraitMakie/scripts/errors_before_w156.jl:39 =#
+TraitMakie.PlotCore.draw!(d::Dots, c::Canvas, t::Transform2D) = begin
+        #= /p/projects/coen/julia-trait-bound/TraitMakie/scripts/errors_before_w156.jl:39 =#
+        count_points(d.pos)
+        #= /p/projects/coen/julia-trait-bound/TraitMakie/scripts/errors_before_w156.jl:39 =#
+        nothing
+    end
+#= /p/projects/coen/julia-trait-bound/TraitMakie/scripts/errors_before_w156.jl:40 =#
+TraitMakie.PlotCore.setcolor!(d::Dots, c::Dynamic{ColorSpec}) = begin
+        #= /p/projects/coen/julia-trait-bound/TraitMakie/scripts/errors_before_w156.jl:40 =#
+        nothing
+    end
+#= /p/projects/coen/julia-trait-bound/TraitMakie/scripts/errors_before_w156.jl:41 =#
+#= /p/projects/coen/julia-trait-bound/TraitMakie/scripts/errors_before_w156.jl:41 =# @implement Plot Dots
+end
+Stacktrace:
+  [1] error(s::String)
+    @ Base ./error.jl:44
+  [2] var"@trait_module"(__source__::LineNumberNode, __module__::Module, opts::Vararg{Any})
+    @ TraitWorld /p/projects/coen/julia-trait-bound/TraitWorld/src/scope.jl:22
+  [3] fl_lower(ex::Expr, mod::Module, filename::String, lineno::UInt64, world::UInt64, warn::Bool)
+    @ Base ./flfrontend.jl:24
+  [4] eval(m::Module, e::Any)
+    @ Core ./boot.jl:529
+  [5] (::var"#13#14")()
+    @ Main /p/projects/coen/julia-trait-bound/TraitMakie/scripts/errors_before_w156.jl:32
+  [6] with_logstate(f::var"#13#14", logstate::Base.CoreLogging.LogState)
+    @ Base.CoreLogging ./logging/logging.jl:542
+  [7] with_logger(f::Function, logger::SimpleLogger)
+    @ Base.CoreLogging ./logging/logging.jl:653
+  [8] top-level scope
+    @ /p/projects/coen/julia-trait-bound/TraitMakie/scripts/errors_before_w156.jl:31
+  [9] include(mod::Module, _path::String)
+    @ Base ./Base.jl:318
+ [10] exec_options(opts::Base.JLOptions)
+    @ Base ./client.jl:344
+ [11] _start()
+    @ Base ./client.jl:577
+in expression starting at /p/projects/coen/julia-trait-bound/TraitMakie/scripts/errors_before_w156.jl:32
+in expression starting at /p/projects/coen/julia-trait-bound/TraitMakie/scripts/errors_before_w156.jl:31
+1. bad data                              lines 23, frames 7, longest line 223
+    MethodError: no method matching add_lines!(::Axis, ::String, ::TraitMakie.PlotCore.ColorName, ::Float64)
+2. a wrong colour result                 lines 19, frames 8, longest line 120
+    ImplementError: RGB3 cannot be a member of ColorSpec

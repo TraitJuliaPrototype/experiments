@@ -1,0 +1,15 @@
+# before 2026-11-18T14:26:49+01:00 load 5.88 6.77 6.29 | julia-next 02139b2168 | TraitWorld 3e64ede | TraitTables 7eb82b7 | TraitCSV f296d0e | TraitReport 2a81de6 | TraitMakie efc3ec0 | TDE 0816231 | forks b8cab0b
+tables | exit 0 | 5 s | 3 testsets | Test Summary: | Pass Total Time;Test Summary: | Pass Total Time;Test Summary: | Pass Total Time; Testing TraitTables tests passed ;
+csv | exit 0 | 9 s | 2 testsets | Test Summary: | Pass Total Time;Test Summary: | Pass Total Time; Testing TraitCSV tests passed ;
+report check.sh | exit 0 | 24 s | 3 ok, 0 FAIL
+report-session | exit 1 | 4 s | session: 7 of 8 checks ok, 1 failed, 0 not printed; 1 errors, 1 expected (transcript: /tmp/tmp.QcMmc5cOPG/traitreport_session.out)
+# before 2026-11-18T14:28:28+01:00 load 6.96 6.92 6.39 | julia-next 02139b2168 | TraitWorld 3e64ede | TraitTables 7eb82b7 | TraitCSV f296d0e | TraitReport 2a81de6 | TraitMakie efc3ec0 | TDE 0816231 | forks b8cab0b
+makie-session | 5 s | 7 of 10 checks ok, 0 failed; 8 errors, 1 expected
+tde-session | 35 s | 14 CHECK ok, 0 CHECK FAIL | RESULT lines against the plain session: equal (9)
+# before 2026-11-18T14:29:21+01:00 load 7.38 7.05 6.47 | julia-next 02139b2168 | TraitWorld 3e64ede | TraitTables 7eb82b7 | TraitCSV f296d0e | TraitReport 2a81de6 | TraitMakie efc3ec0 | TDE 0816231 | forks b8cab0b
+makie | exit 0 | 10 s | 8 testsets | 
+tde | exit 0 | 45 s | 35 testsets | TraitDifferentialEquations: Tsit5 | 6 6 1.0s;TraitDifferentialEquations: callbacks | 5 5 0.2s;TraitDifferentialEquations: Rodas5 with the library's duals | 6 6 1.2s;TraitDifferentialEquations: gradients through Tsit5 (row 5) | 8 8 0.8s;TraitDifferentialEquations: a Float32 state (row 6) | 2 2 0.7s;A problem type with its own cache (LorenzModels) | 5 5 0.8s;Callback types (Bounce, RaiseSigma) | 7 7 1.0s;A problem type: gradients through Tsit5 | 3 3 0.9s;A problem type: errors at the conformance |
+ Testing TraitDifferentialEquations tests passed ;
+forks Tables | exit 1 | 71 s | no casts without effect | 1 1 0.4s;utils.jl | 65 65 1.7s;namedtuples.jl | 54 54 5.5s;
+ERROR: LoadError: Some tests did not pass: 14 passed, 0 failed, 1 errored, 0 broken.;ByRow: Error During Test at /p/projects/coen/julia-trait-bound/forks/Tables/test/runtests.jl:957;
+digests | equal: 26 steps | 229 s

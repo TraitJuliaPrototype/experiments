@@ -1,0 +1,31 @@
+# W-156 census 2026-11-18T15:07:57+01:00: the attribute's surface in the demonstrators (census.sh)
+# TraitTables w156 3f3e5a9
+# TraitCSV w156 57ccb3c
+# TraitReport w156 a41c595
+# TraitMakie w156 4ef82e1
+# TraitDifferentialEquations w156 a4bc47d
+# forks w156 2176f57
+surface TraitTables/README.md:21: - `TableCore` writes `@trait_module first_seen = false`: a trait argument is compiled as Julia compiles it. The library's `@trait_module` sets the option `first_seen` unless it is written, which compiles a trait argument once 
+surface TraitTables/src/TableCore.jl:12: @trait_module first_seen = false     # a trait argument compiled as Julia compiles it (traits §7.1; the library's default differs: T-127)
+surface TraitCSV/README.md:19: - `CSVCore` writes `@trait_module first_seen = false`: a trait argument is compiled as Julia compiles it. The library's `@trait_module` sets the option `first_seen` unless it is written, which compiles a trait argument once at a 
+surface TraitCSV/src/CSVCore.jl:14: @trait_module first_seen = false     # a trait argument compiled as Julia compiles it (traits §7.1; the library's default differs: T-127)
+prose   TraitMakie/README.md:20: - The tests bind the wrapper's function with `using TraitWorld.ByType: compiled_for` (`test/runtests.jl`): the library's exported `compiled_for` is still Julia's cast (deviation T-126 of the traits reference).
+prose   TraitMakie/test/runtests.jl:2: using TraitWorld.ByType: compiled_for       # the wrapper, a value (traits §7.6; the library's export is still the cast: T-126)
+surface forks/README.md:22: - The forks' trait modules write `@trait_module` without `first_seen = false`, so on the build a trait argument without `@specialize`, at a call whose caller does not know the value's type, is compiled once at the declared type (the
+prose   forks/Tables/test/runtests.jl:3: using TraitWorld.ByType: compiled_for       # the wrapper, a value (traits §7.6; the library's export is still the cast: T-126)
+cast    forks/scripts/d3_refcodes.jl:15: println("R refcodes opened   ", round(bench(() -> K.refcodes(compiled_for(d), false, true)); digits = 2), " ms")
+cast    forks/scripts/d3_refcodes.jl:18: println("R nrows(opened)     ", round(bench(() -> K.nrows(compiled_for(d))) * 1e3; digits = 2), " µs")
+cast    forks/scripts/m7_stage_split.jl:23:     plainstage!(st, v, 1, n, o); C.ColumnParsers.stagecells!(st, compiled_for(d), 1, n, o)
+cast    forks/scripts/m7_stage_split.jl:25:     tk = minimum(@elapsed(C.ColumnParsers.stagecells!(st, compiled_for(d), 1, n, o)) for _ in 1:50)
+cast    forks/scripts/m7_stage_split.jl:31:     st = C.ColStage(); d = Tables.ColumnCore.tocolumn(v); cd = compiled_for(d)
+surface TraitDifferentialEquations/README.md:26: - Every trait module writes `@trait_module first_seen = false` (`src/TraitDifferentialEquations.jl` and each package under `lib/`): a trait argument is compiled as Julia compiles it. The library's `@trait_module
+prose   TraitDifferentialEquations/README.md:25: - The tests and the REPL session (`scripts/session.jl`) bind the wrapper's function with `using TraitWorld.ByType: compiled_for`: the library's exported `compiled_for` is still Julia's cast (deviation T-126 of t
+surface TraitDifferentialEquations/lib/ODECore/src/ODECore.jl:11: @trait_module first_seen = false
+surface TraitDifferentialEquations/lib/TraitArrayTools/src/TraitArrayTools.jl:12: @trait_module first_seen = false
+surface TraitDifferentialEquations/lib/TraitImplicit/src/TraitImplicit.jl:10: @trait_module first_seen = false
+surface TraitDifferentialEquations/lib/TraitIndexing/src/TraitIndexing.jl:16: @trait_module first_seen = false
+surface TraitDifferentialEquations/lib/TraitLinSolvers/src/TraitLinSolvers.jl:10: @trait_module first_seen = false
+surface TraitDifferentialEquations/lib/TraitNLSolvers/src/TraitNLSolvers.jl:10: @trait_module first_seen = false
+surface TraitDifferentialEquations/lib/TraitNonlinearSolve/src/TraitNonlinearSolve.jl:18: @trait_module first_seen = false
+surface TraitDifferentialEquations/lib/TraitRodas/src/TraitRodas.jl:10: @trait_module first_seen = false
+surface TraitDifferentialEquations/src/TraitDifferentialEquations.jl:15: @trait_module first_seen = false

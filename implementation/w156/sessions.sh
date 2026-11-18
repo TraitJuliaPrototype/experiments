@@ -1,0 +1,36 @@
+#!/bin/bash
+# W-156 (E-504): the regression control. The demonstrators' sessions as E-389 ran them (W-120's harness,
+# `../w120/sessions.sh`), on julia-next: the report (TraitCSV, TraitTables, TraitMakie: `../w135/apps/report.jl`
+# on the task's file) and the table session (TraitCSV, TraitTables: `../w135/apps/table.jl`, 500 rows). Each a
+# fresh process with one thread, niced; a warm-up (it writes the packages' images where they are stale) and N
+# runs; the marks of `../w120/session_marks.jl`; what the session compiles, by class (`../w120/classify_trace.py`
+# on the last run's trace).
+#     bash sessions.sh <tag> [N]        -> logs/sessions-<tag>.log, logs/<app>-<tag>.trace
+set -u
+H=$(cd "$(dirname "$0")" && pwd); source "$H/env.sh"
+tag=$1; N=${2:-3}
+U=$H/..; ENVD=$H/env_demo; LOG=$H/logs/sessions-$tag.log
+rev() { git -C "$TW_ROOT/$1" log -1 --format=%h; }
+D=$(mktemp -d); awk 'BEGIN { print "id,x,y,name"; for (i = 1; i <= 500; i++) printf "%d,%.3f,%.3f,n%d\n", i, i*0.1, 100-i*0.05, i%7 }' > "$D/t.csv"
+CSV=$TW_ROOT/experiments/interfaces/App/data/sample.csv
+echo "# W-156 sessions $tag $(date -Is) load $(cut -d' ' -f1-3 /proc/loadavg) | julia-next $(rev julia-next) TraitWorld $(rev TraitWorld) TraitTables $(rev TraitTables) TraitCSV $(rev TraitCSV) TraitMakie $(rev TraitMakie)" | tee "$LOG"
+for app in report table; do
+  if [ $app = report ]; then args="$CSV $D/r.png"; else args="$D/t.csv"; fi
+  for r in $(seq 0 $N); do
+    s=$(date +%s.%N)
+    line=$(VERIFY=0 nice -n 10 $JN -t 1 --startup-file=no --project=$ENVD --trace-compile=$H/logs/$app-$tag.trace --trace-compile-timing $U/w120/session_marks.jl $U/w135/apps/$app.jl $args 2>/dev/null | grep "^load " | tail -1)
+    e=$(date +%s.%N)
+    [ $r = 0 ] && continue
+    echo "$app run $r: wall $(echo "$e - $s" | bc | cut -c1-5) s | $line" | tee -a "$LOG"
+  done
+  python3 $U/w120/classify_trace.py $H/logs/$app-$tag.trace | sed "s|$TW_ROOT/||" | tee -a "$LOG"
+done
+echo "# load after $(cut -d' ' -f1-3 /proc/loadavg)" | tee -a "$LOG"
+rm -rf "$D"
+# the compiled instances the session's packages hold after one run of `main` (instances.jl)
+D=$(mktemp -d); awk 'BEGIN { print "id,x,y,name"; for (i = 1; i <= 500; i++) printf "%d,%.3f,%.3f,n%d\n", i, i*0.1, 100-i*0.05, i%7 }' > "$D/t.csv"
+for app in report table; do
+  if [ $app = report ]; then args="$CSV $D/r.png"; else args="$D/t.csv"; fi
+  nice -n 10 $JN -t 1 --startup-file=no --project=$ENVD $H/instances.jl $U/w135/apps/$app.jl $args 2>/dev/null | grep '^instances' | sed "s/^/$app /" | tee -a "$LOG"
+done
+rm -rf "$D"

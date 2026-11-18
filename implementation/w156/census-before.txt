@@ -1,0 +1,88 @@
+# W-156 census 2026-11-18T14:24:28+01:00: the attribute's surface in the demonstrators (census.sh)
+# TraitTables unified 7eb82b7
+# TraitCSV unified f296d0e
+# TraitReport unified 2a81de6
+# TraitMakie unified efc3ec0
+# TraitDifferentialEquations unified 0816231
+# forks unified b8cab0b
+surface TraitTables/README.md:21: - Not yet on the design's one way to erase: the table's loops cast a column with `compiled_for(…)` at a call of a method at `Column` (`src/TableCore.jl`, three calls in `rows`, `sortby`, `describe`; `src/TraitTables.jl`, one i
+cast    TraitTables/src/TableCore.jl:75:         push!(cols, take(compiled_for(c), idx))
+cast    TraitTables/src/TableCore.jl:90: sortby(t::Table, name::String) = rows(t, sortperm_col(compiled_for(column(t, name)))::Vector{Int})
+cast    TraitTables/src/TableCore.jl:188:         push!(out, summarize(compiled_for(t.cols[k]), t.names[k])::ColSummary)
+prose   TraitTables/src/TableCore.jl:6: #     where the table's loops cast the column with `compiled_for` (traits §7.6).
+prose   TraitTables/src/TableCore.jl:163: A column's summary, compiled per column type where the caller casts it. The cell type is named from
+cast    TraitTables/src/TraitTables.jl:52:     TableCore.floats(compiled_for(TableCore.column(t, String(name))), skipmissing)::Vector{Float64}
+surface TraitTables/test/runtests.jl:51:     @test isempty(detect_unused_casts(TraitTables))
+prose   TraitTables/test/runtests.jl:49: # a cast or a carried attribute at a parameter no trait types has no effect (open issue 162)
+surface TraitCSV/README.md:19: - Not yet on the design's one way to erase: the reader casts each candidate column with `compiled_for(emptylike(c))` at the call of `fillcolumn` (`src/CSVCore.jl`), and the tests call `detect_unused_casts` (`test/runtests.jl`). T
+cast    TraitCSV/src/CSVCore.jl:123:             col = fillcolumn(compiled_for(emptylike(c)), s, spans[k])    # the column type's code
+prose   TraitCSV/src/CSVCore.jl:9: #     compiled per column type, where the reader casts the column with `compiled_for`.
+surface TraitCSV/test/runtests.jl:37:     @test isempty(detect_unused_casts(TraitCSV))
+prose   TraitCSV/test/runtests.jl:35: # a cast or a carried attribute at a parameter no trait types has no effect (open issue 162)
+surface TraitReport/README.md:31: - Not yet on the design's one way to erase: the REPL session checks that a sorted column is a `Kept{Column}` (`scripts/session.jl`). Form (t) runs on TraitTables and TraitCSV, which cast with `compiled_for(…)`. This is recorde
+surface TraitReport/scripts/session.jl:36: r = sortby(s, "ramp");   # the sorted table's columns are new, each kept with its attribute (a Kept{Column})
+surface TraitReport/scripts/session.jl:37: _ok("a new column type", describe(s)[end].mean == 0.5 * (nrow(s) + 1) / 2 && r["ramp"] isa Kept{Column} && floats(r, "ramp") == 0.5 .* (1:nrow(s)))
+surface TraitMakie/README.md:20: - Not yet on the design's one way to erase: the tests call `detect_unused_casts` and `detect_kept_storage` (`test/runtests.jl`), and the REPL session's recipe declares `setcolor!` at `Kept{ColorSpec}` (`scripts/session.jl`). Th
+surface TraitMakie/scripts/session.jl:40: TraitMakie.PlotCore.setcolor!(l::Lollipop, c::Kept{ColorSpec}) = (l.tips.color = c; nothing)
+prose   TraitMakie/src/PlotCore.jl:652: recolor!(ax::Axis, k::Int, @nospecialize(c::ColorSpec)) = setcolor!(ax.plots[k], c)   # Dynamic unless the caller casts
+prose   TraitMakie/src/PlotCore.jl:658: "Add an axis in cell (`row`, `col`) with scales of any conforming type: `Dynamic` unless the caller casts them."
+prose   TraitMakie/src/PlotCore.jl:666: "Add a plot of any conforming type (a user's recipe) to the axis: `Dynamic` unless the caller casts it."
+prose   TraitMakie/src/PlotCore.jl:669: # caller casts them; each returns the plot, kept in the axis
+surface TraitMakie/test/runtests.jl:223:     @test isempty(detect_unused_casts(TraitMakie))
+surface TraitMakie/test/runtests.jl:224:     @test isempty(detect_kept_storage(TraitMakie.PlotCore))     # no `keep` into storage typed by a trait (traits §7.8)
+prose   TraitMakie/test/runtests.jl:221: # a cast or a carried attribute at a parameter no trait types has no effect (open issue 162)
+surface forks/CSV/src/CSV.jl:17: using TraitWorld: Dynamic, compiled_for   # the writer's fallback columns (write.jl, E-217)
+surface forks/CSV/test/runtests.jl:10: using TraitWorld: detect_unused_casts
+surface forks/CSV/test/runtests.jl:23:         @test isempty(detect_unused_casts(CSV))
+prose   forks/CSV/test/runtests.jl:21:     # a cast or a carried attribute at a parameter no trait types has no effect (open issue 162)
+surface forks/DataFrames/src/DataFrames.jl:23: using TraitWorld: TraitWorld, Dynamic, @trait_module, @implement, compiled_for
+surface forks/DataFrames/test/runtests.jl:32: unused_casts_vec = DataFrames.TraitWorld.detect_unused_casts(DataFrames)
+prose   forks/DataFrames/test/runtests.jl:31: # a cast or a carried attribute at a parameter no trait types has no effect (open issue 162)
+prose   forks/README.md:21: - Not yet on the design's one way to erase: `byrow`'s docstring offers `compiled_for(f)` as the cast that compiles the loop per function (`Tables/src/ColumnCore.jl`); DataFrames and CSV import the library's casts (`DataFrames/src/Da
+surface forks/Tables/test/runtests.jl:2: using TraitWorld: detect_unused_casts
+surface forks/Tables/test/runtests.jl:6:     @test isempty(detect_unused_casts(Tables))
+prose   forks/Tables/test/runtests.jl:4: # a cast or a carried attribute at a parameter no trait types has no effect (open issue 162)
+cast    forks/scripts/d3_refcodes.jl:15: println("R refcodes opened   ", round(bench(() -> K.refcodes(compiled_for(d), false, true)); digits = 2), " ms")
+cast    forks/scripts/d3_refcodes.jl:18: println("R nrows(opened)     ", round(bench(() -> K.nrows(compiled_for(d))) * 1e3; digits = 2), " µs")
+cast    forks/scripts/m7_stage_split.jl:23:     plainstage!(st, v, 1, n, o); C.ColumnParsers.stagecells!(st, compiled_for(d), 1, n, o)
+cast    forks/scripts/m7_stage_split.jl:25:     tk = minimum(@elapsed(C.ColumnParsers.stagecells!(st, compiled_for(d), 1, n, o)) for _ in 1:50)
+cast    forks/scripts/m7_stage_split.jl:31:     st = C.ColStage(); d = Tables.ColumnCore.tocolumn(v); cd = compiled_for(d)
+surface TraitDifferentialEquations/README.md:25: - Not yet on the design's one way to erase: `kept_interpolant` keeps a solver's steps with `keep` (`lib/ODECore/src/core.jl`); `Rodas5`'s docstring describes the cast `with_dynamic(ls)` (`lib/TraitRodas/src/roda
+surface TraitDifferentialEquations/lib/ODECore/src/ODECore.jl:11: @trait_module first_seen = false
+surface TraitDifferentialEquations/lib/ODECore/src/core.jl:40:        Interpolant, interpolate, Tsit5Steps, push_step!, dense_step, kept_interpolant
+surface TraitDifferentialEquations/lib/ODECore/src/core.jl:237: kept_interpolant(::Nothing) = nothing
+surface TraitDifferentialEquations/lib/ODECore/src/core.jl:238: kept_interpolant(d::Interpolant{U,Float64}) where {U} = keep(d)
+surface TraitDifferentialEquations/lib/ODECore/src/core.jl:1094:     core_solution(i) = CoreSolution{T}(i.ts, i.us, _retcode(i), i.naccept, i.nreject, i.nf, kept_interpolant(_steps(i.dense)))
+prose   TraitDifferentialEquations/lib/ODECore/src/core.jl:11: #     so a new callback compiles nothing in the solver unless the caller casts it with `compiled_for`,
+prose   TraitDifferentialEquations/lib/ODECore/src/core.jl:516: attribute (traits reference §7.4). For a problem type that implements `ODEProblemTrait` itself, its
+prose   TraitDifferentialEquations/lib/ODECore/src/core.jl:627: # through casts and kept values; a value of both traits is a continuous one
+prose   TraitDifferentialEquations/lib/ODECore/src/core.jl:805: counts, and the problem it solves, kept with its attribute (`sol.prob`, a field typed `ODEProblemTrait{T, P}`). Its
+prose   TraitDifferentialEquations/lib/ODECore/src/frontend.jl:14: types are known, at `Callable`'s default, `Dynamic` (a cast on a function inside the record does not reach
+prose   TraitDifferentialEquations/lib/ODECore/src/frontend.jl:134: the problem with their attributes (a compiled function stays compiled) and entered again at the new problem's
+surface TraitDifferentialEquations/lib/TraitArrayTools/src/TraitArrayTools.jl:12: @trait_module first_seen = false
+surface TraitDifferentialEquations/lib/TraitImplicit/src/TraitImplicit.jl:10: @trait_module first_seen = false
+surface TraitDifferentialEquations/lib/TraitIndexing/src/TraitIndexing.jl:16: @trait_module first_seen = false
+surface TraitDifferentialEquations/lib/TraitLinSolvers/src/TraitLinSolvers.jl:10: @trait_module first_seen = false
+surface TraitDifferentialEquations/lib/TraitNLSolvers/src/TraitNLSolvers.jl:10: @trait_module first_seen = false
+surface TraitDifferentialEquations/lib/TraitNonlinearSolve/src/TraitNonlinearSolve.jl:18: @trait_module first_seen = false
+prose   TraitDifferentialEquations/lib/TraitNonlinearSolve/src/problems.jl:119: # `Callable`'s default, `Dynamic` (the front end takes no cast: open issue 159)
+prose   TraitDifferentialEquations/lib/TraitNonlinearSolve/src/problems.jl:285: attribute (`sol.prob`, a field typed `NonlinearProblemTrait{T, P}`: no axis for its function or type), and the system
+prose   TraitDifferentialEquations/lib/TraitNonlinearSolve/src/solvers.jl:206: A polyalgorithm: its members (any `NonlinearAlgorithm`s, kept with their attributes, so its type has no axis for
+surface TraitDifferentialEquations/lib/TraitRodas/src/TraitRodas.jl:10: @trait_module first_seen = false
+surface TraitDifferentialEquations/lib/TraitRodas/src/TraitRodas.jl:18:                kept_interpolant, _steps, save_step!, save_state!
+surface TraitDifferentialEquations/lib/TraitRodas/src/rodas5.jl:8: compiled per linear solver, or `with_dynamic(ls)`, compiled once for every linear solver.
+surface TraitDifferentialEquations/lib/TraitRodas/src/rodas5.jl:168:                                              kept_interpolant(_steps(i.dense)))
+prose   TraitDifferentialEquations/lib/TraitRodas/src/rodas5.jl:80: "Enter the plain function `f` at the duals of chunk `N` (`f` as given: a cast or a kept value keeps its attribute)."
+cast    TraitDifferentialEquations/scripts/session.jl:36:     (:trait, "s2c = solve(ODEProblem(compiled_for(rossler!), r0, (0.0, 10.0), rp), Tsit5()); check(\"compiled mode\", s2c.u == s2.u)"),
+cast    TraitDifferentialEquations/scripts/session.jl:72:     (:trait, "s10 = solve(prob, Tsit5()); s10c = solve(ODEProblem(compiled_for(rossler!), r0, (0.0, 10.0), rp), Tsit5())"),
+surface TraitDifferentialEquations/src/TraitDifferentialEquations.jl:15: @trait_module first_seen = false
+surface TraitDifferentialEquations/test/compiledcall.jl:18:     # a stored function, `Dynamic{Callable{…}}`, and the caller's `with_dynamic`
+surface TraitDifferentialEquations/test/compiledcall.jl:21:     @test solve(ODEProblem(with_dynamic(lorenz!), U0, (0.0, 1.0), P0), Tsit5()).u == solve(prob, Tsit5()).u
+surface TraitDifferentialEquations/test/compiledcall.jl:22:     @test solve(ODEProblem(with_dynamic(lorenz!), U0, (0.0, 1.0), P0), Rodas5()).u == solve(prob, Rodas5()).u   # the Jacobian at the duals, Dynamic too
+prose   TraitDifferentialEquations/test/compiledcall.jl:31:     # the attribute is a choice of speed, never of correctness: Float32 states, Rodas5 and gradients
+prose   TraitDifferentialEquations/test/r2.jl:40:     # through ODEFunction, and through a cast of the model
+prose   TraitDifferentialEquations/test/r3.jl:22:     # a record's functions at `Callable`'s default: a cast inside `ODEFunction` reaches neither it nor the problem
+prose   TraitDifferentialEquations/test/r3.jl:23:     # (open issue 159; lowering L-56 refuses a cast in a call with keyword arguments)
+surface TraitDifferentialEquations/test/runtests.jl:128:     @test isempty(detect_unused_casts(TraitDifferentialEquations))
+surface TraitDifferentialEquations/test/runtests.jl:129:     @test isempty(detect_kept_storage(TraitDifferentialEquations.ODECore))     # no `keep` into storage typed by a trait (traits §7.8)
+prose   TraitDifferentialEquations/test/runtests.jl:126: # a cast or a carried attribute at a parameter no trait types has no effect (open issue 162)
