@@ -1,0 +1,16 @@
+# The stage gates that `run_all.sh <tree>` runs after the gates in force (gates/README.md, "The stage gates").
+# One line per gate: the script's path relative to experiments/implementation/, its project, and flags.
+#   project: none (no --project), stub (experiments/implementation, the stub library), TraitWorld (the library's tree)
+#   flags:   verdict  the script exits 0 either way; its last line must hold ": OK"
+#            long     more than about two minutes; run only with ALL=1
+#            runs     asserts nothing: it prints what it measures, and passes if it runs
+# path                              project      flags
+w155/gate_deep.jl                   none
+w155b/gate_d11.jl                   TraitWorld   verdict
+w160/check/new_fold.jl              TraitWorld
+w160/check/stores.jl                TraitWorld   runs
+w160/check/kept_own.jl              stub
+w160/check/mistakes.jl              TraitWorld   runs
+w161/merge/delete_forwarder.jl      TraitWorld
+w161/d2/gate.jl                     TraitWorld
+w161/d4/op150.jl                    TraitWorld

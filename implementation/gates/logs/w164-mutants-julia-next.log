@@ -1,0 +1,10 @@
+# W-164 mutants on julia-next 2026-11-18T11:36:58+01:00 load 13.06 8.99 11.42 | julia-next a5bd871cce* | TraitWorld 3e64ede
+FAILS as it should n8_callable: uppercase, with no method at Int, is no member (the replaced rule: membership by methods) | ERROR: LoadError: AssertionError: !(typeof(uppercase) <: C{Tuple{Int}, Int})
+FAILS as it should n8_callable: a method definition begins a membership | ERROR: LoadError: AssertionError: probe(newf) && ci.max_world != typemax(UInt)
+FAILS as it should n8_callable_box: a wrapper's call outside A raises (the replaced rule: A checked under every attribute) | ERROR: LoadError: AssertionError: the wrapper's call is the function's own: not asserted to A
+FAILS as it should n8_callable_box: a box's result is converted | ERROR: LoadError: TypeError: in Callable, expected Float64, got a value of type Int64
+FAILS as it should n26_callable_late_method: a function without a method at A takes apply2(::Any) (the replaced rule: no member) | ERROR: LoadError: AssertionError: outcome(L.callit) === :any
+FAILS as it should n26_callable_late_method: the method at A leaves the code that relied on its absence | ERROR: LoadError: AssertionError: ci.max_world == typemax(UInt)
+FAILS as it should n20_unmet_lookup: All{AbstractString, Callable} is met by a call method (the replaced rule) | ERROR: LoadError: AssertionError: !(unmet(AC20))
+FAILS as it should n22_declared_assert: a method's declared result is read at the set (the replaced rule) | ERROR: LoadError: AssertionError: a method's declared result is no operation's: Any[Any]
+FAILS as it should n22_declared_assert: the result is converted | ERROR: LoadError: TypeError: in typeassert, expected Int64, got a value of type UInt64

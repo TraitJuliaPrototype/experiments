@@ -1,0 +1,30 @@
+# W-164 the two TraitWorld gates on julia-unified with the tag's library: LIB=TraitWorld-base 2026-11-18T11:40:05+01:00 load 9.33 9.13 11.06 | TraitWorld-base e11c7cc
+FAIL n8_callable_box.jl (exit 1)
+    ERROR: LoadError: UndefVarError: `ByType` not defined in `TraitWorld`
+    Suggestion: check for spelling errors or missing imports.
+    Stacktrace:
+     [1] getproperty(x::Module, f::Symbol)
+       @ Base ./Base_compiler.jl:50
+     [2] top-level scope
+       @ /p/projects/coen/julia-trait-bound/experiments/implementation/gates/n8_callable_box.jl:13
+     [3] include(mod::Module, _path::String)
+       @ Base ./Base.jl:315
+     [4] exec_options(opts::Base.JLOptions)
+       @ Base ./client.jl:344
+     [5] _start()
+       @ Base ./client.jl:577
+    in expression starting at /p/projects/coen/julia-trait-bound/experiments/implementation/gates/n8_callable_box.jl:13
+gates: 0 passed, 1 failed
+FAIL n26_callable_late_method.jl (exit 1)
+    ERROR: LoadError: AssertionError: typeof(L.nf) <: C{Tuple{Int}, Int}
+    Stacktrace:
+     [1] top-level scope
+       @ /p/projects/coen/julia-trait-bound/experiments/implementation/gates/n26_callable_late_method.jl:36
+     [2] include(mod::Module, _path::String)
+       @ Base ./Base.jl:315
+     [3] exec_options(opts::Base.JLOptions)
+       @ Base ./client.jl:344
+     [4] _start()
+       @ Base ./client.jl:577
+    in expression starting at /p/projects/coen/julia-trait-bound/experiments/implementation/gates/n26_callable_late_method.jl:36
+gates: 0 passed, 1 failed

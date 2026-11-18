@@ -3,7 +3,8 @@
 # specificity and however many matches there are, and reports the pair's final cell, which the caller
 # records: a membership that meets the intersection invalidates it. Every set is such a set, and a
 # pair of Main is settled as a loaded package's is (W-140).
-# A `Callable` component is met (its members are methods), and a `Vararg` tail is met by its empty tail.
+# A `Callable` component is a set as any (compiler §7.4, W-164): met only by a type declared in both, never by
+# a call method; and a `Vararg` tail is met by its empty tail.
 # Reflection (`Base.isambiguous`) reports no ambiguity over an intersection with no value.
 # Two of its memberships meet such an intersection and make a real ambiguity (`k9`, `w1`): the report
 # at the membership warns for each (compiler §5.4, E-347).
@@ -114,16 +115,37 @@ Traits.declare_membership(P20.S20, P20.X20, P20)
 @assert ci.max_world != typemax(UInt) "the membership meets the intersection: the fold is invalidated"
 @assert !unmet(Tuple{typeof(P20.w2), Core.All{Tuple{AbstractString, P20.X20}}, UInt8})
 
-# (5) a `Callable` component is met: its members are the types whose methods match it (C-82)
+# (5) a `Callable` component is a set as any (compiler §7.4, W-164): its members are declared, every `Function` by
+# Core's entry and a callable type by `@implement Callable T`, never by a call method. A type of `AbstractString`
+# with a call method is no member: `All{AbstractString, Callable}` is unmet, and the lookup at `(Callable, Int)`
+# drops the match at `AbstractString`. Its declaration meets the intersection: the ambiguity returns, and code
+# compiled before it answers as dispatch does
 struct MyS20 <: AbstractString end
 (s::MyS20)(x) = 1
 f20(::AbstractString, xs...) = :str
 f20(::Core.Callable, ::Int) = :callable
-@assert !unmet(Tuple{typeof(f20), Core.All{Tuple{AbstractString, Core.Callable}}, Int}) "All{AbstractString, Callable} is met"
+const AC20 = Tuple{typeof(f20), Core.All{Tuple{AbstractString, Core.Callable}}, Int}
+@assert !(MyS20 <: Core.Callable) "a call method makes no membership"
+@assert unmet(AC20) "All{AbstractString, Callable} is unmet before a declaration"
+let r = lookup(Tuple{typeof(f20), Core.Callable, Int})
+    @assert length(r.matches) == 1 && only(r.matches).method === which(f20, (Core.Callable, Int)) "the match at AbstractString dropped: $(r.matches)"
+    # EXPECTED FAILURE on `next` a5bd871cce (found by W-164, no deviation row yet): the lookup that dropped the
+    # match still reports an ambiguity, at `Callable` (bare or an instance) and at a bare parametric set, where at
+    # a set without parameters (cases (1), (2)) and at a parametric set's instance it reports none; the caller's
+    # call then stays dynamic. The check asserts the defect, so that its fix fails here: then assert `!r.ambig`
+    @assert r.ambig "the defect is fixed: assert !r.ambig here and retire this expected failure"
+    println("n20_unmet_lookup: expected failure: the lookup at (Callable, Int) drops the unmet match and still reports an ambiguity")
+end
+mk20 = which(f20, (AbstractString, Int)); mc20 = which(f20, (Core.Callable, Int))
+@assert !Base.isambiguous(mk20, mc20) "no value at All{AbstractString, Callable} yet"
+g20(@nospecialize(x::Core.Callable)) = f20(x, 1)
+@assert g20(sin) === :callable && f20(MyS20(), 1) === :str
+@assert (try g20(MyS20()); :none catch e; typeof(e) end) === MethodError "no member: g20 takes no MyS20"
+declare_membership(MyS20, Core.Callable, @__MODULE__)    # @implement Callable MyS20: every instance
+@assert MyS20 <: Core.Callable{Tuple{Int}, Int} && !unmet(AC20) "MyS20 is in both"
 @assert lookup(Tuple{typeof(f20), Core.Callable, Int}).ambig "the lookup at (Callable, Int) is ambiguous"
-g20(x::Core.Callable) = f20(x, 1)
 @assert (try g20(MyS20()); :none catch e; typeof(e) end) === (try f20(MyS20(), 1); :none catch e; typeof(e) end) === MethodError "compiled code and dispatch agree"
-@assert Base.isambiguous(which(f20, (AbstractString, Int)), which(f20, (Core.Callable, Int))) "reflection reports the Callable pair"
+@assert Base.isambiguous(mk20, mc20) "reflection reports the Callable pair"
 
 # (6) a `Vararg` tail is met by its empty tail
 w7(::Int, ::X9...) = 1

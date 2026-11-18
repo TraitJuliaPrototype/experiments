@@ -1,0 +1,42 @@
+# W-164 run_all.sh with a pattern, julia-next 2026-11-18T11:40:50+01:00 load 23.03 12.70 12.18 (after the fix for a name with no glob)
+## 'm1_*'
+PASS m1_audit_probes.jl
+PASS m1_compiled_isa.jl
+PASS m1_late_implement.jl
+PASS m1_late_open_stale.jl
+PASS m1_no_wrappers.jl
+PASS m1_open_family_fold.jl
+PASS m1_parametric_member.jl
+PASS m1_parametric_set.jl
+PASS m1_typevalue_isa.jl
+PASS m1_union_isa.jl
+PASS m1_worlds_minworld.jl
+gates: 11 passed, 0 failed
+# exit 0
+## n20_unmet_lookup
+PASS n20_unmet_lookup.jl
+gates: 1 passed, 0 failed
+# exit 0
+## m3_g2_bit (not in force: the fallback; it fails, as the README says)
+(not gates in force: not-in-force/m3_g2_bit.jl)
+FAIL m3_g2_bit.jl (exit 1)
+      [4] require
+        @ ./loading.jl:2494 [inlined]
+      [5] eval_import_path
+        @ ./module.jl:36 [inlined]
+      [6] _eval_import(imported::Bool, to::Module, from::Nothing, paths::Expr)
+        @ Base ./module.jl:111
+      [7] top-level scope
+        @ /p/projects/coen/julia-trait-bound/experiments/implementation/gates/not-in-force/m3_g2_bit.jl:6
+      [8] include(mod::Module, _path::String)
+        @ Base ./Base.jl:318
+      [9] exec_options(opts::Base.JLOptions)
+        @ Base ./client.jl:344
+     [10] _start()
+        @ Base ./client.jl:577
+    in expression starting at /p/projects/coen/julia-trait-bound/experiments/implementation/gates/not-in-force/m3_g2_bit.jl:6
+gates: 0 passed, 1 failed
+# exit 1
+## no_such_gate
+gates: 0 passed, 0 failed
+# exit 0

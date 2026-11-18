@@ -1,13 +1,85 @@
-# Gate scripts
+# The gates
 
-Run against a built tree, from the workspace root, one Julia process per gate:
+A gate is a Julia script that asserts a rule of the references on a built tree: it prints `<name>: OK` and exits 0, or
+asserts. One Julia process per gate, niced, 4 cores (`source env.sh` first).
 
-    experiments/implementation/gates/run_all.sh julia-unified 'm[12]_*'
+## How to run
 
-The stub library is `../src/Traits.jl` (`@trait X`, `@implement X S`).
+    experiments/implementation/gates/run_all.sh julia-next             # every gate in force, then every stage gate
+    ALL=1 experiments/implementation/gates/run_all.sh julia-next       # the same, the long stage gates too (none now)
+    experiments/implementation/gates/run_all.sh julia-next 'm[12]_*'   # the gates in force that match a pattern: '[nf]*', 'n20_*'
+    LIB=TraitWorld-base experiments/implementation/gates/run_all.sh julia-unified   # another tree of the library
 
-Scripts print `<name>: OK` on success and assert otherwise. The M-number in the
-file name is the milestone whose gate it belongs to:
+- One line per gate: `PASS name`, or `FAIL name (exit n)` with the last lines of its output. Then the tallies:
+  `gates: …` for the gates in force and, without a pattern, `stage gates: …`. Exit status 1 if any failed.
+- **"The gates pass"** means this command without a pattern: every gate in force and every stage gate
+  (playbook §3, open issue 237).
+- A pattern that matches no gate in force is looked up in `not-in-force/` and `retired/`, so that the scripts of
+  earlier experiments that name such a file still run it.
+
+## What is in force
+
+- **The gates in force** are the files `*.jl` in this directory, but `util.jl` (shared probes): 72 files, `m1_*` and
+  `m2_*` (the type system and dispatch, 30), `n*` (35) and `f*` (7). The list is below.
+- **The project.** A gate runs with the stub library of `../src/Traits.jl` (`--project=experiments/implementation`:
+  `@trait X`, `@implement X S`, `declare_membership`; no contract checks, no fields, no operations as entries). A gate
+  whose header has the line `# project: TraitWorld` runs with the library's tree (`--project=TraitWorld`), since its
+  rule is the library's: `n8_callable_box.jl`, `n26_callable_late_method.jl`.
+- **Expected failures inside a gate.** Two gates assert a defect of `next` a5bd871cce that has no deviation row yet,
+  so that its fix fails the gate and the check is flipped (found by W-164; the main session records them):
+  - `n8_callable.jl`: two methods at `Callable` instances that differ only in `A` or `S` do not tie (traits §9,
+    compiler §7.4 say they tie at every function). The intersection of two instances at other input values is
+    `Union{}`, by the parameters' invariance, though every function is in both; dispatch takes one method
+    (`apply(abs, 1) === :string`) and reflection reports no ambiguity. The same holds for any parametric set with a
+    member of every instance (`@implement Z S` at the bare name: `h(::Z{1})`, `h(::Z{2})`, `h(S())` takes one).
+  - `n20_unmet_lookup.jl` (5): the lookup at `(Callable, Int)` drops the match met only at the unmet
+    `All{AbstractString, Callable}`, and still reports an ambiguity, so the caller's call stays dynamic. The same at
+    a bare parametric set (`Z`); not at a set without parameters (cases (1), (2)), nor at a parametric set's
+    instance (`Z{1}`).
+- **The stage gates** are the gates of each stage of the running iteration, kept in the stage's directory and
+  listed in `stage_gates.txt`, one line each: the path relative to `experiments/implementation/`, the project
+  (`none`, `stub`, `TraitWorld`) and flags (`verdict`: the script exits 0 either way and its last line must hold
+  `: OK`; `long`: run only with `ALL=1`; `runs`: it asserts nothing, it prints what it measures and passes if it
+  runs).
+
+  | Stage gate | What it holds | Project |
+  |---|---|---|
+  | `w155/gate_deep.jl` | D-5: the G2 bit is the deep class (compiler §3.2; E-417) | none |
+  | `w155b/gate_d11.jl` | D-11: a membership adds no type equality inside an invariant parameter (compiler §4.5; E-456) | TraitWorld, verdict |
+  | `w160/check/new_fold.jl` | E-436: the fold at `new` records its edge, a non-member is still refused (compiler §4.8) | TraitWorld |
+  | `w160/check/stores.jl` | E-441: whether a store into storage typed by the trait queries the membership when it runs | TraitWorld, runs |
+  | `w160/check/kept_own.jl` | E-444: the walk replays a method at a bound the signature sets, at its own signature (compiler §5.5) | stub |
+  | `w160/check/mistakes.jl` | E-440: E-401's mistakes, read at the box | TraitWorld, runs |
+  | `w161/merge/delete_forwarder.jl` | E-496: code that decided a positive membership ends when the membership is taken back | TraitWorld |
+  | `w161/d2/gate.jl` | E-500, D-2: `Callable` is a contract at the box (traits §9; compiler §7.4) | TraitWorld |
+  | `w161/d4/op150.jl` | E-498, D-4: an operation is an entry, an untyped method serves it (traits §4.1; open issue 150) | TraitWorld |
+
+  Not listed: `w161/d4/mistakes.sh` (E-498, fifteen processes and a table, no verdict) and the suites of
+  `w161/suites.sh` (the library's, the ports', Julia's test files).
+- **Retired gates** go to `retired/`, with a line here: which rule replaced the gate's and which gate holds it.
+  None is retired: W-164 rewrote each of the four gates that asserted a replaced rule.
+- **Not in force: `not-in-force/m3_*.jl`** (9). The earlier attempt's later stages (the facts policy and the record:
+  run-time sites and effects, the record's kinds, the G2 bit and counts, fold records, an image round trip, the
+  ambiguity report with dominance, the test bed `all`). They call the session marks `Compiler.mark_facts!` and
+  `mark_concrete!`, which the module option and the method flag replaced, and need packages this project lacks;
+  they fail when run. Each is re-judged at the stage that takes up its subject. `m3_ambiguity_dominance.jl` pins a
+  rule the references do not have (a fixed-arity method at one set beating a `Vararg` at another; compiler §5.2
+  leaves two unrelated sets unordered, and dispatch raises at the member). Their `include` names `../util.jl`.
+
+## Results
+
+| Date | Build | What | Result |
+|---|---|---|---|
+| 2026-11-18 | `next` a5bd871cce (the binary reports `a5bd871cce*`), TraitWorld `unified` 51e3a86; load 4 to 13 of 128 | `run_all.sh julia-next` (W-164) | gates in force 72 of 72; stage gates 9 of 9; 120 s (`logs/w164-julia-next.log`) |
+| 2026-11-18 | `unified` 8fccf1e182 (the tag `prototype-2026-11`), TraitWorld `unified` 3e64ede | `run_all.sh julia-unified` (W-164) | gates in force 67 of 72: `n8_callable`, `n20_unmet_lookup`, `n22_declared_assert` fail at the replaced rule's assertion, `n8_callable_box` and `n26_callable_late_method` because the library's head does not load there; stage gates 0 of 9 (the library's head does not load; `gate_deep` fails 5 checks, `kept_own` 4 of 4 callers ended: the rules of D-5 and E-444); 142 s (`logs/w164-julia-unified.log`) |
+| 2026-11-18 | `unified` 8fccf1e182 with the tag's library (`LIB=TraitWorld-base`, e11c7cc) | the two gates run with the library | `n26_callable_late_method` fails at the replaced rule (`typeof(nf) <: Callable{Tuple{Int}, Int}` is false there); `n8_callable_box` cannot run (`TraitWorld.ByType` is missing) (`logs/w164-julia-unified-traitworld-base.log`) |
+| 2026-11-18 | `next` a5bd871cce | `run_all.sh` with a pattern, as its callers run it: `'m1_*'`, a single name, a name not in force | 11 of 11; 1 of 1; `m3_g2_bit` found in `not-in-force/` and run (it fails); an unknown name runs nothing (`logs/w164-pattern-julia-next.log`) |
+| 2026-11-18 | `next` a5bd871cce, TraitWorld 3e64ede | one wrong assertion per rewritten case, the replaced rule's answer (`logs/w164_mutants.sh`) | 9 of 9 fail on the head, as they should (`logs/w164-mutants-julia-next.log`) |
+
+## The gates in force
+
+The M-number in a file name is the milestone or stage whose gate it is. A gate without an entry here says what it
+gates in its header comment.
 
 - `m1_late_implement.jl`  — late membership appears only in newer worlds
 - `m1_compiled_isa.jl`    — code compiled before the membership answers both
@@ -56,11 +128,8 @@ file name is the milestone whose gate it belongs to:
   the policy of the code that reaches a boundary by each way of calling, and a session under the test
   bed (§2.3–§2.5), the flag carried into keyword sorters and positional forwarders (C-43), positive
   memberships in the record and the code's worlds from their entries' (§3.1, §4.8)
-- `m3_*.jl`                — the earlier attempt's later stages; not run. Each is re-judged
-  at the stage that takes up its subject. `m3_ambiguity_dominance.jl` pins a rule the
-  references do not have (a fixed-arity method at one set beating a `Vararg` at another;
-  compiler §5.2 leaves two unrelated sets unordered, and dispatch raises at the member).
-- `util.jl`               — CI walker (`Base.specializations` + `ci.next`)
+- `util.jl`               — shared probes: a function's CodeInstances, the current world, the absence edges a
+  CodeInstance holds
 - `n6_attribute.jl` — W-111: each trait argument's attribute by the five steps of traits §7.5 (the
   runtime at a dynamic call, inference at a static one), the casts and `Core.attributed_call`, `keep`,
   the run-time site that passes `Dynamic` on, the reserved names, identical results
@@ -68,22 +137,56 @@ file name is the milestone whose gate it belongs to:
   the membership invalidates the caller whose selection it changes, an older world keeps the old
   answer; a caller matched through the type's own supertypes stays valid; a method at a set defined
   later invalidates no caller at a non-member; the call's own result; the facts mode
+- `n8_callable.jl` — W-113, rewritten by W-164 (stub): `Callable{A, S}`'s memberships are entries (compiler
+  §4.3, §7.4 "Memberships"; traits §9): every `Function` a member of every instance, whatever its methods; a
+  callable type that is no `Function` only by its declaration (`@implement Callable T`, lowering §9); a method's
+  definition or deletion begins or ends no membership and ends no code compiled on the answer; the builtins' types
+  never members (compiler §4.1); a method at `Callable` takes every function; E-267's question answered from the
+  entries in either order. The tie of two methods that differ only in `A` or `S`: an expected failure (above).
+  *Catches:* membership by methods (`uppercase` no member at `Tuple{Int}`), a method definition that changes an
+  answer. *Shown:* it fails on the tag's Julia (`logs/w164-julia-unified.log`), and its wrong assertions fail on
+  the head (`logs/w164-mutants-julia-next.log`).
+- `n8_callable_box.jl` — W-164 (TraitWorld), W-113's cases that the box holds today (traits §9; compiler §6.3,
+  §7.4 "The check at the box"): a plain function boxed, the box refused at the call that passes a function with no
+  method at `A`, also at `A` fixed by another argument; the result asserted to `S`, never converted, returned or
+  used, the function a constant of the caller, `S` at the method's variable; a box's call outside `A` raises; a
+  wrapper checked where it enters, its calls the function's own (GT-24). `w161/d2/gate.jl` holds the rest.
+  *Catches:* a converted result, an unchecked box, a wrapper's call asserted to `A`. *Shown:* its wrong assertions
+  fail on the head (`logs/w164-mutants-julia-next.log`); on the tag's Julia it cannot run (the tag's library has no
+  `TraitWorld.ByType`, the library's head does not load).
+- `n9_fully_typed.jl` — W-114: fully typed mode, by a method's meta and a module's option: compiled by
+  facts; code with a run-time site (in it or a facts callee) or an abstract result starts with the check,
+  fully typed code has none; warn once, enforce at every run, Julia's error without a hook
+- `n20_unmet_lookup.jl` — E-331, E-334, C-82 (compiler §4.8, §4.9, §5.4): a match met only at an intersection no
+  type is in is dropped from dispatch's lookup, its final cell on the caller; a membership that meets it returns the
+  match and the ambiguity. Case (5), rewritten by W-164: a `Callable` component is a set as any, met only by a type
+  declared in both (a call method makes no membership); the expected failure of (5) above. *Catches:* a call method
+  that meets `All{AbstractString, Callable}`. *Shown:* it fails on the tag's Julia, and its wrong assertion fails
+  on the head.
+- `n22_declared_assert.jl` — open issue 171, rewritten by W-164 (stub; traits §4.1, §7.9; compiler §4.1, §6.8,
+  §7.1): an operation is an entry of its set's contract (`jl_set_contract_operations`), no method at the set; the
+  call at the set is inferred as the entry's declared result, asserted and never converted (a redefined serving
+  method raises `TypeError`; the dynamic call returns the member's result); a method's declared result at the set,
+  with no entry, declares nothing. The gate writes the entry as the library's `@trait` does. *Catches:* a declared
+  result read from a method at the set, a converted result. *Shown:* it fails on the tag's Julia, and its wrong
+  assertions fail on the head.
 - `n25_image_before_set_method.jl` — W-140: code in a package image, compiled where its callee had no
   method at a trait, is invalidated by a later membership, whether the method came before the image's
   load or after (`../w140/image_then_method.jl`, with the packages `../w140/PlainF`, `PlainG`)
-- `n26_callable_late_method.jl` — W-140: a compiled caller that passes a function where a method at
-  `Callable` does not match follows a later method of that function (`../w140/callable_late_method.jl`)
+- `n26_callable_late_method.jl` — W-140, rewritten by W-164 (TraitWorld; compiler §7.4, §6.3; traits §9): a method
+  defined after code that passes the function at `Callable{A, S}` begins no membership (the method at `Callable` is
+  selected before and after; one at `Any` beside it is not taken); it changes the box's test, a fact with its edge
+  to the function's dispatch at `A`: the code compiled while there was no method at `A` refuses the function and is
+  ended by the method at `A`, not by one at another signature; also with `A` fixed by another argument, and with
+  the function a value typed `Any`; a constructor with a bare `Callable` argument leaves another constructor's
+  caller in the deep class. *Catches:* a function without the method sent to the method at `Any` (membership by
+  methods), a box's test that does not follow a later method. *Shown:* it fails on the tag's Julia with the tag's
+  library (`logs/w164-julia-unified-traitworld-base.log`), and its wrong assertions fail on the head.
 - `n27_invariant_parameter.jl` — W-140: a membership replays no method that names the set only as an
   invariant parameter (`Vector{X}`); where the set bounds a variable (`Vector{<:X}`) it reaches the caller
 - `n28_wide_caller.jl` — W-140: a membership adds no method: a caller at `Any` or at an abstract argument
   and the wide instance of another method stay valid; the caller and the instance at the member's own
   type, and a caller at a union of non-members, follow
-- `n8_callable.jl` — W-113: `Callable{A, S}` by a function's own methods, dispatch by signature,
-  a definition or deletion that begins or ends a membership, the result checked on return, E-267's
-  question that reaches itself, never a builtin
-- `n9_fully_typed.jl` — W-114: fully typed mode, by a method's meta and a module's option: compiled by
-  facts; code with a run-time site (in it or a facts callee) or an abstract result starts with the check,
-  fully typed code has none; warn once, enforce at every run, Julia's error without a hook
 - `n31_isa_narrows.jl` — compiler §4.8 (E-373): a test `x isa X` at a set narrows the true branch to the
   set and folds no negative; a result annotation at a trait is inferred as the trait; a membership
   declared later is followed
