@@ -1,0 +1,103 @@
+WARNING: Imported binding StyledStrings.@styled_str was undeclared at import time during import to Markdown.
+WARNING: Imported binding StyledStrings.styled was undeclared at import time during import to Markdown.
+WARNING: Imported binding Logging.AbstractLogger was undeclared at import time during import to Test.
+WARNING: Imported binding Logging.LogLevel was undeclared at import time during import to Test.
+WARNING: Imported binding Logging.Info was undeclared at import time during import to Test.
+WARNING: Imported binding Logging.with_logger was undeclared at import time during import to Test.
+ERROR: LoadError: UndefVarError: `_signatures_of` not defined in `TraitWorld`
+Suggestion: define the const at top-level before running function that uses it (stricter Julia v1.12+ rule).
+Note: the binding state changed since the error occurred (was: 11, now: 0).
+Stacktrace:
+  [1] #93#94
+    @ /p/projects/coen/julia-trait-bound/TraitWorld/src/callable.jl:54 [inlined]
+  [2] var"#93#94"(Z::Any, ::Any, ::Any)
+    @ TraitWorld ./none:0
+  [3] (::Core.GeneratedFunctionStub)(::UInt64, ::Method, ::Any, ::Vararg{Any})
+    @ Base ./expr.jl:1834
+  [4] _callable_met(::Type{Callable{Tuple{Float64}, Float64}}, f::Any)
+    @ TraitWorld /p/projects/coen/julia-trait-bound/TraitWorld/src/callable.jl:68
+  [5] _callable_box_check(::Type{Dynamic{Callable{Tuple{Float64}, Float64}}}, f::Any, self::Any, args::Tuple{var"#29#30", Vector{Float64}})
+    @ TraitWorld /p/projects/coen/julia-trait-bound/TraitWorld/src/callable.jl:74
+  [6] transform(f::Function, s::Samples{Float64})
+    @ Main.Signals /p/projects/coen/julia-trait-bound/experiments/docs-examples/tutorial.jl:276
+  [7] top-level scope
+    @ /p/projects/coen/julia-trait-bound/experiments/docs-examples/tutorial.jl:362
+  [8] include(mod::Module, _path::String)
+    @ Base ./Base.jl:318
+  [9] exec_options(opts::Base.JLOptions)
+    @ Base ./client.jl:344
+ [10] _start()
+    @ Base ./client.jl:577
+in expression starting at /p/projects/coen/julia-trait-bound/experiments/docs-examples/tutorial.jl:362
+PASS  §3 area(Circle(1.0)) == 3.141592653589793
+PASS  §3 describe(Rect(2.0, 3.0))
+PASS  §3 describe(Circle(1.0)): the default, reached from plain code
+PASS  §3 Circle <: Shape
+PASS  §3 Circle(1.0) isa Shape
+PASS  §3 Int is no Shape
+PASS  §4 ratio(Circle(1.0)) == 0.5
+DEVIATION T-127 §4 at the prompt, ratio(Circle(1.0)) runs the code compiled for Circle
+PASS  §4 ratio(Rect(2.0, 3.0)) == 0.6
+PASS  §4 bigger(Rect, Circle)
+PASS  §4 title(Circle(1.0))
+PASS  §4 title(Rect(2.0, 3.0))
+PASS  §4 circle_ratio
+PASS  §4 ratio(compiled_for(Circle(1.0)))
+PASS  §4 ratio(Dynamic{Shape}(Circle(1.0)))
+PASS  §5 area(Tile(…)) == 2.0
+PASS  §5 ratio(Tile(…))
+PASS  §5 ratio(Window(…))
+PASS  §5 describe(Tile(…)): the default, at the field
+PASS  §6 move! wrote the user's object
+PASS  §6 greet(sp)
+PASS  §6 greet(Book)
+PASS  §6 a writable field needs a mutable type: ImplementError
+PASS  §7 report(sp)
+PASS  §7 Sprite <: All{Shape, Placed}
+PASS  §7 Circle is no All{Shape, Placed}
+PASS  §8 a later override is refused with ImplementError
+MESSAGE §8:
+ImplementError: a method is refused: Circle is a member of Shape, and the method would break its check
+  - a default of Shape serves describe at Circle since its membership: define the method before `@implement`, or in its block
+PASS  §8 title(Circle(1.0)) unchanged
+PASS  §9 fits(Circle; within = Rect)
+PASS  §9 fits(Rect; within = Circle) is false
+PASS  §9 scaled_area(Rect(2.0, 3.0)) == 24.0
+PASS  §9 largest of three types
+PASS  §9 margin = 1 raises TypeError
+PASS  §9 within = 42 raises TypeError
+PASS  §10 kind([1.0, 2.0])
+PASS  §10 kind(Circle(1.0))
+PASS  §10 kind(42)
+PASS  §11 doubled(Circle(1.0))
+PASS  §11 doubled(Tile): the label kept
+PASS  §11 nudged(sp): a new Sprite
+PASS  §11 doubled(Dynamic{Scalable}(Circle(1.0))) is a box of Circle(2.0)
+PASS  §11 without @unbounded, nudged is refused: TraitUseError
+MESSAGE §11 nudged:
+TraitUseError: nudged2 is declared bounded, and is not bounded at the box (Tuple{typeof(Main.WithAtBox.nudged2), Dynamic{Placed}}):
+  kwcall(@NamedTuple{x::Float64}, typeof(withfields), Dynamic{Placed}) only throws, at line 219
+PASS  §12 totalarea
+PASS  §12 the scene holds the circle itself, added at the prompt
+PASS  §12 the item answers for itself: a Scalable, == the circle
+PASS  §12 the same from a function that knows the type
+PASS  §12 a kept form is stored as the kept form
+PASS  §12 Vector{Dynamic{Shape}}: each item a Dynamic{Shape}
+PASS  §12 unwrap(bs[3]) == Circle(1.0): the wrapper's choice erased there
+PASS  §12 the wrapper is a Shape and a Scalable, not a Circle
+PASS  §12 Dynamic{Shape} isa Shape
+PASS  §12 area(d)
+PASS  §12 ratio(d)
+PASS  §12 unwrap(d)
+PASS  §12 Dynamic{Shape}(42) raises TypeError
+PASS  §13 total([1.0, 2.0, 3.5])
+PASS  §13 total([1, 2, 3]) is an Int
+PASS  §13 total(Series(Float32[1, 2]))
+PASS  §13 mean64(Series([1.0, 4.0]))
+PASS  §13 Vector{Int} <: Samples{Int}
+PASS  §13 mean64([1, 2]) raises MethodError
+PASS  §13 a stated parameter against its equation: ImplementError
+PASS  §13 dotp
+PASS  §13 dotp([1.0], [1]) raises MethodError
+PASS  §13 dotp written with a generator is bounded
+PASS  §13 the generator's dotp

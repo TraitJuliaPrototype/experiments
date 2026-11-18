@@ -35,7 +35,9 @@ that no root list names.
 |---|---|---|
 | `sagc.sh` | Julia's static check of GC roots (the clang static analyzer with `src/clangsa`'s GC checker, as `make -C src clang-sagc-<file>` runs it), over every runtime `.c` file the design changed, in any tree | see below |
 | `roots.sh` | every global annotated `JL_GLOBALLY_ROOTED` in the changed files, and whether a root list names it; file-scope heap pointers without the annotation | `bash roots.sh <julia tree>` |
-| `gc_in_hook.jl` | the fault's case, with a full collection in the member hook; deterministic under the stressed collector | from `TraitWorld/`: `<julia> --project=. --startup-file=no ../experiments/implementation/w163/gc_in_hook.jl` |
+| `window_gc.patch`, `window_case.jl` | a full collection inside the fault's window at every call that reaches it: the fault at once, deterministically | below |
+| `gc_in_hook.jl` | a collection in the member hook itself, and (`W163_STRESS=N`) a collection every N allocations from the call to the hook. **Does not reproduce the fault** (a negative result, kept): in its calls the hook's method match holds the same tuple type, so it survives; the window is the lookup before the match exists | from `TraitWorld/`: `<julia> --project=. --startup-file=no ../experiments/implementation/w163/gc_in_hook.jl` |
+| `checks.sh` | the checks of a fixed build, one job at a time | `bash checks.sh <julia tree> <label> [names]` |
 | `repro.sh` | one of the teaching pages' scripts N times, one process at a time; counts faults | `bash repro.sh <julia> <label> <N> [script]` |
 
 **`sagc.sh`.** Needs a built tree with the analyzer's dependencies once:
@@ -115,3 +117,33 @@ hook; `staticdata.c`: the image hook): every other caller holds its values in a 
 binding (`jl_implements_ft`, Core's `implements`; `jl_split_table_miss_func`, Base's `_split_table_miss!`);
 the vanilla ones are vanilla's. Before: two file-scope pointers without the annotation
 (`deep_ending_kind`, `deep_ending_cause`); after: none.
+
+## Results
+
+### E-502 (2026-11-18): the crash in dispatch's cache
+
+Builds: `julia-next` 32a2235abd (before); branch `w163` a5bd871cce (after, `wt/w163-julia`, built with
+`tools-local/build.sh`); the variants of `libjulia-internal` with `WITH_GC_DEBUG_ENV=1` and
+`window_gc.patch`: *before* = 768850cff7's runtime, *after* = a5bd871cce's (the logs' headers name
+32a2235abd, the system image's commit; only the runtime library differs). TraitWorld 51e3a86 (`unified`),
+product setting, strict mode off, one thread. Load 4 to 42 of 128.
+
+| Check | Before | After |
+|---|---|---|
+| `tutorial.jl`, plain runs | 0 faults in 30 (`logs/next-before-summary.log`; the 2 in 6 of the earlier session not reproduced) | 0 in 50 (`logs/a5bd871cce-tutorial-summary.log`; 7 s a run, as before) |
+| a collection in the window (`window_gc.patch`), `window_case.jl` | the 5th call's tuple type freed, then the segmentation fault of E-502's backtrace (`jl_object_id__cold` ← `lookup_leafcache` ← `jl_mt_assoc_by_type` ← `apply_generic_reach`; `logs/window-gc-before-768850cff7.log`) | 39 collections, all alive (`logs/window-gc-after.log`) |
+| the same, the three example scripts | tutorial, intro, strict: each faults (`logs/window-before-*`) | none faults, every check passes (`logs/window-after-*-summary.log`) |
+| the same, the library's suite | — | 93 testsets pass, 7209 collections in the window, 0 freed (`logs/window-after-library.log`, 306 s) |
+| the gates, stressed: a collection every 10 (`m[12]_*`) or 1000 (`[nf]*`) allocations, verification and scrub on, and the window | — | `m[12]_*` 30 of 30; `[nf]*` 37 of 41, the four of open issue 237 (`logs/stress10-window-after-gates.log`, `logs/stress1000-window-after-gates-nf.log`). At every 10 allocations, `[nf]*` passed f1–f5 and was stopped at f6, whose child process compiles for minutes under it |
+| the static check, the 15 changed `.c` files | 24 findings (+2 in the second pass) | 0 (vanilla: 0) |
+| the gates in force | (67 of 71 on `next`) | 67 of 71, the same four failing (`logs/a5bd871cce-gates.log`) |
+| `w155/gate_deep.jl`, `w155b/gate_d11.jl` | | OK, OK (0 failed) |
+| the library's suite | | 93 testsets, exit 0 |
+| Base's `core`, `subtype`, `worlds` | | SUCCESS (7 671 770 passed, 50 broken) |
+| the three example scripts | | pass |
+
+Not part of the fault, seen on the way: loaded from source (no package image: `--compiled-modules=no`, or
+an image that could not be written), `tutorial.jl` stops at line 362 with `UndefVarError: _signatures_of
+not defined in TraitWorld` (`callable.jl:54`: the `@generated` `_signatures` names `_signatures_of`, which is
+defined after it; the generator runs in the world of its own definition). The same on `julia-next`
+(`logs/next-tutorial-from-source.log`). Not changed here.
