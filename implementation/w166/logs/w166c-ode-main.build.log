@@ -1,0 +1,221 @@
+# W-166c ode 2026-11-18T22:57:19+01:00 load 6.37 3.78 2.94 | julia-next f5328f94c5 TraitWorld 9d4f782 project experiments/implementation/w166/../w156/env_demo trim=safe images=1 driver=julia-next/test/trimming depot=shared 
+images: exit 0 after 19 s (TraitWorld TraitDifferentialEquations)
+from source: none
+verify_main: 143 targets, 0 entry points, 3 run-time sites, complete true, 5.4 s
+  site: dispatch /p/projects/coen/julia-trait-bound/experiments/implementation/w135/apps/ode.jl:29 Core.kwcall(::@NamedTuple{saveat::Vector{Float64}, reltol::Float64, abstol::Float64}, ::typeof(solve), ::ODEProblem{Float64, Vector{Float64}, _A, _B} where {_A<:Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, _B<:Callable{Tuple{Matrix{Float64}, Vector{Float64}, Float64}, Nothing}}, ::Tsit5) | `_problem_of` returns ODEProblem{Float64, Vector{Float64}, _A, _B} where {_A<:Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, _B<:Callable{Tuple{Matrix{Float64}, Vector{Float64}, Float64}, Nothing}}
+  site: dispatch /p/projects/coen/julia-trait-bound/experiments/implementation/w135/apps/ode.jl:32 Core.kwcall(::@NamedTuple{saveat::Vector{Float64}, reltol::Float64, abstol::Float64}, ::typeof(solve), ::ODEProblem{Float64, Vector{Float64}, _A, _B} where {_A<:Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, _B<:Callable{Tuple{Matrix{Float64}, Vector{Float64}, Float64}, Nothing}}, ::Rodas5{DenseLU}) | `_problem_of` returns ODEProblem{Float64, Vector{Float64}, _A, _B} where {_A<:Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, _B<:Callable{Tuple{Matrix{Float64}, Vector{Float64}, Float64}, Nothing}}
+  site: dispatch /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/ODECore/src/frontend.jl:69 _problem_of(
+  f::Dynamic{Callable{Tuple{Vector{Float64}, Vector{Float64}, Vector{Float64}, Float64}, Nothing}},
+  getfield(f::Dynamic{Callable{Tuple{Vector{Float64}, Vector{Float64}, Vector{Float64}, Float64}, Nothing}}, :object::Symbol)::Callable{Tuple{Vector{Float64}, Vector{Float64}, Vector{Float64}, Float64}, Nothing},
+  :(φ (%23 => %7, %84 => %7, %108 => %7))::Vector{Float64},
+  (…)::Tuple{Float64, Float64},
+  p::Vector{Float64},
+  (…)::Vector{Any}
+)::ODEProblem{Float64, Vector{Float64}, _A, _B} where {_A<:Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, _B<:Callable{Tuple{Matrix{Float64}, Vector{Float64}, Float64}, Nothing}} | reached from main at /p/projects/coen/julia-trait-bound/experiments/implementation/w135/apps/ode.jl:29
+Error #1: unresolved call from statement issorted(
+  itr::Vector{String},
+  ord(
+    lt::Function,
+    by::Function,
+    true::Bool,
+    order::Base.Order.ForwardOrdering
+  )::Union{Base.Order.By, Base.Order.Lt{T} where T<:Function, Base.Order.ReverseOrdering, Base.Order.DirectOrdering}
+)::Bool
+
+Stacktrace:
+ [1] issorted(itr::Vector{String}; lt::Function, by::Function, rev::Bool, order::Base.Order.ForwardOrdering)
+   @ Base.Sort sort.jl:93
+ [2] unique!(itr::Vector{String})
+   @ Base set.jl:473
+ [3] macro expansion
+   @ /p/projects/coen/julia-trait-bound/.julia-depot/packages/JLLWrappers/Kp7TC/src/wrapper_generators.jl:64 [inlined]
+ [4] __init__()
+   @ OpenSpecFun_jll /p/projects/coen/julia-trait-bound/.julia-depot/packages/OpenSpecFun_jll/4QIOW/src/wrappers/x86_64-linux-gnu-libgfortran5.jl:15
+
+Error #2: unresolved call from statement issorted(
+  itr::Vector{String},
+  :(φ (%161 => %159, %163 => %162))::Union{Base.Order.ForwardOrdering, Base.Order.By, Base.Order.Lt{T} where T<:Function}
+)::Bool
+
+Stacktrace:
+ [1] issorted(itr::Vector{String}; lt::Function, by::Function, rev::Bool, order::Base.Order.ForwardOrdering)
+   @ Base.Sort sort.jl:95
+ [2] unique!(itr::Vector{String})
+   @ Base set.jl:473
+ [3] macro expansion
+   @ /p/projects/coen/julia-trait-bound/.julia-depot/packages/JLLWrappers/Kp7TC/src/wrapper_generators.jl:64 [inlined]
+ [4] __init__()
+   @ OpenSpecFun_jll /p/projects/coen/julia-trait-bound/.julia-depot/packages/OpenSpecFun_jll/4QIOW/src/wrappers/x86_64-linux-gnu-libgfortran5.jl:15
+
+Error #3: unresolved call from statement Lt(
+  lt::Function
+)::Base.Order.Lt{T} where T<:Function
+
+Stacktrace:
+ [1] _ord(lt::Function, by::Function, order::Base.Order.ForwardOrdering)
+   @ Base.Order ordering.jl:133
+ [2] ord(lt::Function, by::Function, rev::Nothing, order::Base.Order.ForwardOrdering)
+   @ Base.Order ordering.jl:155 [inlined]
+ [3] issorted(itr::Vector{String}; lt::Function, by::Function, rev::Bool, order::Base.Order.ForwardOrdering)
+   @ Base.Sort sort.jl:95
+ [4] unique!(itr::Vector{String})
+   @ Base set.jl:473
+ [5] macro expansion
+   @ /p/projects/coen/julia-trait-bound/.julia-depot/packages/JLLWrappers/Kp7TC/src/wrapper_generators.jl:64 [inlined]
+ [6] __init__()
+   @ OpenSpecFun_jll /p/projects/coen/julia-trait-bound/.julia-depot/packages/OpenSpecFun_jll/4QIOW/src/wrappers/x86_64-linux-gnu-libgfortran5.jl:15
+
+Error #4: unresolved call from statement _by(
+  by::Function,
+  Lt(
+    lt::Function
+  )::Base.Order.Lt{T} where T<:Function
+)::Union{Base.Order.By{T, O} where {T<:Function, O<:(Base.Order.Lt{T} where T<:Function)}, Base.Order.Lt{T} where T<:Function}
+
+Stacktrace:
+ [1] _ord(lt::Function, by::Function, order::Base.Order.ForwardOrdering)
+   @ Base.Order ordering.jl:133
+ [2] ord(lt::Function, by::Function, rev::Nothing, order::Base.Order.ForwardOrdering)
+   @ Base.Order ordering.jl:155 [inlined]
+ [3] issorted(itr::Vector{String}; lt::Function, by::Function, rev::Bool, order::Base.Order.ForwardOrdering)
+   @ Base.Sort sort.jl:95
+ [4] unique!(itr::Vector{String})
+   @ Base set.jl:473
+ [5] macro expansion
+   @ /p/projects/coen/julia-trait-bound/.julia-depot/packages/JLLWrappers/Kp7TC/src/wrapper_generators.jl:64 [inlined]
+ [6] __init__()
+   @ OpenSpecFun_jll /p/projects/coen/julia-trait-bound/.julia-depot/packages/OpenSpecFun_jll/4QIOW/src/wrappers/x86_64-linux-gnu-libgfortran5.jl:15
+
+Error #5: unresolved call from statement By(
+  by::Function,
+  order::Base.Order.ForwardOrdering
+)::Base.Order.By{T, Base.Order.ForwardOrdering} where T<:Function
+
+Stacktrace:
+ [1] _by(by::Function, order::Base.Order.ForwardOrdering)
+   @ Base.Order ordering.jl:136
+ [2] _ord(lt::typeof(isless), by::Function, order::Base.Order.ForwardOrdering)
+   @ Base.Order ordering.jl:131 [inlined]
+ [3] ord(lt::Function, by::Function, rev::Nothing, order::Base.Order.ForwardOrdering)
+   @ Base.Order ordering.jl:155 [inlined]
+ [4] issorted(itr::Vector{String}; lt::Function, by::Function, rev::Bool, order::Base.Order.ForwardOrdering)
+   @ Base.Sort sort.jl:95
+ [5] unique!(itr::Vector{String})
+   @ Base set.jl:473
+ [6] macro expansion
+   @ /p/projects/coen/julia-trait-bound/.julia-depot/packages/JLLWrappers/Kp7TC/src/wrapper_generators.jl:64 [inlined]
+ [7] __init__()
+   @ OpenSpecFun_jll /p/projects/coen/julia-trait-bound/.julia-depot/packages/OpenSpecFun_jll/4QIOW/src/wrappers/x86_64-linux-gnu-libgfortran5.jl:15
+
+Error #6: unresolved call from statement ReverseOrdering(
+  :(φ (%10 => %8, %13 => %12))::Union{Base.Order.ForwardOrdering, Base.Order.By, Base.Order.Lt{T} where T<:Function}
+)::Union{Base.Order.ReverseOrdering{Base.Order.ForwardOrdering}, Base.Order.By, Base.Order.ReverseOrdering{Fwd} where Fwd<:(Base.Order.Lt{T} where T<:Function)}
+
+Stacktrace:
+ [1] ord(lt::Function, by::Function, rev::Bool, order::Base.Order.ForwardOrdering)
+   @ Base.Order ordering.jl:159
+ [2] issorted(itr::Vector{String}; lt::Function, by::Function, rev::Bool, order::Base.Order.ForwardOrdering)
+   @ Base.Sort sort.jl:93
+ [3] unique!(itr::Vector{String})
+   @ Base set.jl:473
+ [4] macro expansion
+   @ /p/projects/coen/julia-trait-bound/.julia-depot/packages/JLLWrappers/Kp7TC/src/wrapper_generators.jl:64 [inlined]
+ [5] __init__()
+   @ OpenSpecFun_jll /p/projects/coen/julia-trait-bound/.julia-depot/packages/OpenSpecFun_jll/4QIOW/src/wrappers/x86_64-linux-gnu-libgfortran5.jl:15
+
+Error #7: unresolved call from statement kwcall(
+  (…)::@NamedTuple{saveat::Vector{Float64}, reltol::Float64, abstol::Float64},
+  TraitDifferentialEquations.solve::typeof(solve),
+  #ODEProblem#22(nothing::Nothing, ODEProblem::Type{ODEProblem}, Dynamic{Callable{Tuple{Vector{Float64}, Vector{Float64}, Vector{Float64}, Float64}, Nothing}}(Main.lorenz!)::Dynamic{Callable{Tuple{Vector{Float64}, Vector{Float64}, Vector{Float64}, Float64}, Nothing}}, (…)::Vector{Float64}, (0.0, 20.0)::Tuple{Float64, Float64}, (…)::Vector{Float64})::ODEProblem{Float64, Vector{Float64}, _A, _B} where {_A<:Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, _B<:Callable{Tuple{Matrix{Float64}, Vector{Float64}, Float64}, Nothing}},
+  Tsit5()::Tsit5
+)::ODESolution{Float64, Vector{Float64}}
+
+Stacktrace:
+ [1] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/implementation/w135/apps/ode.jl:29
+ [2] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-next/test/trimming/juliac-buildscript.jl:35
+
+Error #8: unresolved call from statement kwcall(
+  (…)::@NamedTuple{saveat::Vector{Float64}, reltol::Float64, abstol::Float64},
+  TraitDifferentialEquations.solve::typeof(solve),
+  #ODEProblem#22(nothing::Nothing, ODEProblem::Type{ODEProblem}, Dynamic{Callable{Tuple{Vector{Float64}, Vector{Float64}, Vector{Float64}, Float64}, Nothing}}(Main.robertson!)::Dynamic{Callable{Tuple{Vector{Float64}, Vector{Float64}, Vector{Float64}, Float64}, Nothing}}, (…)::Vector{Float64}, (0.0, 100000.0)::Tuple{Float64, Float64}, (…)::Vector{Float64})::ODEProblem{Float64, Vector{Float64}, _A, _B} where {_A<:Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, _B<:Callable{Tuple{Matrix{Float64}, Vector{Float64}, Float64}, Nothing}},
+  Rodas5{DenseLU}(nothing, DenseLU())::Rodas5{DenseLU}
+)::ODESolution{Float64, Vector{Float64}}
+
+Stacktrace:
+ [1] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/implementation/w135/apps/ode.jl:32
+ [2] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-next/test/trimming/juliac-buildscript.jl:35
+
+Error #9: unresolved call from statement _problem_of(
+  f::Dynamic{Callable{Tuple{Vector{Float64}, Vector{Float64}, Vector{Float64}, Float64}, Nothing}},
+  getfield(f::Dynamic{Callable{Tuple{Vector{Float64}, Vector{Float64}, Vector{Float64}, Float64}, Nothing}}, :object::Symbol)::Callable{Tuple{Vector{Float64}, Vector{Float64}, Vector{Float64}, Float64}, Nothing},
+  :(φ (%23 => %7, %84 => %7, %108 => %7))::Vector{Float64},
+  (…)::Tuple{Float64, Float64},
+  p::Vector{Float64},
+  (…)::Vector{Any}
+)::ODEProblem{Float64, Vector{Float64}, _A, _B} where {_A<:Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, _B<:Callable{Tuple{Matrix{Float64}, Vector{Float64}, Float64}, Nothing}}
+
+Stacktrace:
+ [1] ODEProblem(f::Dynamic{Callable{Tuple{Vector{Float64}, Vector{Float64}, Vector{Float64}, Float64}, Nothing}}, u0::Vector{Float64}, tspan::Tuple{Float64, Float64}, p::Vector{Float64}; callback::Nothing)
+   @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/ODECore/src/frontend.jl:69
+ [2] ODEProblem(f::Dynamic{Callable{Tuple{Vector{Float64}, Vector{Float64}, Vector{Float64}, Float64}, Nothing}}, u0::Vector{Float64}, tspan::Tuple{Float64, Float64}, p::Vector{Float64})
+   @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/ODECore/src/frontend.jl:68 [inlined]
+ [3] ODEProblem(f::typeof(lorenz!), u0::Vector{Float64}, tspan::Tuple{Float64, Float64}, p::Vector{Float64})
+   @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/ODECore/src/frontend.jl:68 [inlined]
+ [4] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/implementation/w135/apps/ode.jl:29
+ [5] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-next/test/trimming/juliac-buildscript.jl:35
+
+Error #10: unresolved call from statement kwcall(
+  (…)::@NamedTuple{saveat::Vector{Float64}, reltol::Float64, abstol::Float64},
+  TraitDifferentialEquations.solve::typeof(solve),
+  #ODEProblem#22(nothing::Nothing, ODEProblem::Type{ODEProblem}, Dynamic{Callable{Tuple{Vector{Float64}, Vector{Float64}, Vector{Float64}, Float64}, Nothing}}(Main.lorenz!)::Dynamic{Callable{Tuple{Vector{Float64}, Vector{Float64}, Vector{Float64}, Float64}, Nothing}}, (…)::Vector{Float64}, (0.0, 20.0)::Tuple{Float64, Float64}, (…)::Vector{Float64})::ODEProblem{Float64, Vector{Float64}, _A, _B} where {_A<:Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, _B<:Callable{Tuple{Matrix{Float64}, Vector{Float64}, Float64}, Nothing}},
+  Tsit5()::Tsit5
+)::ODESolution{Float64, Vector{Float64}}
+
+Stacktrace:
+ [1] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/implementation/w135/apps/ode.jl:29
+ [2] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-next/test/trimming/juliac-buildscript.jl:35
+
+Error #11: unresolved call from statement kwcall(
+  (…)::@NamedTuple{saveat::Vector{Float64}, reltol::Float64, abstol::Float64},
+  TraitDifferentialEquations.solve::typeof(solve),
+  #ODEProblem#22(nothing::Nothing, ODEProblem::Type{ODEProblem}, Dynamic{Callable{Tuple{Vector{Float64}, Vector{Float64}, Vector{Float64}, Float64}, Nothing}}(Main.robertson!)::Dynamic{Callable{Tuple{Vector{Float64}, Vector{Float64}, Vector{Float64}, Float64}, Nothing}}, (…)::Vector{Float64}, (0.0, 100000.0)::Tuple{Float64, Float64}, (…)::Vector{Float64})::ODEProblem{Float64, Vector{Float64}, _A, _B} where {_A<:Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, _B<:Callable{Tuple{Matrix{Float64}, Vector{Float64}, Float64}, Nothing}},
+  Rodas5{DenseLU}(nothing, DenseLU())::Rodas5{DenseLU}
+)::ODESolution{Float64, Vector{Float64}}
+
+Stacktrace:
+ [1] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/implementation/w135/apps/ode.jl:32
+ [2] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-next/test/trimming/juliac-buildscript.jl:35
+
+Error #12: unresolved call from statement _problem_of(
+  f::Dynamic{Callable{Tuple{Vector{Float64}, Vector{Float64}, Vector{Float64}, Float64}, Nothing}},
+  getfield(f::Dynamic{Callable{Tuple{Vector{Float64}, Vector{Float64}, Vector{Float64}, Float64}, Nothing}}, :object::Symbol)::Callable{Tuple{Vector{Float64}, Vector{Float64}, Vector{Float64}, Float64}, Nothing},
+  :(φ (%23 => %7, %84 => %7, %108 => %7))::Vector{Float64},
+  (…)::Tuple{Float64, Float64},
+  p::Vector{Float64},
+  (…)::Vector{Any}
+)::ODEProblem{Float64, Vector{Float64}, _A, _B} where {_A<:Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, _B<:Callable{Tuple{Matrix{Float64}, Vector{Float64}, Float64}, Nothing}}
+
+Stacktrace:
+ [1] ODEProblem(f::Dynamic{Callable{Tuple{Vector{Float64}, Vector{Float64}, Vector{Float64}, Float64}, Nothing}}, u0::Vector{Float64}, tspan::Tuple{Float64, Float64}, p::Vector{Float64}; callback::Nothing)
+   @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/ODECore/src/frontend.jl:69
+ [2] ODEProblem(f::Dynamic{Callable{Tuple{Vector{Float64}, Vector{Float64}, Vector{Float64}, Float64}, Nothing}}, u0::Vector{Float64}, tspan::Tuple{Float64, Float64}, p::Vector{Float64})
+   @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/ODECore/src/frontend.jl:68 [inlined]
+ [3] ODEProblem(f::typeof(lorenz!), u0::Vector{Float64}, tspan::Tuple{Float64, Float64}, p::Vector{Float64})
+   @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/ODECore/src/frontend.jl:68 [inlined]
+ [4] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/implementation/w135/apps/ode.jl:29
+ [5] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-next/test/trimming/juliac-buildscript.jl:35
+
+Trim verify finished with 12 errors, 0 warnings.
+object: exit 1 after 14 s

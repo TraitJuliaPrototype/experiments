@@ -1,0 +1,12 @@
+# main-guards 2026-11-18T22:58:17+01:00 load 7.13 4.50 3.24 | julia-next f5328f94c5 | TraitWorld 9d4f782 | TraitTables a69eb6c+dirty | TraitCSV 8c307d0+dirty | TraitReport 53a712b+dirty | TraitMakie 0668ebf+dirty | TDE 7956907+dirty | forks a3a37d6
+tables | exit 0 | 7 s | 3 testsets | TraitTables | 14 14 0.4s;TraitTables: missing cells | 10 10 0.7s;TraitTables: a column's code per column type | 3 3 0.2s;
+ Testing TraitTables tests passed ;
+csv | exit 0 | 17 s | 2 testsets | TraitCSV | 14 14 0.7s;TraitCSV: a column's code per column type | 2 2 0.3s;
+ Testing TraitCSV tests passed ;
+report check.sh | exit 0 | 30 s | 3 ok, 0 FAIL
+report-session | exit 0 | 5 s | session: 8 of 8 checks ok, 0 failed, 0 not printed; 1 errors, 1 expected (transcript: /tmp/tmp.OqaZJ6AwpN/traitreport_se
+makie | exit 0 | 21 s | 8 testsets | 
+makie-session | 4 s | 10 of 10 checks ok, 0 failed; 1 errors, 1 expected
+tde | exit 0 | 45 s | 35 testsets | TraitDifferentialEquations: Tsit5 | 6 6 1.0s;TraitDifferentialEquations: callbacks | 5 5 0.2s;TraitDifferentialEquations: Rodas5 with the library's duals | 6 6 1.2s;TraitDifferentialEquations: gradients through Tsit5 (row 5) | 8 8 0.8s;TraitDifferentialEquations: a Float32 state (row 6) | 2 2 0.7s;A problem type with its own cache (LorenzModels) | 5 5 0.8s;Callback types (Bounce, RaiseSigma) | 7 7 1.0s;A problem type: gradients through Tsit5 | 3 3 0.9s;A problem type: errors at the conformance |
+ Testing TraitDifferentialEquations tests passed ;
+tde-session | 33 s | 14 CHECK ok, 0 CHECK FAIL | RESULT lines against the plain session: equal (9)
