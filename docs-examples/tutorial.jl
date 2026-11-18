@@ -1,8 +1,10 @@
 # The examples of writeup/intro/traits-by-example.md, in the page's order, with checks of the
-# results the page states. Run from TraitWorld-unified/ on the unified build (see README.md):
-#   JULIA_PKG_OFFLINE=true nice -n 19 ../julia-unified/julia --project=. --startup-file=no ../experiments/docs-examples/tutorial.jl
+# results the page states. Run from TraitWorld-unified/ (see README.md):
+#   JULIA_PKG_OFFLINE=true nice -n 19 ../julia-next/julia --project=. --startup-file=no ../experiments/docs-examples/tutorial.jl
 include(joinpath(@__DIR__, "common.jl"))
 using TraitWorld
+# The page's `compiled_for` is the wrapper's function, which the library binds apart (traits T-126; intro.jl checks it).
+using TraitWorld.ByType: compiled_for
 
 # --- §1–§12: the library, in one trait module --------------------------------------------------
 
@@ -53,8 +55,8 @@ kind(x) = "something else"
 @trait Scalable begin
     scale(s::Scalable, k::Float64)::Self
 end
-@unbounded doubled(s::Scalable) = like(s, scale(s, 2.0))     # a result of the member's own type: open
-@unbounded nudged(p::Placed) = withfields(p; x = p.x + 1.0)
+doubled(s::Scalable) = like(s, scale(s, 2.0))                # bounded: at the box, like gives a box
+@unbounded nudged(p::Placed) = withfields(p; x = p.x + 1.0)   # withfields at the box only throws
 
 # §12
 struct Scene
@@ -102,6 +104,8 @@ check("§3 Int is no Shape", !(Int <: Shape))
 # --- §4: methods at a trait ---------------------------------------------------------------------
 
 check("§4 ratio(Circle(1.0)) == 0.5", ratio(Circle(1.0)) == 0.5)
+deviation("§4 at the prompt, ratio(Circle(1.0)) runs the code compiled for Circle", "T-127",
+          () -> any(mi -> mi.specTypes == Tuple{typeof(ratio), Circle}, Base.specializations(only(methods(ratio)))))
 check("§4 ratio(Rect(2.0, 3.0)) == 0.6", ratio(Rect(2.0, 3.0)) == 0.6)
 check("§4 bigger(Rect, Circle)", bigger(Rect(2.0, 3.0), Circle(1.0)))
 check("§4 title(Circle(1.0))", title(Circle(1.0)) == "A shape of area 3.141592653589793")
@@ -109,7 +113,7 @@ check("§4 title(Rect(2.0, 3.0))", title(Rect(2.0, 3.0)) == "A 2.0 by 3.0 rectan
 circle_ratio(c::Circle) = ratio(c)
 check("§4 circle_ratio", circle_ratio(Circle(1.0)) == 0.5)
 check("§4 ratio(compiled_for(Circle(1.0)))", ratio(compiled_for(Circle(1.0))) == 0.5)
-check("§4 ratio(with_dynamic(Circle(1.0)))", ratio(with_dynamic(Circle(1.0))) == 0.5)
+check("§4 ratio(Dynamic{Shape}(Circle(1.0)))", ratio(Dynamic{Shape}(Circle(1.0))) == 0.5)
 
 # --- §5: forwarding -----------------------------------------------------------------------------
 
@@ -206,6 +210,16 @@ t2 = doubled(Tile("door", Rect(1.0, 2.0)))
 check("§11 doubled(Tile): the label kept", t2 isa Tile && t2.label == "door" && t2.shape == Rect(2.0, 4.0))
 n2 = nudged(sp)
 check("§11 nudged(sp): a new Sprite", n2 isa Sprite && n2.x == 2.0 && sp.x == 1.0)
+check("§11 doubled(Dynamic{Scalable}(Circle(1.0))) is a box of Circle(2.0)",
+      (b = doubled(Dynamic{Scalable}(Circle(1.0))); b isa Dynamic{Scalable} && unwrap(b) == Circle(2.0) &&
+       sprint(show, b) == "Dynamic{Scalable}(Circle(2.0))"))
+e = thrown(:(module WithAtBox
+    using TraitWorld, ..Geometry
+    @trait_module
+    nudged2(p::Placed) = withfields(p; x = p.x + 1.0)
+    end))
+check("§11 without @unbounded, nudged is refused: TraitUseError", e isa TraitUseError)
+e === nothing || println("MESSAGE §11 nudged:\n", msg(e))
 
 # --- §12: collections of mixed types ------------------------------------------------------------
 
@@ -216,9 +230,14 @@ check("§12 the scene holds the circle itself, added at the prompt", sc.shapes[1
 check("§12 the item answers for itself: a Scalable, == the circle", sc.shapes[1] isa Scalable && sc.shapes[1] == Circle(1.0))
 fill_scene() = (b = Scene(); add!(b, Circle(1.0)); b)
 check("§12 the same from a function that knows the type", fill_scene().shapes[1] isa Circle)
-ks = Kept{Shape}[]; push!(ks, Dynamic{Shape}(Circle(1.0))); push!(ks, Circle(1.0))
-check("§12 Kept{Shape}: one type, the attribute beside the object", typeof(ks[1]) === typeof(ks[2]) === Kept{Shape} && isdynamic(ks[1]) && !isdynamic(ks[2]))
-check("§12 kept_call runs under the kept attribute", kept_call(area, ks[1]) == kept_call(area, ks[2]) == area(Circle(1.0)) && unwrap(ks[1]) == Circle(1.0))
+check("§12 a kept form is stored as the kept form", (sk = Scene(); add!(sk, compiled_for(Circle(1.0))); add!(sk, Dynamic{Shape}(Rect(2.0, 3.0)));
+                                                   sk.shapes[1] isa Compiled && sk.shapes[2] isa Dynamic{Shape}))
+bs = Dynamic{Shape}[]
+push!(bs, Circle(1.0)); push!(bs, Dynamic{Shape}(Rect(2.0, 3.0))); push!(bs, compiled_for(Circle(1.0)))
+check("§12 Vector{Dynamic{Shape}}: each item a Dynamic{Shape}", typeof(bs[1]) === typeof(bs[3]) === Dynamic{Shape})
+check("§12 unwrap(bs[3]) == Circle(1.0): the wrapper's choice erased there", unwrap(bs[3]) == Circle(1.0))
+w = compiled_for(Circle(1.0))
+check("§12 the wrapper is a Shape and a Scalable, not a Circle", w isa Shape && w isa Scalable && !(w isa Circle) && unwrap(w) == Circle(1.0))
 d = Dynamic{Shape}(Circle(2.0))
 check("§12 Dynamic{Shape} isa Shape", d isa Shape)
 check("§12 area(d)", area(d) == 4π)
@@ -261,7 +280,7 @@ function transform(f::Callable{Tuple{Float64}, Float64}, s::Samples{Float64})
     end
     return out
 end
-function sumby(@specialize(f::Callable{Tuple{Float64}, Float64}), s::Samples{Float64})
+function sumby(f::Callable{Tuple{Float64}, Float64}, s::Samples{Float64})
     acc = 0.0
     for i in 1:nsamples(s)
         acc += f(sample(s, i))
@@ -329,26 +348,44 @@ using .Dots
 check("§13 dotp", dotp([1.0, 2.0], [3.0, 4.0]) == 11.0)
 e = outcome(() -> dotp([1.0], [1]))
 check("§13 dotp([1.0], [1]) raises MethodError", e isa MethodError)
+e = thrown(:(module DotsGen
+    using TraitWorld, ..Signals
+    @trait_module
+    dotg(a::Samples{T}, b::Samples{T}) where {T} = sum(sample(a, i) * sample(b, i) for i in 1:nsamples(a))
+    end))
+check("§13 dotp written with a generator is bounded", e === nothing)
+e === nothing || println("MESSAGE §13 generator:\n", msg(e))
+e === nothing && check("§13 the generator's dotp", Base.invokelatest(DotsGen.dotg, [1.0, 2.0], [3.0, 4.0]) == 11.0)
 
 # --- §14: Callable ------------------------------------------------------------------------------
 
 check("§14 transform(x -> 2x, …)", transform(x -> 2x, [1.0, 2.0]) == [2.0, 4.0])
 check("§14 transform(compiled_for(…), …)", transform(compiled_for(x -> x / 2), [1.0]) == [0.5])
 check("§14 sumby(abs2, …)", sumby(abs2, [1.0, 2.0]) == 5.0)
-check("§14 sumby(with_dynamic(…), …)", sumby(with_dynamic(x -> x + 1), [1.0, 2.0]) == 5.0)
 e = outcome(() -> transform(x -> 1, [1.0]))
 check("§14 a result of the wrong type raises TypeError", e isa TypeError)
 e = outcome(() -> transform(uppercase, [1.0]))
 check("§14 a function with no method at Float64 raises MethodError", e isa MethodError)
 check("§14 sin isa Callable{Tuple{Float64}, Float64}", sin isa Callable{Tuple{Float64}, Float64})
-check("§14 uppercase is no Callable{Tuple{Float64}}", !(uppercase isa Callable{Tuple{Float64}}))
+check("§14 uppercase isa Callable{Tuple{Float64}, Float64}: membership reads no method", uppercase isa Callable{Tuple{Float64}, Float64})
+e = thrown(:(module Mapper
+    using TraitWorld, ..Signals
+    @trait_module
+    mapped(f::Callable{Tuple{Float64}, Float64}, s::Vector{Float64}) = map(f, s)
+    end))
+check("§14 a trait module accepts a method that passes f on to map", e === nothing)
+e === nothing || println("MESSAGE §14 map:\n", msg(e))
 
 th = Threshold(x -> x > 1.0)
 check("§14 countif", countif(th, [0.5, 1.5, 2.5]) == 2)
 g1 = Gate(x -> x > 1.0)
-g2 = Gate(Dynamic{Callable{Tuple{Float64}, Bool}}(x -> x > 1.0))
-check("§14 Gate(f): F is the function's type", !(typeof(g1).parameters[1] <: Dynamic))
-check("§14 Gate(Dynamic{…}(f)): F is the Dynamic", typeof(g2).parameters[1] <: Dynamic)
+g2 = Gate(compiled_for(x -> x > 1.0))
+check("§14 Gate(f): F is the box's type", typeof(g1).parameters[1] === Dynamic{Callable{Tuple{Float64}, Bool}})
+check("§14 Gate(compiled_for(f)): F is the wrapper's type", typeof(g2).parameters[1] <: Compiled)
+check("§14 Threshold(f) holds the box", th.test isa Dynamic{Callable{Tuple{Float64}, Bool}})
+givenf(f::Callable{Tuple{Float64}, Float64}) = f      # what a method at Callable is given
+check("§14 inside, f is the box or the wrapper; unwrap(f) is the function",
+      givenf(sin) isa Dynamic && unwrap(givenf(sin)) === sin && givenf(compiled_for(sin)) isa Compiled && unwrap(givenf(compiled_for(sin))) === sin)
 check("§14 countgate", countgate(g1, [0.5, 1.5, 2.5]) == 2 && countgate(g2, [0.5, 1.5, 2.5]) == 2)
 
 # --- §15: abstract types and traits as members --------------------------------------------------

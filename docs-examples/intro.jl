@@ -1,8 +1,13 @@
 # The worked example of writeup/intro/traits-for-julia.md, with checks of the results the page states.
-# Run from TraitWorld-unified/ on the unified build (see README.md):
-#   JULIA_PKG_OFFLINE=true nice -n 19 ../julia-unified/julia --project=. --startup-file=no ../experiments/docs-examples/intro.jl
+# Run from TraitWorld-unified/ (see README.md):
+#   JULIA_PKG_OFFLINE=true nice -n 19 ../julia-next/julia --project=. --startup-file=no ../experiments/docs-examples/intro.jl
 include(joinpath(@__DIR__, "common.jl"))
 using TraitWorld
+# The page's `compiled_for` is the wrapper's function. The library still exports a cast of that name, and
+# binds the wrapper's function apart (traits T-126); the check below shows whether that still holds.
+using TraitWorld.ByType: compiled_for
+deviation("the library exports compiled_for, the wrapper's function", "T-126",
+          () -> TraitWorld.compiled_for === TraitWorld.ByType.compiled_for)
 
 # --- the library ------------------------------------------------------------------------------
 
@@ -34,7 +39,7 @@ function colmap(f::Callable{Tuple{Float64}, Float64}, t::ColTable, i::Int)
     return out
 end
 
-# tables of any member types, kept together
+# tables of any member types, held together
 struct Shelf
     tables::Vector{ColTable}
 end
@@ -75,11 +80,18 @@ r = Ramp([1.0, 2.0], 2)
 check("Measurements <: ColTable", Measurements <: ColTable)
 check("m isa ColTable", m isa ColTable)
 check("colmean(m, 1) == 1.5", colmean(m, 1) == 1.5)
+# the value's type decides: a call at the prompt runs the code compiled for Measurements, as in a function
+deviation("at the prompt, colmean(m, 1) runs the code compiled for Measurements", "T-127",
+          () -> any(mi -> mi.specTypes == Tuple{typeof(colmean), Measurements, Int},
+                    Base.specializations(only(methods(colmean)))))
+println("      colmean's instances after the call: ",
+        join(sort([string(mi.specTypes) for mi in Base.specializations(only(methods(colmean)))]), ", "))
 check("colmean(r, 2) == 3.0", colmean(r, 2) == 3.0)
 check("meandiff(m, r, 1) == 0.0", meandiff(m, r, 1) == 0.0)
 check("colmap(x -> 2x, m, 2) == [6.0, 10.0]", colmap(x -> 2x, m, 2) == [6.0, 10.0])
-check("colmap(compiled_for(x -> 2x), m, 2)", colmap(compiled_for(x -> 2x), m, 2) == [6.0, 10.0])
-check("colmean(with_dynamic(m), 1) == 1.5", colmean(with_dynamic(m), 1) == 1.5)
+check("colmap(compiled_for(x -> 2x), m, 2) == [6.0, 10.0]", colmap(compiled_for(x -> 2x), m, 2) == [6.0, 10.0])
+check("colmean(Dynamic{ColTable}(m), 1) == 1.5", colmean(Dynamic{ColTable}(m), 1) == 1.5)
+check("colmean(compiled_for(m), 1) == 1.5", colmean(compiled_for(m), 1) == 1.5)
 
 s = shelf()
 add!(s, m); add!(s, r)
@@ -90,6 +102,24 @@ d = Dynamic{ColTable}(r)
 check("Dynamic{ColTable}(r) isa ColTable", d isa ColTable)
 check("colmean(d, 2) == 3.0", colmean(d, 2) == 3.0)
 check("unwrap(d) === r", unwrap(d) === r)
+w = compiled_for(m)
+check("compiled_for(m) isa ColTable, and is not m", w isa ColTable && !(w isa Measurements) && w !== m && unwrap(w) === m)
+bs = Dynamic{ColTable}[]
+push!(bs, m); push!(bs, compiled_for(r))
+check("a Vector{Dynamic{ColTable}} boxes each member stored", all(x -> x isa Dynamic{ColTable}, bs) && unwrap(bs[2]) === r)
+
+# Callable: the signature is checked where the function enters; passing it on to map passes the box
+e = try colmap(uppercase, m, 1); nothing catch err; err end
+check("colmap(uppercase, m, 1) raises MethodError", e isa MethodError)
+e = thrown(:(module Mapper
+    using TraitWorld
+    @trait_module
+    using ..Columns: ColTable, col
+    colmap2(f::Callable{Tuple{Float64}, Float64}, t::ColTable, i::Int) = map(f, col(t, i))
+    end))
+check("a trait module accepts a method that passes f on to map", e === nothing)
+e === nothing || println("MESSAGE map:\n", msg(e))
+e === nothing && check("colmap2(x -> 2x, m, 2) == [6.0, 10.0]", Base.invokelatest(Mapper.colmap2, x -> 2x, m, 2) == [6.0, 10.0])
 
 # --- the mistakes -------------------------------------------------------------------------------
 
@@ -113,6 +143,8 @@ e = thrown(:(module Broken
     end))
 check("an unbounded method in a trait module raises TraitUseError", e isa TraitWorld.TraitUseError)
 e === nothing || println("MESSAGE TraitUseError:\n", sprint(showerror, e))
+deviation("the TraitUseError names the method as a call, no tuple type", "no row",
+          () -> e isa Exception && !occursin("Tuple{", msg(e)))
 
 e = try colmean(42, 1); nothing catch err; err end
 check("colmean(42, 1) raises MethodError", e isa MethodError)

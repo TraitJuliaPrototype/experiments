@@ -1,0 +1,8 @@
+PASS  §18 sq([1.0, 2.0, 3.0])
+PASS  §18 the pirate is refused: PirateError
+      message: PirateError: strict mode refuses `abs2(Float64)`, defined by Main.Meddler2. |   It would win at the call `abs2(::Float64)`, which code compiled by facts makes (in `Main.Norms.sq`). |   Main.Meddler2 owns neither the function nor a type in that signature (a pirate). Define it where a type it is for is owned, name the definer a joint owner (`@joint_owners`), or turn strict mode off (`TraitWorld.strict!(false)`) to follow it as plain Julia does.
+PASS  §18 sq is unchanged
+PASS  §18 the pirate was never defined
+PASS  §18 a pirate that changes no code compiled by facts is accepted
+
+5 pass, 0 fail

@@ -1,0 +1,45 @@
+
+[2641605] signal 11 (1): Segmentation fault
+in expression starting at /p/projects/coen/julia-trait-bound/experiments/docs-examples/tutorial.jl:36
+jl_object_id__cold at /p/projects/coen/julia-trait-bound/julia-next/src/builtins.c:470
+ijl_object_id_ at /p/projects/coen/julia-trait-bound/julia-next/src/builtins.c:510 [inlined]
+jl_table_peek_bp at /p/projects/coen/julia-trait-bound/julia-next/src/iddict.c:118 [inlined]
+ijl_eqtable_get at /p/projects/coen/julia-trait-bound/julia-next/src/iddict.c:157
+lookup_leafcache at /p/projects/coen/julia-trait-bound/julia-next/src/gf.c:1969 [inlined]
+jl_mt_find_cache_entry at /p/projects/coen/julia-trait-bound/julia-next/src/gf.c:2335
+jl_mt_assoc_by_type at /p/projects/coen/julia-trait-bound/julia-next/src/gf.c:2349
+jl_lookup_generic_ at /p/projects/coen/julia-trait-bound/julia-next/src/gf.c:7460 [inlined]
+apply_generic_reach at /p/projects/coen/julia-trait-bound/julia-next/src/gf.c:7492
+_parse_body at /p/projects/coen/julia-trait-bound/TraitWorld-unified/src/trait.jl:201
+_trait at /p/projects/coen/julia-trait-bound/TraitWorld-unified/src/trait.jl:50
+@trait at /p/projects/coen/julia-trait-bound/TraitWorld-unified/src/trait.jl:29
+unknown function (ip: 0x7fc8d55673ba) at (unknown file)
+jl_invoke_julia_macro at /p/projects/coen/julia-trait-bound/julia-next/src/ast.c:1047
+jl_expand_macros at /p/projects/coen/julia-trait-bound/julia-next/src/ast.c:1109
+jl_fl_lower at /p/projects/coen/julia-trait-bound/julia-next/src/ast.c:1187
+fl_lower at ./flfrontend.jl:24
+jfptr_fl_lower_46422 at /p/projects/coen/julia-trait-bound/julia-next/usr/lib/julia/sys.so (unknown line)
+jl_apply at /p/projects/coen/julia-trait-bound/julia-next/src/julia.h:2387 [inlined]
+ijl_lower at /p/projects/coen/julia-trait-bound/julia-next/src/ast.c:1251
+jl_eval_toplevel_stmts at /p/projects/coen/julia-trait-bound/julia-next/src/toplevel.c:583
+jl_eval_module_expr at /p/projects/coen/julia-trait-bound/julia-next/src/toplevel.c:248 [inlined]
+jl_toplevel_eval_flex at /p/projects/coen/julia-trait-bound/julia-next/src/toplevel.c:652
+jl_eval_toplevel_stmts at /p/projects/coen/julia-trait-bound/julia-next/src/toplevel.c:587
+jl_toplevel_eval_flex at /p/projects/coen/julia-trait-bound/julia-next/src/toplevel.c:685
+ijl_toplevel_eval at /p/projects/coen/julia-trait-bound/julia-next/src/toplevel.c:756
+ijl_toplevel_eval_in at /p/projects/coen/julia-trait-bound/julia-next/src/toplevel.c:801
+eval at ./boot.jl:529
+include_string at ./loading.jl:3049
+_include at ./loading.jl:3109
+include at ./Base.jl:318
+exec_options at ./client.jl:344
+_start at ./client.jl:577
+jfptr__start_65911 at /p/projects/coen/julia-trait-bound/julia-next/usr/lib/julia/sys.so (unknown line)
+jl_apply at /p/projects/coen/julia-trait-bound/julia-next/src/julia.h:2387 [inlined]
+true_main at /p/projects/coen/julia-trait-bound/julia-next/src/jlapi.c:985
+jl_repl_entrypoint at /p/projects/coen/julia-trait-bound/julia-next/src/jlapi.c:1152
+main at /p/projects/coen/julia-trait-bound/julia-next/cli/loader_exe.c:58
+__libc_start_call_main at /lib64/libc.so.6 (unknown line)
+__libc_start_main at /lib64/libc.so.6 (unknown line)
+_start at ../julia-next/julia (unknown line)
+Allocations: 758625 (Pool: 758600; Big: 25); GC: 1

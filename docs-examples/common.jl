@@ -52,11 +52,29 @@ function logs_of(ex)
 end
 warned(logs, pat) = any(l -> l.level == Base.CoreLogging.Warn && occursin(pat, string(l.message)), logs)
 
+const DEVIATIONS = Tuple{String,String}[]
+
+"""
+    deviation(name, id, f)
+
+A check where the implementation is known to differ from the design the page states: `f()` is the design's
+outcome. Where it holds, a `PASS` line (the deviation no longer shows); otherwise (false, or an exception) a
+line `DEVIATION <id> <name>`, counted apart from pass and fail. `id` names the reference's deviation row
+(`T-126`, `compiler C-112`), or `no row`.
+"""
+function deviation(name::AbstractString, id::AbstractString, f)
+    ok = outcome(f) === true
+    ok && return check(name * " (" * id * " does not show)", true)
+    push!(DEVIATIONS, (id, name))
+    println("DEVIATION ", id, " ", name)
+    return false
+end
+
 "Print the tally; exit with 1 if a check failed."
 function summary()
     np = count(r -> r[2], RESULTS)
     nf = length(RESULTS) - np
-    println("\n", np, " pass, ", nf, " fail")
+    println("\n", np, " pass, ", nf, " fail, ", length(DEVIATIONS), " known deviations")
     nf > 0 && exit(1)
     return nothing
 end

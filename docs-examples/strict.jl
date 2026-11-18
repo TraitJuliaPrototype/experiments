@@ -1,6 +1,6 @@
 # §18 of writeup/intro/traits-by-example.md: strict mode refuses a pirate that would change code
 # compiled by facts. In its own process, since it changes Base's methods. Run from TraitWorld-unified/:
-#   JULIA_PKG_OFFLINE=true nice -n 19 ../julia-unified/julia --project=. --startup-file=no ../experiments/docs-examples/strict.jl
+#   JULIA_PKG_OFFLINE=true nice -n 19 ../julia-next/julia --project=. --startup-file=no ../experiments/docs-examples/strict.jl
 include(joinpath(@__DIR__, "common.jl"))
 using TraitWorld
 
