@@ -178,3 +178,73 @@ JULIA_TREE=wt/w166-julia NAME=w166b-table bash ../w135/build.sh table $W156/env_
 build (reasoned from the code, not run). A call that takes two wrappers splits over the first; the second stays
 `Compiled{<:Y}` in each branch's instance, whose own calls at it split: `probes/b_two.jl` is fully typed in the
 build's check in a session (`logs/b-probe-two-w166-julia.log`); not built as a binary.
+
+## The last part: why three trimmed builds stopped while loading (open issue 243, E-509), 2026-11-18
+
+**The question** (registry row E-509): why do the report's, the plot's and the ODE program's trimmed builds stop
+while loading on the head, where the first two counted 6 errors each at the tag; and what do they count once past it?
+
+**The diagnosis.**
+- **Each stop is a call, in code run while the package loads from source, that needs an `__init__` the build's
+  process has not run.** In an output that is not incremental, Julia runs no `__init__` (`jl_init_restored_module`,
+  `src/module.c`; `src/toplevel.c`: "At build time, don't run them at all - defer for runtime"): not the system
+  image's (LinearAlgebra, OpenBLAS_jll), not a package's loaded from an image or from source.
+  - the plot and the report: Colors' constant `M_XYZ2OKLMS_INV = Mat3x3(inv(Float64.(M_XYZ2OKLMS)))`
+    (`Colors/src/conversions.jl:630`), `inv` → LAPACK `getrf!` through a null pointer (`logs/c-gdb-plot-head-noimage.log`);
+  - the ODE program: TraitNonlinearSolve's workload (`lib/TraitNonlinearSolve/src/TraitNonlinearSolve.jl:35`), the same
+    `getrf!` (`logs/s3-gdb-nls.log`);
+  - the tag's Julia and trees, TraitMakie from source: its workload's `save` (`TraitMakie.jl:240` at w160-tm) calls
+    Cairo: `could not load symbol "cairo_image_surface_create"`, Cairo_jll's `__init__` not run
+    (`logs/w166c-plot-tag-shared-debug.build.log`).
+- **The one difference from the tag: whether the build finds the program's package images for its own Julia.** A
+  build that finds them loads the packages from them and runs none of their top-level code. An image is valid only
+  for the Julia commit that wrote it (its header names the commit). E-383's round ran the sessions first
+  (`../w135/run_warn.sh`, `run_rest.sh`), which wrote the images with the same Julia, and its builds loaded them
+  (6 to 14 s). E-507's builds called `../w135/build.sh` directly, on a julia-next rebuilt at each commit, with no step
+  that wrote images; the head's debug log rejects every cache of TraitMakie, Colors and their dependencies as "an
+  incompatible cache header" (`logs/w166c-plot-head-noimage-debug.build.log`), so Colors loads from source.
+- **No change of the design causes it.** Same Julia (julia-next f5328f94c5), library (TraitWorld 9d4f782) and program:
+  without images the plot stops at Colors; with them it counts the tag's 6. The tag's Julia with the tag's library
+  and TraitMakie (`env_tag`: TraitWorld-base e11c7cc, `wt/w160-tm` c862914, julia-unified 7b374f39ce, binary 8fccf1e182)
+  stops loading TraitMakie from source, and with its images counts 6 (1081 targets, 24 entry points: E-383's).
+- **Workloads guarded by `jl_generating_output() == 1` alone** run in a trimmed build that loads the package from source:
+  6 in the workspace (`logs/c-workload-guards.txt`, `workload_guards.sh`), and PrecompileTools' `@compile_workload` has
+  the same guard. `Base.generating_output(true)` runs a workload only where an image is built.
+
+**The fix: the build writes the images first.** `build_c.sh` is `../w135/build.sh` with an image step (`IMAGES=1`,
+the default): the program's packages are precompiled with the build's own Julia, sysimage and project before the build
+loads them; a line `from source: …` names the packages still without a valid image. `DEPOT` stacks a depot of its own
+(`agent-depots/w166c`) so the shared depot's images of other trees are not displaced; `DRIVER`, `XFLAGS`, `TW` as in its
+header. No change to Julia, the library or a demonstrator.
+
+```sh
+source env.sh; export DEPOT=$TW_ROOT/.julia-depot/agent-depots/w166c
+VERIFY=1 NAME=plot-head bash build_c.sh plot                     # julia-next, ../w156/env_demo
+IMAGES=0 VERIFY=1 NAME=plot-head-noimage bash build_c.sh plot    # as E-507 built: stops at Colors
+IMAGES=1 TW=TraitWorld-base JULIA_TREE=julia-unified VERIFY=1 NAME=plot-tag bash build_c.sh plot $PWD/env_tag
+python3 ../w135/summarize.py logs/w166c-<name>.build.log
+bash workload_guards.sh [dir…]
+```
+
+**Results.** julia-next f5328f94c5, TraitWorld `unified` 9d4f782, the demonstrators at their `unified` heads
+(`../w156/env_demo`); `--trim=safe`, `VERIFY=1`, one build at a time, load 0.5 to 3.4 of 128. The image step: 7 to 20 s
+the first time.
+
+| program | head, no images (E-507's way) | head, images first | the tag, images first | E-383 | plain twin, head (E-383) |
+|---|---|---|---|---|---|
+| plot | segfault, Colors (`w166c-plot-head-noimage`) | 6 (`w166c-plot-head`) | 6 (`w166c-plot-tag`) | 6 | 86 (86; 88 vanilla) |
+| report | segfault, Colors (`../w135/logs/w166-report-s2`) | 6 (`w166c-report-head`) | — | 6 | 92 (92; 98 vanilla) |
+| ODE | segfault, TraitNonlinearSolve (`../w135/logs/w166-ode-s3b`) | 12 (`w166c-ode-head`) | — | 50 | 14 (14 vanilla) |
+| table | — | 0, 2,722,224 bytes, runs, output equal to the tag's (`logs/c-table-bin.out`) | — | 0 | — |
+
+- plot, report: the 6 are Pango_jll's `__init__` (JLLWrappers' `unique!` → `issorted` with an `Lt`/`By` order): a hole
+  of Base reached from a JLL, plain Julia's, as in E-383 and the twins.
+- ODE: 6 in OpenSpecFun_jll's `__init__` (the same hole); 6 in the program: `_problem_of(f::Dynamic{Callable{…}},
+  getfield(f, :object)::Callable{…}, …)` at ODECore `frontend.jl:69` (from `ODEProblem` for `lorenz!` and
+  `robertson!`, `ode.jl` 29 and 32) and the `solve` calls that take its result (`kwcall`, 4: its type is not concrete).
+  A call at a value known only by its trait (the box's object); compiler §7.6, "Any other call that does not know its
+  argument's member runs the method's instance at the call's types", should serve it.
+- E-384's eight small programs on julia-next: build with 0 errors, run, output equal (`logs/c-small.log`).
+
+**Not covered.** The ODE program with a gradient; binaries of the plot and the report (the verifier refuses the JLL
+hole: `--trim=safe` stops). That upstream JuliaC precompiles a project before it builds is not checked here.
