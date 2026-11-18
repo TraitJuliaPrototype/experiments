@@ -57,6 +57,8 @@ REF_CHECKS = {
     "the-users-words": re.compile(r"the user[ ,(]|\bmine\b"),
 }
 LINK = re.compile(r"\]\(([^)\s]+)\)")
+TARGET = re.compile(r"\]\([^)]*\)")
+FILENAME = re.compile(r"`[^`]*\d\d\d\d-\d\d-\d\d[^`]*\.(?:md|jl|sh|log|py)`|`[a-z-]+-20\d\d-\d\d(?:-\d\d)?`")
 EID = re.compile(r"\bE-(\d+)\b")
 
 
@@ -127,6 +129,9 @@ def main(argv):
             if kind != "history":
                 for name, rx in CHECKS.items():
                     for i, line in enumerate(lines, 1):
+                        if name == "dates":   # a date in a link's target or a file's name is a name, not chronology
+                            line = TARGET.sub("]()", line)
+                            line = FILENAME.sub("", line)
                         for m in rx.finditer(line):
                             if name == "links-to-archive" and any(l in m.group(1) for l in LIVE):
                                 continue
