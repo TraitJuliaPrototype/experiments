@@ -2,7 +2,7 @@
 # gets ci.flags bit 0b10000 at finish!; a frame with a run-time site does not;
 # unmarked code never carries the bit; and `ci_is_g2`-style reads work from
 # Julia. (The image round trip of the bit is m3_image_roundtrip's job.)
-include("util.jl")
+include("../util.jl")
 import Compiler
 
 const G2BIT = 0b00010000

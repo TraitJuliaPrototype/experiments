@@ -2,7 +2,7 @@
 # outcome, not the raw `ambig` pair flag. A fixed-vs-Vararg pair whose member
 # dispatch resolves to a single, fully-covering winner warns ZERO times now;
 # the genuinely ambiguous shape (two incomparable methods) still warns once.
-include("util.jl")
+include("../util.jl")
 
 const JULIA = `$(Base.julia_cmd()) --startup-file=no --project=$(Base.active_project())`
 

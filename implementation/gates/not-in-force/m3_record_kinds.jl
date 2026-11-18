@@ -3,7 +3,7 @@
 # an inline, ResultEdge at an emitted call, LayoutIdentity at a field read —
 # while plain invalidation through the code edges is UNCHANGED (the records are
 # classification; store_backedges registers nothing through them).
-include("util.jl")
+include("../util.jl")
 import Compiler
 
 struct P3R

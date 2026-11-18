@@ -2,7 +2,7 @@
 # encoding at bit 15 (zeroed words read "no run-time site"), round-trips,
 # propagates IPO through marked chains, plain frames never clear it, and a cycle
 # re-narrows the stored word at cycle finish.
-include("util.jl")
+include("../util.jl")
 import Compiler
 
 # (A) encoding round-trip, both values, and the inverted zero word

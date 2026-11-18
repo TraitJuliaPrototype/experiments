@@ -14,7 +14,7 @@ using LinearAlgebra, InteractiveUtils
 using Traits
 import Compiler
 
-include("util.jl")
+include("../util.jl")
 const G2BIT = 0b00010000
 
 # ---------------- work A: a scripted trait session ----------------

@@ -3,7 +3,7 @@
 # ized at the statement — R-1 — plus a FoldRecord edge) and stays `nothing` at
 # the interpreter; known_type folds to Const(isdispatchelem(widenconst(..))) —
 # R-3; split_call with zero candidates == the call (R-4: the inliner stays inert).
-include("util.jl")
+include("../util.jl")
 import Compiler
 
 # (A) fold_call at the interpreter: the runtime definition answers nothing

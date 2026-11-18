@@ -2,7 +2,7 @@
 # a facts frame resolves fact-signature calls as plain (pair edge, concrete
 # rettype) and refuses non-fact calls — no (sig, callee) pair at the site,
 # rettype Any. Plus the is_fact_sig table (F1-F4 forms, §1a; Keyed => false).
-include("util.jl")
+include("../util.jl")
 import Compiler
 
 mark!(f) = Compiler.mark_facts!(f)
