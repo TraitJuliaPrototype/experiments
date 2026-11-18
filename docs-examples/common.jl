@@ -60,7 +60,7 @@ const DEVIATIONS = Tuple{String,String}[]
 A check where the implementation is known to differ from the design the page states: `f()` is the design's
 outcome. Where it holds, a `PASS` line (the deviation no longer shows); otherwise (false, or an exception) a
 line `DEVIATION <id> <name>`, counted apart from pass and fail. `id` names the reference's deviation row
-(`T-126`, `compiler C-112`), or `no row`.
+(`T-130`, `compiler C-112`) or the open issue.
 """
 function deviation(name::AbstractString, id::AbstractString, f)
     ok = outcome(f) === true

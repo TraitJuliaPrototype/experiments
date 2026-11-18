@@ -140,7 +140,7 @@ e = thrown(:(module Broken
     end))
 check("an unbounded method in a trait module raises TraitUseError", e isa TraitWorld.TraitUseError)
 e === nothing || println("MESSAGE TraitUseError:\n", sprint(showerror, e))
-deviation("the TraitUseError names the method as a call, no tuple type", "no row",
+deviation("the TraitUseError names the method as a call, no tuple type", "open issue 235",
           () -> e isa Exception && !occursin("Tuple{", msg(e)))
 
 e = try colmean(42, 1); nothing catch err; err end
