@@ -1,0 +1,87 @@
+┌ Warning: The project dependencies or compat requirements have changed since the manifest was last resolved.
+│ It is recommended to `Pkg.resolve()` or consider `Pkg.update()` if necessary.
+└ @ Pkg.API /p/projects/coen/julia-trait-bound/julia-next/usr/share/julia/stdlib/v1.13/Pkg/src/API.jl:1312
+     Testing TraitCSV
+      Status `/tmp/jl_d83U2l/Project.toml`
+⌅ [842dd82b] InlineStrings v1.4.6
+  [e712023c] TraitCSV v0.0.1 `/p/projects/coen/julia-trait-bound/TraitCSV`
+  [948581bb] TraitTables v0.0.1 `/p/projects/coen/julia-trait-bound/TraitTables`
+  [7a3c1e52] TraitWorld v0.2.0 `/p/projects/coen/julia-trait-bound/TraitWorld`
+  [8dfed614] Test v1.11.0
+      Status `/tmp/jl_d83U2l/Manifest.toml`
+⌅ [842dd82b] InlineStrings v1.4.6
+  [e712023c] TraitCSV v0.0.1 `/p/projects/coen/julia-trait-bound/TraitCSV`
+  [948581bb] TraitTables v0.0.1 `/p/projects/coen/julia-trait-bound/TraitTables`
+  [7a3c1e52] TraitWorld v0.2.0 `/p/projects/coen/julia-trait-bound/TraitWorld`
+  [56f22d72] Artifacts v1.11.0
+  [2a0f44e3] Base64 v1.11.0
+  [ade2ca70] Dates v1.11.0
+  [b77e0a4c] InteractiveUtils v1.11.0
+  [ac6e5ff7] JuliaSyntaxHighlighting v1.12.0
+  [8f399da3] Libdl v1.11.0
+  [37e2e46d] LinearAlgebra v1.13.0
+  [56ddb016] Logging v1.11.0
+  [d6f4376e] Markdown v1.11.0
+  [de0858da] Printf v1.11.0
+  [9a3f8284] Random v1.11.0
+  [ea8e919c] SHA v1.0.0
+  [9e88b42a] Serialization v1.11.0
+  [f489334b] StyledStrings v1.11.0
+  [8dfed614] Test v1.11.0
+  [4ec0a83e] Unicode v1.11.0
+  [e66e0078] CompilerSupportLibraries_jll v1.5.5+2
+  [4536629a] OpenBLAS_jll v0.3.30+0
+  [8e850b90] libblastrampoline_jll v5.15.0+0
+        Info Packages marked with ⌅ have new versions available but compatibility constraints restrict them from upgrading.
+Precompiling for configuration --code-coverage=none --color=auto --warn-overwrite=yes --depwarn=yes --inline=yes --startup-file=no --track-allocation=none
+   8.3 s  ✓ TraitCSV
+   2.7 s  ✓ TraitCSV → TraitCSVInlineStringsExt
+  2 dependencies successfully precompiled in 11 seconds. 15 already precompiled.
+     Testing Running tests...
+┌ Warning: @implement CSVColumn Vector{Bool} in Main: Main owns neither the trait (owned by TraitCSV) nor the type (owned by Julia): a pirate's membership. It is followed; code that relied on its absence is compiled again. The trait's owner or the type's owner declares it, a foreign pair in the trait owner's package extension
+└ @ TraitWorld /p/projects/coen/julia-trait-bound/TraitWorld/src/ownership.jl:297
+ERROR: LoadError: Some tests did not pass: 1 passed, 1 failed, 0 errored, 0 broken.
+in expression starting at /p/projects/coen/julia-trait-bound/TraitCSV/test/runtests.jl:49
+Test Summary: | Pass  Total  Time
+TraitCSV      |   14     14  0.7s
+
+TraitCSV: a column's code per column type: Test Failed at /p/projects/coen/julia-trait-bound/TraitCSV/test/runtests.jl:52
+  Expression: compiled_at(TraitCSV.CSVCore.fillcolumn, Compiled{Flags})
+  Stacktrace:
+   [1] top-level scope
+     @ /p/projects/coen/julia-trait-bound/TraitCSV/test/runtests.jl:50
+   [2] macro expansion
+     @ /p/projects/coen/julia-trait-bound/julia-next/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:1967 [inlined]
+   [3] macro expansion
+     @ /p/projects/coen/julia-trait-bound/TraitCSV/test/runtests.jl:52 [inlined]
+   [4] macro expansion
+     @ /p/projects/coen/julia-trait-bound/julia-next/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:758 [inlined]
+Test Summary:                             | Pass  Fail  Total  Time
+TraitCSV: a column's code per column type |    1     1      2  1.4s
+RNG of the outermost testset: Random.Xoshiro(0x8001924cc1336916, 0xfbb82b14ee5d1279, 0x55ee9598aa9a38f2, 0xe9f9986c98889950, 0x86a62a7f0d09ee6b)
+ERROR: Package TraitCSV errored during testing
+Stacktrace:
+  [1] pkgerror(msg::String)
+    @ Pkg.Types /p/projects/coen/julia-trait-bound/julia-next/usr/share/julia/stdlib/v1.13/Pkg/src/Types.jl:68
+  [2] test(ctx::Pkg.Types.Context, pkgs::Vector{PackageSpec}; coverage::Bool, julia_args::Cmd, test_args::Cmd, test_fn::Nothing, force_latest_compatible_version::Bool, allow_earlier_backwards_compatible_versions::Bool, allow_reresolve::Bool)
+    @ Pkg.Operations /p/projects/coen/julia-trait-bound/julia-next/usr/share/julia/stdlib/v1.13/Pkg/src/Operations.jl:3319
+  [3] test
+    @ /p/projects/coen/julia-trait-bound/julia-next/usr/share/julia/stdlib/v1.13/Pkg/src/Operations.jl:3197 [inlined]
+  [4] test(ctx::Pkg.Types.Context, pkgs::Vector{PackageSpec}; coverage::Bool, test_fn::Nothing, julia_args::Cmd, test_args::Cmd, force_latest_compatible_version::Bool, allow_earlier_backwards_compatible_versions::Bool, allow_reresolve::Bool, kwargs::@Kwargs{io::IOContext{IO}})
+    @ Pkg.API /p/projects/coen/julia-trait-bound/julia-next/usr/share/julia/stdlib/v1.13/Pkg/src/API.jl:587
+  [5] test(pkgs::Vector{PackageSpec}; io::IOContext{IO}, kwargs::@Kwargs{})
+    @ Pkg.API /p/projects/coen/julia-trait-bound/julia-next/usr/share/julia/stdlib/v1.13/Pkg/src/API.jl:172
+  [6] test(pkgs::Vector{PackageSpec})
+    @ Pkg.API /p/projects/coen/julia-trait-bound/julia-next/usr/share/julia/stdlib/v1.13/Pkg/src/API.jl:161
+  [7] test(; name::Nothing, uuid::Nothing, version::Nothing, url::Nothing, rev::Nothing, path::Nothing, mode::PackageMode, subdir::Nothing, kwargs::@Kwargs{})
+    @ Pkg.API /p/projects/coen/julia-trait-bound/julia-next/usr/share/julia/stdlib/v1.13/Pkg/src/API.jl:189
+  [8] test()
+    @ Pkg.API /p/projects/coen/julia-trait-bound/julia-next/usr/share/julia/stdlib/v1.13/Pkg/src/API.jl:178
+  [9] top-level scope
+    @ none:1
+ [10] eval(m::Module, e::Any)
+    @ Core ./boot.jl:541
+ [11] exec_options(opts::Base.JLOptions)
+    @ Base ./client.jl:310
+ [12] _start()
+    @ Base ./client.jl:577

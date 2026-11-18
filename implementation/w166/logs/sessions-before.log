@@ -1,0 +1,28 @@
+# W-166 sessions before 2026-11-18T19:43:47+01:00 load 2.98 3.22 4.17 | julia-next 4bf381040c TraitWorld 6ad7098 TraitTables 729f3ad TraitCSV c95c67c TraitMakie 0668ebf
+report run 1: wall 1.043 s | load 585.0 ms | first run 109.2 ms, of it compiling 51.4 ms (again after an invalidation 0.0 ms) | second run 29.0 ms
+report run 2: wall 1.027 s | load 564.9 ms | first run 116.9 ms, of it compiling 51.5 ms (again after an invalidation 0.0 ms) | second run 29.1 ms
+report run 3: wall 1.018 s | load 557.4 ms | first run 113.9 ms, of it compiling 51.2 ms (again after an invalidation 0.0 ms) | second run 30.0 ms
+experiments/implementation/w166/logs/report-before.trace: 25 compiles, 217 ms
+  session         3 compiles     68.6 ms  31.6 %
+  recompile       2 compiles     37.1 ms  17.1 %
+  own image       1 compiles      0.0 ms   0.0 %
+  composition     0 compiles      0.0 ms   0.0 %
+  julia          19 compiles    111.1 ms  51.2 %
+table run 1: wall .6588 s | load 350.9 ms | first run 54.0 ms, of it compiling 53.3 ms (again after an invalidation 0.0 ms) | second run 0.2 ms
+table run 2: wall .6548 s | load 349.5 ms | first run 54.0 ms, of it compiling 53.3 ms (again after an invalidation 0.0 ms) | second run 0.2 ms
+table run 3: wall .6505 s | load 346.8 ms | first run 54.3 ms, of it compiling 53.5 ms (again after an invalidation 0.0 ms) | second run 0.2 ms
+experiments/implementation/w166/logs/table-before.trace: 19 compiles, 169 ms
+  session         3 compiles     69.9 ms  41.5 %
+  recompile       1 compiles      5.8 ms   3.4 %
+  own image       0 compiles      0.0 ms   0.0 %
+  composition     0 compiles      0.0 ms   0.0 %
+  julia          15 compiles     92.9 ms  55.1 %
+# load after 2.90 3.19 4.13
+report instances TraitTables: 103 with code, 11 of them at a kept form; 55 methods
+report instances TraitCSV: 29 with code, 3 of them at a kept form; 35 methods
+report instances TraitMakie: 323 with code, 51 of them at a kept form; 400 methods
+report instances TraitWorld: 450 with code, 9 of them at a kept form; 747 methods
+table instances TraitTables: 103 with code, 11 of them at a kept form; 55 methods
+table instances TraitCSV: 29 with code, 3 of them at a kept form; 35 methods
+table instances TraitMakie: 0 with code, 0 of them at a kept form; 0 methods
+table instances TraitWorld: 382 with code, 2 of them at a kept form; 747 methods
