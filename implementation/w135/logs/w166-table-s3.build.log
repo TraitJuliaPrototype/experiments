@@ -1,0 +1,100 @@
+# E-361 table 2026-11-18T20:23:28+01:00 load 6.53 7.12 6.52 | wt/w166-julia 803060c332 TraitWorld 1c6cca4 trim=safe
+WARNING: Imported binding TraitTables.Table was undeclared at import time during import to TraitCSV.
+Error #1: unresolved call from statement TraitTables.TableCore.floats(
+  :(φ (%69 => %68, %74 => %73, %79 => %78, %84 => %83, %89 => %88))::Compiled,
+  skipmissing::Bool
+)::Vector{Float64}
+
+Stacktrace:
+ [1] floats(t::Table, name::String; skipmissing::Bool)
+   @ TraitTables /p/projects/coen/julia-trait-bound/TraitTables/src/TraitTables.jl:51
+ [2] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/implementation/w135/apps/table.jl:11
+ [3] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/wt/w166-julia/test/trimming/juliac-buildscript.jl:35
+
+Error #2: unresolved call from statement summarize(
+  :(φ (%42 => %41, %47 => %46, %52 => %51, %57 => %56, %62 => %61))::Compiled,
+  (…)::String
+)::ColSummary
+
+Stacktrace:
+ [1] describe(t::Table)
+   @ TraitTables.TableCore /p/projects/coen/julia-trait-bound/TraitTables/src/TableCore.jl:189
+ [2] summary_text(t::Table)
+   @ TraitTables /p/projects/coen/julia-trait-bound/TraitTables/src/TraitTables.jl:71
+ [3] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/implementation/w135/apps/table.jl:10
+ [4] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/wt/w166-julia/test/trimming/juliac-buildscript.jl:35
+
+Error #3: unresolved call from statement fillcolumn(
+  :(φ (%100 => %99, %105 => %104, %110 => %109, %115 => %114, %120 => %119))::Compiled,
+  s::String,
+  (…)::Vector{UnitRange{Int64}}
+)::Bool
+
+Stacktrace:
+ [1] readtable(s::String, delim::UInt8, types::Vector{CSVColumn})
+   @ TraitCSV.CSVCore /p/projects/coen/julia-trait-bound/TraitCSV/src/CSVCore.jl:126
+ [2] parse(text::String; delim::Char, types::Nothing)
+   @ TraitCSV /p/projects/coen/julia-trait-bound/TraitCSV/src/TraitCSV.jl:35 [inlined]
+ [3] read(path::String; delim::Char, types::Nothing)
+   @ TraitCSV /p/projects/coen/julia-trait-bound/TraitCSV/src/TraitCSV.jl:24 [inlined]
+ [4] read(path::String)
+   @ TraitCSV /p/projects/coen/julia-trait-bound/TraitCSV/src/TraitCSV.jl:23 [inlined]
+ [5] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/implementation/w135/apps/table.jl:9
+ [6] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/wt/w166-julia/test/trimming/juliac-buildscript.jl:35
+
+Error #4: unresolved call from statement TraitTables.TableCore.floats(
+  :(φ (%69 => %68, %74 => %73, %79 => %78, %84 => %83, %89 => %88))::Compiled,
+  skipmissing::Bool
+)::Vector{Float64}
+
+Stacktrace:
+ [1] floats(t::Table, name::String; skipmissing::Bool)
+   @ TraitTables /p/projects/coen/julia-trait-bound/TraitTables/src/TraitTables.jl:51
+ [2] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/implementation/w135/apps/table.jl:11
+ [3] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/wt/w166-julia/test/trimming/juliac-buildscript.jl:35
+
+Error #5: unresolved call from statement summarize(
+  :(φ (%42 => %41, %47 => %46, %52 => %51, %57 => %56, %62 => %61))::Compiled,
+  (…)::String
+)::ColSummary
+
+Stacktrace:
+ [1] describe(t::Table)
+   @ TraitTables.TableCore /p/projects/coen/julia-trait-bound/TraitTables/src/TableCore.jl:189
+ [2] summary_text(t::Table)
+   @ TraitTables /p/projects/coen/julia-trait-bound/TraitTables/src/TraitTables.jl:71
+ [3] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/implementation/w135/apps/table.jl:10
+ [4] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/wt/w166-julia/test/trimming/juliac-buildscript.jl:35
+
+Error #6: unresolved call from statement fillcolumn(
+  :(φ (%100 => %99, %105 => %104, %110 => %109, %115 => %114, %120 => %119))::Compiled,
+  s::String,
+  (…)::Vector{UnitRange{Int64}}
+)::Bool
+
+Stacktrace:
+ [1] readtable(s::String, delim::UInt8, types::Vector{CSVColumn})
+   @ TraitCSV.CSVCore /p/projects/coen/julia-trait-bound/TraitCSV/src/CSVCore.jl:126
+ [2] parse(text::String; delim::Char, types::Nothing)
+   @ TraitCSV /p/projects/coen/julia-trait-bound/TraitCSV/src/TraitCSV.jl:35 [inlined]
+ [3] read(path::String; delim::Char, types::Nothing)
+   @ TraitCSV /p/projects/coen/julia-trait-bound/TraitCSV/src/TraitCSV.jl:24 [inlined]
+ [4] read(path::String)
+   @ TraitCSV /p/projects/coen/julia-trait-bound/TraitCSV/src/TraitCSV.jl:23 [inlined]
+ [5] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/implementation/w135/apps/table.jl:9
+ [6] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/wt/w166-julia/test/trimming/juliac-buildscript.jl:35
+
+Trim verify finished with 6 errors, 0 warnings.
+object: exit 1 after 22 s

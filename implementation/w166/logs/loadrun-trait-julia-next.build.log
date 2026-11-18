@@ -1,0 +1,31 @@
+# W-166 /p/projects/coen/julia-trait-bound/experiments/implementation/w166/apps/loadrun_trait.jl 2026-11-18T20:02:30+01:00 load 9.88 7.68 5.94 | julia-next 4bf381040c TraitWorld a8d11af trim=safe
+circle: area 3.142, ratio 0.5
+ERROR: LoadError: MethodError: no method matching label(::Rect)
+This error has been manually thrown, explicitly, so the method may exist but be intentionally marked as unimplemented.
+
+Closest candidates are:
+  label(::Shape)
+   @ Main.Geometry /p/projects/coen/julia-trait-bound/experiments/implementation/w139/apps/geometry_trait.jl:6
+  label(!Matched::Circle)
+   @ Main /p/projects/coen/julia-trait-bound/experiments/implementation/w139/apps/geometry_trait.jl:21
+
+Stacktrace:
+ [1] report(s::Shape)
+   @ Main.Geometry /p/projects/coen/julia-trait-bound/experiments/implementation/w139/apps/geometry_trait.jl:12
+ [2] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/implementation/w139/apps/vector_trait.jl:6
+ [3] top-level scope
+   @ /p/projects/coen/julia-trait-bound/experiments/implementation/w166/apps/loadrun_trait.jl:4
+ [4] include(mod::Module, _path::String)
+   @ Base ./Base.jl:318
+ [5] top-level scope
+   @ /p/projects/coen/julia-trait-bound/julia-next/test/trimming/juliac-buildscript.jl:38
+ [6] include(mod::Module, _path::String)
+   @ Base ./Base.jl:318
+ [7] exec_options(opts::Base.JLOptions)
+   @ Base ./client.jl:344
+ [8] _start()
+   @ Base ./client.jl:577
+in expression starting at /p/projects/coen/julia-trait-bound/experiments/implementation/w166/apps/loadrun_trait.jl:4
+in expression starting at /p/projects/coen/julia-trait-bound/julia-next/test/trimming/juliac-buildscript.jl:38
+object: exit 1
