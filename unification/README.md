@@ -1,8 +1,31 @@
-# Unification: the gates and acceptance cases of the unified build
+# The implementation's gates, acceptance cases and experiments
 
-The tests of the unified build ([compiler §7](../../attic/writeup/reference/compiler.md#7-traits-in-the-type-system); [the synthesis plan](../../writeup/plans/2026-11-05-unification-synthesis.md); W-97 to W-104). Registry rows: E-260 to E-262 ([experiments §12](../../writeup/record/experiments.md)).
+The directory's name is that of the work that made traits abstract types. It holds what checks and measures the implementation.
 
-Copied on 2026-11-06 from the earlier attempt (`attic/oc-traits/`, `attic/oc-notes/c7count/`) unchanged, except for the run scripts. The audit (W-97) judges each gate as code; a gate is changed only with a note in this file.
+- **The registry rows** are in `../../writeup/record/experiments.md`; a row's "Where" names a directory here.
+- **What to run after a change:** `../../writeup/record/playbook.md` §3.
+
+## How to run
+
+```sh
+source env.sh                                                # from the design repository
+experiments/unification/gates/run_all.sh julia-next '*'      # every gate; a pattern selects: 'm1_*'
+experiments/unification/e262_suites.sh julia-next next       # Base's four test files; and: julia-vanilla vanilla
+```
+
+- Each gate prints `<name>: OK` and exits 0, or asserts. One Julia process per gate, 4 cores.
+- The gates are listed in [`gates/README.md`](gates/README.md). The gates of each stage of the running iteration are in that stage's directory (`w155/`, `w155b/`, `w157/`, `w160/`, `w161/`), with a `run` script.
+- The acceptance cases of the facts mode: `test/acceptance/`, run by `test/runtests.jl`.
+- The measurement round's method and harness: [`w145/README.md`](w145/README.md).
+
+## The directories
+
+- `gates/`, `test/acceptance/`, `src/` (a stub library for the gates), `audit/` (probes: what the build does beside what the reference intends), `stack/` (the checks of the commit stack), `workloads/`.
+- `w<n>/`: the experiments of work item W-n. `e<n>/`: of experiment E-n. `x<n>/`, `c<n>/`, `i<n>/`, `l<n>/`, `s0a/`, `c7count/`: single questions. Each has a README, or its registry row says what it holds.
+
+## History: the first layout
+
+What follows describes the directory as it was set up, with the first stages' gates.
 
 ## Layout
 

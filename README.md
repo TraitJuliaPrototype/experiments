@@ -1,31 +1,43 @@
 # Experiments
 
-The smaller experiments of the trait-bound Julia design: prototypes around TraitWorld, measurements, and one-off studies. The design is in the design repository (`../writeup/design.md`; the map of the record is `../writeup/record/INDEX.md`). TraitWorld, the patched Julia and the two large rewrites (TraitDifferentialEquations, TraitMakie) are repositories of their own beside this one.
+The gates, measurements and tools of the trait-bound Julia design. The design is in the design repository (`../writeup/`), and this repository sits inside it.
 
-Until 2026-10-16 this was the `poc/` directory of the design repository; its history came along. Paths in older session notes and findings that start with `poc/` now start with `experiments/`.
+- **The registry** of experiments (the question, the baseline, the build, the outcome, by ID `E-n`) is `../writeup/record/experiments.md`. A new experiment gets its row there before it runs.
+- **The current numbers** are in `../writeup/design/evidence.md`. A README here says how to run, and keeps dated tables of its own results.
+- **What to run after a change:** `../writeup/record/playbook.md` §3.
 
-**The registry of experiments** (questions, statuses and outcomes, by ID) is in the design repository: `../writeup/record/experiments.md`. Add a row there before running a new experiment.
+## The implementation's experiments
 
-| Directory | What | Write-up |
-|---|---|---|
-| `world/` | TraitWorld's first prototype libraries (Columns, Stats, Rows, UserTypes, App), benchmarks, concrete mode, the trimmed binary, the definition-checking demo | `world/README.md` |
-| `interfaces/` | the prototype around DataFrames and Makie: trait wrappers, calls upward, sealing audits, view caches, ComboCache, the full and trimmed App binaries, Makie dispatch tracing (x1–x16), the Python baseline | `interfaces/README.md` |
-| `errors/` | where unreadable error messages come from: C++ templates and concepts, SciML | `errors/README.md`; design-findings §17 |
-| `lens/` | the cost of a field reference against a held value | design-findings §18 |
-| `solvers/` | stock SciML baselines: time to first solve, callbacks, automatic differentiation | `../writeup/explorations/solvers.md` |
-| `runtime-injection/` | the load-time invalidation filter injected into stock Julia 1.12.2 and 1.13.2 | `runtime-injection/README.md`; `../writeup/explorations/runtime.md` |
-| `plotwork/` | a plotting session with upstream packages only (CSV, DataFrames, CairoMakie, no trait code), plain against the test bed `all`: what the facts mode saves on recompilation against what it costs per round of work (E-140) | `plotwork/README.md` |
-| `examples/` | small cases that stress-test the design (session 29): strict mode on real pirates and split-core pairs, a glue extension, heterogeneous collections, errors at definition, warnings that teach, redefinition at the prompt | `examples/README.md` |
-| `facts/framing/` | the framing's acceptance cases: S1–S10, a Vararg splat, a pirate in each order under both tiers, G1.16 | `facts/framing/README.md` |
-| `facts/` | wrapping by facts: the acceptance suite (`acceptance_compiler.jl`, 23 checks on the facts compiler, 23 of 23 in both settings on 2026-10-20), the hunt, `g2all` (no compiled code lost over twelve loads), `g2strict` (strict mode on a real stack), `typedbench` (typed against untyped calls) | `facts/README.md` |
-| `factscompiler/` | the facts compiler's measurements (session 29): BaseBenchmarks under `all`, the recovery cases (raytrace, `dynmicro`), the control (`control/`), the facts system image's build script, and `session29/`: the performance phase's scripts and logs | `factscompiler/README.md`; `session29/README.md` |
-| `sysimage/` | TraitWorld in the patched system image (session 26): the policy in the platform, a prototype superseded by the facts compiler | `sysimage/` |
-| `aot/` | trimmed binaries on 1.13 (session 25): TraitMakie, 4.07 MB | `aot/` |
-| `demos/` | the demonstrators' measurement rows before the facts compiler (sessions 26–27) | `demos/` |
-| `keys-proto/` | the runtime as methods, prototyped before TraitWorld adopted it (session 23) | `keys-proto/` |
-| `review-s23/` | the review of session 23's cases | `review-s23/` |
-| `baseline-1.13/`, `baseline-1.13.md` | stock 1.13.2 baselines | `baseline-1.13.md` |
+| Directory | What |
+|---|---|
+| `unification/` | the gates (`gates/`), the acceptance cases of the facts mode (`test/acceptance/`), the audit's probes (`audit/`), and one directory per piece of work or experiment (`w…`, `e…`, `x…`). [Its README](unification/README.md) lists them |
+| `docs-examples/` | the examples of `../writeup/intro/` and of the references, as scripts that run |
+| `docs-checks/` | checks of the documents: links, quotes, tables |
+| `tools/` | `jl` (a Julia job in a slot, with its own depot and a memory guard), the A/B harness (`ab/`), the documentation lint (`doclint/`), the tools for finding slowdowns. [Its README](tools/README.md) |
 
-**Environments.** The environments under `world/env` and `interfaces/env` develop TraitWorld from `../../../TraitWorld`, the sibling repository.
+## Plain Julia and Python: the baselines
 
-**Running on the shared machine:** one Julia job at a time, under `flock /tmp/claude-1000/julia-review.lock`, niced; full builds alone, under a memory guard (`../session-notes/00-environment-and-workflow.md`).
+| Directory | What |
+|---|---|
+| `ttfx/` | the first-use workloads, in plain Julia and in Python (SciPy, matplotlib, pandas); the Python versions |
+| `solvers/` | plain SciML: the first solve, callbacks, automatic differentiation |
+| `errors/` | where unreadable error messages come from: C++ templates and concepts, SciML |
+| `world/concrete/` | what one abstract field deep in a type hierarchy costs |
+| `interfaces/` | what compiling per user type costs a plotting library (`scripts/x8_types.jl`) |
+| `facts/` | plain Julia's invalidation at a concrete signature (`e3_exact.jl`); the acceptance cases' origin |
+| `w83/u6/` | how plain Julia loads a package extension |
+
+## Earlier work that scripts still read
+
+`checks/`, `examples/`, `factscompiler/`, `hetero/`, `hetero-idiomatic/`, `loadcosts/`, `sysimage/`, `w34-sciml/`, `w66/`, `w80/`, `x3/` and the rest of `facts/`, `interfaces/`, `world/` and `w83/` belong to earlier iterations of the design, on Julia 1.13 with the library of that time (tag `pre-unified` in each repository). A script or a README of the directories above still reads them. Their rows are in the experiments' ledger, `../attic/writeup/record/experiments-archive.md`.
+
+## The attic
+
+[`attic/`](attic/README.md) holds the earlier experiments that nothing reads.
+
+## Running
+
+- `source env.sh` in the design repository first on a shared host.
+- One Julia process per gate or cell, 4 cores. `tools/jl` gives a job its slot.
+- Environments name TraitWorld and the demonstrators by paths relative to the workspace. Scripts find the workspace from their own place; `TW_ROOT` overrides it.
+- Logs are committed, in the experiment's directory.
