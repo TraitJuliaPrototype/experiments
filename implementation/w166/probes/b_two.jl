@@ -1,0 +1,8 @@
+# W-166b: a call that takes two wrappers of values known only by their trait, at five members (the build's check in a session)
+include(joinpath(@__DIR__, "b_join.jl"))
+pair5(a::Shape5, b::Shape5) = area5(a) + area5(b)
+twosum(xs::Vector{Shape5}) = (s = 0.0; for i in 2:length(xs); s += pair5(compiled_for(xs[i-1]), compiled_for(xs[i]))::Float64; end; s)
+ft2 = fully_typed(twosum, (Vector{Shape5},))
+@show isfullytyped(ft2)
+display(ft2)
+@show twosum(Shape5[S1(1.0), S2(1.0), S3(1.0), S4(1.0), S5(1.0)])

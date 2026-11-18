@@ -1,0 +1,35 @@
+ERROR: LoadError: Some tests did not pass: 2 passed, 2 failed, 0 errored, 0 broken.
+in expression starting at /p/projects/coen/julia-trait-bound/TraitWorld/test/verify.jl:80
+Test Summary: | Pass  Total  Time
+verify_main   |    7      7  2.2s
+Test Summary:                      | Pass  Total  Time
+verify_main: the wrapper's members |    7      7  0.1s
+
+verify_main: the wrappers of five members: Test Failed at /p/projects/coen/julia-trait-bound/TraitWorld/test/verify.jl:84
+  Expression: isempty(r.holes)
+   Evaluated: isempty(TraitWorld.RuntimeSite[TraitWorld.RuntimeSite(:dispatch, MethodInstance for Main.verify.wrapsum5(::Vector{Main.verify.Shape5}), Symbol("/p/projects/coen/julia-trait-bound/TraitWorld/test/verify.jl"), 78, "scaled5(\n  :(φ (%43 => %42, %48 => %47, %53 => %52, %58 => %57, %63 => %62, %135 => %133))::Core.Compiled,\n  2.0::Float64\n)::Float64", ["unresolved call"])])
+  Stacktrace:
+   [1] top-level scope
+     @ /p/projects/coen/julia-trait-bound/TraitWorld/test/verify.jl:81
+   [2] macro expansion
+     @ /p/projects/coen/julia-trait-bound/julia-next/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:1967 [inlined]
+   [3] macro expansion
+     @ /p/projects/coen/julia-trait-bound/TraitWorld/test/verify.jl:84 [inlined]
+   [4] macro expansion
+     @ /p/projects/coen/julia-trait-bound/julia-next/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:758 [inlined]
+
+verify_main: the wrappers of five members: Test Failed at /p/projects/coen/julia-trait-bound/TraitWorld/test/verify.jl:85
+  Expression: isfullytyped(fully_typed(wrapsum5, (Vector{Shape5},)))
+   Evaluated: isfullytyped(FullyTypedReport(1 run-time sites))
+  Stacktrace:
+   [1] top-level scope
+     @ /p/projects/coen/julia-trait-bound/TraitWorld/test/verify.jl:81
+   [2] macro expansion
+     @ /p/projects/coen/julia-trait-bound/julia-next/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:1967 [inlined]
+   [3] macro expansion
+     @ /p/projects/coen/julia-trait-bound/TraitWorld/test/verify.jl:85 [inlined]
+   [4] macro expansion
+     @ /p/projects/coen/julia-trait-bound/julia-next/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:758 [inlined]
+Test Summary:                             | Pass  Fail  Total  Time
+verify_main: the wrappers of five members |    2     2      4  1.3s
+RNG of the outermost testset: Random.Xoshiro(0x22c2c224b1f566d5, 0xcaf4e38aaff53009, 0xcff0583d9b7b4ea5, 0x89be87cf42aa4dc3, 0x5788dca39de5a07e)

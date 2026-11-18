@@ -1,0 +1,10 @@
+CC.tmerge(U3, Compiled{S4}) = Compiled
+CC.tmerge(Union{Compiled{S1}, Compiled{S2}}, Compiled{S3}) = Union{Compiled{S1}, Compiled{S2}, Compiled{S3}}
+CC.tmerge(CC.fallback_lattice, Union{Compiled{S1}, Compiled{S2}, Compiled{S3}}, Compiled{S4}) = Compiled
+r.holes = TraitWorld.RuntimeSite[]
+isfullytyped(ft) = true
+fully typed: Tuple{typeof(wrapsum5), Vector{Shape5}}
+wrapsum5(Shape5[S1(1.0), S2(1.0), S3(1.0), S4(1.0), S5(1.0)]) = 30.0
+isfullytyped(ft2) = true
+fully typed: Tuple{typeof(twosum), Vector{Shape5}}
+twosum(Shape5[S1(1.0), S2(1.0), S3(1.0), S4(1.0), S5(1.0)]) = 24.0

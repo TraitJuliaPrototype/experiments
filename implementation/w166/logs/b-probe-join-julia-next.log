@@ -1,0 +1,14 @@
+CC.tmerge(U3, Compiled{S4}) = Compiled
+CC.tmerge(Union{Compiled{S1}, Compiled{S2}}, Compiled{S3}) = Union{Compiled{S1}, Compiled{S2}, Compiled{S3}}
+CC.tmerge(CC.fallback_lattice, Union{Compiled{S1}, Compiled{S2}, Compiled{S3}}, Compiled{S4}) = Compiled
+r.holes = TraitWorld.RuntimeSite[TraitWorld.RuntimeSite(:dispatch, MethodInstance for wrapsum5(::Vector{Shape5}), Symbol("/p/projects/coen/julia-trait-bound/experiments/implementation/w166/probes/b_join.jl"), 21, "scaled5(\n  :(φ (%43 => %42, %48 => %47, %53 => %52, %58 => %57, %63 => %62, %135 => %133))::Compiled,\n  2.0::Float64\n)::Float64", ["unresolved call"])]
+isfullytyped(ft) = false
+not fully typed: Tuple{typeof(wrapsum5), Vector{Shape5}}
+  1 call is left to run time, which a closed build refuses:
+  /p/projects/coen/julia-trait-bound/experiments/implementation/w166/probes/b_join.jl:21  scaled5(
+  :(φ (%43 => %42, %48 => %47, %53 => %52, %58 => %57, %63 => %62, %135 => %133))::Compiled,
+  2.0::Float64
+)::Float64
+      unresolved call
+      (give the values concrete types (a typed field or container, a function barrier), or type them by a trait that declares the result)
+wrapsum5(Shape5[S1(1.0), S2(1.0), S3(1.0), S4(1.0), S5(1.0)]) = 30.0

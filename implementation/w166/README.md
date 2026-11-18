@@ -111,3 +111,70 @@ session 10 of 10; TraitDifferentialEquations 35 testsets, its session 14 checks 
 the forks' Tables 1 error (`ByRow(Dict)`, open issue 240); the forks' digests equal at 26 steps; the examples: intro 26,
 tutorial 95, strict 5 pass, 1, 0, 0 known deviations; NetworkDynamics' subset: the known failures only
 (`final-nd-summary.log`).
+
+## The second part: a call that takes the wrapper branches over the members (compiler §7.6, C-150), 2026-11-18
+
+**The question** (registry row E-508): does a closed build that splits a call taking the wrapper of a value known
+only by its trait over the members' wrappers build the table program with 0 errors, with nothing changed for a
+session or for plain code?
+
+**What was wrong.** The wrapper's constructor `Compiled(x)` at `x::X` branches over `X`'s members in a closed build.
+The join of its branches, `Compiled{M1}` … `Compiled{M5}`, went through Julia's limit on a union's length
+(`tmerge_types_slow`, `MAX_TYPEUNION_LENGTH = 3`) and was widened to the wrapper's bare type `Compiled`, which no
+longer names `X`. The call that took it was left to dispatch. With two members the join stays a union, and Julia's
+union split serves the call.
+
+**The change** (`wt/w166-julia`, branch `w166`, f5328f94c5; `Compiler/src/abstractinterpretation.jl` only):
+- a closed split over a set's members whose branches each return the wrapper of a member of `X` is typed
+  `Compiled{<:X}` where the join is wider (the join met with `Compiled{<:X}`, checked per branch in
+  `abstract_call_gf_by_type`); a union of up to three wrappers stays a union;
+- a call that takes an argument typed `Compiled{<:X}` is split by `closed_member_split`, as the constructor's call:
+  one branch per member's wrapper `Compiled{M}` (`closed_member_types`, at most 64), past them `MethodError`. A box or
+  a wrapper gives no branch, since the constructor unwraps both;
+- an instance with such a call is noted for the build's rounds, as one with a call at a set argument.
+Only `closed_build(interp)` reads it. Tried first in a session with `../w156/tools/cc_patch.jl` (`probes/b_patched.jl`).
+
+**How to run.**
+```sh
+source env.sh
+(cd ../../../TraitWorld && $TW_ROOT/wt/w166-julia/julia --project=. ../experiments/implementation/w166/probes/b_join.jl)  # five members
+PATCH=1 $JN --project=$W156/env_demo probes/b_table_check.jl     # the table's main, the build's check in a session
+bash build_app.sh wt/w166-julia apps/wrap5.jl b-wrap5-w166-julia  # five members, trimmed
+JULIA_TREE=wt/w166-julia NAME=w166b-table bash ../w135/build.sh table $W156/env_demo
+```
+
+**Results.** Julia `wt/w166-julia` f5328f94c5 (on `next` 803060c332), control `julia-next` 803060c332; TraitWorld `w166`
+9d4f782; TraitTables a69eb6c, TraitCSV 8c307d0. One thread, one job at a time, load 3 to 12 of 128.
+
+| | julia-next | w166 |
+|---|---|---|
+| the table program, `--trim=safe` | 6 errors (`../w135/logs/w166-table-main.build.log`) | 0 errors, 2,724,000 bytes, object 26 s (`../w135/logs/w166b-table.build.log`) |
+| its binary on the 500-row file | — | exit 0, 0.05 s, output equal to the tag's (`../w135/logs/table-binA.bin.out`): `logs/b-table-bin.out` |
+| the build's report | — | 1 round; `Column`, `CSVColumn` 5 members each (`../w135/logs/w166b-table-report.build.log`) |
+| `apps/wrap5.jl` (five members, `compiled_for` in a loop) | 4 errors: `scaled`, `ar5` at the wrapper | 0 errors, 2,174,736 bytes, runs, output equal to the session's |
+| `probes/b_join.jl`: `verify_main` holes, `fully_typed` | 1 hole, not fully typed | none, fully typed (`logs/b-probe-join-*.log`) |
+| the table's `main`, the build's check in a session | 3 calls | 0 (`logs/b-probe-table-check-w166-julia.log`) |
+| the library's test "the wrappers of five members" | 2 of 4 fail (`logs/b-verify-julia-next.log`) | 4 pass |
+
+- The wrappers are forgotten at `Compiled{<:Column}` and `Compiled{<:CSVColumn}` (the report lists them); they do not
+  become members of either set.
+- E-384's eight small programs on w166: build with 0 errors, run, output equal (`logs/b-small.log`).
+- Checks on w166: the gates 72 of 72, 9 of 9 stage gates (`logs/b-gates.log`); Base's core, subtype,
+  Compiler/inline, Compiler/inference SUCCESS (`logs/b-base-summary.log`); the library 93 testsets (one new,
+  `logs/b-library.log`); TraitTables 27 pass, TraitCSV 16 (`logs/b-TraitTables.log`, `logs/b-TraitCSV.log`).
+- The sessions (`sessions.sh`, a warm-up and 3 runs, `logs/sessions-b-*.log`): compiles and instances equal.
+
+| | julia-next (`b-before`, `b-before2`) | w166 (`b-after`, `b-after2`) |
+|---|---|---|
+| table: compiles; instances TraitTables, TraitCSV, TraitWorld | 19, 169–178 ms; 131, 34, 417 | 19, 168–170 ms; 131, 34, 417 |
+| table: load; first run, of it compiling | 353–367 ms; 53.4–55.3 ms | 350–353 ms (`b-after2`); 53.1–54.4 ms |
+| report: compiles; load | 25, 217–232 ms; 573–596 ms | 25, 218–241 ms; 571–575 ms (`b-after2`) |
+
+  The first run on w166 (`b-after`) loaded in 394–421 ms (table) and 796–1013 ms (report): the images the warm-up had
+  just written; `b-after2`, run at once after, is at julia-next's times.
+
+**Not covered.** A value `Compiled{Dynamic{X}}` or `Compiled{Compiled{M}}` (made with the inner constructor
+`Compiled{T}(x)`, never by `Compiled(x)`) reaching a call typed `Compiled{<:X}` takes the split's `MethodError` in a
+build (reasoned from the code, not run). A call that takes two wrappers splits over the first; the second stays
+`Compiled{<:Y}` in each branch's instance, whose own calls at it split: `probes/b_two.jl` is fully typed in the
+build's check in a session (`logs/b-probe-two-w166-julia.log`); not built as a binary.
