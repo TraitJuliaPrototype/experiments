@@ -1,0 +1,95 @@
+w163-window: tt 0x7f790c4cf8e0 typeof DataType (alive)
+w163-window: tt 0x7f7908bdcbf0 typeof DataType (alive)
+w163-window: tt 0x7f7908bb1d80 typeof DataType (alive)
+w163-window: tt 0x7f7908ea3f90 typeof DataType (alive)
+w163-window: tt 0x7f7907e51db0 typeof DataType (alive)
+w163-window: tt 0x7f790a58a240 typeof DataType (alive)
+w163-window: tt 0x7f7908f23c80 typeof DataType (alive)
+w163-window: tt 0x7f7907f255f0 typeof DataType (alive)
+w163-window: tt 0x7f7907f3a840 typeof DataType (alive)
+w163-window: tt 0x7f7907e13c80 typeof DataType (alive)
+w163-window: tt 0x7f7907f30ea0 typeof DataType (alive)
+w163-window: tt 0x7f79058509d0 typeof DataType (alive)
+w163-window: tt 0x7f790850da50 typeof DataType (alive)
+w163-window: tt 0x7f79080e1d60 typeof DataType (alive)
+w163-window: tt 0x7f78f3a263c0 typeof DataType (alive)
+w163-window: tt 0x7f78f39f56c0 typeof DataType (alive)
+w163-window: tt 0x7f7907f0acd0 typeof DataType (alive)
+w163-window: tt 0x7f7907f4ff90 typeof DataType (alive)
+w163-window: tt 0x7f7909af2b70 typeof DataType (alive)
+w163-window: tt 0x7f790a276570 typeof DataType (alive)
+w163-window: tt 0x7f79081782c0 typeof DataType (alive)
+w163-window: tt 0x7f7908178170 typeof DataType (alive)
+w163-window: tt 0x7f78f39f4fc0 typeof DataType (alive)
+w163-window: tt 0x7f7908ec2dd0 typeof DataType (alive)
+w163-window: tt 0x7f79051504d0 typeof DataType (alive)
+w163-window: tt 0x7f790a9390d0 typeof DataType (alive)
+w163-window: tt 0x7f7905188e90 typeof DataType (alive)
+w163-window: tt 0x7f790abd6f90 typeof DataType (alive)
+w163-window: tt 0x7f790bf092f0 typeof DataType (alive)
+w163-window: tt 0x7f790bf08e60 typeof DataType (alive)
+w163-window: tt 0x7f7909af14f0 typeof DataType (alive)
+w163-window: tt 0x7f790a94fca0 typeof DataType (alive)
+w163-window: tt 0x7f7907f3a840 typeof DataType (alive)
+w163-window: tt 0x7f7907f5afe0 typeof DataType (alive)
+w163-window: tt 0x7f790bf08b00 typeof DataType (alive)
+w163-window: tt 0x7f790ba9d900 typeof DataType (alive)
+w163-window: tt 0x7f7907f09b00 typeof DataType (alive)
+w163-window: tt 0x7f79050d1e50 typeof DataType (alive)
+w163-window: tt 0x7f790b586ff0 typeof DataType (alive)
+w163-window: tt 0x7f7907f140c0 typeof DataType (alive)
+w163-window: tt 0x7f7907f0b830 typeof DataType (alive)
+w163-window: tt 0x7f7905052a90 typeof DataType (alive)
+w163-window: tt 0x7f7904f7f990 typeof DataType (alive)
+w163-window: tt 0x7f7905050850 typeof DataType (alive)
+w163-window: tt 0x7f78f39f3050 typeof DataType (alive)
+w163-window: tt 0x7f78f39ee890 typeof DataType (alive)
+w163-window: tt 0x7f78f39eac10 typeof DataType (alive)
+w163-window: tt 0x7f78f39ec9c0 typeof DataType (alive)
+w163-window: tt 0x7f790540c090 typeof NOT a DataType (freed)
+
+[453393] signal 11 (1): Segmentation fault
+in expression starting at /p/projects/coen/julia-trait-bound/experiments/docs-examples/strict.jl:11
+jl_object_id__cold at /p/projects/coen/julia-trait-bound/wt/w163-julia/src/builtins.c:470
+ijl_object_id_ at /p/projects/coen/julia-trait-bound/wt/w163-julia/src/builtins.c:510 [inlined]
+jl_table_peek_bp at /p/projects/coen/julia-trait-bound/wt/w163-julia/src/iddict.c:118 [inlined]
+ijl_eqtable_get at /p/projects/coen/julia-trait-bound/wt/w163-julia/src/iddict.c:157
+lookup_leafcache at /p/projects/coen/julia-trait-bound/wt/w163-julia/src/gf.c:1969 [inlined]
+jl_mt_find_cache_entry at /p/projects/coen/julia-trait-bound/wt/w163-julia/src/gf.c:2335
+jl_mt_assoc_by_type at /p/projects/coen/julia-trait-bound/wt/w163-julia/src/gf.c:2349
+jl_lookup_generic_ at /p/projects/coen/julia-trait-bound/wt/w163-julia/src/gf.c:7465 [inlined]
+apply_generic_reach at /p/projects/coen/julia-trait-bound/wt/w163-julia/src/gf.c:7497
+_trait at /p/projects/coen/julia-trait-bound/TraitWorld/src/trait.jl:112
+@trait at /p/projects/coen/julia-trait-bound/TraitWorld/src/trait.jl:29
+unknown function (ip: 0x7f78f510a3ba) at (unknown file)
+jl_invoke_julia_macro at /p/projects/coen/julia-trait-bound/wt/w163-julia/src/ast.c:1047
+jl_expand_macros at /p/projects/coen/julia-trait-bound/wt/w163-julia/src/ast.c:1109
+jl_fl_lower at /p/projects/coen/julia-trait-bound/wt/w163-julia/src/ast.c:1187
+fl_lower at ./flfrontend.jl:24
+jfptr_fl_lower_71551 at /p/projects/coen/julia-trait-bound/wt/w163-julia/usr/lib/julia/sys.so (unknown line)
+jl_apply at /p/projects/coen/julia-trait-bound/wt/w163-julia/src/julia.h:2389 [inlined]
+ijl_lower at /p/projects/coen/julia-trait-bound/wt/w163-julia/src/ast.c:1251
+jl_eval_toplevel_stmts at /p/projects/coen/julia-trait-bound/wt/w163-julia/src/toplevel.c:583
+jl_eval_module_expr at /p/projects/coen/julia-trait-bound/wt/w163-julia/src/toplevel.c:248 [inlined]
+jl_toplevel_eval_flex at /p/projects/coen/julia-trait-bound/wt/w163-julia/src/toplevel.c:652
+jl_eval_toplevel_stmts at /p/projects/coen/julia-trait-bound/wt/w163-julia/src/toplevel.c:587
+jl_toplevel_eval_flex at /p/projects/coen/julia-trait-bound/wt/w163-julia/src/toplevel.c:685
+ijl_toplevel_eval at /p/projects/coen/julia-trait-bound/wt/w163-julia/src/toplevel.c:756
+ijl_toplevel_eval_in at /p/projects/coen/julia-trait-bound/wt/w163-julia/src/toplevel.c:801
+eval at ./boot.jl:529
+include_string at ./loading.jl:3049
+_include at ./loading.jl:3109
+include at ./Base.jl:318
+exec_options at ./client.jl:344
+_start at ./client.jl:577
+jfptr__start_56695 at /p/projects/coen/julia-trait-bound/wt/w163-julia/usr/lib/julia/sys.so (unknown line)
+jl_apply at /p/projects/coen/julia-trait-bound/wt/w163-julia/src/julia.h:2389 [inlined]
+true_main at /p/projects/coen/julia-trait-bound/wt/w163-julia/src/jlapi.c:985
+jl_repl_entrypoint at /p/projects/coen/julia-trait-bound/wt/w163-julia/src/jlapi.c:1152
+main at /p/projects/coen/julia-trait-bound/wt/w163-julia/cli/loader_exe.c:58
+__libc_start_call_main at /lib64/libc.so.6 (unknown line)
+__libc_start_main at /lib64/libc.so.6 (unknown line)
+_start at /p/projects/coen/julia-trait-bound/wt/w163-julia/usr-gcdebug-before/bin/julia (unknown line)
+Allocations: 386998 (Pool: 0; Other: 386998); GC: 49
+Allocations: 386998 (Pool: 0; Other: 386998); GC: 49
+repro.sh: line 17: 453393 Segmentation fault      JULIA_PKG_OFFLINE=true nice -n 19 "$JB" --project=. --startup-file=no "$R/experiments/docs-examples/$S"

@@ -1,0 +1,56 @@
+w163-window: tt 0x7f46a23f36e0 typeof DataType (alive)
+w163-window: tt 0x7f469b2486d0 typeof DataType (alive)
+w163-window: tt 0x7f46a2bbe140 typeof DataType (alive)
+w163-window: tt 0x7f46a201b080 typeof DataType (alive)
+w163-window: tt 0x7f469b24b0d0 typeof NOT a DataType (freed)
+
+[424245] signal 11 (1): Segmentation fault
+in expression starting at /tmp/w163_bt.jl:19
+jl_object_id__cold at /p/projects/coen/julia-trait-bound/wt/w163-julia/src/builtins.c:470
+ijl_object_id_ at /p/projects/coen/julia-trait-bound/wt/w163-julia/src/builtins.c:510 [inlined]
+jl_table_peek_bp at /p/projects/coen/julia-trait-bound/wt/w163-julia/src/iddict.c:118 [inlined]
+ijl_eqtable_get at /p/projects/coen/julia-trait-bound/wt/w163-julia/src/iddict.c:157
+lookup_leafcache at /p/projects/coen/julia-trait-bound/wt/w163-julia/src/gf.c:1969 [inlined]
+jl_mt_find_cache_entry at /p/projects/coen/julia-trait-bound/wt/w163-julia/src/gf.c:2335
+jl_mt_assoc_by_type at /p/projects/coen/julia-trait-bound/wt/w163-julia/src/gf.c:2349
+jl_lookup_generic_ at /p/projects/coen/julia-trait-bound/wt/w163-julia/src/gf.c:7465 [inlined]
+apply_generic_reach at /p/projects/coen/julia-trait-bound/wt/w163-julia/src/gf.c:7497
+_sig_alternatives at /p/projects/coen/julia-trait-bound/TraitWorld/src/ownership.jl:193
+unknown function (ip: 0x7f468da8a752) at (unknown file)
+owned_method at /p/projects/coen/julia-trait-bound/TraitWorld/src/ownership.jl:248
+_check_pirate at /p/projects/coen/julia-trait-bound/TraitWorld/src/ownership.jl:318
+_definition_checks at /p/projects/coen/julia-trait-bound/TraitWorld/src/implement.jl:360
+_definition_hook at /p/projects/coen/julia-trait-bound/TraitWorld/src/implement.jl:346
+unknown function (ip: 0x7f468da7b3ab) at (unknown file)
+jl_apply at /p/projects/coen/julia-trait-bound/wt/w163-julia/src/julia.h:2389 [inlined]
+call_library_hook at /p/projects/coen/julia-trait-bound/wt/w163-julia/src/gf.c:6738
+jl_call_definition_hook at /p/projects/coen/julia-trait-bound/wt/w163-julia/src/gf.c:6762
+method_def at /p/projects/coen/julia-trait-bound/wt/w163-julia/src/method.c:1579
+eval_methoddef at /p/projects/coen/julia-trait-bound/wt/w163-julia/src/interpreter.c:115
+eval_body at /p/projects/coen/julia-trait-bound/wt/w163-julia/src/interpreter.c:638
+jl_interpret_toplevel_thunk at /p/projects/coen/julia-trait-bound/wt/w163-julia/src/interpreter.c:907
+jl_toplevel_eval_flex at /p/projects/coen/julia-trait-bound/wt/w163-julia/src/toplevel.c:744
+jl_eval_toplevel_stmts at /p/projects/coen/julia-trait-bound/wt/w163-julia/src/toplevel.c:587
+jl_eval_module_expr at /p/projects/coen/julia-trait-bound/wt/w163-julia/src/toplevel.c:248 [inlined]
+jl_toplevel_eval_flex at /p/projects/coen/julia-trait-bound/wt/w163-julia/src/toplevel.c:652
+jl_eval_toplevel_stmts at /p/projects/coen/julia-trait-bound/wt/w163-julia/src/toplevel.c:587
+jl_toplevel_eval_flex at /p/projects/coen/julia-trait-bound/wt/w163-julia/src/toplevel.c:685
+ijl_toplevel_eval at /p/projects/coen/julia-trait-bound/wt/w163-julia/src/toplevel.c:756
+ijl_toplevel_eval_in at /p/projects/coen/julia-trait-bound/wt/w163-julia/src/toplevel.c:801
+eval at ./boot.jl:529
+include_string at ./loading.jl:3049
+_include at ./loading.jl:3109
+include at ./Base.jl:318
+exec_options at ./client.jl:344
+_start at ./client.jl:577
+jfptr__start_56695 at /p/projects/coen/julia-trait-bound/wt/w163-julia/usr/lib/julia/sys.so (unknown line)
+jl_apply at /p/projects/coen/julia-trait-bound/wt/w163-julia/src/julia.h:2389 [inlined]
+true_main at /p/projects/coen/julia-trait-bound/wt/w163-julia/src/jlapi.c:985
+jl_repl_entrypoint at /p/projects/coen/julia-trait-bound/wt/w163-julia/src/jlapi.c:1152
+main at /p/projects/coen/julia-trait-bound/wt/w163-julia/cli/loader_exe.c:58
+__libc_start_call_main at /lib64/libc.so.6 (unknown line)
+__libc_start_main at /lib64/libc.so.6 (unknown line)
+_start at ../wt/w163-julia/usr-gcdebug-before/bin/julia (unknown line)
+Allocations: 6818221 (Pool: 0; Other: 6818221); GC: 11
+Allocations: 6818221 (Pool: 0; Other: 6818221); GC: 11
+timeout: the monitored command dumped core

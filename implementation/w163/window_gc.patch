@@ -1,0 +1,16 @@
+diff --git a/src/gf.c b/src/gf.c
+index 1b82d4e1a3..94f41409c1 100644
+--- a/src/gf.c
++++ b/src/gf.c
+@@ -7269,6 +7269,11 @@ static void member_hook_at_dispatch(jl_tupletype_t *tt, size_t world)
+         any = chain_has_memberships(jl_tparam(tt, i));
+     if (!any)
+         return;
++    if (getenv("W163_GC_IN_WINDOW")) { // W-163 diagnostic only, not committed
++        jl_gc_collect(JL_GC_FULL);
++        jl_safe_printf("w163-window: tt %p typeof %s\n", (void*)tt,
++                       jl_typeof(tt) == (jl_value_t*)jl_datatype_type ? "DataType (alive)" : "NOT a DataType (freed)");
++    }
+     size_t min_valid = 0, max_valid = ~(size_t)0;
+     jl_method_match_t *matc = _gf_invoke_lookup((jl_value_t*)tt, jl_method_table, world, 0, &min_valid, &max_valid);
+     if (matc == NULL)

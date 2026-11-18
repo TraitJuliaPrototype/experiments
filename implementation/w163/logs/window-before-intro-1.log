@@ -1,0 +1,55 @@
+w163-window: tt 0x7f82414cf8e0 typeof DataType (alive)
+w163-window: tt 0x7f822893cbd0 typeof DataType (alive)
+w163-window: tt 0x7f823ce01690 typeof DataType (alive)
+w163-window: tt 0x7f823cf25470 typeof DataType (alive)
+w163-window: tt 0x7f823a418250 typeof NOT a DataType (freed)
+
+[453329] signal 11 (1): Segmentation fault
+in expression starting at /p/projects/coen/julia-trait-bound/experiments/docs-examples/intro.jl:9
+jl_object_id__cold at /p/projects/coen/julia-trait-bound/wt/w163-julia/src/builtins.c:470
+ijl_object_id_ at /p/projects/coen/julia-trait-bound/wt/w163-julia/src/builtins.c:510 [inlined]
+jl_table_peek_bp at /p/projects/coen/julia-trait-bound/wt/w163-julia/src/iddict.c:118 [inlined]
+ijl_eqtable_get at /p/projects/coen/julia-trait-bound/wt/w163-julia/src/iddict.c:157
+lookup_leafcache at /p/projects/coen/julia-trait-bound/wt/w163-julia/src/gf.c:1969 [inlined]
+jl_mt_find_cache_entry at /p/projects/coen/julia-trait-bound/wt/w163-julia/src/gf.c:2335
+jl_mt_assoc_by_type at /p/projects/coen/julia-trait-bound/wt/w163-julia/src/gf.c:2349
+jl_lookup_generic_ at /p/projects/coen/julia-trait-bound/wt/w163-julia/src/gf.c:7465 [inlined]
+apply_generic_reach at /p/projects/coen/julia-trait-bound/wt/w163-julia/src/gf.c:7497
+_forget_records! at /p/projects/coen/julia-trait-bound/TraitWorld/src/implement.jl:261
+jfptr__forget_recordsNOT._4948 at /p/projects/coen/julia-trait-bound/.julia-depot/agent-depots/w163/compiled/v1.13/TraitWorld/dBtoR_R8eoB.so (unknown line)
+_records_from_entry! at /p/projects/coen/julia-trait-bound/TraitWorld/src/implement.jl:334
+jfptr__records_from_entryNOT._4907 at /p/projects/coen/julia-trait-bound/.julia-depot/agent-depots/w163/compiled/v1.13/TraitWorld/dBtoR_R8eoB.so (unknown line)
+_sync_image_records! at /p/projects/coen/julia-trait-bound/TraitWorld/src/implement.jl:298
+_check_membership_calls at /p/projects/coen/julia-trait-bound/TraitWorld/src/implement.jl:375
+_definition_checks at /p/projects/coen/julia-trait-bound/TraitWorld/src/implement.jl:363
+_definition_hook at /p/projects/coen/julia-trait-bound/TraitWorld/src/implement.jl:346
+jfptr__definition_hook_6552 at /p/projects/coen/julia-trait-bound/.julia-depot/agent-depots/w163/compiled/v1.13/TraitWorld/dBtoR_R8eoB.so (unknown line)
+jl_apply at /p/projects/coen/julia-trait-bound/wt/w163-julia/src/julia.h:2389 [inlined]
+call_library_hook at /p/projects/coen/julia-trait-bound/wt/w163-julia/src/gf.c:6738
+jl_call_definition_hook at /p/projects/coen/julia-trait-bound/wt/w163-julia/src/gf.c:6762
+method_def at /p/projects/coen/julia-trait-bound/wt/w163-julia/src/method.c:1579
+eval_methoddef at /p/projects/coen/julia-trait-bound/wt/w163-julia/src/interpreter.c:115
+eval_body at /p/projects/coen/julia-trait-bound/wt/w163-julia/src/interpreter.c:638
+jl_interpret_toplevel_thunk at /p/projects/coen/julia-trait-bound/wt/w163-julia/src/interpreter.c:907
+jl_toplevel_eval_flex at /p/projects/coen/julia-trait-bound/wt/w163-julia/src/toplevel.c:744
+jl_eval_toplevel_stmts at /p/projects/coen/julia-trait-bound/wt/w163-julia/src/toplevel.c:587
+jl_toplevel_eval_flex at /p/projects/coen/julia-trait-bound/wt/w163-julia/src/toplevel.c:685
+ijl_toplevel_eval at /p/projects/coen/julia-trait-bound/wt/w163-julia/src/toplevel.c:756
+ijl_toplevel_eval_in at /p/projects/coen/julia-trait-bound/wt/w163-julia/src/toplevel.c:801
+eval at ./boot.jl:529
+include_string at ./loading.jl:3049
+_include at ./loading.jl:3109
+include at ./Base.jl:318
+exec_options at ./client.jl:344
+_start at ./client.jl:577
+jfptr__start_56695 at /p/projects/coen/julia-trait-bound/wt/w163-julia/usr/lib/julia/sys.so (unknown line)
+jl_apply at /p/projects/coen/julia-trait-bound/wt/w163-julia/src/julia.h:2389 [inlined]
+true_main at /p/projects/coen/julia-trait-bound/wt/w163-julia/src/jlapi.c:985
+jl_repl_entrypoint at /p/projects/coen/julia-trait-bound/wt/w163-julia/src/jlapi.c:1152
+main at /p/projects/coen/julia-trait-bound/wt/w163-julia/cli/loader_exe.c:58
+__libc_start_call_main at /lib64/libc.so.6 (unknown line)
+__libc_start_main at /lib64/libc.so.6 (unknown line)
+_start at /p/projects/coen/julia-trait-bound/wt/w163-julia/usr-gcdebug-before/bin/julia (unknown line)
+Allocations: 227406 (Pool: 0; Other: 227406); GC: 5
+Allocations: 227406 (Pool: 0; Other: 227406); GC: 5
+repro.sh: line 17: 453329 Segmentation fault      JULIA_PKG_OFFLINE=true nice -n 19 "$JB" --project=. --startup-file=no "$R/experiments/docs-examples/$S"
