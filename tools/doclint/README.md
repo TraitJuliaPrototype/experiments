@@ -1,6 +1,6 @@
 # doclint: what the documentation rules forbid, counted
 
-The tool of the documentation clean-up (W-162; [the plan](../../../writeup/plans/2026-11-18-documentation-cleanup.md) §2 and part 0). It counts, per current document of the design repository, what the plan's rules R1 to R4 forbid. The clean-up ends when each count is zero or a listed exception.
+The tool of the documentation clean-up (W-162; the rules: `CLAUDE.md`, "The current intended state, not the history"; [the plan](../../../attic/writeup/plans/2026-11-18-documentation-cleanup.md) §2 and part 0). It counts, per current document of the design repository, what the plan's rules R1 to R4 forbid. The clean-up ends when each count is zero or a listed exception.
 
 ## Run
 
