@@ -1,0 +1,26 @@
+read              (10000, 7) id,name,city,age,income,joined,active Int64,DataStrings.DataString,DataStrings.DataString,Union{Missing, Int64},Union{Missing, Float64},Date,Bool c5832bc385f49a55,30e379fcf5a7d980,2c1d160d87a91985,46bc55457ca328c7,c512c8a0ce67791b,cd2ac85dc4c1210c,e2477f15a6a8624e
+show              text 847870f163d62
+describe          text 5beb5a294c4318fc
+describe_df       (7, 2) variable,nmissing Symbol,Int64 d8e4d3570bf516fe,9dbb37f4301db030
+select_filter     (6102, 3) id,city,income Int64,DataStrings.DataString,Union{Missing, Float64} c1592dad95e1950f,ec22fa26a4d23dee,64e2ccf745275641
+sort              (10000, 7) id,name,city,age,income,joined,active Int64,DataStrings.DataString,DataStrings.DataString,Union{Missing, Int64},Union{Missing, Float64},Date,Bool c79d3d5d3084bb32,194acb0af3c08e13,d655f6356c1fe6c1,14d2f24274d96079,775b20af6790a687,a17bc1bbd3cdcbd3,edd685aa9673060
+groupby_combine   (12, 3) city,mean_income,nrow DataStrings.DataString,Float64,Int64 628f10bcea640def,b0743c5f80160624,b04063addbe6a94a
+user_function     (10000, 8) id,name,city,age,income,joined,active,ratio Int64,DataStrings.DataString,DataStrings.DataString,Union{Missing, Int64},Union{Missing, Float64},Date,Bool,Float64 c5832bc385f49a55,30e379fcf5a7d980,2c1d160d87a91985,46bc55457ca328c7,c512c8a0ce67791b,cd2ac85dc4c1210c,e2477f15a6a8624e,36397f7053c413a9
+read_orders       (50000, 5) order_id,id,amount,item,ts Int64,Int64,Float64,DataStrings.DataString,Durations.Timestamp{Nanosecond} 99223903b0e1faba,5ea052d9948faa5,665b064754f1163d,5780111e4c81a563,502b188a69831880
+join              (50000, 11) id,name,city,age,income,joined,active,order_id,amount,item,ts Int64,DataStrings.DataString,DataStrings.DataString,Union{Missing, Int64},Union{Missing, Float64},Date,Bool,Int64,Float64,DataStrings.DataString,Durations.Timestamp{Nanosecond} 5ea052d9948faa5,9a2993df613d2e1e,a3b1572316bd6350,a46ba9bd8c97121f,4fdb272d36936c55,c9ce84e2a22bb1d0,bd9315a94a22d97f,99223903b0e1faba,665b064754f1163d,5780111e4c81a563,502b188a69831880
+add_column        10000 Union{Missing, Float64} c95598e58798dee4
+write             0x247903552f5cbb11
+2_read            (10000, 8) t,s1,s2,s3,s4,s5,s6,tag Float64,Union{Missing, Float64},Union{Missing, Float64},Union{Missing, Float64},Union{Missing, Float64},Union{Missing, Float64},Union{Missing, Float64},DataStrings.DataString 829f360a1d5a7270,f09a23d3a9094dc9,1f3cbf7e84b8cd2d,9bcb68e58cf59c71,62f67a6162d943b9,56532265d8949dde,587d281a9c7c575e,45f91ad54eeb5469
+2_show            text 2894b8371b47ad2f
+2_describe        text 107c6ea64422a070
+2_sort            (10000, 8) t,s1,s2,s3,s4,s5,s6,tag Float64,Union{Missing, Float64},Union{Missing, Float64},Union{Missing, Float64},Union{Missing, Float64},Union{Missing, Float64},Union{Missing, Float64},DataStrings.DataString 35c1925b47d179e3,a00a2010db86db7a,d2d98e366ec22454,642ebee0f4b1e525,6910b655093e3589,83fb5cb9c2c369,8bb019b7a91bf6f0,802d6568116ed34d
+2_groupby_combine (4, 4) tag,m1,x2,nrow DataStrings.DataString,Float64,Float64,Int64 3d3ebe8ad9a4cd14,8c9cd9a24639c7fa,95d1ab61506b88e6,26dc9cedf5de9f7
+3_read            (10000, 7) id,name,city,age,income,joined,active Int64,String15,String15,Union{Missing, Int64},Union{Missing, Float64},Date,Bool c5832bc385f49a55,6385fd62eb7db474,1b7003190c39f772,46bc55457ca328c7,c512c8a0ce67791b,cd2ac85dc4c1210c,e2477f15a6a8624e
+3_show            text 954a89d8bd9a06db
+3_describe        text 9d3817ddabfc6e38
+3_groupby_combine (12, 3) city,mean_income,nrow String15,Float64,Int64 e5bbf36bcd9e3cdf,b0743c5f80160624,b04063addbe6a94a
+4_read_pooled     (10000, 7) id,name,city,age,income,joined,active Int64,String15,String7,Union{Missing, Int64},Union{Missing, Float64},Date,Bool c5832bc385f49a55,6385fd62eb7db474,bd021815d8c7e550,46bc55457ca328c7,c512c8a0ce67791b,cd2ac85dc4c1210c,e2477f15a6a8624e
+4_groupby_pooled  (24, 4) city,active,nrow,a String7,Bool,Int64,Float64 ae538ffefdd1cbe0,4510e57ef28f2968,66183607fbdc540f,cfba8d0b8a7dfec0
+4_sort_pooled     (10000, 7) id,name,city,age,income,joined,active Int64,String15,String7,Union{Missing, Int64},Union{Missing, Float64},Date,Bool f64b6e8bdc270ec8,1388ea5bb36fab67,797533848714ae8d,157f65021be7e109,ec2e36c913203f07,76b5bb475dbdea74,c00a45c82ed30d68
+4_join_string     (10000, 3) city,id,nrow String7,Int64,Int64 bd021815d8c7e550,c5832bc385f49a55,545a0817b893acbc
+4_rows            5 InlineString 57b1e5e00ea034e5

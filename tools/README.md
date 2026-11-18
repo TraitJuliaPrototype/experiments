@@ -276,3 +276,4 @@ The `throw_boundserror` calls belong to the split's inlined candidates (`Vector{
 - `ab/ab.sh`, `ab/ABProbe.jl`: the harness. `ab/examples/`: the probes above and the patch of example 3. `ab/logs/`: each example's `result.txt`, the AB lines of both sides and `Pkg.status` of both environments.
 - `cthulhu/`: the environment with Cthulhu, `descend_examples.jl`, `test_descend.jl`, `logs/`.
 - `scripts/x6_callpath.jl`, `scripts/x6_conformance.jl`, `scripts/x6_declared.jl`, `scripts/forks_loadreport.jl`; their logs in `logs/`.
+- `depot_check.jl`: for each `Manifest.toml` named on stdin, the registry packages the depot has no installation of (its header says how to run it). `doclint/`: the documents' lint.

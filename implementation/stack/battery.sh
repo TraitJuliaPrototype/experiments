@@ -2,12 +2,11 @@
 # The battery after a stage, on a built tree, one job at a time (niced): the gates, Base's four test
 # files and the stage-top files, the acceptance cases in both settings, TraitWorld's tests, both
 # workloads. Logs: experiments/implementation/stack/logs/<label>-*.log and ../workloads/logs/<label>-*.log.
-# Usage: source env.sh; experiments/implementation/stack/battery.sh julia-unified <label>
+# Usage: source env.sh; experiments/implementation/stack/battery.sh julia-next <label>
 R=$(cd "$(dirname "$0")/../../.." && pwd); T=$1; L=$2
 U=$R/experiments/implementation; LOG=$U/stack/logs
 J=$R/$T/julia
-"$U/gates/run_all.sh" "$T" 'm[12]_*' > "$LOG/$L-gates-m.log" 2>&1; tail -1 "$LOG/$L-gates-m.log"
-"$U/gates/run_all.sh" "$T" '[nf]*' > "$LOG/$L-gates-nf.log" 2>&1; tail -1 "$LOG/$L-gates-nf.log"
+"$U/gates/run_all.sh" "$T" > "$LOG/$L-gates.log" 2>&1; tail -2 "$LOG/$L-gates.log"
 "$U/stack/tests.sh" "$T" "$L" core subtype worlds ambiguous reflection Compiler/inline Compiler/inference precompile
 for f in $U/test/acceptance/AC_*.jl; do
   b=$(basename "$f" .jl)
