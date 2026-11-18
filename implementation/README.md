@@ -8,14 +8,15 @@ What checks and measures the implementation. Until 2026-11-18 the directory was 
 ## How to run
 
 ```sh
-source env.sh                                                # from the design repository
-experiments/implementation/gates/run_all.sh julia-next 'm[12]_*'    # the gates of the type system and dispatch
-experiments/implementation/gates/run_all.sh julia-next '[nf]*'      # the other gates; a pattern selects: 'n20_*'
-experiments/implementation/e262_suites.sh julia-next next       # Base's four test files; and: julia-vanilla vanilla
+source env.sh                                             # from the design repository
+experiments/implementation/gates/run_all.sh julia-next    # every gate in force, then every stage gate
+experiments/implementation/gates/run_all.sh julia-next 'n20_*'   # a pattern selects
+experiments/implementation/e262_suites.sh julia-next next # Base's four test files; and: julia-vanilla vanilla
 ```
 
-- Each gate prints `<name>: OK` and exits 0, or asserts. One Julia process per gate, 4 cores. The two patterns are every gate in force, 71 files; the `m3_*` files are not run (`gates/README.md`).
-- The gates are listed in [`gates/README.md`](gates/README.md). The gates of each stage of the running iteration are in that stage's directory (`w155/`, `w155b/`, `w157/`, `w160/`, `w161/`), with a `run` script.
+- Each gate prints `<name>: OK` and exits 0, or asserts. One Julia process per gate, 4 cores. `run_all.sh` ends with one tally for the gates in force and one for the stage gates, and exits 1 if any failed.
+- The gates are listed in [`gates/README.md`](gates/README.md); the stage gates in `gates/stage_gates.txt`. Files that are not gates in force are in `gates/not-in-force/`.
+- The static check of GC roots for a change to the runtime's C code: [`w163/README.md`](w163/README.md).
 - The acceptance cases of the facts mode: `test/acceptance/`, run by `test/runtests.jl`.
 - The measurement round's method and harness: [`w145/README.md`](w145/README.md).
 

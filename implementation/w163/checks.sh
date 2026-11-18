@@ -14,7 +14,7 @@ for c in ${*:-tutorial50 gates deep d11 library base examples}; do
   s=$(date +%s); f=$H/logs/$L-$c.log
   case $c in
     tutorial50) bash "$H/repro.sh" "$JB" "$L-tutorial" 50 > "$f" 2>&1; note "tutorial x50 | $(tail -1 "$f") | $(( $(date +%s) - s )) s" ;;
-    gates) for p in 'm[12]_*' '[nf]*'; do bash "$U/gates/run_all.sh" "$T" "$p"; done > "$f" 2>&1
+    gates) bash "$U/gates/run_all.sh" "$T" > "$f" 2>&1
            note "gates | $(grep '^gates:' "$f" | tr '\n' ' ') | failed: $(grep '^FAIL' "$f" | awk '{print $2}' | tr '\n' ' ')| $(( $(date +%s) - s )) s" ;;
     deep) nice -n 10 "$JB" --startup-file=no "$U/w155/gate_deep.jl" > "$f" 2>&1; note "gate_deep | exit $? | $(tail -1 "$f" | cut -c1-200) | $(( $(date +%s) - s )) s" ;;
     d11) nice -n 10 "$JB" --startup-file=no --project="$U/w161/env_lib" "$U/w155b/gate_d11.jl" > "$f" 2>&1; note "gate_d11 | exit $? | $(tail -1 "$f" | cut -c1-200) | $(( $(date +%s) - s )) s" ;;

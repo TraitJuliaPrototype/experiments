@@ -23,5 +23,12 @@ for f in $FILES; do
   [ "$f" = jloptions.c ] && ex='-Xanalyzer -analyzer-config -Xanalyzer silence-checkers="core.NonNullParamChecker;unix.cstring.NullArg"'
   (cd "$CT/src" && eval nice -n 10 $c $ex -x c "$CT/src/$f") 2>&1 | sed 's/\x1b\[[0-9;]*m//g' >> "$LOG"
 done
+# The check must have run: a compiler that could not start (no plugin, no clang, a missing generated file)
+# prints an error that names no source line, and would otherwise read as "0 findings".
+if grep -qE "^(error|fatal error): |unable to load plugin|No such file or directory" "$LOG"; then
+  echo "## summary" >> "$LOG"; echo "THE CHECK DID NOT RUN for at least one file: see the errors above" | tee -a "$LOG" >&2
+  exit 2
+fi
 echo "## summary" >> "$LOG"
 awk '/^### /{f=$2} /: error: |: warning: /{n[f]++} END{for (k in n) print k": "n[k]" findings"}' "$LOG" | sort >> "$LOG"
+echo "checked: $(grep -c '^### ' "$LOG") files; findings: $(grep -cE ': error: |: warning: ' "$LOG")" | tee -a "$LOG"

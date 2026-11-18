@@ -40,7 +40,7 @@ that no root list names.
 | `checks.sh` | the checks of a fixed build, one job at a time | `bash checks.sh <julia tree> <label> [names]` |
 | `repro.sh` | one of the teaching pages' scripts N times, one process at a time; counts faults | `bash repro.sh <julia> <label> <N> [script]` |
 
-**`sagc.sh`.** Needs a built tree with the analyzer's dependencies once:
+**`sagc.sh`.** `julia-next/` has the analyzer's dependencies installed (2026-11-18): `bash sagc.sh julia-next julia-next <log>` checks the head; on a5bd871cce: 15 files, 0 findings (`logs/main-a5bd871cce-sagc.log`). The script exits 2 if the check could not run for a file (no plugin, a missing generated file): without that, a compiler that never started read as "0 findings". Another tree needs the dependencies once, the two targets one after the other (in one `make` call the plugin is compiled before clang's headers are there):
 `make -C <tree>/src install-analysis-deps clangsa` (downloads the Clang JLL of the tree's LLVM; the
 plugin is built with the host's gcc). Then `bash sagc.sh <tool tree> <tree to check> <log> [files]`. A tree
 that is not built (vanilla, an older commit) needs the four generated files in its `src/`
