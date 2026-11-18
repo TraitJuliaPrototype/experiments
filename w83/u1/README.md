@@ -1,6 +1,6 @@
 # U1 (E-258): how much generic code is fully bounded as written?
 
-The exploration's rule 4 (`writeup/explorations/abstract-types-as-traits.md` §3, §10) classifies each function once, at its definition: **fully bounded** if its body reaches each bounded argument only through the set's contract, **open** otherwise. This experiment takes generic code as it is written today, changes only the annotations to bounds, and runs TraitWorld's definition checker at archetypes.
+The exploration's rule 4 (`attic/writeup/explorations/abstract-types-as-traits.md` §3, §10) classifies each function once, at its definition: **fully bounded** if its body reaches each bounded argument only through the set's contract, **open** otherwise. This experiment takes generic code as it is written today, changes only the annotations to bounds, and runs TraitWorld's definition checker at archetypes.
 
 **Would change the plan** (registry row E-258): above a third fully bounded, or open only for a few named operations (`similar`, `axes`): level 3 buys sharing for existing code, and the contracts to write are short. Below: level 3 is a simplification of the language only.
 

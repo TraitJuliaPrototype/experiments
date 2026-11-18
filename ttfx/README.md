@@ -1,6 +1,6 @@
 # Load and first use: SciML and Makie against SciPy and matplotlib (E-168 to E-171)
 
-The experiments of W-58 ([the plan](../../writeup/plans/2026-10-27-ttfx-sciml-makie.md); registry rows E-168 to E-171 in `writeup/record/experiments.md`). One fresh session, start to exit: load an ODE solver and a plotting library, solve Lorenz (non-stiff) and Robertson (stiff), plot both to PNGs, solve and plot a second model (Van der Pol), then both again.
+The experiments of W-58 ([the plan](../../attic/writeup/plans/2026-10-27-ttfx-sciml-makie.md); registry rows E-168 to E-171 in `writeup/record/experiments.md`). One fresh session, start to exit: load an ODE solver and a plotting library, solve Lorenz (non-stiff) and Robertson (stiff), plot both to PNGs, solve and plot a second model (Van der Pol), then both again.
 
 ## How to run
 
@@ -75,7 +75,7 @@ Same build and environments (`logs/p2/`).
 | S | 12.83–12.98 | **11.61–11.85** (first solve 5.16–5.29 and second model 2.25–2.30 unchanged; first plot 0.47–0.48 from 1.56) | 9.16 |
 
 **What it says:**
-- **Provisional** ([the review](../../writeup/reviews/2026-10-27-cache-and-port-notes.md) B1): `--trace-compile` records compile roots only, under the default owner; dropping a root that names `Main` drops its library-keyed callees too, and facts code is not recorded. The first bullet's "none … could be kept" for S is therefore not shown; E-175 repeats the emulation at the level of CodeInstances.
+- **Provisional** ([the review](../../attic/writeup/reviews/2026-10-27-cache-and-port-notes.md) B1): `--trace-compile` records compile roots only, under the default owner; dropping a root that names `Main` drops its library-keyed callees too, and facts code is not recorded. The first bullet's "none … could be kept" for S is therefore not shown; E-175 repeats the emulation at the level of CodeInstances.
 - **What a cache across sessions can keep is decided by what the code is keyed on.** S's solver code is keyed on the user's function (`ODEFunction{true, AutoSpecialize, typeof(Main.robertson!), …}` in the problem's type, at `solve`'s keyword entry), so none of its 7.5 s of solver compilation is kept; its plotting code, keyed on library types, is (1.1 s saved).
 - **Dp recovers most:** PlainODE keeps the user's function behind a `FunctionWrapper` at a plain signature, so its solver is keyed on library types, and all of it is kept. Erasing the user's types at the library's boundary is what makes code cacheable, by traits (`Dynamic`) or by hand.
 - **D recovers 1.1 s** (first solve 1.50 → 0.27 s), less than Dp: its load grows 0.09 s with the cache, and its first solve keeps 0.18 s of compiling (not diagnosed).
@@ -101,7 +101,7 @@ Stock 1.13.2, upstream OrdinaryDiffEq and CairoMakie (S), the user's functions b
 ### E-173, the cache's checks, 2026-10-27
 
 TraitWorld 04095fe (D's cache rebuilt: 52 of 66 statements kept); otherwise as E-172 and E-174 (`logs/p173/`).
-- **Order independence: not tested.** Each emulated cache package depends on the plotting library, so loading it at the load step loads CairoMakie (or TraitMakie, PlainPlots) there too: the `/b` sessions with a cache ran in order A (S/pncb 4.63–4.70 s, load 3.60–3.67 s, as S/pnc). The test needs the cache split by dependency set ([the cache note](../../writeup/plans/2026-10-27-session-cache.md) §3), so that its solver part loads with the solver and its plotting part with the plotting library.
+- **Order independence: not tested.** Each emulated cache package depends on the plotting library, so loading it at the load step loads CairoMakie (or TraitMakie, PlainPlots) there too: the `/b` sessions with a cache ran in order A (S/pncb 4.63–4.70 s, load 3.60–3.67 s, as S/pnc). The test needs the cache split by dependency set ([the cache note](../../attic/writeup/plans/2026-10-27-session-cache.md) §3), so that its solver part loads with the solver and its plotting part with the plotting library.
 - **Recurrence** (a cache built from a perturbed session, used by a matched one):
 
 | Session (to "again") | load | first solve | first plot | second model | **session** | the same session without a cache |
@@ -139,7 +139,7 @@ Julia's loader machinery, not package code, takes the load: method insertion and
 | Dp | 0.19–0.20 | 0.18 | 0.08 | 0.04–0.05 | **0.64** | 0.70 |
 
 **What it says:**
-- **E-172's result for S was an artefact of recording roots only** ([the review](../../writeup/reviews/2026-10-27-cache-and-port-notes.md) B1, confirmed). Stock SciML's `AutoSpecialize` erases the function below `solve`'s entry, so its solver code is cacheable as it stands: the first solve 0.49 s instead of 5.3 s, the second model 0.22 s.
+- **E-172's result for S was an artefact of recording roots only** ([the review](../../attic/writeup/reviews/2026-10-27-cache-and-port-notes.md) B1, confirmed). Stock SciML's `AutoSpecialize` erases the function below `solve`'s entry, so its solver code is cacheable as it stands: the first solve 0.49 s instead of 5.3 s, the second model 0.22 s.
 - **With a cache, every setting's work after the load is about a second or less:** S 1.1–1.2 s (Python's session less its load: 1.0 s), D 0.55 s, Dp 0.45 s.
 - **The load is what remains:** 3.7 s in S, of a 4.9 s session.
 - D's first solve still compiles 0.16–0.17 s with the cache: its facts code is replayed by `precompile`, which compiles a facts method's callees in Base as plain copies, not the facts copies the session uses (not verified); TraitWorld's first-call checks are not yet counted (the review's M5).
@@ -351,7 +351,7 @@ Setting D after the change (`logs/e181d/`): matched 0.965 s (before 0.94–0.99)
 - **The steady state is unchanged within about 5%,** with the same steps: the parameters move from an argument of the dynamic call into the record.
 - The first build entered the user's function at the old signatures too (0.19 s per new parameter type in the record's constructor): the outer layer must not keep forms the core does not use.
 
-**E-179's load attributed** (2026-10-27, after [the memo's review](../../writeup/reviews/2026-10-27-lean-core-memo.md) M6; `@time_imports using CairoMakie` in `lean/env_lean`, stock 1.13.2, `depot-S`, one session; `logs/e179m6/lean-imports.log`): 2.28 s in all, the packages' increments 2.08 s over 168 packages. Makie 0.60 s, CairoMakie 0.29 s, ComputePipeline: 0.89 s together (43%). The other 165 packages 1.19 s, among them SparseArrays 0.23 s (through Interpolations, AxisAlgorithms, WoodburyMatrices), Pkg 0.13 s (through FileIO and Makie), StaticArrays 0.12 s, ImageCore 0.07 s, GeometryBasics 0.07 s, REPL 0.06 s (through MathTeXEngine, UnicodeFun). The lean fork dropped SparseArrays and REPL as Makie's own dependencies; they come back through others.
+**E-179's load attributed** (2026-10-27, after [the memo's review](../../attic/writeup/reviews/2026-10-27-lean-core-memo.md) M6; `@time_imports using CairoMakie` in `lean/env_lean`, stock 1.13.2, `depot-S`, one session; `logs/e179m6/lean-imports.log`): 2.28 s in all, the packages' increments 2.08 s over 168 packages. Makie 0.60 s, CairoMakie 0.29 s, ComputePipeline: 0.89 s together (43%). The other 165 packages 1.19 s, among them SparseArrays 0.23 s (through Interpolations, AxisAlgorithms, WoodburyMatrices), Pkg 0.13 s (through FileIO and Makie), StaticArrays 0.12 s, ImageCore 0.07 s, GeometryBasics 0.07 s, REPL 0.06 s (through MathTeXEngine, UnicodeFun). The lean fork dropped SparseArrays and REPL as Makie's own dependencies; they come back through others.
 
 ### E-183, what of Makie's own code the workload's plot runs (W-60's X1), 2026-10-27
 
@@ -384,7 +384,7 @@ The residual with the wrapper (`logs/e184norm/residual.jl`, `--trace-compile-tim
 
 **E-185** (`loader/prof_load.jl`, `logs/e185/`): the profiler over the workload's `using` in S (stock 1.13.2, one session). Of the main thread's samples: edge validation about 34% (about 1.4 s), method activation about 27%, promoting validated code 0.4%.
 
-**E-186** (`loader/e186.sh`, variant `/v`: `JULIA_REMEMBER_VALIDATION=1`): julia-1.13 f1866b9d4e (the change of [W-64's note](../../writeup/plans/2026-10-27-remembered-validation.md), revision 2), each environment precompiled again on it, the remembered outcomes cleared; a warm-up session records, three sessions reuse. U: the patched Julia, upstream packages, plain; C: the facts-compiled SciML core with CairoMakie. Logs `logs/e186/` (run 1, on 30a89bc2fe with an identity set per image, in `logs/e186/run1/`).
+**E-186** (`loader/e186.sh`, variant `/v`: `JULIA_REMEMBER_VALIDATION=1`): julia-1.13 f1866b9d4e (the change of [W-64's note](../../attic/writeup/plans/2026-10-27-remembered-validation.md), revision 2), each environment precompiled again on it, the remembered outcomes cleared; a warm-up session records, three sessions reuse. U: the patched Julia, upstream packages, plain; C: the facts-compiled SciML core with CairoMakie. Logs `logs/e186/` (run 1, on 30a89bc2fe with an identity set per image, in `logs/e186/run1/`).
 
 | | load | first solve | first plot (GC) | session |
 |---|---|---|---|---|
@@ -423,7 +423,7 @@ C's session compiled 20.9 s during its load (an extension image stale in `depot-
 `cache/probe_closure.jl`: the runtime's newly-inferred list from the start of a session. Then, for the CodeInstances the session made, the time per owner (from their own `time_infer_self` and `time_compile` fields). For each facts entry naming no session type:
 - its dependency closure: the packages reached through its edges, transitively through callee CodeInstances; its signature's types and their supertypes; bindings and folds; closed under the manifest's dependencies and the extensions' parents and triggers;
 - whether it reaches another owner's code;
-- the candidate index of [W-66's note](../../writeup/plans/2026-10-27-facts-keyed-cache.md), revision 2.
+- the candidate index of [W-66's note](../../attic/writeup/plans/2026-10-27-facts-keyed-cache.md), revision 2.
 
 julia-1.13 41d199c557, TraitWorld 5589f4c; D and C off-workload (`/p`), one valid session each (no stale image; C's depot precompiled again first); `logs/e194/`.
 
@@ -465,7 +465,7 @@ julia-1.13 8ceda6f9d6 (under the test bed the default owner is the facts owner f
 
 ### E-230, setting D on the split packages, the plots through `Trajectory` (W-34), 2026-10-29
 
-TDE `w34` bc68501 (move 5: the umbrella over the core, Rodas5, the indexing and array-tools packages as packages of their own; [the plan](../../writeup/plans/2026-10-29-sciml-finish.md) §3), TraitMakie 231cf52 (2c70583 for the later sessions: a script changed, no source), TraitWorld c39fedc, julia-1.13 bfca89decc; product setting, strict mode off; two cores; load 0.1–0.4. `env_d` re-resolved for the split packages. Since E-230 `workload_d.jl` gives each line an n × 2 matrix of points: D's from `plotpoints(sol, k)`, written against `Trajectory`; Dp's by `hcat` from the solution's vectors (E-168 passed the vectors, from which both libraries make the same matrix). `bash run.sh e230 "py D Dp D/p" 2`: a discarded warm-up and two sessions per setting (`logs/e230/`). The digests equal E-168's in every setting; no stale image.
+TDE `w34` bc68501 (move 5: the umbrella over the core, Rodas5, the indexing and array-tools packages as packages of their own; [the plan](../../attic/writeup/plans/2026-10-29-sciml-finish.md) §3), TraitMakie 231cf52 (2c70583 for the later sessions: a script changed, no source), TraitWorld c39fedc, julia-1.13 bfca89decc; product setting, strict mode off; two cores; load 0.1–0.4. `env_d` re-resolved for the split packages. Since E-230 `workload_d.jl` gives each line an n × 2 matrix of points: D's from `plotpoints(sol, k)`, written against `Trajectory`; Dp's by `hcat` from the solution's vectors (E-168 passed the vectors, from which both libraries make the same matrix). `bash run.sh e230 "py D Dp D/p" 2`: a discarded warm-up and two sessions per setting (`logs/e230/`). The digests equal E-168's in every setting; no stale image.
 
 | Setting | load | first solve | first plot | second model | again | **session** |
 |---|---|---|---|---|---|---|
@@ -488,7 +488,7 @@ TDE `w34` bc68501 (move 5: the umbrella over the core, Rodas5, the indexing and 
 
 ### E-231, setting D with members fixed from their images' records (W-84), 2026-10-29
 
-TraitWorld ca92f22 (a family member fixed while a package image is built is recorded in that image and fixed from the record at load, while the methods that serve it are the same; [the plan](../../writeup/plans/2026-10-29-w84-member-checks-at-load.md)) against c39fedc; TDE 3a51d95, TraitMakie 2c70583, julia-1.13 bfca89decc; product setting, strict mode off; two cores; load 1.0–1.5. The logs' headers name TraitWorld c39fedc: the "after" runs used ca92f22's tree before it was committed. `bash run.sh e231-before "D" 2` (on c39fedc) and `bash run.sh e231 "D" 2`, each after `bash precompile.sh D`; a discarded warm-up and two sessions a side (`logs/e231-before/`, `logs/e231/`); the load report `probe_loadreport_e230.jl` (`logs/e231/D-loadreport-*.log`). The results' lines (`D`, `P`) are equal before and after.
+TraitWorld ca92f22 (a family member fixed while a package image is built is recorded in that image and fixed from the record at load, while the methods that serve it are the same; [the plan](../../attic/writeup/plans/2026-10-29-w84-member-checks-at-load.md)) against c39fedc; TDE 3a51d95, TraitMakie 2c70583, julia-1.13 bfca89decc; product setting, strict mode off; two cores; load 1.0–1.5. The logs' headers name TraitWorld c39fedc: the "after" runs used ca92f22's tree before it was committed. `bash run.sh e231-before "D" 2` (on c39fedc) and `bash run.sh e231 "D" 2`, each after `bash precompile.sh D`; a discarded warm-up and two sessions a side (`logs/e231-before/`, `logs/e231/`); the load report `probe_loadreport_e230.jl` (`logs/e231/D-loadreport-*.log`). The results' lines (`D`, `P`) are equal before and after.
 
 | D | load | first solve | first plot | second model | **session** |
 |---|---|---|---|---|---|

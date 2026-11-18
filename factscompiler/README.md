@@ -1,6 +1,6 @@
 # FactsCompiler: the facts policy as a mode of Julia's compiler (stage 1)
 
-Plan: `../../writeup/plans/2026-10-17-policy-in-compiler-plan.md`, part (A), stage 1.
+Plan: `../../attic/writeup/plans/2026-10-17-policy-in-compiler-plan.md`, part (A), stage 1.
 
 `Compiler/` is a copy of `julia-1.13/Compiler` (the patched 1.13.2 tree) with the facts rules in
 `src/facts.jl`, hooked into `find_method_matches`, `concrete_eval_eligible` and `return_type_tfunc`.

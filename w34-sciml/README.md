@@ -1,6 +1,6 @@
 # E-156: probes of the forms the SciML moves rely on (W-34)
 
-The question (registry E-156; [the W-34 plan](../../writeup/plans/2026-10-21-w34-sciml-prerequisites.md) §2.1): do the forms the SciML moves 1–4 rely on work in TraitWorld as the references say? One script per probe, each with the plan's prediction by reading.
+The question (registry E-156; [the W-34 plan](../../attic/writeup/plans/2026-10-21-w34-sciml-prerequisites.md) §2.1): do the forms the SciML moves 1–4 rely on work in TraitWorld as the references say? One script per probe, each with the plan's prediction by reading.
 
 What it measures: TraitWorld's forms, neither interop (trait code calling plain code) nor idiomatic trait code as a whole. The two timing probes (P13, P15) are quick regression checks, not measurements; current numbers belong in [the evidence](../../writeup/design/evidence.md).
 
@@ -72,7 +72,7 @@ Against the plan rather than the references:
 
 # E-157: move 1 in form B, with move 5's check (TDE, W-34)
 
-The question (registry E-157; [the W-34 plan](../../writeup/plans/2026-10-21-w34-sciml-prerequisites.md) §2.2, §1.2): with SciML's split of a plain `ODEFunction` record and a problem that keeps the function at bounded `Callable` parameters, (1) are TDE's `RESULT` lines unchanged, also with the chunk entered at `init`? (2) What does an `rhs!` call cost and allocate, `Dynamic` against `compiled_for`, with a `Vector` and a named-tuple `p`? (3) How many allocations per Tsit5 step (40 states, 1,000 steps)? (4) Does a new model type or function compile no CodeInstance of the solver's functions? (5) Is an `f` returning `du` refused at its first call? (6) Is a `Trajectory` helper compiled once per key, with one solution type for two models?
+The question (registry E-157; [the W-34 plan](../../attic/writeup/plans/2026-10-21-w34-sciml-prerequisites.md) §2.2, §1.2): with SciML's split of a plain `ODEFunction` record and a problem that keeps the function at bounded `Callable` parameters, (1) are TDE's `RESULT` lines unchanged, also with the chunk entered at `init`? (2) What does an `rhs!` call cost and allocate, `Dynamic` against `compiled_for`, with a `Vector` and a named-tuple `p`? (3) How many allocations per Tsit5 step (40 states, 1,000 steps)? (4) Does a new model type or function compile no CodeInstance of the solver's functions? (5) Is an `f` returning `du` refused at its first call? (6) Is a `Trajectory` helper compiled once per key, with one solution type for two models?
 
 What it measures: interop, library trait code (TDE's solvers) calling plain functions and a plain callable model. The timings are quick regression checks, not measurements; current numbers belong in [the evidence](../../writeup/design/evidence.md).
 
@@ -155,7 +155,7 @@ None of T-62, T-64, T-65, T-66, T-67, L-3 is on this build's path: `init` is an 
 
 # E-158: move 2, callbacks and the integrator view as traits (TDE, W-34)
 
-The question (registry E-158; [the W-34 plan](../../writeup/plans/2026-10-21-w34-sciml-prerequisites.md) §2.3, §1.3): with callbacks as `Callback{U, T, P}` kept in a vector of the integrator, entered at `init` as records of `Callable` fields, and seeing the integrator as `Dynamic{IntegratorView{U, T, P}}` with operations, (1) are event times and states equal to a typed control (PlainODE) bit for bit, discrete first, then a scalar continuous callback? (2) Does a new callback compile nothing in the driver, with one integrator type for two callback sets? (3) Is `integ.p` typed in a callback? (4) Is a callback type without `affect!` refused at `@implement`? (5) What does a step with two callbacks cost and allocate against the control?
+The question (registry E-158; [the W-34 plan](../../attic/writeup/plans/2026-10-21-w34-sciml-prerequisites.md) §2.3, §1.3): with callbacks as `Callback{U, T, P}` kept in a vector of the integrator, entered at `init` as records of `Callable` fields, and seeing the integrator as `Dynamic{IntegratorView{U, T, P}}` with operations, (1) are event times and states equal to a typed control (PlainODE) bit for bit, discrete first, then a scalar continuous callback? (2) Does a new callback compile nothing in the driver, with one integrator type for two callback sets? (3) Is `integ.p` typed in a callback? (4) Is a callback type without `affect!` refused at `@implement`? (5) What does a step with two callbacks cost and allocate against the control?
 
 What it measures: idiomatic trait code (TDE's solvers over trait-typed callbacks and the integrator view), against the same solver in plain Julia. The timings are quick regression checks, not measurements; current numbers belong in [the evidence](../../writeup/design/evidence.md).
 
@@ -242,7 +242,7 @@ Build julia-1.13 2943086604, TraitWorld 2e9ed68, TDE cccc517, product setting, s
 
 # E-229: move 5, the solution as a trajectory (TDE, W-34)
 
-The question (registry E-229; [the plan](../../writeup/plans/2026-10-29-sciml-finish.md) §2, §4): can the solution keep its problem as a kept value, with no axis for its function or type? Is a helper over trajectories compiled once per solution type, not per model? Does `DiffEqArray` conform?
+The question (registry E-229; [the plan](../../attic/writeup/plans/2026-10-29-sciml-finish.md) §2, §4): can the solution keep its problem as a kept value, with no axis for its function or type? Is a helper over trajectories compiled once per solution type, not per model? Does `DiffEqArray` conform?
 
 What it measures: idiomatic trait code (library helpers written against a trait) and the solution's type. No timings.
 
@@ -290,7 +290,7 @@ julia-1.13 bfca89decc, TraitWorld c39fedc, TDE bc68501, product setting, strict 
 
 # E-239: W-32 R2, the TDE side (2026-10-29)
 
-The question (registry E-239; [the R1 census](../../writeup/plans/2026-10-29-ndport-r1-census.md) §3, items 1, 2, 12–17; open issue 119): can TDE take what NetworkDynamics needs from SciML, each item in the trait form, with results unchanged? Not a measurement, except E-168's session once (`../ttfx/`, section E-239).
+The question (registry E-239; [the R1 census](../../attic/writeup/plans/2026-10-29-ndport-r1-census.md) §3, items 1, 2, 12–17; open issue 119): can TDE take what NetworkDynamics needs from SciML, each item in the trait form, with results unchanged? Not a measurement, except E-168's session once (`../ttfx/`, section E-239).
 
 ## What was built (TDE branch `w34`, ede32e3 and f0a79ae, from 3a51d95)
 
@@ -338,11 +338,11 @@ julia-1.13 bfca89decc, TraitWorld ca92f22, product setting, strict mode off.
 
 # E-242: W-32 R3, the TDE items left for NetworkDynamics (2026-10-29)
 
-The question (registry E-242; [the R1 census](../../writeup/plans/2026-10-29-ndport-r1-census.md) §3, item 11, S7, item 17's rest; open issues 117 and 118): can TDE take NetworkDynamics' fixed point, `remake`, dense output and the solution's `idxs` forms, each in the trait form, with results unchanged; and how far does NetworkDynamics then run? Not a measurement, except E-168's session once (`../ttfx/`, section E-242).
+The question (registry E-242; [the R1 census](../../attic/writeup/plans/2026-10-29-ndport-r1-census.md) §3, item 11, S7, item 17's rest; open issues 117 and 118): can TDE take NetworkDynamics' fixed point, `remake`, dense output and the solution's `idxs` forms, each in the trait form, with results unchanged; and how far does NetworkDynamics then run? Not a measurement, except E-168's session once (`../ttfx/`, section E-242).
 
 ## What was built (TDE branch `w34`, e4eeed9 and 388cb33, from f0a79ae)
 
-- **Nonlinear problems with an open set of solvers** (item 11), a new package `lib/TraitNonlinearSolve` as [the note](../../writeup/plans/2026-10-29-tde-nonlinear-problems.md) designs it (its §7 lists the amendments): `NonlinearProblemTrait{T, P}`; TDE's `NonlinearProblem` and `NonlinearFunction`; `SteadyStateProblem` from a right-hand side at a time or from any `ODEProblemTrait`; `NonlinearAlgorithm` with `NewtonRaphson`, `TrustRegion` and `NonlinearPolyalg`, each over any `LinearSolver`; the solution with its problem kept; a precompile workload. The umbrella re-exports it and forwards a nonlinear algorithm from its `solve`, chosen by trait dispatch (`is_nonlinear_algorithm`, `is_nonlinear_problem`: bounded methods with an untyped fallback, 388cb33).
+- **Nonlinear problems with an open set of solvers** (item 11), a new package `lib/TraitNonlinearSolve` as [the note](../../attic/writeup/plans/2026-10-29-tde-nonlinear-problems.md) designs it (its §7 lists the amendments): `NonlinearProblemTrait{T, P}`; TDE's `NonlinearProblem` and `NonlinearFunction`; `SteadyStateProblem` from a right-hand side at a time or from any `ODEProblemTrait`; `NonlinearAlgorithm` with `NewtonRaphson`, `TrustRegion` and `NonlinearPolyalg`, each over any `LinearSolver`; the solution with its problem kept; a precompile workload. The umbrella re-exports it and forwards a nonlinear algorithm from its `solve`, chosen by trait dispatch (`is_nonlinear_algorithm`, `is_nonlinear_problem`: bounded methods with an untyped fallback, 388cb33).
 - **`remake(prob; u0, tspan, p, callback)`** (S7) in ODECore: the user's functions back from the problem with their attributes, entered again.
 - **Dense output** (open issue 117, my choice): `Interpolant{U, T}` (`interpolate`) in ODECore; `HermiteSteps{T}` (Tsit5) and TraitRodas' `Rodas5Steps`; `CoreSolution` and `ODESolution` keep `Kept{Interpolant{Vector{T}, Float64}}` or `nothing`; `dense` defaults to an empty `saveat`. A step cut by an event keeps its full step's data and ends at the event's time, so `sol(te)` is the state saved there.
 - **The solution's `idxs` forms:** `sol(τ; idxs)` is `sol(τ, idxs)`, by dispatch on the index's type (`Int`, `Symbol`, vectors; a library's own type by its own method); at a vector of times, a vector of values. Open issue 118 is not built.

@@ -1,7 +1,7 @@
 # Examples that stress-test the design (session 29)
 
 Small runnable cases for the claims of `writeup/design.md` that had no example (the review
-`writeup/reviews/2026-10-18-examples-and-demonstrators.md`, section 4). Each file states the
+`attic/writeup/reviews/2026-10-18-examples-and-demonstrators.md`, section 4). Each file states the
 outcome the design predicts and checks it: PASS, FAIL, or PENDING (waits on a part not built
 or a decision; does not fail the run). Written to TraitWorld's language only: no view caches, witness tables,
 system image, `FactsInterp` switches or `sealed_call`. No timing: each file ends with a

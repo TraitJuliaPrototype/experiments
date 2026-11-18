@@ -1,6 +1,6 @@
 # E-255 (U7): how often inference folds a negative membership
 
-Registry row: `writeup/record/experiments.md` §12, E-255. Exploration: `writeup/explorations/abstract-types-as-traits.md` §13.1, §13.4, §13.6.
+Registry row: `writeup/record/experiments.md` §12, E-255. Exploration: `attic/writeup/explorations/abstract-types-as-traits.md` §13.1, §13.4, §13.6.
 
 **Question.** Candidate (c) of §13.4 never folds a negative answer `S ∉ X` for a set `X` that may get late members. Would that cost anything measurable? Counted: negative answers that inference fixes into code, against all negative answers. **Would change the plan:** under 1 % of negative folds and none in a hot loop: (c) is free and goes into P1. Hot folds in a demonstrator's loop: §13.3's edges or a `closed` mode.
 

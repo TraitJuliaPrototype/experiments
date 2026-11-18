@@ -1,6 +1,6 @@
 # E-193: the facts-keyed cache's identity and index, by construction (W-66)
 
-[W-66's note](../../writeup/plans/2026-10-27-facts-keyed-cache.md), revision 2, §4. Six toy cases. In each, a trait package `P<i>`'s facts code (`P<i>.Impl.go`) depends on something that changes between two sessions, while `P<i>`'s own source and version stay the same.
+[W-66's note](../../attic/writeup/plans/2026-10-27-facts-keyed-cache.md), revision 2, §4. Six toy cases. In each, a trait package `P<i>`'s facts code (`P<i>.Impl.go`) depends on something that changes between two sessions, while `P<i>`'s own source and version stay the same.
 
 **How to run:**
 - `python3 gen.py` makes the packages in `pkgs/`. The variants `a` and `b` of a changed dependency share its name, UUID and version.
@@ -30,7 +30,7 @@ The system image's standard libraries count as part of every closure. Without th
 
 # E-195: entries identified by fingerprints scoped by the facts rule (W-66)
 
-[The note](../../writeup/plans/2026-10-27-facts-keyed-cache.md) §5b, decided by the user ("let's build this now"). `Fingerprints.jl` computes an entry's identity from the session's method table and CodeInstances, with no Julia change:
+[The note](../../attic/writeup/plans/2026-10-27-facts-keyed-cache.md) §5b, decided by the user ("let's build this now"). `Fingerprints.jl` computes an entry's identity from the session's method table and CodeInstances, with no Julia change:
 - **F1:** its method's signature and lowered code, uncompressed and printed with global references by name. The compressed bytes differ between builds of the same source.
 - **F2:** for each fact (each edge), the stakeholders' methods of its function, with their lowered code; and for a callee CodeInstance, its inferred result.
 - **F3:** the layouts of the types in its signature, result and inferred code.

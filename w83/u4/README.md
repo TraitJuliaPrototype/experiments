@@ -1,6 +1,6 @@
 # E-256 (U4): is an untyped function a `Dynamic` over `Any`?
 
-The question (registry row E-256; exploration `writeup/explorations/abstract-types-as-traits.md` §3 rule 5 and §10): does `f(@nospecialize x)` behave as a `Dynamic{X}` position does: compiled once, every operation on `x` a run-time site, its result `Any` against the declared result?
+The question (registry row E-256; exploration `attic/writeup/explorations/abstract-types-as-traits.md` §3 rule 5 and §10): does `f(@nospecialize x)` behave as a `Dynamic{X}` position does: compiled once, every operation on `x` a run-time site, its result `Any` against the declared result?
 
 ## How to run
 

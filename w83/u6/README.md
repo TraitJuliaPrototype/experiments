@@ -1,6 +1,6 @@
 # U6 (E-252): is an extension loaded before a dependent's code compiles?
 
-Exploration `writeup/explorations/abstract-types-as-traits.md` §11.1, §11.2 (C3, C4: Lemma M), §11.5 (U6). Registry row E-252.
+Exploration `attic/writeup/explorations/abstract-types-as-traits.md` §11.1, §11.2 (C3, C4: Lemma M), §11.5 (U6). Registry row E-252.
 
 **The premise tested** (§11.1): "a definition is visible to `P` when `P` compiles iff it lives in a package in `P`'s dependency tree, or in an extension whose triggers are all in that tree." Lemma M (C4) and the coherence rule (C3) rest on it.
 

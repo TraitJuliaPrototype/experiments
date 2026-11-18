@@ -1,6 +1,6 @@
 # E-253 (U5): the coherence rule's cost
 
-The question (registry row E-253; exploration `writeup/explorations/abstract-types-as-traits.md` §11.1, §11.2 C3/C4, §11.5, §14.4): how often do the demonstrators and the four ports bound a foreign function by a set that has foreign members? For each such hit: does a typed method of the function shield every foreign member?
+The question (registry row E-253; exploration `attic/writeup/explorations/abstract-types-as-traits.md` §11.1, §11.2 C3/C4, §11.5, §14.4): how often do the demonstrators and the four ports bound a foreign function by a set that has foreign members? For each such hit: does a typed method of the function shield every foreign member?
 
 **Would change the plan:** zero or a handful of hits, each with an own-function spelling or a shield: the rule costs nothing in practice, and the recommendation stands. Many unshielded hits, or `Base.show` everywhere: the mode's default and the static check's severity are weighed again.
 

@@ -1,6 +1,6 @@
 # E-259 (U9): the guards of option (e) of open issue 136
 
-The question (registry row E-259; open issue 136 (e); exploration `writeup/explorations/abstract-types-as-traits.md` §11.2 C7, §13.4, §16; the plan §6): under "never fold a negative membership in dispatch", which compiled call sites `f(s::S)` of the ports' workloads would carry a guard? How many sit in loops, how many would widen a result type, and what does one guard cost?
+The question (registry row E-259; open issue 136 (e); exploration `attic/writeup/explorations/abstract-types-as-traits.md` §11.2 C7, §13.4, §16; the plan §6): under "never fold a negative membership in dispatch", which compiled call sites `f(s::S)` of the ports' workloads would carry a guard? How many sit in loops, how many would widen a result type, and what does one guard cost?
 
 **Would change the proposal:** guards in hot code that a declared result does not cover: option (a) instead of (e).
 

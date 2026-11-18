@@ -1,6 +1,6 @@
 # Evidence for "wrapping by facts" (session 23, 2026-10-16)
 
-Design: `writeup/explorations/wrapping-by-facts.md` in the design repository. Stock Julia 1.13.2, niced, serialized through the session's Julia lock.
+Design: `attic/writeup/explorations/wrapping-by-facts.md` in the design repository. Stock Julia 1.13.2, niced, serialized through the session's Julia lock.
 
 ## E3: is stock invalidation exact at concrete signatures? (`e3_exact.jl`)
 
@@ -68,7 +68,7 @@ On f558180 everything passes except:
 
 ## E-198: strict mode on code of the facts owner, and pirates reported at an image's load (W-66 step 3), 2026-10-28
 
-julia-1.13 8ceda6f9d6; TraitWorld d924f38 (before) and the branch `w66-strict-facts` (after, merged); [the note](../../writeup/plans/2026-10-28-strict-mode-on-facts-code.md). Logs `e198/logs/`, sessions `../ttfx/logs/e198-before/`, `../ttfx/logs/e198-after/` (a warm-up and two sessions each).
+julia-1.13 8ceda6f9d6; TraitWorld d924f38 (before) and the branch `w66-strict-facts` (after, merged); [the note](../../attic/writeup/plans/2026-10-28-strict-mode-on-facts-code.md). Logs `e198/logs/`, sessions `../ttfx/logs/e198-before/`, `../ttfx/logs/e198-after/` (a warm-up and two sessions each).
 
 | Check | Before | After |
 |---|---|---|

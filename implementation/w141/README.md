@@ -1,6 +1,6 @@
 # W-141: a membership is a method. The findings (E-367)
 
-The build plan: `writeup/plans/2026-11-11-membership-as-method-build.md`. The proposal: `writeup/plans/2026-11-11-membership-as-method.md`. This file is the one log of findings: one row per trade-off, filled as each stage runs. Small cases only; the machine's load is given with each table.
+The build plan: `attic/writeup/plans/2026-11-11-membership-as-method-build.md`. The proposal: `attic/writeup/plans/2026-11-11-membership-as-method.md`. This file is the one log of findings: one row per trade-off, filled as each stage runs. Small cases only; the machine's load is given with each table.
 
 ## How to run
 
@@ -118,4 +118,4 @@ The user: "Pirate method rule is approved. That was the point of "behaves as a m
 | The gates | 69 pass; the nine `m3_*` fail as before (`logs/gates_pirate_rule.log`) |
 | The suites | TraitWorld 83 test sets, TraitTables 3, TraitDifferentialEquations 34: all pass (`logs/*_pirate_rule.log`) |
 
-The review of the built state, with its addendum on the decision: `writeup/reviews/2026-11-12-w141-membership-as-method.md`.
+The review of the built state, with its addendum on the decision: `attic/writeup/reviews/2026-11-12-w141-membership-as-method.md`.

@@ -1,6 +1,6 @@
 # Which definitions invalidate compiled code (S1–S8)
 
-From the framing review (`writeup/reviews/2026-10-18-framing-and-motivation.md` §0), adapted in session 29 for the in-tree facts mode.
+From the framing review (`attic/writeup/reviews/2026-10-18-framing-and-motivation.md` §0), adapted in session 29 for the in-tree facts mode.
 
     julia inval.jl                               # plain
     JULIA_COMPILE_BY_FACTS=1 julia inval.jl      # the facts mode (julia-1.13 880ae49dad and later)

@@ -1,6 +1,6 @@
 # U8 (E-254): the REPL case under "never fold a negative"
 
-Exploration `writeup/explorations/abstract-types-as-traits.md` §13.4 (candidate (c), item 1: a membership registry whose entries carry a `min_world`) and §13.6 (U8). Registry row E-254.
+Exploration `attic/writeup/explorations/abstract-types-as-traits.md` §13.4 (candidate (c), item 1: a membership registry whose entries carry a `min_world`) and §13.6 (U8). Registry row E-254.
 
 **Question.** A `Main` function that tests `conforms(typeof(x), X)` is compiled at a `Main` type `S`; then `@implement X S` at the prompt; then the call again. (1) Does the second call answer `true` with no new CodeInstance? (2) Does the call in the earlier world answer `false`?
 

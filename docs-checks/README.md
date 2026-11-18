@@ -5,7 +5,7 @@ Each is a report: it changes nothing.
 
 ## `check_links.py`: links, anchors and section citations
 
-Adopted from [the documentation review of 2026-11-09](../../writeup/reviews/2026-11-09-documentation-consistency.md) (M5), which found dead anchors and stale section numbers in current documents; the review of 2026-10-26 of `lowering.md` had found 94 stale citations.
+Adopted from [the documentation review of 2026-11-09](../../attic/writeup/reviews/2026-11-09-documentation-consistency.md) (M5), which found dead anchors and stale section numbers in current documents; the review of 2026-10-26 of `lowering.md` had found 94 stale citations.
 
 ```sh
 python3 -I experiments/docs-checks/check_links.py writeup          # current documents
@@ -30,7 +30,7 @@ Run it before a commit that renumbers a reference's sections. Hits in rows that 
 
 ## `check_quotes.py`: the ports' code a document quotes
 
-Found on 2026-11-11 by [the review of the introduction and the rationale](../../writeup/reviews/2026-11-11-intro-and-rationale.md) (M2): `intro/porting.md` quotes the ports' code by file and line, and the ports move under it.
+Found on 2026-11-11 by [the review of the introduction and the rationale](../../attic/writeup/reviews/2026-11-11-intro-and-rationale.md) (M2): `intro/porting.md` quotes the ports' code by file and line, and the ports move under it.
 
 ```sh
 python3 -I experiments/docs-checks/check_quotes.py writeup/intro/porting.md

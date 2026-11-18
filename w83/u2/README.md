@@ -1,6 +1,6 @@
 # E-257 (U2): do the kept forms collapse without a cost?
 
-The question (registry row E-257; exploration `writeup/explorations/abstract-types-as-traits.md` §5.2 and §10): is a container of raw members and `Dynamic{X}` wrappers (`Vector{X}` under the model; `Vector{Any}` is the closest today's build has), read by a loop that branches on `isa Dynamic` and then runs the split, as cheap as `Vector{Kept{X}}`?
+The question (registry row E-257; exploration `attic/writeup/explorations/abstract-types-as-traits.md` §5.2 and §10): is a container of raw members and `Dynamic{X}` wrappers (`Vector{X}` under the model; `Vector{Any}` is the closest today's build has), read by a loop that branches on `isa Dynamic` and then runs the split, as cheap as `Vector{Kept{X}}`?
 
 ## How to run
 

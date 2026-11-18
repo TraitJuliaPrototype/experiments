@@ -1,4 +1,4 @@
-# Inline caches at dynamic call sites (`writeup/plans/2026-10-19-inline-caches-plan.md`)
+# Inline caches at dynamic call sites (`attic/writeup/plans/2026-10-19-inline-caches-plan.md`)
 
 ## Stage 0: where a dynamic call's time goes (`sites.jl`, rough timings, 2026-10-19)
 
@@ -30,7 +30,7 @@
 
 ## The direct check (the review proposed another cause)
 
-The review (`writeup/reviews/2026-10-19-inline-caches-review.md`) suggested a different cause: a per-call normalization in `jl_compile_method_internal_owner`, which does not cache the facts owner's result on a narrow method instance. The check:
+The review (`attic/writeup/reviews/2026-10-19-inline-caches-review.md`) suggested a different cause: a per-call normalization in `jl_compile_method_internal_owner`, which does not cache the facts owner's result on a narrow method instance. The check:
 - **Stage 1 off,** libraries rebuilt; `push!(d, pop!(d))` on a `Vector{Any}` of `Int` and `String`, under `all`: 61.7 ns.
 - **Profile:** 769 of about 856 samples in `jl_apply_generic`, all in the lookup:
   - `lookup_arg_type_tuple` (hashing the arguments into a type tuple): 362;
