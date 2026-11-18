@@ -10,9 +10,10 @@ set -u
 H=$(cd "$(dirname "$0")" && pwd)
 # TREE=<julia tree> (relative to the workspace root) runs with that tree's binary and the third part's depot
 # (env-c.sh); the default is julia-next with the second part's (env.sh)
+# ENVD=<environment> replaces env_demo (env_demo_next: env_demo with the library at `unified` from wt/w156c-tw, for julia-next)
 if [ -n "${TREE:-}" ]; then source "$H/env-c.sh"; JN=$TW_ROOT/$TREE/julia; else source "$H/env.sh"; TREE=julia-next; fi
 tag=$1; N=${2:-3}
-U=$H/..; ENVD=$H/env_demo; LOG=$H/logs/sessions-$tag.log
+U=$H/..; ENVD=${ENVD:-$H/env_demo}; LOG=$H/logs/sessions-$tag.log
 rev() { git -C "$TW_ROOT/$1" log -1 --format=%h; }
 D=$(mktemp -d); awk 'BEGIN { print "id,x,y,name"; for (i = 1; i <= 500; i++) printf "%d,%.3f,%.3f,n%d\n", i, i*0.1, 100-i*0.05, i%7 }' > "$D/t.csv"
 CSV=$TW_ROOT/experiments/interfaces/App/data/sample.csv

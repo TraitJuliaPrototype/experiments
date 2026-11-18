@@ -151,3 +151,97 @@ Load: the forks' session 17.4 → 14.2 before, 22.9 → 12.9 after; the report a
 So no site needed a door or a trait that erases by default: the session compiles 12 fewer signatures than with the option, and its digests equal upstream's.
 
 **The census** (`logs/b-census-after.txt`): no name of the surface in the demonstrators' code. Left: three dated rows of `ndport/README.md`'s results table (history), and the word "casts" in a comment of NetworkDynamics' `coreloop.jl` (a number's conversion). The two scripts of the forks' closed experiments (`forks/scripts/d3_refcodes.jl`, `m7_stage_split.jl`; E-214, E-217) call `compiled_for(d)`, which is now the wrapper, not the cast they were written for: kept as history, not run.
+
+# W-156, third part: the attribute's machinery leaves Julia (compiler C-112, C-113, C-114; E-506)
+
+**The question** (registry row E-506): with the attribute's machinery gone from Julia, the wrapper in `Core` and a
+closed build branching over the members at the wrapper's constructor, do the gates, Base's test files, the suites
+and the examples hold, and do the sessions' times and compiles stay? What would change the design: something only
+the attribute provided that the box, the wrapper and the forwarder do not give.
+
+## How to run
+
+```sh
+source experiments/implementation/w156/env-c.sh          # JW: the w156 tree's binary; a depot of this part's own
+bash checks-c.sh wt/w156-julia <label>                    # the gates, Base's files, the suites, NetworkDynamics' subset
+bash base-c.sh wt/w156-julia <label>                      # Base's subtype, core, ambiguous, worlds, detect_ambiguities, Compiler/inline, inference
+bash suites-c.sh wt/w156-julia <label> library tde makie nd digests docs     # w165's suites.sh with a tree
+bash suites-tree.sh wt/w156-julia <label> tables csv report …                # the first part's suites.sh with a tree
+TREE=wt/w156-julia bash forks_session.sh <tag> 3          # the forks' session (TREE= any tree; default julia-next)
+TREE=wt/w156-julia bash sessions.sh <tag> 3               # the report and the table session
+TREE=julia-next ENVD=$W156/env_demo_next bash sessions.sh <tag> 3   # the same before (needs wt/w156c-tw, below)
+bash plain-c.sh <label> 3                                 # E-499's plain session: vanilla, next, w156
+(cd ../../../TraitWorld && $JW --project=. ../experiments/implementation/w156/probes/c_wrapper_holes.jl)  # verify_main at the wrapper
+(cd ../../../TraitWorld && $JW --project=. ../experiments/implementation/w156/probes/c_callable_forms.jl) # a method at Callable, three forms
+$JW --project=env_session probes/c_byrow.jl               # the forks' byrow, three forms
+$JW --project=env_demo probes/c_session_new.jl ../w135/apps/report.jl <csv> <png>   # what main adds
+```
+
+- The "before" environments `env_demo_next/` and `env_ode_next/` are `env_demo` and `../w134/env_demo` with the library
+  at `unified` (ea72682) from a worktree: `git -C TraitWorld worktree add --detach ../wt/w156c-tw unified` (julia-next
+  cannot load the library's `w156`, whose `Compiled` is `Core.Compiled`).
+- `tools/cc_patch.jl` lays definitions of a Compiler source file over the session's `Base.Compiler`, with
+  `Base.REFLECTION_COMPILER[] = Base.Compiler`, to try a change to inference before a build (stage 1 was tried so).
+
+## Results, 2026-11-18
+
+Julia `w156` (on `next` 02139b2168): dc760be0b2 (stage 1), 1ded4d77e7, 17a260206c, a9e2a0addd (stage 2), 4bf381040c
+(stage 3). TraitWorld `w156`: 2d6751e, a2bf677, 6ad7098. The demonstrators at their `unified` heads (TraitTables
+729f3ad, TraitCSV c95c67c, TraitReport a41c595, TraitMakie 106bed9, TraitDifferentialEquations 7956907, forks a3a37d6,
+NetworkDynamics 82513ee). Product setting, strict mode off, one thread (NetworkDynamics two); load 2 to 15 of 128.
+
+**The checks on 4bf381040c** (`logs/c-s3-summary.log`; stage 1 `c-s1-*`, stage 2 `c-s2-*`). The summary's first block
+is the library on an earlier build of stage 3 (8b6e8c0855, not on the branch): `new` written in the box's constructor
+converted, so a non-member raised `convert`'s `MethodError`; 4bf381040c makes the box by `new` as an expression. The
+session scripts name their logs `b-forks-<tag>`, `sessions-<tag>`, `<app>-<tag>.trace`; this part's are renamed `c-…`.
+
+| | result |
+|---|---|
+| gates (`run_all.sh`) | 72 of 72 in force, 9 of 9 stage gates (`logs/c-s3-gates.log`; stage 1: 72 and 9 on the old set; stage 2: 72 and 9) |
+| the library | 91 testsets (the new one: a value known only by its trait, two cases) |
+| Base: subtype, core, ambiguous, worlds, Compiler/inline, Compiler/inference | SUCCESS each; `detect_ambiguities(Base)` 0 (stage 2 the same) |
+| static check of GC roots (`../w163/sagc.sh`, 15 files) | 0 findings (`logs/c-s2-sagc.log`; stage 3 changes no C file) |
+| TraitTables, TraitCSV; TraitReport `check.sh`, its session | 3 and 2 testsets; 3 of 3 ok; 8 of 8 |
+| TraitMakie, its session; TDE, its session | 8 testsets, 10 of 10; 35 testsets, 14 checks ok, results equal the plain session's |
+| the forks' Tables; their session's digests | 1 error, upstream's `ByRow(Dict)` (open issue 240); equal at 26 steps |
+| NetworkDynamics' subset | massmatrix 6, doctor 26 pass; diffusion 1 fail, 1 error; inhomogeneous 1 error (the known failures) |
+| the examples: intro, tutorial, strict | 26, 95, 5 pass; 1, 0, 0 known deviations |
+
+**The regression control** (a warm-up and 3 runs, fresh processes; before: julia-next with the library's `unified`, the
+same day, the same load):
+
+| | before | after |
+|---|---|---|
+| the forks' session: wall | 6.66–6.72 s (`b-forks-after.log`, load 13–23) | 6.50–7.10 s (`c-forks-after.log`, load 3) |
+| its session, of it compiling | 6346–6425 ms, 4034–4070 ms | 6198–6776 ms, 4045–4389 ms |
+| compiles in the session; instances in the forks' packages | 224; 4836 | 222; 4835 |
+| the report: wall; first run, of it compiling | 1.019–1.023 s; 110–115 ms, 51.4–51.5 ms (`c-sessions-before.log`) | 1.038–1.050 s; 130.7–130.8 ms, 68.1–68.2 ms (`c-sessions-after.log`) |
+| its compiles | 25, 218 ms | 28, 241 ms |
+| the table session: wall; compiles | 0.656–0.694 s; 19, 172 ms | 0.654–0.661 s; 19, 168 ms |
+| instances TraitTables, TraitCSV, TraitMakie (report) | 103, 29, 318 | 103, 29, 336 |
+
+- **The forks' `byrow`** (`logs/c-audit-forks.txt`, `logs/c-probe-byrow.log`): its function argument is
+  `f::Callable{Tuple{T}}`, the result `S` left open, an input: no forwarder (traits §7.8), so a plain function is compiled
+  for its type, the wrapper for `Compiled{typeof(f)}`, the box at `Dynamic{Callable{Tuple{Int64}, Int64}}`. Before, the
+  attribute compiled all three once at `Callable{Tuple{Int64}}`. In the session: `byrow` per closure (+3 instances),
+  their closures' own instances at `Union{Missing, …}` fewer (−3); 222 compiles against 224.
+- **The report's 17 ms** (`logs/c-traitmakie-instances-*.txt`, `logs/c-report-session-new*.log`): TraitMakie's doors
+  are `@nospecialize` at a trait (`add_hist!(ax, @nospecialize(values::Sample), …)`, `add_lines!`, `add_axis!`, the
+  recipes' constructors; `TraitMakie/src/PlotCore.jl` 652–707). With the attribute they were inferred once at the
+  trait; now Julia infers a `@nospecialize` argument at the caller's types and inlines there, as it does for any
+  argument: the image holds 18 more instances at the member types (`Vector{Float64}`, `Matrix{Float64}`, `ColorName`),
+  and the report's `main` compiles 68 ms where it compiled 51 (the same 25 new instances in both: `sum` of a
+  `Vector{Float64}` and printing). Julia's own means is `Base.@nospecializeinfer` at the doors.
+- **Plain code** (`logs/c-plain.log`, E-499's session, 3 runs): first work 3.28–3.30 s on vanilla, 3.33–3.53 s on
+  `next`, 3.31–3.45 s on `w156`; repeated work 0.18–0.19 ms on all three; the library loaded late ends 0 of 120,396
+  plain instances. The machinery's removal from dispatch moved nothing measurable.
+
+**E-387's program** (`logs/c-ode-fe-w156.build.log`): the trimmed build of the ODE app does not reach the verifier: its
+load raises `MethodError: no method matching solve_nl(::NewtonRaphson{DenseLU}, ::NLCoreProblem{Float64, Dynamic{…},
+Compiled{typeof(nl_no_jacobian)}}, ::NLOptions)` in TraitNonlinearSolve's top level. The same on julia-next with the
+library's `unified` (`logs/c-ode-fe-next.build.log`): not this change's.
+
+**The probes.** `c_wrapper_holes.jl` (`logs/c-s2-probe-wrapper-holes.log`): `verify_main` at `compiled_for(x)` with
+`x::Shape2`: 0 holes (2 on `next`); a plain method and a method with a static parameter at a value known by its trait:
+0 holes each. `c_callable_forms.jl` (`logs/c-s2-probe-callable-forms.log`): a method at `Callable{Tuple{Int}, Int}` has
+its forwarder and its wrapper entry (3 methods), as on `next`.
