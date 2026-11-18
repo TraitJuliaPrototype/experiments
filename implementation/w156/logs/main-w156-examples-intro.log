@@ -1,0 +1,38 @@
+DEVIATION T-126 the library exports compiled_for, the wrapper's function
+PASS  Measurements <: ColTable
+PASS  m isa ColTable
+PASS  colmean(m, 1) == 1.5
+DEVIATION T-127 at the prompt, colmean(m, 1) runs the code compiled for Measurements
+      colmean's instances after the call: Tuple{typeof(colmean), ColTable, Int64}, Tuple{typeof(colmean), Dynamic{ColTable}, Int64}
+PASS  colmean(r, 2) == 3.0
+PASS  meandiff(m, r, 1) == 0.0
+PASS  colmap(x -> 2x, m, 2) == [6.0, 10.0]
+PASS  colmap(compiled_for(x -> 2x), m, 2) == [6.0, 10.0]
+PASS  colmean(Dynamic{ColTable}(m), 1) == 1.5
+PASS  colmean(compiled_for(m), 1) == 1.5
+PASS  means(s, 1) == [1.5, 1.5]
+PASS  the shelf holds the members' own values
+PASS  Dynamic{ColTable}(r) isa ColTable
+PASS  colmean(d, 2) == 3.0
+PASS  unwrap(d) === r
+PASS  compiled_for(m) isa ColTable, and is not m
+PASS  a Vector{Dynamic{ColTable}} boxes each member stored
+PASS  colmap(uppercase, m, 1) raises MethodError
+PASS  a trait module accepts a method that passes f on to map
+PASS  colmap2(x -> 2x, m, 2) == [6.0, 10.0]
+PASS  @implement ColTable Counts raises ImplementError
+MESSAGE ImplementError:
+ImplementError: Counts cannot be a member of ColTable
+  - col's method at Counts infers its result as Vector{Int64}, outside the declared Vector{Float64}
+PASS  Counts is no member
+PASS  a closure returning an Int raises TypeError
+MESSAGE TypeError:
+TypeError: in Callable, expected Float64, got a value of type Int64
+PASS  an unbounded method in a trait module raises TraitUseError
+MESSAGE TraitUseError:
+TraitUseError: colsum is declared bounded, and is not bounded at the box (Tuple{typeof(Main.Broken.colsum), Dynamic{ColTable}}):
+  sum(Dynamic{ColTable}) reaches iterate(Dynamic{ColTable}), which has no method (through sum → mapreduce → mapfoldl → mapfoldl_impl → foldl_impl → _foldl_impl), at line 142
+DEVIATION no row the TraitUseError names the method as a call, no tuple type
+PASS  colmean(42, 1) raises MethodError
+
+24 pass, 0 fail, 3 known deviations
