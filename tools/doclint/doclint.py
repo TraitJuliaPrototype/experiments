@@ -30,6 +30,8 @@ HISTORY = [
 LIVE = [
     "plans/2026-11-15-next-iteration.md", "plans/2026-11-14-synthesis.md",
     "plans/2026-11-18-documentation-cleanup.md", "reviews/2026-11-15-conceptual-design.md",
+    "plans/2026-11-18-names.md", "plans/2026-11-18-claude-md-changes.md",
+    "reviews/2026-11-18-documentation-cleanup.md",
 ]
 
 CHECKS = {
