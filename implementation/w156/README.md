@@ -109,7 +109,7 @@ bash census.sh [file]                    # the attribute's surface left in the d
 
 `next` 02139b2168. Before: TraitWorld `unified` 3e64ede, the demonstrators' `unified` heads (TraitTables 3f3e5a9, TraitCSV 57ccb3c, TraitMakie 2c560cb, forks 2176f57). After: branch `w156` of each (TraitWorld ea72682, TraitTables 729f3ad, TraitCSV c95c67c, TraitMakie 106bed9, TraitDifferentialEquations 7956907, forks a3a37d6, NetworkDynamics 82513ee, ndport 0825fee). Product setting, strict mode off, one thread (NetworkDynamics' subset two). Fresh processes, niced.
 
-**The library** (`logs/b-library-3.log`): 90 testsets pass (93 before: the testsets of the casts, of the `detect_` functions and of `detect_kept_storage` deleted; `keep` and `Kept` rewritten to the struct parameter and to storage). One `@test_broken`: `verify_main`'s holes for the wrapper of a value known only by its trait, which the build's own check refuses (compiler C-114).
+**The library** (`logs/b-library.log`, at ea72682; `b-library-1.log` to `-3.log` are the runs while its tests were rewritten): 90 testsets pass, 656 checks (93 before: the testsets of the casts, of the `detect_` functions and of `detect_kept_storage` deleted; `keep` and `Kept` rewritten to the struct parameter and to storage). One `@test_broken`: `verify_main`'s holes for the wrapper of a value known only by its trait, which the build's own check refuses (compiler C-114).
 
 **Gates and examples:** `run_all.sh julia-next`: 72 of 72 in force, 9 of 9 stage gates (`logs/b-gates.log`). The examples: intro 26 pass, 1 deviation (no row); tutorial 95 pass; strict 5 pass (`logs/b-examples-*.log`).
 
