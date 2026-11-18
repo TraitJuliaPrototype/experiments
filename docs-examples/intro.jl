@@ -1,5 +1,5 @@
 # The worked example of writeup/intro/traits-for-julia.md, with checks of the results the page states.
-# Run from TraitWorld-unified/ (see README.md):
+# Run from TraitWorld/ (see README.md):
 #   JULIA_PKG_OFFLINE=true nice -n 19 ../julia-next/julia --project=. --startup-file=no ../experiments/docs-examples/intro.jl
 include(joinpath(@__DIR__, "common.jl"))
 using TraitWorld

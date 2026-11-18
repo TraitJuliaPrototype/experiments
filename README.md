@@ -10,7 +10,7 @@ The gates, measurements and tools of the trait-bound Julia design. The design is
 
 | Directory | What |
 |---|---|
-| `unification/` | the gates (`gates/`), the acceptance cases of the facts mode (`test/acceptance/`), the audit's probes (`audit/`), and one directory per piece of work or experiment (`w…`, `e…`, `x…`). [Its README](unification/README.md) lists them |
+| `implementation/` | the gates (`gates/`), the acceptance cases of the facts mode (`test/acceptance/`), the audit's probes (`audit/`), and one directory per piece of work or experiment (`w…`, `e…`, `x…`). [Its README](implementation/README.md) lists them |
 | `docs-examples/` | the examples of `../writeup/intro/` and of the references, as scripts that run |
 | `docs-checks/` | checks of the documents: links, quotes, tables |
 | `tools/` | `jl` (a Julia job in a slot, with its own depot and a memory guard), the A/B harness (`ab/`), the documentation lint (`doclint/`), the tools for finding slowdowns. [Its README](tools/README.md) |

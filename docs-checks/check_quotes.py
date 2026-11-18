@@ -22,9 +22,9 @@ import subprocess
 import sys
 
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
-PORTS = ["forks-unified", "TraitDifferentialEquations-unified", "TraitMakie-unified",
-         "TraitReport-unified", "TraitTables-unified", "TraitCSV-unified",
-         "TraitWorld-unified", "ndport/pkgs/NetworkDynamics-unified",
+PORTS = ["forks", "TraitDifferentialEquations", "TraitMakie",
+         "TraitReport", "TraitTables", "TraitCSV",
+         "TraitWorld", "ndport/pkgs/NetworkDynamics-unified",
          "ndport/pkgs/Graphs-unified", "ndport/pkgs/GraphMakie-unified"]
 CITE = re.compile(r"((?:…/)?[A-Za-z][\w./-]*\.jl)?:(\d+)\b")
 

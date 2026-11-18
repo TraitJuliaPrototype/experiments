@@ -15,11 +15,11 @@ The pages state the design ([`writeup/reference/traits.md`](../../writeup/refere
 
 The tutorial's §19 (a package's layout) and §20 (planned) are not run.
 
-**Running.** One Julia process at a time; the machine is shared. On Julia with the design's changes (`julia-next/`), from `TraitWorld-unified/` (branch `unified`):
+**Running.** One Julia process at a time; the machine is shared. On Julia with the design's changes (`julia-next/`), from `TraitWorld/` (branch `unified`):
 
 ```sh
 cd /p/projects/coen/julia-trait-bound && source env.sh
-cd TraitWorld-unified
+cd TraitWorld
 for s in intro tutorial strict; do
   JULIA_PKG_OFFLINE=true nice -n 19 ../julia-next/julia --project=. --startup-file=no ../experiments/docs-examples/$s.jl
 done

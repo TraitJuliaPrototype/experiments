@@ -1,5 +1,5 @@
 # The examples of writeup/intro/traits-by-example.md, in the page's order, with checks of the
-# results the page states. Run from TraitWorld-unified/ (see README.md):
+# results the page states. Run from TraitWorld/ (see README.md):
 #   JULIA_PKG_OFFLINE=true nice -n 19 ../julia-next/julia --project=. --startup-file=no ../experiments/docs-examples/tutorial.jl
 include(joinpath(@__DIR__, "common.jl"))
 using TraitWorld
