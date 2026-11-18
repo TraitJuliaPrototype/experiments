@@ -4,7 +4,7 @@
 using TraitWorld, InteractiveUtils
 module T
 using TraitWorld
-@trait_module first_seen = false
+@trait_module
 @trait Shape begin
     area(s::Shape)::Float64
 end

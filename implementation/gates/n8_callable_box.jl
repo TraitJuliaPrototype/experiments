@@ -10,7 +10,7 @@
 # project: TraitWorld
 #     julia --project=<TraitWorld tree> n8_callable_box.jl
 using TraitWorld
-const cf = TraitWorld.ByType.compiled_for              # the wrapper, made in plain code
+const cf = compiled_for                                # the wrapper, made in plain code
 raises(E, f, args...) = try Base.invokelatest(f, args...); false catch e; e isa E end
 
 module B

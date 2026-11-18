@@ -3,8 +3,6 @@
 #   JULIA_PKG_OFFLINE=true nice -n 19 ../julia-next/julia --project=. --startup-file=no ../experiments/docs-examples/tutorial.jl
 include(joinpath(@__DIR__, "common.jl"))
 using TraitWorld
-# The page's `compiled_for` is the wrapper's function, which the library binds apart (traits T-126; intro.jl checks it).
-using TraitWorld.ByType: compiled_for
 
 # --- §1–§12: the library, in one trait module --------------------------------------------------
 
@@ -104,8 +102,8 @@ check("§3 Int is no Shape", !(Int <: Shape))
 # --- §4: methods at a trait ---------------------------------------------------------------------
 
 check("§4 ratio(Circle(1.0)) == 0.5", ratio(Circle(1.0)) == 0.5)
-deviation("§4 at the prompt, ratio(Circle(1.0)) runs the code compiled for Circle", "T-127",
-          () -> any(mi -> mi.specTypes == Tuple{typeof(ratio), Circle}, Base.specializations(only(methods(ratio)))))
+check("§4 at the prompt, ratio(Circle(1.0)) runs the code compiled for Circle",
+      any(mi -> mi.specTypes == Tuple{typeof(ratio), Circle}, Base.specializations(only(methods(ratio)))))
 check("§4 ratio(Rect(2.0, 3.0)) == 0.6", ratio(Rect(2.0, 3.0)) == 0.6)
 check("§4 bigger(Rect, Circle)", bigger(Rect(2.0, 3.0), Circle(1.0)))
 check("§4 title(Circle(1.0))", title(Circle(1.0)) == "A shape of area 3.141592653589793")

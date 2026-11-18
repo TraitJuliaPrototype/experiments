@@ -5,7 +5,7 @@
 using TraitWorld, InteractiveUtils, Test
 module T
 using TraitWorld
-@trait_module first_seen = false
+@trait_module
 @trait Model begin
     @default_dynamic
     rate(m::Model, u::Float64)::Float64

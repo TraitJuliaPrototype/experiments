@@ -3,11 +3,9 @@
 #   JULIA_PKG_OFFLINE=true nice -n 19 ../julia-next/julia --project=. --startup-file=no ../experiments/docs-examples/intro.jl
 include(joinpath(@__DIR__, "common.jl"))
 using TraitWorld
-# The page's `compiled_for` is the wrapper's function. The library still exports a cast of that name, and
-# binds the wrapper's function apart (traits T-126); the check below shows whether that still holds.
-using TraitWorld.ByType: compiled_for
-deviation("the library exports compiled_for, the wrapper's function", "T-126",
-          () -> TraitWorld.compiled_for === TraitWorld.ByType.compiled_for)
+# The page's `compiled_for` is the library's export, the wrapper's function.
+check("the library exports compiled_for, the wrapper's function",
+      compiled_for(1.0) isa TraitWorld.Compiled{Float64} && compiled_for !== Core.compiled_for)
 
 # --- the library ------------------------------------------------------------------------------
 
@@ -81,9 +79,8 @@ check("Measurements <: ColTable", Measurements <: ColTable)
 check("m isa ColTable", m isa ColTable)
 check("colmean(m, 1) == 1.5", colmean(m, 1) == 1.5)
 # the value's type decides: a call at the prompt runs the code compiled for Measurements, as in a function
-deviation("at the prompt, colmean(m, 1) runs the code compiled for Measurements", "T-127",
-          () -> any(mi -> mi.specTypes == Tuple{typeof(colmean), Measurements, Int},
-                    Base.specializations(only(methods(colmean)))))
+check("at the prompt, colmean(m, 1) runs the code compiled for Measurements",
+      any(mi -> mi.specTypes == Tuple{typeof(colmean), Measurements, Int}, Base.specializations(only(methods(colmean)))))
 println("      colmean's instances after the call: ",
         join(sort([string(mi.specTypes) for mi in Base.specializations(only(methods(colmean)))]), ", "))
 check("colmean(r, 2) == 3.0", colmean(r, 2) == 3.0)

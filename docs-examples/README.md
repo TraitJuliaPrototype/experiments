@@ -9,7 +9,7 @@ The pages state the design ([`writeup/reference/traits.md`](../../writeup/refere
 | `intro.jl` | the worked example of `traits-for-julia.md`: the library `Columns` and its user |
 | `tutorial.jl` | `traits-by-example.md` §2–§17, in the page's order: the libraries `Geometry`, `Signals`, `Dots`, `Seqs`, `Weights`, `Strictly` and the user's code |
 | `strict.jl` | `traits-by-example.md` §18, strict mode, in its own process (it changes Base's methods) |
-| `keep_at_prompt.jl` | uses `keep`, which the design does not have (the library still offers it: traits T-127); not run |
+| `keep_at_prompt.jl` | uses `keep`, which neither the design nor the library has; not run |
 | `common.jl` | `check`, `deviation`, `thrown` (a statement that must fail, evaluated at top level), `outcome`, `msg`, `summary` |
 | `reference.jl` | the examples of the references as they stood in October 2026, for the library of that month; not run |
 
@@ -25,7 +25,7 @@ for s in intro tutorial strict; do
 done
 ```
 
-TraitWorld does not run on stock Julia. The pages write `compiled_for` as the library's export; the scripts bind the wrapper's function as `using TraitWorld.ByType: compiled_for`, since the library still exports a cast of that name (traits T-126; `intro.jl` checks it as a deviation).
+TraitWorld does not run on stock Julia. The pages and the scripts write `compiled_for` as the library's export, the wrapper's function (`intro.jl` checks it).
 
 ## Results
 
@@ -38,6 +38,7 @@ TraitWorld does not run on stock Julia. The pages write `compiled_for` as the li
 | 2026-11-14 | `unified` 381cc8b953, TraitWorld `unified` 78a78af (`@unbounded`; `fully_typed` as the build's check; errors at the user's line) | 18 pass | 86 pass | 5 pass |
 | 2026-11-14 | `unified` add2f921c9, TraitWorld `unified` 12b8b31 (a `Callable`'s check in every instance; its absence edge narrowed) | 18 pass | 86 pass | 5 pass |
 | 2026-11-18 | `next` 32a2235abd, TraitWorld `unified` d1febca (the pages and scripts on the box and the wrapper) | 24 pass, 3 deviations (T-126, T-127, no row) | 94 pass, 1 deviation (T-127) | 5 pass |
+| 2026-11-18 | `next` 02139b2168, TraitWorld `w156` ea72682 (the attribute's surface removed: the exported `compiled_for` is the wrapper's function, no module option decides how an argument is compiled) | 26 pass, 1 deviation (no row) | 95 pass | 5 pass |
 
 On the row of 2026-11-18, `tutorial.jl` ended twice in six runs with a segmentation fault while `@trait Named` (its line 36) was expanded: a lookup in a method table's cache (`jl_mt_find_cache_entry`, `jl_object_id`) from the library's `_parse_body` (`logs/tutorial-next-32a2235abd-b-segfault.log`). The other runs, and every run of `intro.jl` and `strict.jl`, ended normally.
 

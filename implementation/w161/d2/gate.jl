@@ -54,11 +54,11 @@ end
     # the result asserted on every call of a box
     @test thrown(G.colmap, x -> "s", 1.0) isa TypeError
     # the wrapper: checked where it enters, its calls the function's own
-    @test latest(G.colmap, TraitWorld.ByType.compiled_for(sin), 1.0) == sin(1.0)
-    @test latest(G.form, TraitWorld.ByType.compiled_for(sin)) === :wrapper
-    e = thrown(G.colmap, TraitWorld.ByType.compiled_for(uppercase), 1.0)
+    @test latest(G.colmap, compiled_for(sin), 1.0) == sin(1.0)
+    @test latest(G.form, compiled_for(sin)) === :wrapper
+    e = thrown(G.colmap, compiled_for(uppercase), 1.0)
     @test e isa MethodError
-    e = thrown(G.colmap, TraitWorld.ByType.compiled_for(x::Float64 -> "s"), 1.0)
+    e = thrown(G.colmap, compiled_for(x::Float64 -> "s"), 1.0)
     @test e isa TypeError                                                # GT-24 (b): its result inferred outside S
     println(sprint(showerror, e))
     # a callable struct by its declaration

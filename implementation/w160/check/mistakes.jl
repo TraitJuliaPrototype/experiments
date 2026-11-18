@@ -8,7 +8,7 @@ using TraitWorld
 
 module Plain
 using TraitWorld
-@trait_module bounded = false first_seen = false
+@trait_module bounded = false
 @trait ColTable begin
     ncols(t::ColTable)::Int
     col(t::ColTable, i::Int)::Vector{Float64}
@@ -26,7 +26,7 @@ end
 
 module Erasing
 using TraitWorld
-@trait_module bounded = false first_seen = false
+@trait_module bounded = false
 @trait ColTable begin
     @default_dynamic
     ncols(t::ColTable)::Int
@@ -62,7 +62,7 @@ end
 println("== a module that declares `bounded`: each mistake refused where it is defined")
 module Bounded
 using TraitWorld
-@trait_module first_seen = false
+@trait_module
 @trait ColTable begin
     @default_dynamic
     ncols(t::ColTable)::Int
