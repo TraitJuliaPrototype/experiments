@@ -95,3 +95,17 @@ Compiler/inference, sorting SUCCESS (`logs/base-summary.log`); the library 94 te
 sessions (`sessions.sh`, a warm-up and 3 runs, `logs/sessions-next.log`, `logs/sessions-w158.log`): instances equal;
 table 19 compiles on both; report 25 on julia-next, 24 on w158 (`issorted(::Vector{String}, ::ReverseOrdering)` is in
 the system image).
+
+## The main session's check of the report's and the plot's programs, 2026-11-20
+
+Julia `wt/w158-julia` (`w158` 61277571fa), TraitWorld `w158` 1f3567e, TraitMakie `unified` 1888698, project
+`../w156/env_demo`, depot `agent-depots/w158` before the shared one; `--trim=safe`, one thread; load 18 to 22 of 128.
+`JULIA_TREE=wt/w158-julia DEPOT=… NAME=w158-<app>-main bash ../w166/build_c.sh <app>`.
+
+| | errors | binary | runs |
+|---|---|---|---|
+| the report's program | 0 (6 on `next` f5328f94c5) | 5,448,544 bytes, object in 10 s | exit 0, 0.16 s, 57 MB; its output and its PNG equal a session's, byte for byte (`logs/m-report-bin.out`, `m-report-session.out`, `m-png.sha256`) |
+| the plot's program | 0 (6 on `next`) | 5,018,496 bytes, object in 8 s | exit 1: `MissingCodeError` for `render_png(::Figure, ::String, ::Float64)`, invoked from `save` (`logs/m-plot-bin.err`). The verifier counted no error. |
+
+The six errors that are gone were the hole in `issorted`'s keyword body (61277571fa). The plot's binary shows a build
+that passes the verifier and lacks an instance its code invokes; the report's program calls the same `save`.
