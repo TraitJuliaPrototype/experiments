@@ -1,0 +1,41 @@
+ERROR: LoadError: Some tests did not pass: 2 passed, 2 failed, 0 errored, 0 broken.
+in expression starting at /p/projects/coen/julia-trait-bound/TraitWorld/test/verify.jl:145
+Test Summary: | Pass  Total  Time
+verify_main   |    7      7  2.2s
+Test Summary:                      | Pass  Total  Time
+verify_main: the wrapper's members |    7      7  0.3s
+Test Summary:                             | Pass  Total  Time
+verify_main: the wrappers of five members |    4      4  0.2s
+Test Summary:                                | Pass  Total  Time
+verify_main: a value known only by its trait |    3      3  0.0s
+Test Summary:                           | Pass  Total  Time
+verify_main: entry points and the bound |    4      4  0.0s
+
+verify_main: the member's type chooses the method: Test Failed at /p/projects/coen/julia-trait-bound/TraitWorld/test/verify.jl:146
+  Expression: isempty((verify_main(choice6, (Int,))).holes)
+   Evaluated: isempty(TraitWorld.RuntimeSite[TraitWorld.RuntimeSite(:dispatch, MethodInstance for choice6(::Int64), Symbol("/p/projects/coen/julia-trait-bound/TraitWorld/test/verify.jl"), 140, "*(::Any, ::Any)", ["argument 1 is Any", "a variable whose type differs between paths: String, Any"]), TraitWorld.RuntimeSite(:dispatch, MethodInstance for report6(::Dynamic{Shape6}), Symbol("/p/projects/coen/julia-trait-bound/TraitWorld/test/verify.jl"), 135, "Main.describe6(::Shape6)", ["its argument types are not known when compiled"])])
+  Stacktrace:
+   [1] top-level scope
+     @ /p/projects/coen/julia-trait-bound/TraitWorld/test/verify.jl:146
+   [2] macro expansion
+     @ /p/projects/coen/julia-trait-bound/julia-next/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:1967 [inlined]
+   [3] macro expansion
+     @ /p/projects/coen/julia-trait-bound/TraitWorld/test/verify.jl:146 [inlined]
+   [4] macro expansion
+     @ /p/projects/coen/julia-trait-bound/julia-next/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:758 [inlined]
+
+verify_main: the member's type chooses the method: Test Failed at /p/projects/coen/julia-trait-bound/TraitWorld/test/verify.jl:147
+  Expression: isfullytyped(fully_typed(choice6, (Int,)))
+   Evaluated: isfullytyped(FullyTypedReport(2 run-time sites))
+  Stacktrace:
+   [1] top-level scope
+     @ /p/projects/coen/julia-trait-bound/TraitWorld/test/verify.jl:146
+   [2] macro expansion
+     @ /p/projects/coen/julia-trait-bound/julia-next/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:1967 [inlined]
+   [3] macro expansion
+     @ /p/projects/coen/julia-trait-bound/TraitWorld/test/verify.jl:147 [inlined]
+   [4] macro expansion
+     @ /p/projects/coen/julia-trait-bound/julia-next/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:758 [inlined]
+Test Summary:                                     | Pass  Fail  Total  Time
+verify_main: the member's type chooses the method |    2     2      4  1.4s
+RNG of the outermost testset: Random.Xoshiro(0xe6e0dc6456b0bffe, 0x408ba5754fa5049a, 0xfdbb8caad5ee206e, 0xfd5d6b4d8be1dd48, 0x8abb7b3946737cea)

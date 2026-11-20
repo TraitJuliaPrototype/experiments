@@ -1,0 +1,193 @@
+# W-166c ode 2026-11-20T14:36:55+01:00 load 26.63 26.20 26.30 | wt/w158-julia 61277571fa TraitWorld 1f3567e project experiments/implementation/w166/../w156/env_demo trim=safe images=1 driver=wt/w158-julia/test/trimming depot=.julia-depot/agent-depots/w158:shared 
+images: exit 0 after 5 s (PlainODE)
+from source: none
+Error #1: unresolved call from statement getproperty(
+  getfield(
+    prob::ODEProblem,
+    :f::Symbol
+  )::Any,
+  :f::Symbol
+)::Any
+
+Stacktrace:
+ [1] solve(prob::ODEProblem, alg::Rodas5; callback::Nothing, kw::@Kwargs{saveat::Vector{Float64}, reltol::Float64, abstol::Float64})
+   @ PlainODE /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/baselines/PlainODE/src/PlainODE.jl:698
+ [2] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/implementation/w135/apps/ode.jl:32
+ [3] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/wt/w158-julia/test/trimming/juliac-buildscript.jl:35
+
+Error #2: unresolved call from statement _solve_ad(
+  :(φ (%11 => %10, %12 => %12))::Any,
+  getfield(
+    prob::ODEProblem,
+    :u0::Symbol
+  )::Vector,
+  (…)::Tuple{Float64, Float64},
+  alg::Rodas5,
+  getfield(
+    prob::ODEProblem,
+    :p::Symbol
+  )::Any,
+  (…)::Vector{Any},
+  (…)::PlainODE.SolverOptions,
+  (:(Core.apply_type(Base.Val, %5))::Type{Val{_A}} where _A)()::Val
+)::PlainODE.ODESolution{Float64}
+
+Stacktrace:
+ [1] solve(prob::ODEProblem, alg::Rodas5; callback::Nothing, kw::@Kwargs{saveat::Vector{Float64}, reltol::Float64, abstol::Float64})
+   @ PlainODE /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/baselines/PlainODE/src/PlainODE.jl:698
+ [2] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/implementation/w135/apps/ode.jl:32
+ [3] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/wt/w158-julia/test/trimming/juliac-buildscript.jl:35
+
+Error #3: unresolved call from statement _promote_state(
+  getfield(
+    prob::ODEProblem,
+    :u0::Symbol
+  )::Vector,
+  getfield(
+    prob::ODEProblem,
+    :p::Symbol
+  )::Any
+)::Vector
+
+Stacktrace:
+ [1] solve(prob::ODEProblem, alg::Tsit5; callback::Nothing, kw::@Kwargs{saveat::Vector{Float64}, reltol::Float64, abstol::Float64})
+   @ PlainODE /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/baselines/PlainODE/src/PlainODE.jl:674
+ [2] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/implementation/w135/apps/ode.jl:29
+ [3] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/wt/w158-julia/test/trimming/juliac-buildscript.jl:35
+
+Error #4: unresolved call from statement _solve(
+  getfield(
+    prob::ODEProblem,
+    :f::Symbol
+  )::Any,
+  _promote_state(
+    getfield(
+      prob::ODEProblem,
+      :u0::Symbol
+    )::Vector,
+    getfield(
+      prob::ODEProblem,
+      :p::Symbol
+    )::Any
+  )::Vector,
+  (…)::Tuple{Float64, Float64},
+  alg::Tsit5,
+  getfield(
+    prob::ODEProblem,
+    :p::Symbol
+  )::Any,
+  (…)::Vector{Any},
+  (…)::PlainODE.SolverOptions,
+  (…)::Vector{Any}
+)::PlainODE.ODESolution
+
+Stacktrace:
+ [1] solve(prob::ODEProblem, alg::Tsit5; callback::Nothing, kw::@Kwargs{saveat::Vector{Float64}, reltol::Float64, abstol::Float64})
+   @ PlainODE /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/baselines/PlainODE/src/PlainODE.jl:676
+ [2] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/implementation/w135/apps/ode.jl:29
+ [3] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/wt/w158-julia/test/trimming/juliac-buildscript.jl:35
+
+Error #5: unresolved call from statement getproperty(
+  getfield(
+    prob::ODEProblem,
+    :f::Symbol
+  )::Any,
+  :f::Symbol
+)::Any
+
+Stacktrace:
+ [1] solve(prob::ODEProblem, alg::Rodas5; callback::Nothing, kw::@Kwargs{saveat::Vector{Float64}, reltol::Float64, abstol::Float64})
+   @ PlainODE /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/baselines/PlainODE/src/PlainODE.jl:698
+ [2] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/implementation/w135/apps/ode.jl:32
+ [3] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/wt/w158-julia/test/trimming/juliac-buildscript.jl:35
+
+Error #6: unresolved call from statement _solve_ad(
+  :(φ (%11 => %10, %12 => %12))::Any,
+  getfield(
+    prob::ODEProblem,
+    :u0::Symbol
+  )::Vector,
+  (…)::Tuple{Float64, Float64},
+  alg::Rodas5,
+  getfield(
+    prob::ODEProblem,
+    :p::Symbol
+  )::Any,
+  (…)::Vector{Any},
+  (…)::PlainODE.SolverOptions,
+  (:(Core.apply_type(Base.Val, %5))::Type{Val{_A}} where _A)()::Val
+)::PlainODE.ODESolution{Float64}
+
+Stacktrace:
+ [1] solve(prob::ODEProblem, alg::Rodas5; callback::Nothing, kw::@Kwargs{saveat::Vector{Float64}, reltol::Float64, abstol::Float64})
+   @ PlainODE /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/baselines/PlainODE/src/PlainODE.jl:698
+ [2] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/implementation/w135/apps/ode.jl:32
+ [3] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/wt/w158-julia/test/trimming/juliac-buildscript.jl:35
+
+Error #7: unresolved call from statement _promote_state(
+  getfield(
+    prob::ODEProblem,
+    :u0::Symbol
+  )::Vector,
+  getfield(
+    prob::ODEProblem,
+    :p::Symbol
+  )::Any
+)::Vector
+
+Stacktrace:
+ [1] solve(prob::ODEProblem, alg::Tsit5; callback::Nothing, kw::@Kwargs{saveat::Vector{Float64}, reltol::Float64, abstol::Float64})
+   @ PlainODE /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/baselines/PlainODE/src/PlainODE.jl:674
+ [2] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/implementation/w135/apps/ode.jl:29
+ [3] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/wt/w158-julia/test/trimming/juliac-buildscript.jl:35
+
+Error #8: unresolved call from statement _solve(
+  getfield(
+    prob::ODEProblem,
+    :f::Symbol
+  )::Any,
+  _promote_state(
+    getfield(
+      prob::ODEProblem,
+      :u0::Symbol
+    )::Vector,
+    getfield(
+      prob::ODEProblem,
+      :p::Symbol
+    )::Any
+  )::Vector,
+  (…)::Tuple{Float64, Float64},
+  alg::Tsit5,
+  getfield(
+    prob::ODEProblem,
+    :p::Symbol
+  )::Any,
+  (…)::Vector{Any},
+  (…)::PlainODE.SolverOptions,
+  (…)::Vector{Any}
+)::PlainODE.ODESolution
+
+Stacktrace:
+ [1] solve(prob::ODEProblem, alg::Tsit5; callback::Nothing, kw::@Kwargs{saveat::Vector{Float64}, reltol::Float64, abstol::Float64})
+   @ PlainODE /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/baselines/PlainODE/src/PlainODE.jl:676
+ [2] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/implementation/w135/apps/ode.jl:29
+ [3] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/wt/w158-julia/test/trimming/juliac-buildscript.jl:35
+
+Trim verify finished with 8 errors, 0 warnings.
+object: exit 1 after 4 s
