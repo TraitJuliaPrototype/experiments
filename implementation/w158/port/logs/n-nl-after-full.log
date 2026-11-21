@@ -1,0 +1,72 @@
+nonlinear 1.41421 steady 2.0
+check: 6 errors, 1 calls that only raise, 5 rounds, 7.4 s
+  NonlinearAlgorithm: 1 members: NonlinearPolyalg
+  Callable{Tuple{Vector{Float64}, Vector{Float64}, Vector{Float64}, Float64}, Nothing}: 4 members: typeof(relax!), TraitIndexing.StateGetter, TraitIndexing.ParamGetter, TraitIndexing.VectorGetter
+  Callable{Tuple{Vector{T}, Vector{T}}, Nothing} where T: 11 members: TraitIndexing.StateGetter, TraitIndexing.ParamGetter, TraitIndexing.VectorGetter, TraitNonlinearSolve.NLPartial{TraitIndexing.ParamGetter, Vector{Float64}}, TraitNonlinearSolve.NLPartial{TraitIndexing.StateGetter, Vector{Float64}}, TraitNonlinearSolve.NLPartial{TraitIndexing.VectorGetter, Vector{Float64}}, TraitNonlinearSolve.NLPartial{typeof(sq!), Vector{Float64}}, TraitNonlinearSolve.AtTime{TraitIndexing.ParamGetter, Vector{Float64}}, TraitNonlinearSolve.AtTime{TraitIndexing.StateGetter, Vector{Float64}}, TraitNonlinearSolve.AtTime{TraitIndexing.VectorGetter, Vector{Float64}}, TraitNonlinearSolve.AtTime{typeof(relax!), Vector{Float64}}
+  Callable{Tuple{Vector{Float64}, Vector{Float64}, Vector{Float64}}, Nothing}: 4 members: typeof(sq!), TraitIndexing.StateGetter, TraitIndexing.ParamGetter, TraitIndexing.VectorGetter
+  Callable{Tuple{Matrix{T}, Vector{T}}, Nothing} where T: 3 members: TraitIndexing.StateGetter, TraitIndexing.ParamGetter, TraitIndexing.VectorGetter
+  All{HasSystem, NonlinearProblemTrait{T, P}} where {T, P}: 0 members: 
+  NonlinearProblemTrait: 0 members: 
+  error: unresolved call at /p/projects/coen/julia-trait-bound/experiments/implementation/w158/port/apps/nl.jl:9 | getindex(
+  getfield(
+    _solve_nonlinear((…)::NonlinearProblem{Float64, Vector{Float64}, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}}, Nothing}}}, Compiled{typeof(TraitNonlinearSolve.nl_no_jacobian)}}, NewtonRaphson{DenseLU}(DenseLU(), false)::NewtonRaphson{DenseLU}, NamedTuple()::@NamedTuple{})::NonlinearSolution,
+    :u::Symbol
+  )::Vector,
+  1::Int64
+)::Any
+  error: unresolved call at /p/projects/coen/julia-trait-bound/experiments/implementation/w158/port/apps/nl.jl:9 | kwcall(
+  (sigdigits = 6,)::@NamedTuple{sigdigits::Int64},
+  round::typeof(round),
+  getindex(
+    getfield(
+      _solve_nonlinear((…)::NonlinearProblem{Float64, Vector{Float64}, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}}, Nothing}}}, Compiled{typeof(TraitNonlinearSolve.nl_no_jacobian)}}, NewtonRaphson{DenseLU}(DenseLU(), false)::NewtonRaphson{DenseLU}, NamedTuple()::@NamedTuple{})::NonlinearSolution,
+      :u::Symbol
+    )::Vector,
+    1::Int64
+  )::Any
+)::Any
+  error: unresolved call at /p/projects/coen/julia-trait-bound/experiments/implementation/w158/port/apps/nl.jl:9 | getindex(
+  getfield(
+    _solve_nonlinear((…)::NonlinearProblem{Float64, Vector{Float64}, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}}, Nothing}}}, Compiled{typeof(TraitNonlinearSolve.nl_no_jacobian)}}, NewtonRaphson{DenseLU}(DenseLU(), false)::NewtonRaphson{DenseLU}, NamedTuple()::@NamedTuple{})::NonlinearSolution,
+    :u::Symbol
+  )::Vector,
+  2::Int64
+)::Any
+  error: unresolved call at /p/projects/coen/julia-trait-bound/experiments/implementation/w158/port/apps/nl.jl:9 | kwcall(
+  (sigdigits = 6,)::@NamedTuple{sigdigits::Int64},
+  round::typeof(round),
+  getindex(
+    getfield(
+      _solve_nonlinear((…)::NonlinearProblem{Float64, Vector{Float64}, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}}, Nothing}}}, Compiled{typeof(TraitNonlinearSolve.nl_no_jacobian)}}, NewtonRaphson{DenseLU}(DenseLU(), false)::NewtonRaphson{DenseLU}, NamedTuple()::@NamedTuple{})::NonlinearSolution,
+      :u::Symbol
+    )::Vector,
+    2::Int64
+  )::Any
+)::Any
+  error: unresolved call at /p/projects/coen/julia-trait-bound/experiments/implementation/w158/port/apps/nl.jl:9 | println(
+  Core.CoreSTDOUT()::Core.CoreSTDOUT,
+  "nonlinear "::String,
+  kwcall(
+    (sigdigits = 6,)::@NamedTuple{sigdigits::Int64},
+    round::typeof(round),
+    getindex(
+      getfield(
+        _solve_nonlinear((…)::NonlinearProblem{Float64, Vector{Float64}, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}}, Nothing}}}, Compiled{typeof(TraitNonlinearSolve.nl_no_jacobian)}}, NewtonRaphson{DenseLU}(DenseLU(), false)::NewtonRaphson{DenseLU}, NamedTuple()::@NamedTuple{})::NonlinearSolution,
+        :u::Symbol
+      )::Vector,
+      1::Int64
+    )::Any
+  )::Any,
+  " steady "::String,
+  kwcall(
+    (sigdigits = 6,)::@NamedTuple{sigdigits::Int64},
+    round::typeof(round),
+    getindex(
+      getfield(
+        _solve_nonlinear((…)::NonlinearProblem
+  error: unresolved call at /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/src/TraitDifferentialEquations.jl:66 | kwcall(
+  :(φ (%3 => NamedTuple(), %5 => _4))::NamedTuple,
+  TraitNonlinearSolve.solve::typeof(TraitNonlinearSolve.solve),
+  prob::Any,
+  alg::Any
+)::NonlinearSolution

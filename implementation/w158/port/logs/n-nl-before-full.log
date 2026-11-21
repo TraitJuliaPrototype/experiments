@@ -1,0 +1,70 @@
+nonlinear 1.41421 steady 2.0
+check: 8 errors, 1 calls that only raise, 3 rounds, 7.0 s
+  error: unresolved call at /p/projects/coen/julia-trait-bound/experiments/implementation/w158/port/apps/nl.jl:9 | getindex(
+  getfield(
+    :(φ (%48 => %47, %52 => %51))::NonlinearSolution,
+    :u::Symbol
+  )::Vector,
+  1::Int64
+)::Any
+  error: unresolved call at /p/projects/coen/julia-trait-bound/experiments/implementation/w158/port/apps/nl.jl:9 | kwcall(
+  (sigdigits = 6,)::@NamedTuple{sigdigits::Int64},
+  round::typeof(round),
+  getindex(
+    getfield(
+      :(φ (%48 => %47, %52 => %51))::NonlinearSolution,
+      :u::Symbol
+    )::Vector,
+    1::Int64
+  )::Any
+)::Any
+  error: unresolved call at /p/projects/coen/julia-trait-bound/experiments/implementation/w158/port/apps/nl.jl:9 | getindex(
+  getfield(
+    :(φ (%101 => %100, %105 => %104))::NonlinearSolution,
+    :u::Symbol
+  )::Vector,
+  2::Int64
+)::Any
+  error: unresolved call at /p/projects/coen/julia-trait-bound/experiments/implementation/w158/port/apps/nl.jl:9 | kwcall(
+  (sigdigits = 6,)::@NamedTuple{sigdigits::Int64},
+  round::typeof(round),
+  getindex(
+    getfield(
+      :(φ (%101 => %100, %105 => %104))::NonlinearSolution,
+      :u::Symbol
+    )::Vector,
+    2::Int64
+  )::Any
+)::Any
+  error: unresolved call at /p/projects/coen/julia-trait-bound/experiments/implementation/w158/port/apps/nl.jl:9 | println(
+  Core.CoreSTDOUT()::Core.CoreSTDOUT,
+  "nonlinear "::String,
+  kwcall(
+    (sigdigits = 6,)::@NamedTuple{sigdigits::Int64},
+    round::typeof(round),
+    getindex(
+      getfield(
+        :(φ (%48 => %47, %52 => %51))::NonlinearSolution,
+        :u::Symbol
+      )::Vector,
+      1::Int64
+ 
+  error: unresolved call at /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/src/TraitDifferentialEquations.jl:66 | kwcall(
+  :(φ (%3 => NamedTuple(), %5 => _4))::NamedTuple,
+  TraitNonlinearSolve.solve::typeof(TraitNonlinearSolve.solve),
+  prob::Any,
+  alg::Any
+)::NonlinearSolution
+  error: unresolved call at /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/TraitNonlinearSolve/src/problems.jl:121 | AtTime(
+  :(φ (%5 => %4, %6 => _2))::Any,
+  p::Vector{Float64},
+  t::Float64
+)::TraitNonlinearSolve.AtTime{_A, Vector{Float64}} where _A
+  error: unresolved call at /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/TraitNonlinearSolve/src/problems.jl:120 | NLPartial(
+  :(φ (%5 => %4, %6 => _2))::Any,
+  p::Vector{Float64}
+)::TraitNonlinearSolve.NLPartial{_A, Vector{Float64}} where _A
+
+real	0m9.063s
+user	0m8.150s
+sys	0m0.532s

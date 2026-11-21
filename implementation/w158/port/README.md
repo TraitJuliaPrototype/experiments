@@ -105,3 +105,31 @@ calls, saved points and parameters, a digest of the printed times, states and sa
 
 **Timings** (control only; the second call on, the minimum of 5, one process): the program's Lorenz solve 0.88 ms
 before, 0.87 ms after; Robertson 0.59 ms, 0.59 ms; load 2.9 and 3.4.
+
+## The other ports follow
+
+The ODE port's rules (traits §7.4, §7.7, §8.1, §9, §14; porting guide 0.1, B2.7) applied to two more places. julia `next`
+8b35e4b77c, TraitWorld `unified` cedb718, depot `agent-depots/w158n`, one Julia job at a time, load (1 min) 4 to 9 of 128.
+
+| Port | Commit | The departure | The rule | The new form |
+|---|---|---|---|---|
+| TraitDifferentialEquations `w158n` (on `unified` 1d9a516) | 1425aec | `_nlpartial(@nospecialize(f), p)` and `_attime`, compiled at `Any`, built `NLPartial(f::Any, p)`; `_nlproblem(@nospecialize(r), @nospecialize(jr), …)` boxed at `Any`; the front end `NonlinearProblem(@nospecialize(f), …)`, `SteadyStateProblem(@nospecialize(f), …)` | a function known only by its signature is a kept form or `Callable{A, S}`; a box's function is boxed again at the signature called; a wrapper is taken as it is (§7.4, §7.7, §9); a value known by its trait keeps a closed build's members listable (§14, §16); the ODE core's `_core_function` (commit 1f5d34c) | the functions are trait arguments, `Callable{NLRHSSig{P,T}, Nothing}` (the ODE right-hand side's `RHSSig` for the steady state); `_nl_function`, `_nl_jacobian` make the kept form from the one it arrives in, `unwrap(k)` of a box or a wrapper; `_nlproblem` is typed, its type parameters written out; the two records (`NonlinearFunction`, `ODEFunction`) enter their functions and Jacobian in the forms they hold. `compiled_for(f)` now keeps the solver compiled for it |
+| NetworkDynamics `w158n` (on `unified` 82513ee, local only) | 5f82334 | `get_callbacks` built `Any[…]` with a splat; `_cbvector` and the join of `add_nw_cb` built `Any[…]`; both passed as `callback = …` | a list the caller gives keeps its own type (a tuple), or a vector of the small union of the callback record types, never a `Vector{Any}` (porting guide B2.7, 0.1; traits §14) | `Vector{NetworkCallback}`, `NetworkCallback = Union{ContinuousCallback, DiscreteCallback}`, TDE's two records (the types `to_callbacks` returns) |
+
+**Checks.**
+- TDE's suite: 35 testsets, equal line by line to `logs/suite-step4.log` (`logs/suite-n-nl3.log`).
+- `compiled_for(f)` as a residual, a given Jacobian boxed or wrapped, `SteadyStateProblem(compiled_for(f), …)`: solved as before (`Compiled` kept).
+- The build's check in the session (`probes/nl_members.jl`, `closed_check`; `logs/n-nl-*.log`):
+
+| Program | before (1d9a516) | after (1425aec) |
+|---|---|---|
+| construction only (`apps/nl_prob.jl`): `NonlinearProblem`, `SteadyStateProblem` | 2 errors: `NLPartial(::Any, p)`, `AtTime(::Any, p, t)` (`problems.jl:120, 121`) | 0 |
+| construction and solve (`apps/nl.jl`) | 8 errors: the two above, `TDE.jl:66` `kwcall(TraitNonlinearSolve.solve, prob::Any, alg::Any)`, 5 at the program's use of its result | 6: no `NLPartial`, `AtTime` or `_nlproblem_of`; the `solve` front end at `Any` and its result's use remain (below) |
+
+- NetworkDynamics' test subset (`logs/n-nd-after.log`, the command of `../../w161/suites.sh nd` with this depot, 133 s): massmatrix 6/0/0, doctor 26/0/0, diffusion 108 pass, 1 fail, 1 error, 24 broken, inhomogeneous 39 pass, 0 fail, 1 error, 12 broken: equal to `../../w161/logs/w158p-main-summary.log`.
+- The subset has no callback file: `probes/nd_callbacks.jl` (a diffusion network with a continuous component callback, with and without `add_nw_cb` of TDE's `DiscreteCallback`, as one, a tuple, a vector) gives the same events, steps and end state before and after (`logs/n-nd-cb-before.log`: `Vector{Any}`, `n-nd-cb-after.log`: `Vector{Union{ContinuousCallback, DiscreteCallback}}`).
+
+**Left, and found.**
+- The nonlinear `solve` front end is `@nospecializeinfer solve(@nospecialize(prob), @nospecialize(alg); kw...)`, "neither specialized nor inferred on the problem's type", and the umbrella forwards to it at `Any` (`_solve_nonlinear`): a closed build cannot resolve that call, and the program's use of its result. It is a choice made for the recompile goal that the ODE `solve` does not make (its `solve_ode` is typed). Not changed here.
+- One method of `_nlproblem_of` on `Union{NonlinearFunction, ODEFunction}` left the call, with the box's object at `Callable{…}`, unresolved in the check; two methods, one per record, resolve it (0 errors). The check does not resolve a dispatch on a method with a `Union` of types at a trait-typed argument.
+- NetworkDynamics: a `DiscreteComponentCallback` fails at its first event with "the function with `nothing`, expected Nothing, got a value of type Bool" (`to_callbacks(::DiscreteCallbackWrapper)` passes the user's affect's value on; TDE takes `Nothing`), the same before and after. A callback of another type than TDE's two records in `add_nw_cb` is not taken by `_cbvector` (a user's own member of the callback traits).
