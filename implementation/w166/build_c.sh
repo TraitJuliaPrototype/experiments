@@ -9,6 +9,7 @@
 #   (always) a line "from source: …": the program's packages that have no valid image for the build's Julia
 #   XFLAGS=<flags>  more options for the build's process (e.g. --compiled-modules=no: every package from source)
 #   TW=<tree>      the library's tree named in the log's header (default TraitWorld)
+#   LOGDIR=<dir>, OUTDIR=<dir>  where the logs and the binary go (default: logs/ and out/ here; W-159's driver)
 # TRIM, NAME, JULIA_TREE, VERIFY and the apps' variables as for ../w135/build.sh. Log: logs/w166c-<name>.build.log;
 # the image step's log: logs/w166c-<name>.images.log. Memory guard 4 GB; no core file.
 set -u; ulimit -c 0
@@ -17,7 +18,7 @@ H=$(cd "$(dirname "$0")" && pwd); R=$(cd "$H/../../.." && pwd); source "$R/env.s
 A=$H/../w135/apps
 app=$1; name=w166c-${NAME:-$1}; proj=${2:-$H/../w156/env_demo}; T=${JULIA_TREE:-julia-next}; J=$R/$T/julia
 TR=${DRIVER:-$R/$T/test/trimming}
-O=$H/out; LOG=$H/logs/$name.build.log; mkdir -p "$O"
+O=${OUTDIR:-$H/out}; LD=${LOGDIR:-$H/logs}; LOG=$LD/$name.build.log; mkdir -p "$O" "$LD"
 LIB=$($J --startup-file=no -e 'print(joinpath(Sys.BINDIR, "..", "lib"))')
 CFG="$J --startup-file=no -e include(joinpath(Sys.BINDIR,Base.DATAROOTDIR,\"julia\",\"julia-config.jl\")) --"
 rev() { git -C "$R/$1" log -1 --format=%h; }
@@ -34,7 +35,7 @@ if [ "${IMAGES:-1}" = 1 ]; then
   t0=$(date +%s)
   nice -n 10 env JULIA_PKG_OFFLINE=true JULIA_NUM_PRECOMPILE_TASKS=4 $J -t 1 -J $LIB/julia/sys.so --startup-file=no \
     --history-file=no --project=$proj -e 'Base.Precompilation.precompilepkgs(String.(ARGS); timing = true)' $P \
-    > "$H/logs/$name.images.log" 2>&1
+    > "$LD/$name.images.log" 2>&1
   echo "images: exit $? after $(( $(date +%s) - t0 )) s ($P)" | tee -a "$LOG"
 fi
 # which of the program's packages the build would load from source (no valid image for this Julia and flags):

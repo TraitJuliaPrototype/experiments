@@ -1,10 +1,12 @@
 #!/bin/bash
 # W-166: bash build_app.sh <tree> <app.jl> <name> [project] -- a trimmed build of any app file (the command of
-# ../w139/build.sh). Log: logs/<name>.build.log; no core file.
+# ../w139/build.sh). Log: logs/<name>.build.log; no core file. LOGDIR=<dir>, OUTDIR=<dir>: where the log and the
+# binary go; DEPOT=<dir>: a depot stacked before the shared one (W-159's driver; the defaults as before).
 set -u; ulimit -c 0
 H=$(cd "$(dirname "$0")" && pwd); R=$(cd "$H/../../.." && pwd); source "$R/env.sh"
+[ -n "${DEPOT:-}" ] && { mkdir -p "$DEPOT"; export JULIA_DEPOT_PATH=$DEPOT:$TW_ROOT/.julia-depot:; }
 T=$1; app=$(cd "$(dirname "$2")" && pwd)/$(basename "$2"); name=$3; proj=${4:-$R/TraitWorld}
-J=$R/$T/julia; TR=$R/$T/test/trimming; O=$H/out; LOG=$H/logs/$name.build.log; mkdir -p $O
+J=$R/$T/julia; TR=$R/$T/test/trimming; O=${OUTDIR:-$H/out}; LOG=${LOGDIR:-$H/logs}/$name.build.log; mkdir -p $O ${LOGDIR:-$H/logs}
 LIB=$($J --startup-file=no -e 'print(joinpath(Sys.BINDIR, "..", "lib"))')
 CFG="$J --startup-file=no -e include(joinpath(Sys.BINDIR,Base.DATAROOTDIR,\"julia\",\"julia-config.jl\")) --"
 echo "# W-166 $app $(date -Is) load $(cut -d' ' -f1-3 /proc/loadavg) | $T $(git -C $R/$T log -1 --format=%h) TraitWorld $(git -C $R/TraitWorld log -1 --format=%h) trim=${TRIM:-safe}" > $LOG

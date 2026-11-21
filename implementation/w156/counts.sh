@@ -11,6 +11,8 @@
 #   default   `@default_dynamic`
 #   unwrap    `unwrap(`
 #     bash counts.sh <rev>       e.g. unified, w156
+# WRAPPER=all: at a revision where the library's exported `compiled_for` is the wrapper and Julia has no cast (the
+# head after traits T-126 and compiler C-112), every `compiled_for(` counts as a wrapper (W-159; default as before)
 set -u
 R=$(cd "$(dirname "$0")/../../.." && pwd)
 rev=$1
@@ -22,6 +24,7 @@ count() {   # repo, dirs...
       txt=$(git show "$rev:$f" | grep -vE '^\s*#' | grep -vE '`[^`]*(compiled_for|Dynamic\{|Compiled\(|unwrap\(|keep\(|with_dynamic)[^`]*`')
       bound=0
       echo "$txt" | grep -q 'ByType: compiled_for' && bound=1
+      [ "${WRAPPER:-}" = all ] && bound=1
       case $f in */test/*|test/*) t=$(dirname "$f")/runtests.jl; git show "$rev:$t" 2>/dev/null | grep -q 'ByType: compiled_for' && bound=1 ;; esac
       n=$(echo "$txt" | grep -cE '\bcompiled_for\(' ); [ $bound = 1 ] && w=$((w + n)) || c=$((c + n))
       c=$((c + $(echo "$txt" | grep -cE 'with_dynamic\(|\bkeep\(|\bKept\{|kept_call\(')))

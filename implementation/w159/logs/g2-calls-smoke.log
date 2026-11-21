@@ -1,0 +1,28 @@
+# W-159 G-2 E-374 calls (H: w159/calls_head.jl, B: w145/calls/calls.jl), N=1000000 | 2026-11-21T17:53:43+01:00 | load-before 4.87 5.24 5.14 | login02
+# setting H: julia w158-julia 8b35e4b77c (binary 8b35e4b77c*) | TW wt/w158b-tw 81c04c3c4b | TDE TraitDifferentialEquations 3e60c29937 | TM TraitMakie 1888698d7a | TT TraitTables e1ec1f4368 | TC TraitCSV 094dcb2e21 | TR TraitReport ec34d1219c | FORKS forks a3a37d6b5e | ND ndport/pkgs/NetworkDynamics-unified 82513ee7fa | depot .julia-depot/agent-depots/w159/H
+# experiments f6d7f3645d* | product setting, strict mode off, one thread, fresh process per cell
+# NOTE setting H: the binary is marked '*' (its tree had a tracked change when it was built); the tree is clean now
+# preflight H w158b-tw: images ok: TraitWorld
+== H run 1 (calls_head.jl) | load 4.87 5.24 5.14
+| Row | Form | ns a call |
+|---|---|---|
+| 1 operation at a known type | trait | 0.79 |
+| 1 operation at a known type | plain | 0.79 |
+| 2 method at the trait, known type | trait | 0.79 |
+| 2 method at the trait, known type | plain | 0.79 |
+| 3 trait with a Dynamic default | trait, as it is (once) | 8.7 |
+| 3 trait with a Dynamic default | trait, compiled_for | 2.38 |
+| 3 trait with a Dynamic default | trait, a box held | 7.14 |
+| 3 trait with a Dynamic default | plain | 2.38 |
+| 4 element of a vector, two types | trait, Vector{Shape} | 2.86 |
+| 4 element of a vector, two types | plain, Vector{abstract} | 2.69 |
+| 4 element of a vector, two types | plain, Vector{Union} | 3.18 |
+| 4 element of a vector, two types | plain, Vector{Circle} (one type) | 2.34 |
+| 5 a field | trait, ::Dynamic{Shape} | 5.55 |
+| 5 a field | plain, ::abstract | 0.79 |
+| 6 a function argument | Callable, compiled_for(f) | 0.79 |
+| 6 a function argument | Callable, the default (boxed) | 24.28 |
+| 6 a function argument | Callable, a box held | 24.28 |
+| 6 a function argument | plain | 0.79 |
+-- rc 0 | load 4.80 5.22 5.13
+# done 2026-11-21T17:53:49+01:00 | load-after 4.80 5.22 5.13

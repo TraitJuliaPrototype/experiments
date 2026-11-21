@@ -1,0 +1,23 @@
+# W-159 open issue 228: the ODE port's image at load (w161/d2/image_instances.jl, rodas_image.jl) | 2026-11-21T17:55:50+01:00 | load-before 7.31 5.91 5.38 | login02
+# setting B: julia julia-unified 7b374f39ce (binary 8fccf1e182*) | TW TraitWorld-base e11c7cc58b | TDE wt/w161-tde-base b7306285fe | TM wt/w160-tm c862914ffa | TT TraitTables e1ec1f4368 | TC TraitCSV 094dcb2e21 | TR TraitReport ec34d1219c | FORKS wt/w159-tag/forks absent | ND wt/w151-base/NetworkDynamics 6310040ec0 | depot .julia-depot/agent-depots/w159/B
+# experiments f6d7f3645d* | product setting, strict mode off, one thread, fresh process per cell | ALLOW_BINARY_MISMATCH=B
+# NOTE setting B: the binary names 8fccf1e182*, the tree's HEAD is 7b374f39ce (allowed by ALLOW_BINARY_MISMATCH)
+# NOTE setting B: the binary is marked '*' (its tree had a tracked change when it was built); the tree is clean now
+# preflight B demo: images ok: TraitWorld TraitDifferentialEquations
+== B image_instances | load 7.04 5.88 5.37
+353 instances with valid code in TraitDifferentialEquations, ODECore, TraitRodas -> /p/projects/coen/julia-trait-bound/experiments/implementation/w159/logs/oi228-smoke-B-B.txt
+-- rc 0 | load 7.04 5.88 5.37
+== B rodas_image | load 7.04 5.88 5.37
+valid    Tuple{typeof(TraitRodas._rodas5_run), TraitRodas.Rodas5Integrator{Nothing, ODECore.CoreProblem{Float64, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}}}
+valid    Tuple{typeof(TraitRodas._rodas5_run), TraitRodas.Rodas5Integrator{TraitRodas.DualJacobian{3, ODECore.PartialFn{typeof(TraitDifferentialEquations._wl_rhs!), Vector{Float64}}}, ODECore.CoreProblem{Float64, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}}}
+-- rc 0 | load 7.04 5.88 5.37
+# B: 353 instances; by function (the eight of the open issue):
+#   _rodas5_run      2
+#   advance!         4
+#   core_solution    4
+#   run_to_end!      4
+#   _steps           4
+#   _retcode         4
+#   step_condition   1
+#   step_affect!     1
+# done 2026-11-21T17:55:55+01:00 | load-after 7.04 5.88 5.37

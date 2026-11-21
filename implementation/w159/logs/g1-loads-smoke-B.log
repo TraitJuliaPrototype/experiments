@@ -1,0 +1,15 @@
+# W-159 G-1 E-392 nine unrelated loads (w134/lost.jl) | 2026-11-21T17:54:07+01:00 | load-before 4.82 5.19 5.12 | login02
+# setting B: julia julia-unified 7b374f39ce (binary 8fccf1e182*) | TW TraitWorld-base e11c7cc58b | TDE wt/w161-tde-base b7306285fe | TM wt/w160-tm c862914ffa | TT wt/w159-tag/TraitTables absent | TC wt/w159-tag/TraitCSV absent | TR wt/w159-tag/TraitReport absent | FORKS wt/w159-tag/forks absent | ND wt/w151-base/NetworkDynamics 6310040ec0 | depot .julia-depot/agent-depots/w159/B
+# experiments f6d7f3645d* | product setting, strict mode off, one thread, fresh process per cell | ALLOW_BINARY_MISMATCH=B
+# NOTE setting B: the binary names 8fccf1e182*, the tree's HEAD is 7b374f39ce (allowed by ALLOW_BINARY_MISMATCH)
+# NOTE setting B: the binary is marked '*' (its tree had a tracked change when it was built); the tree is clean now
+# preflight B up: images ok: CSV DataFrames OffsetArrays StatsBase Unitful IntervalArithmetic Distributions Interpolations StaticArrays CairoMakie REPL
+== B up A run w | load 4.83 5.19 5.12
+order A | project up | import 1169.0 ms | roots 54 | loads: OffsetArrays StatsBase Unitful IntervalArithmetic Distributions Interpolations StaticArrays CairoMakie REPL
+work: first 4140.4 ms, again 1.4 ms; the loads 5501.4 ms; after the loads 5246.0 ms, again 1.5 ms | digest ce94074fa1261ca2 (equal after)
+image code | the eight: 4693 (facts 0, G2 3299); lost 424 (facts 0)  [DataFrames 360, PooledArrays 24, CSV 22, Tables 12, SentinelArrays 6]
+image code | all loaded for the work: 8191 (facts 0, G2 6176); lost 527 (facts 0)  [DataFrames 360, Statistics 52, PooledArrays 24, CSV 22, PrettyTables 16, Tables 12, Printf 10, StyledStrings 7, ArgTools 7, SentinelArrays 6, Downloads 5, InvertedIndices 3, PrecompileTools 2, OrderedCollections 1]
+made by the work | the eight: 217 (facts 0, G2 73); lost 131 (facts 0)  [CSV 90, DataFrames 37, Tables 4]
+made by the work | all loaded for the work: 267 (facts 0, G2 107); lost 145 (facts 0)  [CSV 90, DataFrames 37, PrettyTables 11, Tables 4, Downloads 3]
+-- rc 0 | load 4.79 5.16 5.11
+# done 2026-11-21T17:54:30+01:00 | load-after 4.79 5.16 5.11
