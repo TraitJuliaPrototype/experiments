@@ -1138,3 +1138,131 @@ Every message of ownership and strict mode, for the two kinds of pirate (`oo_mes
 | the documentation's examples | intro 33 pass; tutorial 123 pass, 1 deviation (compiler C-157); strict 10 pass (`logs/l-docs-*-3ba84fc.log`) |
 | the gates (`LIB=wt/w158g-tw run_all.sh julia-next`) | 73 of 73, stage gates 9 of 9 (`logs/l-gates-3ba84fc.log`) |
 | the messages' tool | 143 distinct messages; tuple type, generated name, compiler object, library internal: 0 (`logs/l-messages-after-*`) |
+
+## Fifth part: a program with callbacks, 2026-11-21
+
+**The question** (E-510, continued; compiler C-156; open issues 184, 159, 245): compiler §7.6's sentence "Where the
+product is past the bound and the method the members reach is a forwarder (§6.3), each argument is boxed apart, a
+branch over its own members that makes its box, and the method as written is called once at the boxes", built, so
+that the ODE program with callbacks it knows (`port/apps/ode_cb.jl`: 20 errors in 4 statements on dc11704ef7) builds,
+runs and prints a session's output; and in a form that keeps the forwarder's body as §6.3 writes it for code compiled
+by facts, and costs a session nothing. What would change the design: a form that a session pays for, a value the
+build did not count that gets an answer, or a case the rule cannot serve.
+
+**How to run** (after `source env.sh` of this directory; `J=$TW_ROOT/wt/w158-julia/julia`):
+
+```sh
+[APP=apps/ode_cb] bash i-probes/ode_build.sh <label>           # the ODE program (or the one with callbacks) trimmed, run, compared
+(cd i-probes && APP=<file> [PATCH=1] $J --project=../env_demo_d members.jl)        # the build's check in a session
+(cd $TW_ROOT/wt/w158b-tw && APP=<file> [PATCH=1] FN=<f> $J --project=. $W158/i-probes/instances.jl)   # a function's instances after the check
+(cd $TW_ROOT/wt/w158b-tw && $J --project=. $W158/i-probes/undefined.jl)            # the bounded check at a name never defined
+bash i-apps.sh <label> <tree> [app ...]      # apps/i-*.jl and the parts' programs: session, trimmed, run, compare
+bash i-checks.sh <label> [tree] [step ...]   # f-checks.sh's steps, logs logs/i-<step>-<label>.log
+```
+
+- `i-probes/patch_i.jl` lays this part's compiler change over a session of dc11704ef7 (`PATCH=1`). It reaches a
+  session's check (`closed_check`), not a trimmed build's own inference: a build of the program with the patch
+  included first gave the same members and code as without it (a line printed where the change is taken printed
+  nothing), so every build number below is of a built Julia.
+
+**What was built.** Julia `wt/w158-julia`, branch `w158`: f1d6e51efa on dc11704ef7 (`Compiler/src`: 93 lines added,
+4 removed). The library `wt/w158b-tw`, branch `w158i` from `unified` 2d93199 (`src/erasing.jl`: 25 added, 6 removed):
+
+| tree | commit | what |
+|---|---|---|
+| library | 8ebfc7a | a forwarder with several arguments that erase boxes each by its own call, `_forward_box(D, x, self, args)`: a method at the kept forms passes one as it is, the other tests a function's signature (`_callable_box_check`) and makes the box by `new`; inlined where the forwarder is compiled per member type. The forwarder of one such argument (compiled once at the set) keeps `new` in its body |
+| julia | f1d6e51efa | past the product's bound, where a matched method carries the forwarder's mark (`Expr(:meta, :erasing_forwarder)`) and every other matched method is at kept forms wherever the forwarder's type names a set (`closed_forwarder`), the call is the forwarder's instance at the call's types met with its signature (`closed_forwarder_call`): a closed split with one case, so the inliner tests each argument against the forwarder's type, invokes the forwarder, and past it raises `MethodError` |
+| library | 074feba | tests: `test/verify.jl` "closed check: past the product's bound, the forwarder boxes each argument apart"; `test/bytype.jl`: the forwarder of two arguments makes both boxes by `new` at members' types, no call left |
+| library | 1545423 | `test/messages.jl`: the bounded check's module imports `marea` (below) |
+
+**The mechanism.** In the forwarder at the signatures each `_forward_box` call is a call where the member's type
+chooses the method (a method at the kept forms beside one at any value), so a closed build branches there over that
+argument's members, each branch the call at the member's type, where the box's test `hasmethod(f, A)` folds; past
+them `MethodError`. The call at the boxes (`#self#(b2, b3, b4)`) is then at concrete boxes: the method as written,
+once. In a session the forwarder is compiled per member type, `_forward_box` is inlined, and the code is the one the
+body made before (`%new(Dynamic{Shape}, a)`, `bytype.jl`); a value outside the forwarder's type fails the test
+before the forwarder and raises `MethodError`, as dispatch does.
+
+**The program with callbacks** (`logs/w166c-i-<label>.build.log`, `logs/i-<label>.kinds.txt`; `--trim=safe`,
+`VERIFY=1`, project `env_demo_d`, depot `agent-depots/w158`, one thread; load 2 to 5 of 128):
+
+| Julia | library | errors | binary |
+|---|---|---|---|
+| dc11704ef7 | 3c2dc6b (fourth part) | 20 in 4 statements (`logs/w166c-f-odecb-dc11704.build.log`) | none |
+| dc11704ef7 | 2d93199 with 8ebfc7a's `src` (uncommitted then; the log names 2d93199) | 0 (`odecb-libonly-dc11704`) | 4,497,120 bytes; output equal to a session's |
+| f1d6e51efa | 2d93199 | 4 in 2 statements: the box's test `hasmethod` and `to_tuple_type` in the forwarder at the signatures (`odecb-f1d6e51-lib2d93199`) | none |
+| f1d6e51efa | w158i 1545423 | 0, 5 rounds, `verify_main` 5.6 s (`odecb-f1d6e51`) | 4,139,104 bytes; runs, `lorenz with callbacks 12.5265`, equal to a session's |
+
+- The library's change alone serves the program by the product rule as it stood: the first argument split over its
+  7 members, the forwarder compiled per member of it, and in each the other arguments boxed apart (7 forwarder
+  instances). With both, the forwarder runs once, at the signatures: 358,016 bytes less.
+- Bare `Callable` has 7 members by use (9 on dc11704ef7: the two boxes were forgotten at the forwarder's join of its
+  kept and boxed branch, which `_forward_box` no longer makes).
+- The session's check of the program (`i-probes/members.jl`): 0 errors, 5 rounds, 9.3 s (`logs/i-odecb-members-f1d6e51.log`;
+  10 on dc11704ef7). The ODE program without callbacks: 0 errors, 4,360,272 bytes, output equal
+  (`logs/w166c-i-ode-f1d6e51.build.log`); its check 0 errors, 4 rounds (`logs/i-ode-members-f1d6e51.log`).
+
+**The small programs** (`apps/i-*.jl`; `logs/i-apps-f1d6e51.log`, build logs `logs/i-f1d6e51-<app>.build.log`):
+
+| program | dc11704ef7 | f1d6e51efa, w158i |
+|---|---|---|
+| `i-ctor3`: a constructor at three `Callable` signatures, values known only by bare `Callable`, 15 members each | 15 errors (`logs/i-before-dc11704-ctor3.build.log`, library 2d93199); 0 with 8ebfc7a's `src`, 2,285,120 bytes (`i-libonly-ctor3`) | 0, 2,206,824 bytes; runs, equal; one forwarder instance, at the signatures (`i-probes/instances.jl`) |
+| `i-gap3`: a fourth function at the first argument reached only as the 4,097th element of a constant | (8ebfc7a's `src`) 0 errors; the binary raises `MethodError` | 0; the binary prints `gap MethodError`, the session `gap 6.0` (G1: an error, never another member's answer) |
+| `i-mixed3`: boxes given beside plain functions, a box of another signature | 4 errors with 8ebfc7a's `src` (`i-libonly-mixed3`) | 0, 2,218,936 bytes; runs, equal (the box of another signature: `MethodError`, as in a session) |
+| `i-wrap3`: a wrapper (`compiled_for`) given through the field typed bare `Callable` | | 4 errors: the wrapper is a member by use of every signature, so the call at the boxes has 2 × 2 × 2 combinations of kept forms, past Julia's union split of 4, left to dispatch; so is the call at its result |
+| `i-param3`: the record parametric in its functions' types (traits §8.2's form) | | 0, 2,164,832 bytes; runs, equal: no split at bare `Callable` is made |
+
+The parts' programs (`f-*`, `e-*`, `choice`, `flow`): 0 errors each, run, equal; `f-gap` and `f-gapfn` raise
+`MethodError` where the session answers, as in the fourth part.
+
+**The port's form** (traits §8.2: "A record made before a signature is known keeps each value in the form given …
+The constructor that knows the signature boxes `f` and keeps `j`"; its example, `ODEFunction{F, TJ, TMM}`, keeps each
+function's type as a parameter). ODECore's `DiscreteCallback` and `ContinuousCallback` keep their functions in fields
+typed bare `Callable`, read back as values known only by bare `Callable` (§8.1's row "a field `::X`": "a call on it
+dispatches by its type"). A record parametric in its functions' types, `DiscreteCallback{C, A, I}` (upstream's
+`DiscreteCallback{F1, F2, F3, F4}`), keeps the form given and its type: `_enter_callback!` is compiled per record
+type and calls the constructor's forwarder at the functions' own types. That removes all 20 errors with no compiler
+rule (`i-param3`), at a compile of `_enter_callback!` per record type in a session. The port does not depart from a
+reference: §8.2 states the form given, not where the type is kept. Both hold: the compiler's rule serves records typed
+by a trait (and a vector of mixed records, open issue 245), the parametric record serves a program that makes its
+callbacks where their functions are known.
+
+**Is the product's bound the right rule?** Where the method the members reach is no forwarder, the call's meaning is
+the product: a call with three arguments of 9 members each may take another method at each of the 729 combinations,
+so the bound stands and the verifier refuses past it. The forwarder's call separates because each argument's box
+depends on that argument alone and the call at the boxes is one call; the build finds that structure by the
+forwarder's mark and the shape of the other methods, not by a name. No other call past the bound is met in the
+ports' programs: the table's, report's, plot's and both ODE programs build with 0 errors.
+
+**The bounded check at a name never defined** (`test/messages.jl`'s `mfvok`; `i-probes/undefined.jl`,
+`logs/i-undefined-f1d6e51.log`). The testset's module imported `MShape` only, so `mvaok`, `mfv` and `mfvok` called
+`marea`, a name it never defines; the check read the call as left to run time and accepted `mfvok` without reading
+the operation's call at a box. Fixed by importing `marea` (1545423). Traits §7.3's "When": a method that names a
+global not yet defined waits for it, "and at last for its module's end". The code (`_decide_bounded(m; final =
+true)`) then reads the method once more; a name still undefined is a global whose value is unknown, the call is left
+to run time, and the method is accepted (`f(a::UShape) = nothere(a)`: accepted). The reference does not say what
+such a call is at the module's end; under §7.3's fault "finds no method at the types the code knows … or left to run
+time" it is a fault (no value, so no method), and the code does not follow that reading. A name defined later with
+no method at the box is refused at its definition; with one, accepted.
+
+**Checks on f1d6e51efa** (library w158i 1545423; logs `logs/i-<check>-f1d6e51.log`; load 3 to 5 of 128):
+
+| check | result |
+|---|---|
+| the gates (`LIB=wt/w158b-tw`) | 73 of 73, stage gates 9 of 9 |
+| Base's core, subtype, Compiler/inline, Compiler/inference | SUCCESS |
+| the library | 111 testsets (110 and the new one), no failure; the new testset fails on dc11704ef7 (2 of 5: no instance at the signatures, 15 per member of the first argument; `logs/i-verify-before-dc11704.log`) |
+| TraitDifferentialEquations, TraitTables, TraitMakie | 35, 3, 8 testsets |
+| the table's, report's, plot's programs (`i-builds.sh`) | 0 errors each; table 2,724,688 bytes, output equal; report 5,394,176 bytes, output and PNG equal; plot 4,952,200 bytes, output and PNG equal (`logs/i-builds-f1d6e51.log`) |
+| E-384's eight small programs | build, run, output equal (`logs/i-f1d6e51-small.log`) |
+| the parts' programs and this part's (`i-apps.sh`) | the table above (`logs/i-apps-f1d6e51.log`) |
+| the sessions (`sessions.sh`, a warm-up and 3 runs) | report 24 compiles, table 19; instances TraitWorld 468 and 407, TraitTables 129, TraitCSV 34, TraitMakie 323; the same on dc11704ef7 and on f1d6e51efa with the library 2d93199 (`logs/sessions-i-f1d6e51.log`, `-i-f1d6e51-lib2d93199.log`, `-i-dc11704-lib2d93199.log`); TraitWorld has 803 methods against 801 (`_forward_box`'s two) |
+
+**Not built, not verified.**
+- A wrapper among an argument's members (`i-wrap3`): the call at the kept forms is past Julia's union split. A split
+  of a union of kept forms up to 64 in a closed build was tried in a session and dropped: the 8 results join to
+  `Trip`, and the call at that is left to dispatch again (a wrapper is compiled per object type, as in plain Julia).
+- The forwarder is found by its mark in the method's code, read by `closed_is_forwarder`; a method whose source an
+  image strips (`--strip-ir`) is no forwarder to the build (the product rule then applies).
+- The method lookup the forwarder's case records spans all worlds (a closed build invalidates nothing); a session's
+  check takes the same path.

@@ -1,0 +1,191 @@
+# W-166c ../../w158/port/apps/ode_cb 2026-11-21T23:11:31+01:00 load 6.54 5.06 4.21 | wt/w158-julia f1d6e51efa wt/w158b-tw 2d93199 project experiments/implementation/w158/env_demo_d trim=safe images=1 driver=wt/w158-julia/test/trimming depot=.julia-depot/agent-depots/w158:shared 
+images: exit 0 after 19 s (TraitWorld TraitDifferentialEquations)
+from source: none
+verify_main: 132 targets, 0 entry points, 1 run-time sites, complete true, 4.6 s
+  site: dispatch /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/ODECore/src/core.jl:658 ODECore.FunctionCallback{Vector{Float64}, Float64, Vector{Float64}, C, A, I} where {C<:Callable{Tuple{Vector{Float64}, Float64, Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}}, Bool}, A<:Callable{Tuple{Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}}, Nothing}, I<:Callable{Tuple{Vector{Float64}, Float64, Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}}, Nothing}}(::Callable, ::Callable, ::Callable) | its argument types are not known when compiled
+closed build: 4 rounds, 110 types forgotten, 18 flows between places
+  Core.Callable{Tuple{Array{Float64, 1}, Float64, Core.Dynamic{ODECore.IntegratorView{Array{Float64, 1}, Float64, Array{Float64, 1}}}}, Bool}: split with 6 candidates; it has 6, members of its type 6
+    typeof(Main.kick_c)
+    typeof(Main.kick_a)
+    typeof(ODECore.no_initialize)
+    typeof(Main.cross_c)
+    typeof(Main.cross_a)
+    Core.Dynamic{Core.Callable{Tuple{Array{Float64, 1}, Float64, Core.Dynamic{ODECore.IntegratorView{Array{Float64, 1}, Float64, Array{Float64, 1}}}}, Bool}}
+  Core.Callable{A, S} where S where A<:Tuple: split with 11 candidates; it has 11, members of its type 11
+    typeof(Main.kick_c)
+    typeof(Main.kick_a)
+    typeof(ODECore.no_initialize)
+    typeof(Main.lorenz!)
+    typeof(Main.cross_c)
+    typeof(Main.cross_a)
+    ODECore.PartialFn{typeof(Main.lorenz!), Array{Float64, 1}}
+    Core.Dynamic{Core.Callable{Tuple{Array{Float64, 1}, Float64, Core.Dynamic{ODECore.IntegratorView{Array{Float64, 1}, Float64, Array{Float64, 1}}}}, Float64}}
+    Core.Dynamic{Core.Callable{Tuple{Core.Dynamic{ODECore.IntegratorView{Array{Float64, 1}, Float64, Array{Float64, 1}}}}, Nothing}}
+    Core.Dynamic{Core.Callable{Tuple{Array{Float64, 1}, Float64, Core.Dynamic{ODECore.IntegratorView{Array{Float64, 1}, Float64, Array{Float64, 1}}}}, Nothing}}
+    Core.Dynamic{Core.Callable{Tuple{Array{Float64, 1}, Float64, Core.Dynamic{ODECore.IntegratorView{Array{Float64, 1}, Float64, Array{Float64, 1}}}}, Bool}}
+  Core.Callable{Tuple{Array{Float64, 1}, Float64, Core.Dynamic{ODECore.IntegratorView{Array{Float64, 1}, Float64, Array{Float64, 1}}}}, Nothing}: split with 6 candidates; it has 6, members of its type 6
+    typeof(Main.kick_c)
+    typeof(Main.kick_a)
+    typeof(ODECore.no_initialize)
+    typeof(Main.cross_c)
+    typeof(Main.cross_a)
+    Core.Dynamic{Core.Callable{Tuple{Array{Float64, 1}, Float64, Core.Dynamic{ODECore.IntegratorView{Array{Float64, 1}, Float64, Array{Float64, 1}}}}, Nothing}}
+  Core.Callable{Tuple{Core.Dynamic{ODECore.IntegratorView{Array{Float64, 1}, Float64, Array{Float64, 1}}}}, Nothing}: split with 6 candidates; it has 6, members of its type 6
+    typeof(Main.kick_c)
+    typeof(Main.kick_a)
+    typeof(ODECore.no_initialize)
+    typeof(Main.cross_c)
+    typeof(Main.cross_a)
+    Core.Dynamic{Core.Callable{Tuple{Core.Dynamic{ODECore.IntegratorView{Array{Float64, 1}, Float64, Array{Float64, 1}}}}, Nothing}}
+  forgotten: typeof(Main.kick_c) at Core.Callable{A, S} where S where A<:Tuple
+  forgotten: typeof(Main.kick_a) at Core.Callable{A, S} where S where A<:Tuple
+  forgotten: typeof(ODECore.no_initialize) at Core.Callable{A, S} where S where A<:Tuple
+  forgotten: typeof(Main.lorenz!) at Core.Callable{Tuple{Array{Float64, 1}, Array{Float64, 1}, Array{Float64, 1}, Float64}, Nothing}
+  forgotten: typeof(Main.cross_c) at Core.Callable{A, S} where S where A<:Tuple
+  forgotten: typeof(Main.cross_a) at Core.Callable{A, S} where S where A<:Tuple
+  forgotten: ODECore.ODEProblem{Float64, Array{Float64, 1}, Core.Dynamic{All{Core.Callable{Tuple{Array{Float64, 1}, Array{Float64, 1}, Float64}, Nothing}, Core.Callable{Tuple{Array{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}, 1}, Array{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}, 1}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)} at ODECore.ODEProblemTrait{Float64, Array{Float64, 1}}
+  forgotten: ODECore.Tsit5Steps{Float64} at ODECore.Interpolant{Array{Float64, 1}, Float64}
+  forgotten: ODECore.Tsit5Integrator{Float64, ODECore.CoreProblem{Float64, Core.Dynamic{All{Core.Callable{Tuple{Array{Float64, 1}, Array{Float64, 1}, Float64}, Nothing}, Core.Callable{Tuple{Array{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}, 1}, Array{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}, 1}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}} at ODECore.StepView{Array{Float64, 1}, Float64}
+  forgotten: ODECore.ParamIntegrator{Array{Float64, 1}, Float64, Array{Float64, 1}} at ODECore.IntegratorView{Array{Float64, 1}, Float64, Array{Float64, 1}}
+  forgotten: ODECore.ParamCallback{Array{Float64, 1}, Float64, Array{Float64, 1}} at ODECore.StepCallback{Array{Float64, 1}, Float64}
+  forgotten: ODECore.ParamEvent{Array{Float64, 1}, Float64, Array{Float64, 1}} at ODECore.StepEvent{Array{Float64, 1}, Float64}
+  forgotten: Core.Dynamic{Core.Callable{Tuple{Array{Float64, 1}, Float64, Core.Dynamic{ODECore.IntegratorView{Array{Float64, 1}, Float64, Array{Float64, 1}}}}, Float64}} at Core.Callable{Tuple{Array{Float64, 1}, Float64, Core.Dynamic{ODECore.IntegratorView{Array{Float64, 1}, Float64, Array{Float64, 1}}}}, Float64}
+  forgotten: Core.Dynamic{Core.Callable{Tuple{Core.Dynamic{ODECore.IntegratorView{Array{Float64, 1}, Float64, Array{Float64, 1}}}}, Nothing}} at Core.Callable{Tuple{Core.Dynamic{ODECore.IntegratorView{Array{Float64, 1}, Float64, Array{Float64, 1}}}}, Nothing}
+  forgotten: Core.Dynamic{Core.Callable{Tuple{Array{Float64, 1}, Float64, Core.Dynamic{ODECore.IntegratorView{Array{Float64, 1}, Float64, Array{Float64, 1}}}}, Nothing}} at Core.Callable{Tuple{Array{Float64, 1}, Float64, Core.Dynamic{ODECore.IntegratorView{Array{Float64, 1}, Float64, Array{Float64, 1}}}}, Nothing}
+  forgotten: ODECore.PartialFn{typeof(Main.lorenz!), Array{Float64, 1}} at All{Core.Callable{Tuple{Array{Float64, 1}, Array{Float64, 1}, Float64}, Nothing}, Core.Callable{Tuple{Array{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}, 1}, Array{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}, 1}, Float64}, Nothing}}
+  forgotten: Core.Dynamic{Core.Callable{Tuple{Array{Float64, 1}, Float64, Core.Dynamic{ODECore.IntegratorView{Array{Float64, 1}, Float64, Array{Float64, 1}}}}, Bool}} at Core.Callable{Tuple{Array{Float64, 1}, Float64, Core.Dynamic{ODECore.IntegratorView{Array{Float64, 1}, Float64, Array{Float64, 1}}}}, Bool}
+  instances 391, with code 391, with statement types 391
+Error #1: unresolved call from statement Core._hasmethod(
+  signature_type(
+    f::Any,
+    t::Any
+  )::Any
+)::Bool
+
+Stacktrace:
+  [1] hasmethod(f::Any, t::Any)
+    @ Base reflection.jl:1085
+  [2] _first_unmet(f::Callable{Tuple{Vector{Float64}, Float64, Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}}, Bool}, sigs::Tuple{Tuple{DataType, DataType}})
+    @ TraitWorld /p/projects/coen/julia-trait-bound/wt/w158b-tw/src/callable.jl:77 [inlined]
+  [3] _callable_met(::Type{Callable{Tuple{Vector{Float64}, Float64, Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}}, Bool}}, f::Callable{Tuple{Vector{Float64}, Float64, Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}}, Bool})
+    @ TraitWorld /p/projects/coen/julia-trait-bound/wt/w158b-tw/src/callable.jl:74 [inlined]
+  [4] _callable_box_check(::Type{Dynamic{Callable{Tuple{Vector{Float64}, Float64, Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}}, Bool}}}, f::Callable{Tuple{Vector{Float64}, Float64, Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}}, Bool}, self::Type{ODECore.FunctionCallback{Vector{Float64}, Float64, Vector{Float64}, C, A, I} where {C<:Callable{Tuple{Vector{Float64}, Float64, Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}}, Bool}, A<:Callable{Tuple{Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}}, Nothing}, I<:Callable{Tuple{Vector{Float64}, Float64, Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}}, Nothing}}}, args::Tuple{Callable{Tuple{Vector{Float64}, Float64, Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}}, Bool}, Callable{Tuple{Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}}, Nothing}, Callable{Tuple{Vector{Float64}, Float64, Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}}, Nothing}})
+    @ TraitWorld /p/projects/coen/julia-trait-bound/wt/w158b-tw/src/callable.jl:80 [inlined]
+  [5] (ODECore.FunctionCallback{Vector{Float64}, Float64, Vector{Float64}, C, A, I} where {C<:Callable{Tuple{Vector{Float64}, Float64, Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}}, Bool}, A<:Callable{Tuple{Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}}, Nothing}, I<:Callable{Tuple{Vector{Float64}, Float64, Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}}, Nothing}})(c::Callable{Tuple{Vector{Float64}, Float64, Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}}, Bool}, a::Callable{Tuple{Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}}, Nothing}, i::Callable{Tuple{Vector{Float64}, Float64, Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}}, Nothing})
+    @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/ODECore/src/core.jl:604
+  [6] _enter_callback!(e::ODECore.EnteredCallbacks{Vector{Float64}, Float64, Vector{Float64}}, cb::DiscreteCallback)
+    @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/ODECore/src/core.jl:658
+  [7] enter_callbacks!(e::ODECore.EnteredCallbacks{Vector{Float64}, Float64, Vector{Float64}}, cb::DiscreteCallback)
+    @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/ODECore/src/core.jl:653
+  [8] enter_callbacks(cbs::DiscreteCallback, ::Type{Vector{Float64}}, ::Type{Vector{Float64}})
+    @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/ODECore/src/core.jl:642
+  [9] ODEProblem(f::Dynamic{Callable{Tuple{Vector{Float64}, Vector{Float64}, Vector{Float64}, Float64}, Nothing}}, u0::Vector{Float64}, tspan::Tuple{Float64, Float64}, p::Vector{Float64}; callback::DiscreteCallback)
+    @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/ODECore/src/frontend.jl:71
+ [10] main(args::Vector{String})
+    @ Main /p/projects/coen/julia-trait-bound/experiments/implementation/w158/port/apps/ode_cb.jl:17
+ [11] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+    @ Main /p/projects/coen/julia-trait-bound/wt/w158-julia/test/trimming/juliac-buildscript.jl:35
+
+Error #2: unresolved argument to call from statement _apply_iterate(
+  iterate::typeof(iterate),
+  apply_type::typeof(Core.apply_type),
+  (…)::Core.SimpleVector,
+  t::Union{Core.SimpleVector, Tuple, AbstractArray}
+)::Type
+
+Stacktrace:
+  [1] to_tuple_type(t::Any)
+    @ Base runtime_internals.jl:1399
+  [2] signature_type(f::Any, argtypes::Any)
+    @ Base runtime_internals.jl:1417
+  [3] hasmethod(f::Any, t::Any)
+    @ Base reflection.jl:1085
+  [4] _first_unmet(f::Callable{Tuple{Vector{Float64}, Float64, Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}}, Bool}, sigs::Tuple{Tuple{DataType, DataType}})
+    @ TraitWorld /p/projects/coen/julia-trait-bound/wt/w158b-tw/src/callable.jl:77 [inlined]
+  [5] _callable_met(::Type{Callable{Tuple{Vector{Float64}, Float64, Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}}, Bool}}, f::Callable{Tuple{Vector{Float64}, Float64, Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}}, Bool})
+    @ TraitWorld /p/projects/coen/julia-trait-bound/wt/w158b-tw/src/callable.jl:74 [inlined]
+  [6] _callable_box_check(::Type{Dynamic{Callable{Tuple{Vector{Float64}, Float64, Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}}, Bool}}}, f::Callable{Tuple{Vector{Float64}, Float64, Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}}, Bool}, self::Type{ODECore.FunctionCallback{Vector{Float64}, Float64, Vector{Float64}, C, A, I} where {C<:Callable{Tuple{Vector{Float64}, Float64, Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}}, Bool}, A<:Callable{Tuple{Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}}, Nothing}, I<:Callable{Tuple{Vector{Float64}, Float64, Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}}, Nothing}}}, args::Tuple{Callable{Tuple{Vector{Float64}, Float64, Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}}, Bool}, Callable{Tuple{Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}}, Nothing}, Callable{Tuple{Vector{Float64}, Float64, Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}}, Nothing}})
+    @ TraitWorld /p/projects/coen/julia-trait-bound/wt/w158b-tw/src/callable.jl:80 [inlined]
+  [7] (ODECore.FunctionCallback{Vector{Float64}, Float64, Vector{Float64}, C, A, I} where {C<:Callable{Tuple{Vector{Float64}, Float64, Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}}, Bool}, A<:Callable{Tuple{Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}}, Nothing}, I<:Callable{Tuple{Vector{Float64}, Float64, Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}}, Nothing}})(c::Callable{Tuple{Vector{Float64}, Float64, Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}}, Bool}, a::Callable{Tuple{Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}}, Nothing}, i::Callable{Tuple{Vector{Float64}, Float64, Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}}, Nothing})
+    @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/ODECore/src/core.jl:604
+  [8] _enter_callback!(e::ODECore.EnteredCallbacks{Vector{Float64}, Float64, Vector{Float64}}, cb::DiscreteCallback)
+    @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/ODECore/src/core.jl:658
+  [9] enter_callbacks!(e::ODECore.EnteredCallbacks{Vector{Float64}, Float64, Vector{Float64}}, cb::DiscreteCallback)
+    @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/ODECore/src/core.jl:653
+ [10] enter_callbacks(cbs::DiscreteCallback, ::Type{Vector{Float64}}, ::Type{Vector{Float64}})
+    @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/ODECore/src/core.jl:642
+ [11] ODEProblem(f::Dynamic{Callable{Tuple{Vector{Float64}, Vector{Float64}, Vector{Float64}, Float64}, Nothing}}, u0::Vector{Float64}, tspan::Tuple{Float64, Float64}, p::Vector{Float64}; callback::DiscreteCallback)
+    @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/ODECore/src/frontend.jl:71
+ [12] main(args::Vector{String})
+    @ Main /p/projects/coen/julia-trait-bound/experiments/implementation/w158/port/apps/ode_cb.jl:17
+ [13] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+    @ Main /p/projects/coen/julia-trait-bound/wt/w158-julia/test/trimming/juliac-buildscript.jl:35
+
+Error #3: unresolved call from statement Core._hasmethod(
+  signature_type(
+    f::Any,
+    t::Any
+  )::Any
+)::Bool
+
+Stacktrace:
+  [1] hasmethod(f::Any, t::Any)
+    @ Base reflection.jl:1085
+  [2] _first_unmet(f::Callable{Tuple{Vector{Float64}, Float64, Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}}, Bool}, sigs::Tuple{Tuple{DataType, DataType}})
+    @ TraitWorld /p/projects/coen/julia-trait-bound/wt/w158b-tw/src/callable.jl:77 [inlined]
+  [3] _callable_met(::Type{Callable{Tuple{Vector{Float64}, Float64, Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}}, Bool}}, f::Callable{Tuple{Vector{Float64}, Float64, Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}}, Bool})
+    @ TraitWorld /p/projects/coen/julia-trait-bound/wt/w158b-tw/src/callable.jl:74 [inlined]
+  [4] _callable_box_check(::Type{Dynamic{Callable{Tuple{Vector{Float64}, Float64, Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}}, Bool}}}, f::Callable{Tuple{Vector{Float64}, Float64, Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}}, Bool}, self::Type{ODECore.FunctionCallback{Vector{Float64}, Float64, Vector{Float64}, C, A, I} where {C<:Callable{Tuple{Vector{Float64}, Float64, Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}}, Bool}, A<:Callable{Tuple{Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}}, Nothing}, I<:Callable{Tuple{Vector{Float64}, Float64, Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}}, Nothing}}}, args::Tuple{Callable{Tuple{Vector{Float64}, Float64, Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}}, Bool}, Callable{Tuple{Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}}, Nothing}, Callable{Tuple{Vector{Float64}, Float64, Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}}, Nothing}})
+    @ TraitWorld /p/projects/coen/julia-trait-bound/wt/w158b-tw/src/callable.jl:80 [inlined]
+  [5] (ODECore.FunctionCallback{Vector{Float64}, Float64, Vector{Float64}, C, A, I} where {C<:Callable{Tuple{Vector{Float64}, Float64, Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}}, Bool}, A<:Callable{Tuple{Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}}, Nothing}, I<:Callable{Tuple{Vector{Float64}, Float64, Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}}, Nothing}})(c::Callable{Tuple{Vector{Float64}, Float64, Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}}, Bool}, a::Callable{Tuple{Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}}, Nothing}, i::Callable{Tuple{Vector{Float64}, Float64, Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}}, Nothing})
+    @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/ODECore/src/core.jl:604
+  [6] _enter_callback!(e::ODECore.EnteredCallbacks{Vector{Float64}, Float64, Vector{Float64}}, cb::DiscreteCallback)
+    @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/ODECore/src/core.jl:658
+  [7] enter_callbacks!(e::ODECore.EnteredCallbacks{Vector{Float64}, Float64, Vector{Float64}}, cb::DiscreteCallback)
+    @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/ODECore/src/core.jl:653
+  [8] enter_callbacks(cbs::DiscreteCallback, ::Type{Vector{Float64}}, ::Type{Vector{Float64}})
+    @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/ODECore/src/core.jl:642
+  [9] ODEProblem(f::Dynamic{Callable{Tuple{Vector{Float64}, Vector{Float64}, Vector{Float64}, Float64}, Nothing}}, u0::Vector{Float64}, tspan::Tuple{Float64, Float64}, p::Vector{Float64}; callback::DiscreteCallback)
+    @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/ODECore/src/frontend.jl:71
+ [10] main(args::Vector{String})
+    @ Main /p/projects/coen/julia-trait-bound/experiments/implementation/w158/port/apps/ode_cb.jl:17
+ [11] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+    @ Main /p/projects/coen/julia-trait-bound/wt/w158-julia/test/trimming/juliac-buildscript.jl:35
+
+Error #4: unresolved argument to call from statement _apply_iterate(
+  iterate::typeof(iterate),
+  apply_type::typeof(Core.apply_type),
+  (…)::Core.SimpleVector,
+  t::Union{Core.SimpleVector, Tuple, AbstractArray}
+)::Type
+
+Stacktrace:
+  [1] to_tuple_type(t::Any)
+    @ Base runtime_internals.jl:1399
+  [2] signature_type(f::Any, argtypes::Any)
+    @ Base runtime_internals.jl:1417
+  [3] hasmethod(f::Any, t::Any)
+    @ Base reflection.jl:1085
+  [4] _first_unmet(f::Callable{Tuple{Vector{Float64}, Float64, Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}}, Bool}, sigs::Tuple{Tuple{DataType, DataType}})
+    @ TraitWorld /p/projects/coen/julia-trait-bound/wt/w158b-tw/src/callable.jl:77 [inlined]
+  [5] _callable_met(::Type{Callable{Tuple{Vector{Float64}, Float64, Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}}, Bool}}, f::Callable{Tuple{Vector{Float64}, Float64, Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}}, Bool})
+    @ TraitWorld /p/projects/coen/julia-trait-bound/wt/w158b-tw/src/callable.jl:74 [inlined]
+  [6] _callable_box_check(::Type{Dynamic{Callable{Tuple{Vector{Float64}, Float64, Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}}, Bool}}}, f::Callable{Tuple{Vector{Float64}, Float64, Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}}, Bool}, self::Type{ODECore.FunctionCallback{Vector{Float64}, Float64, Vector{Float64}, C, A, I} where {C<:Callable{Tuple{Vector{Float64}, Float64, Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}}, Bool}, A<:Callable{Tuple{Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}}, Nothing}, I<:Callable{Tuple{Vector{Float64}, Float64, Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}}, Nothing}}}, args::Tuple{Callable{Tuple{Vector{Float64}, Float64, Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}}, Bool}, Callable{Tuple{Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}}, Nothing}, Callable{Tuple{Vector{Float64}, Float64, Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}}, Nothing}})
+    @ TraitWorld /p/projects/coen/julia-trait-bound/wt/w158b-tw/src/callable.jl:80 [inlined]
+  [7] (ODECore.FunctionCallback{Vector{Float64}, Float64, Vector{Float64}, C, A, I} where {C<:Callable{Tuple{Vector{Float64}, Float64, Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}}, Bool}, A<:Callable{Tuple{Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}}, Nothing}, I<:Callable{Tuple{Vector{Float64}, Float64, Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}}, Nothing}})(c::Callable{Tuple{Vector{Float64}, Float64, Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}}, Bool}, a::Callable{Tuple{Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}}, Nothing}, i::Callable{Tuple{Vector{Float64}, Float64, Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}}, Nothing})
+    @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/ODECore/src/core.jl:604
+  [8] _enter_callback!(e::ODECore.EnteredCallbacks{Vector{Float64}, Float64, Vector{Float64}}, cb::DiscreteCallback)
+    @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/ODECore/src/core.jl:658
+  [9] enter_callbacks!(e::ODECore.EnteredCallbacks{Vector{Float64}, Float64, Vector{Float64}}, cb::DiscreteCallback)
+    @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/ODECore/src/core.jl:653
+ [10] enter_callbacks(cbs::DiscreteCallback, ::Type{Vector{Float64}}, ::Type{Vector{Float64}})
+    @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/ODECore/src/core.jl:642
+ [11] ODEProblem(f::Dynamic{Callable{Tuple{Vector{Float64}, Vector{Float64}, Vector{Float64}, Float64}, Nothing}}, u0::Vector{Float64}, tspan::Tuple{Float64, Float64}, p::Vector{Float64}; callback::DiscreteCallback)
+    @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/ODECore/src/frontend.jl:71
+ [12] main(args::Vector{String})
+    @ Main /p/projects/coen/julia-trait-bound/experiments/implementation/w158/port/apps/ode_cb.jl:17
+ [13] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+    @ Main /p/projects/coen/julia-trait-bound/wt/w158-julia/test/trimming/juliac-buildscript.jl:35
+
+Trim verify finished with 4 errors, 0 warnings.
+object: exit 1 after 14 s

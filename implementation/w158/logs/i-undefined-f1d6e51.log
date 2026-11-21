@@ -1,0 +1,8 @@
+never defined: the trait's operation not imported          | accepted
+never defined: a name no module defines                    | accepted
+defined later in the module, with no method at the box     | refused: TraitUseError: `f(a::Main.UL.UShape)` is declared bounded, and is not bounded: read with `a` in a box, `Dynamic{Main.UL.UShape}`:
+  later(a) has no method, at l
+defined later in the module, with a method at the box      | accepted
+imported: the operation at the box                         | accepted
+imported: an operation's call with no method at the box    | refused: TraitUseError: `f(a::Main.UL.UShape)` is declared bounded, and is not bounded: read with `a` in a box, `Dynamic{Main.UL.UShape}`:
+  uarea(a, 1) has no method, a

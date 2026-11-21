@@ -1,0 +1,259 @@
+# W-166 /p/projects/coen/julia-trait-bound/experiments/implementation/w158/apps/i-ctor3.jl 2026-11-21T22:34:10+01:00 load 2.15 2.12 2.98 | wt/w158-julia dc11704ef7 TraitWorld 2d93199 trim=safe
+Error #1: unresolved call from statement usetrip(
+  :(φ (%52 => %51, %63 => %62, %74 => %73, %85 => %84, %96 => %95, %109 => %108, %122 => %121, %135 => %134, %148 => %147, %161 => %160, %172 => %171, %183 => %182, %194 => %193, %205 => %204, %216 => %215))::Union{Trip{Dynamic{Callable{Tuple{Float64}, Float64}}, Dynamic{Callable{Tuple{Int64}, Float64}}, Compiled{var"#s111"}} where var"#s111"<:Callable{Tuple{Int64, Float64}, Float64}, Trip{Dynamic{var"#s112"}, Dynamic{var"#s1121"}, Dynamic{var"#s1122"}} where {var"#s112"<:Callable{Tuple{Float64}, Float64}, var"#s1121"<:Callable{Tuple{Int64}, Float64}, var"#s1122"<:Callable{Tuple{Int64, Float64}, Float64}}}
+)::Float64
+
+Stacktrace:
+ [1] enter3(rs::Vector{Raw3})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/implementation/w158/apps/i-ctor3.jl:37
+ [2] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/implementation/w158/apps/i-ctor3.jl:44
+ [3] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/wt/w158-julia/test/trimming/juliac-buildscript.jl:35
+
+Error #2: unresolved call from statement (#self#::typeof(mktrip))(
+  Dynamic{Callable{Tuple{Float64}, Float64}}(Main.c4)::Dynamic{Callable{Tuple{Float64}, Float64}},
+  :(φ (%5 => _3, %18 => %18))::Callable{Tuple{Int64}, Float64},
+  :(φ (%22 => _4, %35 => %35))::Callable{Tuple{Int64, Float64}, Float64}
+)::Any
+
+Stacktrace:
+ [1] mktrip(c::typeof(c4), a::Callable{Tuple{Int64}, Float64}, i::Callable{Tuple{Int64, Float64}, Float64})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/implementation/w158/apps/i-ctor3.jl:29
+ [2] enter3(rs::Vector{Raw3})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/implementation/w158/apps/i-ctor3.jl:37
+ [3] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/implementation/w158/apps/i-ctor3.jl:44
+ [4] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/wt/w158-julia/test/trimming/juliac-buildscript.jl:35
+
+Error #3: unresolved call from statement Core._hasmethod(
+  :(φ (%48 => %47, %50 => %49))::Union{Type{<:Tuple{Type, Int64, Float64}}, Type{<:Tuple{Callable{Tuple{Int64, Float64}, Float64}, Int64, Float64}}}
+)::Bool
+
+Stacktrace:
+ [1] hasmethod(f::Callable{Tuple{Int64, Float64}, Float64}, t::Type{Tuple{Int64, Float64}})
+   @ Base reflection.jl:1085
+ [2] _first_unmet(f::Callable{Tuple{Int64, Float64}, Float64}, sigs::Tuple{Tuple{DataType, DataType}})
+   @ TraitWorld /p/projects/coen/julia-trait-bound/wt/w158b-tw/src/callable.jl:77 [inlined]
+ [3] _callable_met(::Type{Callable{Tuple{Int64, Float64}, Float64}}, f::Callable{Tuple{Int64, Float64}, Float64})
+   @ TraitWorld /p/projects/coen/julia-trait-bound/wt/w158b-tw/src/callable.jl:74 [inlined]
+ [4] _callable_box_check(::Type{Dynamic{Callable{Tuple{Int64, Float64}, Float64}}}, f::Callable{Tuple{Int64, Float64}, Float64}, self::typeof(mktrip), args::Tuple{typeof(c4), Callable{Tuple{Int64}, Float64}, Callable{Tuple{Int64, Float64}, Float64}})
+   @ TraitWorld /p/projects/coen/julia-trait-bound/wt/w158b-tw/src/callable.jl:80 [inlined]
+ [5] mktrip(c::typeof(c4), a::Callable{Tuple{Int64}, Float64}, i::Callable{Tuple{Int64, Float64}, Float64})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/implementation/w158/apps/i-ctor3.jl:29
+ [6] enter3(rs::Vector{Raw3})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/implementation/w158/apps/i-ctor3.jl:37
+ [7] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/implementation/w158/apps/i-ctor3.jl:44
+ [8] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/wt/w158-julia/test/trimming/juliac-buildscript.jl:35
+
+Error #4: unresolved call from statement Core._hasmethod(
+  :(φ (%12 => %11, %14 => %13))::Union{Type{<:Tuple{Type, Int64}}, Type{<:Tuple{Callable{Tuple{Int64}, Float64}, Int64}}}
+)::Bool
+
+Stacktrace:
+ [1] hasmethod(f::Callable{Tuple{Int64}, Float64}, t::Type{Tuple{Int64}})
+   @ Base reflection.jl:1085
+ [2] _first_unmet(f::Callable{Tuple{Int64}, Float64}, sigs::Tuple{Tuple{DataType, DataType}})
+   @ TraitWorld /p/projects/coen/julia-trait-bound/wt/w158b-tw/src/callable.jl:77 [inlined]
+ [3] _callable_met(::Type{Callable{Tuple{Int64}, Float64}}, f::Callable{Tuple{Int64}, Float64})
+   @ TraitWorld /p/projects/coen/julia-trait-bound/wt/w158b-tw/src/callable.jl:74 [inlined]
+ [4] _callable_box_check(::Type{Dynamic{Callable{Tuple{Int64}, Float64}}}, f::Callable{Tuple{Int64}, Float64}, self::typeof(mktrip), args::Tuple{typeof(c4), Callable{Tuple{Int64}, Float64}, Callable{Tuple{Int64, Float64}, Float64}})
+   @ TraitWorld /p/projects/coen/julia-trait-bound/wt/w158b-tw/src/callable.jl:80 [inlined]
+ [5] mktrip(c::typeof(c4), a::Callable{Tuple{Int64}, Float64}, i::Callable{Tuple{Int64, Float64}, Float64})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/implementation/w158/apps/i-ctor3.jl:29
+ [6] enter3(rs::Vector{Raw3})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/implementation/w158/apps/i-ctor3.jl:37
+ [7] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/implementation/w158/apps/i-ctor3.jl:44
+ [8] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/wt/w158-julia/test/trimming/juliac-buildscript.jl:35
+
+Error #5: unresolved call from statement (#self#::typeof(mktrip))(
+  Dynamic{Callable{Tuple{Float64}, Float64}}(Main.c3)::Dynamic{Callable{Tuple{Float64}, Float64}},
+  :(φ (%5 => _3, %18 => %18))::Callable{Tuple{Int64}, Float64},
+  :(φ (%22 => _4, %35 => %35))::Callable{Tuple{Int64, Float64}, Float64}
+)::Any
+
+Stacktrace:
+ [1] mktrip(c::typeof(c3), a::Callable{Tuple{Int64}, Float64}, i::Callable{Tuple{Int64, Float64}, Float64})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/implementation/w158/apps/i-ctor3.jl:29
+ [2] enter3(rs::Vector{Raw3})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/implementation/w158/apps/i-ctor3.jl:37
+ [3] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/implementation/w158/apps/i-ctor3.jl:44
+ [4] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/wt/w158-julia/test/trimming/juliac-buildscript.jl:35
+
+Error #6: unresolved call from statement (#self#::typeof(mktrip))(
+  Dynamic{Callable{Tuple{Float64}, Float64}}(Main.c2)::Dynamic{Callable{Tuple{Float64}, Float64}},
+  :(φ (%5 => _3, %18 => %18))::Callable{Tuple{Int64}, Float64},
+  :(φ (%22 => _4, %35 => %35))::Callable{Tuple{Int64, Float64}, Float64}
+)::Any
+
+Stacktrace:
+ [1] mktrip(c::typeof(c2), a::Callable{Tuple{Int64}, Float64}, i::Callable{Tuple{Int64, Float64}, Float64})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/implementation/w158/apps/i-ctor3.jl:29
+ [2] enter3(rs::Vector{Raw3})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/implementation/w158/apps/i-ctor3.jl:37
+ [3] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/implementation/w158/apps/i-ctor3.jl:44
+ [4] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/wt/w158-julia/test/trimming/juliac-buildscript.jl:35
+
+Error #7: unresolved call from statement (#self#::typeof(mktrip))(
+  Dynamic{Callable{Tuple{Float64}, Float64}}(Main.c1)::Dynamic{Callable{Tuple{Float64}, Float64}},
+  :(φ (%5 => _3, %18 => %18))::Callable{Tuple{Int64}, Float64},
+  :(φ (%22 => _4, %35 => %35))::Callable{Tuple{Int64, Float64}, Float64}
+)::Any
+
+Stacktrace:
+ [1] mktrip(c::typeof(c1), a::Callable{Tuple{Int64}, Float64}, i::Callable{Tuple{Int64, Float64}, Float64})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/implementation/w158/apps/i-ctor3.jl:29
+ [2] enter3(rs::Vector{Raw3})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/implementation/w158/apps/i-ctor3.jl:37
+ [3] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/implementation/w158/apps/i-ctor3.jl:44
+ [4] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/wt/w158-julia/test/trimming/juliac-buildscript.jl:35
+
+Error #8: unresolved call from statement usetrip(
+  :(φ (%52 => %51, %63 => %62, %74 => %73, %85 => %84, %96 => %95, %107 => %106, %118 => %117, %129 => %128, %140 => %139, %153 => %152, %164 => %163, %175 => %174, %186 => %185, %197 => %196, %208 => %207))::Union{Trip{Dynamic{Callable{Tuple{Float64}, Float64}}, Dynamic{Callable{Tuple{Int64}, Float64}}, Compiled{var"#s111"}} where var"#s111"<:Callable{Tuple{Int64, Float64}, Float64}, Trip{Dynamic{var"#s112"}, Dynamic{var"#s1121"}, Dynamic{var"#s1122"}} where {var"#s112"<:Callable{Tuple{Float64}, Float64}, var"#s1121"<:Callable{Tuple{Int64}, Float64}, var"#s1122"<:Callable{Tuple{Int64, Float64}, Float64}}}
+)::Float64
+
+Stacktrace:
+ [1] enter3(rs::Vector{Raw3})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/implementation/w158/apps/i-ctor3.jl:37
+ [2] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/implementation/w158/apps/i-ctor3.jl:44
+ [3] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/wt/w158-julia/test/trimming/juliac-buildscript.jl:35
+
+Error #9: unresolved call from statement (#self#::typeof(mktrip))(
+  Dynamic{Callable{Tuple{Float64}, Float64}}(Main.c5)::Dynamic{Callable{Tuple{Float64}, Float64}},
+  :(φ (%5 => _3, %18 => %18))::Callable{Tuple{Int64}, Float64},
+  :(φ (%22 => _4, %35 => %35))::Callable{Tuple{Int64, Float64}, Float64}
+)::Any
+
+Stacktrace:
+ [1] mktrip(c::typeof(c5), a::Callable{Tuple{Int64}, Float64}, i::Callable{Tuple{Int64, Float64}, Float64})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/implementation/w158/apps/i-ctor3.jl:29
+ [2] enter3(rs::Vector{Raw3})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/implementation/w158/apps/i-ctor3.jl:37
+ [3] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/implementation/w158/apps/i-ctor3.jl:44
+ [4] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/wt/w158-julia/test/trimming/juliac-buildscript.jl:35
+
+Error #10: unresolved call from statement Core._hasmethod(
+  :(φ (%48 => %47, %50 => %49))::Union{Type{<:Tuple{Type, Int64, Float64}}, Type{<:Tuple{Callable{Tuple{Int64, Float64}, Float64}, Int64, Float64}}}
+)::Bool
+
+Stacktrace:
+ [1] hasmethod(f::Callable{Tuple{Int64, Float64}, Float64}, t::Type{Tuple{Int64, Float64}})
+   @ Base reflection.jl:1085
+ [2] _first_unmet(f::Callable{Tuple{Int64, Float64}, Float64}, sigs::Tuple{Tuple{DataType, DataType}})
+   @ TraitWorld /p/projects/coen/julia-trait-bound/wt/w158b-tw/src/callable.jl:77 [inlined]
+ [3] _callable_met(::Type{Callable{Tuple{Int64, Float64}, Float64}}, f::Callable{Tuple{Int64, Float64}, Float64})
+   @ TraitWorld /p/projects/coen/julia-trait-bound/wt/w158b-tw/src/callable.jl:74 [inlined]
+ [4] _callable_box_check(::Type{Dynamic{Callable{Tuple{Int64, Float64}, Float64}}}, f::Callable{Tuple{Int64, Float64}, Float64}, self::typeof(mktrip), args::Tuple{typeof(c4), Callable{Tuple{Int64}, Float64}, Callable{Tuple{Int64, Float64}, Float64}})
+   @ TraitWorld /p/projects/coen/julia-trait-bound/wt/w158b-tw/src/callable.jl:80 [inlined]
+ [5] mktrip(c::typeof(c4), a::Callable{Tuple{Int64}, Float64}, i::Callable{Tuple{Int64, Float64}, Float64})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/implementation/w158/apps/i-ctor3.jl:29
+ [6] enter3(rs::Vector{Raw3})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/implementation/w158/apps/i-ctor3.jl:37
+ [7] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/implementation/w158/apps/i-ctor3.jl:44
+ [8] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/wt/w158-julia/test/trimming/juliac-buildscript.jl:35
+
+Error #11: unresolved call from statement Core._hasmethod(
+  :(φ (%12 => %11, %14 => %13))::Union{Type{<:Tuple{Type, Int64}}, Type{<:Tuple{Callable{Tuple{Int64}, Float64}, Int64}}}
+)::Bool
+
+Stacktrace:
+ [1] hasmethod(f::Callable{Tuple{Int64}, Float64}, t::Type{Tuple{Int64}})
+   @ Base reflection.jl:1085
+ [2] _first_unmet(f::Callable{Tuple{Int64}, Float64}, sigs::Tuple{Tuple{DataType, DataType}})
+   @ TraitWorld /p/projects/coen/julia-trait-bound/wt/w158b-tw/src/callable.jl:77 [inlined]
+ [3] _callable_met(::Type{Callable{Tuple{Int64}, Float64}}, f::Callable{Tuple{Int64}, Float64})
+   @ TraitWorld /p/projects/coen/julia-trait-bound/wt/w158b-tw/src/callable.jl:74 [inlined]
+ [4] _callable_box_check(::Type{Dynamic{Callable{Tuple{Int64}, Float64}}}, f::Callable{Tuple{Int64}, Float64}, self::typeof(mktrip), args::Tuple{typeof(c4), Callable{Tuple{Int64}, Float64}, Callable{Tuple{Int64, Float64}, Float64}})
+   @ TraitWorld /p/projects/coen/julia-trait-bound/wt/w158b-tw/src/callable.jl:80 [inlined]
+ [5] mktrip(c::typeof(c4), a::Callable{Tuple{Int64}, Float64}, i::Callable{Tuple{Int64, Float64}, Float64})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/implementation/w158/apps/i-ctor3.jl:29
+ [6] enter3(rs::Vector{Raw3})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/implementation/w158/apps/i-ctor3.jl:37
+ [7] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/implementation/w158/apps/i-ctor3.jl:44
+ [8] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/wt/w158-julia/test/trimming/juliac-buildscript.jl:35
+
+Error #12: unresolved call from statement (#self#::typeof(mktrip))(
+  Dynamic{Callable{Tuple{Float64}, Float64}}(Main.c4)::Dynamic{Callable{Tuple{Float64}, Float64}},
+  :(φ (%5 => _3, %18 => %18))::Callable{Tuple{Int64}, Float64},
+  :(φ (%22 => _4, %35 => %35))::Callable{Tuple{Int64, Float64}, Float64}
+)::Any
+
+Stacktrace:
+ [1] mktrip(c::typeof(c4), a::Callable{Tuple{Int64}, Float64}, i::Callable{Tuple{Int64, Float64}, Float64})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/implementation/w158/apps/i-ctor3.jl:29
+ [2] enter3(rs::Vector{Raw3})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/implementation/w158/apps/i-ctor3.jl:37
+ [3] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/implementation/w158/apps/i-ctor3.jl:44
+ [4] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/wt/w158-julia/test/trimming/juliac-buildscript.jl:35
+
+Error #13: unresolved call from statement (#self#::typeof(mktrip))(
+  Dynamic{Callable{Tuple{Float64}, Float64}}(Main.c3)::Dynamic{Callable{Tuple{Float64}, Float64}},
+  :(φ (%5 => _3, %18 => %18))::Callable{Tuple{Int64}, Float64},
+  :(φ (%22 => _4, %35 => %35))::Callable{Tuple{Int64, Float64}, Float64}
+)::Any
+
+Stacktrace:
+ [1] mktrip(c::typeof(c3), a::Callable{Tuple{Int64}, Float64}, i::Callable{Tuple{Int64, Float64}, Float64})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/implementation/w158/apps/i-ctor3.jl:29
+ [2] enter3(rs::Vector{Raw3})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/implementation/w158/apps/i-ctor3.jl:37
+ [3] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/implementation/w158/apps/i-ctor3.jl:44
+ [4] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/wt/w158-julia/test/trimming/juliac-buildscript.jl:35
+
+Error #14: unresolved call from statement (#self#::typeof(mktrip))(
+  Dynamic{Callable{Tuple{Float64}, Float64}}(Main.c2)::Dynamic{Callable{Tuple{Float64}, Float64}},
+  :(φ (%5 => _3, %18 => %18))::Callable{Tuple{Int64}, Float64},
+  :(φ (%22 => _4, %35 => %35))::Callable{Tuple{Int64, Float64}, Float64}
+)::Any
+
+Stacktrace:
+ [1] mktrip(c::typeof(c2), a::Callable{Tuple{Int64}, Float64}, i::Callable{Tuple{Int64, Float64}, Float64})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/implementation/w158/apps/i-ctor3.jl:29
+ [2] enter3(rs::Vector{Raw3})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/implementation/w158/apps/i-ctor3.jl:37
+ [3] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/implementation/w158/apps/i-ctor3.jl:44
+ [4] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/wt/w158-julia/test/trimming/juliac-buildscript.jl:35
+
+Error #15: unresolved call from statement (#self#::typeof(mktrip))(
+  Dynamic{Callable{Tuple{Float64}, Float64}}(Main.c1)::Dynamic{Callable{Tuple{Float64}, Float64}},
+  :(φ (%5 => _3, %18 => %18))::Callable{Tuple{Int64}, Float64},
+  :(φ (%22 => _4, %35 => %35))::Callable{Tuple{Int64, Float64}, Float64}
+)::Any
+
+Stacktrace:
+ [1] mktrip(c::typeof(c1), a::Callable{Tuple{Int64}, Float64}, i::Callable{Tuple{Int64, Float64}, Float64})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/implementation/w158/apps/i-ctor3.jl:29
+ [2] enter3(rs::Vector{Raw3})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/implementation/w158/apps/i-ctor3.jl:37
+ [3] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/implementation/w158/apps/i-ctor3.jl:44
+ [4] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/wt/w158-julia/test/trimming/juliac-buildscript.jl:35
+
+Trim verify finished with 15 errors, 0 warnings.
+object: exit 1

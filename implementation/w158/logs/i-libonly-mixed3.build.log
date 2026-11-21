@@ -1,0 +1,113 @@
+# W-166 /p/projects/coen/julia-trait-bound/experiments/implementation/w158/apps/i-mixed3.jl 2026-11-21T22:49:09+01:00 load 2.70 3.55 3.28 | wt/w158-julia dc11704ef7 TraitWorld 2d93199 trim=safe
+closed build: 3 rounds, 87 types forgotten, 6 flows between places
+  Core.Callable{Tuple{Int64, Float64}, Float64}: split with 0 candidates; it has 0, members of its type 0
+  Core.Callable{A, S} where S where A<:Tuple: split with 17 candidates; it has 17, members of its type 17
+    typeof(Main.c3)
+    typeof(Main.a4)
+    typeof(Main.i5)
+    typeof(Main.c1)
+    typeof(Main.a1)
+    typeof(Main.i2)
+    typeof(Main.c2)
+    typeof(Main.a5)
+    typeof(Main.i1)
+    typeof(Main.a3)
+    typeof(Main.a2)
+    typeof(Main.i3)
+    typeof(Main.c4)
+    typeof(Main.c5)
+    typeof(Main.i4)
+    Core.Dynamic{Core.Callable{Tuple{Float64}, Float64}}
+    Core.Dynamic{Core.Callable{Tuple{Int64}, Float64}}
+  Core.Callable{Tuple{Int64}, Float64}: split with 3 candidates; it has 3, members of its type 3
+    typeof(Main.a1)
+    typeof(Main.a5)
+    typeof(Main.a3)
+  Core.Callable{Tuple{Float64}, Float64}: split with 2 candidates; it has 2, members of its type 2
+    typeof(Main.c3)
+    typeof(Main.c2)
+  forgotten: Core.Dynamic{Core.Callable{Tuple{Float64}, Float64}} at Core.Callable{A, S} where S where A<:Tuple
+  forgotten: typeof(Main.c3) at Core.Callable{Tuple{Float64}, Float64}
+  forgotten: typeof(Main.c3) at Core.Callable{A, S} where S where A<:Tuple
+  forgotten: typeof(Main.a4) at Core.Callable{A, S} where S where A<:Tuple
+  forgotten: typeof(Main.i5) at Core.Callable{A, S} where S where A<:Tuple
+  forgotten: typeof(Main.c1) at Core.Callable{A, S} where S where A<:Tuple
+  forgotten: Core.Dynamic{Core.Callable{Tuple{Int64}, Float64}} at Core.Callable{A, S} where S where A<:Tuple
+  forgotten: typeof(Main.a1) at Core.Callable{Tuple{Int64}, Float64}
+  forgotten: typeof(Main.a1) at Core.Callable{A, S} where S where A<:Tuple
+  forgotten: typeof(Main.i2) at Core.Callable{A, S} where S where A<:Tuple
+  forgotten: typeof(Main.c2) at Core.Callable{Tuple{Float64}, Float64}
+  forgotten: typeof(Main.c2) at Core.Callable{A, S} where S where A<:Tuple
+  forgotten: typeof(Main.a5) at Core.Callable{Tuple{Int64}, Float64}
+  forgotten: typeof(Main.a5) at Core.Callable{A, S} where S where A<:Tuple
+  forgotten: typeof(Main.i1) at Core.Callable{A, S} where S where A<:Tuple
+  forgotten: typeof(Main.a3) at Core.Callable{Tuple{Int64}, Float64}
+  forgotten: typeof(Main.a3) at Core.Callable{A, S} where S where A<:Tuple
+  forgotten: typeof(Main.a2) at Core.Callable{A, S} where S where A<:Tuple
+  forgotten: typeof(Main.i3) at Core.Callable{A, S} where S where A<:Tuple
+  forgotten: typeof(Main.c4) at Core.Callable{A, S} where S where A<:Tuple
+  forgotten: typeof(Main.c5) at Core.Callable{A, S} where S where A<:Tuple
+  forgotten: typeof(Main.i4) at Core.Callable{A, S} where S where A<:Tuple
+  instances 341, with code 341, with statement types 341
+Error #1: unresolved call from statement mktrip(
+  getfield(:(φ (%26 => %24))::Raw3, :c::Symbol)::Callable,
+  getfield(:(φ (%26 => %24))::Raw3, :a::Symbol)::Callable,
+  getfield(:(φ (%26 => %24))::Raw3, :i::Symbol)::Callable
+)::Any
+
+Stacktrace:
+ [1] enter3(rs::Vector{Raw3})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/implementation/w158/apps/i-ctor3.jl:37
+ [2] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/implementation/w158/apps/i-mixed3.jl:11
+ [3] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/wt/w158-julia/test/trimming/juliac-buildscript.jl:35
+
+Error #1: unresolved call from statement usetrip(
+  mktrip(
+    getfield(:(φ (%26 => %24))::Raw3, :c::Symbol)::Callable,
+    getfield(:(φ (%26 => %24))::Raw3, :a::Symbol)::Callable,
+    getfield(:(φ (%26 => %24))::Raw3, :i::Symbol)::Callable
+  )::Union{Trip{Dynamic{Callable{Tuple{Float64}, Float64}}, Compiled{var"#s111"}, Compiled{var"#s1111"}} where {var"#s111"<:Callable{Tuple{Int64}, Float64}, var"#s1111"<:Callable{Tuple{Int64, Float64}, Float64}}, Trip{Dynamic{Callable{Tuple{Float64}, Float64}}, Compiled{var"#s111"}, Dynamic{var"#s112"}} where {var"#s111"<:Callable{Tuple{Int64}, Float64}, var"#s112"<:Callable{Tuple{Int64, Float64}, Float64}}, Trip{Dynamic{Callable{Tuple{Float64}, Float64}}, Dynamic{var"#s112"}, Compiled{var"#s111"}} where {var"#s112"<:Callable{Tuple{Int64}, Float64}, var"#s111"<:Callable{Tuple{Int64, Float64}, Float64}}, Trip{Dynamic{Callable{Tuple{Float64}, Float64}}, Dynamic{var"#s112"}, Dynamic{var"#s1121"}} where {var"#s112"<:Callable{Tuple{Int64}, Float64}, var"#s1121"<:Callable{Tuple{Int64, Float64}, Float64}}}
+)::Union{}
+
+Stacktrace:
+ [1] enter3(rs::Vector{Raw3})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/implementation/w158/apps/i-ctor3.jl:37
+ [2] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/implementation/w158/apps/i-mixed3.jl:11
+ [3] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/wt/w158-julia/test/trimming/juliac-buildscript.jl:35
+
+Error #2: unresolved call from statement mktrip(
+  getfield(:(φ (%26 => %24))::Raw3, :c::Symbol)::Callable,
+  getfield(:(φ (%26 => %24))::Raw3, :a::Symbol)::Callable,
+  getfield(:(φ (%26 => %24))::Raw3, :i::Symbol)::Callable
+)::Any
+
+Stacktrace:
+ [1] enter3(rs::Vector{Raw3})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/implementation/w158/apps/i-ctor3.jl:37
+ [2] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/implementation/w158/apps/i-mixed3.jl:11
+ [3] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/wt/w158-julia/test/trimming/juliac-buildscript.jl:35
+
+Error #2: unresolved call from statement usetrip(
+  mktrip(
+    getfield(:(φ (%26 => %24))::Raw3, :c::Symbol)::Callable,
+    getfield(:(φ (%26 => %24))::Raw3, :a::Symbol)::Callable,
+    getfield(:(φ (%26 => %24))::Raw3, :i::Symbol)::Callable
+  )::Union{Trip{Dynamic{Callable{Tuple{Float64}, Float64}}, Compiled{var"#s111"}, Compiled{var"#s1111"}} where {var"#s111"<:Callable{Tuple{Int64}, Float64}, var"#s1111"<:Callable{Tuple{Int64, Float64}, Float64}}, Trip{Dynamic{Callable{Tuple{Float64}, Float64}}, Compiled{var"#s111"}, Dynamic{var"#s112"}} where {var"#s111"<:Callable{Tuple{Int64}, Float64}, var"#s112"<:Callable{Tuple{Int64, Float64}, Float64}}, Trip{Dynamic{Callable{Tuple{Float64}, Float64}}, Dynamic{var"#s112"}, Compiled{var"#s111"}} where {var"#s112"<:Callable{Tuple{Int64}, Float64}, var"#s111"<:Callable{Tuple{Int64, Float64}, Float64}}, Trip{Dynamic{Callable{Tuple{Float64}, Float64}}, Dynamic{var"#s112"}, Dynamic{var"#s1121"}} where {var"#s112"<:Callable{Tuple{Int64}, Float64}, var"#s1121"<:Callable{Tuple{Int64, Float64}, Float64}}}
+)::Union{}
+
+Stacktrace:
+ [1] enter3(rs::Vector{Raw3})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/implementation/w158/apps/i-ctor3.jl:37
+ [2] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/implementation/w158/apps/i-mixed3.jl:11
+ [3] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/wt/w158-julia/test/trimming/juliac-buildscript.jl:35
+
+Trim verify finished with 2 errors, 2 warnings.
+object: exit 1
