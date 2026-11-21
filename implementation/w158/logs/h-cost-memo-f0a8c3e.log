@@ -1,0 +1,51 @@
+TraitWorld at /p/projects/coen/julia-trait-bound/wt/w158g-tw/src/TraitWorld.jl  commit f0a8c3e  load 5.52 7.76 9.03  threads 1
+142 methods read at the box; a walk's result kept across checks (H_MEMO): true
+walks kept after the first pass: 383; hits, misses [184, 383]
+second pass 0.28 s; walks: hits, misses [500, 0]
+
+per method, ms (median / mean / max), 142 methods:
+  opt       0.14 /     0.44 /     18.29   inference and optimization of the instance at the box (the kept instance)
+  inf       0.06 /      0.3 /      12.3   inference before optimization (a second inference)
+  r0        0.03 /     0.11 /      4.12   the reading in force over the optimized code
+  cde       0.01 /     0.03 /      0.93   reading (c)+(d)+(e) over the optimized code
+  bcde      0.01 /      0.3 /      3.75   reading (b)-(e) over the optimized code
+  acde      0.01 /     0.03 /      0.27   reading (a)+(c)+(d)+(e) over the inferred code
+  all       0.01 /     0.28 /       8.3   reading (a)-(e) over the inferred code
+  allf      0.02 /     0.31 /      8.27   reading (a)-(f) over the inferred code
+
+the check per method, ms (median / mean / total):
+  in force: inference+optimization, the reading                         0.17 /     0.56 /     78.85   ratio of totals 1.0
+  (c)+(d)+(e) over the optimized code                                   0.16 /     0.48 /     67.67   ratio of totals 0.858
+  (b)-(e) over the optimized code                                       0.17 /     0.74 /    105.15   ratio of totals 1.334
+  (a)+(c)+(d)+(e), the inferred code kept from the one inference        0.15 /     0.47 /      66.5   ratio of totals 0.843
+  (a)+(c)+(d)+(e), a second inference                                   0.22 /     0.77 /     109.6   ratio of totals 1.39
+  (a)-(e), a second inference                                           0.23 /     1.03 /    146.39   ratio of totals 1.857
+  (a)-(f), a second inference                                           0.23 /     1.05 /    149.71   ratio of totals 1.899
+  (a)-(e), the inferred code kept from the one inference                0.17 /     0.73 /     103.3   ratio of totals 1.31
+  (a)-(f), the inferred code kept from the one inference                0.17 /     0.75 /    106.62   ratio of totals 1.352
+
+the ten slowest under (a)-(e), ms (inference+opt, second inference, reading in force, reading (a)-(e)):
+  0.17  0.09  0.02  8.3   `solve_nonlinear(prob::NonlinearProblemTrait{T, P}, alg::NonlinearAlgorithm, opts::TraitNonlinearSolve.NLOptions) where {T, P}`
+  0.28  0.16  0.05  2.66   `SteadyStateProblem(f::Union{Compiled{<:Callable{Tuple{Vector{T}, Vector{T}, P, Float64}, Nothing}}, Dynamic{<:Callable{Tuple{Vector{T}, Vector{T}, P, Float64}, Nothing}}}, u0::AbstractVector{T}, p::P; t::Real) where {T, P}`
+  0.25  0.15  0.04  2.47   `NonlinearProblem(f::Union{Compiled{<:Callable{Tuple{Vector{T}, Vector{T}, P}, Nothing}}, Dynamic{<:Callable{Tuple{Vector{T}, Vector{T}, P}, Nothing}}}, u0::AbstractVector{T}, p::P) where {T, P}`
+  0.2  0.13  0.06  1.8   `ODEProblem(f::Union{Compiled{<:Callable{Tuple{Vector{T}, Vector{T}, P, Float64}, Nothing}}, Dynamic{<:Callable{Tuple{Vector{T}, Vector{T}, P, Float64}, Nothing}}}, u0::AbstractVector{T}, tspan, p::P) where {T, P}`
+  0.17  0.1  0.05  1.79   `ODEProblem(f::Union{Compiled{<:Callable{Tuple{Vector{T}, Vector{T}, Nothing, Float64}, Nothing}}, Dynamic{<:Callable{Tuple{Vector{T}, Vector{T}, Nothing, Float64}, Nothing}}}, u0::AbstractVector{T}, tspan) where T`
+  0.13  0.06  0.12  1.74   `SteadyStateProblem(f::Union{Compiled{<:Callable{Tuple{Vector{T}, Vector{T}, Nothing, Float64}, Nothing}}, Dynamic{<:Callable{Tuple{Vector{T}, Vector{T}, Nothing, Float64}, Nothing}}}, u0::AbstractVector{T}; t::Real) where T`
+  0.17  0.09  0.05  1.69   `SteadyStateProblem(f::Union{Compiled{<:Callable{Tuple{Vector{T}, Vector{T}, Nothing, Float64}, Nothing}}, Dynamic{<:Callable{Tuple{Vector{T}, Vector{T}, Nothing, Float64}, Nothing}}}, u0::AbstractVector{T}) where T`
+  0.5  0.38  0.06  1.66   `_sync_in!(pi::ODECore.ParamIntegrator{U, T}, sv::ODECore.StepView{U, T}) where {U, T}`
+  0.14  0.08  0.12  1.62   `(callback, ::Type{ODEProblem}, f::Union{Compiled{<:Callable{Tuple{Vector{T}, Vector{T}, Nothing, Float64}, Nothing}}, Dynamic{<:Callable{Tuple{Vector{T}, Vector{T}, Nothing, Float64}, Nothing}}}, u0::AbstractVector{T}, tspan) where T -> …`
+  0.17  0.1  0.05  1.56   `SteadyStateProblem(f::Union{Compiled{<:Callable{Tuple{Vector{T}, Vector{T}, P, Float64}, Nothing}}, Dynamic{<:Callable{Tuple{Vector{T}, Vector{T}, P, Float64}, Nothing}}}, u0::AbstractVector{T}, p::P) where {T, P}`
+
+the ten slowest under (c)+(d)+(e), ms (inference+opt, reading in force, reading (c)+(d)+(e)):
+  18.29  4.12  0.93   `trust_region(ls::LinearSolver, Δ0::Float64, Δmax::Float64, m::TraitNonlinearSolve.NLCoreProblem{T, F, J} where {F<:Callable{Tuple{Vector{T}, Vector{T}}, Nothing}, J<:Callable{Tuple{Matrix{T}, Vector{T}}, Nothing}}, opts::TraitNonlinearSolve.NLOptions) where T`
+  5.05  2.47  0.49   `newton_raphson(ls::LinearSolver, linesearch::Bool, m::TraitNonlinearSolve.NLCoreProblem{T, F, J} where {F<:Callable{Tuple{Vector{T}, Vector{T}}, Nothing}, J<:Callable{Tuple{Matrix{T}, Vector{T}}, Nothing}}, opts::TraitNonlinearSolve.NLOptions) where T`
+  2.79  1.31  0.32   `steppoints(pos::Positions, step::Symbol)`
+  2.72  1.15  0.16   `newton_stage!(ls::LinearSolver, J::Matrix{Float64}, r::Vector{Float64}, dx::Vector{Float64}, fx::Vector{Float64}, maxiters::Int64, tol::Float64, frozen::Bool, m::ODECore.CoreProblem, x::Vector{Float64}, z::Vector{Float64}, t::Float64, γdt::Float64)`
+  0.14  0.12  0.14   `(callback, ::Type{ODEProblem}, f::Union{Compiled{<:Callable{Tuple{Vector{T}, Vector{T}, Nothing, Float64}, Nothing}}, Dynamic{<:Callable{Tuple{Vector{T}, Vector{T}, Nothing, Float64}, Nothing}}}, u0::AbstractVector{T}, tspan) where T -> …`
+  0.13  0.12  0.13   `SteadyStateProblem(f::Union{Compiled{<:Callable{Tuple{Vector{T}, Vector{T}, Nothing, Float64}, Nothing}}, Dynamic{<:Callable{Tuple{Vector{T}, Vector{T}, Nothing, Float64}, Nothing}}}, u0::AbstractVector{T}; t::Real) where T`
+  2.09  0.52  0.13   `binned(s::Sample, bins::Int64)`
+  1.27  0.41  0.11   `bandoutline(lo::Positions, up::Positions)`
+  1.7  0.41  0.1   `drawmarkers(m::MarkerShape, c::TraitMakie.PlotCore.Canvas, xs::Vector{Float64}, ys::Vector{Float64}, cols::Vector{NTuple{4, Float64}}, r::Float64)`
+  1.74  0.39  0.09   `locate_events!(events::Vector{ODECore.StepEvent{Vector{Float64}, Float64}}, evprev::Vector{Float64}, iv::ODECore.StepView{Vector{Float64}, Float64}, u::Vector{Float64}, utilde::Vector{Float64}, tprev::Float64, t::Float64, dt::Float64)`
+faults: in force 0; (c)+(d)+(e) 0; (b)-(e) 1; (a)+(c)+(d)+(e) 0; (a)-(e) 1; (a)-(f) 1
+load after 5.48 7.72 9.00

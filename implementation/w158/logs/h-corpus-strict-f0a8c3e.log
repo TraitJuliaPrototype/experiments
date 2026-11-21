@@ -1,0 +1,39 @@
+# 2026-11-21T21:08:14+01:00 load 5.93 8.14 9.20
+TraitWorld at /p/projects/coen/julia-trait-bound/wt/w158g-tw/src/TraitWorld.jl  commit f0a8c3e  corpus strict  load 5.93 8.14 9.20
+PASS  §18 sq([1.0, 2.0, 3.0])
+PASS  §18 the pirate is refused: PirateError
+      message: PirateError: strict mode refuses `abs2(Float64)`, defined by Main.Meddler2. |   It would win at the call `abs2(::Float64)`, which code compiled by facts makes (in `Main.Norms.sq`). |   Main.Meddler2 owns neither the function nor a type in that signature (a pirate). Define it where a type it is for is owned, name the definer a joint owner (`@joint_owners`), or turn strict mode off (`TraitWorld.strict!(false)`) to follow it as plain Julia does.
+PASS  §18 sq is unchanged
+PASS  §18 the pirate was never defined
+PASS  §18 a pirate that changes no code compiled by facts is accepted
+
+5 pass, 0 fail, 0 known deviations
+   candidates in the method table: 0, live: 0
+
+== corpus strict: 1 methods read at the box (1 taken at a check while the corpus ran); 0 readings raised; 3.8 s
+   R0 not bounded: 0
+   per module: Main.Norms 1
+
+-- reading x0: 0 verdicts differ from R0
+
+-- reading a: 0 verdicts differ from R0
+
+-- reading b: 0 verdicts differ from R0
+
+-- reading c: 0 verdicts differ from R0
+
+-- reading d: 0 verdicts differ from R0
+
+-- reading e: 0 verdicts differ from R0
+
+-- reading cde: 0 verdicts differ from R0
+
+-- reading bcde: 0 verdicts differ from R0
+
+-- reading acde: 0 verdicts differ from R0
+
+-- reading all: 0 verdicts differ from R0
+
+-- reading f: 0 verdicts differ from R0
+
+-- reading allf: 0 verdicts differ from R0

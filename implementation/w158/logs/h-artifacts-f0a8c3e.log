@@ -1,0 +1,420 @@
+TraitWorld at /p/projects/coen/julia-trait-bound/wt/w158g-tw/src/TraitWorld.jl  commit f0a8c3e
+
+== p1_split
+   R0   bounded     
+   x0   bounded     
+   a    bounded     
+   b    bounded     
+   c    bounded     
+   d    bounded     
+   e    bounded     
+   cde  bounded     
+   bcde bounded     
+   acde bounded     
+   all  bounded     
+   f    bounded     
+   allf bounded     
+
+== p2_covered
+   R0   bounded     
+   x0   bounded     
+   a    bounded     
+   b    bounded     
+   c    bounded     
+   d    bounded     
+   e    bounded     
+   cde  bounded     
+   bcde bounded     
+   acde bounded     
+   all  bounded     
+   f    bounded     
+   allf bounded     
+
+== p2_part
+   R0   bounded     
+   x0   bounded     
+   a    bounded     
+   b    bounded     
+   c    bounded     
+   d    bounded     
+   e    bounded     
+   cde  bounded     
+   bcde bounded     
+   acde bounded     
+   all  bounded     
+   f    bounded     
+   allf bounded     
+
+== p3_inlined
+   R0   not bounded throws: bad(t) only throws (in MethodInstance for Main.A.kk(::Float64, ::Dynamic{Main.A.X}) at artifacts.jl:39), at line 41
+   x0   not bounded throws: bad(t) only throws, at line 41
+   a    bounded     
+   b    not bounded throws: bad(t) only throws, at line 41
+   c    not bounded throws: bad(t) only throws, at line 41
+   d    bounded     
+   e    not bounded throws: bad(t) only throws, at line 41
+   cde  bounded     
+   bcde bounded     
+   acde bounded     
+   all  bounded     
+   f    not bounded throws: bad(t) only throws, at line 41
+   allf bounded     
+
+== p3_not_inlined
+   R0   bounded     
+   x0   bounded     
+   a    bounded     
+   b    bounded     
+   c    bounded     
+   d    bounded     
+   e    bounded     
+   cde  bounded     
+   bcde bounded     
+   acde bounded     
+   all  bounded     
+   f    bounded     
+   allf bounded     
+
+== p4_inlined
+   R0   not bounded nomethod: sum(t) reaches iterate(::Dynamic{Main.A.X}), which has no method (through sum → mapreduce → mapfoldl → mapfoldl_impl → foldl_impl → _foldl_impl) (in MethodInstance for Main.A.g4(::Dynamic{Main.A.X}, ::Int64) at artifacts.jl:44), at line 46
+   x0   not bounded nomethod: sum(t) reaches iterate(::Dynamic{Main.A.X}), which has no method (through sum → mapreduce → mapfoldl → mapfoldl_impl → foldl_impl → _foldl_impl), at line 46
+   a    bounded     
+   b    not bounded nomethod: sum(t) reaches iterate(::Dynamic{Main.A.X}), which has no method (through sum → mapreduce → mapfoldl → mapfoldl_impl → foldl_impl → _foldl_impl), at line 46
+   c    not bounded nomethod: sum(t) reaches iterate(::Dynamic{Main.A.X}), which has no method (through sum → mapreduce → mapfoldl → mapfoldl_impl → foldl_impl → _foldl_impl), at line 46
+   d    not bounded nomethod: sum(t) reaches iterate(::Dynamic{Main.A.X}), which has no method (through sum → mapreduce → mapfoldl → mapfoldl_impl → foldl_impl → _foldl_impl), at line 46
+   e    not bounded nomethod: sum(t) reaches iterate(::Dynamic{Main.A.X}), which has no method (through sum → mapreduce → mapfoldl → mapfoldl_impl → foldl_impl → _foldl_impl), at line 46
+   cde  not bounded nomethod: sum(t) reaches iterate(::Dynamic{Main.A.X}), which has no method (through sum → mapreduce → mapfoldl → mapfoldl_impl → foldl_impl → _foldl_impl), at line 46
+   bcde not bounded nomethod: sum(t) reaches iterate(::Dynamic{Main.A.X}), which has no method (through sum → mapreduce → mapfoldl → mapfoldl_impl → foldl_impl → _foldl_impl), at line 46
+   acde bounded     
+   all  not bounded nomethod: g4(t, k) reaches iterate(::Dynamic{Main.A.X}), which has no method (through sum → mapreduce → mapfoldl → mapfoldl_impl → foldl_impl → _foldl_impl), at line 46
+   f    not bounded nomethod: sum(t) reaches iterate(::Dynamic{Main.A.X}), which has no method (through sum → mapreduce → mapfoldl → mapfoldl_impl → foldl_impl → _foldl_impl), at line 46
+   allf not bounded nomethod: g4(t, k) reaches iterate(::Dynamic{Main.A.X}), which has no method (through sum → mapreduce → mapfoldl → mapfoldl_impl → foldl_impl → _foldl_impl), at line 46
+
+== p4_not_inlined
+   R0   bounded     
+   x0   bounded     
+   a    bounded     
+   b    not bounded nomethod: g4n(t, k) reaches iterate(::Dynamic{Main.A.X}), which has no method (through sum → mapreduce → mapfoldl → mapfoldl_impl → foldl_impl → _foldl_impl), at line 47
+   c    bounded     
+   d    bounded     
+   e    bounded     
+   cde  bounded     
+   bcde not bounded nomethod: g4n(t, k) reaches iterate(::Dynamic{Main.A.X}), which has no method (through sum → mapreduce → mapfoldl → mapfoldl_impl → foldl_impl → _foldl_impl), at line 47
+   acde bounded     
+   all  not bounded nomethod: g4n(t, k) reaches iterate(::Dynamic{Main.A.X}), which has no method (through sum → mapreduce → mapfoldl → mapfoldl_impl → foldl_impl → _foldl_impl), at line 47
+   f    not bounded nomethod: g4n(t, k) reaches iterate(::Dynamic{Main.A.X}), which has no method (through sum → mapreduce → mapfoldl → mapfoldl_impl → foldl_impl → _foldl_impl), at line 47
+   allf not bounded nomethod: g4n(t, k) reaches iterate(::Dynamic{Main.A.X}), which has no method (through sum → mapreduce → mapfoldl → mapfoldl_impl → foldl_impl → _foldl_impl), at line 47
+
+== p5_assert
+   R0   bounded     
+   x0   bounded     
+   a    bounded     
+   b    bounded     
+   c    not bounded assert: `t::Main.A.M` never holds at the box, at line 49
+   d    bounded     
+   e    bounded     
+   cde  not bounded assert: `t::Main.A.M` never holds at the box, at line 49
+   bcde not bounded assert: `t::Main.A.M` never holds at the box, at line 49
+   acde not bounded assert: `t::Main.A.M` never holds at the box, at line 49
+   all  not bounded assert: `t::Main.A.M` never holds at the box, at line 49
+   f    bounded     
+   allf not bounded assert: `t::Main.A.M` never holds at the box, at line 49
+
+== p6_error
+   R0   not bounded throws: error("negative: ", t) only throws, at line 51
+   x0   not bounded throws: error("negative: ", t) only throws, at line 51
+   a    not bounded throws: error("negative: ", t) only throws, at line 51
+   b    not bounded throws: error("negative: ", t) only throws, at line 51
+   c    not bounded throws: error("negative: ", t) only throws, at line 51
+   d    bounded     
+   e    not bounded throws: error("negative: ", t) only throws, at line 51
+   cde  bounded     
+   bcde bounded     
+   acde bounded     
+   all  bounded     
+   f    not bounded throws: error("negative: ", t) only throws, at line 51
+   allf bounded     
+
+== p6_throw
+   R0   bounded     
+   x0   bounded     
+   a    bounded     
+   b    bounded     
+   c    bounded     
+   d    bounded     
+   e    bounded     
+   cde  bounded     
+   bcde bounded     
+   acde bounded     
+   all  bounded     
+   f    bounded     
+   allf bounded     
+
+== p7_inlined
+   R0   bounded     
+   x0   bounded     
+   a    bounded     
+   b    bounded     
+   c    bounded     
+   d    bounded     
+   e    bounded     
+   cde  bounded     
+   bcde bounded     
+   acde bounded     
+   all  bounded     
+   f    bounded     
+   allf bounded     
+
+== p7_not_inlined
+   R0   bounded     
+   x0   bounded     
+   a    bounded     
+   b    bounded     
+   c    bounded     
+   d    bounded     
+   e    bounded     
+   cde  bounded     
+   bcde bounded     
+   acde bounded     
+   all  bounded     
+   f    bounded     
+   allf bounded     
+
+== p8_five
+   R0   bounded     
+   x0   bounded     
+   a    bounded     
+   b    bounded     
+   c    bounded     
+   d    bounded     
+   e    not bounded nomethod: five(::Y) has no method, at line 63
+   cde  not bounded nomethod: five(::Y) has no method, at line 63
+   bcde not bounded nomethod: five(::Y) has no method, at line 63
+   acde not bounded nomethod: five(::Y) has no method at the box, at line 63
+   all  not bounded nomethod: five(::Y) has no method at the box, at line 63
+   f    bounded     
+   allf not bounded nomethod: five(::Y) has no method at the box, at line 63
+
+== p8_one
+   R0   bounded     
+   x0   bounded     
+   a    bounded     
+   b    bounded     
+   c    bounded     
+   d    bounded     
+   e    not bounded nomethod: onlycirc(::Y) has no method, at line 60
+   cde  not bounded nomethod: onlycirc(::Y) has no method, at line 60
+   bcde not bounded nomethod: onlycirc(::Y) has no method, at line 60
+   acde not bounded nomethod: onlycirc(::Y) has no method at the box, at line 60
+   all  not bounded nomethod: onlycirc(::Y) has no method at the box, at line 60
+   f    bounded     
+   allf not bounded nomethod: onlycirc(::Y) has no method at the box, at line 60
+
+== p8_trait
+   R0   bounded     
+   x0   bounded     
+   a    bounded     
+   b    bounded     
+   c    bounded     
+   d    bounded     
+   e    bounded     
+   cde  bounded     
+   bcde bounded     
+   acde bounded     
+   all  bounded     
+   f    bounded     
+   allf bounded     
+
+== p9_throw_builtin
+   R0   bounded     
+   x0   bounded     
+   a    bounded     
+   b    bounded     
+   c    bounded     
+   d    bounded     
+   e    bounded     
+   cde  bounded     
+   bcde bounded     
+   acde bounded     
+   all  bounded     
+   f    bounded     
+   allf bounded     
+
+== p10_none
+   R0   not bounded nomethod: gint(::Sol, t) has no method, at line 69
+   x0   not bounded nomethod: gint(::Sol, t) has no method, at line 69
+   a    not bounded nomethod: gint(::Sol, t) has no method, at line 69
+   b    not bounded nomethod: gint(::Sol, t) has no method, at line 69
+   c    not bounded nomethod: gint(::Sol, t) has no method, at line 69
+   d    not bounded nomethod: gint(::Sol, t) has no method, at line 69
+   e    not bounded nomethod: gint(::Sol, t) has no method, at line 69
+   cde  not bounded nomethod: gint(::Sol, t) has no method, at line 69
+   bcde not bounded nomethod: gint(::Sol, t) has no method, at line 69
+   acde not bounded nomethod: gint(::Sol, t) has no method, at line 69
+   all  not bounded nomethod: gint(::Sol, t) has no method, at line 69
+   f    not bounded nomethod: gint(::Sol, t) has no method, at line 69
+   allf not bounded nomethod: gint(::Sol, t) has no method, at line 69
+
+== p11_closure
+   R0   bounded     
+   x0   bounded     
+   a    bounded     
+   b    bounded     
+   c    bounded     
+   d    bounded     
+   e    bounded     
+   cde  bounded     
+   bcde bounded     
+   acde bounded     
+   all  bounded     
+   f    not bounded nomethod: map((i) -> …, ::UnitRange{Int64}) reaches iterate(::Dynamic{Main.A.X}), which has no method (through collect_similar → %23 → sum → mapreduce → mapfoldl → mapfoldl_impl → foldl_impl → _foldl_impl), at line 75
+   allf not bounded nomethod: map((i) -> …, ::UnitRange{Int64}) reaches iterate(::Dynamic{Main.A.X}), which has no method (through collect_similar → _collect → iterate → %20 → sum → mapreduce → mapfoldl → mapfoldl_impl → foldl_impl → _foldl_impl), at line 75
+
+== p12_errnomethod
+   R0   not bounded nomethod: sum(t) reaches iterate(::Dynamic{Main.A.X}), which has no method (through sum → mapreduce → mapfoldl → mapfoldl_impl → foldl_impl → _foldl_impl), at line 77
+   x0   not bounded nomethod: sum(t) reaches iterate(::Dynamic{Main.A.X}), which has no method (through sum → mapreduce → mapfoldl → mapfoldl_impl → foldl_impl → _foldl_impl), at line 77
+   a    not bounded nomethod: sum(t) reaches iterate(::Dynamic{Main.A.X}), which has no method (through sum → mapreduce → mapfoldl → mapfoldl_impl → foldl_impl → _foldl_impl), at line 77
+   b    not bounded nomethod: sum(t) reaches iterate(::Dynamic{Main.A.X}), which has no method (through sum → mapreduce → mapfoldl → mapfoldl_impl → foldl_impl → _foldl_impl), at line 77
+   c    not bounded nomethod: sum(t) reaches iterate(::Dynamic{Main.A.X}), which has no method (through sum → mapreduce → mapfoldl → mapfoldl_impl → foldl_impl → _foldl_impl), at line 77
+   d    not bounded nomethod: sum(t) reaches iterate(::Dynamic{Main.A.X}), which has no method (through sum → mapreduce → mapfoldl → mapfoldl_impl → foldl_impl → _foldl_impl), at line 77
+   e    not bounded nomethod: sum(t) reaches iterate(::Dynamic{Main.A.X}), which has no method (through sum → mapreduce → mapfoldl → mapfoldl_impl → foldl_impl → _foldl_impl), at line 77
+   cde  not bounded nomethod: sum(t) reaches iterate(::Dynamic{Main.A.X}), which has no method (through sum → mapreduce → mapfoldl → mapfoldl_impl → foldl_impl → _foldl_impl), at line 77
+   bcde not bounded nomethod: sum(t) reaches iterate(::Dynamic{Main.A.X}), which has no method (through sum → mapreduce → mapfoldl → mapfoldl_impl → foldl_impl → _foldl_impl), at line 77
+   acde not bounded nomethod: sum(t) reaches iterate(::Dynamic{Main.A.X}), which has no method (through sum → mapreduce → mapfoldl → mapfoldl_impl → foldl_impl → _foldl_impl), at line 77
+   all  not bounded nomethod: sum(t) reaches iterate(::Dynamic{Main.A.X}), which has no method (through sum → mapreduce → mapfoldl → mapfoldl_impl → foldl_impl → _foldl_impl), at line 77
+   f    not bounded nomethod: sum(t) reaches iterate(::Dynamic{Main.A.X}), which has no method (through sum → mapreduce → mapfoldl → mapfoldl_impl → foldl_impl → _foldl_impl), at line 77
+   allf not bounded nomethod: sum(t) reaches iterate(::Dynamic{Main.A.X}), which has no method (through sum → mapreduce → mapfoldl → mapfoldl_impl → foldl_impl → _foldl_impl), at line 77
+
+== p13_fails
+   R0   not bounded throws: fail(t) only throws, at line 80
+   x0   not bounded throws: fail(t) only throws, at line 80
+   a    not bounded throws: fail(t) only throws, at line 80
+   b    not bounded throws: fail(t) only throws, at line 80
+   c    not bounded throws: fail(t) only throws, at line 80
+   d    bounded     
+   e    not bounded throws: fail(t) only throws, at line 80
+   cde  bounded     
+   bcde bounded     
+   acde bounded     
+   all  bounded     
+   f    not bounded throws: fail(t) only throws, at line 80
+   allf bounded     
+
+== p14_assert_member
+   R0   bounded     
+   x0   bounded     
+   a    bounded     
+   b    bounded     
+   c    bounded     
+   d    bounded     
+   e    bounded     
+   cde  not bounded assert: `::Y::Main.A.Circ` never holds at the box, at line 82
+   bcde not bounded assert: `::Y::Main.A.Circ` never holds at the box, at line 82
+   acde not bounded assert: `::Y::Main.A.Circ` never holds at the box, at line 82
+   all  not bounded assert: `::Y::Main.A.Circ` never holds at the box, at line 82
+   f    bounded     
+   allf not bounded assert: `::Y::Main.A.Circ` never holds at the box, at line 82
+
+== s1_sum
+   R0   not bounded nomethod: sum(t) reaches iterate(::Dynamic{Main.A.X}), which has no method (through sum → mapreduce → mapfoldl → mapfoldl_impl → foldl_impl → _foldl_impl), at line 84
+   x0   not bounded nomethod: sum(t) reaches iterate(::Dynamic{Main.A.X}), which has no method (through sum → mapreduce → mapfoldl → mapfoldl_impl → foldl_impl → _foldl_impl), at line 84
+   a    not bounded nomethod: sum(t) reaches iterate(::Dynamic{Main.A.X}), which has no method (through sum → mapreduce → mapfoldl → mapfoldl_impl → foldl_impl → _foldl_impl), at line 84
+   b    not bounded nomethod: sum(t) reaches iterate(::Dynamic{Main.A.X}), which has no method (through sum → mapreduce → mapfoldl → mapfoldl_impl → foldl_impl → _foldl_impl), at line 84
+   c    not bounded nomethod: sum(t) reaches iterate(::Dynamic{Main.A.X}), which has no method (through sum → mapreduce → mapfoldl → mapfoldl_impl → foldl_impl → _foldl_impl), at line 84
+   d    not bounded nomethod: sum(t) reaches iterate(::Dynamic{Main.A.X}), which has no method (through sum → mapreduce → mapfoldl → mapfoldl_impl → foldl_impl → _foldl_impl), at line 84
+   e    not bounded nomethod: sum(t) reaches iterate(::Dynamic{Main.A.X}), which has no method (through sum → mapreduce → mapfoldl → mapfoldl_impl → foldl_impl → _foldl_impl), at line 84
+   cde  not bounded nomethod: sum(t) reaches iterate(::Dynamic{Main.A.X}), which has no method (through sum → mapreduce → mapfoldl → mapfoldl_impl → foldl_impl → _foldl_impl), at line 84
+   bcde not bounded nomethod: sum(t) reaches iterate(::Dynamic{Main.A.X}), which has no method (through sum → mapreduce → mapfoldl → mapfoldl_impl → foldl_impl → _foldl_impl), at line 84
+   acde not bounded nomethod: sum(t) reaches iterate(::Dynamic{Main.A.X}), which has no method (through sum → mapreduce → mapfoldl → mapfoldl_impl → foldl_impl → _foldl_impl), at line 84
+   all  not bounded nomethod: sum(t) reaches iterate(::Dynamic{Main.A.X}), which has no method (through sum → mapreduce → mapfoldl → mapfoldl_impl → foldl_impl → _foldl_impl), at line 84
+   f    not bounded nomethod: sum(t) reaches iterate(::Dynamic{Main.A.X}), which has no method (through sum → mapreduce → mapfoldl → mapfoldl_impl → foldl_impl → _foldl_impl), at line 84
+   allf not bounded nomethod: sum(t) reaches iterate(::Dynamic{Main.A.X}), which has no method (through sum → mapreduce → mapfoldl → mapfoldl_impl → foldl_impl → _foldl_impl), at line 84
+
+== s2_field
+   R0   not bounded throws: the field `nosuchfield` is no declared field of Main.A.X, at line 85
+   x0   not bounded field: the field `nosuchfield` is no declared field of Main.A.X, at line 85
+   a    not bounded field: the field `nosuchfield` is no declared field of Main.A.X, at line 85
+   b    not bounded field: the field `nosuchfield` is no declared field of Main.A.X, at line 85
+   c    not bounded field: the field `nosuchfield` is no declared field of Main.A.X, at line 85
+   d    not bounded field: the field `nosuchfield` is no declared field of Main.A.X, at line 85
+   e    not bounded field: the field `nosuchfield` is no declared field of Main.A.X, at line 85
+   cde  not bounded field: the field `nosuchfield` is no declared field of Main.A.X, at line 85
+   bcde not bounded field: the field `nosuchfield` is no declared field of Main.A.X, at line 85
+   acde not bounded field: the field `nosuchfield` is no declared field of Main.A.X, at line 85
+   all  not bounded field: the field `nosuchfield` is no declared field of Main.A.X, at line 85
+   f    not bounded field: the field `nosuchfield` is no declared field of Main.A.X, at line 85
+   allf not bounded field: the field `nosuchfield` is no declared field of Main.A.X, at line 85
+
+== s3_ok
+   R0   bounded     
+   x0   bounded     
+   a    bounded     
+   b    bounded     
+   c    bounded     
+   d    bounded     
+   e    bounded     
+   cde  bounded     
+   bcde bounded     
+   acde bounded     
+   all  bounded     
+   f    bounded     
+   allf bounded     
+
+== s4_generic
+   R0   bounded     
+   x0   bounded     
+   a    bounded     
+   b    bounded     
+   c    bounded     
+   d    bounded     
+   e    bounded     
+   cde  bounded     
+   bcde bounded     
+   acde bounded     
+   all  bounded     
+   f    bounded     
+   allf bounded     
+
+== s5_helper
+   R0   bounded     
+   x0   bounded     
+   a    bounded     
+   b    bounded     
+   c    bounded     
+   d    bounded     
+   e    bounded     
+   cde  bounded     
+   bcde bounded     
+   acde bounded     
+   all  bounded     
+   f    bounded     
+   allf bounded     
+
+| Probe | R0 | x0 | a | b | c | d | e | cde | bcde | acde | all | f | allf |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| p1_split | none | none | none | none | none | none | none | none | none | none | none | none | none |
+| p2_covered | none | none | none | none | none | none | none | none | none | none | none | none | none |
+| p2_part | none | none | none | none | none | none | none | none | none | none | none | none | none |
+| p3_inlined | fault | fault | none | fault | fault | none | fault | none | none | none | none | fault | none |
+| p3_not_inlined | none | none | none | none | none | none | none | none | none | none | none | none | none |
+| p4_inlined | fault | fault | none | fault | fault | fault | fault | fault | fault | none | fault | fault | fault |
+| p4_not_inlined | none | none | none | fault | none | none | none | none | fault | none | fault | fault | fault |
+| p5_assert | none | none | none | none | fault | none | none | fault | fault | fault | fault | none | fault |
+| p6_error | fault | fault | fault | fault | fault | none | fault | none | none | none | none | fault | none |
+| p6_throw | none | none | none | none | none | none | none | none | none | none | none | none | none |
+| p7_inlined | none | none | none | none | none | none | none | none | none | none | none | none | none |
+| p7_not_inlined | none | none | none | none | none | none | none | none | none | none | none | none | none |
+| p8_five | none | none | none | none | none | none | fault | fault | fault | fault | fault | none | fault |
+| p8_one | none | none | none | none | none | none | fault | fault | fault | fault | fault | none | fault |
+| p8_trait | none | none | none | none | none | none | none | none | none | none | none | none | none |
+| p9_throw_builtin | none | none | none | none | none | none | none | none | none | none | none | none | none |
+| p10_none | fault | fault | fault | fault | fault | fault | fault | fault | fault | fault | fault | fault | fault |
+| p11_closure | none | none | none | none | none | none | none | none | none | none | none | fault | fault |
+| p12_errnomethod | fault | fault | fault | fault | fault | fault | fault | fault | fault | fault | fault | fault | fault |
+| p13_fails | fault | fault | fault | fault | fault | none | fault | none | none | none | none | fault | none |
+| p14_assert_member | none | none | none | none | none | none | none | fault | fault | fault | fault | none | fault |
+| s1_sum | fault | fault | fault | fault | fault | fault | fault | fault | fault | fault | fault | fault | fault |
+| s2_field | fault | fault | fault | fault | fault | fault | fault | fault | fault | fault | fault | fault | fault |
+| s3_ok | none | none | none | none | none | none | none | none | none | none | none | none | none |
+| s4_generic | none | none | none | none | none | none | none | none | none | none | none | none | none |
+| s5_helper | none | none | none | none | none | none | none | none | none | none | none | none | none |

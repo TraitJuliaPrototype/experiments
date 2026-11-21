@@ -1,0 +1,51 @@
+TraitWorld at /p/projects/coen/julia-trait-bound/wt/w158g-tw/src/TraitWorld.jl  commit f0a8c3e  load 5.67 7.90 9.09  threads 1
+142 methods read at the box; a walk's result kept across checks (H_MEMO): false
+walks kept after the first pass: 0; hits, misses [0, 0]
+second pass 0.4 s; walks: hits, misses [0, 0]
+
+per method, ms (median / mean / max), 142 methods:
+  opt       0.13 /     0.43 /     17.29   inference and optimization of the instance at the box (the kept instance)
+  inf       0.06 /     0.23 /     11.83   inference before optimization (a second inference)
+  r0        0.03 /     0.11 /      4.07   the reading in force over the optimized code
+  cde       0.01 /     0.03 /      0.88   reading (c)+(d)+(e) over the optimized code
+  bcde      0.14 /     0.66 /      6.24   reading (b)-(e) over the optimized code
+  acde      0.01 /     0.03 /      0.26   reading (a)+(c)+(d)+(e) over the inferred code
+  all       0.06 /      0.6 /     15.01   reading (a)-(e) over the inferred code
+  allf      0.06 /     0.54 /      8.77   reading (a)-(f) over the inferred code
+
+the check per method, ms (median / mean / total):
+  in force: inference+optimization, the reading                         0.17 /     0.54 /     76.73   ratio of totals 1.0
+  (c)+(d)+(e) over the optimized code                                   0.15 /     0.46 /     65.42   ratio of totals 0.853
+  (b)-(e) over the optimized code                                       0.26 /     1.08 /    154.04   ratio of totals 2.008
+  (a)+(c)+(d)+(e), the inferred code kept from the one inference        0.14 /     0.45 /     64.51   ratio of totals 0.841
+  (a)+(c)+(d)+(e), a second inference                                   0.21 /     0.68 /     96.72   ratio of totals 1.26
+  (a)-(e), a second inference                                           0.35 /     1.25 /    177.85   ratio of totals 2.318
+  (a)-(f), a second inference                                           0.36 /      1.2 /    169.95   ratio of totals 2.215
+  (a)-(e), the inferred code kept from the one inference                0.26 /     1.03 /    145.64   ratio of totals 1.898
+  (a)-(f), the inferred code kept from the one inference                0.26 /     0.97 /    137.74   ratio of totals 1.795
+
+the ten slowest under (a)-(e), ms (inference+opt, second inference, reading in force, reading (a)-(e)):
+  0.23  0.14  0.05  15.01   `SteadyStateProblem(f::Union{Compiled{<:Callable{Tuple{Vector{T}, Vector{T}, P, Float64}, Nothing}}, Dynamic{<:Callable{Tuple{Vector{T}, Vector{T}, P, Float64}, Nothing}}}, u0::AbstractVector{T}, p::P; t::Real) where {T, P}`
+  0.15  0.08  0.02  8.75   `solve_nonlinear(prob::NonlinearProblemTrait{T, P}, alg::NonlinearAlgorithm, opts::TraitNonlinearSolve.NLOptions) where {T, P}`
+  0.29  0.15  0.06  7.07   `(callback, ::Type{ODEProblem}, f::Union{Compiled{<:Callable{Tuple{Vector{T}, Vector{T}, P, Float64}, Nothing}}, Dynamic{<:Callable{Tuple{Vector{T}, Vector{T}, P, Float64}, Nothing}}}, u0::AbstractVector{T}, tspan, p::P) where {T, P} -> …`
+  0.26  0.14  0.04  4.89   `NonlinearProblem(f::Union{Compiled{<:Callable{Tuple{Vector{T}, Vector{T}, P}, Nothing}}, Dynamic{<:Callable{Tuple{Vector{T}, Vector{T}, P}, Nothing}}}, u0::AbstractVector{T}, p::P) where {T, P}`
+  0.08  0.04  0.03  4.46   `_sync_out!(pi::ODECore.ParamIntegrator{U, T}, sv::ODECore.StepView{U, T}) where {U, T}`
+  2.84  0.85  1.31  2.12   `steppoints(pos::Positions, step::Symbol)`
+  0.2  0.1  0.05  2.12   `_solve(prob::NonlinearProblemTrait, alg::All{ODEAlgorithm, NonlinearAlgorithm}, callback, kw::NamedTuple)`
+  0.49  0.39  0.06  2.05   `_sync_in!(pi::ODECore.ParamIntegrator{U, T}, sv::ODECore.StepView{U, T}) where {U, T}`
+  0.2  0.12  0.06  2.04   `ODEProblem(f::Union{Compiled{<:Callable{Tuple{Vector{T}, Vector{T}, P, Float64}, Nothing}}, Dynamic{<:Callable{Tuple{Vector{T}, Vector{T}, P, Float64}, Nothing}}}, u0::AbstractVector{T}, tspan, p::P) where {T, P}`
+  0.26  0.09  0.05  1.98   `add_axis!(f::Figure, row::Int64, col::Int64, xscale::Scale, yscale::Scale, title::String, xlabel::String, ylabel::String)`
+
+the ten slowest under (c)+(d)+(e), ms (inference+opt, reading in force, reading (c)+(d)+(e)):
+  17.29  4.07  0.88   `trust_region(ls::LinearSolver, Δ0::Float64, Δmax::Float64, m::TraitNonlinearSolve.NLCoreProblem{T, F, J} where {F<:Callable{Tuple{Vector{T}, Vector{T}}, Nothing}, J<:Callable{Tuple{Matrix{T}, Vector{T}}, Nothing}}, opts::TraitNonlinearSolve.NLOptions) where T`
+  4.6  2.44  0.46   `newton_raphson(ls::LinearSolver, linesearch::Bool, m::TraitNonlinearSolve.NLCoreProblem{T, F, J} where {F<:Callable{Tuple{Vector{T}, Vector{T}}, Nothing}, J<:Callable{Tuple{Matrix{T}, Vector{T}}, Nothing}}, opts::TraitNonlinearSolve.NLOptions) where T`
+  2.84  1.31  0.31   `steppoints(pos::Positions, step::Symbol)`
+  2.79  1.15  0.16   `newton_stage!(ls::LinearSolver, J::Matrix{Float64}, r::Vector{Float64}, dx::Vector{Float64}, fx::Vector{Float64}, maxiters::Int64, tol::Float64, frozen::Bool, m::ODECore.CoreProblem, x::Vector{Float64}, z::Vector{Float64}, t::Float64, γdt::Float64)`
+  0.13  0.11  0.15   `(callback, ::Type{ODEProblem}, f::Union{Compiled{<:Callable{Tuple{Vector{T}, Vector{T}, Nothing, Float64}, Nothing}}, Dynamic{<:Callable{Tuple{Vector{T}, Vector{T}, Nothing, Float64}, Nothing}}}, u0::AbstractVector{T}, tspan) where T -> …`
+  2.08  0.53  0.13   `binned(s::Sample, bins::Int64)`
+  0.1  0.11  0.13   `SteadyStateProblem(f::Union{Compiled{<:Callable{Tuple{Vector{T}, Vector{T}, Nothing, Float64}, Nothing}}, Dynamic{<:Callable{Tuple{Vector{T}, Vector{T}, Nothing, Float64}, Nothing}}}, u0::AbstractVector{T}; t::Real) where T`
+  1.7  0.41  0.11   `drawmarkers(m::MarkerShape, c::TraitMakie.PlotCore.Canvas, xs::Vector{Float64}, ys::Vector{Float64}, cols::Vector{NTuple{4, Float64}}, r::Float64)`
+  1.38  0.41  0.1   `bandoutline(lo::Positions, up::Positions)`
+  0.47  0.13  0.09   `solve_ode(prob, alg::ODEAlgorithm, callbacks::ODECore.EnteredCallbacks, opts::ODECore.SolverOptions)`
+faults: in force 0; (c)+(d)+(e) 0; (b)-(e) 1; (a)+(c)+(d)+(e) 0; (a)-(e) 1; (a)-(f) 1
+load after 5.62 7.86 9.07

@@ -704,3 +704,155 @@ at two, with no keyword body in the chain.
 - The messages tool does not count a function printed as its signature, nor Base's internals (`Base.Pairs`) in a
   chain; both were in its corpus (12 messages) and found by the probes here. The tool is not changed (not this
   work's file).
+
+## The check's verdict and the optimizer (open issue 251), 2026-11-21
+
+**The question.** The bounded check reads the method's optimized instance at the box, so inlining, a split and the
+spelling of an error path decide some verdicts (the previous section's table, P3 to P6, P8). Which reading of the
+instance makes the verdict a property of the method as written, what does each candidate change in the methods the
+library's tests, the documentation's examples and the demonstrators define, and what does it cost per method (GT-12,
+the check's cost at an edit)? **What would change the design:** a reading that changes no verdict there but for the
+named artifacts, at about a tenth more per method, is built; otherwise the rule is proposed and nothing is built.
+
+Julia `julia-next` d8f65ef1ea, read only; the library `wt/w158g-tw`, branch `w158h` at `w158g` f0a8c3e, **not
+changed**; the ODE port TDE 3a1c4c3, TraitTables and TraitMakie as `g-probes/env_demo_g` resolves them; the depot
+`agent-depots/w158h` before the shared one. One Julia job at a time, niced, one thread; load (1 min) 5 to 19 of 128.
+Logs: `logs/h-*`; probes: `h-probes/`.
+
+**How to run** (after `source $W158/h-probes/env.sh`):
+```sh
+cd $LIBG; $JN --project=. $W158/h-probes/artifacts.jl      # the probes P1 to P14, S1 to S5, under every reading
+bash $W158/h-probes/corpus.sh <label> [library intro tutorial strict demos]   # every method at a trait, every reading
+cd $TW_ROOT/TraitDifferentialEquations; [H_MEMO=1] $JN --project=$ENVG $W158/h-probes/cost.jl   # GT-12: ms per method
+cd $LIBG; $JN --project=. $W158/h-probes/sidecases.jl     # an undefined global at a module's end; hasproperty at a box
+```
+- `readings.jl`: the module `Readings`. `R0` is the library's `check_at_box`, its body copied (`r0`); `x0` the
+  reimplementation with no change, a control (its verdicts equal R0's on every method of every corpus). The candidates,
+  alone and combined: **(a)** the instance before optimization (inferred, not optimized), callees read the same way;
+  **(b)** a call that passes a value at the box into a callee that is not read at a box itself (not a method at a
+  trait, a trait's own method, a kept form's method or a forwarder) is followed into the callee's code, at the call's
+  argument types with its constants (constant propagation, as the call's own inference did); not a callee the code does
+  not know (an undefined global, a value of an abstract type), not a call inference proves cannot throw (the statement's
+  `IR_FLAG_NOTHROW`, or a compiled callee whose exception type admits neither `MethodError` nor `ArgumentError`);
+  **(c)** a builtin with a value at the box that only throws (`Core.typeassert(t, M)`) is a fault; **(d)** a call
+  that only throws is a fault only where it reaches a call that finds no method or an undeclared field; **(e)** a value
+  known only by its trait is looked up, and followed, at its box; **(f)**, beside the issue's list, with (b): a value
+  that holds one of those in a field (a closure that captures the box, a struct made from it) passes it on.
+- `corpus.jl`: the library's `check_at_box` replaced by its own body and a record of every reading in the same world,
+  so a method a test refuses (and the check deletes) is read too; at the end every method of the session's method table
+  in the corpus's modules that is read at the box. `demos`: the modules of `d-probes/demo_check.jl`.
+
+### The probes (`logs/h-artifacts-f0a8c3e.log`)
+
+P1 to P10 are `g-probes/artifacts.jl`'s. Added: P8 at a function with a method at the trait (`gy(y::Y)`); P11 a
+closure that captures the box (`map(i -> sum(t), 1:2)`); P12 an error path whose message calls `sum(t)`; P13 a callee
+that throws for every argument (`fail(x) = throw(ArgumentError("no"))`); P14 a value known only by its trait asserted
+to one member (`(xy(t)::Circ).r`); S1 to S5 controls (`sum(t)`, an undeclared field, an operation, `typeof`/`Ref`/
+`string`/`==`/`hash` of the box, a helper that calls an operation).
+
+| Probe | R0 | a | b | c | d | e | c+d+e | b-e | a+c+d+e | a-e | f | a-f |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| P1, P2 (splits) | none | none | none | none | none | none | none | none | none | none | none | none |
+| P3 inlined / not | **fault** / none | none / none | fault / none | fault / none | none / none | fault / none | none / none | none / none | none / none | none / none | fault / none | none / none |
+| P4 inlined / not | **fault / none** | none / none | fault / fault | fault / none | fault / none | fault / none | fault / none | fault / fault | none / none | fault / fault | fault / fault | fault / fault |
+| P5 `t::M` | none | none | none | fault | none | none | fault | fault | fault | fault | none | fault |
+| P6 `error` / `throw` | **fault / none** | fault / none | fault / none | fault / none | none / none | fault / none | none / none | none / none | none / none | none / none | fault / none | none / none |
+| P7 inlined / not | none / none | none / none | none / none | none / none | none / none | none / none | none / none | none / none | none / none | none / none | none / none | none / none |
+| P8 one / five methods | none / none | none / none | none / none | none / none | none / none | fault / fault | fault / fault | fault / fault | fault / fault | fault / fault | none / none | fault / fault |
+| P8 at the trait (`gy`) | none | none | none | none | none | none | none | none | none | none | none | none |
+| P9, P12, P10 | as before: none, fault, fault under every reading | | | | | | | | | | | |
+| P11 closure | none | none | none | none | none | none | none | none | none | none | fault | fault |
+| P13 throws for all | fault | fault | fault | fault | none | fault | none | none | none | none | fault | none |
+| P14 `xy(t)::Circ` | none | none | none | none | none | none | fault | fault | fault | fault | none | fault |
+| S1, S2 / S3 to S5 | fault / none under every reading | | | | | | | | | | | |
+
+- One verdict per method as written, for every pair: (a)+(c)+(d)+(e), (b)-(e), (a)-(e), (a)-(f). (a) alone leaves P6;
+  (b) alone, P3 and P6.
+- **P4 separates them.** (a)+(c)+(d)+(e) gives P4 none in both forms: consistent, but it accepts a method whose helper
+  calls `sum(t)` on a branch, which fails at every box when taken (the reading in force refuses it inlined). (b) reads
+  the helper: fault in both forms. P7 shows why (b) reads a callee with the call's constants: read at its widened
+  types, `g7n(t, 1)`'s other branch is a fault the call never takes (seen before the constants were passed).
+- P11 is read by no reading of the issue's list, nor by the reading in force, optimized or not: the box reaches
+  `sum` inside the closure's body, which no call passes the box to. Only (f).
+
+### Every method at a trait in the corpora (`logs/h-corpus-<corpus>-f0a8c3e.log`, `.tsv`)
+
+| Corpus | Methods read at the box | taken at a check while it ran | not bounded (R0) | Checks of the corpus |
+|---|---|---|---|---|
+| the library's tests | 179 | 88 | 29 | the suite passes (no failure in the log) |
+| `intro` | 6 | 6 | 1 | 27 pass |
+| `tutorial` | 35 | 34 | 1 | 96 pass |
+| `strict` | 1 | 1 | 0 | 5 pass |
+| the demonstrators | 142 | 0 | 0 | |
+
+No reading raised. Verdicts that differ from R0, of the 363 methods:
+
+| Reading | a | b | c | d | e | c+d+e | b-e | a+c+d+e | a-e | f | a-f |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+| differ | 0 | 0 | 0 | 0 | 0 | 0 | 1 | 0 | 1 | 1 | 1 |
+
+- **b-e, a-e, a-f:** ODECore `lib/ODECore/src/frontend.jl:69`, the keyword body of `ODEProblem(f, u0, tspan, p;
+  callback)`, marked `@unbounded`: bounded → "`_problem_of(f, ::Callable{…}, ::Vector, ::Tuple{Any, Any}, p, ::Any)`
+  reaches the field `mass_matrix` of `Callable{…}` (through `_mass_matrix`)". The argument is `unwrap(f)`, the object,
+  known only by its trait, read at its box (e); `_mass_matrix(x)` reads `x.mass_matrix` behind `hasproperty(x,
+  :mass_matrix)`, and inference does not fold that guard at a box: `propertynames(::Dynamic{X})` infers
+  `Tuple{Vararg{Symbol}}` (`logs/h-sidecases-f0a8c3e.log`), though the declared fields are fixed once `X` is declared.
+  A fault no box meets (the guard is false at a box); `bounded` does not refuse the method (`@unbounded`).
+- **f:** `dotg(a::Samples{T}, b::Samples{T})` (`docs-examples/tutorial.jl:355`, bounded scope): bounded → "`reduce_empty(
+  ::Base.MappingRF{…closure holding the boxes…}, ::Type{Int64})` only throws", the empty reduction's error path,
+  reached through the closure (f) and counted by the rule in force; with (d) none (a-f).
+- **"188 methods":** `d-probes/demo_check.jl` counts a method once per name it is reached by. In the method table the
+  demonstrators have 146 methods at a trait (141 reached by name, and 5 that `methods(f)` by name does not list:
+  parametric constructors, `convert`), of which 142 are read at the box (4 have no box). These 142 are this section's.
+
+### The cost per method (GT-12; `logs/h-cost-f0a8c3e-1.log`, `-2.log`, `logs/h-cost-memo-f0a8c3e.log`)
+
+The 142 demonstrators' methods, each instance at the box inferred again (its top frame not cached, its callees
+cached: an edit), then read; the second of two passes in one process; two processes. ms per method, median / mean
+(total); the ratio of totals against the check in force.
+
+| The check | run 1 | run 2 | ratio |
+|---|---|---|---|
+| in force: inference and optimization (0.13 / 0.43) and the reading (0.03 / 0.11) | 0.17 / 0.54 (76.7) | 0.17 / 0.55 (77.8) | 1 |
+| (c)+(d)+(e) over the optimized code | 0.15 / 0.46 (65.4) | 0.15 / 0.47 (66.6) | 0.85 |
+| (b)-(e) over the optimized code | 0.26 / 1.08 (154.0) | 0.26 / 1.15 (163.7) | 2.0 to 2.1 |
+| (a)+(c)+(d)+(e), a second inference (0.06 / 0.23) | 0.21 / 0.68 (96.7) | 0.21 / 0.76 (107.6) | 1.26 to 1.38 |
+| (a)+(c)+(d)+(e), the inferred code kept from the one inference | 0.14 / 0.45 (64.5) | 0.14 / 0.46 (65.5) | 0.84 |
+| (a)-(e), a second inference | 0.35 / 1.25 (177.9) | 0.34 / 1.26 (178.8) | 2.3 |
+| (a)-(e), the inferred code kept from the one inference | 0.26 / 1.03 (145.6) | 0.26 / 0.96 (136.7) | 1.76 to 1.90 |
+| (a)-(f), a second inference | 0.36 / 1.20 (170.0) | 0.34 / 1.28 (181.1) | 2.2 to 2.3 |
+
+- The reading in force spends its 0.11 ms (mean) mostly before any fault: it builds each call's line information
+  (`_frames`) for every call statement. The readings here build it only for a fault, so (c)+(d)+(e) costs 0.03 ms.
+  (Reasoned from the code and the two numbers; not profiled.)
+- **(a)** costs a second inference of the method's own frame (0.06 / 0.23 ms; callees cached): Julia's inference
+  optimizes inside `typeinf` for a cached instance, and the code before optimization is not kept
+  (`convert_to_ircode` replaces the frame's code). Without it, the inferred code needs a change of Julia: the native
+  interpreter's inference of the instance at the box hands the check its code before optimizing.
+- **(b)** costs the inference of each callee followed: the slowest methods under (a)-(e) are the front ends (run 1:
+  `SteadyStateProblem`'s keyword body 15 ms, `solve_nonlinear` 8.8 ms, `ODEProblem`'s keyword body 7.1 ms,
+  `NonlinearProblem` 4.9 ms, `_sync_out!` 4.5 ms; each 0.1 to 0.3 ms under the check in force). Pruning by inference's nothrow flag halves the median; by the callee's exception
+  type, nothing more. With each followed callee's result kept and found by a later check (`H_MEMO=1`, every walk
+  found, an upper bound on such a cache), (a)-(e) costs 1.31 (one inference) and 1.86 (a second).
+- No reading that decides P4 stays within a tenth more. (c)+(d)+(e) over the optimized code, and (a)+(c)+(d)+(e) with
+  the inferred code kept, cost less than the check in force and change no verdict, but leave P4 to the inliner (c+d+e)
+  or accept it (a+c+d+e).
+
+**Not built** (the brief's condition: no verdict changed but the artifacts', and about a tenth more per method; (a)-(e)
+changes one verdict, of an `@unbounded` method, and costs 1.8 to 2.3 times). The library is unchanged; the reading is
+proposed (open issue 251).
+
+### Side findings
+
+- **A global the module never defines is no fault.** The library's test `mfvok(a::MShape, ts::MShape...) = marea(a) +
+  sum(marea, ts)` (`test/messages.jl:104`, expected "nothing") runs in a module that imports `MShape` only: `marea` is
+  undefined there, the call is left to run time with a callee of type `Any`, which some method covers, and the method
+  is accepted at its module's end; called, it raises `UndefVarError` (`logs/h-sidecases-f0a8c3e.log`). The test passes
+  for a reason it does not state; traits §7.3 says such a method "waits for those names, and at last for its module's
+  end", not what the end decides.
+- **Inference at a box advances the world counter:** `code_typed_by_type` of an instance at the box by 3, the reading
+  in force by 1 (`cost.jl`'s walk cache, keyed by the world, never hit until keyed without it). No method of the corpus
+  changes; the counter's cause is not identified here.
+- `hasproperty` at a box is not folded (above): `propertynames(::Dynamic{X})` could be `:foldable` as
+  `_dynamic_field_type` is; then the ODE adapter's guard is decided at compile time, and its one changed verdict goes.
+  Not verified.

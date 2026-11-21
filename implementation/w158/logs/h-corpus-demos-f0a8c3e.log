@@ -1,0 +1,37 @@
+# 2026-11-21T21:08:19+01:00 load 5.94 8.11 9.18
+TraitWorld at /p/projects/coen/julia-trait-bound/wt/w158g-tw/src/TraitWorld.jl  commit f0a8c3e  corpus demos  load 5.94 8.11 9.18
+   candidates in the method table: 146, live: 146
+
+== corpus demos: 142 methods read at the box (0 taken at a check while the corpus ran); 0 readings raised; 18.7 s
+   R0 not bounded: 0
+   per module: ODECore 40, TraitArrayTools 1, TraitDifferentialEquations 8, TraitIndexing 10, TraitMakie 2, TraitMakie.PlotCore 46, TraitNonlinearSolve 26, TraitRodas 4, TraitTables.TableCore 9
+
+-- reading x0: 0 verdicts differ from R0
+
+-- reading a: 0 verdicts differ from R0
+
+-- reading b: 0 verdicts differ from R0
+
+-- reading c: 0 verdicts differ from R0
+
+-- reading d: 0 verdicts differ from R0
+
+-- reading e: 0 verdicts differ from R0
+
+-- reading cde: 0 verdicts differ from R0
+
+-- reading bcde: 1 verdicts differ from R0
+   `(callback, ::Type{ODEProblem}, f::Union{Compiled{<:Callable{Tuple{Vector{T}, Vector{T}, P, Float64}, Nothing}}, Dynamic{<:Callable{Tuple{Vector{T}, Vector{T}, P, Float64}, Nothing}}}, u0::AbstractVector{T}, tspan, p::P) where {T, P} -> …`  [frontend.jl:69; at the end; @unbounded]
+        bounded -> not bounded: nomethod: _problem_of(f, ::Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64, Float64}, Nothing}, ::Vector, ::Tuple{Any, Any}, p, ::Any) reaches the field `mass_matrix` of Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64, Float64}, Nothing}, which has no method, at line 69
+
+-- reading acde: 0 verdicts differ from R0
+
+-- reading all: 1 verdicts differ from R0
+   `(callback, ::Type{ODEProblem}, f::Union{Compiled{<:Callable{Tuple{Vector{T}, Vector{T}, P, Float64}, Nothing}}, Dynamic{<:Callable{Tuple{Vector{T}, Vector{T}, P, Float64}, Nothing}}}, u0::AbstractVector{T}, tspan, p::P) where {T, P} -> …`  [frontend.jl:69; at the end; @unbounded]
+        bounded -> not bounded: nomethod: _problem_of(f, ::Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64, Float64}, Nothing}, ::Vector, ::Tuple{Any, Any}, p, ::Any) reaches the field `mass_matrix` of Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64, Float64}, Nothing}, which has no method (through _mass_matrix), at line 69
+
+-- reading f: 0 verdicts differ from R0
+
+-- reading allf: 1 verdicts differ from R0
+   `(callback, ::Type{ODEProblem}, f::Union{Compiled{<:Callable{Tuple{Vector{T}, Vector{T}, P, Float64}, Nothing}}, Dynamic{<:Callable{Tuple{Vector{T}, Vector{T}, P, Float64}, Nothing}}}, u0::AbstractVector{T}, tspan, p::P) where {T, P} -> …`  [frontend.jl:69; at the end; @unbounded]
+        bounded -> not bounded: nomethod: _problem_of(f, ::Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64, Float64}, Nothing}, ::Vector, ::Tuple{Any, Any}, p, ::Any) reaches the field `mass_matrix` of Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64, Float64}, Nothing}, which has no method (through _mass_matrix), at line 69
