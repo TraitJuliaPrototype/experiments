@@ -136,6 +136,13 @@ gates in its header comment.
   options `dynamic` and `first_seen` refused; no `compiled_for`, `with_dynamic`, `attributed_call`, `keep` in Core, the
   names lowered as ordinary calls. *Catches:* an attribute resolved at a call. *Shown:* it fails on `next` 02139b2168
   (the argument passed on from code compiled once is compiled once there). It replaces `not-in-force/n6_attribute.jl`.
+- `n34_closed_invoke_compiled.jl` — W-158, third part (stub; compiler §2.4, §7.6): a trimmed build's verifier takes
+  an invoke as resolved only where the program can run it: the code instance it names compiled, or the instance's
+  compiled code of the policy the call through `jl_invoke` asks (the trampoline's `jl_invoke_plain` or
+  `jl_invoke_facts`, `mi_policy_facts_at`). The build's list is made by hand from a session's code. *Catches:* a
+  verifier-clean binary that stops with `MissingCodeError` (the plot's program on 61277571fa). *Shown:* it fails on
+  `next` 8b35e4b77c (code of the other policy only, accepted) and on `w158` 0b0924ef96 (code of the policy asked,
+  refused: a JLL's `__init__` from its image).
 - `n7_guards.jl` — W-140: a membership invalidates as a method does. A call holds no guard and no cell;
   the membership invalidates the caller whose selection it changes, an older world keeps the old
   answer; a caller matched through the type's own supertypes stays valid; a method at a set defined

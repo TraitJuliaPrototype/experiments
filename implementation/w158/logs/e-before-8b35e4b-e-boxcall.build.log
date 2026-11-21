@@ -1,0 +1,261 @@
+# W-166 /p/projects/coen/julia-trait-bound/experiments/implementation/w158/apps/e-boxcall.jl 2026-11-21T18:12:38+01:00 load 3.55 3.13 4.00 | wt/w158-julia 8b35e4b77c TraitWorld cedb718 trim=safe
+Error #1: unresolved call from statement println(
+  Core.CoreSTDOUT()::Core.CoreSTDOUT,
+  "two signatures "::String,
+  boxall((…)::Vector{Dynamic{All{Callable{Tuple{Float64}, Float64}, Callable{Tuple{Int64}, Float64}}}}, (…)::Int64)::Any
+)::Any
+
+Stacktrace:
+ [1] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/implementation/w158/apps/e-boxcall.jl:17
+ [2] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/wt/w158-julia/test/trimming/juliac-buildscript.jl:35
+
+Error #2: unresolved call from statement (f::Union{Compiled{<:Callable{Tuple{Float64}, Float64}}, Dynamic{<:Callable{Tuple{Float64}, Float64}}})(x::Float64)::Float64
+
+Stacktrace:
+ [1] callns(f::Union{Compiled{<:Callable{Tuple{Float64}, Float64}}, Dynamic{<:Callable{Tuple{Float64}, Float64}}}, x::Float64)
+   @ Main /p/projects/coen/julia-trait-bound/experiments/implementation/w158/apps/e-boxcall.jl:14
+ [2] callns(f::typeof(hh), x::Float64)
+   @ Main /p/projects/coen/julia-trait-bound/experiments/implementation/w158/apps/e-boxcall.jl:14 [inlined]
+ [3] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/implementation/w158/apps/e-boxcall.jl:19
+ [4] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/wt/w158-julia/test/trimming/juliac-buildscript.jl:35
+
+Error #3: unresolved call from statement (:(TraitWorld.getfield(_1, :object))::Callable{Tuple{Float64}, Float64})((…)::Float64)::Any
+
+Stacktrace:
+ [1] (::Dynamic{Callable{Tuple{Float64}, Float64}})(args::Float64)
+   @ TraitWorld /p/projects/coen/julia-trait-bound/wt/w158b-tw/src/callable.jl:35
+ [2] callns(f::Union{Compiled{<:Callable{Tuple{Float64}, Float64}}, Dynamic{<:Callable{Tuple{Float64}, Float64}}}, x::Float64)
+   @ Main /p/projects/coen/julia-trait-bound/experiments/implementation/w158/apps/e-boxcall.jl:14
+ [3] callns(f::typeof(hh), x::Float64)
+   @ Main /p/projects/coen/julia-trait-bound/experiments/implementation/w158/apps/e-boxcall.jl:14 [inlined]
+ [4] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/implementation/w158/apps/e-boxcall.jl:19
+ [5] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/wt/w158-julia/test/trimming/juliac-buildscript.jl:35
+
+Error #4: unresolved call from statement +(
+  (…)::Float64,
+  (:(φ (%35 => %30, %77 => %71))::Dynamic{All{Callable{Tuple{Float64}, Float64}, Callable{Tuple{Int64}, Float64}}})(n::Int64)::Any
+)::Any
+
+Stacktrace:
+ [1] boxall(ds::Vector{Dynamic{All{Callable{Tuple{Float64}, Float64}, Callable{Tuple{Int64}, Float64}}}}, n::Int64)
+   @ Main /p/projects/coen/julia-trait-bound/experiments/implementation/w158/apps/e-boxcall.jl:12
+ [2] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/implementation/w158/apps/e-boxcall.jl:17
+ [3] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/wt/w158-julia/test/trimming/juliac-buildscript.jl:35
+
+Error #5: unresolved call from statement +(
+  :(φ (%35 => 0.0, %77 => %42))::Any,
+  +(
+    (…)::Float64,
+    (:(φ (%35 => %30, %77 => %71))::Dynamic{All{Callable{Tuple{Float64}, Float64}, Callable{Tuple{Int64}, Float64}}})(n::Int64)::Any
+  )::Any
+)::Any
+
+Stacktrace:
+ [1] boxall(ds::Vector{Dynamic{All{Callable{Tuple{Float64}, Float64}, Callable{Tuple{Int64}, Float64}}}}, n::Int64)
+   @ Main /p/projects/coen/julia-trait-bound/experiments/implementation/w158/apps/e-boxcall.jl:12
+ [2] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/implementation/w158/apps/e-boxcall.jl:17
+ [3] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/wt/w158-julia/test/trimming/juliac-buildscript.jl:35
+
+Error #6: unresolved call from statement (:(TraitWorld.getfield(_1, :object))::All{Callable{Tuple{Float64}, Float64}, Callable{Tuple{Int64}, Float64}})((…)::Int64)::Any
+
+Stacktrace:
+ [1] (::Dynamic{All{Callable{Tuple{Float64}, Float64}, Callable{Tuple{Int64}, Float64}}})(args::Int64)
+   @ TraitWorld /p/projects/coen/julia-trait-bound/wt/w158b-tw/src/callable.jl:44
+ [2] boxall(ds::Vector{Dynamic{All{Callable{Tuple{Float64}, Float64}, Callable{Tuple{Int64}, Float64}}}}, n::Int64)
+   @ Main /p/projects/coen/julia-trait-bound/experiments/implementation/w158/apps/e-boxcall.jl:12
+ [3] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/implementation/w158/apps/e-boxcall.jl:17
+ [4] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/wt/w158-julia/test/trimming/juliac-buildscript.jl:35
+
+Error #7: unresolved call from statement (:(TraitWorld.getfield(_1, :object))::All{Callable{Tuple{Float64}, Float64}, Callable{Tuple{Int64}, Float64}})((…)::Float64)::Any
+
+Stacktrace:
+ [1] (::Dynamic{All{Callable{Tuple{Float64}, Float64}, Callable{Tuple{Int64}, Float64}}})(args::Float64)
+   @ TraitWorld /p/projects/coen/julia-trait-bound/wt/w158b-tw/src/callable.jl:42
+ [2] boxall(ds::Vector{Dynamic{All{Callable{Tuple{Float64}, Float64}, Callable{Tuple{Int64}, Float64}}}}, n::Int64)
+   @ Main /p/projects/coen/julia-trait-bound/experiments/implementation/w158/apps/e-boxcall.jl:12
+ [3] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/implementation/w158/apps/e-boxcall.jl:17
+ [4] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/wt/w158-julia/test/trimming/juliac-buildscript.jl:35
+
+Error #8: unresolved call from statement Core._hasmethod(
+  signature_type(
+    f::Any,
+    t::Any
+  )::Any
+)::Bool
+
+Stacktrace:
+ [1] hasmethod(f::Any, t::Any)
+   @ Base reflection.jl:1085
+ [2] Dynamic{All{Callable{Tuple{Float64}, Float64}, Callable{Tuple{Int64}, Float64}}}(f::typeof(hh))
+   @ TraitWorld /p/projects/coen/julia-trait-bound/wt/w158b-tw/src/callable.jl:94 [inlined]
+ [3] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/implementation/w158/apps/e-boxcall.jl:17
+ [4] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/wt/w158-julia/test/trimming/juliac-buildscript.jl:35
+
+Error #9: unresolved argument to call from statement _apply_iterate(
+  iterate::typeof(iterate),
+  apply_type::typeof(Core.apply_type),
+  (…)::Core.SimpleVector,
+  t::Union{Core.SimpleVector, Tuple, AbstractArray}
+)::Type
+
+Stacktrace:
+ [1] to_tuple_type(t::Any)
+   @ Base runtime_internals.jl:1399
+ [2] signature_type(f::Any, argtypes::Any)
+   @ Base runtime_internals.jl:1417
+ [3] hasmethod(f::Any, t::Any)
+   @ Base reflection.jl:1085
+ [4] Dynamic{All{Callable{Tuple{Float64}, Float64}, Callable{Tuple{Int64}, Float64}}}(f::typeof(hh))
+   @ TraitWorld /p/projects/coen/julia-trait-bound/wt/w158b-tw/src/callable.jl:94 [inlined]
+ [5] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/implementation/w158/apps/e-boxcall.jl:17
+ [6] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/wt/w158-julia/test/trimming/juliac-buildscript.jl:35
+
+Error #10: unresolved call from statement println(
+  Core.CoreSTDOUT()::Core.CoreSTDOUT,
+  "two signatures "::String,
+  boxall((…)::Vector{Dynamic{All{Callable{Tuple{Float64}, Float64}, Callable{Tuple{Int64}, Float64}}}}, (…)::Int64)::Any
+)::Any
+
+Stacktrace:
+ [1] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/implementation/w158/apps/e-boxcall.jl:17
+ [2] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/wt/w158-julia/test/trimming/juliac-buildscript.jl:35
+
+Error #11: unresolved call from statement (f::Union{Compiled{<:Callable{Tuple{Float64}, Float64}}, Dynamic{<:Callable{Tuple{Float64}, Float64}}})(x::Float64)::Float64
+
+Stacktrace:
+ [1] callns(f::Union{Compiled{<:Callable{Tuple{Float64}, Float64}}, Dynamic{<:Callable{Tuple{Float64}, Float64}}}, x::Float64)
+   @ Main /p/projects/coen/julia-trait-bound/experiments/implementation/w158/apps/e-boxcall.jl:14
+ [2] callns(f::typeof(hh), x::Float64)
+   @ Main /p/projects/coen/julia-trait-bound/experiments/implementation/w158/apps/e-boxcall.jl:14 [inlined]
+ [3] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/implementation/w158/apps/e-boxcall.jl:19
+ [4] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/wt/w158-julia/test/trimming/juliac-buildscript.jl:35
+
+Error #12: unresolved call from statement (:(TraitWorld.getfield(_1, :object))::Callable{Tuple{Float64}, Float64})((…)::Float64)::Any
+
+Stacktrace:
+ [1] (::Dynamic{Callable{Tuple{Float64}, Float64}})(args::Float64)
+   @ TraitWorld /p/projects/coen/julia-trait-bound/wt/w158b-tw/src/callable.jl:35
+ [2] callns(f::Union{Compiled{<:Callable{Tuple{Float64}, Float64}}, Dynamic{<:Callable{Tuple{Float64}, Float64}}}, x::Float64)
+   @ Main /p/projects/coen/julia-trait-bound/experiments/implementation/w158/apps/e-boxcall.jl:14
+ [3] callns(f::typeof(hh), x::Float64)
+   @ Main /p/projects/coen/julia-trait-bound/experiments/implementation/w158/apps/e-boxcall.jl:14 [inlined]
+ [4] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/implementation/w158/apps/e-boxcall.jl:19
+ [5] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/wt/w158-julia/test/trimming/juliac-buildscript.jl:35
+
+Error #13: unresolved call from statement +(
+  (…)::Float64,
+  (:(φ (%35 => %30, %77 => %71))::Dynamic{All{Callable{Tuple{Float64}, Float64}, Callable{Tuple{Int64}, Float64}}})(n::Int64)::Any
+)::Any
+
+Stacktrace:
+ [1] boxall(ds::Vector{Dynamic{All{Callable{Tuple{Float64}, Float64}, Callable{Tuple{Int64}, Float64}}}}, n::Int64)
+   @ Main /p/projects/coen/julia-trait-bound/experiments/implementation/w158/apps/e-boxcall.jl:12
+ [2] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/implementation/w158/apps/e-boxcall.jl:17
+ [3] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/wt/w158-julia/test/trimming/juliac-buildscript.jl:35
+
+Error #14: unresolved call from statement +(
+  :(φ (%35 => 0.0, %77 => %42))::Any,
+  +(
+    (…)::Float64,
+    (:(φ (%35 => %30, %77 => %71))::Dynamic{All{Callable{Tuple{Float64}, Float64}, Callable{Tuple{Int64}, Float64}}})(n::Int64)::Any
+  )::Any
+)::Any
+
+Stacktrace:
+ [1] boxall(ds::Vector{Dynamic{All{Callable{Tuple{Float64}, Float64}, Callable{Tuple{Int64}, Float64}}}}, n::Int64)
+   @ Main /p/projects/coen/julia-trait-bound/experiments/implementation/w158/apps/e-boxcall.jl:12
+ [2] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/implementation/w158/apps/e-boxcall.jl:17
+ [3] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/wt/w158-julia/test/trimming/juliac-buildscript.jl:35
+
+Error #15: unresolved call from statement (:(TraitWorld.getfield(_1, :object))::All{Callable{Tuple{Float64}, Float64}, Callable{Tuple{Int64}, Float64}})((…)::Int64)::Any
+
+Stacktrace:
+ [1] (::Dynamic{All{Callable{Tuple{Float64}, Float64}, Callable{Tuple{Int64}, Float64}}})(args::Int64)
+   @ TraitWorld /p/projects/coen/julia-trait-bound/wt/w158b-tw/src/callable.jl:44
+ [2] boxall(ds::Vector{Dynamic{All{Callable{Tuple{Float64}, Float64}, Callable{Tuple{Int64}, Float64}}}}, n::Int64)
+   @ Main /p/projects/coen/julia-trait-bound/experiments/implementation/w158/apps/e-boxcall.jl:12
+ [3] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/implementation/w158/apps/e-boxcall.jl:17
+ [4] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/wt/w158-julia/test/trimming/juliac-buildscript.jl:35
+
+Error #16: unresolved call from statement (:(TraitWorld.getfield(_1, :object))::All{Callable{Tuple{Float64}, Float64}, Callable{Tuple{Int64}, Float64}})((…)::Float64)::Any
+
+Stacktrace:
+ [1] (::Dynamic{All{Callable{Tuple{Float64}, Float64}, Callable{Tuple{Int64}, Float64}}})(args::Float64)
+   @ TraitWorld /p/projects/coen/julia-trait-bound/wt/w158b-tw/src/callable.jl:42
+ [2] boxall(ds::Vector{Dynamic{All{Callable{Tuple{Float64}, Float64}, Callable{Tuple{Int64}, Float64}}}}, n::Int64)
+   @ Main /p/projects/coen/julia-trait-bound/experiments/implementation/w158/apps/e-boxcall.jl:12
+ [3] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/implementation/w158/apps/e-boxcall.jl:17
+ [4] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/wt/w158-julia/test/trimming/juliac-buildscript.jl:35
+
+Error #17: unresolved call from statement Core._hasmethod(
+  signature_type(
+    f::Any,
+    t::Any
+  )::Any
+)::Bool
+
+Stacktrace:
+ [1] hasmethod(f::Any, t::Any)
+   @ Base reflection.jl:1085
+ [2] Dynamic{All{Callable{Tuple{Float64}, Float64}, Callable{Tuple{Int64}, Float64}}}(f::typeof(hh))
+   @ TraitWorld /p/projects/coen/julia-trait-bound/wt/w158b-tw/src/callable.jl:94 [inlined]
+ [3] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/implementation/w158/apps/e-boxcall.jl:17
+ [4] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/wt/w158-julia/test/trimming/juliac-buildscript.jl:35
+
+Error #18: unresolved argument to call from statement _apply_iterate(
+  iterate::typeof(iterate),
+  apply_type::typeof(Core.apply_type),
+  (…)::Core.SimpleVector,
+  t::Union{Core.SimpleVector, Tuple, AbstractArray}
+)::Type
+
+Stacktrace:
+ [1] to_tuple_type(t::Any)
+   @ Base runtime_internals.jl:1399
+ [2] signature_type(f::Any, argtypes::Any)
+   @ Base runtime_internals.jl:1417
+ [3] hasmethod(f::Any, t::Any)
+   @ Base reflection.jl:1085
+ [4] Dynamic{All{Callable{Tuple{Float64}, Float64}, Callable{Tuple{Int64}, Float64}}}(f::typeof(hh))
+   @ TraitWorld /p/projects/coen/julia-trait-bound/wt/w158b-tw/src/callable.jl:94 [inlined]
+ [5] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/implementation/w158/apps/e-boxcall.jl:17
+ [6] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/wt/w158-julia/test/trimming/juliac-buildscript.jl:35
+
+Trim verify finished with 18 errors, 0 warnings.
+object: exit 1

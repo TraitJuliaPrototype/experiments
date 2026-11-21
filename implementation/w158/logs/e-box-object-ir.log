@@ -1,0 +1,554 @@
+round 1 (no member a fact: false): 3 instances
+  MethodInstance for boxes(::Int64) => Float64 [ci 448025038598069273 worlds 39747:18446744073709551615]
+  MethodInstance for Base.throw_boundserror(::Vector{Shape7}, ::Tuple{Int64}) => Union{} [ci 4107523068199377107 worlds 99:18446744073709551615]
+  MethodInstance for BoundsError(::Any, ::Tuple{Int64}) => BoundsError [ci 2170625823348591503 worlds 96:18446744073709551615]
+CodeInfo(
+     @ /p/projects/coen/julia-trait-bound/experiments/implementation/w158/probes/flow.jl:48 within `boxes`
+    ┌ @ float.jl:245 within `Float64`
+1 ──│ %1   = intrinsic Base.sitofp(Float64, n)::Float64
+│   └
+│   ┌ @ /p/projects/coen/julia-trait-bound/experiments/implementation/w158/probes/flow.jl:42 within `Sq7`
+│   │ %2   = %new(Main.Sq7, %1)::Sq7
+│   └
+│   ┌ @ boot.jl:461 within `Dynamic`
+│   │┌ @ boot.jl:573 within `_new_dynamic`
+│   ││ %3   = %new(Dynamic{Shape7}, %2)::Dynamic{Shape7}
+│   └└
+│   ┌ @ array.jl:436 within `getindex`
+│   │┌ @ boot.jl:702 within `Array`
+│   ││┌ @ boot.jl:642 within `GenericMemory`
+│   │││ %4   =   builtin Core.memorynew(Memory{Shape7}, 2)::Memory{Shape7}
+│   ││└
+│   ││ @ boot.jl:703 within `Array`
+│   ││┌ @ boot.jl:648 within `memoryref`
+│   │││ %5   =   builtin Core.memoryrefnew(%4)::MemoryRef{Shape7}
+│   ││└
+│   ││ %6   = %new(Vector{Shape7}, %5, (2,))::Vector{Shape7}
+│   │└
+│   │ @ array.jl:443 within `getindex`
+│   │        %new(Base.var"#getindex##2#getindex##3"{Vector{Shape7}}, %6)::Base.var"#getindex##2#getindex##3"{Vector{Shape7}}
+│   │┌ @ operators.jl:610 within `afoldl`
+│   ││┌ @ array.jl:444 within `#getindex##2`
+│   │││┌ @ array.jl:1020 within `setindex!`
+│   ││││┌ @ array.jl:1024 within `_setindex!`
+│   │││││ %8   = $(Expr(:boundscheck, false))::Bool
+└───│││││        goto #5 if not %8
+    │││││┌ @ essentials.jl:385 within `checkbounds`
+2 ──││││││ %10  = intrinsic Base.sub_int(1, 1)::Int64
+│   ││││││ %11  = intrinsic Base.bitcast(Base.UInt, %10)::UInt64
+│   ││││││┌ @ essentials.jl:11 within `length`
+│   │││││││┌ @ essentials.jl:10 within `size`
+│   ││││││││ %12  =   builtin Base.getfield(%6, :size)::Tuple{Int64}
+│   │││││││└
+│   │││││││┌ @ tuple.jl:666 within `prod`
+│   ││││││││ %13  =   builtin Core.getfield(%12, 1)::Int64
+│   ││││││└└
+│   ││││││ %14  = intrinsic Base.bitcast(Base.UInt, %13)::UInt64
+│   ││││││ %15  = intrinsic Base.ult_int(%11, %14)::Bool
+│   │││││└
+└───│││││        goto #4 if not %15
+3 ──│││││        goto #5
+4 ──│││││ %18  =   builtin Core.tuple(1)::Tuple{Int64}
+│   │││││           invoke Base.throw_boundserror(%6::Vector{Shape7}, %18::Tuple{Int64})::Union{}
+└───│││││        unreachable
+    │││││ @ array.jl:1025 within `_setindex!`
+    │││││┌ @ Base_compiler.jl:57 within `getproperty`
+5 ┄─││││││ %21  =   builtin Base.getfield(%6, :ref)::MemoryRef{Shape7}
+│   │││││└
+│   │││││ %22  =   builtin Base.memoryrefnew(%21, 1, false)::MemoryRef{Shape7}
+│   │││││          builtin Base.memoryrefset!(%22, %3, :not_atomic, false)::Dynamic{Shape7}
+│   ││└└└
+│   ││ @ operators.jl:611 within `afoldl`
+│   ││┌ @ array.jl:444 within `#getindex##2`
+│   │││┌ @ array.jl:1020 within `setindex!`
+│   ││││┌ @ array.jl:1024 within `_setindex!`
+│   │││││ %24  = $(Expr(:boundscheck, false))::Bool
+└───│││││        goto #9 if not %24
+    │││││┌ @ essentials.jl:385 within `checkbounds`
+6 ──││││││ %26  = intrinsic Base.sub_int(2, 1)::Int64
+│   ││││││ %27  = intrinsic Base.bitcast(Base.UInt, %26)::UInt64
+│   ││││││┌ @ essentials.jl:11 within `length`
+│   │││││││┌ @ essentials.jl:10 within `size`
+│   ││││││││ %28  =   builtin Base.getfield(%6, :size)::Tuple{Int64}
+│   │││││││└
+│   │││││││┌ @ tuple.jl:666 within `prod`
+│   ││││││││ %29  =   builtin Core.getfield(%28, 1)::Int64
+│   ││││││└└
+│   ││││││ %30  = intrinsic Base.bitcast(Base.UInt, %29)::UInt64
+│   ││││││ %31  = intrinsic Base.ult_int(%27, %30)::Bool
+│   │││││└
+└───│││││        goto #8 if not %31
+7 ──│││││        goto #9
+8 ──│││││ %34  =   builtin Core.tuple(2)::Tuple{Int64}
+│   │││││           invoke Base.throw_boundserror(%6::Vector{Shape7}, %34::Tuple{Int64})::Union{}
+└───│││││        unreachable
+    │││││ @ array.jl:1025 within `_setindex!`
+    │││││┌ @ Base_compiler.jl:57 within `getproperty`
+9 ┄─││││││ %37  =   builtin Base.getfield(%6, :ref)::MemoryRef{Shape7}
+│   │││││└
+│   │││││ %38  =   builtin Base.memoryrefnew(%37, 2, false)::MemoryRef{Shape7}
+│   │││││          builtin Base.memoryrefset!(%38, Ci7(1.0), :not_atomic, false)::Ci7
+│   │└└└└
+│   │ @ array.jl:448 within `getindex`
+└───│        goto #10
+    └
+    ┌ @ abstractarray.jl:1247 within `iterate` @ abstractarray.jl:1247
+    │┌ @ abstractarray.jl:1254 within `_iterate_abstractarray`
+    ││┌ @ essentials.jl:385 within `checkbounds`
+10 ─│││ %41  = intrinsic Base.sub_int(1, 1)::Int64
+│   │││ %42  = intrinsic Base.bitcast(Base.UInt, %41)::UInt64
+│   │││┌ @ essentials.jl:11 within `length`
+│   ││││┌ @ essentials.jl:10 within `size`
+│   │││││ %43  =   builtin Base.getfield(%6, :size)::Tuple{Int64}
+│   ││││└
+│   ││││┌ @ tuple.jl:666 within `prod`
+│   │││││ %44  =   builtin Core.getfield(%43, 1)::Int64
+│   │││└└
+│   │││ %45  = intrinsic Base.bitcast(Base.UInt, %44)::UInt64
+│   │││ %46  = intrinsic Base.ult_int(%42, %45)::Bool
+│   ││└
+└───││        goto #18 if not %46
+    ││ @ abstractarray.jl:1255 within `_iterate_abstractarray`
+    ││┌ @ essentials.jl:978 within `getindex`
+11 ─│││ %48  = $(Expr(:boundscheck, true))::Bool
+└───│││        goto #16 if not %48
+    │││┌ @ essentials.jl:389 within `checkbounds` @ essentials.jl:385
+12 ─││││ %50  = intrinsic Base.sub_int(1, 1)::Int64
+│   ││││ %51  = intrinsic Base.bitcast(Base.UInt, %50)::UInt64
+│   ││││┌ @ essentials.jl:11 within `length`
+│   │││││┌ @ essentials.jl:10 within `size`
+│   ││││││ %52  =   builtin Base.getfield(%6, :size)::Tuple{Int64}
+│   │││││└
+│   │││││┌ @ tuple.jl:666 within `prod`
+│   ││││││ %53  =   builtin Core.getfield(%52, 1)::Int64
+│   ││││└└
+│   ││││ %54  = intrinsic Base.bitcast(Base.UInt, %53)::UInt64
+│   ││││ %55  = intrinsic Base.ult_int(%51, %54)::Bool
+│   ││││ @ essentials.jl:389 within `checkbounds`
+└───││││        goto #14 if not %55
+13 ─││││        goto #15
+14 ─││││ %58  =   builtin Core.tuple(1)::Tuple{Int64}
+│   ││││           invoke Base.throw_boundserror(%6::Vector{Shape7}, %58::Tuple{Int64})::Union{}
+└───││││        unreachable
+15 ─││││        nothing::Nothing
+    │││└
+    │││ @ essentials.jl:979 within `getindex`
+16 ┄│││ %62  =   builtin Base.getfield(%6, :ref)::MemoryRef{Shape7}
+│   │││ %63  =   builtin Base.memoryrefnew(%62, 1, false)::MemoryRef{Shape7}
+│   │││ %64  =   builtin Base.memoryrefget(%63, :not_atomic, false)::Shape7
+└───│││        goto #17
+    ││└
+    ││┌ @ int.jl:87 within `+`
+17 ─│││ %66  = intrinsic Base.add_int(1, 1)::Int64
+└───│││        goto #19
+    ││└
+    ││ @ abstractarray.jl:1254 within `_iterate_abstractarray`
+18 ─││        goto #19
+    │└
+19 ┄│ %69  = φ (#17 => false, #18 => true)::Bool
+│   │ %70  = φ (#17 => %64)::Shape7
+│   │ %71  = φ (#17 => %66)::Int64
+└───│        goto #20
+20 ─│        goto #21
+    └
+21 ─ %74  = intrinsic Base.not_int(%69)::Bool
+└───        goto #39 if not %74
+22 ┄ %76  = φ (#21 => %70, #38 => %124)::Shape7
+│    %77  = φ (#21 => %71, #38 => %125)::Int64
+│    %78  = φ (#21 => 0.0, #38 => %95)::Float64
+│    %79  =   builtin (isa)(%76, Ci7)::Bool
+└───        goto #24 if not %79
+23 ─ %81  = π (%76, Ci7)
+│   ┌ @ /p/projects/coen/julia-trait-bound/experiments/implementation/w158/probes/flow.jl:45 within `area7`
+│   │┌ @ Base_compiler.jl:57 within `getproperty`
+│   ││ %82  =   builtin Base.getfield(%81, :r)::Float64
+│   │└
+│   │┌ @ intfuncs.jl:467 within `literal_pow`
+│   ││┌ @ float.jl:494 within `*`
+│   │││ %83  = intrinsic Base.mul_float(%82, %82)::Float64
+│   │└└
+│   │┌ @ float.jl:494 within `*`
+│   ││ %84  = intrinsic Base.mul_float(3.0, %83)::Float64
+│   └└
+└───        goto #27
+24 ─ %86  =   builtin (isa)(%76, Sq7)::Bool
+└───        goto #26 if not %86
+25 ─ %88  = π (%76, Sq7)
+│   ┌ @ /p/projects/coen/julia-trait-bound/experiments/implementation/w158/probes/flow.jl:44 within `area7`
+│   │┌ @ Base_compiler.jl:57 within `getproperty`
+│   ││ %89  =   builtin Base.getfield(%88, :a)::Float64
+│   │└
+│   │┌ @ intfuncs.jl:467 within `literal_pow`
+│   ││┌ @ float.jl:494 within `*`
+│   │││ %90  = intrinsic Base.mul_float(%89, %89)::Float64
+│   └└└
+└───        goto #27
+26 ─          builtin Core.throw_methoderror(Main.area7, %76)::Union{}
+└───        unreachable
+27 ┄ %94  = φ (#23 => %84, #25 => %90)::Float64
+│   ┌ @ float.jl:492 within `+`
+│   │ %95  = intrinsic Base.add_float(%78, %94)::Float64
+│   └
+│   ┌ @ abstractarray.jl:1247 within `iterate`
+│   │┌ @ abstractarray.jl:1254 within `_iterate_abstractarray`
+│   ││┌ @ essentials.jl:385 within `checkbounds`
+│   │││ %96  = intrinsic Base.sub_int(%77, 1)::Int64
+│   │││ %97  = intrinsic Base.bitcast(Base.UInt, %96)::UInt64
+│   │││┌ @ essentials.jl:11 within `length`
+│   ││││┌ @ essentials.jl:10 within `size`
+│   │││││ %98  =   builtin Base.getfield(%6, :size)::Tuple{Int64}
+│   ││││└
+│   ││││┌ @ tuple.jl:666 within `prod`
+│   │││││ %99  =   builtin Core.getfield(%98, 1)::Int64
+│   │││└└
+│   │││ %100 = intrinsic Base.bitcast(Base.UInt, %99)::UInt64
+│   │││ %101 = intrinsic Base.ult_int(%97, %100)::Bool
+│   ││└
+└───││        goto #35 if not %101
+    ││ @ abstractarray.jl:1255 within `_iterate_abstractarray`
+    ││┌ @ essentials.jl:978 within `getindex`
+28 ─│││ %103 = $(Expr(:boundscheck, true))::Bool
+└───│││        goto #33 if not %103
+    │││┌ @ essentials.jl:389 within `checkbounds` @ essentials.jl:385
+29 ─││││ %105 = intrinsic Base.sub_int(%77, 1)::Int64
+│   ││││ %106 = intrinsic Base.bitcast(Base.UInt, %105)::UInt64
+│   ││││┌ @ essentials.jl:11 within `length`
+│   │││││┌ @ essentials.jl:10 within `size`
+│   ││││││ %107 =   builtin Base.getfield(%6, :size)::Tuple{Int64}
+│   │││││└
+│   │││││┌ @ tuple.jl:666 within `prod`
+│   ││││││ %108 =   builtin Core.getfield(%107, 1)::Int64
+│   ││││└└
+│   ││││ %109 = intrinsic Base.bitcast(Base.UInt, %108)::UInt64
+│   ││││ %110 = intrinsic Base.ult_int(%106, %109)::Bool
+│   ││││ @ essentials.jl:389 within `checkbounds`
+└───││││        goto #31 if not %110
+30 ─││││        goto #32
+31 ─││││ %113 =   builtin Core.tuple(%77)::Tuple{Int64}
+│   ││││           invoke Base.throw_boundserror(%6::Vector{Shape7}, %113::Tuple{Int64})::Union{}
+└───││││        unreachable
+32 ─││││        nothing::Nothing
+    │││└
+    │││ @ essentials.jl:979 within `getindex`
+33 ┄│││ %117 =   builtin Base.getfield(%6, :ref)::MemoryRef{Shape7}
+│   │││ %118 =   builtin Base.memoryrefnew(%117, %77, false)::MemoryRef{Shape7}
+│   │││ %119 =   builtin Base.memoryrefget(%118, :not_atomic, false)::Shape7
+└───│││        goto #34
+    ││└
+    ││┌ @ int.jl:87 within `+`
+34 ─│││ %121 = intrinsic Base.add_int(%77, 1)::Int64
+└───│││        goto #36
+    ││└
+    ││ @ abstractarray.jl:1254 within `_iterate_abstractarray`
+35 ─││        goto #36
+    │└
+36 ┄│ %124 = φ (#34 => %119)::Shape7
+│   │ %125 = φ (#34 => %121)::Int64
+│   │ %126 = φ (#34 => false, #35 => true)::Bool
+└───│        goto #37
+    └
+37 ─ %128 = intrinsic Base.not_int(%126)::Bool
+└───        goto #39 if not %128
+38 ─        goto #22
+39 ┄ %131 = φ (#37 => %95, #21 => 0.0)::Float64
+└───        return %131
+)
+  Shape7: inferred with 2, now 3
+  stale: 1 noted, 1 with callers; boxes
+round 2 (no member a fact: false): 3 instances
+  MethodInstance for boxes(::Int64) => Float64 [ci 18148088933680939216 worlds 39747:18446744073709551615]
+  MethodInstance for Base.throw_boundserror(::Vector{Shape7}, ::Tuple{Int64}) => Union{} [ci 4107523068199377107 worlds 99:18446744073709551615]
+  MethodInstance for BoundsError(::Any, ::Tuple{Int64}) => BoundsError [ci 2170625823348591503 worlds 96:18446744073709551615]
+CodeInfo(
+     @ /p/projects/coen/julia-trait-bound/experiments/implementation/w158/probes/flow.jl:48 within `boxes`
+    ┌ @ float.jl:245 within `Float64`
+1 ──│ %1   = intrinsic Base.sitofp(Float64, n)::Float64
+│   └
+│   ┌ @ /p/projects/coen/julia-trait-bound/experiments/implementation/w158/probes/flow.jl:42 within `Sq7`
+│   │ %2   = %new(Main.Sq7, %1)::Sq7
+│   └
+│   ┌ @ boot.jl:461 within `Dynamic`
+│   │┌ @ boot.jl:573 within `_new_dynamic`
+│   ││ %3   = %new(Dynamic{Shape7}, %2)::Dynamic{Shape7}
+│   └└
+│   ┌ @ array.jl:436 within `getindex`
+│   │┌ @ boot.jl:702 within `Array`
+│   ││┌ @ boot.jl:642 within `GenericMemory`
+│   │││ %4   =   builtin Core.memorynew(Memory{Shape7}, 2)::Memory{Shape7}
+│   ││└
+│   ││ @ boot.jl:703 within `Array`
+│   ││┌ @ boot.jl:648 within `memoryref`
+│   │││ %5   =   builtin Core.memoryrefnew(%4)::MemoryRef{Shape7}
+│   ││└
+│   ││ %6   = %new(Vector{Shape7}, %5, (2,))::Vector{Shape7}
+│   │└
+│   │ @ array.jl:443 within `getindex`
+│   │        %new(Base.var"#getindex##2#getindex##3"{Vector{Shape7}}, %6)::Base.var"#getindex##2#getindex##3"{Vector{Shape7}}
+│   │┌ @ operators.jl:610 within `afoldl`
+│   ││┌ @ array.jl:444 within `#getindex##2`
+│   │││┌ @ array.jl:1020 within `setindex!`
+│   ││││┌ @ array.jl:1024 within `_setindex!`
+│   │││││ %8   = $(Expr(:boundscheck, false))::Bool
+└───│││││        goto #5 if not %8
+    │││││┌ @ essentials.jl:385 within `checkbounds`
+2 ──││││││ %10  = intrinsic Base.sub_int(1, 1)::Int64
+│   ││││││ %11  = intrinsic Base.bitcast(Base.UInt, %10)::UInt64
+│   ││││││┌ @ essentials.jl:11 within `length`
+│   │││││││┌ @ essentials.jl:10 within `size`
+│   ││││││││ %12  =   builtin Base.getfield(%6, :size)::Tuple{Int64}
+│   │││││││└
+│   │││││││┌ @ tuple.jl:666 within `prod`
+│   ││││││││ %13  =   builtin Core.getfield(%12, 1)::Int64
+│   ││││││└└
+│   ││││││ %14  = intrinsic Base.bitcast(Base.UInt, %13)::UInt64
+│   ││││││ %15  = intrinsic Base.ult_int(%11, %14)::Bool
+│   │││││└
+└───│││││        goto #4 if not %15
+3 ──│││││        goto #5
+4 ──│││││ %18  =   builtin Core.tuple(1)::Tuple{Int64}
+│   │││││           invoke Base.throw_boundserror(%6::Vector{Shape7}, %18::Tuple{Int64})::Union{}
+└───│││││        unreachable
+    │││││ @ array.jl:1025 within `_setindex!`
+    │││││┌ @ Base_compiler.jl:57 within `getproperty`
+5 ┄─││││││ %21  =   builtin Base.getfield(%6, :ref)::MemoryRef{Shape7}
+│   │││││└
+│   │││││ %22  =   builtin Base.memoryrefnew(%21, 1, false)::MemoryRef{Shape7}
+│   │││││          builtin Base.memoryrefset!(%22, %3, :not_atomic, false)::Dynamic{Shape7}
+│   ││└└└
+│   ││ @ operators.jl:611 within `afoldl`
+│   ││┌ @ array.jl:444 within `#getindex##2`
+│   │││┌ @ array.jl:1020 within `setindex!`
+│   ││││┌ @ array.jl:1024 within `_setindex!`
+│   │││││ %24  = $(Expr(:boundscheck, false))::Bool
+└───│││││        goto #9 if not %24
+    │││││┌ @ essentials.jl:385 within `checkbounds`
+6 ──││││││ %26  = intrinsic Base.sub_int(2, 1)::Int64
+│   ││││││ %27  = intrinsic Base.bitcast(Base.UInt, %26)::UInt64
+│   ││││││┌ @ essentials.jl:11 within `length`
+│   │││││││┌ @ essentials.jl:10 within `size`
+│   ││││││││ %28  =   builtin Base.getfield(%6, :size)::Tuple{Int64}
+│   │││││││└
+│   │││││││┌ @ tuple.jl:666 within `prod`
+│   ││││││││ %29  =   builtin Core.getfield(%28, 1)::Int64
+│   ││││││└└
+│   ││││││ %30  = intrinsic Base.bitcast(Base.UInt, %29)::UInt64
+│   ││││││ %31  = intrinsic Base.ult_int(%27, %30)::Bool
+│   │││││└
+└───│││││        goto #8 if not %31
+7 ──│││││        goto #9
+8 ──│││││ %34  =   builtin Core.tuple(2)::Tuple{Int64}
+│   │││││           invoke Base.throw_boundserror(%6::Vector{Shape7}, %34::Tuple{Int64})::Union{}
+└───│││││        unreachable
+    │││││ @ array.jl:1025 within `_setindex!`
+    │││││┌ @ Base_compiler.jl:57 within `getproperty`
+9 ┄─││││││ %37  =   builtin Base.getfield(%6, :ref)::MemoryRef{Shape7}
+│   │││││└
+│   │││││ %38  =   builtin Base.memoryrefnew(%37, 2, false)::MemoryRef{Shape7}
+│   │││││          builtin Base.memoryrefset!(%38, Ci7(1.0), :not_atomic, false)::Ci7
+│   │└└└└
+│   │ @ array.jl:448 within `getindex`
+└───│        goto #10
+    └
+    ┌ @ abstractarray.jl:1247 within `iterate` @ abstractarray.jl:1247
+    │┌ @ abstractarray.jl:1254 within `_iterate_abstractarray`
+    ││┌ @ essentials.jl:385 within `checkbounds`
+10 ─│││ %41  = intrinsic Base.sub_int(1, 1)::Int64
+│   │││ %42  = intrinsic Base.bitcast(Base.UInt, %41)::UInt64
+│   │││┌ @ essentials.jl:11 within `length`
+│   ││││┌ @ essentials.jl:10 within `size`
+│   │││││ %43  =   builtin Base.getfield(%6, :size)::Tuple{Int64}
+│   ││││└
+│   ││││┌ @ tuple.jl:666 within `prod`
+│   │││││ %44  =   builtin Core.getfield(%43, 1)::Int64
+│   │││└└
+│   │││ %45  = intrinsic Base.bitcast(Base.UInt, %44)::UInt64
+│   │││ %46  = intrinsic Base.ult_int(%42, %45)::Bool
+│   ││└
+└───││        goto #18 if not %46
+    ││ @ abstractarray.jl:1255 within `_iterate_abstractarray`
+    ││┌ @ essentials.jl:978 within `getindex`
+11 ─│││ %48  = $(Expr(:boundscheck, true))::Bool
+└───│││        goto #16 if not %48
+    │││┌ @ essentials.jl:389 within `checkbounds` @ essentials.jl:385
+12 ─││││ %50  = intrinsic Base.sub_int(1, 1)::Int64
+│   ││││ %51  = intrinsic Base.bitcast(Base.UInt, %50)::UInt64
+│   ││││┌ @ essentials.jl:11 within `length`
+│   │││││┌ @ essentials.jl:10 within `size`
+│   ││││││ %52  =   builtin Base.getfield(%6, :size)::Tuple{Int64}
+│   │││││└
+│   │││││┌ @ tuple.jl:666 within `prod`
+│   ││││││ %53  =   builtin Core.getfield(%52, 1)::Int64
+│   ││││└└
+│   ││││ %54  = intrinsic Base.bitcast(Base.UInt, %53)::UInt64
+│   ││││ %55  = intrinsic Base.ult_int(%51, %54)::Bool
+│   ││││ @ essentials.jl:389 within `checkbounds`
+└───││││        goto #14 if not %55
+13 ─││││        goto #15
+14 ─││││ %58  =   builtin Core.tuple(1)::Tuple{Int64}
+│   ││││           invoke Base.throw_boundserror(%6::Vector{Shape7}, %58::Tuple{Int64})::Union{}
+└───││││        unreachable
+15 ─││││        nothing::Nothing
+    │││└
+    │││ @ essentials.jl:979 within `getindex`
+16 ┄│││ %62  =   builtin Base.getfield(%6, :ref)::MemoryRef{Shape7}
+│   │││ %63  =   builtin Base.memoryrefnew(%62, 1, false)::MemoryRef{Shape7}
+│   │││ %64  =   builtin Base.memoryrefget(%63, :not_atomic, false)::Shape7
+└───│││        goto #17
+    ││└
+    ││┌ @ int.jl:87 within `+`
+17 ─│││ %66  = intrinsic Base.add_int(1, 1)::Int64
+└───│││        goto #19
+    ││└
+    ││ @ abstractarray.jl:1254 within `_iterate_abstractarray`
+18 ─││        goto #19
+    │└
+19 ┄│ %69  = φ (#17 => false, #18 => true)::Bool
+│   │ %70  = φ (#17 => %64)::Shape7
+│   │ %71  = φ (#17 => %66)::Int64
+└───│        goto #20
+20 ─│        goto #21
+    └
+21 ─ %74  = intrinsic Base.not_int(%69)::Bool
+└───        goto #47 if not %74
+22 ┄ %76  = φ (#21 => %70, #46 => %146)::Shape7
+│    %77  = φ (#21 => %71, #46 => %147)::Int64
+│    %78  = φ (#21 => 0.0, #46 => %117)::Float64
+│    %79  =   builtin (isa)(%76, Ci7)::Bool
+└───        goto #24 if not %79
+23 ─ %81  = π (%76, Ci7)
+│   ┌ @ /p/projects/coen/julia-trait-bound/experiments/implementation/w158/probes/flow.jl:45 within `area7`
+│   │┌ @ Base_compiler.jl:57 within `getproperty`
+│   ││ %82  =   builtin Base.getfield(%81, :r)::Float64
+│   │└
+│   │┌ @ intfuncs.jl:467 within `literal_pow`
+│   ││┌ @ float.jl:494 within `*`
+│   │││ %83  = intrinsic Base.mul_float(%82, %82)::Float64
+│   │└└
+│   │┌ @ float.jl:494 within `*`
+│   ││ %84  = intrinsic Base.mul_float(3.0, %83)::Float64
+│   └└
+└───        goto #35
+24 ─ %86  =   builtin (isa)(%76, Sq7)::Bool
+└───        goto #26 if not %86
+25 ─ %88  = π (%76, Sq7)
+│   ┌ @ /p/projects/coen/julia-trait-bound/experiments/implementation/w158/probes/flow.jl:44 within `area7`
+│   │┌ @ Base_compiler.jl:57 within `getproperty`
+│   ││ %89  =   builtin Base.getfield(%88, :a)::Float64
+│   │└
+│   │┌ @ intfuncs.jl:467 within `literal_pow`
+│   ││┌ @ float.jl:494 within `*`
+│   │││ %90  = intrinsic Base.mul_float(%89, %89)::Float64
+│   └└└
+└───        goto #35
+26 ─ %92  =   builtin (isa)(%76, Dynamic{Shape7})::Bool
+└───        goto #34 if not %92
+27 ─ %94  = π (%76, Dynamic{Shape7})
+│   ┌ @ /p/projects/coen/julia-trait-bound/experiments/implementation/w158/probes/flow.jl:39 within `area7`
+│   │ %95  =   builtin Core.getfield(%94, :object)::Shape7
+│   │ %96  =   builtin (isa)(%95, Ci7)::Bool
+└───│        goto #29 if not %96
+28 ─│ %98  = π (%95, Ci7)
+│   │ @ /p/projects/coen/julia-trait-bound/experiments/implementation/w158/probes/flow.jl:39 within `area7` @ /p/projects/coen/julia-trait-bound/experiments/implementation/w158/probes/flow.jl:45
+│   │┌ @ Base_compiler.jl:57 within `getproperty`
+│   ││ %99  =   builtin Base.getfield(%98, :r)::Float64
+│   │└
+│   │┌ @ intfuncs.jl:467 within `literal_pow`
+│   ││┌ @ float.jl:494 within `*`
+│   │││ %100 = intrinsic Base.mul_float(%99, %99)::Float64
+│   │└└
+│   │┌ @ float.jl:494 within `*`
+│   ││ %101 = intrinsic Base.mul_float(3.0, %100)::Float64
+│   │└
+│   │ @ /p/projects/coen/julia-trait-bound/experiments/implementation/w158/probes/flow.jl:39 within `area7`
+└───│        goto #32
+29 ─│ %103 =   builtin (isa)(%95, Sq7)::Bool
+└───│        goto #31 if not %103
+30 ─│ %105 = π (%95, Sq7)
+│   │ @ /p/projects/coen/julia-trait-bound/experiments/implementation/w158/probes/flow.jl:39 within `area7` @ /p/projects/coen/julia-trait-bound/experiments/implementation/w158/probes/flow.jl:44
+│   │┌ @ Base_compiler.jl:57 within `getproperty`
+│   ││ %106 =   builtin Base.getfield(%105, :a)::Float64
+│   │└
+│   │┌ @ intfuncs.jl:467 within `literal_pow`
+│   ││┌ @ float.jl:494 within `*`
+│   │││ %107 = intrinsic Base.mul_float(%106, %106)::Float64
+│   │└└
+│   │ @ /p/projects/coen/julia-trait-bound/experiments/implementation/w158/probes/flow.jl:39 within `area7`
+└───│        goto #32
+31 ─│          builtin Core.throw_methoderror(Main.area7, %95)::Union{}
+└───│        unreachable
+32 ┄│ %111 = φ (#28 => %101, #30 => %107)::Float64
+└───│        goto #33
+    └
+33 ─        goto #35
+34 ─          builtin Core.throw_methoderror(Main.area7, %76)::Union{}
+└───        unreachable
+35 ┄ %116 = φ (#23 => %84, #25 => %90, #33 => %111)::Float64
+│   ┌ @ float.jl:492 within `+`
+│   │ %117 = intrinsic Base.add_float(%78, %116)::Float64
+│   └
+│   ┌ @ abstractarray.jl:1247 within `iterate`
+│   │┌ @ abstractarray.jl:1254 within `_iterate_abstractarray`
+│   ││┌ @ essentials.jl:385 within `checkbounds`
+│   │││ %118 = intrinsic Base.sub_int(%77, 1)::Int64
+│   │││ %119 = intrinsic Base.bitcast(Base.UInt, %118)::UInt64
+│   │││┌ @ essentials.jl:11 within `length`
+│   ││││┌ @ essentials.jl:10 within `size`
+│   │││││ %120 =   builtin Base.getfield(%6, :size)::Tuple{Int64}
+│   ││││└
+│   ││││┌ @ tuple.jl:666 within `prod`
+│   │││││ %121 =   builtin Core.getfield(%120, 1)::Int64
+│   │││└└
+│   │││ %122 = intrinsic Base.bitcast(Base.UInt, %121)::UInt64
+│   │││ %123 = intrinsic Base.ult_int(%119, %122)::Bool
+│   ││└
+└───││        goto #43 if not %123
+    ││ @ abstractarray.jl:1255 within `_iterate_abstractarray`
+    ││┌ @ essentials.jl:978 within `getindex`
+36 ─│││ %125 = $(Expr(:boundscheck, true))::Bool
+└───│││        goto #41 if not %125
+    │││┌ @ essentials.jl:389 within `checkbounds` @ essentials.jl:385
+37 ─││││ %127 = intrinsic Base.sub_int(%77, 1)::Int64
+│   ││││ %128 = intrinsic Base.bitcast(Base.UInt, %127)::UInt64
+│   ││││┌ @ essentials.jl:11 within `length`
+│   │││││┌ @ essentials.jl:10 within `size`
+│   ││││││ %129 =   builtin Base.getfield(%6, :size)::Tuple{Int64}
+│   │││││└
+│   │││││┌ @ tuple.jl:666 within `prod`
+│   ││││││ %130 =   builtin Core.getfield(%129, 1)::Int64
+│   ││││└└
+│   ││││ %131 = intrinsic Base.bitcast(Base.UInt, %130)::UInt64
+│   ││││ %132 = intrinsic Base.ult_int(%128, %131)::Bool
+│   ││││ @ essentials.jl:389 within `checkbounds`
+└───││││        goto #39 if not %132
+38 ─││││        goto #40
+39 ─││││ %135 =   builtin Core.tuple(%77)::Tuple{Int64}
+│   ││││           invoke Base.throw_boundserror(%6::Vector{Shape7}, %135::Tuple{Int64})::Union{}
+└───││││        unreachable
+40 ─││││        nothing::Nothing
+    │││└
+    │││ @ essentials.jl:979 within `getindex`
+41 ┄│││ %139 =   builtin Base.getfield(%6, :ref)::MemoryRef{Shape7}
+│   │││ %140 =   builtin Base.memoryrefnew(%139, %77, false)::MemoryRef{Shape7}
+│   │││ %141 =   builtin Base.memoryrefget(%140, :not_atomic, false)::Shape7
+└───│││        goto #42
+    ││└
+    ││┌ @ int.jl:87 within `+`
+42 ─│││ %143 = intrinsic Base.add_int(%77, 1)::Int64
+└───│││        goto #44
+    ││└
+    ││ @ abstractarray.jl:1254 within `_iterate_abstractarray`
+43 ─││        goto #44
+    │└
+44 ┄│ %146 = φ (#42 => %141)::Shape7
+│   │ %147 = φ (#42 => %143)::Int64
+│   │ %148 = φ (#42 => false, #43 => true)::Bool
+└───│        goto #45
+    └
+45 ─ %150 = intrinsic Base.not_int(%148)::Bool
+└───        goto #47 if not %150
+46 ─        goto #22
+47 ┄ %153 = φ (#45 => %117, #21 => 0.0)::Float64
+└───        return %153
+)
+  Shape7: inferred with 3, now 3
+  raises: MethodInstance for Base.throw_boundserror(::Vector{Shape7}, ::Tuple{Int64})

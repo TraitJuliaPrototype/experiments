@@ -1,0 +1,75 @@
+boxall: 6 errors, 1 rounds, 0.31 s
+  error: unresolved call | +(
+  (…)::Float64,
+  (:(φ (%122 => %117, %164 => %158))::Dynamic{All{Callable{Tuple{Float64}, Float64}, Callable{Tuple{Int64}, Float64}}})(n::Int64)::Any
+)::Any
+      at boxall(n::Int64) at callable.jl:16
+  error: unresolved call | +(
+  :(φ (%122 => 0.0, %164 => %129))::Any,
+  +(
+    (…)::Float64,
+    (:(φ (%122 => %117, %164 => %158))::Dynamic{All{Callable{Tuple{Float64}, Float64}, Callable{Tuple{Int64}, Float64}}})(n::Int64)::Any
+  )::Any
+)::Any
+      at boxall(n::Int64) at callable.jl:16
+  error: unresolved call | (:(TraitWorld.getfield(_1, :object))::All{Callable{Tuple{Float64}, Float64}, Callable{Tuple{Int64}, Float64}})((…)::Int64)::Any
+      at (::Dynamic{All{Callable{Tuple{Float64}, Float64}, Callable{Tuple{Int64}, Float64}}})(args::Int64) at callable.jl:44
+      at boxall(n::Int64) at callable.jl:16
+  error: unresolved call | (:(TraitWorld.getfield(_1, :object))::All{Callable{Tuple{Float64}, Float64}, Callable{Tuple{Int64}, Float64}})((…)::Float64)::Any
+      at (::Dynamic{All{Callable{Tuple{Float64}, Float64}, Callable{Tuple{Int64}, Float64}}})(args::Float64) at callable.jl:42
+      at boxall(n::Int64) at callable.jl:16
+  error: unresolved call | Core._hasmethod(
+  signature_type(
+    f::Any,
+    t::Any
+  )::Any
+)::Bool
+      at hasmethod(f::Any, t::Any) at reflection.jl:1085
+      at Dynamic{All{Callable{Tuple{Float64}, Float64}, Callable{Tuple{Int64}, Float64}}}(f::typeof(hh)) at callable.jl:94 [inlined]
+      at boxall(n::Int64) at callable.jl:16
+  error: unresolved argument to call | _apply_iterate(
+  iterate::typeof(iterate),
+  apply_type::typeof(Core.apply_type),
+  (…)::Core.SimpleVector,
+  t::Union{Core.SimpleVector, Tuple, AbstractArray}
+)::Type
+      at to_tuple_type(t::Any) at runtime_internals.jl:1399
+      at signature_type(f::Any, argtypes::Any) at runtime_internals.jl:1417
+      at hasmethod(f::Any, t::Any) at reflection.jl:1085
+      at Dynamic{All{Callable{Tuple{Float64}, Float64}, Callable{Tuple{Int64}, Float64}}}(f::typeof(hh)) at callable.jl:94 [inlined]
+  session: 12.0
+boxone: 1 errors, 1 rounds, 0.02 s
+  error: unresolved call | (:(TraitWorld.getfield(_1, :object))::Callable{Tuple{Float64}, Float64})((…)::Float64)::Any
+      at (::Dynamic{Callable{Tuple{Float64}, Float64}})(args::Float64) at callable.jl:35
+      at boxone(n::Int64) at callable.jl:19
+  session: 7.0
+nospec: 2 errors, 3 rounds, 0.01 s
+  Callable{Tuple{Float64}, Float64}: typeof(hh)
+  error: unresolved call | (f::Union{Compiled{<:Callable{Tuple{Float64}, Float64}}, Dynamic{<:Callable{Tuple{Float64}, Float64}}})(x::Float64)::Float64
+      at callns(f::Union{Compiled{<:Callable{Tuple{Float64}, Float64}}, Dynamic{<:Callable{Tuple{Float64}, Float64}}}, x::Float64) at callable.jl:21
+      at callns(f::typeof(hh), x::Float64) at callable.jl:21 [inlined]
+      at nospec(n::Int64) at callable.jl:22
+  error: unresolved call | (:(TraitWorld.getfield(_1, :object))::Callable{Tuple{Float64}, Float64})((…)::Float64)::Any
+      at (::Dynamic{Callable{Tuple{Float64}, Float64}})(args::Float64) at callable.jl:35
+      at callns(f::Union{Compiled{<:Callable{Tuple{Float64}, Float64}}, Dynamic{<:Callable{Tuple{Float64}, Float64}}}, x::Float64) at callable.jl:21
+      at callns(f::typeof(hh), x::Float64) at callable.jl:21 [inlined]
+      at nospec(n::Int64) at callable.jl:22
+  session: 6.0
+ctor2: 0 errors, 2 rounds, 0.02 s
+  Callable: 
+  session: 14.0
+twochoice: 2 errors, 1 rounds, 0.01 s
+  error: unresolved call | pairup(
+  :(φ (%74 => %69, %188 => %182))::ShapeE,
+  :(φ (%112 => %107, %152 => %146))::ShapeE
+)::Any
+      at twochoice(n::Int64) at callable.jl:53
+  error: unresolved call | +(
+  :(φ (%112 => %77, %152 => %117))::Any,
+  pairup(
+    :(φ (%74 => %69, %188 => %182))::ShapeE,
+    :(φ (%112 => %107, %152 => %146))::ShapeE
+  )::Any
+)::Any
+      at twochoice(n::Int64) at callable.jl:53
+  session: 6

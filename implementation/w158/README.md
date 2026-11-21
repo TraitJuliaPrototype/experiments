@@ -387,3 +387,134 @@ build, run, output equal (`logs/c-small.log`, `logs/small-c/`); the sessions (`s
 **Not done:** the box branch at the object a box holds is dropped only where the code reads `getfield(d, :object)`; the
 box's forwarding methods read it through the library's `_fwd`, so a program that keeps a box at a place typed by the set
 has a (dead, recursive) box branch there (`logs/c-box-object-ir.log`). No ODE binary: errors are left.
+
+## Third part: a function known only by its signature, 2026-11-21
+
+**The question** (E-510, continued; compiler C-154, C-151's rest, C-152's rest, C-153; the plot's binary that lacks
+code): does a closed build serve the call of a function known only as `Callable{A, S}` (the object a box holds, a
+`@nospecialize` argument) and a call with several arguments where the member's type chooses the method, by the rules
+of compiler §7.6 as written; and which rule let the plot's program on 61277571fa pass the verifier and stop with
+`MissingCodeError`? What would change the design: a case the rules as written cannot serve, or a session that pays.
+
+**How to run** (after `source env.sh` of this directory; `J=$TW_ROOT/wt/w158-julia/julia`):
+
+```sh
+(cd $TW_ROOT/wt/w158b-tw && [PATCH=1] $J --project=. $W158/e-probes/callable.jl [case ...])   # the patterns, the check in a session
+(cd $TW_ROOT/wt/w158b-tw && $J --project=. $W158/e-probes/box_object.jl)                       # C-152: the forwarding method's split
+(cd $TW_ROOT/wt/w158b-tw && OLD=2 [PATCH=1] $J --project=. $W158/e-probes/stale_invoke.jl)    # item 5: a caller the rounds miss
+bash e-apps.sh <label> <tree> [app ...]      # apps/e-*.jl, choice.jl, flow.jl: session, trimmed build, run, compare
+bash e-builds.sh <label> <tree> [app ...]    # the table's, report's, plot's programs with env_demo_d (the library at wt/w158b-tw)
+```
+
+- `e-probes/patch_e.jl` lays this part's compiler change over a session of 8b35e4b77c (`PATCH=1`), as `probes/patch_c.jl`
+  did for the second part; `old_invalidate.jl` (`OLD=1`) lays the rounds' caller search of 61277571fa over.
+- Logs `logs/e-*`; the build logs of `e-builds.sh` are `../w166/build_c.sh`'s, moved here (`logs/e-<label>-<app>.*`).
+
+**What was built.** Julia `wt/w158-julia`, branch `w158` from 8b35e4b77c (`Compiler/src`: 199 lines added, 77 removed):
+
+| commit | what |
+|---|---|
+| ea3ae656c3 | the declared field lookup (`declared_field_in`) reads its types' vector asserted a `SimpleVector` (C-153) |
+| 4c9949fa78 | a call branches over each argument where the member's type chooses, binds a static parameter or is a wrapper, the product within 64 branches; a closed build lists up to 64 methods of a call at a set argument (C-151) |
+| 8dbd516439 | the call of a function known only as `Callable{A, S}`, or an intersection of such, branches over the set type's members by use, its result asserted to `S`, no box branch at the object a box holds; a splatted such call is inferred (C-154) |
+| 583752d13d | a constant the code holds counts the members in its fields, wherever the code uses it (a soundness hole, below) |
+| 0b0924ef96, 9e742cd3cd | the verifier refuses an invoke whose code the build does not compile unless the build compiles the instance's code of the policy the trampoline's `jl_invoke` asks (item 5) |
+
+The library `wt/w158b-tw`, branch `w158e` from `unified` cedb718: ae31f9e (a box's signatures one by one: the
+constructor's `hasmethod(f, A)` and the call at the second signature at a constant `A`, `S`), e1a2200 (the kept forms'
+forwarding methods read `getfield(d, :object)`, as lowering §2 says, marked `:kept_forwarding` for the library's
+readers), 82959cf (tests). The gate `../gates/n34_closed_invoke_compiled.jl`.
+
+**The patterns, in a session's check** (`e-probes/callable.jl`; before `logs/e-probe-before-8b35e4b.log`, after
+`logs/e-probe-9e742cd.log`):
+
+| case | 8b35e4b77c | 9e742cd3cd |
+|---|---|---|
+| `boxall`: a box of `All{Callable{Tuple{Float64}, Float64}, Callable{Tuple{Int}, Float64}}` called at each | 6 errors (the object's call at both; the box's constructor `hasmethod(f::Any, …)`) | 0; members `hh`, `kk` |
+| `boxone`: a box of one signature called | 1 (the object's call) | 0 |
+| `nospec`: a function at an argument declared `@nospecialize` | 2 | 0 |
+| `ctor2`: a constructor at two signatures, values known only by bare `Callable` | 0, **unsound** (below) | 0; members at `Callable` and at each signature |
+| `ctor1`: the same with one such argument | 1 (the box's call) | 0 |
+| `twochoice`: five methods at two arguments of a trait | 2 (more methods than Julia's three) | 0 |
+
+**The small programs trimmed** (`e-apps.sh`; `logs/e-apps-before-8b35e4b.log`, `logs/e-apps-9e742cd.log`; errors are
+the verifier's `Error #` lines):
+
+| program | 8b35e4b77c | 9e742cd3cd |
+|---|---|---|
+| `apps/e-boxcall.jl` | 18 | 0, 2,167,048 bytes; runs, output equal to a session's |
+| `apps/e-ctor2.jl` (picked at run time, and a constant) | 8 | 0, 2,158,464 bytes; runs, equal |
+| `apps/e-twochoice.jl` | 6 | 0, 2,062,104 bytes; runs, equal |
+| `apps/choice.jl`, `apps/flow.jl` | 0, 0 | 0, 0; run, equal |
+
+**A soundness hole found** (G1). `ctor2`'s check on 8b35e4b77c had 0 errors and the members at bare `Callable` none:
+`[Raw2(hh, kk), Raw2(kk, hh)]` is folded by inference into a constant tuple read by `getfield(tuple, i)`, a builtin's
+operand, and the build read a constant only where the code passed it to a place, and a field only where its type did
+not keep its values' types. So the set had no member, the call `mkpair(r.c, r.a)` a "no method" fact: the build
+would raise where the session returns 14.0. The same for a constant tuple of boxes (`boxone`: the box's object at
+`G1` never counted). 583752d13d reads every constant operand, and through fields that keep their types (an isbits
+type holds none). The pattern: a value made by constant folding never passes through a statement the build reads.
+
+**C-154.** `Callable`'s call in a closed build branches as an operation's call does: members by use of the signature's
+set type, each branch the call at the member's type, the result asserted to `S`, past them `MethodError`. Two gaps
+met on the way: the box's call method calls its object splatted, and Julia's inference gives up on a splatted call
+of a function of no concrete type (`abstract_apply`): a closed build now infers it where the function is known only by
+a signature; and the instance with such a call is noted, so the rounds infer it again when members grow. Where the
+arguments may be outside `A`, the session's checked dynamic call stays (a narrowing; no case met). The box's test
+`hasmethod(f, A)` at a value known only by its signature is not split by name: the forwarder that holds it is called
+at a set argument where the method as written, at the kept forms, takes some members, so the member's type chooses
+(§7.6) and the forwarder runs per member, where the test folds (`ctor1`, `ctor2`). Past 64 members, or past the
+product's bound, the forwarder would run at the set instance and the test stays unresolved: not built, not met.
+
+**C-151.** Each choosing argument is split; the branches are the product, taken in order while it stays within 64
+(an argument past it left as it is). Julia's `max_methods` (3) made a call that four or more methods take a failed
+match before the member split was asked: a closed build lists up to 64 methods at a call with a set argument.
+
+**C-152.** The kept forms' forwarding methods read `getfield(d, :object)`; the split at the object has no box branch
+(`logs/e-box-object-ir.log`, against `logs/c-box-object-ir.log`). A default's method at a trait still reads its
+receiver through `_fwd` (it serves every member), so at a box a default's split keeps the box branch.
+
+**C-153.** (a) The box's `getproperty` at a name that is no constant calls `getproperty` of the object, where Base's
+method at `Any` and the kept forms' methods (`Dynamic{<:X}`, `Compiled{<:X}`) take it: a method at a kept form makes
+the member's type choose, the rule built in d661fb9eb7 and 8b35e4b77c; the hole is gone since 8b35e4b77c
+(`logs/e-withfields_closed-8b35e4b.log`: only the lookup's hole left, at each of the three programs). (b) The lookup's own code read `df[2][k]`, a call left to run
+time: it left the generic `getproperty` unresolved, and it tainted the lookup's effects (`!o`), so under the overlay of
+the build's replacements the check did not evaluate the `:foldable` `_dynamic_field_type` (concrete evaluation under an
+overlay needs effects free of overlaid calls; without the overlay the interpreter is not overlaid and folds). The rule
+that holds: the check folds what the build folds; the least mechanism, the lookup typed (ea3ae656c3). The library's
+`verify_main: withfields on a box` passes, no hole.
+
+**Item 5: the plot's binary that lacked code** (61277571fa: `MissingCodeError` for `render_png(::Figure, ::String,
+::Float64)` from `save`, through `tojlinvoke` and `ijl_invoke_facts`, `logs/m-plot-bin.err`).
+- Codegen calls the code instance an invoke names as itself (`aotcompile.cpp`, `resolve_workqueue`); one not compiled
+  becomes a trampoline to `jl_invoke_plain` or `jl_invoke_facts` by the named code's policy, which runs the instance's
+  compiled code of the policy that call asks (`mi_policy_facts_at`) or else raises `MissingCodeError`.
+- The verifier took such an invoke as resolved wherever the instance had *any* code in the build ("assume that only
+  this_world matters"), of either policy. The plot's trace (`ijl_invoke_facts`, no code found) fits a build whose
+  caller kept invoking code ended between rounds while the instance's compiled code was of the other policy.
+- On 8b35e4b77c the plot's program runs (`logs/e-plot-before.build.log`, exit 0, its PNG written): 8b35e4b77c finds a
+  round's callers by their edges' instances, so the caller is inferred again. The verifier's gap stays.
+- The fix at the rule (9e742cd3cd): the verifier models the trampoline's call: resolved where the build compiles the
+  code named, a constant's, or the instance's code of the policy asked. 0b0924ef96 refused every invoke of code not
+  compiled: 60 errors in the report's and the plot's builds, all JLLs' `__init__` from their images
+  (`logs/e-0b0924e-plot.build.log`), whose calls run; 9e742cd3cd refuses none of them.
+- The gate `n34_closed_invoke_compiled.jl` makes the build's list by hand: it fails on 8b35e4b77c (code of the other
+  policy only, accepted) and on 0b0924ef96 (code of the policy asked, refused); passes on 9e742cd3cd.
+- Not shown: the plot's failure itself, reproduced (61277571fa is not built again). `e-probes/stale_invoke.jl` with
+  `OLD=1` (61277571fa's caller search) does not reproduce a missed caller in a session; with `OLD=2` (no caller
+  searched) the check's code all has one policy, and the runtime's fallback would find the code.
+
+**Checks on 9e742cd3cd** (library `w158e` 82959cf; load 4 to 9 of 128; one Julia job at a time):
+
+| check | result |
+|---|---|
+| the gates (`LIB=wt/w158b-tw`) | 73 of 73 (n34 new), stage gates 9 of 9 (`logs/e-gates-9e742cd.log`) |
+| Base's core, subtype, Compiler/inline, Compiler/inference | SUCCESS (`logs/e-base-summary.log`) |
+| the library | 103 testsets, no broken check (`logs/e-library-9e742cd.log`); verify.jl on 8b35e4b77c: 10 checks fail in 4 testsets (`logs/e-verify-before-8b35e4b.log`) |
+| TraitTables' suite (`env_tables_b`), TraitMakie's (`env_demo_d`) | 3 and 8 testsets pass (`logs/e-suite-*.log`) |
+| the table's, report's, plot's programs, trimmed (`env_demo_d`) | 0 errors each; table 2,725,208 bytes, output equal; report 5,394,320 bytes, output and PNG equal a session's; plot 4,942,832 bytes, runs, output and PNG equal (`logs/e-builds-9e742cd.log`) |
+| E-384's eight small programs | build, run, output equal (`logs/e-9e742cd-small.log`) |
+| the sessions (`sessions.sh`, a warm-up and 3 runs) | report 24 compiles, table 19, on `next` 8b35e4b77c and 9e742cd3cd alike; instances equal between the two Julias with either library (`logs/sessions-e-*.log`). With `w158e` TraitWorld holds 20 fewer instances at a kept form (474 against 494 in the report, 413 against 426 in the table): the forwarding methods call no `_fwd` |
+
+**Not done:** the ODE program (another agent's tree changes; the main session builds it after both merges). The
+session's check counting more members than the build at bare `Callable` (C-152's second sentence): not looked at.
