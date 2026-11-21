@@ -1,0 +1,57 @@
+# q nd ports_callbacks_test before fix 2026-11-21T19:21:32+01:00 load 5.36 5.78 5.35 | ND 5f82334 (+ the new test file) TDE 3a1c4c3
+# nd_tests threads=2 nd=/p/projects/coen/julia-trait-bound/ndport/pkgs/NetworkDynamics-unified
+--- Component callbacks (ports) --- 
+
+discrete and continuous component callbacks: Error During Test at /p/projects/coen/julia-trait-bound/ndport/pkgs/NetworkDynamics-unified/test/ports_callbacks_test.jl:19
+  Got exception outside of a @test
+  TypeError: in Callable, in end the function with `nothing`, expected Nothing, got a value of type Bool
+  Stacktrace:
+    [1] (::Core.Dynamic{Core.Callable{Tuple{Core.Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}}, Nothing}})(args::Core.Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}})
+      @ TraitWorld /p/projects/coen/julia-trait-bound/TraitWorld/src/callable.jl:36
+    [2] affect!(cb::ODECore.FunctionCallback{Vector{Float64}, Float64, Vector{Float64}, Core.Dynamic{Core.Callable{Tuple{Vector{Float64}, Float64, Core.Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}}, Bool}}, Core.Dynamic{Core.Callable{Tuple{Core.Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}}, Nothing}}, Core.Dynamic{Core.Callable{Tuple{Vector{Float64}, Float64, Core.Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}}, Nothing}}}, integ::Core.Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}})
+      @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/ODECore/src/core.jl:608
+    [3] step_affect!(c::ODECore.ParamCallback{Vector{Float64}, Float64, Vector{Float64}}, sv::Core.Dynamic{ODECore.StepView{Vector{Float64}, Float64}})
+      @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/ODECore/src/core.jl:753
+    [4] tsit5_advance!(i::ODECore.Tsit5Integrator{Float64, ODECore.CoreProblem{Float64, Core.Dynamic{All{Core.Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Core.Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}})
+      @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/ODECore/src/core.jl:1572
+    [5] advance!
+      @ /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/ODECore/src/core.jl:1116 [inlined]
+    [6] run_to_end!
+      @ /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/ODECore/src/core.jl:969 [inlined]
+    [7] solve_core
+      @ /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/ODECore/src/core.jl:1362 [inlined]
+    [8] solve_ode(prob::ODEProblem{Float64, Vector{Float64}, Core.Dynamic{All{Core.Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Core.Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}, alg::Tsit5, callbacks::ODECore.EnteredCallbacks{Vector{Float64}, Float64, Vector{Float64}}, opts::ODECore.SolverOptions)
+      @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/ODECore/src/core.jl:1285
+    [9] solve_ode
+      @ /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/ODECore/src/core.jl:1274 [inlined]
+   [10] _solve(prob::ODEProblem{Float64, Vector{Float64}, Core.Dynamic{All{Core.Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Core.Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}, alg::Tsit5, callback::Nothing, kw::@NamedTuple{})
+      @ TraitDifferentialEquations /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/src/TraitDifferentialEquations.jl:59
+   [11] solve(prob::ODEProblem{Float64, Vector{Float64}, Core.Dynamic{All{Core.Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Core.Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}, alg::Tsit5)
+      @ TraitDifferentialEquations /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/src/TraitDifferentialEquations.jl:55
+   [12] top-level scope
+      @ /p/projects/coen/julia-trait-bound/ndport/pkgs/NetworkDynamics-unified/test/ports_callbacks_test.jl:20
+   [13] macro expansion
+      @ /p/projects/coen/julia-trait-bound/julia-next/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:1967 [inlined]
+   [14] macro expansion
+      @ /p/projects/coen/julia-trait-bound/ndport/pkgs/NetworkDynamics-unified/test/ports_callbacks_test.jl:58 [inlined]
+   [15] include(mapexpr::Function, mod::Module, _path::String)
+      @ Base ./Base.jl:319
+   [16] top-level scope
+      @ /p/projects/coen/julia-trait-bound/experiments/implementation/w158/port/probes/q_nd_tests.jl:67
+   [17] macro expansion
+      @ /p/projects/coen/julia-trait-bound/julia-next/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:1967 [inlined]
+   [18] macro expansion
+      @ /p/projects/coen/julia-trait-bound/experiments/implementation/w158/port/probes/q_nd_tests.jl:75 [inlined]
+   [19] macro expansion
+      @ /p/projects/coen/julia-trait-bound/julia-next/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:1967 [inlined]
+   [20] macro expansion
+      @ /p/projects/coen/julia-trait-bound/experiments/implementation/w158/port/probes/q_nd_tests.jl:75 [inlined]
+   [21] include(mod::Module, _path::String)
+      @ Base ./Base.jl:318
+   [22] exec_options(opts::Base.JLOptions)
+      @ Base ./client.jl:344
+   [23] _start()
+      @ Base ./client.jl:577
+# ports_callbacks_test.jl s=12.5
+TEST ports_callbacks_test.jl pass=0 fail=0 error=1 broken=0
+exit 0

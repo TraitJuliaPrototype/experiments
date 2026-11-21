@@ -133,3 +133,125 @@ The ODE port's rules (traits §7.4, §7.7, §8.1, §9, §14; porting guide 0.1, 
 - The nonlinear `solve` front end is `@nospecializeinfer solve(@nospecialize(prob), @nospecialize(alg); kw...)`, "neither specialized nor inferred on the problem's type", and the umbrella forwards to it at `Any` (`_solve_nonlinear`): a closed build cannot resolve that call, and the program's use of its result. It is a choice made for the recompile goal that the ODE `solve` does not make (its `solve_ode` is typed). Not changed here.
 - One method of `_nlproblem_of` on `Union{NonlinearFunction, ODEFunction}` left the call, with the box's object at `Callable{…}`, unresolved in the check; two methods, one per record, resolve it (0 errors). The check does not resolve a dispatch on a method with a `Union` of types at a trait-typed argument.
 - NetworkDynamics: a `DiscreteComponentCallback` fails at its first event with "the function with `nothing`, expected Nothing, got a value of type Bool" (`to_callbacks(::DiscreteCallbackWrapper)` passes the user's affect's value on; TDE takes `Nothing`), the same before and after. A callback of another type than TDE's two records in `add_nw_cb` is not taken by `_cbvector` (a user's own member of the callback traits).
+
+## The nonlinear front end; NetworkDynamics' discrete callbacks
+
+Open issues 246 and 248. julia `next` 8b35e4b77c, TraitWorld `unified` cedb718, depot `agent-depots/w158q`
+(`qenv.sh`), one Julia job at a time, load (1 min) 3 to 9 of 128. 2026-11-21.
+
+### How to run
+
+```sh
+source experiments/implementation/w158/port/qenv.sh      # env.sh with the depot agent-depots/w158q
+cd $PORT
+bash qsuite.sh <tag>                                       # the port's suite -> logs/q-suite-<tag>.log
+(cd .. && NLAPP=nl $JN --project=$ENVD port/probes/nl_members.jl)        # the build's check in the session (nl, nl_prob)
+LIST=2 $JN --project=$ENVD probes/q_nl_session.jl         # what a session compiles for a new residual (below)
+(cd $TW_ROOT/ndport && ND_FILES=ports_callbacks_test.jl,ports_fixpoint_test.jl \
+   $JN -t 2 --project=$TW_ROOT/experiments/implementation/w161/nd/env_test_head $PORT/probes/q_nd_tests.jl)  # by name
+$JN --project=$TW_ROOT/experiments/implementation/w161/nd/env_test_head probes/q_nd_fixpoint.jl   # find_fixpoint
+```
+
+- `probes/q_nl_session.jl`: one process; phase A solves a `NonlinearProblem` with NewtonRaphson, TrustRegion and
+  the default polyalgorithm and a `SteadyStateProblem` with NewtonRaphson; phase B the same with new functions;
+  phase C a third pair through a function of Main. Per phase the compile time and the method instances that hold
+  code and did not before it (a diff of the whole method table), by module; the results as digests.
+- `probes/q_nd_tests.jl`: a copy of `ndport/scripts/r3_nd_tests.jl` (the runner `../../w161/suites.sh nd` runs)
+  whose files are given (`ND_FILES`).
+
+### What was changed, and why
+
+| Tree | Commit | The departure | The rule | The new form |
+|---|---|---|---|---|
+| TDE `w158q` (on `unified` 1425aec) | d96afc6 | `solve_nl(a::NonlinearAlgorithm, m::NLCoreProblem, opts)::NLCoreSolution`: the solution's element type unknown at a box of the algorithm, so a typed caller that passes it on is compiled with a split | an operation's `where` variables are fixed by its arguments (traits §4.1) | `solve_nl(a, m::NLCoreProblem{T}, opts)::NLCoreSolution{T} where {T}`; NewtonRaphson, TrustRegion, the polyalgorithm declare the same |
+| TDE `w158q` | 3a1c4c3 | `@nospecializeinfer solve(@nospecialize(prob), @nospecialize(alg); kw...)`, `solve_nonlinear(@nospecialize(prob), …)`; the umbrella's `_solve_nonlinear` at `Any` | fully typed code is the code that compiles ahead (traits §14, §16); a plain function is boxed at `Callable`, one problem type for every function (§7.8, §9); the model is the trait, the problem is a record (porting guide B2) | `solve(prob::NonlinearProblemTrait, alg::NonlinearAlgorithm; abstol, reltol, maxiters)`, `solve_nonlinear(prob::NonlinearProblemTrait{T,P}, …)`; the umbrella's `_solve(prob::NonlinearProblemTrait, alg::NonlinearAlgorithm, …)` calls it, as `_solve` calls `solve_ode`; the options converted at their declared types |
+| NetworkDynamics `w158q` (on `unified` 5f82334, local only) | a9ea1cf | the discrete batch's affect returned `any_pchanged && save_parameters!(integrator)`, a `Bool` | the result of a call of a box is asserted to `S`; where `S` is `Nothing`, end the function with `nothing` (traits §9) | the closure ends with `nothing`, as the continuous batch's; `test/ports_callbacks_test.jl` |
+| NetworkDynamics `w158q` | c2bbf0d | `NetworkFixedT`, a callable struct, not a member of `Callable`: `find_fixpoint` raised `MethodError` at `SteadyStateProblem(nw_fixed_t, x0, p)` since TDE 1425aec | a callable type that is no `Function` is a member of `Callable` by declaration (traits §9) | `@implement TraitWorld.Callable NetworkFixedT{NW} where {NW}`; `test/ports_fixpoint_test.jl` |
+
+**Why the front end was at `Any`.** e4eeed9 (W-32 R3, E-242) wrote TraitNonlinearSolve's `solve` as the umbrella's
+ODE `solve` was then: `@nospecializeinfer`, "so a caller's code does not infer the solver again" (TDE's
+`HISTORY.md`): a front end specialized on the problem's type made each caller's first call infer the solver, while
+the problem's type named the function. 388cb33 added the forwarding `_solve_nonlinear`, unspecialized on the
+keywords. 0483ac0 made the ODE front end typed ("what is compiled once is decided by the function's attribute, not
+by `@nospecializeinfer`") and left the nonlinear one. The reason no longer holds: the problem's type names no
+function under `Callable`'s default (`NonlinearProblem{T, P, Dynamic{…}, …}`), and phase B below measures it.
+
+### Results
+
+**The port's suite:** 35 testsets, equal to before but for the timings (`logs/q-suite-before.log`,
+`logs/q-suite-nl-contract.log`, `logs/q-suite-nl-typed.log`).
+
+**The build's check in the session** (`probes/nl_members.jl`):
+
+| Program | before (1425aec) | after (3a1c4c3) |
+|---|---|---|
+| construction only (`apps/nl_prob.jl`) | 0 | 0 |
+| construction and solve (`apps/nl.jl`) | 6 errors: `kwcall(TraitNonlinearSolve.solve, prob::Any, alg::Any)` (TDE.jl:66), 5 at the program's use of the result | 2 errors, both the call of the object a box of `All{Callable{NLSig{Float64}, Nothing}, Callable{NLDualSig{8}, Nothing}}` holds, `TraitWorld/src/callable.jl:42` (the residual) and `:44` (at the duals): compiler C-154, the ODE program's kind; reached now that the check reads the solver |
+
+Logs: `logs/q-nl-before-{nl,nl_prob}.log`, `logs/q-nl-after-{nl,nl_prob}.log`.
+
+**What a session compiles** (`probes/q_nl_session.jl`; compile ms and new instances with code per phase):
+
+| | phase A (first solves) | phase B (new functions) | phase C (new functions, through a caller) |
+|---|---|---|---|
+| before (1425aec), 4 runs | 190.5, 192.6, 213.3, 221.1 ms; 192 | 56.9–60.4 ms; 29 | 97.8–112.5 ms; 86 |
+| after (3a1c4c3), 4 runs | 202.1, 220.0, 222.3, 227.3 ms; 208 | 57.6–58.4 ms; 29 | 97.9–106.6 ms; 86 |
+
+- Phases B and C list the same instances before and after: the residual's own (`sq2!`, `NLPartial{typeof(sq2!)}`,
+  `AtTime{typeof(ss2!)}`, at `Vector{Float64}` and at the duals), the box's check for it, and Base's. No instance of
+  the solver, the front end or the umbrella: a new residual compiles itself only.
+- Phase A after: 16 instances more, once per problem type (`TDE.solve`, `_solve`, its keyword body at
+  `NonlinearProblem{Float64, Vector{Float64}, Dynamic{…}, …}`; `TraitNonlinearSolve.solve`, `solve_nonlinear` at the
+  trait; `nl_core`, `nl_with_problem`). The time is within the runs' spread (190 to 227 ms). A workload line in TDE's
+  image (a nonlinear solve through the umbrella) took 12 of them (196 instances; 189.9, 214.2, 214.7 ms;
+  `logs/q-nl-session-wl*.log`); not committed.
+- The results (return code, steps, residual and Jacobian evaluations, the solution, the residual's norm) are equal.
+
+Logs: `logs/q-nl-session-{before,after}.log` (LIST=2), `logs/q-nl-session-{1425aec,3a1c4c3}-{1,2,3}.log`.
+
+**NetworkDynamics** (TDE 3a1c4c3, ND c2bbf0d):
+- The test subset by the command of `../../w161/suites.sh nd` with this depot (`logs/q-nd-after.log`, 62 s):
+  massmatrix 6/0/0/0, doctor 26/0/0/0, diffusion 108/1/1/24, inhomogeneous 39/0/1/12 (pass/fail/error/broken),
+  equal to before; the same failure (`diffusion_test.jl:111`) and the same two errors (a mass matrix with an algorithm
+  that takes none).
+- `test/ports_callbacks_test.jl`: 14/0/0/0 (`logs/q-nd-cbtest-after.log`); before the fix 0/0/1/0, `TypeError: in
+  Callable, end the function with nothing, expected Nothing, got a value of type Bool` (`logs/q-nd-cbtest-before.log`).
+- `test/ports_fixpoint_test.jl`: 3/0/0/0 (`logs/q-nd-ports-after.log`); on ND 5f82334 0/0/1/0, `MethodError: no
+  method matching SteadyStateProblem(::NetworkFixedT{…}, …)` (`logs/q-nd-ports-before.log`).
+- `probes/q_nd_fixpoint.jl`: `find_fixpoint` with the default, NewtonRaphson and `abstol` gives the same digits on
+  TDE 1d9a516 (before 1425aec) and on 3a1c4c3 with c2bbf0d (`logs/q-nd-fixpoint-at-1d9a516.log`,
+  `logs/q-nd-fixpoint-after.log`); on 1425aec and on 3a1c4c3 without c2bbf0d it raises the `MethodError`.
+- The subset's list of files is `ndport/scripts/r3_nd_tests.jl:43` (`const FILES`), the script `suites.sh nd` runs.
+
+**The pattern: a user's function's value passed on where the port declares the result.** The port's signatures
+with a declared result (`grep -n "Nothing}"` over TDE's `lib/*/src` and `src`), and NetworkDynamics' callers:
+
+| TDE's signature | NetworkDynamics' caller | Verdict |
+|---|---|---|
+| `ODEProblem(f::Callable{RHSSig{P,T}, Nothing}, …)`; `ODEFunction(f)` | `ODEProblem(ODEFunction(nw), …)` (`post_utils.jl:77`): the network's call returns `nothing` with `RET = Val(:du)` (`coreloop.jl`) | right |
+| `ODEFunction(f; jac)`, `Callable{CoreJacSig{T}, Nothing}` | no Jacobian given | not reached |
+| `SteadyStateProblem(f::Callable{RHSSig{P,T}, Nothing}, …)` | `find_fixpoint`: `NetworkFixedT`, its call returns the network's `nothing` | right once a member of `Callable` (c2bbf0d) |
+| `FunctionEventCallback`: condition `Callable{CondSig, Float64}`, affects `Callable{AffectSig, Nothing}` | `to_callbacks(::ContinuousCallbackWrapper)`: the condition reads `out[oidx]` of a `Vector{Float64}`; the affects wrapped `(…; nothing)` or `_signed_affect!`, which ends with `nothing` | right |
+| `FunctionCallback`: condition `Callable{CondSig, Bool}`, affect and `initialize` `Callable{…, Nothing}` | `to_callbacks(::DiscreteCallbackWrapper)`: the condition returns `true`/`false`; the affect returned the closure's last value | the affect fixed (a9ea1cf) |
+| the same | `to_callbacks(::PresetTimeCallbackWrapper)`: `t in ts`; the affect wrapped `(affect(integrator); nothing)`; `initialize` ends with `nothing` | right |
+| `NonlinearProblem`, `NonlinearFunction` | NetworkDynamics' `NonlinearFunction` (`initialization.jl:381`) is a stub of SciML's, not TDE's | not reached |
+| the user's own callback records in `add_nw_cb` | checked by TDE where they are made | the user's |
+
+### Found
+
+- **The definition-time check at the box reads the other branch of a split as "has no method".** Where a call's
+  argument is abstract and its one method covers part of it, Julia's optimizer compiles a test and a call, and in
+  the other branch `Core.throw_methoderror` (the method table is complete). `check_at_box` (TraitWorld
+  `src/atbox.jl`, the `fv === Core.throw_methoderror` case) counts each such call with a value at the box as a
+  fault. Traits §7.3 counts "a call left to run time that finds a method when it runs" as no fault, and only "no
+  method at the types the code knows"; `Base._methods_by_ftype` finds one method at those types. Met twice here:
+  `nl_with_problem(::NLCoreSolution, ::Dynamic{…}, ::Nothing)` (the abstract declared result; the code:
+  `isa(%2, NLCoreSolution{Float64})`, else `throw_methoderror(nl_with_problem, %2, _2, nothing)`), and
+  `solve_nonlinear(…, ::Any)` in the keyword body read at untyped keywords. The port's forms that pass: the
+  operation's result names `T` (d96afc6, a rule of its own); the options converted with `Float64(x)::Float64`.
+  Proposal: in `check_at_box`, a `throw_methoderror` whose callee has a method at the argument types known is the
+  split's other branch, no fault; a gate with the two cases. Not changed here (TraitWorld is another tree).
+- **`find_fixpoint` was broken by TDE 1425aec** and the subset did not reach it (c2bbf0d; above).
+- **In a session, `Base.infer_return_type` of `solve_ode` and of `solve_nonlinear` at concrete types is `Any`**, for
+  the ODE front end as for the nonlinear one, while their callees infer concrete types (`nl_core`, `solve_nl`,
+  `nl_with_problem`) and the build's check resolves the program's use of the result. Not investigated.

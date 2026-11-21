@@ -1,0 +1,27 @@
+# q_nd_fixpoint before 2026-11-21T19:25:02+01:00 load 3.55 4.80 5.06 | TDE 1425aec ND a9ea1cf
+ERROR: LoadError: MethodError: no method matching SteadyStateProblem(::NetworkDynamics.NetworkFixedT{Network{SequentialExecution{true}, SimpleGraph{Int64}, NetworkDynamics.NetworkLayer{SimpleGraph{Int64}, Vector{NetworkDynamics.ComponentBatch{EdgeModel, Any, Any, FeedForwardType, Int64, Int64, @NamedTuple{src::Int64, dst::Int64}, @NamedTuple{src::Int64, dst::Int64}, Int64, Vector{Int64}, Core.Dynamic{EdgeDynamics}}}, SequentialAggregator{typeof(+)}}, Vector{NetworkDynamics.ComponentBatch{VertexModel, Any, Any, FeedForwardType, Int64, Int64, Int64, Int64, Int64, Vector{Int64}, Core.Dynamic{VertexDynamics}}}, LinearAlgebra.UniformScaling{Bool}, PreallocationTools.DiffCache{Vector{Float64}, Vector{Float64}}, NetworkDynamics.EagerGBufProvider{Vector{Int64}, PreallocationTools.DiffCache{Vector{Float64}, Vector{Float64}}}, Nothing, Nothing}}, ::Vector{Float64}, ::Vector{Float64})
+The function `SteadyStateProblem` exists, but no method is defined for this combination of argument types.
+
+Closest candidates are:
+  SteadyStateProblem(!Matched::Core.Compiled{Z} where Z<:Core.Callable{Tuple{Vector{T}, Vector{T}, P, Float64}, Nothing}, ::AbstractVector{T}, ::P) where {T, P}
+   @ TraitNonlinearSolve TraitDifferentialEquations/lib/TraitNonlinearSolve/src/problems.jl:230
+  SteadyStateProblem(!Matched::Union{Core.Compiled{<:Core.Callable{Tuple{Vector{T}, Vector{T}, P, Float64}, Nothing}}, Core.Dynamic{<:Core.Callable{Tuple{Vector{T}, Vector{T}, P, Float64}, Nothing}}}, ::AbstractVector{T}, ::P; t) where {T, P}
+   @ TraitNonlinearSolve TraitDifferentialEquations/lib/TraitNonlinearSolve/src/problems.jl:230
+  SteadyStateProblem(!Matched::Core.Callable{Tuple{Vector{T}, Vector{T}, P, Float64}, Nothing}, ::AbstractVector{T}, ::P; ...) where {T, P}
+   @ TraitNonlinearSolve TraitDifferentialEquations/lib/TraitNonlinearSolve/src/problems.jl:230
+  ...
+
+Stacktrace:
+ [1] find_fixpoint(nw::Network{SequentialExecution{true}, SimpleGraph{Int64}, NetworkDynamics.NetworkLayer{SimpleGraph{Int64}, Vector{NetworkDynamics.ComponentBatch{EdgeModel, Any, Any, FeedForwardType, Int64, Int64, @NamedTuple{src::Int64, dst::Int64}, @NamedTuple{src::Int64, dst::Int64}, Int64, Vector{Int64}, Core.Dynamic{EdgeDynamics}}}, SequentialAggregator{typeof(+)}}, Vector{NetworkDynamics.ComponentBatch{VertexModel, Any, Any, FeedForwardType, Int64, Int64, Int64, Int64, Int64, Vector{Int64}, Core.Dynamic{VertexDynamics}}}, LinearAlgebra.UniformScaling{Bool}, PreallocationTools.DiffCache{Vector{Float64}, Vector{Float64}}, NetworkDynamics.EagerGBufProvider{Vector{Int64}, PreallocationTools.DiffCache{Vector{Float64}, Vector{Float64}}}, Nothing, Nothing}, x0::Vector{Float64}, p::Vector{Float64}; alg::Nothing, t::Float64, tol::Float64, kwargs::@Kwargs{})
+   @ NetworkDynamics ndport/pkgs/NetworkDynamics-unified/src/initialization.jl:134
+ [2] find_fixpoint(nw::Network{SequentialExecution{true}, SimpleGraph{Int64}, NetworkDynamics.NetworkLayer{SimpleGraph{Int64}, Vector{NetworkDynamics.ComponentBatch{EdgeModel, Any, Any, FeedForwardType, Int64, Int64, @NamedTuple{src::Int64, dst::Int64}, @NamedTuple{src::Int64, dst::Int64}, Int64, Vector{Int64}, Core.Dynamic{EdgeDynamics}}}, SequentialAggregator{typeof(+)}}, Vector{NetworkDynamics.ComponentBatch{VertexModel, Any, Any, FeedForwardType, Int64, Int64, Int64, Int64, Int64, Vector{Int64}, Core.Dynamic{VertexDynamics}}}, LinearAlgebra.UniformScaling{Bool}, PreallocationTools.DiffCache{Vector{Float64}, Vector{Float64}}, NetworkDynamics.EagerGBufProvider{Vector{Int64}, PreallocationTools.DiffCache{Vector{Float64}, Vector{Float64}}}, Nothing, Nothing}, x0::Vector{Float64}, p::Vector{Float64})
+   @ NetworkDynamics ndport/pkgs/NetworkDynamics-unified/src/initialization.jl:79
+ [3] top-level scope
+   @ experiments/implementation/w158/port/probes/q_nd_fixpoint.jl:13
+ [4] include(mod::Module, _path::String)
+   @ Base ./Base.jl:318
+ [5] exec_options(opts::Base.JLOptions)
+   @ Base ./client.jl:344
+ [6] _start()
+   @ Base ./client.jl:577
+in expression starting at experiments/implementation/w158/port/probes/q_nd_fixpoint.jl:12

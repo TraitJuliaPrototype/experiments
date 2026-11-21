@@ -1,0 +1,6 @@
+check: 2 errors, 0 calls that only raise, 3 rounds, 7.4 s
+  Callable{Tuple{Vector{Float64}, Vector{Float64}, Vector{Float64}, Float64}, Nothing}: 4 members: typeof(relax!), TraitIndexing.StateGetter, TraitIndexing.ParamGetter, TraitIndexing.VectorGetter
+  Callable{Tuple{Vector{Float64}, Vector{Float64}, Vector{Float64}}, Nothing}: 4 members: typeof(sq!), TraitIndexing.StateGetter, TraitIndexing.ParamGetter, TraitIndexing.VectorGetter
+  error: unresolved call at TraitWorld/src/callable.jl:42 | (:(TraitWorld.getfield(_1, :object))::All{Callable{Tuple{Vector{Float64}, Vector{Float64}}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}}, Nothing}})((…)::Vector{Float64}, (…)::Vector{Float64})::Any
+  error: unresolved call at TraitWorld/src/callable.jl:44 | (:(TraitWorld.getfield(_1, :object))::All{Callable{Tuple{Vector{Float64}, Vector{Float64}}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}}, Nothing}})((…)::Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, (…)::Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}})::Any
+nonlinear 1.41421 steady 2.0
