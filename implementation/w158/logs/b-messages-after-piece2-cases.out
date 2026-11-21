@@ -1,0 +1,150 @@
+# 2026-11-21T16:55:18+01:00 load 3.30 3.28 3.25 | julia f5328f94c5 | library /p/projects/coen/julia-trait-bound/wt/w158b-tw ccd6c48+dirty
+WARNING: Detected access to binding `Main.f11` in a world prior to its definition world.
+  Julia 1.12 has introduced more strict world age semantics for global bindings.
+  !!! This code may malfunction under Revise.
+  !!! This code will error in future versions of Julia.
+Hint: Add an appropriate `invokelatest` around the access to this binding.
+To make this warning an error, and hence obtain a stack trace, use `julia --depwarn=error`.
+WARNING: Detected access to binding `Main.cm` in a world prior to its definition world.
+  Julia 1.12 has introduced more strict world age semantics for global bindings.
+  !!! This code may malfunction under Revise.
+  !!! This code will error in future versions of Julia.
+Hint: Add an appropriate `invokelatest` around the access to this binding.
+To make this warning an error, and hence obtain a stack trace, use `julia --depwarn=error`.
+WARNING: Detected access to binding `Main.cm3` in a world prior to its definition world.
+  Julia 1.12 has introduced more strict world age semantics for global bindings.
+  !!! This code may malfunction under Revise.
+  !!! This code will error in future versions of Julia.
+Hint: Add an appropriate `invokelatest` around the access to this binding.
+To make this warning an error, and hence obtain a stack trace, use `julia --depwarn=error`.
+pathof /p/projects/coen/julia-trait-bound/wt/w158b-tw/src/TraitWorld.jl
+CASE bounded: one trait argument: TraitUseError
+TraitUseError: `csum(t::CTab)` is declared bounded, and is not bounded: read with `t` in a box, `Dynamic{CTab}`:
+  sum(t) reaches iterate(::Dynamic{CTab}), which has no method (through sum → mapreduce → mapfoldl → mapfoldl_impl → foldl_impl → _foldl_impl), at line 48
+CASE bounded: two trait arguments: TraitUseError
+TraitUseError: `cboth(a::CTab, b::CTab, k::Int64)` is declared bounded, and is not bounded: read with `a` in a box, `Dynamic{CTab}`, and `b` in a box, `Dynamic{CTab}`:
+  sum(a) reaches iterate(::Dynamic{CTab}), which has no method (through sum → mapreduce → mapfoldl → mapfoldl_impl → foldl_impl → _foldl_impl), at line 53
+CASE bounded: a keyword method: TraitUseError
+TraitUseError: `cscaled(t::CTab; k::Float64)` is declared bounded, and is not bounded: read with `t` in a box, `Dynamic{CTab}`:
+  sum(t) reaches iterate(::Dynamic{CTab}), which has no method (through sum → mapreduce → mapfoldl → mapfoldl_impl → foldl_impl → _foldl_impl), at line 58
+CASE bounded: a where variable: TraitUseError
+TraitUseError: `cfirst(t::C) where C<:CTab` is declared bounded, and is not bounded: read with `t` in a box, `Dynamic{CTab}`:
+  first(t) reaches iterate(::Dynamic{CTab}), which has no method, at line 63
+CASE bounded: a parametric trait: TraitUseError
+TraitUseError: `clast(v::CVec{T}) where T` is declared bounded, and is not bounded: read with `v` in a box, `Dynamic{CVec{Float64}}`:
+  last(v) reaches lastindex(::Dynamic{CVec{Float64}}), which has no method, at line 68
+CASE bounded: a vararg of members: no error
+CASE bounded: a closure at a trait: TraitUseError
+TraitUseError: `(t::CTab) -> …` in `cmapper` is declared bounded, and is not bounded: read with `t` in a box, `Dynamic{CTab}`:
+  sum(t) reaches iterate(::Dynamic{CTab}), which has no method (through sum → mapreduce → mapfoldl → mapfoldl_impl → foldl_impl → _foldl_impl), at line 78
+CASE bounded: an undeclared field: TraitUseError
+TraitUseError: `cmass(p::CPlaced)` is declared bounded, and is not bounded: read with `p` in a box, `Dynamic{CPlaced}`:
+  the field `mass` is no declared field of CPlaced, at line 83
+CASE bounded: a call that only throws: no error
+CASE bounded: @bounded outside a trait module: TraitUseError
+TraitUseError: `cb10(t::CTab)` is declared bounded, and is not bounded: read with `t` in a box, `Dynamic{CTab}`:
+  sum(t) reaches iterate(::Dynamic{CTab}), which has no method (through sum → mapreduce → mapfoldl → mapfoldl_impl → foldl_impl → _foldl_impl), at line 90
+CASE box: an undeclared field: ArgumentError
+ArgumentError: mass is not a declared field of CPlaced; unwrap(d) is the object
+CASE box: a @const field written: ArgumentError
+ArgumentError: tag is declared @const by CPlaced
+CASE box: a non-member: TypeError
+TypeError: in new, expected CTab, got a value of type Float64
+CASE box: no parameters: ArgumentError
+ArgumentError: Dynamic{X} needs the trait's parameters
+CASE withfields: an undeclared field at a box: ArgumentError
+ArgumentError: withfields: y is not a declared field of CPlaced; withfields(unwrap(d); …) rebuilds the object
+CASE withfields: no field at a member: ArgumentError
+ArgumentError: withfields: CP has no field y
+CASE like: a value of another family: ArgumentError
+ArgumentError: like(t, x): t's type Vector{Float64} serves its trait by its own methods, so x must be of its family, Array; got String
+CASE an operation at a box, outside its signature: MethodError
+MethodError: no method matching ccol(::Dynamic{CTab}, ::Float64)
+The function `ccol` exists, but no method is defined for this combination of argument types.
+Hint: `ccol` is declared `ccol(t::CTab, i::Int)::Vector{Float64}` by CTab
+
+Closest candidates are:
+  ccol(::Dynamic{<:CTab}, !Matched::Int64)
+   @ Main.CLib /p/projects/coen/julia-trait-bound/experiments/implementation/w158/messages/cases.jl:22
+  ccol(!Matched::CT, !Matched::Int64)
+   @ Main /p/projects/coen/julia-trait-bound/experiments/implementation/w158/messages/cases.jl:39
+  ccol(!Matched::Compiled{<:CTab}, !Matched::Int64)
+   @ Main.CLib /p/projects/coen/julia-trait-bound/experiments/implementation/w158/messages/cases.jl:22
+
+CASE an operation at a wrapper, outside its signature: MethodError
+MethodError: no method matching ccol(::Compiled{CT}, ::Float64)
+The function `ccol` exists, but no method is defined for this combination of argument types.
+Hint: `ccol` is declared `ccol(t::CTab, i::Int)::Vector{Float64}` by CTab
+
+Closest candidates are:
+  ccol(::Compiled{<:CTab}, !Matched::Int64)
+   @ Main.CLib /p/projects/coen/julia-trait-bound/experiments/implementation/w158/messages/cases.jl:22
+  ccol(!Matched::CT, !Matched::Int64)
+   @ Main /p/projects/coen/julia-trait-bound/experiments/implementation/w158/messages/cases.jl:39
+  ccol(!Matched::Dynamic{<:CTab}, !Matched::Int64)
+   @ Main.CLib /p/projects/coen/julia-trait-bound/experiments/implementation/w158/messages/cases.jl:22
+
+CASE a method at a trait, a box of another trait: MethodError
+MethodError: no method matching f11(::Dynamic{CPlaced})
+The function `f11` exists, but no method is defined for this combination of argument types.
+Hint: `Dynamic{CPlaced}` is not a member of `CTab` (its declared members: CT); `@implement CTab Dynamic{CPlaced}` declares it
+
+Closest candidates are:
+  f11(!Matched::CTab)
+   @ Main /p/projects/coen/julia-trait-bound/experiments/implementation/w158/messages/cases.jl:102
+
+CASE Callable: no method at A, boxed: MethodError
+MethodError: no method matching cm(::typeof(uppercase), ::Float64)
+This error has been manually thrown, explicitly, so the method may exist but be intentionally marked as unimplemented.
+Hint: `uppercase` is given at `Callable{Tuple{Float64}, Float64}`, and none of its methods takes `Tuple{Float64}`; its methods take (::WrapperChar), (::SubString{<:Base.AnnotatedString}), (::Base.AnnotatedString), …
+
+Closest candidates are:
+  cm(::Callable{Tuple{Float64}, Float64}, ::Float64)
+   @ Main /p/projects/coen/julia-trait-bound/experiments/implementation/w158/messages/cases.jl:105
+  cm(!Matched::Compiled{Z} where Z<:Callable{Tuple{Float64}, Float64}, ::Float64)
+   @ Main /p/projects/coen/julia-trait-bound/experiments/implementation/w158/messages/cases.jl:105
+  cm(!Matched::Union{Compiled{<:Callable{Tuple{Float64}, Float64}}, Dynamic{<:Callable{Tuple{Float64}, Float64}}}, ::Float64)
+   @ Main /p/projects/coen/julia-trait-bound/experiments/implementation/w158/messages/cases.jl:105
+
+CASE Callable: the result outside S: TypeError
+TypeError: in Callable, expected Float64, got a value of type Int64
+CASE Callable: a wrapper with no method at A: MethodError
+MethodError: no method matching cm3(::Compiled{typeof(uppercase)}, ::Float64)
+This error has been manually thrown, explicitly, so the method may exist but be intentionally marked as unimplemented.
+Hint: `uppercase` is given at `Callable{Tuple{Float64}, Float64}`, and none of its methods takes `Tuple{Float64}`; its methods take (::WrapperChar), (::SubString{<:Base.AnnotatedString}), (::Base.AnnotatedString), …
+
+Closest candidates are:
+  cm3(::Compiled{Z} where Z<:Callable{Tuple{Float64}, Float64}, ::Float64)
+   @ Main /p/projects/coen/julia-trait-bound/experiments/implementation/w158/messages/cases.jl:107
+  cm3(::Union{Compiled{<:Callable{Tuple{Float64}, Float64}}, Dynamic{<:Callable{Tuple{Float64}, Float64}}}, ::Float64)
+   @ Main /p/projects/coen/julia-trait-bound/experiments/implementation/w158/messages/cases.jl:107
+  cm3(::Callable{Tuple{Float64}, Float64}, ::Float64)
+   @ Main /p/projects/coen/julia-trait-bound/experiments/implementation/w158/messages/cases.jl:107
+
+CASE Callable: the box written out: MethodError
+MethodError: no method matching invoke uppercase(::Float64)
+This error has been manually thrown, explicitly, so the method may exist but be intentionally marked as unimplemented.
+
+Closest candidates are:
+  uppercase(!Matched::LinearAlgebra.WrapperChar)
+   @ LinearAlgebra /p/projects/coen/julia-trait-bound/julia-next/usr/share/julia/stdlib/v1.13/LinearAlgebra/src/LinearAlgebra.jl:615
+  uppercase(!Matched::SubString{<:Base.AnnotatedString})
+   @ Base strings/unicode.jl:642
+  uppercase(!Matched::Base.AnnotatedString)
+   @ Base strings/unicode.jl:641
+  ...
+
+CASE fully typed: a box's call left to run time: no error
+CASE @implement: a missing operation: ImplementError
+ImplementError: CNo cannot be a member of CTab
+  - no method serves cn(t::CTab)::Int at CNo
+  - no method serves ccol(t::CTab, i::Int)::Vector{Float64} at CNo
+CASE @implement: not a trait: ArgumentError
+ArgumentError: @implement: Int64 is not a trait
+CASE @trait: an operation without its result: ErrorException
+@trait CBad: an operation declares its result type, f(x::CBad, …)::R; got cbad(x::CBad)
+CASE @trait_module: an unknown option: ErrorException
+@trait_module: no option decides how a trait argument is compiled (traits §7.5, §13); got dynamic = true. The value's type decides: a library erases at its door, `f(m::Model) = _f(Dynamic{Model}(m))`; a trait whose methods erase every plain member declares `@default_dynamic`; a caller asks for code per type with `compiled_for(x)`
+CASE delete_membership: not a trait: ArgumentError
+ArgumentError: delete_membership: Int64 is not a trait
+exit 0

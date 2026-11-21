@@ -109,3 +109,61 @@ Julia `wt/w158-julia` (`w158` 61277571fa), TraitWorld `w158` 1f3567e, TraitMakie
 
 The six errors that are gone were the hole in `issorted`'s keyword body (61277571fa). The plot's binary shows a build
 that passes the verifier and lacks an instance its code invokes; the report's program calls the same `save`.
+
+## The library's pieces (W-158, second part), 2026-11-21
+
+Three pieces of daily use in the library: `withfields` on a kept form (traits T-157), the bounded check's message (open
+issue 235), and the gate `n14_callable_args` against the box's rule. Julia `julia-next` f5328f94c5, read only; the
+library in the worktree `wt/w158b-tw`, branch `w158b` from `unified` 9d4f782; a depot of its own
+(`agent-depots/w158b` before the shared one). One Julia job at a time, 4 cores; load 3 to 4 of 128. Logs: `logs/b-*`.
+
+**How to run** (from `wt/w158b-tw`, after `source env.sh` and the depot):
+```sh
+$JN --project=. -e 'using TraitWorld; include("test/runtests.jl")'                  # the library (Pkg.test lacks Test)
+$JN --project=. $W158/b-probes/withfields_closed.jl                                  # piece 1: the build's own check
+$JN --project=. $W158/b-probes/withfields_closed_overlay.jl                          # the same without the overlay
+$JN --project=. $W158/b-probes/callable_nospecialize.jl                              # piece 3
+bash $W158/messages/run.sh <label> $TW_ROOT/wt/w158b-tw                              # piece 2: messages/README.md
+LIB=wt/w158b-tw experiments/implementation/gates/run_all.sh julia-next               # from the workspace root
+(cd TraitTables && $JN --project=$W158/env_tables_b -e 'using TraitWorld, TraitTables; include("test/runtests.jl")')
+```
+`env_tables_b/`: TraitTables' manifest with the library at `wt/w158b-tw`, so that its suite tests this branch.
+
+**1. `withfields` on a kept form** (TraitWorld ccd6c48). On a box `Dynamic{X}`, the object rebuilt and boxed at `X`
+as any box is made: a rebuilt object outside `X` raises `TypeError` (a `WCell{Int}` from a box of `WHas{Float64}`), a
+name that is no declared field of `X` raises `ArgumentError`, as the box's `getproperty` does. On a wrapper, the
+wrapper of the rebuilt object. `nudged(p::WPlaced) = withfields(p; x = p.x + 1.0)` of a trait that erases by default
+is accepted in a `bounded` scope and gives the box of the rebuilt object. The box's result needs an assertion
+(`::Dynamic{X}`): Core's constructor at an argument of unknown type joins its four methods as `Any`.
+- **The build's own check** (`logs/b-withfields_closed-e32d443.log`): rebuilding boxes of three members has no hole at
+  the rebuilding: the inner call at the object known only by its trait (`_rebuilt(getfield(d, :object)::X, nt)`) and
+  the box made of its result. Two holes of another kind:
+  - `getproperty(getfield(d, :object)::VPlaced, s::Symbol)::Any` in the box's `getproperty` (`src/dynamic.jl` 43): a
+    declared field read at a box (`p.x`), found also in a program that only reads `d.x` (`vread`);
+  - `getindex(Core._svec_ref(…)::Core.SimpleVector, 2)::Any` in `Compiler.declared_field_in`, reached from
+    `_dynamic_field_type`, from the box's `getproperty` (`dynamic.jl` 41) and from `withfields`' declared-name test.
+    Without the overlay of the build's replacements of Base the test folds and the hole from `withfields` is gone
+    (`logs/b-withfields_closed_overlay-e32d443.log`); the box's `getproperty` keeps both.
+  - `test/verify.jl` marks the remaining hole `@test_broken`.
+- The tutorial's `nudged` is written without `@unbounded`; its checks: a box of a new `Sprite` at the box, and a trait
+  module that accepts it.
+
+**2. The messages' form** (TraitWorld e32d443): the tool and its counts, `messages/README.md`. Tuple types 13 to 0,
+generated names 2 to 0, library internals 1 to 0; six of Julia's own (`MethodError`'s candidates at the wrapper's
+forwarding methods) listed, not fixed. `intro.jl`'s mark for open issue 235 is a plain check.
+
+**3. The gate `n14_callable_args`.** Its first assertion (`callit(g1, 1) == 2`) is compiler §6.2: an argument at a set
+declared `@nospecialize` is the object passed as itself. Its second and third (a call outside `A` raises `MethodError`
+though `g1(::String)` exists; a call proved outside `A` infers as never returning) pin no sentence of the references:
+traits §9 and compiler §7.4 put the check of `A` at the box (its making and its call) and at a wrapper's entry, and a
+wrapper's call is the function's own. The code checks every call of a value inferred as `Callable{A, S}`
+(`abstract_call_unknown`, `handle_callable_call!`, `Core._callable_argcheck`). On julia-next with the library
+(`logs/b-callable_nospecialize-e32d443.log`): `callit(g1, "s")` raises `MethodError`; `callit(compiled_for(g1), "s")`
+returns 0. The gate is unchanged: the reference and the code disagree, and the case goes to the record as a deviation.
+
+| Check | Before (9d4f782) | After (e32d443) |
+|---|---|---|
+| the library | 93 testsets pass (`logs/b-library-before-9d4f782.log`) | 96 testsets pass, 1 broken check (`logs/b-library-piece2.log`) |
+| docs examples: intro, tutorial, strict | 26 pass and 1 deviation (open issue 235), 95, 5 | 27, 96, 5 pass, no deviation (`logs/b-docs-*-piece2.log`) |
+| the gates (`LIB=wt/w158b-tw`) | | 72 of 72, stage gates 9 of 9 (`logs/b-gates-e32d443.log`) |
+| TraitTables' suite, with the branch | | 27 pass, 3 testsets (`logs/b-tables-e32d443.log`) |

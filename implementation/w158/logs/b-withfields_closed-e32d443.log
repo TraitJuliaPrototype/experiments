@@ -1,0 +1,55 @@
+# 2026-11-21T17:01:38+01:00 julia-next f5328f94c5 TraitWorld wt/w158b-tw e32d443
+== vread: 2 errors
+  ERROR CallMissing: unresolved call :: getproperty(
+  getfield(d::Dynamic{VPlaced}, :object::Symbol)::VPlaced,
+  s::Symbol
+)::Any
+      at getproperty /p/projects/coen/julia-trait-bound/wt/w158b-tw/src/dynamic.jl:43
+      at vread /p/projects/coen/julia-trait-bound/experiments/implementation/w158/b-probes/withfields_closed.jl:15
+  ERROR CallMissing: unresolved call :: getindex(
+  Core._svec_ref((…)::Core.SimpleVector, 2::Int64)::Any,
+  :(φ (%36 => %33, %82 => %77))::Int64
+)::Any
+      at declared_field_in ../usr/share/julia/Compiler/src/abstractinterpretation.jl:270
+      at declared_field_type ../usr/share/julia/Compiler/src/abstractinterpretation.jl:248
+      at _dynamic_field_type /p/projects/coen/julia-trait-bound/wt/w158b-tw/src/dynamic.jl:57
+      at getproperty /p/projects/coen/julia-trait-bound/wt/w158b-tw/src/dynamic.jl:41
+      at vread /p/projects/coen/julia-trait-bound/experiments/implementation/w158/b-probes/withfields_closed.jl:15
+== vre: 1 errors
+  ERROR CallMissing: unresolved call :: getindex(
+  Core._svec_ref((…)::Core.SimpleVector, 2::Int64)::Any,
+  :(φ (%36 => %33, %82 => %77))::Int64
+)::Any
+      at declared_field_in ../usr/share/julia/Compiler/src/abstractinterpretation.jl:270
+      at declared_field_type ../usr/share/julia/Compiler/src/abstractinterpretation.jl:248
+      at _dynamic_field_type /p/projects/coen/julia-trait-bound/wt/w158b-tw/src/dynamic.jl:57
+      at _first_undeclared /p/projects/coen/julia-trait-bound/wt/w158b-tw/src/like.jl:79
+      at _withfields /p/projects/coen/julia-trait-bound/wt/w158b-tw/src/like.jl:69
+      at #withfields#52 /p/projects/coen/julia-trait-bound/wt/w158b-tw/src/like.jl:62
+      at withfields /p/projects/coen/julia-trait-bound/wt/w158b-tw/src/like.jl:62
+      at vre /p/projects/coen/julia-trait-bound/experiments/implementation/w158/b-probes/withfields_closed.jl:16
+== vmain: 2 errors
+  ERROR CallMissing: unresolved call :: getproperty(
+  getfield(d::Dynamic{VPlaced}, :object::Symbol)::VPlaced,
+  s::Symbol
+)::Any
+      at getproperty /p/projects/coen/julia-trait-bound/wt/w158b-tw/src/dynamic.jl:43
+      at vnudged /p/projects/coen/julia-trait-bound/experiments/implementation/w158/b-probes/withfields_closed.jl:17
+      at #vmain##0 /p/projects/coen/julia-trait-bound/experiments/implementation/w158/b-probes/withfields_closed.jl:18
+      at mapreduce_first reduce.jl:424
+      at _mapreduce reduce.jl:435
+      at _mapreduce_dim reducedim.jl:347
+      at #mapreduce#741 reducedim.jl:330
+      at mapreduce reducedim.jl:330
+  ERROR CallMissing: unresolved call :: getindex(
+  Core._svec_ref((…)::Core.SimpleVector, 2::Int64)::Any,
+  :(φ (%36 => %33, %82 => %77))::Int64
+)::Any
+      at declared_field_in ../usr/share/julia/Compiler/src/abstractinterpretation.jl:270
+      at declared_field_type ../usr/share/julia/Compiler/src/abstractinterpretation.jl:248
+      at _dynamic_field_type /p/projects/coen/julia-trait-bound/wt/w158b-tw/src/dynamic.jl:57
+      at _first_undeclared /p/projects/coen/julia-trait-bound/wt/w158b-tw/src/like.jl:79
+      at _withfields /p/projects/coen/julia-trait-bound/wt/w158b-tw/src/like.jl:69
+      at #withfields#52 /p/projects/coen/julia-trait-bound/wt/w158b-tw/src/like.jl:62
+      at withfields /p/projects/coen/julia-trait-bound/wt/w158b-tw/src/like.jl:62
+      at vnudged /p/projects/coen/julia-trait-bound/experiments/implementation/w158/b-probes/withfields_closed.jl:17

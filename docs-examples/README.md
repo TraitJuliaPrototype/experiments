@@ -39,6 +39,7 @@ TraitWorld does not run on stock Julia. The pages and the scripts write `compile
 | 2026-11-14 | `unified` add2f921c9, TraitWorld `unified` 12b8b31 (a `Callable`'s check in every instance; its absence edge narrowed) | 18 pass | 86 pass | 5 pass |
 | 2026-11-18 | `next` 32a2235abd, TraitWorld `unified` d1febca (the pages and scripts on the box and the wrapper) | 24 pass, 3 deviations (T-126, T-127, no row) | 94 pass, 1 deviation (T-127) | 5 pass |
 | 2026-11-18 | `next` 02139b2168, TraitWorld `w156` ea72682 (the attribute's surface removed: the exported `compiled_for` is the wrapper's function, no module option decides how an argument is compiled) | 26 pass, 1 deviation (no row) | 95 pass | 5 pass |
+| 2026-11-21 | `next` f5328f94c5, TraitWorld `w158b` e32d443 (`withfields` on a kept form, so §11's `nudged` is bounded; the bounded check's message names the method as written, open issue 235) | 27 pass | 96 pass | 5 pass |
 
 On the row of 2026-11-18, `tutorial.jl` ended twice in six runs with a segmentation fault while `@trait Named` (its line 36) was expanded: a lookup in a method table's cache (`jl_mt_find_cache_entry`, `jl_object_id`) from the library's `_parse_body` (`logs/tutorial-next-32a2235abd-b-segfault.log`). The other runs, and every run of `intro.jl` and `strict.jl`, ended normally.
 

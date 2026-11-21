@@ -54,7 +54,7 @@ kind(x) = "something else"
     scale(s::Scalable, k::Float64)::Self
 end
 doubled(s::Scalable) = like(s, scale(s, 2.0))                # bounded: at the box, like gives a box
-@unbounded nudged(p::Placed) = withfields(p; x = p.x + 1.0)   # withfields at the box only throws
+nudged(p::Placed) = withfields(p; x = p.x + 1.0)              # bounded: at the box, withfields gives a box
 
 # §12
 struct Scene
@@ -211,12 +211,15 @@ check("§11 nudged(sp): a new Sprite", n2 isa Sprite && n2.x == 2.0 && sp.x == 1
 check("§11 doubled(Dynamic{Scalable}(Circle(1.0))) is a box of Circle(2.0)",
       (b = doubled(Dynamic{Scalable}(Circle(1.0))); b isa Dynamic{Scalable} && unwrap(b) == Circle(2.0) &&
        sprint(show, b) == "Dynamic{Scalable}(Circle(2.0))"))
+check("§11 nudged(Dynamic{Placed}(sp)) is a box of a new Sprite, x = 2.0",
+      (b = nudged(Dynamic{Placed}(sp)); b isa Dynamic{Placed} && unwrap(b) isa Sprite && unwrap(b).x == 2.0 &&
+       unwrap(b).name == "ball" && sp.x == 1.0))
 e = thrown(:(module WithAtBox
     using TraitWorld, ..Geometry
     @trait_module
     nudged2(p::Placed) = withfields(p; x = p.x + 1.0)
     end))
-check("§11 without @unbounded, nudged is refused: TraitUseError", e isa TraitUseError)
+check("§11 nudged is bounded: a trait module accepts it without @unbounded", e === nothing)
 e === nothing || println("MESSAGE §11 nudged:\n", msg(e))
 
 # --- §12: collections of mixed types ------------------------------------------------------------
