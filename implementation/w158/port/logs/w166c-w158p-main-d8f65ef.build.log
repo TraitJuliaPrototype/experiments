@@ -1,0 +1,615 @@
+# W-166c ode 2026-11-21T20:07:03+01:00 load 14.75 13.21 15.58 | julia-next d8f65ef1ea TraitWorld 82959cf project experiments/implementation/w166/../w156/env_demo trim=safe images=1 driver=julia-next/test/trimming depot=.julia-depot/agent-depots/w158p:shared 
+images: exit 0 after 20 s (TraitWorld TraitDifferentialEquations)
+from source: none
+verify_main: 143 targets, 0 entry points, 5 run-time sites, complete true, 5.3 s
+  site: dispatch array.jl:833 _array_for_inner(
+  typeof(
+    :(φ (%50 => %49))::Any
+  )::DataType,
+  Base.HasShape{1}()::Base.HasShape{1},
+  (…)::Tuple{Base.OneTo{Int64}}
+)::Vector | reached from advance! at /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/TraitRodas/src/rodas5.jl:185
+  site: dispatch array.jl:838 collect_to_with_first!(
+  _array_for_inner(
+    typeof(
+      :(φ (%50 => %49))::Any
+    )::DataType,
+    Base.HasShape{1}()::Base.HasShape{1},
+    (…)::Tuple{Base.OneTo{Int64}}
+  )::Vector,
+  :(φ (%50 => %49))::Any,
+  itr::Base.Generator{Vector{Callable}, TraitIndexing.var"#2#3"{Vector{Float64}, Vector{Float64}, Float64}},
+  :(φ (%39 => %38))::Int64
+)::Vector | reached from advance! at /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/TraitRodas/src/rodas5.jl:185
+  site: dispatch none:0 (f::Callable)((…)::Vector{Float64}, (…)::Vector{Float64}, (…)::Float64)::Any | reached from rodas5_step! at /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/TraitRodas/src/rodas5.jl:194
+  site: dispatch array.jl:838 collect_to_with_first!(
+  _array_for_inner(
+    typeof(
+      :(φ (%50 => %49))::Any
+    )::DataType,
+    Base.HasShape{1}()::Base.HasShape{1},
+    (…)::Tuple{Base.OneTo{Int64}}
+  )::Vector,
+  :(φ (%50 => %49))::Any,
+  itr::Base.Generator{Vector{Callable}, TraitIndexing.var"#2#3"{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}},
+  :(φ (%39 => %38))::Int64
+)::Vector | reached from core_jacobian! at /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/ODECore/src/core.jl:531
+  site: dispatch none:0 (f::Callable)((…)::Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, (…)::Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, (…)::Float64)::Any | reached from Dynamic at /p/projects/coen/julia-trait-bound/TraitWorld/src/callable.jl:43
+Error #1: unresolved call from statement _array_for_inner(
+  typeof(
+    :(φ (%50 => %49))::Any
+  )::DataType,
+  Base.HasShape{1}()::Base.HasShape{1},
+  (…)::Tuple{Base.OneTo{Int64}}
+)::Vector
+
+Stacktrace:
+  [1] collect(itr::Base.Generator{Vector{Callable}, TraitIndexing.var"#2#3"{Vector{Float64}, Vector{Float64}, Float64}})
+    @ Base array.jl:833
+  [2] (::TraitIndexing.VectorGetter)(u::Vector{Float64}, p::Vector{Float64}, t::Float64)
+    @ TraitIndexing /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/TraitIndexing/src/TraitIndexing.jl:121 [inlined]
+  [3] (::Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}})(::Vector{Float64}, ::Vector{Float64}, ::Float64)
+    @ TraitWorld /p/projects/coen/julia-trait-bound/TraitWorld/src/callable.jl:42
+  [4] core_rhs!(m::ODECore.CoreProblem{Float64, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}, du::Vector{Float64}, u::Vector{Float64}, t::Float64)
+    @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/ODECore/src/core.jl:528 [inlined]
+  [5] rodas5_step!(m::ODECore.CoreProblem{Float64, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}, i::TraitRodas.Rodas5Integrator{Nothing, ODECore.CoreProblem{Float64, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}}, dt::Float64, abstol::Float64, reltol::Float64)
+    @ TraitRodas /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/TraitRodas/src/rodas5.jl:194
+  [6] rodas5_advance!(i::TraitRodas.Rodas5Integrator{Nothing, ODECore.CoreProblem{Float64, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}})
+    @ TraitRodas /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/TraitRodas/src/rodas5.jl:376
+  [7] advance!(i::TraitRodas.Rodas5Integrator{Nothing, ODECore.CoreProblem{Float64, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}})
+    @ TraitRodas /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/TraitRodas/src/rodas5.jl:185 [inlined]
+  [8] run_to_end!(i::TraitRodas.Rodas5Integrator{Nothing, ODECore.CoreProblem{Float64, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}})
+    @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/ODECore/src/core.jl:969 [inlined]
+  [9] _rodas5_run(i::TraitRodas.Rodas5Integrator{Nothing, ODECore.CoreProblem{Float64, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}})
+    @ TraitRodas /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/TraitRodas/src/rodas5.jl:299 [inlined]
+ [10] rodas5_solve(m::ODECore.CoreProblem{Float64, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU, nothing}, u0::Vector{Float64}, tspan::Tuple{Float64, Float64}, callbacks::ODECore.StepCallbacks{Vector{Float64}, Float64}, opts::ODECore.SolverOptions)
+    @ TraitRodas /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/TraitRodas/src/rodas5.jl:297 [inlined]
+ [11] solve_core(a::Rodas5{DenseLU, nothing}, m::ODECore.CoreProblem{Float64, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}, callbacks::ODECore.StepCallbacks{Vector{Float64}, Float64}, opts::ODECore.SolverOptions)
+    @ TraitRodas /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/TraitRodas/src/rodas5.jl:264 [inlined]
+ [12] solve_ode(prob::ODEProblem{Float64, Vector{Float64}, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU, nothing}, callbacks::ODECore.EnteredCallbacks{Vector{Float64}, Float64, Vector{Float64}}, opts::ODECore.SolverOptions)
+    @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/ODECore/src/core.jl:1282
+ [13] solve_ode(prob::ODEProblem{Float64, Vector{Float64}, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU, nothing}, callbacks::Nothing, opts::ODECore.SolverOptions)
+    @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/ODECore/src/core.jl:1274 [inlined]
+ [14] _solve(prob::ODEProblem{Float64, Vector{Float64}, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU, nothing}, callback::Nothing, kw::@NamedTuple{saveat::Vector{Float64}, reltol::Float64, abstol::Float64})
+    @ TraitDifferentialEquations /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/src/TraitDifferentialEquations.jl:59 [inlined]
+ [15] solve(prob::ODEProblem{Float64, Vector{Float64}, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU, nothing}; callback::Nothing, kw::@Kwargs{saveat::Vector{Float64}, reltol::Float64, abstol::Float64})
+    @ TraitDifferentialEquations /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/src/TraitDifferentialEquations.jl:55 [inlined]
+ [16] main(args::Vector{String})
+    @ Main /p/projects/coen/julia-trait-bound/experiments/implementation/w135/apps/ode.jl:32
+ [17] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+    @ Main /p/projects/coen/julia-trait-bound/julia-next/test/trimming/juliac-buildscript.jl:35
+
+Error #2: unresolved call from statement collect_to_with_first!(
+  _array_for_inner(
+    typeof(
+      :(φ (%50 => %49))::Any
+    )::DataType,
+    Base.HasShape{1}()::Base.HasShape{1},
+    (…)::Tuple{Base.OneTo{Int64}}
+  )::Vector,
+  :(φ (%50 => %49))::Any,
+  itr::Base.Generator{Vector{Callable}, TraitIndexing.var"#2#3"{Vector{Float64}, Vector{Float64}, Float64}},
+  :(φ (%39 => %38))::Int64
+)::Vector
+
+Stacktrace:
+  [1] collect(itr::Base.Generator{Vector{Callable}, TraitIndexing.var"#2#3"{Vector{Float64}, Vector{Float64}, Float64}})
+    @ Base array.jl:838
+  [2] (::TraitIndexing.VectorGetter)(u::Vector{Float64}, p::Vector{Float64}, t::Float64)
+    @ TraitIndexing /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/TraitIndexing/src/TraitIndexing.jl:121 [inlined]
+  [3] (::Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}})(::Vector{Float64}, ::Vector{Float64}, ::Float64)
+    @ TraitWorld /p/projects/coen/julia-trait-bound/TraitWorld/src/callable.jl:42
+  [4] core_rhs!(m::ODECore.CoreProblem{Float64, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}, du::Vector{Float64}, u::Vector{Float64}, t::Float64)
+    @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/ODECore/src/core.jl:528 [inlined]
+  [5] rodas5_step!(m::ODECore.CoreProblem{Float64, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}, i::TraitRodas.Rodas5Integrator{Nothing, ODECore.CoreProblem{Float64, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}}, dt::Float64, abstol::Float64, reltol::Float64)
+    @ TraitRodas /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/TraitRodas/src/rodas5.jl:194
+  [6] rodas5_advance!(i::TraitRodas.Rodas5Integrator{Nothing, ODECore.CoreProblem{Float64, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}})
+    @ TraitRodas /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/TraitRodas/src/rodas5.jl:376
+  [7] advance!(i::TraitRodas.Rodas5Integrator{Nothing, ODECore.CoreProblem{Float64, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}})
+    @ TraitRodas /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/TraitRodas/src/rodas5.jl:185 [inlined]
+  [8] run_to_end!(i::TraitRodas.Rodas5Integrator{Nothing, ODECore.CoreProblem{Float64, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}})
+    @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/ODECore/src/core.jl:969 [inlined]
+  [9] _rodas5_run(i::TraitRodas.Rodas5Integrator{Nothing, ODECore.CoreProblem{Float64, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}})
+    @ TraitRodas /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/TraitRodas/src/rodas5.jl:299 [inlined]
+ [10] rodas5_solve(m::ODECore.CoreProblem{Float64, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU, nothing}, u0::Vector{Float64}, tspan::Tuple{Float64, Float64}, callbacks::ODECore.StepCallbacks{Vector{Float64}, Float64}, opts::ODECore.SolverOptions)
+    @ TraitRodas /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/TraitRodas/src/rodas5.jl:297 [inlined]
+ [11] solve_core(a::Rodas5{DenseLU, nothing}, m::ODECore.CoreProblem{Float64, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}, callbacks::ODECore.StepCallbacks{Vector{Float64}, Float64}, opts::ODECore.SolverOptions)
+    @ TraitRodas /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/TraitRodas/src/rodas5.jl:264 [inlined]
+ [12] solve_ode(prob::ODEProblem{Float64, Vector{Float64}, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU, nothing}, callbacks::ODECore.EnteredCallbacks{Vector{Float64}, Float64, Vector{Float64}}, opts::ODECore.SolverOptions)
+    @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/ODECore/src/core.jl:1282
+ [13] solve_ode(prob::ODEProblem{Float64, Vector{Float64}, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU, nothing}, callbacks::Nothing, opts::ODECore.SolverOptions)
+    @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/ODECore/src/core.jl:1274 [inlined]
+ [14] _solve(prob::ODEProblem{Float64, Vector{Float64}, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU, nothing}, callback::Nothing, kw::@NamedTuple{saveat::Vector{Float64}, reltol::Float64, abstol::Float64})
+    @ TraitDifferentialEquations /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/src/TraitDifferentialEquations.jl:59 [inlined]
+ [15] solve(prob::ODEProblem{Float64, Vector{Float64}, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU, nothing}; callback::Nothing, kw::@Kwargs{saveat::Vector{Float64}, reltol::Float64, abstol::Float64})
+    @ TraitDifferentialEquations /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/src/TraitDifferentialEquations.jl:55 [inlined]
+ [16] main(args::Vector{String})
+    @ Main /p/projects/coen/julia-trait-bound/experiments/implementation/w135/apps/ode.jl:32
+ [17] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+    @ Main /p/projects/coen/julia-trait-bound/julia-next/test/trimming/juliac-buildscript.jl:35
+
+Error #3: unresolved call from statement (f::Callable)((…)::Vector{Float64}, (…)::Vector{Float64}, (…)::Float64)::Any
+
+Stacktrace:
+  [1] (::TraitIndexing.var"#2#3"{Vector{Float64}, Vector{Float64}, Float64})(f::Callable)
+    @ TraitIndexing none:0
+  [2] iterate(::Base.Generator{Vector{Callable}, TraitIndexing.var"#2#3"{Vector{Float64}, Vector{Float64}, Float64}})
+    @ Base generator.jl:48 [inlined]
+  [3] collect(itr::Base.Generator{Vector{Callable}, TraitIndexing.var"#2#3"{Vector{Float64}, Vector{Float64}, Float64}})
+    @ Base array.jl:828
+  [4] (::TraitIndexing.VectorGetter)(u::Vector{Float64}, p::Vector{Float64}, t::Float64)
+    @ TraitIndexing /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/TraitIndexing/src/TraitIndexing.jl:121 [inlined]
+  [5] (::Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}})(::Vector{Float64}, ::Vector{Float64}, ::Float64)
+    @ TraitWorld /p/projects/coen/julia-trait-bound/TraitWorld/src/callable.jl:42
+  [6] core_rhs!(m::ODECore.CoreProblem{Float64, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}, du::Vector{Float64}, u::Vector{Float64}, t::Float64)
+    @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/ODECore/src/core.jl:528 [inlined]
+  [7] rodas5_step!(m::ODECore.CoreProblem{Float64, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}, i::TraitRodas.Rodas5Integrator{Nothing, ODECore.CoreProblem{Float64, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}}, dt::Float64, abstol::Float64, reltol::Float64)
+    @ TraitRodas /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/TraitRodas/src/rodas5.jl:194
+  [8] rodas5_advance!(i::TraitRodas.Rodas5Integrator{Nothing, ODECore.CoreProblem{Float64, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}})
+    @ TraitRodas /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/TraitRodas/src/rodas5.jl:376
+  [9] advance!(i::TraitRodas.Rodas5Integrator{Nothing, ODECore.CoreProblem{Float64, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}})
+    @ TraitRodas /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/TraitRodas/src/rodas5.jl:185 [inlined]
+ [10] run_to_end!(i::TraitRodas.Rodas5Integrator{Nothing, ODECore.CoreProblem{Float64, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}})
+    @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/ODECore/src/core.jl:969 [inlined]
+ [11] _rodas5_run(i::TraitRodas.Rodas5Integrator{Nothing, ODECore.CoreProblem{Float64, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}})
+    @ TraitRodas /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/TraitRodas/src/rodas5.jl:299 [inlined]
+ [12] rodas5_solve(m::ODECore.CoreProblem{Float64, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU, nothing}, u0::Vector{Float64}, tspan::Tuple{Float64, Float64}, callbacks::ODECore.StepCallbacks{Vector{Float64}, Float64}, opts::ODECore.SolverOptions)
+    @ TraitRodas /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/TraitRodas/src/rodas5.jl:297 [inlined]
+ [13] solve_core(a::Rodas5{DenseLU, nothing}, m::ODECore.CoreProblem{Float64, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}, callbacks::ODECore.StepCallbacks{Vector{Float64}, Float64}, opts::ODECore.SolverOptions)
+    @ TraitRodas /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/TraitRodas/src/rodas5.jl:264 [inlined]
+ [14] solve_ode(prob::ODEProblem{Float64, Vector{Float64}, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU, nothing}, callbacks::ODECore.EnteredCallbacks{Vector{Float64}, Float64, Vector{Float64}}, opts::ODECore.SolverOptions)
+    @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/ODECore/src/core.jl:1282
+ [15] solve_ode(prob::ODEProblem{Float64, Vector{Float64}, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU, nothing}, callbacks::Nothing, opts::ODECore.SolverOptions)
+    @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/ODECore/src/core.jl:1274 [inlined]
+ [16] _solve(prob::ODEProblem{Float64, Vector{Float64}, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU, nothing}, callback::Nothing, kw::@NamedTuple{saveat::Vector{Float64}, reltol::Float64, abstol::Float64})
+    @ TraitDifferentialEquations /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/src/TraitDifferentialEquations.jl:59 [inlined]
+ [17] solve(prob::ODEProblem{Float64, Vector{Float64}, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU, nothing}; callback::Nothing, kw::@Kwargs{saveat::Vector{Float64}, reltol::Float64, abstol::Float64})
+    @ TraitDifferentialEquations /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/src/TraitDifferentialEquations.jl:55 [inlined]
+ [18] main(args::Vector{String})
+    @ Main /p/projects/coen/julia-trait-bound/experiments/implementation/w135/apps/ode.jl:32
+ [19] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+    @ Main /p/projects/coen/julia-trait-bound/julia-next/test/trimming/juliac-buildscript.jl:35
+
+Error #4: unresolved call from statement _array_for_inner(
+  typeof(
+    :(φ (%50 => %49))::Any
+  )::DataType,
+  Base.HasShape{1}()::Base.HasShape{1},
+  (…)::Tuple{Base.OneTo{Int64}}
+)::Vector
+
+Stacktrace:
+  [1] collect(itr::Base.Generator{Vector{Callable}, TraitIndexing.var"#2#3"{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}})
+    @ Base array.jl:833
+  [2] (::TraitIndexing.VectorGetter)(u::Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, p::Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, t::Float64)
+    @ TraitIndexing /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/TraitIndexing/src/TraitIndexing.jl:121 [inlined]
+  [3] _call_at_signatures(d::Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, args::Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, sigs::Tuple{Tuple{DataType, DataType}})
+    @ TraitWorld /p/projects/coen/julia-trait-bound/TraitWorld/src/callable.jl:50 [inlined]
+  [4] _call_at_signatures(d::Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, args::Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, sigs::Tuple{Tuple{DataType, DataType}, Tuple{DataType, DataType}})
+    @ TraitWorld /p/projects/coen/julia-trait-bound/TraitWorld/src/callable.jl:51 [inlined]
+  [5] (::Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}})(::Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, ::Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, ::Float64)
+    @ TraitWorld /p/projects/coen/julia-trait-bound/TraitWorld/src/callable.jl:43 [inlined]
+  [6] _ad_jacobian!(fd::Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, J::Matrix{Float64}, u::Vector{Float64}, t::Float64, ::Val{8})
+    @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/ODECore/src/core.jl:484
+  [7] core_jacobian!(m::ODECore.CoreProblem{Float64, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}, Jm::Matrix{Float64}, u::Vector{Float64}, t::Float64)
+    @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/ODECore/src/core.jl:531 [inlined]
+  [8] rodas5_step!(m::ODECore.CoreProblem{Float64, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}, i::TraitRodas.Rodas5Integrator{Nothing, ODECore.CoreProblem{Float64, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}}, dt::Float64, abstol::Float64, reltol::Float64)
+    @ TraitRodas /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/TraitRodas/src/rodas5.jl:195
+  [9] rodas5_advance!(i::TraitRodas.Rodas5Integrator{Nothing, ODECore.CoreProblem{Float64, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}})
+    @ TraitRodas /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/TraitRodas/src/rodas5.jl:376
+ [10] advance!(i::TraitRodas.Rodas5Integrator{Nothing, ODECore.CoreProblem{Float64, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}})
+    @ TraitRodas /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/TraitRodas/src/rodas5.jl:185 [inlined]
+ [11] run_to_end!(i::TraitRodas.Rodas5Integrator{Nothing, ODECore.CoreProblem{Float64, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}})
+    @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/ODECore/src/core.jl:969 [inlined]
+ [12] _rodas5_run(i::TraitRodas.Rodas5Integrator{Nothing, ODECore.CoreProblem{Float64, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}})
+    @ TraitRodas /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/TraitRodas/src/rodas5.jl:299 [inlined]
+ [13] rodas5_solve(m::ODECore.CoreProblem{Float64, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU, nothing}, u0::Vector{Float64}, tspan::Tuple{Float64, Float64}, callbacks::ODECore.StepCallbacks{Vector{Float64}, Float64}, opts::ODECore.SolverOptions)
+    @ TraitRodas /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/TraitRodas/src/rodas5.jl:297 [inlined]
+ [14] solve_core(a::Rodas5{DenseLU, nothing}, m::ODECore.CoreProblem{Float64, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}, callbacks::ODECore.StepCallbacks{Vector{Float64}, Float64}, opts::ODECore.SolverOptions)
+    @ TraitRodas /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/TraitRodas/src/rodas5.jl:264 [inlined]
+ [15] solve_ode(prob::ODEProblem{Float64, Vector{Float64}, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU, nothing}, callbacks::ODECore.EnteredCallbacks{Vector{Float64}, Float64, Vector{Float64}}, opts::ODECore.SolverOptions)
+    @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/ODECore/src/core.jl:1282
+ [16] solve_ode(prob::ODEProblem{Float64, Vector{Float64}, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU, nothing}, callbacks::Nothing, opts::ODECore.SolverOptions)
+    @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/ODECore/src/core.jl:1274 [inlined]
+ [17] _solve(prob::ODEProblem{Float64, Vector{Float64}, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU, nothing}, callback::Nothing, kw::@NamedTuple{saveat::Vector{Float64}, reltol::Float64, abstol::Float64})
+    @ TraitDifferentialEquations /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/src/TraitDifferentialEquations.jl:59 [inlined]
+ [18] solve(prob::ODEProblem{Float64, Vector{Float64}, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU, nothing}; callback::Nothing, kw::@Kwargs{saveat::Vector{Float64}, reltol::Float64, abstol::Float64})
+    @ TraitDifferentialEquations /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/src/TraitDifferentialEquations.jl:55 [inlined]
+ [19] main(args::Vector{String})
+    @ Main /p/projects/coen/julia-trait-bound/experiments/implementation/w135/apps/ode.jl:32
+ [20] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+    @ Main /p/projects/coen/julia-trait-bound/julia-next/test/trimming/juliac-buildscript.jl:35
+
+Error #5: unresolved call from statement collect_to_with_first!(
+  _array_for_inner(
+    typeof(
+      :(φ (%50 => %49))::Any
+    )::DataType,
+    Base.HasShape{1}()::Base.HasShape{1},
+    (…)::Tuple{Base.OneTo{Int64}}
+  )::Vector,
+  :(φ (%50 => %49))::Any,
+  itr::Base.Generator{Vector{Callable}, TraitIndexing.var"#2#3"{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}},
+  :(φ (%39 => %38))::Int64
+)::Vector
+
+Stacktrace:
+  [1] collect(itr::Base.Generator{Vector{Callable}, TraitIndexing.var"#2#3"{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}})
+    @ Base array.jl:838
+  [2] (::TraitIndexing.VectorGetter)(u::Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, p::Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, t::Float64)
+    @ TraitIndexing /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/TraitIndexing/src/TraitIndexing.jl:121 [inlined]
+  [3] _call_at_signatures(d::Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, args::Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, sigs::Tuple{Tuple{DataType, DataType}})
+    @ TraitWorld /p/projects/coen/julia-trait-bound/TraitWorld/src/callable.jl:50 [inlined]
+  [4] _call_at_signatures(d::Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, args::Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, sigs::Tuple{Tuple{DataType, DataType}, Tuple{DataType, DataType}})
+    @ TraitWorld /p/projects/coen/julia-trait-bound/TraitWorld/src/callable.jl:51 [inlined]
+  [5] (::Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}})(::Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, ::Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, ::Float64)
+    @ TraitWorld /p/projects/coen/julia-trait-bound/TraitWorld/src/callable.jl:43 [inlined]
+  [6] _ad_jacobian!(fd::Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, J::Matrix{Float64}, u::Vector{Float64}, t::Float64, ::Val{8})
+    @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/ODECore/src/core.jl:484
+  [7] core_jacobian!(m::ODECore.CoreProblem{Float64, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}, Jm::Matrix{Float64}, u::Vector{Float64}, t::Float64)
+    @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/ODECore/src/core.jl:531 [inlined]
+  [8] rodas5_step!(m::ODECore.CoreProblem{Float64, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}, i::TraitRodas.Rodas5Integrator{Nothing, ODECore.CoreProblem{Float64, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}}, dt::Float64, abstol::Float64, reltol::Float64)
+    @ TraitRodas /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/TraitRodas/src/rodas5.jl:195
+  [9] rodas5_advance!(i::TraitRodas.Rodas5Integrator{Nothing, ODECore.CoreProblem{Float64, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}})
+    @ TraitRodas /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/TraitRodas/src/rodas5.jl:376
+ [10] advance!(i::TraitRodas.Rodas5Integrator{Nothing, ODECore.CoreProblem{Float64, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}})
+    @ TraitRodas /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/TraitRodas/src/rodas5.jl:185 [inlined]
+ [11] run_to_end!(i::TraitRodas.Rodas5Integrator{Nothing, ODECore.CoreProblem{Float64, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}})
+    @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/ODECore/src/core.jl:969 [inlined]
+ [12] _rodas5_run(i::TraitRodas.Rodas5Integrator{Nothing, ODECore.CoreProblem{Float64, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}})
+    @ TraitRodas /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/TraitRodas/src/rodas5.jl:299 [inlined]
+ [13] rodas5_solve(m::ODECore.CoreProblem{Float64, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU, nothing}, u0::Vector{Float64}, tspan::Tuple{Float64, Float64}, callbacks::ODECore.StepCallbacks{Vector{Float64}, Float64}, opts::ODECore.SolverOptions)
+    @ TraitRodas /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/TraitRodas/src/rodas5.jl:297 [inlined]
+ [14] solve_core(a::Rodas5{DenseLU, nothing}, m::ODECore.CoreProblem{Float64, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}, callbacks::ODECore.StepCallbacks{Vector{Float64}, Float64}, opts::ODECore.SolverOptions)
+    @ TraitRodas /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/TraitRodas/src/rodas5.jl:264 [inlined]
+ [15] solve_ode(prob::ODEProblem{Float64, Vector{Float64}, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU, nothing}, callbacks::ODECore.EnteredCallbacks{Vector{Float64}, Float64, Vector{Float64}}, opts::ODECore.SolverOptions)
+    @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/ODECore/src/core.jl:1282
+ [16] solve_ode(prob::ODEProblem{Float64, Vector{Float64}, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU, nothing}, callbacks::Nothing, opts::ODECore.SolverOptions)
+    @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/ODECore/src/core.jl:1274 [inlined]
+ [17] _solve(prob::ODEProblem{Float64, Vector{Float64}, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU, nothing}, callback::Nothing, kw::@NamedTuple{saveat::Vector{Float64}, reltol::Float64, abstol::Float64})
+    @ TraitDifferentialEquations /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/src/TraitDifferentialEquations.jl:59 [inlined]
+ [18] solve(prob::ODEProblem{Float64, Vector{Float64}, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU, nothing}; callback::Nothing, kw::@Kwargs{saveat::Vector{Float64}, reltol::Float64, abstol::Float64})
+    @ TraitDifferentialEquations /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/src/TraitDifferentialEquations.jl:55 [inlined]
+ [19] main(args::Vector{String})
+    @ Main /p/projects/coen/julia-trait-bound/experiments/implementation/w135/apps/ode.jl:32
+ [20] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+    @ Main /p/projects/coen/julia-trait-bound/julia-next/test/trimming/juliac-buildscript.jl:35
+
+Error #6: unresolved call from statement (f::Callable)((…)::Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, (…)::Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, (…)::Float64)::Any
+
+Stacktrace:
+  [1] (::TraitIndexing.var"#2#3"{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64})(f::Callable)
+    @ TraitIndexing none:0
+  [2] iterate(::Base.Generator{Vector{Callable}, TraitIndexing.var"#2#3"{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}})
+    @ Base generator.jl:48 [inlined]
+  [3] collect(itr::Base.Generator{Vector{Callable}, TraitIndexing.var"#2#3"{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}})
+    @ Base array.jl:828
+  [4] (::TraitIndexing.VectorGetter)(u::Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, p::Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, t::Float64)
+    @ TraitIndexing /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/TraitIndexing/src/TraitIndexing.jl:121 [inlined]
+  [5] _call_at_signatures(d::Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, args::Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, sigs::Tuple{Tuple{DataType, DataType}})
+    @ TraitWorld /p/projects/coen/julia-trait-bound/TraitWorld/src/callable.jl:50 [inlined]
+  [6] _call_at_signatures(d::Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, args::Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, sigs::Tuple{Tuple{DataType, DataType}, Tuple{DataType, DataType}})
+    @ TraitWorld /p/projects/coen/julia-trait-bound/TraitWorld/src/callable.jl:51 [inlined]
+  [7] (::Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}})(::Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, ::Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, ::Float64)
+    @ TraitWorld /p/projects/coen/julia-trait-bound/TraitWorld/src/callable.jl:43 [inlined]
+  [8] _ad_jacobian!(fd::Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, J::Matrix{Float64}, u::Vector{Float64}, t::Float64, ::Val{8})
+    @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/ODECore/src/core.jl:484
+  [9] core_jacobian!(m::ODECore.CoreProblem{Float64, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}, Jm::Matrix{Float64}, u::Vector{Float64}, t::Float64)
+    @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/ODECore/src/core.jl:531 [inlined]
+ [10] rodas5_step!(m::ODECore.CoreProblem{Float64, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}, i::TraitRodas.Rodas5Integrator{Nothing, ODECore.CoreProblem{Float64, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}}, dt::Float64, abstol::Float64, reltol::Float64)
+    @ TraitRodas /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/TraitRodas/src/rodas5.jl:195
+ [11] rodas5_advance!(i::TraitRodas.Rodas5Integrator{Nothing, ODECore.CoreProblem{Float64, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}})
+    @ TraitRodas /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/TraitRodas/src/rodas5.jl:376
+ [12] advance!(i::TraitRodas.Rodas5Integrator{Nothing, ODECore.CoreProblem{Float64, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}})
+    @ TraitRodas /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/TraitRodas/src/rodas5.jl:185 [inlined]
+ [13] run_to_end!(i::TraitRodas.Rodas5Integrator{Nothing, ODECore.CoreProblem{Float64, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}})
+    @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/ODECore/src/core.jl:969 [inlined]
+ [14] _rodas5_run(i::TraitRodas.Rodas5Integrator{Nothing, ODECore.CoreProblem{Float64, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}})
+    @ TraitRodas /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/TraitRodas/src/rodas5.jl:299 [inlined]
+ [15] rodas5_solve(m::ODECore.CoreProblem{Float64, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU, nothing}, u0::Vector{Float64}, tspan::Tuple{Float64, Float64}, callbacks::ODECore.StepCallbacks{Vector{Float64}, Float64}, opts::ODECore.SolverOptions)
+    @ TraitRodas /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/TraitRodas/src/rodas5.jl:297 [inlined]
+ [16] solve_core(a::Rodas5{DenseLU, nothing}, m::ODECore.CoreProblem{Float64, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}, callbacks::ODECore.StepCallbacks{Vector{Float64}, Float64}, opts::ODECore.SolverOptions)
+    @ TraitRodas /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/TraitRodas/src/rodas5.jl:264 [inlined]
+ [17] solve_ode(prob::ODEProblem{Float64, Vector{Float64}, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU, nothing}, callbacks::ODECore.EnteredCallbacks{Vector{Float64}, Float64, Vector{Float64}}, opts::ODECore.SolverOptions)
+    @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/ODECore/src/core.jl:1282
+ [18] solve_ode(prob::ODEProblem{Float64, Vector{Float64}, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU, nothing}, callbacks::Nothing, opts::ODECore.SolverOptions)
+    @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/ODECore/src/core.jl:1274 [inlined]
+ [19] _solve(prob::ODEProblem{Float64, Vector{Float64}, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU, nothing}, callback::Nothing, kw::@NamedTuple{saveat::Vector{Float64}, reltol::Float64, abstol::Float64})
+    @ TraitDifferentialEquations /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/src/TraitDifferentialEquations.jl:59 [inlined]
+ [20] solve(prob::ODEProblem{Float64, Vector{Float64}, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU, nothing}; callback::Nothing, kw::@Kwargs{saveat::Vector{Float64}, reltol::Float64, abstol::Float64})
+    @ TraitDifferentialEquations /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/src/TraitDifferentialEquations.jl:55 [inlined]
+ [21] main(args::Vector{String})
+    @ Main /p/projects/coen/julia-trait-bound/experiments/implementation/w135/apps/ode.jl:32
+ [22] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+    @ Main /p/projects/coen/julia-trait-bound/julia-next/test/trimming/juliac-buildscript.jl:35
+
+Error #7: unresolved call from statement _array_for_inner(
+  typeof(
+    :(φ (%50 => %49))::Any
+  )::DataType,
+  Base.HasShape{1}()::Base.HasShape{1},
+  (…)::Tuple{Base.OneTo{Int64}}
+)::Vector
+
+Stacktrace:
+  [1] collect(itr::Base.Generator{Vector{Callable}, TraitIndexing.var"#2#3"{Vector{Float64}, Vector{Float64}, Float64}})
+    @ Base array.jl:833
+  [2] (::TraitIndexing.VectorGetter)(u::Vector{Float64}, p::Vector{Float64}, t::Float64)
+    @ TraitIndexing /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/TraitIndexing/src/TraitIndexing.jl:121 [inlined]
+  [3] (::Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}})(::Vector{Float64}, ::Vector{Float64}, ::Float64)
+    @ TraitWorld /p/projects/coen/julia-trait-bound/TraitWorld/src/callable.jl:42
+  [4] core_rhs!(m::ODECore.CoreProblem{Float64, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}, du::Vector{Float64}, u::Vector{Float64}, t::Float64)
+    @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/ODECore/src/core.jl:528 [inlined]
+  [5] rodas5_step!(m::ODECore.CoreProblem{Float64, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}, i::TraitRodas.Rodas5Integrator{Nothing, ODECore.CoreProblem{Float64, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}}, dt::Float64, abstol::Float64, reltol::Float64)
+    @ TraitRodas /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/TraitRodas/src/rodas5.jl:194
+  [6] rodas5_advance!(i::TraitRodas.Rodas5Integrator{Nothing, ODECore.CoreProblem{Float64, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}})
+    @ TraitRodas /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/TraitRodas/src/rodas5.jl:376
+  [7] advance!(i::TraitRodas.Rodas5Integrator{Nothing, ODECore.CoreProblem{Float64, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}})
+    @ TraitRodas /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/TraitRodas/src/rodas5.jl:185 [inlined]
+  [8] run_to_end!(i::TraitRodas.Rodas5Integrator{Nothing, ODECore.CoreProblem{Float64, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}})
+    @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/ODECore/src/core.jl:969 [inlined]
+  [9] _rodas5_run(i::TraitRodas.Rodas5Integrator{Nothing, ODECore.CoreProblem{Float64, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}})
+    @ TraitRodas /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/TraitRodas/src/rodas5.jl:299 [inlined]
+ [10] rodas5_solve(m::ODECore.CoreProblem{Float64, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU, nothing}, u0::Vector{Float64}, tspan::Tuple{Float64, Float64}, callbacks::ODECore.StepCallbacks{Vector{Float64}, Float64}, opts::ODECore.SolverOptions)
+    @ TraitRodas /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/TraitRodas/src/rodas5.jl:297 [inlined]
+ [11] solve_core(a::Rodas5{DenseLU, nothing}, m::ODECore.CoreProblem{Float64, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}, callbacks::ODECore.StepCallbacks{Vector{Float64}, Float64}, opts::ODECore.SolverOptions)
+    @ TraitRodas /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/TraitRodas/src/rodas5.jl:264 [inlined]
+ [12] solve_ode(prob::ODEProblem{Float64, Vector{Float64}, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU, nothing}, callbacks::ODECore.EnteredCallbacks{Vector{Float64}, Float64, Vector{Float64}}, opts::ODECore.SolverOptions)
+    @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/ODECore/src/core.jl:1282
+ [13] solve_ode(prob::ODEProblem{Float64, Vector{Float64}, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU, nothing}, callbacks::Nothing, opts::ODECore.SolverOptions)
+    @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/ODECore/src/core.jl:1274 [inlined]
+ [14] _solve(prob::ODEProblem{Float64, Vector{Float64}, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU, nothing}, callback::Nothing, kw::@NamedTuple{saveat::Vector{Float64}, reltol::Float64, abstol::Float64})
+    @ TraitDifferentialEquations /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/src/TraitDifferentialEquations.jl:59 [inlined]
+ [15] solve(prob::ODEProblem{Float64, Vector{Float64}, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU, nothing}; callback::Nothing, kw::@Kwargs{saveat::Vector{Float64}, reltol::Float64, abstol::Float64})
+    @ TraitDifferentialEquations /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/src/TraitDifferentialEquations.jl:55 [inlined]
+ [16] main(args::Vector{String})
+    @ Main /p/projects/coen/julia-trait-bound/experiments/implementation/w135/apps/ode.jl:32
+ [17] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+    @ Main /p/projects/coen/julia-trait-bound/julia-next/test/trimming/juliac-buildscript.jl:35
+
+Error #8: unresolved call from statement collect_to_with_first!(
+  _array_for_inner(
+    typeof(
+      :(φ (%50 => %49))::Any
+    )::DataType,
+    Base.HasShape{1}()::Base.HasShape{1},
+    (…)::Tuple{Base.OneTo{Int64}}
+  )::Vector,
+  :(φ (%50 => %49))::Any,
+  itr::Base.Generator{Vector{Callable}, TraitIndexing.var"#2#3"{Vector{Float64}, Vector{Float64}, Float64}},
+  :(φ (%39 => %38))::Int64
+)::Vector
+
+Stacktrace:
+  [1] collect(itr::Base.Generator{Vector{Callable}, TraitIndexing.var"#2#3"{Vector{Float64}, Vector{Float64}, Float64}})
+    @ Base array.jl:838
+  [2] (::TraitIndexing.VectorGetter)(u::Vector{Float64}, p::Vector{Float64}, t::Float64)
+    @ TraitIndexing /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/TraitIndexing/src/TraitIndexing.jl:121 [inlined]
+  [3] (::Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}})(::Vector{Float64}, ::Vector{Float64}, ::Float64)
+    @ TraitWorld /p/projects/coen/julia-trait-bound/TraitWorld/src/callable.jl:42
+  [4] core_rhs!(m::ODECore.CoreProblem{Float64, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}, du::Vector{Float64}, u::Vector{Float64}, t::Float64)
+    @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/ODECore/src/core.jl:528 [inlined]
+  [5] rodas5_step!(m::ODECore.CoreProblem{Float64, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}, i::TraitRodas.Rodas5Integrator{Nothing, ODECore.CoreProblem{Float64, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}}, dt::Float64, abstol::Float64, reltol::Float64)
+    @ TraitRodas /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/TraitRodas/src/rodas5.jl:194
+  [6] rodas5_advance!(i::TraitRodas.Rodas5Integrator{Nothing, ODECore.CoreProblem{Float64, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}})
+    @ TraitRodas /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/TraitRodas/src/rodas5.jl:376
+  [7] advance!(i::TraitRodas.Rodas5Integrator{Nothing, ODECore.CoreProblem{Float64, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}})
+    @ TraitRodas /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/TraitRodas/src/rodas5.jl:185 [inlined]
+  [8] run_to_end!(i::TraitRodas.Rodas5Integrator{Nothing, ODECore.CoreProblem{Float64, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}})
+    @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/ODECore/src/core.jl:969 [inlined]
+  [9] _rodas5_run(i::TraitRodas.Rodas5Integrator{Nothing, ODECore.CoreProblem{Float64, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}})
+    @ TraitRodas /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/TraitRodas/src/rodas5.jl:299 [inlined]
+ [10] rodas5_solve(m::ODECore.CoreProblem{Float64, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU, nothing}, u0::Vector{Float64}, tspan::Tuple{Float64, Float64}, callbacks::ODECore.StepCallbacks{Vector{Float64}, Float64}, opts::ODECore.SolverOptions)
+    @ TraitRodas /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/TraitRodas/src/rodas5.jl:297 [inlined]
+ [11] solve_core(a::Rodas5{DenseLU, nothing}, m::ODECore.CoreProblem{Float64, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}, callbacks::ODECore.StepCallbacks{Vector{Float64}, Float64}, opts::ODECore.SolverOptions)
+    @ TraitRodas /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/TraitRodas/src/rodas5.jl:264 [inlined]
+ [12] solve_ode(prob::ODEProblem{Float64, Vector{Float64}, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU, nothing}, callbacks::ODECore.EnteredCallbacks{Vector{Float64}, Float64, Vector{Float64}}, opts::ODECore.SolverOptions)
+    @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/ODECore/src/core.jl:1282
+ [13] solve_ode(prob::ODEProblem{Float64, Vector{Float64}, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU, nothing}, callbacks::Nothing, opts::ODECore.SolverOptions)
+    @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/ODECore/src/core.jl:1274 [inlined]
+ [14] _solve(prob::ODEProblem{Float64, Vector{Float64}, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU, nothing}, callback::Nothing, kw::@NamedTuple{saveat::Vector{Float64}, reltol::Float64, abstol::Float64})
+    @ TraitDifferentialEquations /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/src/TraitDifferentialEquations.jl:59 [inlined]
+ [15] solve(prob::ODEProblem{Float64, Vector{Float64}, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU, nothing}; callback::Nothing, kw::@Kwargs{saveat::Vector{Float64}, reltol::Float64, abstol::Float64})
+    @ TraitDifferentialEquations /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/src/TraitDifferentialEquations.jl:55 [inlined]
+ [16] main(args::Vector{String})
+    @ Main /p/projects/coen/julia-trait-bound/experiments/implementation/w135/apps/ode.jl:32
+ [17] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+    @ Main /p/projects/coen/julia-trait-bound/julia-next/test/trimming/juliac-buildscript.jl:35
+
+Error #9: unresolved call from statement (f::Callable)((…)::Vector{Float64}, (…)::Vector{Float64}, (…)::Float64)::Any
+
+Stacktrace:
+  [1] (::TraitIndexing.var"#2#3"{Vector{Float64}, Vector{Float64}, Float64})(f::Callable)
+    @ TraitIndexing none:0
+  [2] iterate(::Base.Generator{Vector{Callable}, TraitIndexing.var"#2#3"{Vector{Float64}, Vector{Float64}, Float64}})
+    @ Base generator.jl:48 [inlined]
+  [3] collect(itr::Base.Generator{Vector{Callable}, TraitIndexing.var"#2#3"{Vector{Float64}, Vector{Float64}, Float64}})
+    @ Base array.jl:828
+  [4] (::TraitIndexing.VectorGetter)(u::Vector{Float64}, p::Vector{Float64}, t::Float64)
+    @ TraitIndexing /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/TraitIndexing/src/TraitIndexing.jl:121 [inlined]
+  [5] (::Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}})(::Vector{Float64}, ::Vector{Float64}, ::Float64)
+    @ TraitWorld /p/projects/coen/julia-trait-bound/TraitWorld/src/callable.jl:42
+  [6] core_rhs!(m::ODECore.CoreProblem{Float64, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}, du::Vector{Float64}, u::Vector{Float64}, t::Float64)
+    @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/ODECore/src/core.jl:528 [inlined]
+  [7] rodas5_step!(m::ODECore.CoreProblem{Float64, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}, i::TraitRodas.Rodas5Integrator{Nothing, ODECore.CoreProblem{Float64, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}}, dt::Float64, abstol::Float64, reltol::Float64)
+    @ TraitRodas /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/TraitRodas/src/rodas5.jl:194
+  [8] rodas5_advance!(i::TraitRodas.Rodas5Integrator{Nothing, ODECore.CoreProblem{Float64, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}})
+    @ TraitRodas /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/TraitRodas/src/rodas5.jl:376
+  [9] advance!(i::TraitRodas.Rodas5Integrator{Nothing, ODECore.CoreProblem{Float64, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}})
+    @ TraitRodas /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/TraitRodas/src/rodas5.jl:185 [inlined]
+ [10] run_to_end!(i::TraitRodas.Rodas5Integrator{Nothing, ODECore.CoreProblem{Float64, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}})
+    @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/ODECore/src/core.jl:969 [inlined]
+ [11] _rodas5_run(i::TraitRodas.Rodas5Integrator{Nothing, ODECore.CoreProblem{Float64, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}})
+    @ TraitRodas /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/TraitRodas/src/rodas5.jl:299 [inlined]
+ [12] rodas5_solve(m::ODECore.CoreProblem{Float64, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU, nothing}, u0::Vector{Float64}, tspan::Tuple{Float64, Float64}, callbacks::ODECore.StepCallbacks{Vector{Float64}, Float64}, opts::ODECore.SolverOptions)
+    @ TraitRodas /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/TraitRodas/src/rodas5.jl:297 [inlined]
+ [13] solve_core(a::Rodas5{DenseLU, nothing}, m::ODECore.CoreProblem{Float64, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}, callbacks::ODECore.StepCallbacks{Vector{Float64}, Float64}, opts::ODECore.SolverOptions)
+    @ TraitRodas /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/TraitRodas/src/rodas5.jl:264 [inlined]
+ [14] solve_ode(prob::ODEProblem{Float64, Vector{Float64}, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU, nothing}, callbacks::ODECore.EnteredCallbacks{Vector{Float64}, Float64, Vector{Float64}}, opts::ODECore.SolverOptions)
+    @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/ODECore/src/core.jl:1282
+ [15] solve_ode(prob::ODEProblem{Float64, Vector{Float64}, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU, nothing}, callbacks::Nothing, opts::ODECore.SolverOptions)
+    @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/ODECore/src/core.jl:1274 [inlined]
+ [16] _solve(prob::ODEProblem{Float64, Vector{Float64}, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU, nothing}, callback::Nothing, kw::@NamedTuple{saveat::Vector{Float64}, reltol::Float64, abstol::Float64})
+    @ TraitDifferentialEquations /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/src/TraitDifferentialEquations.jl:59 [inlined]
+ [17] solve(prob::ODEProblem{Float64, Vector{Float64}, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU, nothing}; callback::Nothing, kw::@Kwargs{saveat::Vector{Float64}, reltol::Float64, abstol::Float64})
+    @ TraitDifferentialEquations /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/src/TraitDifferentialEquations.jl:55 [inlined]
+ [18] main(args::Vector{String})
+    @ Main /p/projects/coen/julia-trait-bound/experiments/implementation/w135/apps/ode.jl:32
+ [19] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+    @ Main /p/projects/coen/julia-trait-bound/julia-next/test/trimming/juliac-buildscript.jl:35
+
+Error #10: unresolved call from statement _array_for_inner(
+  typeof(
+    :(φ (%50 => %49))::Any
+  )::DataType,
+  Base.HasShape{1}()::Base.HasShape{1},
+  (…)::Tuple{Base.OneTo{Int64}}
+)::Vector
+
+Stacktrace:
+  [1] collect(itr::Base.Generator{Vector{Callable}, TraitIndexing.var"#2#3"{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}})
+    @ Base array.jl:833
+  [2] (::TraitIndexing.VectorGetter)(u::Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, p::Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, t::Float64)
+    @ TraitIndexing /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/TraitIndexing/src/TraitIndexing.jl:121 [inlined]
+  [3] _call_at_signatures(d::Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, args::Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, sigs::Tuple{Tuple{DataType, DataType}})
+    @ TraitWorld /p/projects/coen/julia-trait-bound/TraitWorld/src/callable.jl:50 [inlined]
+  [4] _call_at_signatures(d::Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, args::Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, sigs::Tuple{Tuple{DataType, DataType}, Tuple{DataType, DataType}})
+    @ TraitWorld /p/projects/coen/julia-trait-bound/TraitWorld/src/callable.jl:51 [inlined]
+  [5] (::Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}})(::Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, ::Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, ::Float64)
+    @ TraitWorld /p/projects/coen/julia-trait-bound/TraitWorld/src/callable.jl:43 [inlined]
+  [6] _ad_jacobian!(fd::Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, J::Matrix{Float64}, u::Vector{Float64}, t::Float64, ::Val{8})
+    @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/ODECore/src/core.jl:484
+  [7] core_jacobian!(m::ODECore.CoreProblem{Float64, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}, Jm::Matrix{Float64}, u::Vector{Float64}, t::Float64)
+    @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/ODECore/src/core.jl:531 [inlined]
+  [8] rodas5_step!(m::ODECore.CoreProblem{Float64, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}, i::TraitRodas.Rodas5Integrator{Nothing, ODECore.CoreProblem{Float64, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}}, dt::Float64, abstol::Float64, reltol::Float64)
+    @ TraitRodas /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/TraitRodas/src/rodas5.jl:195
+  [9] rodas5_advance!(i::TraitRodas.Rodas5Integrator{Nothing, ODECore.CoreProblem{Float64, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}})
+    @ TraitRodas /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/TraitRodas/src/rodas5.jl:376
+ [10] advance!(i::TraitRodas.Rodas5Integrator{Nothing, ODECore.CoreProblem{Float64, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}})
+    @ TraitRodas /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/TraitRodas/src/rodas5.jl:185 [inlined]
+ [11] run_to_end!(i::TraitRodas.Rodas5Integrator{Nothing, ODECore.CoreProblem{Float64, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}})
+    @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/ODECore/src/core.jl:969 [inlined]
+ [12] _rodas5_run(i::TraitRodas.Rodas5Integrator{Nothing, ODECore.CoreProblem{Float64, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}})
+    @ TraitRodas /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/TraitRodas/src/rodas5.jl:299 [inlined]
+ [13] rodas5_solve(m::ODECore.CoreProblem{Float64, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU, nothing}, u0::Vector{Float64}, tspan::Tuple{Float64, Float64}, callbacks::ODECore.StepCallbacks{Vector{Float64}, Float64}, opts::ODECore.SolverOptions)
+    @ TraitRodas /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/TraitRodas/src/rodas5.jl:297 [inlined]
+ [14] solve_core(a::Rodas5{DenseLU, nothing}, m::ODECore.CoreProblem{Float64, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}, callbacks::ODECore.StepCallbacks{Vector{Float64}, Float64}, opts::ODECore.SolverOptions)
+    @ TraitRodas /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/TraitRodas/src/rodas5.jl:264 [inlined]
+ [15] solve_ode(prob::ODEProblem{Float64, Vector{Float64}, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU, nothing}, callbacks::ODECore.EnteredCallbacks{Vector{Float64}, Float64, Vector{Float64}}, opts::ODECore.SolverOptions)
+    @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/ODECore/src/core.jl:1282
+ [16] solve_ode(prob::ODEProblem{Float64, Vector{Float64}, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU, nothing}, callbacks::Nothing, opts::ODECore.SolverOptions)
+    @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/ODECore/src/core.jl:1274 [inlined]
+ [17] _solve(prob::ODEProblem{Float64, Vector{Float64}, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU, nothing}, callback::Nothing, kw::@NamedTuple{saveat::Vector{Float64}, reltol::Float64, abstol::Float64})
+    @ TraitDifferentialEquations /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/src/TraitDifferentialEquations.jl:59 [inlined]
+ [18] solve(prob::ODEProblem{Float64, Vector{Float64}, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU, nothing}; callback::Nothing, kw::@Kwargs{saveat::Vector{Float64}, reltol::Float64, abstol::Float64})
+    @ TraitDifferentialEquations /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/src/TraitDifferentialEquations.jl:55 [inlined]
+ [19] main(args::Vector{String})
+    @ Main /p/projects/coen/julia-trait-bound/experiments/implementation/w135/apps/ode.jl:32
+ [20] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+    @ Main /p/projects/coen/julia-trait-bound/julia-next/test/trimming/juliac-buildscript.jl:35
+
+Error #11: unresolved call from statement collect_to_with_first!(
+  _array_for_inner(
+    typeof(
+      :(φ (%50 => %49))::Any
+    )::DataType,
+    Base.HasShape{1}()::Base.HasShape{1},
+    (…)::Tuple{Base.OneTo{Int64}}
+  )::Vector,
+  :(φ (%50 => %49))::Any,
+  itr::Base.Generator{Vector{Callable}, TraitIndexing.var"#2#3"{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}},
+  :(φ (%39 => %38))::Int64
+)::Vector
+
+Stacktrace:
+  [1] collect(itr::Base.Generator{Vector{Callable}, TraitIndexing.var"#2#3"{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}})
+    @ Base array.jl:838
+  [2] (::TraitIndexing.VectorGetter)(u::Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, p::Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, t::Float64)
+    @ TraitIndexing /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/TraitIndexing/src/TraitIndexing.jl:121 [inlined]
+  [3] _call_at_signatures(d::Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, args::Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, sigs::Tuple{Tuple{DataType, DataType}})
+    @ TraitWorld /p/projects/coen/julia-trait-bound/TraitWorld/src/callable.jl:50 [inlined]
+  [4] _call_at_signatures(d::Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, args::Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, sigs::Tuple{Tuple{DataType, DataType}, Tuple{DataType, DataType}})
+    @ TraitWorld /p/projects/coen/julia-trait-bound/TraitWorld/src/callable.jl:51 [inlined]
+  [5] (::Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}})(::Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, ::Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, ::Float64)
+    @ TraitWorld /p/projects/coen/julia-trait-bound/TraitWorld/src/callable.jl:43 [inlined]
+  [6] _ad_jacobian!(fd::Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, J::Matrix{Float64}, u::Vector{Float64}, t::Float64, ::Val{8})
+    @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/ODECore/src/core.jl:484
+  [7] core_jacobian!(m::ODECore.CoreProblem{Float64, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}, Jm::Matrix{Float64}, u::Vector{Float64}, t::Float64)
+    @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/ODECore/src/core.jl:531 [inlined]
+  [8] rodas5_step!(m::ODECore.CoreProblem{Float64, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}, i::TraitRodas.Rodas5Integrator{Nothing, ODECore.CoreProblem{Float64, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}}, dt::Float64, abstol::Float64, reltol::Float64)
+    @ TraitRodas /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/TraitRodas/src/rodas5.jl:195
+  [9] rodas5_advance!(i::TraitRodas.Rodas5Integrator{Nothing, ODECore.CoreProblem{Float64, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}})
+    @ TraitRodas /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/TraitRodas/src/rodas5.jl:376
+ [10] advance!(i::TraitRodas.Rodas5Integrator{Nothing, ODECore.CoreProblem{Float64, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}})
+    @ TraitRodas /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/TraitRodas/src/rodas5.jl:185 [inlined]
+ [11] run_to_end!(i::TraitRodas.Rodas5Integrator{Nothing, ODECore.CoreProblem{Float64, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}})
+    @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/ODECore/src/core.jl:969 [inlined]
+ [12] _rodas5_run(i::TraitRodas.Rodas5Integrator{Nothing, ODECore.CoreProblem{Float64, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}})
+    @ TraitRodas /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/TraitRodas/src/rodas5.jl:299 [inlined]
+ [13] rodas5_solve(m::ODECore.CoreProblem{Float64, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU, nothing}, u0::Vector{Float64}, tspan::Tuple{Float64, Float64}, callbacks::ODECore.StepCallbacks{Vector{Float64}, Float64}, opts::ODECore.SolverOptions)
+    @ TraitRodas /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/TraitRodas/src/rodas5.jl:297 [inlined]
+ [14] solve_core(a::Rodas5{DenseLU, nothing}, m::ODECore.CoreProblem{Float64, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}, callbacks::ODECore.StepCallbacks{Vector{Float64}, Float64}, opts::ODECore.SolverOptions)
+    @ TraitRodas /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/TraitRodas/src/rodas5.jl:264 [inlined]
+ [15] solve_ode(prob::ODEProblem{Float64, Vector{Float64}, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU, nothing}, callbacks::ODECore.EnteredCallbacks{Vector{Float64}, Float64, Vector{Float64}}, opts::ODECore.SolverOptions)
+    @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/ODECore/src/core.jl:1282
+ [16] solve_ode(prob::ODEProblem{Float64, Vector{Float64}, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU, nothing}, callbacks::Nothing, opts::ODECore.SolverOptions)
+    @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/ODECore/src/core.jl:1274 [inlined]
+ [17] _solve(prob::ODEProblem{Float64, Vector{Float64}, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU, nothing}, callback::Nothing, kw::@NamedTuple{saveat::Vector{Float64}, reltol::Float64, abstol::Float64})
+    @ TraitDifferentialEquations /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/src/TraitDifferentialEquations.jl:59 [inlined]
+ [18] solve(prob::ODEProblem{Float64, Vector{Float64}, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU, nothing}; callback::Nothing, kw::@Kwargs{saveat::Vector{Float64}, reltol::Float64, abstol::Float64})
+    @ TraitDifferentialEquations /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/src/TraitDifferentialEquations.jl:55 [inlined]
+ [19] main(args::Vector{String})
+    @ Main /p/projects/coen/julia-trait-bound/experiments/implementation/w135/apps/ode.jl:32
+ [20] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+    @ Main /p/projects/coen/julia-trait-bound/julia-next/test/trimming/juliac-buildscript.jl:35
+
+Error #12: unresolved call from statement (f::Callable)((…)::Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, (…)::Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, (…)::Float64)::Any
+
+Stacktrace:
+  [1] (::TraitIndexing.var"#2#3"{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64})(f::Callable)
+    @ TraitIndexing none:0
+  [2] iterate(::Base.Generator{Vector{Callable}, TraitIndexing.var"#2#3"{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}})
+    @ Base generator.jl:48 [inlined]
+  [3] collect(itr::Base.Generator{Vector{Callable}, TraitIndexing.var"#2#3"{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}})
+    @ Base array.jl:828
+  [4] (::TraitIndexing.VectorGetter)(u::Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, p::Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, t::Float64)
+    @ TraitIndexing /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/TraitIndexing/src/TraitIndexing.jl:121 [inlined]
+  [5] _call_at_signatures(d::Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, args::Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, sigs::Tuple{Tuple{DataType, DataType}})
+    @ TraitWorld /p/projects/coen/julia-trait-bound/TraitWorld/src/callable.jl:50 [inlined]
+  [6] _call_at_signatures(d::Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, args::Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, sigs::Tuple{Tuple{DataType, DataType}, Tuple{DataType, DataType}})
+    @ TraitWorld /p/projects/coen/julia-trait-bound/TraitWorld/src/callable.jl:51 [inlined]
+  [7] (::Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}})(::Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, ::Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, ::Float64)
+    @ TraitWorld /p/projects/coen/julia-trait-bound/TraitWorld/src/callable.jl:43 [inlined]
+  [8] _ad_jacobian!(fd::Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, J::Matrix{Float64}, u::Vector{Float64}, t::Float64, ::Val{8})
+    @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/ODECore/src/core.jl:484
+  [9] core_jacobian!(m::ODECore.CoreProblem{Float64, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}, Jm::Matrix{Float64}, u::Vector{Float64}, t::Float64)
+    @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/ODECore/src/core.jl:531 [inlined]
+ [10] rodas5_step!(m::ODECore.CoreProblem{Float64, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}, i::TraitRodas.Rodas5Integrator{Nothing, ODECore.CoreProblem{Float64, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}}, dt::Float64, abstol::Float64, reltol::Float64)
+    @ TraitRodas /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/TraitRodas/src/rodas5.jl:195
+ [11] rodas5_advance!(i::TraitRodas.Rodas5Integrator{Nothing, ODECore.CoreProblem{Float64, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}})
+    @ TraitRodas /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/TraitRodas/src/rodas5.jl:376
+ [12] advance!(i::TraitRodas.Rodas5Integrator{Nothing, ODECore.CoreProblem{Float64, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}})
+    @ TraitRodas /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/TraitRodas/src/rodas5.jl:185 [inlined]
+ [13] run_to_end!(i::TraitRodas.Rodas5Integrator{Nothing, ODECore.CoreProblem{Float64, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}})
+    @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/ODECore/src/core.jl:969 [inlined]
+ [14] _rodas5_run(i::TraitRodas.Rodas5Integrator{Nothing, ODECore.CoreProblem{Float64, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}})
+    @ TraitRodas /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/TraitRodas/src/rodas5.jl:299 [inlined]
+ [15] rodas5_solve(m::ODECore.CoreProblem{Float64, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU, nothing}, u0::Vector{Float64}, tspan::Tuple{Float64, Float64}, callbacks::ODECore.StepCallbacks{Vector{Float64}, Float64}, opts::ODECore.SolverOptions)
+    @ TraitRodas /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/TraitRodas/src/rodas5.jl:297 [inlined]
+ [16] solve_core(a::Rodas5{DenseLU, nothing}, m::ODECore.CoreProblem{Float64, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}, callbacks::ODECore.StepCallbacks{Vector{Float64}, Float64}, opts::ODECore.SolverOptions)
+    @ TraitRodas /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/TraitRodas/src/rodas5.jl:264 [inlined]
+ [17] solve_ode(prob::ODEProblem{Float64, Vector{Float64}, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU, nothing}, callbacks::ODECore.EnteredCallbacks{Vector{Float64}, Float64, Vector{Float64}}, opts::ODECore.SolverOptions)
+    @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/ODECore/src/core.jl:1282
+ [18] solve_ode(prob::ODEProblem{Float64, Vector{Float64}, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU, nothing}, callbacks::Nothing, opts::ODECore.SolverOptions)
+    @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/ODECore/src/core.jl:1274 [inlined]
+ [19] _solve(prob::ODEProblem{Float64, Vector{Float64}, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU, nothing}, callback::Nothing, kw::@NamedTuple{saveat::Vector{Float64}, reltol::Float64, abstol::Float64})
+    @ TraitDifferentialEquations /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/src/TraitDifferentialEquations.jl:59 [inlined]
+ [20] solve(prob::ODEProblem{Float64, Vector{Float64}, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU, nothing}; callback::Nothing, kw::@Kwargs{saveat::Vector{Float64}, reltol::Float64, abstol::Float64})
+    @ TraitDifferentialEquations /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/src/TraitDifferentialEquations.jl:55 [inlined]
+ [21] main(args::Vector{String})
+    @ Main /p/projects/coen/julia-trait-bound/experiments/implementation/w135/apps/ode.jl:32
+ [22] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+    @ Main /p/projects/coen/julia-trait-bound/julia-next/test/trimming/juliac-buildscript.jl:35
+
+Trim verify finished with 12 errors, 0 warnings.
+object: exit 1 after 16 s

@@ -1,0 +1,75 @@
+# W-166c ode 2026-11-21T19:53:10+01:00 load 24.07 26.77 18.23 | julia-next 9e742cd3cd TraitWorld 82959cf project experiments/implementation/w166/../w156/env_demo trim=safe images=1 driver=julia-next/test/trimming depot=.julia-depot/agent-depots/w158p:shared 
+images: exit 0 after 20 s (TraitWorld TraitDifferentialEquations)
+from source: none
+ERROR: LoadError: unhandled Vararg
+Stacktrace:
+  [1] error(s::String)
+    @ Base ./error.jl:44
+  [2] widenconst(::Core.TypeofVararg)
+    @ Compiler ./../usr/share/julia/Compiler/src/typelattice.jl:716
+  [3] callable_result(ft::Any, argtypes::Vector{Any})
+    @ Compiler ./../usr/share/julia/Compiler/src/abstractinterpretation.jl:3988
+  [4] abstract_call_unknown(interp::Compiler.NativeInterpreter, ft::Any, arginfo::Compiler.ArgInfo, si::Compiler.StmtInfo, sv::Compiler.InferenceState, max_methods::Int64)
+    @ Compiler ./../usr/share/julia/Compiler/src/abstractinterpretation.jl:3867
+  [5] abstract_call(interp::Compiler.NativeInterpreter, arginfo::Compiler.ArgInfo, si::Compiler.StmtInfo, sv::Compiler.InferenceState, max_methods::Int64)
+    @ Compiler ./../usr/share/julia/Compiler/src/abstractinterpretation.jl:4010
+  [6] abstract_call
+    @ ./../usr/share/julia/Compiler/src/abstractinterpretation.jl:4006 [inlined]
+  [7] (::Compiler.var"#infercalls#abstract_apply##0"{Compiler.StmtInfo, Compiler.Future{Compiler.CallMeta}, Compiler.UnionSplitApplyCallInfo, Vector{Compiler.ApplyCallInfo}, Bool, Vector{Any}, Core.Box})(interp::Compiler.NativeInterpreter, sv::Compiler.InferenceState)
+    @ Compiler ./../usr/share/julia/Compiler/src/abstractinterpretation.jl:2797
+  [8] abstract_apply(interp::Compiler.NativeInterpreter, argtypes::Vector{Any}, si::Compiler.StmtInfo, sv::Compiler.InferenceState)
+    @ Compiler ./../usr/share/julia/Compiler/src/abstractinterpretation.jl:2817
+  [9] abstract_call_known(interp::Compiler.NativeInterpreter, f::Any, arginfo::Compiler.ArgInfo, si::Compiler.StmtInfo, sv::Compiler.InferenceState, max_methods::Int64)
+    @ Compiler ./../usr/share/julia/Compiler/src/abstractinterpretation.jl:3635
+ [10] abstract_call(interp::Compiler.NativeInterpreter, arginfo::Compiler.ArgInfo, si::Compiler.StmtInfo, sv::Compiler.InferenceState, max_methods::Int64)
+    @ Compiler ./../usr/share/julia/Compiler/src/abstractinterpretation.jl:4013
+ [11] abstract_call
+    @ ./../usr/share/julia/Compiler/src/abstractinterpretation.jl:4006 [inlined]
+ [12] abstract_call(interp::Compiler.NativeInterpreter, arginfo::Compiler.ArgInfo, sstate::Compiler.StatementState, sv::Compiler.InferenceState)
+    @ Compiler ./../usr/share/julia/Compiler/src/abstractinterpretation.jl:4166
+ [13] abstract_eval_call
+    @ ./../usr/share/julia/Compiler/src/abstractinterpretation.jl:4184 [inlined]
+ [14] abstract_eval_statement_expr(interp::Compiler.NativeInterpreter, e::Expr, sstate::Compiler.StatementState, sv::Compiler.InferenceState)
+    @ Compiler ./../usr/share/julia/Compiler/src/abstractinterpretation.jl:4545
+ [15] abstract_eval_basic_statement
+    @ ./../usr/share/julia/Compiler/src/abstractinterpretation.jl:4942 [inlined]
+ [16] abstract_eval_basic_statement
+    @ ./../usr/share/julia/Compiler/src/abstractinterpretation.jl:4899 [inlined]
+ [17] typeinf_local(interp::Compiler.NativeInterpreter, frame::Compiler.InferenceState, nextresult::Compiler.CurrentState)
+    @ Compiler ./../usr/share/julia/Compiler/src/abstractinterpretation.jl:5448
+ [18] typeinf(interp::Compiler.NativeInterpreter, frame::Compiler.InferenceState)
+    @ Compiler ./../usr/share/julia/Compiler/src/abstractinterpretation.jl:5609
+ [19] typeinf_ext(interp::Compiler.NativeInterpreter, mi::Core.MethodInstance, source_mode::UInt8)
+    @ Compiler ./../usr/share/julia/Compiler/src/typeinfer.jl:1490
+ [20] compile!(codeinfos::Vector{Any}, workqueue::Compiler.CompilationQueue; invokelatest_queue::Compiler.CompilationQueue, external_linkage::Bool)
+    @ Compiler ./../usr/share/julia/Compiler/src/typeinfer.jl:1780
+ [21] compile!
+    @ ./../usr/share/julia/Compiler/src/typeinfer.jl:1763 [inlined]
+ [22] closed_check(mis::Vector{Any}, world::UInt64, overlay::Nothing)
+    @ Compiler ./../usr/share/julia/Compiler/src/typeinfer.jl:2195
+ [23] _build_sites(sig::Any, world::UInt64, known::Vector{TraitWorld.RuntimeSite})
+    @ TraitWorld /p/projects/coen/julia-trait-bound/TraitWorld/src/fullytyped.jl:84
+ [24] verify_main(main::Any, argtypes::Tuple; entrypoints::Bool, bound::Int64, world::Nothing)
+    @ TraitWorld /p/projects/coen/julia-trait-bound/TraitWorld/src/fullytyped.jl:819
+ [25] verify_main
+    @ /p/projects/coen/julia-trait-bound/TraitWorld/src/fullytyped.jl:811 [inlined]
+ [26] top-level scope
+    @ /p/projects/coen/julia-trait-bound/experiments/implementation/w135/apps/verify.jl:4
+ [27] include(mapexpr::Function, mod::Module, _path::String)
+    @ Base ./Base.jl:319
+ [28] top-level scope
+    @ /p/projects/coen/julia-trait-bound/experiments/implementation/w135/apps/ode.jl:41
+ [29] include(mod::Module, _path::String)
+    @ Base ./Base.jl:318
+ [30] top-level scope
+    @ /p/projects/coen/julia-trait-bound/julia-next/test/trimming/juliac-buildscript.jl:38
+ [31] include(mod::Module, _path::String)
+    @ Base ./Base.jl:318
+ [32] exec_options(opts::Base.JLOptions)
+    @ Base ./client.jl:344
+ [33] _start()
+    @ Base ./client.jl:577
+in expression starting at /p/projects/coen/julia-trait-bound/experiments/implementation/w135/apps/verify.jl:3
+in expression starting at /p/projects/coen/julia-trait-bound/experiments/implementation/w135/apps/ode.jl:41
+in expression starting at /p/projects/coen/julia-trait-bound/julia-next/test/trimming/juliac-buildscript.jl:38
+object: exit 1 after 8 s
