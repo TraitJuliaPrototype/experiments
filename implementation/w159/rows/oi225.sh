@@ -9,13 +9,14 @@
 #   bash oi225.sh setup                    a julia worktree wt/w159-bisect (detached), deps/srccache copied from julia-next
 #   bash oi225.sh step <commit>            checkout, build, the images of CSV and DataFrames, the measure; exit 0 good,
 #                                          1 bad, 125 the commit does not build (git bisect run's codes)
-#   bash oi225.sh run                      git bisect over next's first parents, tag good, next bad, each step `step`
+#   bash oi225.sh run                      git bisect over next's first parents, GOOD (default the tag) good, next's
+#                                          HEAD bad (BAD), each step `step`
 # Logs: logs/oi225-<commit>.log; the build's log in the tree (tw-build.log).
 # Prior (the order of the first steps): E-479 measured next-s3 bc844be7c0, a branch from 9b6dacf5c5, at 3.36 s;
 # so `step 9b6dacf5c5` first: bad leaves 7063158f42, 3037289af6, 9b6dacf5c5 (2 more builds); good leaves the 24
 # first-parent commits after it (5 more; a merge found bad bisects its 11 side commits, 4 more).
 source "$(cd "$(dirname "$0")/.." && pwd)/lib.sh"
-BT=$R/wt/w159-bisect; GOOD=7b374f39ce; BAD=${BAD:-$(git -C "$R/julia-next" rev-parse --short=10 HEAD)}
+BT=$R/wt/w159-bisect; GOOD=${GOOD:-7b374f39ce}; BAD=${BAD:-$(git -C "$R/julia-next" rev-parse --short=10 HEAD)}
 CSV=$R/experiments/interfaces/App/data/sample.csv
 case ${1:-} in
 setup)

@@ -33,7 +33,7 @@ bash rows/oi225.sh setup; bash rows/oi225.sh step 9b6dacf5c5; …   # or: bash r
 | G-5 E-385: the fifteen mistakes, SciML's three cases | `rows/g5_messages.sh` | `w136/cases`, `w136/sciml/port.jl`, `w161/d4/summarize.py` | H, B, V | 6 |
 | G-6 E-383 (and E-387's build) | `rows/g6_builds.sh` | `w166/build_c.sh`, `w135/summarize.py` | H (the tag's counts are E-509's) | 12 * |
 | G-6 E-384: small programs, the check against the build | `rows/g6_small.sh` | `w139/apps`, `w166/build_app.sh` | H | 8 * |
-| G-6 E-387's session, open issue 228's case | `rows/g6_sessions.sh` | `w120/session_marks.jl`, `w135/apps` | H, B | 2 |
+| G-6 E-387's session, open issue 228's case | `rows/g6_sessions.sh` | `w120/session_marks.jl`, `w135/apps` | H, B (ode-plain: PlainODE, the baseline) | 3 |
 | G-7 the annotations per port | `rows/g7_annotations.sh` | `w156/counts.sh`, `w151/count/annotations.jl` | git: the tag, `unified` | <1 |
 | G-7 E-373: the suites (a gate) | `rows/g7_suites.sh` | `w156/suites.sh`, `w161/suites.sh nd` | H (julia-next only) | 25 * |
 | open issue 228: the image at load | `rows/oi228.sh` | `w161/d2/image_instances.jl`, `rodas_image.jl` | H, B | 1 |

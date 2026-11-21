@@ -16,7 +16,7 @@
 #   g4_plain          4   7 cells x (a warm-up + 3) (E-499: 20 cells in 2 minutes)
 #   g1_loads          7   3 environments x 2 orders x (a warm-up + 2) x H, B (E-376: 18 cells in 3.5 minutes)
 #   g1_edit           5   3 kinds x (a warm-up + 2) x H, B
-#   g6_sessions       2   2 sessions x 4 x H, B
+#   g6_sessions       3   3 sessions (the table, the ODE, its plain twin) x 4 x H, B
 #   oi228             1   2 processes x H, B (a smoke on B: 5 s)
 #   g5_messages       6   15 trait cases + 3 strict x H, B; 14 plain x V, H; SciML 2 x H, B
 #   g4_loads          6   10 rows x 4 x H, B (walk only)
