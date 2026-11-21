@@ -52,6 +52,21 @@ function logs_of(ex)
 end
 warned(logs, pat) = any(l -> l.level == Base.CoreLogging.Warn && occursin(pat, string(l.message)), logs)
 
+"Evaluate `ex` like `toplevel` with `stderr` captured: the exception it throws or `nothing`, and what it wrote there (Julia's own `WARNING:` lines)."
+function stderr_of(ex)
+    path, io = mktemp()
+    e = try
+        redirect_stderr(io) do
+            thrown(ex)
+        end
+    finally
+        close(io)
+    end
+    text = read(path, String)
+    rm(path; force = true)
+    return e, text
+end
+
 const DEVIATIONS = Tuple{String,String}[]
 
 """

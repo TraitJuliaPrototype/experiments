@@ -9,11 +9,11 @@ The pages state the design ([`writeup/reference/traits.md`](../../writeup/refere
 | `intro.jl` | the worked example of `traits-for-julia.md`: the library `Columns` and its user |
 | `tutorial.jl` | `traits-by-example.md` §2–§17, in the page's order: the libraries `Geometry`, `Signals`, `Dots`, `Seqs`, `Weights`, `Strictly` and the user's code |
 | `strict.jl` | `traits-by-example.md` §18, strict mode, in its own process (it changes Base's methods) |
-| `keep_at_prompt.jl` | uses `keep`, which neither the design nor the library has; not run |
-| `common.jl` | `check`, `deviation`, `thrown` (a statement that must fail, evaluated at top level), `outcome`, `msg`, `summary` |
-| `reference.jl` | the examples of the references as they stood in October 2026, for the library of that month; not run |
+| `common.jl` | `check`, `deviation`, `thrown` (a statement that must fail, evaluated at top level), `outcome`, `msg`, `stderr_of` (a statement's `WARNING:` lines), `summary` |
 
-The tutorial's §19 (a package's layout) and §20 (planned) are not run.
+`ahead_invalidation.jl` (entry methods compiled ahead, `_ahead_entry!`), `keep_at_prompt.jl` (`keep`) and `reference.jl` (the references' examples of October 2026) use what neither the design nor the library has. They are in [`../attic/docs-examples/`](../attic/docs-examples/), with `keep_at_prompt.jl`'s log.
+
+The tutorial's §19 (a package's layout) and §20 (planned) are not run. Of §18, the bullet on a package extension's method is not run: it needs a package with an extension.
 
 **Running.** One Julia process at a time; the machine is shared. On Julia with the design's changes (`julia-next/`), from `TraitWorld/` (branch `unified`):
 
@@ -40,9 +40,10 @@ TraitWorld does not run on stock Julia. The pages and the scripts write `compile
 | 2026-11-18 | `next` 32a2235abd, TraitWorld `unified` d1febca (the pages and scripts on the box and the wrapper) | 24 pass, 3 deviations (T-126, T-127, no row) | 94 pass, 1 deviation (T-127) | 5 pass |
 | 2026-11-18 | `next` 02139b2168, TraitWorld `w156` ea72682 (the attribute's surface removed: the exported `compiled_for` is the wrapper's function, no module option decides how an argument is compiled) | 26 pass, 1 deviation (no row) | 95 pass | 5 pass |
 | 2026-11-21 | `next` f5328f94c5, TraitWorld `w158b` e32d443 (`withfields` on a kept form, so §11's `nudged` is bounded; the bounded check's message names the method as written, open issue 235) | 27 pass | 96 pass | 5 pass |
+| 2026-11-21 | `next` dc11704ef7, TraitWorld `unified` 2d93199 (checks added for the pages' new text: `Integrator`'s fields, the quoted messages asserted, the `All` alias, a stated parameter, an ambiguity reported at a membership, `withfields` at a box, a container of functions, an owner-only function's pirate followed with its report and refused in a trait module and in strict mode) | 33 pass | 122 pass, 2 deviations (no row: an element of a `Vector{Callable{A, S}}` whose result is no `S` raises Julia's `non-boolean` error, not the result's check; the `OwnershipError` at an owner-only function's method does not name its owner) | 10 pass |
 
 On the row of 2026-11-18, `tutorial.jl` ended twice in six runs with a segmentation fault while `@trait Named` (its line 36) was expanded: a lookup in a method table's cache (`jl_mt_find_cache_entry`, `jl_object_id`) from the library's `_parse_body` (`logs/tutorial-next-32a2235abd-b-segfault.log`). The other runs, and every run of `intro.jl` and `strict.jl`, ended normally.
 
-`keep_at_prompt.jl` on the build of the second row of 2026-11-11 (`logs/keep_at_prompt-05991fc.log`): at the prompt the item is a `Dynamic{Shape}`, not a `Scalable`, not `==` the circle, and the scene counts 0 scalable items; from a function it is the `Circle`, a `Scalable`, `==`, and the count is 1.
+`keep_at_prompt.jl` (now in the attic) on the build of the second row of 2026-11-11 (`../attic/docs-examples/logs/keep_at_prompt-05991fc.log`): at the prompt the item is a `Dynamic{Shape}`, not a `Scalable`, not `==` the circle, and the scene counts 0 scalable items; from a function it is the `Circle`, a `Scalable`, `==`, and the count is 1.
 
-Each row's output, with the messages the pages quote: `logs/<script>-<TraitWorld commit>.log`; on `next`, `logs/<script>-next-<julia commit>.log`, and for the row of 2026-11-18 `logs/<script>-next-32a2235abd-b.log`.
+Each row's output, with the messages the pages quote: `logs/<script>-<TraitWorld commit>.log`; on `next`, `logs/<script>-next-<julia commit>.log` or `logs/<script>-next-<julia commit>-tw-<TraitWorld commit>.log`, and for the row of 2026-11-18 `logs/<script>-next-32a2235abd-b.log`.

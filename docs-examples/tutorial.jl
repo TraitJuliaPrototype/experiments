@@ -168,12 +168,16 @@ check("§6 a writable field needs a mutable type: ImplementError", e isa Impleme
 check("§7 report(sp)", report(sp) == "a shape of area 0.7853981633974483 at (1.0, 2.0)")
 check("§7 Sprite <: All{Shape, Placed}", Sprite <: All{Shape, Placed})
 check("§7 Circle is no All{Shape, Placed}", !(Circle <: All{Shape, Placed}))
+const Sprite2D = All{Shape, Placed}
+check("§7 a const names the intersection: Sprite <: Sprite2D, Circle is not", Sprite <: Sprite2D && !(Circle <: Sprite2D))
 
 # --- §8: overrides fixed at the membership ------------------------------------------------------
 
 e = thrown(:(Geometry.describe(c::Circle) = "a circle"))
 check("§8 a later override is refused with ImplementError", e isa ImplementError)
 e === nothing || println("MESSAGE §8:\n", msg(e))
+check("§8 the message says to define the method before the membership, or in its block",
+      e isa Exception && occursin("define the method before `@implement`, or in its block", msg(e)))
 check("§8 title(Circle(1.0)) unchanged", title(Circle(1.0)) == "A shape of area 3.141592653589793")
 
 # --- §9: keywords, defaults, varargs ------------------------------------------------------------
@@ -184,14 +188,40 @@ check("§9 scaled_area(Rect(2.0, 3.0)) == 24.0", scaled_area(Rect(2.0, 3.0)) == 
 check("§9 largest of three types", largest(Circle(1.0), Rect(2.0, 3.0), Tile("door", Rect(1.0, 2.0))) == 6.0)
 e = outcome(() -> fits(Circle(1.0); margin = 1))
 check("§9 margin = 1 raises TypeError", e isa TypeError)
+e isa Exception && println("MESSAGE §9 margin:\n", msg(e))
+check("§9 the message: in keyword argument margin, expected Float64", e isa Exception && occursin("in keyword argument margin, expected Float64, got a value of type Int64", msg(e)))
 e = outcome(() -> fits(Circle(1.0); within = 42))
 check("§9 within = 42 raises TypeError", e isa TypeError)
+e isa Exception && println("MESSAGE §9 within:\n", msg(e))
+check("§9 the message: in keyword argument within, expected Shape", e isa Exception && occursin("in keyword argument within, expected Shape, got a value of type Int64", msg(e)))
 
 # --- §10: types first ---------------------------------------------------------------------------
 
 check("§10 kind([1.0, 2.0])", kind([1.0, 2.0]) == "a vector")
 check("§10 kind(Circle(1.0))", kind(Circle(1.0)) == "a shape")
 check("§10 kind(42)", kind(42) == "something else")
+
+module Picks
+using TraitWorld, ..Geometry
+pick(s::Shape) = "a shape"
+pick(p::Placed) = "placed"
+end
+mutable struct Spot
+    x::Float64
+    y::Float64
+    body::Circle
+end
+@implement Placed Spot
+e, report = stderr_of(:(@implement Shape Spot by body))
+check("§10 the membership that makes Spot a member of both traits is accepted", e === nothing)
+println("MESSAGE §10 ambiguity:\n", report)
+check("§10 that membership reports the ambiguity of pick(::Shape) and pick(::Placed), and the method at All that resolves it",
+      occursin("method pick at pick(Geometry.Shape) is ambiguous for Main.Spot", report) &&
+      occursin("a method at pick(All{Geometry.Placed, Geometry.Shape}) would resolve it", report))
+e = outcome(() -> Picks.pick(Spot(0.0, 0.0, Circle(1.0))))
+check("§10 pick(spot) is ambiguous: MethodError", e isa MethodError)
+Core.eval(Picks, :(pick(s::All{Shape, Placed}) = "both"))
+check("§10 a method at All{Shape, Placed} resolves it", Base.invokelatest(Picks.pick, Spot(0.0, 0.0, Circle(1.0))) == "both")
 
 # --- §11: results like the input ----------------------------------------------------------------
 
@@ -221,6 +251,10 @@ e = thrown(:(module WithAtBox
     end))
 check("§11 nudged is bounded: a trait module accepts it without @unbounded", e === nothing)
 e === nothing || println("MESSAGE §11 nudged:\n", msg(e))
+e = outcome(() -> withfields(Dynamic{Placed}(sp); name = "kite"))
+check("§11 at a box, withfields names only the fields the trait declares: ArgumentError", e isa ArgumentError)
+e isa Exception && println("MESSAGE §11 withfields at a box:\n", msg(e))
+check("§11 withfields at a member names any field", withfields(sp; name = "kite").name == "kite")
 
 # --- §12: collections of mixed types ------------------------------------------------------------
 
@@ -252,7 +286,7 @@ check("§12 Dynamic{Shape}(42) raises TypeError", e isa TypeError)
 module Signals
 using TraitWorld
 @trait_module
-export Samples, nsamples, sample, total, mean64, transform, sumby, Threshold, countif, Gate, countgate
+export Samples, nsamples, sample, total, mean64, transform, sumby, Threshold, countif, Gate, countgate, passes
 
 @trait Samples{T} begin
     T = eltype(Self)
@@ -298,6 +332,13 @@ function countif(th::Threshold, s::Samples{Float64})
     end
     return n
 end
+function passes(tests::Vector{Callable{Tuple{Float64}, Bool}}, x::Float64)
+    n = 0
+    for t in tests
+        t(x) && (n += 1)
+    end
+    return n
+end
 struct Gate{F <: Callable{Tuple{Float64}, Bool}}
     test::F
 end
@@ -326,12 +367,26 @@ check("§13 mean64(Series([1.0, 4.0]))", mean64(Series([1.0, 4.0])) == 2.5)
 check("§13 Vector{Int} <: Samples{Int}", Vector{Int} <: Samples{Int})
 e = outcome(() -> mean64([1, 2]))
 check("§13 mean64([1, 2]) raises MethodError", e isa MethodError)
+e isa Exception && println("MESSAGE §13 mean64:\n", msg(e))
+check("§13 the hint: `s` is a member of `Samples{Int64}`; the method takes `Samples{Float64}`",
+      e isa Exception && occursin("`s` is a member of `Samples{Int64}`; the method takes `Samples{Float64}`", msg(e)))
 
 struct Odd end
 Signals.nsamples(::Odd) = 1
 Signals.sample(::Odd, i::Int) = 1.0
 e = thrown(:(@implement Samples{Float64} Odd))
 check("§13 a stated parameter against its equation: ImplementError", e isa ImplementError)
+
+@trait ArrayLike{T, N} begin
+    alen(a::ArrayLike)::Int
+end
+struct MyVec
+    data::Vector{Float32}
+end
+alen(v::MyVec) = length(v.data)
+@implement ArrayLike{Float32, 1} MyVec
+check("§13 a parameter stated at the membership: MyVec <: ArrayLike{Float32, 1}, not ArrayLike{Float64, 1}",
+      MyVec <: ArrayLike{Float32, 1} && !(MyVec <: ArrayLike{Float64, 1}) && alen(MyVec(Float32[1, 2])) == 2)
 
 module Dots
 using TraitWorld, ..Signals
@@ -349,6 +404,8 @@ using .Dots
 check("§13 dotp", dotp([1.0, 2.0], [3.0, 4.0]) == 11.0)
 e = outcome(() -> dotp([1.0], [1]))
 check("§13 dotp([1.0], [1]) raises MethodError", e isa MethodError)
+e isa Exception && println("MESSAGE §13 dotp:\n", msg(e))
+check("§13 the hint: `T` is `Float64` for `a` and `Int64` for `b`", e isa Exception && occursin("`T` is `Float64` for `a` and `Int64` for `b`", msg(e)))
 e = thrown(:(module DotsGen
     using TraitWorld, ..Signals
     @trait_module
@@ -365,8 +422,13 @@ check("§14 transform(compiled_for(…), …)", transform(compiled_for(x -> x / 
 check("§14 sumby(abs2, …)", sumby(abs2, [1.0, 2.0]) == 5.0)
 e = outcome(() -> transform(x -> 1, [1.0]))
 check("§14 a result of the wrong type raises TypeError", e isa TypeError)
+e isa Exception && println("MESSAGE §14 transform:\n", msg(e))
+check("§14 the message: in Callable, expected Float64", e isa Exception && occursin("in Callable, expected Float64, got a value of type Int64", msg(e)))
 e = outcome(() -> transform(uppercase, [1.0]))
 check("§14 a function with no method at Float64 raises MethodError", e isa MethodError)
+e isa Exception && println("MESSAGE §14 uppercase:\n", first(msg(e), 400))
+check("§14 the hint: uppercase is given at Callable{Tuple{Float64}, Float64}, and none of its methods takes Tuple{Float64}",
+      e isa Exception && occursin("`uppercase` is given at `Callable{Tuple{Float64}, Float64}`, and none of its methods takes `Tuple{Float64}`", msg(e)))
 check("§14 sin isa Callable{Tuple{Float64}, Float64}", sin isa Callable{Tuple{Float64}, Float64})
 check("§14 uppercase isa Callable{Tuple{Float64}, Float64}: membership reads no method", uppercase isa Callable{Tuple{Float64}, Float64})
 e = thrown(:(module Mapper
@@ -388,6 +450,13 @@ givenf(f::Callable{Tuple{Float64}, Float64}) = f      # what a method at Callabl
 check("§14 inside, f is the box or the wrapper; unwrap(f) is the function",
       givenf(sin) isa Dynamic && unwrap(givenf(sin)) === sin && givenf(compiled_for(sin)) isa Compiled && unwrap(givenf(compiled_for(sin))) === sin)
 check("§14 countgate", countgate(g1, [0.5, 1.5, 2.5]) == 2 && countgate(g2, [0.5, 1.5, 2.5]) == 2)
+tests = Callable{Tuple{Float64}, Bool}[x -> x > 1.0, iszero]
+check("§14 a container typed by Callable keeps each function as given", tests[2] === iszero)
+check("§14 passes(tests, 2.0) == 1", passes(tests, 2.0) == 1)
+e = outcome(() -> passes(Callable{Tuple{Float64}, Bool}[x -> 1], 2.0))
+e isa Exception && println("MESSAGE §14 passes:\n", msg(e))
+deviation("§14 a function known only by its signature is called as a box is: its result checked, TypeError expected Bool",
+          "no row", () -> e isa TypeError && occursin("expected Bool", msg(e)))
 
 # --- §15: abstract types and traits as members --------------------------------------------------
 
@@ -440,12 +509,16 @@ Geometry.perimeter(s::Square) = 4.0 * s.side
 e = thrown(:(@implement Shape Square))
 check("§16 a result of the wrong type: ImplementError", e isa ImplementError)
 e === nothing || println("MESSAGE §16 Square:\n", msg(e))
+check("§16 the message: area's method at Square infers its result as Int64, outside the declared Float64",
+      e isa Exception && occursin("area's method at Square infers its result as Int64, outside the declared Float64", msg(e)))
 
 struct Dot end
 Geometry.area(::Dot) = 0.0
 e = thrown(:(@implement Shape Dot))
 check("§16 a missing operation: ImplementError", e isa ImplementError)
 e === nothing || println("MESSAGE §16 Dot:\n", msg(e))
+check("§16 the message: no method serves perimeter(s::Shape)::Float64 at Dot",
+      e isa Exception && occursin("no method serves perimeter(s::Shape)::Float64 at Dot", msg(e)))
 
 e = outcome(() -> ratio(42))
 check("§16 ratio(42) raises MethodError", e isa MethodError)
@@ -467,6 +540,46 @@ e = thrown(:(module Meddler
     end))
 check("§16 a pirate in a trait module: OwnershipError", e isa OwnershipError)
 e === nothing || println("MESSAGE §16 Meddler:\n", msg(e))
+
+# a library's internal function is its own: owner-only
+module Tally
+using TraitWorld
+@trait_module
+export tally
+weight(x) = 1                    # neither exported nor public: owner-only
+function tally(xs::Vector{Any})
+    n = 0
+    for x in xs
+        n += weight(x)
+    end
+    return n
+end
+end
+using .Tally
+
+check("§16 tally(Any[1, \"a\", 2.0]) == 3", tally(Any[1, "a", 2.0]) == 3)
+struct Heavy
+    w::Int
+end
+logs, e = logs_of(:(Tally.weight(h::Heavy) = h.w))
+check("§16 a method of an owner-only function, for the user's own type: followed by default", e === nothing)
+for l in logs
+    l.level == Base.CoreLogging.Warn && println("MESSAGE §16 Tally:\n", l.message)
+end
+check("§16 a warning names the pirate, the owner-only function and the code it ended",
+      warned(logs, "a pirate ended code compiled by facts") && warned(logs, "weight(::Heavy)") &&
+      warned(logs, "an owner-only function of Main.Tally") && warned(logs, "Main.Tally.tally"))
+check("§16 the pirate is followed: tally(Any[1, Heavy(5)]) == 6", Base.invokelatest(tally, Any[1, Heavy(5)]) == 6)
+e = thrown(:(module Meddler4
+    using TraitWorld, ..Tally
+    @trait_module
+    struct Mine end
+    Tally.weight(::Mine) = 0
+    end))
+check("§16 in a trait module, a method of another module's owner-only function is refused: OwnershipError", e isa OwnershipError)
+e === nothing || println("MESSAGE §16 Meddler4:\n", msg(e))
+deviation("§16 that OwnershipError names the function's owner, Main.Tally (traits §11.3: its owners, who may declare it)",
+          "no row", () -> e isa Exception && occursin("Tally", msg(e)))
 
 # --- §17: concreteness and fully typed code -----------------------------------------------------
 
@@ -491,6 +604,8 @@ end
 e = thrown(:(@implement Weighted Crate by data))
 check("§17 an abstract field refused by @enforce_concrete_only: ImplementError", e isa ImplementError)
 e === nothing || println("MESSAGE §17 Crate:\n", msg(e))
+check("§17 the message: Self is AbstractVector{Float64}, which is not concrete",
+      e isa Exception && occursin("Self is AbstractVector{Float64}, which is not concrete", msg(e)))
 struct Box
     data::Vector{Float64}
 end
@@ -507,6 +622,8 @@ using .Strictly
 check("§17 firstsample([1.5, 2.0])", firstsample([1.5, 2.0]) == 1.5)
 e = outcome(() -> firstsample(Real[1.5, 2.0]))
 check("§17 firstsample(Real[…]) raises TraitUseError", e isa TraitUseError)
+e isa Exception && println("MESSAGE §17 firstsample:\n", msg(e))
+check("§17 the message: `T` is Real, which is not concrete", e isa Exception && occursin("`T` is Real, which is not concrete", msg(e)))
 
 check("§17 totalarea is fully typed", isfullytyped(fully_typed(Geometry.totalarea, (Geometry.Scene,))))
 check("§17 wscaled is not", !isfullytyped(fully_typed(Weights.wscaled, (Vector{Float64}, Vector{Any}))))

@@ -31,6 +31,37 @@ check("§18 sq is unchanged", Base.invokelatest(sq, [1.0, 2.0, 3.0]) == 14.0)
 check("§18 the pirate was never defined", abs2(2.0) == 4.0)
 e = thrown(:(module Meddler3; Base.abs2(x::Int8) = Int8(7); end))
 check("§18 a pirate that changes no code compiled by facts is accepted", e === nothing)
+struct Mine
+    v::Float64
+end
+e = thrown(:(Base.abs2(m::Mine) = m.v^2))
+check("§18 a method for your own type is no pirate: accepted", e === nothing && Base.invokelatest(abs2, Mine(3.0)) == 9.0)
+
+# a method of another module's owner-only function is a pirate's, whatever types it names
+module Tally
+using TraitWorld
+@trait_module
+export tally
+weight(x) = 1                    # neither exported nor public: owner-only
+function tally(xs::Vector{Any})
+    n = 0
+    for x in xs
+        n += weight(x)
+    end
+    return n
+end
+end
+using .Tally
+check("§18 tally(Any[1, \"a\", 2.0]) == 3", tally(Any[1, "a", 2.0]) == 3)
+struct Heavy
+    w::Int
+end
+e = thrown(:(Tally.weight(h::Heavy) = h.w))
+check("§18 a method of an owner-only function, for your own type, that would change code compiled by facts: PirateError",
+      e isa TraitWorld.PirateError)
+e isa Exception && println("MESSAGE §18 owner-only:\n", msg(e))
+check("§18 the PirateError names the owner-only function", e isa Exception && occursin("an owner-only function of Main.Tally", msg(e)))
+check("§18 tally is unchanged", Base.invokelatest(tally, Any[1, Heavy(5)]) == 2)
 TraitWorld.strict!(false)
 
 summary()

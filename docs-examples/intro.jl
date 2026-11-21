@@ -126,11 +126,14 @@ col(c::Counts, i::Int) = fill(i, 3)       # a Vector{Int}
 e = thrown(:(@implement ColTable Counts))
 check("@implement ColTable Counts raises ImplementError", e isa TraitWorld.ImplementError)
 println("MESSAGE ImplementError:\n", sprint(showerror, e))
+check("the ImplementError's message is the page's",
+      e isa Exception && occursin("ImplementError: Counts cannot be a member of ColTable\n  - col's method at Counts infers its result as Vector{Int64}, outside the declared Vector{Float64}", msg(e)))
 check("Counts is no member", !(Counts <: ColTable))
 
 e = try colmap(x -> 1, m, 1); nothing catch err; err end
 check("a closure returning an Int raises TypeError", e isa TypeError)
 e === nothing || println("MESSAGE TypeError:\n", sprint(showerror, e))
+check("the TypeError's message is the page's", e isa Exception && msg(e) == "TypeError: in Callable, expected Float64, got a value of type Int64")
 
 e = thrown(:(module Broken
     using TraitWorld
@@ -143,8 +146,39 @@ e === nothing || println("MESSAGE TraitUseError:\n", sprint(showerror, e))
 check("the TraitUseError names the method as written, with `t` in a box, no tuple type",
       e isa Exception && occursin("`colsum(t::ColTable)` is declared bounded, and is not bounded: read with `t` in a box", msg(e)) &&
       occursin("sum(t) reaches iterate(", msg(e)) && !occursin("Tuple{", msg(e)))
+check("the TraitUseError's message is the page's, but for the line",
+      e isa Exception && occursin("TraitUseError: `colsum(t::ColTable)` is declared bounded, and is not bounded: read with `t` in a box, `Dynamic{ColTable}`:\n  sum(t) reaches iterate(::Dynamic{ColTable}), which has no method (through sum → mapreduce → mapfoldl → mapfoldl_impl → foldl_impl → _foldl_impl), at line ", msg(e)))
 
 e = try colmean(42, 1); nothing catch err; err end
 check("colmean(42, 1) raises MethodError", e isa MethodError)
+
+# --- the parts, one by one: a trait with fields and parameters ------------------------------------
+
+@trait Integrator{U, P} begin
+    u::U                 # the state
+    @const p::P          # the parameters, read-only
+    t::Float64
+end
+advance!(i::Integrator, dt::Float64) = (i.t += dt; nothing)
+
+mutable struct Euler
+    u::Vector{Float64}
+    const p::Float64
+    t::Float64
+end
+@implement Integrator Euler
+eu = Euler([1.0], 0.5, 0.0)
+check("a member's fields give the parameters: Euler <: Integrator{Vector{Float64}, Float64}",
+      Euler <: Integrator{Vector{Float64}, Float64} && !(Euler <: Integrator{Vector{Float64}, Int}))
+advance!(eu, 0.1)
+check("a method at the trait writes a writable declared field", eu.t == 0.1)
+mutable struct Stiff
+    u::Vector{Float64}
+    p::Float64
+    t::Int
+end
+e = thrown(:(@implement Integrator Stiff))
+check("a field of another type than declared (t::Int against t::Float64): ImplementError", e isa TraitWorld.ImplementError)
+e === nothing || println("MESSAGE Integrator:\n", msg(e))
 
 summary()
