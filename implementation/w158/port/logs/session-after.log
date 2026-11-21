@@ -1,0 +1,135 @@
+# W-158 port session after 2026-11-21T18:32:56+01:00 load 7.22 4.95 3.89 | julia-next 8b35e4b77c TraitWorld cedb718 TraitDifferentialEquations 1d9a516
+ode run 1: wall 2.581 s | load 1946.1 ms | first run 355.0 ms, of it compiling 352.2 ms (again after an invalidation 0.0 ms) | second run 1.7 ms
+ode run 2: wall 2.657 s | load 2041.1 ms | first run 343.0 ms, of it compiling 340.3 ms (again after an invalidation 0.0 ms) | second run 1.6 ms
+ode run 3: wall 2.630 s | load 2026.9 ms | first run 341.8 ms, of it compiling 339.1 ms (again after an invalidation 0.0 ms) | second run 1.6 ms
+experiments/implementation/w158/port/logs/ode-after.trace: 77 compiles, 853 ms
+  session         9 compiles    300.2 ms  35.2 %
+  recompile       5 compiles    232.0 ms  27.2 %
+  own image      10 compiles     60.5 ms   7.1 %
+  composition     4 compiles     23.1 ms   2.7 %
+  julia          49 compiles    237.2 ms  27.8 %
+instances ODECore: 399 with code, 220 of them at a kept form; 461 methods
+instances TraitRodas: 62 with code, 34 of them at a kept form; 56 methods
+instances TraitDifferentialEquations: 82 with code, 55 of them at a kept form; 40 methods
+instances TraitIndexing: 42 with code, 34 of them at a kept form; 72 methods
+instances TraitWorld: 548 with code, 106 of them at a kept form; 790 methods
+check: 28 errors, 0 calls that only raise, 3 rounds, 7.7 s
+  LinearSolver: 1 members: DenseLU
+  ODECore.StepView{Vector{Float64}, Float64}: 2 members: ODECore.Tsit5Integrator{Float64, ODECore.CoreProblem{Float64, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}}, TraitRodas.Rodas5In
+  ODECore.StepCallback{Vector{Float64}, Float64}: 1 members: ODECore.ParamCallback{Vector{Float64}, Float64, Vector{Float64}}
+  Callable{Tuple{Vector{Float64}, Vector{Float64}, Vector{Float64}, Float64}, Nothing}: 5 members: typeof(lorenz!), typeof(robertson!), TraitIndexing.StateGetter, TraitIndexing.ParamGetter, TraitIndexing.VectorGetter
+  Callback{Vector{Float64}, Float64, Vector{Float64}}: 0 members: 
+  EventCallback{Vector{Float64}, Float64, Vector{Float64}}: 0 members: 
+  ODECore.StepEvent{Vector{Float64}, Float64}: 1 members: ODECore.ParamEvent{Vector{Float64}, Float64, Vector{Float64}}
+  Solvable{Float64}: 0 members: 
+  error: unresolved call at TraitWorld/src/callable.jl:42 | (:(TraitWorld.getfield(_1, :object))::All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}})((…)::Vector{Float64}, (…)::Vector{Float64}, (
+  error: unresolved call at TraitWorld/src/callable.jl:44 | (:(TraitWorld.getfield(_1, :object))::All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}})((…)::Vector{ForwardDiff.Dual{ODECore.ODETag, 
+  error: unresolved call at show.jl:1035 | show(
+  :(φ (%72 => %72, %268 => %265))::IOContext{IOBuffer},
+  :(φ (%72 => %68, %268 => %226))::Any
+)::Any
+  error: unresolved call at show.jl:2741 | show(
+  io::IOContext{IOBuffer},
+  b::Any
+)::Any
+  error: unresolved call at show.jl:1160 | show(
+  io::IOContext{IOBuffer},
+  Core._svec_ref((…)::Core.SimpleVector, :(φ (%55 => %52, %91 => %86))::Int64)::Any
+)::Any
+  error: unresolved call at show.jl:1227 | show(
+  io::IOContext{IOBuffer},
+  :(φ (%367 => %171, %368 => %368))::Any
+)::Any
+  error: unresolved call at show.jl:1232 | show(
+  io::IOContext{IOBuffer},
+  :(φ (%169 => %169, %141 => %139))::Any
+)::Any
+  error: unresolved call at show.jl:1218 | show(
+  io::IOContext{IOBuffer},
+  :(φ (%169 => %162, %141 => 0))::Any
+)::Any
+  error: unresolved call at show.jl:1220 | show(
+  io::IOContext{IOBuffer},
+  :(φ (%169 => %169, %141 => %139))::Any
+)::Any
+  error: unresolved call at show.jl:1242 | show_at_namedtuple(
+  io::IOContext{IOBuffer},
+  :(φ (%513 => %512))::Tuple,
+  :(φ (%527 => %526))::DataType
+)::Any
+  error: unresolved call at show.jl:1250 | show_at_namedtuple(
+  io::IOContext{IOBuffer},
+  Core._svec_ref((…)::Core.SimpleVector, 1::Int64)::Tuple,
+  Core._svec_ref((…)::Core.SimpleVector, 2::Int64)::DataType
+)::Any
+  error: unresolved call at show.jl:740 | show(
+  io::IOContext{IOBuffer},
+  getfield((…)::TypeVar, :ub::Symbol)::Any
+)::Any
+  error: unresolved call at show.jl:743 | show(
+  io::IOContext{IOBuffer},
+  getfield((…)::TypeVar, :lb::Symbol)::Any
+)::Any
+  error: unresolved call at show.jl:748 | show(
+  io::IOContext{IOBuffer},
+  Core._svec_ref(env::Core.SimpleVector, :(φ (%197 => %194, %376 => %371))::Int64)::Any
+)::Any
+  error: unresolved call at show.jl:1143 | eltype(
+  Core._svec_ref((…)::Core.SimpleVector, 4::Int64)::DataType
+)::Any
+  error: unresolved call at show.jl:1459 | show(
+  (…)::IOContext{IOBuffer},
+  memoryrefget((…)::MemoryRef{Any}, :not_atomic::Symbol, false::Bool)::Any
+)::Any
+  error: unresolved call at show.jl:935 | show(
+  io::IOBuffer,
+  :(φ (%65 => %60, %150 => %144))::Any
+)::Any
+  error: unresolved call at show.jl:2741 | show(
+  io::IOBuffer,
+  b::Any
+)::Any
+  error: unresolved call at show.jl:1160 | show(
+  io::IOBuffer,
+  Core._svec_ref((…)::Core.SimpleVector, :(φ (%43 => %40, %66 => %61))::Int64)::Any
+)::Any
+  error: unresolved call at show.jl:1227 | show(
+  io::IOBuffer,
+  :(φ (%293 => %122, %294 => %294))::Any
+)::Any
+  error: unresolved call at show.jl:1232 | show(
+  io::IOBuffer,
+  :(φ (%120 => %120, %92 => %90))::Any
+)::Any
+  error: unresolved call at show.jl:1218 | show(
+  io::IOBuffer,
+  :(φ (%120 => %113, %92 => 0))::Any
+)::Any
+  error: unresolved call at show.jl:1220 | show(
+  io::IOBuffer,
+  :(φ (%120 => %120, %92 => %90))::Any
+)::Any
+  error: unresolved call at show.jl:1242 | show_at_namedtuple(
+  io::IOBuffer,
+  :(φ (%365 => %364))::Tuple,
+  :(φ (%379 => %378))::DataType
+)::Any
+  error: unresolved call at show.jl:740 | show(
+  io::IOBuffer,
+  getfield((…)::TypeVar, :ub::Symbol)::Any
+)::Any
+  error: unresolved call at show.jl:743 | show(
+  io::IOBuffer,
+  getfield((…)::TypeVar, :lb::Symbol)::Any
+)::Any
+  error: unresolved call at show.jl:748 | show(
+  io::IOBuffer,
+  Core._svec_ref(env::Core.SimpleVector, :(φ (%185 => %182, %327 => %322))::Int64)::Any
+)::Any
+  error: unresolved call at ../usr/share/julia/Compiler/src/abstractinterpretation.jl:270 | getindex(
+  Core._svec_ref((…)::Core.SimpleVector, 2::Int64)::Any,
+  :(φ (%36 => %33, %82 => %77))::Int64
+)::Any
+lorenz -8.02113
+robertson 0.0178659
+# load after 5.81 4.79 3.87

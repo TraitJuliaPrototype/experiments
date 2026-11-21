@@ -1,0 +1,19 @@
+logs/w166c-w158p-before.build.log: 36 errors, 0 warnings | verify_main: 143 targets, 0 entry points, 20 run-time sites, complete true, 9.3 s | Trim verify finished with 36 errors, 0 warnings. | object: exit 1 after 22 s
+  in module: ODECore E22, TraitRodas E6, TraitWorld E4, Base E4
+  reached from: Main E36
+    root   36  Main _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+w166c-w158p-before.build.log: 36 errors in 14 statements; by kind: 1 callbacks entry 22, 2 box call 4, 3 Rodas5 chunk 6, 4 PartialFn at Any 4
+    6  [1 callbacks entry] (ODECore.FunctionCallback{…} src/core.jl:574 | (#self#::Type{ODECore.FunctionCallback{Vector{Float64}, Float64, Vector{Float64}, C, A, I}
+    6  [1 callbacks entry] (ODECore.FunctionEventCallback{…} src/core.jl:590 | (#self#::Type{ODECore.FunctionEventCallback{Vector{Float64}, Float64, Vector{Float64}, C, 
+    2  [1 callbacks entry] enter_callbacks src/core.jl:615 | push!(
+    1  [1 callbacks entry] enter_callbacks src/core.jl:615 | _enter_callback!(
+    1  [1 callbacks entry] enter_callbacks src/core.jl:617 | _enter_callback!(
+    2  [1 callbacks entry] enter_step_callbacks src/core.jl:760 | _enter_step_callback!(
+    4  [1 callbacks entry] hasmethod reflection.jl:1085 | Core._hasmethod(
+    2  [2 box call] (::Dynamic{…} src/callable.jl:42 | (:(TraitWorld.getfield(_1, :object))::All{Callable{Tuple{Vector{Float64}, Vector{Float64},
+    2  [2 box call] (::Dynamic{…} src/callable.jl:44 | (:(TraitWorld.getfield(_1, :object))::All{Callable{Tuple{Vector{Float64}, Vector{Float64},
+    2  [3 Rodas5 chunk] rodas5_init src/rodas5.jl:269 | dual_jacobian(
+    2  [3 Rodas5 chunk] rodas5_init src/rodas5.jl:270 | rodas5_start(
+    2  [3 Rodas5 chunk] rodas5_solve src/rodas5.jl:273 | _rodas5_run(
+    2  [4 PartialFn at Any] _erased_function src/frontend.jl:104 | PartialFn(
+    2  [4 PartialFn at Any] _plain_function src/frontend.jl:108 | PartialFn(
