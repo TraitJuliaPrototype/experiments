@@ -1,6 +1,6 @@
 # W-149: kept values. What storage holds, and `Kept{X}`
 
-The decision (the user, 2026-11-11): what is stored is decided by the storage's type, never by the caller's attribute, with `Kept{X}` for storage that carries the attribute. Reference: `writeup/reference/traits.md` §7.8, §8.1. The case that led to it: open issue 175 (closed), `../../docs-examples/keep_at_prompt.jl`.
+The decision (the user, 2026-11-11): what is stored is decided by the storage's type, never by the caller's attribute, with `Kept{X}` for storage that carries the attribute. Reference: `writeup/reference/traits.md` §7.8, §8.1. The case that led to it: open issue 175 (closed), `../../attic/docs-examples/keep_at_prompt.jl`.
 
 ## How to run
 

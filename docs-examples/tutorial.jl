@@ -456,7 +456,7 @@ check("§14 passes(tests, 2.0) == 1", passes(tests, 2.0) == 1)
 e = outcome(() -> passes(Callable{Tuple{Float64}, Bool}[x -> 1], 2.0))
 e isa Exception && println("MESSAGE §14 passes:\n", msg(e))
 deviation("§14 a function known only by its signature is called as a box is: its result checked, TypeError expected Bool",
-          "no row", () -> e isa TypeError && occursin("expected Bool", msg(e)))
+          "compiler C-157", () -> e isa TypeError && occursin("expected Bool", msg(e)))
 
 # --- §15: abstract types and traits as members --------------------------------------------------
 
@@ -579,7 +579,7 @@ e = thrown(:(module Meddler4
 check("§16 in a trait module, a method of another module's owner-only function is refused: OwnershipError", e isa OwnershipError)
 e === nothing || println("MESSAGE §16 Meddler4:\n", msg(e))
 deviation("§16 that OwnershipError names the function's owner, Main.Tally (traits §11.3: its owners, who may declare it)",
-          "no row", () -> e isa Exception && occursin("Tally", msg(e)))
+          "traits T-160", () -> e isa Exception && occursin("Tally", msg(e)))
 
 # --- §17: concreteness and fully typed code -----------------------------------------------------
 
