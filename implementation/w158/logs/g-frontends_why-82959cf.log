@@ -1,0 +1,152 @@
+== nl_with_problem at sys::Any
+   Tuple{typeof(TraitNonlinearSolve.nl_with_problem), TraitNonlinearSolve.NLCoreSolution{Float64}, NonlinearProblem{Float64, Vector{Float64}, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}}, Nothing}}}, Compiled{typeof(TraitNonlinearSolve.nl_no_jacobian)}}, Any}
+   owner-only: true; a fact: true
+   exported from its module: false; public: false
+   facts = false: NonlinearSolution{Float64, Vector{Float64}}
+   facts = true: Any
+   methods at these types: 1
+
+== nl_with_problem at sys::Nothing
+   Tuple{typeof(TraitNonlinearSolve.nl_with_problem), TraitNonlinearSolve.NLCoreSolution{Float64}, NonlinearProblem{Float64, Vector{Float64}, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}}, Nothing}}}, Compiled{typeof(TraitNonlinearSolve.nl_no_jacobian)}}, Nothing}
+   owner-only: true; a fact: true
+   exported from its module: false; public: false
+   facts = false: NonlinearSolution{Float64, Vector{Float64}}
+   facts = true: NonlinearSolution{Float64, Vector{Float64}}
+   methods at these types: 1
+
+== with_problem at sys::Any
+   Tuple{typeof(ODECore.with_problem), ODECore.CoreSolution{Float64}, ODEProblem{Float64, Vector{Float64}, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}, Any, Union{Nothing, Dynamic{IndexProvider{Symbol}}}, Vector{Float64}, Vector{Vector{Float64}}}
+   owner-only: true; a fact: true
+   exported from its module: false; public: false
+   facts = false: ODESolution{Float64, Vector{Float64}}
+   facts = true: Any
+   methods at these types: 1
+
+== _system(nlp)
+   Tuple{typeof(ODECore._system), NonlinearProblem{Float64, Vector{Float64}, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}}, Nothing}}}, Compiled{typeof(TraitNonlinearSolve.nl_no_jacobian)}}}
+   owner-only: true; a fact: true
+   exported from its module: false; public: false
+   facts = false: Any
+   facts = true: Any
+   methods at these types: 1
+
+== _system(odp)
+   Tuple{typeof(ODECore._system), ODEProblem{Float64, Vector{Float64}, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}}
+   owner-only: true; a fact: true
+   exported from its module: false; public: false
+   facts = false: Any
+   facts = true: Any
+   methods at these types: 1
+
+== solve_ode inner: Any
+     %1 = Core.NewvarNode(:(_6)) :: Any
+     %2 = ODECore.check_properties :: Core.Const(ODECore.check_properties)
+     %3 = (%2)(_2, _3) :: Any
+     %4 = ODECore.core_problem :: Core.Const(ODECore.core_problem)
+     %5 = _10 = (%4)(_2) :: ODECore.CoreProblem{Float64, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}
+     %6 = ODECore._all_callbacks :: Core.Const(ODECore._all_callbacks)
+     %7 = _9 = (%6)(_2, _4) :: ODECore.EnteredCallbacks{Vector{Float64}, Float64, Vector{Float64}}
+     %8 = ODECore._system :: Core.Const(ODECore._system)
+     %9 = _8 = (%8)(_2) :: Any
+     %10 = ODECore._problem_names :: Core.Const(ODECore._problem_names)
+     %11 = _8 :: Any
+     %12 = _7 = (%10)(_2, %11) :: Union{Nothing, Dynamic{IndexProvider{Symbol}}}
+     %13 = ODECore.isempty :: Core.Const(isempty)
+     %14 = _9 :: ODECore.EnteredCallbacks{Vector{Float64}, Float64, Vector{Float64}}
+     %15 = (%13)(%14) :: Bool
+     %16 = goto %38 if not %15 :: Any
+     %17 = ODECore.with_problem :: Core.Const(ODECore.with_problem)
+     %18 = ODECore.solve_core :: Core.Const(ODECore.solve_core)
+     %19 = _10 :: ODECore.CoreProblem{Float64, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}
+     %20 = ODECore.StepCallbacks :: Core.Const(ODECore.StepCallbacks)
+     %21 = ODECore.typeof :: Core.Const(typeof)
+     %22 = Base.getproperty(_2, :u0) :: Vector{Float64}
+     %23 = (%21)(%22) :: Core.Const(Vector{Float64})
+     %24 = ODECore.Float64 :: Core.Const(Float64)
+     %25 = Core.apply_type(%20, %23, %24) :: Core.Const(ODECore.StepCallbacks{Vector{Float64}, Float64})
+     %26 = (%25)() :: ODECore.StepCallbacks{Vector{Float64}, Float64}
+     %27 = (%18)(_3, %19, %26, _5) :: ODECore.CoreSolution{Float64}
+     %28 = _8 :: Any
+     %29 = _7 :: Union{Nothing, Dynamic{IndexProvider{Symbol}}}
+     %30 = ODECore.Float64 :: Core.Const(Float64)
+     %31 = Base.getindex(%30) :: Vector{Float64}
+     %32 = ODECore._no_saved :: Core.Const(ODECore._no_saved)
+     %33 = Base.getproperty(_2, :p) :: Vector{Float64}
+     %34 = (%32)(%33) :: Vector{Vector{Float64}}
+     %35 = (%17)(%27, _2, %28, %29, %31, %34) :: Any
+     %36 = return %35 :: Any
+     %37 = Core.Const(:(goto %38)) :: Union{}
+     %38 = ODECore.param_integrator :: Core.Const(ODECore.param_integrator)
+     %39 = ODECore.typeof :: Core.Const(typeof)
+     %40 = Base.getproperty(_2, :u0) :: Vector{Float64}
+     %41 = (%39)(%40) :: Core.Const(Vector{Float64})
+     %42 = Base.getproperty(_2, :p) :: Vector{Float64}
+     %43 = Base.getproperty(_2, :tspan) :: Tuple{Float64, Float64}
+     %44 = Base.getindex(%43, 1) :: Float64
+     %45 = _8 :: Any
+     %46 = _7 :: Union{Nothing, Dynamic{IndexProvider{Symbol}}}
+     %47 = _6 = (%38)(%41, %42, %44, %45, %46, true) :: Any
+     %48 = ODECore.with_problem :: Core.Const(ODECore.with_problem)
+     %49 = ODECore.solve_core :: Core.Const(ODECore.solve_core)
+     %50 = _10 :: ODECore.CoreProblem{Float64, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}
+     %51 = ODECore.adapt_callbacks! :: Core.Const(ODECore.adapt_callbacks!)
+     %52 = _6 :: Any
+     %53 = _9 :: ODECore.EnteredCallbacks{Vector{Float64}, Float64, Vector{Float64}}
+     %54 = (%51)(%52, %53) :: ODECore.StepCallbacks{Vector{Float64}, Float64}
+     %55 = (%49)(_3, %50, %54, _5) :: ODECore.CoreSolution{Float64}
+     %56 = _8 :: Any
+     %57 = _7 :: Union{Nothing, Dynamic{IndexProvider{Symbol}}}
+     %58 = _6 :: Any
+     %59 = Base.getproperty(%58, :pt) :: Any
+     %60 = _6 :: Any
+     %61 = Base.getproperty(%60, :pu) :: Any
+     %62 = (%48)(%55, _2, %56, %57, %59, %61) :: Any
+     %63 = return %62 :: Any
+
+== NonlinearSolution{T,P}(…, sys::Any)
+   owner-only: false; a fact: false
+   facts = false: NonlinearSolution{Float64, Vector{Float64}}
+   facts = true: NonlinearSolution{Float64, Vector{Float64}}
+
+== NonlinearSolution{T,P}(…, sys::Nothing)
+   owner-only: false; a fact: true
+   facts = false: NonlinearSolution{Float64, Vector{Float64}}
+   facts = true: NonlinearSolution{Float64, Vector{Float64}}
+
+NonlinearSolution exported from TNS: true; ODESolution exported from ODECore: true
+
+with_problem's statements at sys::Any (facts):
+     %1 = ODECore.ODESolution :: Core.Const(ODESolution)
+     %2 = $(Expr(:static_parameter, 1)) :: Core.Const(Float64)
+     %3 = $(Expr(:static_parameter, 2)) :: Core.Const(Vector{Float64})
+     %4 = Core.apply_type(%1, %2, %3) :: Core.Const(ODESolution{Float64, Vector{Float64}})
+     %5 = Base.getproperty(_2, :t) :: Vector{Float64}
+     %6 = Base.getproperty(_2, :u) :: Vector{Vector{Float64}}
+     %7 = Base.getproperty(_2, :retcode) :: Symbol
+     %8 = Base.getproperty(_2, :naccept) :: Int64
+     %9 = Base.getproperty(_2, :nreject) :: Int64
+     %10 = Base.getproperty(_2, :nf) :: Int64
+     %11 = Base.getproperty(_2, :interp) :: Union{Nothing, ODECore.Interpolant{Vector{Float64}, Float64}}
+     %12 = (%4)(%5, %6, %7, %8, %9, %10, _3, _4, _5, _6, _7, %11) :: Core.PartialStruct(ODESolution{Float64, Vector{Float64}}, Union{Nothing, Bool}[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], Any[Vector{Float64}, Vector{Vector{Float64}}, Symbol, Int64, Int64, Int64, ODEProblem{Float64, Vector{Float64}, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}, Any, Union{Nothing, Dynamic{IndexProvider{Symbol}}}, Vector{Float64}, Vector{Vector{Float64}}, Union{Nothing, ODECore.Interpolant{Vector{Float64}, Float64}}])
+     %13 = return %12 :: Any
+
+nl_with_problem's statements at sys::Any (facts):
+     %1 = nothing :: Core.Const(nothing)
+     %2 = TraitNonlinearSolve.NonlinearSolution :: Core.Const(NonlinearSolution)
+     %3 = $(Expr(:static_parameter, 1)) :: Core.Const(Float64)
+     %4 = $(Expr(:static_parameter, 2)) :: Core.Const(Vector{Float64})
+     %5 = Core.apply_type(%2, %3, %4) :: Core.Const(NonlinearSolution{Float64, Vector{Float64}})
+     %6 = Base.getproperty(_2, :u) :: Vector{Float64}
+     %7 = Base.getproperty(_2, :resid) :: Vector{Float64}
+     %8 = Base.getproperty(_2, :retcode) :: Symbol
+     %9 = Base.getproperty(_2, :stats) :: TraitNonlinearSolve.NLStats
+     %10 = (%5)(%6, %7, %8, %9, _3, _4) :: Core.PartialStruct(NonlinearSolution{Float64, Vector{Float64}}, Union{Nothing, Bool}[0, 0, 0, 0, 0, 0], Any[Vector{Float64}, Vector{Float64}, Symbol, TraitNonlinearSolve.NLStats, NonlinearProblem{Float64, Vector{Float64}, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}}, Nothing}}}, Compiled{typeof(TraitNonlinearSolve.nl_no_jacobian)}}, Any])
+     %11 = return %10 :: Any
+
+the shape in a trait module:
+   front(::Vector{Float64}, ::Int): Any
+   front_declared(::Vector{Float64}, ::Int): Main.FT.Sol{Float64}
+
+fully_typed(TNS.solve_nonlinear) in this session:
+fully typed: solve_nonlinear(::NonlinearProblem{Float64, Vector{Float64}, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}}, Nothing}, Callable{Tuple{Vector{Dual{ODETag, Float64, 8}}, Vector{Dual{ODETag, Float64, 8}}}, Nothing}}}, Compiled{typeof(nl_no_jacobian)}}, ::NewtonRaphson{DenseLU}, ::NLOptions)
+  the result is Any: `nl_with_problem` returns Any at nl_with_problem(::NLCoreSolution{Float64}, ::NonlinearProblem{Float64, Vector{Float64}, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}}, Nothing}, Callable{Tuple{Vector{Dual{ODETag, Float64, 8}}, Vector{Dual{ODETag, Float64, 8}}}, Nothing}}}, Compiled{typeof(nl_no_jacobian)}}, ::Any) ← the result of a call dispatched when it runs: `NonlinearSolution{Float64, Vector{Float64}}(…)` is Any

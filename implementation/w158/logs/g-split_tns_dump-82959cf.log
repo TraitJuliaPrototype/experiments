@@ -1,0 +1,21 @@
+#### the keyword body at Tuple{Main.P.var"##vB#1", Any, Any, Any, typeof(Main.P.vB), Dynamic{NonlinearProblemTrait{Float64, Float64}}, Dynamic{NonlinearAlgorithm}}
+cached instance: false
+  %1 = Main.P.Float64(_2) :: Any
+  %2 = Main.P.Float64(_3) :: Any
+  %3 = Main.P.Int(_4) :: Any
+  %4 = Main.P.NLOptions(%1, %2, %3) :: Any
+  %5 = (isa)(%4, TraitNonlinearSolve.NLOptions) :: Bool
+  %6 = goto %16 if not %5 :: Any
+  %7 = Core.PiNode(:(%4), TraitNonlinearSolve.NLOptions) :: TraitNonlinearSolve.NLOptions
+  %8 = $(Expr(:invoke, CodeInstance for MethodInstance for TraitNonlinearSolve.nl_core(::Dynamic{NonlinearProblemTrait{Float64, Float64}}), :(TraitNonlinearSolve.nl_core), Core.Argument(6))) :: TraitNonlinearSolve.NLCoreProblem{Float64, Dynamic{Callable{Tuple{Vector{Float64}, Vector{Float64}}, Nothing}}, Dynamic{Callable{Tuple{Matrix{Float64}, Vector{Float64}}, Nothing}}}
+  %9 = $(Expr(:invoke, CodeInstance for MethodInstance for solve_nl(::Dynamic{NonlinearAlgorithm}, ::TraitNonlinearSolve.NLCoreProblem{Float64, Dynamic{Callable{Tuple{Vector{Float64}, Vector{Float64}}, Nothing}}, Dynamic{Callable{Tuple{Matrix{Float64}, Vector{Float64}}, Nothing}}}, ::TraitNonlinearSolve.NLOptions), :(TraitNonlinearSolve.solve_nl), Core.Argument(7), :(%8), :(%7))) :: TraitNonlinearSolve.NLCoreSolution{Float64}
+  %10 = Base.getfield(%9, :u) :: Vector{Float64}
+  %11 = Base.getfield(%9, :resid) :: Vector{Float64}
+  %12 = Base.getfield(%9, :retcode) :: Symbol
+  %13 = Base.getfield(%9, :stats) :: TraitNonlinearSolve.NLStats
+  %14 = %new(NonlinearSolution{Float64, Float64}, %10, %11, %12, %13, _6, nothing) :: NonlinearSolution{Float64, Float64}
+  %15 = goto %18 :: Any
+  %16 = Core.throw_methoderror(TraitNonlinearSolve.solve_nonlinear, _6, _7, %4) :: Union{}
+  %17 = unreachable :: Union{}
+  %18 = return %14 :: Any
+lookup at Tuple{typeof(Core.throw_methoderror), typeof(TraitNonlinearSolve.solve_nonlinear), Dynamic{NonlinearProblemTrait{Float64, Float64}}, Dynamic{NonlinearAlgorithm}, Any}: Any[Core.MethodMatch(Tuple{typeof(Core.throw_methoderror), typeof(TraitNonlinearSolve.solve_nonlinear), Dynamic{NonlinearProblemTrait{Float64, Float64}}, Dynamic{NonlinearAlgorithm}, Any}, svec(), throw_methoderror(...) @ Core none:0, true)]

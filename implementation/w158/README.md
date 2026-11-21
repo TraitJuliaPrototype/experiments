@@ -518,3 +518,189 @@ that holds: the check folds what the build folds; the least mechanism, the looku
 
 **Not done:** the ODE program (another agent's tree changes; the main session builds it after both merges). The
 session's check counting more members than the build at bare `Callable` (C-152's second sentence): not looked at.
+
+## The check's reading of optimized code; the front ends' result (W-158), 2026-11-21
+
+Three pieces: the bounded check reads the other branch of a split as "no method" (open issue 249); a session infers
+`Any` for the ODE and the nonlinear front ends (open issue 250); the fault's line for a closure over a vararg of boxes
+(traits T-159). Julia `julia-next` d8f65ef1ea, read only; the library in `wt/w158g-tw`, branch `w158g` from `unified`
+82959cf; the ODE port TDE `unified` 3a1c4c3, read only; the depot `agent-depots/w158g` before the shared one. One
+Julia job at a time, niced, 4 cores; load (1 min) 6 to 30 of 128. Logs: `logs/g-*`; probes: `g-probes/`.
+
+**How to run** (after `source $W158/g-probes/env.sh`; `env_demo_g/`, `env_tables_g/`: `env_demo_d`, `env_tables_b`
+with the library at `wt/w158g-tw`, no resolve):
+```sh
+cd $LIBG
+$JN --project=. -e 'using TraitWorld; include("test/runtests.jl")'      # the library
+$JN --project=. $W158/g-probes/split.jl          # piece 1: the two cases in small, the controls
+$JN --project=. $W158/g-probes/artifacts.jl      # piece 1: the pattern, P1 to P10, read optimized and before optimization
+$JN --project=. $W158/g-probes/vararg_chain.jl   # piece 3: the walk below the call, level by level
+$JN --project=. $W158/g-probes/vararg_mapfoldl.jl   # piece 3: Base's mapfoldl_impl at a tuple of no fixed length
+cd $TW_ROOT/TraitDifferentialEquations
+$JN --project=$ENVG $W158/g-probes/split_tns.jl      # piece 1: the port's two cases, written beside the port
+$JN --project=$ENVG $W158/g-probes/split_tns_dump.jl # piece 1: the keyword body at the box, whole
+[RUN=1] [DUMP=1] $JN --project=$ENVG $W158/g-probes/frontends.jl   # piece 2: infer_return_type of the front ends
+$JN --project=$ENVG $W158/g-probes/frontends_why.jl  # piece 2: the statement, its fact status, both interpreters
+$JN --project=$ENVG $W158/g-probes/frontends_rt.jl   # piece 2: nl_with_problem at sys::Any, per interpreter
+RUN=1 $JN --project=$ENVG $W158/g-probes/frontends_fix.jl   # piece 2: the two declared results, in the session only
+```
+
+### 1. A split's other branch (open issue 249; TraitWorld 86bad24)
+
+**The case.** Where a call's argument is abstract and its methods cover a part of it, Julia's optimizer compiles a
+test of the argument's type, the method's call, and else `Core.throw_methoderror(f, args...)`. `check_at_box` counted
+that branch as a call that finds no method. Both of the port's cases reproduce (`logs/g-split_tns-before-82959cf.log`):
+- `vA`, `solve_nonlinear` as it was at TDE 1425aec (the operation's result `::NLCoreSolution`): `isa(%2,
+  NLCoreSolution{Float64})`, else `throw_methoderror(nl_with_problem, %2, _2, nothing)`; refused.
+- `vB`, the front end at 3a1c4c3 without its assertions, and `vB2`, the front end at 1425aec (`_opts(; kw...)`): the
+  keyword body read at keywords of type `Any`. Under the facts rule `NLOptions(::Any, ::Any, ::Any)` is a run-time
+  site, its result `Any`; the call `solve_nonlinear(prob, alg, ::Any)` is split on it (`isa(%4, NLOptions)`, else
+  `throw_methoderror`); refused (`logs/g-split_tns_dump-82959cf.log`). Plain inference types the constructor and
+  emits no split: only the facts reading shows it.
+
+**The rule built** (traits §7.3, "left to run time with no method at the types the code knows"; "A call left to run
+time that finds a method when it runs is Julia's function barrier, no fault"): *a call is read as written, at the
+types the code knows. Where the optimizer splits a call at an abstract argument into the methods that cover a part of
+it and a `MethodError` for the rest, the call has a method at those types: no fault. A call that finds no method at
+the types the code knows is a fault, split or not.*
+- `_has_method_at` (`src/atbox.jl`): Julia's lookup (`Base._methods_by_ftype`) at the types `throw_methoderror` is
+  called at, the call it stands for. A `throw_methoderror` with a value at the box is a fault only where it finds
+  none, in `check_at_box` and in the walk below a call that only throws. The same test the check makes of a call left
+  to run time. A lookup that fails (no answer) stays a fault.
+- **Soundness, both directions** (`logs/g-split-f0a8c3e.log`, `logs/g-artifacts-f0a8c3e.log`): `sum(p)` at a box,
+  `nometh(p)` with `nometh(x::Int)`, and `gint(xs(t), t)` with `xs(t)::Sol` and `gint(x::Int, t::X)` (an abstract
+  argument no method covers: the optimizer emits `throw_methoderror` with no test) stay refused.
+- Tests (`test/messages.jl`, "the bounded check reads a split as the call as written", 7 checks): the two cases
+  accepted in a bounded module; three refused (no method at the box; an abstract argument no method covers; the box
+  beside an argument of type `Any`); the split's `throw_methoderror` is in the instance at the box and
+  `check_at_box` gives no fault.
+- **A message fixed on the way:** a named function with one method printed as its written signature in a fault line,
+  "`nometh(x::Int64)(p)` has no method", "`bad(t)(t)` only throws" (`logs/g-artifacts-before-82959cf.log`):
+  `_closure_form` answered for any type named `#…`, and a function's type is `typeof(nometh)`, named `#nometh`. It
+  answers for closures only now. The messages tool's corpus held one, uncounted: "`never(p::…Pt)(p, 1)` has no
+  method" (`trait_modules.jl`; `logs/d-messages-after-81c04c3.tsv`); now "`never(p, 1)` has no method".
+
+**The pattern: statements of the optimized instance the check reads** (`g-probes/artifacts.jl`; before
+`logs/g-artifacts-before-82959cf.log`, after `logs/g-artifacts-f0a8c3e.log`). "Before optimization" is the same
+reading (`_box_faults`) over the instance's inferred code before optimization (`optimize = false`): no inlining, no
+split.
+
+| Statement | Probe | Before | After | Before optimization | Verdict |
+|---|---|---|---|---|---|
+| a split's other branch: `isa(x, T)`, the call, else `throw_methoderror` (an operation's result `::Sol`, one method at `Sol{Float64}`) | P1 | fault | none | none | an artifact of the split; fixed |
+| the same over a union result that the methods cover in part (`gu1(::Int, …)` at `Union{Int, Float64}`) | P2 part | fault | none | none | fixed |
+| a union split the methods cover (`gu` at `Int` and `Float64`): no other branch | P2 | none | none | none | right |
+| `throw_methoderror` where no method applies at the types known (`gint(::Sol, t)`) | P10 | fault | fault | fault ("only throws") | the method as written; kept |
+| a value known only by its trait (`xy(t)::Y`) passed to a function with a method for one member (`onlycirc(::Circ)`): split over the set's members | P8 | fault | none | none | by §7.3's letter no fault (a method at `Y`'s part); a gap below |
+| the same with five methods, one at a member | P8 five | fault | none | none | the same |
+| a callee inlined at a union split, its branch for the other type only throws (`kk(x, t) = x isa Int ? 1.0 : bad(t)`) | P3 | fault | fault | none | **an artifact of inlining:** `@noinline` the same callee: none |
+| a callee with a call that finds no method on one branch (`g4(t, k) = k > 0 ? xv(t) : sum(t)`) | P4 | fault inlined, none not inlined | the same | none either way | **the inliner decides**; neither reading follows a call that returns into its callee |
+| `unreachable` after such a call | P1, P3 | not read (no call) | | | right |
+| a branch constant propagation removes (`g7(t, 1)`) | P7 | none | none | none | right |
+| `Core.typeassert(t, M)` that always fails at the box | P5 | none | none | none | **a miss:** a builtin is not read; the method asks the box what only the object answers (traits §7.4) |
+| the method's own error path: `error("negative: ", t)` | P6 | fault | fault | fault | "only throws" by the letter |
+| the same with `throw(ArgumentError(string("negative: ", t)))` | P6 throw | none | none | none | **inconsistent with the row above:** `throw` is a builtin |
+| `throw(ArgumentError("no"))` from an inlined callee at the other type | P9 | none | none | none | right |
+| a call left to run time whose result is `Union{}` (a vararg of boxes) | piece 3 | "only throws" | names the operation | | piece 3 |
+
+What the table shows, beyond 249: the check reads the optimized instance, so **inlining** decides two verdicts (P3,
+P4) and the spelling of an error path decides another (P6). The code before optimization gives one verdict per
+method as written, but misses P4's fault in either form: no reading follows a call that returns into its callee.
+Proposal (open issue text below): read the instance before optimization, and follow every call that passes a value
+at the box into its callee's instance where the callee is not checked itself (no argument at a trait), as the walk
+now follows a call that only throws; read a type assertion at the box as a call; count an error path only where it
+reaches a call that finds no method or an undeclared field.
+
+**The port's lines** (TDE 3a1c4c3, not changed):
+- `lib/TraitNonlinearSolve/src/solvers.jl:45`, the three assertions `Float64(abstol)::Float64`,
+  `Float64(reltol)::Float64`, `Int(maxiters)::Int`, and the comment on line 43 that gives their reason: the check
+  needs them no more (`vB` accepted, `logs/g-split_tns-f0a8c3e.log`). In a session the keyword body is compiled at
+  the keywords' own types; only the check read it at `Any`.
+- `solve_nl(…, m::NLCoreProblem{T}, …)::NLCoreSolution{T} where {T}` (d96afc6, line 28): the check needs it no more
+  (`vA` accepted); it stays, a rule of its own (traits §4.1): a caller that knows the problem knows the solution.
+
+**The demonstrators** (`d-probes/demo_check.jl`, every method at a trait in 11 modules read at the box): 188 methods,
+0 faults before (`logs/g-demo_check-before-82959cf.log`) and after (`logs/g-demo_check-f0a8c3e.log`); no method
+newly accepted or refused. (173 methods in the `d-` logs: the port has more since.)
+
+### 2. The front ends' result in a session (open issue 250)
+
+**The statement that loses the type** (`logs/g-frontends-82959cf.log`, `-dump-`, `g-frontends_why-82959cf.log`,
+`g-frontends_rt-82959cf.log`): the front ends' last call builds the solution from the problem's system object,
+`sys = _system(prob)`, typed `Any` (`_system(x::HasSystem) = getsystem(x)`, an operation declared `::Any`):
+- nonlinear: `nl_with_problem(s, prob, @nospecialize(sys)) = NonlinearSolution{T,P}(s.u, s.resid, s.retcode,
+  s.stats, prob, sys)` (`lib/TraitNonlinearSolve/src/problems.jl:321`);
+- ODE: `with_problem(s, prob, sys, names, pt, pu) = ODESolution{T,P}(…, prob, sys, names, pt, pu, s.interp)`
+  (`lib/ODECore/src/core.jl:943`).
+
+Both functions are owner-only (a fact at any signature) and inferred; inside them the constructor at `sys::Any`
+is no fact signature (`is_fact_sig` false at `NonlinearSolution`'s; `NonlinearSolution` and `ODESolution` are
+exported, and a type's constructor is no owner-only function). Under the facts interpreter the call is a run-time site, `Any`; plain inference gives
+`NonlinearSolution{Float64, Vector{Float64}}` (a `PartialStruct`). The callees `nl_core`, `solve_nl`,
+`core_problem`, `solve_core` infer concrete types. The same after a run (`logs/g-frontends-run-f0a8c3e.log`).
+
+**The verdict: the port's code, by the design's rule.** Facts §3: a call at an abstract argument type of a function
+that is not owner-only is a run-time site; and so it must be: the owner of a system type may define
+`NonlinearSolution{T,P}(…, sys::MySys)`, no pirate. Facts §4.2: "`Any` spreads into the code after the call, until
+a declared result or an assertion narrows it." The port's front ends write no declared result there, while their
+docstrings say "a caller's code knows the solution's type" (`solvers.jl` `solve`'s docstring; TDE
+`src/TraitDifferentialEquations.jl`, `solve`'s). With `nl_with_problem(…)::NonlinearSolution{T,P}` and
+`with_problem(…)::ODESolution{T,P}`, redefined in the session only, every front end infers its concrete type:
+`solve_nonlinear`, `TNS.solve`, the umbrella's `solve` for both kinds, `solve_ode` with Tsit5 and Rodas5
+(`logs/g-frontends_fix-82959cf.log`); the solves give `Success`. A closed build resolves the call by the members, as
+the build's check does. With callbacks `param_integrator(…, sys, …)` (`core.jl:1284`) is a run-time site of the same
+kind; its result is the solver's integrator, passed to `adapt_callbacks!`, not the front end's result.
+- Test (`test/fullytyped.jl`, "a record built from a value the code does not know", TraitWorld f0a8c3e): in a trait
+  module, a record built from a field typed `Any` infers `Any`, with a declared result its type; the constructor's
+  signature is no fact.
+
+### 3. What a closure over a vararg of boxes reaches (traits T-159; TraitWorld 1335b13)
+
+`call(ts::CTab...) = sum(t -> sum(t), ts)` was refused with "`sum((t) -> …, ts)` only throws"
+(`logs/g-vararg_chain-86bad24.log`, the walk level by level):
+- **At a fixed count** (`c2(ts::Vararg{CTab, 2})`) the chain from `sum` to `iterate(::Dynamic{CTab})` is 22 calls
+  deep, past the walk's bound of 20 (`depth > 20`). The cause is in the walk.
+- **At a tuple of no fixed length** the chain ends at level 7: `mapfoldl_impl` at `Tuple{Dynamic{CTab},
+  Vararg{Dynamic{CTab}}}` infers `Any` under the facts rule, `Union{}` under plain inference
+  (`logs/g-vararg_mapfoldl.log`). `Base.Generator(f, ts)` is typed `Generator{I, F} where I<:Tuple{…}`, an abstract
+  type, so the next call, `Base._xfadjoint(…)`, is no fact signature and a run-time site. The cause is in Base's
+  code read by the facts rule, not in the walk: at that type a session cannot see past it. At a tuple of one box
+  `mapfoldl_impl` is `Union{}` under both.
+
+**Built** (`_reaches_no_method`, `_fixed_length`, `_link_name`, `src/atbox.jl`):
+- the walk follows the chain to the call that finds no method whatever its depth; each signature is read once (the
+  set `seen`), which ends a recursion. No bound on the depth.
+- a tuple of boxes of no fixed length is read at its fixed elements, or at the vararg's one element where it has
+  none: the instance a call that passes one box runs (traits §7.3, a vararg "with each element in a box, at least
+  one"). The walk only names what the call reaches; the fault itself is the call that only throws.
+- the chain is named by the functions' names. A keyword body printed as its written signature, `sum(a;
+  kw::Base.Pairs{Symbol, V, Nothing, NT} where {V, NT<:NamedTuple})`, Base's internals in the message: left out
+  now; a closure as written. The messages tool's corpus held 11 such messages, uncounted
+  (`logs/d-messages-after-81c04c3.tsv`); now none (`logs/g-messages-f0a8c3e.tsv`).
+
+Now (`logs/g-vararg_chain-f0a8c3e.log`): "`sum((t) -> …, ts)` reaches `iterate(::Dynamic{CTab})`, which has no
+method (through mapreduce → mapfoldl → mapfoldl_impl → foldl_impl → _foldl_impl → afoldl → (t) -> … → sum)", at a
+tuple of no fixed length and at two; `sum(t)` at a box: "(through sum → mapreduce → mapfoldl → mapfoldl_impl →
+foldl_impl → _foldl_impl)". Tests (`test/messages.jl`, "the bounded check names the method as written", 19 to 24
+checks): `length` named for `sum(t -> length(t), ts)`; `iterate` named, through the closure, at no fixed length and
+at two, with no keyword body in the chain.
+
+### The checks, TraitWorld f0a8c3e
+
+| Check | Result |
+|---|---|
+| the library | 105 testsets pass, none broken (`logs/g-library-f0a8c3e.log`); 103 before (`logs/g-library-before-82959cf.log`) |
+| docs examples: intro, tutorial, strict | 27, 96, 5 pass, no deviation (`logs/g-docs-*-f0a8c3e.log`) |
+| the gates (`LIB=wt/w158g-tw`) | 73 of 73, stage gates 9 of 9 (`logs/g-gates-f0a8c3e.log`) |
+| the ODE port's suite (`env_demo_g`) | 35 testsets pass (`logs/g-tde-f0a8c3e.log`) |
+| TraitMakie's suite (`env_demo_g`) | 8 testsets pass (`logs/g-makie-f0a8c3e.log`) |
+| TraitTables' suite (`env_tables_g`) | 27 pass, 3 testsets (`logs/g-tables-f0a8c3e.log`) |
+| the demonstrators' methods at the box (`d-probes/demo_check.jl`) | 188 methods, 0 faults, before and after |
+| the messages tool (`messages/run.sh`, its `b-messages-` logs renamed `g-messages-`) | 116 distinct messages; tuple type 0, generated name 0, compiler object 0, library internal 0; box or wrapper type 46, read (`logs/g-messages-f0a8c3e-*`) |
+
+**Not settled.**
+- The pattern's other rows (P3 to P6, P8): proposals only; nothing changed for them.
+- The port keeps its assertions and has no declared result at `nl_with_problem` and `with_problem`: another tree.
+- The messages tool does not count a function printed as its signature, nor Base's internals (`Base.Pairs`) in a
+  chain; both were in its corpus (12 messages) and found by the probes here. The tool is not changed (not this
+  work's file).

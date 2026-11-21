@@ -1,0 +1,48 @@
+== facts = false, optimize = false: the result NonlinearSolution{Float64, Vector{Float64}}
+     %1 = nothing :: Core.Const(nothing)
+     %2 = TraitNonlinearSolve.NonlinearSolution :: Core.Const(NonlinearSolution)
+     %3 = $(Expr(:static_parameter, 1)) :: Core.Const(Float64)
+     %4 = $(Expr(:static_parameter, 2)) :: Core.Const(Vector{Float64})
+     %5 = Core.apply_type(%2, %3, %4) :: Core.Const(NonlinearSolution{Float64, Vector{Float64}})
+     %6 = Base.getproperty(_2, :u) :: Vector{Float64}
+     %7 = Base.getproperty(_2, :resid) :: Vector{Float64}
+     %8 = Base.getproperty(_2, :retcode) :: Symbol
+     %9 = Base.getproperty(_2, :stats) :: TraitNonlinearSolve.NLStats
+     %10 = (%5)(%6, %7, %8, %9, _3, _4) :: Core.PartialStruct(NonlinearSolution{Float64, Vector{Float64}}, Union{Nothing, Bool}[0, 0, 0, 0, 0, 0], Any[Vector{Float64}, Vector{Float64}, Symbol, TraitNonlinearSolve.NLStats, NonlinearProblem{Float64, Vector{Float64}, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}}, Nothing}}}, Compiled{typeof(TraitNonlinearSolve.nl_no_jacobian)}}, Any])
+     %11 = return %10 :: Any
+   effects: 
+
+== facts = false, optimize = true: the result NonlinearSolution{Float64, Vector{Float64}}
+     %1 = Base.getfield(_2, :u) :: Vector{Float64}
+     %2 = Base.getfield(_2, :resid) :: Vector{Float64}
+     %3 = Base.getfield(_2, :retcode) :: Symbol
+     %4 = Base.getfield(_2, :stats) :: TraitNonlinearSolve.NLStats
+     %5 = %new(NonlinearSolution{Float64, Vector{Float64}}, %1, %2, %3, %4, _3, _4) :: NonlinearSolution{Float64, Vector{Float64}}
+     %6 = return %5 :: Any
+   effects: 
+
+== facts = true, optimize = false: the result Any
+     %1 = nothing :: Core.Const(nothing)
+     %2 = TraitNonlinearSolve.NonlinearSolution :: Core.Const(NonlinearSolution)
+     %3 = $(Expr(:static_parameter, 1)) :: Core.Const(Float64)
+     %4 = $(Expr(:static_parameter, 2)) :: Core.Const(Vector{Float64})
+     %5 = Core.apply_type(%2, %3, %4) :: Core.Const(NonlinearSolution{Float64, Vector{Float64}})
+     %6 = Base.getproperty(_2, :u) :: Vector{Float64}
+     %7 = Base.getproperty(_2, :resid) :: Vector{Float64}
+     %8 = Base.getproperty(_2, :retcode) :: Symbol
+     %9 = Base.getproperty(_2, :stats) :: TraitNonlinearSolve.NLStats
+     %10 = (%5)(%6, %7, %8, %9, _3, _4) :: Any
+     %11 = return %10 :: Any
+   effects: 
+
+== facts = true, optimize = true: the result Any
+     %1 = Base.getfield(_2, :u) :: Vector{Float64}
+     %2 = Base.getfield(_2, :resid) :: Vector{Float64}
+     %3 = Base.getfield(_2, :retcode) :: Symbol
+     %4 = Base.getfield(_2, :stats) :: TraitNonlinearSolve.NLStats
+     %5 = (NonlinearSolution{Float64, Vector{Float64}})(%1, %2, %3, %4, _3, _4) :: Any
+     %6 = return %5 :: Any
+   effects: 
+
+the instance: MethodInstance for TraitNonlinearSolve.nl_with_problem(::TraitNonlinearSolve.NLCoreSolution{Float64}, ::NonlinearProblem{Float64, Vector{Float64}, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}}, Nothing}}}, Compiled{typeof(TraitNonlinearSolve.nl_no_jacobian)}}, ::Any)
+   CodeInstance: rettype Any, facts flag true, worlds 39704:18446744073709551615

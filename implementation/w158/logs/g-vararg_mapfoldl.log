@@ -1,0 +1,24 @@
+#### mapfoldl_impl at a tuple of no fixed length, facts = true: Any
+   %1 = Base.Generator(_2, _5) :: Base.Generator{I, Main.V.var"#call##0#call##1"} where I<:Tuple{Dynamic{Main.V.CTab}, Vararg{Dynamic{Main.V.CTab}}}
+   %2 = Base._xfadjoint(Base.BottomRF{typeof(Base.add_sum)}(Base.add_sum), %1) :: Any
+   %3 = Base.indexed_iterate(%2, 1) :: Any
+   %4 = Core.getfield(%3, 1) :: Any
+   %5 = Core.getfield(%3, 2) :: Any
+   %6 = Base.indexed_iterate(%2, 2, %5) :: Any
+   %7 = Core.getfield(%6, 1) :: Any
+   %8 = Base.foldl_impl(%4, _4, %7) :: Any
+   %9 = return %8 :: Any
+
+#### mapfoldl_impl at a tuple of no fixed length, facts = false: Union{}
+   %1 = Base.Generator(_2, _5) :: Base.Generator{I, Main.V.var"#call##0#call##1"} where I<:Tuple{Dynamic{Main.V.CTab}, Vararg{Dynamic{Main.V.CTab}}}
+   %2 = Base.getfield(%1, :iter) :: Tuple{Dynamic{Main.V.CTab}, Vararg{Dynamic{Main.V.CTab}}}
+   %3 = Base.foldl_impl(Base.MappingRF{Main.V.var"#call##0#call##1", Base.BottomRF{typeof(Base.add_sum)}}(Main.V.var"#call##0#call##1"(), Base.BottomRF{typeof(Base.add_sum)}(Base.add_sum)), _4, %2) :: Union{}
+   %4 = unreachable :: Union{}
+
+#### mapfoldl_impl at a tuple of one box, facts = true: Union{}
+   %1 = $(Expr(:invoke, CodeInstance for MethodInstance for Base.foldl_impl(::Base.MappingRF{Main.V.var"#call##0#call##1", Base.BottomRF{typeof(Base.add_sum)}}, ::Base._InitialValue, ::Tuple{Dynamic{Main.V.CTab}}), :(Base.foldl_impl), Base.MappingRF{Main.V.var"#call##0#call##1", Base.BottomRF{typeof(Base.add_sum)}}(Main.V.var"#call##0#call##1"(), Base.BottomRF{typeof(Base.add_sum)}(Base.add_sum)), Core.Argument(4), Core.Argument(5))) :: Union{}
+   %2 = unreachable :: Union{}
+
+#### mapfoldl_impl at a tuple of one box, facts = false: Union{}
+   %1 = $(Expr(:invoke, CodeInstance for MethodInstance for Base.foldl_impl(::Base.MappingRF{Main.V.var"#call##0#call##1", Base.BottomRF{typeof(Base.add_sum)}}, ::Base._InitialValue, ::Tuple{Dynamic{Main.V.CTab}}), :(Base.foldl_impl), Base.MappingRF{Main.V.var"#call##0#call##1", Base.BottomRF{typeof(Base.add_sum)}}(Main.V.var"#call##0#call##1"(), Base.BottomRF{typeof(Base.add_sum)}(Base.add_sum)), Core.Argument(4), Core.Argument(5))) :: Union{}
+   %2 = unreachable :: Union{}

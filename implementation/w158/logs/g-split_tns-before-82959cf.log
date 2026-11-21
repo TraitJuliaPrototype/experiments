@@ -1,0 +1,45 @@
+TraitWorld at /p/projects/coen/julia-trait-bound/wt/w158g-tw/src/TraitWorld.jl
+
+== vA Tuple{typeof(Main.P.vA), NonlinearProblemTrait{T, P}, Main.P.OldAlg, TraitNonlinearSolve.NLOptions} where {T, P}
+   faults: 1
+     nomethod: nl_with_problem(s::TraitNonlinearSolve.NLCoreSolution{T}, prob::NonlinearProblemTrait{T, P}, sys) where {T, P}(::NLCoreSolution, prob, ::Nothing) has no method, at line 18
+     %3 = :((isa)(%2, TraitNonlinearSolve.NLCoreSolution{Float64})) :: Bool
+     %12 = :(Core.throw_methoderror(TraitNonlinearSolve.nl_with_problem, %2, _2, nothing)) :: Union{}
+     %13 = :(unreachable) :: Union{}
+
+== vB Tuple{typeof(Main.P.vB), NonlinearProblemTrait, NonlinearAlgorithm}
+   faults: 0
+
+== vB2 Tuple{typeof(Main.P.vB2), NonlinearProblemTrait, NonlinearAlgorithm}
+   faults: 0
+
+== solve Tuple{typeof(TraitNonlinearSolve.solve), NonlinearProblemTrait, NonlinearAlgorithm}
+   faults: 0
+
+== solve Tuple{typeof(TraitNonlinearSolve.solve), NonlinearProblemTrait}
+   faults: 0
+
+== solve_nonlinear Tuple{typeof(TraitNonlinearSolve.solve_nonlinear), NonlinearProblemTrait{T, P}, NonlinearAlgorithm, TraitNonlinearSolve.NLOptions} where {T, P}
+   faults: 0
+
+== #vB#1 Tuple{Main.P.var"##vB#1", Any, Any, Any, typeof(Main.P.vB), NonlinearProblemTrait, NonlinearAlgorithm}
+   faults: 1
+     nomethod: solve_nonlinear(prob::NonlinearProblemTrait{T, P}, alg::NonlinearAlgorithm, opts::TraitNonlinearSolve.NLOptions) where {T, P}(prob, alg, ::Any) has no method, at line 21
+     %4 = :((isa)(%1, Float64)) :: Bool
+     %5 = :((isa)(%2, Float64)) :: Bool
+     %7 = :((isa)(%3, Int64)) :: Bool
+
+== #vB2#3 Tuple{Main.P.var"##vB2#3", Base.Pairs{Symbol, V, Nothing, NT} where {V, NT<:NamedTuple}, typeof(Main.P.vB2), NonlinearProblemTrait, NonlinearAlgorithm}
+   faults: 1
+     nomethod: solve_nonlinear(prob::NonlinearProblemTrait{T, P}, alg::NonlinearAlgorithm, opts::TraitNonlinearSolve.NLOptions) where {T, P}(prob, alg, ::Any) has no method, at line 25
+     %2 = :((isa)(%1, NamedTuple{()})) :: Bool
+     %8 = :((isa)(%6, NamedTuple{()})) :: Bool
+
+== #solve#6 Tuple{TraitNonlinearSolve.var"##solve#6", Any, Any, Any, typeof(TraitNonlinearSolve.solve), NonlinearProblemTrait, NonlinearAlgorithm}
+   faults: 0
+     %2 = :(Core.typeassert(%1, TraitNonlinearSolve.Float64)) :: Float64
+     %5 = :(Core.typeassert(%4, TraitNonlinearSolve.Float64)) :: Float64
+     %8 = :(Core.typeassert(%7, TraitNonlinearSolve.Int)) :: Int64
+
+== #solve#7 Tuple{TraitNonlinearSolve.var"##solve#7", Any, Any, Any, typeof(TraitNonlinearSolve.solve), NonlinearProblemTrait}
+   faults: 0

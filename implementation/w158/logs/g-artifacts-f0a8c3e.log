@@ -1,0 +1,107 @@
+TraitWorld at /p/projects/coen/julia-trait-bound/wt/w158g-tw/src/TraitWorld.jl; _box_faults: true
+
+== p10_none: optimized reading: 1 fault(s)
+     nomethod: gint(::Sol, t) has no method, at line 69
+       %1 = :($(Expr(:invoke, CodeInstance for MethodInstance for Main.A.xs(::Dynamic{Main.A.X}), :(Main.A.xs), Core.Argument(2)))) :: Main.A.Sol
+       %2 = :(Core.throw_methoderror(Main.A.gint, %1, _2)) :: Union{}
+       %3 = :(unreachable) :: Union{}
+   before optimization: 1 fault(s)
+     throws: gint(::Sol, t) only throws, at line 69
+
+== p1_split: optimized reading: 0 fault(s)
+       %1 = :($(Expr(:invoke, CodeInstance for MethodInstance for Main.A.xs(::Dynamic{Main.A.X}), :(Main.A.xs), Core.Argument(2)))) :: Main.A.Sol
+       %2 = :((isa)(%1, Main.A.Sol{Float64})) :: Bool
+       %5 = :(Core.throw_methoderror(Main.A.wsol, %1, _2)) :: Union{}
+       %6 = :(unreachable) :: Union{}
+   before optimization: 0 fault(s)
+
+== p2_covered: optimized reading: 0 fault(s)
+       %1 = :($(Expr(:invoke, CodeInstance for MethodInstance for Main.A.xu(::Dynamic{Main.A.X}), :(Main.A.xu), Core.Argument(2)))) :: Union{Float64, Int64}
+       %2 = :((isa)(%1, Float64)) :: Bool
+   before optimization: 0 fault(s)
+
+== p2_part: optimized reading: 0 fault(s)
+       %1 = :($(Expr(:invoke, CodeInstance for MethodInstance for Main.A.xu(::Dynamic{Main.A.X}), :(Main.A.xu), Core.Argument(2)))) :: Union{Float64, Int64}
+       %2 = :((isa)(%1, Int64)) :: Bool
+       %5 = :(Core.throw_methoderror(Main.A.gu1, %1, _2)) :: Union{}
+       %6 = :(unreachable) :: Union{}
+   before optimization: 0 fault(s)
+
+== p3_inlined: optimized reading: 1 fault(s)
+     throws: bad(t) only throws (in MethodInstance for Main.A.kk(::Float64, ::Dynamic{Main.A.X}) at artifacts.jl:39), at line 41
+       %1 = :($(Expr(:invoke, CodeInstance for MethodInstance for Main.A.xu(::Dynamic{Main.A.X}), :(Main.A.xu), Core.Argument(2)))) :: Union{Float64, Int64}
+       %2 = :((isa)(%1, Float64)) :: Bool
+       %4 = :($(Expr(:invoke, CodeInstance for MethodInstance for Main.A.bad(::Dynamic{Main.A.X}), :(Main.A.bad), Core.Argument(2)))) :: Union{}
+       %5 = :(unreachable) :: Union{}
+   before optimization: 0 fault(s)
+
+== p3_not_inlined: optimized reading: 0 fault(s)
+       %1 = :($(Expr(:invoke, CodeInstance for MethodInstance for Main.A.xu(::Dynamic{Main.A.X}), :(Main.A.xu), Core.Argument(2)))) :: Union{Float64, Int64}
+       %2 = :((isa)(%1, Float64)) :: Bool
+       %5 = :($(Expr(:invoke, CodeInstance for MethodInstance for Main.A.kkn(::Float64, ::Dynamic{Main.A.X}), :(Main.A.kkn), :(%4), Core.Argument(2)))) :: Float64
+   before optimization: 0 fault(s)
+
+== p4_inlined: optimized reading: 1 fault(s)
+     nomethod: sum(t) reaches iterate(::Dynamic{Main.A.X}), which has no method (through sum → mapreduce → mapfoldl → mapfoldl_impl → foldl_impl → _foldl_impl) (in MethodInstance for Main.A.g4(::Dynamic{Main.A.X}, ::Int64) at artifacts.jl:44), at line 46
+       %3 = :($(Expr(:invoke, CodeInstance for MethodInstance for Main.A.xv(::Dynamic{Main.A.X}), :(Main.A.xv), Core.Argument(2)))) :: Float64
+       %5 = :($(Expr(:invoke, CodeInstance for MethodInstance for sum(::Dynamic{Main.A.X}), :(Main.A.sum), Core.Argument(2)))) :: Union{}
+       %6 = :(unreachable) :: Union{}
+   before optimization: 0 fault(s)
+
+== p4_not_inlined: optimized reading: 0 fault(s)
+       %1 = :($(Expr(:invoke, CodeInstance for MethodInstance for Main.A.g4n(::Dynamic{Main.A.X}, ::Int64), :(Main.A.g4n), Core.Argument(2), Core.Argument(3)))) :: Float64
+   before optimization: 0 fault(s)
+
+== p5_assert: optimized reading: 0 fault(s)
+       %1 = :(Core.typeassert(_2, Main.A.M)) :: Union{}
+       %2 = Core.PiNode(Core.Argument(2), Union{}) :: Union{}
+       %3 = :(unreachable) :: Union{}
+   before optimization: 0 fault(s)
+
+== p6_error: optimized reading: 1 fault(s)
+     throws: error("negative: ", t) only throws, at line 51
+       %1 = :($(Expr(:invoke, CodeInstance for MethodInstance for Main.A.xv(::Dynamic{Main.A.X}), :(Main.A.xv), Core.Argument(2)))) :: Float64
+       %5 = :($(Expr(:invoke, CodeInstance for MethodInstance for Main.A.xv(::Dynamic{Main.A.X}), :(Main.A.xv), Core.Argument(2)))) :: Float64
+       %7 = :($(Expr(:invoke, CodeInstance for MethodInstance for error(::String, ::Dynamic{Main.A.X}), :(Main.A.error), "negative: ", Core.Argument(2)))) :: Union{}
+       %8 = :(unreachable) :: Union{}
+   before optimization: 1 fault(s)
+     throws: error("negative: ", t) only throws, at line 51
+
+== p6_throw: optimized reading: 0 fault(s)
+       %1 = :($(Expr(:invoke, CodeInstance for MethodInstance for Main.A.xv(::Dynamic{Main.A.X}), :(Main.A.xv), Core.Argument(2)))) :: Float64
+       %5 = :($(Expr(:invoke, CodeInstance for MethodInstance for Main.A.xv(::Dynamic{Main.A.X}), :(Main.A.xv), Core.Argument(2)))) :: Float64
+       %7 = :($(Expr(:invoke, CodeInstance for MethodInstance for Base.print_to_string(::String, ::Dynamic{Main.A.X}), :(Base.print_to_string), "negative: ", Core.Argument(2)))) :: String
+       %8 = :(%new(Main.A.ArgumentError, %7)) :: ArgumentError
+       %9 = :(Main.A.throw(%8)) :: Union{}
+       %10 = :(unreachable) :: Union{}
+   before optimization: 0 fault(s)
+
+== p7_inlined: optimized reading: 0 fault(s)
+       %1 = :($(Expr(:invoke, CodeInstance for MethodInstance for Main.A.xv(::Dynamic{Main.A.X}), :(Main.A.xv), Core.Argument(2)))) :: Float64
+   before optimization: 0 fault(s)
+
+== p7_not_inlined: optimized reading: 0 fault(s)
+       %1 = :($(Expr(:invoke, CodeInstance for MethodInstance for Main.A.g7n(::Dynamic{Main.A.X}, ::Int64), :(Main.A.g7n), Core.Argument(2), 1))) :: Float64
+   before optimization: 0 fault(s)
+
+== p8_five: optimized reading: 0 fault(s)
+       %1 = :($(Expr(:invoke, CodeInstance for MethodInstance for Main.A.xy(::Dynamic{Main.A.X}), :(Main.A.xy), Core.Argument(2)))) :: Main.A.Y
+       %2 = :((isa)(%1, Main.A.Circ)) :: Bool
+       %5 = :(Core.throw_methoderror(Main.A.five, %1)) :: Union{}
+       %6 = :(unreachable) :: Union{}
+   before optimization: 0 fault(s)
+
+== p8_one: optimized reading: 0 fault(s)
+       %1 = :($(Expr(:invoke, CodeInstance for MethodInstance for Main.A.xy(::Dynamic{Main.A.X}), :(Main.A.xy), Core.Argument(2)))) :: Main.A.Y
+       %2 = :((isa)(%1, Main.A.Circ)) :: Bool
+       %7 = :(Core.throw_methoderror(Main.A.onlycirc, %1)) :: Union{}
+       %8 = :(unreachable) :: Union{}
+   before optimization: 0 fault(s)
+
+== p9_throw_builtin: optimized reading: 0 fault(s)
+       %1 = :($(Expr(:invoke, CodeInstance for MethodInstance for Main.A.xu(::Dynamic{Main.A.X}), :(Main.A.xu), Core.Argument(2)))) :: Union{Float64, Int64}
+       %2 = :((isa)(%1, Float64)) :: Bool
+       %7 = :($(Expr(:invoke, CodeInstance for MethodInstance for ArgumentError(::String), :(Main.A.ArgumentError), "no"))) :: ArgumentError
+       %8 = :(Main.A.throw(%7)) :: Union{}
+       %9 = :(unreachable) :: Union{}
+   before optimization: 0 fault(s)

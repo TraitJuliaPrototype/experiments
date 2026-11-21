@@ -1,0 +1,45 @@
+TraitWorld at /p/projects/coen/julia-trait-bound/wt/w158g-tw/src/TraitWorld.jl
+
+== Tuple{typeof(Main.S.caseA), Main.S.Prob{Float64}, Main.S.Alg}
+   at Tuple{typeof(Main.S.caseA), Dynamic{Main.S.Prob{Float64}}, Dynamic{Main.S.Alg}}
+   faults: 1
+     nomethod: withprob(s::Main.S.Sol{T}, p::Main.S.Prob{T}) where T(::Sol, p) has no method, at line 18
+     %3 = :((isa)(%2, Main.S.Sol{Float64})) :: Bool
+     %10 = :(Core.throw_methoderror(Main.S.withprob, %2, _2)) :: Union{}
+     %11 = :(unreachable) :: Union{}
+
+== Tuple{typeof(Main.S.caseB), Main.S.Prob{Float64}, Main.S.Alg}
+   at Tuple{typeof(Main.S.caseB), Dynamic{Main.S.Prob{Float64}}, Dynamic{Main.S.Alg}}
+   faults: 0
+
+== Tuple{Main.S.var"##caseB#1", Any, typeof(Main.S.caseB), Main.S.Prob{Float64}, Main.S.Alg}
+   at Tuple{Main.S.var"##caseB#1", Any, typeof(Main.S.caseB), Dynamic{Main.S.Prob{Float64}}, Dynamic{Main.S.Alg}}
+   faults: 0
+     %1 = :((isa)(_2, Float64)) :: Bool
+
+== Tuple{typeof(Main.S.ctrl1), Main.S.Prob{Float64}}
+   at Tuple{typeof(Main.S.ctrl1), Dynamic{Main.S.Prob{Float64}}}
+   faults: 1
+     nomethod: sum(p) reaches iterate(::Dynamic{Main.S.Prob{Float64}}), which has no method (through sum(a; kw::Base.Pairs{Symbol, V, Nothing, NT} where {V, NT<:NamedTuple}) → sum → sum(f, a; kw::Base.Pairs{Symbol, V, Nothing, NT} where {V, NT<:NamedTuple}) → mapreduce → mapreduce(f, op, itr; kw::Base.Pairs{Symbol, V, Nothing, NT} where {V, NT<:NamedTuple}) → mapfoldl(f, op, itr) → mapfoldl(f, op, itr; init) → mapfoldl_impl → foldl_impl(op::OP, nt, itr) where OP → _foldl_impl), at line 24
+     %2 = :(unreachable) :: Union{}
+
+== Tuple{typeof(Main.S.ctrl2), Main.S.Prob{Float64}}
+   at Tuple{typeof(Main.S.ctrl2), Dynamic{Main.S.Prob{Float64}}}
+   faults: 1
+     nomethod: nometh(x::Int64)(p) has no method, at line 27
+     %1 = :(Core.throw_methoderror(Main.S.nometh, _2)) :: Union{}
+     %2 = :(unreachable) :: Union{}
+
+== Tuple{typeof(Main.S.caseC), Main.S.Holder}
+   at Tuple{typeof(Main.S.caseC), Dynamic{Main.S.Holder}}
+   faults: 1
+     nomethod: onlycircle(c::Main.S.Circle)(::Sh) has no method, at line 39
+     %2 = :((isa)(%1, Main.S.Circle)) :: Bool
+     %7 = :(Core.throw_methoderror(Main.S.onlycircle, %1)) :: Union{}
+     %8 = :(unreachable) :: Union{}
+
+== Tuple{typeof(Main.S.caseD), Main.S.Holder}
+   at Tuple{typeof(Main.S.caseD), Dynamic{Main.S.Holder}}
+   faults: 0
+     %2 = :((isa)(%1, Main.S.Circle)) :: Bool
+     %15 = :(Core.typeassert(%14, Float64)) :: Float64

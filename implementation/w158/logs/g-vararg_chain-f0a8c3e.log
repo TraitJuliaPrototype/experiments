@@ -1,0 +1,95 @@
+TraitWorld at /p/projects/coen/julia-trait-bound/wt/w158g-tw/src/TraitWorld.jl
+
+== c1 at Tuple{typeof(Main.V.c1), Dynamic{Main.V.CTab}}
+   fault: sum(t) reaches iterate(::Dynamic{Main.V.CTab}), which has no method (through sum → mapreduce → mapfoldl → mapfoldl_impl → foldl_impl → _foldl_impl), at line 15
+0: c1(::Dynamic{CTab}) -> Union{}
+   %1 only throws: invoke sum at Any[Dynamic{Main.V.CTab}] (a value at the box)
+  1: sum(::Dynamic{CTab}) -> Union{}
+     %1 only throws: invoke #sum#282 at Any[Base.Pairs{Symbol, Union{}, Nothing, @NamedTuple{}}, typeof(sum), Dynamic{Main.V.CTab}] (a value at the box)
+    2: #sum#282(::Pairs{Symbol, Union{}, Nothing, @NamedTuple{}}, ::typeof(sum), ::Dynamic{CTab}) -> Union{}
+       %2 only throws: invoke sum at Any[typeof(identity), Dynamic{Main.V.CTab}] (a value at the box)
+      3: sum(::typeof(identity), ::Dynamic{CTab}) -> Union{}
+         %1 only throws: invoke #sum#281 at Any[Base.Pairs{Symbol, Union{}, Nothing, @NamedTuple{}}, typeof(sum), typeof(identity), Dynamic{Main.V.CTab}] (a value at the box)
+        4: #sum#281(::Pairs{Symbol, Union{}, Nothing, @NamedTuple{}}, ::typeof(sum), ::typeof(identity), ::Dynamic{CTab}) -> Union{}
+           %2 only throws: invoke mapreduce at Any[typeof(identity), typeof(Base.add_sum), Dynamic{Main.V.CTab}] (a value at the box)
+          5: mapreduce(::typeof(identity), ::typeof(add_sum), ::Dynamic{CTab}) -> Union{}
+             %1 only throws: invoke #mapreduce#278 at Any[Base.Pairs{Symbol, Union{}, Nothing, @NamedTuple{}}, typeof(mapreduce), typeof(identity), typeof(Base.add_sum), Dynamic{Main.V.CTab}] (a value at the box)
+            6: #mapreduce#278(::Pairs{Symbol, Union{}, Nothing, @NamedTuple{}}, ::typeof(mapreduce), ::typeof(identity), ::typeof(add_sum), ::Dynamic{CTab}) -> Union{}
+               %2 only throws: invoke mapfoldl at Any[typeof(identity), typeof(Base.add_sum), Dynamic{Main.V.CTab}] (a value at the box)
+              7: mapfoldl(::typeof(identity), ::typeof(add_sum), ::Dynamic{CTab}) -> Union{}
+                 %1 only throws: invoke #mapfoldl#274 at Any[Base._InitialValue, typeof(mapfoldl), typeof(identity), typeof(Base.add_sum), Dynamic{Main.V.CTab}] (a value at the box)
+                8: #mapfoldl#274(::_InitialValue, ::typeof(mapfoldl), ::typeof(identity), ::typeof(add_sum), ::Dynamic{CTab}) -> Union{}
+                   %1 only throws: invoke mapfoldl_impl at Any[typeof(identity), typeof(Base.add_sum), Base._InitialValue, Dynamic{Main.V.CTab}] (a value at the box)
+                  9: mapfoldl_impl(::typeof(identity), ::typeof(add_sum), ::_InitialValue, ::Dynamic{CTab}) -> Union{}
+                     %1 only throws: invoke foldl_impl at Any[Base.BottomRF{typeof(Base.add_sum)}, Base._InitialValue, Dynamic{Main.V.CTab}] (a value at the box)
+                    10: foldl_impl(::BottomRF{typeof(add_sum)}, ::_InitialValue, ::Dynamic{CTab}) -> Union{}
+                       %1 only throws: invoke _foldl_impl at Any[Base.BottomRF{typeof(Base.add_sum)}, Base._InitialValue, Dynamic{Main.V.CTab}] (a value at the box)
+                      11: _foldl_impl(::BottomRF{typeof(add_sum)}, ::_InitialValue, ::Dynamic{CTab}) -> Union{}
+                         %1 throw_methoderror at Any[typeof(iterate), Dynamic{Main.V.CTab}] (a value at the box)
+
+== c2 at Tuple{typeof(Main.V.c2), Dynamic{Main.V.CTab}, Dynamic{Main.V.CTab}}
+   fault: sum((t) -> …, ts) reaches iterate(::Dynamic{Main.V.CTab}), which has no method (through mapreduce → mapfoldl → mapfoldl_impl → foldl_impl → _foldl_impl → afoldl → (t) -> … → sum), at line 14
+0: c2(::Dynamic{CTab}, ::Dynamic{CTab}) -> Union{}
+   %1 only throws: invoke sum at Any[Main.V.var"#c2##0#c2##1", Tuple{Dynamic{Main.V.CTab}, Dynamic{Main.V.CTab}}] (a value at the box)
+  1: sum(::var"#c2##0#c2##1", ::Tuple{Dynamic{CTab}, Dynamic{CTab}}) -> Union{}
+     %1 only throws: invoke #sum#281 at Any[Base.Pairs{Symbol, Union{}, Nothing, @NamedTuple{}}, typeof(sum), Main.V.var"#c2##0#c2##1", Tuple{Dynamic{Main.V.CTab}, Dynamic{Main.V.CTab}}] (a value at the box)
+    2: #sum#281(::Pairs{Symbol, Union{}, Nothing, @NamedTuple{}}, ::typeof(sum), ::var"#c2##0#c2##1", ::Tuple{Dynamic{CTab}, Dynamic{CTab}}) -> Union{}
+       %2 only throws: invoke mapreduce at Any[Main.V.var"#c2##0#c2##1", typeof(Base.add_sum), Tuple{Dynamic{Main.V.CTab}, Dynamic{Main.V.CTab}}] (a value at the box)
+      3: mapreduce(::var"#c2##0#c2##1", ::typeof(add_sum), ::Tuple{Dynamic{CTab}, Dynamic{CTab}}) -> Union{}
+         %1 only throws: invoke #mapreduce#278 at Any[Base.Pairs{Symbol, Union{}, Nothing, @NamedTuple{}}, typeof(mapreduce), Main.V.var"#c2##0#c2##1", typeof(Base.add_sum), Tuple{Dynamic{Main.V.CTab}, Dynamic{Main.V.CTab}}] (a value at the box)
+        4: #mapreduce#278(::Pairs{Symbol, Union{}, Nothing, @NamedTuple{}}, ::typeof(mapreduce), ::var"#c2##0#c2##1", ::typeof(add_sum), ::Tuple{Dynamic{CTab}, Dynamic{CTab}}) -> Union{}
+           %2 only throws: invoke mapfoldl at Any[Main.V.var"#c2##0#c2##1", typeof(Base.add_sum), Tuple{Dynamic{Main.V.CTab}, Dynamic{Main.V.CTab}}] (a value at the box)
+          5: mapfoldl(::var"#c2##0#c2##1", ::typeof(add_sum), ::Tuple{Dynamic{CTab}, Dynamic{CTab}}) -> Union{}
+             %1 only throws: invoke #mapfoldl#274 at Any[Base._InitialValue, typeof(mapfoldl), Main.V.var"#c2##0#c2##1", typeof(Base.add_sum), Tuple{Dynamic{Main.V.CTab}, Dynamic{Main.V.CTab}}] (a value at the box)
+            6: #mapfoldl#274(::_InitialValue, ::typeof(mapfoldl), ::var"#c2##0#c2##1", ::typeof(add_sum), ::Tuple{Dynamic{CTab}, Dynamic{CTab}}) -> Union{}
+               %1 only throws: invoke mapfoldl_impl at Any[Main.V.var"#c2##0#c2##1", typeof(Base.add_sum), Base._InitialValue, Tuple{Dynamic{Main.V.CTab}, Dynamic{Main.V.CTab}}] (a value at the box)
+              7: mapfoldl_impl(::var"#c2##0#c2##1", ::typeof(add_sum), ::_InitialValue, ::Tuple{Dynamic{CTab}, Dynamic{CTab}}) -> Union{}
+                 %1 only throws: invoke foldl_impl at Any[Base.MappingRF{Main.V.var"#c2##0#c2##1", Base.BottomRF{typeof(Base.add_sum)}}, Base._InitialValue, Tuple{Dynamic{Main.V.CTab}, Dynamic{Main.V.CTab}}] (a value at the box)
+                8: foldl_impl(::MappingRF{var"#c2##0#c2##1", BottomRF{typeof(add_sum)}}, ::_InitialValue, ::Tuple{Dynamic{CTab}, Dynamic{CTab}}) -> Union{}
+                   %1 only throws: invoke _foldl_impl at Any[Base.MappingRF{Main.V.var"#c2##0#c2##1", Base.BottomRF{typeof(Base.add_sum)}}, Base._InitialValue, Tuple{Dynamic{Main.V.CTab}, Dynamic{Main.V.CTab}}] (a value at the box)
+                  9: _foldl_impl(::MappingRF{var"#c2##0#c2##1", BottomRF{typeof(add_sum)}}, ::_InitialValue, ::Tuple{Dynamic{CTab}, Dynamic{CTab}}) -> Union{}
+                     %4 only throws: invoke afoldl at Any[Base.MappingRF{Main.V.var"#c2##0#c2##1", Base.BottomRF{typeof(Base.add_sum)}}, Base._InitialValue, Dynamic{Main.V.CTab}, Dynamic{Main.V.CTab}] (a value at the box)
+                    10: afoldl(::MappingRF{var"#c2##0#c2##1", BottomRF{typeof(add_sum)}}, ::_InitialValue, ::Dynamic{CTab}, ::Dynamic{CTab}) -> Union{}
+                       %4 only throws: invoke #c2##0 at Any[Dynamic{Main.V.CTab}] (a value at the box)
+                      11: #c2##0(::Dynamic{CTab}) -> Union{}
+                         %1 only throws: invoke sum at Any[Dynamic{Main.V.CTab}] (a value at the box)
+                        12: sum(::Dynamic{CTab}) -> Union{}
+                           %1 only throws: invoke #sum#282 at Any[Base.Pairs{Symbol, Union{}, Nothing, @NamedTuple{}}, typeof(sum), Dynamic{Main.V.CTab}] (a value at the box)
+                          13: #sum#282(::Pairs{Symbol, Union{}, Nothing, @NamedTuple{}}, ::typeof(sum), ::Dynamic{CTab}) -> Union{}
+                             %2 only throws: invoke sum at Any[typeof(identity), Dynamic{Main.V.CTab}] (a value at the box)
+                            14: sum(::typeof(identity), ::Dynamic{CTab}) -> Union{}
+                               %1 only throws: invoke #sum#281 at Any[Base.Pairs{Symbol, Union{}, Nothing, @NamedTuple{}}, typeof(sum), typeof(identity), Dynamic{Main.V.CTab}] (a value at the box)
+                              15: #sum#281(::Pairs{Symbol, Union{}, Nothing, @NamedTuple{}}, ::typeof(sum), ::typeof(identity), ::Dynamic{CTab}) -> Union{}
+                                 %2 only throws: invoke mapreduce at Any[typeof(identity), typeof(Base.add_sum), Dynamic{Main.V.CTab}] (a value at the box)
+                                16: mapreduce(::typeof(identity), ::typeof(add_sum), ::Dynamic{CTab}) -> Union{}
+                                   %1 only throws: invoke #mapreduce#278 at Any[Base.Pairs{Symbol, Union{}, Nothing, @NamedTuple{}}, typeof(mapreduce), typeof(identity), typeof(Base.add_sum), Dynamic{Main.V.CTab}] (a value at the box)
+                                  17: #mapreduce#278(::Pairs{Symbol, Union{}, Nothing, @NamedTuple{}}, ::typeof(mapreduce), ::typeof(identity), ::typeof(add_sum), ::Dynamic{CTab}) -> Union{}
+                                     %2 only throws: invoke mapfoldl at Any[typeof(identity), typeof(Base.add_sum), Dynamic{Main.V.CTab}] (a value at the box)
+                                    18: mapfoldl(::typeof(identity), ::typeof(add_sum), ::Dynamic{CTab}) -> Union{}
+                                       %1 only throws: invoke #mapfoldl#274 at Any[Base._InitialValue, typeof(mapfoldl), typeof(identity), typeof(Base.add_sum), Dynamic{Main.V.CTab}] (a value at the box)
+                                      19: #mapfoldl#274(::_InitialValue, ::typeof(mapfoldl), ::typeof(identity), ::typeof(add_sum), ::Dynamic{CTab}) -> Union{}
+                                         %1 only throws: invoke mapfoldl_impl at Any[typeof(identity), typeof(Base.add_sum), Base._InitialValue, Dynamic{Main.V.CTab}] (a value at the box)
+                                        20: mapfoldl_impl(::typeof(identity), ::typeof(add_sum), ::_InitialValue, ::Dynamic{CTab}) -> Union{}
+                                           %1 only throws: invoke foldl_impl at Any[Base.BottomRF{typeof(Base.add_sum)}, Base._InitialValue, Dynamic{Main.V.CTab}] (a value at the box)
+                                          21: foldl_impl(::BottomRF{typeof(add_sum)}, ::_InitialValue, ::Dynamic{CTab}) -> Union{}
+                                             %1 only throws: invoke _foldl_impl at Any[Base.BottomRF{typeof(Base.add_sum)}, Base._InitialValue, Dynamic{Main.V.CTab}] (a value at the box)
+                                            22: _foldl_impl(::BottomRF{typeof(add_sum)}, ::_InitialValue, ::Dynamic{CTab}) -> Union{}
+                                               %1 throw_methoderror at Any[typeof(iterate), Dynamic{Main.V.CTab}] (a value at the box)
+
+== call at Tuple{typeof(Main.V.call), Dynamic{Main.V.CTab}, Vararg{Dynamic{Main.V.CTab}}}
+   fault: sum((t) -> …, ts) reaches iterate(::Dynamic{Main.V.CTab}), which has no method (through mapreduce → mapfoldl → mapfoldl_impl → foldl_impl → _foldl_impl → afoldl → (t) -> … → sum), at line 13
+0: call(::Dynamic{CTab}, ::Vararg{Dynamic{CTab}}) -> Union{}
+   %1 only throws: call sum at Any[Main.V.var"#call##0#call##1", Tuple{Dynamic{Main.V.CTab}, Vararg{Dynamic{Main.V.CTab}}}] (a value at the box)
+  1: sum(::var"#call##0#call##1", ::Tuple{Dynamic{CTab}, Vararg{Dynamic{CTab}}}) -> Union{}
+     %1 only throws: call #sum#281 at Any[Base.Pairs{Symbol, Union{}, Nothing, @NamedTuple{}}, typeof(sum), Main.V.var"#call##0#call##1", Tuple{Dynamic{Main.V.CTab}, Vararg{Dynamic{Main.V.CTab}}}] (a value at the box)
+    2: #sum#281(::Pairs{Symbol, Union{}, Nothing, @NamedTuple{}}, ::typeof(sum), ::var"#call##0#call##1", ::Tuple{Dynamic{CTab}, Vararg{Dynamic{CTab}}}) -> Union{}
+       %2 only throws: call mapreduce at Any[Main.V.var"#call##0#call##1", typeof(Base.add_sum), Tuple{Dynamic{Main.V.CTab}, Vararg{Dynamic{Main.V.CTab}}}] (a value at the box)
+      3: mapreduce(::var"#call##0#call##1", ::typeof(add_sum), ::Tuple{Dynamic{CTab}, Vararg{Dynamic{CTab}}}) -> Union{}
+         %1 only throws: call #mapreduce#278 at Any[Base.Pairs{Symbol, Union{}, Nothing, @NamedTuple{}}, typeof(mapreduce), Main.V.var"#call##0#call##1", typeof(Base.add_sum), Tuple{Dynamic{Main.V.CTab}, Vararg{Dynamic{Main.V.CTab}}}] (a value at the box)
+        4: #mapreduce#278(::Pairs{Symbol, Union{}, Nothing, @NamedTuple{}}, ::typeof(mapreduce), ::var"#call##0#call##1", ::typeof(add_sum), ::Tuple{Dynamic{CTab}, Vararg{Dynamic{CTab}}}) -> Union{}
+           %2 only throws: call mapfoldl at Any[Main.V.var"#call##0#call##1", typeof(Base.add_sum), Tuple{Dynamic{Main.V.CTab}, Vararg{Dynamic{Main.V.CTab}}}] (a value at the box)
+          5: mapfoldl(::var"#call##0#call##1", ::typeof(add_sum), ::Tuple{Dynamic{CTab}, Vararg{Dynamic{CTab}}}) -> Union{}
+             %1 only throws: call #mapfoldl#274 at Any[Base._InitialValue, typeof(mapfoldl), Main.V.var"#call##0#call##1", typeof(Base.add_sum), Tuple{Dynamic{Main.V.CTab}, Vararg{Dynamic{Main.V.CTab}}}] (a value at the box)
+            6: #mapfoldl#274(::_InitialValue, ::typeof(mapfoldl), ::var"#call##0#call##1", ::typeof(add_sum), ::Tuple{Dynamic{CTab}, Vararg{Dynamic{CTab}}}) -> Union{}
+               %1 only throws: call mapfoldl_impl at Any[Main.V.var"#call##0#call##1", typeof(Base.add_sum), Base._InitialValue, Tuple{Dynamic{Main.V.CTab}, Vararg{Dynamic{Main.V.CTab}}}] (a value at the box)
+              7: mapfoldl_impl(::var"#call##0#call##1", ::typeof(add_sum), ::_InitialValue, ::Tuple{Dynamic{CTab}, Vararg{Dynamic{CTab}}}) -> Any
