@@ -578,8 +578,9 @@ e = thrown(:(module Meddler4
     end))
 check("§16 in a trait module, a method of another module's owner-only function is refused: OwnershipError", e isa OwnershipError)
 e === nothing || println("MESSAGE §16 Meddler4:\n", msg(e))
-deviation("§16 that OwnershipError names the function's owner, Main.Tally (traits §11.3: its owners, who may declare it)",
-          "traits T-160", () -> e isa Exception && occursin("Tally", msg(e)))
+check("§16 that OwnershipError names the owner-only function and its owner, Main.Tally, and what Tally writes to let others extend it (traits §11.3)",
+      e isa Exception && occursin("`weight` is an owner-only function of Main.Tally", msg(e)) &&
+      occursin("declares it `public` or exports it", msg(e)) && !occursin("owns neither", msg(e)))
 
 # --- §17: concreteness and fully typed code -----------------------------------------------------
 

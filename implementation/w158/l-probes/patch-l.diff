@@ -1,0 +1,84 @@
+--- a/Compiler/src/ssair/inlining.jl
++++ b/Compiler/src/ssair/inlining.jl
+@@ -1602,7 +1602,11 @@
+     cases = compute_inlining_cases(info, flag, sig, estate)
+     if cases === nothing
+         # an operation's call that is not split: the dynamic call, asserted
+-        split && handle_declared_result!(ir, idx, stmt, DeclaredResultInfo(info.rt))
++        if split
++            handle_declared_result!(ir, idx, stmt, DeclaredResultInfo(info.rt))
++        else
++            handle_dispatched_result!(ir, idx, stmt, argtypes_to_type(sig.argtypes))
++        end
+         return nothing
+     end
+     cases, handled_all_cases, fully_covered, joint_effects = cases
+@@ -1777,10 +1781,68 @@
+         push!(todo, idx=>UnionSplit(handled_all_cases, fully_covered, atype, cases, fallback_rt, table))
+     else
+         add_flag!(ir[SSAValue(idx)], flags_for_effects(joint_effects))
++        fallback_rt === nothing && handle_dispatched_result!(ir, idx, stmt, atype)
+     end
+     return nothing
+ end
+ 
++# A call left to dispatch with an argument known only as `Callable{A, S}` (compiler §7.4): inference took the
++# callee's result from its instance at the set, where a call of the argument is asserted to `S`, but dispatch
++# runs the callee's instance at the function's own type, where the call is the function's own and its result
++# is not asserted. Inference is not monotone there, so the call's result is asserted to its inferred type
++# where it returns: compiled code never takes a value its call's type excludes (as a const result, §7.1).
++function handle_dispatched_result!(ir::IRCode, idx::Int, stmt::Expr, @nospecialize(atype))
++    atype isa DataType || return nothing
++    params = atype.parameters
++    held = false
++    for i in 2:length(params)
++        if holds_declared_callable(unwrapva(params[i]))
++            held = true
++            break
++        end
++    end
++    held || return nothing
++    inst = ir[SSAValue(idx)]
++    rt = widenconst(inst[:type])
++    rt === Any && return nothing
++    inst[:type] = rt
++    return handle_declared_result!(ir, idx, stmt, DeclaredResultInfo(rt))
++end
++
++# whether a value of type `T`, passed to a call, may be a function known only as `Callable{A, S}` with a
++# declared `S`, at a type that dispatch narrows to the function's own: `T` itself, a union's component, or a
++# tuple's element. A concrete type is the type the callee's instance is compiled for.
++function holds_declared_callable(@nospecialize(T))
++    isa(T, Type) || return false
++    isconcretetype(T) && return false
++    u = unwrap_unionall(T)
++    if isa(u, Union)
++        return holds_declared_callable(u.a) || holds_declared_callable(u.b)
++    elseif isa(u, DataType)
++        if u.name === typename(Tuple)
++            for p in u.parameters
++                holds_declared_callable(unwrapva(p)) && return true
++            end
++            return false
++        end
++        return callable_set_type(u) && declares_callable_result(u)
++    end
++    return false
++end
++
++# whether `Callable{A, S}`, or an intersection of such, declares a result `S` to assert
++function declares_callable_result(u::DataType)
++    cname = unwrap_unionall(Core.Callable).name
++    if u.name === cname
++        return length(u.parameters) == 2 && u.parameters[2] !== Any
++    end
++    for c in (u.parameters[1]::DataType).parameters
++        cu = unwrap_unionall(c)
++        (isa(cu, DataType) && length(cu.parameters) == 2 && cu.parameters[2] !== Any) && return true
++    end
++    return false
++end
++
+ function handle_opaque_closure_call!(todo::Vector{Pair{Int,Any}},
+     ir::IRCode, idx::Int, stmt::Expr, info::OpaqueClosureCallInfo,
+     flag::UInt32, sig::Signature, state::InliningState)

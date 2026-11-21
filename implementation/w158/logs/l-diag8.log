@@ -1,0 +1,123 @@
+result: TypeError: non-boolean (Int64) used in boolean context
+ci 11826 owner nothing specptr Ptr{Nothing}(0x00007fa8e4249210)
+   pushq	%rbp
+   movq	%rsp, %rbp
+   pushq	%r15
+   pushq	%r14
+   pushq	%r13
+   pushq	%r12
+   pushq	%rbx
+   subq	$56, %rsp
+   vmovsd	%xmm0, -64(%rbp)
+   vxorps	%xmm0, %xmm0, %xmm0
+   vmovups	%ymm0, -96(%rbp)
+   movq	$8, -96(%rbp)
+   leaq	-96(%rbp), %rcx
+   movq	%r13, -48(%rbp)
+   movq	(%r13), %rax
+   movq	%rax, -88(%rbp)
+   movq	%rcx, (%r13)
+   movq	16(%r13), %rax
+   movq	16(%rax), %rax
+   movq	(%rax), %rax
+   cmpq	$0, 16(%rdi)
+   je	L408
+   movq	(%rdi), %rax
+   movq	%rdi, %rbx
+   movq	(%rax), %r15
+   testq	%r15, %r15
+   je	L468
+   movq	-48(%rbp), %rax
+   movq	%r15, -72(%rbp)
+   movabsq	$jl_system_image_data, %r13
+   movl	$360, %esi
+   movl	$16, %edx
+   movq	%r13, %rcx
+   movq	16(%rax), %rdi
+   movabsq	$ijl_gc_small_alloc, %rax
+   vzeroupper
+   callq	*%rax
+   vmovsd	-64(%rbp), %xmm0
+   movq	%r13, -8(%rax)
+   movq	%rax, -80(%rbp)
+   movq	%rax, -56(%rbp)
+   leaq	-56(%rbp), %rsi
+   movl	$1, %edx
+   movq	%r15, %rdi
+   vmovsd	%xmm0, (%rax)
+   movabsq	$ijl_apply_generic_plain, %rax
+   callq	*%rax
+   movq	-8(%rax), %rcx
+   andq	$-16, %rcx
+   cmpq	$192, %rcx
+   jne	L366
+   movl	$1, %r14d
+   xorl	%r15d, %r15d
+   L224:
+   movq	%r15, %rcx
+   movzbl	(%rax), %r15d
+   addq	%rcx, %r15
+   cmpq	16(%rbx), %r14
+   jae	L411
+   movq	(%rbx), %rax
+   movq	(%rax,%r14,8), %r12
+   testq	%r12, %r12
+   je	L443
+   movq	-48(%rbp), %rax
+   movq	%r12, -72(%rbp)
+   movl	$360, %esi
+   movl	$16, %edx
+   movq	%r13, %rcx
+   movq	16(%rax), %rdi
+   movabsq	$ijl_gc_small_alloc, %rax
+   callq	*%rax
+   vmovsd	-64(%rbp), %xmm0
+   movq	%r13, -8(%rax)
+   movq	%rax, -80(%rbp)
+   movq	%rax, -56(%rbp)
+   leaq	-56(%rbp), %rsi
+   movl	$1, %edx
+   movq	%r12, %rdi
+   vmovsd	%xmm0, (%rax)
+   movabsq	$ijl_apply_generic_plain, %rax
+   callq	*%rax
+   movq	-8(%rax), %rcx
+   incq	%r14
+   andq	$-16, %rcx
+   cmpq	$192, %rcx
+   je	L224
+   L366:
+   movabsq	$jl_small_typeof, %rcx
+   movabsq	$.lrodata.str1.1, %rdi
+   movq	%rax, %rdx
+   movq	192(%rcx), %rsi
+   movabsq	$ijl_type_error, %rcx
+   callq	*%rcx
+   L408:
+   xorl	%r15d, %r15d
+   L411:
+   movq	-88(%rbp), %rax
+   movq	-48(%rbp), %rcx
+   movq	%rax, (%rcx)
+   movq	%r15, %rax
+   addq	$56, %rsp
+   popq	%rbx
+   popq	%r12
+   popq	%r13
+   popq	%r14
+   popq	%r15
+   popq	%rbp
+   vzeroupper
+   retq
+   L443:
+   movabsq	$jl_undefref_exception, %rax
+   movq	(%rax), %rdi
+   movabsq	$ijl_throw, %rax
+   callq	*%rax
+   L468:
+   movabsq	$jl_undefref_exception, %rax
+   movq	(%rax), %rdi
+   movabsq	$ijl_throw, %rax
+   vzeroupper
+   callq	*%rax
+   

@@ -1,0 +1,7 @@
+TRACE jit passes(Array{Core.Callable{Tuple{Float64}, Bool}, 1}, Float64) from passes(Array{Core.Callable{Tuple{Float64}, Bool}, 1}, Float64) world 0x0000000000002e32:0xffffffffffffffff facts false
+trace_jit: add_codeinsts_to_jit! laid over
+result: TypeError: non-boolean (Int64) used in boolean context
+== optimize=false: type_error 1, typeassert 1, non-boolean/bool check 0
+   %17 = call nonnull ptr (ptr, ptr, ...) @julia.call(ptr @ijl_apply_generic, ptr %value_phi7, ptr %"box::Float64")
+   call void @ijl_type_error(ptr @"_j_str_typeassert#1", ptr %40, ptr %17)
+== optimize=true: type_error 1, typeassert 1, non-boolean/bool check 0

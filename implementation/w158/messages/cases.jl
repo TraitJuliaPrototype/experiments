@@ -130,3 +130,56 @@ provoke("@trait_module: an unknown option", :(module B12
     @trait_module dynamic = true
     end))
 provoke("delete_membership: not a trait", :(delete_membership(Int, CT)))
+
+# the two kinds of pirate (traits §12.2): a method of another module's owner-only function at one's own type, and the
+# classic one; in a trait module (`no_pirates`), reported by default where it ends code compiled by facts, refused in
+# strict mode (T-160)
+module OOwn
+using TraitWorld
+@trait_module
+export tally, score, OShape
+weight(x) = 1                                   # owner-only by the trait module's default
+score(x) = 0                                    # exported, and declared owner-only
+@owner_only score
+tally(xs::Vector{Any}) = (n = 0; for x in xs; n += weight(x) + score(x); end; n)
+@trait OShape begin
+    oarea(s::OShape)::Float64                   # an operation the module does not export: owner-only
+end
+end
+using .OOwn
+tally(Any[1, "a"])
+provoke("owner-only: a method in a trait module, at its own type", :(module OO1
+    using TraitWorld, ..OOwn
+    @trait_module
+    struct Mine end
+    OOwn.weight(::Mine) = 0
+    end))
+provoke("owner-only by @owner_only: a method in a trait module", :(module OO2
+    using TraitWorld, ..OOwn
+    @trait_module
+    struct Mine end
+    OOwn.score(::Mine) = 0
+    end))
+provoke("owner-only: a trait's unexported operation, in a block", :(module OO3
+    using TraitWorld, ..OOwn
+    @trait_module
+    struct Sq; s::Float64; end
+    @implement OShape Sq begin
+        oarea(q) = q.s^2
+    end
+    end))
+provoke("classic: a method in a trait module", :(module OO4
+    using TraitWorld
+    @trait_module
+    Base.length(x::Vector{Int8}) = 0
+    end))
+struct OHeavy; w::Int; end
+provoke("owner-only: a method at the prompt, reported", :(OOwn.weight(h::OHeavy) = h.w))
+Base.delete_method(which(OOwn.weight, (OHeavy,))); tally(Any[1, "a"])
+TraitWorld.strict!(true)
+try
+    provoke("owner-only: a method at the prompt, strict mode", :(OOwn.weight(h::OHeavy) = h.w))
+    provoke("owner-only by @owner_only: a method at the prompt, strict mode", :(OOwn.score(h::OHeavy) = h.w))
+finally
+    TraitWorld.strict!(false)
+end

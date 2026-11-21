@@ -1,0 +1,16 @@
+CASE owner-only, at the prompt (Main), own type: no error
+  WARN:  a pirate ended code compiled by facts that only a stakeholder's change or a pirate can end: `weight(::Heavy)`, defined by Main in Main, which does not own the function: an owner-only function of Main.Tally, whose methods are its owner's. It ended 1 instance: Main.Tally.tally. It is followed, as plain Julia follows it: that code is compiled again. Define it where a type it is for is owned, or name the definer a joint owner (`@joint_owners`); strict mode (`TraitWorld.strict!()`) refuses such a definition; `TraitWorld.report_pirates!(false)` silences this report.
+CASE owner-only, in a trait module (no_pirates), own type: OwnershipError
+  ERROR: OwnershipError: weight(::Mine) in Main.M1 is a pirate: Main.M1 owns neither the function nor a type in each of its signatures, and the scope declares `no_pirates`
+CASE classic, in a trait module (no_pirates): OwnershipError
+  ERROR: OwnershipError: sum(::Vector{Int8}) in Main.M2 is a pirate: Main.M2 owns neither the function nor a type in each of its signatures, and the scope declares `no_pirates`
+CASE owner-only operation, @implement block in a trait module: OwnershipError
+  ERROR: OwnershipError: hidden_area(::Sq) in Main.M3 is a pirate: Main.M3 owns neither the function nor a type in each of its signatures, and the scope declares `no_pirates`
+CASE owner-only operation, method then @implement in a trait module: OwnershipError
+  ERROR: OwnershipError: hidden_area(::Sq2) in Main.M4 is a pirate: Main.M4 owns neither the function nor a type in each of its signatures, and the scope declares `no_pirates`
+CASE @owner_only declared and exported, a method in a trait module: OwnershipError
+  ERROR: OwnershipError: score(::Mine5) in Main.M5 is a pirate: Main.M5 owns neither the function nor a type in each of its signatures, and the scope declares `no_pirates`
+CASE @owner_only declared and exported, a method at the prompt: no error
+  WARN:  a pirate ended code compiled by facts that only a stakeholder's change or a pirate can end: `score(::Mine6)`, defined by Main in Main, which does not own the function: an owner-only function of Main.Own, whose methods are its owner's. It ended 1 instance: Main.Own.useit. It is followed, as plain Julia follows it: that code is compiled again. Define it where a type it is for is owned, or name the definer a joint owner (`@joint_owners`); strict mode (`TraitWorld.strict!()`) refuses such a definition; `TraitWorld.report_pirates!(false)` silences this report.
+CASE classic, a module at the prompt that ends code compiled by facts: no error
+  WARN:  a pirate ended code compiled by facts that only a stakeholder's change or a pirate can end: `abs2(::Float64)`, defined by Main.Meddler in Main.Meddler, which owns neither the function nor a type in it. It ended 1 instance: Main.Norms.sq. It is followed, as plain Julia follows it: that code is compiled again. Define it where a type it is for is owned, or name the definer a joint owner (`@joint_owners`); strict mode (`TraitWorld.strict!()`) refuses such a definition; `TraitWorld.report_pirates!(false)` silences this report.

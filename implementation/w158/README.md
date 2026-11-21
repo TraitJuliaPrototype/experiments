@@ -1022,3 +1022,119 @@ b22ab12a1f, `-b22ab12`):
   by the members alone would be unsound for a value the build did not count.
 - `x isa Dynamic` at a box's own type is not folded in inference (`positive_fold_blocked`: the answer is read as
   resting on a membership). Found, not changed; the default's method tests `Dynamic{<:X}`.
+
+## A function kept as itself: the result's check; the owner-only pirate's messages (W-158), 2026-11-21
+
+Two deviations the teaching's new examples met: compiler C-157 (`tutorial.jl` §14, `passes`) and traits T-160
+(§16, `Meddler4`). Julia `julia-next` dc11704ef7, read only; the library `wt/w158g-tw`, branch `w158l` from `unified`
+2d93199; the depot `agent-depots/w158l` before the shared one. One Julia job at a time, niced; load 1.6 to 4.9 of 128.
+Logs: `logs/l-*`; probes: `l-probes/`.
+
+**How to run** (after `source $W158/l-probes/env.sh`; from `$LIBL` where the library is used):
+```sh
+$JN --startup-file=no $W158/l-probes/min4.jl            # piece 1: which check raises, the loop form and `all`
+$JN --project=. $W158/l-probes/tutorial14.jl            # piece 1: the same, in the tutorial's own session
+[TW=1] [PATCH=1] $JN --project=. $W158/l-probes/hof_scan.jl   # piece 1: the pattern in 15 forms; exits 1 on a hole
+$JN --startup-file=no $W158/l-probes/diag6.jl            # piece 1: the source the JIT is given (trace_jit.jl)
+MODE=default|strict $JN --project=. $W158/l-probes/oo_messages.jl   # piece 2: every ownership message, both kinds
+```
+- `l-probes/patch_l.jl` lays the patch (`l-probes/patch/inlining.jl`, julia-next's file changed; the diff:
+  `l-probes/patch-l.diff`) over the session's compiler with `cc_patch`, then `Compiler.activate_codegen!()`: the
+  runtime infers in the latest world from there, so the code compiled after it uses the patch.
+- `l-probes/trace_jit.jl` lays a copy of `add_codeinsts_to_jit!` that keeps the source handed to the JIT for the
+  methods named (`TRACE_NAMES`); `diag7.jl` emits LLVM from it, `diag8.jl` disassembles the code that ran.
+
+### 1. Compiler C-157: the check is made in every order; the hole is a call that passes the function on
+
+**What C-157 records is Julia's printing.** `passes(Callable{Tuple{Float64}, Bool}[x -> 1], 2.0)` raises
+`TypeError(:typeassert, "", Bool, 1)` in a fresh session with no library, before and after the `all` form
+(`min4.jl`, `logs/l-min4.log`), in a trait module with the library (`hof_scan.jl` with `TW=1`, the loop forms), and
+in the tutorial's own session after §1–§14 (`tutorial14.jl`, `logs/l-tutorial14.log`). Julia prints every `TypeError` whose expected type is `Bool` as "non-boolean (Int64) used
+in boolean context", whatever its `func` (`base/errorshow.jl` 80–81, vanilla's code): plain `1::Bool` and a box's
+`TypeError(:Callable, …)` print the same. The JIT is given the source with the assertion
+(`Core.typeassert(%39, Bool)`, `trace_jit.jl`), its LLVM has `ijl_type_error` with the `typeassert` string
+(`diag7.jl`, `logs/l-diag7.log`), and the machine code that runs tests the result's type tag against `Bool` and calls
+`ijl_type_error` (`diag8.jl`, `logs/l-diag8.log`). No order
+was found in which the check is not made; nothing to bisect.
+
+**The hole the probes found instead** (`hof_scan.jl`; `logs/l-hof_scan-tw{0,1}-patch0.log`): an element passed on to a
+function compiled for the function's own type. `all(t -> t(x), tests)` returns `true` for `x -> 1`, and
+`map(t -> t(x), Callable{Tuple{Float64}, Float64}[x -> 1])` returns `[5.0e-324]`: the `Int` 1's bits read as a
+`Float64`. 10 of 15 forms, the same with plain `Core.Callable` at `Main` and in a trait module with the library:
+
+| form | julia-next dc11704ef7 | with the patch |
+|---|---|---|
+| a loop `t(x) && …`, `s += t(x)`, `v[1](x)` | checked (`typeassert`) | checked |
+| `count(t -> t(x), v)` | checked (Base's own `::Bool`) | checked |
+| `all`, `any`, `filter`, `findfirst` at `t -> t(x)` | **wrong answer** (`true`, `true`, the element kept, `1`) | checked |
+| `map`, `sum`, a generator's `sum`, a comprehension at `t(x)`, `Float64` declared | **bits read as `Float64`** (`5.0e-324`) | checked |
+| `apply1(v[1], x) ? … : …`, `apply1(v[1], x) + 0.5` (`apply1(t, x) = t(x)`) | **wrong answer** (`"yes"`, `0.5`) | checked |
+| `foldl((a, t) -> a + t(x), v; init = 0.0)` | the function's own result (`1.0`): no type trusted | the same |
+
+- **The cause** (`diag9.jl`, `diag10.jl`). The closure's call `f(t)` in `Base._all` has `t` typed
+  `Callable{Tuple{Float64}, Bool}`; inference infers the closure at that type, where `t(x)` is asserted to `Bool`
+  (compiler §7.4), and takes `Bool`. The inliner leaves the call to dispatch, as plain Julia does for an argument of
+  an abstract type (vanilla v1.13.2 the same at `Vector{Function}`). Dispatch runs the closure compiled for the
+  function's own type, `typeof(x -> 1)`, where `t(x)` is the function's own call and returns `1`; the caller's code
+  reads it as the `Bool` it inferred.
+- **The pattern:** inference is not monotone at a declared result whose members' own code is not checked against
+  it. Plain Julia's inference at an abstract argument bounds every instance dispatch may run; with `Callable`'s `S`
+  it does not, since a function joins every `Callable{A, S}` without a check of its results (traits §9). For a set
+  with checked members a member's own method infers within the declared result (traits §5.10), so the same call is
+  sound there; for `IO` the declared results are `Any`. The same rule as compiler §7.1's "a const result taken for
+  its effects joins its type": compiled code never takes a value its call's type excludes.
+- **The fix at the rule** (`l-probes/patch-l.diff`, `Compiler/src/ssair/inlining.jl`, 63 lines added, 1 removed):
+  a call the inliner leaves to dispatch, with an argument whose type is, or holds as a union's component or a
+  tuple's element, a `Callable{A, S}` (or an intersection of such) that declares `S`, is asserted to its inferred
+  type where it returns (`handle_dispatched_result!`, by `handle_declared_result!`), at both places a call stays
+  dynamic (`handle_call!` with no case, `handle_cases!` with none). Not covered: a union split's fallback, and a call
+  whose inferred type is a constant used by inference before the inliner.
+- **The test, before and after** (`hof_scan.jl` exits 1 on a hole): 10 holes, exit 1, without the patch; 0 holes,
+  exit 0, with it, at `Main` and in a trait module (`logs/l-hof_scan-tw{0,1}-patch{0,1}.log`). Under the patch the
+  library's suite passes, 111 testsets (`logs/l-library-3ba84fc-patch.log`), and the three documentation scripts as
+  without it (`logs/l-docs-*-3ba84fc-patch.log`). Not run under the patch: the gates (each runs its own process).
+
+**The message.** The box raises `TypeError(:Callable, ctx, S, r)` (`src/callable.jl` 36, 54), "in Callable, expected
+Float64, got a value of type Int64", and for `S === Nothing` the context "end the function with `nothing`"
+(traits §9). The compiler's check at a function kept as itself is `Core.typeassert` (inlining.jl
+`handle_callable_call!`, `handle_declared_result!`): "in typeassert, expected Float64, …", and no `nothing` hint.
+The same message needs the inserted check to raise the box's error: a test `Core.isa(r, S)` and, on its failing
+branch, a call of a function in `Core` that throws `TypeError(:Callable, ctx, S, r)`, then `π(r, S)`. A plain call
+of such a function in place of `typeassert` would be a dynamic call per call of the function; the branch needs the
+inliner to split the block, as its union split does. Not built. For `S === Bool` no form names `Bool`: Julia's
+printing (above).
+
+### 2. Traits T-160: the owner-only pirate's messages (TraitWorld 3ba84fc)
+
+Every message of ownership and strict mode, for the two kinds of pirate (`oo_messages.jl`; before
+`logs/l-oo_messages-before-{default,strict}.log` on 2d93199, after `logs/l-oo_messages-after-*.log` on 3ba84fc):
+
+| message | kind | 2d93199 | 3ba84fc |
+|---|---|---|---|
+| `OwnershipError` (`no_pirates`, `_check_pirate`) | owner-only (by default, by `@owner_only`, a trait's unexported operation) | wrong: "owns neither the function nor a type in each of its signatures" | the function, why it is owner-only, its owner, only the owner adds methods; what the owner writes (`public` or export; not `@owner_only`; a joint owner), or a function of your own |
+| `OwnershipError` (`no_pirates`) | classic | right, without the owners | names the owners of the function and of the types, and who defines it |
+| `PirateError` (strict mode) | owner-only | half: "does not own the function, an owner-only function of …", then "Define it where a type it is for is owned" (wrong); the method printed `weight(Heavy)` | the same text as `OwnershipError`'s; `weight(::Heavy)` |
+| `PirateError` (strict mode) | classic | right; `abs2(Float64)` | right; `abs2(::Float64)` |
+| the pirate's report (a warning) | owner-only | half: the reason right, "Define it where a type it is for is owned" (wrong) | the reason with why it is owner-only; the owner's text |
+| the pirate's report | classic | right | unchanged |
+| membership messages (`OwnershipError`, `PirateError`, the report, `delete_membership`) | classic only: a trait is no owner-only function | right | unchanged |
+
+- **Side finding:** a trait module's trait whose operation it does not export is closed to other modules' members:
+  `@implement OShape Sq begin oarea(q) = … end` in another trait module is refused as a pirate (the operation is
+  owner-only). The message now says what the owner writes.
+- The library's test `test/owner_only.jl`, testset "the messages at an owner-only function's pirate": 20 checks;
+  on 2d93199's `src` 14 fail (`logs/l-owner_only-test-before-2d93199.log`).
+- The messages' tool (`messages/cases.jl`, seven cases added: owner-only in a trait module, by `@owner_only`, a
+  trait's unexported operation in a block, the classic one, at the prompt reported, and in strict mode for both
+  owner-only forms): 143 distinct messages, every form 0 (`logs/l-messages-after-scan.txt`). The scan does not
+  catch a signature printed without `::` (`weight(Heavy)`, found by reading).
+- `docs-examples/tutorial.jl` §16: the deviation T-160 is a check.
+
+### The checks, TraitWorld 3ba84fc
+
+| check | result |
+|---|---|
+| the library (`-e 'using TraitWorld; include("test/runtests.jl")'`) | 111 testsets, no failure, 28 s (`logs/l-library-3ba84fc.log`) |
+| the documentation's examples | intro 33 pass; tutorial 123 pass, 1 deviation (compiler C-157); strict 10 pass (`logs/l-docs-*-3ba84fc.log`) |
+| the gates (`LIB=wt/w158g-tw run_all.sh julia-next`) | 73 of 73, stage gates 9 of 9 (`logs/l-gates-3ba84fc.log`) |
+| the messages' tool | 143 distinct messages; tuple type, generated name, compiler object, library internal: 0 (`logs/l-messages-after-*`) |

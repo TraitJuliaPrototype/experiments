@@ -1,0 +1,19 @@
+cc_patch: 5 definitions from inlining.jl
+TW=true PATCH=1
+loop: t(x) && …               checked (typeassert, expected Bool, got 1)
+loop: s += t(x)               checked (typeassert, expected Float64, got 1)
+v[1](x)                       checked (typeassert, expected Float64, got 1)
+all(t -> t(x), v)             checked (typeassert, expected Bool, got 1)
+any(t -> t(x), v)             checked (typeassert, expected Bool, got 1)
+count(t -> t(x), v)           checked (typeassert, expected Bool, got 1)
+filter(t -> t(x), v)          checked (typeassert, expected Bool, got 1)
+findfirst(t -> t(x), v)       checked (typeassert, expected Bool, got 1)
+map(t -> t(x), v)             checked (typeassert, expected Float64, got 1)
+sum(t -> t(x), v)             checked (typeassert, expected Float64, got 1)
+foldl((a, t) -> a + t(x))     own (1.0)
+sum(t(x) for t in v)          checked (typeassert, expected Float64, got 1)
+[t(x) for t in v]             checked (typeassert, expected Float64, got 1)
+apply1(v[1], x) ? … : …       checked (typeassert, expected Bool, got 1)
+apply1(v[1], x) + 0.5         checked (typeassert, expected Float64, got 1)
+
+0 holes in 15 forms

@@ -1,0 +1,18 @@
+TW=false PATCH=
+loop: t(x) && …               checked (typeassert, expected Bool, got 1)
+loop: s += t(x)               checked (typeassert, expected Float64, got 1)
+v[1](x)                       checked (typeassert, expected Float64, got 1)
+all(t -> t(x), v)             HOLE (true)
+any(t -> t(x), v)             HOLE (true)
+count(t -> t(x), v)           checked (typeassert, expected Bool, got 1)
+filter(t -> t(x), v)          HOLE (Callable{Tuple{Float64}, Bool}[var"#vb##0#vb##1"()])
+findfirst(t -> t(x), v)       HOLE (1)
+map(t -> t(x), v)             HOLE ([5.0e-324])
+sum(t -> t(x), v)             HOLE (5.0e-324)
+foldl((a, t) -> a + t(x))     own (1.0)
+sum(t(x) for t in v)          HOLE (5.0e-324)
+[t(x) for t in v]             HOLE ([5.0e-324])
+apply1(v[1], x) ? … : …       HOLE ("yes")
+apply1(v[1], x) + 0.5         HOLE (0.5)
+
+10 holes in 15 forms
