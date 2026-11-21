@@ -1,0 +1,24 @@
+# W-158 f-apps before-d8f65ef 2026-11-21T21:25:08+01:00 load 5.17 4.16 5.69 | julia-next d8f65ef1ea library wt/w158b-tw 3c2dc6b
+f-free | errors 2 | binary - bytes, exit - | output equal: -
+    session: handed 10.0
+    session: held 1
+f-bare | errors 16 | binary - bytes, exit - | output equal: -
+    session: each 4.0 4.0 2.0 sum 10.0
+f-union | errors 6 | binary - bytes, exit - | output equal: -
+    session: union 27.0
+f-result | errors 0 | binary 2156640 bytes, exit 1 | output equal: no
+    session: result 3.0
+    binary:  fatal: error thrown and no exception handler available.
+    binary:  Core.MethodError(f=Main.var"#solvewith"(), args=(Main.LUish{Core.Float64}(d=2.0000000000000000), 6.0000000000000000), world=0x000000000000a745)
+    binary:  jl_method_error_bare at /p/projects/coen/julia-trait-bound/julia-next/src/gf.c:5056
+    binary:  jl_method_error at /p/projects/coen/julia-trait-bound/julia-next/src/gf.c:5074
+    binary:  jl_f_throw_methoderror at /p/projects/coen/julia-trait-bound/julia-next/src/builtins.c:616 [inlined]
+    binary:  jl_f_throw_methoderror at /p/projects/coen/julia-trait-bound/julia-next/src/builtins.c:612
+f-gap | errors 0 | binary 2190064 bytes, exit 0 | output equal: yes
+    session: gap 6.0
+# load after 3.56 3.90 5.45
+# W-158 f-apps before-d8f65ef 2026-11-21T21:27:16+01:00 load 5.48 4.32 5.54 | julia-next d8f65ef1ea library wt/w158b-tw 3c2dc6b
+f-gapfn | errors 0 | binary 2187320 bytes, exit 0 | output equal: no
+    session: gap 6.0
+    binary:  gap 4.0
+# load after 8.27 5.12 5.78

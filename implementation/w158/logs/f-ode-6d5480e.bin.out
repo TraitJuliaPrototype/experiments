@@ -1,0 +1,25 @@
+lorenz -8.02113
+fatal: error thrown and no exception handler available.
+Core.MethodError(f=LinearAlgebra.var"#ldiv!"(), args=(Array{Core.Float64, 1}(dims=(3,), mem=Memory{Core.Float64}(3, 0x7fddedc5b2f0)[0.0000000000000000, 0.0000000000000000, 0.0000000000000000]), LinearAlgebra.LU{Core.Float64, Core.Array{Core.Float64, 2}, Core.Array{Core.Int64, 1}}(factors=Array{Core.Float64, 2}(dims=(3, 3), mem=Memory{Core.Float64}(9, 0x7fddedcd88c0)[-2126.4600078680351, -1.8810605349735008e-05, -0.0000000000000000, 0.0000000000000000, -2126.4200078680351, -0.0000000000000000, 0.0000000000000000, 0.0000000000000000, -2126.4200078680351]), ipiv=Array{Core.Int64, 1}(dims=(3,), mem=Memory{Core.Int64}(3, 0x7fddedc5b6b0)[1, 2, 3]), info=0), Array{Core.Float64, 1}(dims=(3,), mem=Memory{Core.Float64}(3, 0x7fddedc5b5f0)[-0.040000000000000001, 0.040000000000000001, 0.0000000000000000])), world=0x0000000000009ba1)
+jl_method_error_bare at /p/projects/coen/julia-trait-bound/wt/w158-julia/src/gf.c:5056
+jl_method_error at /p/projects/coen/julia-trait-bound/wt/w158-julia/src/gf.c:5074
+jl_f_throw_methoderror at /p/projects/coen/julia-trait-bound/wt/w158-julia/src/builtins.c:616 [inlined]
+jl_f_throw_methoderror at /p/projects/coen/julia-trait-bound/wt/w158-julia/src/builtins.c:612
+rodas5_step! at /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/TraitRodas/src/rodas5.jl:206
+rodas5_advance! at /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/TraitRodas/src/rodas5.jl:376
+advance!; at /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/TraitRodas/src/rodas5.jl:185 [inlined]
+run_to_end!; at /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/ODECore/src/core.jl:969 [inlined]
+_rodas5_run; at /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/TraitRodas/src/rodas5.jl:299 [inlined]
+rodas5_solve; at /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/TraitRodas/src/rodas5.jl:297 [inlined]
+solve_core; at /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/TraitRodas/src/rodas5.jl:264 [inlined]
+solve_ode at /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/ODECore/src/core.jl:1282
+solve_ode; at /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/ODECore/src/core.jl:1274 [inlined]
+_solve; at /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/src/TraitDifferentialEquations.jl:59 [inlined]
+#solve#2; at /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/src/TraitDifferentialEquations.jl:55 [inlined]
+solve; at /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/src/TraitDifferentialEquations.jl:55 [inlined]
+main at /p/projects/coen/julia-trait-bound/experiments/implementation/w135/apps/ode.jl:32
+_main at /p/projects/coen/julia-trait-bound/wt/w158-julia/test/trimming/juliac-buildscript.jl:35
+main at /tmp/tmp.ctH3qiAFaz/w166c-f-ode-6d5480e (unknown line)
+__libc_start_call_main at /lib64/libc.so.6 (unknown line)
+__libc_start_main at /lib64/libc.so.6 (unknown line)
+_start at /tmp/tmp.ctH3qiAFaz/w166c-f-ode-6d5480e (unknown line)

@@ -1,0 +1,14 @@
+lorenz -8.02113
+robertson 0.0178659
+cc_patch: 0 definitions from abstractinterpretation.jl
+cc_patch: 1 definitions from typeinfer.jl
+check: 0 errors, 0 calls that only raise, 4 rounds, 9.0 s
+  ODECore.StepEvent{Vector{Float64}, Float64}: 1 members: ODECore.ParamEvent{Vector{Float64}, Float64, Vector{Float64}}
+  All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}: 2 members: ODECore.PartialFn{typeof(lorenz!), Vector{Float64}}, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}
+  EventCallback{Vector{Float64}, Float64, Vector{Float64}}: 0 members: 
+  ODECore.StepView{Vector{Float64}, Float64}: 2 members: ODECore.Tsit5Integrator{Float64, ODECore.CoreProblem{Float64, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}}, TraitRodas.Rodas5Integrator{Nothing, ODECore.CoreProblem{Float64, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}}
+  Solvable{Float64}: 0 members: 
+  Callable{Tuple{Vector{Float64}, Vector{Float64}, Vector{Float64}, Float64}, Nothing}: 2 members: typeof(lorenz!), typeof(robertson!)
+  ODECore.StepCallback{Vector{Float64}, Float64}: 1 members: ODECore.ParamCallback{Vector{Float64}, Float64, Vector{Float64}}
+  Callback{Vector{Float64}, Float64, Vector{Float64}}: 0 members: 
+  LinearSolver: 1 members: DenseLU

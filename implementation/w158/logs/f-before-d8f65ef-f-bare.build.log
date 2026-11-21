@@ -1,0 +1,249 @@
+# W-166 /p/projects/coen/julia-trait-bound/experiments/implementation/w158/apps/f-bare.jl 2026-11-21T21:25:32+01:00 load 4.47 4.07 5.63 | julia-next d8f65ef1ea TraitWorld 82959cf trim=safe
+Error #1: unresolved call from statement getindex(
+  each((…)::Vector{Callable}, (…)::Float64)::Vector,
+  1::Int64
+)::Any
+
+Stacktrace:
+ [1] _iterate_abstractarray(A::Vector, state::Int64)
+   @ Base abstractarray.jl:1255 [inlined]
+ [2] iterate(A::Vector, state::Int64)
+   @ Base abstractarray.jl:1247 [inlined]
+ [3] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/implementation/w158/apps/f-bare.jl:16
+ [4] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-next/test/trimming/juliac-buildscript.jl:35
+
+Error #2: unresolved call from statement print(
+  Core.CoreSTDOUT()::Core.CoreSTDOUT,
+  " "::String,
+  :(φ (%84 => %79, %105 => %99))::Any
+)::Any
+
+Stacktrace:
+ [1] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/implementation/w158/apps/f-bare.jl:17
+ [2] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-next/test/trimming/juliac-buildscript.jl:35
+
+Error #3: unresolved call from statement getindex(
+  each((…)::Vector{Callable}, (…)::Float64)::Vector,
+  :(φ (%84 => %80, %105 => %100))::Int64
+)::Any
+
+Stacktrace:
+ [1] _iterate_abstractarray(A::Vector, state::Int64)
+   @ Base abstractarray.jl:1255 [inlined]
+ [2] iterate(A::Vector, state::Int64)
+   @ Base abstractarray.jl:1247 [inlined]
+ [3] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/implementation/w158/apps/f-bare.jl:18
+ [4] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-next/test/trimming/juliac-buildscript.jl:35
+
+Error #4: unresolved call from statement sum(
+  each((…)::Vector{Callable}, (…)::Float64)::Vector
+)::Any
+
+Stacktrace:
+ [1] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/implementation/w158/apps/f-bare.jl:19
+ [2] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-next/test/trimming/juliac-buildscript.jl:35
+
+Error #5: unresolved call from statement println(
+  Core.CoreSTDOUT()::Core.CoreSTDOUT,
+  " sum "::String,
+  sum(
+    each((…)::Vector{Callable}, (…)::Float64)::Vector
+  )::Any
+)::Any
+
+Stacktrace:
+ [1] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/implementation/w158/apps/f-bare.jl:19
+ [2] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-next/test/trimming/juliac-buildscript.jl:35
+
+Error #6: unresolved call from statement _array_for_inner(
+  typeof(
+    :(φ (%50 => %49))::Any
+  )::DataType,
+  Base.HasShape{1}()::Base.HasShape{1},
+  (…)::Tuple{Base.OneTo{Int64}}
+)::Vector
+
+Stacktrace:
+ [1] collect(itr::Base.Generator{Vector{Callable}, var"#each##0#each##1"{Float64}})
+   @ Base array.jl:833
+ [2] each(fs::Vector{Callable}, x::Float64)
+   @ Main /p/projects/coen/julia-trait-bound/experiments/implementation/w158/apps/f-bare.jl:11
+ [3] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/implementation/w158/apps/f-bare.jl:14
+ [4] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-next/test/trimming/juliac-buildscript.jl:35
+
+Error #7: unresolved call from statement collect_to_with_first!(
+  _array_for_inner(
+    typeof(
+      :(φ (%50 => %49))::Any
+    )::DataType,
+    Base.HasShape{1}()::Base.HasShape{1},
+    (…)::Tuple{Base.OneTo{Int64}}
+  )::Vector,
+  :(φ (%50 => %49))::Any,
+  itr::Base.Generator{Vector{Callable}, var"#each##0#each##1"{Float64}},
+  :(φ (%39 => %38))::Int64
+)::Vector
+
+Stacktrace:
+ [1] collect(itr::Base.Generator{Vector{Callable}, var"#each##0#each##1"{Float64}})
+   @ Base array.jl:838
+ [2] each(fs::Vector{Callable}, x::Float64)
+   @ Main /p/projects/coen/julia-trait-bound/experiments/implementation/w158/apps/f-bare.jl:11
+ [3] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/implementation/w158/apps/f-bare.jl:14
+ [4] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-next/test/trimming/juliac-buildscript.jl:35
+
+Error #8: unresolved call from statement (f::Callable)((…)::Float64)::Any
+
+Stacktrace:
+ [1] (::var"#each##0#each##1"{Float64})(f::Callable)
+   @ Main none:0
+ [2] iterate(::Base.Generator{Vector{Callable}, var"#each##0#each##1"{Float64}})
+   @ Base generator.jl:48 [inlined]
+ [3] collect(itr::Base.Generator{Vector{Callable}, var"#each##0#each##1"{Float64}})
+   @ Base array.jl:828
+ [4] each(fs::Vector{Callable}, x::Float64)
+   @ Main /p/projects/coen/julia-trait-bound/experiments/implementation/w158/apps/f-bare.jl:11
+ [5] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/implementation/w158/apps/f-bare.jl:14
+ [6] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-next/test/trimming/juliac-buildscript.jl:35
+
+Error #9: unresolved call from statement getindex(
+  each((…)::Vector{Callable}, (…)::Float64)::Vector,
+  1::Int64
+)::Any
+
+Stacktrace:
+ [1] _iterate_abstractarray(A::Vector, state::Int64)
+   @ Base abstractarray.jl:1255 [inlined]
+ [2] iterate(A::Vector, state::Int64)
+   @ Base abstractarray.jl:1247 [inlined]
+ [3] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/implementation/w158/apps/f-bare.jl:16
+ [4] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-next/test/trimming/juliac-buildscript.jl:35
+
+Error #10: unresolved call from statement print(
+  Core.CoreSTDOUT()::Core.CoreSTDOUT,
+  " "::String,
+  :(φ (%84 => %79, %105 => %99))::Any
+)::Any
+
+Stacktrace:
+ [1] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/implementation/w158/apps/f-bare.jl:17
+ [2] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-next/test/trimming/juliac-buildscript.jl:35
+
+Error #11: unresolved call from statement getindex(
+  each((…)::Vector{Callable}, (…)::Float64)::Vector,
+  :(φ (%84 => %80, %105 => %100))::Int64
+)::Any
+
+Stacktrace:
+ [1] _iterate_abstractarray(A::Vector, state::Int64)
+   @ Base abstractarray.jl:1255 [inlined]
+ [2] iterate(A::Vector, state::Int64)
+   @ Base abstractarray.jl:1247 [inlined]
+ [3] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/implementation/w158/apps/f-bare.jl:18
+ [4] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-next/test/trimming/juliac-buildscript.jl:35
+
+Error #12: unresolved call from statement sum(
+  each((…)::Vector{Callable}, (…)::Float64)::Vector
+)::Any
+
+Stacktrace:
+ [1] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/implementation/w158/apps/f-bare.jl:19
+ [2] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-next/test/trimming/juliac-buildscript.jl:35
+
+Error #13: unresolved call from statement println(
+  Core.CoreSTDOUT()::Core.CoreSTDOUT,
+  " sum "::String,
+  sum(
+    each((…)::Vector{Callable}, (…)::Float64)::Vector
+  )::Any
+)::Any
+
+Stacktrace:
+ [1] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/implementation/w158/apps/f-bare.jl:19
+ [2] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-next/test/trimming/juliac-buildscript.jl:35
+
+Error #14: unresolved call from statement _array_for_inner(
+  typeof(
+    :(φ (%50 => %49))::Any
+  )::DataType,
+  Base.HasShape{1}()::Base.HasShape{1},
+  (…)::Tuple{Base.OneTo{Int64}}
+)::Vector
+
+Stacktrace:
+ [1] collect(itr::Base.Generator{Vector{Callable}, var"#each##0#each##1"{Float64}})
+   @ Base array.jl:833
+ [2] each(fs::Vector{Callable}, x::Float64)
+   @ Main /p/projects/coen/julia-trait-bound/experiments/implementation/w158/apps/f-bare.jl:11
+ [3] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/implementation/w158/apps/f-bare.jl:14
+ [4] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-next/test/trimming/juliac-buildscript.jl:35
+
+Error #15: unresolved call from statement collect_to_with_first!(
+  _array_for_inner(
+    typeof(
+      :(φ (%50 => %49))::Any
+    )::DataType,
+    Base.HasShape{1}()::Base.HasShape{1},
+    (…)::Tuple{Base.OneTo{Int64}}
+  )::Vector,
+  :(φ (%50 => %49))::Any,
+  itr::Base.Generator{Vector{Callable}, var"#each##0#each##1"{Float64}},
+  :(φ (%39 => %38))::Int64
+)::Vector
+
+Stacktrace:
+ [1] collect(itr::Base.Generator{Vector{Callable}, var"#each##0#each##1"{Float64}})
+   @ Base array.jl:838
+ [2] each(fs::Vector{Callable}, x::Float64)
+   @ Main /p/projects/coen/julia-trait-bound/experiments/implementation/w158/apps/f-bare.jl:11
+ [3] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/implementation/w158/apps/f-bare.jl:14
+ [4] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-next/test/trimming/juliac-buildscript.jl:35
+
+Error #16: unresolved call from statement (f::Callable)((…)::Float64)::Any
+
+Stacktrace:
+ [1] (::var"#each##0#each##1"{Float64})(f::Callable)
+   @ Main none:0
+ [2] iterate(::Base.Generator{Vector{Callable}, var"#each##0#each##1"{Float64}})
+   @ Base generator.jl:48 [inlined]
+ [3] collect(itr::Base.Generator{Vector{Callable}, var"#each##0#each##1"{Float64}})
+   @ Base array.jl:828
+ [4] each(fs::Vector{Callable}, x::Float64)
+   @ Main /p/projects/coen/julia-trait-bound/experiments/implementation/w158/apps/f-bare.jl:11
+ [5] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/implementation/w158/apps/f-bare.jl:14
+ [6] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-next/test/trimming/juliac-buildscript.jl:35
+
+Trim verify finished with 16 errors, 0 warnings.
+object: exit 1

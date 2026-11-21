@@ -1,0 +1,54 @@
+cc_patch: 9 definitions from abstractinterpretation.jl
+ERROR: LoadError: Some tests did not pass: 1 passed, 1 failed, 0 errored, 0 broken.
+in expression starting at /p/projects/coen/julia-trait-bound/wt/w158b-tw/test/verify.jl:482
+in expression starting at /p/projects/coen/julia-trait-bound/experiments/implementation/w158/f-probes/verify.jl:4
+Test Summary: | Pass  Total  Time
+verify_main   |    7      7  9.0s
+Test Summary:                      | Pass  Total  Time
+verify_main: the wrapper's members |    7      7  0.3s
+Test Summary:                             | Pass  Total  Time
+verify_main: the wrappers of five members |    4      4  0.2s
+Test Summary:                                | Pass  Total  Time
+verify_main: a value known only by its trait |    3      3  0.0s
+Test Summary:                           | Pass  Total  Time
+verify_main: entry points and the bound |    4      4  0.1s
+Test Summary:                    | Pass  Total  Time
+verify_main: withfields on a box |    4      4  0.3s
+Test Summary:                                     | Pass  Total  Time
+verify_main: the member's type chooses the method |    4      4  0.2s
+Test Summary:                                                      | Pass  Total  Time
+closed check: the members by the types that flow to a set instance |   12     12  0.8s
+Test Summary:                                 | Pass  Total  Time
+closed check: the kept form by use; no member |    7      7  0.3s
+Test Summary:                                                    | Pass  Total  Time
+closed check: the call of a function known only by its signature |    7      7  0.3s
+Test Summary:                                  | Pass  Total  Time
+closed check: a constant's fields hold members |    5      5  0.1s
+Test Summary:                                                          | Pass  Total  Time
+closed check: two arguments where the member's type chooses the method |    3      3  0.0s
+Test Summary:                                | Pass  Total  Time
+the box's forwarding method reads its object |    3      3  0.0s
+Test Summary:                                                                          | Pass  Total  Time
+closed check: a member of every instance is a member by use; the call of bare Callable |    7      7  0.2s
+Test Summary:                                                               | Pass  Total  Time
+closed check: a method at a union of records is chosen by the member's type |    2      2  0.0s
+Test Summary:                           | Pass  Total  Time
+a default's method reads a box's object |    5      5  0.1s
+Test Summary:                                                             | Pass  Total  Time
+closed check: an operation's results are forgotten at its declared result |    3      3  0.0s
+
+closed check: a declared field written at a box: Test Failed at /p/projects/coen/julia-trait-bound/wt/w158b-tw/test/verify.jl:484
+  Expression: r.errors == 0
+   Evaluated: 5 == 0
+  Stacktrace:
+   [1] top-level scope
+     @ /p/projects/coen/julia-trait-bound/wt/w158b-tw/test/verify.jl:483
+   [2] macro expansion
+     @ /p/projects/coen/julia-trait-bound/wt/w158-julia/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:1967 [inlined]
+   [3] macro expansion
+     @ /p/projects/coen/julia-trait-bound/wt/w158b-tw/test/verify.jl:484 [inlined]
+   [4] macro expansion
+     @ /p/projects/coen/julia-trait-bound/wt/w158-julia/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:758 [inlined]
+Test Summary:                                   | Pass  Fail  Total  Time
+closed check: a declared field written at a box |    1     1      2  1.4s
+RNG of the outermost testset: Random.Xoshiro(0x43284ca3ecb0436c, 0x42088c26e4e11122, 0x6467799271e9f248, 0xaa9f07d096aaa5a2, 0xa9a087a8f38fb9a8)

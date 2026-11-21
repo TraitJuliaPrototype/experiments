@@ -1,0 +1,47 @@
+# W-158 f-apps dc11704 2026-11-21T21:56:07+01:00 load 2.29 3.08 4.03 | wt/w158-julia dc11704ef7 library wt/w158b-tw 3c2dc6b
+f-free | errors 0 | binary 2162976 bytes, exit 0 | output equal: yes
+    session: handed 10.0
+    session: held 1
+f-bare | errors 0 | binary 2174976 bytes, exit 0 | output equal: yes
+    session: each 4.0 4.0 2.0 sum 10.0
+f-union | errors 0 | binary 2151240 bytes, exit 0 | output equal: yes
+    session: union 27.0
+f-gap | errors 0 | binary 2188992 bytes, exit 1 | output equal: no
+    session: gap 6.0
+    binary:  fatal: error thrown and no exception handler available.
+    binary:  Core.MethodError(f=Main.var"#use"(), args=(Main.Get(k=3.0000000000000000), 2.0000000000000000), world=0x000000000000a73e)
+    binary:  jl_method_error_bare at /p/projects/coen/julia-trait-bound/wt/w158-julia/src/gf.c:5056
+    binary:  jl_method_error at /p/projects/coen/julia-trait-bound/wt/w158-julia/src/gf.c:5074
+    binary:  jl_f_throw_methoderror at /p/projects/coen/julia-trait-bound/wt/w158-julia/src/builtins.c:616 [inlined]
+    binary:  jl_f_throw_methoderror at /p/projects/coen/julia-trait-bound/wt/w158-julia/src/builtins.c:612
+e-boxcall | errors 0 | binary 2172088 bytes, exit 0 | output equal: yes
+    session: two signatures 12.0
+    session: one signature 7.0
+    session: nospecialize 6.0
+e-ctor2 | errors 0 | binary 2160480 bytes, exit 0 | output equal: yes
+    session: picked 12.0
+    session: fixed 12.0
+e-twochoice | errors 0 | binary 2066120 bytes, exit 0 | output equal: yes
+    session: pairs 10
+choice | errors 0 | binary 2171144 bytes, exit 0 | output equal: yes
+    session: square 1 4.0
+    session: a shape 2 3.0
+    session: a shape 1 3.0
+flow | errors 0 | binary 2196112 bytes, exit 0 | output equal: yes
+    session: signatures 4.0 3 6
+    session: handed on 8.0
+    session: areas 7.0
+    session: no member 0
+# load after 3.42 3.15 3.88
+# W-158 f-apps dc11704 2026-11-21T21:59:25+01:00 load 2.77 3.02 3.82 | wt/w158-julia dc11704ef7 library wt/w158b-tw 3c2dc6b
+f-result | errors 0 | binary 2156184 bytes, exit 0 | output equal: yes
+    session: result 3.0
+f-gapfn | errors 0 | binary 2191448 bytes, exit 1 | output equal: no
+    session: gap 6.0
+    binary:  fatal: error thrown and no exception handler available.
+    binary:  Core.MethodError(f=Main.var"#use"(), args=(Main.var"#triple"(), 2.0000000000000000), world=0x000000000000a73a)
+    binary:  jl_method_error_bare at /p/projects/coen/julia-trait-bound/wt/w158-julia/src/gf.c:5056
+    binary:  jl_method_error at /p/projects/coen/julia-trait-bound/wt/w158-julia/src/gf.c:5074
+    binary:  jl_f_throw_methoderror at /p/projects/coen/julia-trait-bound/wt/w158-julia/src/builtins.c:616 [inlined]
+    binary:  jl_f_throw_methoderror at /p/projects/coen/julia-trait-bound/wt/w158-julia/src/builtins.c:612
+# load after 2.50 2.92 3.75

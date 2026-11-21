@@ -1,0 +1,31 @@
+# W-166 /p/projects/coen/julia-trait-bound/experiments/implementation/w158/apps/f-free.jl 2026-11-21T21:25:16+01:00 load 4.91 4.13 5.67 | julia-next d8f65ef1ea TraitWorld 82959cf trim=safe
+Error #1: unresolved call from statement (:(Base.memoryrefget(%17, :not_atomic, false))::Any)(x::Float64)::Any
+
+Stacktrace:
+ [1] (::Far)(x::Float64)
+   @ Main /p/projects/coen/julia-trait-bound/experiments/implementation/w158/apps/f-free.jl:9
+ [2] (::Dynamic{Callable{Tuple{Float64}, Float64}})(args::Float64)
+   @ TraitWorld /p/projects/coen/julia-trait-bound/wt/w158b-tw/src/callable.jl:35 [inlined]
+ [3] viabox(ds::Vector{Dynamic{Callable{Tuple{Float64}, Float64}}}, x::Float64)
+   @ Main /p/projects/coen/julia-trait-bound/experiments/implementation/w158/apps/f-free.jl:14
+ [4] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/implementation/w158/apps/f-free.jl:18
+ [5] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-next/test/trimming/juliac-buildscript.jl:35
+
+Error #2: unresolved call from statement (:(Base.memoryrefget(%17, :not_atomic, false))::Any)(x::Float64)::Any
+
+Stacktrace:
+ [1] (::Far)(x::Float64)
+   @ Main /p/projects/coen/julia-trait-bound/experiments/implementation/w158/apps/f-free.jl:9
+ [2] (::Dynamic{Callable{Tuple{Float64}, Float64}})(args::Float64)
+   @ TraitWorld /p/projects/coen/julia-trait-bound/wt/w158b-tw/src/callable.jl:35 [inlined]
+ [3] viabox(ds::Vector{Dynamic{Callable{Tuple{Float64}, Float64}}}, x::Float64)
+   @ Main /p/projects/coen/julia-trait-bound/experiments/implementation/w158/apps/f-free.jl:14
+ [4] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/implementation/w158/apps/f-free.jl:18
+ [5] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-next/test/trimming/juliac-buildscript.jl:35
+
+Trim verify finished with 2 errors, 0 warnings.
+object: exit 1

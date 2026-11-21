@@ -856,3 +856,169 @@ proposed (open issue 251).
 - `hasproperty` at a box is not folded (above): `propertynames(::Dynamic{X})` could be `:foldable` as
   `_dynamic_field_type` is; then the ODE adapter's guard is decided at compile time, and its one changed verdict goes.
   Not verified.
+
+## Fourth part: the ODE program through a build, 2026-11-21
+
+**The question** (E-510, continued; compiler C-155, C-152's rest, C-86; open issues 184, 247): with compiler §7.6's two
+sentences of C-155 built (a type that one entry makes a member of every instance is a member by use at each; the call
+of a function known only as bare `Callable` branches over its members by use), does the ODE program build with no
+error, run, and print a session's output; how far does the program with callbacks it knows get; why is a method at a
+`Union` of records not chosen by the member's type (open issue 247); do the session's check and the build count the
+same members? What would change the design: a rule that cannot serve the program, or a build that answers otherwise
+than the session.
+
+**How to run** (after `source env.sh` of this directory; `J=$TW_ROOT/wt/w158-julia/julia`):
+
+```sh
+bash f-probes/ode_build.sh <label>                         # the ODE program trimmed, VERIFY=1, the build's report; run, compare
+APP=apps/ode_cb bash f-probes/ode_build.sh <label>         # the program with callbacks it knows
+(cd f-probes && [APP=<file>] [PATCH=1] $J --project=../env_demo_d ode_members.jl)    # the build's check in the session
+(cd $TW_ROOT/wt/w158b-tw && [PATCH=1] $J --project=. $W158/f-probes/verify.jl)        # the library's test/verify.jl
+(cd $TW_ROOT/wt/w158b-tw && $J --project=. $W158/f-probes/box_default.jl)             # C-152: a default's method at a box
+(cd f-probes && [APP=<file>] SHOWCODE=<regex> $J --project=../env_demo_d ode_rounds.jl)   # the check's rounds, with code
+bash f-apps.sh <label> <tree> [app ...]                    # apps/f-*.jl and the parts before: session, trimmed, run, compare
+bash f-checks.sh <label> [tree] [step ...]                 # gates base library port tables makie builds small apps sessions
+```
+
+- `f-probes/patch_f.jl` lays this part's compiler change over a session of an older build (`PATCH=1`; `PATCH_NAMES`,
+  `PATCH_TYPEINFER` choose the definitions), as `e-probes/patch_e.jl` did for the third part.
+- `f-builds.sh` is `e-builds.sh` with its build logs here (`logs/w166c-f-<label>-<app>.*`). The project is `env_demo_d`
+  (the library at `wt/w158b-tw`) throughout.
+
+**What was built.** Julia `wt/w158-julia`, branch `w158` from `next` d8f65ef1ea (`Compiler/src`: 87 lines added, 11
+removed); the library `wt/w158b-tw`, branch `w158f` from `unified` 82959cf.
+
+| tree | commit | what |
+|---|---|---|
+| julia | 8d8994b5fc | a concrete entry that leaves the set's inputs free is a member by use at each instance (C-155); the call of a function known only as `Callable`, with no signature, branches over `Callable`'s members by use, its result the join of the branches' |
+| julia | 6d5480e347 | a method at a `Union` of records chooses by the member's type (open issue 247): `closed_choice_bits` read a method's type only where it was a struct, a family or a kept form; a `Union` was skipped |
+| julia | b22ab12a1f | an operation's results are forgotten at its declared result (a soundness hole, below); the entry's freedom read at the set's input parameters |
+| julia | 2b94e4afd1 | a split by the member's type may raise past its branches: its effects are no longer nothrow (a soundness hole, below) |
+| julia | dc11704ef7 | the build's report lists each split's members of the set's type, as the check does |
+| library | 8d3d699, f30f5db | tests: `test/verify.jl`, five testsets (below) |
+| library | 9163b9c | a default's method at a trait calls the operation on a box's object as `getfield(d, :object)` (C-152's rest) |
+| library | 3c2dc6b | a box's write of a declared field folds its `@const` test at a constant name (a generated function of the name) |
+
+**The mechanisms.**
+- *A member of every instance by use* (`closed_entry_free`, `closed_candidates_in`): an entry in force whose member is a
+  concrete type and whose instance has a variable at one of the set's input parameters (`@implement Callable T`, the
+  instance `Callable{A, S} where {A, S}`) adds the type only where `closed_reaches` finds it forgotten at a place that
+  reaches the set type, as a family's member. On the demonstrators' modules three entries are of this kind,
+  TraitIndexing's getters (a walk over the modules `env_demo_d` loads, in a session; not kept).
+- *Bare `Callable`'s call* (`abstract_call_unknown`, `closed_callable_split` with `S === nothing`): where the function's
+  type is a `Callable` with no signature known (`callable_result` gives nothing), a closed build splits over the
+  members by use; the result is the join, nothing asserted; past the branches `MethodError`.
+- *Open issue 247, why:* `closed_choice_bits` tested `unwrap_unionall(p)` for a kept form or a non-abstract
+  `DataType`; `Union{NonlinearFunction, ODEFunction}` is a `Union`, so the argument was not marked as one where the
+  member's type chooses, and the call at the box's object (two matched methods) was left to dispatch.
+  `closed_choosing_type` reads a union by its components.
+- *C-152's rest:* the default's method reads `getfield(d, :object)` under `d isa Dynamic{<:X}` (`x isa Dynamic` at a
+  box's own type is not folded by inference: its positive answer is read as resting on a membership). Before, the
+  split at the object had a box branch that called the default's method at the box again
+  (`logs/f-box-default-before-82959cf.log`); after, no box branch and no instance of the default at the box
+  (`logs/f-box-default-w158f.log`).
+
+**Two soundness holes found, both G1** (the build answered otherwise than the session, with no error):
+1. *An operation's result inlined from a lone branch* (b22ab12a1f). `linfactor(ls, W)::Solvable{Float64}` at
+   `ls::LinearSolver` has one member, `DenseLU`; the optimizer inlines its branch, and its `LU` goes straight on to
+   `ldiv!`. No statement of the optimized code forgets it, so `Solvable{Float64}` had no member, and `ldiv!` was a
+   "no method" fact. On 6d5480e347 the ODE program built with 0 errors and its binary raised `MethodError: ldiv!(…,
+   ::LU, …)` at Robertson (`logs/w166c-f-ode-6d5480e.build.log`, `logs/f-ode-6d5480e.bin.out`); the build before
+   (d8f65ef1ea) had the same member list (`Solvable{Float64}: 0 members` since 8b35e4b77c) but did not get that far.
+   Rule: the branches' results are values forgotten at the declared result, noted where the split is inferred
+   (`closed_note_result!`). Test: `closed check: an operation's results are forgotten at its declared result`;
+   program `apps/f-result.jl` (julia-next: the binary raises; b22ab12a1f on: runs, equal).
+2. *A split's effects* (2b94e4afd1). `closed_member_split` gave the call the effects of its branches' call, inferred
+   at the union of the members, which is nothrow where each branch is: a call whose result folded to a constant was
+   dropped, and a value the build did not count got another member's answer. `apps/f-gapfn.jl`: `triple` reached
+   only as the 4,097th element of a constant, at `use(f::F, x)`, members `{double}`: the binary printed `gap 4.0`
+   (double's), the session `gap 6.0`, on julia-next d8f65ef1ea and on b22ab12a1f alike
+   (`logs/f-apps-before-d8f65ef.log`, `logs/f-apps-b22ab12.log`). The split is now not nothrow, its exception type
+   includes `MethodError`: the binary raises `MethodError` (`logs/f-apps-dc11704.log`).
+
+**C-86 and the new rule.** Members by use have C-86's gaps (a value no compiled code forgets: a foreign call,
+reflection, a constant past 4,096 elements or three levels). Before C-155 a concrete callable type declared by
+`@implement Callable T` was a member of every signature, so no gap reached it; now it is counted as a family's member,
+so the gaps reach it as they reached a plain function. `apps/f-gap.jl` (`Get`, reached as the 4,097th element of a
+constant) builds; with 2b94e4afd1 its binary raises `MethodError` where the session returns `gap 6.0` (G1: an error).
+
+**Results.** Julia `wt/w158-julia` 6d5480e347, b22ab12a1f, dc11704ef7 (each built in 778 to 779 s); control `julia-next`
+d8f65ef1ea. Library `wt/w158b-tw` `w158f` (3c2dc6b at the last two), TraitDifferentialEquations `unified` 3a1c4c3,
+project `env_demo_d`, depot `agent-depots/w158`. `--trim=safe`, `VERIFY=1` for the ODE programs, one thread, one Julia
+job at a time; load (1 min) 2 to 12 of 128.
+
+| | d8f65ef1ea | 6d5480e347 | b22ab12a1f | dc11704ef7 |
+|---|---|---|---|---|
+| the ODE program, trimmed (`logs/w166c-f-ode-<build>.build.log`) | 12 errors in 4 statements (`port/logs/w166c-w158p-main-d8f65ef.build.log`) | 0 errors, 4,279,752 bytes; the binary raises `MethodError` at Robertson (hole 1) | 0, 4,359,416 bytes; runs, output equal to a session's | 0, 4,368,176 bytes, 4 rounds; runs, output equal (`logs/f-ode-dc11704.{bin,session}.out`) |
+| the program with callbacks it knows (`apps/ode_cb`) | not built (36 on 8b35e4b77c) | 26 in 6 statements: 20 the records' constructors, 6 the box's `@const` test of a write | 20 in 4 statements (library 3c2dc6b) | 20 in 4 statements, 5 rounds (`logs/w166c-f-odecb-dc11704.build.log`) |
+| the ODE program's check in the session (`f-probes/ode_members.jl`) | 6 errors, 4 rounds, 8.4 s (`logs/f-ode-members-before-d8f65ef.log`) | 0, 4 rounds; `Solvable{Float64}` no member | | 0 errors, 4 rounds, 8.9 s (`logs/f-ode-members-dc11704.log`) |
+| `apps/f-free.jl`, `f-bare.jl`, `f-union.jl` | 2, 16, 6 errors (`logs/f-before-d8f65ef-*.build.log`) | | 0, 0, 0; run, equal | 0, 0, 0; run, equal (`logs/f-apps-dc11704.log`) |
+| `apps/f-result.jl` | 0 errors; the binary raises `MethodError` (hole 1) | | 0; runs, equal | 0; runs, equal |
+| `apps/f-gapfn.jl`, `f-gap.jl` (a value not counted) | 0, 0; `gapfn` prints double's answer (hole 2), `gap` runs (`Get` a member of every signature) | | 0, 0; both print double's answer (hole 2) | 0, 0; both raise `MethodError` (G1) |
+
+**The ODE program's members** (the build's report and the check, dc11704ef7, the same nine set types and the same
+members): the right-hand side's `Callable{Tuple{Vector{Float64} ×3, Float64}, Nothing}`: `lorenz!`, `robertson!` (2,
+was 5 with the three getters); the box's intersection `All{…}`: `PartialFn{typeof(lorenz!), …}`, `PartialFn{typeof
+(robertson!), …}` (2, was 8); `Solvable{Float64}`: `LU{Float64, Matrix{Float64}, Vector{Int64}}` (1, was 0);
+`LinearSolver`: `DenseLU`; `StepCallback`, `StepEvent`: one each; `StepView`: the two integrators; `Callback`,
+`EventCallback`: none. No split is made at bare `Callable`: C-152's "12 against 7" is gone with the getters' branch.
+
+**The program with callbacks: the 20 errors left,** 4 statements, each reached by `solve`'s and the problem's callbacks:
+- `FunctionCallback{U,T,P}(c, a, i)` (`ODECore/src/core.jl:604`, 8) and `FunctionEventCallback{U,T,P}(c, a, an, i)`
+  (`:620`, 8), the records' outer constructors, called from `_enter_callback!` with the fields of SciML's records,
+  `DiscreteCallback` and `ContinuousCallback`, typed bare `Callable` (open issue 159); and in their forwarders the
+  box's test `hasmethod(f, A)` (`_first_unmet`, 2, and `to_tuple_type`, 2) at a value known only by a signature.
+- The rule that should serve them: compiler §7.6, "With several such arguments the call branches over each: the
+  branches are the product of their members, taken in order while it stays within the bound of 64 branches; an
+  argument past it is left as it is." Bare `Callable` has 9 members by use here (the five callback functions,
+  `lorenz!`, `PartialFn{typeof(lorenz!), …}` and two boxes): 3 arguments give 729, 4 give 6,561. The first argument
+  is split (9), the others are left at bare `Callable`; the forwarder then runs at the signatures, where the box's
+  test and `typeof(c)` cannot be folded (third part, "Past 64 members, or past the product's bound, the forwarder
+  would run at the set instance and the test stays unresolved: not built, not met": met here).
+- Not the port departing: the records keep their functions at bare `Callable` by open issue 159's choice, and the
+  program gives its callbacks as a tuple (open issue 184 (a)).
+- The session's check counts 10 of them (`logs/f-odecb-members-dc11704.log`: 4 at each constructor, 2 `_hasmethod`);
+  the build's verifier counts the `to_tuple_type` statement too and each error per frame. Members: equal at each of
+  the eleven set types (the report listed two boxes at `Callback` and `EventCallback` that are no members of their
+  type; dc11704ef7 lists the members of the set's type, as the check does).
+
+**The tests added** (library `w158f`, `test/verify.jl`; each fails without its change):
+
+| testset | fails on | with |
+|---|---|---|
+| `closed check: a member of every instance is a member by use; the call of bare Callable` | julia-next: 5 of 7 (`Far11` a member at `F11`, 1 error; bare `Callable`'s call, 4 errors, no members) (`logs/f-verify-before-d8f65ef.log`) | 8d8994b5fc |
+| `closed check: a method at a union of records is chosen by the member's type` | the session patched without `closed_choosing_type`: 3 errors (`logs/f-verify-patch1-no247.log`) | 6d5480e347 |
+| `a default's method reads a box's object` | `unified` 82959cf: the lowered code has no `getfield(d, :object)` (`logs/f-box-default-before-82959cf.log`) | library 9163b9c |
+| `closed check: an operation's results are forgotten at its declared result` | 6d5480e347: `Fact14` has no member (`logs/f-verify-6d5480e.log`) | b22ab12a1f |
+| `closed check: a declared field written at a box` | the library without 3c2dc6b's `src` change: 5 errors (`logs/f-verify-write-before.log`) | library 3c2dc6b |
+
+Hole 2 has no test in the library: the check in a session lists errors and members, not what a dropped call returns;
+`apps/f-gapfn.jl` is its test (a trimmed build).
+
+**Checks on dc11704ef7** (library 3c2dc6b; load 2 to 9 of 128; logs `logs/f-<check>-dc11704.log`; the same on
+b22ab12a1f, `-b22ab12`):
+
+| check | result |
+|---|---|
+| the gates (`LIB=wt/w158b-tw`) | 73 of 73, stage gates 9 of 9 |
+| Base's core, subtype, Compiler/inline, Compiler/inference | SUCCESS |
+| the library | 108 testsets (103 and the five above), no failure |
+| TraitDifferentialEquations' suite (`env_demo_d`) | 35 testsets |
+| TraitTables' (`env_tables_b`), TraitMakie's (`env_demo_d`) | 3 and 8 testsets |
+| the table's, report's, plot's programs, trimmed (`f-builds.sh`) | 0 errors each; table 2,724,552 bytes, output equal; report 5,392,904 bytes, output and PNG equal; plot 4,951,832 bytes, output and PNG equal (`logs/f-builds-dc11704.log`) |
+| E-384's eight small programs (`small.sh`) | build, run, output equal (`logs/f-dc11704-small.log`) |
+| the parts' small programs (`f-apps.sh`) | `e-boxcall`, `e-ctor2`, `e-twochoice`, `choice`, `flow`: 0 errors, run, equal; this part's: the table above |
+| the sessions (`sessions.sh`, `ENVD=env_demo_d`, a warm-up and 3 runs) | report 24 compiles, table 19; instances TraitWorld 474 and 413, TraitTables 129, TraitCSV 34, TraitMakie 323: as on 9e742cd3cd with the library `w158e` (third part) (`logs/sessions-f-dc11704.log`) |
+
+- The library's suite is run as the parts before ran it, `-e 'using TraitWorld; include("test/runtests.jl")'`: run as
+  a script, `Dynamic` is not visible in `Main` and six checks of `messages.jl` that match `Dynamic{…}` in a message see
+  `Core.Dynamic{…}` (the same on `julia-next` with `unified`; not kept).
+
+**Not done.**
+- The program with callbacks' 20 errors (above): a rule as written that does not serve it. Not built: the forwarder's
+  boxing per argument (each argument's test and box made per its own members: 9 + 9 + 9 branches, not 729) needs the
+  forwarder's box test `isa(x, Union{Dynamic, Compiled})` to branch over the members, and the forwarder makes its box
+  with `new` in its body, not by a call, so that code compiled by facts knows it (erasing.jl); a narrowing of the test
+  by the members alone would be unsound for a value the build did not count.
+- `x isa Dynamic` at a box's own type is not folded in inference (`positive_fold_blocked`: the answer is read as
+  resting on a membership). Found, not changed; the default's method tests `Dynamic{<:X}`.

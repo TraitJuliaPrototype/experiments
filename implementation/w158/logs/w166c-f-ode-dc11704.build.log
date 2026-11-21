@@ -1,0 +1,41 @@
+# W-166c ode 2026-11-21T21:42:51+01:00 load 6.07 5.19 5.07 | wt/w158-julia dc11704ef7 wt/w158b-tw 3c2dc6b project experiments/implementation/w158/env_demo_d trim=safe images=1 driver=wt/w158-julia/test/trimming depot=.julia-depot/agent-depots/w158:shared 
+images: exit 0 after 20 s (TraitWorld TraitDifferentialEquations)
+from source: none
+verify_main: 143 targets, 0 entry points, 0 run-time sites, complete true, 5.5 s
+closed build: 4 rounds, 120 types forgotten, 2 flows between places
+  ODECore.StepEvent{Array{Float64, 1}, Float64}: split with 1 candidates; it has 1, members of its type 1
+    ODECore.ParamEvent{Array{Float64, 1}, Float64, Array{Float64, 1}}
+  ODECore.StepCallback{Array{Float64, 1}, Float64}: split with 1 candidates; it has 1, members of its type 1
+    ODECore.ParamCallback{Array{Float64, 1}, Float64, Array{Float64, 1}}
+  ODECore.LinearSolver: split with 1 candidates; it has 1, members of its type 1
+    ODECore.DenseLU
+  ODECore.StepView{Array{Float64, 1}, Float64}: split with 2 candidates; it has 2, members of its type 2
+    ODECore.Tsit5Integrator{Float64, ODECore.CoreProblem{Float64, Core.Dynamic{All{Core.Callable{Tuple{Array{Float64, 1}, Array{Float64, 1}, Float64}, Nothing}, Core.Callable{Tuple{Array{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}, 1}, Array{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}, 1}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}}
+    TraitRodas.Rodas5Integrator{Nothing, ODECore.CoreProblem{Float64, Core.Dynamic{All{Core.Callable{Tuple{Array{Float64, 1}, Array{Float64, 1}, Float64}, Nothing}, Core.Callable{Tuple{Array{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}, 1}, Array{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}, 1}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}}
+  TraitWorld.BaseTraits.Solvable{Float64}: split with 1 candidates; it has 1, members of its type 1
+    LinearAlgebra.LU{Float64, Array{Float64, 2}, Array{Int64, 1}}
+  ODECore.Callback{Array{Float64, 1}, Float64, Array{Float64, 1}}: split with 0 candidates; it has 0, members of its type 0
+  All{Core.Callable{Tuple{Array{Float64, 1}, Array{Float64, 1}, Float64}, Nothing}, Core.Callable{Tuple{Array{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}, 1}, Array{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}, 1}, Float64}, Nothing}}: split with 2 candidates; it has 2, members of its type 2
+    ODECore.PartialFn{typeof(Main.lorenz!), Array{Float64, 1}}
+    ODECore.PartialFn{typeof(Main.robertson!), Array{Float64, 1}}
+  ODECore.EventCallback{Array{Float64, 1}, Float64, Array{Float64, 1}}: split with 0 candidates; it has 0, members of its type 0
+  Core.Callable{Tuple{Array{Float64, 1}, Array{Float64, 1}, Array{Float64, 1}, Float64}, Nothing}: split with 2 candidates; it has 2, members of its type 2
+    typeof(Main.lorenz!)
+    typeof(Main.robertson!)
+  forgotten: LinearAlgebra.LU{Float64, Array{Float64, 2}, Array{Int64, 1}} at TraitWorld.BaseTraits.Solvable{Float64}
+  forgotten: typeof(Main.lorenz!) at Core.Callable{Tuple{Array{Float64, 1}, Array{Float64, 1}, Array{Float64, 1}, Float64}, Nothing}
+  forgotten: typeof(Main.robertson!) at Core.Callable{Tuple{Array{Float64, 1}, Array{Float64, 1}, Array{Float64, 1}, Float64}, Nothing}
+  forgotten: ODECore.ODEProblem{Float64, Array{Float64, 1}, Core.Dynamic{All{Core.Callable{Tuple{Array{Float64, 1}, Array{Float64, 1}, Float64}, Nothing}, Core.Callable{Tuple{Array{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}, 1}, Array{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}, 1}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)} at ODECore.ODEProblemTrait{Float64, Array{Float64, 1}}
+  forgotten: TraitRodas.Rodas5Steps at ODECore.Interpolant{Array{Float64, 1}, Float64}
+  forgotten: TraitRodas.Rodas5Integrator{Nothing, ODECore.CoreProblem{Float64, Core.Dynamic{All{Core.Callable{Tuple{Array{Float64, 1}, Array{Float64, 1}, Float64}, Nothing}, Core.Callable{Tuple{Array{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}, 1}, Array{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}, 1}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}} at ODECore.StepView{Array{Float64, 1}, Float64}
+  forgotten: ODECore.DenseLU at ODECore.LinearSolver
+  forgotten: ODECore.ParamIntegrator{Array{Float64, 1}, Float64, Array{Float64, 1}} at ODECore.IntegratorView{Array{Float64, 1}, Float64, Array{Float64, 1}}
+  forgotten: ODECore.ParamCallback{Array{Float64, 1}, Float64, Array{Float64, 1}} at ODECore.StepCallback{Array{Float64, 1}, Float64}
+  forgotten: ODECore.ParamEvent{Array{Float64, 1}, Float64, Array{Float64, 1}} at ODECore.StepEvent{Array{Float64, 1}, Float64}
+  forgotten: ODECore.PartialFn{typeof(Main.lorenz!), Array{Float64, 1}} at All{Core.Callable{Tuple{Array{Float64, 1}, Array{Float64, 1}, Float64}, Nothing}, Core.Callable{Tuple{Array{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}, 1}, Array{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}, 1}, Float64}, Nothing}}
+  forgotten: ODECore.PartialFn{typeof(Main.robertson!), Array{Float64, 1}} at All{Core.Callable{Tuple{Array{Float64, 1}, Array{Float64, 1}, Float64}, Nothing}, Core.Callable{Tuple{Array{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}, 1}, Array{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}, 1}, Float64}, Nothing}}
+  forgotten: ODECore.Tsit5Steps{Float64} at ODECore.Interpolant{Array{Float64, 1}, Float64}
+  forgotten: ODECore.Tsit5Integrator{Float64, ODECore.CoreProblem{Float64, Core.Dynamic{All{Core.Callable{Tuple{Array{Float64, 1}, Array{Float64, 1}, Float64}, Nothing}, Core.Callable{Tuple{Array{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}, 1}, Array{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}, 1}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}} at ODECore.StepView{Array{Float64, 1}, Float64}
+  instances 721, with code 721, with statement types 721
+object: exit 0 after 18 s
+link: exit 0, 4368176 bytes

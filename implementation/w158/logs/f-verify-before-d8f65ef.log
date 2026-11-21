@@ -1,0 +1,103 @@
+ERROR: LoadError: Some tests did not pass: 2 passed, 5 failed, 0 errored, 0 broken.
+in expression starting at /p/projects/coen/julia-trait-bound/wt/w158b-tw/test/verify.jl:390
+in expression starting at /p/projects/coen/julia-trait-bound/experiments/implementation/w158/f-probes/verify.jl:4
+Test Summary: | Pass  Total  Time
+verify_main   |    7      7  2.3s
+Test Summary:                      | Pass  Total  Time
+verify_main: the wrapper's members |    7      7  0.3s
+Test Summary:                             | Pass  Total  Time
+verify_main: the wrappers of five members |    4      4  0.2s
+Test Summary:                                | Pass  Total  Time
+verify_main: a value known only by its trait |    3      3  0.0s
+Test Summary:                           | Pass  Total  Time
+verify_main: entry points and the bound |    4      4  0.0s
+Test Summary:                    | Pass  Total  Time
+verify_main: withfields on a box |    4      4  0.3s
+Test Summary:                                     | Pass  Total  Time
+verify_main: the member's type chooses the method |    4      4  0.3s
+Test Summary:                                                      | Pass  Total  Time
+closed check: the members by the types that flow to a set instance |   12     12  0.8s
+Test Summary:                                 | Pass  Total  Time
+closed check: the kept form by use; no member |    7      7  0.3s
+Test Summary:                                                    | Pass  Total  Time
+closed check: the call of a function known only by its signature |    7      7  0.3s
+Test Summary:                                  | Pass  Total  Time
+closed check: a constant's fields hold members |    5      5  0.1s
+Test Summary:                                                          | Pass  Total  Time
+closed check: two arguments where the member's type chooses the method |    3      3  0.0s
+Test Summary:                                | Pass  Total  Time
+the box's forwarding method reads its object |    3      3  0.0s
+
+closed check: a member of every instance is a member by use; the call of bare Callable: Test Failed at /p/projects/coen/julia-trait-bound/wt/w158b-tw/test/verify.jl:392
+  Expression: r.errors == 0
+   Evaluated: 1 == 0
+  Stacktrace:
+   [1] top-level scope
+     @ /p/projects/coen/julia-trait-bound/wt/w158b-tw/test/verify.jl:391
+   [2] macro expansion
+     @ /p/projects/coen/julia-trait-bound/julia-next/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:1967 [inlined]
+   [3] macro expansion
+     @ /p/projects/coen/julia-trait-bound/wt/w158b-tw/test/verify.jl:392 [inlined]
+   [4] macro expansion
+     @ /p/projects/coen/julia-trait-bound/julia-next/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:758 [inlined]
+
+closed check: a member of every instance is a member by use; the call of bare Callable: Test Failed at /p/projects/coen/julia-trait-bound/wt/w158b-tw/test/verify.jl:393
+  Expression: Set(get(r.members, F11, Any[])) == Set(Any[typeof(double), Near11])
+   Evaluated: Set(Any[Near11, typeof(double), Far11]) == Set(Any[Near11, typeof(double)])
+  Stacktrace:
+   [1] top-level scope
+     @ /p/projects/coen/julia-trait-bound/wt/w158b-tw/test/verify.jl:391
+   [2] macro expansion
+     @ /p/projects/coen/julia-trait-bound/julia-next/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:1967 [inlined]
+   [3] macro expansion
+     @ /p/projects/coen/julia-trait-bound/wt/w158b-tw/test/verify.jl:393 [inlined]
+   [4] macro expansion
+     @ /p/projects/coen/julia-trait-bound/julia-next/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:758 [inlined]
+
+closed check: a member of every instance is a member by use; the call of bare Callable: Test Failed at /p/projects/coen/julia-trait-bound/wt/w158b-tw/test/verify.jl:396
+  Expression: r.errors == 0
+   Evaluated: 4 == 0
+  Stacktrace:
+   [1] top-level scope
+     @ /p/projects/coen/julia-trait-bound/wt/w158b-tw/test/verify.jl:391
+   [2] macro expansion
+     @ /p/projects/coen/julia-trait-bound/julia-next/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:1967 [inlined]
+   [3] macro expansion
+     @ /p/projects/coen/julia-trait-bound/wt/w158b-tw/test/verify.jl:396 [inlined]
+   [4] macro expansion
+     @ /p/projects/coen/julia-trait-bound/julia-next/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:758 [inlined]
+
+closed check: a member of every instance is a member by use; the call of bare Callable: Test Failed at /p/projects/coen/julia-trait-bound/wt/w158b-tw/test/verify.jl:397
+  Expression: Set(filter((T->begin
+                    #= /p/projects/coen/julia-trait-bound/wt/w158b-tw/test/verify.jl:397 =#
+                    !(T <: Dynamic)
+                end), get(r.members, Callable, Any[]))) == Set(Any[typeof(double), Near11])
+   Evaluated: Set{Any}() == Set(Any[Near11, typeof(double)])
+  Stacktrace:
+   [1] top-level scope
+     @ /p/projects/coen/julia-trait-bound/wt/w158b-tw/test/verify.jl:391
+   [2] macro expansion
+     @ /p/projects/coen/julia-trait-bound/julia-next/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:1967 [inlined]
+   [3] macro expansion
+     @ /p/projects/coen/julia-trait-bound/wt/w158b-tw/test/verify.jl:397 [inlined]
+   [4] macro expansion
+     @ /p/projects/coen/julia-trait-bound/julia-next/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:758 [inlined]
+
+closed check: a member of every instance is a member by use; the call of bare Callable: Test Failed at /p/projects/coen/julia-trait-bound/wt/w158b-tw/test/verify.jl:398
+  Expression: any((T->begin
+            #= /p/projects/coen/julia-trait-bound/wt/w158b-tw/test/verify.jl:398 =#
+            T <: Dynamic
+        end), get(r.members, Callable, Any[]))
+   Evaluated: any(var"#43#44"(), Any[])
+  Stacktrace:
+   [1] top-level scope
+     @ /p/projects/coen/julia-trait-bound/wt/w158b-tw/test/verify.jl:391
+   [2] macro expansion
+     @ /p/projects/coen/julia-trait-bound/julia-next/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:1967 [inlined]
+   [3] macro expansion
+     @ /p/projects/coen/julia-trait-bound/wt/w158b-tw/test/verify.jl:398 [inlined]
+   [4] macro expansion
+     @ /p/projects/coen/julia-trait-bound/julia-next/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:758 [inlined]
+Test Summary:                                                                          | Pass  Fail  Total  Time
+closed check: a member of every instance is a member by use; the call of bare Callable |    2     5      7  1.6s
+RNG of the outermost testset: Random.Xoshiro(0x83caa4f2ee99f4e0, 0xefea4a7ad0025628, 0x552aa9e8572398d8, 0xb58533f9173de48f, 0xf40341bcb5043379)
