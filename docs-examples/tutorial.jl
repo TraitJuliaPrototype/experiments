@@ -455,8 +455,8 @@ check("§14 a container typed by Callable keeps each function as given", tests[2
 check("§14 passes(tests, 2.0) == 1", passes(tests, 2.0) == 1)
 e = outcome(() -> passes(Callable{Tuple{Float64}, Bool}[x -> 1], 2.0))
 e isa Exception && println("MESSAGE §14 passes:\n", msg(e))
-deviation("§14 a function known only by its signature is called as a box is: its result checked, TypeError expected Bool",
-          "compiler C-157", () -> e isa TypeError && occursin("expected Bool", msg(e)))
+check("§14 a function known only by its signature is called as a box is: its result checked, a TypeError that expects Bool",
+      e isa TypeError && e.expected === Bool && occursin("non-boolean (Int64)", msg(e)))
 
 # --- §15: abstract types and traits as members --------------------------------------------------
 
