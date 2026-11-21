@@ -1,4 +1,4 @@
-# Gate for compiler C-60 (§7.4): a call of a value known as `Callable{A, S}` checks its arguments
+# Gate for compiler §7.4 (traits §9): a call of a function known only as `Callable{A, S}` checks its arguments
 # against `A`: outside `A` it raises `MethodError`, even where the function has a method there, and
 # where inference proves them outside `A` the call infers as never returning. The argument is declared
 # `@nospecialize`: compiled once at the set, the code knows the function by its trait only (compiler §6.2; with
