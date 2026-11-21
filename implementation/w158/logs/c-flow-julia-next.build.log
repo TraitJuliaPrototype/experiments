@@ -1,0 +1,80 @@
+# W-166 /p/projects/coen/julia-trait-bound/experiments/implementation/w158/apps/flow.jl 2026-11-21T17:34:42+01:00 load 9.32 5.87 5.07 | julia-next f5328f94c5 TraitWorld d50e3d2 trim=safe
+closed build: 4 rounds, 75 types forgotten, 0 entries by a test
+  Core.Callable{A, S} where S where A<:Tuple: split with 10 members; it has 10
+    typeof(Base.Filesystem.temp_cleanup_atexit)
+    typeof(Main.double)
+    Core.Compiled{typeof(Base.Filesystem.temp_cleanup_atexit)}
+    Core.Compiled{typeof(Main.double)}
+    Core.Compiled{Main.Wrap{typeof(Base.Filesystem.temp_cleanup_atexit)}}
+    Core.Compiled{Main.Wrap{typeof(Main.double)}}
+    Core.Compiled{Main.Wrap{Core.Dynamic{Core.Callable{Tuple{Float64}, Float64}}}}
+    Main.Wrap{typeof(Base.Filesystem.temp_cleanup_atexit)}
+    Main.Wrap{typeof(Main.double)}
+    Main.Wrap{Core.Dynamic{Core.Callable{Tuple{Float64}, Float64}}}
+  Main.Shape: split with 2 members; it has 2
+    Main.Square
+    Main.Circle
+  Main.Lonely: split with 0 members; it has 0
+  forgotten: typeof(Main.double) at Core.Callable{Tuple{Float64}, Float64}
+  forgotten: Main.Square at Main.Shape
+  forgotten: Core.Dynamic{Main.Shape} at Main.Shape
+  forgotten: Main.Circle at Main.Shape
+  forgotten: Main.Wrap{typeof(Base.Filesystem.temp_cleanup_atexit)} at Core.Callable{Tuple{Int64}, Int64}
+  forgotten: Main.Wrap{typeof(Main.double)} at Core.Callable{Tuple{Int64}, Int64}
+  forgotten: Main.Wrap{Core.Dynamic{Core.Callable{Tuple{Float64}, Float64}}} at Core.Callable{Tuple{Int64}, Int64}
+  forgotten: Core.Compiled{typeof(Base.Filesystem.temp_cleanup_atexit)} at Core.Compiled{Z} where Z<:Core.Callable{Tuple{Int64}, Int64}
+  forgotten: Core.Compiled{typeof(Main.double)} at Core.Compiled{Z} where Z<:Core.Callable{Tuple{Int64}, Int64}
+  forgotten: Core.Compiled{Main.Wrap{typeof(Base.Filesystem.temp_cleanup_atexit)}} at Core.Compiled{Z} where Z<:Core.Callable{Tuple{Int64}, Int64}
+  forgotten: Core.Compiled{Main.Wrap{typeof(Main.double)}} at Core.Compiled{Z} where Z<:Core.Callable{Tuple{Int64}, Int64}
+  forgotten: Core.Compiled{Main.Wrap{Core.Dynamic{Core.Callable{Tuple{Float64}, Float64}}}} at Core.Compiled{Z} where Z<:Core.Callable{Tuple{Int64}, Int64}
+  instances 366, with code 366, with statement types 366
+Error #1: unresolved call from statement lone(
+  memoryrefget((…)::MemoryRef{Lonely}, :not_atomic::Symbol, false::Bool)::Lonely
+)::Any
+
+Stacktrace:
+ [1] lonely(v::Vector{Lonely})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/implementation/w158/apps/flow.jl:41
+ [2] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/implementation/w158/apps/flow.jl:52
+ [3] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-next/test/trimming/juliac-buildscript.jl:35
+
+Error #2: unresolved call from statement (:(φ (%3 => Compiled(Base.Filesystem.temp_cleanup_atexit), %6 => Compiled(Main.double), %9 => Compiled(Wrap{typeof(Base.Filesystem.temp_cleanup_atexit)}(Base.Filesystem.temp_cleanup_atexit)), %12 => Compiled(Wrap{typeof(double)}(Main.double)), %15 => Compiled(Base.Filesystem.temp_cleanup_atexit), %18 => Compiled(Main.double), %21 => Compiled(Wrap{typeof(Base.Filesystem.temp_cleanup_atexit)}(Base.Filesystem.temp_cleanup_atexit)), %24 => Compiled(Wrap{typeof(double)}(Main.double)), %28 => %27, %116 => %114, %121 => %120))::Compiled{Z} where Z<:Callable{Tuple{Int64}, Int64})(x::Int64)::Int64
+
+Stacktrace:
+ [1] sig2(f::Callable{Tuple{Int64}, Int64}, x::Int64)
+   @ Main /p/projects/coen/julia-trait-bound/experiments/implementation/w158/apps/flow.jl:12
+ [2] handon(d::Dynamic{Callable{Tuple{Float64}, Float64}})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/implementation/w158/apps/flow.jl:24 [inlined]
+ [3] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/implementation/w158/apps/flow.jl:45
+ [4] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-next/test/trimming/juliac-buildscript.jl:35
+
+Error #3: unresolved call from statement lone(
+  memoryrefget((…)::MemoryRef{Lonely}, :not_atomic::Symbol, false::Bool)::Lonely
+)::Any
+
+Stacktrace:
+ [1] lonely(v::Vector{Lonely})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/implementation/w158/apps/flow.jl:41
+ [2] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/implementation/w158/apps/flow.jl:52
+ [3] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-next/test/trimming/juliac-buildscript.jl:35
+
+Error #4: unresolved call from statement (:(φ (%3 => Compiled(Base.Filesystem.temp_cleanup_atexit), %6 => Compiled(Main.double), %9 => Compiled(Wrap{typeof(Base.Filesystem.temp_cleanup_atexit)}(Base.Filesystem.temp_cleanup_atexit)), %12 => Compiled(Wrap{typeof(double)}(Main.double)), %15 => Compiled(Base.Filesystem.temp_cleanup_atexit), %18 => Compiled(Main.double), %21 => Compiled(Wrap{typeof(Base.Filesystem.temp_cleanup_atexit)}(Base.Filesystem.temp_cleanup_atexit)), %24 => Compiled(Wrap{typeof(double)}(Main.double)), %28 => %27, %116 => %114, %121 => %120))::Compiled{Z} where Z<:Callable{Tuple{Int64}, Int64})(x::Int64)::Int64
+
+Stacktrace:
+ [1] sig2(f::Callable{Tuple{Int64}, Int64}, x::Int64)
+   @ Main /p/projects/coen/julia-trait-bound/experiments/implementation/w158/apps/flow.jl:12
+ [2] handon(d::Dynamic{Callable{Tuple{Float64}, Float64}})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/implementation/w158/apps/flow.jl:24 [inlined]
+ [3] main(args::Vector{String})
+   @ Main /p/projects/coen/julia-trait-bound/experiments/implementation/w158/apps/flow.jl:45
+ [4] _main(argc::Int32, argv::Ptr{Ptr{Int8}})
+   @ Main /p/projects/coen/julia-trait-bound/julia-next/test/trimming/juliac-buildscript.jl:35
+
+Trim verify finished with 4 errors, 0 warnings.
+object: exit 1

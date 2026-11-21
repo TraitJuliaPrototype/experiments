@@ -1,0 +1,66 @@
+lorenz -8.02113
+robertson 0.0178659
+cc_patch: 28 definitions from abstractinterpretation.jl
+┌ Warning: Replacing docs for `Compiler.closed_check :: Union{Tuple{Vector{Any}, UInt64}, Tuple{Vector{Any}, UInt64, Union{Nothing, Core.MethodTable}}}` in module `Compiler`
+└ @ Base.Docs docs/Docs.jl:253
+cc_patch: 5 definitions from typeinfer.jl
+cc_patch: 1 definitions from inlining.jl
+cc_patch: 1 definitions from verifytrim.jl
+check: 26 errors, 0 calls that only raise, 5 rounds, 13.1 s
+  ODECore.StepCallback{Vector{Float64}, Float64}: 0 members: 
+  Callable{Tuple{Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}}, Nothing}: 4 members: TraitIndexing.StateGetter, TraitIndexing.ParamGetter, TraitIndexing.VectorGetter, Dynamic{Callable{Tuple{Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}}, Nothing}}
+  Callable{Tuple{Vector{Float64}, Vector{Float64}, Vector{Float64}, Float64}, Nothing}: 5 members: typeof(lorenz!), typeof(robertson!), TraitIndexing.StateGetter, TraitIndexing.ParamGetter, TraitIndexing.VectorGetter
+  Callable: 12 members: typeof(lorenz!), typeof(robertson!), TraitIndexing.StateGetter, TraitIndexing.ParamGetter, TraitIndexing.VectorGetter, ODECore.PartialFn{TraitIndexing.ParamGetter, Vector{Float64}}, ODECore.PartialFn{TraitIndexing.StateGetter, Vector{Float64}}, ODECore.PartialFn{TraitIndexing.VectorGetter, Vector{Float64}}, ODECore.PartialFn{typeof(lorenz!), Vector{Float64}}, ODECore.PartialFn{typeof(robertson!), Vector{Float64}}, Dynamic{Callable{Tuple{Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}}, Nothing}}, Dynamic{Callable{Tuple{Vector{Float64}, Float64, Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}}, Nothing}}
+  ODECore.StepEvent{Vector{Float64}, Float64}: 0 members: 
+  LinearSolver: 1 members: DenseLU
+  Solvable{Float64}: 0 members: 
+  Callable{Tuple{Vector{Float64}, Float64, Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}}, Nothing}: 4 members: TraitIndexing.StateGetter, TraitIndexing.ParamGetter, TraitIndexing.VectorGetter, Dynamic{Callable{Tuple{Vector{Float64}, Float64, Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}}, Nothing}}
+  error: unresolved call at /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/TraitRodas/src/rodas5.jl:273 | _rodas5_run(
+  rodas5_init(m::ODECore.CoreProblem{Float64, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.
+  error: unresolved call at /p/projects/coen/julia-trait-bound/TraitWorld/src/callable.jl:42 | (:(TraitWorld.getfield(_1, :object))::All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}})((…)::Vector{Float64}, (…)::Vector{Float64}, (
+  error: unresolved call at /p/projects/coen/julia-trait-bound/TraitWorld/src/callable.jl:44 | (:(TraitWorld.getfield(_1, :object))::All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}})((…)::Vector{ForwardDiff.Dual{ODECore.ODETag, 
+  error: unresolved call at /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/TraitRodas/src/rodas5.jl:269 | dual_jacobian(
+  :(φ (%31 => %30, %32 => %27))::Any,
+  (…)::Int64,
+  :(φ (%36 => Val{nothing}(), %41 => %40))::Val
+)::TraitRodas.DualJacobian
+  error: unresolved call at /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/TraitRodas/src/rodas5.jl:270 | rodas5_start(
+  m::ODECore.CoreProblem{Float64, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jac
+  error: unresolved call at /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/ODECore/src/core.jl:760 | _enter_step_callback!(
+  (…)::Vector{ODECore.StepCallback{Vector{Float64}, Float64}},
+  (…)::Vector{ODECore.StepEvent{Vector{Float64}, Float64}},
+  :(φ (%41 => %36, %79 => %73))::Any
+)::Any
+  error: unresolved invoke at /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/ODECore/src/core.jl:613 | ODECore.FunctionCallback{Vector{Float64}, Float64, Vector{Float64}, C, A, I} where {C<:Callable{Tuple{Vector{Float64}, Float64, Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}}, Bool}, A<:Callable{Tuple{Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}}, Nothing},
+  error: unresolved invoke at /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/ODECore/src/core.jl:613 | ODECore.FunctionCallback{Vector{Float64}, Float64, Vector{Float64}, C, A, I} where {C<:Callable{Tuple{Vector{Float64}, Float64, Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}}, Bool}, A<:Callable{Tuple{Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}}, Nothing},
+  error: unresolved invoke at /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/ODECore/src/core.jl:613 | ODECore.FunctionCallback{Vector{Float64}, Float64, Vector{Float64}, C, A, I} where {C<:Callable{Tuple{Vector{Float64}, Float64, Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}}, Bool}, A<:Callable{Tuple{Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}}, Nothing},
+  error: unresolved invoke at /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/ODECore/src/core.jl:613 | ODECore.FunctionCallback{Vector{Float64}, Float64, Vector{Float64}, C, A, I} where {C<:Callable{Tuple{Vector{Float64}, Float64, Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}}, Bool}, A<:Callable{Tuple{Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}}, Nothing},
+  error: unresolved invoke at /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/ODECore/src/core.jl:615 | ODECore.FunctionEventCallback{Vector{Float64}, Float64, Vector{Float64}, C, A, N, I} where {C<:Callable{Tuple{Vector{Float64}, Float64, Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}}, Float64}, A<:Callable{Tuple{Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}}
+  error: unresolved invoke at /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/ODECore/src/core.jl:615 | ODECore.FunctionEventCallback{Vector{Float64}, Float64, Vector{Float64}, C, A, N, I} where {C<:Callable{Tuple{Vector{Float64}, Float64, Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}}, Float64}, A<:Callable{Tuple{Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}}
+  error: unresolved invoke at /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/ODECore/src/core.jl:615 | ODECore.FunctionEventCallback{Vector{Float64}, Float64, Vector{Float64}, C, A, N, I} where {C<:Callable{Tuple{Vector{Float64}, Float64, Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}}, Float64}, A<:Callable{Tuple{Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}}
+  error: unresolved invoke at /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/ODECore/src/core.jl:615 | ODECore.FunctionEventCallback{Vector{Float64}, Float64, Vector{Float64}, C, A, N, I} where {C<:Callable{Tuple{Vector{Float64}, Float64, Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}}, Float64}, A<:Callable{Tuple{Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}}
+  error: unresolved call at /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/ODECore/src/core.jl:615 | push!(
+  (…)::Vector{EventCallback{Vector{Float64}, Float64, Vector{Float64}}},
+  :(φ (%251 => %250, %265 => %264, %281 => %280, %297 => %296, %313 => %312, %329 => %328, %345 => %344, %361 => %360, %377 => %376, %393 => %392))::ODECore.FunctionEventCallback
+)::Any
+  error: unresolved call at /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/ODECore/src/core.jl:617 | _enter_callback!(
+  (…)::Vector{Callback{Vector{Float64}, Float64, Vector{Float64}}},
+  (…)::Vector{EventCallback{Vector{Float64}, Float64, Vector{Float64}}},
+  :(φ (%41 => %36, %434 => %428))::Any
+)::Any
+  error: unresolved call at /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/ODECore/src/core.jl:590 | (#self#::Type{ODECore.FunctionEventCallback{Vector{Float64}, Float64, Vector{Float64}, C, A, N, I} where {C<:Callable{Tuple{Vector{Float64}, Float64, Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}}, Float64}, A<:Callable{Tuple{Dynamic{IntegratorView{Vector{Float64}, Float64, Vect
+  error: unresolved call at reflection.jl:1085 | Core._hasmethod(
+  :(φ (%52 => %51, %54 => %53))::Union{Type{<:Tuple{Type, Vector{Float64}, Float64, Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}}}, Type{<:Tuple{Callable{Tuple{Vector{Float64}, Float64, Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}}, Nothin
+  error: unresolved call at reflection.jl:1085 | Core._hasmethod(
+  :(φ (%12 => %11, %14 => %13))::Union{Type{<:Tuple{Type, Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}}}, Type{<:Tuple{Callable{Tuple{Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}}, Nothing}, Dynamic{IntegratorView{Vector{Float64}, Float64,
+  error: unresolved call at /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/ODECore/src/core.jl:590 | (#self#::Type{ODECore.FunctionEventCallback{Vector{Float64}, Float64, Vector{Float64}, C, A, N, I} where {C<:Callable{Tuple{Vector{Float64}, Float64, Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}}, Float64}, A<:Callable{Tuple{Dynamic{IntegratorView{Vector{Float64}, Float64, Vect
+  error: unresolved call at /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/ODECore/src/core.jl:590 | (#self#::Type{ODECore.FunctionEventCallback{Vector{Float64}, Float64, Vector{Float64}, C, A, N, I} where {C<:Callable{Tuple{Vector{Float64}, Float64, Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}}, Float64}, A<:Callable{Tuple{Dynamic{IntegratorView{Vector{Float64}, Float64, Vect
+  error: unresolved call at /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/ODECore/src/core.jl:590 | (#self#::Type{ODECore.FunctionEventCallback{Vector{Float64}, Float64, Vector{Float64}, C, A, N, I} where {C<:Callable{Tuple{Vector{Float64}, Float64, Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}}, Float64}, A<:Callable{Tuple{Dynamic{IntegratorView{Vector{Float64}, Float64, Vect
+  error: unresolved call at /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/ODECore/src/core.jl:574 | (#self#::Type{ODECore.FunctionCallback{Vector{Float64}, Float64, Vector{Float64}, C, A, I} where {C<:Callable{Tuple{Vector{Float64}, Float64, Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}}, Bool}, A<:Callable{Tuple{Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}
+  error: unresolved call at /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/ODECore/src/core.jl:574 | (#self#::Type{ODECore.FunctionCallback{Vector{Float64}, Float64, Vector{Float64}, C, A, I} where {C<:Callable{Tuple{Vector{Float64}, Float64, Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}}, Bool}, A<:Callable{Tuple{Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}
+  error: unresolved call at /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/ODECore/src/core.jl:574 | (#self#::Type{ODECore.FunctionCallback{Vector{Float64}, Float64, Vector{Float64}, C, A, I} where {C<:Callable{Tuple{Vector{Float64}, Float64, Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}}, Bool}, A<:Callable{Tuple{Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}
+  error: unresolved call at /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/ODECore/src/core.jl:574 | (#self#::Type{ODECore.FunctionCallback{Vector{Float64}, Float64, Vector{Float64}, C, A, I} where {C<:Callable{Tuple{Vector{Float64}, Float64, Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}}, Bool}, A<:Callable{Tuple{Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}
+
+real	0m17.601s
+user	0m17.045s
+sys	0m0.425s

@@ -309,3 +309,81 @@ result at a box raises, and its message has no tuple type.
 | the ODE port's suite (`env_demo_d`) | 35 testsets pass (`logs/d-tde-81c04c3.log`) |
 | TraitMakie's suite (`env_demo_d`) | 8 testsets pass (`logs/d-makie-81c04c3.log`) |
 | the messages tool (`messages/run.sh`, its `b-messages-` logs renamed `d-messages-`) | 109 distinct messages; tuple type 0, generated name 0, compiler object 0, library internal 0; box or wrapper type 40, read (`logs/d-messages-after-81c04c3-*`) |
+
+## Second part: the closed build's members, 2026-11-21
+
+**The question** (E-510, continued): build compiler §7.6's members by the types that flow to a set instance and the
+kept form by use (C-152), and an operation on a set with no member as a "no method" fact (C-102); does the session's
+check of the ODE program then converge, with which members, and which of its errors are left?
+
+**How to run** (besides the first part's tools):
+
+```sh
+source experiments/implementation/w158/env.sh; J=$TW_ROOT/wt/w158-julia/julia
+(cd $TW_ROOT/TraitWorld && $J --project=. $W158/probes/flow.jl)          # the gates' programs: members, rounds, errors
+(cd $W158 && $J --project=$W156/env_demo probes/ode_members.jl)           # the ODE program's check: rounds, members, s
+bash build_app.sh wt/w158-julia apps/flow.jl <name>                      # the small trimmed program (run it, compare)
+```
+
+- `probes/patch_c.jl` lays the worktree's change over a session built before it (`include` it first); `probes/rounds.jl`
+  (`check_rounds(f, args; show, showcode)`) runs the check's rounds one by one and prints each round's splits, chosen
+  instances and their code; `probes/flowdebug.jl` prints why a type is a member at a set type (its places, the flows).
+- `JULIA_CLOSED_BUILD_REPORT=1` before a build prints the build's rounds and each split's members.
+
+**What was built** (julia `w158`: d487737095, 8b35e4b77c on 61277571fa; TraitWorld `w158` d50e3d2, tests only):
+- Per forgotten type, the places it was forgotten at (as before); beside them the flows between places: a value typed
+  `S`, not keeping its type, passed on to a place typed `P` or narrowed to `P` by a test. The members at a set type `X`
+  are the types under an entry forgotten at a place typed by a set under `X`, or at a place whose values flow there.
+- The box is a member by use: a branch only where a box is forgotten at such a place; not at `getfield(d::Dynamic,
+  :object)` read directly.
+- No member: the split raises `MethodError`, in the last rounds only (when no round adds a member): before that the call
+  is left as it is, so that the code below it is compiled and read.
+- A method at a kept form takes some members only, as a method at a family: the call branches over the members.
+- Julia's despecialization of a function argument that is not called (`Function`) skips an argument declared at a set
+  (`src/gf.c`): the forwarder at a `Callable` signature was compiled at `Function`, one place for every signature.
+- The check's rounds: a caller found by its edges (an inlined callee too), an instance ended also where its worlds end
+  at a later world (the session's world advances during the check), the verifier in the check's world.
+
+**Results.** Julia `wt/w158-julia` 8b35e4b77c (built in 788 s); controls `julia-next` f5328f94c5, `w158` 61277571fa (the
+first part's numbers). TraitWorld `w158` d50e3d2; TraitDifferentialEquations, TraitTables, TraitMakie `unified`
+(3e60c29, e1ec1f4, 1888698); project `../w156/env_demo`, depot `agent-depots/w158`. `--trim=safe`, one thread, one Julia
+job at a time; load 3 to 12 of 128.
+
+| | before | 8b35e4b77c |
+|---|---|---|
+| the gates' programs, the check in a session (`logs/c-flow-w158.log`) | 61277571fa: a hole each in `lonely` and `viaany`; the family case 7 rounds, `Wrap{Wrap{…}}` growing, 6 errors (its rules, the new `closed_check` laid over for the report); every function a member at both signatures | 0 errors each; `F1`: `double`; `F2`: `inc` (`triple` once handed on); `Wrap{double}` at `F2` only, 4 rounds; `quad` through `Any` and `isa` counted |
+| `apps/flow.jl`, trimmed | `julia-next` 4 errors (`logs/c-flow-julia-next.build.log`) | 0, 2,192,728 bytes, 4 rounds; runs, output equal to a session's (`logs/c-flow-bin.out`) |
+| `apps/choice.jl`, trimmed | 0 (61277571fa) | 0, 2,172,008 bytes, runs, equal |
+| the library's `test/verify.jl` | `julia-next`: the two new testsets 6 of 19 pass, 1 error (`logs/c-verify-julia-next.log`) | 8 testsets pass (`logs/c-verify-w158.log`) |
+| the ODE program's check in a session (`probes/ode_members.jl`) | 61277571fa: no convergence, 4 … 70 members over 7 rounds; 188 s in the build's process | 5 rounds, 12.1 s, 26 errors (`logs/c-ode-members-w158.log`) |
+| the ODE program, trimmed, `VERIFY=1` | 88 errors (61277571fa); 12 (`julia-next`) | 36 errors; `verify_main` 9.1 s, 20 sites; 3 rounds (`logs/c-ode.build.log`) |
+| the table program | 0 errors | 0, 2,725,504 bytes, 1 round; output equal to the tag's (`logs/c-table-bin.out`) |
+| the table's `verify_main` in the build | 2.5 s, 25 sites (`julia-next`) | 2.5 s, 25 sites (`logs/c-table-verify-*.build.log`; 6 errors with `VERIFY=1` on both) |
+| the report's program | 0 | 0, 5,413,976 bytes; exit 0, 0.77 s, 47 MB; its output and PNG equal a session's (`logs/c-report-bin.out`, `c-png.sha256`) |
+| the plot's program | 0 | 0, 4,980,264 bytes (count only) |
+
+**The ODE program's members** (the check / the build): at the right-hand side's `Callable{Tuple{Vector{Float64} ×3,
+Float64}, Nothing}`: `lorenz!`, `robertson!` and the three getters of TraitIndexing (concrete entries of `Callable`),
+5 / 5; at the callbacks' signatures 4 / 4 (the getters, the box of the signature); `StepCallback`, `StepEvent`,
+`Solvable`: none, a "no method" fact; `LinearSolver`: `DenseLU`. They differ at `Callable` bare: 12 / 7, the check's five
+`PartialFn{…}` more (`PartialFn(f::Any, p)` in `_plain_function`, a call the build leaves to dispatch: below).
+
+**The ODE program's 36 errors**, 18 statements reached by both `solve` calls:
+- 22, the callbacks' entry (`enter_callbacks`, `enter_step_callbacks` over `cbs::Vector{Any}`): calls at `Any`
+  (`_enter_callback!`, `_enter_step_callback!`); the constructors `FunctionCallback{U,T,P}`, `FunctionEventCallback{U,T,P}`
+  at values known only by `Callable{…}`, whose forwarder runs at the set instances: its box check `hasmethod(f, A)` does
+  not fold (16 with the constructors' calls), and `push!` of the constructors' join.
+- 4, the call of the object a box of `All{Callable{…}, Callable{…}}` holds (`callable.jl` 42, 44): left to dispatch.
+- 6, Rodas5: `dual_jacobian(@nospecialize(f), n, Val(N))` with `N` chosen at run time and `f::Any`, and the two calls that
+  take its result (`rodas5_start`, `_rodas5_run`).
+- 4, `PartialFn(f::Any, p)` in `_plain_function(@nospecialize(f), p)`.
+
+**Checks on 8b35e4b77c:** the gates 72 of 72, 9 of 9 stage gates (`logs/c-gates.log`); Base's core, subtype,
+Compiler/inline, Compiler/inference SUCCESS (`logs/c-base-summary.log`); the library 96 testsets (`logs/c-library-w158.log`);
+TraitDifferentialEquations 35, TraitTables 3, TraitMakie 8 testsets (`logs/c-suite-*.log`); E-384's eight small programs
+build, run, output equal (`logs/c-small.log`, `logs/small-c/`); the sessions (`sessions.sh`, a warm-up and 3 runs,
+`logs/sessions-c.log`): report 24 compiles, table 19, instances equal to 61277571fa's (`logs/sessions-w158.log`).
+
+**Not done:** the box branch at the object a box holds is dropped only where the code reads `getfield(d, :object)`; the
+box's forwarding methods read it through the library's `_fwd`, so a program that keeps a box at a place typed by the set
+has a (dead, recursive) box branch there (`logs/c-box-object-ir.log`). No ODE binary: errors are left.

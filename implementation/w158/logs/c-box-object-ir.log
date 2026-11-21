@@ -1,0 +1,46 @@
+round 2 (no member a fact: false): 4 instances
+CodeInfo(
+    @ /p/projects/coen/julia-trait-bound/experiments/implementation/w158/probes/flow.jl:39 within `area7`
+   ┌ @ /p/projects/coen/julia-trait-bound/TraitWorld/src/dynamic.jl:35 within `_fwd`
+1 ─│ %1  =   builtin TraitWorld.getfield(s, :object)::Shape7
+│  └
+│   %2  =   builtin (isa)(%1, Ci7)::Bool
+└──       goto #3 if not %2
+2 ─ %4  = π (%1, Ci7)
+│   @ /p/projects/coen/julia-trait-bound/experiments/implementation/w158/probes/flow.jl:39 within `area7` @ /p/projects/coen/julia-trait-bound/experiments/implementation/w158/probes/flow.jl:45
+│  ┌ @ Base_compiler.jl:57 within `getproperty`
+│  │ %5  =   builtin Base.getfield(%4, :r)::Float64
+│  └
+│  ┌ @ intfuncs.jl:467 within `literal_pow`
+│  │┌ @ float.jl:494 within `*`
+│  ││ %6  = intrinsic Base.mul_float(%5, %5)::Float64
+│  └└
+│  ┌ @ float.jl:494 within `*`
+│  │ %7  = intrinsic Base.mul_float(3.0, %6)::Float64
+│  └
+│   @ /p/projects/coen/julia-trait-bound/experiments/implementation/w158/probes/flow.jl:39 within `area7`
+└──       goto #8
+3 ─ %9  =   builtin (isa)(%1, Sq7)::Bool
+└──       goto #5 if not %9
+4 ─ %11 = π (%1, Sq7)
+│   @ /p/projects/coen/julia-trait-bound/experiments/implementation/w158/probes/flow.jl:39 within `area7` @ /p/projects/coen/julia-trait-bound/experiments/implementation/w158/probes/flow.jl:44
+│  ┌ @ Base_compiler.jl:57 within `getproperty`
+│  │ %12 =   builtin Base.getfield(%11, :a)::Float64
+│  └
+│  ┌ @ intfuncs.jl:467 within `literal_pow`
+│  │┌ @ float.jl:494 within `*`
+│  ││ %13 = intrinsic Base.mul_float(%12, %12)::Float64
+│  └└
+│   @ /p/projects/coen/julia-trait-bound/experiments/implementation/w158/probes/flow.jl:39 within `area7`
+└──       goto #8
+5 ─ %15 =   builtin (isa)(%1, Dynamic{Shape7})::Bool
+└──       goto #7 if not %15
+6 ─ %17 = π (%1, Dynamic{Shape7})
+│   %18 =    invoke Main.area7(%17::Dynamic{Shape7})::Float64
+└──       goto #8
+7 ─         builtin Core.throw_methoderror(Main.area7, %1)::Union{}
+└──       unreachable
+8 ┄ %22 = φ (#2 => %7, #4 => %13, #6 => %18)::Float64
+└──       return %22
+9 ─       $(Expr(:meta, :no_forwarder))
+)
