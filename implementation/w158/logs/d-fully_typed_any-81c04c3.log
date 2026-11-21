@@ -1,0 +1,32 @@
+pathof /p/projects/coen/julia-trait-bound/wt/w158b-tw/src/TraitWorld.jl  commit 81c04c3
+methods of cn:
+   Tuple{typeof(cn), CT}
+   Tuple{typeof(cn), Compiled{<:CTab}}
+   Tuple{typeof(cn), Dynamic{<:CTab}}
+== cf1: cn(xs[1]), xs::Vector{Any}
+   the call: returns 1
+   fully_typed: isfullytyped = true; sites: 0
+   the compiled code (session): no check; Base.sub_int(1, 1) | Base.bitcast(Base.UInt, %3) | Base.getfield(_2, :size) | Core.getfield(%5, 1) | Base.bitcast(Base.UInt, %6) | Base.ult_int(%4, %7) | Core.tuple(1) | $(Expr(:invoke, CodeInstance for MethodInstance for Base.throw_boundserror(::Vector{Any}, ::Tuple{Int64}), :(Base.throw_boundserror), Core.Argument(2), :(%11))) | Base.getfield(_2, :ref) | Base.memoryrefnew(%15, 1, false) | Base.memoryrefget(%16, :not_atomic, false) | (isa)(%17, CT) | Base.getfield(%21, :cols) | Base.getfield(%22, :size) | Core.getfield(%23, 1) | Main.cn(%17)
+== h2: g2(xs[1]), two methods
+   the call: returns 1
+   fully_typed: isfullytyped = true; sites: 0
+   the compiled code (session): no check; Base.sub_int(1, 1) | Base.bitcast(Base.UInt, %3) | Base.getfield(_2, :size) | Core.getfield(%5, 1) | Base.bitcast(Base.UInt, %6) | Base.ult_int(%4, %7) | Core.tuple(1) | $(Expr(:invoke, CodeInstance for MethodInstance for Base.throw_boundserror(::Vector{Any}, ::Tuple{Int64}), :(Base.throw_boundserror), Core.Argument(2), :(%11))) | Base.getfield(_2, :ref) | Base.memoryrefnew(%15, 1, false) | Base.memoryrefget(%16, :not_atomic, false) | (isa)(%17, Float64) | (isa)(%17, Int64) | Core.throw_methoderror(Main.g2, %17)
+== h1: g1(xs[1]), one method
+   the call: returns 1
+   fully_typed: isfullytyped = true; sites: 0
+   the compiled code (session): no check; Base.sub_int(1, 1) | Base.bitcast(Base.UInt, %3) | Base.getfield(_2, :size) | Core.getfield(%5, 1) | Base.bitcast(Base.UInt, %6) | Base.ult_int(%4, %7) | Core.tuple(1) | $(Expr(:invoke, CodeInstance for MethodInstance for Base.throw_boundserror(::Vector{Any}, ::Tuple{Int64}), :(Base.throw_boundserror), Core.Argument(2), :(%11))) | Base.getfield(_2, :ref) | Base.memoryrefnew(%15, 1, false) | Base.memoryrefget(%16, :not_atomic, false) | (isa)(%17, Int64) | Core.throw_methoderror(Main.g1, %17)
+== ct: cn(xs[1]), xs::Vector{CTab}
+   the call: returns 1
+   fully_typed: isfullytyped = true; sites: 0
+   the compiled code (session): no check; Base.sub_int(1, 1) | Base.bitcast(Base.UInt, %3) | Base.getfield(_2, :size) | Core.getfield(%5, 1) | Base.bitcast(Base.UInt, %6) | Base.ult_int(%4, %7) | Core.tuple(1) | $(Expr(:invoke, CodeInstance for MethodInstance for Base.throw_boundserror(::Vector{CTab}, ::Tuple{Int64}), :(Base.throw_boundserror), Core.Argument(2), :(%11))) | Base.getfield(_2, :ref) | Base.memoryrefnew(%15, 1, false) | Base.memoryrefget(%16, :not_atomic, false) | (isa)(%17, CT) | Base.getfield(%21, :cols) | Base.getfield(%22, :size) | Core.getfield(%23, 1) | Core.typeof(%17) | %27 === Ptr{Nothing}(0x0000000000000000) | (Core.Intrinsics.not_int)(%28) | Main.cn(%17) | Core.typeassert(%33, Int64)
+== cf2 at a member
+   the call: returns 1.0
+== cf2 at a box
+   the call: NotFullyTypedError: not fully typed: cf2(::Dynamic{CData})
+  1 call is left to run time, which a closed build refuses:
+  /p/projects/coen/julia-trait-bound/experiments/implementation/w158/d-probes/fully_typed_any.jl:57  sum(::AbstractVector)
+      argument 1 is AbstractVector
+      ← `cdata` returns AbstractVector at cdata(::Dynamic{CData})
+      ← the result of `cdata`, an operation declared to return AbstractVector
+      (give the values concrete types (a typed field or container, a function barrier), or type them by a trait that declares the result)
+  the result is Any: the result of a call dispatched when it runs: `sum(…)` is Any

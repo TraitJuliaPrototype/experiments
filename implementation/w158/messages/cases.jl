@@ -107,8 +107,17 @@ provoke("Callable: the result outside S", :((cm2(f::Callable{Tuple{Float64}, Flo
 provoke("Callable: a wrapper with no method at A", :((cm3(f::Callable{Tuple{Float64}, Float64}, x::Float64) = f(x); cm3(compiled_for(uppercase), 1.0))))
 provoke("Callable: the box written out", :(Dynamic{Callable{Tuple{Float64}, Float64}}(uppercase)))
 
-# fully typed mode at a value known by its trait
-provoke("fully typed: a box's call left to run time", :((@enforce_fully_typed cf1(xs::Vector{Any}) = cn(xs[1]); cf1(Any[CT([[1.0]])]))))
+# fully typed mode at a value known by its trait. An operation at an element of `Vector{Any}` (`cn(xs[1])`) raises
+# nothing: a closed build branches over the operation's methods (traits §14; ../README.md, "The library's pieces,
+# continued"). A call on an operation's result of an abstract type, at a box, is one a build refuses
+provoke("fully typed: a call on an operation's abstract result, at a box", :((@trait CData begin
+        cdata(t::CData)::AbstractVector
+    end;
+    struct CD; v::Vector{Float64}; end;
+    cdata(t::CD) = t.v;
+    @implement CData CD;
+    @enforce_fully_typed cf1(t::CData) = sum(cdata(t));
+    cf1(Dynamic{CData}(CD([1.0]))))))
 
 # declarations
 provoke("@implement: a missing operation", :((struct CNo; end; @implement CTab CNo)))

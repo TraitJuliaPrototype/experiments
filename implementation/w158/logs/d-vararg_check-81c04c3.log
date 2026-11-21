@@ -1,0 +1,39 @@
+pathof /p/projects/coen/julia-trait-bound/wt/w158b-tw/src/TraitWorld.jl  commit 81c04c3
+== what runs: a vararg method outside a bounded scope, called with boxes
+   u with 1 boxes: raises MethodError: no method matching iterate(::Dynamic{VTab})
+The function `iterate` exists, bu
+   u with 2 boxes: raises MethodError: no method matching iterate(::Dynamic{VTab})
+The function `iterate` exists, bu
+   u with 5 boxes: raises MethodError: no method matching iterate(::Dynamic{VTab})
+The function `iterate` exists, bu
+   instances of u: Tuple{typeof(u), Dynamic{VTab}, Vararg{Dynamic{VTab}}}; Tuple{typeof(u), Dynamic{VTab}}
+   box_signature(u): Tuple{typeof(u), Dynamic{VTab}, Vararg{Dynamic{VTab}}}
+== a vararg of members, not bounded: `call(ts::VTab...) = sum(t -> sum(t), ts)`
+   TraitUseError: `call(ts::VTab...)` is declared bounded, and is not bounded: read with each of `ts` in a box, `Dynamic{VTab}`:
+  sum((t) -> …, ts) only throws, at line 5
+== a vararg of members, bounded: `callok(ts::VTab...) = sum(t -> vn(t), ts)`
+   accepted
+   callok(VT(1), VT(2)) = 3; with boxes = 3
+== a fixed trait argument and a vararg, the vararg not bounded: `cfv(a::VTab, ts::VTab...) = vn(a) + sum(t -> sum(t), ts)`
+   TraitUseError: `cfv(a::VTab, ts::VTab...)` is declared bounded, and is not bounded: read with `a` in a box, `Dynamic{VTab}`, and each of `ts` in a box, `Dynamic{VTab}`:
+  sum((t) -> …, ts) only throws, at line 5
+== a fixed trait argument and a vararg, bounded: `cfvok(a::VTab, ts::VTab...) = vn(a) + sum(vn, ts)`
+   accepted
+   cfvok(VT(1), VT(2), VT(3)) = 6
+== a vararg with a fixed count: `c2(ts::Vararg{VTab, 2}) = sum(t -> sum(t), ts)`
+   TraitUseError: `c2(ts::Vararg{VTab, 2})` is declared bounded, and is not bounded: read with each of `ts` in a box, `Dynamic{VTab}`:
+  sum((t) -> …, ts) only throws, at line 5
+== a vararg typed by a where variable: `cw(ts::T...) where {T <: VTab} = sum(t -> sum(t), ts)`
+   TraitUseError: `cw(ts::T...) where T<:VTab` is declared bounded, and is not bounded: read with each of `ts` in a box, `Dynamic{VTab}`:
+  sum((t) -> …, ts) only throws, at line 5
+== a vararg at a trait that erases by default, not bounded: `eva(ts::VETab...) = sum(t -> sum(t), ts)`
+   TraitUseError: `eva(ts::VETab...)` is declared bounded, and is not bounded: read with each of `ts` in a box, `Dynamic{VETab}`:
+  sum((t) -> …, ts) only throws, at line 5
+== a vararg at a trait that erases by default, bounded: `evaok(ts::VETab...) = sum(ven, ts)`
+   accepted
+   evaok(VT(1), VT(2)) = 3
+== a vararg indexed: `cfirst(ts::VTab...) = first(ts[1])`
+   TraitUseError: `cfirst(ts::VTab...)` is declared bounded, and is not bounded: read with each of `ts` in a box, `Dynamic{VTab}`:
+  first(::Dynamic{VTab}) reaches iterate(::Dynamic{VTab}), which has no method, at line 5
+== a vararg with no trait: `cplain(xs::Int...) = sum(xs)`
+   accepted

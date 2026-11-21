@@ -1,0 +1,143 @@
+pathof /p/projects/coen/julia-trait-bound/wt/w158b-tw/src/TraitWorld.jl
+
+######## PTab (does not erase)
+== fixed t::PTab
+   method  Tuple{typeof(fixed_PTab), PTab}
+      checked: true  reads: Tuple{typeof(fixed_PTab), Dynamic{PTab}}
+   call with plain members: M1
+== vararg ts::PTab...
+   method  Tuple{typeof(va_PTab), Vararg{PTab}}
+      checked: false  reads: nothing
+   call with plain members: (M1, M2)
+== fixed and vararg a::PTab, ts::PTab...
+   method  Tuple{typeof(fixva_PTab), PTab, Vararg{PTab}}
+      checked: true  reads: Tuple{typeof(fixva_PTab), Dynamic{PTab}, Vararg{PTab}}
+   call with plain members: (M1, (M1, M2))
+== Vararg{PTab, 2}
+   method  Tuple{typeof(van_PTab), PTab, PTab}
+      checked: true  reads: Tuple{typeof(van_PTab), Dynamic{PTab}, Dynamic{PTab}}
+   call with plain members: (M1, M2)
+== ts::T... where T <: PTab
+   method  Tuple{typeof(vawhere_PTab), Vararg{T}} where T<:PTab
+      checked: false  reads: nothing
+   call with plain members: (M1, M1)
+== keyword k::PTab (the sorter and the body are below)
+   method  Tuple{typeof(kw_PTab)}
+      checked: false  reads: nothing
+   call with plain members: M1
+==   its body
+   method  Tuple{var"##kw_PTab#46", PTab, typeof(kw_PTab)}
+      checked: true  reads: Tuple{var"##kw_PTab#46", Dynamic{PTab}, typeof(kw_PTab)}
+   call with plain members: nothing
+   sorter  Tuple{typeof(kwcall), NamedTuple, typeof(kw_PTab)}  checked: false  forwarder: false
+== fixed and keyword t::PTab; k::PTab
+   method  Tuple{typeof(kwfix_PTab), PTab}
+      checked: true  reads: Tuple{typeof(kwfix_PTab), Dynamic{PTab}}
+   call with plain members: (M1, M2)
+==   its body
+   method  Tuple{var"##kwfix_PTab#47", PTab, typeof(kwfix_PTab), PTab}
+      checked: true  reads: Tuple{var"##kwfix_PTab#47", Dynamic{PTab}, typeof(kwfix_PTab), Dynamic{PTab}}
+   call with plain members: nothing
+== Union{PTab, Nothing}
+   method  Tuple{typeof(union_PTab), Union{Nothing, PTab}}
+      checked: false  reads: nothing
+   call with plain members: M1
+== Tuple{PTab, PTab}
+   method  Tuple{typeof(tuple_PTab), Tuple{PTab, PTab}}
+      checked: false  reads: nothing
+   call with plain members: (M1, M2)
+== optional after: t::PTab, k::Int = 1
+   method  Tuple{typeof(opt_PTab), PTab, Int64}
+      checked: true  reads: Tuple{typeof(opt_PTab), Dynamic{PTab}, Int64}
+   method  Tuple{typeof(opt_PTab), PTab}
+      checked: true  reads: Tuple{typeof(opt_PTab), Dynamic{PTab}}
+   call with plain members: (M1, 1)
+== optional at the trait: k::Int, t::PTab = M1()
+   method  Tuple{typeof(optt_PTab), Int64}
+      checked: false  reads: nothing
+   method  Tuple{typeof(optt_PTab), Int64, PTab}
+      checked: true  reads: Tuple{typeof(optt_PTab), Int64, Dynamic{PTab}}
+   call with plain members: (M1, 1)
+== Vector{<:PTab}
+   method  Tuple{typeof(vec_PTab), Vector{<:PTab}}
+      checked: false  reads: nothing
+   call with plain members: DataType[M1]
+
+######## ETab (erases by default)
+== fixed t::ETab
+   method  Tuple{typeof(fixed_ETab), Union{Compiled{<:ETab}, Dynamic{<:ETab}}}
+      checked: true  reads: Tuple{typeof(fixed_ETab), Dynamic{ETab}}
+   forwarder  Tuple{typeof(fixed_ETab), ETab}
+      checked: false  reads: Tuple{typeof(fixed_ETab), Dynamic{ETab}}
+   call with plain members: Dynamic{ETab}
+== vararg ts::ETab...
+   method  Tuple{typeof(va_ETab), Vararg{ETab}}
+      checked: false  reads: nothing
+   call with plain members: (M1, M2)
+== fixed and vararg a::ETab, ts::ETab...
+   method  Tuple{typeof(fixva_ETab), Union{Compiled{<:ETab}, Dynamic{<:ETab}}, Vararg{ETab}}
+      checked: true  reads: Tuple{typeof(fixva_ETab), Dynamic{ETab}, Vararg{ETab}}
+   forwarder  Tuple{typeof(fixva_ETab), ETab, Vararg{ETab}}
+      checked: false  reads: Tuple{typeof(fixva_ETab), Dynamic{ETab}, Vararg{ETab}}
+   call with plain members: (Dynamic{ETab}, (M1, M2))
+== Vararg{ETab, 2}
+   method  Tuple{typeof(van_ETab), ETab, ETab}
+      checked: true  reads: Tuple{typeof(van_ETab), Dynamic{ETab}, Dynamic{ETab}}
+   call with plain members: (M1, M2)
+== ts::T... where T <: ETab
+   method  Tuple{typeof(vawhere_ETab), Vararg{T}} where T<:ETab
+      checked: false  reads: nothing
+   call with plain members: (M1, M1)
+== keyword k::ETab (the sorter and the body are below)
+   method  Tuple{typeof(kw_ETab)}
+      checked: false  reads: nothing
+   call with plain members: Dynamic{ETab}
+==   its body
+   method  Tuple{var"##kw_ETab#48", Union{Compiled{<:ETab}, Dynamic{<:ETab}}, typeof(kw_ETab)}
+      checked: true  reads: Tuple{var"##kw_ETab#48", Dynamic{ETab}, typeof(kw_ETab)}
+   forwarder  Tuple{var"##kw_ETab#48", ETab, typeof(kw_ETab)}
+      checked: false  reads: Tuple{var"##kw_ETab#48", Dynamic{ETab}, typeof(kw_ETab)}
+   call with plain members: nothing
+   sorter  Tuple{typeof(kwcall), NamedTuple, typeof(kw_ETab)}  checked: false  forwarder: false
+== fixed and keyword t::ETab; k::ETab
+   method  Tuple{typeof(kwfix_ETab), Union{Compiled{<:ETab}, Dynamic{<:ETab}}}
+      checked: true  reads: Tuple{typeof(kwfix_ETab), Dynamic{ETab}}
+   forwarder  Tuple{typeof(kwfix_ETab), ETab}
+      checked: false  reads: Tuple{typeof(kwfix_ETab), Dynamic{ETab}}
+   call with plain members: (Dynamic{ETab}, Dynamic{ETab})
+==   its body
+   method  Tuple{var"##kwfix_ETab#49", Union{Compiled{<:ETab}, Dynamic{<:ETab}}, typeof(kwfix_ETab), Union{Compiled{<:ETab}, Dynamic{<:ETab}}}
+      checked: true  reads: Tuple{var"##kwfix_ETab#49", Dynamic{ETab}, typeof(kwfix_ETab), Dynamic{ETab}}
+   forwarder  Tuple{var"##kwfix_ETab#49", ETab, typeof(kwfix_ETab), ETab}
+      checked: false  reads: Tuple{var"##kwfix_ETab#49", Dynamic{ETab}, typeof(kwfix_ETab), Dynamic{ETab}}
+   call with plain members: nothing
+== Union{ETab, Nothing}
+   method  Tuple{typeof(union_ETab), Union{Nothing, ETab}}
+      checked: false  reads: nothing
+   call with plain members: M1
+== Tuple{ETab, ETab}
+   method  Tuple{typeof(tuple_ETab), Tuple{ETab, ETab}}
+      checked: false  reads: nothing
+   call with plain members: (M1, M2)
+== optional after: t::ETab, k::Int = 1
+   method  Tuple{typeof(opt_ETab), Union{Compiled{<:ETab}, Dynamic{<:ETab}}, Int64}
+      checked: true  reads: Tuple{typeof(opt_ETab), Dynamic{ETab}, Int64}
+   forwarder  Tuple{typeof(opt_ETab), ETab, Int64}
+      checked: false  reads: Tuple{typeof(opt_ETab), Dynamic{ETab}, Int64}
+   method  Tuple{typeof(opt_ETab), Union{Compiled{<:ETab}, Dynamic{<:ETab}}}
+      checked: true  reads: Tuple{typeof(opt_ETab), Dynamic{ETab}}
+   forwarder  Tuple{typeof(opt_ETab), ETab}
+      checked: false  reads: Tuple{typeof(opt_ETab), Dynamic{ETab}}
+   call with plain members: (Dynamic{ETab}, 1)
+== optional at the trait: k::Int, t::ETab = M1()
+   method  Tuple{typeof(optt_ETab), Int64}
+      checked: false  reads: nothing
+   method  Tuple{typeof(optt_ETab), Int64, Union{Compiled{<:ETab}, Dynamic{<:ETab}}}
+      checked: true  reads: Tuple{typeof(optt_ETab), Int64, Dynamic{ETab}}
+   forwarder  Tuple{typeof(optt_ETab), Int64, ETab}
+      checked: false  reads: Tuple{typeof(optt_ETab), Int64, Dynamic{ETab}}
+   call with plain members: (Dynamic{ETab}, 1)
+== Vector{<:ETab}
+   method  Tuple{typeof(vec_ETab), Vector{<:ETab}}
+      checked: false  reads: nothing
+   call with plain members: DataType[M1]

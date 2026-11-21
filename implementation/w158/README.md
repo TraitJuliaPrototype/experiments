@@ -167,3 +167,145 @@ returns 0. The gate is unchanged: the reference and the code disagree, and the c
 | docs examples: intro, tutorial, strict | 26 pass and 1 deviation (open issue 235), 95, 5 | 27, 96, 5 pass, no deviation (`logs/b-docs-*-piece2.log`) |
 | the gates (`LIB=wt/w158b-tw`) | | 72 of 72, stage gates 9 of 9 (`logs/b-gates-e32d443.log`) |
 | TraitTables' suite, with the branch | | 27 pass, 3 testsets (`logs/b-tables-e32d443.log`) |
+
+## The library's pieces, continued (W-158), 2026-11-21
+
+Two pieces: a vararg of members read by the bounded check at the box (traits T-158), and `@enforce_fully_typed` at
+a call on an element of `Vector{Any}` (the messages tool's case `cf1`). Julia `julia-next` f5328f94c5, read only;
+the library in `wt/w158b-tw`, branch `w158d` from `unified` e32d443; the depot `agent-depots/w158b` before the
+shared one. One Julia job at a time, niced, 4 cores; load 4 to 5 of 128. Logs: `logs/d-*`; probes: `d-probes/`.
+
+**How to run** (from `wt/w158b-tw`, after `source $W158/d-probes/env.sh`):
+```sh
+$JN --project=. -e 'using TraitWorld; include("test/runtests.jl")'                  # the library
+$JN --project=. $W158/d-probes/positions.jl         # piece 1: what the forwarder boxes, what the check reads, per position
+$JN --project=. $W158/d-probes/vararg_check.jl      # piece 1: what runs at a vararg of boxes; the check's verdicts
+$JN --project=$W158/env_demo_d $W158/d-probes/demo_check.jl   # piece 1: the check over the demonstrators' modules
+$JN --project=. $W158/d-probes/fully_typed_any.jl   # piece 2: the case, its controls, the case that replaces it
+(cd $W158/d-probes/apps && bash $W158/build_app.sh julia-next ftany.jl d-ftany $LIBD)   # piece 2: the closed build
+for s in intro tutorial strict; do $JN --project=. -e "using TraitWorld; include(\"$TW_ROOT/experiments/docs-examples/$s.jl\")"; done
+(cd $TW_ROOT/TraitDifferentialEquations && $JN --project=$W158/env_demo_d -e 'using TraitWorld, TraitDifferentialEquations; include("test/runtests.jl")')
+(cd $TW_ROOT/TraitMakie && $JN --project=$W158/env_demo_d -e 'using TraitWorld, TraitMakie; include("test/runtests.jl")')
+```
+`env_demo_d/`: W-161's `env_demo` with every path absolute and the library at `wt/w158b-tw` (no resolve).
+`build_app.sh` writes `TraitWorld <rev>` of the workspace's `TraitWorld/` in its log's head; the build's project was
+`wt/w158b-tw` at 327f253.
+
+### 1. A vararg of members, read at the box (TraitWorld 327f253)
+
+**What runs.**
+- **The forwarder boxes no vararg's members.** The expansion hook skips a `Vararg` position
+  (`src/erasing.jl`, `_expand_definition`: `T isa Core.TypeofVararg && continue`). A method whose only trait argument
+  is a vararg gets no forwarder, also at a trait that erases by default; plain members run as themselves, compiled
+  per tuple of their types: traits §6.6, "A vararg of members, `ts::ColTable...`: elements may be different members;
+  code is compiled per tuple of their types." Compiler §6.3 asks the hook "at each positional argument"; traits §7.8's
+  list of the arguments that erase names no vararg.
+- **A box passed at a vararg runs the method as written at the box.** `u(ts::VTab...) = sum(t -> sum(t), ts)` with
+  1, 2 and 5 boxes raises `MethodError: no method matching iterate(::Dynamic{VTab})`; Julia compiled
+  `u(::Dynamic{VTab})` and, for 2 and 5 boxes, `Tuple{typeof(u), Dynamic{VTab}, Vararg{Dynamic{VTab}}}`
+  (`logs/d-vararg_check-81c04c3.log`). This holds at every trait: a box is a member (traits §7.1).
+
+**The rule built.** Traits §7.3, "Where the instance is read": "Each argument at a trait, … at the box of that
+trait"; a vararg `ts::X...` is such an argument. The check reads `Tuple{typeof(f), Dynamic{X}, Vararg{Dynamic{X}}}`,
+the instance Julia compiles for a call that passes several boxes there (at least one: a call with none passes no
+box).
+- `box_signature` and `_at_box_checked` (`src/atbox.jl`) read a `Vararg` position at a trait, a `where` variable
+  bounded by one included; a fixed count (`Vararg{X, 2}`) Julia spells out in the method's signature, read as before.
+- Two widenings were needed for the reading to see the fault, both at the rule "a call in that instance, with a
+  value at the box, … that only throws":
+  - **A tuple that holds a value at the box passes it on** (`_at_box_value`). Without it, `sum(f, ts)` at a tuple of
+    boxes was no call "with a value at the box", and `c2(ts::Vararg{VTab, 2}) = sum(t -> sum(t), ts)`, read at two
+    boxes since before, was accepted.
+  - **A call left to run time whose result inference gives as `Union{}` only throws.** At a tuple of no fixed length
+    the call into Base is not compiled (`dynamic Main.sum(…)::Union{}`), but its result is known.
+- The refusal's head names the vararg once: "read with each of `ts` in a box, `Dynamic{CTab}`".
+- **A closure in a fault line prints as written,** `sum((t) -> …, ts)`; it printed `sum(::var"#call##0#call##1", ts)`,
+  a generated name (traits §11.3; the pattern of open issue 235, not provoked by the corpus before). An untyped
+  closure argument printed `(t::) -> …` (`_written_method`, `src/errors.jl`).
+- Tests (`test/messages.jl`, "the bounded check names the method as written", 11 to 19 checks): a vararg method not
+  bounded is refused, named as written; a bounded one is accepted; a fixed trait argument and a vararg, each way; a
+  vararg typed by a `where` variable; `box_signature` of a vararg method.
+
+**The check's verdicts** (`logs/d-vararg_check-before-e32d443.log`, `logs/d-vararg_check-81c04c3.log`): before, all
+ten methods of the probe accepted. After: refused `call(ts::VTab...)`, `cfv(a::VTab, ts::VTab...)`,
+`c2(ts::Vararg{VTab, 2})`, `cw(ts::T...) where T<:VTab`, `eva(ts::VETab...)` (a trait that erases by default),
+`cfirst(ts::VTab...) = first(ts[1])`; accepted the bounded `callok`, `cfvok`, `evaok` (each also runs) and
+`cplain(xs::Int...)`.
+
+**What is not settled.**
+- **At a trait that erases by default the check reads what a box passed at the vararg runs, not what a plain member
+  runs** (per tuple of its types, no forwarder). That is the position of every argument at a trait that does not
+  erase; whether a vararg at a trait that erases should be boxed by the forwarder (traits §7.8 against §6.6) is a
+  question for the references. A fixed count (`Vararg{ETab, 2}`) is the same: the hook sees the vararg and makes no
+  forwarder; the check reads two boxes.
+- **The fault line of a closure over a vararg of boxes names the call, not what it reaches:** "`sum((t) -> …, ts)` only
+  throws". At a tuple of no fixed length Base's `mapfoldl_impl` makes a `Generator` whose element type is lost
+  (`Any`) below; at a fixed count the chain to `iterate(::Dynamic{VTab})` is deeper than `_reaches_no_method`'s bound
+  of 20 calls. Traits §7.3: "The report names … what the call reaches."
+
+**The positions** (`d-probes/positions.jl`; `logs/d-positions-before-e32d443.log`, `logs/d-positions-81c04c3.log`):
+each position at a trait that does not erase (`PTab`) and one that erases by default (`ETab`).
+
+| Position | What the forwarder does (`ETab`) | What a plain member's call runs (`ETab`) | What the check reads, before → after |
+|---|---|---|---|
+| `t::X` | boxes | the method at the box | `Dynamic{X}` |
+| `ts::X...` | no forwarder | per tuple of member types | not read → `Dynamic{X}, Vararg{Dynamic{X}}` |
+| `a::X, ts::X...` | boxes `a`; the tail as it is | `a` boxed, the tail per member type | `Dynamic{X}, Vararg{X}` (the tail at the trait, unboxed) → `Dynamic{X}, Dynamic{X}, Vararg{Dynamic{X}}` |
+| `ts::Vararg{X, 2}` | no forwarder | per member types | `Dynamic{X}, Dynamic{X}` |
+| `ts::T... where T <: X` | no forwarder | per member types | not read → `Dynamic{X}, Vararg{Dynamic{X}}` |
+| keyword `k::X` | the keyword body's own forwarder boxes it | the body at the box | the body at `Dynamic{X}`; the sorter not read |
+| `t::X; k::X` | the method's and the body's forwarders box both | both boxed | both at `Dynamic{X}` |
+| `t::Union{X, Nothing}` | none | the member as it is | not read |
+| `t::Tuple{X, X}` | none | the members as they are | not read |
+| `t::X, k::Int = 1` | each of the two methods forwarded | boxed | each at `Dynamic{X}` |
+| `k::Int, t::X = M1()` | the longer method forwarded; the shorter has no trait argument | boxed | the longer at `Dynamic{X}`; the shorter not read |
+| `v::Vector{<:X}` | none | the vector as it is | not read |
+
+At `PTab` nothing is forwarded and the check reads the same signatures. After the change the check and the
+forwarder disagree only at a vararg of a trait that erases (rows 2 to 5): the check reads boxes, a plain member runs
+unboxed. A keyword at a trait that erases arrives boxed (the body's forwarder); traits §7.8 says only "Keyword
+arguments are passed on whole", of the positional forwarder.
+
+**The demonstrators** (`d-probes/demo_check.jl`, every method at a trait in 11 modules of TraitTables, the ODE port
+and TraitMakie read at the box, bounded scope or not): 173 methods read, none with a vararg of members, 0 faults,
+before (`logs/d-demo_check-before-e32d443.log`) and after (`logs/d-demo_check-81c04c3.log`). The two widenings refuse
+nothing there.
+
+### 2. `@enforce_fully_typed` at an element of `Vector{Any}` (TraitWorld 81c04c3)
+
+**The case is ill-formed.** `@enforce_fully_typed cf1(xs::Vector{Any}) = cn(xs[1])`, `cn` an operation of `CTab`,
+raises nothing, and by the reference it must not:
+- traits §14: "The modes raise where a build would refuse. … code with a call that a session leaves to run time and
+  a build resolves by the members runs without a fault"; compiler §2.7: "The fault is the closed build's refusal".
+- **The build resolves it.** `fully_typed(cf1, (Vector{Any},))`, the build's own check, lists no call; a trimmed
+  build of the program (`d-probes/apps/ftany.jl`; `logs/d-ftany.build.log`) builds, 2,075,416 bytes, and prints 2
+  with exit 0 for a member, a box and a wrapper in `xs` (`logs/d-ftany-run.out`).
+- **The session splits it.** Julia's inference tests `isa(x, CT)` (the member's method, inlined) and leaves the
+  kept forms' methods (`cn(::Dynamic{<:CTab})`, `cn(::Compiled{<:CTab})`) to dispatch; no check is compiled in.
+  A plain function of two methods at `Any` is split the same way, with a `MethodError` at the end; of one method,
+  likewise (`logs/d-fully_typed_any-81c04c3.log`).
+- So `cf1` is fully typed when closed, not in a session: the difference traits T-122 says the report does not list
+  apart.
+
+**The case in the tool** (`messages/cases.jl`) is replaced by one the reference says raises: a call on an operation's
+result of an abstract type, at a box (`cf1(t::CData) = sum(cdata(t))`, `cdata(t::CData)::AbstractVector`; traits §14,
+"a call on such a result is a call the caller cannot resolve, and the report of the caller names the result as its
+root cause"). It raises `NotFullyTypedError`; at a member it runs.
+
+**What the new case showed:** the report's root cause printed the callee as the compiler's tuple type, "`cdata`
+returns AbstractVector at Tuple{typeof(cdata), Dynamic{CData}}" (`src/fullytyped.jl`, `_origin`): open issue 235's
+pattern, where no case had computed it. It prints `cdata(::Dynamic{CData})` now (`_callform`). Tests in
+`test/fullytyped.jl` (23 to 27 checks): the operation at `Vector{Any}` runs at a member and at a box; the abstract
+result at a box raises, and its message has no tuple type.
+
+### The checks, TraitWorld 81c04c3
+
+| Check | Result |
+|---|---|
+| the library | 96 testsets pass, 1 broken check in `test/verify.jl` as before (`logs/d-library-81c04c3.log`) |
+| docs examples: intro, tutorial, strict | 27, 96, 5 pass, no deviation (`logs/d-docs-*-81c04c3.log`) |
+| the gates (`LIB=wt/w158b-tw`) | 72 of 72, stage gates 9 of 9 (`logs/d-gates-81c04c3.log`) |
+| TraitTables' suite (`env_tables_b`) | 27 pass, 3 testsets (`logs/d-tables-81c04c3.log`) |
+| the ODE port's suite (`env_demo_d`) | 35 testsets pass (`logs/d-tde-81c04c3.log`) |
+| TraitMakie's suite (`env_demo_d`) | 8 testsets pass (`logs/d-makie-81c04c3.log`) |
+| the messages tool (`messages/run.sh`, its `b-messages-` logs renamed `d-messages-`) | 109 distinct messages; tuple type 0, generated name 0, compiler object 0, library internal 0; box or wrapper type 40, read (`logs/d-messages-after-81c04c3-*`) |
