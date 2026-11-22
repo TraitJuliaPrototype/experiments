@@ -1,0 +1,14 @@
+TraitWorld /p/projects/coen/julia-trait-bound/wt/w158b-tw/src/TraitWorld.jl
+in the module's body: g(::Vector{Any}) compiled while oa was owner-only        | (Any, true)
+after the module's end: oa owner-only to the compiler                          | false; public false
+a member's module adds oa's method for its own type, in a block                | accepted
+  g's code compiled in the body afterwards (ended by the member's method?)     | (Any, true)
+  pirate reports so far                                                        | 0
+a module adds oa's method for its own type that is no member                   | accepted
+a third module: oa's method for a type it does not own (classic pirate)        | OwnershipError: OwnershipError: oa(::Int64) in Main.M3 is a pirate, and the scope declares `no_pirates`: Main.M3 owns neither the function (owned by Main.OL) nor a type in each of its signatures (owned by Julia). The function's owner or the owner
+a third module: a membership of OS for a type it does not own (pirate's membership) | OwnershipError: OwnershipError: @implement Main.OL.OS Int64 in Main.M4: Main.M4 owns neither the trait (owned by Main.OL) nor the type (owned by Julia): a pirate's membership, and the scope declares `no_pirates`. The trait's owner or the type's o
+a third module: oa's method at the trait itself                                | OwnershipError: OwnershipError: oa(::OS, ::Int64) in Main.M5 is a pirate, and the scope declares `no_pirates`: Main.M5 owns neither the function (owned by Main.OL) nor a type in each of its signatures (owned by Julia, Main.OL). The function's own
+another module's trait names IA's internal helper as its operation             | OwnershipError: OwnershipError: helper(::Dynamic{<:BX}) in Main.IB is a pirate, and the scope declares `no_pirates`: `helper` is an owner-only function of Main.IA (neither exported nor declared `public`): only Main.IA adds methods to it, whatever
+  IA's helper owner-only to the compiler after IB                              | true
+@owner_only ca: a member's method in a block                                   | OwnershipError: OwnershipError: ca(::T7) in Main.M7 is a pirate, and the scope declares `no_pirates`: `ca` is an operation of Main.CL.CS that Main.CL declares `@owner_only`: only Main.CL adds methods to it, whatever types they are for. To let oth
+an operation exported after its @trait                                         | accepted

@@ -4,7 +4,10 @@
 # where the code that runs may be another instance than the one inferred, has its result checked against the type
 # inferred for it, in every form: a call left to dispatch, a split's fallback, a constant or `Union{}` result, a
 # result two levels up, the function in a field, a tuple or a closure, a splat, `Core.invoke`, a method that does not
-# specialize. The same for an operation's result at an argument its members' check does not infer at. The check of
+# specialize. The same for every declared result read at a set: an operation's result (at an argument the members' check
+# does not infer at, an operation's own `where` variable, a member of a pattern before its first use, a forwarding
+# member's abstract field, a method below a serving method's body defined later, a method at a member's wrapper) and
+# a declared field's type; and a constant read at the signature is not taken through `Core.invoke`. The check of
 # a `Callable`'s result raises the box's `TypeError` ("in Callable", with its addition for `Nothing`): one check, one
 # message. Controls: a box checks its result where it is called; a wrapper is the function (GT-24): passed on as an
 # element known by the signature, it is checked as the function is; passed as itself, its result is its own.
@@ -73,6 +76,74 @@ vm() = Meas[MA()]
 op_direct(v, x) = mstate(v[1], x) + 0.5
 op_passed(v, x) = gstate(v[1], x) + 0.5
 end
+# every declared result read at a set (compiler §7.1, §7.4): an operation's result and a declared field's type,
+# wherever the members' check does not reach the member's own instance in the world it runs in. Each passed on
+# (`apply1`, `apply2`) to code compiled for the member, then `r isa <declared>`: "yes" for a value outside it is a hole
+odefs = quote
+apply2(f, x, y) = f(x, y)
+yes(r, T) = r isa T ? "yes" : "no"
+# an operation's own `where` variable: the check infers at its bound, the call at the argument's type
+@trait OWhere begin
+    owop(x::OWhere, d::D)::Union{Float64, D} where {D}
+end
+struct OWA end
+owop(::OWA, d) = "s"
+@implement OWhere OWA
+where_op(v, x) = yes(apply2(owop, OWhere[OWA()][1], 1), Union{Float64, Int})
+# a family's member, an abstract type's member: checked at their first use, which a pass-on is not
+@trait OFam begin
+    ofop(x::OFam)::Float64
+end
+struct OFF{T} end
+ofop(::OFF{T}) where {T} = 1
+@implement OFam OFF{T} where {T}
+family_op(v, x) = yes(apply1(ofop, OFam[OFF{Int}()][1]), Float64)
+abstract type OAbs end
+struct OAR <: OAbs end
+@trait OAbsT begin
+    oaop(x::OAbsT)::Float64
+end
+oaop(::OAR) = 1
+@implement OAbsT OAbs
+abstract_op(v, x) = yes(apply1(oaop, OAbsT[OAR()][1]), Float64)
+# a member that forwards to a field typed by such an abstract member
+struct OFw; inner::OAbs; end
+@implement OAbsT OFw by inner
+forward_op(v, x) = yes(apply1(oaop, OAbsT[OFw(OAR())][1]), Float64)
+# a declared field of a family's member
+@trait OFld begin
+    @const ofld::Float64
+end
+struct OFldF{T}; ofld::T; end
+@implement OFld OFldF{T} where {T}
+getofld(x) = x.ofld
+field_op(v, x) = yes(apply1(getofld, OFld[OFldF{Int}(1)][1]), Float64)
+# a method below a serving method's body, defined after the membership was checked
+@trait OBelow begin
+    obop(x::OBelow)::Float64
+end
+struct OBA end
+obhelp(x) = 2.0
+obop(a::OBA) = obhelp(a)
+@implement OBelow OBA
+obhelp(::OBA) = 1
+below_op(v, x) = yes(apply1(obop, OBelow[OBA()][1]), Float64)
+# a method at a member's wrapper
+@trait OKept begin
+    okop(x::OKept)::Float64
+end
+struct OKA end
+okop(::OKA) = 2.0
+@implement OKept OKA
+okop(::Compiled{OKA}) = 1
+kept_op(v, x) = yes(apply1(okop, OKept[compiled_for(OKA())][1]), Float64)
+# a constant read at the signature through `Core.invoke` (the builtin specializes at the values' types)
+const CBo = Callable{Tuple{Float64}, Bool}
+vbo() = CBo[x -> 1]
+isbo(t, x) = t(x) isa Bool
+invoke_const(v, x) = invoke(isbo, Tuple{CBo, Float64}, v[1], x) ? "yes" : "no"
+end
+Core.eval(Main, Expr(:module, true, :Ops, Expr(:block, :(using TraitWorld), :(apply1(t, x) = t(x)), odefs.args...)))
 Core.eval(Main, Expr(:module, true, :Plain, Expr(:block, :(using TraitWorld: Callable), defs.args...)))
 Core.eval(Main, Expr(:module, true, :Traits, Expr(:block, :(using TraitWorld), :(@trait_module), defs.args..., tdefs.args...)))
 
@@ -121,6 +192,16 @@ end
 expect("wrapper", Traits, :wrap_own, :vf, :Callable, (:own,))
 expect("operation", Traits, :op_direct, :vm, :typeassert, (:checked,))
 expect("operation", Traits, :op_passed, :vm, :typeassert, (:checked,))
+for f in (:where_op, :family_op, :abstract_op, :forward_op, :field_op, :below_op, :kept_op)
+    r = run1(Ops, f, :vbo)
+    ok = r isa TypeError && r.func === :typeassert
+    println(rpad("Ops declared result $f", 44), ok ? :checked : r == "yes" ? :hole : :other, " ", r isa Exception ? sprint(showerror, r) : repr(r))
+    ok || (global nfail += 1)
+end
+let r = run1(Ops, :invoke_const, :vbo)
+    println(rpad("Ops Core.invoke's constant", 44), r == "no" ? :own : :hole, " ", repr(r))
+    r == "no" || (global nfail += 1)
+end
 # last: before the rule, the call read as `Union{}` returns into `unreachable` and the process stops
 for M in (Plain, Traits)
     expect("plain function", M, :noreturn_b, :vb, :Callable, (:checked, :own))

@@ -1598,3 +1598,200 @@ operation) and two cases of T-161.
 - **The principled form** is Julia's: `is_owner_only` would leave out a function the library marks as an operation
   (a binding flag set by `@trait`, beside `@owner_only`'s), with no `public` and no gap in the module's body. Not built
   (Julia read only).
+
+## Seventh part: the marks' rest; a wrapper past the bound; a trait's operation open from its declaration, 2026-11-22
+
+Three rows: compiler C-158 (§7.1, §7.4: every declared result its members' check does not reach is marked), compiler
+C-156 (§7.6: a wrapper among the members of several arguments past the bound) and traits T-163 (§12.2: a trait's
+operation open to its members from its declaration). Julia `wt/w158-julia`, branch `w158`, from 85bd884a57:
+09d3ef7a4b, e7e1f3c2a3 (built), cf0f039f51 (built). The library `wt/w158b-tw`, branch `w158p2` from `unified`
+15070de, `unified` 46687cb merged: d75b28f, 42d60e1. The depot `agent-depots/w158`. One Julia job at a time, niced;
+load 1.7 to 10 of 128. Logs `logs/p-*` (and the scripts' own names `logs/i-p-*`, `logs/i-apps-p-*`,
+`logs/i-builds-p-*`, `logs/w166c-i-p-*`, `logs/sessions-p-*`, `../w139/logs/w158-p-*`); probes `p-probes/`. The
+before-state: `julia-next` (85bd884a57, read only) with `TraitWorld/` (`unified` 46687cb, read only).
+
+**How to run** (after `source env.sh`; `J=$TW_ROOT/wt/w158-julia/julia`):
+```sh
+(cd $TW_ROOT/wt/w158b-tw && $J --project=. $W158/p-probes/ops.jl)          # 15 declared results passed on; exits 1 on a hole
+$J --startup-file=no p-probes/consts.jl                                     # a constant at Core.invoke and a splat, at Main
+(cd $TW_ROOT/wt/w158b-tw && TW=1 $J --project=. $W158/p-probes/consts.jl)  # the same with the library, an operation's too
+(cd $TW_ROOT/wt/w158b-tw && PATCH=$W158/p-probes/patch_p.jl $JN --project=. $W158/p-probes/ops.jl)   # piece 1 laid over 85bd884a57
+bash p-checks.sh <label> [tree] [step ...]     # m-checks.sh's steps and ode, odecb, nd, count; logs logs/p-<step>-<label>.log
+```
+`p-probes/patch_p.jl` lays piece 1 over a session. Its `activate_codegen!` is a statement of its own: called inside the
+`let` that evaluates the definitions, it ran inference in the world before them, and the patch did nothing.
+
+### 1. Compiler C-158: which declared results the members' check does not reach
+
+**What the check reaches** (traits §5.10; TraitWorld `src/check.jl`, `_check_contract!`): for a member by its own
+methods, each serving method's result inferred at the receiver's member type and the further arguments' declared
+types, the trait's parameters at the member, an operation's own `where` variables at their bounds; skipped where a
+further argument is not concrete (`_open_further`). A forwarding member: only that the field's type is a member, not
+forwarding again. A default serves without inference. A member of a pattern: at its first use, a call that needs its
+membership. Later definitions: the operation's own method at the member is judged (§5.10); a method below a serving
+method's body is not (T-129: one intersection per kept call); an image's membership is not inferred again at its
+load outside strict mode (T-129).
+
+Each case below: a member whose own code returns a value outside the declared result, the operation (or the field's
+read) passed on to code compiled for the member (`apply1(op, v[1])`, `v` typed by the trait), then `r isa <declared>`
+(`p-probes/ops.jl`; `logs/p-ops-before-85bd884.log`, `logs/p-ops-e7e1f3c.log`).
+
+| case | the check reaches it | 85bd884a57 | e7e1f3c2a3 | what closes it |
+|---|---|---|---|---|
+| a further argument not concrete | no (`_open_further`) | checked | checked | the mark |
+| a second value of the set | no (the same) | checked | checked | the mark |
+| an operation's own `where` variable; one with a bound | no: inferred at the bound, skipped; the compiler read the entry at the call's types, one argument not concrete | **wrong answer** (2 forms) | checked | the mark |
+| a default's method | the default's method declares the result itself (`f(…)::RT` converts and asserts in its body) | own (`1.0`) | own | nothing to close |
+| a forwarding member, its field a concrete member | yes: the field's member's check | own | own | nothing to close |
+| a forwarding member, its field typed by an abstract type that is a member | no: the field's type is a member by a pattern, each type checked at its first use | **wrong answer** | checked | the mark |
+| a family's member, an abstract type's member, before their first use | no: a call that passes the value on needs no membership; the hook is not asked | **wrong answer** (2) | checked | the mark |
+| a declared field of a family's member | no (the same) | **wrong answer** | checked | the mark |
+| a later method of the operation at the member | yes: refused (`ImplementError`) | refused | refused | the check |
+| a later method below the serving method's body; a pirate's | no (T-129) | **wrong answer** (2) | checked | the mark |
+| a later method at the member's wrapper (`op(::Compiled{S})`) | no: the kept forms are forwarding members of a family, never inferred, and §5.11's refusal is not built for them | **wrong answer** | checked | the mark |
+| a member in a package image, a method below its body already in the session when it loads (`p-probes/imgpkg/`) | no (T-129) | **wrong answer** | checked | the mark |
+
+**Why every result is marked, not the cases.** At an operation's call at a set the compiler cannot tell which member
+will run, nor whether that member's check reached its own instance in the world the code runs in: a member of a
+pattern joins before its first use, and a family membership declared later invalidates no code that read the
+declared result (it adds no method, compiler §5.5; the index is read without an edge). A mark conditional on "the set
+has no pattern membership" would need an edge a later membership meets; Julia's absence edges are met by the
+concrete memberships too. Closing T-129 in the library (the check instances kept with their edges) would close the
+later-method cases by the check, not the pattern members' first use. So the narrowing: every declared result read at
+a set (an operation's result, and a declared field's type) carries `TRUSTED_OPERATION`, but where it is `Any`; the
+check is the one the sixth part built (`typeassert` after a call left to dispatch, an invoke of wider types, a
+split's fallback or case at wider types, a builtin's call). `operation_entry_unchecked` goes. A closed build marks
+nothing, as before.
+
+**A constant at `Core.invoke` and at a splat** (`p-probes/consts.jl`): on 85bd884a57 `invoke(isb, Tuple{CB,
+Float64}, v[1], x)` took the constant `true` read at the signature where the function's own instance gives `false`
+(3 forms at Main, 4 with the library, the operation's among them: `logs/p-consts-tw*-before-85bd884.log`). The
+builtin specializes at the values' types, so `abstract_invoke` now makes a marked result at argument types that are
+not concrete its type alone. A splat (`_apply_iterate`) is inferred per call at the elements' types, where the
+marked call is widened already: own on both builds. e7e1f3c2a3: 0 holes in 7 and 9 forms.
+
+**Recursion cycles** (a statement takes the cycle's effects, the mark included, without the stop at concrete
+argument types): more checks, never fewer; not counted, left.
+
+**The gate and the tests.** `gates/n35_trusted_result.jl` gains a module `Ops` with 7 declared-result forms
+(`where_op`, `family_op`, `abstract_op`, `forward_op`, `field_op`, `below_op`, `kept_op`) and `Core.invoke`'s
+constant. On `julia-next` 85bd884a57 all 8 fail ("yes": `logs/p-gate-n35-before-85bd884.log`); on e7e1f3c2a3 the gate
+passes (`logs/p-gate-n35-e7e1f3c.log`); without the rule's checks (`m-probes/mutant.jl`) it fails: 47 holes, then
+the stop at `unreachable` in the first `Ops` form (`logs/p-gate-n35-mutant-e7e1f3c.log`). The library's
+`test/trusted.jl` gains the testset "every declared result read at a set, passed on; Core.invoke's constant" (9
+checks): 8 fail on `julia-next` (`logs/p-library-trusted-e7e1f3c.log`). `m-probes/forms.jl`: 0 holes in 29 and 71
+forms (`logs/p-forms-tw*-e7e1f3c.log`).
+
+**What a session pays, counted** (cf0f039f51, library 42d60e1; `m-probes/count.jl`, `logs/p-count-cf0f039.log`; the
+sixth part's on 85bd884a57 with the library 15070de: `logs/m6-count-85bd884.log`):
+
+| session | instances | trusted (85bd884a57) | statements flagged (85bd884a57) |
+|---|---|---|---|
+| the report | 84,878 | 56 (2) | 50 (1) |
+| the table | 76,415 | 13 (0) | 11 (0) |
+| the ODE program with callbacks | 83,292 | 62 (12) | 49 (15) |
+
+The checks the compiler inserts while a session infers, every package inferred in it (`m-probes/count_checks.jl`,
+`--compiled-modules=no`, `logs/p-count-checks-cf0f039.log`): the table 2 after a call that passes the value on, and 10
+in an operation's split as before (10 on 85bd884a57); the report 20 after a pass-on, 166 in splits (not counted on
+85bd884a57). A flagged statement is a call whose result was taken as its type alone (a constant, a field's type or a
+condition not read): an upper bound of the types lost. The instances' totals differ from the sixth part's by the
+library (46687cb merged, T-163); no control with one library on both binaries was run.
+- **The sessions** (`sessions.sh`, a warm-up and 3 runs, `logs/sessions-p-cf0f039.log`): report 24 compiles, table 19;
+  instances TraitWorld 475 and 414 (813 methods), TraitTables 129, TraitCSV 34, TraitMakie 323: as on 85bd884a57 with
+  the library 46687cb (this README, the section before). Plain code declares no such result and is not marked.
+- **A checked result no longer costs nothing at a pass-on:** trait code that passes an operation's result on to code
+  left to dispatch pays an `isa` test there, for every operation now, not only those at a further abstract argument.
+
+### 2. Compiler C-156: a wrapper among the members of several arguments past the bound
+
+**The program** (`apps/i-wrap3.jl`): `enter3` reads `Raw3`'s fields typed bare `Callable` and calls
+`usetrip(mktrip(r.c, r.a, r.i))`; one record holds `compiled_for(i5)`. On 85bd884a57: 4 errors in 2 statements
+(`logs/i-m6-85bd884-i-wrap3.build.log`).
+
+**The first call §7.6 does not serve**, followed through:
+1. `mktrip(r.c, r.a, r.i)` at three `Callable` signatures, 18 members each: past the product's bound, the forwarder at
+   the signatures (§7.6, served). In it each argument's box is a branch over its members; the wrapper is a member by
+   use of every signature, so each argument is a union of two kept forms, `Union{Compiled{typeof(i5)},
+   Dynamic{Callable{…}}}`.
+2. The call at the boxes, `#self#(b1, b2, b3)` (`i-ctor3.jl:29`, the forwarder of `mktrip`): §7.6 says "the call at
+   the boxes is at each combination of their kept forms", but nothing splits it: 8 combinations, past Julia's union
+   split of 4, left to dispatch. **This is the first call not served.** The sentence that serves it: the call at the
+   boxes branches over each combination, within the bound of 64. Built as: a closed build splits a call whose
+   arguments of a union type are each a union of concrete kept forms, up to 64 (`closed_kept_unions`). It resolves
+   more calls and trusts nothing new; plain code has no kept form.
+3. The 8 branches make 8 record types (`Trip{C, A, I}` at each form); their join is `Trip{C, A, I} where {…}`, the
+   struct's family. `usetrip(::Trip)` in `enter3` (`i-ctor3.jl:37`) is then a call at a value known by a family that
+   is no set: §7.6 has no rule for it (its rules are for a value known by its trait), and a session dispatches it per
+   record type (traits §8.2: "a wrapper's … so it is compiled per type"). **The second call not served.** Proposed
+   and built: a struct with a parameter bounded by a set is a record of forms; a value known only by its family is a
+   place whose record types are counted as a set's members by use are (forgotten at a place typed by the family, or
+   flowing there), and a call at it branches over them, each branch the code for that record type; past them
+   `MethodError` (`closed_record_family`, `closed_record_candidates`; the family is split at every method,
+   `closed_choice_bits`). A narrowing in effect (more calls resolved, nothing trusted, G1's "identical or error" past
+   the branches), but a rule §7.6 does not state: the build's members by use extended from sets to record families.
+   Marked "mine" for the record.
+
+**After** (e7e1f3c2a3 and cf0f039f51): `i-wrap3` 0 errors, 2,245,600 bytes, runs, output equal to a session's
+(`logs/i-apps-p-cf0f039.log`). The build's report (`logs/p-wrap3-report.build.log`): 5 rounds; `Trip{C, A, I} where
+…`: split with 8 candidates, the 8 record types, each forgotten at the family's place.
+
+### 3. Traits T-163: a trait's operation open to its members from its declaration
+
+**Built.** Julia (cf0f039f51, `src/julia.h`, `src/module.c`, `Compiler/src/facts.jl`): a binding flag
+`BINDING_FLAG_OPEN_OPERATION` (0x20) beside `BINDING_FLAG_OWNER_ONLY`, set by `jl_set_open_operation(m, name)`, read
+by `jl_binding_open_operation_p`; `Compiler.is_owner_only(F)` answers false for a flagged function after the
+owner-only flag (so `@owner_only op` still closes one) and before the module's option. The flag is a field of the
+binding, which an image keeps as it keeps `@owner_only`'s. The library (42d60e1): `@trait` calls
+`_open_operations!` where the trait is declared, in every module; it sets the flag on each operation whose function
+is its owner's; no `public` is added, and the module-end hook opens nothing.
+
+**The cases** (`o-probes/operation_cases.jl`, `logs/p-operation_cases-cf0f039.log`): a call of the operation at `Any`
+compiled in the module's body is a run-time site (`(Any, …)`; a fact on 85bd884a57 with 46687cb); after the module's
+end the operation is not owner-only and not `public`; the other cases as in the section before (a member's method
+accepted, classic pirates and a pirate's membership refused, `IA.helper` stays owner-only, `@owner_only ca` closes,
+an operation exported after its `@trait` accepted). `test/owner_only.jl`, "a trait's operation is not owner-only by
+the default": 20 checks pass (`logs/p-owner_only-cf0f039.log`); with 46687cb's `src` on cf0f039f51, 3 fail (open at
+the declaration, `ispublic` false, a `@trait` evaluated after the module's end: `logs/p-owner_only-before-46687cb-src.log`).
+
+### 4. What was built
+
+| tree | commit | what |
+|---|---|---|
+| julia `w158` | 09d3ef7a4b | every declared result read at a set (an operation's, a declared field's) carries `TRUSTED_OPERATION` but where it is `Any`; `operation_entry_unchecked` goes; at `Core.invoke` a marked result at argument types that are not concrete is its type alone |
+| julia `w158` | e7e1f3c2a3 | a closed build splits a call at unions of kept forms over each combination up to 64; a record known only by its family (a struct with a parameter bounded by a set) branches over the record types counted there |
+| julia `w158` | cf0f039f51 | `BINDING_FLAG_OPEN_OPERATION`, `jl_set_open_operation`; `is_owner_only` reads it |
+| library `w158p2` | d75b28f | `test/trusted.jl`: the declared results' forms and `Core.invoke`'s constant |
+| library `w158p2` | dccd823 | `unified` 46687cb merged |
+| library `w158p2` | 42d60e1 | `_open_operations!` sets the flag at the declaration; no `public`; tests |
+| experiments | this commit | `gates/n35_trusted_result.jl` extended; `p-probes/` (`ops.jl`, `imgpkg/`, `consts.jl`, `patch_p.jl`); `p-checks.sh`; logs |
+
+`Compiler/src`: 82 lines added, 42 removed (09d3ef7a4b +9 −36, e7e1f3c2a3 +68 −4, cf0f039f51 +5 −2); `src/`: 16
+added, 1 removed. The library's `src` from 46687cb: 12 added, 20 removed.
+
+### 5. The checks, cf0f039f51 (library w158p2 42d60e1; logs `logs/p-<check>-cf0f039.log`)
+
+| check | result |
+|---|---|
+| the gates (`LIB=wt/w158b-tw`) | 74 of 74, stage gates 9 of 9 |
+| Base's core, subtype, Compiler/inline, Compiler/inference, Compiler/effects | SUCCESS each |
+| the library | 118 testsets, no failure (115, the two of 46687cb, and the new one) |
+| TraitDifferentialEquations, TraitTables, TraitMakie | 35, 3, 8 testsets |
+| NetworkDynamics' subset (`w161/suites.sh`'s command, this binary) | 6 files; the two known failures (diffusion 1 fail 1 error, inhomogeneous 1 error) |
+| the table's, report's, plot's programs | 0 errors each; 2,724,648, 5,384,472, 4,943,680 bytes; outputs and PNGs equal (`logs/i-builds-p-cf0f039.log`) |
+| the ODE program, with callbacks | 0 errors each; 4,358,560 and 4,140,304 bytes; outputs equal (`logs/i-p-ode-cf0f039.kinds.txt`, `logs/i-p-odecb-cf0f039.kinds.txt`) |
+| E-384's eight small programs | build, run, equal (`logs/p-cf0f039-small.log`) |
+| the parts' programs and `m-trusted` | 0 errors each, `i-wrap3` among them; `i-gap3`, `f-gap`, `f-gapfn` raise where the session answers, as before (`logs/i-apps-p-cf0f039.log`) |
+| the sessions | report 24 compiles, table 19; instances as above (`logs/sessions-p-cf0f039.log`) |
+
+### 6. Not built, not verified
+
+- **The check does not reach** a pattern's members before their first use, a later method below a serving method's
+  body, an image's membership with a method already in the session (T-129), a method at a member's wrapper (§5.11 for
+  the kept forms), a forwarding member's abstract field: each closed by the mark, so a pass-on of every operation's
+  result is checked, not only those the check skips.
+- **The record family's rule** is not in §7.6; it applies only in a closed build, to a struct with a parameter bounded
+  by a set. Whether it changes a port's build beyond the programs above (a field typed by such a family) is not known.
+- **A forwarder whose source an image strips** is still not recognised (C-156's other cell).
+- **Recursion cycles**: not counted.
+- **The sessions' instance totals** of `count.jl` are not controlled against one library on both binaries.

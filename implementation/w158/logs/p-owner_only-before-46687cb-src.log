@@ -1,0 +1,47 @@
+┌ Warning: a pirate ended code compiled by facts that only a stakeholder's change or a pirate can end: `helper(::T)`, defined by Main.OOThird in Main.OOThird, which does not own the function: `helper` is an owner-only function of Main.OOLib (neither exported nor declared `public`): only Main.OOLib adds methods to it, whatever types they are for. It ended 1 instance: Main.OOLib.useall. It is followed, as plain Julia follows it: that code is compiled again. To let other modules add methods, Main.OOLib declares it `public` or exports it, or names Main.OOThird a joint owner (`@joint_owners`). Otherwise define a function of your own; strict mode (`TraitWorld.strict!()`) refuses such a definition; `TraitWorld.report_pirates!(false)` silences this report.
+└ @ TraitWorld /p/projects/coen/julia-trait-bound/wt/w158b-tw/src/report.jl:138
+ERROR: LoadError: Some tests did not pass: 17 passed, 3 failed, 0 errored, 0 broken.
+in expression starting at /p/projects/coen/julia-trait-bound/wt/w158b-tw/test/owner_only.jl:195
+Test Summary:        | Pass  Total  Time
+owner-only functions |   22     22  0.6s
+Test Summary:                                   | Pass  Total  Time
+the messages at an owner-only function's pirate |   20     20  0.1s
+
+a trait's operation is not owner-only by the default: Test Failed at /p/projects/coen/julia-trait-bound/wt/w158b-tw/test/owner_only.jl:203
+  Expression: OOTr.OPEN_AT_DECL
+  Stacktrace:
+   [1] top-level scope
+     @ /p/projects/coen/julia-trait-bound/wt/w158b-tw/test/owner_only.jl:196
+   [2] macro expansion
+     @ /p/projects/coen/julia-trait-bound/wt/w158-julia/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:1967 [inlined]
+   [3] macro expansion
+     @ /p/projects/coen/julia-trait-bound/wt/w158b-tw/test/owner_only.jl:203 [inlined]
+   [4] macro expansion
+     @ /p/projects/coen/julia-trait-bound/wt/w158-julia/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:758 [inlined]
+
+a trait's operation is not owner-only by the default: Test Failed at /p/projects/coen/julia-trait-bound/wt/w158b-tw/test/owner_only.jl:204
+  Expression: !(Base.ispublic(OOTr, :oarea)) && (!(Base.ispublic(OOTr, :carea)) && !(Base.ispublic(OOTr, :ohelper)))
+  Stacktrace:
+   [1] top-level scope
+     @ /p/projects/coen/julia-trait-bound/wt/w158b-tw/test/owner_only.jl:196
+   [2] macro expansion
+     @ /p/projects/coen/julia-trait-bound/wt/w158-julia/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:1967 [inlined]
+   [3] macro expansion
+     @ /p/projects/coen/julia-trait-bound/wt/w158b-tw/test/owner_only.jl:204 [inlined]
+   [4] macro expansion
+     @ /p/projects/coen/julia-trait-bound/wt/w158-julia/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:758 [inlined]
+
+a trait's operation is not owner-only by the default: Test Failed at /p/projects/coen/julia-trait-bound/wt/w158b-tw/test/owner_only.jl:207
+  Expression: !(CC.is_owner_only(typeof(G(:OOTr, :lop)))) && !(Base.ispublic(OOTr, :lop))
+  Stacktrace:
+   [1] top-level scope
+     @ /p/projects/coen/julia-trait-bound/wt/w158b-tw/test/owner_only.jl:196
+   [2] macro expansion
+     @ /p/projects/coen/julia-trait-bound/wt/w158-julia/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:1967 [inlined]
+   [3] macro expansion
+     @ /p/projects/coen/julia-trait-bound/wt/w158b-tw/test/owner_only.jl:207 [inlined]
+   [4] macro expansion
+     @ /p/projects/coen/julia-trait-bound/wt/w158-julia/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:758 [inlined]
+Test Summary:                                        | Pass  Fail  Total  Time
+a trait's operation is not owner-only by the default |   17     3     20  1.2s
+RNG of the outermost testset: Random.Xoshiro(0x3e82bf5597b7045d, 0xec9b41864396a8ac, 0x08869d299ca82a9d, 0x3e84d2c070e9eeed, 0xe49758fb88295bed)
