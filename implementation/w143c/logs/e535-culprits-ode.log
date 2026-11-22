@@ -1,0 +1,785 @@
+# W-143c e535-culprits ode diag/culprit.jl Base.isbitstype ODECore._problem ODECore.solve_ode Compiler.declared_field_type Compiler.declared_field_in Base.iterate Base.getindex Base.hasmethod Base.isconcretetype Base.collect TraitRodas.rodas5_start TraitRodas.rodas5_initdt! TraitRodas.dual_jacobian Base.rewrap_unionall | 2026-11-22T13:01:16+01:00 | load-before 8.67 5.90 4.96
+# julia-next cf0f039f51 (binary cf0f039f51*) | TraitWorld a5ec7f0a8d | forks a3a37d6b5e | TraitDifferentialEquations 06c28c376f | experiments 49b09e591d
+# product setting, strict mode off, one thread, one fresh process; depot agent-depots/w143 before the shared one
+== introspection  Tuple{typeof(isbitstype), Type{ODECore.StepEvent{Float64, Float64}}}  (in 2 cones)
+   fault nofact: Tuple{typeof(getproperty), DataType, Symbol}
+   <- Tuple{typeof(ODECore.enter_step_callback!), ODECore.StepCallbacks{Float64, Float64}, Dynamic{All{ODECore.StepCallback{Float64, Float64}, ODECore.StepEvent{Float64, Float64}}}}
+   <- Tuple{typeof(push!), Vector{ODECore.StepEvent{Float64, Float64}}, Dynamic{All{ODECore.StepCallback{Float64, Float64}, ODECore.StepEvent{Float64, Float64}}}}
+   <- Tuple{typeof(Base._push!), Vector{ODECore.StepEvent{Float64, Float64}}, Dynamic{All{ODECore.StepCallback{Float64, Float64}, ODECore.StepEvent{Float64, Float64}}}}
+   <- Tuple{typeof(Base._growend!), Vector{ODECore.StepEvent{Float64, Float64}}, Int64}
+   <- Tuple{typeof(Base._growend_internal!), Vector{ODECore.StepEvent{Float64, Float64}}, Int64, Int64}
+   <- Tuple{typeof(unsafe_copyto!), MemoryRef{ODECore.StepEvent{Float64, Float64}}, MemoryRef{ODECore.StepEvent{Float64, Float64}}, Int64}
+   <- Tuple{typeof(isbitstype), Type{ODECore.StepEvent{Float64, Float64}}}
+   direct callers: 1
+      Tuple{typeof(unsafe_copyto!), MemoryRef{ODECore.StepEvent{Float64, Float64}}, MemoryRef{ODECore.StepEvent{Float64, Float64}}, Int64}
+== other  Tuple{typeof(Compiler.declared_field_in), Any, Symbol, Int64}  (in 27 cones)
+   fault nofact: Tuple{typeof(Core.has_free_typevars), Any}
+   fault nofact: Tuple{typeof(Base.unwrap_unionall), Any}
+   fault nofact: Tuple{typeof(Compiler.declared_field_in), Any, Symbol, Int64}
+   <- Tuple{TraitDifferentialEquations.var"#20#21", Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}}
+   <- Tuple{typeof(getproperty), Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}, Symbol}
+   <- Tuple{typeof(TraitWorld._dynamic_field_type), Type{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}, Symbol}
+   <- Tuple{typeof(Compiler.declared_field_type), Any, Symbol}
+   <- Tuple{typeof(Compiler.declared_field_in), Any, Symbol, Int64}
+   direct callers: 5
+      Tuple{typeof(Compiler.declared_field_type), Any, Symbol}
+      Tuple{typeof(Compiler.declared_field_type), Type{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}, Symbol}
+      Tuple{typeof(Compiler.declared_field_type), Type{NonlinearProblemTrait{Float64, Float64}}, Symbol}
+      Tuple{typeof(Compiler.declared_field_type), Type{ODEProblemTrait{Float64, Float64}}, Symbol}
+      Tuple{typeof(Compiler.declared_field_type), Type{ODECore.StepView{Float64, Float64}}, Symbol}
+== by_instance  Tuple{typeof(hasmethod), typeof(robertson!), Type{Tuple{Vector{Float64}, Vector{Float64}, Vector{Float64}, Float64}}}  (in 1 cones)
+   fault mi: MethodInstance for robertson!(::Vector{Float64}, ::Vector{Float64}, ::Vector{Float64}, ::Float64)
+      its code: bit true, facts false, rettype Nothing
+   <- Tuple{Type{ODEProblem}, typeof(robertson!), Vector{Float64}, Tuple{Float64, Float64}, Vector{Float64}}
+   <- Tuple{typeof(TraitWorld._callable_box_check), Type{Dynamic{Callable{Tuple{Vector{Float64}, Vector{Float64}, Vector{Float64}, Float64}, Nothing}}}, typeof(robertson!), Type{ODEProbl
+   <- Tuple{typeof(TraitWorld._callable_met), Type{Callable{Tuple{Vector{Float64}, Vector{Float64}, Vector{Float64}, Float64}, Nothing}}, typeof(robertson!)}
+   <- Tuple{typeof(TraitWorld._first_unmet), typeof(robertson!), Tuple{Tuple{DataType, DataType}}}
+   <- Tuple{typeof(hasmethod), typeof(robertson!), Type{Tuple{Vector{Float64}, Vector{Float64}, Vector{Float64}, Float64}}}
+   direct callers: 1
+      Tuple{typeof(TraitWorld._first_unmet), typeof(robertson!), Tuple{Tuple{DataType, DataType}}}
+== introspection  Tuple{typeof(isconcretetype), Type}  (in 7 cones)
+   fault nofact: Tuple{typeof(getproperty), DataType, Symbol}
+   <- Tuple{typeof(ODECore.tsit5_init), ODECore.CoreProblem{ForwardDiff.Dual{ForwardDiff.Tag{TraitDifferentialEquations.Sig{Tuple{Vector{Float64}}, Float64}, Float64}, Float64, 3}, Dynam
+   <- Tuple{typeof(string), String, Type{ForwardDiff.Dual{ForwardDiff.Tag{TraitDifferentialEquations.Sig{Tuple{Vector{Float64}}, Float64}, Float64}, Float64, 3}}}
+   <- Tuple{typeof(Base.print_to_string), String, Type{ForwardDiff.Dual{ForwardDiff.Tag{TraitDifferentialEquations.Sig{Tuple{Vector{Float64}}, Float64}, Float64}, Float64, 3}}}
+   <- Tuple{typeof(print), IOBuffer, Type}
+   <- Tuple{typeof(show), IOBuffer, Type}
+   <- Tuple{typeof(Base._show_type), IOBuffer, Type}
+   <- Tuple{typeof(Base.show_type_name), IOBuffer, Core.TypeName}
+   <- Tuple{typeof(Base.is_global_function), Core.TypeName, Symbol}
+   <- Tuple{typeof(isconcretetype), Type}
+   direct callers: 1
+      Tuple{typeof(Base.is_global_function), Core.TypeName, Symbol}
+== other  Tuple{typeof(ODECore._problem), Any, Any, Vector{Float64}, Tuple{Float64, Float64}, Nothing, Any, Any, Any, ODECore.EnteredCallbacks{Vector{Float64}, Float64, Nothing}}  (in 8 cones)
+   fault nofact: Tuple{typeof(ODECore._names), Union{Compiled{<:IndexProvider{K}}, Dynamic{<:IndexProvider{K}}}} where K
+   <- Tuple{typeof(ODECore._problem_of), Dynamic{Callable{Tuple{Vector{Float64}, Vector{Float64}, Nothing, Float64}, Nothing}}, ODEFunction, Vector{Float64}, Tuple{Float64, Float64}, Not
+   <- Tuple{typeof(ODECore._problem), Any, Any, Vector{Float64}, Tuple{Float64, Float64}, Nothing, Any, Any, Any, ODECore.EnteredCallbacks{Vector{Float64}, Float64, Nothing}}
+   direct callers: 1
+      Tuple{typeof(ODECore._problem_of), Dynamic{Callable{Tuple{Vector{Float64}, Vector{Float64}, Nothing, Float64}, Nothing}}, ODEFunction, Vector{Float64}, Tuple{Fl
+== other  Tuple{typeof(ODECore._problem), Any, typeof(ODECore.core_no_jacobian), Vector{Float64}, Tuple{Float64, Float64}, Vector{Float64}, Any, LinearAlgebra.UniformScaling{Bool}, Nothing, ODECore.EnteredCallb  (in 2 cones)
+   fault nofact: Tuple{typeof(ODECore._names), Union{Compiled{<:IndexProvider{K}}, Dynamic{<:IndexProvider{K}}}} where K
+   <- Tuple{typeof(ODECore._problem_of), Dynamic{Callable{Tuple{Vector{Float64}, Vector{Float64}, Vector{Float64}, Float64}, Nothing}}, Function, Vector{Float64}, Tuple{Float64, Float64}
+   <- Tuple{typeof(ODECore._problem), Any, typeof(ODECore.core_no_jacobian), Vector{Float64}, Tuple{Float64, Float64}, Vector{Float64}, Any, LinearAlgebra.UniformScaling{Bool}, Nothing, 
+   direct callers: 1
+      Tuple{typeof(ODECore._problem_of), Dynamic{Callable{Tuple{Vector{Float64}, Vector{Float64}, Vector{Float64}, Float64}, Nothing}}, Function, Vector{Float64}, Tup
+== by_instance  Tuple{typeof(hasmethod), TraitDifferentialEquations.var"#30#31", Type{Tuple{Vector{Float64}, Float64, Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}}}}  (in 1 cones)
+   fault mi: MethodInstance for (::TraitDifferentialEquations.var"#30#31")(::Vector{Float64}, ::Float64, ::Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}})
+      its code: bit true, facts true, rettype Bool
+   <- Tuple{Type{ODECore.FunctionCallback{Vector{Float64}, Float64, Vector{Float64}, C, A, I} where {C<:Callable{Tuple{Vector{Float64}, Float64, Dynamic{IntegratorView{Vector{Float64}, F
+   <- Tuple{typeof(TraitWorld._forward_box), Type{Dynamic{Callable{Tuple{Vector{Float64}, Float64, Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}}, Bool}}}, TraitDiff
+   <- Tuple{typeof(TraitWorld._callable_box_check), Type{Dynamic{Callable{Tuple{Vector{Float64}, Float64, Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}}, Bool}}}, Tr
+   <- Tuple{typeof(TraitWorld._callable_met), Type{Callable{Tuple{Vector{Float64}, Float64, Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}}, Bool}}, TraitDifferential
+   <- Tuple{typeof(TraitWorld._first_unmet), TraitDifferentialEquations.var"#30#31", Tuple{Tuple{DataType, DataType}}}
+   <- Tuple{typeof(hasmethod), TraitDifferentialEquations.var"#30#31", Type{Tuple{Vector{Float64}, Float64, Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}}}}
+   direct callers: 1
+      Tuple{typeof(TraitWorld._first_unmet), TraitDifferentialEquations.var"#30#31", Tuple{Tuple{DataType, DataType}}}
+== introspection  Tuple{typeof(Compiler.declared_field_type), Any, Symbol}  (in 27 cones)
+   fault nofact: Tuple{typeof(isconcretetype), Any}
+   fault nofact: Tuple{typeof(Base.unwrap_unionall), Any}
+   fault nofact: Tuple{typeof(getindex), Type{Any}, DataType}
+   fault nofact: Tuple{typeof(Compiler.declared_field_in), Any, Symbol, Int64}
+   fault nofact: Tuple{typeof(Core.has_free_typevars), Any}
+   fault nofact: Tuple{typeof(Base.rewrap_unionall), Core.TypeofVararg, Any}
+   fault nofact: Tuple{typeof(Base.rewrap_unionall), Any, Any}
+   <- Tuple{TraitDifferentialEquations.var"#20#21", Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}}
+   <- Tuple{typeof(getproperty), Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}, Symbol}
+   <- Tuple{typeof(TraitWorld._dynamic_field_type), Type{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}, Symbol}
+   <- Tuple{typeof(Compiler.declared_field_type), Any, Symbol}
+   direct callers: 4
+      Tuple{typeof(TraitWorld._dynamic_field_type), Type{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}, Symbol}
+      Tuple{typeof(TraitWorld._dynamic_field_type), Type{NonlinearProblemTrait{Float64, Float64}}, Symbol}
+      Tuple{typeof(TraitWorld._dynamic_field_type), Type{ODEProblemTrait{Float64, Float64}}, Symbol}
+      Tuple{typeof(TraitWorld._dynamic_field_type), Type{ODECore.StepView{Float64, Float64}}, Symbol}
+== other  Tuple{typeof(TraitRodas.rodas5_start), ODECore.CoreProblem{Float64, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODET  (in 10 cones)
+   fault nofact: Tuple{typeof(ODECore.initialize_step_callbacks!), Array{ODECore.StepCallback{U, T}, 1}, Array{ODECore.StepEvent{U, T}, 1}, U, T, Dynamic{ODECore.StepView{U, T}}} where {U, T}
+   fault nofact: Tuple{typeof(ODECore._save_start!), Vector{Float64}, Array{Vector{T}, 1}, Vector{T}, Float64, Vector{Float64}} where T
+   <- Tuple{typeof(TraitRodas._rodas5_picked), ODECore.CoreProblem{Float64, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{Forward
+   <- Tuple{typeof(TraitRodas.rodas5_start), ODECore.CoreProblem{Float64, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDi
+   direct callers: 1
+      Tuple{typeof(TraitRodas._rodas5_picked), ODECore.CoreProblem{Float64, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{
+== by_instance  Tuple{typeof(hasmethod), TraitDifferentialEquations.var"#26#27", Type{Tuple{Vector{Float64}, Float64, Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}}}}  (in 1 cones)
+   fault mi: MethodInstance for (::TraitDifferentialEquations.var"#26#27")(::Vector{Float64}, ::Float64, ::Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}})
+      its code: bit true, facts true, rettype Bool
+   <- Tuple{Type{ODECore.FunctionCallback{Vector{Float64}, Float64, Vector{Float64}, C, A, I} where {C<:Callable{Tuple{Vector{Float64}, Float64, Dynamic{IntegratorView{Vector{Float64}, F
+   <- Tuple{typeof(TraitWorld._forward_box), Type{Dynamic{Callable{Tuple{Vector{Float64}, Float64, Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}}, Bool}}}, TraitDiff
+   <- Tuple{typeof(TraitWorld._callable_box_check), Type{Dynamic{Callable{Tuple{Vector{Float64}, Float64, Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}}, Bool}}}, Tr
+   <- Tuple{typeof(TraitWorld._callable_met), Type{Callable{Tuple{Vector{Float64}, Float64, Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}}, Bool}}, TraitDifferential
+   <- Tuple{typeof(TraitWorld._first_unmet), TraitDifferentialEquations.var"#26#27", Tuple{Tuple{DataType, DataType}}}
+   <- Tuple{typeof(hasmethod), TraitDifferentialEquations.var"#26#27", Type{Tuple{Vector{Float64}, Float64, Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}}}}
+   direct callers: 1
+      Tuple{typeof(TraitWorld._first_unmet), TraitDifferentialEquations.var"#26#27", Tuple{Tuple{DataType, DataType}}}
+== introspection  Tuple{typeof(isbitstype), Type{Callback{Vector{Float64}, Float64, Nothing}}}  (in 22 cones)
+   fault nofact: Tuple{typeof(getproperty), DataType, Symbol}
+   <- Tuple{typeof(ODECore.enter_callbacks!), ODECore.EnteredCallbacks{Vector{Float64}, Float64, Nothing}, ODECore.EnteredCallbacks{Vector{Float64}, Float64, Nothing}}
+   <- Tuple{typeof(append!), Vector{Callback{Vector{Float64}, Float64, Nothing}}, Vector{Callback{Vector{Float64}, Float64, Nothing}}}
+   <- Tuple{typeof(copyto!), Vector{Callback{Vector{Float64}, Float64, Nothing}}, Int64, Vector{Callback{Vector{Float64}, Float64, Nothing}}, Int64, Int64}
+   <- Tuple{typeof(Base._copyto_impl!), Vector{Callback{Vector{Float64}, Float64, Nothing}}, Int64, Vector{Callback{Vector{Float64}, Float64, Nothing}}, Int64, Int64}
+   <- Tuple{typeof(unsafe_copyto!), MemoryRef{Callback{Vector{Float64}, Float64, Nothing}}, MemoryRef{Callback{Vector{Float64}, Float64, Nothing}}, Int64}
+   <- Tuple{typeof(isbitstype), Type{Callback{Vector{Float64}, Float64, Nothing}}}
+   direct callers: 1
+      Tuple{typeof(unsafe_copyto!), MemoryRef{Callback{Vector{Float64}, Float64, Nothing}}, MemoryRef{Callback{Vector{Float64}, Float64, Nothing}}, Int64}
+== introspection  Tuple{typeof(isbitstype), Type{ODECore.StepEvent{Vector{Float64}, Float64}}}  (in 63 cones)
+   fault nofact: Tuple{typeof(getproperty), DataType, Symbol}
+   <- Tuple{Type{ODECore.StepCallbacks{Vector{Float64}, Float64}}, Vector{ODECore.StepCallback{Vector{Float64}, Float64}}, Vector{ODECore.StepEvent{Vector{Float64}, Float64}}}
+   <- Tuple{typeof(convert), Type{Vector{ODECore.StepEvent{Vector{Float64}, Float64}}}, Vector{ODECore.StepEvent{Vector{Float64}, Float64}}}
+   <- Tuple{Type{Vector{ODECore.StepEvent{Vector{Float64}, Float64}}}, Vector{ODECore.StepEvent{Vector{Float64}, Float64}}}
+   <- Tuple{typeof(Base.copyto_axcheck!), Vector{ODECore.StepEvent{Vector{Float64}, Float64}}, Vector{ODECore.StepEvent{Vector{Float64}, Float64}}}
+   <- Tuple{typeof(copyto!), Vector{ODECore.StepEvent{Vector{Float64}, Float64}}, Vector{ODECore.StepEvent{Vector{Float64}, Float64}}}
+   <- Tuple{typeof(Base._copyto2arg!), Vector{ODECore.StepEvent{Vector{Float64}, Float64}}, Vector{ODECore.StepEvent{Vector{Float64}, Float64}}}
+   <- Tuple{typeof(copyto!), Vector{ODECore.StepEvent{Vector{Float64}, Float64}}, Int64, Vector{ODECore.StepEvent{Vector{Float64}, Float64}}, Int64, Int64}
+   <- Tuple{typeof(Base._copyto_impl!), Vector{ODECore.StepEvent{Vector{Float64}, Float64}}, Int64, Vector{ODECore.StepEvent{Vector{Float64}, Float64}}, Int64, Int64}
+   <- Tuple{typeof(unsafe_copyto!), MemoryRef{ODECore.StepEvent{Vector{Float64}, Float64}}, MemoryRef{ODECore.StepEvent{Vector{Float64}, Float64}}, Int64}
+   <- Tuple{typeof(isbitstype), Type{ODECore.StepEvent{Vector{Float64}, Float64}}}
+   direct callers: 1
+      Tuple{typeof(unsafe_copyto!), MemoryRef{ODECore.StepEvent{Vector{Float64}, Float64}}, MemoryRef{ODECore.StepEvent{Vector{Float64}, Float64}}, Int64}
+== introspection  Tuple{typeof(isbitstype), Type{ODECore.StepCallback{Float64, Float64}}}  (in 1 cones)
+   fault nofact: Tuple{typeof(getproperty), DataType, Symbol}
+   <- Tuple{typeof(ODECore.enter_step_callback!), ODECore.StepCallbacks{Float64, Float64}, Dynamic{ODECore.StepCallback{Float64, Float64}}}
+   <- Tuple{typeof(push!), Vector{ODECore.StepCallback{Float64, Float64}}, Dynamic{ODECore.StepCallback{Float64, Float64}}}
+   <- Tuple{typeof(Base._push!), Vector{ODECore.StepCallback{Float64, Float64}}, Dynamic{ODECore.StepCallback{Float64, Float64}}}
+   <- Tuple{typeof(Base._growend!), Vector{ODECore.StepCallback{Float64, Float64}}, Int64}
+   <- Tuple{typeof(Base._growend_internal!), Vector{ODECore.StepCallback{Float64, Float64}}, Int64, Int64}
+   <- Tuple{typeof(unsafe_copyto!), MemoryRef{ODECore.StepCallback{Float64, Float64}}, MemoryRef{ODECore.StepCallback{Float64, Float64}}, Int64}
+   <- Tuple{typeof(isbitstype), Type{ODECore.StepCallback{Float64, Float64}}}
+   direct callers: 1
+      Tuple{typeof(unsafe_copyto!), MemoryRef{ODECore.StepCallback{Float64, Float64}}, MemoryRef{ODECore.StepCallback{Float64, Float64}}, Int64}
+== other  Tuple{typeof(ODECore._problem), Any, typeof(ODECore.core_no_jacobian), Vector{ForwardDiff.Dual{ForwardDiff.Tag{TraitDifferentialEquations.Sig{Tuple{Vector{Float64}}, Float64}, Float64}, Float64, 3}},   (in 2 cones)
+   fault nofact: Tuple{typeof(ODECore._names), Union{Compiled{<:IndexProvider{K}}, Dynamic{<:IndexProvider{K}}}} where K
+   <- Tuple{typeof(ODECore._problem_of), Dynamic{Callable{Tuple{Vector{Float64}, Vector{Float64}, Vector{ForwardDiff.Dual{ForwardDiff.Tag{TraitDifferentialEquations.Sig{Tuple{Vector{Floa
+   <- Tuple{typeof(ODECore._problem), Any, typeof(ODECore.core_no_jacobian), Vector{ForwardDiff.Dual{ForwardDiff.Tag{TraitDifferentialEquations.Sig{Tuple{Vector{Float64}}, Float64}, Floa
+   direct callers: 1
+      Tuple{typeof(ODECore._problem_of), Dynamic{Callable{Tuple{Vector{Float64}, Vector{Float64}, Vector{ForwardDiff.Dual{ForwardDiff.Tag{TraitDifferentialEquations.S
+== introspection  Tuple{typeof(isbitstype), Type{Callback{Float64, Float64, Float64}}}  (in 1 cones)
+   fault nofact: Tuple{typeof(getproperty), DataType, Symbol}
+   <- Tuple{typeof(ODECore._enter_callback!), ODECore.EnteredCallbacks{Float64, Float64, Float64}, Dynamic{Callback{Float64, Float64, Float64}}}
+   <- Tuple{typeof(push!), Vector{Callback{Float64, Float64, Float64}}, Dynamic{Callback{Float64, Float64, Float64}}}
+   <- Tuple{typeof(Base._push!), Vector{Callback{Float64, Float64, Float64}}, Dynamic{Callback{Float64, Float64, Float64}}}
+   <- Tuple{typeof(Base._growend!), Vector{Callback{Float64, Float64, Float64}}, Int64}
+   <- Tuple{typeof(Base._growend_internal!), Vector{Callback{Float64, Float64, Float64}}, Int64, Int64}
+   <- Tuple{typeof(unsafe_copyto!), MemoryRef{Callback{Float64, Float64, Float64}}, MemoryRef{Callback{Float64, Float64, Float64}}, Int64}
+   <- Tuple{typeof(isbitstype), Type{Callback{Float64, Float64, Float64}}}
+   direct callers: 1
+      Tuple{typeof(unsafe_copyto!), MemoryRef{Callback{Float64, Float64, Float64}}, MemoryRef{Callback{Float64, Float64, Float64}}, Int64}
+== by_instance  Tuple{typeof(hasmethod), typeof(TraitDifferentialEquations._wl_rhs!), Type{Tuple{Vector{Float64}, Vector{Float64}, Vector{Float64}, Float64}}}  (in 1 cones)
+   fault mi: MethodInstance for TraitDifferentialEquations._wl_rhs!(::Vector{Float64}, ::Vector{Float64}, ::Vector{Float64}, ::Float64)
+      its code: bit true, facts true, rettype Nothing
+   <- Tuple{Type{ODEProblem}, typeof(TraitDifferentialEquations._wl_rhs!), Vector{Float64}, Tuple{Float64, Float64}, Vector{Float64}}
+   <- Tuple{typeof(TraitWorld._callable_box_check), Type{Dynamic{Callable{Tuple{Vector{Float64}, Vector{Float64}, Vector{Float64}, Float64}, Nothing}}}, typeof(TraitDifferentialEquations
+   <- Tuple{typeof(TraitWorld._callable_met), Type{Callable{Tuple{Vector{Float64}, Vector{Float64}, Vector{Float64}, Float64}, Nothing}}, typeof(TraitDifferentialEquations._wl_rhs!)}
+   <- Tuple{typeof(TraitWorld._first_unmet), typeof(TraitDifferentialEquations._wl_rhs!), Tuple{Tuple{DataType, DataType}}}
+   <- Tuple{typeof(hasmethod), typeof(TraitDifferentialEquations._wl_rhs!), Type{Tuple{Vector{Float64}, Vector{Float64}, Vector{Float64}, Float64}}}
+   direct callers: 1
+      Tuple{typeof(TraitWorld._first_unmet), typeof(TraitDifferentialEquations._wl_rhs!), Tuple{Tuple{DataType, DataType}}}
+== by_instance  Tuple{typeof(ODECore.solve_ode), ODEProblem{ForwardDiff.Dual{ForwardDiff.Tag{TraitDifferentialEquations.Sig{Tuple{Vector{Float64}}, Float64}, Float64}, Float64, 3}, Vector{ForwardDiff.Dual{ForwardDiff  (in 5 cones)
+   fault mi: MethodInstance for ODECore.param_integrator(::Type{Vector{ForwardDiff.Dual{ForwardDiff.Tag{TraitDifferentialEquations.Sig{Tuple{Vector{Float64}}, Float64}, Float64}, Float64, 3}}}, ::Vector{ForwardDif
+   <- Tuple{typeof(ODECore.solve_ode), ODEProblem{ForwardDiff.Dual{ForwardDiff.Tag{TraitDifferentialEquations.Sig{Tuple{Vector{Float64}}, Float64}, Float64}, Float64, 3}, Vector{ForwardD
+   <- Tuple{typeof(ODECore.solve_ode), ODEProblem{ForwardDiff.Dual{ForwardDiff.Tag{TraitDifferentialEquations.Sig{Tuple{Vector{Float64}}, Float64}, Float64}, Float64, 3}, Vector{ForwardD
+   direct callers: 1
+      Tuple{typeof(ODECore.solve_ode), ODEProblem{ForwardDiff.Dual{ForwardDiff.Tag{TraitDifferentialEquations.Sig{Tuple{Vector{Float64}}, Float64}, Float64}, Float64,
+== by_instance  Tuple{typeof(ODECore.solve_ode), ODEProblem{Float64, Nothing, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Fl  (in 5 cones)
+   fault mi: MethodInstance for ODECore.param_integrator(::Type{Vector{Float64}}, ::Nothing, ::Float64, ::Any, ::Dynamic{IndexProvider{Symbol}}, ::Bool)
+   <- Tuple{typeof(ODECore.solve_ode), ODEProblem{Float64, Nothing, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dua
+   <- Tuple{typeof(ODECore.solve_ode), ODEProblem{Float64, Nothing, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dua
+   direct callers: 1
+      Tuple{typeof(ODECore.solve_ode), ODEProblem{Float64, Nothing, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Ve
+== introspection  Tuple{typeof(isconcretetype), Type{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}}  (in 8 cones)
+   fault nofact: Tuple{typeof(getproperty), DataType, Symbol}
+   <- Tuple{TraitDifferentialEquations.var"#20#21", Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}}
+   <- Tuple{typeof(getproperty), Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}, Symbol}
+   <- Tuple{typeof(TraitWorld._dynamic_field_type), Type{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}, Symbol}
+   <- Tuple{typeof(Compiler.declared_field_type), Type{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}, Symbol}
+   <- Tuple{typeof(isconcretetype), Type{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}}
+   direct callers: 1
+      Tuple{typeof(Compiler.declared_field_type), Type{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}, Symbol}
+== introspection  Tuple{typeof(isconcretetype), Type{ODECore.StepView{Float64, Float64}}}  (in 1 cones)
+   fault nofact: Tuple{typeof(getproperty), DataType, Symbol}
+   <- Tuple{typeof(ODECore._sync_in!), ODECore.ParamIntegrator{Float64, Float64}, Dynamic{ODECore.StepView{Float64, Float64}}}
+   <- Tuple{typeof(getproperty), Dynamic{ODECore.StepView{Float64, Float64}}, Symbol}
+   <- Tuple{typeof(TraitWorld._dynamic_field_type), Type{ODECore.StepView{Float64, Float64}}, Symbol}
+   <- Tuple{typeof(Compiler.declared_field_type), Type{ODECore.StepView{Float64, Float64}}, Symbol}
+   <- Tuple{typeof(isconcretetype), Type{ODECore.StepView{Float64, Float64}}}
+   direct callers: 1
+      Tuple{typeof(Compiler.declared_field_type), Type{ODECore.StepView{Float64, Float64}}, Symbol}
+== introspection  Tuple{typeof(isbitstype), Type{EventCallback{Vector{Float64}, Float64, Vector{Float64}}}}  (in 49 cones)
+   fault nofact: Tuple{typeof(getproperty), DataType, Symbol}
+   <- Tuple{typeof(ODECore.enter_callbacks!), ODECore.EnteredCallbacks{Vector{Float64}, Float64, Vector{Float64}}, ODECore.EnteredCallbacks{Vector{Float64}, Float64, Vector{Float64}}}
+   <- Tuple{typeof(append!), Vector{EventCallback{Vector{Float64}, Float64, Vector{Float64}}}, Vector{EventCallback{Vector{Float64}, Float64, Vector{Float64}}}}
+   <- Tuple{typeof(copyto!), Vector{EventCallback{Vector{Float64}, Float64, Vector{Float64}}}, Int64, Vector{EventCallback{Vector{Float64}, Float64, Vector{Float64}}}, Int64, Int64}
+   <- Tuple{typeof(Base._copyto_impl!), Vector{EventCallback{Vector{Float64}, Float64, Vector{Float64}}}, Int64, Vector{EventCallback{Vector{Float64}, Float64, Vector{Float64}}}, Int64, 
+   <- Tuple{typeof(unsafe_copyto!), MemoryRef{EventCallback{Vector{Float64}, Float64, Vector{Float64}}}, MemoryRef{EventCallback{Vector{Float64}, Float64, Vector{Float64}}}, Int64}
+   <- Tuple{typeof(isbitstype), Type{EventCallback{Vector{Float64}, Float64, Vector{Float64}}}}
+   direct callers: 1
+      Tuple{typeof(unsafe_copyto!), MemoryRef{EventCallback{Vector{Float64}, Float64, Vector{Float64}}}, MemoryRef{EventCallback{Vector{Float64}, Float64, Vector{Floa
+== other  Tuple{typeof(TraitRodas.dual_jacobian), Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{For  (in 10 cones)
+   fault nofact: Tuple{typeof(TraitRodas._dual_jacobian), Any, Int64, Val{N}} where N
+   <- Tuple{typeof(TraitRodas._rodas5_picked), ODECore.CoreProblem{Float64, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{Forward
+   <- Tuple{typeof(TraitRodas.dual_jacobian), Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Floa
+   direct callers: 1
+      Tuple{typeof(TraitRodas._rodas5_picked), ODECore.CoreProblem{Float64, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{
+== by_instance  Tuple{typeof(hasmethod), TraitDifferentialEquations.var"#36#37", Type{Tuple{Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}}}}  (in 1 cones)
+   fault mi: MethodInstance for (::TraitDifferentialEquations.var"#36#37")(::Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}})
+   <- Tuple{Type{ODECore.FunctionEventCallback{Vector{Float64}, Float64, Vector{Float64}, C, A, N, I} where {C<:Callable{Tuple{Vector{Float64}, Float64, Dynamic{IntegratorView{Vector{Flo
+   <- Tuple{typeof(TraitWorld._forward_box), Type{Dynamic{Callable{Tuple{Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}}, Nothing}}}, TraitDifferentialEquations.var"#
+   <- Tuple{typeof(TraitWorld._callable_box_check), Type{Dynamic{Callable{Tuple{Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}}, Nothing}}}, TraitDifferentialEquation
+   <- Tuple{typeof(TraitWorld._callable_met), Type{Callable{Tuple{Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}}, Nothing}}, TraitDifferentialEquations.var"#36#37"}
+   <- Tuple{typeof(TraitWorld._first_unmet), TraitDifferentialEquations.var"#36#37", Tuple{Tuple{DataType, DataType}}}
+   <- Tuple{typeof(hasmethod), TraitDifferentialEquations.var"#36#37", Type{Tuple{Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}}}}
+   direct callers: 1
+      Tuple{typeof(TraitWorld._first_unmet), TraitDifferentialEquations.var"#36#37", Tuple{Tuple{DataType, DataType}}}
+== by_instance  Tuple{typeof(hasmethod), typeof(TraitDifferentialEquations._wl_rhs0!), Type{Tuple{Vector{Float64}, Vector{Float64}, Nothing, Float64}}}  (in 1 cones)
+   fault mi: MethodInstance for TraitDifferentialEquations._wl_rhs0!(::Vector{Float64}, ::Vector{Float64}, ::Nothing, ::Float64)
+      its code: bit true, facts true, rettype Nothing
+   <- Tuple{Type{ODEProblem}, typeof(TraitDifferentialEquations._wl_rhs0!), Vector{Float64}, Tuple{Float64, Float64}}
+   <- Tuple{typeof(TraitWorld._callable_box_check), Type{Dynamic{Callable{Tuple{Vector{Float64}, Vector{Float64}, Nothing, Float64}, Nothing}}}, typeof(TraitDifferentialEquations._wl_rhs
+   <- Tuple{typeof(TraitWorld._callable_met), Type{Callable{Tuple{Vector{Float64}, Vector{Float64}, Nothing, Float64}, Nothing}}, typeof(TraitDifferentialEquations._wl_rhs0!)}
+   <- Tuple{typeof(TraitWorld._first_unmet), typeof(TraitDifferentialEquations._wl_rhs0!), Tuple{Tuple{DataType, DataType}}}
+   <- Tuple{typeof(hasmethod), typeof(TraitDifferentialEquations._wl_rhs0!), Type{Tuple{Vector{Float64}, Vector{Float64}, Nothing, Float64}}}
+   direct callers: 1
+      Tuple{typeof(TraitWorld._first_unmet), typeof(TraitDifferentialEquations._wl_rhs0!), Tuple{Tuple{DataType, DataType}}}
+== other  Tuple{typeof(collect), Base.Generator{Vector{Vector{Float64}}, TraitRodas.var"#push_step!##0#push_step!##1"}}  (in 22 cones)
+   fault nofact: Tuple{Type{TypeVar}, Any, Any}
+   fault nofact: Tuple{Type{UnionAll}, Any, Any}
+   <- Tuple{typeof(ODECore.push_step!), TraitRodas.Rodas5Steps, Float64, Float64, Float64, Vector{Float64}, Vector{Float64}, Vector{Vector{Float64}}}
+   <- Tuple{typeof(collect), Base.Generator{Vector{Vector{Float64}}, TraitRodas.var"#push_step!##0#push_step!##1"}}
+   direct callers: 1
+      Tuple{typeof(ODECore.push_step!), TraitRodas.Rodas5Steps, Float64, Float64, Float64, Vector{Float64}, Vector{Float64}, Vector{Vector{Float64}}}
+== by_instance  Tuple{typeof(hasmethod), TraitDifferentialEquations.var"#38#39", Type{Tuple{Vector{Float64}, Float64, Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}}}}  (in 1 cones)
+   fault mi: MethodInstance for (::TraitDifferentialEquations.var"#38#39")(::Vector{Float64}, ::Float64, ::Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}})
+      its code: bit true, facts true, rettype Bool
+   <- Tuple{Type{ODECore.FunctionCallback{Vector{Float64}, Float64, Vector{Float64}, C, A, I} where {C<:Callable{Tuple{Vector{Float64}, Float64, Dynamic{IntegratorView{Vector{Float64}, F
+   <- Tuple{typeof(TraitWorld._forward_box), Type{Dynamic{Callable{Tuple{Vector{Float64}, Float64, Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}}, Bool}}}, TraitDiff
+   <- Tuple{typeof(TraitWorld._callable_box_check), Type{Dynamic{Callable{Tuple{Vector{Float64}, Float64, Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}}, Bool}}}, Tr
+   <- Tuple{typeof(TraitWorld._callable_met), Type{Callable{Tuple{Vector{Float64}, Float64, Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}}, Bool}}, TraitDifferential
+   <- Tuple{typeof(TraitWorld._first_unmet), TraitDifferentialEquations.var"#38#39", Tuple{Tuple{DataType, DataType}}}
+   <- Tuple{typeof(hasmethod), TraitDifferentialEquations.var"#38#39", Type{Tuple{Vector{Float64}, Float64, Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}}}}
+   direct callers: 1
+      Tuple{typeof(TraitWorld._first_unmet), TraitDifferentialEquations.var"#38#39", Tuple{Tuple{DataType, DataType}}}
+== other  Tuple{typeof(ODECore._problem), Dynamic{Callable{Tuple{Vector{ForwardDiff.Dual{ForwardDiff.Tag{TraitDifferentialEquations.Sig{Tuple{Vector{Float64}}, Float64}, Float64}, Float64, 3}}, Vector{ForwardDi  (in 1 cones)
+   fault nofact: Tuple{typeof(ODECore._names), Union{Compiled{<:IndexProvider{K}}, Dynamic{<:IndexProvider{K}}}} where K
+   direct callers: 0
+== by_instance  Tuple{typeof(hasmethod), TraitDifferentialEquations.var"#22#23", Type{Tuple{Vector{Float64}, Float64, Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}}}}  (in 1 cones)
+   fault mi: MethodInstance for (::TraitDifferentialEquations.var"#22#23")(::Vector{Float64}, ::Float64, ::Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}})
+      its code: bit true, facts true, rettype Bool
+   <- Tuple{Type{ODECore.FunctionCallback{Vector{Float64}, Float64, Vector{Float64}, C, A, I} where {C<:Callable{Tuple{Vector{Float64}, Float64, Dynamic{IntegratorView{Vector{Float64}, F
+   <- Tuple{typeof(TraitWorld._forward_box), Type{Dynamic{Callable{Tuple{Vector{Float64}, Float64, Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}}, Bool}}}, TraitDiff
+   <- Tuple{typeof(TraitWorld._callable_box_check), Type{Dynamic{Callable{Tuple{Vector{Float64}, Float64, Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}}, Bool}}}, Tr
+   <- Tuple{typeof(TraitWorld._callable_met), Type{Callable{Tuple{Vector{Float64}, Float64, Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}}, Bool}}, TraitDifferential
+   <- Tuple{typeof(TraitWorld._first_unmet), TraitDifferentialEquations.var"#22#23", Tuple{Tuple{DataType, DataType}}}
+   <- Tuple{typeof(hasmethod), TraitDifferentialEquations.var"#22#23", Type{Tuple{Vector{Float64}, Float64, Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}}}}
+   direct callers: 1
+      Tuple{typeof(TraitWorld._first_unmet), TraitDifferentialEquations.var"#22#23", Tuple{Tuple{DataType, DataType}}}
+== introspection  Tuple{typeof(collect), Base.Generator{Vector{Any}, typeof(identity)}}  (in 4 cones)
+   fault nofact: Tuple{typeof(Base.indexed_iterate), Tuple{Any, Int64}, Int64}
+   fault nofact: Tuple{typeof(Base.indexed_iterate), Tuple{Any, Int64}, Int64, Int64}
+   fault nofact: Tuple{typeof(Base._array_for_inner), DataType, Base.HasShape{1}, Tuple{Base.OneTo{Int64}}}
+   fault nofact: Tuple{Type{TypeVar}, Any, Any}
+   fault nofact: Tuple{typeof(ndims), Vector}
+   fault nofact: Tuple{Type{UnionAll}, Any, Any}
+   fault nofact: Tuple{typeof(Base.collect_to_with_first!), Vector, Any, Base.Generator{Vector{Any}, typeof(identity)}, Int64}
+   <- Tuple{typeof(TraitIndexing._series), Dynamic{All{SeriesProvider{Float64, Float64}, ValueProvider{Float64, Float64}}}, Any}
+   <- Tuple{typeof(collect), Base.Generator{Vector{Any}, typeof(identity)}}
+   direct callers: 2
+      Tuple{typeof(TraitIndexing._series), Dynamic{All{SeriesProvider{Float64, Float64}, ValueProvider{Float64, Float64}}}, Any}
+      Tuple{typeof(TraitIndexing._series), Dynamic{SeriesProvider{Float64, Float64}}, Any}
+== by_instance  Tuple{typeof(ODECore.solve_ode), ODEProblem{Float64, Nothing, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Fl  (in 5 cones)
+   fault mi: MethodInstance for ODECore.param_integrator(::Type{Vector{Float64}}, ::Nothing, ::Float64, ::Any, ::Dynamic{IndexProvider{Symbol}}, ::Bool)
+   <- Tuple{typeof(ODECore.solve_ode), ODEProblem{Float64, Nothing, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dua
+   <- Tuple{typeof(ODECore.solve_ode), ODEProblem{Float64, Nothing, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dua
+   direct callers: 1
+      Tuple{typeof(ODECore.solve_ode), ODEProblem{Float64, Nothing, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Ve
+== by_instance  Tuple{typeof(hasmethod), TraitDifferentialEquations.var"#20#21", Type{Tuple{Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}}}}  (in 1 cones)
+   fault mi: MethodInstance for (::TraitDifferentialEquations.var"#20#21")(::Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}})
+      its code: bit false, facts true, rettype Nothing
+   <- Tuple{Type{ODECore.FunctionCallback{Vector{Float64}, Float64, Vector{Float64}, C, A, I} where {C<:Callable{Tuple{Vector{Float64}, Float64, Dynamic{IntegratorView{Vector{Float64}, F
+   <- Tuple{typeof(TraitWorld._forward_box), Type{Dynamic{Callable{Tuple{Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}}, Nothing}}}, TraitDifferentialEquations.var"#
+   <- Tuple{typeof(TraitWorld._callable_box_check), Type{Dynamic{Callable{Tuple{Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}}, Nothing}}}, TraitDifferentialEquation
+   <- Tuple{typeof(TraitWorld._callable_met), Type{Callable{Tuple{Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}}, Nothing}}, TraitDifferentialEquations.var"#20#21"}
+   <- Tuple{typeof(TraitWorld._first_unmet), TraitDifferentialEquations.var"#20#21", Tuple{Tuple{DataType, DataType}}}
+   <- Tuple{typeof(hasmethod), TraitDifferentialEquations.var"#20#21", Type{Tuple{Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}}}}
+   direct callers: 1
+      Tuple{typeof(TraitWorld._first_unmet), TraitDifferentialEquations.var"#20#21", Tuple{Tuple{DataType, DataType}}}
+== other  Tuple{typeof(TraitRodas.rodas5_initdt!), TraitRodas.Rodas5Integrator}  (in 11 cones)
+   fault nofact: Tuple{typeof(ODECore.core_rhs!), ODECore.CoreProblem{T, F, J} where {F<:Callable{Tuple{Vector{T}, Vector{T}, Float64}, Nothing}, J<:Callable{Tuple{Matrix{T}, Vector{T}, Float64}, Nothing}}, Vector{T},
+   <- Tuple{typeof(TraitRodas.rodas5_start), ODECore.CoreProblem{Float64, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDi
+   <- Tuple{typeof(TraitRodas.rodas5_initdt!), TraitRodas.Rodas5Integrator}
+   direct callers: 1
+      Tuple{typeof(TraitRodas.rodas5_start), ODECore.CoreProblem{Float64, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tu
+== introspection  Tuple{typeof(Compiler.declared_field_type), Type{ODEProblemTrait{Float64, Float64}}, Symbol}  (in 1 cones)
+   fault nofact: Tuple{typeof(getindex), Type{Any}, DataType}
+   fault nofact: Tuple{typeof(Base.unwrap_unionall), Any}
+   fault nofact: Tuple{typeof(Compiler.declared_field_in), Any, Symbol, Int64}
+   fault nofact: Tuple{typeof(Core.has_free_typevars), Any}
+   fault nofact: Tuple{typeof(Base.rewrap_unionall), Any, Type{ODEProblemTrait{Float64, Float64}}}
+   <- Tuple{typeof(TraitNonlinearSolve._steady), Dynamic{ODEProblemTrait{Float64, Float64}}, Float64, Any, Any}
+   <- Tuple{typeof(getproperty), Dynamic{ODEProblemTrait{Float64, Float64}}, Symbol}
+   <- Tuple{typeof(TraitWorld._dynamic_field_type), Type{ODEProblemTrait{Float64, Float64}}, Symbol}
+   <- Tuple{typeof(Compiler.declared_field_type), Type{ODEProblemTrait{Float64, Float64}}, Symbol}
+   direct callers: 1
+      Tuple{typeof(TraitWorld._dynamic_field_type), Type{ODEProblemTrait{Float64, Float64}}, Symbol}
+== by_instance  Tuple{typeof(hasmethod), TraitDifferentialEquations.var"#40#41", Type{Tuple{Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}}}}  (in 1 cones)
+   fault mi: MethodInstance for (::TraitDifferentialEquations.var"#40#41")(::Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}})
+      its code: bit false, facts true, rettype Nothing
+   <- Tuple{Type{ODECore.FunctionCallback{Vector{Float64}, Float64, Vector{Float64}, C, A, I} where {C<:Callable{Tuple{Vector{Float64}, Float64, Dynamic{IntegratorView{Vector{Float64}, F
+   <- Tuple{typeof(TraitWorld._forward_box), Type{Dynamic{Callable{Tuple{Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}}, Nothing}}}, TraitDifferentialEquations.var"#
+   <- Tuple{typeof(TraitWorld._callable_box_check), Type{Dynamic{Callable{Tuple{Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}}, Nothing}}}, TraitDifferentialEquation
+   <- Tuple{typeof(TraitWorld._callable_met), Type{Callable{Tuple{Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}}, Nothing}}, TraitDifferentialEquations.var"#40#41"}
+   <- Tuple{typeof(TraitWorld._first_unmet), TraitDifferentialEquations.var"#40#41", Tuple{Tuple{DataType, DataType}}}
+   <- Tuple{typeof(hasmethod), TraitDifferentialEquations.var"#40#41", Type{Tuple{Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}}}}
+   direct callers: 1
+      Tuple{typeof(TraitWorld._first_unmet), TraitDifferentialEquations.var"#40#41", Tuple{Tuple{DataType, DataType}}}
+== by_instance  Tuple{typeof(hasmethod), typeof(ODECore.no_initialize), Type{Tuple{Vector{Float64}, Float64, Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}}}}  (in 6 cones)
+   fault mi: MethodInstance for no_initialize(::Vector{Float64}, ::Float64, ::Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}})
+      its code: bit true, facts true, rettype Nothing
+   <- Tuple{Type{ODECore.FunctionEventCallback{Vector{Float64}, Float64, Vector{Float64}, C, A, N, I} where {C<:Callable{Tuple{Vector{Float64}, Float64, Dynamic{IntegratorView{Vector{Flo
+   <- Tuple{typeof(TraitWorld._forward_box), Type{Dynamic{Callable{Tuple{Vector{Float64}, Float64, Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}}, Nothing}}}, typeof
+   <- Tuple{typeof(TraitWorld._callable_box_check), Type{Dynamic{Callable{Tuple{Vector{Float64}, Float64, Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}}, Nothing}}},
+   <- Tuple{typeof(TraitWorld._callable_met), Type{Callable{Tuple{Vector{Float64}, Float64, Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}}, Nothing}}, typeof(ODECore
+   <- Tuple{typeof(TraitWorld._first_unmet), typeof(ODECore.no_initialize), Tuple{Tuple{DataType, DataType}}}
+   <- Tuple{typeof(hasmethod), typeof(ODECore.no_initialize), Type{Tuple{Vector{Float64}, Float64, Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}}}}
+   direct callers: 1
+      Tuple{typeof(TraitWorld._first_unmet), typeof(ODECore.no_initialize), Tuple{Tuple{DataType, DataType}}}
+== introspection  Tuple{typeof(isbitstype), Type{Callback{Vector{ForwardDiff.Dual{ForwardDiff.Tag{TraitDifferentialEquations.Sig{Tuple{Vector{Float64}}, Float64}, Float64}, Float64, 3}}, Float64, Vector{ForwardDiff.Dua  (in 15 cones)
+   fault nofact: Tuple{typeof(getproperty), DataType, Symbol}
+   <- Tuple{typeof(ODECore.enter_callbacks!), ODECore.EnteredCallbacks{Vector{ForwardDiff.Dual{ForwardDiff.Tag{TraitDifferentialEquations.Sig{Tuple{Vector{Float64}}, Float64}, Float64}, 
+   <- Tuple{typeof(append!), Vector{Callback{Vector{ForwardDiff.Dual{ForwardDiff.Tag{TraitDifferentialEquations.Sig{Tuple{Vector{Float64}}, Float64}, Float64}, Float64, 3}}, Float64, Vec
+   <- Tuple{typeof(copyto!), Vector{Callback{Vector{ForwardDiff.Dual{ForwardDiff.Tag{TraitDifferentialEquations.Sig{Tuple{Vector{Float64}}, Float64}, Float64}, Float64, 3}}, Float64, Vec
+   <- Tuple{typeof(Base._copyto_impl!), Vector{Callback{Vector{ForwardDiff.Dual{ForwardDiff.Tag{TraitDifferentialEquations.Sig{Tuple{Vector{Float64}}, Float64}, Float64}, Float64, 3}}, F
+   <- Tuple{typeof(unsafe_copyto!), MemoryRef{Callback{Vector{ForwardDiff.Dual{ForwardDiff.Tag{TraitDifferentialEquations.Sig{Tuple{Vector{Float64}}, Float64}, Float64}, Float64, 3}}, Fl
+   <- Tuple{typeof(isbitstype), Type{Callback{Vector{ForwardDiff.Dual{ForwardDiff.Tag{TraitDifferentialEquations.Sig{Tuple{Vector{Float64}}, Float64}, Float64}, Float64, 3}}, Float64, Ve
+   direct callers: 1
+      Tuple{typeof(unsafe_copyto!), MemoryRef{Callback{Vector{ForwardDiff.Dual{ForwardDiff.Tag{TraitDifferentialEquations.Sig{Tuple{Vector{Float64}}, Float64}, Float6
+== introspection  Tuple{typeof(isbitstype), Type{EventCallback{Float64, Float64, Float64}}}  (in 2 cones)
+   fault nofact: Tuple{typeof(getproperty), DataType, Symbol}
+   <- Tuple{typeof(ODECore._enter_callback!), ODECore.EnteredCallbacks{Float64, Float64, Float64}, Dynamic{All{Callback{Float64, Float64, Float64}, EventCallback{Float64, Float64, Float6
+   <- Tuple{typeof(push!), Vector{EventCallback{Float64, Float64, Float64}}, Dynamic{All{Callback{Float64, Float64, Float64}, EventCallback{Float64, Float64, Float64}}}}
+   <- Tuple{typeof(Base._push!), Vector{EventCallback{Float64, Float64, Float64}}, Dynamic{All{Callback{Float64, Float64, Float64}, EventCallback{Float64, Float64, Float64}}}}
+   <- Tuple{typeof(Base._growend!), Vector{EventCallback{Float64, Float64, Float64}}, Int64}
+   <- Tuple{typeof(Base._growend_internal!), Vector{EventCallback{Float64, Float64, Float64}}, Int64, Int64}
+   <- Tuple{typeof(unsafe_copyto!), MemoryRef{EventCallback{Float64, Float64, Float64}}, MemoryRef{EventCallback{Float64, Float64, Float64}}, Int64}
+   <- Tuple{typeof(isbitstype), Type{EventCallback{Float64, Float64, Float64}}}
+   direct callers: 1
+      Tuple{typeof(unsafe_copyto!), MemoryRef{EventCallback{Float64, Float64, Float64}}, MemoryRef{EventCallback{Float64, Float64, Float64}}, Int64}
+== introspection  Tuple{typeof(isbitstype), Type{ODECore.StepCallback{Vector{ForwardDiff.Dual{ForwardDiff.Tag{TraitDifferentialEquations.Sig{Tuple{Vector{Float64}}, Float64}, Float64}, Float64, 3}}, Float64}}}  (in 12 cones)
+   fault nofact: Tuple{typeof(getproperty), DataType, Symbol}
+   <- Tuple{Type{ODECore.Tsit5Integrator{ForwardDiff.Dual{ForwardDiff.Tag{TraitDifferentialEquations.Sig{Tuple{Vector{Float64}}, Float64}, Float64}, Float64, 3}, ODECore.CoreProblem{Forw
+   <- Tuple{typeof(convert), Type{Vector{ODECore.StepCallback{Vector{ForwardDiff.Dual{ForwardDiff.Tag{TraitDifferentialEquations.Sig{Tuple{Vector{Float64}}, Float64}, Float64}, Float64, 
+   <- Tuple{Type{Vector{ODECore.StepCallback{Vector{ForwardDiff.Dual{ForwardDiff.Tag{TraitDifferentialEquations.Sig{Tuple{Vector{Float64}}, Float64}, Float64}, Float64, 3}}, Float64}}}, 
+   <- Tuple{typeof(Base.copyto_axcheck!), Vector{ODECore.StepCallback{Vector{ForwardDiff.Dual{ForwardDiff.Tag{TraitDifferentialEquations.Sig{Tuple{Vector{Float64}}, Float64}, Float64}, F
+   <- Tuple{typeof(copyto!), Vector{ODECore.StepCallback{Vector{ForwardDiff.Dual{ForwardDiff.Tag{TraitDifferentialEquations.Sig{Tuple{Vector{Float64}}, Float64}, Float64}, Float64, 3}}, 
+   <- Tuple{typeof(Base._copyto2arg!), Vector{ODECore.StepCallback{Vector{ForwardDiff.Dual{ForwardDiff.Tag{TraitDifferentialEquations.Sig{Tuple{Vector{Float64}}, Float64}, Float64}, Floa
+   <- Tuple{typeof(copyto!), Vector{ODECore.StepCallback{Vector{ForwardDiff.Dual{ForwardDiff.Tag{TraitDifferentialEquations.Sig{Tuple{Vector{Float64}}, Float64}, Float64}, Float64, 3}}, 
+   <- Tuple{typeof(Base._copyto_impl!), Vector{ODECore.StepCallback{Vector{ForwardDiff.Dual{ForwardDiff.Tag{TraitDifferentialEquations.Sig{Tuple{Vector{Float64}}, Float64}, Float64}, Flo
+   <- Tuple{typeof(unsafe_copyto!), MemoryRef{ODECore.StepCallback{Vector{ForwardDiff.Dual{ForwardDiff.Tag{TraitDifferentialEquations.Sig{Tuple{Vector{Float64}}, Float64}, Float64}, Floa
+   <- Tuple{typeof(isbitstype), Type{ODECore.StepCallback{Vector{ForwardDiff.Dual{ForwardDiff.Tag{TraitDifferentialEquations.Sig{Tuple{Vector{Float64}}, Float64}, Float64}, Float64, 3}},
+   direct callers: 1
+      Tuple{typeof(unsafe_copyto!), MemoryRef{ODECore.StepCallback{Vector{ForwardDiff.Dual{ForwardDiff.Tag{TraitDifferentialEquations.Sig{Tuple{Vector{Float64}}, Floa
+== introspection  Tuple{typeof(isbitstype), Type{ODECore.StepCallback{Vector{Float64}, Float64}}}  (in 63 cones)
+   fault nofact: Tuple{typeof(getproperty), DataType, Symbol}
+   <- Tuple{Type{ODECore.StepCallbacks{Vector{Float64}, Float64}}, Vector{ODECore.StepCallback{Vector{Float64}, Float64}}, Vector{ODECore.StepEvent{Vector{Float64}, Float64}}}
+   <- Tuple{typeof(convert), Type{Vector{ODECore.StepCallback{Vector{Float64}, Float64}}}, Vector{ODECore.StepCallback{Vector{Float64}, Float64}}}
+   <- Tuple{Type{Vector{ODECore.StepCallback{Vector{Float64}, Float64}}}, Vector{ODECore.StepCallback{Vector{Float64}, Float64}}}
+   <- Tuple{typeof(Base.copyto_axcheck!), Vector{ODECore.StepCallback{Vector{Float64}, Float64}}, Vector{ODECore.StepCallback{Vector{Float64}, Float64}}}
+   <- Tuple{typeof(copyto!), Vector{ODECore.StepCallback{Vector{Float64}, Float64}}, Vector{ODECore.StepCallback{Vector{Float64}, Float64}}}
+   <- Tuple{typeof(Base._copyto2arg!), Vector{ODECore.StepCallback{Vector{Float64}, Float64}}, Vector{ODECore.StepCallback{Vector{Float64}, Float64}}}
+   <- Tuple{typeof(copyto!), Vector{ODECore.StepCallback{Vector{Float64}, Float64}}, Int64, Vector{ODECore.StepCallback{Vector{Float64}, Float64}}, Int64, Int64}
+   <- Tuple{typeof(Base._copyto_impl!), Vector{ODECore.StepCallback{Vector{Float64}, Float64}}, Int64, Vector{ODECore.StepCallback{Vector{Float64}, Float64}}, Int64, Int64}
+   <- Tuple{typeof(unsafe_copyto!), MemoryRef{ODECore.StepCallback{Vector{Float64}, Float64}}, MemoryRef{ODECore.StepCallback{Vector{Float64}, Float64}}, Int64}
+   <- Tuple{typeof(isbitstype), Type{ODECore.StepCallback{Vector{Float64}, Float64}}}
+   direct callers: 1
+      Tuple{typeof(unsafe_copyto!), MemoryRef{ODECore.StepCallback{Vector{Float64}, Float64}}, MemoryRef{ODECore.StepCallback{Vector{Float64}, Float64}}, Int64}
+== other  Tuple{typeof(iterate), Base.Generator{Vector{Any}, typeof(identity)}, Int64}  (in 4 cones)
+   fault nofact: Tuple{typeof(getindex), Tuple{Any, Int64}, Int64}
+   fault nofact: Tuple{typeof(identity), Any}
+   <- Tuple{typeof(TraitIndexing._series), Dynamic{All{SeriesProvider{Float64, Float64}, ValueProvider{Float64, Float64}}}, Any}
+   <- Tuple{typeof(collect), Base.Generator{Vector{Any}, typeof(identity)}}
+   <- Tuple{typeof(Base._iterator_upper_bound), Base.Generator{Vector{Any}, typeof(identity)}}
+   <- Tuple{typeof(iterate), Base.Generator{Vector{Any}, typeof(identity)}, Int64}
+   direct callers: 2
+      Tuple{typeof(Base.collect_to!), Vector, Base.Generator{Vector{Any}, typeof(identity)}, Int64, Int64}
+      Tuple{typeof(Base._iterator_upper_bound), Base.Generator{Vector{Any}, typeof(identity)}}
+== other  Tuple{typeof(iterate), Base.CyclePadding{Core.SimpleVector}}  (in 50 cones)
+   fault nofact: Tuple{typeof(getindex), Tuple{Any, Int64}, Int64}
+   <- Tuple{TraitDifferentialEquations.var"##_options#1", Float64, Float64, Float64, Int64, Vector{Float64}, Vector{Float64}, Bool, typeof(TraitDifferentialEquations._options)}
+   <- Tuple{typeof(sort!), Vector{Float64}}
+   <- Tuple{Base.Sort.var"##sort!#24", Base.Sort.DefaultUnstable, typeof(isless), typeof(identity), Nothing, Base.Order.ForwardOrdering, Nothing, typeof(sort!), Vector{Float64}}
+   <- Tuple{typeof(Base.Sort._sort!), Vector{Float64}, Base.Sort.DefaultUnstable, Base.Order.ForwardOrdering, @NamedTuple{scratch::Nothing}}
+   <- Tuple{typeof(Base.Sort._sort!), Vector{Float64}, Base.Sort.SubArrayOptimization{Base.Sort.MissingOptimization{Base.Sort.BoolOptimization{Base.Sort.Small{10, Base.Sort.InsertionSort
+   <- Tuple{typeof(Base.Sort._sort!), Vector{Float64}, Base.Sort.MissingOptimization{Base.Sort.BoolOptimization{Base.Sort.Small{10, Base.Sort.InsertionSortAlg, Base.Sort.IEEEFloatOptimiz
+   <- Tuple{typeof(Base.Sort._sort!), Vector{Float64}, Base.Sort.BoolOptimization{Base.Sort.Small{10, Base.Sort.InsertionSortAlg, Base.Sort.IEEEFloatOptimization{Base.Sort.IsUIntMappable
+   <- Tuple{typeof(Base.Sort._sort!), Vector{Float64}, Base.Sort.Small{10, Base.Sort.InsertionSortAlg, Base.Sort.IEEEFloatOptimization{Base.Sort.IsUIntMappable{Base.Sort.Small{40, Base.S
+   <- Tuple{typeof(Base.Sort._sort!), Vector{Float64}, Base.Sort.IEEEFloatOptimization{Base.Sort.IsUIntMappable{Base.Sort.Small{40, Base.Sort.InsertionSortAlg, Base.Sort.CheckSorted{Base
+   <- Tuple{typeof(reinterpret), Type{UInt64}, Vector{Float64}}
+   <- Tuple{typeof(Base.array_subpadding), Type{Float64}, Type{UInt64}}
+   <- Tuple{typeof(iterate), Base.CyclePadding{Core.SimpleVector}}
+   direct callers: 2
+      Tuple{typeof(Base.array_subpadding), Type{Float64}, Type{UInt64}}
+      Tuple{typeof(Base.array_subpadding), Type{UInt64}, Type{Float64}}
+== other  Tuple{typeof(ODECore._problem), Any, Any, Vector{Float64}, Tuple{Float64, Float64}, Vector{Float64}, Any, Any, Any, ODECore.EnteredCallbacks{Vector{Float64}, Float64, Vector{Float64}}}  (in 7 cones)
+   fault nofact: Tuple{typeof(ODECore._names), Union{Compiled{<:IndexProvider{K}}, Dynamic{<:IndexProvider{K}}}} where K
+   <- Tuple{typeof(ODECore._problem_of), Dynamic{Callable{Tuple{Vector{Float64}, Vector{Float64}, Vector{Float64}, Float64}, Nothing}}, ODEFunction, Vector{Float64}, Tuple{Float64, Float
+   <- Tuple{typeof(ODECore._problem), Any, Any, Vector{Float64}, Tuple{Float64, Float64}, Vector{Float64}, Any, Any, Any, ODECore.EnteredCallbacks{Vector{Float64}, Float64, Vector{Float6
+   direct callers: 1
+      Tuple{typeof(ODECore._problem_of), Dynamic{Callable{Tuple{Vector{Float64}, Vector{Float64}, Vector{Float64}, Float64}, Nothing}}, ODEFunction, Vector{Float64}, 
+== introspection  Tuple{typeof(Compiler.declared_field_type), Type{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}, Symbol}  (in 8 cones)
+   fault nofact: Tuple{typeof(getindex), Type{Any}, DataType}
+   fault nofact: Tuple{typeof(Base.unwrap_unionall), Any}
+   fault nofact: Tuple{typeof(Compiler.declared_field_in), Any, Symbol, Int64}
+   fault nofact: Tuple{typeof(Core.has_free_typevars), Any}
+   fault nofact: Tuple{typeof(Base.rewrap_unionall), Any, Type{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}}
+   <- Tuple{TraitDifferentialEquations.var"#20#21", Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}}
+   <- Tuple{typeof(getproperty), Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}, Symbol}
+   <- Tuple{typeof(TraitWorld._dynamic_field_type), Type{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}, Symbol}
+   <- Tuple{typeof(Compiler.declared_field_type), Type{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}, Symbol}
+   direct callers: 1
+      Tuple{typeof(TraitWorld._dynamic_field_type), Type{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}, Symbol}
+== by_instance  Tuple{typeof(ODECore.solve_ode), ODEProblem{Float64, Vector{Float64}, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.OD  (in 19 cones)
+   fault mi: MethodInstance for ODECore.param_integrator(::Type{Vector{Float64}}, ::Vector{Float64}, ::Float64, ::Any, ::Dynamic{IndexProvider{Symbol}}, ::Bool)
+   <- Tuple{typeof(ODECore.solve_ode), ODEProblem{Float64, Vector{Float64}, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{Forward
+   <- Tuple{typeof(ODECore.solve_ode), ODEProblem{Float64, Vector{Float64}, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{Forward
+   direct callers: 3
+      Tuple{typeof(ODECore.solve_ode), ODEProblem{Float64, Vector{Float64}, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{
+      Tuple{typeof(ODECore.solve_ode), ODEProblem{Float64, Vector{Float64}, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{
+      Tuple{typeof(ODECore.solve_ode), ODEProblem{Float64, Vector{Float64}, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{
+== introspection  Tuple{typeof(ODECore.solve_ode), Any, Dynamic{ODEAlgorithm}, ODECore.EnteredCallbacks, ODECore.SolverOptions}  (in 1 cones)
+   fault nofact: Tuple{typeof(ODECore.with_problem), ODECore.CoreSolution{T}, ODEProblemTrait{T, P}, Any, Nothing, Vector{Float64}, Vector{P}} where {T, P}
+   fault nofact: Tuple{typeof(ODECore.param_integrator), DataType, P, Float64, Any, Nothing, Bool} where P
+   fault nofact: Tuple{typeof(ODECore.adapt_callbacks!), ODECore.ParamIntegrator{U, T, P}, ODECore.EnteredCallbacks{U, T, P}} where {U, T, P}
+   fault nofact: Tuple{typeof(ODECore.with_problem), ODECore.CoreSolution{T}, ODEProblemTrait{T, P}, Any, Nothing, Vector{Float64}, Vector{P}} where {T, P}
+   direct callers: 0
+== by_instance  Tuple{typeof(hasmethod), TraitNonlinearSolve.ProblemResidual{Dynamic{NonlinearProblemTrait{Float64, Float64}}}, Type{Tuple{Vector{Float64}, Vector{Float64}}}}  (in 18 cones)
+   fault mi: MethodInstance for (::TraitNonlinearSolve.ProblemResidual{Dynamic{NonlinearProblemTrait{Float64, Float64}}})(::Vector{Float64}, ::Vector{Float64})
+   <- Tuple{Type{TraitNonlinearSolve.NLCoreProblem}, TraitNonlinearSolve.ProblemResidual{Dynamic{NonlinearProblemTrait{Float64, Float64}}}, Vector{Float64}, TraitNonlinearSolve.ProblemNL
+   <- Tuple{typeof(TraitWorld._forward_box), Type{Dynamic{Callable{Tuple{Vector{Float64}, Vector{Float64}}, Nothing}}}, TraitNonlinearSolve.ProblemResidual{Dynamic{NonlinearProblemTrait{
+   <- Tuple{typeof(TraitWorld._callable_box_check), Type{Dynamic{Callable{Tuple{Vector{Float64}, Vector{Float64}}, Nothing}}}, TraitNonlinearSolve.ProblemResidual{Dynamic{NonlinearProble
+   <- Tuple{typeof(TraitWorld._callable_met), Type{Callable{Tuple{Vector{Float64}, Vector{Float64}}, Nothing}}, TraitNonlinearSolve.ProblemResidual{Dynamic{NonlinearProblemTrait{Float64,
+   <- Tuple{typeof(TraitWorld._first_unmet), TraitNonlinearSolve.ProblemResidual{Dynamic{NonlinearProblemTrait{Float64, Float64}}}, Tuple{Tuple{DataType, DataType}}}
+   <- Tuple{typeof(hasmethod), TraitNonlinearSolve.ProblemResidual{Dynamic{NonlinearProblemTrait{Float64, Float64}}}, Type{Tuple{Vector{Float64}, Vector{Float64}}}}
+   direct callers: 1
+      Tuple{typeof(TraitWorld._first_unmet), TraitNonlinearSolve.ProblemResidual{Dynamic{NonlinearProblemTrait{Float64, Float64}}}, Tuple{Tuple{DataType, DataType}}}
+== by_instance  Tuple{typeof(ODECore.solve_ode), ODEProblem{Float64, Vector{Float64}, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.OD  (in 12 cones)
+   fault mi: MethodInstance for ODECore.param_integrator(::Type{Vector{Float64}}, ::Vector{Float64}, ::Float64, ::Any, ::Dynamic{IndexProvider{Symbol}}, ::Bool)
+   <- Tuple{typeof(ODECore.solve_ode), ODEProblem{Float64, Vector{Float64}, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{Forward
+   <- Tuple{typeof(ODECore.solve_ode), ODEProblem{Float64, Vector{Float64}, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{Forward
+   direct callers: 2
+      Tuple{typeof(ODECore.solve_ode), ODEProblem{Float64, Vector{Float64}, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{
+      Tuple{typeof(ODECore.solve_ode), ODEProblem{Float64, Vector{Float64}, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{
+== by_instance  Tuple{typeof(hasmethod), TraitDifferentialEquations.var"#28#29", Type{Tuple{Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}}}}  (in 1 cones)
+   fault mi: MethodInstance for (::TraitDifferentialEquations.var"#28#29")(::Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}})
+      its code: bit false, facts true, rettype Nothing
+   <- Tuple{Type{ODECore.FunctionCallback{Vector{Float64}, Float64, Vector{Float64}, C, A, I} where {C<:Callable{Tuple{Vector{Float64}, Float64, Dynamic{IntegratorView{Vector{Float64}, F
+   <- Tuple{typeof(TraitWorld._forward_box), Type{Dynamic{Callable{Tuple{Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}}, Nothing}}}, TraitDifferentialEquations.var"#
+   <- Tuple{typeof(TraitWorld._callable_box_check), Type{Dynamic{Callable{Tuple{Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}}, Nothing}}}, TraitDifferentialEquation
+   <- Tuple{typeof(TraitWorld._callable_met), Type{Callable{Tuple{Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}}, Nothing}}, TraitDifferentialEquations.var"#28#29"}
+   <- Tuple{typeof(TraitWorld._first_unmet), TraitDifferentialEquations.var"#28#29", Tuple{Tuple{DataType, DataType}}}
+   <- Tuple{typeof(hasmethod), TraitDifferentialEquations.var"#28#29", Type{Tuple{Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}}}}
+   direct callers: 1
+      Tuple{typeof(TraitWorld._first_unmet), TraitDifferentialEquations.var"#28#29", Tuple{Tuple{DataType, DataType}}}
+== introspection  Tuple{typeof(Compiler.declared_field_type), Type{ODECore.StepView{Float64, Float64}}, Symbol}  (in 1 cones)
+   fault nofact: Tuple{typeof(getindex), Type{Any}, DataType}
+   fault nofact: Tuple{typeof(Base.unwrap_unionall), Any}
+   fault nofact: Tuple{typeof(Compiler.declared_field_in), Any, Symbol, Int64}
+   fault nofact: Tuple{typeof(Core.has_free_typevars), Any}
+   fault nofact: Tuple{typeof(Base.rewrap_unionall), Any, Type{ODECore.StepView{Float64, Float64}}}
+   <- Tuple{typeof(ODECore._sync_in!), ODECore.ParamIntegrator{Float64, Float64}, Dynamic{ODECore.StepView{Float64, Float64}}}
+   <- Tuple{typeof(getproperty), Dynamic{ODECore.StepView{Float64, Float64}}, Symbol}
+   <- Tuple{typeof(TraitWorld._dynamic_field_type), Type{ODECore.StepView{Float64, Float64}}, Symbol}
+   <- Tuple{typeof(Compiler.declared_field_type), Type{ODECore.StepView{Float64, Float64}}, Symbol}
+   direct callers: 1
+      Tuple{typeof(TraitWorld._dynamic_field_type), Type{ODECore.StepView{Float64, Float64}}, Symbol}
+== introspection  Tuple{typeof(isconcretetype), Type{NonlinearProblemTrait{Float64, Float64}}}  (in 17 cones)
+   fault nofact: Tuple{typeof(getproperty), DataType, Symbol}
+   <- Tuple{typeof(TraitNonlinearSolve.nl_core), Dynamic{NonlinearProblemTrait{Float64, Float64}}}
+   <- Tuple{typeof(getproperty), Dynamic{NonlinearProblemTrait{Float64, Float64}}, Symbol}
+   <- Tuple{typeof(TraitWorld._dynamic_field_type), Type{NonlinearProblemTrait{Float64, Float64}}, Symbol}
+   <- Tuple{typeof(Compiler.declared_field_type), Type{NonlinearProblemTrait{Float64, Float64}}, Symbol}
+   <- Tuple{typeof(isconcretetype), Type{NonlinearProblemTrait{Float64, Float64}}}
+   direct callers: 1
+      Tuple{typeof(Compiler.declared_field_type), Type{NonlinearProblemTrait{Float64, Float64}}, Symbol}
+== introspection  Tuple{typeof(isbitstype), Type{EventCallback{Vector{Float64}, Float64, Nothing}}}  (in 22 cones)
+   fault nofact: Tuple{typeof(getproperty), DataType, Symbol}
+   <- Tuple{typeof(ODECore.enter_callbacks!), ODECore.EnteredCallbacks{Vector{Float64}, Float64, Nothing}, ODECore.EnteredCallbacks{Vector{Float64}, Float64, Nothing}}
+   <- Tuple{typeof(append!), Vector{EventCallback{Vector{Float64}, Float64, Nothing}}, Vector{EventCallback{Vector{Float64}, Float64, Nothing}}}
+   <- Tuple{typeof(copyto!), Vector{EventCallback{Vector{Float64}, Float64, Nothing}}, Int64, Vector{EventCallback{Vector{Float64}, Float64, Nothing}}, Int64, Int64}
+   <- Tuple{typeof(Base._copyto_impl!), Vector{EventCallback{Vector{Float64}, Float64, Nothing}}, Int64, Vector{EventCallback{Vector{Float64}, Float64, Nothing}}, Int64, Int64}
+   <- Tuple{typeof(unsafe_copyto!), MemoryRef{EventCallback{Vector{Float64}, Float64, Nothing}}, MemoryRef{EventCallback{Vector{Float64}, Float64, Nothing}}, Int64}
+   <- Tuple{typeof(isbitstype), Type{EventCallback{Vector{Float64}, Float64, Nothing}}}
+   direct callers: 1
+      Tuple{typeof(unsafe_copyto!), MemoryRef{EventCallback{Vector{Float64}, Float64, Nothing}}, MemoryRef{EventCallback{Vector{Float64}, Float64, Nothing}}, Int64}
+== by_instance  Tuple{typeof(hasmethod), TraitDifferentialEquations.var"#18#19", Type{Tuple{Vector{Float64}, Float64, Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}}}}  (in 1 cones)
+   fault mi: MethodInstance for (::TraitDifferentialEquations.var"#18#19")(::Vector{Float64}, ::Float64, ::Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}})
+      its code: bit true, facts true, rettype Bool
+   <- Tuple{Type{ODECore.FunctionCallback{Vector{Float64}, Float64, Vector{Float64}, C, A, I} where {C<:Callable{Tuple{Vector{Float64}, Float64, Dynamic{IntegratorView{Vector{Float64}, F
+   <- Tuple{typeof(TraitWorld._forward_box), Type{Dynamic{Callable{Tuple{Vector{Float64}, Float64, Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}}, Bool}}}, TraitDiff
+   <- Tuple{typeof(TraitWorld._callable_box_check), Type{Dynamic{Callable{Tuple{Vector{Float64}, Float64, Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}}, Bool}}}, Tr
+   <- Tuple{typeof(TraitWorld._callable_met), Type{Callable{Tuple{Vector{Float64}, Float64, Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}}, Bool}}, TraitDifferential
+   <- Tuple{typeof(TraitWorld._first_unmet), TraitDifferentialEquations.var"#18#19", Tuple{Tuple{DataType, DataType}}}
+   <- Tuple{typeof(hasmethod), TraitDifferentialEquations.var"#18#19", Type{Tuple{Vector{Float64}, Float64, Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}}}}
+   direct callers: 1
+      Tuple{typeof(TraitWorld._first_unmet), TraitDifferentialEquations.var"#18#19", Tuple{Tuple{DataType, DataType}}}
+== by_instance  Tuple{typeof(hasmethod), TraitDifferentialEquations.var"#32#33", Type{Tuple{Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}}}}  (in 1 cones)
+   fault mi: MethodInstance for (::TraitDifferentialEquations.var"#32#33")(::Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}})
+      its code: bit true, facts true, rettype Nothing
+   <- Tuple{Type{ODECore.FunctionCallback{Vector{Float64}, Float64, Vector{Float64}, C, A, I} where {C<:Callable{Tuple{Vector{Float64}, Float64, Dynamic{IntegratorView{Vector{Float64}, F
+   <- Tuple{typeof(TraitWorld._forward_box), Type{Dynamic{Callable{Tuple{Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}}, Nothing}}}, TraitDifferentialEquations.var"#
+   <- Tuple{typeof(TraitWorld._callable_box_check), Type{Dynamic{Callable{Tuple{Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}}, Nothing}}}, TraitDifferentialEquation
+   <- Tuple{typeof(TraitWorld._callable_met), Type{Callable{Tuple{Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}}, Nothing}}, TraitDifferentialEquations.var"#32#33"}
+   <- Tuple{typeof(TraitWorld._first_unmet), TraitDifferentialEquations.var"#32#33", Tuple{Tuple{DataType, DataType}}}
+   <- Tuple{typeof(hasmethod), TraitDifferentialEquations.var"#32#33", Type{Tuple{Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}}}}
+   direct callers: 1
+      Tuple{typeof(TraitWorld._first_unmet), TraitDifferentialEquations.var"#32#33", Tuple{Tuple{DataType, DataType}}}
+== by_instance  Tuple{typeof(hasmethod), typeof(TraitDifferentialEquations._wl_rhsp!), Type{Tuple{Vector{Float64}, Vector{Float64}, Vector{ForwardDiff.Dual{ForwardDiff.Tag{TraitDifferentialEquations.Sig{Tuple{Vector{  (in 2 cones)
+   fault mi: MethodInstance for TraitDifferentialEquations._wl_rhsp!(::Vector{Float64}, ::Vector{Float64}, ::Vector{ForwardDiff.Dual{ForwardDiff.Tag{TraitDifferentialEquations.Sig{Tuple{Vector{Float64}}, Float64},
+   <- Tuple{Type{ODEProblem}, typeof(TraitDifferentialEquations._wl_rhsp!), Vector{Float64}, Tuple{Float64, Float64}, Vector{ForwardDiff.Dual{ForwardDiff.Tag{TraitDifferentialEquations.S
+   <- Tuple{typeof(TraitWorld._callable_box_check), Type{Dynamic{Callable{Tuple{Vector{Float64}, Vector{Float64}, Vector{ForwardDiff.Dual{ForwardDiff.Tag{TraitDifferentialEquations.Sig{T
+   <- Tuple{typeof(TraitWorld._callable_met), Type{Callable{Tuple{Vector{Float64}, Vector{Float64}, Vector{ForwardDiff.Dual{ForwardDiff.Tag{TraitDifferentialEquations.Sig{Tuple{Vector{Fl
+   <- Tuple{typeof(TraitWorld._first_unmet), typeof(TraitDifferentialEquations._wl_rhsp!), Tuple{Tuple{DataType, DataType}}}
+   <- Tuple{typeof(hasmethod), typeof(TraitDifferentialEquations._wl_rhsp!), Type{Tuple{Vector{Float64}, Vector{Float64}, Vector{ForwardDiff.Dual{ForwardDiff.Tag{TraitDifferentialEquatio
+   direct callers: 1
+      Tuple{typeof(TraitWorld._first_unmet), typeof(TraitDifferentialEquations._wl_rhsp!), Tuple{Tuple{DataType, DataType}}}
+== by_instance  Tuple{typeof(hasmethod), typeof(lorenz!), Type{Tuple{Vector{Float64}, Vector{Float64}, Vector{Float64}, Float64}}}  (in 1 cones)
+   fault mi: MethodInstance for lorenz!(::Vector{Float64}, ::Vector{Float64}, ::Vector{Float64}, ::Float64)
+      its code: bit true, facts false, rettype Nothing
+   <- Tuple{Type{ODEProblem}, typeof(lorenz!), Vector{Float64}, Tuple{Float64, Float64}, Vector{Float64}}
+   <- Tuple{typeof(TraitWorld._callable_box_check), Type{Dynamic{Callable{Tuple{Vector{Float64}, Vector{Float64}, Vector{Float64}, Float64}, Nothing}}}, typeof(lorenz!), Type{ODEProblem}
+   <- Tuple{typeof(TraitWorld._callable_met), Type{Callable{Tuple{Vector{Float64}, Vector{Float64}, Vector{Float64}, Float64}, Nothing}}, typeof(lorenz!)}
+   <- Tuple{typeof(TraitWorld._first_unmet), typeof(lorenz!), Tuple{Tuple{DataType, DataType}}}
+   <- Tuple{typeof(hasmethod), typeof(lorenz!), Type{Tuple{Vector{Float64}, Vector{Float64}, Vector{Float64}, Float64}}}
+   direct callers: 1
+      Tuple{typeof(TraitWorld._first_unmet), typeof(lorenz!), Tuple{Tuple{DataType, DataType}}}
+== other  Tuple{typeof(ODECore._problem), Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff  (in 1 cones)
+   fault nofact: Tuple{typeof(ODECore._names), Union{Compiled{<:IndexProvider{K}}, Dynamic{<:IndexProvider{K}}}} where K
+   direct callers: 0
+== by_instance  Tuple{typeof(hasmethod), TraitDifferentialEquations.var"#24#25", Type{Tuple{Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}}}}  (in 1 cones)
+   fault mi: MethodInstance for (::TraitDifferentialEquations.var"#24#25")(::Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}})
+      its code: bit false, facts true, rettype Nothing
+   <- Tuple{Type{ODECore.FunctionCallback{Vector{Float64}, Float64, Vector{Float64}, C, A, I} where {C<:Callable{Tuple{Vector{Float64}, Float64, Dynamic{IntegratorView{Vector{Float64}, F
+   <- Tuple{typeof(TraitWorld._forward_box), Type{Dynamic{Callable{Tuple{Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}}, Nothing}}}, TraitDifferentialEquations.var"#
+   <- Tuple{typeof(TraitWorld._callable_box_check), Type{Dynamic{Callable{Tuple{Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}}, Nothing}}}, TraitDifferentialEquation
+   <- Tuple{typeof(TraitWorld._callable_met), Type{Callable{Tuple{Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}}, Nothing}}, TraitDifferentialEquations.var"#24#25"}
+   <- Tuple{typeof(TraitWorld._first_unmet), TraitDifferentialEquations.var"#24#25", Tuple{Tuple{DataType, DataType}}}
+   <- Tuple{typeof(hasmethod), TraitDifferentialEquations.var"#24#25", Type{Tuple{Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}}}}
+   direct callers: 1
+      Tuple{typeof(TraitWorld._first_unmet), TraitDifferentialEquations.var"#24#25", Tuple{Tuple{DataType, DataType}}}
+== by_instance  Tuple{typeof(hasmethod), TraitDifferentialEquations.var"#34#35", Type{Tuple{Vector{Float64}, Float64, Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}}}}  (in 1 cones)
+   fault mi: MethodInstance for (::TraitDifferentialEquations.var"#34#35")(::Vector{Float64}, ::Float64, ::Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}})
+      its code: bit true, facts true, rettype Float64
+   <- Tuple{Type{ODECore.FunctionEventCallback{Vector{Float64}, Float64, Vector{Float64}, C, A, N, I} where {C<:Callable{Tuple{Vector{Float64}, Float64, Dynamic{IntegratorView{Vector{Flo
+   <- Tuple{typeof(TraitWorld._forward_box), Type{Dynamic{Callable{Tuple{Vector{Float64}, Float64, Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}}, Float64}}}, TraitD
+   <- Tuple{typeof(TraitWorld._callable_box_check), Type{Dynamic{Callable{Tuple{Vector{Float64}, Float64, Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}}, Float64}}},
+   <- Tuple{typeof(TraitWorld._callable_met), Type{Callable{Tuple{Vector{Float64}, Float64, Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}}, Float64}}, TraitDifferent
+   <- Tuple{typeof(TraitWorld._first_unmet), TraitDifferentialEquations.var"#34#35", Tuple{Tuple{DataType, DataType}}}
+   <- Tuple{typeof(hasmethod), TraitDifferentialEquations.var"#34#35", Type{Tuple{Vector{Float64}, Float64, Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}}}}
+   direct callers: 1
+      Tuple{typeof(TraitWorld._first_unmet), TraitDifferentialEquations.var"#34#35", Tuple{Tuple{DataType, DataType}}}
+== by_instance  Tuple{typeof(hasmethod), typeof(TraitNonlinearSolve._wl_ss!), Type{Tuple{Vector{Float64}, Vector{Float64}, Vector{Float64}, Float64}}}  (in 1 cones)
+   fault mi: MethodInstance for TraitNonlinearSolve._wl_ss!(::Vector{Float64}, ::Vector{Float64}, ::Vector{Float64}, ::Float64)
+      its code: bit true, facts true, rettype Nothing
+   <- Tuple{typeof(SteadyStateProblem), typeof(TraitNonlinearSolve._wl_ss!), Vector{Float64}, Vector{Float64}}
+   <- Tuple{typeof(TraitWorld._callable_box_check), Type{Dynamic{Callable{Tuple{Vector{Float64}, Vector{Float64}, Vector{Float64}, Float64}, Nothing}}}, typeof(TraitNonlinearSolve._wl_ss
+   <- Tuple{typeof(TraitWorld._callable_met), Type{Callable{Tuple{Vector{Float64}, Vector{Float64}, Vector{Float64}, Float64}, Nothing}}, typeof(TraitNonlinearSolve._wl_ss!)}
+   <- Tuple{typeof(TraitWorld._first_unmet), typeof(TraitNonlinearSolve._wl_ss!), Tuple{Tuple{DataType, DataType}}}
+   <- Tuple{typeof(hasmethod), typeof(TraitNonlinearSolve._wl_ss!), Type{Tuple{Vector{Float64}, Vector{Float64}, Vector{Float64}, Float64}}}
+   direct callers: 1
+      Tuple{typeof(TraitWorld._first_unmet), typeof(TraitNonlinearSolve._wl_ss!), Tuple{Tuple{DataType, DataType}}}
+== other  Tuple{typeof(ODECore._problem), Any, Any, Vector{ForwardDiff.Dual{ForwardDiff.Tag{TraitDifferentialEquations.Sig{Tuple{Vector{Float64}}, Float64}, Float64}, Float64, 3}}, Tuple{Float64, Float64}, Vect  (in 6 cones)
+   fault nofact: Tuple{typeof(ODECore._names), Union{Compiled{<:IndexProvider{K}}, Dynamic{<:IndexProvider{K}}}} where K
+   <- Tuple{typeof(ODECore._problem_of), Dynamic{Callable{Tuple{Vector{Float64}, Vector{Float64}, Vector{ForwardDiff.Dual{ForwardDiff.Tag{TraitDifferentialEquations.Sig{Tuple{Vector{Floa
+   <- Tuple{typeof(ODECore._problem), Any, Any, Vector{ForwardDiff.Dual{ForwardDiff.Tag{TraitDifferentialEquations.Sig{Tuple{Vector{Float64}}, Float64}, Float64}, Float64, 3}}, Tuple{Flo
+   direct callers: 1
+      Tuple{typeof(ODECore._problem_of), Dynamic{Callable{Tuple{Vector{Float64}, Vector{Float64}, Vector{ForwardDiff.Dual{ForwardDiff.Tag{TraitDifferentialEquations.S
+== introspection  Tuple{typeof(isconcretetype), Type{ODEProblemTrait{Float64, Float64}}}  (in 1 cones)
+   fault nofact: Tuple{typeof(getproperty), DataType, Symbol}
+   <- Tuple{typeof(TraitNonlinearSolve._steady), Dynamic{ODEProblemTrait{Float64, Float64}}, Float64, Any, Any}
+   <- Tuple{typeof(getproperty), Dynamic{ODEProblemTrait{Float64, Float64}}, Symbol}
+   <- Tuple{typeof(TraitWorld._dynamic_field_type), Type{ODEProblemTrait{Float64, Float64}}, Symbol}
+   <- Tuple{typeof(Compiler.declared_field_type), Type{ODEProblemTrait{Float64, Float64}}, Symbol}
+   <- Tuple{typeof(isconcretetype), Type{ODEProblemTrait{Float64, Float64}}}
+   direct callers: 1
+      Tuple{typeof(Compiler.declared_field_type), Type{ODEProblemTrait{Float64, Float64}}, Symbol}
+== introspection  Tuple{typeof(isbitstype), Type{Callback{Vector{Float64}, Float64, Vector{Float64}}}}  (in 49 cones)
+   fault nofact: Tuple{typeof(getproperty), DataType, Symbol}
+   <- Tuple{typeof(ODECore.enter_callbacks!), ODECore.EnteredCallbacks{Vector{Float64}, Float64, Vector{Float64}}, ODECore.EnteredCallbacks{Vector{Float64}, Float64, Vector{Float64}}}
+   <- Tuple{typeof(append!), Vector{Callback{Vector{Float64}, Float64, Vector{Float64}}}, Vector{Callback{Vector{Float64}, Float64, Vector{Float64}}}}
+   <- Tuple{typeof(copyto!), Vector{Callback{Vector{Float64}, Float64, Vector{Float64}}}, Int64, Vector{Callback{Vector{Float64}, Float64, Vector{Float64}}}, Int64, Int64}
+   <- Tuple{typeof(Base._copyto_impl!), Vector{Callback{Vector{Float64}, Float64, Vector{Float64}}}, Int64, Vector{Callback{Vector{Float64}, Float64, Vector{Float64}}}, Int64, Int64}
+   <- Tuple{typeof(unsafe_copyto!), MemoryRef{Callback{Vector{Float64}, Float64, Vector{Float64}}}, MemoryRef{Callback{Vector{Float64}, Float64, Vector{Float64}}}, Int64}
+   <- Tuple{typeof(isbitstype), Type{Callback{Vector{Float64}, Float64, Vector{Float64}}}}
+   direct callers: 1
+      Tuple{typeof(unsafe_copyto!), MemoryRef{Callback{Vector{Float64}, Float64, Vector{Float64}}}, MemoryRef{Callback{Vector{Float64}, Float64, Vector{Float64}}}, In
+== by_instance  Tuple{typeof(hasmethod), TraitNonlinearSolve.ProblemNLJac{Dynamic{NonlinearProblemTrait{Float64, Float64}}}, Type{Tuple{Matrix{Float64}, Vector{Float64}}}}  (in 18 cones)
+   fault mi: MethodInstance for (::TraitNonlinearSolve.ProblemNLJac{Dynamic{NonlinearProblemTrait{Float64, Float64}}})(::Matrix{Float64}, ::Vector{Float64})
+   <- Tuple{Type{TraitNonlinearSolve.NLCoreProblem}, TraitNonlinearSolve.ProblemResidual{Dynamic{NonlinearProblemTrait{Float64, Float64}}}, Vector{Float64}, TraitNonlinearSolve.ProblemNL
+   <- Tuple{typeof(TraitWorld._forward_box), Type{Dynamic{Callable{Tuple{Matrix{Float64}, Vector{Float64}}, Nothing}}}, TraitNonlinearSolve.ProblemNLJac{Dynamic{NonlinearProblemTrait{Flo
+   <- Tuple{typeof(TraitWorld._callable_box_check), Type{Dynamic{Callable{Tuple{Matrix{Float64}, Vector{Float64}}, Nothing}}}, TraitNonlinearSolve.ProblemNLJac{Dynamic{NonlinearProblemTr
+   <- Tuple{typeof(TraitWorld._callable_met), Type{Callable{Tuple{Matrix{Float64}, Vector{Float64}}, Nothing}}, TraitNonlinearSolve.ProblemNLJac{Dynamic{NonlinearProblemTrait{Float64, Fl
+   <- Tuple{typeof(TraitWorld._first_unmet), TraitNonlinearSolve.ProblemNLJac{Dynamic{NonlinearProblemTrait{Float64, Float64}}}, Tuple{Tuple{DataType, DataType}}}
+   <- Tuple{typeof(hasmethod), TraitNonlinearSolve.ProblemNLJac{Dynamic{NonlinearProblemTrait{Float64, Float64}}}, Type{Tuple{Matrix{Float64}, Vector{Float64}}}}
+   direct callers: 1
+      Tuple{typeof(TraitWorld._first_unmet), TraitNonlinearSolve.ProblemNLJac{Dynamic{NonlinearProblemTrait{Float64, Float64}}}, Tuple{Tuple{DataType, DataType}}}
+== other  Tuple{typeof(iterate), Base.Generator{Vector{Any}, typeof(identity)}}  (in 4 cones)
+   fault nofact: Tuple{typeof(getindex), Tuple{Any, Int64}, Int64}
+   fault nofact: Tuple{typeof(identity), Any}
+   <- Tuple{typeof(TraitIndexing._series), Dynamic{All{SeriesProvider{Float64, Float64}, ValueProvider{Float64, Float64}}}, Any}
+   <- Tuple{typeof(collect), Base.Generator{Vector{Any}, typeof(identity)}}
+   <- Tuple{typeof(iterate), Base.Generator{Vector{Any}, typeof(identity)}}
+   direct callers: 2
+      Tuple{typeof(collect), Base.Generator{Vector{Any}, typeof(identity)}}
+      Tuple{typeof(Base._iterator_upper_bound), Base.Generator{Vector{Any}, typeof(identity)}}
+== any_container  Tuple{typeof(iterate), Base.ImmutableDict{Symbol, Any}, Base.ImmutableDict{Symbol, Any}}  (in 7 cones)
+   fault nofact: Tuple{Type{Pair{Symbol, Any}}, Symbol, Any}
+   <- Tuple{typeof(ODECore.tsit5_init), ODECore.CoreProblem{ForwardDiff.Dual{ForwardDiff.Tag{TraitDifferentialEquations.Sig{Tuple{Vector{Float64}}, Float64}, Float64}, Float64, 3}, Dynam
+   <- Tuple{typeof(string), String, Type{ForwardDiff.Dual{ForwardDiff.Tag{TraitDifferentialEquations.Sig{Tuple{Vector{Float64}}, Float64}, Float64}, Float64, 3}}}
+   <- Tuple{typeof(Base.print_to_string), String, Type{ForwardDiff.Dual{ForwardDiff.Tag{TraitDifferentialEquations.Sig{Tuple{Vector{Float64}}, Float64}, Float64}, Float64, 3}}}
+   <- Tuple{typeof(print), IOBuffer, Type}
+   <- Tuple{typeof(show), IOBuffer, Type}
+   <- Tuple{typeof(Base._show_type), IOBuffer, Type}
+   <- Tuple{typeof(Base.io_has_tvar_name), IOContext{IOBuffer}, Symbol, UnionAll}
+   <- Tuple{typeof(iterate), Base.ImmutableDict{Symbol, Any}, Base.ImmutableDict{Symbol, Any}}
+   direct callers: 2
+      Tuple{typeof(Base.io_has_tvar_name), IOContext{IOBuffer}, Symbol, UnionAll}
+      Tuple{typeof(iterate), Base.ImmutableDict{Symbol, Any}}
+== by_instance  Tuple{typeof(hasmethod), typeof(TraitNonlinearSolve._wl_res!), Type{Tuple{Vector{Float64}, Vector{Float64}, Vector{Float64}}}}  (in 1 cones)
+   fault mi: MethodInstance for TraitNonlinearSolve._wl_res!(::Vector{Float64}, ::Vector{Float64}, ::Vector{Float64})
+      its code: bit true, facts true, rettype Nothing
+   <- Tuple{Type{NonlinearProblem}, typeof(TraitNonlinearSolve._wl_res!), Vector{Float64}, Vector{Float64}}
+   <- Tuple{typeof(TraitWorld._callable_box_check), Type{Dynamic{Callable{Tuple{Vector{Float64}, Vector{Float64}, Vector{Float64}}, Nothing}}}, typeof(TraitNonlinearSolve._wl_res!), Type
+   <- Tuple{typeof(TraitWorld._callable_met), Type{Callable{Tuple{Vector{Float64}, Vector{Float64}, Vector{Float64}}, Nothing}}, typeof(TraitNonlinearSolve._wl_res!)}
+   <- Tuple{typeof(TraitWorld._first_unmet), typeof(TraitNonlinearSolve._wl_res!), Tuple{Tuple{DataType, DataType}}}
+   <- Tuple{typeof(hasmethod), typeof(TraitNonlinearSolve._wl_res!), Type{Tuple{Vector{Float64}, Vector{Float64}, Vector{Float64}}}}
+   direct callers: 1
+      Tuple{typeof(TraitWorld._first_unmet), typeof(TraitNonlinearSolve._wl_res!), Tuple{Tuple{DataType, DataType}}}
+== introspection  Tuple{typeof(isbitstype), Type{EventCallback{Vector{ForwardDiff.Dual{ForwardDiff.Tag{TraitDifferentialEquations.Sig{Tuple{Vector{Float64}}, Float64}, Float64}, Float64, 3}}, Float64, Vector{ForwardDif  (in 15 cones)
+   fault nofact: Tuple{typeof(getproperty), DataType, Symbol}
+   <- Tuple{typeof(ODECore.enter_callbacks!), ODECore.EnteredCallbacks{Vector{ForwardDiff.Dual{ForwardDiff.Tag{TraitDifferentialEquations.Sig{Tuple{Vector{Float64}}, Float64}, Float64}, 
+   <- Tuple{typeof(append!), Vector{EventCallback{Vector{ForwardDiff.Dual{ForwardDiff.Tag{TraitDifferentialEquations.Sig{Tuple{Vector{Float64}}, Float64}, Float64}, Float64, 3}}, Float64
+   <- Tuple{typeof(copyto!), Vector{EventCallback{Vector{ForwardDiff.Dual{ForwardDiff.Tag{TraitDifferentialEquations.Sig{Tuple{Vector{Float64}}, Float64}, Float64}, Float64, 3}}, Float64
+   <- Tuple{typeof(Base._copyto_impl!), Vector{EventCallback{Vector{ForwardDiff.Dual{ForwardDiff.Tag{TraitDifferentialEquations.Sig{Tuple{Vector{Float64}}, Float64}, Float64}, Float64, 3
+   <- Tuple{typeof(unsafe_copyto!), MemoryRef{EventCallback{Vector{ForwardDiff.Dual{ForwardDiff.Tag{TraitDifferentialEquations.Sig{Tuple{Vector{Float64}}, Float64}, Float64}, Float64, 3}
+   <- Tuple{typeof(isbitstype), Type{EventCallback{Vector{ForwardDiff.Dual{ForwardDiff.Tag{TraitDifferentialEquations.Sig{Tuple{Vector{Float64}}, Float64}, Float64}, Float64, 3}}, Float6
+   direct callers: 1
+      Tuple{typeof(unsafe_copyto!), MemoryRef{EventCallback{Vector{ForwardDiff.Dual{ForwardDiff.Tag{TraitDifferentialEquations.Sig{Tuple{Vector{Float64}}, Float64}, F
+== any_container  Tuple{typeof(getindex), Type{Any}, DataType}  (in 27 cones)
+   fault nofact: Tuple{typeof(Base.__safe_setindex!), Vector{Any}, DataType, Int64}
+   <- Tuple{TraitDifferentialEquations.var"#20#21", Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}}
+   <- Tuple{typeof(getproperty), Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}, Symbol}
+   <- Tuple{typeof(TraitWorld._dynamic_field_type), Type{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}, Symbol}
+   <- Tuple{typeof(Compiler.declared_field_type), Any, Symbol}
+   <- Tuple{typeof(getindex), Type{Any}, DataType}
+   direct callers: 5
+      Tuple{typeof(Compiler.declared_field_type), Any, Symbol}
+      Tuple{typeof(Compiler.declared_field_type), Type{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}, Symbol}
+      Tuple{typeof(Compiler.declared_field_type), Type{NonlinearProblemTrait{Float64, Float64}}, Symbol}
+      Tuple{typeof(Compiler.declared_field_type), Type{ODEProblemTrait{Float64, Float64}}, Symbol}
+      Tuple{typeof(Compiler.declared_field_type), Type{ODECore.StepView{Float64, Float64}}, Symbol}
+== introspection  Tuple{typeof(Compiler.declared_field_type), Type{NonlinearProblemTrait{Float64, Float64}}, Symbol}  (in 17 cones)
+   fault nofact: Tuple{typeof(getindex), Type{Any}, DataType}
+   fault nofact: Tuple{typeof(Base.unwrap_unionall), Any}
+   fault nofact: Tuple{typeof(Compiler.declared_field_in), Any, Symbol, Int64}
+   fault nofact: Tuple{typeof(Core.has_free_typevars), Any}
+   fault nofact: Tuple{typeof(Base.rewrap_unionall), Any, Type{NonlinearProblemTrait{Float64, Float64}}}
+   <- Tuple{typeof(TraitNonlinearSolve.nl_core), Dynamic{NonlinearProblemTrait{Float64, Float64}}}
+   <- Tuple{typeof(getproperty), Dynamic{NonlinearProblemTrait{Float64, Float64}}, Symbol}
+   <- Tuple{typeof(TraitWorld._dynamic_field_type), Type{NonlinearProblemTrait{Float64, Float64}}, Symbol}
+   <- Tuple{typeof(Compiler.declared_field_type), Type{NonlinearProblemTrait{Float64, Float64}}, Symbol}
+   direct callers: 1
+      Tuple{typeof(TraitWorld._dynamic_field_type), Type{NonlinearProblemTrait{Float64, Float64}}, Symbol}
+== introspection  Tuple{typeof(Base.rewrap_unionall), Core.TypeofVararg, Type}  (in 7 cones)
+   fault nofact: Tuple{typeof(Base.rewrap_unionall), Core.TypeofVararg, UnionAll}
+   fault nofact: Tuple{typeof(Base.rewrap_unionall), Any, UnionAll}
+   fault nofact: Tuple{typeof(getproperty), UnionAll, Symbol}
+   <- Tuple{typeof(ODECore.tsit5_init), ODECore.CoreProblem{ForwardDiff.Dual{ForwardDiff.Tag{TraitDifferentialEquations.Sig{Tuple{Vector{Float64}}, Float64}, Float64}, Float64, 3}, Dynam
+   <- Tuple{typeof(string), String, Type{ForwardDiff.Dual{ForwardDiff.Tag{TraitDifferentialEquations.Sig{Tuple{Vector{Float64}}, Float64}, Float64}, Float64, 3}}}
+   <- Tuple{typeof(Base.print_to_string), String, Type{ForwardDiff.Dual{ForwardDiff.Tag{TraitDifferentialEquations.Sig{Tuple{Vector{Float64}}, Float64}, Float64}, Float64, 3}}}
+   <- Tuple{typeof(print), IOBuffer, Type}
+   <- Tuple{typeof(show), IOBuffer, Type}
+   <- Tuple{typeof(Base._show_type), IOBuffer, Type}
+   <- Tuple{typeof(Base.show_unionaliases), IOBuffer, Union}
+   <- Tuple{typeof(Base.make_typealiases), Type}
+   <- Tuple{typeof(Base.rewrap_unionall), Core.TypeofVararg, Type}
+   direct callers: 1
+      Tuple{typeof(Base.make_typealiases), Type}
+== introspection  Tuple{typeof(Base.rewrap_unionall), Core.TypeofVararg, Any}  (in 34 cones)
+   fault nofact: Tuple{typeof(Base.rewrap_unionall), Core.TypeofVararg, Any}
+   fault nofact: Tuple{typeof(Base.rewrap_unionall), Any, UnionAll}
+   fault nofact: Tuple{typeof(getproperty), UnionAll, Symbol}
+   <- Tuple{TraitDifferentialEquations.var"#20#21", Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}}
+   <- Tuple{typeof(getproperty), Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}, Symbol}
+   <- Tuple{typeof(TraitWorld._dynamic_field_type), Type{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}, Symbol}
+   <- Tuple{typeof(Compiler.declared_field_type), Any, Symbol}
+   <- Tuple{typeof(Base.rewrap_unionall), Core.TypeofVararg, Any}
+   direct callers: 6
+      Tuple{typeof(Compiler.declared_field_type), Any, Symbol}
+      Tuple{typeof(Base.make_typealiases), Type}
+      Tuple{typeof(Base.rewrap_unionall), Core.TypeofVararg, UnionAll}
+      Tuple{typeof(Base.rewrap_unionall), Core.TypeofVararg, Type}
+      Tuple{typeof(Base.make_typealiases), Union}
+      Tuple{typeof(Base.make_typealias), Type}
+== introspection  Tuple{typeof(isbitstype), Type{NonlinearAlgorithm}}  (in 4 cones)
+   fault nofact: Tuple{typeof(getproperty), DataType, Symbol}
+   <- Tuple{Type{NonlinearPolyalg}, NewtonRaphson{DenseLU}, NewtonRaphson{DenseLU}, TrustRegion{DenseLU}}
+   <- Tuple{typeof(push!), Vector{NonlinearAlgorithm}, TrustRegion{DenseLU}}
+   <- Tuple{typeof(Base._push!), Vector{NonlinearAlgorithm}, TrustRegion{DenseLU}}
+   <- Tuple{typeof(Base._growend!), Vector{NonlinearAlgorithm}, Int64}
+   <- Tuple{typeof(Base._growend_internal!), Vector{NonlinearAlgorithm}, Int64, Int64}
+   <- Tuple{typeof(unsafe_copyto!), MemoryRef{NonlinearAlgorithm}, MemoryRef{NonlinearAlgorithm}, Int64}
+   <- Tuple{typeof(isbitstype), Type{NonlinearAlgorithm}}
+   direct callers: 1
+      Tuple{typeof(unsafe_copyto!), MemoryRef{NonlinearAlgorithm}, MemoryRef{NonlinearAlgorithm}, Int64}
+== introspection  Tuple{typeof(isconcretetype), Any}  (in 27 cones)
+   fault nofact: Tuple{typeof(getproperty), DataType, Symbol}
+   <- Tuple{TraitDifferentialEquations.var"#20#21", Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}}
+   <- Tuple{typeof(getproperty), Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}, Symbol}
+   <- Tuple{typeof(TraitWorld._dynamic_field_type), Type{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}}, Symbol}
+   <- Tuple{typeof(Compiler.declared_field_type), Any, Symbol}
+   <- Tuple{typeof(isconcretetype), Any}
+   direct callers: 1
+      Tuple{typeof(Compiler.declared_field_type), Any, Symbol}
+== by_instance  Tuple{typeof(hasmethod), typeof(TraitDifferentialEquations._wl_rhs!), Type{Tuple{Vector{Float64}, Vector{Float64}, Nothing, Float64}}}  (in 1 cones)
+   fault mi: MethodInstance for TraitDifferentialEquations._wl_rhs!(::Vector{Float64}, ::Vector{Float64}, ::Nothing, ::Float64)
+      its code: bit true, facts true, rettype Nothing
+   <- Tuple{Type{ODEProblem}, typeof(TraitDifferentialEquations._wl_rhs!), Vector{Float64}, Tuple{Float64, Float64}}
+   <- Tuple{typeof(TraitWorld._callable_box_check), Type{Dynamic{Callable{Tuple{Vector{Float64}, Vector{Float64}, Nothing, Float64}, Nothing}}}, typeof(TraitDifferentialEquations._wl_rhs
+   <- Tuple{typeof(TraitWorld._callable_met), Type{Callable{Tuple{Vector{Float64}, Vector{Float64}, Nothing, Float64}, Nothing}}, typeof(TraitDifferentialEquations._wl_rhs!)}
+   <- Tuple{typeof(TraitWorld._first_unmet), typeof(TraitDifferentialEquations._wl_rhs!), Tuple{Tuple{DataType, DataType}}}
+   <- Tuple{typeof(hasmethod), typeof(TraitDifferentialEquations._wl_rhs!), Type{Tuple{Vector{Float64}, Vector{Float64}, Nothing, Float64}}}
+   direct callers: 1
+      Tuple{typeof(TraitWorld._first_unmet), typeof(TraitDifferentialEquations._wl_rhs!), Tuple{Tuple{DataType, DataType}}}
+== introspection  Tuple{typeof(Base.rewrap_unionall), Core.TypeofVararg, UnionAll}  (in 7 cones)
+   fault nofact: Tuple{typeof(Base.rewrap_unionall), Core.TypeofVararg, Any}
+   fault nofact: Tuple{typeof(Base.rewrap_unionall), Any, UnionAll}
+   fault nofact: Tuple{typeof(getproperty), UnionAll, Symbol}
+   <- Tuple{typeof(ODECore.tsit5_init), ODECore.CoreProblem{ForwardDiff.Dual{ForwardDiff.Tag{TraitDifferentialEquations.Sig{Tuple{Vector{Float64}}, Float64}, Float64}, Float64, 3}, Dynam
+   <- Tuple{typeof(string), String, Type{ForwardDiff.Dual{ForwardDiff.Tag{TraitDifferentialEquations.Sig{Tuple{Vector{Float64}}, Float64}, Float64}, Float64, 3}}}
+   <- Tuple{typeof(Base.print_to_string), String, Type{ForwardDiff.Dual{ForwardDiff.Tag{TraitDifferentialEquations.Sig{Tuple{Vector{Float64}}, Float64}, Float64}, Float64, 3}}}
+   <- Tuple{typeof(print), IOBuffer, Type}
+   <- Tuple{typeof(show), IOBuffer, Type}
+   <- Tuple{typeof(Base._show_type), IOBuffer, Type}
+   <- Tuple{typeof(Base.show_unionaliases), IOBuffer, Union}
+   <- Tuple{typeof(Base.make_typealiases), Type}
+   <- Tuple{typeof(Base.rewrap_unionall), Core.TypeofVararg, UnionAll}
+   direct callers: 4
+      Tuple{typeof(Base.make_typealiases), Type}
+      Tuple{typeof(Base.rewrap_unionall), Core.TypeofVararg, Type}
+      Tuple{typeof(Base.make_typealiases), Union}
+      Tuple{typeof(Base.make_typealias), Type}
+== introspection  Tuple{typeof(isbitstype), Type{ODECore.StepEvent{Vector{ForwardDiff.Dual{ForwardDiff.Tag{TraitDifferentialEquations.Sig{Tuple{Vector{Float64}}, Float64}, Float64}, Float64, 3}}, Float64}}}  (in 12 cones)
+   fault nofact: Tuple{typeof(getproperty), DataType, Symbol}
+   <- Tuple{Type{ODECore.Tsit5Integrator{ForwardDiff.Dual{ForwardDiff.Tag{TraitDifferentialEquations.Sig{Tuple{Vector{Float64}}, Float64}, Float64}, Float64, 3}, ODECore.CoreProblem{Forw
+   <- Tuple{typeof(convert), Type{Vector{ODECore.StepEvent{Vector{ForwardDiff.Dual{ForwardDiff.Tag{TraitDifferentialEquations.Sig{Tuple{Vector{Float64}}, Float64}, Float64}, Float64, 3}}
+   <- Tuple{Type{Vector{ODECore.StepEvent{Vector{ForwardDiff.Dual{ForwardDiff.Tag{TraitDifferentialEquations.Sig{Tuple{Vector{Float64}}, Float64}, Float64}, Float64, 3}}, Float64}}}, Vec
+   <- Tuple{typeof(Base.copyto_axcheck!), Vector{ODECore.StepEvent{Vector{ForwardDiff.Dual{ForwardDiff.Tag{TraitDifferentialEquations.Sig{Tuple{Vector{Float64}}, Float64}, Float64}, Floa
+   <- Tuple{typeof(copyto!), Vector{ODECore.StepEvent{Vector{ForwardDiff.Dual{ForwardDiff.Tag{TraitDifferentialEquations.Sig{Tuple{Vector{Float64}}, Float64}, Float64}, Float64, 3}}, Flo
+   <- Tuple{typeof(Base._copyto2arg!), Vector{ODECore.StepEvent{Vector{ForwardDiff.Dual{ForwardDiff.Tag{TraitDifferentialEquations.Sig{Tuple{Vector{Float64}}, Float64}, Float64}, Float64
+   <- Tuple{typeof(copyto!), Vector{ODECore.StepEvent{Vector{ForwardDiff.Dual{ForwardDiff.Tag{TraitDifferentialEquations.Sig{Tuple{Vector{Float64}}, Float64}, Float64}, Float64, 3}}, Flo
+   <- Tuple{typeof(Base._copyto_impl!), Vector{ODECore.StepEvent{Vector{ForwardDiff.Dual{ForwardDiff.Tag{TraitDifferentialEquations.Sig{Tuple{Vector{Float64}}, Float64}, Float64}, Float6
+   <- Tuple{typeof(unsafe_copyto!), MemoryRef{ODECore.StepEvent{Vector{ForwardDiff.Dual{ForwardDiff.Tag{TraitDifferentialEquations.Sig{Tuple{Vector{Float64}}, Float64}, Float64}, Float64
+   <- Tuple{typeof(isbitstype), Type{ODECore.StepEvent{Vector{ForwardDiff.Dual{ForwardDiff.Tag{TraitDifferentialEquations.Sig{Tuple{Vector{Float64}}, Float64}, Float64}, Float64, 3}}, Fl
+   direct callers: 1
+      Tuple{typeof(unsafe_copyto!), MemoryRef{ODECore.StepEvent{Vector{ForwardDiff.Dual{ForwardDiff.Tag{TraitDifferentialEquations.Sig{Tuple{Vector{Float64}}, Float64
+== by_instance  Tuple{typeof(ODECore.solve_ode), ODEProblem{Float64, Vector{Float64}, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.OD  (in 5 cones)
+   fault mi: MethodInstance for ODECore.param_integrator(::Type{Vector{Float64}}, ::Vector{Float64}, ::Float64, ::Any, ::Dynamic{IndexProvider{Symbol}}, ::Bool)
+   <- Tuple{typeof(ODECore.solve_ode), ODEProblem{Float64, Vector{Float64}, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{Forward
+   <- Tuple{typeof(ODECore.solve_ode), ODEProblem{Float64, Vector{Float64}, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{Forward
+   direct callers: 1
+      Tuple{typeof(ODECore.solve_ode), ODEProblem{Float64, Vector{Float64}, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{
+# done rc 0 | 4 s | 2026-11-22T13:01:21+01:00 | load-after 9.01 6.02 5.01
