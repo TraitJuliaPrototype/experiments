@@ -1,0 +1,337 @@
+== 33642b6684 load 5.87 6.46 5.98 3/59448 2810035
+PASS m1_audit_probes.jl
+PASS m1_compiled_isa.jl
+PASS m1_late_implement.jl
+PASS m1_late_open_stale.jl
+FAIL m1_no_wrappers.jl (exit 1)
+    ERROR: LoadError: UndefVarError: `Dynamic` not defined in `Core`
+    Suggestion: check for spelling errors or missing imports.
+    Stacktrace:
+     [1] getproperty
+       @ ./Base_compiler.jl:50 [inlined]
+     [2] top-level scope
+       @ /p/projects/coen/julia-trait-bound/experiments/implementation/gates/m1_no_wrappers.jl:11
+     [3] include(mod::Module, _path::String)
+       @ Base ./Base.jl:309
+     [4] exec_options(opts::Base.JLOptions)
+       @ Base ./client.jl:344
+     [5] _start()
+       @ Base ./client.jl:577
+    in expression starting at /p/projects/coen/julia-trait-bound/experiments/implementation/gates/m1_no_wrappers.jl:11
+PASS m1_open_family_fold.jl
+PASS m1_parametric_member.jl
+PASS m1_parametric_set.jl
+FAIL m1_typevalue_isa.jl (exit 1)
+    ERROR: LoadError: AssertionError: a caller compiled before the declaration
+    Stacktrace:
+     [1] top-level scope
+       @ /p/projects/coen/julia-trait-bound/experiments/implementation/gates/m1_typevalue_isa.jl:49
+     [2] include(mod::Module, _path::String)
+       @ Base ./Base.jl:309
+     [3] exec_options(opts::Base.JLOptions)
+       @ Base ./client.jl:344
+     [4] _start()
+       @ Base ./client.jl:577
+    in expression starting at /p/projects/coen/julia-trait-bound/experiments/implementation/gates/m1_typevalue_isa.jl:49
+PASS m1_union_isa.jl
+PASS m1_worlds_minworld.jl
+gates: 9 passed, 2 failed
+FAIL m2_abstract_query.jl (exit 1)
+    ERROR: LoadError: AssertionError: the pre-declaration world keeps no match (worlds pin)
+    Stacktrace:
+     [1] top-level scope
+       @ /p/projects/coen/julia-trait-bound/experiments/implementation/gates/m2_abstract_query.jl:27
+     [2] include(mod::Module, _path::String)
+       @ Base ./Base.jl:309
+     [3] exec_options(opts::Base.JLOptions)
+       @ Base ./client.jl:344
+     [4] _start()
+       @ Base ./client.jl:577
+    in expression starting at /p/projects/coen/julia-trait-bound/experiments/implementation/gates/m2_abstract_query.jl:27
+FAIL m2_ambiguity_arity.jl (exit 1)
+    ERROR: LoadError: AssertionError: h2 is ambiguous at ME: CHILD_F2 x y
+    CHILD_H2 nothrow
+    CHILD_F3 x y
+    CHILD_DONE
+    
+    Stacktrace:
+     [1] top-level scope
+       @ /p/projects/coen/julia-trait-bound/experiments/implementation/gates/m2_ambiguity_arity.jl:58
+     [2] include(mod::Module, _path::String)
+       @ Base ./Base.jl:309
+     [3] exec_options(opts::Base.JLOptions)
+       @ Base ./client.jl:344
+     [4] _start()
+       @ Base ./client.jl:577
+    in expression starting at /p/projects/coen/julia-trait-bound/experiments/implementation/gates/m2_ambiguity_arity.jl:58
+FAIL m2_ambiguity_called_before.jl (exit 1)
+       @ Base ./client.jl:344
+     [4] _start()
+       @ Base ./client.jl:577
+    in expression starting at /tmp/jl_AbolKjqti1:2
+    
+    Stacktrace:
+     [1] top-level scope
+       @ /p/projects/coen/julia-trait-bound/experiments/implementation/gates/m2_ambiguity_called_before.jl:54
+     [2] include(mod::Module, _path::String)
+       @ Base ./Base.jl:309
+     [3] exec_options(opts::Base.JLOptions)
+       @ Base ./client.jl:344
+     [4] _start()
+       @ Base ./client.jl:577
+    in expression starting at /p/projects/coen/julia-trait-bound/experiments/implementation/gates/m2_ambiguity_called_before.jl:54
+FAIL m2_ambiguity_declared_super.jl (exit 1)
+       @ Base ./client.jl:344
+     [5] _start()
+       @ Base ./client.jl:577
+    in expression starting at /tmp/jl_ipk5gnOpoT:2
+    
+    Stacktrace:
+     [1] top-level scope
+       @ /p/projects/coen/julia-trait-bound/experiments/implementation/gates/m2_ambiguity_declared_super.jl:157
+     [2] include(mod::Module, _path::String)
+       @ Base ./Base.jl:309
+     [3] exec_options(opts::Base.JLOptions)
+       @ Base ./client.jl:344
+     [4] _start()
+       @ Base ./client.jl:577
+    in expression starting at /p/projects/coen/julia-trait-bound/experiments/implementation/gates/m2_ambiguity_declared_super.jl:157
+FAIL m2_ambiguity_predates.jl (exit 1)
+       @ Base ./client.jl:344
+     [4] _start()
+       @ Base ./client.jl:577
+    in expression starting at /tmp/jl_UvQnC3MZih:11
+    
+    Stacktrace:
+     [1] top-level scope
+       @ /p/projects/coen/julia-trait-bound/experiments/implementation/gates/m2_ambiguity_predates.jl:54
+     [2] include(mod::Module, _path::String)
+       @ Base ./Base.jl:309
+     [3] exec_options(opts::Base.JLOptions)
+       @ Base ./client.jl:344
+     [4] _start()
+       @ Base ./client.jl:577
+    in expression starting at /p/projects/coen/julia-trait-bound/experiments/implementation/gates/m2_ambiguity_predates.jl:54
+FAIL m2_ambiguity_report.jl (exit 1)
+    ERROR: LoadError: AssertionError: exactly one §8 warning, got 0 in: 
+    Stacktrace:
+     [1] top-level scope
+       @ /p/projects/coen/julia-trait-bound/experiments/implementation/gates/m2_ambiguity_report.jl:57
+     [2] include(mod::Module, _path::String)
+       @ Base ./Base.jl:309
+     [3] exec_options(opts::Base.JLOptions)
+       @ Base ./client.jl:344
+     [4] _start()
+       @ Base ./client.jl:577
+    in expression starting at /p/projects/coen/julia-trait-bound/experiments/implementation/gates/m2_ambiguity_report.jl:57
+FAIL m2_closed_open_order.jl (exit 1)
+    ERROR: LoadError: AssertionError: closed chain method wins over the set method (probe 3)
+    Stacktrace:
+     [1] top-level scope
+       @ /p/projects/coen/julia-trait-bound/experiments/implementation/gates/m2_closed_open_order.jl:22
+     [2] include(mod::Module, _path::String)
+       @ Base ./Base.jl:309
+     [3] exec_options(opts::Base.JLOptions)
+       @ Base ./client.jl:344
+     [4] _start()
+       @ Base ./client.jl:577
+    in expression starting at /p/projects/coen/julia-trait-bound/experiments/implementation/gates/m2_closed_open_order.jl:22
+FAIL m2_dispatch_worlds.jl (exit 1)
+    ERROR: LoadError: AssertionError: new world: the set method answers
+    Stacktrace:
+     [1] top-level scope
+       @ /p/projects/coen/julia-trait-bound/experiments/implementation/gates/m2_dispatch_worlds.jl:21
+     [2] include(mod::Module, _path::String)
+       @ Base ./Base.jl:309
+     [3] exec_options(opts::Base.JLOptions)
+       @ Base ./client.jl:344
+     [4] _start()
+       @ Base ./client.jl:577
+    in expression starting at /p/projects/coen/julia-trait-bound/experiments/implementation/gates/m2_dispatch_worlds.jl:21
+FAIL m2_future_min_worlds.jl (exit 1)
+    ERROR: LoadError: AssertionError: A: cached caller flips AT the entry (F2: union position must be bounded)
+    Stacktrace:
+     [1] top-level scope
+       @ /p/projects/coen/julia-trait-bound/experiments/implementation/gates/m2_future_min_worlds.jl:20
+     [2] include(mod::Module, _path::String)
+       @ Base ./Base.jl:309
+     [3] exec_options(opts::Base.JLOptions)
+       @ Base ./client.jl:344
+     [4] _start()
+       @ Base ./client.jl:577
+    in expression starting at /p/projects/coen/julia-trait-bound/experiments/implementation/gates/m2_future_min_worlds.jl:20
+FAIL m2_parametric_replay.jl (exit 1)
+    ERROR: LoadError: AssertionError: X{T} with T a method variable: the set method in the new world
+    Stacktrace:
+     [1] top-level scope
+       @ /p/projects/coen/julia-trait-bound/experiments/implementation/gates/m2_parametric_replay.jl:35
+     [2] include(mod::Module, _path::String)
+       @ Base ./Base.jl:309
+     [3] exec_options(opts::Base.JLOptions)
+       @ Base ./client.jl:344
+     [4] _start()
+       @ Base ./client.jl:577
+    in expression starting at /p/projects/coen/julia-trait-bound/experiments/implementation/gates/m2_parametric_replay.jl:35
+PASS m2_post_declare_infer.jl
+PASS m2_query_world_task.jl
+PASS m2_set_in_set.jl
+FAIL m2_set_query_split.jl (exit 1)
+    ERROR: LoadError: AssertionError: !(isempty(methods(f, (Int, PX))))
+    Stacktrace:
+     [1] top-level scope
+       @ /p/projects/coen/julia-trait-bound/experiments/implementation/gates/m2_set_query_split.jl:15
+     [2] include(mod::Module, _path::String)
+       @ Base ./Base.jl:309
+     [3] exec_options(opts::Base.JLOptions)
+       @ Base ./client.jl:344
+     [4] _start()
+       @ Base ./client.jl:577
+    in expression starting at /p/projects/coen/julia-trait-bound/experiments/implementation/gates/m2_set_query_split.jl:15
+FAIL m2_stale_caller.jl (exit 1)
+    ERROR: LoadError: could not load symbol "jl_membership_stat":
+    /p/projects/coen/julia-trait-bound/wt/w19-julia/usr/bin/../lib/libjulia-internal.so.1.13: undefined symbol: jl_membership_stat
+    Stacktrace:
+     [1] stat(w::Int64)
+       @ Main /p/projects/coen/julia-trait-bound/experiments/implementation/gates/m2_stale_caller.jl:9
+     [2] top-level scope
+       @ /p/projects/coen/julia-trait-bound/experiments/implementation/gates/m2_stale_caller.jl:24
+     [3] include(mod::Module, _path::String)
+       @ Base ./Base.jl:309
+     [4] exec_options(opts::Base.JLOptions)
+       @ Base ./client.jl:344
+     [5] _start()
+       @ Base ./client.jl:577
+    in expression starting at /p/projects/coen/julia-trait-bound/experiments/implementation/gates/m2_stale_caller.jl:24
+FAIL m2_typemap_linear.jl (exit 1)
+    ERROR: LoadError: AssertionError: member reaches the set method in the populated table (probe 2)
+    Stacktrace:
+     [1] top-level scope
+       @ /p/projects/coen/julia-trait-bound/experiments/implementation/gates/m2_typemap_linear.jl:25
+     [2] include(mod::Module, _path::String)
+       @ Base ./Base.jl:309
+     [3] exec_options(opts::Base.JLOptions)
+       @ Base ./client.jl:344
+     [4] _start()
+       @ Base ./client.jl:577
+    in expression starting at /p/projects/coen/julia-trait-bound/experiments/implementation/gates/m2_typemap_linear.jl:25
+PASS m2_union_normal_form.jl
+FAIL m2_vararg_union_worlds.jl (exit 1)
+    ERROR: LoadError: AssertionError: old world, 1-arg (W1 probe A1)
+    Stacktrace:
+     [1] top-level scope
+       @ /p/projects/coen/julia-trait-bound/experiments/implementation/gates/m2_vararg_union_worlds.jl:17
+     [2] include(mod::Module, _path::String)
+       @ Base ./Base.jl:309
+     [3] exec_options(opts::Base.JLOptions)
+       @ Base ./client.jl:344
+     [4] _start()
+       @ Base ./client.jl:577
+    in expression starting at /p/projects/coen/julia-trait-bound/experiments/implementation/gates/m2_vararg_union_worlds.jl:17
+FAIL m2_volume.jl (exit 1)
+     [3] _collect(c::UnitRange{Int64}, itr::Base.Generator{UnitRange{Int64}, typeof(stat)}, ::Base.EltypeUnknown, isz::Base.HasShape{1})
+       @ Base ./array.jl:848
+     [4] collect_similar(cont::UnitRange{Int64}, itr::Base.Generator{UnitRange{Int64}, typeof(stat)})
+       @ Base ./array.jl:763
+     [5] map(f::Function, A::UnitRange{Int64})
+       @ Base ./abstractarray.jl:3396
+     [6] top-level scope
+       @ /p/projects/coen/julia-trait-bound/experiments/implementation/gates/m2_volume.jl:25
+     [7] include(mod::Module, _path::String)
+       @ Base ./Base.jl:309
+     [8] exec_options(opts::Base.JLOptions)
+       @ Base ./client.jl:344
+     [9] _start()
+       @ Base ./client.jl:577
+    in expression starting at /p/projects/coen/julia-trait-bound/experiments/implementation/gates/m2_volume.jl:25
+gates: 4 passed, 15 failed
+PASS n10_inputs.jl
+gates: 1 passed, 0 failed
+FAIL n2_all_dispatch.jl (exit 1)
+    ERROR: LoadError: UndefVarError: `All` not defined in `Core`
+    Suggestion: check for spelling errors or missing imports.
+    Stacktrace:
+     [1] getproperty(x::Module, f::Symbol)
+       @ Base ./Base_compiler.jl:50
+     [2] top-level scope
+       @ /p/projects/coen/julia-trait-bound/experiments/implementation/gates/n2_all_dispatch.jl:4
+     [3] include(mod::Module, _path::String)
+       @ Base ./Base.jl:309
+     [4] exec_options(opts::Base.JLOptions)
+       @ Base ./client.jl:344
+     [5] _start()
+       @ Base ./client.jl:577
+    in expression starting at /p/projects/coen/julia-trait-bound/experiments/implementation/gates/n2_all_dispatch.jl:4
+FAIL n2_all_form.jl (exit 1)
+    ERROR: LoadError: UndefVarError: `All` not defined in `Core`
+    Suggestion: check for spelling errors or missing imports.
+    Stacktrace:
+     [1] getproperty(x::Module, f::Symbol)
+       @ Base ./Base_compiler.jl:50
+     [2] top-level scope
+       @ /p/projects/coen/julia-trait-bound/experiments/implementation/gates/n2_all_form.jl:5
+     [3] include(mod::Module, _path::String)
+       @ Base ./Base.jl:309
+     [4] exec_options(opts::Base.JLOptions)
+       @ Base ./client.jl:344
+     [5] _start()
+       @ Base ./client.jl:577
+    in expression starting at /p/projects/coen/julia-trait-bound/experiments/implementation/gates/n2_all_form.jl:5
+FAIL n2_all_probe.jl (exit 1)
+    ERROR: LoadError: UndefVarError: `All` not defined in `Core`
+    Suggestion: check for spelling errors or missing imports.
+    Stacktrace:
+     [1] getproperty(x::Module, f::Symbol)
+       @ Base ./Base_compiler.jl:50
+     [2] top-level scope
+       @ /p/projects/coen/julia-trait-bound/experiments/implementation/gates/n2_all_probe.jl:4
+     [3] include(mod::Module, _path::String)
+       @ Base ./Base.jl:309
+     [4] exec_options(opts::Base.JLOptions)
+       @ Base ./client.jl:344
+     [5] _start()
+       @ Base ./client.jl:577
+    in expression starting at /p/projects/coen/julia-trait-bound/experiments/implementation/gates/n2_all_probe.jl:4
+FAIL n2_all_rank.jl (exit 1)
+    ERROR: LoadError: UndefVarError: `All` not defined in `Core`
+    Suggestion: check for spelling errors or missing imports.
+    Stacktrace:
+     [1] getproperty(x::Module, f::Symbol)
+       @ Base ./Base_compiler.jl:50
+     [2] top-level scope
+       @ /p/projects/coen/julia-trait-bound/experiments/implementation/gates/n2_all_rank.jl:5
+     [3] include(mod::Module, _path::String)
+       @ Base ./Base.jl:309
+     [4] exec_options(opts::Base.JLOptions)
+       @ Base ./client.jl:344
+     [5] _start()
+       @ Base ./client.jl:577
+    in expression starting at /p/projects/coen/julia-trait-bound/experiments/implementation/gates/n2_all_rank.jl:5
+FAIL n2_open_abstract.jl (exit 1)
+    ERROR: LoadError: UndefVarError: `All` not defined in `Core`
+    Suggestion: check for spelling errors or missing imports.
+    Stacktrace:
+     [1] getproperty(x::Module, f::Symbol)
+       @ Base ./Base_compiler.jl:50
+     [2] top-level scope
+       @ /p/projects/coen/julia-trait-bound/experiments/implementation/gates/n2_open_abstract.jl:5
+     [3] include(mod::Module, _path::String)
+       @ Base ./Base.jl:309
+     [4] exec_options(opts::Base.JLOptions)
+       @ Base ./client.jl:344
+     [5] _start()
+       @ Base ./client.jl:577
+    in expression starting at /p/projects/coen/julia-trait-bound/experiments/implementation/gates/n2_open_abstract.jl:5
+FAIL n2_set_order_late.jl (exit 1)
+    ERROR: LoadError: AssertionError: length(methods(gn, (M,))) == 0
+    Stacktrace:
+     [1] top-level scope
+       @ /p/projects/coen/julia-trait-bound/experiments/implementation/gates/n2_set_order_late.jl:15
+     [2] include(mod::Module, _path::String)
+       @ Base ./Base.jl:309
+     [3] exec_options(opts::Base.JLOptions)
+       @ Base ./client.jl:344
+     [4] _start()
+       @ Base ./client.jl:577
+    in expression starting at /p/projects/coen/julia-trait-bound/experiments/implementation/gates/n2_set_order_late.jl:15
+gates: 0 passed, 6 failed
+== load 4.25 5.90 5.81 2/59439 2811803

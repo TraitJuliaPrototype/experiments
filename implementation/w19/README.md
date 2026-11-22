@@ -501,3 +501,190 @@ The order of builds: T1 on `w19-g-facts` (one build; `test/core.jl`); T2 (one; g
 - **The static check of GC roots** (`w163/sagc.sh`) was not run on F10's and F11's C (two globals and a hook, rooted by both collectors).
 - **The plain load's times** are noisy on this host this afternoon (both builds' first runs 900–1,200 ms); the comparison rests on the runs after the disturbance and on the profiles' sample counts.
 - **The second part's "269 external instances more"** is not explained: the count moves with each new set of package images (116,630, 116,612 and 116,840 valid instances after the load for `up/19`'s three builds, 116,523 and 116,454 for vanilla's two sets) and does not move the load's time.
+
+# Fourth part: the traits series T1 to T5, and two small items
+
+The brief: `precompile` on the facts head and the part that makes `test/precompile.jl`'s line 977 run on `w19-g-facts`; the tests of F9 to F12 moved into Julia's `test/`; the first five parts of the traits series ([the plan](../../../writeup/plans/2026-11-22-upstream-series.md) §2.3), each a commit on a branch `traits/<nn>-<slug>`, stacked on `w19-g-facts` (the stack `w19-traits`), cut from `45b6d15e34..683ea4fc16` by subject. Comments are rewritten without the references' section numbers, work items or review names; the series keeps the trait language's terms (set, membership, entry), each defined in the commit that introduces it.
+
+## How to run (fourth part)
+
+```
+bash h-run-t2.sh t2      # on wt/w19-julia at T2's last commit: subtype and core, gates m1_* m2_* n10 n2_*, micro-timings, plain load
+bash h-run-t4.sh t4      # at T4: subtype and core, the same gates
+bash h-run-t5.sh         # at T5: Base's six files, precompile alone, the gates m1_* m2_* n* f*, micro, plain load, the nine loads
+julia motiv/h-micro.jl                     # jl_subtype, intersection, the type cache, method matching: ns per call, minimum of 7
+julia motiv/h-precompile-root.jl           # test/precompile.jl's Root packages: the Int16 instance's backedges, g1's code
+julia tools/h-parse.jl <files>             # a parse check that fails on a parse error
+```
+
+## 1. `precompile` on the facts head, and what makes line 977 run
+
+- **`precompile` on the facts head** (`w19-facts` 7315c0b1bd, build 1): 454 pass, alone (`logs/h-tests-facts-precompile.log`).
+- **The cause on `w19-g-facts`: F8 with series G's `up/04`.** The test's `g1()` is called from RootA's top level, so its code is reached only dynamically. F8's rule keeps such code in a package image where it carries the G2 bit, of either policy: plain code too. `g1` → `f(::Int16)` is in the deep class only where `oftype`'s conversion error path is typed (`throw_inexacterror` at `::Type{T}`, `up/04`); on the facts head alone it is not. Then RootA's image keeps `g1`'s code with its edge to `f(::Int16)`, the `Int16` instance has backedges after the loads, and the branch reads `(be.def::Method).def` of a backedge whose `def` is a MethodInstance. Shown by reading and by `motiv/h-precompile-root.jl` (`logs/h-precompile-root.log`, `logs/h-precompile-root-facts.log`): on v1.13.2 and on the facts head no `Int16` instance exists after the loads and `g1` has no code; on a tree with G and F (`w19-g-facts`, and the T5 head built on it) the `Int16` instance has 2 backedges and `g1`'s code is loaded (flags `0x1f`: G2, from the image); with a call at an abstract signature put into `f` (`BARRIER=1`) `g1` is outside the class and none of it happens. No build was spent on the bisection.
+- **The fix goes with F8:** `(be.def::Core.MethodInstance).def::Method`, as `next` has it, amended into F8 with the reason (below). **A plain package's image keeps more external code under F8**: plain code reached only dynamically and deep G2. That is a behaviour change for plain packages the plan does not list (§5).
+
+## 2. The tests of F9 to F12 in Julia's `test/`
+
+Branch **`w19-facts-tests-v2`** (49e49a19c2), restacked from `w19-facts-split`'s F7 (3cb4ff6254): F8 (325c69d9c0, with the `precompile.jl` line), F6 (14b9e30259), F9 (47e8ec4f4e), F10 (609f1af65f), F11 (b689e3cb31), F12 (49e49a19c2). The tree is `w19-facts-split`'s plus `test/facts.jl` (new, 228 lines, added to the test list in `test/choosetests.jl` by F9) and the `precompile.jl` line. Each commit adds its testset and names it in its message:
+
+| Part | Testset in `test/facts.jl` | From |
+|---|---|---|
+| F9 | "owner-only functions" (23 tests) | `gates/g-f9_owner_only.jl` |
+| F10 | "what a definition ends of the deep class" (19) | `gates/g-f10_deep_endings.jl` |
+| F11 | "fully typed mode" (24) | `gates/g-f11_fully_typed.jl` |
+| F12 | "a compile request takes the code of a compiled equivalent entry" (6) | new: it discriminates, where `motiv/g-twice.jl` counted 0 on vanilla and head alike: an uncompiled equivalent entry at the head of an instance's cache and the compiled one after it, `jl_get_ci_equiv` finds the first and `equivalent_cached_ci` the compiled one |
+
+All 72 pass on the facts head (build 1; `logs/h-facts-tests-facts.log`). **`w19-facts-tests`** (df29ab9cde, pushed first) has an F12 test that fails (it inserted the uncompiled entry with `jl_mi_cache_insert`, which orders compiled entries first); `-v2` amends it; the first name is left as it is. Julia's own guidance for agents (`CLAUDE.md` of the julia tree) asks for tests in existing files unless told otherwise; a new file for a new compile mode is my choice, to be confirmed.
+
+## 3. The traits series T1 to T5
+
+The stack `w19-traits` (8a0754ebe8) on `w19-g-facts` (541d9fa6fd). Sizes: files, lines added and removed against the part below.
+
+| Part | Branch, commit | Subject | Size | Checked | Test |
+|---|---|---|---|---|---|
+| T1 | `traits/01-core-slots` 8d0ade4061 | julia.h, jltypes: the layout for sets and memberships (`TypeName.memberships`, `Core.MembershipEntry`, `DataType.has_open_set`) | 8, +142 −27 | C compiled and linked; built in T2's build (3) | `test/core.jl` |
+| T2a | `traits/02a-declaration` d47fd35e91 | datatype, subtype: declaring a set and a membership, with its checks and its worlds | 11, +595 | C compiled and linked | with T2d |
+| T2b | `traits/02b-subtyping` 0fcd07f6a9 | subtype: a membership is a supertype in the worlds it is in force | 3, +376 −21 | C compiled and linked | with T2d |
+| T2c | `traits/02c-caches` e3c4ddb9f8 | subtype: a non-member's answers at a set without the walk, and reachability memoized per world range | 1, +162 −7 | C compiled and linked | with T2d |
+| T2d | `traits/02d-compiler` 33642b6684 | Compiler, codegen, gf: inference asks memberships in the world it infers for, and folds no answer a membership could change | 13, +354 −14 | **built (build 3)**: `subtype`, `core` pass; gates below | `test/subtype.jl` "Sets and memberships" (6 testsets) |
+| T3 | `traits/03-all` a91da281f5 | jltypes, subtype: intersections `All{X, Y}` in their normal form | 9, +524 −6 | built with T4 (build 4) before one line was added (the `All` wrapper's bit, found by `n2_all_form`), then compiled; built in T5 | `test/subtype.jl` "intersections All{X, Y}" |
+| T4 | `traits/04-dispatch` 1d3582cc6c | gf, typemap, subtype: dispatch at sets, a match's worlds through memberships, and the ambiguity report at a membership | 8, +733 −3 | **built (build 4)**, T3's line aside | "dispatch at sets", "the ambiguity report at a membership" |
+| T5 | `traits/05-invalidation` 8a0754ebe8 | gf, datatype: a membership invalidates as a method does, and a membership taken back | 6, +1,345 −148 | **built (build 5)**: the tests and gates below; the nine loads | "a membership invalidates as a method does", "a membership taken back" |
+
+**In all:** 29 files, 4,184 lines added, 183 removed (the plan's estimate for T1 to T5 with their share of TX: about 4,060 and 260). By file: `gf.c` +1,749, `subtype.c` +1,164, `datatype.c` +527, `jltypes.c` +251, `test/subtype.jl` +298, the rest under 90 each. The commit messages say what, why, the rule in plain words and the test; subjects in Julia's `component: summary` form.
+
+**What each part adds, and what it leaves.**
+- **T1** adds only what T1 to T5 read: the bits `open_set`, `never_member`, the byte `input_params`, the field `memberships`, `Core.MembershipEntry` without its `method` field, `DataType.has_open_set` and the 32-bit flags word. The plan's T1 also has `contract`, `declared_fields`, `operations`, `erases`, `closed_after_load`, `Core.All`, `Core.Callable`: each now comes with the part that reads it (T10, T14, T7, T3, T12), so no slot is without a reader (plan §5's rule).
+- **T2** in four, each compiling on the one below and read alone: (a) the declaration, its checks, the entries with worlds and the query world; (b) subtyping and intersection through entries, type values, invariant parameters; (c) the memo and the non-member's fast path; (d) inference's query world and the compiler's gates. Built and tested at (d).
+- **T3** brings `Core.All` whole (the type, the normal form, subtyping, intersection, specificity, printing). Before it two sets that no entry relates do not meet (the match's worlds carry the change).
+- **T4** is dispatch without the walk: a membership declared after a call at the member was compiled or cached does not change that call until T5. T4 and T5 go together; the commit says so.
+- **T5** is the walk and the removal walk, with `jl_delete_membership`.
+
+**Hand-made hunks** (forms the final tree does not have):
+- `jl_declare_membership` in each part's form: T2a without the membership's method (T6), strict mode (T9), the candidates (T11), the session's list for images (T8) and the deep ending; T4 adds the report; T5 the walk and the deep ending (named by the entry, not the method).
+- `jl_delete_membership` without the method's end (T6), the candidates (T11) and the member states (T9).
+- `jl_typename_reaches` without the memo in T2a (T2c replaces it); `jl_entry_intersection` as a plain intersection in T2a (T3 pairs instances by input).
+- The compiler's gates in their frame-free form (T2d): no negative folded where a later membership could make it true, no positive through an entry; `isa`'s condition narrows no branch at a set; `new`'s field test through an entry is not proved. The final tree records entries and absence edges (T6) and folds final negatives (T7).
+- `obviously_disjoint` and `obvious_subtype` without the fast path in T2b (T2c adds it).
+- The ambiguity report calls `ml_matches` and has no unmet-intersection clause (T7's `jl_has_unmet_argument`; `ml_matches_i` comes with strict mode, T9).
+- The query world around the image's compile queues without the closed build's rounds (T16).
+- Removed against the final tree: `jl_set_membership_prune` (a measurement switch), `jl_set_membership_walk_invalidates` (plan §5), `jl_membership_replay_sigs` (the library's strict check, T9), `jl_member_states_forget` (T9), `jl_membership_method_end` (T6), the index of each function's methods at sets (T6/T10), `jl_open_set_methods_of` (T8/T16), `jl_supertrait_instances` (T10), `jl_membership_entries_for` (T6).
+- Kept: the walk's counters (`jl_membership_stat`, gates read them) and `JULIA_MEMBERSHIP_LOG` (a debugging switch, for plan §5's list).
+
+## 4. What plain code pays, at T2 and at T5
+
+No set declared; vanilla v1.13.2 the same hour; one thread. The stacks are on `w19-g-facts` (series G and the facts series), whose own cost was measured in the third part; `subtype.c`, `typemap.c` and the intersection are touched by neither, so their difference is the traits parts'.
+
+**Micro-timings** (`motiv/h-micro.jl`; ns per call, minimum of 7 rounds, two rounds of processes each; `logs/h-micro-t2.log`, `logs/h-micro-t5.log`):
+
+| | vanilla | T2 (33642b6684) | T5 (8a0754ebe8) |
+|---|---|---|---|
+| `jl_subtype` (18 plain pairs) | 238.4–239.4 | 250.0 (+4.7 %) | 268.1–268.4 (+12.4 %) |
+| `jl_type_intersection` | 277.7–280.5 | 301.1–304.4 (+8.3 %) | 308.8–308.9 (+11 %) |
+| the type cache (`apply_type` of `Tuple{T, S}`, `Vector{T}`) | 77.3–78.2 | 77.0–77.9 (±0) | 79.0–79.2 (+2 %) |
+| method matching (`_methods_by_ftype`, 6 signatures) | 177.8–180.1 | 184.3–185.1 (+2.8 %) | 186.5–186.8 (+4.3 %) |
+
+- T2's subtyping cost is the walk's new state and the checks at the points where the walk has found no answer (`noentry`, `subtype_fresh`, the `open_set` tests, `forall_exists_equal`'s wrapper); T3 and T4 add the `All` tests in `subtype()`, `obvious_subtype` and `intersect` and the specificity tests: T5's +12 % is T2's +5 % and theirs. **A tension for the plan's claim that a session without sets pays one bit per question:** each test reads a bit, but at every step of the walk. Proposal: decide once at the entry of `jl_subtype_env` and of the intersection whether either side has the `has_open_set` bit, keep it in the environment, and skip every membership and intersection branch when neither has (the bit is final when a type is built, and a type without it cannot meet a set).
+- **The session** (`motiv/f-plain.jl`, upstream CSV and DataFrames plainly; a warm-up and 3 fresh processes, interleaved; `logs/h-plain-t2.log`, `logs/h-plain-t5.log`):
+
+| | `using CSV, DataFrames` | valid CodeInstances after the load | after the work | first work |
+|---|---|---|---|---|
+| vanilla | 654–699 ms | 116,523 | 117,115 | 4.39–4.41 s |
+| T2 | 655–689 ms | 118,094 | 118,686 | 4.44–4.46 s (+1.2 %) |
+| T5 | 676–686 ms | 117,911 | 118,503 | 4.53–4.54 s (+3 %) |
+
+  The CodeInstances' difference is the stack below (`w19-g-facts`: G2 bits, `!==` once, kept external code). Digests equal. Load 3.0–5.0.
+
+## 5. On T5's head
+
+- **Base's tests** (`Base.runtests([...]; ncores=1)`, load 4–6; `logs/h-tests-t5.log`): `subtype`, `core`, `worlds`, `reflection`, `Compiler/inference`, `Compiler/invalidation` pass: 7,674,456 pass, 64 broken. `precompile` alone: 430 pass, 1 error, line 977 (the item above: the fix is in F8 of `w19-facts-tests-v2`, not in `w19-g-facts`, which T1 to T5 stack on).
+- **The gates** (`run_all.sh` with the stub library; `logs/h-gates-t5.log`): **passing** `m1_*` but one (10), `m2_*` but three (16), `n10_inputs`, `n2_*` (6), `n7_guards`, `n15`, `n17`, `n21`, `n25_image_before_set_method`, `n27_invariant_parameter`, `n28_wide_caller`, `n32_nested_set`, `n9_fully_typed`, `f1`, `f3`, `f4`, `f5`, `f6`. **Not runnable before a later part:**
+
+| Gate | Needs | Gate | Needs |
+|---|---|---|---|
+| `m1_no_wrappers` | `Core.Dynamic` (T14), the contract slot (T10) | `n22_declared_assert`, `n23_contract_image` | T10 (and T8) |
+| `m2_ambiguity_called_before`, `_declared_super`, `_predates` | strict mode (T9) | `n24_hook_compile_queue` | the member hook (T9) |
+| `n11_late_shadow`, `n16_declared_result` | declared results (T10) | `n29_membership_method` | `Core.implements` (T6), `Dynamic` (T14) |
+| `n12_image_instances`, `n3_image_memberships` | memberships in images (T8; n12 also `Callable`, T12) | `n30_where_variable`, `n33_compiled_as_julia` | the kept forms (T14) |
+| `n13_attribute_free_vars`, `n14_callable_args`, `n8_callable` | `Callable` (T12; n13 also T14) | `n31_isa_narrows` | `isa` narrowing (T6) |
+| `n18_closed_after_load`, `n20_unmet_lookup` | final negatives (T7) | `n34_closed_invoke_compiled` | the closed build's verifier (T16) |
+| `n19_io_trait` | `IO`'s contract (T10, T11, T13) | `f2_policy_flags` | the trait options `bounded`, `no_pirates` (S3, T9) |
+| `f7_membership_edges` | the membership's method and the record (T6) | `n8_callable_box`, `n26`, `n35`, `n36` | the library |
+
+  At T2 (build 3; `logs/h-gates-t2.log`) `m1_*` pass but `m1_no_wrappers` and `m1_typevalue_isa` (a caller compiled before the membership dispatching at the set: T4, T5); at T4 (build 4; `logs/h-gates-t4.log`) the dispatch gates that need no walk pass, `m2_dispatch_worlds`, `_future_min_worlds`, `_parametric_replay`, `_stale_caller`, `_vararg_union_worlds`, `_volume` wait for T5 and pass there.
+- **The nine loads** (`f-loads.sh`, unchanged; `logs/h-loads-t5.log`; a warm-up and 2 runs per cell, load 3.0–3.9): by facts 14 of 3,487 own image instances lost (G2 2,773), plainly 424 of 4,685; the work after the loads (A) 1.40 s by facts against 5.33–5.35 s; order B 2.44–2.48 s against 6.26–6.28 s. **The facts cells are `w19-g-facts`' exactly** (14 of 3,487; G2 2,773): the sets' types, the walk and the gates change nothing with no set declared. The plain work after the loads takes 5.33–5.35 s against 5.27–5.29 s on `w19-g-facts` (the subtyping cost above).
+
+## 6. The seams
+
+| Where | T1 to T5 | The final tree adds | Added by |
+|---|---|---|---|
+| `jl_membership_t`, `MembershipEntry` | 8 fields | `method` (the membership's method of `Core.implements`) | T6 |
+| `jl_typename_t` | `open_set`, `never_member`, `input_params`, `memberships` | `erases`, `closed_after_load`; `contract`, `declared_fields`, `operations` | T14; T7; T10 |
+| `jl_set_open_set` | the bit and the cached types' bits | `closed_after_load` set for every set | T7 |
+| `jl_declare_membership` | checks, entry, index, report, walk, deep ending by entry | the membership's method and its activation, strict mode's refusal, the candidates, `jl_declared_memberships`, the deep ending named by the method | T6, T9, T11, T8 |
+| `jl_delete_membership` | the entry ends, the removal walk | the method ends, the candidates and the member states forgotten | T6, T11, T9 |
+| the compiler's gates (`typeutils.jl`, `tfuncs.jl`, `abstractinterpretation.jl`, `optimize.jl`, `cgutils.cpp`, `codegen.cpp`) | frame-free: no negative where a membership could join, no positive through an entry | the frame records entries (an `invoke` edge to the membership's method) and absence edges; `isa` narrows the true branch; `IR_FLAG_TYPES_PROVEN`; final negatives fold with their cell; `All` in `isa_tfunc` | T6; T7 |
+| `jl_type_infer_policy`, `jl_call_in_typeinf_world`, `jl_gdbcodetyped1` (F4a's) | the query world | the member hook's queue drained after inference | T9 (E15) |
+| `typeinf_ext_toplevel` | the query world around `compile!` | the closed build's rounds | T16 |
+| `ml_matches` | the match's worlds through entries | `ml_matches_i` (a world past the counter for strict mode), the dropped matches' final cells | T9; T7 |
+| the ambiguity report | `ml_matches`, no unmet clause, warnings only | `jl_has_unmet_argument`, findings for strict mode (`jl_membership_ambiguities`) | T7; T9 |
+| `jl_index_open_set_methods`, `jl_method_table_activate` | the index by set | `Core.implements`' methods skipped; each function's methods at sets; `jl_open_set_methods_of` | T6; T6/T10; T8/T16 |
+| `jl_method_table_disable` | unchanged | a membership's method refused, the deletion hook | T6; T9 |
+| the deep endings (F10) | `deep_ending_push` exported as `jl_deep_ending_push`/`pop`, kind `:membership` from the declaration and the taking back | the cause named by the membership's method; the activation's | T6; T8 |
+| backedges (S1's format) | the walk and the removal walk judge a backedge kept as `svec(callsig)` at the call's signature (`_invalidate_dispatch_backedges`' `skip`) | — | — |
+| `staticdata.c` | nothing: memberships are not kept by images | `ext_memberships`, an entry's worlds reset, the activation, the indices kept by the system image | T8 |
+| `subtype.c` | — | `jl_supertrait_instances`, `jl_membership_entries_for`, `jl_set_meets_kinds` exported | T10; T6; T7 |
+
+## 7. Builds (fourth part)
+
+`WIDE=0 tools-local/build.sh wt/w19-julia` (`-j4`, niced, every image stage rebuilt), one after another. Logs: `logs/h-build<n>-*.tw-build.log`.
+
+| Build | Branch | Commit | Load at start (of 128) | Wall | `sys.so` (bytes) | Compiler stage | Result |
+|---|---|---|---|---|---|---|---|
+| 1 | `w19-facts` (facts head) | 7315c0b1bd | 2.83 | 757 s | 195,736,456 | — | BUILD EXIT 0 |
+| 2 | `traits/02d-compiler` (first form) | c5ed3d890b | 3.49 | 768 s | 198,101,640 | 302.3 s | BUILD EXIT 0; `probe` compiled before a membership kept `false`: the branch condition of `isa` folded |
+| 3 | `traits/02d-compiler` | 33642b6684 | 3.16 | 707 s | 198,143,248 | 303.3 s | BUILD EXIT 0 |
+| 4 | `traits/04-dispatch` (T3 before its fix) | 280efb6cc3 | 3.40 | 789 s | 198,312,328 | 305.4 s | BUILD EXIT 0 |
+| 5 | `traits/05-invalidation` | 8a0754ebe8 | 4.97 | 778 s | 198,343,368 | 304.4 s | BUILD EXIT 0 |
+
+Five of twelve. `wt/w19-julia` is left at T5 (8a0754ebe8). Compile checks (`make -C src`) at every commit in `wt/w19-check`. The T5 system image is 198.3 MB against `w19-g-facts`' 197.7 MB (+0.3 %) and vanilla's 194.3 MB.
+
+## 8. What stays for later: T6 to T17
+
+| Part | What it needs from the stack as it is | Order of builds |
+|---|---|---|
+| T6 the membership's method; folds and their edges | T5; `MembershipEntry.method`; the frame forms of the gates; F7's class (`edges_satisfy_g2`: an absence edge and a membership's instance as facts, E4); `Core.implements` in `boot.jl`; the deep ending named by the method | 1 (T6): `n29`, `f7_membership_edges`, `n31`, `m1_worlds_minworld` |
+| T7 final negatives, closed after load | T6; `closed_after_load`, `jl_module_t.loaded`; `drop_unmet_matches` in `ml_matches`, `MethodLookupResult.cells`, `isambiguous`'s unmet filter; Base's loader marks | 2 (T7): `n18`, `n20`; `reflection` |
+| T8 memberships in images | T5 (the walk at activation), T7 for final cells; `staticdata.c`'s list and tags, the session's list from `jl_declare_membership`, activation's conflicts | 3 (T8): `n3`, `n12` (with T12 for its `Callable` part) |
+| T9 the library's hooks; strict mode | T2 (the declaration), T4 (the report's findings, `ml_matches_i`), T5; the module options word renamed (S3) | 4 (T9 with T14): the library's suite (`m2_ambiguity_called_before`, `_declared_super`, `_predates`, `n24`) |
+| T14 the kept forms, the despecialization at a set | T9 (the expansion hook); `TypeName.erases` | with T9 |
+| T10 declared results, fields, contracts, operations | T2; `contract`, `declared_fields`, `operations` slots; `Method.declared_result` (E1: a field index of `Method` moves past F0's `facts`); `BINDING_FLAG_OPEN_OPERATION` in F9's `is_owner_only` (E3) | 5 (T10, T11, T15): `n16`, `n22`, `n23`, `n11` |
+| T11 the split and the table | T10, `up/16` | with T10 |
+| T15 the `trusted` effect | T10, F1's `Effects` (E9) | with T10 |
+| T12 `Callable` | T2, T15; `post_boot_hooks` opening it with inputs; `Function`'s entry in `base/Base.jl` | 6 (T12, T13): `n8`, `n13`, `n14` |
+| T13 `IO`'s contract, `IOContext{IO}` | T10, T11 | with T12: `n19`, `show`, REPL |
+| T16 a closed build | T11, T12, F4, F8, F11; the rounds in `typeinf_ext_toplevel` | 7: `n34`, `w166/build_c.sh` |
+| T17 the definition-time check's interpreter | none | with T16 or alone (Compiler only: one build) |
+
+Then the gates in full, Base's suites against vanilla and the nine loads at the head: about seven builds.
+
+## 9. Where the plan was wrong or incomplete (fourth part)
+
+- **T1 is smaller than planned:** the slots and bits nothing reads before T6 go with their readers; `Core.All` with T3, `Core.Callable` with T12.
+- **T2 needs the compiler's gates** (plan §4.8, which the plan puts in T6 and T7): without them code compiled before a membership keeps a folded answer; build 2 showed it (`isa`'s branch condition folded to `false`). T2 has them in their frame-free form; T6 replaces them.
+- **Type values (§4.10) are in T2,** inside the subtyping walk; the plan assigns them to no part.
+- **T4 is not sound alone** for a call compiled or cached before a membership: T4 and T5 go together.
+- **T5 includes `jl_delete_membership`** (the plan lists only the removal walk) and exports F10's deep-ending push (E5).
+- **The traits series needs `w19-facts-tests-v2`'s F8** for Base's `precompile` to pass (line 977), or the line in its own first part.
+- **F8 changes plain packages' images** (they keep plain code reached only dynamically where it is deep G2): not in plan §5.
+- **Subtyping costs plain code** +5 % at T2 and +12 % at T5 (micro), the first work +1 % and +3 %: the plan's "one bit" is per step of the walk, not per question.
+- **Sizes:** T1 to T5 are 4,184 lines added (the plan's estimate with their share of TX about 4,300).
+
+## Not done, not verified (fourth part)
+
+- **T1, T2a to T2c and T3 (in its final form) are compiled, not built alone.** T1 is built in T2's build (3), T3's final form in T5's (5).
+- **No test runs a membership in a package image** (T8); a package that declares memberships and is precompiled on this stack keeps its entries on its own types' TypeNames with the building session's worlds, unactivated.
+- **The static check of GC roots** (`w163/sagc.sh`) was not run over T1 to T5's C (new globals `jl_set_entries`, `open_set_methods`, both rooted by both collectors).
+- **The subtyping tension** (above) is recorded here only; its proposal is not built.
+- **Comments and commit messages** are my wording and not reviewed. The traits commits carry `Co-Authored-By: Claude <noreply@anthropic.com>`.
+- **`w19-facts-tests`** (df29ab9cde) is superseded by `-v2` and left as pushed.
