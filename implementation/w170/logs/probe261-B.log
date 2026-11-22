@@ -1,0 +1,13 @@
+# E-538 probe261 B | 2026-11-22T17:29:43+01:00 | load 8.04 5.84 5.14 | login02 | julia-next 683ea4fc16 | B: TraitWorld 38200d36df TDE 06c28c376f | A: TraitWorld 9b5861a067 TDE 38fc6e65cd NetworkDynamics c2bbf0d9aa | experiments 78cb2957f0 | product setting, strict mode off, one thread, BLAS one thread
+Test Summary:                            | Pass  Total  Time
+a box at two signatures (open issue 261) |    8      8  0.2s
+R a box of two signatures, f(1.5): 205.450433 ns a call
+
+-- dynamic calls by callee method (lookup path: site/leaf/assoc/full)
+     1000014  TraitWorld._checked_result  /p/projects/coen/julia-trait-bound/wt/w170-base-tw/src/callable.jl:53   0/1000011/0/3
+     1000011  Main.f  /p/projects/coen/julia-trait-bound/experiments/implementation/w170/probe261.jl:7   1000010/1/0/0
+     1000010  Base.+  float.jl:492   1000008/0/1/1
+       36607  Compiler.widenconst  ../usr/share/julia/Compiler/src/typelattice.jl:714   0/0/36607/0
+       30204  Compiler.maybe_erase_unused!  ../usr/share/julia/Compiler/src/ssair/ir.jl:1985   30200/2/0/2
+       13923  Base.length  essentials.jl:11   13904/0/16/3
+       12155  Compiler.widenconst  ../usr/share/julia/Compiler/src/typelattice.jl:710   12093/0/61/1

@@ -1,0 +1,16 @@
+# E-538 diag A | 2026-11-22T17:29:45+01:00 | load 8.04 5.84 5.14 | login02 | julia-next 683ea4fc16 | B: TraitWorld 38200d36df TDE 06c28c376f | A: TraitWorld 9b5861a067 TDE 38fc6e65cd NetworkDynamics c2bbf0d9aa | experiments 78cb2957f0 | product setting, strict mode off, one thread, BLAS one thread
+A the function itself (PartialFn), Float64                        0.0 ns a call
+A the wrapper compiled_for, Float64                               0.0 ns a call
+A a box at one signature, Float64                                 23.31 ns a call
+A a box of All{rhs, duals}, at its first signature (Float64)      23.85 ns a call
+A a box of All{rhs, duals}, at its second signature (duals)       24.37 ns a call
+A the function itself, duals                                      0.8 ns a call
+A a declared field read through a box, d.p (constant name)        26.87 ns a call
+A a declared field read through a box, d.t (constant name)        41.53 ns a call
+A a declared field read through a box, at a name not constant     30.02 ns a call
+A a declared field written through a box, d.u_modified = b        57.9 ns a call
+A ODECore's _sync_in! (the callbacks' adapter), a box of StepView 8.15 ns a call
+A linfactor, the field typed LinearSolver (copy and LU)           3534.5 ns a call
+A linfactor, the field typed DenseLU (copy and LU)                2457.8 ns a call
+A linfactor and 8 ldiv!, the field typed LinearSolver             6858.8 ns a call
+A linfactor and 8 ldiv!, the field typed DenseLU                  5338.4 ns a call

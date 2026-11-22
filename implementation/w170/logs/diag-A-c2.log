@@ -1,0 +1,15 @@
+A the function itself (PartialFn), Float64                        0.0 ns a call
+A the wrapper compiled_for, Float64                               0.0 ns a call
+A a box at one signature, Float64                                 23.23 ns a call
+A a box of All{rhs, duals}, at its first signature (Float64)      23.85 ns a call
+A a box of All{rhs, duals}, at its second signature (duals)       23.78 ns a call
+A the function itself, duals                                      0.8 ns a call
+A a declared field read through a box, d.p (constant name)        26.34 ns a call
+A a declared field read through a box, d.t (constant name)        42.84 ns a call
+A a declared field read through a box, at a name not constant     32.15 ns a call
+A a declared field written through a box, d.u_modified = b        57.78 ns a call
+A ODECore's _sync_in! (the callbacks' adapter), a box of StepView 9.21 ns a call
+A linfactor, the field typed LinearSolver (copy and LU)           3538.2 ns a call
+A linfactor, the field typed DenseLU (copy and LU)                2481.2 ns a call
+A linfactor and 8 ldiv!, the field typed LinearSolver             6867.5 ns a call
+A linfactor and 8 ldiv!, the field typed DenseLU                  5375.0 ns a call
