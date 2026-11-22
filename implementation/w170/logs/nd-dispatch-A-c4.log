@@ -1,0 +1,82 @@
+-- dynamic calls by callee method (lookup path: site/leaf/assoc/full)
+     3780556  Base._SplitTarget  splittarget.jl:20   3780552/0/2/2
+     1013013  Compiler.widenconst  ../usr/share/julia/Compiler/src/typelattice.jl:714   0/0/1013013/0
+      731572  Compiler.maybe_erase_unused!  ../usr/share/julia/Compiler/src/ssair/ir.jl:1985   731568/2/0/2
+      596426  Base.getproperty  Base_compiler.jl:57   596032/0/344/50
+      503157  Core.Compiled  boot.jl:477   0/503155/0/2
+      328473  Base.length  essentials.jl:11   328422/0/34/17
+      304740  NetworkDynamics._run_batch!  /p/projects/coen/julia-trait-bound/wt/w170-nd/src/coreloop.jl:154   0/304730/0/10
+      295296  Compiler.widenconst  ../usr/share/julia/Compiler/src/typelattice.jl:710   295147/0/144/5
+      254044  Compiler.doworkloop  ../usr/share/julia/Compiler/src/inferencestate.jl:1212   254042/1/0/1
+      198417  NetworkDynamics._run_batch!  /p/projects/coen/julia-trait-bound/wt/w170-nd/src/coreloop.jl:155   0/198411/0/6
+      130580  Compiler.#80  ../usr/share/julia/Compiler/src/inferencestate.jl:1195   113347/17212/0/21
+      128842  Core.apply_type  :0   0/0/128842/0
+      127094  Base.getproperty  Base_compiler.jl:51   0/0/127094/0
+      106298  ODECore.PartialFn  /p/projects/coen/julia-trait-bound/wt/w170-tde/lib/ODECore/src/core.jl:445   106294/2/0/2
+      102531  Base.in  operators.jl:1371   0/0/102531/0
+       92092  NetworkDynamics.#_batch_condition##0  /p/projects/coen/julia-trait-bound/wt/w170-nd/src/callbacks.jl:471   92091/1/0/0
+       92092  ODECore.vector_event_condition!  /p/projects/coen/julia-trait-bound/wt/w170-tde/lib/ODECore/src/core.jl:701   92090/1/0/1
+       80659  Compiler.typeinf_local  ../usr/share/julia/Compiler/src/abstractinterpretation.jl:5534   80657/1/0/1
+       73848  ODECore.step_interp!  /p/projects/coen/julia-trait-bound/wt/w170-tde/lib/ODECore/src/core.jl:1218   73846/1/0/1
+       71519  Core.typename  boot.jl:1192   0/0/71519/0
+       70224  Compiler.widenconst  ../usr/share/julia/Compiler/src/typelattice.jl:712   70126/0/93/5
+       66455  Compiler.handle1  ../usr/share/julia/Compiler/src/abstractinterpretation.jl:1247   58002/8447/0/6
+       59492  Compiler.MethodLookupResult  ../usr/share/julia/Compiler/src/methodtable.jl:6   0/59484/0/8
+       55283  Base.get  iddict.jl:91   55278/0/4/1
+       49665  Base.getindex  array.jl:451   0/0/49665/0
+       38509  Base.unwrap_unionall  essentials.jl:545   38472/0/37/0
+       37513  Base.getindex  essentials.jl:994   37397/82/0/34
+       33699  Base.!  bool.jl:37   33383/0/282/34
+       32450  Base.isempty  essentials.jl:1003   32375/0/40/35
+       30894  Base.!=  operators.jl:320   228/0/30661/5
+       28375  Compiler.add_edges_impl  ../usr/share/julia/Compiler/src/stmtinfo.jl:267   28182/190/0/3
+       27364  Compiler.add_edges_impl  ../usr/share/julia/Compiler/src/stmtinfo.jl:96   27173/188/0/3
+       23480  Base.==  promotion.jl:647   23308/156/0/16
+       22934  Base.>  operators.jl:425   22901/32/0/1
+       22360  Compiler.getresult_impl  ../usr/share/julia/Compiler/src/stmtinfo.jl:205   22330/27/0/3
+       22115  Compiler.getsplit_impl  ../usr/share/julia/Compiler/src/stmtinfo.jl:204   22088/24/0/3
+       22099  Compiler.getfield_tfunc  ../usr/share/julia/Compiler/src/tfuncs.jl:1112   21006/0/1093/0
+       21851  Compiler.nsplit_impl  ../usr/share/julia/Compiler/src/stmtinfo.jl:203   21841/7/0/3
+       21431  Base.<=  bool.jl:162   21429/1/0/1
+       20129  Compiler.getresult_impl  ../usr/share/julia/Compiler/src/stmtinfo.jl:270   20101/25/0/3
+-- dynamic calls by call site (the calling code, innermost frame first; the callee)
+     3778892  ? at ?:-1  ->  Base._SplitTarget
+      723665  simple_dce! at ./../usr/share/julia/Compiler/src/ssair/ir.jl:2113  ->  Compiler.maybe_erase_unused!
+      404885  widen_all_consts! at ./../usr/share/julia/Compiler/src/optimize.jl:343  ->  Compiler.widenconst
+      304740  Compiled at ./boot.jl:479  ->  Core.Compiled
+      254044  doworkloop at ./../usr/share/julia/Compiler/src/inferencestate.jl:1215  ->  Base.length
+      254044  typeinf at ./../usr/share/julia/Compiler/src/abstractinterpretation.jl:5860  ->  Compiler.doworkloop
+      198417  Compiled at ./boot.jl:479  ->  Core.Compiled
+      188438  #argtypes_to_type##0 at ./../usr/share/julia/Compiler/src/typeutils.jl:139  ->  Compiler.widenconst
+      144628  #argtypes_to_type##0 at ./../usr/share/julia/Compiler/src/typeutils.jl:139  ->  Compiler.widenconst
+      130580  doworkloop at ./../usr/share/julia/Compiler/src/inferencestate.jl:1218  ->  Compiler.#80
+      125157  apply_iterate_reach at /p/projects/coen/julia-trait-bound/julia-next/src/builtins.c:904  ->  Core.apply_type
+      110574  _sync_in! at /p/projects/coen/julia-trait-bound/wt/w170-tde/lib/ODECore/src/core.jl:831 (in getproperty at /p/projects/coen/julia-trait-bound/wt/w170-tw/src/dynamic.jl:45)  ->  Base.getproperty
+      110574  _sync_in! at /p/projects/coen/julia-trait-bound/wt/w170-tde/lib/ODECore/src/core.jl:832 (in getproperty at /p/projects/coen/julia-trait-bound/wt/w170-tw/src/dynamic.jl:45)  ->  Base.getproperty
+      110574  _sync_in! at /p/projects/coen/julia-trait-bound/wt/w170-tde/lib/ODECore/src/core.jl:831 (in getproperty at /p/projects/coen/julia-trait-bound/wt/w170-tw/src/dynamic.jl:45)  ->  Base.getproperty
+      110574  _sync_in! at /p/projects/coen/julia-trait-bound/wt/w170-tde/lib/ODECore/src/core.jl:832 (in getproperty at /p/projects/coen/julia-trait-bound/wt/w170-tw/src/dynamic.jl:45)  ->  Base.getproperty
+      110574  _sync_in! at /p/projects/coen/julia-trait-bound/wt/w170-tde/lib/ODECore/src/core.jl:831 (in getproperty at /p/projects/coen/julia-trait-bound/wt/w170-tw/src/dynamic.jl:45)  ->  Base.getproperty
+      104343  _process_kept! at /p/projects/coen/julia-trait-bound/wt/w170-nd/src/coreloop.jl:147  ->  NetworkDynamics._run_batch!
+      104343  _process_kept! at /p/projects/coen/julia-trait-bound/wt/w170-nd/src/coreloop.jl:147  ->  NetworkDynamics._run_batch!
+      104343  _process_kept! at /p/projects/coen/julia-trait-bound/wt/w170-nd/src/coreloop.jl:147  ->  NetworkDynamics._run_batch!
+      104338  Dynamic at /p/projects/coen/julia-trait-bound/wt/w170-tw/src/callable.jl:44 (in _call_at_signatures at /p/projects/coen/julia-trait-bound/wt/w170-tw/src/callable.jl:56)  ->  ODECore.PartialFn
+       92092  _process_kept! at /p/projects/coen/julia-trait-bound/wt/w170-nd/src/coreloop.jl:147  ->  NetworkDynamics._run_batch!
+       92092  _process_kept! at /p/projects/coen/julia-trait-bound/wt/w170-nd/src/coreloop.jl:147  ->  NetworkDynamics._run_batch!
+       92092  Dynamic at /p/projects/coen/julia-trait-bound/wt/w170-tw/src/callable.jl:35  ->  NetworkDynamics.#_batch_condition##0
+       92092  step_event_condition! at /p/projects/coen/julia-trait-bound/wt/w170-tde/lib/ODECore/src/core.jl:875  ->  ODECore.vector_event_condition!
+       85837  sroa_pass! at ./../usr/share/julia/Compiler/src/ssair/passes.jl:1441  ->  Compiler.widenconst
+       80659  typeinf at ./../usr/share/julia/Compiler/src/abstractinterpretation.jl:5869  ->  Compiler.typeinf_local
+       73848  step_interp! at /p/projects/coen/julia-trait-bound/wt/w170-tde/lib/ODECore/src/core.jl:189  ->  ODECore.step_interp!
+       59492  _findall at ./../usr/share/julia/Compiler/src/methodtable.jl:124  ->  Compiler.MethodLookupResult
+       56497  infercalls at ./../usr/share/julia/Compiler/src/abstractinterpretation.jl:1341  ->  Compiler.handle1
+       53380  force_const_prop at ./../usr/share/julia/Compiler/src/abstractinterpretation.jl:2278  ->  Core.typename
+       49661  apply_iterate_reach at /p/projects/coen/julia-trait-bound/julia-next/src/builtins.c:904  ->  Base.getindex
+       36788  builtin_tfunction at ./../usr/share/julia/Compiler/src/tfuncs.jl:2836  ->  Base.in
+       36594  is_identity_free_argtype at ./../usr/share/julia/Compiler/src/typeutils.jl:407  ->  Compiler.widenconst
+       32450  _check_membership_calls at /p/projects/coen/julia-trait-bound/wt/w170-tw/src/implement.jl:400  ->  Base.unwrap_unionall
+       32450  _check_membership_calls at /p/projects/coen/julia-trait-bound/wt/w170-tw/src/implement.jl:401  ->  Base.getproperty
+       32450  _check_membership_calls at /p/projects/coen/julia-trait-bound/wt/w170-tw/src/implement.jl:401  ->  Base.!
+       32450  _check_membership_calls at /p/projects/coen/julia-trait-bound/wt/w170-tw/src/implement.jl:402  ->  Base.getindex
+       32450  _check_membership_calls at /p/projects/coen/julia-trait-bound/wt/w170-tw/src/implement.jl:401  ->  Base.isempty
+       32450  _check_membership_calls at /p/projects/coen/julia-trait-bound/wt/w170-tw/src/implement.jl:402  ->  Base.getproperty
+       32061  _uncompressed_ir at ./runtime_internals.jl:1625  ->  Base.getproperty

@@ -1,0 +1,32 @@
+# E-538 nd c4: time, 2 rounds | ndport 4fecc023af | B NetworkDynamics c2bbf0d9aa | 2026-11-22T17:51:10+01:00 | load 7.33 6.21 5.80 | login02 | julia-next 683ea4fc16 | B: TraitWorld 38200d36df TDE 06c28c376f | A: TraitWorld 9b5861a067 TDE d061814c11 NetworkDynamics 499204929f | experiments ea533f453d* | product setting, strict mode off, one thread, BLAS one thread
+== round 1 | B | load 7.33 6.21 5.80
+R nd port api=ports tsit5 n=40 | min 62.699 med 62.777 ms | alloc 13.352 MiB gc 0.0 ms per call | (naccept = 159, nreject = 0, nf = 988, njac = -1, nw = -1) | saved 38 | retcode Success
+R nd port api=ports stiff n=40 | min 87.282 med 87.589 ms | alloc 17.901 MiB gc 0.0 ms per call | (naccept = 196, nreject = 0, nf = 1781, njac = -1, nw = -1) | saved 38 | retcode Success
+R nd port api=ports step_d n=40 | min 150.995 med 151.517 ms | alloc 31.97 MiB gc 0.0 ms per call | trips 16 16 | tsit5 (naccept = 159, nreject = 0, nf = 988, njac = -1, nw = -1) | stiff (naccept = 196, nreject = 0, nf = 1781, njac = -1, nw = -1)
+-- rc 0 | load 11.94 7.37 6.19
+== round 1 | A | load 11.94 7.37 6.19
+R nd port api=ports tsit5 n=40 | min 6.353 med 6.368 ms | alloc 0.507 MiB gc 0.0 ms per call | (naccept = 159, nreject = 0, nf = 988, njac = -1, nw = -1) | saved 38 | retcode Success
+R nd port api=ports stiff n=40 | min 19.126 med 19.179 ms | alloc 2.488 MiB gc 0.0 ms per call | (naccept = 196, nreject = 0, nf = 1781, njac = -1, nw = -1) | saved 38 | retcode Success
+R nd port api=ports step_d n=40 | min 26.041 med 26.132 ms | alloc 3.548 MiB gc 0.0 ms per call | trips 16 16 | tsit5 (naccept = 159, nreject = 0, nf = 988, njac = -1, nw = -1) | stiff (naccept = 196, nreject = 0, nf = 1781, njac = -1, nw = -1)
+-- rc 0 | load 7.34 6.77 6.04
+== round 1 | V | load 7.34 6.77 6.04
+R nd upstream api=ports tsit5 n=40 | min 2.852 med 2.876 ms | alloc 0.165 MiB gc 0.0 ms per call | (naccept = 162, nreject = 0, nf = 1023, njac = 0, nw = 0) | saved 38 | retcode Success
+R nd upstream api=ports stiff n=40 | min 24.687 med 25.137 ms | alloc 1.407 MiB gc 0.0 ms per call | (naccept = 164, nreject = 1, nf = 8078, njac = 164, nw = 165) | saved 38 | retcode Success
+R nd upstream api=ports step_d n=40 | min 28.577 med 29.189 ms | alloc 2.187 MiB gc 0.0 ms per call | trips 16 16 | tsit5 (naccept = 162, nreject = 0, nf = 1023, njac = 0, nw = 0) | stiff (naccept = 164, nreject = 1, nf = 8078, njac = 164, nw = 165)
+-- rc 0 | load 6.30 6.57 6.00
+== round 2 | B | load 6.30 6.57 6.00
+R nd port api=ports tsit5 n=40 | min 61.6 med 62.335 ms | alloc 13.352 MiB gc 0.0 ms per call | (naccept = 159, nreject = 0, nf = 988, njac = -1, nw = -1) | saved 38 | retcode Success
+R nd port api=ports stiff n=40 | min 86.123 med 86.229 ms | alloc 17.901 MiB gc 0.0 ms per call | (naccept = 196, nreject = 0, nf = 1781, njac = -1, nw = -1) | saved 38 | retcode Success
+R nd port api=ports step_d n=40 | min 148.811 med 149.486 ms | alloc 31.97 MiB gc 0.0 ms per call | trips 16 16 | tsit5 (naccept = 159, nreject = 0, nf = 988, njac = -1, nw = -1) | stiff (naccept = 196, nreject = 0, nf = 1781, njac = -1, nw = -1)
+-- rc 0 | load 5.87 6.46 5.98
+== round 2 | A | load 5.87 6.46 5.98
+R nd port api=ports tsit5 n=40 | min 6.563 med 6.58 ms | alloc 0.507 MiB gc 0.0 ms per call | (naccept = 159, nreject = 0, nf = 988, njac = -1, nw = -1) | saved 38 | retcode Success
+R nd port api=ports stiff n=40 | min 19.354 med 19.381 ms | alloc 2.488 MiB gc 0.0 ms per call | (naccept = 196, nreject = 0, nf = 1781, njac = -1, nw = -1) | saved 38 | retcode Success
+R nd port api=ports step_d n=40 | min 26.615 med 26.659 ms | alloc 3.548 MiB gc 0.0 ms per call | trips 16 16 | tsit5 (naccept = 159, nreject = 0, nf = 988, njac = -1, nw = -1) | stiff (naccept = 196, nreject = 0, nf = 1781, njac = -1, nw = -1)
+-- rc 0 | load 5.39 6.32 5.94
+== round 2 | V | load 5.39 6.32 5.94
+R nd upstream api=ports tsit5 n=40 | min 2.9 med 2.933 ms | alloc 0.165 MiB gc 0.0 ms per call | (naccept = 162, nreject = 0, nf = 1023, njac = 0, nw = 0) | saved 38 | retcode Success
+R nd upstream api=ports stiff n=40 | min 24.827 med 24.905 ms | alloc 1.407 MiB gc 0.0 ms per call | (naccept = 164, nreject = 1, nf = 8078, njac = 164, nw = 165) | saved 38 | retcode Success
+R nd upstream api=ports step_d n=40 | min 28.056 med 28.167 ms | alloc 2.187 MiB gc 0.0 ms per call | trips 16 16 | tsit5 (naccept = 162, nreject = 0, nf = 1023, njac = 0, nw = 0) | stiff (naccept = 164, nreject = 1, nf = 8078, njac = 164, nw = 165)
+-- rc 0 | load 4.66 6.03 5.86
+# done 2026-11-22T17:54:04+01:00 | load 4.66 6.03 5.86

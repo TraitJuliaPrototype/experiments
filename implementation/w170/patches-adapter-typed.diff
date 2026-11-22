@@ -1,0 +1,77 @@
+diff --git a/lib/ODECore/src/core.jl b/lib/ODECore/src/core.jl
+index f3172b2..7be2304 100644
+--- a/lib/ODECore/src/core.jl
++++ b/lib/ODECore/src/core.jl
+@@ -835,26 +835,35 @@ end
+ _sync_out!(pi::ParamIntegrator{U,T}, sv::StepView{U,T}) where {U,T} =
+     (sv.u_modified = pi.u_modified; sv.terminated = pi.terminated; nothing)
+ 
+-"A user's discrete callback, kept at the problem's types, adapted to the solver core (W-63): the outer layer's, compiled per parameter type."
+-struct ParamCallback{U,T,P}
+-    cb::Callback{U,T,P}
++"""
++A user's discrete callback, kept at the problem's types, adapted to the solver core (W-63): the outer layer's,
++compiled per parameter type and per the callback's type `C`, which is known where it is adapted (a type that is known
++is kept as a parameter, traits reference §7.10). A callback of plain functions has one type for every function, its
++functions boxed (`FunctionCallback`), so the adapter is compiled once for them.
++"""
++struct ParamCallback{U,T,P,C<:Callback{U,T,P}}
++    cb::C
+     pi::ParamIntegrator{U,T,P}
+     view::Dynamic{IntegratorView{U,T,P}}
+ end
++ParamCallback{U,T,P}(cb::C, pi::ParamIntegrator{U,T,P}, view::Dynamic{IntegratorView{U,T,P}}) where {U,T,P,C} =
++    ParamCallback{U,T,P,C}(cb, pi, view)
+ step_condition(c::ParamCallback{U,T}, u::U, t::T, sv::Dynamic{StepView{U,T}}) where {U,T} =
+     (_sync_in!(c.pi, sv); condition(c.cb, u, t, c.view))
+ step_affect!(c::ParamCallback{U,T}, sv::Dynamic{StepView{U,T}}) where {U,T} =
+     (_sync_in!(c.pi, sv); affect!(c.cb, c.view); _sync_out!(c.pi, sv); nothing)
+ step_initialize!(c::ParamCallback{U,T}, u::U, t::T, sv::Dynamic{StepView{U,T}}) where {U,T} =
+     (_sync_in!(c.pi, sv); initialize!(c.cb, u, t, c.view); _sync_out!(c.pi, sv); nothing)
+-@implement StepCallback{U,T} ParamCallback{U,T,P} where {U,T,P}
++@implement StepCallback{U,T} ParamCallback{U,T,P,C} where {U,T,P,C}
+ 
+-"A user's continuous callback, adapted to the solver core."
+-struct ParamEvent{U,T,P}
+-    cb::EventCallback{U,T,P}
++"A user's continuous callback, adapted to the solver core, at the callback's type, as `ParamCallback`."
++struct ParamEvent{U,T,P,C<:EventCallback{U,T,P}}
++    cb::C
+     pi::ParamIntegrator{U,T,P}
+     view::Dynamic{IntegratorView{U,T,P}}
+ end
++ParamEvent{U,T,P}(cb::C, pi::ParamIntegrator{U,T,P}, view::Dynamic{IntegratorView{U,T,P}}) where {U,T,P,C} =
++    ParamEvent{U,T,P,C}(cb, pi, view)
+ step_event_length(c::ParamEvent) = 1
+ step_event_condition!(c::ParamEvent{U,T}, out::Vector{Float64}, u::U, t::T, sv::Dynamic{StepView{U,T}}) where {U,T} =
+     (_sync_in!(c.pi, sv); out[1] = event_condition(c.cb, u, t, c.view); nothing)
+@@ -862,14 +871,16 @@ step_event_affect!(c::ParamEvent{U,T}, sv::Dynamic{StepView{U,T}}, signs::Vector
+     (_sync_in!(c.pi, sv); signs[1] > 0 ? event_affect!(c.cb, c.view) : event_affect_neg!(c.cb, c.view); _sync_out!(c.pi, sv); nothing)
+ step_event_initialize!(c::ParamEvent{U,T}, u::U, t::T, sv::Dynamic{StepView{U,T}}) where {U,T} =
+     (_sync_in!(c.pi, sv); event_initialize!(c.cb, u, t, c.view); _sync_out!(c.pi, sv); nothing)
+-@implement StepEvent{U,T} ParamEvent{U,T,P} where {U,T,P}
++@implement StepEvent{U,T} ParamEvent{U,T,P,C} where {U,T,P,C}
+ 
+-"A user's continuous callback of several conditions, adapted to the solver core."
+-struct ParamVectorEvent{U,T,P}
+-    cb::VectorEventCallback{U,T,P}
++"A user's continuous callback of several conditions, adapted to the solver core, at the callback's type."
++struct ParamVectorEvent{U,T,P,C<:VectorEventCallback{U,T,P}}
++    cb::C
+     pi::ParamIntegrator{U,T,P}
+     view::Dynamic{IntegratorView{U,T,P}}
+ end
++ParamVectorEvent{U,T,P}(cb::C, pi::ParamIntegrator{U,T,P}, view::Dynamic{IntegratorView{U,T,P}}) where {U,T,P,C} =
++    ParamVectorEvent{U,T,P,C}(cb, pi, view)
+ step_event_length(c::ParamVectorEvent) = vector_event_length(c.cb)
+ step_event_condition!(c::ParamVectorEvent{U,T}, out::Vector{Float64}, u::U, t::T, sv::Dynamic{StepView{U,T}}) where {U,T} =
+     (_sync_in!(c.pi, sv); vector_event_condition!(c.cb, out, u, t, c.view); nothing)
+@@ -877,7 +888,7 @@ step_event_affect!(c::ParamVectorEvent{U,T}, sv::Dynamic{StepView{U,T}}, signs::
+     (_sync_in!(c.pi, sv); vector_event_affect!(c.cb, c.view, signs); _sync_out!(c.pi, sv); nothing)
+ step_event_initialize!(c::ParamVectorEvent{U,T}, u::U, t::T, sv::Dynamic{StepView{U,T}}) where {U,T} =
+     (_sync_in!(c.pi, sv); vector_event_initialize!(c.cb, u, t, c.view); _sync_out!(c.pi, sv); nothing)
+-@implement StepEvent{U,T} ParamVectorEvent{U,T,P} where {U,T,P}
++@implement StepEvent{U,T} ParamVectorEvent{U,T,P,C} where {U,T,P,C}
+ 
+ "The outer layer's integrator for a problem's types: its parameters (saved at `t0` when callbacks may change them), system and names."
+ function param_integrator(::Type{U}, p::P, t0::Float64, sys, names, save::Bool) where {U,P}

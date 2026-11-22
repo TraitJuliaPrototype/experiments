@@ -20,6 +20,11 @@ jS() { local s=$1 e=$2; shift 2; JULIA_DEPOT_PATH=$D/$s:$R/.julia-depot: nice -n
          --startup-file=no --history-file=no -t 1 --project="$W/envs/$s/$e" "$@"; }
 jSnd() { local s=$1; shift; (cd "$R/ndport" && JULIA_DEPOT_PATH=$D/$s:$R/.julia-depot: nice -n 10 timeout -s KILL "${TO:-900}" "$R/julia-next/julia" \
          --startup-file=no --history-file=no -t 1 --project="$W/envs/$s/nd" "$@"); }
+# V: upstream's packages on vanilla v1.13.2 (E-537's cell: w159/envs/V/ndup, NDW_STACK=upstream NDW_API=ports, the
+# round's images read behind a depot of this experiment's own)
+jVnd() { (cd "$R/ndport" && JULIA_DEPOT_PATH=$D/V:$R/.julia-depot/agent-depots/w169s/V:$R/.julia-depot/agent-depots/w159/V:$R/.julia-depot: \
+         nice -n 10 timeout -s KILL "${TO:-900}" "$R/julia-vanilla/julia" --startup-file=no --history-file=no -t 1 \
+         --project="$R/experiments/implementation/w159/envs/V/ndup" "$@"); }
 tw() { [ "$1" = A ] && echo "$R/wt/w170-tw" || echo "$R/wt/w170-base-tw"; }
 tde() { [ "$1" = A ] && echo "$R/wt/w170-tde" || echo "$R/wt/w170-base-tde"; }
 header() { echo "# E-538 $1 | $(date -Is) | load $(load) | $(hostname -s) | julia-next $(rev "$R/julia-next") | B: TraitWorld $(rev "$(tw B)") TDE $(rev "$(tde B)") | A: TraitWorld $(rev "$(tw A)") TDE $(rev "$(tde A)")$( [ -d "$R/wt/w170-nd" ] && echo " NetworkDynamics $(rev "$R/wt/w170-nd")") | experiments $(rev "$R/experiments") | product setting, strict mode off, one thread, BLAS one thread"; }
