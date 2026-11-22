@@ -113,6 +113,21 @@ check("§4 circle_ratio", circle_ratio(Circle(1.0)) == 0.5)
 check("§4 ratio(compiled_for(Circle(1.0)))", ratio(compiled_for(Circle(1.0))) == 0.5)
 check("§4 ratio(Dynamic{Shape}(Circle(1.0)))", ratio(Dynamic{Shape}(Circle(1.0))) == 0.5)
 
+# §4, what a value offers: the page's block `operations(Circle(1.0))`. The script's `Geometry` declares every section's
+# methods at once, so its methods at `Shape` begin with the three the page lists at §4 and go on with the later ones.
+let ls = split(sprint(show, MIME("text/plain"), operations(Circle(1.0))), '\n')
+    println("MESSAGE operations(Circle(1.0)):\n", join(ls, '\n'))
+    check("§4 operations(Circle(1.0)): the member, its trait and the contract's lines, a default marked",
+          ls[1:7] == ["Circle(1.0) is a Circle, a member of Shape", "", "Shape", "  operations:",
+                      "    area(s::Shape)::Float64", "    perimeter(s::Shape)::Float64",
+                      "    describe(s::Shape)::String   # a default"])
+    i = findfirst(==("  methods at Shape:"), ls)
+    check("§4 operations(Circle(1.0)): the methods at Shape, as written, in the order defined",
+          i !== nothing && ls[i+1:i+3] == ["    ratio(s::Shape)", "    bigger(a::Shape, b::Shape)", "    title(s::Shape)"])
+    check("§4 operations(Circle(1.0)): other, the method at Circle itself",
+          ls[end-2:end] == ["", "other: methods at Circle", "    circle_ratio(c::Circle)"])
+end
+
 # --- §5: forwarding -----------------------------------------------------------------------------
 
 struct Tile

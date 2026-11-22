@@ -1,0 +1,191 @@
+TraitWorld: /p/projects/coen/julia-trait-bound/wt/w158g-tw/src/TraitWorld.jl
+julia> using TraitTables, TraitDifferentialEquations, TraitMakie
+
+julia> t = TraitTables.table("x" => [1.0, 2.0, 3.0], "n" => [1, 2, 3]);
+
+julia> col = t["x"];
+
+julia> TraitWorld.install_operations_key!(REPL_UNDER_TEST)
+
+julia> col
+col is a Vector{Float64}, a member of Column{Float64}, HasLength, Indexable{Float64}, Iterable{Float64}, MutableIndexable{Float64}, Resizable{Float64}, Sample
+
+Column{T}, T = Float64
+  # A column: its number of rows and its cells by index; `T` is the…
+  operations:
+    nrows(c::Column)::Int
+    cell(c::Column{T}, i::Int)::T
+  methods at Column:
+    addcolumn!(t::Table, name::String, c::Column)
+    take(c::Column, idx::Vector{Int64})
+    sortperm_col(c::Column)
+    floats(c::Column, skip::Bool)
+    floats(c::Column)
+    numsummary(c::Column, name::String, n::Int64, nmiss::Int64, T::String)
+    othersummary(c::Column{E}, name::String, n::Int64, nmiss::Int64, T::String) where E
+    summarize(c::Column, name::String)
+    cellstring(c::Column, i::Int64)
+
+HasLength, through Indexable
+  # A finite number of items: `length(c)::Int`, expected in constan…
+  operations:
+    length(c::HasLength)::Int # Return the number of elements in the collection.
+
+Indexable{T}, T = Float64 <: HasLength, through MutableIndexable
+  # Reading by position: `c[i]` is a `T` for `i` in `firstindex(c):…
+  operations:
+    getindex(c::Indexable, i::Int)::T # Retrieve the value(s) stored at the given key or index within a…
+    firstindex(c::Indexable)::Int     # Return the first index of `collection`. If `d` is given, return…
+  methods at Indexable:
+    asvector(x::Indexable{T}) where T
+
+Iterable{T}, T = Float64, as AbstractArray
+  # Base's iteration protocol, with the item type `T = eltype(Self)…
+  operations:
+    iterate(c::Iterable)::Union{Nothing, Tuple{T, Any}} # Advance the iterator to obtain the next element. If no elements
+    iterate(c::Iterable, state)::Union{Nothing, Tuple{T, Any}} # Advance the iterator to obtain the next element. If no elements
+
+MutableIndexable{T}, T = Float64 <: Indexable{T}
+  # Writing by position: `c[i] = x` for an `x` of the item type kee…
+  operations:
+    setindex!(c::MutableIndexable, x::T, i::Int)::Any # Store the given value at the given key or index within a collec…
+
+Resizable{T}, T = Float64 <: HasLength
+  # Changing the number of items: `push!(c, x)` adds an item of the…
+  operations:
+    resize!(c::Resizable, n::Int)::Any # Resize `a` to contain `n` elements. If `n` is smaller than the …
+    push!(c::Resizable, x::T)::Any     # Insert one or more `items` in `collection`. If `collection` is …
+
+Sample
+  # Values a histogram bins, by index.
+  operations:
+    nvalues(s::Sample)::Int
+    value(s::Sample, i::Int)::Float64
+  methods at Sample:
+    binned(s::Sample, bins::Int64)
+    add_hist!(ax::Axis, values::Sample, bins::Int64, color::ColorSpec)
+
+methods at All{MutableIndexable{T}, Resizable{T}}
+    retain!(f::Callable{Tuple{T}, Bool}, xs::All{MutableIndexable{T}, Resizable{T}}) where T
+
+other: methods at Vector{Float64}
+    +(A::Array, Bs::Array...)
+    append!(a::Vector{T}, items::Union{Tuple, AbstractVector{<:T}}) where T
+    cconvert(::Type{<:Ptr}, a::Array)
+    cconvert(::Type{Ptr{P}}, a::Array) where P<:Union{Cstring, Cwstring, Ptr}
+    cconvert(::Type{Ref{P}}, a::Array) where P<:Union{Cstring, Cwstring, Ptr}
+    copy(a::Array)
+    copyto!(dest::Array, doffs::Integer, src::Array, soffs::Integer, n::Integer)
+    copyto!(dest::Array, doffs::Integer, src::Memory, soffs::Integer, n::Integer)
+    copyto!(dest::Memory, doffs::Integer, src::Array, soffs::Integer, n::Integer)
+    copyto!(dest::Array{T}, doffs::Integer, src::Array{T}, soffs::Integer, n::Integer) where T
+    copyto!(dest::Array, src::Array)
+    copyto!(dest::Array, src::Memory)
+    … and 92 more (operations(x; limit = 104))
+
+julia> f(du, u, p, t) = (du .= -p .* u; nothing)
+f (generic function with 1 method)
+
+julia> prob = ODEProblem(f, [1.0, 2.0], (0.0, 1.0), 0.5);
+
+julia> prob
+prob is an ODEProblem{…}, a member of HasCallbacks, HasJacobianPrototype, HasMassMatrix, ODEProblemTrait{Float64, Float64}, HasSystem
+
+HasCallbacks
+  # A problem that keeps callbacks (SciML's `ODEProblem(…; callback…
+  operations:
+    problem_callbacks(x::HasCallbacks)::Any
+
+HasJacobianPrototype
+  # A value with a Jacobian's sparsity prototype (SciML's `f.jac_pr…
+  operations:
+    jac_prototype(x::HasJacobianPrototype)::Any
+
+HasMassMatrix
+  # A value with a mass matrix `M` (SciML's `f.mass_matrix`): the p…
+  operations:
+    mass_matrix(x::HasMassMatrix)::Any
+
+ODEProblemTrait{T, P}, T = Float64, P = Float64
+  # What the solver needs from a problem: its initial state, time s…
+  operations:
+    rhs!(prob::ODEProblemTrait{T, P}, du::Vector{T}, u::Vector{T}, t::Float64)::Nothing
+    jacobian!(prob::ODEProblemTrait{T, P}, J::Matrix{T}, u::Vector{T}, t::Float64)::Nothing # a default
+    rhs_function(prob::ODEProblemTrait{T, P})::Any # a default; The user's function partially evaluated, for a solver that pick…
+  fields:
+    @const u0::Vector{T}
+    @const tspan::Tuple{Float64, Float64}
+    @const p::P
+  methods at ODEProblemTrait:
+    core_problem(prob::ODEProblemTrait{T, P}) where {T, P}
+    with_problem(s::ODECore.CoreSolution{T}, prob::ODEProblemTrait{T, P}, sys, names, pt::Vector{Float64}, pu::Vector{P}) where {T, P}
+
+HasSystem
+  # A value that carries a system object (SciML's `f.sys`, `prob.f.…
+  operations:
+    system(x::HasSystem)::Any
+  methods at HasSystem:
+    getsystem(x::HasSystem)
+
+other: methods at ODEProblem{…}
+    core_problem(prob::ODEProblem{T, P, F, J}) where {T, P, F, J}
+    remake(prob::ODEProblem; u0, tspan, p, callback)
+
+julia> fig = Figure(size = (400, 300));
+
+julia> fig
+fig is a Figure, a member of no trait
+
+other: methods at Figure
+    add_axis!(f::Figure, row::Int64, col::Int64, xscale::Scale, yscale::Scale, title::String, xlabel::String, ylabel::String)
+    render_png(f::Figure, path::String, px_per_unit::Float64)
+    render_png(f::Figure, path::String)
+    band!(fig::Figure, x::AbstractVector, lower::AbstractVector, upper::AbstractVector; kw...)
+    band!(fig::Figure, lower, upper; color)
+    barplot!(fig::Figure, x::AbstractVector, y::AbstractVector; color, width)
+    getindex(fig::Figure, r::Integer, c::Integer)
+    hist!(fig::Figure, x; bins, color)
+    lines!(fig::Figure, x::AbstractVector, y::AbstractVector; kw...)
+    lines!(fig::Figure, data; color, linewidth)
+    plot!(fig::Figure, p)
+    poly!(fig::Figure, x::AbstractVector, y::AbstractVector; kw...)
+    … and 12 more (operations(x; limit = 24))
+
+julia> fl = lines([1.0, 2.0, 3.0], [1.0, 4.0, 9.0]);
+
+julia> pl = fl.axes[1].plots[1];
+
+julia> pl
+pl holds a Lines, a member of Plot
+the box: only the operations and declared fields of Plot and its supertraits reach the Lines it holds; the rest needs unwrap(x)
+
+Plot
+  # A recipe: its data limits, how it draws itself onto a canvas, a…
+  operations:
+    datalimits(p::Plot)::NTuple{4, Float64}
+    draw!(p::Plot, c::Canvas, t::Transform2D)::Nothing
+    setcolor!(p::Plot, c::ColorSpec)::Nothing
+  methods at Plot:
+    add_plot!(ax::Axis, p::Plot)
+
+julia> ODEProblemTrait
+ODEProblemTrait: a trait with 1 declared member
+
+ODEProblemTrait{T, P}
+  # What the solver needs from a problem: its initial state, time s…
+  operations:
+    rhs!(prob::ODEProblemTrait{T, P}, du::Vector{T}, u::Vector{T}, t::Float64)::Nothing
+    jacobian!(prob::ODEProblemTrait{T, P}, J::Matrix{T}, u::Vector{T}, t::Float64)::Nothing # a default
+    rhs_function(prob::ODEProblemTrait{T, P})::Any # a default; The user's function partially evaluated, for a solver that pick…
+  fields:
+    @const u0::Vector{T}
+    @const tspan::Tuple{Float64, Float64}
+    @const p::P
+  methods at ODEProblemTrait:
+    core_problem(prob::ODEProblemTrait{T, P}) where {T, P}
+    with_problem(s::ODECore.CoreSolution{T}, prob::ODEProblemTrait{T, P}, sys, names, pt::Vector{Float64}, pu::Vector{P}) where {T, P}
+
+members
+    ODEProblem
+
+

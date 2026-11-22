@@ -1,0 +1,86 @@
+TraitWorld: /p/projects/coen/julia-trait-bound/wt/w158g-tw/src/TraitWorld.jl
+julia> struct Circle; r::Float64; end
+
+julia> Geometry.area(c::Circle) = π * c.r^2
+
+julia> Geometry.perimeter(c::Circle) = 2π * c.r
+
+julia> @implement Shape Circle
+
+julia> c = Circle(1.0)
+Circle(1.0)
+
+julia> c
+c is a Circle, a member of Shape
+
+Shape
+  operations:
+    area(s::Shape)::Float64      # The area of the shape.
+    perimeter(s::Shape)::Float64
+    describe(s::Shape)::String   # a default
+  methods at Shape:
+    ratio(s::Shape)
+    bigger(a::Shape, b::Shape)
+    title(s::Shape)
+
+julia> Shape
+Shape: a trait with 1 declared member
+
+Shape
+  operations:
+    area(s::Shape)::Float64      # The area of the shape.
+    perimeter(s::Shape)::Float64
+    describe(s::Shape)::String   # a default
+  methods at Shape:
+    ratio(s::Shape)
+    bigger(a::Shape, b::Shape)
+    title(s::Shape)
+
+members
+    Circle
+
+julia> d = Dynamic{Shape}(c);
+
+julia> d
+d holds a Circle, a member of Shape
+the box: only the operations and declared fields of Shape and its supertraits reach the Circle it holds; the rest needs unwrap(x)
+
+Shape
+  operations:
+    area(s::Shape)::Float64      # The area of the shape.
+    perimeter(s::Shape)::Float64
+    describe(s::Shape)::String   # a default
+  methods at Shape:
+    ratio(s::Shape)
+    bigger(a::Shape, b::Shape)
+    title(s::Shape)
+
+julia> x = 1.5
+operations: ArgumentError: `1.5` is not a name
+
+julia> x = 1.5;
+
+julia> x
+x is a Float64, a member of BoundedText
+
+BoundedText, as Number
+  # A value whose printed form has a known upper bound in bytes: `t…
+  operations:
+    textbound(x::BoundedText)::Int # An upper bound on the bytes `print(io, x)` writes. For a type, …
+
+other: methods at Float64
+    <(x::Int64, y::Float64)
+    <(x::UInt64, y::Float64)
+    <(x::Int128, y::Float64)
+    <(x::UInt128, y::Float64)
+    <(x::Float64, y::UInt128)
+    <(x::Float64, y::Int128)
+    <(x::Float64, y::UInt64)
+    <(x::Float64, y::Int64)
+    <(x::AbstractIrrational, y::Float64)
+    <(x::Float64, y::AbstractIrrational)
+    <=(x::UInt64, y::Float64)
+    <=(x::Int128, y::Float64)
+    … and 74 more (operations(x; limit = 86))
+
+
