@@ -1,0 +1,40 @@
+# base/ patches evaluated in vanilla's session (julia-vanilla 45b6d15e34) 2026-11-22T08:22:45+01:00 load 2.42 3.62 3.91
+== 01-reinterpret-padding-typed: reinterpretarray
+evaluated 7 definitions of defs-01-reinterpret-padding-typed.jl into Base
+Test Summary:    | Pass  Total   Time
+test reinterpretarray: done in 22.7 s
+== 03-typejoin-getfield-invoke: tuple missing
+evaluated 8 definitions of defs-03-typejoin-getfield-invoke.jl into Base
+Test Summary: | Pass  Total  Time
+test tuple: done in 10.2 s
+Test Summary: | Pass  Broken  Total   Time
+test missing: done in 18.0 s
+== 08-issorted-specialize: sorting
+evaluated 1 definitions of defs-08-issorted-specialize.jl into Base
+Test Summary: |  Pass  Broken  Total     Time
+test sorting: done in 149.5 s
+== 02-introspection-getfield-invoke: reflection tuple
+evaluated 9 definitions of defs-02-introspection-getfield-invoke.jl into Base
+Test Summary: | Pass  Total   Time
+reflection    |  615    615  51.0s
+test reflection: done in 51.5 s
+Test Summary: | Pass  Total  Time
+tuple         |  901    901  8.8s
+test tuple: done in 8.8 s
+== 05-yieldto-setfield: channels
+evaluated 1 definitions of defs-05-yieldto-setfield.jl into Base
+Test Summary: | Pass  Total   Time
+channels      |  282    282  17.7s
+test channels: done in 18.0 s
+== 07-iocontext-property-invoke: show
+evaluated 1 definitions of defs-07-iocontext-property-invoke.jl into Base
+
+Test Summary: | Pass  Error  Total  Time
+show          |   17      1     18  4.4s
+show: Error During Test at /p/projects/coen/julia-trait-bound/experiments/implementation/w19/tools/session_check.jl:20
+== 09-reflection-interp-world: reflection
+evaluated 1 definitions of defs-09-reflection-interp-world.jl into Base
+Test Summary: | Pass  Total  Time
+reflection    |  615    615  5.8s
+test reflection: done in 6.0 s
+== control: show with no definition evaluated (an empty defs file): the same error (17 passed, 1 errored): the harness's include of show.jl, not the patch; P07 is checked in the stack (tests-stack-b.log: show passes)

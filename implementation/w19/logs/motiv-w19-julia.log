@@ -1,0 +1,42 @@
+# W-19 motivation programs | wt/w19-julia bd0e219c41 | 2026-11-22T07:23:09+01:00 | load 3.02 3.79 3.36
+## invalidations (motiv/invalidations.jl), one process per probe
+sizeof_type        invalidated instances    377  | Compiler.abstract_call_gf_by_type 26, Compiler.abstract_call_method_with_const_args 22, Compiler.abstract_modifyop! 18, Compiler.infercalls 12, Compiler.abstract_call 12, Compiler.resolve_todo 12
+getproperty_type   invalidated instances   4137  | Base.show 93, Base.print 76, Base.string 54, Base.print_to_string 49, Base.push! 48, Base._push! 48
+unwrap_unionall    invalidated instances   2142  | Base.eltype 40, Base.CoreLogging.handle_message_nothrow 33, Base.Compiler.IRShow.show_ir_stmt 27, Compiler.abstract_call_gf_by_type 26, Compiler.#⊑##0 25, Compiler.Future 24
+typejoin           invalidated instances    850  | Base.promote_result 78, Base.promote_type 67, Compiler.abstract_call_gf_by_type 26, Compiler.abstract_call_method_with_const_args 22, Base.Broadcast.combine_eltypes 21, Compiler.abstract_modifyop! 18
+convert_string     invalidated instances      0  | 
+symbol_ctor        invalidated instances      0  | 
+inexacterror       invalidated instances      1  | Core.InexactError 1
+val_ctor           invalidated instances      0  | 
+immutabledict      invalidated instances     76  | Base.show_method 5, Base.show_mi 5, Base.#show_method#519 5, Base.show 5, Base.#show#517 4, Base.which 4
+## P10, P18: first calls (motiv/first_calls.jl), 3 fresh processes each
+return_type at run time: first 0.37 ms, second 0.118 ms
+return_type at run time: first 0.37 ms, second 0.109 ms
+return_type at run time: first 0.37 ms, second 0.117 ms
+infer_return_type: first 28.45 ms, second 0.036 ms
+infer_return_type: first 28.6 ms, second 0.037 ms
+infer_return_type: first 28.82 ms, second 0.036 ms
+## P11, P12: a varargs wrapper in a recursion (motiv/varargs_recursion.jl)
+visit over 100000 kids: 0.48 ms, 0 bytes allocated
+specializations of wrap: Tuple{typeof(wrap), typeof(visit), S, Float64, Int64}
+## P14: a dynamic call at one site with 1, 4, 16 value types (motiv/dispatch_site.jl)
+ 1 types   setindex!   19.6 ns   push!   14.7 ns
+ 4 types   setindex!   19.6 ns   push!   14.8 ns
+16 types   setindex!   19.6 ns   push!   14.8 ns
+## P16: the calling convention :caller_world (motiv/caller_world.jl)
+caller_world: all tests passed
+## P15: the dispatch profiler (JULIA_DISPATCH_PROFILE=1, motiv/dispatch_site.jl)
+-- dynamic calls by callee method (lookup path: site/leaf/assoc/full)
+     9003004  Base.push!  array.jl:1354   9003001/0/3/0
+     9003000  Base.setindex!  essentials.jl:983   9002999/0/1/0
+        9003  Base.empty!  array.jl:2129   9002/1/0/0
+        5754  Compiler.widenconst  ../usr/share/julia/Compiler/src/typelattice.jl:707   0/0/5754/0
+--
+-- dynamic calls by call site (the calling code, innermost frame first; the callee)
+     9003000  fill_dyn! at /p/projects/coen/julia-trait-bound/experiments/implementation/w19/motiv/dispatch_site.jl:12  ->  Base.setindex!
+     8993997  push_dyn! at /p/projects/coen/julia-trait-bound/experiments/implementation/w19/motiv/dispatch_site.jl:19  ->  Base.push!
+        9003  push_dyn! at /p/projects/coen/julia-trait-bound/experiments/implementation/w19/motiv/dispatch_site.jl:21  ->  Base.empty!
+        9003  push_dyn! at /p/projects/coen/julia-trait-bound/experiments/implementation/w19/motiv/dispatch_site.jl:19  ->  Base.push!
+## P06: Val(x) at an unknown x: the calls left in its code (code_typed)
+statements: Core.apply_type(Base.Val, _2) | %new(%1)
+# done 2026-11-22T07:23:22+01:00

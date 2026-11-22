@@ -1,0 +1,29 @@
+08:53:07 [build.sh] done: wall 685 s, peak RSS of the largest process 4867 MB (sampled), narrowed 0
+# P15 alone (517a21076d*) 2026-11-22T08:53:12+01:00 load 6.76 4.76 4.00; sys.so 194436928 bytes
+## off
+ 1 types   setindex!   95.3 ns   push!   82.3 ns
+ 4 types   setindex!   97.2 ns   push!   75.9 ns
+16 types   setindex!  120.9 ns   push!   91.2 ns
+## JULIA_DISPATCH_PROFILE=1
+ 1 types   setindex!  105.2 ns   push!   91.5 ns
+ 4 types   setindex!  107.3 ns   push!   84.7 ns
+16 types   setindex!  130.3 ns   push!  100.1 ns
+
+-- dynamic calls by callee method (lookup path: site/leaf/assoc/full)
+     9003004  Base.push!  array.jl:1354   0/0/9003004/0
+     9003000  Base.setindex!  essentials.jl:978   0/0/9003000/0
+        9003  Base.empty!  array.jl:2129   9002/1/0/0
+        5754  Compiler.widenconst  ../usr/share/julia/Compiler/src/typelattice.jl:707   0/0/5754/0
+        5545  Compiler.maybe_erase_unused!  ../usr/share/julia/Compiler/src/ssair/ir.jl:1985   5542/3/0/0
+--
+-- dynamic calls by call site (the calling code, innermost frame first; the callee)
+     9003000  fill_dyn! at /p/projects/coen/julia-trait-bound/experiments/implementation/w19/motiv/dispatch_site.jl:12  ->  Base.setindex!
+     8993997  push_dyn! at /p/projects/coen/julia-trait-bound/experiments/implementation/w19/motiv/dispatch_site.jl:19  ->  Base.push!
+        9003  push_dyn! at /p/projects/coen/julia-trait-bound/experiments/implementation/w19/motiv/dispatch_site.jl:21  ->  Base.empty!
+        9003  push_dyn! at /p/projects/coen/julia-trait-bound/experiments/implementation/w19/motiv/dispatch_site.jl:19  ->  Base.push!
+        5500  simple_dce! at ./../usr/share/julia/Compiler/src/ssair/ir.jl:2113  ->  Compiler.maybe_erase_unused!
+--
+        2189  #argtypes_to_type##0 at ./../usr/share/julia/Compiler/src/typeutils.jl:52  ->  Compiler.widenconst
+        1929  ijl_task_get_next at /p/projects/coen/julia-trait-bound/wt/w19-julia/src/scheduler.c:447 (in get_next_task at /p/projects/coen/julia-trait-bound/wt/w19-julia/src/scheduler.c:385)  ->  Base.trypoptask
+worlds     (1) |     2.30 |   0.02 |  1.0 |     126.24 |   324.15
+    SUCCESS

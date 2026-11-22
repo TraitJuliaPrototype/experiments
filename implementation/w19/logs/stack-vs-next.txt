@@ -1,0 +1,165 @@
+# W-19: the stack (w19-stack, bd0e219c41) against next (cf0f039f51), for the files the up/* patches touch.
+# Lines with '-' are the stack's that next lacks; '+' next's that the stack lacks (the traits and facts hunks, and the comments the patches rewrite in plain terms).
+ Compiler/src/bootstrap.jl      |   30 +-
+ Compiler/src/optimize.jl       |   17 +
+ Compiler/src/ssair/inlining.jl |  383 ++++-
+ Compiler/src/tfuncs.jl         |   51 +-
+ Compiler/src/typeinfer.jl      |  541 +++++-
+ base/boot.jl                   |   57 +
+ base/essentials.jl             |    5 +-
+ base/promotion.jl              |    6 +-
+ base/reflection.jl             |    9 +
+ base/reinterpretarray.jl       |   10 +-
+ base/runtime_internals.jl      |   16 +-
+ base/show.jl                   |   24 +-
+ contrib/generate_precompile.jl |    2 +-
+ src/codegen.cpp                |  136 +-
+ src/gf.c                       | 3547 +++++++++++++++++++++++++++++++++++++---
+ src/julia_internal.h           |  181 ++
+ src/staticdata_utils.c         |   50 +-
+ 17 files changed, 4710 insertions(+), 355 deletions(-)
+
+== base/boot.jl
++
++# intersections (compiler §4.9): All{X, Y} is the type of the values that are members of each
++# component; the runtime builds it in its normal form as All{Tuple{X, Y}}
++abstract type All{T<:Tuple} end
++# `Callable{A, S}` (compiler §7.4): the functions called with arguments of `A`, returning an `S`. A set whose
++# members are declared: every `Function` by one entry (base/Base.jl), a callable type by its own; the signature
++# is checked at the box, the result on return. The runtime opens it when Core is built, both parameters inputs.
++abstract type Callable{A<:Tuple, S} end
++
++
++# A membership is a method of `implements` (W-141): `S <: X` by a membership holds where it has a method
++# at `(Type{X}, Type{S})`. The runtime defines the method when a membership is declared; its body is
++# the template's.
++function implements end
++_implements_body(@nospecialize(X), @nospecialize(S)) = nothing
++
++# The kept forms (compiler §6.9; traits §7.4): ordinary structs with no rule of subtyping. The library
++# declares their memberships (each set's `Dynamic{Z} where Z<:X` and `Compiled{Z} where Z<:X`) and defines
++# their other methods; Core defines them so that a forwarder made where a method is defined names them.
++# The box: a member of the set `X`, held so that code for it is compiled once per set instance. Its
++# membership test is the field test of `new` with no conversion (`_new_dynamic`, below): `TypeError` for
++# a value that is not a member, decided by the compiler where it knows the member (§4.8).
++struct Dynamic{X}
++    object::X
++    function Dynamic{X}(@nospecialize(x)) where {X}
++        X isa UnionAll && throw(ArgumentError("Dynamic{X} needs the trait's parameters"))
++        return _new_dynamic(Dynamic{X}, x)
++    end
++    # a box of `X` is itself; a box of a subset of `X` gives its object boxed at `X`, a member already
++    Dynamic{X}(d::Dynamic{X}) where {X} = d
++    function Dynamic{X}(d::Dynamic{Y}) where {X, Y<:X}
++        X isa UnionAll && throw(ArgumentError("Dynamic{X} needs the trait's parameters"))
++        return _new_dynamic(Dynamic{X}, getfield(d, :object))
++    end
++end
++# The wrapper: a value held at its own type, so that code for it is compiled for that type. A box gives
++# its object wrapped; a wrapper is itself. (The library's `compiled_for(x)` makes one.)
++struct Compiled{T}
++    object::T
++    Compiled{T}(x) where {T} = new{T}(x)
++end
++Compiled(x::T) where {T} = Compiled{T}(x)
++Compiled(w::Compiled) = w
++Compiled(d::Dynamic) = Compiled(getfield(d, :object))
++# a box of a wrapper holds the wrapper's object
++Dynamic{X}(w::Compiled) where {X} = Dynamic{X}(getfield(w, :object))
++# a call of a value known as `Callable{A, S}` (compiler §7.4): its arguments are of `A`, or the call
++# raises `MethodError`; the compiler inserts the check where it cannot prove them
++_callable_argcheck(@nospecialize(f), @nospecialize(A), @nospecialize(args...)) =
++    (isa(args, A) || throw_methoderror(f, args...); nothing)
++# and its result, or the result of a call that passed such a value on to code compiled for the function's
++# own type, is of the type inferred for it, or the call raises the box's `TypeError` (traits §9): the
++# compiler invokes it after the call
++_callable_result(@nospecialize(r), @nospecialize(T)) =
++    isa(r, T) ? r : throw(TypeError(:Callable, T === Nothing ? "end the function with `nothing`" : "", T, r))
++    # the box made by `new` with no conversion: its field test is the membership test (compiler §6.9)
++    _new_dynamic(::Type{D}, @nospecialize(x)) where {D} = $(Expr(:new, :D, :x))
+== base/essentials.jl
+-# `invoke` at the callee's own signature: a call or a property read at a value of unknown type is a call
+-# at an abstract signature, which a package's method for its own type intercepts (and invalidates),
+-# under helpers whose effects are asserted.
++# `invoke` at the callee's own signature: a call or a property read at a type value (a kind) is no fact
++# signature in the patched build's facts mode, and would leave a run-time site under their assertions.
+== base/operators.jl
+== base/promotion.jl
+-# callee's own signature: a property read or a call at a type value (a kind) can be intercepted by a
+-# package's method for its own type (`getproperty(::Type{MyType}, ::Symbol)`). The results are
+-# unchanged, and a package's methods do not reach the code compiled over these joins.
++# callee's own signature, as the type-introspection helpers do (`unwrap_unionall`): a property read
++# or a call at a type value (a kind) can be intercepted by a package's method for its own type. The
++# results are unchanged, and a package's methods no longer reach the code compiled over these joins.
+== base/reflection.jl
++# An argument of a signature met only as an intersection `All{…}` that no type of the world is in
++# (the runtime's `jl_has_unmet_argument`, compiler §4.9, §5.4): no value has those types there. Two
++# methods are ambiguous only over values that exist; a membership that makes them meet is reported at
++# its declaration (§5.4). Dispatch's lookup drops such a match only at a final pair (§4.8).
++has_unmet_intersection(@nospecialize(sig), world::UInt = get_world_counter()) =
++    ccall(:jl_has_unmet_argument, Cint, (Any, UInt), sig, world) != 0
++
++        has_unmet_intersection(ti) && return false
++        filter!(m::Core.MethodMatch -> !has_unmet_intersection(m.spec_types, world), ms)
+== base/reinterpretarray.jl
+-# the elements of `padding`'s `svec` are `Padding`s: asserted, so the code over them is fully inferred
+-# and makes no dynamic call under the `@assume_effects` helpers below
++# the elements of `padding`'s `svec` are `Padding`s: asserted, so the code over them is fully typed
++# (a facts-mode caller then folds the asserted helpers below over no run-time site)
+-# Calls on a type value go through `invoke` at the method's own signature or a builtin: a call such as
+-# `sizeof(T)` at `T::DataType` is a call at an abstract signature, which a package's method for its own
+-# type (`Base.sizeof(::Type{MyType})`) intercepts, below helpers whose effects are asserted.
++# Calls on a type value go through `invoke` at the method's own signature or a builtin: a call at
++# `DataType` is no fact signature under the facts mode (any type's owner may add a method for its type)
++# and would leave a run-time site below the asserted helpers here.
+== base/runtime_internals.jl
+-    return (t.flags & 0x0080) == 0x0080
++    # n.b. DataType's memoized `flags` word is UInt32 here (the traits fork widened
++    # it, and the field's self-description follows); the masks keep that width
++    return (t.flags & 0x00000080) == 0x00000080
+-isbitstype(@nospecialize t) = (@_total_meta; isa(t, DataType) && (t.flags & 0x0008) == 0x0008)
++isbitstype(@nospecialize t) = (@_total_meta; isa(t, DataType) && (t.flags & 0x00000008) == 0x00000008)
+-isdispatchtuple(@nospecialize(t)) = (@_total_meta; isa(t, DataType) && (t.flags & 0x0004) == 0x0004)
++isdispatchtuple(@nospecialize(t)) = (@_total_meta; isa(t, DataType) && (t.flags & 0x00000004) == 0x00000004)
+-datatype_ismutationfree(dt::DataType) = (@_total_meta; (dt.flags & 0x0100) == 0x0100)
++datatype_ismutationfree(dt::DataType) = (@_total_meta; (dt.flags & 0x00000100) == 0x00000100)
+-datatype_isidentityfree(dt::DataType) = (@_total_meta; (dt.flags & 0x0200) == 0x0200)
++datatype_isidentityfree(dt::DataType) = (@_total_meta; (dt.flags & 0x00000200) == 0x00000200)
+-isconcretetype(@nospecialize(t)) = (@_total_meta; isa(t, DataType) && (t.flags & 0x0002) == 0x0002)
++isconcretetype(@nospecialize(t)) = (@_total_meta; isa(t, DataType) && (t.flags & 0x00000002) == 0x00000002)
+-            return nfields(names)   # a builtin: `length` at an abstract `Tuple` is a call at an abstract signature
++            return nfields(names)   # a builtin: `length` at an abstract `Tuple` is no fact signature
+== base/show.jl
+-
++# `IOContext{IO}(io, key => value, …)`, the erased stream (traits §9b): one type whatever the stream,
++# with the stream's properties and the pairs; its operations on the stream it holds branch over
++# `IO`'s candidates (compiler §7.5). An `IOContext` given is unwrapped, its properties kept.
++function IOContext{IO_t}(io::IO, KV::Pair, KVs::Pair...) where {IO_t}
++    d = invoke(ImmutableDict{Symbol,Any}, Tuple{ImmutableDict, Any, Any}, ioproperties(io), KV[1], KV[2])
++    for kv in KVs
++        d = invoke(ImmutableDict{Symbol,Any}, Tuple{ImmutableDict, Any, Any}, d, kv[1], kv[2])
++    end
++    return IOContext{IO_t}(io, d)
++end
++
++    # an intersection prints as written: All{X, Y} (Core.All{Tuple{X, Y}} in its normal form)
++    if x.name === typename(Core.All) && length(parameters) == 1 && parameters[1] isa DataType &&
++            (parameters[1]::DataType).name === Tuple.name
++        print(io, "All{")
++        comps = (parameters[1]::DataType).parameters
++        for i in 1:length(comps)
++            i > 1 && print(io, ", ")
++            show(io, comps[i])
++        end
++        print(io, "}")
++        return
++    end
+== base/sort.jl
+== base/strings/string.jl
+== base/task.jl
+== contrib/generate_precompile.jl
+-# `Base.infer_return_type`'s inference, compiled: otherwise its first call in a session compiles it
++# `Base.infer_return_type`'s inference, compiled: the trait library's member checks call it at a session's first member (E-301)
+
+== the union of the up/* branches' trees equals w19-stack's:
+(no output above: equal)

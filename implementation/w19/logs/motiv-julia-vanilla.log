@@ -1,0 +1,34 @@
+# W-19 motivation programs | julia-vanilla 45b6d15e34 | 2026-11-22T07:22:46+01:00 | load 3.25 3.88 3.38
+## invalidations (motiv/invalidations.jl), one process per probe
+sizeof_type        invalidated instances    413  | Compiler.abstract_call_gf_by_type 26, Compiler.abstract_call_method_with_const_args 22, Compiler.abstract_modifyop! 18, Random.rand 14, Compiler.infercalls 12, Compiler.abstract_call 12
+getproperty_type   invalidated instances   4977  | Base.show 92, Base.promote_result 78, Base.eltype 76, Base.print 76, Base.promote_type 67, Base.string 54
+unwrap_unionall    invalidated instances   2142  | Base.eltype 40, Base.CoreLogging.handle_message_nothrow 33, Base.Compiler.IRShow.show_ir_stmt 27, Compiler.abstract_call_gf_by_type 26, Compiler.#⊑##0 25, Compiler.Future 24
+typejoin           invalidated instances   1938  | Base.promote_result 78, Base.eltype 76, Base.promote_type 67, Base.promote_typejoin 47, Base._compute_eltype 38, Base.nteltype 34
+convert_string     invalidated instances      0  | 
+symbol_ctor        invalidated instances      0  | 
+inexacterror       invalidated instances  16092  | Base.string 329, Base.print 275, Base.print_to_string 225, Base.setindex! 191, Base.Dict 188, Base.show 186
+val_ctor           invalidated instances   2004  | Random.rand 57, Base.convert 34, Base.Sort._sort! 33, Base.SubArray 33, LinearAlgebra.\ 24, SHA.update! 24
+immutabledict      invalidated instances    398  | Base.show 28, Base.show_delim_array 24, Base.string 17, Base.print_to_string 17, Base.show_tuple_as_call 16, Base.#show_tuple_as_call#499 13
+## P10, P18: first calls (motiv/first_calls.jl), 3 fresh processes each
+return_type at run time: first 0.37 ms, second 0.1 ms
+return_type at run time: first 0.36 ms, second 0.101 ms
+return_type at run time: first 0.37 ms, second 0.101 ms
+infer_return_type: first 35.92 ms, second 0.044 ms
+infer_return_type: first 36.33 ms, second 0.04 ms
+infer_return_type: first 36.48 ms, second 0.042 ms
+## P11, P12: a varargs wrapper in a recursion (motiv/varargs_recursion.jl)
+visit over 100000 kids: 26.87 ms, 16800000 bytes allocated
+specializations of wrap: Tuple{typeof(wrap), typeof(visit), S, Float64, Int64}; Tuple{typeof(wrap), typeof(visit), A, Float64, Vararg{Any}}; Tuple{typeof(wrap), typeof(visit), G, Float64, Vararg{Any}}
+## P14: a dynamic call at one site with 1, 4, 16 value types (motiv/dispatch_site.jl)
+ 1 types   setindex!  103.1 ns   push!  183.6 ns
+ 4 types   setindex!  101.1 ns   push!  105.9 ns
+16 types   setindex!  114.6 ns   push!  104.8 ns
+## P16: the calling convention :caller_world (motiv/caller_world.jl)
+  Expression: Base.invoke_in_world(w_old, callp, p_world, 1) == 1
+   Evaluated: 2 == 1
+ERROR: LoadError: There was an error during testing
+in expression starting at /p/projects/coen/julia-trait-bound/experiments/implementation/w19/motiv/caller_world.jl:15
+## P15: the dispatch profiler (JULIA_DISPATCH_PROFILE=1, motiv/dispatch_site.jl)
+## P06: Val(x) at an unknown x: the calls left in its code (code_typed)
+statements: Core.apply_type(Base.Val, _2) | %new(%1)
+# done 2026-11-22T07:23:09+01:00
