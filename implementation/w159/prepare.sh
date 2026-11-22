@@ -17,6 +17,7 @@ ENVS=${*:-$ALL}
 header "$LOGS/prepare-$S.log" "prepare $S ($ENVS)" "$S"
 check "$S"
 [ -d "$IMPL/w134/pkgs-facts/CSV" ] || die "w134/pkgs-facts is missing: run w134/prep.jl (its README)"
+[ "$S" != H ] || [ -d "$W159/pkgs-facts-head/CSV" ] || die "w159/pkgs-facts-head is missing: run facts_head.sh"
 for e in $ENVS; do
   case $e in
     tw) p=$(tree "$S" TW) ;;

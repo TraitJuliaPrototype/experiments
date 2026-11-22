@@ -1,0 +1,484 @@
+# W-159 prepare H (tw up facts forks lib demo nd ndtest) | 2026-11-22T03:46:40+01:00 | load-before 1.52 2.86 3.37 | login02
+# setting H: julia julia-next cf0f039f51 (binary cf0f039f51*) | TW TraitWorld 42d60e13bf | TDE TraitDifferentialEquations 06c28c376f | TM TraitMakie 1888698d7a | TT TraitTables e1ec1f4368 | TC TraitCSV 094dcb2e21 | TR TraitReport ec34d1219c | FORKS forks a3a37d6b5e | ND ndport/pkgs/NetworkDynamics-unified c2bbf0d9aa | depot .julia-depot/agent-depots/w159/H
+# experiments 88e99b20b4* | product setting, strict mode off, one thread, fresh process per cell
+# NOTE setting H: the binary is marked '*' (its tree had a tracked change when it was built); the tree is clean now
+== precompile H tw (TraitWorld) | load 1.52 2.86 3.37
+Precompiling packages...
+   6.2 s  ✓ TraitWorld
+  1 dependency successfully precompiled in 6 seconds. 4 already precompiled.
+-- rc 0 | load 1.84 2.89 3.37
+# tw: 7 s
+== precompile H up (experiments/implementation/w159/envs/H/up) | load 1.84 2.89 3.37
+Precompiling packages...
+   0.5 s  ✓ Reexport
+   0.5 s  ✓ MappedArrays
+   0.8 s  ✓ InlineStrings
+   0.4 s  ✓ TensorCore
+   0.5 s  ✓ ConstructionBase
+   0.3 s  ✓ DataValueInterfaces
+   0.4 s  ✓ StatsAPI
+   1.7 s  ✓ MacroTools
+   0.9 s  ✓ IrrationalConstants
+   0.5 s  ✓ Observables
+   0.4 s  ✓ RoundingEmulator
+   0.5 s  ✓ HelpPlots
+   0.9 s  ✓ Format
+   0.4 s  ✓ PolygonOps
+   0.4 s  ✓ CEnum
+   0.5 s  ✓ IterTools
+   0.5 s  ✓ IntervalSets
+   0.5 s  ✓ DataStrings
+   0.4 s  ✓ Contour
+   0.5 s  ✓ Inflate
+   0.4 s  ✓ LaTeXStrings
+   0.5 s  ✓ TranscodingStreams
+   0.4 s  ✓ StaticArraysCore
+   0.5 s  ✓ Statistics
+   0.4 s  ✓ PtrArrays
+   0.4 s  ✓ Adapt
+   1.1 s  ✓ ChainRulesCore
+   0.4 s  ✓ DataAPI
+   0.4 s  ✓ InvertedIndices
+   1.2 s  ✓ AdaptivePredicates
+   0.4 s  ✓ LazyModules
+   0.5 s  ✓ InverseFunctions
+   0.4 s  ✓ CompositionsBase
+   0.5 s  ✓ AbstractTrees
+   0.4 s  ✓ EnumX
+   0.5 s  ✓ AbstractFFTs
+   0.5 s  ✓ InverseFunctions → InverseFunctionsDatesExt
+   0.4 s  ✓ IntegerMathUtils
+   0.4 s  ✓ TriplotBase
+   0.4 s  ✓ IndirectArrays
+   0.4 s  ✓ RangeArrays
+   0.8 s  ✓ ProgressMeter
+   0.5 s  ✓ OrderedCollections
+   0.5 s  ✓ DocStringExtensions
+   0.3 s  ✓ IteratorInterfaceExtensions
+   0.8 s  ✓ OffsetArrays
+   0.4 s  ✓ NaNMath
+   0.9 s  ✓ Crayons
+   0.5 s  ✓ Scratch
+   0.6 s  ✓ Requires
+   2.2 s  ✓ BaseDirs
+   0.9 s  ✓ Durations
+   1.1 s  ✓ SentinelArrays
+   0.7 s  ✓ WoodburyMatrices
+   1.2 s  ✓ StructUtils
+   0.6 s  ✓ SuiteSparse
+   0.5 s  ✓ Compat
+   0.7 s  ✓ Preferences
+   0.4 s  ✓ ConstructionBase → ConstructionBaseLinearAlgebraExt
+   1.4 s  ✓ UnicodeFun
+   0.6 s  ✓ SimpleTraits
+   0.3 s  ✓ IntervalSets → IntervalSetsRandomExt
+   1.3 s  ✓ PkgVersion
+   0.3 s  ✓ ConstructionBase → ConstructionBaseIntervalSetsExt
+   0.5 s  ✓ CodecZlib
+   0.9 s  ✓ CodecZstd
+   0.6 s  ✓ Statistics → SparseArraysExt
+   0.9 s  ✓ SignedDistanceFields
+   0.4 s  ✓ IntervalSets → IntervalSetsStatisticsExt
+   0.4 s  ✓ AliasTables
+   0.6 s  ✓ Adapt → AdaptSparseArraysExt
+   0.6 s  ✓ ChainRulesCore → ChainRulesCoreSparseArraysExt
+   1.5 s  ✓ FixedPointNumbers
+   0.4 s  ✓ Missings
+   0.5 s  ✓ PooledArrays
+   0.4 s  ✓ CompositionsBase → CompositionsBaseInverseFunctionsExt
+   0.4 s  ✓ AbstractFFTs → AbstractFFTsChainRulesCoreExt
+   0.9 s  ✓ FillArrays
+   0.5 s  ✓ Primes
+   0.4 s  ✓ ProgressMeter → ProgressMeterDistributedExt
+   0.4 s  ✓ TableTraits
+   0.7 s  ✓ LogExpFunctions
+   0.4 s  ✓ PaddedViews
+   0.4 s  ✓ OffsetArrays → OffsetArraysAdaptExt
+   0.4 s  ✓ StackViews
+   1.6 s  ✓ DataStructures
+   0.4 s  ✓ Ratios
+   0.6 s  ✓ RelocatableFolders
+   0.5 s  ✓ StructUtils → StructUtilsStaticArraysCoreExt
+   0.6 s  ✓ AxisAlgorithms
+   0.4 s  ✓ Compat → CompatLinearAlgebraExt
+   0.8 s  ✓ PDMats
+   0.6 s  ✓ PrecompileTools
+   1.5 s  ✓ AdaptiveArrayPools
+   0.7 s  ✓ JLLWrappers
+   2.9 s  ✓ FileIO
+   0.9 s  ✓ ComputePipeline
+   0.8 s  ✓ AxisArrays
+   1.2 s  ✓ ColorTypes
+  12.9 s  ✓ Unitful
+   0.7 s  ✓ FillArrays → FillArraysSparseArraysExt
+   0.4 s  ✓ FillArrays → FillArraysStatisticsExt
+   0.6 s  ✓ Unitful → ConstructionBaseUnitfulExt
+   0.4 s  ✓ LogExpFunctions → LogExpFunctionsInverseFunctionsExt
+   1.5 s  ✓ Accessors
+   0.4 s  ✓ MosaicViews
+   1.2 s  ✓ Tables
+   0.5 s  ✓ SortingAlgorithms
+   0.8 s  ✓ Gamma
+   0.4 s  ✓ Ratios → RatiosFixedPointNumbersExt
+   0.7 s  ✓ FillArrays → FillArraysPDMatsExt
+   1.0 s  ✓ QuadGK
+   1.0 s  ✓ FilePathsBase
+   0.6 s  ✓ CommonSolve
+   0.9 s  ✓ MuladdMacro
+   3.0 s  ✓ StringManipulation
+   2.8 s  ✓ SIMD
+   5.3 s  ✓ StaticArrays
+   0.8 s  ✓ Libffi_jll
+   0.8 s  ✓ EarCut_jll
+   0.8 s  ✓ Bzip2_jll
+   7.2 s  ✓ Automa
+   0.8 s  ✓ isoband_jll
+   0.8 s  ✓ Rmath_jll
+   0.9 s  ✓ XZ_jll
+   7.4 s  ✓ FastInterpolations
+   0.7 s  ✓ Xorg_xtrans_jll
+   0.8 s  ✓ Opus_jll
+   0.8 s  ✓ x265_jll
+   0.8 s  ✓ libpng_jll
+   0.8 s  ✓ CRlibm_jll
+   0.8 s  ✓ Imath_jll
+   0.8 s  ✓ Libmount_jll
+   0.8 s  ✓ libfdk_aac_jll
+   0.8 s  ✓ Libuuid_jll
+   0.8 s  ✓ FriBidi_jll
+   0.8 s  ✓ LERC_jll
+   0.8 s  ✓ Xorg_libXau_jll
+   0.8 s  ✓ Ogg_jll
+   0.8 s  ✓ LAME_jll
+   0.8 s  ✓ CoreMath_jll
+   0.8 s  ✓ Graphite2_jll
+   0.8 s  ✓ x264_jll
+   0.8 s  ✓ Xorg_libpciaccess_jll
+   0.8 s  ✓ LLVMOpenMP_jll
+   0.9 s  ✓ Libiconv_jll
+   0.8 s  ✓ libdeflate_jll
+   0.9 s  ✓ libaom_jll
+   0.8 s  ✓ Xorg_libXdmcp_jll
+  13.6 s  ✓ Parsers
+   0.8 s  ✓ Giflib_jll
+   0.8 s  ✓ Expat_jll
+   0.8 s  ✓ OpenBLASConsistentFPCSR_jll
+   0.9 s  ✓ JpegTurbo_jll
+   0.4 s  ✓ ColorTypes → StyledStringsExt
+   0.8 s  ✓ OpenSpecFun_jll
+   0.6 s  ✓ Unitful → PrintfExt
+   0.6 s  ✓ Unitful → InverseFunctionsUnitfulExt
+   0.6 s  ✓ Unitful → NaNMathExt
+   1.4 s  ✓ ColorVectorSpace
+   0.6 s  ✓ Accessors → IntervalSetsExt
+   1.1 s  ✓ LogExpFunctions → LogExpFunctionsChainRulesCoreExt
+   0.8 s  ✓ Accessors → LinearAlgebraExt
+   0.6 s  ✓ Accessors → UnitfulExt
+   0.7 s  ✓ StructArrays
+   0.5 s  ✓ StructUtils → StructUtilsTablesExt
+   0.5 s  ✓ FilePathsBase → FilePathsBaseMmapExt
+   1.0 s  ✓ HypergeometricFunctions
+   0.7 s  ✓ FilePaths
+   2.1 s  ✓ StatsBase
+   1.0 s  ✓ FFTA
+   0.7 s  ✓ StaticArrays → StaticArraysStatisticsExt
+   0.6 s  ✓ StaticArrays → StaticArraysChainRulesCoreExt
+   5.8 s  ✓ Colors
+   0.6 s  ✓ ConstructionBase → ConstructionBaseStaticArraysExt
+   0.6 s  ✓ Adapt → AdaptStaticArraysExt
+   0.7 s  ✓ FillArrays → FillArraysStaticArraysExt
+   0.7 s  ✓ Accessors → StaticArraysExt
+   0.5 s  ✓ Isoband
+   0.8 s  ✓ FreeType2_jll
+   0.7 s  ✓ Rmath
+   0.7 s  ✓ FastInterpolations → FastInterpolationsChainRulesCoreExt
+   0.6 s  ✓ CRlibm
+   1.1 s  ✓ libvorbis_jll
+   0.7 s  ✓ CoreMath
+   0.9 s  ✓ libdrm_jll
+   1.1 s  ✓ Pixman_jll
+   1.3 s  ✓ GettextRuntime_jll
+   2.3 s  ✓ Xorg_libxcb_jll
+   7.2 s  ✓ GeometryBasics
+   1.0 s  ✓ InlineStrings → ParsersExt
+   0.9 s  ✓ Libtiff_jll
+   0.8 s  ✓ libsixel_jll
+   1.5 s  ✓ QOI
+  17.0 s  ✓ PrettyTables
+   9.7 s  ✓ JSON
+   0.7 s  ✓ FastInterpolations → FastInterpolationsColorVectorSpaceExt
+   2.2 s  ✓ SpecialFunctions
+   0.5 s  ✓ StructArrays → LinearAlgebraExt
+-- rc 0 | load 3.85 3.77 3.67
+# up: 258 s
+== precompile H facts (experiments/implementation/w159/envs/H/facts) | load 3.85 3.77 3.67
+Precompiling packages...
+ERROR: LoadError: unknown option "dynamic"
+Stacktrace:
+  [1] error(s::String)
+    @ Base ./error.jl:44
+  [2] var"@compiler_options"(__source__::LineNumberNode, __module__::Module, args::Vararg{Any})
+    @ Base.Experimental ./experimental.jl:227
+  [3] fl_lower(ex::Expr, mod::Module, filename::String, lineno::UInt64, world::UInt64, warn::Bool)
+    @ Base ./flfrontend.jl:24
+  [4] include(mod::Module, _path::String)
+    @ Base ./Base.jl:318
+  [5] include_package_for_output(pkg::Base.PkgId, input::String, depot_path::Vector{String}, dl_load_path::Vector{String}, load_path::Vector{String}, concrete_deps::Vector{Pair{Base.PkgId, UInt128}}, source::Nothing, preresolved::Vector{Pair{Base.PkgId, String}})
+    @ Base ./loading.jl:3214
+  [6] top-level scope
+    @ stdin:5
+  [7] eval(m::Module, e::Any)
+    @ Core ./boot.jl:546
+  [8] include_string(mapexpr::typeof(identity), mod::Module, code::String, filename::String)
+    @ Base ./loading.jl:3049
+  [9] include_string
+    @ ./loading.jl:3059 [inlined]
+ [10] exec_options(opts::Base.JLOptions)
+    @ Base ./client.jl:342
+ [11] _start()
+    @ Base ./client.jl:577
+in expression starting at /p/projects/coen/julia-trait-bound/experiments/implementation/w134/pkgs-facts/InlineStrings/src/InlineStrings.jl:2
+in expression starting at /p/projects/coen/julia-trait-bound/experiments/implementation/w134/pkgs-facts/InlineStrings/src/InlineStrings.jl:1
+in expression starting at stdin:5
+ERROR: LoadError: unknown option "dynamic"
+Stacktrace:
+  [1] error(s::String)
+    @ Base ./error.jl:44
+  [2] var"@compiler_options"(__source__::LineNumberNode, __module__::Module, args::Vararg{Any})
+    @ Base.Experimental ./experimental.jl:227
+  [3] fl_lower(ex::Expr, mod::Module, filename::String, lineno::UInt64, world::UInt64, warn::Bool)
+    @ Base ./flfrontend.jl:24
+  [4] include(mod::Module, _path::String)
+    @ Base ./Base.jl:318
+  [5] include_package_for_output(pkg::Base.PkgId, input::String, depot_path::Vector{String}, dl_load_path::Vector{String}, load_path::Vector{String}, concrete_deps::Vector{Pair{Base.PkgId, UInt128}}, source::Nothing, preresolved::Vector{Pair{Base.PkgId, String}})
+    @ Base ./loading.jl:3214
+  [6] top-level scope
+    @ stdin:5
+  [7] eval(m::Module, e::Any)
+    @ Core ./boot.jl:546
+  [8] include_string(mapexpr::typeof(identity), mod::Module, code::String, filename::String)
+    @ Base ./loading.jl:3049
+  [9] include_string
+    @ ./loading.jl:3059 [inlined]
+ [10] exec_options(opts::Base.JLOptions)
+    @ Base ./client.jl:342
+ [11] _start()
+    @ Base ./client.jl:577
+in expression starting at /p/projects/coen/julia-trait-bound/experiments/implementation/w134/pkgs-facts/PooledArrays/src/PooledArrays.jl:2
+in expression starting at /p/projects/coen/julia-trait-bound/experiments/implementation/w134/pkgs-facts/PooledArrays/src/PooledArrays.jl:1
+in expression starting at stdin:5
+ERROR: LoadError: unknown option "dynamic"
+Stacktrace:
+  [1] error(s::String)
+    @ Base ./error.jl:44
+  [2] var"@compiler_options"(__source__::LineNumberNode, __module__::Module, args::Vararg{Any})
+    @ Base.Experimental ./experimental.jl:227
+  [3] fl_lower(ex::Expr, mod::Module, filename::String, lineno::UInt64, world::UInt64, warn::Bool)
+    @ Base ./flfrontend.jl:24
+  [4] include(mod::Module, _path::String)
+    @ Base ./Base.jl:318
+  [5] include_package_for_output(pkg::Base.PkgId, input::String, depot_path::Vector{String}, dl_load_path::Vector{String}, load_path::Vector{String}, concrete_deps::Vector{Pair{Base.PkgId, UInt128}}, source::Nothing, preresolved::Vector{Pair{Base.PkgId, String}})
+    @ Base ./loading.jl:3214
+  [6] top-level scope
+    @ stdin:5
+  [7] eval(m::Module, e::Any)
+    @ Core ./boot.jl:546
+  [8] include_string(mapexpr::typeof(identity), mod::Module, code::String, filename::String)
+    @ Base ./loading.jl:3049
+  [9] include_string
+    @ ./loading.jl:3059 [inlined]
+ [10] exec_options(opts::Base.JLOptions)
+    @ Base ./client.jl:342
+ [11] _start()
+    @ Base ./client.jl:577
+in expression starting at /p/projects/coen/julia-trait-bound/experiments/implementation/w134/pkgs-facts/SentinelArrays/src/SentinelArrays.jl:2
+in expression starting at /p/projects/coen/julia-trait-bound/experiments/implementation/w134/pkgs-facts/SentinelArrays/src/SentinelArrays.jl:1
+in expression starting at stdin:5
+ERROR: LoadError: unknown option "dynamic"
+Stacktrace:
+  [1] error(s::String)
+    @ Base ./error.jl:44
+  [2] var"@compiler_options"(__source__::LineNumberNode, __module__::Module, args::Vararg{Any})
+    @ Base.Experimental ./experimental.jl:227
+  [3] fl_lower(ex::Expr, mod::Module, filename::String, lineno::UInt64, world::UInt64, warn::Bool)
+    @ Base ./flfrontend.jl:24
+  [4] include(mod::Module, _path::String)
+    @ Base ./Base.jl:318
+  [5] include_package_for_output(pkg::Base.PkgId, input::String, depot_path::Vector{String}, dl_load_path::Vector{String}, load_path::Vector{String}, concrete_deps::Vector{Pair{Base.PkgId, UInt128}}, source::Nothing, preresolved::Vector{Pair{Base.PkgId, String}})
+    @ Base ./loading.jl:3214
+  [6] top-level scope
+    @ stdin:5
+  [7] eval(m::Module, e::Any)
+    @ Core ./boot.jl:546
+  [8] include_string(mapexpr::typeof(identity), mod::Module, code::String, filename::String)
+    @ Base ./loading.jl:3049
+  [9] include_string
+    @ ./loading.jl:3059 [inlined]
+ [10] exec_options(opts::Base.JLOptions)
+    @ Base ./client.jl:342
+ [11] _start()
+    @ Base ./client.jl:577
+in expression starting at /p/projects/coen/julia-trait-bound/experiments/implementation/w134/pkgs-facts/Tables/src/Tables.jl:2
+in expression starting at /p/projects/coen/julia-trait-bound/experiments/implementation/w134/pkgs-facts/Tables/src/Tables.jl:1
+in expression starting at stdin:5
+-- rc 0 | load 3.86 3.77 3.67
+# facts: 4 s
+== precompile H forks (experiments/implementation/w159/envs/H/forks) | load 3.86 3.77 3.67
+Precompiling packages...
+   1.9 s  ✓ Tables
+   0.6 s  ✓ StructUtils → StructUtilsTablesExt
+   0.8 s  ✓ Tables → TablesPooledArraysExt
+   0.9 s  ✓ StructArrays
+   0.6 s  ✓ StructArrays → LinearAlgebraExt
+   0.8 s  ✓ StructArrays → StaticArraysExt
+   0.6 s  ✓ StructArrays → AdaptExt
+   0.9 s  ✓ StructArrays → SparseArraysExt
+   0.7 s  ✓ Accessors → StructArraysExt
+  17.3 s  ✓ PrettyTables
+  28.6 s  ✓ CSV
+   1.3 s  ✓ CSV → CSVFilePathsBaseExt
+   2.8 s  ✓ CSV → CSVInlineStringsExt
+  35.9 s  ✓ DataFrames
+   1.3 s  ✓ StructUtils → StructUtilsDataFramesExt
+   5.4 s  ✓ CSV → CSVDataFramesExt
+   2.8 s  ✓ CSV → CSVDataFramesInlineStringsExt
+ 115.9 s  ✓ Makie
+   6.9 s  ✓ IntervalArithmetic → IntervalArithmeticMakieExt
+   7.2 s  ✓ IntervalSets → IntervalSetsMakieExt
+  31.1 s  ✓ CairoMakie
+  21 dependencies successfully precompiled in 162 seconds. 298 already precompiled.
+-- rc 0 | load 4.26 4.39 3.96
+# forks: 163 s
+== precompile H lib (experiments/implementation/w159/envs/H/lib) | load 4.26 4.39 3.96
+-- rc 0 | load 4.08 4.35 3.95
+# lib: 4 s
+== precompile H demo (experiments/implementation/w159/envs/H/demo) | load 4.08 4.35 3.95
+Precompiling packages...
+   1.2 s  ✓ CommonSubexpressions
+   1.1 s  ✓ DiffResults
+   1.3 s  ✓ FunctionWrappers
+   2.1 s  ✓ TraitTables
+   1.2 s  ✓ TraitArrayTools
+   1.6 s  ✓ TraitIndexing
+   0.6 s  ✓ DiffRules
+   1.6 s  ✓ PlainTables
+   0.6 s  ✓ IntervalArithmetic → IntervalArithmeticDiffRulesExt
+   2.8 s  ✓ PlainPlots
+   2.8 s  ✓ ForwardDiff
+   0.8 s  ✓ ForwardDiff → ForwardDiffStaticArraysExt
+   5.4 s  ✓ TraitMakie
+   0.7 s  ✓ Unitful → ForwardDiffExt
+   2.7 s  ✓ ODECore
+   0.7 s  ✓ Roots → RootsForwardDiffExt
+   0.7 s  ✓ FastInterpolations → FastInterpolationsForwardDiffExt
+   0.7 s  ✓ IntervalArithmetic → IntervalArithmeticForwardDiffExt
+   3.4 s  ✓ PlainODE
+   1.1 s  ✓ Interpolations → InterpolationsForwardDiffExt
+   8.6 s  ✓ TraitCSV
+   1.6 s  ✓ TraitRodas
+   3.3 s  ✓ TraitNonlinearSolve
+   5.1 s  ✓ TraitDifferentialEquations
+  24 dependencies successfully precompiled in 21 seconds. 299 already precompiled.
+-- rc 0 | load 4.26 4.39 3.97
+# demo: 21 s
+== precompile H nd (experiments/implementation/w159/envs/H/nd) | load 4.26 4.39 3.97
+Precompiling packages...
+   0.4 s  ✓ IfElse
+   0.5 s  ✓ ArgCheck
+   0.4 s  ✓ ManualMemory
+   0.4 s  ✓ ExprTools
+   0.5 s  ✓ BFloat16s
+   0.5 s  ✓ GPUArraysCore
+   0.4 s  ✓ HashArrayMappedTries
+   1.5 s  ✓ ExproniconLite
+   0.4 s  ✓ FastClosures
+   0.4 s  ✓ Mixers
+   0.4 s  ✓ PolynomialRoots
+   0.3 s  ✓ SIMDTypes
+   0.5 s  ✓ ArrayInterface
+   0.6 s  ✓ Hungarian
+   2.2 s  ✓ FixedPointNumbers
+   0.7 s  ✓ SciMLPublic
+   0.7 s  ✓ CommonWorldInvalidations
+   0.9 s  ✓ LLVMExtra_jll
+   1.0 s  ✓ ADTypes
+   1.0 s  ✓ CpuId
+   0.9 s  ✓ ArnoldiMethod
+   0.8 s  ✓ FreeType2_jll
+   0.8 s  ✓ ThreadingUtilities
+   0.4 s  ✓ ScopedValues
+   1.3 s  ✓ NetworkLayout
+   0.4 s  ✓ ArrayInterface → ArrayInterfaceChainRulesCoreExt
+   0.4 s  ✓ ArrayInterface → ArrayInterfaceFillArraysExt
+   1.5 s  ✓ RuntimeGeneratedFunctions
+   1.2 s  ✓ Jieko
+   0.4 s  ✓ ArrayInterface → ArrayInterfaceGPUArraysCoreExt
+   0.3 s  ✓ ArrayInterface → ArrayInterfaceStaticArraysCoreExt
+   0.4 s  ✓ FixedPointNumbers → FixedPointNumbersStatisticsExt
+   0.6 s  ✓ ArrayInterface → ArrayInterfaceSparseArraysExt
+   1.2 s  ✓ ColorTypes
+   1.2 s  ✓ PreallocationTools
+   4.0 s  ✓ TimerOutputs
+   0.5 s  ✓ ADTypes → ADTypesConstructionBaseExt
+   0.5 s  ✓ ADTypes → ADTypesChainRulesCoreExt
+   1.0 s  ✓ DifferentiationInterface
+   3.2 s  ✓ SparseConnectivityTracer
+   1.0 s  ✓ Fontconfig_jll
+   5.1 s  ✓ SparseMatrixColorings
+   4.3 s  ✓ Graphs
+   1.4 s  ✓ SymbolicIndexingInterface
+   0.5 s  ✓ ColorTypes → StyledStringsExt
+  11.3 s  ✓ Static
+   1.1 s  ✓ PreallocationTools → PreallocationToolsForwardDiffExt
+   6.8 s  ✓ Moshi
+   0.7 s  ✓ DifferentiationInterface → DifferentiationInterfaceForwardDiffExt
+   0.5 s  ✓ DifferentiationInterface → DifferentiationInterfaceGPUArraysCoreExt
+   0.6 s  ✓ DifferentiationInterface → DifferentiationInterfaceStaticArraysExt
+   0.5 s  ✓ DifferentiationInterface → DifferentiationInterfaceChainRulesCoreExt
+   0.7 s  ✓ DifferentiationInterface → DifferentiationInterfaceSparseArraysExt
+   0.8 s  ✓ SparseConnectivityTracer → SparseConnectivityTracerChainRulesCoreExt
+   1.0 s  ✓ SparseConnectivityTracer → SparseConnectivityTracerNaNMathExt
+   5.9 s  ✓ Colors
+   1.0 s  ✓ SparseConnectivityTracer → SparseConnectivityTracerLogExpFunctionsExt
+   0.8 s  ✓ DifferentiationInterface → DifferentiationInterfaceSparseConnectivityTracerExt
+   1.2 s  ✓ SparseConnectivityTracer → SparseConnectivityTracerSpecialFunctionsExt
+   0.9 s  ✓ DifferentiationInterface → DifferentiationInterfaceSparseMatrixColoringsExt
+   1.0 s  ✓ Cairo_jll
+   0.5 s  ✓ BitTwiddlingConvenienceFunctions
+   0.8 s  ✓ SymbolicIndexingInterface → SymbolicIndexingInterfacePrettyTablesExt
+   1.3 s  ✓ NetworkLayout → NetworkLayoutGraphsExt
+   0.5 s  ✓ Graphics
+   1.1 s  ✓ CPUSummary
+   0.9 s  ✓ SparseMatrixColorings → SparseMatrixColoringsColorsExt
+   0.9 s  ✓ HarfBuzz_jll
+   2.3 s  ✓ StaticArrayInterface
+   0.7 s  ✓ PolyesterWeave
+  15.3 s  ✓ LLVM
+   0.6 s  ✓ CloseOpenIntervals
+   0.7 s  ✓ StaticArrayInterface → StaticArrayInterfaceStaticArraysExt
+   1.0 s  ✓ Pango_jll
+   0.7 s  ✓ LayoutPointers
+   0.7 s  ✓ LLVM → BFloat16sExt
+   1.1 s  ✓ Cairo
+   0.9 s  ✓ StrideArraysCore
+   1.8 s  ✓ UnsafeAtomics
+   0.7 s  ✓ Polyester
+   0.8 s  ✓ Atomix
+   2.7 s  ✓ KernelAbstractions
+   0.9 s  ✓ KernelAbstractions → LinearAlgebraExt
+   1.2 s  ✓ KernelAbstractions → SparseArraysExt
+   5.4 s  ✓ TraitMakie
+   2.7 s  ✓ MakieCompat
+   4.4 s  ✓ NNlib
+   1.0 s  ✓ NNlib → NNlibSpecialFunctionsExt
+   1.1 s  ✓ NNlib → NNlibForwardDiffExt
+   2.2 s  ✓ GraphMakie
+   1.8 s  ✓ SparseConnectivityTracer → SparseConnectivityTracerNNlibExt
+  11.6 s  ✓ NetworkDynamics
+  92 dependencies successfully precompiled in 52 seconds. 126 already precompiled.
+-- rc 0 | load 4.68 4.56 4.06
+# nd: 53 s
+== precompile H ndtest (experiments/implementation/w159/envs/H/ndtest) | load 4.68 4.56 4.06
+-- rc 0 | load 4.47 4.52 4.05
+# ndtest: 1 s
+# done 2026-11-22T03:55:13+01:00 | load-after 4.47 4.52 4.05

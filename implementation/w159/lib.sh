@@ -60,6 +60,8 @@ jl() { local s=$1; shift; mkdir -p "$(depot "$s")"
 # envfor S <source env dir> <name>: the harness's environment with the setting's trees -> prints its path
 envfor() { local s=$1 src=$2 name=$3 dst="$W159/envs/$1/$3" pairs=() k
   for k in $KEYS; do pairs+=("$R/${SRC[$k]}=$(tree "$s" "$k")"); done
+  # W-134's packages compiled by facts: on the head the copies with the head's options (facts_head.sh)
+  [ "$s" = H ] && pairs+=("$IMPL/w134/pkgs-facts=$W159/pkgs-facts-head")
   python3 "$W159/mkenv.py" "$src" "$dst" "${pairs[@]}" >&2 || die "environment $name for setting $s: a tree is missing (trees.sh)"
   echo "$dst"; }
 
