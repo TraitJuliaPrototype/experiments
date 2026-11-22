@@ -1,0 +1,36 @@
+# W-159 G-4 images: size and build time (w159/image_build.jl) | 2026-11-22T04:44:45+01:00 | load-before 1.89 2.57 3.08 | login02
+# setting H: julia julia-next cf0f039f51 (binary cf0f039f51*) | TW TraitWorld 42d60e13bf | TDE TraitDifferentialEquations 06c28c376f | TM TraitMakie 1888698d7a | TT TraitTables e1ec1f4368 | TC TraitCSV 094dcb2e21 | TR TraitReport ec34d1219c | FORKS forks a3a37d6b5e | ND ndport/pkgs/NetworkDynamics-unified c2bbf0d9aa | depot .julia-depot/agent-depots/w159/H
+# setting B: julia julia-unified 7b374f39ce (binary 7b374f39ce*) | TW TraitWorld-base e11c7cc58b | TDE wt/w161-tde-base b7306285fe | TM wt/w160-tm c862914ffa | TT wt/w159-tag/TraitTables c3391750fb | TC wt/w159-tag/TraitCSV 92c46d01bc | TR wt/w159-tag/TraitReport a4bcf332db | FORKS wt/w159-tag/forks 439bae73ff | ND wt/w151-base/NetworkDynamics 6310040ec0 | depot .julia-depot/agent-depots/w159/B
+# setting V: julia julia-vanilla 45b6d15e34 (binary 45b6d15e34*) | depot .julia-depot/agent-depots/w159/V
+# experiments 02ade9c813 | product setting, strict mode off, one thread, fresh process per cell
+# NOTE setting H: the binary is marked '*' (its tree had a tracked change when it was built); the tree is clean now
+# preflight H demo: images ok: TraitWorld TraitTables TraitCSV PlainTables TraitDifferentialEquations PlainODE TraitMakie PlainPlots
+# NOTE setting B: the binary is marked '*' (its tree had a tracked change when it was built); the tree is clean now
+# preflight B demo: images ok: TraitWorld TraitTables TraitCSV PlainTables TraitDifferentialEquations PlainODE TraitMakie PlainPlots
+== H run 1 | load 2.30 2.65 3.10
+IMAGE TraitWorld 6.21 s | ji 346435 | so 6883472
+IMAGE TraitTables 1.99 s | ji 12537 | so 1266816
+IMAGE TraitCSV 8.59 s | ji 9377 | so 14694168
+IMAGE PlainTables 1.6 s | ji 10229 | so 1453648
+IMAGE TraitDifferentialEquations 15.37 s | ji 12978 | so 4495400
+IMAGE PlainODE 3.23 s | ji 34482 | so 3718056
+IMAGE TraitMakie 5.92 s | ji 116048 | so 4633152
+IMAGE PlainPlots 2.45 s | ji 26020 | so 2445640
+-- rc 0 | load 2.37 2.63 3.07
+== B run 1 | load 2.37 2.63 3.07
+IMAGE TraitWorld 5.55 s | ji 263338 | so 5484920
+IMAGE TraitTables 3.69 s | ji 12383 | so 3963936
+IMAGE TraitCSV 11.29 s | ji 9224 | so 15170688
+IMAGE PlainTables 1.69 s | ji 10261 | so 1481296
+IMAGE TraitDifferentialEquations 27.26 s | ji 13334 | so 9698416
+IMAGE PlainODE 3.56 s | ji 34470 | so 3759648
+IMAGE TraitMakie 5.89 s | ji 116036 | so 4860744
+IMAGE PlainPlots 2.63 s | ji 26028 | so 2478296
+-- rc 0 | load 2.60 2.65 3.05
+# H julia-next: sys.so 212164208 bytes | build log: 03:21:51 [build.sh] runtime source newer than the first image stage (module.c): every image stage is rebuilt
+03:22:45 Compiling the compiler. This may take several minutes ...;03:29:37 Base  ────────── 32.374376 seconds;03:29:50 Base ────────  32.374376 seconds 71.9123%;BUILD EXIT 0;
+# B julia-unified: sys.so 219567144 bytes | build log: 18:44:05 [build.sh] start: load 4.51, 128 cores, make -j64 (default target), git 7b374f39ce
+18:44:47 Base  ────────── 35.731719 seconds;18:45:00 Base ────────  35.731719 seconds 73.6325%;BUILD EXIT 0;
+# V julia-vanilla: sys.so 194307784 bytes | build log: 12:01:54 [build.sh] start: load 7.95, 128 cores, make -j64 (default target), git 45b6d15e34
+12:03:42 Compiling the compiler. This may take several minutes ...;12:09:33 Base  ────────── 32.484324 seconds;12:09:46 Base ────────  32.484324 seconds 72.4338%;BUILD EXIT 0;
+# done 2026-11-22T04:46:40+01:00 | load-after 2.60 2.65 3.05

@@ -1,0 +1,13 @@
+# W-159 G-6 E-384 the small programs: session check, build, run (w139/apps) | 2026-11-22T04:46:41+01:00 | load-before 2.60 2.65 3.05 | login02
+# setting H: julia julia-next cf0f039f51 (binary cf0f039f51*) | TW TraitWorld 42d60e13bf | TDE TraitDifferentialEquations 06c28c376f | TM TraitMakie 1888698d7a | TT TraitTables e1ec1f4368 | TC TraitCSV 094dcb2e21 | TR TraitReport ec34d1219c | FORKS forks a3a37d6b5e | ND ndport/pkgs/NetworkDynamics-unified c2bbf0d9aa | depot .julia-depot/agent-depots/w159/H
+# experiments 2e57ed7ce3* | product setting, strict mode off, one thread, fresh process per cell
+# NOTE setting H: the binary is marked '*' (its tree had a tracked change when it was built); the tree is clean now
+# preflight H TraitWorld: images ok: TraitWorld
+H typed_trait | session: fully typed | build: 0 errors, 0 warnings | object: exit 0 | link: 2159784 bytes | binary exit 0, output equal yes | agree yes | load 2.46 2.62 3.03
+H typed_plain | session: fully typed | build: 0 errors, 0 warnings | object: exit 0 | link: 1923592 bytes | binary exit 0, output equal yes | agree yes | load 2.43 2.61 3.03
+H vector_trait | session: fully typed | build: 0 errors, 0 warnings | object: exit 0 | link: 2223416 bytes | binary exit 0, output equal yes | agree yes | load 2.41 2.60 3.02
+H vector_plain | session: not: 1 sites | build: 2 errors, 0 warnings | Trim verify finished with 2 errors, 0 warnings. | object: exit 1 | binary exit -, output equal - | agree yes | load 2.38 2.59 3.01
+H dynamic_trait | session: fully typed | build: 0 errors, 0 warnings | object: exit 0 | link: 2216208 bytes | binary exit 0, output equal yes | agree yes | load 2.32 2.57 3.00
+H ft_union | session: fully typed | build: 0 errors, 0 warnings | object: exit 0 | link: 2062432 bytes | binary exit 0, output equal yes | agree yes | load 2.27 2.55 2.99
+H ft_plain_hole | session: fully typed | build: 0 errors, 0 warnings | object: exit 0 | link: 2068256 bytes | binary exit 0, output equal yes | agree yes | load 2.31 2.55 2.98
+# done 2026-11-22T04:47:53+01:00 | load-after 2.31 2.55 2.98

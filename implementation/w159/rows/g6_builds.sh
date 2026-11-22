@@ -27,7 +27,7 @@ for s in $SETTINGS; do check $s; E=$(envfor $s "$IMPL/w134/env_demo" demo) || ex
     esac
     t0=$(date +%s)
     TABLE_PLAIN=$plain REPORT_PLAIN=$plain ODE_PLAIN=$plain NAME=$s-$a JULIA_TREE=$(realpath --relative-to="$R" "$(jtree $s)") \
-      TW=$(realpath --relative-to="$R" "$(tree $s TW)") DEPOT=$(depot $s) LOGDIR=$D OUTDIR=$D/out ${pk:+PKGS="$pk"} \
+      TW=$(realpath --relative-to="$R" "$(tree $s TW)") DEPOT=$(depot $s) LOGDIR=$D OUTDIR=$D/out PKGS="$pk" \
       bash "$IMPL/w166/build_c.sh" $src "$E" > "$D/$s-$a.stdout" 2>&1
     f=$D/w166c-$s-$a.build.log
     echo "$s $a | $(( $(date +%s) - t0 )) s | load $(load) | $(grep -h '^from source' "$f" | head -1) | $(python3 "$IMPL/w135/summarize.py" "$f" | head -1 | cut -c1-200) | $(grep -h '^link:' "$f" | tail -1)" >> "$LOG"
