@@ -1,0 +1,31 @@
+# W-169 frames-facts H inval run 1 | 2026-11-22T16:25:19+01:00 | load-before 4.02 5.45 5.91 | julia 683ea4fc16 | TraitWorld 38200d36df TDE 06c28c376f TM 1888698d7a TT e1ec1f4368 TC 094dcb2e21 TR ec34d1219c forks a3a37d6b5e ND c2bbf0d9aa | env experiments/implementation/w169/envs/H/facts | depots .julia-depot/agent-depots/w169/H:.julia-depot: | product setting, strict mode off, one thread
+START 1.795361120939156e9
+P	load	1044.04	compile 0.0	again 0.0	gc 45.44	alloc_mb 42.52	gc_full 0	gc_n 1
+I	load	log entries 2076
+P	first work	1759.47	compile 1749.21	again 8.94	gc 70.68	alloc_mb 104.68	gc_full 1	gc_n 2
+I	first work	log entries 0
+P	again	1.83	compile 0.0	again 0.0	gc 0.0	alloc_mb 0.56	gc_full 0	gc_n 0
+I	again	log entries 0
+P	nine loads	5219.66	compile 16.32	again 0.0	gc 257.58	alloc_mb 222.59	gc_full 2	gc_n 4
+I	nine loads	log entries 10913
+P	after the loads	1458.25	compile 1453.47	again 1453.47	gc 168.04	alloc_mb 91.4	gc_full 0	gc_n 1
+I	after the loads	log entries 0
+P	again after	1.96	compile 0.0	again 0.0	gc 0.0	alloc_mb 0.56	gc_full 0	gc_n 0
+I	again after	log entries 0
+INVAL log entries 12989 | jl_method_table_insert 6215, invalidate_mt_cache 12
+INVAL ended code by root module: Base 2976, Compiler 2718, PrettyTables 177, Makie 78, StyledStrings 43, Statistics 38, Pkg 33, Artifacts 24, REPL 23, LinearAlgebra 22, Main 15, REPLExt 14
+INVAL cause	1135	jl_method_table_insert	Unitful.Colon Tuple{Colon, Any, Quantity}
+INVAL cause	948	jl_method_table_insert	Tuple{typeof(write), IO, String}
+INVAL cause	589	jl_method_table_insert	Tuple{typeof(==), Any, Function}
+INVAL cause	299	jl_method_table_insert	ChainRulesCore.* Tuple{typeof(*), Any, ChainRulesCore.ZeroTangent}
+INVAL cause	278	jl_method_table_insert	Tuple{typeof(convert), Type{String}, AbstractString}
+INVAL cause	260	jl_method_table_insert	SentinelArrays.Type Tuple{Type{T}, SentinelArrays.ChainedVectorIndex} where T<:Union{Signed, Unsigned}
+INVAL cause	216	jl_method_table_insert	REPL.REPLCompletions.InferenceParams Tuple{Type{Compiler.InferenceParams}, REPL.REPLCompletions.REPLInterpreter}
+INVAL cause	183	jl_method_table_insert	REPL.REPLCompletions.cache_owner Tuple{typeof(Compiler.cache_owner), REPL.REPLCompletions.REPLInterpreter}
+INVAL cause	155	jl_method_table_insert	Tuple{typeof(convert), Type{T}, Integer} where T<:Integer
+INVAL cause	146	jl_method_table_insert	REPL.REPLCompletions.OptimizationParams Tuple{Type{Compiler.OptimizationParams}, REPL.REPLCompletions.REPLInterpreter}
+INVAL cause	117	jl_method_table_insert	Tuple{typeof(==), Function, Function}
+INVAL cause	113	jl_method_table_insert	Tuple{typeof(>), Any, Any}
+END 1.795361132059246e9
+WALL 1795361120.588985286 1795361132.198168378 rc 0
+# done 2026-11-22T16:25:32+01:00 | load-after 3.79 5.33 5.87

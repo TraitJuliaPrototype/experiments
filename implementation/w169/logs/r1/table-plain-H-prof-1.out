@@ -1,0 +1,30 @@
+# W-169 table-plain H prof run 1 | 2026-11-22T16:34:42+01:00 | load-before 3.01 3.27 4.53 | julia 683ea4fc16 | TraitWorld 38200d36df TDE 06c28c376f TM 1888698d7a TT e1ec1f4368 TC 094dcb2e21 TR ec34d1219c forks a3a37d6b5e ND c2bbf0d9aa | env experiments/implementation/w169/envs/H/demo | depots .julia-depot/agent-depots/w169/H:.julia-depot: | product setting, strict mode off, one thread
+START 1.795361683548265e9
+## load: 155.9 ms, 110 samples
+C	load	code generation	41	37.3	gen 100	LLVM (C++) 93; malloc 5; run 2
+C	load	load: the rest (finding files, reading)	36	32.7		file system calls 89; llseek 6; accept_batch 3; getdents64 3
+C	load	load: methods' insertion and invalidation	11	10.0	sub 73	obviously_disjoint 27; jl_to_typeof 18; var_occurs_invariant 9; jl_is_all_type 9
+C	load	load: the images' restore	11	10.0		jl_read_reloclist 36; symtab_lookup 18; ptrhash_peek_bp_r 9; jl_to_typeof 9
+C	load	load: the edges' validation	8	7.3	sub 38	== 12; arraylist_grow 12; ml_matches_i 12; ijl_array_grow_end 12
+C	load	lowering and parsing	3	2.7		apply_cl 67; fl_map1 33
+## first run: 108.1 ms, 66 samples
+C	first run	code generation	50	75.8	gen 100	LLVM (C++) 84; malloc 8; __memmove_avx512_unaligned_erms 2; operator delete 2
+C	first run	inference	11	16.7	inf 100, sub 18	typeinf_edge 18; == 9; jl_to_typeof 9; _advance 9
+C	first run	compiling while inferring	4	6.1	inf 100, gen 100	LLVM (C++) 50; destroy_range 25; bitstype_to_llvm 25
+C	first run	the work itself	1	1.5		file system calls 100
+J	first run	#open#650 1
+## second run: 0.5 ms, 0 samples
+## the whole: 176 samples
+T	code generation	91	51.7
+T	load: the rest (finding files, reading)	36	20.5
+T	load: methods' insertion and invalidation	11	6.2
+T	load: the images' restore	11	6.2
+T	inference	11	6.2
+T	load: the edges' validation	8	4.5
+T	compiling while inferring	4	2.3
+T	lowering and parsing	3	1.7
+T	the work itself	1	0.6
+END 1.795361685814053e9
+WALL 1795361683.355929666 1795361685.845117278 rc 0
+CACHES written during the run: 0
+# done 2026-11-22T16:34:45+01:00 | load-after 3.01 3.27 4.53

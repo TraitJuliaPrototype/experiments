@@ -1,0 +1,93 @@
+# W-169 table H dispatch run 1 | 2026-11-22T16:26:37+01:00 | load-before 3.01 4.81 5.65 | julia 683ea4fc16 | TraitWorld 38200d36df TDE 06c28c376f TM 1888698d7a TT e1ec1f4368 TC 094dcb2e21 TR ec34d1219c forks a3a37d6b5e ND c2bbf0d9aa | env experiments/implementation/w169/envs/H/demo | depots .julia-depot/agent-depots/w169/H:.julia-depot: | product setting, strict mode off, one thread
+START 1.795361198045805e9
+P	load	222.73	compile 63.36	again 0.0	gc 0.0	alloc_mb 10.79	gc_full 0	gc_n 0
+P	first run	64.94	compile 63.3	again 0.0	gc 0.0	alloc_mb 5.05	gc_full 0	gc_n 0
+P	second run	0.47	compile 0.0	again 0.0	gc 0.0	alloc_mb 0.12	gc_full 0	gc_n 0
+END 1.795361198529651e9
+
+-- dynamic calls by callee method (lookup path: site/leaf/assoc/full)
+        6661  Compiler.widenconst  ../usr/share/julia/Compiler/src/typelattice.jl:714   0/0/6661/0
+        6064  Compiler.maybe_erase_unused!  ../usr/share/julia/Compiler/src/ssair/ir.jl:1985   6060/4/0/0
+        2705  Base.getproperty  Base_compiler.jl:51   0/0/2705/0
+        2701  Base.length  essentials.jl:11   2688/0/12/1
+        2645  Compiler.widenconst  ../usr/share/julia/Compiler/src/typelattice.jl:710   2601/0/43/1
+        2256  Compiler.doworkloop  ../usr/share/julia/Compiler/src/inferencestate.jl:1212   2255/1/0/0
+        2202  Base.getproperty  Base_compiler.jl:57   2162/0/36/4
+        2115  Base.unwrap_unionall  essentials.jl:545   2091/0/24/0
+        1793  TraitWorld.bare  /p/projects/coen/julia-trait-bound/TraitWorld/src/contract.jl:54   1778/0/14/1
+        1220  Core.apply_type  :0   0/0/1220/0
+        1176  Compiler.#80  ../usr/share/julia/Compiler/src/inferencestate.jl:1195   1046/128/0/2
+         832  Base.getindex  tuple.jl:33   0/0/832/0
+         726  Compiler.typeinf_local  ../usr/share/julia/Compiler/src/abstractinterpretation.jl:5534   725/1/0/0
+         632  Core.typename  boot.jl:1192   0/0/632/0
+         623  Compiler.handle1  ../usr/share/julia/Compiler/src/abstractinterpretation.jl:1247   560/62/0/1
+         601  Compiler.MethodLookupResult  ../usr/share/julia/Compiler/src/methodtable.jl:6   0/600/0/1
+         486  Base.in  operators.jl:1371   0/0/486/0
+         415  Base.getindex  array.jl:451   0/0/415/0
+         332  Base.==  Base_compiler.jl:301   321/4/6/1
+         297  Base.iterate  essentials.jl:1000   290/0/6/1
+         281  Compiler.add_edges_impl  ../usr/share/julia/Compiler/src/stmtinfo.jl:96   276/4/0/1
+         269  Base.setindex!  essentials.jl:982   267/0/2/0
+         265  Compiler.widenconst  ../usr/share/julia/Compiler/src/typelattice.jl:712   244/0/20/1
+         259  Base.==  promotion.jl:647   241/14/0/4
+         237  Base.isexpr  expr.jl:38   235/0/2/0
+         234  Base.get  iddict.jl:91   223/0/10/1
+         227  Compiler.add_edges_impl  ../usr/share/julia/Compiler/src/stmtinfo.jl:267   222/4/0/1
+         224  Base.indexed_iterate  tuple.jl:163   200/16/0/8
+         215  Base.!  bool.jl:37   196/0/17/2
+         210  Compiler.getsplit_impl  ../usr/share/julia/Compiler/src/stmtinfo.jl:204   207/3/0/0
+         210  Compiler.getresult_impl  ../usr/share/julia/Compiler/src/stmtinfo.jl:205   208/2/0/0
+         210  Compiler.nsplit_impl  ../usr/share/julia/Compiler/src/stmtinfo.jl:203   209/1/0/0
+         208  Base.!=  operators.jl:320   0/0/208/0
+         208  Base.push!  array.jl:1354   198/0/10/0
+         151  Base.isconcretetype  runtime_internals.jl:1088   138/0/13/0
+         150  Compiler.getsplit_impl  ../usr/share/julia/Compiler/src/stmtinfo.jl:269   147/3/0/0
+         150  Compiler.getresult_impl  ../usr/share/julia/Compiler/src/stmtinfo.jl:270   148/2/0/0
+         146  Base.<=  bool.jl:162   145/1/0/0
+         144  Compiler.nsplit_impl  ../usr/share/julia/Compiler/src/stmtinfo.jl:268   143/1/0/0
+         142  Compiler.finishinfer!  ../usr/share/julia/Compiler/src/typeinfer.jl:637   140/2/0/0
+
+-- dynamic calls by call site (the calling code, innermost frame first; the callee)
+        5975  simple_dce! at ./../usr/share/julia/Compiler/src/ssair/ir.jl:2113  ->  Compiler.maybe_erase_unused!
+        3001  widen_all_consts! at ./../usr/share/julia/Compiler/src/optimize.jl:343  ->  Compiler.widenconst
+        2256  doworkloop at ./../usr/share/julia/Compiler/src/inferencestate.jl:1215  ->  Base.length
+        2256  typeinf at ./../usr/share/julia/Compiler/src/abstractinterpretation.jl:5860  ->  Compiler.doworkloop
+        1803  #argtypes_to_type##0 at ./../usr/share/julia/Compiler/src/typeutils.jl:139  ->  Compiler.widenconst
+        1793  bare at /p/projects/coen/julia-trait-bound/TraitWorld/src/contract.jl:54  ->  Base.getproperty
+        1793  bare at /p/projects/coen/julia-trait-bound/TraitWorld/src/contract.jl:54  ->  Base.unwrap_unionall
+        1793  bare at /p/projects/coen/julia-trait-bound/TraitWorld/src/contract.jl:54  ->  Base.getproperty
+        1196  apply_iterate_reach at /p/projects/coen/julia-trait-bound/julia-next/src/builtins.c:904  ->  Core.apply_type
+        1176  doworkloop at ./../usr/share/julia/Compiler/src/inferencestate.jl:1218  ->  Compiler.#80
+        1085  #argtypes_to_type##0 at ./../usr/share/julia/Compiler/src/typeutils.jl:139  ->  Compiler.widenconst
+         832  _patterns_for at /p/projects/coen/julia-trait-bound/TraitWorld/src/implement.jl:721  ->  TraitWorld.bare
+         832  _patterns_for at /p/projects/coen/julia-trait-bound/TraitWorld/src/implement.jl:721  ->  Base.getindex
+         832  _patterns_for at /p/projects/coen/julia-trait-bound/TraitWorld/src/implement.jl:721  ->  TraitWorld.bare
+         726  typeinf at ./../usr/share/julia/Compiler/src/abstractinterpretation.jl:5869  ->  Compiler.typeinf_local
+         601  _findall at ./../usr/share/julia/Compiler/src/methodtable.jl:124  ->  Compiler.MethodLookupResult
+         508  infercalls at ./../usr/share/julia/Compiler/src/abstractinterpretation.jl:1341  ->  Compiler.handle1
+         466  force_const_prop at ./../usr/share/julia/Compiler/src/abstractinterpretation.jl:2278  ->  Core.typename
+         450  sroa_pass! at ./../usr/share/julia/Compiler/src/ssair/passes.jl:1441  ->  Compiler.widenconst
+         415  apply_iterate_reach at /p/projects/coen/julia-trait-bound/julia-next/src/builtins.c:904  ->  Base.getindex
+         295  _patterns_for at /p/projects/coen/julia-trait-bound/TraitWorld/src/implement.jl:738  ->  Base.iterate
+         281  add_edges! at ./../usr/share/julia/Compiler/src/types.jl:596  ->  Compiler.add_edges_impl
+         276  _uncompressed_ir at ./runtime_internals.jl:1625  ->  Base.getproperty
+         256  _forget_in! at /p/projects/coen/julia-trait-bound/TraitWorld/src/implement.jl:297  ->  Base.setindex!
+         247  store_backedges at ./../usr/share/julia/Compiler/src/typeinfer.jl:850  ->  Base.==
+         227  add_edges! at ./../usr/share/julia/Compiler/src/types.jl:596  ->  Compiler.add_edges_impl
+         223  _has_meta at /p/projects/coen/julia-trait-bound/TraitWorld/src/erasing.jl:79  ->  Base.isexpr
+         210  getsplit at ./../usr/share/julia/Compiler/src/types.jl:600  ->  Compiler.getsplit_impl
+         210  getresult at ./../usr/share/julia/Compiler/src/types.jl:601  ->  Compiler.getresult_impl
+         210  nsplit at ./../usr/share/julia/Compiler/src/types.jl:599  ->  Compiler.nsplit_impl
+         208  statement_cost at ./../usr/share/julia/Compiler/src/optimize.jl:1418  ->  Base.!=
+         178  builtin_tfunction at ./../usr/share/julia/Compiler/src/tfuncs.jl:2836  ->  Base.in
+         165  const_prop_function_heuristic at ./../usr/share/julia/Compiler/src/abstractinterpretation.jl:2286  ->  Core.typename
+         161  statement_cost at ./../usr/share/julia/Compiler/src/optimize.jl:1418  ->  Compiler.widenconst
+         150  getsplit at ./../usr/share/julia/Compiler/src/types.jl:600  ->  Compiler.getsplit_impl
+         150  getresult at ./../usr/share/julia/Compiler/src/types.jl:601  ->  Compiler.getresult_impl
+         146  stupdate! at ./../usr/share/julia/Compiler/src/typelattice.jl:749 (in schanged at ./../usr/share/julia/Compiler/src/typelattice.jl:730)  ->  Base.<=
+         144  nsplit at ./../usr/share/julia/Compiler/src/types.jl:599  ->  Compiler.nsplit_impl
+         142  finish_nocycle at ./../usr/share/julia/Compiler/src/typeinfer.jl:264  ->  Compiler.finish!
+         142  typeinf at ./../usr/share/julia/Compiler/src/abstractinterpretation.jl:5876  ->  Compiler.finish_nocycle
+WALL 1795361197.857873152 1795361198.628853049 rc 0
+CACHES written during the run: 0
+# done 2026-11-22T16:26:38+01:00 | load-after 3.01 4.81 5.65

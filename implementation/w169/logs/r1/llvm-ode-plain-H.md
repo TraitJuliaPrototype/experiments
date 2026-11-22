@@ -1,0 +1,21 @@
+- **(before the first phase)**: 40 code generations, 327 ms (julia 30/200 ms, session 10/127 ms); the harness's 13 left out
+  - 33.9 ms `Tuple{typeof(Base.Sort.partition!), Array{Pair{String, Array{Float64, 1}}, 1}, Int64, Int64, Int64, Base.Order.By{Main.var"#18#19", Base.Order.Forward`
+  - 20.4 ms `Tuple{typeof(Base.rehash!), Base.Dict{String, Array{Float64, 1}}, Int64}`
+  - 17.6 ms `Tuple{typeof(Base._replace_finish), Base.GenericIOBuffer{Memory{UInt8}}, String, Int64, Int64, Tuple{Base.Fix{2, typeof(Base.isequal), Char}, Base.Fix`
+  - 17.2 ms `Tuple{typeof(Base.Sort._sort!), Array{Pair{String, Array{Float64, 1}}, 1}, Base.Sort.InsertionSortAlg, Base.Order.By{Main.var"#18#19", Base.Order.Forw`
+  - 15.9 ms `Tuple{typeof(Base.Sort._sort!), Array{Pair{String, Array{Float64, 1}}, 1}, Base.Sort.StableCheckSorted{Base.Sort.ScratchQuickSort{Base.Missing, Base.M`
+  - 15.6 ms `Tuple{typeof(Base.copyto!), Array{Pair{String, Array{Float64, 1}}, 1}, Base.Dict{String, Array{Float64, 1}}}`
+- **_head**: 3 code generations, 10 ms (julia 3/10 ms)
+  - 4.1 ms `Tuple{typeof(Base._array_for), Type{String}, Array{Base.SubString{String}, 1}, Base.HasShape{1}}`
+  - 3.8 ms `Tuple{typeof(Base.iterate), Array{Base.SubString{String}, 1}}`
+  - 2.1 ms `Tuple{Type{Base.LinearIndices{N, R} where R<:Tuple{Vararg{Base.AbstractUnitRange{Int64}, N}} where N}, Array{String, 1}}`
+- **load**: 2 code generations, 40 ms (julia 2/40 ms)
+  - 26.7 ms `Tuple{Base.var"#@static", LineNumberNode, Module, Any}`
+  - 12.9 ms `Tuple{Base.var"#@main", LineNumberNode, Module, Vararg{Any}}`
+- **first run**: 54 code generations, 228 ms (julia 43/155 ms, session 9/59 ms, own image 2/13 ms)
+  - 21.4 ms `Tuple{typeof(Main.main), Array{String, 1}}`
+  - 17.1 ms `Tuple{Base.var"#@cfunction", LineNumberNode, Module, Any, Any, Any}`
+  - 16.8 ms `Tuple{Type{Base.TwicePrecision{Float64}}, Tuple{Int128, Int128}}`
+  - 8.4 ms `Tuple{typeof(Main.robertson!), Array{ForwardDiff.Dual{PlainODE.ODETag, Float64, 3}, 1}, Array{ForwardDiff.Dual{PlainODE.ODETag, Float64, 3}, 1}, Array`
+  - 7.8 ms `Tuple{PlainODE.var"##solve#20", Nothing, Base.Pairs{Symbol, Any, Nothing, NamedTuple{(:saveat, :reltol, :abstol), Tuple{Array{Float64, 1}, Float64, Fl`
+  - 7.6 ms `Tuple{typeof(Base.print), Core.CoreSTDOUT, String, Float64, String}`

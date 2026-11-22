@@ -1,0 +1,41 @@
+# W-169 plot-plain H prof run 2 | 2026-11-22T16:46:31+01:00 | load-before 3.47 3.47 3.99 | julia 683ea4fc16 | TraitWorld 38200d36df TDE 06c28c376f TM 1888698d7a TT e1ec1f4368 TC 094dcb2e21 TR ec34d1219c forks a3a37d6b5e ND c2bbf0d9aa | env experiments/implementation/w169/envs/H/demo | depots .julia-depot/agent-depots/w169/H:.julia-depot: | product setting, strict mode off, one thread
+START 1.795362392714534e9
+## load: 500.4 ms, 397 samples
+C	load	load: the rest (finding files, reading)	212	53.4		file system calls 92; prevind 1; tryparse 1; crc32c_sse42 0
+C	load	load: the images' restore	52	13.1		jl_read_reloclist 40; jl_egal_ 10; file system calls 8; get_item_for_reloc 6
+C	load	load: __init__	48	12.1	sub 2	file system calls 48; __read_nocancel 27;  8; check_match 4
+C	load	load: the edges' validation	39	9.8	sub 41	scan_new_method! 8; set_meets_kinds 5; has_free_typevars 5; obvious_subtype 5
+C	load	load: methods' insertion and invalidation	26	6.5	sub 88	obvious_subtype 19; obviously_in_union 8; jl_is_va_tuple 8; has_free_typevars 4
+C	load	code generation	14	3.5	gen 100	LLVM (C++) 93; malloc 7
+C	load	lowering and parsing	3	0.8		apply_cl 100
+C	load	the work itself	2	0.5		ptrhash_peek_bp_r 50; check_value_table_I 50
+C	load	dispatch: lookup, the slow path	1	0.3		jl_precompute_memoized_dt 100
+R	load	stat 88; #open#650 41; ispath 28; isvalid_cache_header 20; _eof_nolock 9; #_readdir#25 5; close 3; size 3; prevind 3; readbytes_all! 2; tryparse 2; unsafe_crc32c 1; unsafe_string 1; jit_compile 1
+J	load	? 1; eval 1; fl_lower 1
+## first run: 305.1 ms, 199 samples
+C	first run	code generation	67	33.7	gen 100	LLVM (C++) 90; malloc 3; unlink_chunk.constprop.0 1; insert_imp 1
+C	first run	compiling while inferring	47	23.6	inf 100, gen 100	LLVM (C++) 64; malloc 13; codelocs_parseheader 4; HUF_buildCTable_wksp 2
+C	first run	the work itself	42	21.1		file system calls 64; png_write_find_filter 10; longest_match 5; write 2
+C	first run	garbage collection	24	12.1	inf 100, gc 100	gc_mark_objarray 38; gc_marked 21; gc_old 17; ws_queue_push 4
+C	first run	inference	19	9.5	inf 100, sub 5	jl_object_id__cold 11; setindex! 5; has_free_typevars 5; jl_gc_small_alloc_inner 5
+J	first run	text_extents! 30; write_to_png 9; stroke 2; CairoContext 1
+## second run: 11.1 ms, 9 samples
+C	second run	the work itself	9	100.0		deflate_slow 22; png_write_find_filter 22; adler32_z 22; longest_match 11
+J	second run	write_to_png 8; stroke 1
+## the whole: 605 samples
+T	load: the rest (finding files, reading)	212	35.0
+T	code generation	81	13.4
+T	the work itself	53	8.8
+T	load: the images' restore	52	8.6
+T	load: __init__	48	7.9
+T	compiling while inferring	47	7.8
+T	load: the edges' validation	39	6.4
+T	load: methods' insertion and invalidation	26	4.3
+T	garbage collection	24	4.0
+T	inference	19	3.1
+T	lowering and parsing	3	0.5
+T	dispatch: lookup, the slow path	1	0.2
+END 1.795362395787512e9
+WALL 1795362392.366513399 1795362395.860555210 rc 0
+CACHES written during the run: 0
+# done 2026-11-22T16:46:35+01:00 | load-after 3.67 3.51 4.00

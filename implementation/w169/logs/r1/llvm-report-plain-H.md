@@ -1,0 +1,23 @@
+- **(before the first phase)**: 40 code generations, 327 ms (julia 30/200 ms, session 10/127 ms); the harness's 13 left out
+  - 33.8 ms `Tuple{typeof(Base.Sort.partition!), Array{Pair{String, Array{Float64, 1}}, 1}, Int64, Int64, Int64, Base.Order.By{Main.var"#18#19", Base.Order.Forward`
+  - 20.4 ms `Tuple{typeof(Base.rehash!), Base.Dict{String, Array{Float64, 1}}, Int64}`
+  - 17.5 ms `Tuple{typeof(Base._replace_finish), Base.GenericIOBuffer{Memory{UInt8}}, String, Int64, Int64, Tuple{Base.Fix{2, typeof(Base.isequal), Char}, Base.Fix`
+  - 17.4 ms `Tuple{typeof(Base.Sort._sort!), Array{Pair{String, Array{Float64, 1}}, 1}, Base.Sort.InsertionSortAlg, Base.Order.By{Main.var"#18#19", Base.Order.Forw`
+  - 15.9 ms `Tuple{typeof(Base.Sort._sort!), Array{Pair{String, Array{Float64, 1}}, 1}, Base.Sort.StableCheckSorted{Base.Sort.ScratchQuickSort{Base.Missing, Base.M`
+  - 15.5 ms `Tuple{typeof(Base.copyto!), Array{Pair{String, Array{Float64, 1}}, 1}, Base.Dict{String, Array{Float64, 1}}}`
+- **_head**: 5 code generations, 17 ms (julia 5/17 ms)
+  - 4.1 ms `Tuple{typeof(Base.iterate), Array{Base.SubString{String}, 1}, Int64}`
+  - 4.0 ms `Tuple{typeof(Base._array_for), Type{String}, Array{Base.SubString{String}, 1}, Base.HasShape{1}}`
+  - 3.8 ms `Tuple{typeof(Base.iterate), Array{Base.SubString{String}, 1}}`
+  - 3.2 ms `Tuple{typeof(Base.setindex!), Array{String, 1}, String, Int64}`
+  - 2.1 ms `Tuple{Type{Base.LinearIndices{N, R} where R<:Tuple{Vararg{Base.AbstractUnitRange{Int64}, N}} where N}, Array{String, 1}}`
+- **load**: 2 code generations, 40 ms (julia 2/40 ms)
+  - 26.8 ms `Tuple{Base.var"#@static", LineNumberNode, Module, Any}`
+  - 12.9 ms `Tuple{Base.var"#@main", LineNumberNode, Module, Vararg{Any}}`
+- **first run**: 8 code generations, 45 ms (julia 6/29 ms, session 1/14 ms, own image 1/2 ms)
+  - 14.0 ms `Tuple{typeof(Main.main), Array{String, 1}}`
+  - 11.4 ms `Tuple{typeof(Base.mapreduce_impl), typeof(Base.identity), typeof(Base.add_sum), Array{Float64, 1}, Int64, Int64, Int64}`
+  - 8.2 ms `Tuple{typeof(Base.print), Core.CoreSTDOUT, String, String, String}`
+  - 2.9 ms `Tuple{typeof(Base.merge), NamedTuple{(), Tuple{}}, Base.Pairs{Symbol, Symbol, Nothing, NamedTuple{(:color,), Tuple{Symbol}}}}`
+  - 2.3 ms `Tuple{typeof(Base.pairs), NamedTuple{(:skipmissing,), Tuple{Bool}}}`
+  - 2.2 ms `Tuple{typeof(Base.structdiff), NamedTuple{(:bins, :title, :size), Tuple{Int64, String, Tuple{Int64, Int64}}}, Type{NamedTuple{(:title, :size, :xlabel,`

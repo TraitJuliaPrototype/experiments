@@ -1,0 +1,16 @@
+# W-169 table H inval run 1 | 2026-11-22T16:26:31+01:00 | load-before 3.19 4.91 5.69 | julia 683ea4fc16 | TraitWorld 38200d36df TDE 06c28c376f TM 1888698d7a TT e1ec1f4368 TC 094dcb2e21 TR ec34d1219c forks a3a37d6b5e ND c2bbf0d9aa | env experiments/implementation/w169/envs/H/demo | depots .julia-depot/agent-depots/w169/H:.julia-depot: | product setting, strict mode off, one thread
+START 1.795361192041695e9
+P	load	220.95	compile 63.38	again 0.0	gc 0.0	alloc_mb 10.79	gc_full 0	gc_n 0
+I	load	log entries 32
+P	first run	65.28	compile 63.71	again 0.0	gc 0.0	alloc_mb 5.05	gc_full 0	gc_n 0
+I	first run	log entries 0
+P	second run	0.47	compile 0.0	again 0.0	gc 0.0	alloc_mb 0.12	gc_full 0	gc_n 0
+I	second run	log entries 0
+INVAL log entries 32 | jl_method_table_insert 11, jl_maybe_log_binding_invalidation 2
+INVAL ended code by root module: Base 11
+INVAL cause	11	jl_method_table_insert	Tuple{typeof(Base.TOML.Printer.is_valid_toml_value), Any}
+INVAL cause	0	jl_method_table_insert	Dates.is_valid_toml_value Tuple{typeof(Base.TOML.Printer.is_valid_toml_value), Union{Dates.Date, Dates.DateTime, Dates.Time}}
+END 1.795361193857912e9
+WALL 1795361191.849989372 1795361193.882531673 rc 0
+CACHES written during the run: 1
+# done 2026-11-22T16:26:33+01:00 | load-after 3.10 4.86 5.67

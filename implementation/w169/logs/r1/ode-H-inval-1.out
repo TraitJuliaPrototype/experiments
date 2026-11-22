@@ -1,0 +1,26 @@
+# W-169 ode H inval run 1 | 2026-11-22T16:26:55+01:00 | load-before 3.24 4.77 5.62 | julia 683ea4fc16 | TraitWorld 38200d36df TDE 06c28c376f TM 1888698d7a TT e1ec1f4368 TC 094dcb2e21 TR ec34d1219c forks a3a37d6b5e ND c2bbf0d9aa | env experiments/implementation/w169/envs/H/demo | depots .julia-depot/agent-depots/w169/H:.julia-depot: | product setting, strict mode off, one thread
+START 1.795361216060206e9
+P	load	626.52	compile 98.8	again 13.05	gc 20.09	alloc_mb 59.5	gc_full 0	gc_n 1
+I	load	log entries 2346
+P	first run	374.6	compile 371.39	again 0.0	gc 16.99	alloc_mb 34.39	gc_full 1	gc_n 1
+I	first run	log entries 0
+P	second run	1.82	compile 0.0	again 0.0	gc 0.0	alloc_mb 0.5	gc_full 0	gc_n 0
+I	second run	log entries 0
+INVAL log entries 2346 | jl_method_table_insert 1162, jl_maybe_log_binding_invalidation 2
+INVAL ended code by root module: Compiler 1002, Base 160
+INVAL cause	1051	jl_method_table_insert	Tuple{typeof(promote_rule), Type{Int64}, Type{S} where S<:Real}
+INVAL cause	63	jl_method_table_insert	Tuple{typeof(promote_rule), Type{Int64}, Type}
+INVAL cause	12	jl_method_table_insert	Tuple{typeof(fma), Number, BigFloat, Number}
+INVAL cause	11	jl_method_table_insert	Tuple{typeof(Base.TOML.Printer.is_valid_toml_value), Any}
+INVAL cause	10	jl_method_table_insert	Tuple{typeof(promote_rule), Type{UInt8}, Type}
+INVAL cause	5	jl_method_table_insert	Tuple{typeof(convert), Type{T}, Real} where T<:Real
+INVAL cause	3	jl_method_table_insert	Tuple{typeof(promote_rule), Type{Int64}, Type{T} where T<:Number}
+INVAL cause	3	jl_method_table_insert	Tuple{typeof(convert), Type{T} where T<:Real, Real}
+INVAL cause	2	jl_method_table_insert	Tuple{typeof(fma), Number, BigFloat, BigFloat}
+INVAL cause	1	jl_method_table_insert	ForwardDiff.fma Tuple{typeof(fma), AbstractFloat, AbstractFloat, ForwardDiff.Dual{Tz}} where Tz
+INVAL cause	1	jl_method_table_insert	ForwardDiff.fma Tuple{typeof(fma), ForwardDiff.Dual{Tx}, Real, AbstractFloat} where Tx
+INVAL cause	0	jl_method_table_insert	ForwardDiff.promote_rule Tuple{typeof(promote_rule), Type{R}, Type{ForwardDiff.Dual{T, V, N}}} where {R<:Real, T, V, N}
+END 1.79536121860175e9
+WALL 1795361215.662884730 1795361218.629961043 rc 0
+CACHES written during the run: 0
+# done 2026-11-22T16:26:58+01:00 | load-after 3.14 4.73 5.60

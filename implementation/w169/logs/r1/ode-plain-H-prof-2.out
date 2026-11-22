@@ -1,0 +1,39 @@
+# W-169 ode-plain H prof run 2 | 2026-11-22T16:46:43+01:00 | load-before 3.79 3.54 4.00 | julia 683ea4fc16 | TraitWorld 38200d36df TDE 06c28c376f TM 1888698d7a TT e1ec1f4368 TC 094dcb2e21 TR ec34d1219c forks a3a37d6b5e ND c2bbf0d9aa | env experiments/implementation/w169/envs/H/demo | depots .julia-depot/agent-depots/w169/H:.julia-depot: | product setting, strict mode off, one thread
+START 1.795362404250143e9
+## load: 340.1 ms, 258 samples
+C	load	load: the rest (finding files, reading)	97	37.6		file system calls 90; getdents64 2;  1; push_lf_back 1
+C	load	code generation	43	16.7	gen 100	LLVM (C++) 86; __memmove_avx512_unaligned_erms 5; malloc 5; _M_create 2
+C	load	load: the images' restore	43	16.7		jl_read_reloclist 44; jl_intset_release 12; file system calls 9; ijl_object_id 5
+C	load	load: methods' insertion and invalidation	39	15.1	sub 87	has_free_typevars 8; obvious_subtype 8; jl_to_typeof 8; jl_has_bound_typevars 5
+C	load	load: the edges' validation	27	10.5	sub 41	obvious_subtype 11; scan_new_method! 7; jl_promote_cis_to_current 4; has_free_typevars 4
+C	load	lowering and parsing	5	1.9		apply_cl 100
+C	load	load: __init__	3	1.2		file system calls 100
+C	load	the work itself	1	0.4		- 100
+R	load	stat 35; #open#650 15; ispath 14; isvalid_cache_header 14; _eof_nolock 7; #_readdir#25 3; explicit_manifest_deps_get 1; filesize 1; unsafe_load 1; close 1; ht_keyindex 1; lock 1; memset 1; < 1
+J	load	- 1
+## first run: 635.5 ms, 405 samples
+C	first run	compiling while inferring	159	39.3	inf 100, gen 99, sub 1	LLVM (C++) 74; malloc 8; unlink_chunk.constprop.0 3; __memcmp_evex_movbe 1
+C	first run	code generation	102	25.2	gen 100	LLVM (C++) 83; malloc 7; __memset_avx512_unaligned_erms 1; posix_memalign 1
+C	first run	inference	101	24.9	inf 100, sub 4	scan_specified_partitions 5; getindex 4; checkbounds 4; gc_page_data 3
+C	first run	garbage collection	41	10.1	inf 100, gc 100	gc_mark_objarray 27; gc_marked 24; gc_old 17; gc_mark_obj8 10
+C	first run	the work itself	1	0.2		* 100
+C	first run	the member check (the library's hook): compiling	1	0.2	inf 100	jl_member_note_use 100
+J	first run	* 1
+## second run: 0.8 ms, 0 samples
+## the whole: 663 samples
+T	compiling while inferring	159	24.0
+T	code generation	145	21.9
+T	inference	101	15.2
+T	load: the rest (finding files, reading)	97	14.6
+T	load: the images' restore	43	6.5
+T	garbage collection	41	6.2
+T	load: methods' insertion and invalidation	39	5.9
+T	load: the edges' validation	27	4.1
+T	lowering and parsing	5	0.8
+T	load: __init__	3	0.5
+T	the work itself	2	0.3
+T	the member check (the library's hook): compiling	1	0.2
+END 1.795362407579715e9
+WALL 1795362404.054654281 1795362407.614087954 rc 0
+CACHES written during the run: 0
+# done 2026-11-22T16:46:47+01:00 | load-after 3.72 3.53 4.00

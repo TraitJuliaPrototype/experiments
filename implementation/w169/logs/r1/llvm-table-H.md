@@ -1,0 +1,27 @@
+- **(before the first phase)**: 40 code generations, 328 ms (julia 30/200 ms, session 10/128 ms); the harness's 13 left out
+  - 34.0 ms `Tuple{typeof(Base.Sort.partition!), Array{Pair{String, Array{Float64, 1}}, 1}, Int64, Int64, Int64, Base.Order.By{Main.var"#18#19", Base.Order.Forward`
+  - 20.4 ms `Tuple{typeof(Base.rehash!), Base.Dict{String, Array{Float64, 1}}, Int64}`
+  - 17.7 ms `Tuple{typeof(Base.Sort._sort!), Array{Pair{String, Array{Float64, 1}}, 1}, Base.Sort.InsertionSortAlg, Base.Order.By{Main.var"#18#19", Base.Order.Forw`
+  - 17.6 ms `Tuple{typeof(Base._replace_finish), Base.GenericIOBuffer{Memory{UInt8}}, String, Int64, Int64, Tuple{Base.Fix{2, typeof(Base.isequal), Char}, Base.Fix`
+  - 16.0 ms `Tuple{typeof(Base.Sort._sort!), Array{Pair{String, Array{Float64, 1}}, 1}, Base.Sort.StableCheckSorted{Base.Sort.ScratchQuickSort{Base.Missing, Base.M`
+  - 15.5 ms `Tuple{typeof(Base.copyto!), Array{Pair{String, Array{Float64, 1}}, 1}, Base.Dict{String, Array{Float64, 1}}}`
+- **_head**: 5 code generations, 17 ms (julia 5/17 ms)
+  - 4.1 ms `Tuple{typeof(Base.iterate), Array{Base.SubString{String}, 1}, Int64}`
+  - 4.1 ms `Tuple{typeof(Base._array_for), Type{String}, Array{Base.SubString{String}, 1}, Base.HasShape{1}}`
+  - 3.8 ms `Tuple{typeof(Base.iterate), Array{Base.SubString{String}, 1}}`
+  - 3.1 ms `Tuple{typeof(Base.setindex!), Array{String, 1}, String, Int64}`
+  - 2.1 ms `Tuple{Type{Base.LinearIndices{N, R} where R<:Tuple{Vararg{Base.AbstractUnitRange{Int64}, N}} where N}, Array{String, 1}}`
+- **load**: 6 code generations, 60 ms (julia 6/60 ms)
+  - 26.7 ms `Tuple{Base.var"#@static", LineNumberNode, Module, Any}`
+  - 12.4 ms `Tuple{Base.var"#@main", LineNumberNode, Module, Vararg{Any}}`
+  - 8.4 ms `Tuple{typeof(Base.getindex), Core.SimpleVector, Base.UnitRange{Int64}}`
+  - 5.3 ms `Tuple{typeof(Base.iterate), Base.Iterators.Enumerate{Array{Symbol, 1}}}`
+  - 4.2 ms `Tuple{typeof(Base.iterate), Base.Iterators.Enumerate{Array{Symbol, 1}}, Tuple{Int64, Int64}}`
+  - 2.9 ms `Tuple{Type{Ref{Any}}, Type}`
+- **first run**: 7 code generations, 49 ms (julia 6/35 ms, session 1/14 ms)
+  - 13.6 ms `Tuple{typeof(Main.main), Array{String, 1}}`
+  - 11.4 ms `Tuple{typeof(Base.mapreduce_impl), typeof(Base.identity), typeof(Base.add_sum), Array{Float64, 1}, Int64, Int64, Int64}`
+  - 7.5 ms `Tuple{typeof(Base.print), Core.CoreSTDOUT, String, Float64, String}`
+  - 6.8 ms `Tuple{typeof(Base.hidigit), Float64, Int64}`
+  - 4.6 ms `Tuple{typeof(Base.show), Core.CoreSTDOUT, Float64, Bool, Bool}`
+  - 2.8 ms `Tuple{typeof(Base.print), Core.CoreSTDOUT, Float64}`

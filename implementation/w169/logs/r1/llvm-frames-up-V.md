@@ -1,0 +1,27 @@
+- **(before the first phase)**: 38 code generations, 305 ms (julia 28/180 ms, session 10/125 ms); the harness's 13 left out
+  - 33.9 ms `Tuple{typeof(Base.Sort.partition!), Array{Pair{String, Array{Float64, 1}}, 1}, Int64, Int64, Int64, Base.Order.By{Main.var"#15#16", Base.Order.Forward`
+  - 20.7 ms `Tuple{typeof(Base.rehash!), Base.Dict{String, Array{Float64, 1}}, Int64}`
+  - 17.7 ms `Tuple{typeof(Base._replace_finish), Base.GenericIOBuffer{Memory{UInt8}}, String, Int64, Int64, Tuple{Base.Fix{2, typeof(Base.isequal), Char}, Base.Fix`
+  - 17.0 ms `Tuple{typeof(Base.copyto!), Array{Pair{String, Array{Float64, 1}}, 1}, Base.Dict{String, Array{Float64, 1}}}`
+  - 16.2 ms `Tuple{typeof(Base.Sort._sort!), Array{Pair{String, Array{Float64, 1}}, 1}, Base.Sort.StableCheckSorted{Base.Sort.ScratchQuickSort{Base.Missing, Base.M`
+  - 14.8 ms `Tuple{typeof(Base.Sort._sort!), Array{Pair{String, Array{Float64, 1}}, 1}, Base.Sort.InsertionSortAlg, Base.Order.By{Main.var"#15#16", Base.Order.Forw`
+- **first work**: 113 code generations, 3433 ms (own image 69/2678 ms, composition 10/487 ms, julia 33/256 ms, session 1/12 ms); the harness's 1 left out
+  - 531.7 ms `Tuple{typeof(PrettyTables._text__print_table_core), PrettyTables.PrintingSpec, PrettyTables.TextPrintOptions, Bool}`
+  - 348.3 ms `Tuple{typeof(CSV._parse), Array{UInt8, 1}, CSV.Dialect, CSV.ValueOpts, Symbol, Union{Nothing, Base.Dict{Type, Type}}, Int64, Bool, Int64, Int64, Symbo`
+  - 333.2 ms `Tuple{typeof(CSV._parse), Array{UInt8, 1}, CSV.Dialect, CSV.ValueOpts, Symbol, Union{Nothing, Base.Dict{Type, Type}}, Int64, Bool, Int64, Int64, Symbo`
+  - 231.6 ms `Tuple{CSV.var"##_executescanplan#323", CSV.ProblemLog, Int64, Symbol, String, typeof(CSV._executescanplan), CSV.IndexedSource, Tables.Scan}`
+  - 184.5 ms `Tuple{typeof(CSV._streampredicate), CSV.IndexedSource, CSV.ColumnPlan, Tables.BoundScan, Int64, Int64, Int64}`
+  - 139.1 ms `Tuple{typeof(DataFrames._combine_prepare_norm), DataFrames.GroupedDataFrame{DataFrames.DataFrame}, Array{Any, 1}, Vararg{Bool, 6}}`
+- **nine loads**: 3 code generations, 19 ms (julia 1/10 ms, own image 2/9 ms)
+  - 9.7 ms `Tuple{typeof(Base.issorted), Array{String, 1}, Base.Order.ReverseOrdering{Base.Order.ForwardOrdering}}`
+  - 4.8 ms `Tuple{BaseDirs.Internals.var"##resolvedirpaths#7", Bool, Bool, typeof(BaseDirs.Internals.resolvedirpaths), Array{String, 1}, Tuple{}}`
+  - 4.4 ms `Tuple{typeof(Base.keys), Makie.Attributes}`
+- **after the loads**: 84 code generations, 3837 ms (own image 63/3015 ms, composition 10/629 ms, julia 10/181 ms, session 1/12 ms); the harness's 1 left out
+  - 532.2 ms `Tuple{typeof(PrettyTables._text__print_table_core), PrettyTables.PrintingSpec, PrettyTables.TextPrintOptions, Bool}`
+  - 347.5 ms `Tuple{typeof(CSV._parse), Array{UInt8, 1}, CSV.Dialect, CSV.ValueOpts, Symbol, Union{Nothing, Base.Dict{Type, Type}}, Int64, Bool, Int64, Int64, Symbo`
+  - 335.7 ms `Tuple{typeof(CSV._parse), Array{UInt8, 1}, CSV.Dialect, CSV.ValueOpts, Symbol, Union{Nothing, Base.Dict{Type, Type}}, Int64, Bool, Int64, Int64, Symbo`
+  - 232.4 ms `Tuple{CSV.var"##_executescanplan#323", CSV.ProblemLog, Int64, Symbol, String, typeof(CSV._executescanplan), CSV.IndexedSource, Tables.Scan}`
+  - 185.2 ms `Tuple{typeof(CSV._streampredicate), CSV.IndexedSource, CSV.ColumnPlan, Tables.BoundScan, Int64, Int64, Int64}`
+  - 143.6 ms `Tuple{typeof(DataFrames._combine_prepare_norm), DataFrames.GroupedDataFrame{DataFrames.DataFrame}, Array{Any, 1}, Vararg{Bool, 6}}`
+- **again after**: 1 code generations, 4 ms (julia 1/4 ms)
+  - 3.8 ms `Tuple{typeof(Base.println), String, Float64}`

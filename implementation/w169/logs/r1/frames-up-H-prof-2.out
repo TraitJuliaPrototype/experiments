@@ -1,0 +1,69 @@
+# W-169 frames-up H prof run 2 | 2026-11-22T16:47:20+01:00 | load-before 3.72 3.56 3.99 | julia 683ea4fc16 | TraitWorld 38200d36df TDE 06c28c376f TM 1888698d7a TT e1ec1f4368 TC 094dcb2e21 TR ec34d1219c forks a3a37d6b5e ND c2bbf0d9aa | env experiments/implementation/w169/envs/H/up | depots .julia-depot/agent-depots/w169/H:.julia-depot: | product setting, strict mode off, one thread
+START 1.795362440987937e9
+## load: 1339.7 ms, 1120 samples
+C	load	load: the rest (finding files, reading)	486	43.4		file system calls 95; crc32c_sse42 1; getdents64 0; malloc 0
+C	load	load: the edges' validation	278	24.8	sub 47	obvious_subtype 6; scan_new_method! 4; get_ci_mi 4; verify_method 4
+C	load	load: the images' restore	237	21.2	sub 1	jl_read_reloclist 41; get_item_for_reloc 8; jl_specializations_get_linfo_ 7; file system calls 4
+C	load	load: methods' insertion and invalidation	69	6.2	sub 80	has_free_typevars 10; obvious_subtype 10; obviously_disjoint 7; invalidate_intersecting 6
+C	load	garbage collection	27	2.4	gc 100	gc_mark_objarray 30; gc_marked 22; gc_old 19; gc_try_claim_and_push 15
+C	load	load: package callbacks	13	1.2		file system calls 85; jl_gc_alloc_ 8; __memset_avx512_unaligned_erms 8
+C	load	load: __init__	10	0.9		file system calls 40; __read_nocancel 30;  10; elf_machine_rela_relative 10
+R	load	stat 180; isvalid_cache_header 89; ispath 66; #open#650 59; _eof_nolock 35; readbytes_all! 22; #_readdir#25 8; close 7; unsafe_crc32c 4; ht_keyindex 2; size 2; SpinLock 1; uuid_kernel 1; filesize 1
+## first work: 6261.7 ms, 4547 samples
+C	first work	code generation	3503	77.0	gen 100, sub 0	LLVM (C++) 89; malloc 6; unlink_chunk.constprop.0 1; __memmove_avx512_unaligned_erms 1
+C	first work	inference	668	14.7	inf 100, sub 6	getindex 5; gc_page_data 3; _useref_getindex 3; iterate_compact 2
+C	first work	garbage collection	195	4.3	inf 100, gc 100	gc_old 26; gc_marked 18; gc_mark_objarray 18; gc_sweep_page 10
+C	first work	compiling while inferring	172	3.8	inf 100, gen 99	LLVM (C++) 43; malloc 9; __memcmp_evex_movbe 5; operator() 5
+C	first work	the work itself	8	0.2	sub 12	_copy_all_note_metadata! 12; pthread_mutex_lock 12; _text__render_table 12; obvious_subtype 12
+C	first work	dispatch: lookup, the slow path	1	0.0	sub 100	ijl_unwrap_unionall 100
+J	first work	_copy_all_note_metadata! 1; ColumnTable 1; stat 1; threadid 1; _text__render_table 1; finishproblems 1; _pretty_tables_highlighter_func 1; get_stats 1; _next_string_state 1
+## again: 2.0 ms, 1 samples
+C	again	the work itself	1	100.0		jl_gc_alloc_ 100
+J	again	unsafe_wrap 1
+## nine loads: 6333.8 ms, 5204 samples
+C	nine loads	load: the rest (finding files, reading)	1625	31.2	sub 0	file system calls 93; crc32c_sse42 1; __memmove_avx512_unaligned_erms 1; llseek 0
+C	nine loads	load: the edges' validation	1114	21.4	sub 43, mem 0	obvious_subtype 8; scan_new_method! 4; verify_method 3; get_ci_mi 3
+C	nine loads	load: the images' restore	1100	21.1	sub 1	jl_read_reloclist 40; jl_specializations_get_linfo_ 14; get_item_for_reloc 6; file system calls 4
+C	nine loads	load: methods' insertion and invalidation	826	15.9	sub 87	has_free_typevars 13; obvious_subtype 8; jl_has_bound_typevars 7; obviously_disjoint 5
+C	nine loads	garbage collection	260	5.0	gc 100	gc_old 38; gc_marked 17; gc_mark_outrefs 13; gc_try_claim_and_push 7
+C	nine loads	load: __init__	140	2.7	sub 1	file system calls 59; __read_nocancel 19;  6; elf_machine_rela_relative 3
+C	nine loads	load: package callbacks	118	2.3	sub 1	file system calls 77; jl_read_reloclist 4;  3; toUInt128 2
+C	nine loads	load: __init__: compiling	9	0.2	gen 100	LLVM (C++) 67; __memmove_avx512_unaligned_erms 11; unlink_chunk.constprop.0 11; malloc 11
+C	nine loads	code generation	7	0.1	gen 100	LLVM (C++) 71; malloc 29
+C	nine loads	lowering and parsing	2	0.0		apply_cl 50; fl_memq 50
+C	nine loads	the work itself	2	0.0		type_data_make_W 50; jl_get_binding_partition_ 50
+C	nine loads	inference	1	0.0	inf 100	scan_specified_partitions 100
+R	nine loads	stat 547; ispath 369; #open#650 216; isvalid_cache_header 181; _eof_nolock 132; readbytes_all! 65; unsafe_crc32c 21; #_readdir#25 13; close 13; getindex 7; == 5; size 5; tryparse 3; explicit_manifest_deps_get 3
+J	nine loads	? 1; _eval_using 1
+## after the loads: 7733.2 ms, 5483 samples
+C	after the loads	code generation	3940	71.9	gen 100, sub 0	LLVM (C++) 89; malloc 6; __memmove_avx512_unaligned_erms 1; unlink_chunk.constprop.0 1
+C	after the loads	inference	917	16.7	inf 100, sub 9	getindex 4; _useref_getindex 3; scan_specified_partitions 2; jl_lookup_generic_ 2
+C	after the loads	garbage collection	411	7.5	inf 100, gc 100	gc_old 41; gc_mark_objarray 17; gc_marked 15; gc_mark_outrefs 8
+C	after the loads	compiling while inferring	204	3.7	inf 100, gen 100, sub 0	LLVM (C++) 46; malloc 7; operator() 5; __memcmp_evex_movbe 3
+C	after the loads	dispatch: lookup, the slow path	6	0.1	sub 33	lookup 17; jl_lookup_generic_ 17; ijl_eqtable_get 17; jl_is_genericmemory 17
+C	after the loads	the work itself	4	0.1		lookup_type_setvalue 25; getproperty 25; file system calls 25; _dialect 25
+C	after the loads	the member check (the library's hook): compiling	1	0.0	inf 100	jl_member_note_use 100
+J	after the loads	_text__print_table_core 2; _current_cell 1; stat 1; #24 1; funname 1; _describe 1; getproperty 1; _dialect 1; settlecolumns 1
+## again after: 3.2 ms, 2 samples
+C	again after	the work itself	2	100.0		inst_type_w_ 50; getproperty 50
+J	again after	getproperty 1; #directwave!##10 1
+## the whole: 16357 samples
+T	code generation	7450	45.5
+T	load: the rest (finding files, reading)	2111	12.9
+T	inference	1586	9.7
+T	load: the edges' validation	1392	8.5
+T	load: the images' restore	1337	8.2
+T	load: methods' insertion and invalidation	895	5.5
+T	garbage collection	893	5.5
+T	compiling while inferring	376	2.3
+T	load: __init__	150	0.9
+T	load: package callbacks	131	0.8
+T	the work itself	17	0.1
+T	load: __init__: compiling	9	0.1
+T	dispatch: lookup, the slow path	7	0.0
+T	lowering and parsing	2	0.0
+T	the member check (the library's hook): compiling	1	0.0
+END 1.795362470800715e9
+WALL 1795362440.625739221 1795362470.967402427 rc 0
+CACHES written during the run: 0
+# done 2026-11-22T16:47:51+01:00 | load-after 3.46 3.52 3.96

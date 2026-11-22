@@ -1,0 +1,20 @@
+- **(before the first phase)**: 40 code generations, 326 ms (julia 30/199 ms, session 10/127 ms); the harness's 13 left out
+  - 34.2 ms `Tuple{typeof(Base.Sort.partition!), Array{Pair{String, Array{Float64, 1}}, 1}, Int64, Int64, Int64, Base.Order.By{Main.var"#18#19", Base.Order.Forward`
+  - 20.4 ms `Tuple{typeof(Base.rehash!), Base.Dict{String, Array{Float64, 1}}, Int64}`
+  - 18.1 ms `Tuple{typeof(Base.Sort._sort!), Array{Pair{String, Array{Float64, 1}}, 1}, Base.Sort.StableCheckSorted{Base.Sort.ScratchQuickSort{Base.Missing, Base.M`
+  - 17.4 ms `Tuple{typeof(Base._replace_finish), Base.GenericIOBuffer{Memory{UInt8}}, String, Int64, Int64, Tuple{Base.Fix{2, typeof(Base.isequal), Char}, Base.Fix`
+  - 16.9 ms `Tuple{typeof(Base.copyto!), Array{Pair{String, Array{Float64, 1}}, 1}, Base.Dict{String, Array{Float64, 1}}}`
+  - 15.3 ms `Tuple{Base.Sort.var"##_sort!#20", Nothing, Nothing, Bool, Bool, typeof(Base.Sort._sort!), Array{Pair{String, Array{Float64, 1}}, 1}, Base.Sort.Scratch`
+- **_head**: 3 code generations, 10 ms (julia 3/10 ms)
+  - 4.0 ms `Tuple{typeof(Base._array_for), Type{String}, Array{Base.SubString{String}, 1}, Base.HasShape{1}}`
+  - 3.8 ms `Tuple{typeof(Base.iterate), Array{Base.SubString{String}, 1}}`
+  - 2.1 ms `Tuple{Type{Base.LinearIndices{N, R} where R<:Tuple{Vararg{Base.AbstractUnitRange{Int64}, N}} where N}, Array{String, 1}}`
+- **load**: 1 code generations, 13 ms (julia 1/13 ms)
+  - 12.9 ms `Tuple{Base.var"#@main", LineNumberNode, Module, Vararg{Any}}`
+- **first run**: 19 code generations, 95 ms (julia 8/46 ms, session 7/28 ms, own image 4/21 ms)
+  - 17.3 ms `Tuple{Base.var"#@cfunction", LineNumberNode, Module, Any, Any, Any}`
+  - 9.5 ms `Tuple{PlainODE.var"##solve#12", Tuple{PlainODE.DiscreteCallback, PlainODE.ContinuousCallback}, Base.Pairs{Symbol, Float64, Nothing, NamedTuple{(:relto`
+  - 7.8 ms `Tuple{typeof(Main.main), Array{String, 1}}`
+  - 7.6 ms `Tuple{typeof(Base.print), Core.CoreSTDOUT, String, Float64, String}`
+  - 7.2 ms `Tuple{typeof(Base.hidigit), Float64, Int64}`
+  - 6.0 ms `Tuple{typeof(PlainODE.event_time), PlainODE.ContinuousCallback, PlainODE.Tsit5Integrator{Float64, Array{Float64, 1}}, Array{Float64, 1}, Float64, Floa`

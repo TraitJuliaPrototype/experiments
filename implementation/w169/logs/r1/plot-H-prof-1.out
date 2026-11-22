@@ -1,0 +1,50 @@
+# W-169 plot H prof run 1 | 2026-11-22T16:36:22+01:00 | load-before 4.04 3.57 4.51 | julia 683ea4fc16 | TraitWorld 38200d36df TDE 06c28c376f TM 1888698d7a TT e1ec1f4368 TC 094dcb2e21 TR ec34d1219c forks a3a37d6b5e ND c2bbf0d9aa | env experiments/implementation/w169/envs/H/demo | depots .julia-depot/agent-depots/w169/H:.julia-depot: | product setting, strict mode off, one thread
+START 1.795361783415139e9
+## load: 679.5 ms, 528 samples
+C	load	load: the rest (finding files, reading)	240	45.5		file system calls 93; getdents64 1; __memmove_avx512_unaligned_erms 1; explicit_manifest_deps_get 0
+C	load	load: the images' restore	68	12.9		jl_read_reloclist 34; get_item_for_reloc 6; jl_egal_ 6; file system calls 6
+C	load	load: the edges' validation	55	10.4	sub 49	getindex 9; obvious_subtype 9; ijl_unwrap_unionall 7; scan_new_method! 5
+C	load	load: __init__	51	9.7		file system calls 69; __read_nocancel 10;  4; jlplt_jl_set_member_hook_6066 2
+C	load	load: methods' insertion and invalidation	34	6.4	sub 85	has_free_typevars 12; obvious_subtype 12; invalidate_intersecting 9; subtype_unionall 6
+C	load	garbage collection	21	4.0	sub 100, gc 100	gc_marked 29; gc_mark_objarray 29; gc_old 19; gc_try_claim_and_push 5
+C	load	code generation	15	2.8	gen 100	LLVM (C++) 100
+C	load	load: the library's image hook: compiling	12	2.3	gen 100	LLVM (C++) 83; sections 8; malloc 8
+C	load	the definition-time check: compiling	12	2.3	gen 100	LLVM (C++) 92; malloc 8
+C	load	the work itself	6	1.1		frame_dummy 33; == 17; unlink_chunk.constprop.0 17;  17
+C	load	lowering and parsing	4	0.8		apply_cl 75; relocate_htable 25
+C	load	the definition-time check	3	0.6		jl_is_layout_opaque 33; ht_keyindex 33; jl_tuple1_isa 33
+C	load	load: the library's image hook	3	0.6		jl_is_layout_opaque 33; inst_datatype_inner 33; jl_field_isptr 33
+C	load	load: the memberships' activation	2	0.4	sub 50	memmove_refs 50; subtype_tuple_tail 50
+C	load	load: the membership walk	2	0.4	sub 50	obviously_egal 50; lookup_type_set 50
+J	load	? 4; == 1; stat 1
+## first run: 251.8 ms, 165 samples
+C	first run	code generation	64	38.8	gen 100	LLVM (C++) 89; malloc 8; __pthread_setspecific 2; local_Rb_tree_rotate_right 2
+C	first run	compiling while inferring	51	30.9	inf 100, gen 100	LLVM (C++) 76; malloc 8; codelocs_parseheader 4; jl_debuginfo_module1 2
+C	first run	the work itself	39	23.6		file system calls 54; .plt 10; convert_data_to_bytes 5; normal_updatePosition 5
+C	first run	inference	11	6.7	inf 100	simple_walk 9; insert_node! 9; sroa_pass! 9; getindex 9
+J	first run	text_extents! 27; write_to_png 9; CairoImageSurface 1; fill 1; stroke 1
+## second run: 11.9 ms, 9 samples
+C	second run	the work itself	9	100.0		.plt 33; deflate_slow 22; compress_block 11; _cairo_tor_scan_converter_generate 11
+J	second run	write_to_png 8; stroke 1
+## the whole: 702 samples
+T	load: the rest (finding files, reading)	240	34.2
+T	code generation	79	11.3
+T	load: the images' restore	68	9.7
+T	load: the edges' validation	55	7.8
+T	the work itself	54	7.7
+T	load: __init__	51	7.3
+T	compiling while inferring	51	7.3
+T	load: methods' insertion and invalidation	34	4.8
+T	garbage collection	21	3.0
+T	load: the library's image hook: compiling	12	1.7
+T	the definition-time check: compiling	12	1.7
+T	inference	11	1.6
+T	lowering and parsing	4	0.6
+T	the definition-time check	3	0.4
+T	load: the library's image hook	3	0.4
+T	load: the memberships' activation	2	0.3
+T	load: the membership walk	2	0.3
+END 1.795361786640602e9
+WALL 1795361783.094818329 1795361786.708380318 rc 0
+CACHES written during the run: 0
+# done 2026-11-22T16:36:26+01:00 | load-after 4.04 3.57 4.51

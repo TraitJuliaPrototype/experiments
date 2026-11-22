@@ -1,0 +1,53 @@
+# W-169 plot H prof run 2 | 2026-11-22T16:46:27+01:00 | load-before 3.51 3.47 3.99 | julia 683ea4fc16 | TraitWorld 38200d36df TDE 06c28c376f TM 1888698d7a TT e1ec1f4368 TC 094dcb2e21 TR ec34d1219c forks a3a37d6b5e ND c2bbf0d9aa | env experiments/implementation/w169/envs/H/demo | depots .julia-depot/agent-depots/w169/H:.julia-depot: | product setting, strict mode off, one thread
+START 1.795362387978584e9
+## load: 679.8 ms, 526 samples
+C	load	load: the rest (finding files, reading)	245	46.6		file system calls 95; jl_field_isptr 1; idset_compact 0; set_nth_field 0
+C	load	load: the images' restore	71	13.5		jl_read_reloclist 32; file system calls 8; get_item_for_reloc 7; jl_specializations_get_linfo_ 4
+C	load	load: the edges' validation	54	10.3	sub 50	obvious_subtype 9; has_free_typevars 7; scan_new_method! 7; jl_is_concrete_type 6
+C	load	load: __init__	46	8.7		file system calls 72; __read_nocancel 13;  4; elf_machine_rela_relative 4
+C	load	load: methods' insertion and invalidation	32	6.1	sub 94	obvious_subtype 22; has_free_typevars 6; tname_intersection_dt 6; obviously_in_union 6
+C	load	garbage collection	22	4.2	gc 100	gc_mark_objarray 32; gc_marked 18; gc_old 14; gc_setmark_pool_ 5
+C	load	code generation	14	2.7	gen 100	LLVM (C++) 86; CleanupIR 7; malloc 7
+C	load	the definition-time check: compiling	13	2.5	inf 8, gen 100	LLVM (C++) 69; ZSTD_HcFindBestMatch_noDict_4 8; pwrite 8; capacity 8
+C	load	load: the library's image hook: compiling	11	2.1	inf 9, gen 100	LLVM (C++) 91; doCastIfPossible 9
+C	load	the work itself	5	1.0		bindingkey_eq 20; jl_encode_as_indexed_root 20; MurmurHash3_x64_128 20; _lookahead_index 20
+C	load	load: the library's image hook	4	0.8		jl_is_layout_opaque 25; jl_lookup_generic_ 25; jl_typemap_entry_assoc_exact 25; _params_at 25
+C	load	load: the memberships' activation	3	0.6	sub 67	has_free_typevars 33; subtype_membership 33; int64hash 33
+C	load	load: the membership walk	2	0.4	sub 100	jl_is_all_type 50; count_occurs 50
+C	load	lowering and parsing	2	0.4		apply_cl 50; _applyn 50
+C	load	the definition-time check	1	0.2		symtab_lookup 100
+C	load	load: package callbacks	1	0.2		setproperty! 100
+R	load	stat 96; #open#650 60; ispath 27; isvalid_cache_header 23; _eof_nolock 16; readbytes_all! 6; #_readdir#25 2; close 2; GenericMemory 2; explicit_manifest_deps_get 1; filesize 1; getproperty 1; ht_keyindex 1; getindex 1
+J	load	#open#650 1; eval 1; _Symbol 1; _lookahead_index 1; _eval_using 1
+## first run: 266.2 ms, 167 samples
+C	first run	code generation	63	37.7	gen 100	LLVM (C++) 87; malloc 6; copy 2; __memmove_avx512_unaligned_erms 2
+C	first run	compiling while inferring	48	28.7	inf 100, gen 100	LLVM (C++) 88; __memmove_avx512_unaligned_erms 2; ZSTD_HcFindBestMatch_noDict_4 2; __futex_abstimed_wait_common 2
+C	first run	the work itself	42	25.1		file system calls 69; png_write_find_filter 10; longest_match 5; __memmove_avx512_unaligned_erms 2
+C	first run	inference	14	8.4	inf 100	inst_datatype_env 7; abstract_eval_value 7; jl_type_infer_policy 7; jl_compilation_sig 7
+J	first run	text_extents! 31; write_to_png 8; CairoContext 1; ColorName 1; stroke 1
+## second run: 10.6 ms, 9 samples
+C	second run	the work itself	9	100.0		deflate_slow 22; longest_match 22; png_write_find_filter 22; cell_list_render_edge 11
+J	second run	write_to_png 8; stroke 1
+## the whole: 702 samples
+T	load: the rest (finding files, reading)	245	34.9
+T	code generation	77	11.0
+T	load: the images' restore	71	10.1
+T	the work itself	56	8.0
+T	load: the edges' validation	54	7.7
+T	compiling while inferring	48	6.8
+T	load: __init__	46	6.6
+T	load: methods' insertion and invalidation	32	4.6
+T	garbage collection	22	3.1
+T	inference	14	2.0
+T	the definition-time check: compiling	13	1.9
+T	load: the library's image hook: compiling	11	1.6
+T	load: the library's image hook	4	0.6
+T	load: the memberships' activation	3	0.4
+T	load: the membership walk	2	0.3
+T	lowering and parsing	2	0.3
+T	the definition-time check	1	0.1
+T	load: package callbacks	1	0.1
+END 1.795362391281283e9
+WALL 1795362387.626055489 1795362391.349753333 rc 0
+CACHES written during the run: 0
+# done 2026-11-22T16:46:31+01:00 | load-after 3.47 3.47 3.99

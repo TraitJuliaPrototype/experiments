@@ -1,0 +1,31 @@
+# W-169 frames-up V inval run 1 | 2026-11-22T16:24:41+01:00 | load-before 4.15 5.68 6.01 | julia 45b6d15e34 | TraitWorld absent TDE absent TM absent TT absent TC absent TR absent forks absent ND absent | env experiments/implementation/w169/envs/V/up | depots .julia-depot/agent-depots/w169/V:.julia-depot/agent-depots/w159/V:.julia-depot: | product setting, strict mode off, one thread
+START 1.795361082304989e9
+P	load	1080.72	compile 0.0	again 0.0	gc 41.19	alloc_mb 48.59	gc_full 0	gc_n 1
+I	load	log entries 2921
+P	first work	4446.04	compile 4438.57	again 998.86	gc 175.94	alloc_mb 341.44	gc_full 2	gc_n 6
+I	first work	log entries 0
+P	again	1.59	compile 0.0	again 0.0	gc 0.0	alloc_mb 0.54	gc_full 0	gc_n 0
+I	again	log entries 0
+P	nine loads	5253.07	compile 32.01	again 0.0	gc 213.07	alloc_mb 226.01	gc_full 1	gc_n 3
+I	nine loads	log entries 13703
+P	after the loads	5424.88	compile 5420.17	again 5420.17	gc 323.41	alloc_mb 443.21	gc_full 1	gc_n 3
+I	after the loads	log entries 0
+P	again after	1.82	compile 0.0	again 0.0	gc 0.0	alloc_mb 0.54	gc_full 0	gc_n 0
+I	again after	log entries 0
+INVAL log entries 16624 | jl_method_table_insert 7922, invalidate_mt_cache 13
+INVAL ended code by root module: Base 4624, Compiler 1361, DataFrames 787, CSV 558, Makie 78, Statistics 71, PrettyTables 71, PooledArrays 58, StyledStrings 43, Pkg 33, Tables 30, OrderedCollections 28
+INVAL cause	987	jl_method_table_insert	Tuple{typeof(write), IO, String}
+INVAL cause	564	jl_method_table_insert	Tuple{typeof(>), Any, Any}
+INVAL cause	425	jl_method_table_insert	SentinelArrays.Type Tuple{Type{T}, SentinelArrays.ChainedVectorIndex} where T<:Union{Signed, Unsigned}
+INVAL cause	401	jl_method_table_insert	Tuple{typeof(promote_rule), Type{Int64}, Type}
+INVAL cause	360	jl_method_table_insert	Tuple{typeof(convert), Type{T}, Integer} where T<:Integer
+INVAL cause	344	jl_method_table_insert	Unitful.Colon Tuple{Colon, Any, Quantity}
+INVAL cause	299	jl_method_table_insert	ChainRulesCore.* Tuple{typeof(*), Any, ChainRulesCore.ZeroTangent}
+INVAL cause	275	jl_method_table_insert	Tuple{typeof(convert), Type{String}, AbstractString}
+INVAL cause	210	jl_method_table_insert	Tuple{typeof(Base.reduce_first), typeof(+), Any}
+INVAL cause	206	jl_method_table_insert	REPL.REPLCompletions.InferenceParams Tuple{Type{Compiler.InferenceParams}, REPL.REPLCompletions.REPLInterpreter}
+INVAL cause	169	jl_method_table_insert	Tuple{typeof(isempty), AbstractUnitRange}
+INVAL cause	133	jl_method_table_insert	Tuple{typeof(eachindex), IndexLinear, AbstractVector}
+END 1.795361100182047e9
+WALL 1795361082.127306503 1795361100.325500569 rc 0
+# done 2026-11-22T16:25:00+01:00 | load-after 3.88 5.52 5.95

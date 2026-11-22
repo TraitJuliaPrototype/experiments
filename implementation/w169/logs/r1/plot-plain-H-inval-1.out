@@ -1,0 +1,22 @@
+# W-169 plot-plain H inval run 1 | 2026-11-22T16:27:37+01:00 | load-before 3.07 4.55 5.51 | julia 683ea4fc16 | TraitWorld 38200d36df TDE 06c28c376f TM 1888698d7a TT e1ec1f4368 TC 094dcb2e21 TR ec34d1219c forks a3a37d6b5e ND c2bbf0d9aa | env experiments/implementation/w169/envs/H/demo | depots .julia-depot/agent-depots/w169/H:.julia-depot: | product setting, strict mode off, one thread
+START 1.795361257954228e9
+P	load	424.84	compile 14.06	again 0.0	gc 0.0	alloc_mb 15.0	gc_full 0	gc_n 0
+I	load	log entries 96
+P	first run	176.04	compile 123.69	again 0.0	gc 0.0	alloc_mb 7.18	gc_full 0	gc_n 0
+I	first run	log entries 0
+P	second run	9.52	compile 0.0	again 0.0	gc 0.0	alloc_mb 0.03	gc_full 0	gc_n 0
+I	second run	log entries 0
+INVAL log entries 96 | jl_method_table_insert 40, jl_maybe_log_binding_invalidation 2
+INVAL ended code by root module: Base 40
+INVAL cause	24	jl_method_table_insert	Tuple{typeof(Base.reduce_first), typeof(Base.add_sum), Any}
+INVAL cause	11	jl_method_table_insert	Tuple{typeof(Base.TOML.Printer.is_valid_toml_value), Any}
+INVAL cause	3	jl_method_table_insert	Tuple{typeof(floor), Type{Int64}, Any}
+INVAL cause	2	jl_method_table_insert	Tuple{typeof(reinterpret), Type, UInt16}
+INVAL cause	0	jl_method_table_insert	FixedPointNumbers.reduce_first Tuple{typeof(Base.reduce_first), typeof(Base.add_sum), FixedPointNumbers.FixedPoint}
+INVAL cause	0	jl_method_table_insert	FixedPointNumbers.floor Tuple{typeof(floor), Type{Ti}, FixedPointNumbers.Normed} where Ti<:Integer
+INVAL cause	0	jl_method_table_insert	FixedPointNumbers.reinterpret Tuple{typeof(reinterpret), Type{X}, T} where {T<:Integer, X<:(FixedPointNumbers.FixedPoint{T})}
+INVAL cause	0	jl_method_table_insert	Dates.is_valid_toml_value Tuple{typeof(Base.TOML.Printer.is_valid_toml_value), Union{Dates.Date, Dates.DateTime, Dates.Time}}
+END 1.795361260130518e9
+WALL 1795361257.625138271 1795361260.185114366 rc 0
+CACHES written during the run: 0
+# done 2026-11-22T16:27:40+01:00 | load-after 3.47 4.60 5.52

@@ -1,0 +1,25 @@
+- **(before the first phase)**: 40 code generations, 328 ms (julia 30/200 ms, session 10/128 ms); the harness's 13 left out
+  - 34.2 ms `Tuple{typeof(Base.Sort.partition!), Array{Pair{String, Array{Float64, 1}}, 1}, Int64, Int64, Int64, Base.Order.By{Main.var"#18#19", Base.Order.Forward`
+  - 20.4 ms `Tuple{typeof(Base.rehash!), Base.Dict{String, Array{Float64, 1}}, Int64}`
+  - 17.7 ms `Tuple{typeof(Base._replace_finish), Base.GenericIOBuffer{Memory{UInt8}}, String, Int64, Int64, Tuple{Base.Fix{2, typeof(Base.isequal), Char}, Base.Fix`
+  - 17.6 ms `Tuple{typeof(Base.Sort._sort!), Array{Pair{String, Array{Float64, 1}}, 1}, Base.Sort.InsertionSortAlg, Base.Order.By{Main.var"#18#19", Base.Order.Forw`
+  - 16.0 ms `Tuple{typeof(Base.Sort._sort!), Array{Pair{String, Array{Float64, 1}}, 1}, Base.Sort.StableCheckSorted{Base.Sort.ScratchQuickSort{Base.Missing, Base.M`
+  - 15.5 ms `Tuple{typeof(Base.copyto!), Array{Pair{String, Array{Float64, 1}}, 1}, Base.Dict{String, Array{Float64, 1}}}`
+- **_head**: 3 code generations, 10 ms (julia 3/10 ms)
+  - 4.1 ms `Tuple{typeof(Base._array_for), Type{String}, Array{Base.SubString{String}, 1}, Base.HasShape{1}}`
+  - 3.8 ms `Tuple{typeof(Base.iterate), Array{Base.SubString{String}, 1}}`
+  - 2.1 ms `Tuple{Type{Base.LinearIndices{N, R} where R<:Tuple{Vararg{Base.AbstractUnitRange{Int64}, N}} where N}, Array{String, 1}}`
+- **load**: 13 code generations, 65 ms (julia 7/46 ms, own image 6/19 ms)
+  - 11.6 ms `Tuple{Base.var"#@main", LineNumberNode, Module, Vararg{Any}}`
+  - 8.7 ms `Tuple{typeof(Base.getindex), Core.SimpleVector, Base.UnitRange{Int64}}`
+  - 7.9 ms `Tuple{typeof(Base.Filesystem.joinpath), NTuple{7, String}}`
+  - 6.4 ms `Tuple{typeof(Base.setindex!), Base.IdDict{Any, Array{Any, 1}}, Any, Any}`
+  - 4.9 ms `Tuple{typeof(Base.iterate), Base.Iterators.Enumerate{Array{Symbol, 1}}}`
+  - 4.2 ms `Tuple{typeof(Base.iterate), Base.Iterators.Enumerate{Array{Symbol, 1}}, Tuple{Int64, Int64}}`
+- **first run**: 49 code generations, 220 ms (own image 23/110 ms, session 12/55 ms, julia 9/33 ms, composition 5/23 ms)
+  - 11.3 ms `Tuple{typeof(Base._growend_internal!), Array{ODECore.StepCallback{Array{Float64, 1}, Float64}, 1}, Int64, Int64}`
+  - 11.0 ms `Tuple{typeof(Base._growend_internal!), Array{ODECore.StepEvent{Array{Float64, 1}, Float64}, 1}, Int64, Int64}`
+  - 8.7 ms `Tuple{ODECore.var"##ODEProblem#22", ODECore.DiscreteCallback, Type{ODECore.ODEProblem{T, P, F, J} where J<:Core.Callable{Tuple{Array{T, 2}, Array{T, 1`
+  - 8.1 ms `Tuple{Type{ODECore.FunctionEventCallback{Array{Float64, 1}, Float64, Array{Float64, 1}, C, A, N, I} where I<:Core.Callable{Tuple{Array{Float64, 1}, Fl`
+  - 7.9 ms `Tuple{Type{ODECore.FunctionCallback{Array{Float64, 1}, Float64, Array{Float64, 1}, C, A, I} where I<:Core.Callable{Tuple{Array{Float64, 1}, Float64, C`
+  - 7.5 ms `Tuple{typeof(Base.print), Core.CoreSTDOUT, String, Float64, String}`

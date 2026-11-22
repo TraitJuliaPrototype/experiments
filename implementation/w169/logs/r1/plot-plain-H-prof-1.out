@@ -1,0 +1,38 @@
+# W-169 plot-plain H prof run 1 | 2026-11-22T16:36:27+01:00 | load-before 4.04 3.57 4.51 | julia 683ea4fc16 | TraitWorld 38200d36df TDE 06c28c376f TM 1888698d7a TT e1ec1f4368 TC 094dcb2e21 TR ec34d1219c forks a3a37d6b5e ND c2bbf0d9aa | env experiments/implementation/w169/envs/H/demo | depots .julia-depot/agent-depots/w169/H:.julia-depot: | product setting, strict mode off, one thread
+START 1.795361788084187e9
+## load: 508.4 ms, 403 samples
+C	load	load: the rest (finding files, reading)	214	53.1		file system calls 90; _unlock 1; jl_field_isptr 1; __memmove_avx512_unaligned_erms 1
+C	load	load: __init__	54	13.4		file system calls 57; __read_nocancel 28; _dl_map_object 4;  2
+C	load	load: the images' restore	46	11.4		jl_read_reloclist 30; file system calls 13;  9; get_item_for_reloc 4
+C	load	load: the edges' validation	39	9.7	sub 44	obviously_egal 8; jl_promote_cis_to_current 5; has_free_typevars 5; _jl_mutex_wait 5
+C	load	load: methods' insertion and invalidation	30	7.4	sub 77	obvious_subtype 10; jl_is_all_type 10; subtype 7; intersect_tuple 7
+C	load	code generation	14	3.5	gen 100	LLVM (C++) 79; malloc 14; getValueID 7
+C	load	the work itself	4	1.0		 50; parse_brackets 25; file system calls 25
+C	load	lowering and parsing	2	0.5		relocate 50; apply_cl 50
+J	load	? 2; read 1; parse_brackets 1
+## first run: 306.3 ms, 200 samples
+C	first run	code generation	67	33.5	gen 100	LLVM (C++) 85; malloc 10; __memset_avx512_unaligned_erms 1; __futex_abstimed_wait_common 1
+C	first run	compiling while inferring	47	23.5	inf 100, gen 100, sub 2	LLVM (C++) 70; malloc 11; pwrite 2; codelocs_parseheader 2
+C	first run	the work itself	43	21.5		file system calls 63; png_write_find_filter 7; normal_scanLt 2; _cairo_tor_scan_converter_add_polygon 2
+C	first run	garbage collection	24	12.0	inf 100, gc 100	gc_mark_objarray 33; gc_marked 25; gc_old 25; gc_mark_obj8 4
+C	first run	inference	19	9.5	inf 100, sub 16	jl_gc_small_alloc_inner 11; getindex 11; _advance 11; retrieve_ir_for_inlining 5
+J	first run	text_extents! 33; write_to_png 8; CairoContext 1; stroke 1
+## second run: 10.6 ms, 9 samples
+C	second run	the work itself	9	100.0		deflate_slow 44; longest_match 22; build_tree 11; _cairo_tor_scan_converter_generate 11
+J	second run	write_to_png 8; stroke 1
+## the whole: 612 samples
+T	load: the rest (finding files, reading)	214	35.0
+T	code generation	81	13.2
+T	the work itself	56	9.2
+T	load: __init__	54	8.8
+T	compiling while inferring	47	7.7
+T	load: the images' restore	46	7.5
+T	load: the edges' validation	39	6.4
+T	load: methods' insertion and invalidation	30	4.9
+T	garbage collection	24	3.9
+T	inference	19	3.1
+T	lowering and parsing	2	0.3
+END 1.795361791133497e9
+WALL 1795361787.737859695 1795361791.200321459 rc 0
+CACHES written during the run: 0
+# done 2026-11-22T16:36:31+01:00 | load-after 4.28 3.63 4.52

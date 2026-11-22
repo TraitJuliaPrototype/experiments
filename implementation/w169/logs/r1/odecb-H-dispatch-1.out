@@ -1,0 +1,93 @@
+# W-169 odecb H dispatch run 1 | 2026-11-22T16:27:15+01:00 | load-before 3.23 4.67 5.57 | julia 683ea4fc16 | TraitWorld 38200d36df TDE 06c28c376f TM 1888698d7a TT e1ec1f4368 TC 094dcb2e21 TR ec34d1219c forks a3a37d6b5e ND c2bbf0d9aa | env experiments/implementation/w169/envs/H/demo | depots .julia-depot/agent-depots/w169/H:.julia-depot: | product setting, strict mode off, one thread
+START 1.795361236014808e9
+P	load	529.69	compile 79.1	again 12.68	gc 19.97	alloc_mb 59.77	gc_full 0	gc_n 1
+P	first run	306.84	compile 282.17	again 0.0	gc 17.44	alloc_mb 16.12	gc_full 1	gc_n 1
+P	second run	2.99	compile 0.0	again 0.0	gc 0.0	alloc_mb 1.03	gc_full 0	gc_n 0
+END 1.795361237063304e9
+
+-- dynamic calls by callee method (lookup path: site/leaf/assoc/full)
+       20334  Base.getproperty  Base_compiler.jl:51   0/0/20334/0
+       19261  Base.getproperty  Base_compiler.jl:57   19213/0/39/9
+       12998  Compiler.widenconst  ../usr/share/julia/Compiler/src/typelattice.jl:714   0/0/12998/0
+        9828  Compiler.maybe_erase_unused!  ../usr/share/julia/Compiler/src/ssair/ir.jl:1985   9818/7/0/3
+        8095  Base.unwrap_unionall  essentials.jl:545   8064/0/31/0
+        7601  Base.get  iddict.jl:91   7592/0/8/1
+        6972  TraitWorld._checked_result  /p/projects/coen/julia-trait-bound/TraitWorld/src/callable.jl:53   0/6971/0/1
+        6972  ODECore.PartialFn  /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/ODECore/src/core.jl:401   6970/1/0/1
+        5628  Base.length  essentials.jl:11   5612/0/13/3
+        5529  Compiler.widenconst  ../usr/share/julia/Compiler/src/typelattice.jl:710   5469/0/58/2
+        4597  Compiler.doworkloop  ../usr/share/julia/Compiler/src/inferencestate.jl:1212   4596/1/0/0
+        4469  Base.getindex  essentials.jl:994   4433/30/0/6
+        4462  Base.!  bool.jl:37   4429/0/27/6
+        4325  Base.isempty  essentials.jl:1003   4311/0/8/6
+        3338  TraitWorld.bare  /p/projects/coen/julia-trait-bound/TraitWorld/src/contract.jl:54   3322/0/15/1
+        2336  Core.apply_type  :0   0/0/2336/0
+        2280  Compiler.#80  ../usr/share/julia/Compiler/src/inferencestate.jl:1195   2002/274/0/4
+        1544  Base.getindex  tuple.jl:33   0/0/1544/0
+        1499  Compiler.typeinf_local  ../usr/share/julia/Compiler/src/abstractinterpretation.jl:5534   1498/1/0/0
+        1432  Base.in  operators.jl:1371   0/0/1432/0
+        1338  Main.cross_c  /p/projects/coen/julia-trait-bound/experiments/implementation/w158/port/apps/ode_cb.jl:14   1337/1/0/0
+        1338  ODECore.event_condition  /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/ODECore/src/core.jl:623   1336/1/0/1
+        1320  TraitWorld._field_isconst  /p/projects/coen/julia-trait-bound/TraitWorld/src/dynamic.jl:72   0/1320/0/0
+        1320  Base.setproperty!  Base_compiler.jl:58   1319/1/0/0
+        1320  Base.convert  number.jl:6   0/1320/0/0
+        1316  ODECore.getproperty  /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/ODECore/src/core.jl:717   1314/0/2/0
+        1210  Core.typename  boot.jl:1192   0/0/1210/0
+        1193  Compiler.handle1  ../usr/share/julia/Compiler/src/abstractinterpretation.jl:1247   1056/135/0/2
+        1124  Compiler.MethodLookupResult  ../usr/share/julia/Compiler/src/methodtable.jl:6   0/1121/0/3
+        1108  Base.haskey  dict.jl:550   1107/1/0/0
+        1060  ODECore.step_event_condition  /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/ODECore/src/core.jl:764   1056/3/0/1
+        1052  ODECore.step_condition  /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/ODECore/src/core.jl:750   1050/1/0/1
+        1052  Main.kick_c  /p/projects/coen/julia-trait-bound/experiments/implementation/w158/port/apps/ode_cb.jl:12   1051/1/0/0
+        1052  ODECore.condition  /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/ODECore/src/core.jl:607   1050/1/0/1
+         947  Base.setindex!  essentials.jl:982   945/0/2/0
+         908  Base.getindex  array.jl:451   0/0/908/0
+         711  TraitWorld._forget_in!  /p/projects/coen/julia-trait-bound/TraitWorld/src/implement.jl:291   708/0/2/1
+         650  ODECore.affect!  /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/ODECore/src/core.jl:608   648/1/0/1
+         650  ODECore.step_affect!  /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/ODECore/src/core.jl:752   648/1/0/1
+         650  Main.kick_a  /p/projects/coen/julia-trait-bound/experiments/implementation/w158/port/apps/ode_cb.jl:13   649/1/0/0
+
+-- dynamic calls by call site (the calling code, innermost frame first; the callee)
+       15250  getproperty at /p/projects/coen/julia-trait-bound/TraitWorld/src/dynamic.jl:43  ->  Base.getproperty
+        9708  simple_dce! at ./../usr/share/julia/Compiler/src/ssair/ir.jl:2113  ->  Compiler.maybe_erase_unused!
+        6972  Dynamic at /p/projects/coen/julia-trait-bound/TraitWorld/src/callable.jl:42  ->  TraitWorld._checked_result
+        6972  Dynamic at /p/projects/coen/julia-trait-bound/TraitWorld/src/callable.jl:42  ->  ODECore.PartialFn
+        4799  widen_all_consts! at ./../usr/share/julia/Compiler/src/optimize.jl:343  ->  Compiler.widenconst
+        4597  doworkloop at ./../usr/share/julia/Compiler/src/inferencestate.jl:1215  ->  Base.length
+        4597  typeinf at ./../usr/share/julia/Compiler/src/abstractinterpretation.jl:5860  ->  Compiler.doworkloop
+        4325  _check_membership_calls at /p/projects/coen/julia-trait-bound/TraitWorld/src/implement.jl:401  ->  Base.getproperty
+        4325  _check_membership_calls at /p/projects/coen/julia-trait-bound/TraitWorld/src/implement.jl:401  ->  Base.isempty
+        4325  _check_membership_calls at /p/projects/coen/julia-trait-bound/TraitWorld/src/implement.jl:402  ->  Base.getproperty
+        4325  _check_membership_calls at /p/projects/coen/julia-trait-bound/TraitWorld/src/implement.jl:401  ->  Base.!
+        4325  _check_membership_calls at /p/projects/coen/julia-trait-bound/TraitWorld/src/implement.jl:402  ->  Base.getindex
+        4325  _check_membership_calls at /p/projects/coen/julia-trait-bound/TraitWorld/src/implement.jl:400  ->  Base.unwrap_unionall
+        3758  _check_membership_calls at /p/projects/coen/julia-trait-bound/TraitWorld/src/implement.jl:404  ->  Base.getproperty
+        3758  _check_membership_calls at /p/projects/coen/julia-trait-bound/TraitWorld/src/implement.jl:404  ->  Base.get
+        3758  _check_membership_calls at /p/projects/coen/julia-trait-bound/TraitWorld/src/implement.jl:405  ->  Base.getproperty
+        3758  _check_membership_calls at /p/projects/coen/julia-trait-bound/TraitWorld/src/implement.jl:405  ->  Base.get
+        3609  #argtypes_to_type##0 at ./../usr/share/julia/Compiler/src/typeutils.jl:139  ->  Compiler.widenconst
+        3338  bare at /p/projects/coen/julia-trait-bound/TraitWorld/src/contract.jl:54  ->  Base.getproperty
+        3338  bare at /p/projects/coen/julia-trait-bound/TraitWorld/src/contract.jl:54  ->  Base.getproperty
+        3338  bare at /p/projects/coen/julia-trait-bound/TraitWorld/src/contract.jl:54  ->  Base.unwrap_unionall
+        2280  doworkloop at ./../usr/share/julia/Compiler/src/inferencestate.jl:1218  ->  Compiler.#80
+        2279  apply_iterate_reach at /p/projects/coen/julia-trait-bound/julia-next/src/builtins.c:904  ->  Core.apply_type
+        2259  #argtypes_to_type##0 at ./../usr/share/julia/Compiler/src/typeutils.jl:139  ->  Compiler.widenconst
+        1536  _patterns_for at /p/projects/coen/julia-trait-bound/TraitWorld/src/implement.jl:721  ->  TraitWorld.bare
+        1536  _patterns_for at /p/projects/coen/julia-trait-bound/TraitWorld/src/implement.jl:721  ->  TraitWorld.bare
+        1536  _patterns_for at /p/projects/coen/julia-trait-bound/TraitWorld/src/implement.jl:721  ->  Base.getindex
+        1499  typeinf at ./../usr/share/julia/Compiler/src/abstractinterpretation.jl:5869  ->  Compiler.typeinf_local
+        1338  step_event_condition at /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/ODECore/src/core.jl:765  ->  ODECore.event_condition
+        1338  Dynamic at /p/projects/coen/julia-trait-bound/TraitWorld/src/callable.jl:35  ->  Main.cross_c
+        1320  setproperty! at /p/projects/coen/julia-trait-bound/TraitWorld/src/dynamic.jl:48  ->  TraitWorld._field_isconst
+        1320  setproperty! at /p/projects/coen/julia-trait-bound/TraitWorld/src/dynamic.jl:49  ->  Base.setproperty!
+        1320  setproperty! at /p/projects/coen/julia-trait-bound/TraitWorld/src/dynamic.jl:49  ->  Base.convert
+        1312  getproperty at /p/projects/coen/julia-trait-bound/TraitWorld/src/dynamic.jl:43  ->  ODECore.getproperty
+        1124  _findall at ./../usr/share/julia/Compiler/src/methodtable.jl:124  ->  Compiler.MethodLookupResult
+        1108  explicit_manifest_deps_get at ./loading.jl:1074  ->  Base.haskey
+        1052  step_condition at /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/ODECore/src/core.jl:751  ->  ODECore.condition
+        1052  tsit5_advance! at /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/ODECore/src/core.jl:1569  ->  ODECore.step_condition
+        1052  Dynamic at /p/projects/coen/julia-trait-bound/TraitWorld/src/callable.jl:35  ->  Main.kick_c
+        1052  locate_events! at /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/ODECore/src/core.jl:1472  ->  ODECore.step_event_condition
+WALL 1795361235.794914258 1795361237.150427065 rc 0
+CACHES written during the run: 0
+# done 2026-11-22T16:27:17+01:00 | load-after 3.38 4.68 5.57

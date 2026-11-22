@@ -1,0 +1,38 @@
+# W-169 ode-plain H prof run 1 | 2026-11-22T16:35:28+01:00 | load-before 3.65 3.45 4.53 | julia 683ea4fc16 | TraitWorld 38200d36df TDE 06c28c376f TM 1888698d7a TT e1ec1f4368 TC 094dcb2e21 TR ec34d1219c forks a3a37d6b5e ND c2bbf0d9aa | env experiments/implementation/w169/envs/H/demo | depots .julia-depot/agent-depots/w169/H:.julia-depot: | product setting, strict mode off, one thread
+START 1.79536172962211e9
+## load: 349.9 ms, 265 samples
+C	load	load: the rest (finding files, reading)	100	37.7		file system calls 94; crc32c_sse42 2; uv__statx_to_stat 1; jl_gc_small_alloc_inner 1
+C	load	code generation	42	15.8	gen 100	LLVM (C++) 86; malloc 10; getMemoryEffects 2; unlink_chunk.constprop.0 2
+C	load	load: the images' restore	42	15.8		jl_read_reloclist 26; get_item_for_reloc 12; cache_insert_type_set_ 12; ijl_object_id 7
+C	load	load: methods' insertion and invalidation	39	14.7	sub 79	obvious_subtype 10; obviously_in_union 8; obviously_disjoint 8; has_free_typevars 5
+C	load	load: the edges' validation	30	11.3	sub 47	obvious_subtype 10; obviously_disjoint 10; scan_new_method! 7; jl_array_ptr_set 3
+C	load	lowering and parsing	6	2.3		apply_cl 67; fl_gc_handle 17; jl_array_ptr_set 17
+C	load	load: __init__	4	1.5		file system calls 75; jfptr_vcat_61419 25
+C	load	dispatch: lookup, the slow path	1	0.4		jl_lookup_generic_ 100
+C	load	the work itself	1	0.4		file system calls 100
+J	load	stat 1; _eval_using 1
+## first run: 653.4 ms, 414 samples
+C	first run	compiling while inferring	164	39.6	inf 100, gen 98, sub 1	LLVM (C++) 74; malloc 12; unlink_chunk.constprop.0 2; __memcmp_evex_movbe 1
+C	first run	code generation	105	25.4	gen 100	LLVM (C++) 88; malloc 7; operator= 1; CreateGEP 1
+C	first run	inference	102	24.6	inf 100, sub 5	__memset_avx512_unaligned_erms 3; getindex 3; jl_gc_small_alloc_inner 3; jl_gc_alloc_ 3
+C	first run	garbage collection	42	10.1	inf 100, gc 100	gc_mark_objarray 36; gc_marked 26; gc_old 10; gc_mark_outrefs 7
+C	first run	the work itself	1	0.2		initdt 100
+J	first run	initdt 1
+## second run: 0.8 ms, 0 samples
+## the whole: 679 samples
+T	compiling while inferring	164	24.2
+T	code generation	147	21.6
+T	inference	102	15.0
+T	load: the rest (finding files, reading)	100	14.7
+T	garbage collection	42	6.2
+T	load: the images' restore	42	6.2
+T	load: methods' insertion and invalidation	39	5.7
+T	load: the edges' validation	30	4.4
+T	lowering and parsing	6	0.9
+T	load: __init__	4	0.6
+T	the work itself	2	0.3
+T	dispatch: lookup, the slow path	1	0.1
+END 1.79536173304656e9
+WALL 1795361729.275570595 1795361733.080192119 rc 0
+CACHES written during the run: 0
+# done 2026-11-22T16:35:33+01:00 | load-after 3.60 3.45 4.53

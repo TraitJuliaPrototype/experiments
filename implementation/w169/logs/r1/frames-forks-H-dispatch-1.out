@@ -1,0 +1,96 @@
+# W-169 frames-forks H dispatch run 1 | 2026-11-22T16:44:18+01:00 | load-before 3.17 3.43 4.06 | julia 683ea4fc16 | TraitWorld 38200d36df TDE 06c28c376f TM 1888698d7a TT e1ec1f4368 TC 094dcb2e21 TR ec34d1219c forks a3a37d6b5e ND c2bbf0d9aa | env experiments/implementation/w169/envs/H/forks | depots .julia-depot/agent-depots/w169/H:.julia-depot: | product setting, strict mode off, one thread
+START 1.795362259493067e9
+P	load	1233.66	compile 26.05	again 0.0	gc 40.0	alloc_mb 64.52	gc_full 0	gc_n 1
+P	first work	199.45	compile 188.37	again 0.0	gc 43.12	alloc_mb 8.05	gc_full 1	gc_n 1
+P	again	2.39	compile 0.0	again 0.0	gc 0.0	alloc_mb 0.63	gc_full 0	gc_n 0
+P	nine loads	5308.36	compile 16.27	again 0.0	gc 342.32	alloc_mb 246.51	gc_full 2	gc_n 4
+P	after the loads	2301.06	compile 2296.01	again 2296.01	gc 221.84	alloc_mb 210.14	gc_full 0	gc_n 2
+P	again after	2.55	compile 0.0	again 0.0	gc 0.0	alloc_mb 0.64	gc_full 0	gc_n 0
+END 1.79536226875707e9
+
+-- dynamic calls by callee method (lookup path: site/leaf/assoc/full)
+      241092  Base.getproperty  Base_compiler.jl:51   0/0/241092/0
+      128915  Compiler.widenconst  ../usr/share/julia/Compiler/src/typelattice.jl:714   0/0/128915/0
+      109333  Compiler.maybe_erase_unused!  ../usr/share/julia/Compiler/src/ssair/ir.jl:1985   109321/9/0/3
+      106723  Base.get  iddict.jl:91   106711/0/11/1
+       68801  Base.unwrap_unionall  essentials.jl:545   68774/0/27/0
+       66346  Base.!  bool.jl:37   66120/0/144/82
+       64395  Base.getindex  essentials.jl:994   64204/109/0/82
+       63856  Base.isempty  essentials.jl:1003   63688/0/86/82
+       43599  Base.length  essentials.jl:11   43531/0/59/9
+       40542  Compiler.widenconst  ../usr/share/julia/Compiler/src/typelattice.jl:710   40453/0/87/2
+       30329  Compiler.doworkloop  ../usr/share/julia/Compiler/src/inferencestate.jl:1212   30323/4/0/2
+       24726  Base.<=  bool.jl:162   24722/3/0/1
+       19462  Base.haskey  dict.jl:550   19456/3/0/3
+       19139  Core.apply_type  :0   0/0/19139/0
+       17426  Compiler.#80  ../usr/share/julia/Compiler/src/inferencestate.jl:1195   16430/986/0/10
+       15644  Base.==  operators.jl:295   0/0/15644/0
+       13120  ColumnCore.cell  /p/projects/coen/julia-trait-bound/forks/Tables/src/ColumnCore.jl:48   13111/7/0/2
+       12938  Base.in  operators.jl:1371   0/0/12938/0
+       10792  Core.typename  boot.jl:1192   0/0/10792/0
+       10030  Compiler.typeinf_local  ../usr/share/julia/Compiler/src/abstractinterpretation.jl:5534   10029/1/0/0
+        9670  Compiler.widenconst  ../usr/share/julia/Compiler/src/typelattice.jl:712   9609/0/59/2
+        9394  Base.getproperty  Base_compiler.jl:57   9320/0/64/10
+        9352  Base.setindex!  essentials.jl:982   9348/0/4/0
+        9219  Compiler.handle1  ../usr/share/julia/Compiler/src/abstractinterpretation.jl:1247   8733/484/0/2
+        8252  Base.==  Base_compiler.jl:301   8088/16/135/13
+        8115  Compiler.MethodLookupResult  ../usr/share/julia/Compiler/src/methodtable.jl:6   0/8113/0/2
+        6560  Base.isless  float.jl:635   6554/4/0/2
+        6483  Base.getindex  array.jl:451   0/0/6483/0
+        4200  TraitWorld.bare  /p/projects/coen/julia-trait-bound/TraitWorld/src/contract.jl:54   4177/0/22/1
+        4078  Base.==  promotion.jl:647   4007/59/0/12
+        3821  Base.getindex  essentials.jl:976   3751/59/0/11
+        3614  Base.close  iostream.jl:90   3602/0/6/6
+        3598  Compiler.add_edges_impl  ../usr/share/julia/Compiler/src/stmtinfo.jl:96   3577/19/0/2
+        3540  Base.>  operators.jl:425   3532/8/0/0
+        3453  Compiler.add_edges_impl  ../usr/share/julia/Compiler/src/stmtinfo.jl:267   3432/19/0/2
+        2970  Compiler.getresult_impl  ../usr/share/julia/Compiler/src/stmtinfo.jl:205   2959/9/0/2
+        2946  Base.!=  operators.jl:320   177/0/2768/1
+        2863  Compiler.getfield_tfunc  ../usr/share/julia/Compiler/src/tfuncs.jl:1112   2736/0/127/0
+        2855  Compiler.getsplit_impl  ../usr/share/julia/Compiler/src/stmtinfo.jl:204   2845/9/0/1
+        2802  Compiler.nsplit_impl  ../usr/share/julia/Compiler/src/stmtinfo.jl:203   2799/2/0/1
+
+-- dynamic calls by call site (the calling code, innermost frame first; the callee)
+      108387  simple_dce! at ./../usr/share/julia/Compiler/src/ssair/ir.jl:2113  ->  Compiler.maybe_erase_unused!
+       63855  _check_membership_calls at /p/projects/coen/julia-trait-bound/TraitWorld/src/implement.jl:401  ->  Base.isempty
+       63855  _check_membership_calls at /p/projects/coen/julia-trait-bound/TraitWorld/src/implement.jl:402  ->  Base.getproperty
+       63855  _check_membership_calls at /p/projects/coen/julia-trait-bound/TraitWorld/src/implement.jl:401  ->  Base.!
+       63855  _check_membership_calls at /p/projects/coen/julia-trait-bound/TraitWorld/src/implement.jl:402  ->  Base.getindex
+       63855  _check_membership_calls at /p/projects/coen/julia-trait-bound/TraitWorld/src/implement.jl:400  ->  Base.unwrap_unionall
+       63855  _check_membership_calls at /p/projects/coen/julia-trait-bound/TraitWorld/src/implement.jl:401  ->  Base.getproperty
+       53348  widen_all_consts! at ./../usr/share/julia/Compiler/src/optimize.jl:343  ->  Compiler.widenconst
+       53177  _check_membership_calls at /p/projects/coen/julia-trait-bound/TraitWorld/src/implement.jl:404  ->  Base.get
+       53177  _check_membership_calls at /p/projects/coen/julia-trait-bound/TraitWorld/src/implement.jl:405  ->  Base.getproperty
+       53177  _check_membership_calls at /p/projects/coen/julia-trait-bound/TraitWorld/src/implement.jl:405  ->  Base.get
+       53177  _check_membership_calls at /p/projects/coen/julia-trait-bound/TraitWorld/src/implement.jl:404  ->  Base.getproperty
+       30329  typeinf at ./../usr/share/julia/Compiler/src/abstractinterpretation.jl:5860  ->  Compiler.doworkloop
+       30329  doworkloop at ./../usr/share/julia/Compiler/src/inferencestate.jl:1215  ->  Base.length
+       27535  #argtypes_to_type##0 at ./../usr/share/julia/Compiler/src/typeutils.jl:139  ->  Compiler.widenconst
+       24726  stupdate! at ./../usr/share/julia/Compiler/src/typelattice.jl:749 (in schanged at ./../usr/share/julia/Compiler/src/typelattice.jl:730)  ->  Base.<=
+       21338  #argtypes_to_type##0 at ./../usr/share/julia/Compiler/src/typeutils.jl:139  ->  Compiler.widenconst
+       19318  explicit_manifest_deps_get at ./loading.jl:1074  ->  Base.haskey
+       18619  apply_iterate_reach at /p/projects/coen/julia-trait-bound/julia-next/src/builtins.c:904  ->  Core.apply_type
+       17426  doworkloop at ./../usr/share/julia/Compiler/src/inferencestate.jl:1218  ->  Compiler.#80
+       11602  store_backedges at ./../usr/share/julia/Compiler/src/typeinfer.jl:850  ->  Base.==
+       11137  sroa_pass! at ./../usr/share/julia/Compiler/src/ssair/passes.jl:1441  ->  Compiler.widenconst
+       10030  typeinf at ./../usr/share/julia/Compiler/src/abstractinterpretation.jl:5869  ->  Compiler.typeinf_local
+        9236  _forget_in! at /p/projects/coen/julia-trait-bound/TraitWorld/src/implement.jl:297  ->  Base.setindex!
+        8230  infercalls at ./../usr/share/julia/Compiler/src/abstractinterpretation.jl:1341  ->  Compiler.handle1
+        8115  _findall at ./../usr/share/julia/Compiler/src/methodtable.jl:124  ->  Compiler.MethodLookupResult
+        7702  force_const_prop at ./../usr/share/julia/Compiler/src/abstractinterpretation.jl:2278  ->  Core.typename
+        7449  store_backedges at ./../usr/share/julia/Compiler/src/typeinfer.jl:850  ->  Base.==
+        6560  #refine!##0 at /p/projects/coen/julia-trait-bound/forks/DataFrames/src/other/kernels.jl:129  ->  Base.isless
+        6560  #refine!##0 at /p/projects/coen/julia-trait-bound/forks/DataFrames/src/other/kernels.jl:129  ->  ColumnCore.cell
+        6560  #refine!##0 at /p/projects/coen/julia-trait-bound/forks/DataFrames/src/other/kernels.jl:129  ->  ColumnCore.cell
+        6483  apply_iterate_reach at /p/projects/coen/julia-trait-bound/julia-next/src/builtins.c:904  ->  Base.getindex
+        4529  _uncompressed_ir at ./runtime_internals.jl:1625  ->  Base.getproperty
+        4346  builtin_tfunction at ./../usr/share/julia/Compiler/src/tfuncs.jl:2836  ->  Base.in
+        4200  bare at /p/projects/coen/julia-trait-bound/TraitWorld/src/contract.jl:54  ->  Base.getproperty
+        4200  bare at /p/projects/coen/julia-trait-bound/TraitWorld/src/contract.jl:54  ->  Base.getproperty
+        4200  bare at /p/projects/coen/julia-trait-bound/TraitWorld/src/contract.jl:54  ->  Base.unwrap_unionall
+        3614  run_finalizer at /p/projects/coen/julia-trait-bound/julia-next/src/gc-common.c:180  ->  Base.close
+        3598  add_edges! at ./../usr/share/julia/Compiler/src/types.jl:596  ->  Compiler.add_edges_impl
+        3532  reprocess_instruction! at ./../usr/share/julia/Compiler/src/ssair/irinterp.jl:157  ->  Base.>
+WALL 1795362259.138461514 1795362268.974013047 rc 0
+CACHES written during the run: 0
+# done 2026-11-22T16:44:29+01:00 | load-after 2.99 3.39 4.03

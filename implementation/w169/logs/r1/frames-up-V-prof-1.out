@@ -1,0 +1,63 @@
+# W-169 frames-up V prof run 1 | 2026-11-22T16:36:41+01:00 | load-before 3.93 3.57 4.50 | julia 45b6d15e34 | TraitWorld absent TDE absent TM absent TT absent TC absent TR absent forks absent ND absent | env experiments/implementation/w169/envs/V/up | depots .julia-depot/agent-depots/w169/V:.julia-depot/agent-depots/w159/V:.julia-depot: | product setting, strict mode off, one thread
+START 1.795361801538129e9
+## load: 1353.4 ms, 1068 samples
+C	load	load: the rest (finding files, reading)	475	44.5		file system calls 96; crc32c_sse42 0; getdents64 0; __memmove_avx512_unaligned_erms 0
+C	load	load: the edges' validation	260	24.3	sub 42	obvious_subtype 8; scan_new_method! 5; verify_method 5; get_ci_mi 4
+C	load	load: the images' restore	217	20.3	sub 1	jl_read_reloclist 45; jl_specializations_get_linfo_ 6; get_item_for_reloc 5; cache_insert_type_set_ 4
+C	load	load: methods' insertion and invalidation	68	6.4	sub 76	has_free_typevars 9; obviously_disjoint 9; obvious_subtype 9; jl_is_concrete_type 6
+C	load	garbage collection	24	2.2	gc 100	gc_mark_objarray 29; gc_marked 25; gc_old 21; gc_sweep_page 8
+C	load	load: package callbacks	13	1.2		file system calls 100
+C	load	load: __init__	11	1.0		__read_nocancel 27; file system calls 27; elf_machine_rela_relative 9; getrn 9
+## first work: 6476.9 ms, 4511 samples
+C	first work	code generation	3525	78.1	gen 100, sub 0	LLVM (C++) 90; malloc 4; unlink_chunk.constprop.0 1; __memmove_avx512_unaligned_erms 1
+C	first work	inference	629	13.9	inf 100, sub 7	getindex 5; gc_page_data 3; _useref_getindex 3; checkbounds 3
+C	first work	compiling while inferring	176	3.9	inf 100, gen 100	LLVM (C++) 45; malloc 6; _dl_addr 3; operator() 3
+C	first work	garbage collection	174	3.9	inf 100, gc 100	gc_old 31; gc_marked 18; gc_mark_objarray 18; gc_mark_outrefs 10
+C	first work	the work itself	6	0.1		sym_in 17; setindex! 17; show 17; #_resolve_printing_backend#47 17
+C	first work	dispatch: lookup, the slow path	1	0.0		type_object_id_ 100
+J	first work	stat 2; sym_in 1; _combine_prepare_norm 1; setindex! 1; show 1; #_resolve_printing_backend#47 1
+## again: 2.1 ms, 1 samples
+C	again	dispatch: lookup, the slow path	1	100.0		sig_match_fast 100
+J	again	_get_data_cell 1
+## nine loads: 6489.8 ms, 5089 samples
+C	nine loads	load: the rest (finding files, reading)	1700	33.4		file system calls 94; crc32c_sse42 1; llseek 1; __memmove_avx512_unaligned_erms 0
+C	nine loads	load: the edges' validation	1061	20.8	sub 45	obvious_subtype 8; verify_method 4; scan_new_method! 4; has_free_typevars 3
+C	nine loads	load: the images' restore	1017	20.0	sub 1	jl_read_reloclist 43; jl_specializations_get_linfo_ 12; symtab_lookup 4; speccache_eq 4
+C	nine loads	load: methods' insertion and invalidation	774	15.2	sub 77	has_free_typevars 13; jl_has_bound_typevars 7; obvious_subtype 7; obviously_disjoint 5
+C	nine loads	garbage collection	255	5.0	gc 100	gc_old 41; gc_marked 20; gc_mark_objarray 9; gc_mark_outrefs 7
+C	nine loads	load: __init__	136	2.7		file system calls 54; __read_nocancel 22;  8; elf_machine_rela_relative 4
+C	nine loads	load: package callbacks	113	2.2		file system calls 83;  2; __utimensat64_helper 2; tryparse 2
+C	nine loads	load: __init__: compiling	21	0.4	inf 10, gen 100	LLVM (C++) 81; malloc 10; operator() 5; _M_mutate 5
+C	nine loads	code generation	8	0.2	gen 100	LLVM (C++) 88; malloc 12
+C	nine loads	the work itself	3	0.1		type_node_fundamental_new_W 33; frame_dummy 33;  33
+C	nine loads	inference	1	0.0	inf 100	isexpr 100
+J	nine loads	? 3
+## after the loads: 7800.7 ms, 5485 samples
+C	after the loads	code generation	3913	71.3	gen 100, sub 0	LLVM (C++) 90; malloc 5; __memmove_avx512_unaligned_erms 1; unlink_chunk.constprop.0 0
+C	after the loads	inference	1057	19.3	inf 100, sub 7	lookup_type_setvalue 14; getindex 4; gc_page_data 2; jl_lookup_generic_ 2
+C	after the loads	garbage collection	311	5.7	inf 100, gc 100	gc_old 44; gc_mark_objarray 14; gc_marked 12; gc_mark_outrefs 10
+C	after the loads	compiling while inferring	199	3.6	inf 100, gen 99, sub 1	LLVM (C++) 46; malloc 8; __memcmp_evex_movbe 7; emit_function 3
+C	after the loads	the work itself	4	0.1		>> 25; is_nestable_type_param 25; file system calls 25; Dict 25
+C	after the loads	dispatch: lookup, the slow path	1	0.0		jl_get_pgcstack_static 100
+J	after the loads	stat 1; NamedTuple 1; _column_label_rows 1; Dict 1; >> 1
+## again after: 3.5 ms, 1 samples
+C	again after	the work itself	1	100.0	sub 100	obvious_subtype 100
+J	again after	_pretty_tables_general_formatter 1
+## the whole: 16155 samples
+T	code generation	7446	46.1
+T	load: the rest (finding files, reading)	2175	13.5
+T	inference	1687	10.4
+T	load: the edges' validation	1321	8.2
+T	load: the images' restore	1234	7.6
+T	load: methods' insertion and invalidation	842	5.2
+T	garbage collection	764	4.7
+T	compiling while inferring	375	2.3
+T	load: __init__	147	0.9
+T	load: package callbacks	126	0.8
+T	load: __init__: compiling	21	0.1
+T	the work itself	14	0.1
+T	dispatch: lookup, the slow path	3	0.0
+END 1.795361831503711e9
+WALL 1795361801.347636838 1795361831.665135259 rc 0
+CACHES written during the run: 0
+# done 2026-11-22T16:37:11+01:00 | load-after 3.48 3.50 4.44

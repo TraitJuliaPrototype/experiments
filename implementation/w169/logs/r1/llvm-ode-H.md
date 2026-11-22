@@ -1,0 +1,25 @@
+- **(before the first phase)**: 40 code generations, 327 ms (julia 30/200 ms, session 10/127 ms); the harness's 13 left out
+  - 33.9 ms `Tuple{typeof(Base.Sort.partition!), Array{Pair{String, Array{Float64, 1}}, 1}, Int64, Int64, Int64, Base.Order.By{Main.var"#18#19", Base.Order.Forward`
+  - 20.5 ms `Tuple{typeof(Base.rehash!), Base.Dict{String, Array{Float64, 1}}, Int64}`
+  - 17.8 ms `Tuple{typeof(Base.Sort._sort!), Array{Pair{String, Array{Float64, 1}}, 1}, Base.Sort.InsertionSortAlg, Base.Order.By{Main.var"#18#19", Base.Order.Forw`
+  - 17.6 ms `Tuple{typeof(Base._replace_finish), Base.GenericIOBuffer{Memory{UInt8}}, String, Int64, Int64, Tuple{Base.Fix{2, typeof(Base.isequal), Char}, Base.Fix`
+  - 16.0 ms `Tuple{typeof(Base.Sort._sort!), Array{Pair{String, Array{Float64, 1}}, 1}, Base.Sort.StableCheckSorted{Base.Sort.ScratchQuickSort{Base.Missing, Base.M`
+  - 15.5 ms `Tuple{typeof(Base.copyto!), Array{Pair{String, Array{Float64, 1}}, 1}, Base.Dict{String, Array{Float64, 1}}}`
+- **_head**: 3 code generations, 10 ms (julia 3/10 ms)
+  - 4.0 ms `Tuple{typeof(Base._array_for), Type{String}, Array{Base.SubString{String}, 1}, Base.HasShape{1}}`
+  - 3.8 ms `Tuple{typeof(Base.iterate), Array{Base.SubString{String}, 1}}`
+  - 2.1 ms `Tuple{Type{Base.LinearIndices{N, R} where R<:Tuple{Vararg{Base.AbstractUnitRange{Int64}, N}} where N}, Array{String, 1}}`
+- **load**: 13 code generations, 84 ms (julia 7/65 ms, own image 6/19 ms)
+  - 26.7 ms `Tuple{Base.var"#@static", LineNumberNode, Module, Any}`
+  - 11.7 ms `Tuple{Base.var"#@main", LineNumberNode, Module, Vararg{Any}}`
+  - 8.7 ms `Tuple{typeof(Base.getindex), Core.SimpleVector, Base.UnitRange{Int64}}`
+  - 6.5 ms `Tuple{typeof(Base.setindex!), Base.IdDict{Any, Array{Any, 1}}, Any, Any}`
+  - 4.9 ms `Tuple{typeof(Base.iterate), Base.Iterators.Enumerate{Array{Symbol, 1}}}`
+  - 4.1 ms `Tuple{typeof(Base.iterate), Base.Iterators.Enumerate{Array{Symbol, 1}}, Tuple{Int64, Int64}}`
+- **first run**: 61 code generations, 249 ms (julia 44/144 ms, session 9/61 ms, composition 4/22 ms, own image 4/22 ms)
+  - 23.6 ms `Tuple{typeof(Main.main), Array{String, 1}}`
+  - 17.0 ms `Tuple{Type{Base.TwicePrecision{Float64}}, Tuple{Int128, Int128}}`
+  - 13.1 ms `Tuple{typeof(Main.robertson!), Array{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}, 1}, Array{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}, 1}, Array{F`
+  - 10.6 ms `Tuple{typeof(Base.collect), Base.Generator{Base.UnitRange{Int64}, ForwardDiff.var"#tupexpr##0#tupexpr##1"{ForwardDiff.var"#52#53"}}}`
+  - 7.6 ms `Tuple{typeof(Base.print), Core.CoreSTDOUT, String, Float64, String}`
+  - 6.7 ms `Tuple{typeof(Base.hidigit), Float64, Int64}`

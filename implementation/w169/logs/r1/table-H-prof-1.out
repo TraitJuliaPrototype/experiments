@@ -1,0 +1,42 @@
+# W-169 table H prof run 1 | 2026-11-22T16:34:38+01:00 | load-before 3.09 3.29 4.54 | julia 683ea4fc16 | TraitWorld 38200d36df TDE 06c28c376f TM 1888698d7a TT e1ec1f4368 TC 094dcb2e21 TR ec34d1219c forks a3a37d6b5e ND c2bbf0d9aa | env experiments/implementation/w169/envs/H/demo | depots .julia-depot/agent-depots/w169/H:.julia-depot: | product setting, strict mode off, one thread
+START 1.795361679777495e9
+## load: 316.2 ms, 222 samples
+C	load	load: the images' restore	51	23.0		jl_read_reloclist 53; ijl_object_id 6; jl_intset_release 4; get_item_for_reloc 4
+C	load	code generation	43	19.4	gen 100	LLVM (C++) 91; __memcmp_evex_movbe 2; _M_lower_bound 2; unlink_chunk.constprop.0 2
+C	load	load: the edges' validation	43	19.4	sub 16	verify_method 9; ijl_array_grow_end 9; jl_f__svec_ref 7; lookup_type_set 5
+C	load	load: the rest (finding files, reading)	39	17.6		file system calls 90; __memmove_avx512_unaligned_erms 3; llseek 3; is_v1_format_manifest 3
+C	load	load: the library's image hook: compiling	14	6.3	gen 100	LLVM (C++) 71; name 7; unlink_chunk.constprop.0 7; ZSTD_encodeSequences_bmi2 7
+C	load	load: methods' insertion and invalidation	14	6.3	sub 79	obviously_egal 14; flatten_type_union 7; has_free_typevars 7; forall_exists_subtype 7
+C	load	the definition-time check: compiling	9	4.1	gen 100	LLVM (C++) 78; malloc 11; operator delete [] 11
+C	load	load: the library's image hook	3	1.4	sub 33	new_array 33; ijl_field_index 33; jl_object_id__cold 33
+C	load	lowering and parsing	3	1.4		apply_cl 67; trace_globals 33
+C	load	the definition-time check	1	0.5		lookup_type_setvalue 100
+C	load	load: the membership walk	1	0.5	sub 100	ijl_eqtable_get 100
+C	load	the work itself	1	0.5		file system calls 100
+J	load	stat 1
+## first run: 112.1 ms, 71 samples
+C	first run	code generation	54	76.1	gen 100	LLVM (C++) 80; malloc 7; ~PassModel 2; isalpha 2
+C	first run	inference	11	15.5	inf 100	lookup_type_setvalue 27; setindex! 9; jl_gc_state_set 9; jl_gc_small_alloc_inner 9
+C	first run	compiling while inferring	5	7.0	inf 100, gen 100	LLVM (C++) 80; __memcmp_evex_movbe 20
+C	first run	the member check (the library's hook)	1	1.4		int64hash 100
+## second run: 0.5 ms, 0 samples
+## the whole: 293 samples
+T	code generation	97	33.1
+T	load: the images' restore	51	17.4
+T	load: the edges' validation	43	14.7
+T	load: the rest (finding files, reading)	39	13.3
+T	load: the library's image hook: compiling	14	4.8
+T	load: methods' insertion and invalidation	14	4.8
+T	inference	11	3.8
+T	the definition-time check: compiling	9	3.1
+T	compiling while inferring	5	1.7
+T	load: the library's image hook	3	1.0
+T	lowering and parsing	3	1.0
+T	the member check (the library's hook)	1	0.3
+T	the definition-time check	1	0.3
+T	load: the membership walk	1	0.3
+T	the work itself	1	0.3
+END 1.79536168236353e9
+WALL 1795361679.432091234 1795361682.396952934 rc 0
+CACHES written during the run: 0
+# done 2026-11-22T16:34:42+01:00 | load-after 3.01 3.27 4.53

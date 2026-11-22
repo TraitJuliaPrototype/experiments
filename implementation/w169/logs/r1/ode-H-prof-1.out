@@ -1,0 +1,51 @@
+# W-169 ode H prof run 1 | 2026-11-22T16:35:20+01:00 | load-before 3.95 3.50 4.56 | julia 683ea4fc16 | TraitWorld 38200d36df TDE 06c28c376f TM 1888698d7a TT e1ec1f4368 TC 094dcb2e21 TR ec34d1219c forks a3a37d6b5e ND c2bbf0d9aa | env experiments/implementation/w169/envs/H/demo | depots .julia-depot/agent-depots/w169/H:.julia-depot: | product setting, strict mode off, one thread
+START 1.795361721383715e9
+## load: 3768.8 ms, 554 samples
+C	load	load: the rest (finding files, reading)	129	23.3		file system calls 95; getdents64 2; __memmove_avx512_unaligned_erms 1; uuid_kernel 1
+C	load	load: the membership walk	66	11.9	sub 94	lookup 14; jl_precompute_memoized_dt 9; has_free_typevars 6; has_existential_typevar 6
+C	load	load: the images' restore	62	11.2		jl_read_reloclist 39; symtab_lookup 10; get_item_for_reloc 6; jl_specializations_get_linfo_ 5
+C	load	load: the edges' validation	61	11.0	sub 49	obvious_subtype 10; ijl_unwrap_unionall 7; scan_new_method! 5; jl_typemap_intersection_visitor 3
+C	load	load: the library's image hook: compiling	50	9.0	inf 10, gen 90	LLVM (C++) 80; resize! 4; malloc 4; jl_normalize_to_compilable_mi 2
+C	load	load: methods' insertion and invalidation	50	9.0	sub 82	has_free_typevars 10; obvious_subtype 10; obviously_disjoint 6; invalidate_mt_cache 6
+C	load	code generation	42	7.6	gen 100	LLVM (C++) 93; find_next 2; unlink_chunk.constprop.0 2; malloc 2
+C	load	garbage collection	35	6.3	sub 40, gc 100	gc_mark_objarray 29; gc_marked 26; gc_old 26; gc_try_claim_and_push 6
+C	load	load: the memberships' activation	24	4.3	sub 79	inst_type_w_ 25; subtype 12; inst_datatype_inner 8; set_nth_field 4
+C	load	load: the library's image hook	11	2.0	sub 18	jl_is_layout_opaque 18; apply_generic_reach 18; jl_has_open_set_in 9; jl_typemap_entry_assoc_exact 9
+C	load	the definition-time check: compiling	10	1.8	inf 10, gen 100	LLVM (C++) 80; malloc 20
+C	load	lowering and parsing	6	1.1		apply_cl 67; sweep_finalizers 17; gc_page_data 17
+C	load	the work itself	4	0.7		jl_has_meta 25; _nextind_continued 25; parse_import_atsym 25; file system calls 25
+C	load	load: __init__	3	0.5		file system calls 100
+C	load	the definition-time check	1	0.2	sub 100	jl_svecref 100
+J	load	eval 1; _nextind_continued 1; parse_import_atsym 1; #open#650 1
+## first run: 608.8 ms, 387 samples
+C	first run	compiling while inferring	179	46.3	inf 100, gen 91, sub 1	LLVM (C++) 77; malloc 6; __memset_avx512_unaligned_erms 1; __memmove_avx512_unaligned_erms 1
+C	first run	code generation	119	30.7	gen 100, sub 1	LLVM (C++) 91; malloc 4; name 1; __memcmp_evex_movbe 1
+C	first run	inference	67	17.3	inf 100, sub 3	scan_specified_partitions 7; getindex 4; iterate 4; symtab_lookup 4
+C	first run	garbage collection	18	4.7	inf 100, gc 100	gc_marked 28; gc_old 28; gc_mark_objarray 11; gc_mark_outrefs 11
+C	first run	the work itself	4	1.0		#ODEProblem#22 25; __truncdfbf2 25; with_problem 25; dgetf2_k 25
+J	first run	? 1; #ODEProblem#22 1; with_problem 1; #getrf!#1 1
+## second run: 2.1 ms, 1 samples
+C	second run	the work itself	1	100.0		- 100
+J	second run	- 1
+## the whole: 942 samples
+T	compiling while inferring	179	19.0
+T	code generation	161	17.1
+T	load: the rest (finding files, reading)	129	13.7
+T	inference	67	7.1
+T	load: the membership walk	66	7.0
+T	load: the images' restore	62	6.6
+T	load: the edges' validation	61	6.5
+T	garbage collection	53	5.6
+T	load: the library's image hook: compiling	50	5.3
+T	load: methods' insertion and invalidation	50	5.3
+T	load: the memberships' activation	24	2.5
+T	load: the library's image hook	11	1.2
+T	the definition-time check: compiling	10	1.1
+T	the work itself	9	1.0
+T	lowering and parsing	6	0.6
+T	load: __init__	3	0.3
+T	the definition-time check	1	0.1
+END 1.795361728272117e9
+WALL 1795361721.173962077 1795361728.308332500 rc 0
+CACHES written during the run: 0
+# done 2026-11-22T16:35:28+01:00 | load-after 3.65 3.45 4.53

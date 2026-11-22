@@ -1,0 +1,35 @@
+- **(before the first phase)**: 40 code generations, 332 ms (julia 30/202 ms, session 10/130 ms); the harness's 13 left out
+  - 34.7 ms `Tuple{typeof(Base.Sort.partition!), Array{Pair{String, Array{Float64, 1}}, 1}, Int64, Int64, Int64, Base.Order.By{Main.var"#18#19", Base.Order.Forward`
+  - 20.5 ms `Tuple{typeof(Base.rehash!), Base.Dict{String, Array{Float64, 1}}, Int64}`
+  - 17.7 ms `Tuple{typeof(Base._replace_finish), Base.GenericIOBuffer{Memory{UInt8}}, String, Int64, Int64, Tuple{Base.Fix{2, typeof(Base.isequal), Char}, Base.Fix`
+  - 17.5 ms `Tuple{typeof(Base.Sort._sort!), Array{Pair{String, Array{Float64, 1}}, 1}, Base.Sort.InsertionSortAlg, Base.Order.By{Main.var"#18#19", Base.Order.Forw`
+  - 16.4 ms `Tuple{typeof(Base.Sort._sort!), Array{Pair{String, Array{Float64, 1}}, 1}, Base.Sort.StableCheckSorted{Base.Sort.ScratchQuickSort{Base.Missing, Base.M`
+  - 15.5 ms `Tuple{typeof(Base.copyto!), Array{Pair{String, Array{Float64, 1}}, 1}, Base.Dict{String, Array{Float64, 1}}}`
+- **load**: 6 code generations, 23 ms (own image 4/13 ms, julia 2/9 ms)
+  - 5.0 ms `Tuple{typeof(Base.iterate), Base.Iterators.Enumerate{Array{Symbol, 1}}}`
+  - 4.3 ms `Tuple{typeof(Base.indexed_iterate), Tuple{typeof(DataType), UnionAll, TraitWorld.How}, Int64}`
+  - 4.2 ms `Tuple{typeof(Base.iterate), Base.Iterators.Enumerate{Array{Symbol, 1}}, Tuple{Int64, Int64}}`
+  - 3.1 ms `Tuple{typeof(Base.indexed_iterate), Tuple{typeof(DataType), UnionAll, TraitWorld.How}, Int64, Int64}`
+  - 3.0 ms `Tuple{typeof(Base.indexed_iterate), Tuple{UnionAll, TraitWorld.How}, Int64}`
+  - 3.0 ms `Tuple{typeof(Base.indexed_iterate), Tuple{UnionAll, TraitWorld.How}, Int64, Int64}`
+- **_definitions**: 1 code generations, 9 ms (julia 1/9 ms)
+  - 8.7 ms `Tuple{typeof(Base.getindex), Core.SimpleVector, Base.UnitRange{Int64}}`
+- **first work**: 29 code generations, 100 ms (julia 22/62 ms, own image 6/32 ms, session 1/6 ms); the harness's 1 left out
+  - 17.5 ms `Tuple{typeof(Base.first), DataFrames.DataFrame, Int64}`
+  - 6.4 ms `Tuple{Main.var"#21#22"}`
+  - 6.0 ms `Tuple{Type{Base.IOContext{IO_t} where IO_t<:IO}, Base.IOContext{Base.GenericIOBuffer{Memory{UInt8}}}, Pair{Symbol, Tuple{Int64, Int64}}, Pair{Symbol, `
+  - 4.0 ms `Tuple{typeof(Base._array_for_inner), Type{Symbol}, Base.HasShape{1}, Tuple{Base.OneTo{Int64}}}`
+  - 3.9 ms `Tuple{Type{Pair{A, B} where B where A}, String, Function}`
+  - 3.9 ms `Tuple{typeof(Base._split_pointer), Type{typeof(Tables.ColumnCore.vector)}, Type{Array{typeof(DataType), 1}}, Type{Any}, Type{Tuple{}}}`
+- **nine loads**: 2 code generations, 8 ms (own image 2/8 ms)
+  - 4.2 ms `Tuple{BaseDirs.Internals.var"##resolvedirpaths#7", Bool, Bool, typeof(BaseDirs.Internals.resolvedirpaths), Array{String, 1}, Tuple{}}`
+  - 3.4 ms `Tuple{typeof(Base.keys), Makie.Attributes}`
+- **after the loads**: 32 code generations, 1595 ms (own image 18/1478 ms, composition 6/92 ms, julia 7/19 ms, session 1/6 ms)
+  - 529.8 ms `Tuple{typeof(PrettyTables._text__print_table_core), PrettyTables.PrintingSpec, PrettyTables.TextPrintOptions, Bool}`
+  - 290.4 ms `Tuple{typeof(CSV._parse), Array{UInt8, 1}, CSV.Dialect, CSV.ValueOpts, Symbol, Nothing, Int64, Bool, Int64, Int64, Symbol, Bool, Bool, Nothing, Nothin`
+  - 274.0 ms `Tuple{typeof(CSV._parse), Array{UInt8, 1}, CSV.Dialect, CSV.ValueOpts, Symbol, Nothing, Int64, Bool, Int64, Int64, Symbol, Bool, Bool, Nothing, Nothin`
+  - 114.6 ms `Tuple{CSV.var"##_transposedfile#152", Nothing, Bool, Bool, Type, Symbol, Int64, Bool, Nothing, Nothing, Char, Bool, Nothing, Bool, Bool, Nothing, Bool`
+  - 78.6 ms `Tuple{typeof(PrettyTables._pretty_table), IO, Any, Symbol, Any, Bool, Bool, Bool, Symbol, String, String, String, String, Union{Nothing, AbstractArray`
+  - 63.3 ms `Tuple{typeof(CSV._filefromprepared), CSV.IndexedSource, String, Nothing, Nothing, Nothing, Bool, Bool, Base.Val{DataStrings.DataString}, Symbol, Int64`
+- **again after**: 1 code generations, 4 ms (julia 1/4 ms)
+  - 3.8 ms `Tuple{typeof(Base.println), String, Float64}`
