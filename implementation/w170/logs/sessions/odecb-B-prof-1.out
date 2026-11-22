@@ -1,0 +1,55 @@
+# E-538 session odecb B prof run 1 | 2026-11-22T17:57:59+01:00 | load 4.36 5.40 5.66 | login02 | julia-next 683ea4fc16 | B: TraitWorld 38200d36df TDE 06c28c376f | A: TraitWorld 9b5861a067 TDE d061814c11 NetworkDynamics 499204929f | experiments 81e632202f | product setting, strict mode off, one thread, BLAS one thread
+START 1.795366680916038e9
+## load: 3842.4 ms, 610 samples
+C	load	load: the rest (finding files, reading)	194	31.8		file system calls 95; readbytes_all! 1; __memcmp_evex_movbe 1; explicit_manifest_deps_get 1
+C	load	load: the images' restore	77	12.6		jl_read_reloclist 42; file system calls 5; ijl_object_id 4; symtab_lookup 4
+C	load	load: the membership walk	62	10.2	sub 97	inst_datatype_inner 6; inst_type_w_ 6; jl_has_bound_typevars 5; has_existential_typevar 5
+C	load	load: the edges' validation	60	9.8	sub 50	scan_new_method! 7; obviously_disjoint 7; jl_is_all_type 7; _jl_mutex_wait 5
+C	load	load: the library's image hook: compiling	53	8.7	inf 17, gen 91, sub 2	LLVM (C++) 68; malloc 9; forall_exists_equal_ 2; SparseBitVectorElement 2
+C	load	load: methods' insertion and invalidation	45	7.4	sub 84	obvious_subtype 13; jl_to_typeof 9; has_free_typevars 7; obviously_disjoint 7
+C	load	garbage collection	35	5.7	sub 40, gc 100	gc_mark_objarray 23; gc_marked 20; gc_old 20; gc_mark_obj8 11
+C	load	load: the memberships' activation	29	4.8	sub 86	ijl_unwrap_unionall 14; has_free_typevars 10; re_save_env 10; typeenv_has_ne 7
+C	load	code generation	22	3.6	gen 100	LLVM (C++) 91; find 5;  5
+C	load	the definition-time check: compiling	10	1.6	gen 100	LLVM (C++) 90; __memset_avx512_unaligned_erms 10
+C	load	load: the library's image hook	8	1.3		jl_is_layout_opaque 12; jl_lookup_generic_ 12; sig_match_simple 12; jl_typemap_entry_assoc_exact 12
+C	load	lowering and parsing	5	0.8		apply_cl 60; fl_memq 40
+C	load	load: __init__	4	0.7	sub 25	file system calls 75; ml_matches_visitor 25
+C	load	the definition-time check	2	0.3		ijl_isa 50; jl_intref_acquire 50
+C	load	the work itself	2	0.3		== 50; file system calls 50
+C	load	inference	2	0.3	inf 100	getindex 50; basic_blocks_starts 50
+R	load	stat 73; isvalid_cache_header 32; #open#650 31; ispath 25; _eof_nolock 12; readbytes_all! 8; close 3; #_readdir#25 2; getproperty 2; explicit_manifest_deps_get 1; filesize 1; unsafe_load 1; ht_keyindex 1; locate_package_env 1
+J	load	== 1; stat 1
+## first run: 480.8 ms, 293 samples
+C	first run	code generation	228	77.8	gen 100	LLVM (C++) 85; malloc 6; __memcmp_evex_movbe 1; ZSTD_HcFindBestMatch_noDict_4 1
+C	first run	inference	32	10.9	inf 100, sub 9	gc_page_data 6; lookup 3; setindex! 3; has_free_typevars 3
+C	first run	compiling while inferring	25	8.5	inf 100, gen 100	LLVM (C++) 56; malloc 20; emit_call_specfun_other 4; _nl_find_msg 4
+C	first run	dispatch: lookup, the slow path	5	1.7	sub 60	obviously_egal 20; pthread_mutex_lock 20; jl_has_bound_typevars 20; has_free_typevars 20
+C	first run	dispatch: the box's checks	3	1.0		ijl_unbox_int64 33; jl_gc_small_alloc_inner 33; declared_field_type 33
+J	first run	step_event_affect! 1; #ODEProblem#22 1; _enter_callback! 1; GenericMemory 1; getindex 1; _problem 1; declared_field_type 1; step_event_affect_neg! 1
+## second run: 3.3 ms, 2 samples
+C	second run	dispatch: lookup, the slow path	2	100.0		int64hash 50; jl_is_type_type 50
+J	second run	Dynamic 2
+## the whole: 905 samples
+T	code generation	250	27.6
+T	load: the rest (finding files, reading)	194	21.4
+T	load: the images' restore	77	8.5
+T	load: the membership walk	62	6.9
+T	load: the edges' validation	60	6.6
+T	load: the library's image hook: compiling	53	5.9
+T	load: methods' insertion and invalidation	45	5.0
+T	garbage collection	35	3.9
+T	inference	34	3.8
+T	load: the memberships' activation	29	3.2
+T	compiling while inferring	25	2.8
+T	the definition-time check: compiling	10	1.1
+T	load: the library's image hook	8	0.9
+T	dispatch: lookup, the slow path	7	0.8
+T	lowering and parsing	5	0.6
+T	load: __init__	4	0.4
+T	dispatch: the box's checks	3	0.3
+T	the definition-time check	2	0.2
+T	the work itself	2	0.2
+END 1.795366687719364e9
+WALL 1795366680.570622561 1795366687.757312123 rc 0
+CACHES written during the run: 0
+# done 2026-11-22T17:58:07+01:00 | load-after 4.17 5.34 5.64

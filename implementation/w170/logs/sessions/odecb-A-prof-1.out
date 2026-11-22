@@ -1,0 +1,54 @@
+# E-538 session odecb A prof run 1 | 2026-11-22T18:07:19+01:00 | load 5.54 5.25 5.50 | login02 | julia-next 683ea4fc16 | B: TraitWorld 38200d36df TDE 06c28c376f | A: TraitWorld 9b5861a067* TDE d061814c11* NetworkDynamics 499204929f | experiments 81e632202f* | product setting, strict mode off, one thread, BLAS one thread
+START 1.795367240431141e9
+## load: 4880.4 ms, 634 samples
+C	load	load: the rest (finding files, reading)	179	28.2		file system calls 93; __memmove_avx512_unaligned_erms 1; llseek 1; #_#1 1
+C	load	load: the membership walk	85	13.4	sub 96	has_existential_typevar 7; lookup 6; jl_has_bound_typevars 5; inst_type_w_ 5
+C	load	load: the images' restore	76	12.0		jl_read_reloclist 39; get_item_for_reloc 8; jl_specializations_get_linfo_ 5; symtab_lookup 5
+C	load	load: the edges' validation	65	10.3	sub 46	obvious_subtype 6; scan_new_method! 5; jl_f__svec_ref 5; verify_method 3
+C	load	load: the library's image hook: compiling	54	8.5	inf 15, gen 87, sub 4	LLVM (C++) 65; malloc 13; ZSTD_HcFindBestMatch_noDict_4 4; ZSTD_selectEncodingType 2
+C	load	load: methods' insertion and invalidation	45	7.1	sub 84	obvious_subtype 11; obviously_disjoint 9; ijl_unwrap_unionall 7; has_free_typevars 4
+C	load	load: the memberships' activation	38	6.0	sub 84	inst_type_w_ 11; has_free_typevars 8; ijl_unwrap_unionall 8; has_existential_typevar 5
+C	load	garbage collection	36	5.7	sub 42, gc 100	gc_mark_objarray 31; gc_marked 31; gc_old 14; gc_mark_outrefs 11
+C	load	code generation	22	3.5	gen 100	LLVM (C++) 86; jl_compile_codeinst_now 5; removeAddrspaces 5; malloc 5
+C	load	the definition-time check: compiling	11	1.7	inf 9, gen 100	LLVM (C++) 91; ZSTD_HcFindBestMatch_noDict_4 9
+C	load	load: the library's image hook	8	1.3		jl_is_layout_opaque 25; sig_match_simple 12; __strcmp_evex 12; ijl_isa 12
+C	load	lowering and parsing	6	0.9		apply_cl 83; fl_memq 17
+C	load	load: __init__	4	0.6		file system calls 100
+C	load	the work itself	2	0.3		file system calls 50; symtab_lookup 50
+C	load	inference	2	0.3	inf 100	unionsplitcost 50; walk_to_def 50
+C	load	the definition-time check	1	0.2		set_nth_field 100
+R	load	stat 74; #open#650 30; isvalid_cache_header 25; ispath 24; _eof_nolock 11; readbytes_all! 2; close 2; unsafe_crc32c 1; #_#1 1; #_readdir#25 1; hash_bytes 1; filesize 1; seek 1; sizeof 1
+J	load	stat 1; _Symbol 1
+## first run: 210.1 ms, 128 samples
+C	first run	code generation	92	71.9	gen 100	LLVM (C++) 83; malloc 9; __memmove_avx512_unaligned_erms 1; realloc 1
+C	first run	inference	23	18.0	inf 100, sub 17	lookup 9; jl_field_isptr 9; process_node! 9; jl_typemap_intersection_node_visitor 4
+C	first run	compiling while inferring	10	7.8	inf 100, gen 100	LLVM (C++) 40; malloc 20; aligned_alloc 10; _Rb_tree_rebalance_for_erase 10
+C	first run	dispatch: lookup, the slow path	2	1.6	sub 50	lookup 50; subtype_unionall 50
+C	first run	the work itself	1	0.8		getproperty 100
+J	first run	_enter_callback! 1; _problem 1; getproperty 1
+## second run: 1.9 ms, 1 samples
+C	second run	the work itself	1	100.0		jfptr_condition_3374 100
+J	second run	step_condition 1
+## the whole: 763 samples
+T	load: the rest (finding files, reading)	179	23.5
+T	code generation	114	14.9
+T	load: the membership walk	85	11.1
+T	load: the images' restore	76	10.0
+T	load: the edges' validation	65	8.5
+T	load: the library's image hook: compiling	54	7.1
+T	load: methods' insertion and invalidation	45	5.9
+T	load: the memberships' activation	38	5.0
+T	garbage collection	36	4.7
+T	inference	25	3.3
+T	the definition-time check: compiling	11	1.4
+T	compiling while inferring	10	1.3
+T	load: the library's image hook	8	1.0
+T	lowering and parsing	6	0.8
+T	load: __init__	4	0.5
+T	the work itself	4	0.5
+T	dispatch: lookup, the slow path	2	0.3
+T	the definition-time check	1	0.1
+END 1.795367247845579e9
+WALL 1795367240.093667778 1795367247.884202956 rc 0
+CACHES written during the run: 0
+# done 2026-11-22T18:07:27+01:00 | load-after 5.26 5.19 5.48
