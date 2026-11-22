@@ -1,0 +1,54 @@
+# E-538 session ode B prof run 1 | 2026-11-22T18:25:45+01:00 | load 5.57 5.88 6.21 | login02 | julia-next 683ea4fc16 | B: TraitWorld 38200d36df TDE 06c28c376f | A: TraitWorld 4a31dff093 TDE 21a5aa57cf NetworkDynamics 499204929f | experiments 78594b90ea | product setting, strict mode off, one thread, BLAS one thread
+START 1.795368346094598e9
+## load: 4862.4 ms, 615 samples
+C	load	load: the rest (finding files, reading)	179	29.1		file system calls 92; crc32c_sse42 2; getdents64 1; ht_keyindex 1
+C	load	load: the images' restore	72	11.7	sub 1	jl_read_reloclist 40; symtab_lookup 10; get_item_for_reloc 8; ijl_object_id 4
+C	load	load: the membership walk	63	10.2	sub 90	inst_type_w_ 10; lookup 8; jl_has_bound_typevars 6; ijl_unwrap_unionall 6
+C	load	load: the edges' validation	59	9.6	sub 46, mem 2	verify_method 7; jl_is_va_tuple 7; verify_call 5; obvious_subtype 5
+C	load	load: the library's image hook: compiling	51	8.3	inf 14, gen 90, sub 2	LLVM (C++) 67; malloc 8; unlink_chunk.constprop.0 4; find_next 2
+C	load	load: methods' insertion and invalidation	50	8.1	sub 78	obvious_subtype 14; invalidate_mt_cache 10; jl_to_typeof 8; jl_is_all_type 8
+C	load	code generation	41	6.7	gen 100	LLVM (C++) 83; malloc 12; ZSTD_compressBlock_lazy 2; __strlen_evex 2
+C	load	garbage collection	38	6.2	sub 100, gc 100	gc_mark_objarray 39; gc_marked 21; gc_old 18; gc_sweep_page 5
+C	load	load: the memberships' activation	27	4.4	sub 96	has_free_typevars 15; subtype 7; reach_memo_get 7; set_types_position 4
+C	load	the definition-time check: compiling	11	1.8	inf 9, gen 100, sub 9	LLVM (C++) 100
+C	load	load: the library's image hook	8	1.3	sub 12	jl_is_layout_opaque 25; _records_walk! 12; ijl_isa 12; apply_cl 12
+C	load	lowering and parsing	7	1.1		apply_cl 86; fl_julia_underscore_symbolp 14
+C	load	load: __init__	5	0.8		file system calls 60; elf_get_dynamic_info 20; jl_to_typeof 20
+C	load	the definition-time check	2	0.3		jl_get_module_binding 50; mi_policy_facts_at 50
+C	load	the work itself	2	0.3		getproperty 50; file system calls 50
+R	load	stat 64; isvalid_cache_header 28; #open#650 27; ispath 18; _eof_nolock 15; #_readdir#25 7; readbytes_all! 5; unsafe_crc32c 3; close 2; ht_keyindex 2; read 2; unsafe_string 1; seek 1; macro expansion 1
+J	load	stat 1; getproperty 1
+## first run: 645.9 ms, 389 samples
+C	first run	compiling while inferring	177	45.5	inf 100, gen 91	LLVM (C++) 76; malloc 7; __futex_abstimed_wait_common 1; inst_type_w_ 1
+C	first run	code generation	121	31.1	gen 100	LLVM (C++) 88; malloc 7; __memcmp_evex_movbe 1; operator delete 1
+C	first run	inference	69	17.7	inf 100, sub 7	symtab_lookup 6; getindex 4; jl_lookup_generic_ 4; jl_gc_small_alloc_inner 3
+C	first run	garbage collection	19	4.9	inf 100, gc 100	gc_old 26; gc_mark_objarray 21; gc_marked 21; gc_mark_outrefs 11
+C	first run	dispatch: lookup, the slow path	2	0.5		cache_method 50; int64hash 50
+C	first run	the work itself	1	0.3		dgemv_n_COOPERLAKE 100
+J	first run	Dynamic 1; main 1; #getrf!#1 1
+## second run: 2.3 ms, 1 samples
+C	second run	dispatch: lookup, the slow path	1	100.0		int64hash 100
+J	second run	Dynamic 1
+## the whole: 1005 samples
+T	load: the rest (finding files, reading)	179	17.8
+T	compiling while inferring	177	17.6
+T	code generation	162	16.1
+T	load: the images' restore	72	7.2
+T	inference	69	6.9
+T	load: the membership walk	63	6.3
+T	load: the edges' validation	59	5.9
+T	garbage collection	57	5.7
+T	load: the library's image hook: compiling	51	5.1
+T	load: methods' insertion and invalidation	50	5.0
+T	load: the memberships' activation	27	2.7
+T	the definition-time check: compiling	11	1.1
+T	load: the library's image hook	8	0.8
+T	lowering and parsing	7	0.7
+T	load: __init__	5	0.5
+T	dispatch: lookup, the slow path	3	0.3
+T	the work itself	3	0.3
+T	the definition-time check	2	0.2
+END 1.795368354231538e9
+WALL 1795368345.746028491 1795368354.268168188 rc 0
+CACHES written during the run: 0
+# done 2026-11-22T18:25:54+01:00 | load-after 5.26 5.80 6.18

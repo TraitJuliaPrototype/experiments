@@ -1,0 +1,31 @@
+# E-538 probe255 A | 2026-11-22T18:27:46+01:00 | load 8.11 6.14 6.23 | login02 | julia-next 683ea4fc16 | B: TraitWorld 38200d36df TDE 06c28c376f | A: TraitWorld 4a31dff093 TDE 21a5aa57cf NetworkDynamics 499204929f | experiments 78594b90ea | product setting, strict mode off, one thread, BLAS one thread
+R activated memberships: 179
+R at the load itself (the runtime's counters, every walk of the load): walks 179 | replayed 2283 examined 521 invalidation events 58 lowered 0
+R new      memberships   67 | walk 198.98 ms | replayed 2189 examined 1416 lowered 0
+R library  memberships    4 | walk 0.06 ms | replayed 13 examined 2 lowered 0
+R foreign  memberships  108 | walk 467.97 ms | replayed 977 examined 624 lowered 0
+R all      memberships  179 | walk 667.01 ms
+R the 12 longest:
+R   foreign  225.21 ms  replayed  123 examined   113  Dynamic{Z} where {A<:Tuple, S, Z<:Callable{A, S}} in Callable{A<:Tuple, S}
+R   foreign  211.23 ms  replayed  123 examined   125  Compiled{Z} where {A<:Tuple, S, Z<:Callable{A, S}} in Callable{A<:Tuple, S}
+R   new       17.16 ms  replayed  123 examined    86  ODECore.ProblemRHS in Callable
+R   new       17.11 ms  replayed  123 examined    86  TraitNonlinearSolve.AtTime in Callable
+R   new       16.99 ms  replayed  123 examined    86  TraitIndexing.StateGetter in Callable
+R   new       12.33 ms  replayed  123 examined    86  ODEFunction in Callable
+R   new       12.32 ms  replayed  123 examined    86  ODECore.PartialFn in Callable
+R   new        12.2 ms  replayed  123 examined    86  NonlinearFunction in Callable
+R   new        12.2 ms  replayed  123 examined    86  TraitNonlinearSolve.NLPartial in Callable
+R   new       12.14 ms  replayed  123 examined    86  ODECore.ProblemJac in Callable
+R   new        12.1 ms  replayed  123 examined    86  TraitNonlinearSolve.ProblemAtTime in Callable
+R   new       12.09 ms  replayed  123 examined    86  TraitNonlinearSolve.ProblemJacAtTime in Callable
+R by the member's package:
+R   Core                          83 memberships   467.52 ms
+R   TraitWorld                     4 memberships     0.06 ms
+R   Base                           8 memberships      0.3 ms
+R   LinearAlgebra                 14 memberships     0.13 ms
+R   Dates                          3 memberships     0.02 ms
+R   TraitIndexing                  4 memberships    41.41 ms
+R   TraitArrayTools                1 memberships     0.08 ms
+R   ODECore                       41 memberships    65.93 ms
+R   TraitRodas                     5 memberships     0.78 ms
+R   TraitNonlinearSolve           16 memberships    90.78 ms
