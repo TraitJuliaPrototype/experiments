@@ -1266,3 +1266,191 @@ no method at the box is refused at its definition; with one, accepted.
   image strips (`--strip-ir`) is no forwarder to the build (the product rule then applies).
 - The method lookup the forwarder's case records spans all worlds (a closed build invalidates nothing); a session's
   check takes the same path.
+
+## Sixth part: a declared result across dispatch (compiler C-157), 2026-11-22
+
+**The question** (compiler §7.4, C-157; open issue 253): the rule "compiled code never takes a value that its call's
+type excludes", built completely. An element of a `Vector{Callable{A, S}}` is a function kept as itself, known only by
+the signature. Inference reads code that takes it at the signature, where its call is asserted to `S`; dispatch runs
+that code compiled for the function's own type, where the call is the function's own. So a callee's result at the
+signature can be narrower than what the instance that runs returns: inference is not monotone at a declared result
+whose members' own code is not checked against it. What would change the design: a place the rule cannot reach, a
+cost to plain code, or a mechanism that needs a test of the argument types' shape.
+
+Julia `wt/w158-julia`, branch `w158`: f1d6e51efa, then 3211d10d60, 42657e9dbd (built), 85bd884a57 (built). The
+library `wt/w158b-tw`, branch `w158m` from `unified` 7c3b07d (tests only: e65c29b, 15070de). The depot
+`agent-depots/w158` before the shared one. One Julia job at a time, niced; load 2 to 15 of 128. Logs `logs/m6-*`
+(and the scripts' own names `logs/i-*-m6*`, `logs/w166c-i-m6*`, `logs/sessions-m6-*`); probes `m-probes/`.
+
+**How to run** (after `source env.sh`; `J=$TW_ROOT/wt/w158-julia/julia`):
+```sh
+$J --startup-file=no m-probes/forms.jl                                    # 29 forms at Main; exits 1 on a hole
+(cd $TW_ROOT/wt/w158b-tw && TW=1 $J --project=. $W158/m-probes/forms.jl)  # 71: in a trait module, boxes, wrappers, an operation
+(cd $TW_ROOT/wt/w158b-tw && $J --project=. -e 'include(ARGS[1]); include(ARGS[2])' $W158/m-probes/mutant.jl <gate>)  # the rule's checks taken out
+$J --project=env_demo_d m-probes/count.jl ../w135/apps/report.jl <csv> <png>   # what a session's code holds of the rule
+bash m-checks.sh <label> [tree] [step ...]                                # i-checks.sh's steps (and Compiler/effects), logs m6-
+bash i-apps.sh <label> wt/w158-julia m-trusted                            # apps/m-trusted.jl: session and trimmed, compared
+```
+
+### 1. The invariant, and every place that can break it
+
+**The invariant.** Where inference gives a call a type that rests on a declared result its members' own code is not
+checked against, and the code that runs may be another instance than the one inferred, the call's result is checked
+against that type. Such declared results: a `Callable{A, S}`'s `S` (every function is a member, none is checked);
+an operation's result at an argument the members' check does not infer at (traits §5.10: a further argument declared
+at a type that is not concrete). Not: an operation's result at checked argument types (a member's own method infers
+within it, §5.10, so its instance is monotone), a declared field (checked at the membership), `IO`'s results and a
+closed type's contract (`Any`: nothing narrower is trusted), a method's own `f(…)::RT` (its body asserts it in every
+instance).
+
+The scan (`m-probes/forms.jl`; a function `x -> 1` where `Bool` or `Float64` is declared; at Main with plain
+`Core.Callable`, and in a trait module with the library). f1d6e51efa: observed in this part's first runs, before the
+build replaced that binary; the logs were not kept. The mutant (`m-probes/mutant.jl`, the inliner's checks taken out
+of the session's compiler on the built head) gives the same holes and is kept: `logs/m6-gate-n35-mutant-85bd884.log`.
+
+| form | f1d6e51efa | 85bd884a57 | the place, and what closes it |
+|---|---|---|---|
+| `t(x)` in a loop, `v[1](x)` | checked, `typeassert`'s message | checked, the box's | the call itself (§7.4): `Core._callable_result` |
+| `all`, `any`, `filter`, `findfirst` at `t -> t(x)` | **wrong answer** | checked | a call left to dispatch, no case: the check after it |
+| `map`, `sum`, a generator, a comprehension (`Float64`) | **`5.0e-324`** | checked | the same (the element type `map` gives is the first value's type, read from the call) |
+| `apply1(v[1], x) ? … : …`, `+ 0.5` | **wrong answer** | checked | the same |
+| a union split's fallback (`Nothing \| Callable`) | **wrong answer** | checked | the fallback's check (`ir_inline_unionsplit!`) |
+| a split's case at a method that does not specialize | not run | checked (on 42657e9dbd: **wrong answer**) | the case's check where its instance's types are wider than the case's |
+| a constant result (`t(x) isa Bool`) | **wrong answer** (`"yes"`) | own (`"no"`) | a marked call's result is its type alone: no constant taken |
+| a result `Union{}` | **stops at `unreachable`** | checked | the check after the call (it raises) |
+| two levels up (`lvl2(t, x) = apply1(t, x)`) | **wrong answer** | checked | the mark carried to the caller, through a call at argument types that are not concrete |
+| a struct's field (`Holder{<:Callable}`), a tuple | **wrong answer** at Main | checked | the same: no test of the argument types' shape |
+| a closure's capture, a splat (`_apply_iterate`), `invokelatest` | own | own | nothing trusted: the closure and the splat are inferred at their own types; the latest world is `Any` |
+| `Core.invoke` at the signature | **wrong answer** | checked | a builtin's call that stays one: the check after it |
+| `@nospecialize` (an invoke of the instance at `Any`) | **wrong answer** | checked | an invoke at wider types than the call's: the check after it |
+| an invoke of the instance at the call's types, an inlined body | sound | sound, no check | the code that runs is the code inferred |
+| two methods take the call (`t::Function`, `t`) | own | own | inference joins both: nothing narrower |
+| `Base.promote_op(f, eltype(v))` | `Float64` | `Float64` | a value computed by inference (facts §7); not a hole: a call filled by it is checked |
+| an operation's result at a further argument declared abstract, passed on | **wrong answer** | checked (`typeassert`) | the same mark, `TRUSTED_OPERATION` |
+| the box | checked | checked | its call method |
+| the wrapper, an element of a `Vector{Callable{A, S}}` | **holes as the function** | checked or own as the function | it is known only by the signature there |
+
+(85bd884a57: `logs/m6-forms-tw0-85bd884.log` 0 holes in 29 forms, `logs/m6-forms-tw1-85bd884.log` 0 in 71.)
+
+### 2. The mechanism: the trusted effect and the check where another instance runs
+
+- **A mark carried as effects are.** `Effects` gains `trusted::UInt8` (`TRUSTED_CALLABLE`, `TRUSTED_OPERATION`; stored
+  in the encoded effects' bits 16 and 17, zero meaning nothing trusted). A `Callable{A, S}`'s call (`S` not `Any`) and
+  an operation's call whose entry has a second argument that is not concrete set it; it merges into the frame's
+  effects and the instance's, and a caller's call takes the callee's. At a call whose argument types are concrete the
+  instance inferred is the one that runs: the mark stops there (`abstract_call_gf_by_type`). A marked call's result
+  is its type alone (`widenconst`). A closed build marks nothing: no call is left to dispatch (§7.6).
+- **The statement carries the mark** as two IR flags (`IR_FLAG_TRUSTED_CALLABLE`, `_OPERATION`, bits 21 and 22), set
+  and cleared with the effect flags by inference's own mask. The inliner, after it has handled a marked call
+  (`check_trusted_result!`), checks the result against the call's type where the code that runs may be another
+  instance: a `:call` left (no case, no method found, a builtin such as `_apply_iterate` or `Core.invoke` that stays a
+  call), an `:invoke` of an instance whose types are wider than the call's, a split's fallback, a split's case at such
+  an instance. An inlined body and an invoke of the instance at the call's types are not checked.
+- **The check:** for a `Callable`, `invoke Core._callable_result(r, T)::T` (base/boot.jl; compiled into the system
+  image by a `precompile` in base/loading.jl): the box's `TypeError(:Callable, ctx, T, r)`, with "end the function
+  with `nothing`" where `T` is `Nothing`. The same function checks the direct call of a function known only by its
+  signature (it was `typeassert`) and a closed build's split of such a call (each branch). An operation's result keeps
+  `typeassert`'s, as the operation's own call asserts.
+
+**Against the other candidates.**
+- (a) as the patch of the fifth part made it (`l-probes/patch-l.diff`), a test of the argument types' shape (a
+  `Callable` argument, a union's component, a tuple's element): it misses a function in a field (`Holder{<:Callable}`
+  was a hole at Main), a widened invoke, `Core.invoke`, the constant and `Union{}` results, two levels up, and an
+  operation. The mark is decided by inference where the trust is taken, and reaches every caller whose instance can
+  differ: there is no place to forget but the sinks, and those are the inliner's few outcomes.
+- (b) inference not trusting the declared result across a call dispatch may re-specialize: inference does not know
+  whether the inliner will inline, invoke or leave the call, so the result would be `Any` for every marked call at
+  argument types that are not concrete, inlined ones included. That loses types where the code inferred runs. Built
+  as stated it is (a) with the check made by the caller; the part of it that is right is built: a marked call's result
+  is its type alone, never a constant, a field's type or a condition read from the instance at the signature (the
+  constant form: (a) without it would need a check of equality).
+- (c) the function never passed on as itself (boxed at a call left to dispatch): it reaches the direct argument only,
+  not a field, a capture or a tuple, and changes what `t === iszero` sees downstream. Not built.
+
+### 3. What a session pays, counted
+
+| session (85bd884a57) | instances | trusted | checks at a direct call | after a call that passes one on | flagged calls |
+|---|---|---|---|---|---|
+| the report (TraitCSV, TraitTables, TraitMakie) | 84,927 | 2 (`TRUSTED_OPERATION`: TraitMakie's `setcolor!`, `recolor!`) | 0 | 0 | 1 |
+| the table (TraitCSV, TraitTables) | 76,390 | 0 | 0 | 0 | 0 |
+| the ODE program with callbacks | 83,359 | 12 (TraitNonlinearSolve 9, TraitRodas 2, ODECore 1; all `TRUSTED_OPERATION`) | 0 | 0 | 15 |
+
+(`m-probes/count.jl`, `logs/m6-count-85bd884.log`: every instance's effects, complete; the checks and flagged calls
+are read from the optimized code an instance keeps, which Julia keeps only for code it may inline: an undercount.
+The checks the compiler makes while a session infers, with every package inferred in it (`m-probes/count_checks.jl`,
+`--compiled-modules=no`, `logs/m6-count-checks-85bd884.log`): the table, 10, all an operation's split's own
+`typeassert` (made as before, now through the same function), none of a `Callable`'s and none after a call that
+passes a value on; the ODE program does not load from source (`_contracts_of` not defined, the library's), so it is
+not counted that way.)
+
+- **Plain code pays nothing:** nothing in it declares such a result, so nothing is marked; `Effects()` and every
+  builtin's effects carry no mark.
+- **The sessions' compiles are unchanged:** report 24 compiles, table 19 (`logs/sessions-m6-85bd884.log`, a warm-up
+  and 3 runs, as on f1d6e51efa). The instances: TraitWorld 473 and 412, TraitTables 129, TraitCSV 34, TraitMakie 323;
+  against 468 and 407 on f1d6e51efa with the library w158i 1545423. The library differs (807 methods against 803:
+  3ba84fc, T-160's messages, merged into `unified` after the fifth part's measure); no control with 7c3b07d on
+  f1d6e51efa was run (that binary was rebuilt). The rule marks two instances there and checks none.
+- **Trait code pays** an `isa` test and an invoke of a compiled function at each check, only where a value known by
+  an unchecked declared result is passed to code left to dispatch; and a constant, a field's type or a condition of a
+  marked call's result at argument types that are not concrete.
+- **Code size:** `_callable_result` is one function in the system image; a check is one statement.
+
+### 4. The wrapper, the box, and a closed build
+
+- **The box** checks its result in its call method, however it is called: every form checked, "in Callable".
+- **The wrapper** (`compiled_for(x -> 1)`) is the function (GT-24). Passed as itself, its calls are the function's own
+  and a caller trusts nothing but what inference reads at the wrapper's own type: `apply1(compiled_for(x -> 1), 2.0)`
+  is `1`. Kept in a `Vector{Callable{A, S}}` it is an element known only by the signature, and had the function's holes
+  (the same 9 forms on f1d6e51efa); with the rule it is checked as the function is. The entry check (a result inferred
+  at `A` that can be an `S`) does not make its result an `S`; nothing trusts it to be one.
+- **A closed build** branches over the signature's members at each call of such a function (§7.6), each branch's
+  result checked: no call is left to dispatch, so nothing is trusted and nothing is marked. `apps/m-trusted.jl`
+  (17 forms, the operation's included) builds with 0 errors, 2,416,808 bytes, and prints what the session prints,
+  the check's name included: "in Callable" at each branch (a closed split's check is now the box's), "in typeassert"
+  at the operation (`logs/i-apps-m6-85bd884.log`, `logs/m6-m-trusted-session-42657e9.out`). The forms with the
+  function in a struct's field or a closure's capture are not in it: a closed build joins those records at their
+  bare type and leaves the call unresolved (60 errors with them, `logs/i-m6-42657e9-m-trusted.build.log`, most of
+  them the program's own printing of an `Any`). A constant read at the signature is the function's own answer in a
+  session where the call is left to dispatch and raises where the body runs at the signature (inlined, or a closed
+  build): both are G1's "identical or error", the program does not print it.
+
+### 5. What was built
+
+| tree | commit | what |
+|---|---|---|
+| julia `w158` | 3211d10d60 | the `trusted` effect (two bits), its IR flags, the marks at a `Callable`'s call and at an operation's call its members' check does not reach, the mark stopped at concrete argument types and a marked call's result its type alone, the inliner's check after a call left to dispatch, a builtin's call, an invoke at wider types and a split's fallback; `Core._callable_result` (the box's `TypeError`) at those and at a direct call; precompiled into the system image |
+| julia `w158` | 42657e9dbd | a closed build's split of a `Callable`'s call checks each branch with the box's `TypeError` |
+| julia `w158` | 85bd884a57 | a split's case at an instance of wider types checked (a hole on 42657e9dbd); the trusted flags apart from `IR_FLAGS_EFFECTS` (a removed statement got them) |
+| library `w158m` | e65c29b, 15070de | `test/trusted.jl`: three testsets (the forms, the controls, the operation) |
+| experiments | this commit | `gates/n35_trusted_result.jl` and its entry; `m-probes/` (`forms.jl`, `mutant.jl`, `count.jl`, `count_checks.jl`); `apps/m-trusted.jl`; `m-checks.sh`; logs |
+
+`Compiler/src`: 223 lines added (168 not comments or blank), 32 removed; `base/`: `_callable_result` (5 lines with its
+comment), its `precompile` (4).
+
+### 6. The checks, 85bd884a57 (library w158m 15070de)
+
+| check | result |
+|---|---|
+| the gates (`LIB=wt/w158b-tw`) | 74 of 74 (73 and `n35_trusted_result`), stage gates 9 of 9 (`logs/m6-gates-85bd884.log`) |
+| `n35_trusted_result` without the rule's checks (`m-probes/mutant.jl`) | fails: 47 forms, then the stop at `unreachable` (`logs/m6-gate-n35-mutant-85bd884.log`) |
+| Base's core, subtype, Compiler/inline, Compiler/inference, Compiler/effects | SUCCESS each (`logs/m6-base-85bd884.log`) |
+| the library | 115 testsets (112 on `unified` 7c3b07d and `trusted.jl`'s 3), no failure (`logs/m6-library-85bd884.log`); `trusted.jl` without the rule's checks stops at `unreachable` (`logs/m6-library-trusted-mutant-42657e9.log`) |
+| TraitDifferentialEquations, TraitTables, TraitMakie | 35, 3, 8 testsets (`logs/m6-{port,tables,makie}-85bd884.log`) |
+| NetworkDynamics' subset (`w161/suites.sh`'s command, this binary) | 6 files; the two known failures (diffusion 1 fail 1 error, inhomogeneous 1 error), as before (`logs/m6-nd-85bd884.log`) |
+| the table's, report's, plot's programs | 0 errors each; table 2,724,880 bytes, report 5,394,008, plot 4,942,968; output and PNGs equal (`logs/i-builds-m6-85bd884.log`) |
+| the ODE program, with callbacks | 0 errors each; 4,359,264 and 4,141,008 bytes; outputs equal to a session's (`logs/i-m6-ode-85bd884.kinds.txt`, `logs/i-m6-odecb-85bd884.kinds.txt`) |
+| E-384's eight small programs | build, run, equal (`logs/m6-85bd884-small.log`) |
+| the parts' programs and `m-trusted` | as on f1d6e51efa: 0 errors but `i-wrap3`'s 4; `i-gap3`, `f-gap`, `f-gapfn` raise where the session answers (`logs/i-apps-m6-85bd884.log`) |
+| the sessions | report 24 compiles, table 19; instances above (`logs/sessions-m6-85bd884.log`) |
+
+### 7. Not built, not verified
+
+- **An operation's result its members' check does not reach** is read from the entry: a second argument that is not
+  concrete at the call's types. The other cases traits §7.9 names (a method already in the session when an image's
+  membership loads, inference's own limits) are not marked.
+- **A constant** from `Core.invoke` or a splat is not widened (only the call through `abstract_call_gf_by_type` is);
+  their result is checked against its type, not the constant.
+- **Within a recursion cycle** a statement takes the cycle's effects, the mark included, without the stop at concrete
+  argument types: a check more, never fewer.
+- **The before-state on f1d6e51efa** is from this part's runs whose logs were not kept; the mutant is the kept control.
+- **The ODE session's checks** were not counted by the in-session counter (the program does not load from source).

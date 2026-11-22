@@ -1,0 +1,119 @@
+Plain plain function loop_and               hole TypeError: non-boolean (Int64) used in boolean context
+Plain plain function index_call             hole TypeError: in typeassert, expected Float64, got a value of type Int64
+Plain plain function all_cl                 hole true
+Plain plain function filter_cl              hole Callable{Tuple{Float64}, Bool}[Main.Plain.var"#vb##0#vb##1"()]
+Plain plain function findfirst_cl           hole 1
+Plain plain function map_cl                 hole [5.0e-324]
+Plain plain function sum_cl                 hole 5.0e-324
+Plain plain function comp                   hole [5.0e-324]
+Plain plain function helper_b               hole "yes"
+Plain plain function helper_f               hole 0.5
+Plain plain function split_f                hole 0.5
+Plain plain function const_b                own "no"
+Plain plain function twolevel_f             hole 0.5
+Plain plain function capture_f              own 1.5
+Plain plain function field_f                hole 0.5
+Plain plain function tuple_f                hole 0.5
+Plain plain function splat_f                own 1.5
+Plain plain function invoke_f               hole 0.5
+Plain plain function nospec_f               hole 0.5
+Plain plain function split_nospec_f         hole 0.5
+Plain Nothing index_call                    hole TypeError: in typeassert, expected Nothing, got a value of type Int64
+Plain Nothing helper_n                      hole nothing
+Traits plain function loop_and              hole TypeError: non-boolean (Int64) used in boolean context
+Traits plain function index_call            hole TypeError: in typeassert, expected Float64, got a value of type Int64
+Traits plain function all_cl                hole true
+Traits plain function filter_cl             hole Callable{Tuple{Float64}, Bool}[Main.Traits.var"#vb##0#vb##1"()]
+Traits plain function findfirst_cl          hole 1
+Traits plain function map_cl                hole [5.0e-324]
+Traits plain function sum_cl                hole 5.0e-324
+Traits plain function comp                  hole [5.0e-324]
+Traits plain function helper_b              hole "yes"
+Traits plain function helper_f              hole 0.5
+Traits plain function split_f               hole 0.5
+Traits plain function const_b               own "no"
+Traits plain function twolevel_f            hole 0.5
+Traits plain function capture_f             own 1.5
+Traits plain function field_f               own 1.5
+Traits plain function tuple_f               own 1.5
+Traits plain function splat_f               own 1.5
+Traits plain function invoke_f              hole 0.5
+Traits plain function nospec_f              hole 0.5
+Traits plain function split_nospec_f        hole 0.5
+Traits Nothing index_call                   hole TypeError: in typeassert, expected Nothing, got a value of type Int64
+Traits Nothing helper_n                     hole nothing
+Traits box index_call                       checked TypeError: in Callable, expected Float64, got a value of type Int64
+Traits wrapper index_call                   hole TypeError: in typeassert, expected Float64, got a value of type Int64
+Traits box map_cl                           checked TypeError: in Callable, expected Float64, got a value of type Int64
+Traits wrapper map_cl                       hole [5.0e-324]
+Traits box sum_cl                           checked TypeError: in Callable, expected Float64, got a value of type Int64
+Traits wrapper sum_cl                       hole 5.0e-324
+Traits box comp                             checked TypeError: in Callable, expected Float64, got a value of type Int64
+Traits wrapper comp                         hole [5.0e-324]
+Traits box helper_f                         checked TypeError: in Callable, expected Float64, got a value of type Int64
+Traits wrapper helper_f                     hole 0.5
+Traits box split_f                          checked TypeError: in Callable, expected Float64, got a value of type Int64
+Traits wrapper split_f                      hole 0.5
+Traits box twolevel_f                       checked TypeError: in Callable, expected Float64, got a value of type Int64
+Traits wrapper twolevel_f                   hole 0.5
+Traits box capture_f                        checked TypeError: in Callable, expected Float64, got a value of type Int64
+Traits wrapper capture_f                    own 1.5
+Traits box field_f                          checked TypeError: in Callable, expected Float64, got a value of type Int64
+Traits wrapper field_f                      own 1.5
+Traits box tuple_f                          checked TypeError: in Callable, expected Float64, got a value of type Int64
+Traits wrapper tuple_f                      own 1.5
+Traits box splat_f                          checked TypeError: in Callable, expected Float64, got a value of type Int64
+Traits wrapper splat_f                      own 1.5
+Traits box invoke_f                         checked TypeError: in Callable, expected Float64, got a value of type Int64
+Traits wrapper invoke_f                     hole 0.5
+Traits box nospec_f                         checked TypeError: in Callable, expected Float64, got a value of type Int64
+Traits wrapper nospec_f                     hole 0.5
+Traits box split_nospec_f                   checked TypeError: in Callable, expected Float64, got a value of type Int64
+Traits wrapper split_nospec_f               hole 0.5
+Traits wrapper wrap_own                     own 1.5
+Traits operation op_direct                  checked TypeError: in typeassert, expected Float64, got a value of type Int64
+Traits operation op_passed                  hole 0.5
+Unreachable reached at 0x7fa7c5bdb55b
+
+[1340767] signal 4 (2): Illegal instruction
+in expression starting at /p/projects/coen/julia-trait-bound/experiments/implementation/gates/n35_trusted_result.jl:125
+noreturn_b at /p/projects/coen/julia-trait-bound/experiments/implementation/gates/n35_trusted_result.jl:59
+unknown function (ip: 0x7fa7c5bdb58a) at (unknown file)
+run1 at /p/projects/coen/julia-trait-bound/experiments/implementation/gates/n35_trusted_result.jl:88
+expect at /p/projects/coen/julia-trait-bound/experiments/implementation/gates/n35_trusted_result.jl:92
+top-level scope at /p/projects/coen/julia-trait-bound/experiments/implementation/gates/n35_trusted_result.jl:126
+jl_toplevel_eval_flex at /p/projects/coen/julia-trait-bound/wt/w158-julia/src/toplevel.c:733
+jl_eval_toplevel_stmts at /p/projects/coen/julia-trait-bound/wt/w158-julia/src/toplevel.c:587
+jl_toplevel_eval_flex at /p/projects/coen/julia-trait-bound/wt/w158-julia/src/toplevel.c:685
+ijl_toplevel_eval at /p/projects/coen/julia-trait-bound/wt/w158-julia/src/toplevel.c:756
+ijl_toplevel_eval_in at /p/projects/coen/julia-trait-bound/wt/w158-julia/src/toplevel.c:801
+eval at ./boot.jl:546
+include_string at ./loading.jl:3049
+_include at ./loading.jl:3109
+include at ./Base.jl:319
+IncludeInto at ./Base.jl:320
+jfptr_IncludeInto_76016 at /p/projects/coen/julia-trait-bound/wt/w158-julia/usr/lib/julia/sys.so (unknown line)
+do_call at /p/projects/coen/julia-trait-bound/wt/w158-julia/src/interpreter.c:130
+eval_value at /p/projects/coen/julia-trait-bound/wt/w158-julia/src/interpreter.c:251
+eval_stmt_value at /p/projects/coen/julia-trait-bound/wt/w158-julia/src/interpreter.c:202 [inlined]
+eval_body at /p/projects/coen/julia-trait-bound/wt/w158-julia/src/interpreter.c:695
+jl_interpret_toplevel_thunk at /p/projects/coen/julia-trait-bound/wt/w158-julia/src/interpreter.c:907
+jl_toplevel_eval_flex at /p/projects/coen/julia-trait-bound/wt/w158-julia/src/toplevel.c:744
+jl_eval_toplevel_stmts at /p/projects/coen/julia-trait-bound/wt/w158-julia/src/toplevel.c:587
+jl_toplevel_eval_flex at /p/projects/coen/julia-trait-bound/wt/w158-julia/src/toplevel.c:685
+jl_eval_toplevel_stmts at /p/projects/coen/julia-trait-bound/wt/w158-julia/src/toplevel.c:587
+jl_toplevel_eval_flex at /p/projects/coen/julia-trait-bound/wt/w158-julia/src/toplevel.c:685
+ijl_toplevel_eval at /p/projects/coen/julia-trait-bound/wt/w158-julia/src/toplevel.c:756
+ijl_toplevel_eval_in at /p/projects/coen/julia-trait-bound/wt/w158-julia/src/toplevel.c:801
+eval at ./boot.jl:546
+exec_options at ./client.jl:310
+_start at ./client.jl:577
+jfptr__start_48657 at /p/projects/coen/julia-trait-bound/wt/w158-julia/usr/lib/julia/sys.so (unknown line)
+jl_apply at /p/projects/coen/julia-trait-bound/wt/w158-julia/src/julia.h:2387 [inlined]
+true_main at /p/projects/coen/julia-trait-bound/wt/w158-julia/src/jlapi.c:985
+jl_repl_entrypoint at /p/projects/coen/julia-trait-bound/wt/w158-julia/src/jlapi.c:1152
+main at /p/projects/coen/julia-trait-bound/wt/w158-julia/cli/loader_exe.c:58
+__libc_start_call_main at /lib64/libc.so.6 (unknown line)
+__libc_start_main at /lib64/libc.so.6 (unknown line)
+_start at /p/projects/coen/julia-trait-bound/wt/w158-julia/julia (unknown line)
+Allocations: 28111282 (Pool: 28111073; Big: 209); GC: 13

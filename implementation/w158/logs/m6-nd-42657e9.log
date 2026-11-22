@@ -1,0 +1,121 @@
+┌ Warning: The supplied DiffCache was too small and was enlarged. This incurs allocations
+│         on the first call to `get_tmp`. If few calls to `get_tmp` occur and optimal performance is essential,
+│         consider changing 'N'/chunk size of this DiffCache to 8.
+└ @ PreallocationTools /p/projects/coen/julia-trait-bound/.julia-depot/packages/PreallocationTools/dNQ2d/src/PreallocationTools.jl:566
+# nd_tests threads=2 nd=/p/projects/coen/julia-trait-bound/ndport/pkgs/NetworkDynamics-unified
+# massmatrix_test.jl s=6.5
+# doctor_test.jl s=0.9
+--- Diffusion dynamics --- 
+Building Static Network Dynamics...
+Building Static Network Dynamics with artifical ODE Edges...
+
+diffusion_test.jl: Test Failed at /p/projects/coen/julia-trait-bound/ndport/pkgs/NetworkDynamics-unified/test/diffusion_test.jl:111
+  Expression: #= /p/projects/coen/julia-trait-bound/ndport/pkgs/NetworkDynamics-unified/test/diffusion_test.jl:111 =# @allocated(diff_network_ode(dx0_ode, x0_ode, nothing, 0.0)) == 0
+   Evaluated: 288 == 0
+  Stacktrace:
+   [1] macro expansion
+     @ /p/projects/coen/julia-trait-bound/wt/w158-julia/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:758 [inlined]
+   [2] top-level scope
+     @ /p/projects/coen/julia-trait-bound/ndport/pkgs/NetworkDynamics-unified/test/diffusion_test.jl:539
+   [3] include(mapexpr::Function, mod::Module, _path::String)
+     @ Base ./Base.jl:319
+   [4] top-level scope
+     @ /p/projects/coen/julia-trait-bound/ndport/scripts/r3_nd_tests.jl:62
+   [5] macro expansion
+     @ /p/projects/coen/julia-trait-bound/wt/w158-julia/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:1967 [inlined]
+   [6] macro expansion
+     @ /p/projects/coen/julia-trait-bound/ndport/scripts/r3_nd_tests.jl:70 [inlined]
+   [7] macro expansion
+     @ /p/projects/coen/julia-trait-bound/wt/w158-julia/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:1967 [inlined]
+   [8] macro expansion
+     @ /p/projects/coen/julia-trait-bound/ndport/scripts/r3_nd_tests.jl:70 [inlined]
+
+diffusion_test.jl: Error During Test at /p/projects/coen/julia-trait-bound/ndport/scripts/r3_nd_tests.jl:69
+  Got exception outside of a @test
+  LoadError: ArgumentError: the algorithm takes no mass matrix, and this problem has one other than the identity (from its function's or its own `HasMassMatrix`): a DAE, which solving as an ODE would get wrong. Use an algorithm that takes mass matrices (`takes_mass_matrix`).
+  Stacktrace:
+    [1] _refuse_mass_matrix()
+      @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/ODECore/src/core.jl:1246
+    [2] check_properties
+      @ /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/ODECore/src/core.jl:1240 [inlined]
+    [3] solve_ode(prob::ODEProblem{Float64, Nothing, Core.Dynamic{All{Core.Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Core.Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU, nothing}, callbacks::ODECore.EnteredCallbacks{Vector{Float64}, Float64, Nothing}, opts::ODECore.SolverOptions)
+      @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/ODECore/src/core.jl:1277
+    [4] solve_ode
+      @ /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/ODECore/src/core.jl:1274 [inlined]
+    [5] _solve(prob::ODEProblem{Float64, Nothing, Core.Dynamic{All{Core.Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Core.Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU, nothing}, callback::Nothing, kw::@NamedTuple{})
+      @ TraitDifferentialEquations /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/src/TraitDifferentialEquations.jl:59
+    [6] solve(prob::ODEProblem{Float64, Nothing, Core.Dynamic{All{Core.Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Core.Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU, nothing})
+      @ TraitDifferentialEquations /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/src/TraitDifferentialEquations.jl:55
+    [7] top-level scope
+      @ /p/projects/coen/julia-trait-bound/ndport/pkgs/NetworkDynamics-unified/test/diffusion_test.jl:121
+    [8] include(mapexpr::Function, mod::Module, _path::String)
+      @ Base ./Base.jl:319
+    [9] top-level scope
+      @ /p/projects/coen/julia-trait-bound/ndport/scripts/r3_nd_tests.jl:62
+   [10] macro expansion
+      @ /p/projects/coen/julia-trait-bound/wt/w158-julia/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:1967 [inlined]
+   [11] macro expansion
+      @ /p/projects/coen/julia-trait-bound/ndport/scripts/r3_nd_tests.jl:70 [inlined]
+   [12] macro expansion
+      @ /p/projects/coen/julia-trait-bound/wt/w158-julia/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:1967 [inlined]
+   [13] macro expansion
+      @ /p/projects/coen/julia-trait-bound/ndport/scripts/r3_nd_tests.jl:70 [inlined]
+   [14] include(mod::Module, _path::String)
+      @ Base ./Base.jl:318
+   [15] exec_options(opts::Base.JLOptions)
+      @ Base ./client.jl:344
+   [16] _start()
+      @ Base ./client.jl:577
+  in expression starting at /p/projects/coen/julia-trait-bound/ndport/pkgs/NetworkDynamics-unified/test/diffusion_test.jl:121
+# diffusion_test.jl s=39.3
+--- Network dynamics with a static vertex ---
+R1T STANDIN Rodas4() read as Rodas5() (TDE has Rodas5 only)
+
+inhomogeneous_test.jl: Error During Test at /p/projects/coen/julia-trait-bound/ndport/scripts/r3_nd_tests.jl:69
+  Got exception outside of a @test
+  LoadError: ArgumentError: the algorithm takes no mass matrix, and this problem has one other than the identity (from its function's or its own `HasMassMatrix`): a DAE, which solving as an ODE would get wrong. Use an algorithm that takes mass matrices (`takes_mass_matrix`).
+  Stacktrace:
+    [1] _refuse_mass_matrix()
+      @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/ODECore/src/core.jl:1246
+    [2] check_properties
+      @ /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/ODECore/src/core.jl:1240 [inlined]
+    [3] solve_ode(prob::ODEProblem{Float64, Nothing, Core.Dynamic{All{Core.Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Core.Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU, nothing}, callbacks::ODECore.EnteredCallbacks{Vector{Float64}, Float64, Nothing}, opts::ODECore.SolverOptions)
+      @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/ODECore/src/core.jl:1277
+    [4] solve_ode
+      @ /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/ODECore/src/core.jl:1274 [inlined]
+    [5] _solve(prob::ODEProblem{Float64, Nothing, Core.Dynamic{All{Core.Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Core.Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU, nothing}, callback::Nothing, kw::@NamedTuple{})
+      @ TraitDifferentialEquations /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/src/TraitDifferentialEquations.jl:59
+    [6] solve(prob::ODEProblem{Float64, Nothing, Core.Dynamic{All{Core.Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Core.Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU, nothing})
+      @ TraitDifferentialEquations /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/src/TraitDifferentialEquations.jl:55
+    [7] top-level scope
+      @ /p/projects/coen/julia-trait-bound/ndport/pkgs/NetworkDynamics-unified/test/inhomogeneous_test.jl:51
+    [8] include(mapexpr::Function, mod::Module, _path::String)
+      @ Base ./Base.jl:319
+    [9] top-level scope
+      @ /p/projects/coen/julia-trait-bound/ndport/scripts/r3_nd_tests.jl:62
+   [10] macro expansion
+      @ /p/projects/coen/julia-trait-bound/wt/w158-julia/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:1967 [inlined]
+   [11] macro expansion
+      @ /p/projects/coen/julia-trait-bound/ndport/scripts/r3_nd_tests.jl:70 [inlined]
+   [12] macro expansion
+      @ /p/projects/coen/julia-trait-bound/wt/w158-julia/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:1967 [inlined]
+   [13] macro expansion
+      @ /p/projects/coen/julia-trait-bound/ndport/scripts/r3_nd_tests.jl:70 [inlined]
+   [14] include(mod::Module, _path::String)
+      @ Base ./Base.jl:318
+   [15] exec_options(opts::Base.JLOptions)
+      @ Base ./client.jl:344
+   [16] _start()
+      @ Base ./client.jl:577
+  in expression starting at /p/projects/coen/julia-trait-bound/ndport/pkgs/NetworkDynamics-unified/test/inhomogeneous_test.jl:51
+# inhomogeneous_test.jl s=12.1
+--- Component callbacks (ports) --- 
+# ports_callbacks_test.jl s=6.0
+--- find_fixpoint (ports) --- 
+# ports_fixpoint_test.jl s=2.8
+TEST massmatrix_test.jl pass=6 fail=0 error=0 broken=0
+TEST doctor_test.jl pass=26 fail=0 error=0 broken=0
+TEST diffusion_test.jl pass=108 fail=1 error=1 broken=24
+TEST inhomogeneous_test.jl pass=39 fail=0 error=1 broken=12
+TEST ports_callbacks_test.jl pass=14 fail=0 error=0 broken=0
+TEST ports_fixpoint_test.jl pass=3 fail=0 error=0 broken=0

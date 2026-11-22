@@ -19,12 +19,12 @@ asserts. One Julia process per gate, niced, 4 cores (`source env.sh` first).
 
 ## What is in force
 
-- **The gates in force** are the files `*.jl` in this directory, but `util.jl` (shared probes): 72 files, `m1_*` and
-  `m2_*` (the type system and dispatch, 30), `n*` (35) and `f*` (7). The list is below.
+- **The gates in force** are the files `*.jl` in this directory, but `util.jl` (shared probes): 74 files, `m1_*` and
+  `m2_*` (the type system and dispatch, 30), `n*` (37) and `f*` (7). The list is below.
 - **The project.** A gate runs with the stub library of `../src/Traits.jl` (`--project=experiments/implementation`:
   `@trait X`, `@implement X S`, `declare_membership`; no contract checks, no fields, no operations as entries). A gate
   whose header has the line `# project: TraitWorld` runs with the library's tree (`--project=TraitWorld`), since its
-  rule is the library's: `n8_callable_box.jl`, `n26_callable_late_method.jl`.
+  rule is the library's: `n8_callable_box.jl`, `n26_callable_late_method.jl`, `n35_trusted_result.jl`.
 - **Expected failures inside a gate.** None. W-165 flipped the two that W-164 wrote (`n8_callable.jl`, the tie of two
   methods at `Callable` instances, compiler C-147; `n20_unmet_lookup.jl` (5), the unmet lookup's ambiguity at
   `Callable` and at a bare parametric set, C-148): each now asserts the rule, and fails on `next` a5bd871cce
@@ -143,6 +143,20 @@ gates in its header comment.
   verifier-clean binary that stops with `MissingCodeError` (the plot's program on 61277571fa). *Shown:* it fails on
   `next` 8b35e4b77c (code of the other policy only, accepted) and on `w158` 0b0924ef96 (code of the policy asked,
   refused: a JLL's `__init__` from its image).
+- `n35_trusted_result.jl` — W-158, sixth part (TraitWorld; compiler §7.4, §7.1; traits §9, §7.9, §5.10): compiled
+  code never takes a value that its call's type excludes. A function known only as `Callable{A, S}` (an element of a
+  `Vector{Callable{A, S}}`) whose result is no `S`, passed on in 20 forms at `Main` (plain code) and in a trait
+  module: a call left to dispatch (`all`, `filter`, `findfirst`, `map`, `sum`, a comprehension, a helper), a split's
+  fallback and a split's case at a method that does not specialize, a constant and a `Union{}` result, a result two
+  levels up, the function in a field, a tuple or a closure, a splat, `Core.invoke`, `@nospecialize`. Each is the
+  box's check ("in Callable", its addition for `Nothing`) or the function's own result typed as it is; the box
+  checks, the wrapper known only by the signature is checked as the function is, passed as itself it is its own; an
+  operation's result at a further argument declared abstract, passed on to code compiled for the member, is
+  `typeassert`'s check. *Catches:* a wrong answer (`all` true for `x -> 1`), an `Int`'s bits read as a `Float64`
+  (`5.0e-324`), a call read as `Union{}` that returns into `unreachable`. *Shown:* it fails with the rule's checks
+  taken out of the session's compiler on `w158` 42657e9dbd (`../w158/m-probes/mutant.jl`: 44 forms, then the stop
+  at `unreachable`; `../w158/logs/m6-gate-n35-mutant-42657e9.log`); on `w158` f1d6e51efa the same forms were holes
+  (`../w158/m-probes/forms.jl`, the README's sixth part).
 - `n7_guards.jl` — W-140: a membership invalidates as a method does. A call holds no guard and no cell;
   the membership invalidates the caller whose selection it changes, an older world keeps the old
   answer; a caller matched through the type's own supertypes stays valid; a method at a set defined
