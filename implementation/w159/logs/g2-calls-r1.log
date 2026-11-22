@@ -1,0 +1,93 @@
+# W-159 G-2 E-374 calls (H: w159/calls_head.jl, B: w145/calls/calls.jl), N=10000000 | 2026-11-22T04:20:46+01:00 | load-before 1.94 3.94 4.91 | login02
+# setting H: julia julia-next cf0f039f51 (binary cf0f039f51*) | TW TraitWorld 42d60e13bf | TDE TraitDifferentialEquations 06c28c376f | TM TraitMakie 1888698d7a | TT TraitTables e1ec1f4368 | TC TraitCSV 094dcb2e21 | TR TraitReport ec34d1219c | FORKS forks a3a37d6b5e | ND ndport/pkgs/NetworkDynamics-unified c2bbf0d9aa | depot .julia-depot/agent-depots/w159/H
+# setting B: julia julia-unified 7b374f39ce (binary 7b374f39ce*) | TW TraitWorld-base e11c7cc58b | TDE wt/w161-tde-base b7306285fe | TM wt/w160-tm c862914ffa | TT wt/w159-tag/TraitTables c3391750fb | TC wt/w159-tag/TraitCSV 92c46d01bc | TR wt/w159-tag/TraitReport a4bcf332db | FORKS wt/w159-tag/forks 439bae73ff | ND wt/w151-base/NetworkDynamics 6310040ec0 | depot .julia-depot/agent-depots/w159/B
+# experiments 15fa460b63 | product setting, strict mode off, one thread, fresh process per cell
+# NOTE setting H: the binary is marked '*' (its tree had a tracked change when it was built); the tree is clean now
+# preflight H TraitWorld: images ok: TraitWorld
+# NOTE setting B: the binary is marked '*' (its tree had a tracked change when it was built); the tree is clean now
+# preflight B TraitWorld-base: images ok: TraitWorld
+== H run 1 (calls_head.jl) | load 1.94 3.90 4.89
+| Row | Form | ns a call |
+|---|---|---|
+| 1 operation at a known type | trait | 0.79 |
+| 1 operation at a known type | plain | 0.79 |
+| 2 method at the trait, known type | trait | 0.79 |
+| 2 method at the trait, known type | plain | 0.79 |
+| 3 trait with a Dynamic default | trait, as it is (once) | 8.68 |
+| 3 trait with a Dynamic default | trait, compiled_for | 2.38 |
+| 3 trait with a Dynamic default | trait, a box held | 7.15 |
+| 3 trait with a Dynamic default | plain | 2.38 |
+| 4 element of a vector, two types | trait, Vector{Shape} | 2.87 |
+| 4 element of a vector, two types | plain, Vector{abstract} | 2.7 |
+| 4 element of a vector, two types | plain, Vector{Union} | 3.19 |
+| 4 element of a vector, two types | plain, Vector{Circle} (one type) | 2.35 |
+| 5 a field | trait, ::Dynamic{Shape} | 5.56 |
+| 5 a field | plain, ::abstract | 0.79 |
+| 6 a function argument | Callable, compiled_for(f) | 0.79 |
+| 6 a function argument | Callable, the default (boxed) | 25.31 |
+| 6 a function argument | Callable, a box held | 25.31 |
+| 6 a function argument | plain | 0.79 |
+-- rc 0 | load 2.20 3.86 4.86
+== B run 1 (calls.jl) | load 2.20 3.86 4.86
+| Row | Form | ns a call |
+|---|---|---|
+| 1 operation at a known type | trait | 0.79 |
+| 1 operation at a known type | plain | 0.79 |
+| 2 method at the trait, known type | trait | 0.79 |
+| 2 method at the trait, known type | plain | 0.79 |
+| 3 trait with a Dynamic default | trait, as it is (once) | 7.65 |
+| 3 trait with a Dynamic default | trait, compiled_for | 2.38 |
+| 3 trait with a Dynamic default | plain | 2.38 |
+| 4 element of a vector, two types | trait, Vector{Shape} | 2.87 |
+| 4 element of a vector, two types | plain, Vector{abstract} | 2.7 |
+| 4 element of a vector, two types | plain, Vector{Union} | 3.19 |
+| 4 element of a vector, two types | plain, Vector{Circle} (one type) | 2.28 |
+| 5 a field | trait, ::Dynamic{Shape} | 5.56 |
+| 5 a field | plain, ::abstract | 0.79 |
+| 6 a function argument | Callable, compiled_for(f) | 1.34 |
+| 6 a function argument | Callable, with_dynamic(f) | 334.36 |
+| 6 a function argument | plain | 0.79 |
+-- rc 0 | load 2.08 3.54 4.70
+== H run 2 (calls_head.jl) | load 2.08 3.54 4.70
+| Row | Form | ns a call |
+|---|---|---|
+| 1 operation at a known type | trait | 0.79 |
+| 1 operation at a known type | plain | 0.79 |
+| 2 method at the trait, known type | trait | 0.79 |
+| 2 method at the trait, known type | plain | 0.79 |
+| 3 trait with a Dynamic default | trait, as it is (once) | 8.63 |
+| 3 trait with a Dynamic default | trait, compiled_for | 2.38 |
+| 3 trait with a Dynamic default | trait, a box held | 7.15 |
+| 3 trait with a Dynamic default | plain | 2.38 |
+| 4 element of a vector, two types | trait, Vector{Shape} | 2.86 |
+| 4 element of a vector, two types | plain, Vector{abstract} | 2.7 |
+| 4 element of a vector, two types | plain, Vector{Union} | 3.19 |
+| 4 element of a vector, two types | plain, Vector{Circle} (one type) | 2.34 |
+| 5 a field | trait, ::Dynamic{Shape} | 5.56 |
+| 5 a field | plain, ::abstract | 0.79 |
+| 6 a function argument | Callable, compiled_for(f) | 0.79 |
+| 6 a function argument | Callable, the default (boxed) | 25.19 |
+| 6 a function argument | Callable, a box held | 25.19 |
+| 6 a function argument | plain | 0.79 |
+-- rc 0 | load 2.13 3.48 4.66
+== B run 2 (calls.jl) | load 2.13 3.48 4.66
+| Row | Form | ns a call |
+|---|---|---|
+| 1 operation at a known type | trait | 0.79 |
+| 1 operation at a known type | plain | 0.79 |
+| 2 method at the trait, known type | trait | 0.79 |
+| 2 method at the trait, known type | plain | 0.79 |
+| 3 trait with a Dynamic default | trait, as it is (once) | 8.1 |
+| 3 trait with a Dynamic default | trait, compiled_for | 2.38 |
+| 3 trait with a Dynamic default | plain | 2.38 |
+| 4 element of a vector, two types | trait, Vector{Shape} | 2.86 |
+| 4 element of a vector, two types | plain, Vector{abstract} | 2.7 |
+| 4 element of a vector, two types | plain, Vector{Union} | 3.19 |
+| 4 element of a vector, two types | plain, Vector{Circle} (one type) | 2.28 |
+| 5 a field | trait, ::Dynamic{Shape} | 5.56 |
+| 5 a field | plain, ::abstract | 0.79 |
+| 6 a function argument | Callable, compiled_for(f) | 1.34 |
+| 6 a function argument | Callable, with_dynamic(f) | 323.24 |
+| 6 a function argument | plain | 0.79 |
+-- rc 0 | load 2.38 3.33 4.54
+# done 2026-11-22T04:23:10+01:00 | load-after 2.38 3.33 4.54

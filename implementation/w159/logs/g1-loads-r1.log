@@ -1,0 +1,265 @@
+# W-159 G-1 E-392 nine unrelated loads (w134/lost.jl) | 2026-11-22T04:23:11+01:00 | load-before 2.38 3.33 4.54 | login02
+# setting H: julia julia-next cf0f039f51 (binary cf0f039f51*) | TW TraitWorld 42d60e13bf | TDE TraitDifferentialEquations 06c28c376f | TM TraitMakie 1888698d7a | TT TraitTables e1ec1f4368 | TC TraitCSV 094dcb2e21 | TR TraitReport ec34d1219c | FORKS forks a3a37d6b5e | ND ndport/pkgs/NetworkDynamics-unified c2bbf0d9aa | depot .julia-depot/agent-depots/w159/H
+# setting B: julia julia-unified 7b374f39ce (binary 7b374f39ce*) | TW TraitWorld-base e11c7cc58b | TDE wt/w161-tde-base b7306285fe | TM wt/w160-tm c862914ffa | TT wt/w159-tag/TraitTables c3391750fb | TC wt/w159-tag/TraitCSV 92c46d01bc | TR wt/w159-tag/TraitReport a4bcf332db | FORKS wt/w159-tag/forks 439bae73ff | ND wt/w151-base/NetworkDynamics 6310040ec0 | depot .julia-depot/agent-depots/w159/B
+# experiments 15fa460b63 | product setting, strict mode off, one thread, fresh process per cell
+# NOTE setting H: the binary is marked '*' (its tree had a tracked change when it was built); the tree is clean now
+# preflight H up: images ok: CSV DataFrames OffsetArrays StatsBase Unitful IntervalArithmetic Distributions Interpolations StaticArrays CairoMakie REPL
+# preflight H facts: images ok: CSV DataFrames OffsetArrays StatsBase Unitful IntervalArithmetic Distributions Interpolations StaticArrays CairoMakie REPL
+# preflight H forks: images ok: CSV DataFrames OffsetArrays StatsBase Unitful IntervalArithmetic Distributions Interpolations StaticArrays CairoMakie REPL
+# NOTE setting B: the binary is marked '*' (its tree had a tracked change when it was built); the tree is clean now
+# preflight B up: images ok: CSV DataFrames OffsetArrays StatsBase Unitful IntervalArithmetic Distributions Interpolations StaticArrays CairoMakie REPL
+# preflight B facts: images ok: CSV DataFrames OffsetArrays StatsBase Unitful IntervalArithmetic Distributions Interpolations StaticArrays CairoMakie REPL
+# preflight B forks: images ok: CSV DataFrames OffsetArrays StatsBase Unitful IntervalArithmetic Distributions Interpolations StaticArrays CairoMakie REPL
+== H up A run w | load 2.36 3.26 4.48
+order A | project up | import 1402.9 ms | roots 54 | loads: OffsetArrays StatsBase Unitful IntervalArithmetic Distributions Interpolations StaticArrays CairoMakie REPL
+work: first 4469.9 ms, again 1.5 ms; the loads 5933.6 ms; after the loads 5360.1 ms, again 1.4 ms | digest ce94074fa1261ca2 (equal after)
+image code | the eight: 4688 (facts 0, G2 2643); lost 426 (facts 0)  [DataFrames 362, PooledArrays 24, CSV 22, Tables 12, SentinelArrays 6]
+image code | all loaded for the work: 8176 (facts 0, G2 4607); lost 534 (facts 0)  [DataFrames 362, Statistics 52, PooledArrays 24, CSV 22, PrettyTables 21, Tables 12, Printf 10, StyledStrings 7, ArgTools 7, SentinelArrays 6, Downloads 5, InvertedIndices 3, PrecompileTools 2, OrderedCollections 1]
+made by the work | the eight: 217 (facts 0, G2 28); lost 131 (facts 0)  [CSV 90, DataFrames 37, Tables 4]
+made by the work | all loaded for the work: 265 (facts 0, G2 38); lost 147 (facts 0)  [CSV 90, DataFrames 37, PrettyTables 13, Tables 4, Downloads 3]
+-- rc 0 | load 2.26 3.18 4.43
+== B up A run w | load 2.26 3.18 4.43
+order A | project up | import 1457.1 ms | roots 54 | loads: OffsetArrays StatsBase Unitful IntervalArithmetic Distributions Interpolations StaticArrays CairoMakie REPL
+work: first 4158.0 ms, again 1.4 ms; the loads 6153.3 ms; after the loads 5137.2 ms, again 1.6 ms | digest ce94074fa1261ca2 (equal after)
+image code | the eight: 4693 (facts 0, G2 3299); lost 424 (facts 0)  [DataFrames 360, PooledArrays 24, CSV 22, Tables 12, SentinelArrays 6]
+image code | all loaded for the work: 8191 (facts 0, G2 6176); lost 527 (facts 0)  [DataFrames 360, Statistics 52, PooledArrays 24, CSV 22, PrettyTables 16, Tables 12, Printf 10, StyledStrings 7, ArgTools 7, SentinelArrays 6, Downloads 5, InvertedIndices 3, PrecompileTools 2, OrderedCollections 1]
+made by the work | the eight: 217 (facts 0, G2 73); lost 131 (facts 0)  [CSV 90, DataFrames 37, Tables 4]
+made by the work | all loaded for the work: 267 (facts 0, G2 107); lost 145 (facts 0)  [CSV 90, DataFrames 37, PrettyTables 11, Tables 4, Downloads 3]
+-- rc 0 | load 2.64 3.22 4.42
+== H up B run w | load 2.64 3.22 4.42
+order B | project up | import 1281.8 ms | roots 54 | loads: OffsetArrays StatsBase Unitful IntervalArithmetic Distributions Interpolations StaticArrays CairoMakie REPL
+the loads 5769.7 ms; work: first 6224.1 ms, again 1.4 ms | digest ce94074fa1261ca2
+image code | the eight: 4688 (facts 0, G2 2643); lost 426 (facts 0)  [DataFrames 362, PooledArrays 24, CSV 22, Tables 12, SentinelArrays 6]
+image code | all loaded for the work: 8176 (facts 0, G2 4607); lost 534 (facts 0)  [DataFrames 362, Statistics 52, PooledArrays 24, CSV 22, PrettyTables 21, Tables 12, Printf 10, StyledStrings 7, ArgTools 7, SentinelArrays 6, Downloads 5, InvertedIndices 3, PrecompileTools 2, OrderedCollections 1]
+-- rc 0 | load 2.50 3.16 4.38
+== B up B run w | load 2.50 3.16 4.38
+order B | project up | import 1300.7 ms | roots 54 | loads: OffsetArrays StatsBase Unitful IntervalArithmetic Distributions Interpolations StaticArrays CairoMakie REPL
+the loads 5718.0 ms; work: first 5796.1 ms, again 1.5 ms | digest ce94074fa1261ca2
+image code | the eight: 4693 (facts 0, G2 3299); lost 424 (facts 0)  [DataFrames 360, PooledArrays 24, CSV 22, Tables 12, SentinelArrays 6]
+image code | all loaded for the work: 8191 (facts 0, G2 6176); lost 524 (facts 0)  [DataFrames 360, Statistics 52, PooledArrays 24, CSV 22, PrettyTables 13, Tables 12, Printf 10, StyledStrings 7, ArgTools 7, SentinelArrays 6, Downloads 5, InvertedIndices 3, PrecompileTools 2, OrderedCollections 1]
+-- rc 0 | load 2.47 3.11 4.35
+== H facts A run w | load 2.47 3.11 4.35
+order A | project facts | import 1216.8 ms | roots 54 | loads: OffsetArrays StatsBase Unitful IntervalArithmetic Distributions Interpolations StaticArrays CairoMakie REPL
+work: first 1758.8 ms, again 1.6 ms; the loads 5539.5 ms; after the loads 1458.1 ms, again 1.7 ms | digest ce94074fa1261ca2 (equal after)
+image code | the eight: 3490 (facts 3490, G2 2774); lost 14 (facts 14)  [DataFrames 10, CSV 4]
+image code | all loaded for the work: 6828 (facts 3490, G2 4636); lost 141 (facts 14)  [PrettyTables 76, Statistics 30, DataFrames 10, StyledStrings 7, ArgTools 7, Downloads 5, CSV 4, PrecompileTools 2]
+made by the work | the eight: 77 (facts 77, G2 44); lost 5 (facts 5)  [CSV 5]
+made by the work | all loaded for the work: 126 (facts 77, G2 57); lost 17 (facts 5)  [PrettyTables 9, CSV 5, Downloads 3]
+-- rc 0 | load 2.56 3.11 4.33
+== B facts A run w | load 2.56 3.11 4.33
+order A | project facts | import 1227.9 ms | roots 54 | loads: OffsetArrays StatsBase Unitful IntervalArithmetic Distributions Interpolations StaticArrays CairoMakie REPL
+work: first 1906.2 ms, again 1.8 ms; the loads 5550.4 ms; after the loads 1727.9 ms, again 2.1 ms | digest ce94074fa1261ca2 (equal after)
+image code | the eight: 3490 (facts 3490, G2 3438); lost 14 (facts 14)  [DataFrames 10, CSV 4]
+image code | all loaded for the work: 6842 (facts 3490, G2 6258); lost 138 (facts 14)  [PrettyTables 73, Statistics 30, DataFrames 10, StyledStrings 7, ArgTools 7, Downloads 5, CSV 4, PrecompileTools 2]
+made by the work | the eight: 77 (facts 77, G2 77); lost 4 (facts 4)  [CSV 4]
+made by the work | all loaded for the work: 126 (facts 77, G2 112); lost 15 (facts 4)  [PrettyTables 8, CSV 4, Downloads 3]
+-- rc 0 | load 2.58 3.09 4.31
+== H facts B run w | load 2.58 3.09 4.31
+order B | project facts | import 1199.1 ms | roots 54 | loads: OffsetArrays StatsBase Unitful IntervalArithmetic Distributions Interpolations StaticArrays CairoMakie REPL
+the loads 5602.5 ms; work: first 2473.7 ms, again 1.7 ms | digest ce94074fa1261ca2
+image code | the eight: 3490 (facts 3490, G2 2774); lost 14 (facts 14)  [DataFrames 10, CSV 4]
+image code | all loaded for the work: 6828 (facts 3490, G2 4636); lost 141 (facts 14)  [PrettyTables 76, Statistics 30, DataFrames 10, StyledStrings 7, ArgTools 7, Downloads 5, CSV 4, PrecompileTools 2]
+-- rc 0 | load 2.57 3.07 4.29
+== B facts B run w | load 2.57 3.07 4.29
+order B | project facts | import 1233.1 ms | roots 54 | loads: OffsetArrays StatsBase Unitful IntervalArithmetic Distributions Interpolations StaticArrays CairoMakie REPL
+the loads 5895.2 ms; work: first 2406.4 ms, again 1.7 ms | digest ce94074fa1261ca2
+image code | the eight: 3490 (facts 3490, G2 3438); lost 14 (facts 14)  [DataFrames 10, CSV 4]
+image code | all loaded for the work: 6842 (facts 3490, G2 6258); lost 135 (facts 14)  [PrettyTables 70, Statistics 30, DataFrames 10, StyledStrings 7, ArgTools 7, Downloads 5, CSV 4, PrecompileTools 2]
+-- rc 0 | load 2.48 3.03 4.26
+== H forks A run w | load 2.48 3.03 4.26
+order A | project forks | import 1786.8 ms | roots 58 | loads: OffsetArrays StatsBase Unitful IntervalArithmetic Distributions Interpolations StaticArrays CairoMakie REPL
+work: first 192.1 ms, again 2.0 ms; the loads 6217.5 ms; after the loads 2183.9 ms, again 2.1 ms | digest ce94074fa1261ca2 (equal after)
+image code | the eight: 5705 (facts 4303, G2 3956); lost 150 (facts 149)  [CSV 137, DataFrames 12, PooledArrays 1]
+image code | all loaded for the work: 9979 (facts 4821, G2 6530); lost 311 (facts 165)  [CSV 137, Statistics 90, PrettyTables 28, TraitWorld 16, DataFrames 12, Downloads 8, StyledStrings 7, ArgTools 7, PrecompileTools 2, CSVDataFramesExt 1, CSVDataFramesInlineStringsExt 1, OrderedCollections 1, PooledArrays 1]
+made by the work | the eight: 12 (facts 12, G2 8); lost 0 (facts 0)
+made by the work | all loaded for the work: 12 (facts 12, G2 8); lost 0 (facts 0)
+-- rc 0 | load 2.48 3.02 4.24
+== B forks A run w | load 2.48 3.02 4.24
+order A | project forks | import 1654.0 ms | roots 58 | loads: OffsetArrays StatsBase Unitful IntervalArithmetic Distributions Interpolations StaticArrays CairoMakie REPL
+work: first 192.1 ms, again 2.1 ms; the loads 5826.6 ms; after the loads 2221.2 ms, again 2.2 ms | digest ce94074fa1261ca2 (equal after)
+image code | the eight: 4799 (facts 3457, G2 4667); lost 48 (facts 47)  [CSV 35, DataFrames 12, PooledArrays 1]
+image code | all loaded for the work: 9031 (facts 3919, G2 8254); lost 191 (facts 47)  [Statistics 90, CSV 35, PrettyTables 26, DataFrames 12, Downloads 8, StyledStrings 7, ArgTools 7, PrecompileTools 2, CSVDataFramesExt 1, CSVDataFramesInlineStringsExt 1, OrderedCollections 1, PooledArrays 1]
+made by the work | the eight: 8 (facts 8, G2 8); lost 0 (facts 0)
+made by the work | all loaded for the work: 8 (facts 8, G2 8); lost 0 (facts 0)
+-- rc 0 | load 2.53 3.00 4.22
+== H forks B run w | load 2.53 3.00 4.22
+order B | project forks | import 1829.2 ms | roots 58 | loads: OffsetArrays StatsBase Unitful IntervalArithmetic Distributions Interpolations StaticArrays CairoMakie REPL
+the loads 6233.0 ms; work: first 2414.1 ms, again 2.0 ms | digest ce94074fa1261ca2
+image code | the eight: 5705 (facts 4303, G2 3956); lost 150 (facts 149)  [CSV 137, DataFrames 12, PooledArrays 1]
+image code | all loaded for the work: 9979 (facts 4821, G2 6530); lost 311 (facts 165)  [CSV 137, Statistics 90, PrettyTables 28, TraitWorld 16, DataFrames 12, Downloads 8, StyledStrings 7, ArgTools 7, PrecompileTools 2, CSVDataFramesExt 1, CSVDataFramesInlineStringsExt 1, OrderedCollections 1, PooledArrays 1]
+-- rc 0 | load 2.45 2.97 4.19
+== B forks B run w | load 2.45 2.97 4.19
+order B | project forks | import 1627.7 ms | roots 58 | loads: OffsetArrays StatsBase Unitful IntervalArithmetic Distributions Interpolations StaticArrays CairoMakie REPL
+the loads 5847.4 ms; work: first 2348.4 ms, again 2.2 ms | digest ce94074fa1261ca2
+image code | the eight: 4799 (facts 3457, G2 4667); lost 48 (facts 47)  [CSV 35, DataFrames 12, PooledArrays 1]
+image code | all loaded for the work: 9031 (facts 3919, G2 8254); lost 191 (facts 47)  [Statistics 90, CSV 35, PrettyTables 26, DataFrames 12, Downloads 8, StyledStrings 7, ArgTools 7, PrecompileTools 2, CSVDataFramesExt 1, CSVDataFramesInlineStringsExt 1, OrderedCollections 1, PooledArrays 1]
+-- rc 0 | load 2.38 2.93 4.17
+== H up A run 1 | load 2.38 2.93 4.17
+order A | project up | import 1290.3 ms | roots 54 | loads: OffsetArrays StatsBase Unitful IntervalArithmetic Distributions Interpolations StaticArrays CairoMakie REPL
+work: first 4464.7 ms, again 1.5 ms; the loads 5756.5 ms; after the loads 5186.0 ms, again 1.4 ms | digest ce94074fa1261ca2 (equal after)
+image code | the eight: 4688 (facts 0, G2 2643); lost 426 (facts 0)  [DataFrames 362, PooledArrays 24, CSV 22, Tables 12, SentinelArrays 6]
+image code | all loaded for the work: 8176 (facts 0, G2 4607); lost 534 (facts 0)  [DataFrames 362, Statistics 52, PooledArrays 24, CSV 22, PrettyTables 21, Tables 12, Printf 10, StyledStrings 7, ArgTools 7, SentinelArrays 6, Downloads 5, InvertedIndices 3, PrecompileTools 2, OrderedCollections 1]
+made by the work | the eight: 217 (facts 0, G2 28); lost 131 (facts 0)  [CSV 90, DataFrames 37, Tables 4]
+made by the work | all loaded for the work: 265 (facts 0, G2 38); lost 147 (facts 0)  [CSV 90, DataFrames 37, PrettyTables 13, Tables 4, Downloads 3]
+-- rc 0 | load 2.33 2.89 4.13
+== B up A run 1 | load 2.33 2.89 4.13
+order A | project up | import 1327.6 ms | roots 54 | loads: OffsetArrays StatsBase Unitful IntervalArithmetic Distributions Interpolations StaticArrays CairoMakie REPL
+work: first 4156.3 ms, again 1.4 ms; the loads 5601.8 ms; after the loads 5128.5 ms, again 1.5 ms | digest ce94074fa1261ca2 (equal after)
+image code | the eight: 4693 (facts 0, G2 3299); lost 424 (facts 0)  [DataFrames 360, PooledArrays 24, CSV 22, Tables 12, SentinelArrays 6]
+image code | all loaded for the work: 8191 (facts 0, G2 6176); lost 527 (facts 0)  [DataFrames 360, Statistics 52, PooledArrays 24, CSV 22, PrettyTables 16, Tables 12, Printf 10, StyledStrings 7, ArgTools 7, SentinelArrays 6, Downloads 5, InvertedIndices 3, PrecompileTools 2, OrderedCollections 1]
+made by the work | the eight: 217 (facts 0, G2 73); lost 131 (facts 0)  [CSV 90, DataFrames 37, Tables 4]
+made by the work | all loaded for the work: 267 (facts 0, G2 107); lost 145 (facts 0)  [CSV 90, DataFrames 37, PrettyTables 11, Tables 4, Downloads 3]
+-- rc 0 | load 2.58 2.91 4.11
+== H up B run 1 | load 2.58 2.91 4.11
+order B | project up | import 1317.1 ms | roots 54 | loads: OffsetArrays StatsBase Unitful IntervalArithmetic Distributions Interpolations StaticArrays CairoMakie REPL
+the loads 5692.4 ms; work: first 6194.3 ms, again 1.4 ms | digest ce94074fa1261ca2
+image code | the eight: 4688 (facts 0, G2 2643); lost 426 (facts 0)  [DataFrames 362, PooledArrays 24, CSV 22, Tables 12, SentinelArrays 6]
+image code | all loaded for the work: 8176 (facts 0, G2 4607); lost 534 (facts 0)  [DataFrames 362, Statistics 52, PooledArrays 24, CSV 22, PrettyTables 21, Tables 12, Printf 10, StyledStrings 7, ArgTools 7, SentinelArrays 6, Downloads 5, InvertedIndices 3, PrecompileTools 2, OrderedCollections 1]
+-- rc 0 | load 2.65 2.91 4.09
+== B up B run 1 | load 2.65 2.91 4.09
+order B | project up | import 1417.8 ms | roots 54 | loads: OffsetArrays StatsBase Unitful IntervalArithmetic Distributions Interpolations StaticArrays CairoMakie REPL
+the loads 5895.3 ms; work: first 5728.5 ms, again 1.4 ms | digest ce94074fa1261ca2
+image code | the eight: 4693 (facts 0, G2 3299); lost 424 (facts 0)  [DataFrames 360, PooledArrays 24, CSV 22, Tables 12, SentinelArrays 6]
+image code | all loaded for the work: 8191 (facts 0, G2 6176); lost 524 (facts 0)  [DataFrames 360, Statistics 52, PooledArrays 24, CSV 22, PrettyTables 13, Tables 12, Printf 10, StyledStrings 7, ArgTools 7, SentinelArrays 6, Downloads 5, InvertedIndices 3, PrecompileTools 2, OrderedCollections 1]
+-- rc 0 | load 2.64 2.90 4.07
+== H facts A run 1 | load 2.64 2.90 4.07
+order A | project facts | import 1201.2 ms | roots 54 | loads: OffsetArrays StatsBase Unitful IntervalArithmetic Distributions Interpolations StaticArrays CairoMakie REPL
+work: first 1753.2 ms, again 9.8 ms; the loads 5505.7 ms; after the loads 1448.0 ms, again 1.7 ms | digest ce94074fa1261ca2 (equal after)
+image code | the eight: 3490 (facts 3490, G2 2774); lost 14 (facts 14)  [DataFrames 10, CSV 4]
+image code | all loaded for the work: 6828 (facts 3490, G2 4636); lost 141 (facts 14)  [PrettyTables 76, Statistics 30, DataFrames 10, StyledStrings 7, ArgTools 7, Downloads 5, CSV 4, PrecompileTools 2]
+made by the work | the eight: 77 (facts 77, G2 44); lost 5 (facts 5)  [CSV 5]
+made by the work | all loaded for the work: 126 (facts 77, G2 57); lost 17 (facts 5)  [PrettyTables 9, CSV 5, Downloads 3]
+-- rc 0 | load 2.91 2.95 4.07
+== B facts A run 1 | load 2.91 2.95 4.07
+order A | project facts | import 1264.7 ms | roots 54 | loads: OffsetArrays StatsBase Unitful IntervalArithmetic Distributions Interpolations StaticArrays CairoMakie REPL
+work: first 1908.2 ms, again 1.8 ms; the loads 5713.2 ms; after the loads 1725.0 ms, again 1.7 ms | digest ce94074fa1261ca2 (equal after)
+image code | the eight: 3490 (facts 3490, G2 3438); lost 14 (facts 14)  [DataFrames 10, CSV 4]
+image code | all loaded for the work: 6842 (facts 3490, G2 6258); lost 138 (facts 14)  [PrettyTables 73, Statistics 30, DataFrames 10, StyledStrings 7, ArgTools 7, Downloads 5, CSV 4, PrecompileTools 2]
+made by the work | the eight: 77 (facts 77, G2 77); lost 4 (facts 4)  [CSV 4]
+made by the work | all loaded for the work: 126 (facts 77, G2 112); lost 15 (facts 4)  [PrettyTables 8, CSV 4, Downloads 3]
+-- rc 0 | load 2.77 2.92 4.05
+== H facts B run 1 | load 2.77 2.92 4.05
+order B | project facts | import 1135.0 ms | roots 54 | loads: OffsetArrays StatsBase Unitful IntervalArithmetic Distributions Interpolations StaticArrays CairoMakie REPL
+the loads 5629.5 ms; work: first 2478.1 ms, again 1.7 ms | digest ce94074fa1261ca2
+image code | the eight: 3490 (facts 3490, G2 2774); lost 14 (facts 14)  [DataFrames 10, CSV 4]
+image code | all loaded for the work: 6828 (facts 3490, G2 4636); lost 141 (facts 14)  [PrettyTables 76, Statistics 30, DataFrames 10, StyledStrings 7, ArgTools 7, Downloads 5, CSV 4, PrecompileTools 2]
+-- rc 0 | load 3.20 3.01 4.06
+== B facts B run 1 | load 3.20 3.01 4.06
+order B | project facts | import 1143.4 ms | roots 54 | loads: OffsetArrays StatsBase Unitful IntervalArithmetic Distributions Interpolations StaticArrays CairoMakie REPL
+the loads 5478.2 ms; work: first 2600.1 ms, again 1.7 ms | digest ce94074fa1261ca2
+image code | the eight: 3490 (facts 3490, G2 3438); lost 14 (facts 14)  [DataFrames 10, CSV 4]
+image code | all loaded for the work: 6842 (facts 3490, G2 6258); lost 135 (facts 14)  [PrettyTables 70, Statistics 30, DataFrames 10, StyledStrings 7, ArgTools 7, Downloads 5, CSV 4, PrecompileTools 2]
+-- rc 0 | load 3.10 2.99 4.04
+== H forks A run 1 | load 3.10 2.99 4.04
+order A | project forks | import 1832.9 ms | roots 58 | loads: OffsetArrays StatsBase Unitful IntervalArithmetic Distributions Interpolations StaticArrays CairoMakie REPL
+work: first 192.8 ms, again 2.0 ms; the loads 6317.1 ms; after the loads 2341.9 ms, again 2.1 ms | digest ce94074fa1261ca2 (equal after)
+image code | the eight: 5705 (facts 4303, G2 3956); lost 150 (facts 149)  [CSV 137, DataFrames 12, PooledArrays 1]
+image code | all loaded for the work: 9979 (facts 4821, G2 6530); lost 311 (facts 165)  [CSV 137, Statistics 90, PrettyTables 28, TraitWorld 16, DataFrames 12, Downloads 8, StyledStrings 7, ArgTools 7, PrecompileTools 2, CSVDataFramesExt 1, CSVDataFramesInlineStringsExt 1, OrderedCollections 1, PooledArrays 1]
+made by the work | the eight: 12 (facts 12, G2 8); lost 0 (facts 0)
+made by the work | all loaded for the work: 12 (facts 12, G2 8); lost 0 (facts 0)
+-- rc 0 | load 2.85 2.94 4.01
+== B forks A run 1 | load 2.85 2.94 4.01
+order A | project forks | import 1759.0 ms | roots 58 | loads: OffsetArrays StatsBase Unitful IntervalArithmetic Distributions Interpolations StaticArrays CairoMakie REPL
+work: first 188.3 ms, again 2.0 ms; the loads 6074.1 ms; after the loads 2228.2 ms, again 2.2 ms | digest ce94074fa1261ca2 (equal after)
+image code | the eight: 4799 (facts 3457, G2 4667); lost 48 (facts 47)  [CSV 35, DataFrames 12, PooledArrays 1]
+image code | all loaded for the work: 9031 (facts 3919, G2 8254); lost 191 (facts 47)  [Statistics 90, CSV 35, PrettyTables 26, DataFrames 12, Downloads 8, StyledStrings 7, ArgTools 7, PrecompileTools 2, CSVDataFramesExt 1, CSVDataFramesInlineStringsExt 1, OrderedCollections 1, PooledArrays 1]
+made by the work | the eight: 8 (facts 8, G2 8); lost 0 (facts 0)
+made by the work | all loaded for the work: 8 (facts 8, G2 8); lost 0 (facts 0)
+-- rc 0 | load 2.80 2.93 3.99
+== H forks B run 1 | load 2.80 2.93 3.99
+order B | project forks | import 1745.3 ms | roots 58 | loads: OffsetArrays StatsBase Unitful IntervalArithmetic Distributions Interpolations StaticArrays CairoMakie REPL
+the loads 6096.3 ms; work: first 2406.2 ms, again 2.1 ms | digest ce94074fa1261ca2
+image code | the eight: 5705 (facts 4303, G2 3956); lost 150 (facts 149)  [CSV 137, DataFrames 12, PooledArrays 1]
+image code | all loaded for the work: 9979 (facts 4821, G2 6530); lost 311 (facts 165)  [CSV 137, Statistics 90, PrettyTables 28, TraitWorld 16, DataFrames 12, Downloads 8, StyledStrings 7, ArgTools 7, PrecompileTools 2, CSVDataFramesExt 1, CSVDataFramesInlineStringsExt 1, OrderedCollections 1, PooledArrays 1]
+-- rc 0 | load 2.67 2.90 3.97
+== B forks B run 1 | load 2.67 2.90 3.97
+order B | project forks | import 1606.8 ms | roots 58 | loads: OffsetArrays StatsBase Unitful IntervalArithmetic Distributions Interpolations StaticArrays CairoMakie REPL
+the loads 5925.3 ms; work: first 2333.5 ms, again 2.2 ms | digest ce94074fa1261ca2
+image code | the eight: 4799 (facts 3457, G2 4667); lost 48 (facts 47)  [CSV 35, DataFrames 12, PooledArrays 1]
+image code | all loaded for the work: 9031 (facts 3919, G2 8254); lost 191 (facts 47)  [Statistics 90, CSV 35, PrettyTables 26, DataFrames 12, Downloads 8, StyledStrings 7, ArgTools 7, PrecompileTools 2, CSVDataFramesExt 1, CSVDataFramesInlineStringsExt 1, OrderedCollections 1, PooledArrays 1]
+-- rc 0 | load 2.59 2.87 3.95
+== H up A run 2 | load 2.59 2.87 3.95
+order A | project up | import 1331.1 ms | roots 54 | loads: OffsetArrays StatsBase Unitful IntervalArithmetic Distributions Interpolations StaticArrays CairoMakie REPL
+work: first 4450.0 ms, again 1.5 ms; the loads 5784.6 ms; after the loads 5316.4 ms, again 1.4 ms | digest ce94074fa1261ca2 (equal after)
+image code | the eight: 4688 (facts 0, G2 2643); lost 426 (facts 0)  [DataFrames 362, PooledArrays 24, CSV 22, Tables 12, SentinelArrays 6]
+image code | all loaded for the work: 8176 (facts 0, G2 4607); lost 534 (facts 0)  [DataFrames 362, Statistics 52, PooledArrays 24, CSV 22, PrettyTables 21, Tables 12, Printf 10, StyledStrings 7, ArgTools 7, SentinelArrays 6, Downloads 5, InvertedIndices 3, PrecompileTools 2, OrderedCollections 1]
+made by the work | the eight: 217 (facts 0, G2 28); lost 131 (facts 0)  [CSV 90, DataFrames 37, Tables 4]
+made by the work | all loaded for the work: 265 (facts 0, G2 38); lost 147 (facts 0)  [CSV 90, DataFrames 37, PrettyTables 13, Tables 4, Downloads 3]
+-- rc 0 | load 2.46 2.82 3.91
+== B up A run 2 | load 2.46 2.82 3.91
+order A | project up | import 1346.9 ms | roots 54 | loads: OffsetArrays StatsBase Unitful IntervalArithmetic Distributions Interpolations StaticArrays CairoMakie REPL
+work: first 4153.9 ms, again 1.4 ms; the loads 5694.0 ms; after the loads 5133.3 ms, again 1.5 ms | digest ce94074fa1261ca2 (equal after)
+image code | the eight: 4693 (facts 0, G2 3299); lost 424 (facts 0)  [DataFrames 360, PooledArrays 24, CSV 22, Tables 12, SentinelArrays 6]
+image code | all loaded for the work: 8191 (facts 0, G2 6176); lost 527 (facts 0)  [DataFrames 360, Statistics 52, PooledArrays 24, CSV 22, PrettyTables 16, Tables 12, Printf 10, StyledStrings 7, ArgTools 7, SentinelArrays 6, Downloads 5, InvertedIndices 3, PrecompileTools 2, OrderedCollections 1]
+made by the work | the eight: 217 (facts 0, G2 73); lost 131 (facts 0)  [CSV 90, DataFrames 37, Tables 4]
+made by the work | all loaded for the work: 267 (facts 0, G2 107); lost 145 (facts 0)  [CSV 90, DataFrames 37, PrettyTables 11, Tables 4, Downloads 3]
+-- rc 0 | load 2.65 2.84 3.89
+== H up B run 2 | load 2.65 2.84 3.89
+order B | project up | import 1273.4 ms | roots 54 | loads: OffsetArrays StatsBase Unitful IntervalArithmetic Distributions Interpolations StaticArrays CairoMakie REPL
+the loads 5608.0 ms; work: first 6223.7 ms, again 1.4 ms | digest ce94074fa1261ca2
+image code | the eight: 4688 (facts 0, G2 2643); lost 426 (facts 0)  [DataFrames 362, PooledArrays 24, CSV 22, Tables 12, SentinelArrays 6]
+image code | all loaded for the work: 8176 (facts 0, G2 4607); lost 534 (facts 0)  [DataFrames 362, Statistics 52, PooledArrays 24, CSV 22, PrettyTables 21, Tables 12, Printf 10, StyledStrings 7, ArgTools 7, SentinelArrays 6, Downloads 5, InvertedIndices 3, PrecompileTools 2, OrderedCollections 1]
+-- rc 0 | load 2.64 2.83 3.87
+== B up B run 2 | load 2.64 2.83 3.87
+order B | project up | import 1261.2 ms | roots 54 | loads: OffsetArrays StatsBase Unitful IntervalArithmetic Distributions Interpolations StaticArrays CairoMakie REPL
+the loads 5646.1 ms; work: first 5742.3 ms, again 1.5 ms | digest ce94074fa1261ca2
+image code | the eight: 4693 (facts 0, G2 3299); lost 424 (facts 0)  [DataFrames 360, PooledArrays 24, CSV 22, Tables 12, SentinelArrays 6]
+image code | all loaded for the work: 8191 (facts 0, G2 6176); lost 524 (facts 0)  [DataFrames 360, Statistics 52, PooledArrays 24, CSV 22, PrettyTables 13, Tables 12, Printf 10, StyledStrings 7, ArgTools 7, SentinelArrays 6, Downloads 5, InvertedIndices 3, PrecompileTools 2, OrderedCollections 1]
+-- rc 0 | load 2.62 2.82 3.86
+== H facts A run 2 | load 2.62 2.82 3.86
+order A | project facts | import 1222.5 ms | roots 54 | loads: OffsetArrays StatsBase Unitful IntervalArithmetic Distributions Interpolations StaticArrays CairoMakie REPL
+work: first 1826.1 ms, again 1.7 ms; the loads 5730.9 ms; after the loads 1462.3 ms, again 3.8 ms | digest ce94074fa1261ca2 (equal after)
+image code | the eight: 3490 (facts 3490, G2 2774); lost 14 (facts 14)  [DataFrames 10, CSV 4]
+image code | all loaded for the work: 6828 (facts 3490, G2 4636); lost 141 (facts 14)  [PrettyTables 76, Statistics 30, DataFrames 10, StyledStrings 7, ArgTools 7, Downloads 5, CSV 4, PrecompileTools 2]
+made by the work | the eight: 77 (facts 77, G2 44); lost 5 (facts 5)  [CSV 5]
+made by the work | all loaded for the work: 126 (facts 77, G2 57); lost 17 (facts 5)  [PrettyTables 9, CSV 5, Downloads 3]
+-- rc 0 | load 2.79 2.84 3.85
+== B facts A run 2 | load 2.79 2.84 3.85
+order A | project facts | import 1265.9 ms | roots 54 | loads: OffsetArrays StatsBase Unitful IntervalArithmetic Distributions Interpolations StaticArrays CairoMakie REPL
+work: first 1903.7 ms, again 1.9 ms; the loads 5479.3 ms; after the loads 1729.1 ms, again 1.8 ms | digest ce94074fa1261ca2 (equal after)
+image code | the eight: 3490 (facts 3490, G2 3438); lost 14 (facts 14)  [DataFrames 10, CSV 4]
+image code | all loaded for the work: 6842 (facts 3490, G2 6258); lost 138 (facts 14)  [PrettyTables 73, Statistics 30, DataFrames 10, StyledStrings 7, ArgTools 7, Downloads 5, CSV 4, PrecompileTools 2]
+made by the work | the eight: 77 (facts 77, G2 77); lost 4 (facts 4)  [CSV 4]
+made by the work | all loaded for the work: 126 (facts 77, G2 112); lost 15 (facts 4)  [PrettyTables 8, CSV 4, Downloads 3]
+-- rc 0 | load 2.67 2.81 3.83
+== H facts B run 2 | load 2.67 2.81 3.83
+order B | project facts | import 1169.4 ms | roots 54 | loads: OffsetArrays StatsBase Unitful IntervalArithmetic Distributions Interpolations StaticArrays CairoMakie REPL
+the loads 5517.6 ms; work: first 2460.0 ms, again 1.7 ms | digest ce94074fa1261ca2
+image code | the eight: 3490 (facts 3490, G2 2774); lost 14 (facts 14)  [DataFrames 10, CSV 4]
+image code | all loaded for the work: 6828 (facts 3490, G2 4636); lost 141 (facts 14)  [PrettyTables 76, Statistics 30, DataFrames 10, StyledStrings 7, ArgTools 7, Downloads 5, CSV 4, PrecompileTools 2]
+-- rc 0 | load 2.57 2.79 3.81
+== B facts B run 2 | load 2.57 2.79 3.81
+order B | project facts | import 1133.9 ms | roots 54 | loads: OffsetArrays StatsBase Unitful IntervalArithmetic Distributions Interpolations StaticArrays CairoMakie REPL
+the loads 5652.8 ms; work: first 2408.3 ms, again 1.7 ms | digest ce94074fa1261ca2
+image code | the eight: 3490 (facts 3490, G2 3438); lost 14 (facts 14)  [DataFrames 10, CSV 4]
+image code | all loaded for the work: 6842 (facts 3490, G2 6258); lost 135 (facts 14)  [PrettyTables 70, Statistics 30, DataFrames 10, StyledStrings 7, ArgTools 7, Downloads 5, CSV 4, PrecompileTools 2]
+-- rc 0 | load 2.85 2.84 3.82
+== H forks A run 2 | load 2.85 2.84 3.82
+order A | project forks | import 1844.6 ms | roots 58 | loads: OffsetArrays StatsBase Unitful IntervalArithmetic Distributions Interpolations StaticArrays CairoMakie REPL
+work: first 193.7 ms, again 2.0 ms; the loads 6250.4 ms; after the loads 2189.5 ms, again 2.0 ms | digest ce94074fa1261ca2 (equal after)
+image code | the eight: 5705 (facts 4303, G2 3956); lost 150 (facts 149)  [CSV 137, DataFrames 12, PooledArrays 1]
+image code | all loaded for the work: 9979 (facts 4821, G2 6530); lost 311 (facts 165)  [CSV 137, Statistics 90, PrettyTables 28, TraitWorld 16, DataFrames 12, Downloads 8, StyledStrings 7, ArgTools 7, PrecompileTools 2, CSVDataFramesExt 1, CSVDataFramesInlineStringsExt 1, OrderedCollections 1, PooledArrays 1]
+made by the work | the eight: 12 (facts 12, G2 8); lost 0 (facts 0)
+made by the work | all loaded for the work: 12 (facts 12, G2 8); lost 0 (facts 0)
+-- rc 0 | load 2.66 2.80 3.79
+== B forks A run 2 | load 2.66 2.80 3.79
+order A | project forks | import 1695.4 ms | roots 58 | loads: OffsetArrays StatsBase Unitful IntervalArithmetic Distributions Interpolations StaticArrays CairoMakie REPL
+work: first 188.7 ms, again 2.1 ms; the loads 5922.8 ms; after the loads 2237.1 ms, again 2.7 ms | digest ce94074fa1261ca2 (equal after)
+image code | the eight: 4799 (facts 3457, G2 4667); lost 48 (facts 47)  [CSV 35, DataFrames 12, PooledArrays 1]
+image code | all loaded for the work: 9031 (facts 3919, G2 8254); lost 191 (facts 47)  [Statistics 90, CSV 35, PrettyTables 26, DataFrames 12, Downloads 8, StyledStrings 7, ArgTools 7, PrecompileTools 2, CSVDataFramesExt 1, CSVDataFramesInlineStringsExt 1, OrderedCollections 1, PooledArrays 1]
+made by the work | the eight: 8 (facts 8, G2 8); lost 0 (facts 0)
+made by the work | all loaded for the work: 8 (facts 8, G2 8); lost 0 (facts 0)
+-- rc 0 | load 3.36 2.94 3.82
+== H forks B run 2 | load 3.36 2.94 3.82
+order B | project forks | import 1785.8 ms | roots 58 | loads: OffsetArrays StatsBase Unitful IntervalArithmetic Distributions Interpolations StaticArrays CairoMakie REPL
+the loads 6176.8 ms; work: first 2455.3 ms, again 2.1 ms | digest ce94074fa1261ca2
+image code | the eight: 5705 (facts 4303, G2 3956); lost 150 (facts 149)  [CSV 137, DataFrames 12, PooledArrays 1]
+image code | all loaded for the work: 9979 (facts 4821, G2 6530); lost 311 (facts 165)  [CSV 137, Statistics 90, PrettyTables 28, TraitWorld 16, DataFrames 12, Downloads 8, StyledStrings 7, ArgTools 7, PrecompileTools 2, CSVDataFramesExt 1, CSVDataFramesInlineStringsExt 1, OrderedCollections 1, PooledArrays 1]
+-- rc 0 | load 3.15 2.91 3.80
+== B forks B run 2 | load 3.06 2.89 3.79
+order B | project forks | import 1757.1 ms | roots 58 | loads: OffsetArrays StatsBase Unitful IntervalArithmetic Distributions Interpolations StaticArrays CairoMakie REPL
+the loads 6007.1 ms; work: first 2334.0 ms, again 2.2 ms | digest ce94074fa1261ca2
+image code | the eight: 4799 (facts 3457, G2 4667); lost 48 (facts 47)  [CSV 35, DataFrames 12, PooledArrays 1]
+image code | all loaded for the work: 9031 (facts 3919, G2 8254); lost 191 (facts 47)  [Statistics 90, CSV 35, PrettyTables 26, DataFrames 12, Downloads 8, StyledStrings 7, ArgTools 7, PrecompileTools 2, CSVDataFramesExt 1, CSVDataFramesInlineStringsExt 1, OrderedCollections 1, PooledArrays 1]
+-- rc 0 | load 2.90 2.86 3.77
+# done 2026-11-22T04:31:25+01:00 | load-after 2.90 2.86 3.77

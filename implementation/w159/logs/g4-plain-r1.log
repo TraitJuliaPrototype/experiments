@@ -1,0 +1,242 @@
+# W-159 G-4 E-381 plain code's session (w134/plain.jl) | 2026-11-22T04:17:30+01:00 | load-before 3.03 5.43 5.51 | login02
+# setting V: julia julia-vanilla 45b6d15e34 (binary 45b6d15e34*) | depot .julia-depot/agent-depots/w159/V
+# setting H: julia julia-next cf0f039f51 (binary cf0f039f51*) | TW TraitWorld 42d60e13bf | TDE TraitDifferentialEquations 06c28c376f | TM TraitMakie 1888698d7a | TT TraitTables e1ec1f4368 | TC TraitCSV 094dcb2e21 | TR TraitReport ec34d1219c | FORKS forks a3a37d6b5e | ND ndport/pkgs/NetworkDynamics-unified c2bbf0d9aa | depot .julia-depot/agent-depots/w159/H
+# setting B: julia julia-unified 7b374f39ce (binary 7b374f39ce*) | TW TraitWorld-base e11c7cc58b | TDE wt/w161-tde-base b7306285fe | TM wt/w160-tm c862914ffa | TT wt/w159-tag/TraitTables c3391750fb | TC wt/w159-tag/TraitCSV 92c46d01bc | TR wt/w159-tag/TraitReport a4bcf332db | FORKS wt/w159-tag/forks 439bae73ff | ND wt/w151-base/NetworkDynamics 6310040ec0 | depot .julia-depot/agent-depots/w159/B
+# experiments 15fa460b63 | product setting, strict mode off, one thread, fresh process per cell
+# NOTE setting V: the binary is marked '*' (its tree had a tracked change when it was built); the tree is clean now
+# preflight V up: images ok: CSV DataFrames
+# NOTE setting H: the binary is marked '*' (its tree had a tracked change when it was built); the tree is clean now
+# preflight H up: images ok: CSV DataFrames
+# preflight H lib: images ok: CSV DataFrames TraitWorld
+# NOTE setting B: the binary is marked '*' (its tree had a tracked change when it was built); the tree is clean now
+# preflight B up: images ok: CSV DataFrames
+# preflight B lib: images ok: CSV DataFrames TraitWorld
+== V none run w | load 2.95 5.33 5.47
+using CSV, DataFrames 848.19 ms
+first work 3268.28 ms, compile 3261.87 ms
+repeated: median 0.18 ms, least 0.17 ms
+-- rc 0 | load 2.88 5.27 5.45
+== H none run w | load 2.88 5.27 5.45
+using CSV, DataFrames 1068.33 ms
+first work 3343.03 ms, compile 3339.29 ms
+repeated: median 0.19 ms, least 0.18 ms
+-- rc 0 | load 2.81 5.22 5.43
+== B none run w | load 2.81 5.22 5.43
+using CSV, DataFrames 969.49 ms
+first work 2914.77 ms, compile 2910.66 ms
+repeated: median 0.19 ms, least 0.19 ms
+-- rc 0 | load 2.74 5.16 5.42
+== H first run w | load 2.74 5.16 5.42
+using TraitWorld 77.76 ms
+using CSV, DataFrames 1080.46 ms
+first work 3273.63 ms, compile 3271.03 ms
+repeated: median 0.18 ms, least 0.18 ms
+-- rc 0 | load 2.68 5.11 5.40
+== B first run w | load 2.68 5.11 5.40
+using TraitWorld 71.65 ms
+using CSV, DataFrames 782.41 ms
+first work 2963.64 ms, compile 2960.7 ms
+repeated: median 0.19 ms, least 0.19 ms
+-- rc 0 | load 2.71 5.08 5.38
+== H late run w | load 2.71 5.08 5.38
+using CSV, DataFrames 1316.7 ms
+first work 3330.32 ms, compile 3326.32 ms
+repeated: median 0.19 ms, least 0.18 ms
+using TraitWorld (late) 205.03 ms
+ended by the library's load: 0 of 120780 | 
+work after the library's load 1.18 ms, compile 0.0 ms
+repeated after: median 0.19 ms, least 0.18 ms
+-- rc 0 | load 2.65 5.03 5.37
+== B late run w | load 2.65 5.03 5.37
+using CSV, DataFrames 948.91 ms
+first work 2906.04 ms, compile 2903.3 ms
+repeated: median 0.19 ms, least 0.18 ms
+using TraitWorld (late) 63.59 ms
+ended by the library's load: 209 of 120566 | Base 94, DataFrames 80, Statistics 30, Main 3, PooledArrays 2
+  Tuple{typeof(Base.reducedim_init), Function, typeof(Base.add_sum), Vector{String}, Function}
+  Tuple{typeof(Base.reducedim_init), Function, typeof(Base.add_sum), PooledArrays.PooledVector{String, UInt32, Vector{UInt32}}, Function}
+  Tuple{DataFrames.var"##combine#806", Bool, Bool, Bool, Bool, typeof(combine), GroupedDataFrame{DataFrame}, Pair{String, typeof(sum)}}
+  Tuple{typeof(axes), SubDataFrame, Int64}
+  Tuple{typeof(axes), DataFrames.DataFrameColumns}
+  Tuple{typeof(combine), GroupedDataFrame{DataFrame}, Pair{String, typeof(sum)}}
+  Tuple{typeof(Base._sum), typeof(identity), Vector{String}, Function}
+  Tuple{typeof(Base._sum), typeof(identity), PooledArrays.PooledVector{String, UInt32, Vector{UInt32}}, Function}
+  Tuple{var"#5#6"}
+  Tuple{typeof(DataFrames._combine_with_first), Base.RefValue{Any}, Base.RefValue{Any}, GroupedDataFrame{DataFrame}, Base.RefValue{Any}, Bool, Vector{Int64}, Bool}
+  Tuple{typeof(Base.Iterators._zip_iterate_some), Tuple{DataFrames.DataFrameColumns}, Tuple{Tuple{Int64}}, Tuple{Missing}, Missing}
+  Tuple{typeof(Base.Iterators._zip_iterate_some), Tuple{DataFrames.DataFrameColumns, DataFrames.DataFrameColumns}, Tuple{Tuple{Int64}, Tuple{Int64}}, Tuple{Missing, Missing}, Missing}
+work after the library's load 265.05 ms, compile 256.85 ms
+repeated after: median 0.2 ms, least 0.19 ms
+-- rc 0 | load 3.32 5.13 5.40
+== V none run 1 | load 3.53 5.14 5.40
+using CSV, DataFrames 1017.49 ms
+first work 3281.42 ms, compile 3276.28 ms
+repeated: median 0.18 ms, least 0.18 ms
+-- rc 0 | load 3.41 5.09 5.38
+== H none run 1 | load 3.41 5.09 5.38
+using CSV, DataFrames 1051.79 ms
+first work 3341.57 ms, compile 3337.79 ms
+repeated: median 0.19 ms, least 0.18 ms
+-- rc 0 | load 3.30 5.04 5.36
+== B none run 1 | load 3.30 5.04 5.36
+using CSV, DataFrames 967.94 ms
+first work 2889.32 ms, compile 2885.97 ms
+repeated: median 0.19 ms, least 0.18 ms
+-- rc 0 | load 3.19 4.99 5.34
+== H first run 1 | load 3.19 4.99 5.34
+using TraitWorld 80.42 ms
+using CSV, DataFrames 1086.76 ms
+first work 3286.54 ms, compile 3283.92 ms
+repeated: median 0.19 ms, least 0.18 ms
+-- rc 0 | load 3.10 4.94 5.33
+== B first run 1 | load 3.10 4.94 5.33
+using TraitWorld 74.4 ms
+using CSV, DataFrames 794.37 ms
+first work 2950.6 ms, compile 2947.63 ms
+repeated: median 0.2 ms, least 0.19 ms
+-- rc 0 | load 3.01 4.89 5.31
+== H late run 1 | load 3.01 4.89 5.31
+using CSV, DataFrames 751.73 ms
+first work 3333.55 ms, compile 3331.03 ms
+repeated: median 0.18 ms, least 0.18 ms
+using TraitWorld (late) 167.73 ms
+ended by the library's load: 0 of 120780 | 
+work after the library's load 1.05 ms, compile 0.0 ms
+repeated after: median 0.18 ms, least 0.18 ms
+-- rc 0 | load 2.93 4.84 5.29
+== B late run 1 | load 2.93 4.84 5.29
+using CSV, DataFrames 756.73 ms
+first work 2884.6 ms, compile 2881.97 ms
+repeated: median 0.19 ms, least 0.18 ms
+using TraitWorld (late) 40.73 ms
+ended by the library's load: 209 of 120566 | Base 94, DataFrames 80, Statistics 30, Main 3, PooledArrays 2
+  Tuple{typeof(Base.reducedim_init), Function, typeof(Base.add_sum), Vector{String}, Function}
+  Tuple{typeof(Base.reducedim_init), Function, typeof(Base.add_sum), PooledArrays.PooledVector{String, UInt32, Vector{UInt32}}, Function}
+  Tuple{DataFrames.var"##combine#806", Bool, Bool, Bool, Bool, typeof(combine), GroupedDataFrame{DataFrame}, Pair{String, typeof(sum)}}
+  Tuple{typeof(axes), SubDataFrame, Int64}
+  Tuple{typeof(axes), DataFrames.DataFrameColumns}
+  Tuple{typeof(combine), GroupedDataFrame{DataFrame}, Pair{String, typeof(sum)}}
+  Tuple{typeof(Base._sum), typeof(identity), Vector{String}, Function}
+  Tuple{typeof(Base._sum), typeof(identity), PooledArrays.PooledVector{String, UInt32, Vector{UInt32}}, Function}
+  Tuple{var"#5#6"}
+  Tuple{typeof(DataFrames._combine_with_first), Base.RefValue{Any}, Base.RefValue{Any}, GroupedDataFrame{DataFrame}, Base.RefValue{Any}, Bool, Vector{Int64}, Bool}
+  Tuple{typeof(Base.Iterators._zip_iterate_some), Tuple{DataFrames.DataFrameColumns}, Tuple{Tuple{Int64}}, Tuple{Missing}, Missing}
+  Tuple{typeof(Base.Iterators._zip_iterate_some), Tuple{DataFrames.DataFrameColumns, DataFrames.DataFrameColumns}, Tuple{Tuple{Int64}, Tuple{Int64}}, Tuple{Missing, Missing}, Missing}
+work after the library's load 258.22 ms, compile 250.45 ms
+repeated after: median 0.19 ms, least 0.19 ms
+-- rc 0 | load 2.93 4.81 5.28
+== V none run 2 | load 2.93 4.81 5.28
+using CSV, DataFrames 696.89 ms
+first work 3252.02 ms, compile 3249.31 ms
+repeated: median 0.18 ms, least 0.17 ms
+-- rc 0 | load 2.94 4.78 5.27
+== H none run 2 | load 2.94 4.78 5.27
+using CSV, DataFrames 749.09 ms
+first work 3316.34 ms, compile 3313.67 ms
+repeated: median 0.18 ms, least 0.18 ms
+-- rc 0 | load 2.94 4.75 5.25
+== B none run 2 | load 2.94 4.75 5.25
+using CSV, DataFrames 757.98 ms
+first work 2893.11 ms, compile 2890.47 ms
+repeated: median 0.19 ms, least 0.18 ms
+-- rc 0 | load 2.87 4.70 5.24
+== H first run 2 | load 2.87 4.70 5.24
+using TraitWorld 58.36 ms
+using CSV, DataFrames 1076.44 ms
+first work 3297.85 ms, compile 3295.08 ms
+repeated: median 0.18 ms, least 0.18 ms
+-- rc 0 | load 2.88 4.67 5.22
+== B first run 2 | load 2.88 4.67 5.22
+using TraitWorld 61.74 ms
+using CSV, DataFrames 792.53 ms
+first work 2957.93 ms, compile 2954.95 ms
+repeated: median 0.19 ms, least 0.19 ms
+-- rc 0 | load 2.81 4.63 5.21
+== H late run 2 | load 2.81 4.63 5.21
+using CSV, DataFrames 750.49 ms
+first work 3335.19 ms, compile 3332.64 ms
+repeated: median 0.19 ms, least 0.18 ms
+using TraitWorld (late) 168.29 ms
+ended by the library's load: 0 of 120780 | 
+work after the library's load 1.08 ms, compile 0.0 ms
+repeated after: median 0.19 ms, least 0.18 ms
+-- rc 0 | load 2.68 4.54 5.17
+== B late run 2 | load 2.68 4.54 5.17
+using CSV, DataFrames 757.99 ms
+first work 2900.17 ms, compile 2897.52 ms
+repeated: median 0.19 ms, least 0.18 ms
+using TraitWorld (late) 40.71 ms
+ended by the library's load: 209 of 120566 | Base 94, DataFrames 80, Statistics 30, Main 3, PooledArrays 2
+  Tuple{typeof(Base.reducedim_init), Function, typeof(Base.add_sum), Vector{String}, Function}
+  Tuple{typeof(Base.reducedim_init), Function, typeof(Base.add_sum), PooledArrays.PooledVector{String, UInt32, Vector{UInt32}}, Function}
+  Tuple{DataFrames.var"##combine#806", Bool, Bool, Bool, Bool, typeof(combine), GroupedDataFrame{DataFrame}, Pair{String, typeof(sum)}}
+  Tuple{typeof(axes), SubDataFrame, Int64}
+  Tuple{typeof(axes), DataFrames.DataFrameColumns}
+  Tuple{typeof(combine), GroupedDataFrame{DataFrame}, Pair{String, typeof(sum)}}
+  Tuple{typeof(Base._sum), typeof(identity), Vector{String}, Function}
+  Tuple{typeof(Base._sum), typeof(identity), PooledArrays.PooledVector{String, UInt32, Vector{UInt32}}, Function}
+  Tuple{var"#5#6"}
+  Tuple{typeof(DataFrames._combine_with_first), Base.RefValue{Any}, Base.RefValue{Any}, GroupedDataFrame{DataFrame}, Base.RefValue{Any}, Bool, Vector{Int64}, Bool}
+  Tuple{typeof(Base.Iterators._zip_iterate_some), Tuple{DataFrames.DataFrameColumns}, Tuple{Tuple{Int64}}, Tuple{Missing}, Missing}
+  Tuple{typeof(Base.Iterators._zip_iterate_some), Tuple{DataFrames.DataFrameColumns, DataFrames.DataFrameColumns}, Tuple{Tuple{Int64}, Tuple{Int64}}, Tuple{Missing, Missing}, Missing}
+work after the library's load 259.04 ms, compile 251.31 ms
+repeated after: median 0.19 ms, least 0.19 ms
+-- rc 0 | load 2.63 4.50 5.15
+== V none run 3 | load 2.63 4.50 5.15
+using CSV, DataFrames 651.71 ms
+first work 3263.86 ms, compile 3261.21 ms
+repeated: median 0.18 ms, least 0.18 ms
+-- rc 0 | load 2.58 4.46 5.14
+== H none run 3 | load 2.58 4.46 5.14
+using CSV, DataFrames 754.04 ms
+first work 3331.34 ms, compile 3328.79 ms
+repeated: median 0.19 ms, least 0.18 ms
+-- rc 0 | load 2.53 4.42 5.12
+== B none run 3 | load 2.53 4.42 5.12
+using CSV, DataFrames 757.34 ms
+first work 2885.17 ms, compile 2882.43 ms
+repeated: median 0.19 ms, least 0.18 ms
+-- rc 0 | load 2.81 4.44 5.12
+== H first run 3 | load 2.81 4.44 5.12
+using TraitWorld 58.39 ms
+using CSV, DataFrames 1073.12 ms
+first work 3294.43 ms, compile 3291.71 ms
+repeated: median 0.17 ms, least 0.17 ms
+-- rc 0 | load 2.74 4.40 5.11
+== B first run 3 | load 2.74 4.40 5.11
+using TraitWorld 60.7 ms
+using CSV, DataFrames 785.41 ms
+first work 2964.65 ms, compile 2961.76 ms
+repeated: median 0.18 ms, least 0.18 ms
+-- rc 0 | load 2.68 4.36 5.09
+== H late run 3 | load 2.68 4.36 5.09
+using CSV, DataFrames 748.91 ms
+first work 3321.47 ms, compile 3318.88 ms
+repeated: median 0.19 ms, least 0.18 ms
+using TraitWorld (late) 169.58 ms
+ended by the library's load: 0 of 120780 | 
+work after the library's load 1.05 ms, compile 0.0 ms
+repeated after: median 0.19 ms, least 0.18 ms
+-- rc 0 | load 2.63 4.32 5.07
+== B late run 3 | load 2.63 4.32 5.07
+using CSV, DataFrames 780.72 ms
+first work 2898.96 ms, compile 2896.22 ms
+repeated: median 0.19 ms, least 0.19 ms
+using TraitWorld (late) 40.99 ms
+ended by the library's load: 209 of 120566 | Base 94, DataFrames 80, Statistics 30, Main 3, PooledArrays 2
+  Tuple{typeof(Base.reducedim_init), Function, typeof(Base.add_sum), Vector{String}, Function}
+  Tuple{typeof(Base.reducedim_init), Function, typeof(Base.add_sum), PooledArrays.PooledVector{String, UInt32, Vector{UInt32}}, Function}
+  Tuple{DataFrames.var"##combine#806", Bool, Bool, Bool, Bool, typeof(combine), GroupedDataFrame{DataFrame}, Pair{String, typeof(sum)}}
+  Tuple{typeof(axes), SubDataFrame, Int64}
+  Tuple{typeof(axes), DataFrames.DataFrameColumns}
+  Tuple{typeof(combine), GroupedDataFrame{DataFrame}, Pair{String, typeof(sum)}}
+  Tuple{typeof(Base._sum), typeof(identity), Vector{String}, Function}
+  Tuple{typeof(Base._sum), typeof(identity), PooledArrays.PooledVector{String, UInt32, Vector{UInt32}}, Function}
+  Tuple{var"#5#6"}
+  Tuple{typeof(DataFrames._combine_with_first), Base.RefValue{Any}, Base.RefValue{Any}, GroupedDataFrame{DataFrame}, Base.RefValue{Any}, Bool, Vector{Int64}, Bool}
+  Tuple{typeof(Base.Iterators._zip_iterate_some), Tuple{DataFrames.DataFrameColumns}, Tuple{Tuple{Int64}}, Tuple{Missing}, Missing}
+  Tuple{typeof(Base.Iterators._zip_iterate_some), Tuple{DataFrames.DataFrameColumns, DataFrames.DataFrameColumns}, Tuple{Tuple{Int64}, Tuple{Int64}}, Tuple{Missing, Missing}, Missing}
+work after the library's load 262.44 ms, compile 254.52 ms
+repeated after: median 0.2 ms, least 0.19 ms
+-- rc 0 | load 2.58 4.28 5.06
+# done 2026-11-22T04:20:12+01:00 | load-after 2.58 4.28 5.06
