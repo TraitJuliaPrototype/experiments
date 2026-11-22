@@ -1,0 +1,163 @@
+# W-143d tests b2 on wt/w143-julia bfaf484f55 | 2026-11-22T20:15:49+01:00 | load-before 16.41 11.45 10.21
+Test Summary:                                 |   Pass   Total   Time
+threads_exec.jl with JULIA_NUM_THREADS == 1,0 | 140944  140944  52.6s
+
+warning: julia signal stack allocated without guard page (launch foreign threads earlier to avoid this warning).
+
+warning: julia signal stack allocated without guard page (launch foreign threads earlier to avoid this warning).
+
+warning: julia signal stack allocated without guard page (launch foreign threads earlier to avoid this warning).
+
+warning: julia signal stack allocated without guard page (launch foreign threads earlier to avoid this warning).
+Test Summary:                                 |   Pass   Total   Time
+threads_exec.jl with JULIA_NUM_THREADS == 1,1 | 140945  140945  51.0s
+Test Summary:                                 |   Pass   Total   Time
+threads_exec.jl with JULIA_NUM_THREADS == 2,0 | 128633  128633  48.5s
+Test Summary:                                 |   Pass   Total   Time
+threads_exec.jl with JULIA_NUM_THREADS == 2,1 | 129741  129741  50.4s
+Test Summary:                                 |   Pass   Total   Time
+threads_exec.jl with JULIA_NUM_THREADS == 4,0 | 113035  113035  49.7s
+ERROR: LoadError: Test run finished with errors
+in expression starting at /p/projects/coen/julia-trait-bound/wt/w143-julia/usr/share/julia/test/runtests.jl:103
+Running parallel tests with:
+  getpid() = 3340878
+  nworkers() = 1
+  nthreads(:interactive) = 0
+  nthreads(:default) = 1
+  Sys.CPU_THREADS = 1
+  Sys.total_memory() = 754.783 GiB
+  Sys.free_memory() = 621.499 GiB
+  Sys.uptime() = 1.56665198e6 (435.2 hours)
+
+Test           (Worker) | Time (s) | GC (s) | GC % | Alloc (MB) | RSS (MB)
+core                (1) |        started at 2026-11-22T20:15:55.632
+core                (1) |    62.53 |   5.00 |  8.0 |   12657.95 |  2237.94
+reflection          (1) |        started at 2026-11-22T20:16:58.790
+reflection          (1) |    13.80 |   0.19 |  1.4 |    1147.62 |  2237.94
+tuple               (1) |        started at 2026-11-22T20:17:12.616
+tuple               (1) |     7.73 |   0.10 |  1.2 |     597.96 |  2237.94
+missing             (1) |        started at 2026-11-22T20:17:20.351
+missing             (1) |    18.19 |   0.21 |  1.2 |    1484.02 |  2237.94
+reinterpretarray    (1) |        started at 2026-11-22T20:17:38.730
+reinterpretarray    (1) |    22.23 |   0.59 |  2.7 |    2748.66 |  2237.94
+channels            (1) |        started at 2026-11-22T20:18:00.961
+channels            (1) |    20.43 |   4.89 | 23.9 |     334.46 |  2237.94
+broadcast           (1) |        started at 2026-11-22T20:18:21.390
+broadcast           (1) |    59.41 |   1.14 |  1.9 |    5073.02 |  2237.94
+subtype             (1) |        started at 2026-11-22T20:19:20.808
+subtype             (1) |    10.60 |   0.58 |  5.5 |     983.39 |  2237.94
+worlds              (1) |        started at 2026-11-22T20:19:31.406
+worlds              (1) |     1.83 |   0.00 |  0.0 |      79.30 |  2237.94
+Compiler/inference  (1) |        started at 2026-11-22T20:19:33.240
+Compiler/inference  (1) |    90.95 |   4.43 |  4.9 |    5151.74 |  2237.94
+threads             (1) |        started at 2026-11-22T20:21:04.197
+threads             (1) |         failed at 2026-11-22T20:28:53.469
+Test Failed at /p/projects/coen/julia-trait-bound/wt/w143-julia/usr/share/julia/test/threads.jl:472
+  Expression: readchomp(setcpuaffinity(cmd, allowed_cpus[1:n])) == string(max(1, n ÷ 2))
+   Evaluated: "1" == "2"
+Test Failed at /p/projects/coen/julia-trait-bound/wt/w143-julia/usr/share/julia/test/threads.jl:472
+  Expression: readchomp(setcpuaffinity(cmd, allowed_cpus[1:n])) == string(max(1, n ÷ 2))
+   Evaluated: "1" == "2"
+Test Failed at /p/projects/coen/julia-trait-bound/wt/w143-julia/usr/share/julia/test/threads.jl:472
+  Expression: readchomp(setcpuaffinity(cmd, allowed_cpus[1:n])) == string(max(1, n ÷ 2))
+   Evaluated: "1" == "3"
+Test Failed at /p/projects/coen/julia-trait-bound/wt/w143-julia/usr/share/julia/test/threads.jl:472
+  Expression: readchomp(setcpuaffinity(cmd, allowed_cpus[1:n])) == string(max(1, n ÷ 2))
+   Evaluated: "1" == "3"
+Test Failed at /p/projects/coen/julia-trait-bound/wt/w143-julia/usr/share/julia/test/threads.jl:472
+  Expression: readchomp(setcpuaffinity(cmd, allowed_cpus[1:n])) == string(max(1, n ÷ 2))
+   Evaluated: "1" == "4"
+
+
+Test Summary:          |    Pass  Fail  Broken    Total     Time
+  Overall              | 7677632     5      63  7677700  5m10.3s
+    core               | 7354041             7  7354048  1m04.0s
+    reflection         |     615                    615    14.2s
+    tuple              |     901                    901     7.7s
+    missing            |     590             2      592    18.2s
+    reinterpretarray   |     872                    872    22.4s
+    channels           |     282                    282    20.4s
+    broadcast          |     593             1      594    59.4s
+    subtype            |  317568            43   317611    10.6s
+    worlds             |     161                    161     1.8s
+    Compiler/inference |    1846            10     1856  1m30.9s
+    threads            |     163     5              168  7m49.2s
+    FAILURE
+
+The global RNG seed was 0x9fcb3eafcd8bc2c69fc2e101c407212c.
+
+Error in testset threads:
+Test Failed at /p/projects/coen/julia-trait-bound/wt/w143-julia/usr/share/julia/test/threads.jl:472
+  Expression: readchomp(setcpuaffinity(cmd, allowed_cpus[1:n])) == string(max(1, n ÷ 2))
+   Evaluated: "1" == "2"
+Error in testset threads:
+Test Failed at /p/projects/coen/julia-trait-bound/wt/w143-julia/usr/share/julia/test/threads.jl:472
+  Expression: readchomp(setcpuaffinity(cmd, allowed_cpus[1:n])) == string(max(1, n ÷ 2))
+   Evaluated: "1" == "2"
+Error in testset threads:
+Test Failed at /p/projects/coen/julia-trait-bound/wt/w143-julia/usr/share/julia/test/threads.jl:472
+  Expression: readchomp(setcpuaffinity(cmd, allowed_cpus[1:n])) == string(max(1, n ÷ 2))
+   Evaluated: "1" == "3"
+Error in testset threads:
+Test Failed at /p/projects/coen/julia-trait-bound/wt/w143-julia/usr/share/julia/test/threads.jl:472
+  Expression: readchomp(setcpuaffinity(cmd, allowed_cpus[1:n])) == string(max(1, n ÷ 2))
+   Evaluated: "1" == "3"
+Error in testset threads:
+Test Failed at /p/projects/coen/julia-trait-bound/wt/w143-julia/usr/share/julia/test/threads.jl:472
+  Expression: readchomp(setcpuaffinity(cmd, allowed_cpus[1:n])) == string(max(1, n ÷ 2))
+   Evaluated: "1" == "4"
+ERROR: A test has failed. Please submit a bug report (https://github.com/JuliaLang/julia/issues)
+including error messages above and the output of versioninfo():
+Julia Version 1.13.2
+Commit bfaf484f55* (2026-11-22 18:50 UTC)
+Platform Info:
+  OS: Linux (x86_64-pc-linux-gnu)
+  CPU: 128 × AMD EPYC 9354 32-Core Processor
+  WORD_SIZE: 64
+  LLVM: libLLVM-20.1.8 (ORCJIT, znver4)
+  GC: Built with stock GC
+Threads: 1 default, 0 interactive, 1 GC (on 4 virtual cores)
+Environment:
+  JULIA_CPU_THREADS = 4
+  JULIA_PKG_GC_AUTO = false
+  JULIA_NUM_PRECOMPILE_TASKS = 4
+  JULIA_PKG_PRECOMPILE_AUTO = 0
+  JULIA_DEPOT_PATH = /p/projects/coen/julia-trait-bound/.julia-depot/agent-depots/w143d/w143-julia:/p/projects/coen/julia-trait-bound/.julia-depot:
+  JULIA_PKG_OFFLINE = true
+  LD_LIBRARY_PATH = /p/system/packages_rhel9/tools/git/2.52.0/lib64:/p/system/packages_rhel9/tools/git/2.52.0/lib:/p/system/packages_rhel9/libraries/mpc/1.3.1/lib64:/p/system/packages_rhel9/libraries/mpc/1.3.1/lib:/p/system/packages_rhel9/libraries/mpfr/4.2.1/lib64:/p/system/packages_rhel9/libraries/mpfr/4.2.1/lib:/p/system/packages_rhel9/libraries/gmp/6.3.0/lib64:/p/system/packages_rhel9/libraries/gmp/6.3.0/lib:/p/system/packages_rhel9/compiler/gcc/13.2.0/lib64:/usr/local/lib::/home/hellmann/gurobi/lib
+  JULIA_NUM_THREADS = 1
+
+Stacktrace:
+ [1] error(s::String)
+   @ Base ./error.jl:44
+ [2] runtests(tests::Vector{String}; ncores::Int64, exit_on_error::Bool, revise::Bool, propagate_project::Bool, seed::Nothing, julia_args::Cmd)
+   @ Base ./util.jl:726
+ [3] top-level scope
+   @ none:1
+ [4] eval(m::Module, e::Any)
+   @ Core ./boot.jl:548
+ [5] exec_options(opts::Base.JLOptions)
+   @ Base ./client.jl:310
+ [6] _start()
+   @ Base ./client.jl:577
+
+caused by: failed process: Process(setenv(`/p/projects/coen/julia-trait-bound/wt/w143-julia/usr/bin/julia -C native -J/p/projects/coen/julia-trait-bound/wt/w143-julia/usr/lib/julia/sys.so -g1 --startup-file=no /p/projects/coen/julia-trait-bound/wt/w143-julia/usr/bin/../share/julia/test/runtests.jl core reflection tuple missing reinterpretarray channels threads broadcast subtype worlds Compiler/inference`,["TERM=screen", "__LMOD_REF_COUNT_C_INCLUDE_PATH=/p/system/packages_rhel9/tools/git/2.52.0/include:1;/p/system/packages_rhel9/libraries/mpc/1.3.1/include:1;/p/system/packages_rhel9/libraries/mpfr/4.2.1/include:1;/p/system/packages_rhel9/libraries/gmp/6.3.0/include:1", "_ModuleTable005_=ZmlsZXNfcmhlbDkvcGFyYWxsZWw6L3Avc3lzdGVtL21vZHVsZWZpbGVzX3JoZWw5L3Rvb2xzIiwKfQo=", "__LMOD_REF_COUNT_PATH=/p/system/packages_rhel9/tools/git/2.52.0/bin:1;/p/system/packages_rhel9/libraries/mpc/1.3.1/bin:1;/p/system/packages_rhel9/libraries/mpfr/4.2.1/bin:1;/p/system/packages_rhel9/libraries/gmp/6.3.0/bin:1;/p/system/packages_rhel9/compiler/gcc/13.2.0/libexec:1;/p/system/packages_rhel9/compiler/gcc/13.2.0/bin:1;.:2;/p/system/packages/bin:2;/home/hellmann/.juliaup/bin:1;/home/hellmann/.local/bin:1;/usr/local/bin:3;/usr/bin:1;/usr/local/sbin:1;/usr/sbin:3;/opt/mellanox/doca/tools:2;/usr/lpp/X11/bin:2;/usr/lpp/bin:4;/usr/local/frame/bin:2;/home/hellmann/bin:2;/usr/lpp/xgmon/bin:2;/home/hellmann/gurobi/bin:2", "OPENBLAS_NUM_THREADS=1", "LMOD_ROOT=/usr/share/lmod", "AI_AGENT=claude-code_2-1-319_agent", "CLAUDE_CODE_SESSION_ID=d2985a1f-dcb5-5d03-b2eb-56d692b52b92", "OPENBLAS_MAIN_FREE=1", "SHELL=/bin/bash"  …  "CPLUS_INCLUDE_PATH=/p/system/packages_rhel9/tools/git/2.52.0/include:/p/system/packages_rhel9/libraries/mpc/1.3.1/include:/p/system/packages_rhel9/libraries/mpfr/4.2.1/include:/p/system/packages_rhel9/libraries/gmp/6.3.0/include", "CLAUDECODE=1", "HOME=/home/hellmann", "TW_ROOT=/p/projects/coen/julia-trait-bound", "GIT_ROOT=/p/system/packages_rhel9/tools/git/2.52.0", "JULIA_NUM_THREADS=1", "DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/3147/bus", "_ModuleTable003_=bW9kdWxlZmlsZXNfcmhlbDkvbGlicmFyaWVzL21wYy8xLjMuMSIsCmZ1bGxOYW1lID0gIm1wYy8xLjMuMSIsCmxvYWRPcmRlciA9IDMsCnByb3BUID0ge30sCnN0YWNrRGVwdGggPSAxLApzdGF0dXMgPSAiYWN0aXZlIiwKdXNlck5hbWUgPSAibXBjIiwKd1YgPSAiMDAwMDAwMDAxLjAwMDAwMDAwMy4wMDAwMDAwMDEuKnpmaW5hbCIsCn0sCm1wZnIgPSB7CmZuID0gIi9wL3N5c3RlbS9tb2R1bGVmaWxlc19yaGVsOS9saWJyYXJpZXMvbXBmci80LjIuMSIsCmZ1bGxOYW1lID0gIm1wZnIvNC4yLjEiLApsb2FkT3JkZXIgPSAyLApwcm9wVCA9IHt9LApzdGFja0RlcHRoID0gMSwKc3RhdHVzID0gImFjdGl2ZSIsCnVzZXJOYW1lID0gIm1wZnIiLAp3ViA9ICIwMDAwMDAwMDQuMDAw", "_ModuleTable002_=LApmdWxsTmFtZSA9ICJnaXQvMi41Mi4wIiwKbG9hZE9yZGVyID0gNSwKcHJvcFQgPSB7fSwKc3RhY2tEZXB0aCA9IDAsCnN0YXR1cyA9ICJhY3RpdmUiLAp1c2VyTmFtZSA9ICJnaXQvMi41Mi4wIiwKd1YgPSAiMDAwMDAwMDAyLjAwMDAwMDA1Mi4qemZpbmFsIiwKfSwKZ21wID0gewpmbiA9ICIvcC9zeXN0ZW0vbW9kdWxlZmlsZXNfcmhlbDkvbGlicmFyaWVzL2dtcC82LjMuMCIsCmZ1bGxOYW1lID0gImdtcC82LjMuMCIsCmxvYWRPcmRlciA9IDEsCnByb3BUID0ge30sCnN0YWNrRGVwdGggPSAxLApzdGF0dXMgPSAiYWN0aXZlIiwKdXNlck5hbWUgPSAiZ21wIiwKd1YgPSAiMDAwMDAwMDA2LjAwMDAwMDAwMy4qemZpbmFsIiwKfSwKbXBjID0gewpmbiA9ICIvcC9zeXN0ZW0v", "XDG_SESSION_CLASS=user"]), ProcessExited(1)) [1]
+
+Stacktrace:
+ [1] pipeline_error
+   @ ./process.jl:610 [inlined]
+ [2] run(::Cmd; wait::Bool)
+   @ Base ./process.jl:525
+ [3] run
+   @ ./process.jl:522 [inlined]
+ [4] runtests(tests::Vector{String}; ncores::Int64, exit_on_error::Bool, revise::Bool, propagate_project::Bool, seed::Nothing, julia_args::Cmd)
+   @ Base ./util.jl:718
+ [5] top-level scope
+   @ none:1
+ [6] eval(m::Module, e::Any)
+   @ Core ./boot.jl:548
+ [7] exec_options(opts::Base.JLOptions)
+   @ Base ./client.jl:310
+ [8] _start()
+   @ Base ./client.jl:577
+# done rc 1 | 788 s | load-after 26.54 29.17 21.95

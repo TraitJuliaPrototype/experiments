@@ -1,0 +1,34 @@
+# W-143d b2-culprits2 forks diag/culprit.jl Base.promote_typejoin Base.typejoin | 2026-11-22T20:39:06+01:00 | load-before 16.76 21.69 22.06
+# wt/w143-julia bfaf484f55 (binary bfaf484f55*) | TraitWorld e2cb5d02c1 | forks a3a37d6b5e | TraitDifferentialEquations 21a5aa57cf | experiments 927f32d7d7
+# product setting, strict mode off, one thread, one fresh process; depot /p/projects/coen/julia-trait-bound/.julia-depot/agent-depots/w143d/w143-julia before the shared one
+== by_instance  Tuple{typeof(Base.promote_typejoin), Type, Type}  (in 656 cones)
+   fault mi: MethodInstance for Base._promote_typesubtract(::Any)
+      its code: bit true, facts false, rettype Any
+   <- Tuple{typeof(DataFrames.fuzzymatch), Dict{Symbol, Int64}, Symbol}
+   <- Tuple{typeof(collect), Base.Generator{Base.KeySet{Symbol, Dict{Symbol, Int64}}, DataFrames.var"#fuzzymatch##0#fuzzymatch##1"{String}}}
+   <- Tuple{typeof(Base.promote_typejoin_union), Type{Tuple{Int64, Symbol}}}
+   <- Tuple{typeof(Base.typejoin_union_tuple), Type{Tuple{Int64, Symbol}}}
+   <- Tuple{typeof(Base.promote_typejoin_union), Type}
+   <- Tuple{typeof(Base.promote_typejoin), Type, Type}
+   direct callers: 29
+      Tuple{typeof(Base.promote_typejoin_union), Type}
+      Tuple{typeof(Base._compute_eltype), Any}
+      Tuple{typeof(Base._compute_eltype), Type{<:Tuple}}
+      Tuple{typeof(Base._compute_eltype), Type{<:Tuple{Vararg{E}}} where E}
+      Tuple{typeof(Base._compute_eltype), Type{Tuple{Symbol, Vararg{Int64, 4}}}}
+      Tuple{typeof(Base._compute_eltype), Type{Tuple{Bool, Nothing, Int64, Bool}}}
+== type_join  Tuple{typeof(typejoin), Any, Any}  (in 776 cones)
+   fault nofact: Tuple{typeof(setindex!), Vector{Any}, Any, Int64}
+   <- Tuple{typeof(DataFrames.fuzzymatch), Dict{Symbol, Int64}, Symbol}
+   <- Tuple{typeof(collect), Base.Generator{Base.KeySet{Symbol, Dict{Symbol, Int64}}, DataFrames.var"#fuzzymatch##0#fuzzymatch##1"{String}}}
+   <- Tuple{typeof(Base.promote_typejoin_union), Type{Tuple{Int64, Symbol}}}
+   <- Tuple{typeof(Base.typejoin_union_tuple), Type{Tuple{Int64, Symbol}}}
+   <- Tuple{typeof(typejoin), Any, Any}
+   direct callers: 29
+      Tuple{typeof(Base.typejoin_union_tuple), Type{Tuple{Int64, Symbol}}}
+      Tuple{typeof(Base.promote_typejoin), Type, Type}
+      Tuple{typeof(Base.tailjoin), Core.SimpleVector, Int64}
+      Tuple{typeof(Base.promote_typejoin), Any, DataType}
+      Tuple{typeof(Base.promote_typejoin), Type{Bool}, DataType}
+      Tuple{typeof(Base.promote_typejoin), Any, Type{<:AbstractVector{T}} where T}
+# done rc 0 | 4 s | 2026-11-22T20:39:11+01:00 | load-after 16.22 21.50 21.99

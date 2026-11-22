@@ -1,0 +1,254 @@
+# W-143d b2 facts census.jl  | 2026-11-22T20:11:47+01:00 | load-before 10.80 11.02 9.95
+# wt/w143-julia bfaf484f55 (binary bfaf484f55*) | TraitWorld e2cb5d02c1 | forks a3a37d6b5e | TraitDifferentialEquations 21a5aa57cf | experiments 927f32d7d7
+# product setting, strict mode off, one thread, one fresh process; depot /p/projects/coen/julia-trait-bound/.julia-depot/agent-depots/w143d/w143-julia before the shared one
+# census | project facts | work table | own CSV,DataFrames,Tables,Parsers,InlineStrings,PooledArrays,WeakRefStrings,SentinelArrays | julia bfaf484f55* | load 10.5 | digest ce94074fa1261ca2
+the replay's check: instances reached with the bit and a fault of their own 0
+dispatch edges that are facts only as calls of an owner-only function: in the own facts instances 0; below them 0
+DEEP SHARE | own image instances 2799 (80.2 %) of 3490 | own facts instances 2843 (79.7 %) of 3567 | made by the work 44 (57.1 %) of 77
+reached through edges 31188; without the bit 2340; culprits (a fault of their own) 867; without the bit, no fault and every callee with it 0
+below the own facts instances, outside the own modules: 27349; outside the class 1582 (the facts copies P3's demand rule would make); of them culprits 859
+own facts instances outside the class 724; culprits in a cone, median 11, most 155
+
+## by kind: culprit instances, method names, own facts instances whose cone holds one, whose cone lies in the kind (what fixing the kind buys)
+other              513 instances  157 names | in a cone   625 | the kind alone    54
+by_instance         17 instances   10 names | in a cone   505 | the kind alone    39
+any_container      114 instances   36 names | in a cone   482 | the kind alone     9
+ctor_kind            6 instances    5 names | in a cone    24 | the kind alone     8
+error_path          58 instances   29 names | in a cone   180 | the kind alone     7
+introspection      144 instances   50 names | in a cone   280 | the kind alone     2
+task_lock            5 instances    4 names | in a cone   240 | the kind alone     0
+type_join           10 instances    5 names | in a cone   425 | the kind alone     0
+
+## the kinds together, greedy (what each buys on top of the ones before): own facts instances in the class (of 3567)
+  + other           2897 (81.2 %)
+  + by_instance     2936 (82.3 %)
+  + type_join       3059 (85.8 %)
+  + any_container   3096 (86.8 %)
+  + task_lock       3244 (90.9 %)
+  + introspection   3369 (94.4 %)
+  + error_path      3543 (99.3 %)
+  + ctor_kind       3567 (100.0 %)
+
+## by method name (top 40 by the cones they are in): instances, kind, in a cone, the name alone
+   425  Base.typejoin                                   1 inst  type_join                  alone 0
+   420  Base.collect                                   32 inst  other,introspection        alone 21
+   361  Base.promote_typejoin                           1 inst  by_instance                alone 0
+   321  Base.push!                                      9 inst  other,introspection,any_container alone 0
+   291  Base.typejoin_union_tuple                       1 inst  type_join                  alone 0
+   263  Base.indexed_iterate                            8 inst  other                      alone 0
+   235  Base.sync_end                                   1 inst  task_lock                  alone 0
+   230  Base.iterate                                   28 inst  ctor_kind,other,any_container alone 4
+   220  Base.Iterators.iterate                         16 inst  other                      alone 3
+   215  Base.setindex!                                 16 inst  other,any_container        alone 0
+   199  Base.print                                      8 inst  other,introspection,by_instance alone 0
+   159  Base._setindex!                                 7 inst  any_container,other        alone 0
+   143  Base.print_to_string                           22 inst  introspection,other        alone 0
+   140  Base.throw_boundserror                          4 inst  error_path                 alone 0
+   140  Core.Array                                      8 inst  other,introspection        alone 0
+   140  Base.checkbounds                                7 inst  other                      alone 0
+   140  Base.similar                                   23 inst  other,any_container,introspection alone 0
+   137  Base.axes                                       4 inst  other                      alone 0
+   135  Base.length                                     3 inst  other                      alone 0
+   132  Base.merge                                      7 inst  other                      alone 0
+   132  Base.LinearIndices                              3 inst  other                      alone 0
+   130  Base.size                                       2 inst  other                      alone 0
+   130  Base.collect_to_with_first!                    23 inst  any_container,other        alone 0
+   130  Base.collect_to!                               24 inst  any_container,other        alone 0
+   130  Base.setindex_widen_up_to                       3 inst  type_join                  alone 0
+   124  Base._array_for_inner                           2 inst  introspection              alone 0
+   100  Base._any                                      11 inst  introspection,any_container,other alone 9
+    93  Base._push!                                     6 inst  any_container,introspection,other alone 0
+    84  Base.eachindex                                  2 inst  other                      alone 0
+    82  Base.unionlen                                   1 inst  introspection              alone 0
+    82  Base.show_at_namedtuple                         2 inst  introspection              alone 0
+    82  Base.show_can_elide                             1 inst  other                      alone 0
+    82  Base.modulesof!                                 3 inst  introspection              alone 0
+    82  Base._show_type                                 1 inst  introspection              alone 0
+    82  Base.uniontypes                                 2 inst  any_container              alone 0
+    82  Base.show_datatype                              3 inst  introspection              alone 0
+    82  Base.io_has_tvar_name                           1 inst  introspection              alone 0
+    82  Base.print_without_params                       3 inst  introspection              alone 0
+    82  Base.parentmodule                               1 inst  introspection              alone 0
+    82  Base.make_wheres                                1 inst  introspection              alone 0
+
+## greedy: the method name that buys most on top of the ones before (own facts instances in the class)
+  start 2843 (79.7 %)
+   1. + CSV.#directchunk!##0                         [:by_instance]                2868 (80.4 %)
+   2. + Base.collect                                 [:other, :introspection]      2889 (81.0 %)
+   3. + Base._any                                    [:introspection, :any_container, :other]2898 (81.2 %)
+   4. + Base._iterate_dict                           [:any_container, :other, :ctor_kind]2905 (81.4 %)
+   5. + Base.thrownonint                             [:error_path]                 2912 (81.6 %)
+   6. + Base.hasmethod                               [:by_instance]                2919 (81.8 %)
+   7. + Base._collect                                [:other, :any_container, :introspection]2925 (82.0 %)
+   8. + DataFrames.getindex                          [:by_instance]                2930 (82.1 %)
+   9. + Base.iterate                                 [:ctor_kind, :other, :any_container]2934 (82.3 %)
+  10. + Base.print                                   [:other, :introspection, :by_instance]2943 (82.5 %)
+  11. + Base.Iterators.iterate                       [:other]                      2946 (82.6 %)
+  12. + DataFrames.compute_indices                   [:by_instance]                2948 (82.6 %)
+  13. + Base.typejoin                                [:type_join]                  2949 (82.7 %)
+  14. + Base.promote_typejoin                        [:by_instance]                2956 (82.9 %)
+  15. + Base.typejoin_union_tuple                    [:type_join]                  3059 (85.8 %)
+  16. + Base.push!                                   [:other, :introspection, :any_container]3059 (85.8 %)
+  17. + Base.sync_end                                [:task_lock]                  3146 (88.2 %)
+  18. + Base.indexed_iterate                         [:other]                      3146 (88.2 %)
+  19. + Base.setindex!                               [:other, :any_container]      3146 (88.2 %)
+  20. + Base._unsafe_getindex!                       [:other]                      3165 (88.7 %)
+  21. + Base.copyto!                                 [:other]                      3166 (88.8 %)
+  22. + Base._setindex!                              [:any_container, :other]      3166 (88.8 %)
+  23. + Base.rehash!                                 [:any_container]              3178 (89.1 %)
+  24. + Base.print_to_string                         [:introspection, :other]      3178 (89.1 %)
+  25. + Base.throw_boundserror                       [:error_path]                 3178 (89.1 %)
+
+## the culprit instances most own facts instances rest on
+   425  type_join      Tuple{typeof(typejoin), Any, Any}
+            nofact: Tuple{typeof(setindex!), Vector{Any}, Any, Int64}
+   361  by_instance    Tuple{typeof(Base.promote_typejoin), Type, Type}
+            mi: MethodInstance for Base._promote_typesubtract(::Any)
+   319  any_container  Tuple{typeof(push!), Vector{Any}, Any}
+            nofact: Tuple{typeof(Base.__safe_setindex!), Vector{Any}, Any, Int64}
+   292  other          Tuple{typeof(collect), Base.Generator{String, DataFrames.var"#_norm_eq##2#_norm_eq##3"}}
+            nofact: Tuple{Type{UnionAll}, TypeVar, Type{AbstractArray{var"#s188"<:Char, 1}}}
+   292  other          Tuple{typeof(collect), Base.Generator{String, DataFrames.var"#_norm_eq##0#_norm_eq##1"}}
+            nofact: Tuple{Type{UnionAll}, TypeVar, Type{AbstractArray{var"#s188"<:Char, 1}}}
+   291  other          Tuple{typeof(collect), Base.Generator{Base.KeySet{Symbol, Dict{Symbol, Int64}}, DataFrames.var"#fuzzymatch##0#fuzzymatch##1"{Strin
+            nofact: Tuple{Type{UnionAll}, TypeVar, Type{AbstractArray{var"#s188"<:Tuple{Int64, Symbol}, 1}}}
+   291  type_join      Tuple{typeof(Base.typejoin_union_tuple), Type{Tuple{Int64, Symbol}}}
+            nofact: Tuple{typeof(setindex!), Vector{Any}, Any, Int64}
+   235  task_lock      Tuple{typeof(Base.sync_end), Channel{Any}}
+            nofact: Tuple{typeof(push!), CompositeException, Any}
+            nofact: Tuple{typeof(push!), Vector{Any}, Any}
+   235  any_container  Tuple{typeof(push!), CompositeException, Any}
+            nofact: Tuple{typeof(push!), Vector{Any}, Any}
+   194  other          Tuple{typeof(iterate), Base.Iterators.Enumerate{Vector{AbstractVector}}, Tuple{Int64, Int64}}
+            nofact: Tuple{typeof(getindex), Tuple{AbstractVector, Int64}, Int64}
+   194  other          Tuple{typeof(iterate), Base.Iterators.Enumerate{Vector{AbstractVector}}, Tuple{Int64}}
+            nofact: Tuple{typeof(getindex), Tuple{AbstractVector, Int64}, Int64}
+   186  any_container  Tuple{typeof(iterate), Base.ImmutableDict{Symbol, Any}, Base.ImmutableDict{Symbol, Any}}
+            nofact: Tuple{Type{Pair{Symbol, Any}}, Symbol, Any}
+   186  by_instance    Tuple{typeof(print), IOContext{IOBuffer}, String, UnitRange{Int64}, String}
+            mi: MethodInstance for print(::IOContext{IOBuffer}, ::UnitRange{Int64})
+   135  other          Tuple{typeof(checkbounds), Type{Bool}, Vector, Int64}
+            nofact: Tuple{typeof(length), Vector}
+   135  other          Tuple{Type{Vector{T}} where T, UndefInitializer, Int64}
+            nomethod: Tuple{Type{<:Memory}, UndefInitializer, Int64}
+            nofact: Tuple{Type{Memory{T}} where T, UndefInitializer, Int64}
+   135  other          Tuple{Type{Vector{T}} where T, UndefInitializer, Tuple{Int64}}
+            nofact: Tuple{Type{Vector{T}} where T, UndefInitializer, Int64}
+   135  other          Tuple{typeof(length), Vector}
+            nofact: Tuple{typeof(size), Vector}
+   135  error_path     Tuple{typeof(Base.throw_boundserror), Vector, Tuple{Int64}}
+            nofact: Tuple{Type{BoundsError}, Vector, Tuple{Int64}}
+   133  other          Tuple{typeof(Base._setindex!), Vector{T}, Any, Int64} where T
+            nofact: Tuple{typeof(checkbounds), Type{Bool}, Vector, Int64}
+            nofact: Tuple{typeof(Base.throw_boundserror), Vector, Tuple{Int64}}
+   130  other          Tuple{Type{LinearIndices}, Vector}
+            nofact: Tuple{typeof(axes), Vector}
+   130  other          Tuple{typeof(size), Vector, Int64}
+            nofact: Tuple{typeof(size), Vector}
+   130  other          Tuple{typeof(axes), Vector}
+            nofact: Tuple{typeof(size), Vector}
+   130  other          Tuple{typeof(similar), Vector, Type}
+            nofact: Tuple{typeof(size), Vector, Int64}
+            nofact: Tuple{Type{Vector{T}} where T, UndefInitializer, Int64}
+   127  other          Tuple{Type{Array{_A}} where _A, UndefInitializer, Tuple{Int64}}
+            nofact: Tuple{Type{Vector{_A}} where _A, UndefInitializer, Tuple{Int64}}
+   127  other          Tuple{typeof(similar), Type{Array{_A}} where _A, Tuple{Int64}}
+            nofact: Tuple{Type{Array{_A}} where _A, UndefInitializer, Tuple{Int64}}
+    88  type_join      Tuple{typeof(Base.setindex_widen_up_to), Vector, AbstractVector, Int64}
+            nofact: Tuple{typeof(Base.promote_typejoin), Any, Type{<:AbstractVector{T}} where T}
+            nofact: Tuple{typeof(similar), Vector, Type}
+    88  other          Tuple{typeof(setindex!), Vector, AbstractVector, Int64}
+            nomethod: Tuple{typeof(Base._setindex!), Vector, Any, Int64}
+            nofact: Tuple{typeof(Base._setindex!), Vector{T}, Any, Int64} where T
+    88  other          Tuple{typeof(Base.indexed_iterate), Tuple{AbstractVector, Int64}, Int64}
+            nofact: Tuple{typeof(Base.indexed_iterate), Tuple{AbstractVector, Int64}, Int64, Int64}
+    87  introspection  Tuple{typeof(similar), Type{Vector{var"#s189"}} where {T, var"#s189"<:AbstractVector{T}}, Tuple{Int64}}
+            nofact: Tuple{typeof(similar), Type{Array{_A}} where _A, Tuple{Int64}}
+    87  introspection  Tuple{typeof(similar), Type{Vector{var"#s189"}} where {T, var"#s189"<:AbstractVector{T}}, Tuple{Base.OneTo{Int64}}}
+            nofact: Tuple{typeof(similar), Type{Vector{var"#s189"}} where {T, var"#s189"<:AbstractVector{T}}, Tuple{Int64}}
+
+## faults by the function called (top 40 by the cones of its culprits): culprits with such a fault, in a cone, the fault's function alone
+   536  Base.setindex!                                                   76 culprits  alone 0
+   516  (by instance)                                                    30 culprits  alone 39
+   436  constructor UnionAll                                             40 culprits  alone 27
+   426  Base.getindex                                                    57 culprits  alone 3
+   340  Base.__safe_setindex!                                             9 culprits  alone 0
+   321  Base.push!                                                       14 culprits  alone 0
+   272  Base.length                                                      17 culprits  alone 0
+   263  Base.indexed_iterate                                             68 culprits  alone 0
+   227  Base.getproperty                                                 50 culprits  alone 0
+   215  Base._setindex!                                                  11 culprits  alone 0
+   203  constructor Pair                                                  7 culprits  alone 10
+   145  constructor BoundsError                                           5 culprits  alone 0
+   143  Base.print                                                       23 culprits  alone 0
+   143  Base._str_sizehint                                               22 culprits  alone 0
+   142  Core.kwcall                                                      58 culprits  alone 0
+   140  Base.throw_boundserror                                            5 culprits  alone 0
+   140  Base.size                                                        12 culprits  alone 0
+   140  Base.checkbounds                                                 10 culprits  alone 0
+   140  Core.memoryref                                                   14 culprits  alone 0
+   140  Base.promote_typejoin                                             8 culprits  alone 0
+   140  Base.similar                                                     35 culprits  alone 0
+   140  Type{Memory{T}} where T                                           3 culprits  alone 0
+   140  Type{<:Memory}                                                    2 culprits  alone 0
+   138  Base.ndims                                                       25 culprits  alone 0
+   137  Base.axes                                                         6 culprits  alone 0
+   135  Type{Vector{T}} where T                                           7 culprits  alone 0
+   134  Type{Vector{_A}} where _A                                         4 culprits  alone 0
+   134  Base.isempty                                                     12 culprits  alone 0
+   132  Type{Array{_A}} where _A                                          2 culprits  alone 0
+   132  constructor LinearIndices                                        27 culprits  alone 0
+   130  Base.collect_to_with_first!                                      23 culprits  alone 0
+   130  Base.collect_to!                                                 47 culprits  alone 0
+   130  Base.setindex_widen_up_to                                        24 culprits  alone 0
+   124  Base._array_for_inner                                            20 culprits  alone 0
+    93  Base._push!                                                       6 culprits  alone 0
+    88  Base.show                                                         4 culprits  alone 0
+    86  Base.keys                                                         7 culprits  alone 0
+    84  Base.eachindex                                                    3 culprits  alone 0
+    82  Base.unionlen                                                     3 culprits  alone 0
+    82  Base.show_at_namedtuple                                           2 culprits  alone 0
+what-if: Base's and Core's functions owner-only by declaration, internal (neither exported nor public), no package method in the session: 221 culprits resolved; own facts instances in the class 2846 (79.8 %)
+what-if: Base's and Core's functions owner-only by declaration, any, no package method in the session: 235 culprits resolved; own facts instances in the class 2851 (79.9 %)
+
+own facts instances kept out only by callees named by instance alone, whose code has the bit now: 35
+
+## the candidates' groups (disjoint: a fault counts in the first group it meets): culprits with such a fault, culprits the group alone fixes, own facts instances in the class with it alone
+record: TypeVar and UnionAll inferred at (Any, Any)                        culprits    41 | fixed alone    15 | 2870 (80.5 %)
+record: a top-level union whose splits are facts                           culprits     5 | fixed alone     0 | 2843 (79.7 %)
+lowering: a keyword body (#f#N) called at an abstract argument             culprits    59 | fixed alone    42 | 2843 (79.7 %)
+Base: a type's field read by getproperty at a kind                         culprits    18 | fixed alone     6 | 2843 (79.7 %)
+218: a tuple with an abstract element, indexed                             culprits   118 | fixed alone    23 | 2846 (79.8 %)
+218 (b): a store into a container of Any                                   culprits    82 | fixed alone    15 | 2852 (80.0 %)
+218: the task code (a payload typed Any to schedule, notify, close)        culprits     1 | fixed alone     0 | 2843 (79.7 %)
+219: a query that names the matched instance (hasmethod)                   culprits    30 | fixed alone    17 | 2882 (80.8 %)
+218: any other call with a kind among its arguments                        culprits   167 | fixed alone    91 | 2860 (80.2 %)
+218: a call at an abstract argument, Base's or Core's function             culprits   595 | fixed alone   403 | 2847 (79.8 %)
+a call at an abstract argument, another module's function (the port's, the library's, the compiler's) culprits    72 | fixed alone    35 | 2847 (79.8 %)
+
+## what each group is needed for: own facts instances in the class with every other group fixed, and with all
+record: TypeVar and UnionAll inferred at (Any, Any)                        without it 3055 (85.6 %) | needs it 512
+record: a top-level union whose splits are facts                           without it 3552 (99.6 %) | needs it 15
+lowering: a keyword body (#f#N) called at an abstract argument             without it 3402 (95.4 %) | needs it 165
+Base: a type's field read by getproperty at a kind                         without it 3485 (97.7 %) | needs it 82
+218: a tuple with an abstract element, indexed                             without it 3104 (87.0 %) | needs it 463
+218 (b): a store into a container of Any                                   without it 2956 (82.9 %) | needs it 611
+218: the task code (a payload typed Any to schedule, notify, close)        without it 3332 (93.4 %) | needs it 235
+219: a query that names the matched instance (hasmethod)                   without it 3051 (85.5 %) | needs it 516
+218: any other call with a kind among its arguments                        without it 3267 (91.6 %) | needs it 300
+218: a call at an abstract argument, Base's or Core's function             without it 3145 (88.2 %) | needs it 422
+a call at an abstract argument, another module's function (the port's, the library's, the compiler's) without it 3320 (93.1 %) | needs it 247
+
+## the groups, greedy (what each buys on top of the ones before)
+  + 219: a query that names the matched instance (hasmethod)                  2882 (80.8 %)
+  + record: TypeVar and UnionAll inferred at (Any, Any)                       2909 (81.6 %)
+  + 218 (b): a store into a container of Any                                  3030 (84.9 %)
+  + 218: any other call with a kind among its arguments                       3051 (85.5 %)
+  + 218: the task code (a payload typed Any to schedule, notify, close)       3071 (86.1 %)
+  + 218: a tuple with an abstract element, indexed                            3141 (88.1 %)
+  + 218: a call at an abstract argument, Base's or Core's function            3216 (90.2 %)
+  + a call at an abstract argument, another module's function (the port's, the library's, the compiler's)3329 (93.3 %)
+  + lowering: a keyword body (#f#N) called at an abstract argument            3475 (97.4 %)
+  + Base: a type's field read by getproperty at a kind                        3552 (99.6 %)
+  + record: a top-level union whose splits are facts                          3567 (100.0 %)
+# done rc 0 | 110 s | 2026-11-22T20:13:38+01:00 | load-after 7.70 9.86 9.65

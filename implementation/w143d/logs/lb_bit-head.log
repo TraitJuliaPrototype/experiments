@@ -1,0 +1,5 @@
+bit: LX 1 | A 0 | B 0 | Vector{A} 0 | Ref{S1} free 0
+before the membership: A == B false | Vector{A} <: Vector{B} false | typeintersect(Vector{A}, Vector{B}) Union{}
+after  the membership: A == B true | Vector{A} <: Vector{B} true | typeintersect(Vector{A}, Vector{B}) Vector{Ref{S} where S>:LX}
+compiled before the membership: q() false | folded: Bool
+after the membership: q() false | asked afresh true

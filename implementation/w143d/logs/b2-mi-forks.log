@@ -1,0 +1,36 @@
+# W-143d b2-mi forks diag/mi_edges.jl  | 2026-11-22T20:39:32+01:00 | load-before 14.15 20.69 21.72
+# wt/w143-julia bfaf484f55 (binary bfaf484f55*) | TraitWorld e2cb5d02c1 | forks a3a37d6b5e | TraitDifferentialEquations 21a5aa57cf | experiments 927f32d7d7
+# product setting, strict mode off, one thread, one fresh process; depot /p/projects/coen/julia-trait-bound/.julia-depot/agent-depots/w143d/w143-julia before the shared one
+callee's method @nospecialize | callee has code with the bit now | callee | faults | most cones
+true  true  _promote_typesubtract           1    656   e.g. Tuple{typeof(Base.promote_typejoin), Type, Type} -> Tuple{typeof(Base._promote_typesubtract), Any}
+false false show_list                       7    236   e.g. Tuple{typeof(Base.show_list), IOBuffer, Any, String, Int64, Int64, Int64} -> Tuple{typeof(Base.show_list), IOBuffer, Any, String, Int64, Int64, Int64, Bool, 
+false false show_block                      4    236   e.g. Tuple{typeof(Base.show_block), IOContext{IOBuffer}, Symbol, Expr, Any, Int64, Int64} -> Tuple{typeof(Base.show_block), IOContext{IOBuffer}, Symbol, Vector{Any}, Any, In
+false true  print                           2    235   e.g. Tuple{typeof(print), IOBuffer, String, UnitRange{Int64}, String} -> Tuple{typeof(print), IOBuffer, UnitRange{Int64}}
+false true  materialize!                    1    135   e.g. Tuple{typeof(DataFrames.compute_indices), Vector{Int64}, Int64} -> Tuple{typeof(Base.Broadcast.materialize!), Vector{Int64}, Base.Broadcast.Broadca
+false false lock                            2    133   e.g. Tuple{typeof(getproperty), GroupedDataFrame{DataFrame}, Symbol} -> Tuple{typeof(lock), DataFrames.var"#429#430"{GroupedDataFrame{DataFrame}, Symbol
+false false ntuple                          1    133   e.g. Tuple{DataFrames.var"#431#432"{GroupedDataFrame{DataFrame}, Symbol}} -> Tuple{typeof(ntuple), DataFrames.var"#433#434"{GroupedDataFrame{DataFrame}}, Int
+false false sizehint!                       1    133   e.g. Tuple{typeof(DataFrames.genkeymap), GroupedDataFrame{DataFrame}, Any} -> Tuple{typeof(sizehint!), Dict{Any, Int64}, Int64}
+false false makevalueopts                   1     40   e.g. Tuple{CSV.var"##makevalueopts#2", Any, Char, Any, Any, Bool, Union{Nothing, Char}, Any, ty -> Tuple{typeof(CSV.makevalueopts), CSV.Dialect, Any, Char, Any, Any, Bool, Char, A
+false false throw_field_access              1     32   e.g. Tuple{typeof(fieldname), DataType, Int64} -> Tuple{Base.var"#throw_field_access#fieldname##1", Type, Int64, Int64}
+false false wrap                            1     26   e.g. Tuple{typeof(DataFrames.wrap_table), Union{AbstractDataFrame, NamedTuple{<:Any, <:Tuple{Va -> Tuple{typeof(DataFrames.wrap), NamedTuple{<:Any, <:Tuple{Vararg{AbstractVector}}
+false false _ncol                           1     24   e.g. Tuple{typeof(DataFrames._combine_tables_with_first!), Union{AbstractDataFrame, NamedTuple{ -> Tuple{typeof(DataFrames._ncol), NamedTuple{<:Any, <:Tuple{Vararg{AbstractVector}
+false false #manipulate#634                 5     18   e.g. Tuple{typeof(Core.kwcall), @NamedTuple{copycols::Bool, keeprows::Bool, renamecols::Bool},  -> Tuple{DataFrames.var"##manipulate#634", Bool, Bool, Bool, typeof(DataFrames.mani
+false false #manipulate#636                 3     16   e.g. Tuple{typeof(Core.kwcall), @NamedTuple{copycols::Bool, keeprows::Bool, renamecols::Bool},  -> Tuple{DataFrames.var"##manipulate#636", Bool, Bool, Bool, typeof(DataFrames.mani
+true  false select                          1     13   e.g. Tuple{Type{DataFrames.DataFrameJoiner}, DataFrame, DataFrame, Symbol, Symbol, Symbol} -> Tuple{typeof(Core.kwcall), @NamedTuple{copycols::Bool}, typeof(select), SubDataF
+false false typemax                         2     12   e.g. Tuple{typeof(hasmethod), typeof(typemax), Type{Tuple{Float64}}} -> Tuple{typeof(typemax), Float64}
+false false typemin                         2     12   e.g. Tuple{typeof(hasmethod), typeof(typemin), Type{Tuple{Float64}}} -> Tuple{typeof(typemin), Float64}
+false false _finishstrings                  4      7   e.g. Tuple{typeof(CSV._filefromprepared), CSV.IndexedSource, String, Nothing, Nothing, Nothing, -> Tuple{typeof(Core.kwcall), @NamedTuple{tasklimit::Int64}, typeof(CSV._finishstri
+false false restart_copyto_nonleaf!         8      5   e.g. Tuple{typeof(Base.Broadcast.copyto_nonleaf!), BitVector, Base.Broadcast.Broadcasted{Base.B -> Tuple{typeof(Base.Broadcast.restart_copyto_nonleaf!), BitVector, BitVector, Base
+true  false #combine#807                   26      3   e.g. Tuple{typeof(combine), GroupedDataFrame{DataFrame}, Union{Regex, AbstractString, Function, -> Tuple{DataFrames.var"##combine#807", Bool, Bool, Bool, Bool, typeof(combine), Gr
+false false append_rows!                    4      3   e.g. Tuple{typeof(DataFrames._combine_tables_with_first!), Union{AbstractDataFrame, NamedTuple{ -> Tuple{typeof(DataFrames.append_rows!), NamedTuple{<:Any, <:Tuple{Vararg{Abstract
+false false #_sort!#20                      3      2   e.g. Tuple{typeof(Core.kwcall), @NamedTuple{t::Vector{Int64}, offset::Int64, swap::Bool, rev::B -> Tuple{Base.Sort.var"##_sort!#20", Vector{Int64}, Int64, Bool, Bool, typeof(Base.
+false false getindex                        1      2   e.g. Tuple{DataFrames.var"##leftjoin!#775", Symbol, Bool, Nothing, Symbol, typeof(leftjoin!), D -> Tuple{typeof(getindex), SubDataFrame{DataFrame, DataFrames.Index, Vector{Int64}}
+false true  -                               3      2   e.g. Tuple{typeof(hasmethod), typeof(-), Type{Tuple{Durations.Timestamp{Dates.Nanosecond}, Dura -> Tuple{typeof(-), Durations.Timestamp{Dates.Nanosecond}, Durations.Timestamp{Date
+true  false combine                         1      2   e.g. Tuple{DataFrames.var"##unstack#701", typeof(identity), Bool, Bool, typeof(only), Missing,  -> Tuple{typeof(Core.kwcall), @NamedTuple{threads::Bool}, typeof(combine), GroupedD
+false false mapreduce_first                 1      0   e.g. Tuple{typeof(Base._mapreduce), Tables.var"#_evalexpr##18#_evalexpr##19"{CSV.PredicateColum -> Tuple{typeof(Base.mapreduce_first), Tables.var"#_evalexpr##18#_evalexpr##19"{CSV
+false false iterate                         3      0   e.g. Tuple{typeof(hasmethod), typeof(iterate), Type{Tuple{Matrix{String}}}} -> Tuple{typeof(iterate), Matrix{String}}
+false true  iterate                         1      0   e.g. Tuple{typeof(hasmethod), typeof(iterate), Type{Tuple{Vector{Union{Missing, Float64}}}}} -> Tuple{typeof(iterate), Vector{Union{Missing, Float64}}}
+false false _mapreduce_dim                  1      0   e.g. Tuple{Base.var"##mapreduce#741", Colon, Base._InitialValue, typeof(mapreduce), Tables.var" -> Tuple{typeof(Base._mapreduce_dim), Tables.var"#_evalexpr##22#_evalexpr##23", Tab
+false false #_evalexpr##18                  2      0   e.g. Tuple{typeof(Base._mapreduce), Tables.var"#_evalexpr##18#_evalexpr##19"{CSV.PredicateColum -> Tuple{Tables.var"#_evalexpr##18#_evalexpr##19"{CSV.PredicateColumns, Bool}, Tabl
+false false _columnmap                      2      0   e.g. Tuple{typeof(Tables._evalexpr), Tables.ScanExpr, CSV.PredicateColumns, Bool} -> Tuple{typeof(Tables._columnmap), Tables.var"#_evalexpr##16#_evalexpr##17"{Tables
+# done rc 0 | 4 s | 2026-11-22T20:39:37+01:00 | load-after 13.73 20.49 21.65

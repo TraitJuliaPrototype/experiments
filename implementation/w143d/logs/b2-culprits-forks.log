@@ -1,0 +1,379 @@
+# W-143d b2-culprits forks diag/culprit.jl Base.collect Base.notify Base.close Base.sync_end Base.typejoin_union_tuple Base.promote_typejoin_union Base._schedule | 2026-11-22T20:15:05+01:00 | load-before 7.89 9.52 9.57
+# wt/w143-julia bfaf484f55 (binary bfaf484f55*) | TraitWorld e2cb5d02c1 | forks a3a37d6b5e | TraitDifferentialEquations 21a5aa57cf | experiments 927f32d7d7
+# product setting, strict mode off, one thread, one fresh process; depot /p/projects/coen/julia-trait-bound/.julia-depot/agent-depots/w143d/w143-julia before the shared one
+== introspection  Tuple{typeof(collect), Base.Generator{Vector{Symbol}, Tables.var"#columntable##4#columntable##5"{DataFrames.DataFrameColumns{DataFrame}}}}  (in 4 cones)
+   fault nofact: Tuple{typeof(Base.indexed_iterate), Tuple{AbstractVector, Int64}, Int64}
+   fault nofact: Tuple{typeof(Base.indexed_iterate), Tuple{AbstractVector, Int64}, Int64, Int64}
+   fault nofact: Tuple{typeof(Base._array_for_inner), Type{<:AbstractVector{T}} where T, Base.HasShape{1}, Tuple{Base.OneTo{Int64}}}
+   fault nofact: Tuple{typeof(ndims), Vector}
+   fault nofact: Tuple{Type{UnionAll}, TypeVar, Type{AbstractArray{var"#s188", 1}}}
+   fault nofact: Tuple{typeof(Base.collect_to_with_first!), Vector, AbstractVector, Base.Generator{Vector{Symbol}, Tables.var"#columntable##4#columntable##5"{DataFrames.DataFrameColumns{DataFrame}}}, Int64}
+   <- Tuple{typeof(DataFrames.default_table_transformation), DataFrame, ByRow{typeof(Statistics.mean)}}
+   <- Tuple{typeof(Tables.columntable), DataFrame}
+   <- Tuple{typeof(Tables.columntable), Nothing, DataFrames.DataFrameColumns{DataFrame}}
+   <- Tuple{Type{Tuple}, Base.Generator{Vector{Symbol}, Tables.var"#columntable##4#columntable##5"{DataFrames.DataFrameColumns{DataFrame}}}}
+   <- Tuple{typeof(Base._totuple), Type{Tuple}, Base.Generator{Vector{Symbol}, Tables.var"#columntable##4#columntable##5"{DataFrames.DataFrameColumns{DataFrame}}}}
+   <- Tuple{typeof(collect), Base.Generator{Vector{Symbol}, Tables.var"#columntable##4#columntable##5"{DataFrames.DataFrameColumns{DataFrame}}}}
+   direct callers: 1
+      Tuple{typeof(Base._totuple), Type{Tuple}, Base.Generator{Vector{Symbol}, Tables.var"#columntable##4#columntable##5"{DataFrames.DataFrameColumns{DataFrame}}}}
+== task_lock  Tuple{typeof(Base.sync_end), Channel{Any}}  (in 833 cones)
+   fault nofact: Tuple{typeof(push!), CompositeException, Any}
+   fault nofact: Tuple{typeof(push!), Vector{Any}, Any}
+   <- Tuple{typeof(DataFrames._threaded_getindex), UnitRange{Int64}, UnitRange{Int64}, DataFrames.ColumnVectors, DataFrames.Index}
+   <- Tuple{typeof(Base.sync_end), Channel{Any}}
+   direct callers: 87
+      Tuple{typeof(DataFrames._threaded_getindex), UnitRange{Int64}, UnitRange{Int64}, DataFrames.ColumnVectors, DataFrames.Index}
+      Tuple{DataFrames.var"#_#186#188", Bool, Type{DataFrame}, Vector{AbstractVector}, DataFrames.Index}
+      Tuple{typeof(CSV._taskforeach), Function, UnitRange{Int64}, Int64, Nothing}
+      Tuple{typeof(CSV._taskforeach), CSV.var"#_rowranges##0#_rowranges##1"{_A, Int64, Int64} where _A, UnitRange{Int64}, Int64, Nothing}
+      Tuple{typeof(CSV._taskforeach), CSV.var"#178#179", Any, Int64, Nothing}
+      Tuple{typeof(CSV._taskforeach), CSV.var"#176#177"{_A, Base.Threads.Atomic{Bool}} where _A, Any, Int64, Nothing}
+== introspection  Tuple{typeof(collect), Base.Generator{Vector{CSV.ColumnDecision}, CSV.var"#_parse##12#_parse##13"}}  (in 115 cones)
+   fault nofact: Tuple{typeof(Base.indexed_iterate), Tuple{Any, Int64}, Int64}
+   fault nofact: Tuple{typeof(Base.indexed_iterate), Tuple{Any, Int64}, Int64, Int64}
+   fault nofact: Tuple{typeof(Base._array_for_inner), DataType, Base.HasShape{1}, Tuple{Base.OneTo{Int64}}}
+   fault nofact: Tuple{typeof(ndims), Vector}
+   fault nofact: Tuple{Type{UnionAll}, TypeVar, Type{AbstractArray{var"#s188", 1}}}
+   fault nofact: Tuple{typeof(Base.collect_to_with_first!), Vector, Any, Base.Generator{Vector{CSV.ColumnDecision}, CSV.var"#_parse##12#_parse##13"}, Int64}
+   <- Tuple{typeof(CSV._parse), Vector{UInt8}, CSV.Dialect, CSV.ValueOpts, Symbol, Union{Nothing, Dict{Type, Type}}, Int64, Bool, Int64, Int64, Symbol, Bool, Bool, Union{Nothing, Int64},
+   <- Tuple{typeof(collect), Base.Generator{Vector{CSV.ColumnDecision}, CSV.var"#_parse##12#_parse##13"}}
+   direct callers: 16
+      Tuple{typeof(CSV._parse), Vector{UInt8}, CSV.Dialect, CSV.ValueOpts, Symbol, Union{Nothing, Dict{Type, Type}}, Int64, Bool, Int64, Int64, Symbol, Bool, Bool, Un
+      Tuple{typeof(CSV._parse), Vector{UInt8}, CSV.Dialect, CSV.ValueOpts, Symbol, Union{Nothing, Dict{Type, Type}}, Int64, Bool, Int64, Int64, Symbol, Bool, Bool, Un
+      Tuple{typeof(CSV._parse), Vector{UInt8}, CSV.Dialect, CSV.ValueOpts, Symbol, Union{Nothing, Dict{Type, Type}}, Int64, Bool, Int64, Int64, Symbol, Bool, Bool, Un
+      Tuple{typeof(CSV._parse), Vector{UInt8}, CSV.Dialect, CSV.ValueOpts, Symbol, Union{Nothing, Dict{Type, Type}}, Int64, Bool, Int64, Int64, Symbol, Bool, Bool, Un
+      Tuple{typeof(CSV._parse), Vector{UInt8}, CSV.Dialect, CSV.ValueOpts, Symbol, Union{Nothing, Dict{Type, Type}}, Int64, Bool, Int64, Int64, Symbol, Bool, Bool, Un
+      Tuple{typeof(CSV._parse), Vector{UInt8}, CSV.Dialect, CSV.ValueOpts, Symbol, Union{Nothing, Dict{Type, Type}}, Int64, Bool, Int64, Int64, Symbol, Bool, Bool, Un
+== introspection  Tuple{typeof(collect), Base.Generator{UnitRange{Int64}, Base.var"#_ntuple##0#_ntuple##1"{DataFrames.var"#175#176"{DataFrame}}}}  (in 20 cones)
+   fault nofact: Tuple{typeof(Base.indexed_iterate), Tuple{AbstractVector, Int64}, Int64}
+   fault nofact: Tuple{typeof(Base.indexed_iterate), Tuple{AbstractVector, Int64}, Int64, Int64}
+   fault nofact: Tuple{typeof(Base._array_for_inner), Type{<:AbstractVector{T}} where T, Base.HasShape{1}, Tuple{Base.OneTo{Int64}}}
+   fault nofact: Tuple{typeof(ndims), Vector}
+   fault nofact: Tuple{Type{UnionAll}, TypeVar, Type{AbstractArray{var"#s188", 1}}}
+   fault nofact: Tuple{typeof(Base.collect_to_with_first!), Vector, AbstractVector, Base.Generator{UnitRange{Int64}, Base.var"#_ntuple##0#_ntuple##1"{DataFrames.var"#175#176"{DataFrame}}}, Int64}
+   <- Tuple{DataFrames.var"##nonunique#173", Symbol, typeof(nonunique), DataFrame}
+   <- Tuple{typeof(ntuple), DataFrames.var"#175#176"{DataFrame}, Int64}
+   <- Tuple{typeof(Base._ntuple), DataFrames.var"#175#176"{DataFrame}, Int64}
+   <- Tuple{typeof(collect), Base.Generator{UnitRange{Int64}, Base.var"#_ntuple##0#_ntuple##1"{DataFrames.var"#175#176"{DataFrame}}}}
+   direct callers: 1
+      Tuple{typeof(Base._ntuple), DataFrames.var"#175#176"{DataFrame}, Int64}
+== other  Tuple{typeof(collect), Base.Generator{UnitRange{Int64}, DataFrames.var"#46#47"{Vector{Symbol}}}}  (in 6 cones)
+   fault nofact: Tuple{Type{UnionAll}, TypeVar, Type{AbstractArray{var"#s188"<:String, 1}}}
+   <- Tuple{typeof(names), DataFrame, Int64}
+   <- Tuple{typeof(collect), Base.Generator{UnitRange{Int64}, DataFrames.var"#46#47"{Vector{Symbol}}}}
+   direct callers: 1
+      Tuple{typeof(names), DataFrame, Int64}
+== introspection  Tuple{typeof(collect), Base.Generator{UnitRange{Int64}, Base.var"#_ntuple##0#_ntuple##1"{DataFrames.var"#329#330"{DataFrameRow{DataFrame, DataFrames.Index}}}}}  (in 5 cones)
+   fault nofact: Tuple{typeof(Base.indexed_iterate), Tuple{Any, Int64}, Int64}
+   fault nofact: Tuple{typeof(Base.indexed_iterate), Tuple{Any, Int64}, Int64, Int64}
+   fault nofact: Tuple{typeof(Base._array_for_inner), DataType, Base.HasShape{1}, Tuple{Base.OneTo{Int64}}}
+   fault nofact: Tuple{typeof(ndims), Vector}
+   fault nofact: Tuple{Type{UnionAll}, TypeVar, Type{AbstractArray{var"#s188", 1}}}
+   fault nofact: Tuple{typeof(Base.collect_to_with_first!), Vector, Any, Base.Generator{UnitRange{Int64}, Base.var"#_ntuple##0#_ntuple##1"{DataFrames.var"#329#330"{DataFrameRow{DataFrame, DataFrames.Index}}}}, Int64}
+   <- Tuple{Type{NamedTuple}, DataFrameRow{DataFrame, DataFrames.Index}}
+   <- Tuple{typeof(ntuple), DataFrames.var"#329#330"{DataFrameRow{DataFrame, DataFrames.Index}}, Int64}
+   <- Tuple{typeof(Base._ntuple), DataFrames.var"#329#330"{DataFrameRow{DataFrame, DataFrames.Index}}, Int64}
+   <- Tuple{typeof(collect), Base.Generator{UnitRange{Int64}, Base.var"#_ntuple##0#_ntuple##1"{DataFrames.var"#329#330"{DataFrameRow{DataFrame, DataFrames.Index}}}}}
+   direct callers: 1
+      Tuple{typeof(Base._ntuple), DataFrames.var"#329#330"{DataFrameRow{DataFrame, DataFrames.Index}}, Int64}
+== error_path  Tuple{typeof(collect), Base.Generator{Nothing, Type{T}} where T}  (in 0 cones)
+   fault nofact: Tuple{typeof(getproperty), Base.Generator{Nothing, Type{T}} where T, Symbol}
+   fault nofact: Tuple{typeof(Base.promote_typejoin_union), Type}
+   fault nofact: Tuple{typeof(Base._similar_shape), Base.Generator{Nothing, Type{T}} where T, Base.HasLength}
+   direct callers: 1
+      Tuple{typeof(map), Type, Nothing}
+== introspection  Tuple{typeof(collect), Base.Generator{Vector{Any}, DataFrames.var"#_describe##10#_describe##11"}}  (in 6 cones)
+   fault nofact: Tuple{typeof(Base.indexed_iterate), Tuple{Any, Int64}, Int64}
+   fault nofact: Tuple{typeof(Base.indexed_iterate), Tuple{Any, Int64}, Int64, Int64}
+   fault nofact: Tuple{typeof(Base._array_for_inner), DataType, Base.HasShape{1}, Tuple{Base.OneTo{Int64}}}
+   fault nofact: Tuple{typeof(ndims), Vector}
+   fault nofact: Tuple{Type{UnionAll}, TypeVar, Type{AbstractArray{var"#s188", 1}}}
+   fault nofact: Tuple{typeof(Base.collect_to_with_first!), Vector, Any, Base.Generator{Vector{Any}, DataFrames.var"#_describe##10#_describe##11"}, Int64}
+   <- Tuple{typeof(DataFrames._describe), AbstractDataFrame, Vector{Any}}
+   <- Tuple{typeof(collect), Base.Generator{Vector{Any}, DataFrames.var"#_describe##10#_describe##11"}}
+   direct callers: 2
+      Tuple{typeof(DataFrames._describe), AbstractDataFrame, Vector{Any}}
+      Tuple{typeof(DataFrames._describe), DataFrame, Vector{Any}}
+== other  Tuple{typeof(collect), Base.Generator{Base.Iterators.Zip{Tuple{Vector{typeof(isless)}, Vector{typeof(identity)}, Vector{Bool}, Vector{Base.Order.ForwardOrdering}}}, DataFrames.var"#ordering##0#orderin  (in 7 cones)
+   fault nofact: Tuple{Type{UnionAll}, TypeVar, Type{AbstractArray{var"#s188"<:Base.Order.Ordering, 1}}}
+   <- Tuple{typeof(DataFrames.ordering), DataFrame, Vector{typeof(isless)}, Vector{typeof(identity)}, Vector{Bool}, Vector{Base.Order.ForwardOrdering}}
+   <- Tuple{typeof(collect), Base.Generator{Base.Iterators.Zip{Tuple{Vector{typeof(isless)}, Vector{typeof(identity)}, Vector{Bool}, Vector{Base.Order.ForwardOrdering}}}, DataFrames.var"
+   direct callers: 1
+      Tuple{typeof(DataFrames.ordering), DataFrame, Vector{typeof(isless)}, Vector{typeof(identity)}, Vector{Bool}, Vector{Base.Order.ForwardOrdering}}
+== introspection  Tuple{typeof(collect), Base.Generator{UnitRange{Int64}, Base.var"#_ntuple##0#_ntuple##1"{DataFrames.var"#179#180"{DataFrame}}}}  (in 34 cones)
+   fault nofact: Tuple{typeof(Base.indexed_iterate), Tuple{AbstractVector, Int64}, Int64}
+   fault nofact: Tuple{typeof(Base.indexed_iterate), Tuple{AbstractVector, Int64}, Int64, Int64}
+   fault nofact: Tuple{typeof(Base._array_for_inner), Type{<:AbstractVector{T}} where T, Base.HasShape{1}, Tuple{Base.OneTo{Int64}}}
+   fault nofact: Tuple{typeof(ndims), Vector}
+   fault nofact: Tuple{Type{UnionAll}, TypeVar, Type{AbstractArray{var"#s188", 1}}}
+   fault nofact: Tuple{typeof(Base.collect_to_with_first!), Vector, AbstractVector, Base.Generator{UnitRange{Int64}, Base.var"#_ntuple##0#_ntuple##1"{DataFrames.var"#179#180"{DataFrame}}}, Int64}
+   <- Tuple{typeof(allunique), DataFrame, Vector{Symbol}}
+   <- Tuple{typeof(ntuple), DataFrames.var"#179#180"{DataFrame}, Int64}
+   <- Tuple{typeof(Base._ntuple), DataFrames.var"#179#180"{DataFrame}, Int64}
+   <- Tuple{typeof(collect), Base.Generator{UnitRange{Int64}, Base.var"#_ntuple##0#_ntuple##1"{DataFrames.var"#179#180"{DataFrame}}}}
+   direct callers: 1
+      Tuple{typeof(Base._ntuple), DataFrames.var"#179#180"{DataFrame}, Int64}
+== introspection  Tuple{typeof(collect), Base.Generator{UnitRange{Int64}, DataFrames.var"#ordering##2#ordering##3"{Vector{Base.Order.Ordering}}}}  (in 13 cones)
+   fault nofact: Tuple{typeof(Base.indexed_iterate), Tuple{Any, Int64}, Int64}
+   fault nofact: Tuple{typeof(Base.indexed_iterate), Tuple{Any, Int64}, Int64, Int64}
+   fault nofact: Tuple{typeof(Base._array_for_inner), DataType, Base.HasShape{1}, Tuple{Base.OneTo{Int64}}}
+   fault nofact: Tuple{typeof(ndims), Vector}
+   fault nofact: Tuple{Type{UnionAll}, TypeVar, Type{AbstractArray{var"#s188", 1}}}
+   fault nofact: Tuple{typeof(Base.collect_to_with_first!), Vector, Any, Base.Generator{UnitRange{Int64}, DataFrames.var"#ordering##2#ordering##3"{Vector{Base.Order.Ordering}}}, Int64}
+   <- Tuple{typeof(DataFrames.ordering), DataFrame, Vector{Symbol}, Function, Function, Bool, Base.Order.ForwardOrdering}
+   <- Tuple{typeof(collect), Base.Generator{UnitRange{Int64}, DataFrames.var"#ordering##2#ordering##3"{Vector{Base.Order.Ordering}}}}
+   direct callers: 4
+      Tuple{typeof(DataFrames.ordering), DataFrame, Vector{Symbol}, Function, Function, Bool, Base.Order.ForwardOrdering}
+      Tuple{typeof(DataFrames.ordering), DataFrame, Vector{Symbol}, typeof(isless), typeof(identity), Bool, Base.Order.ForwardOrdering}
+      Tuple{typeof(DataFrames.ordering), DataFrame, UnitRange{Int64}, typeof(isless), typeof(identity), Bool, Base.Order.ForwardOrdering}
+      Tuple{typeof(DataFrames.ordering), DataFrame, UnitRange{Int64}, Function, Function, Bool, Base.Order.ForwardOrdering}
+== other  Tuple{typeof(collect), Base.Generator{Vector{Symbol}, CSV.var"#_prepare##7#_prepare##8"}}  (in 160 cones)
+   fault nofact: Tuple{Type{UnionAll}, TypeVar, Type{AbstractArray{var"#s188"<:Symbol, 1}}}
+   <- Tuple{typeof(CSV._prepare), Vector{UInt8}, Union{Integer, AbstractVector}, Bool, Union{Nothing, Integer}, Integer, Any, Any, Union{Nothing, Integer}, Int64, Union{Nothing, Int64}, 
+   <- Tuple{typeof(collect), Base.Generator{Vector{Symbol}, CSV.var"#_prepare##7#_prepare##8"}}
+   direct callers: 22
+      Tuple{typeof(CSV._prepare), Vector{UInt8}, Union{Integer, AbstractVector}, Bool, Union{Nothing, Integer}, Integer, Any, Any, Union{Nothing, Integer}, Int64, Uni
+      Tuple{typeof(CSV._prepare), Vector{UInt8}, Any, Bool, Union{Nothing, Integer}, Integer, Any, Any, Union{Nothing, Integer}, Int64, Union{Nothing, Int64}, Bool, U
+      Tuple{typeof(CSV._prepare), Vector{UInt8}, Int64, Bool, Nothing, Int64, Nothing, Nothing, Nothing, Int64, Nothing, Bool, Nothing, Bool, Bool, Base.Pairs{Symbol,
+      Tuple{typeof(CSV._prepare), Vector{UInt8}, Int64, Bool, Nothing, Int64, Nothing, Char, Nothing, Int64, Nothing, Bool, Nothing, Bool, Bool, @NamedTuple{maxproble
+      Tuple{typeof(CSV._prepare), Vector{UInt8}, Bool, Bool, Nothing, Int64, Nothing, Char, Nothing, Int64, Nothing, Bool, Nothing, Bool, Bool, @NamedTuple{maxproblem
+      Tuple{typeof(CSV._prepare), Vector{UInt8}, Int64, Bool, Nothing, Int64, Nothing, Nothing, Nothing, Int64, Nothing, Bool, Nothing, Bool, Bool, Base.Pairs{Symbol,
+== introspection  Tuple{typeof(collect), Base.Generator{DataFrames.DataFrameColumns{DataFrame}, DataFrames.var"#903#904"}}  (in 6 cones)
+   fault nofact: Tuple{typeof(Base.indexed_iterate), Tuple{Any, Int64}, Int64}
+   fault nofact: Tuple{typeof(Base.indexed_iterate), Tuple{Any, Int64}, Int64, Int64}
+   fault nofact: Tuple{typeof(Base._array_for_inner), DataType, Base.HasShape{1}, Tuple{Base.OneTo{Int64}}}
+   fault nofact: Tuple{typeof(ndims), Vector}
+   fault nofact: Tuple{Type{UnionAll}, TypeVar, Type{AbstractArray{var"#s188", 1}}}
+   fault nofact: Tuple{typeof(Base.collect_to_with_first!), Vector, Any, Base.Generator{DataFrames.DataFrameColumns{DataFrame}, DataFrames.var"#903#904"}, Int64}
+   <- Tuple{typeof(Tables.schema), DataFrame}
+   <- Tuple{typeof(collect), Base.Generator{DataFrames.DataFrameColumns{DataFrame}, DataFrames.var"#903#904"}}
+   direct callers: 1
+      Tuple{typeof(Tables.schema), DataFrame}
+== other  Tuple{typeof(collect), Base.Generator{Vector{Int64}, DataFrames.var"#46#47"{Vector{Symbol}}}}  (in 21 cones)
+   fault nofact: Tuple{Type{UnionAll}, TypeVar, Type{AbstractArray{var"#s188"<:String, 1}}}
+   <- Tuple{typeof(names), SubDataFrame{DataFrame, DataFrames.Index, Vector{Int64}}, InvertedIndex{Vector{Symbol}}}
+   <- Tuple{typeof(collect), Base.Generator{Vector{Int64}, DataFrames.var"#46#47"{Vector{Symbol}}}}
+   direct callers: 4
+      Tuple{typeof(names), SubDataFrame{DataFrame, DataFrames.Index, Vector{Int64}}, InvertedIndex{Vector{Symbol}}}
+      Tuple{typeof(names), SubDataFrame{DataFrame, DataFrames.Index, UnitRange{Int64}}, InvertedIndex{Vector{Symbol}}}
+      Tuple{typeof(names), DataFrame, InvertedIndex{Vector{Symbol}}}
+      Tuple{typeof(names), DataFrame, Vector{Int64}}
+== other  Tuple{typeof(collect), Base.Generator{String, DataFrames.var"#_norm_eq##0#_norm_eq##1"}}  (in 484 cones)
+   fault nofact: Tuple{Type{UnionAll}, TypeVar, Type{AbstractArray{var"#s188"<:Char, 1}}}
+   <- Tuple{typeof(DataFrames._norm_eq), String, String, Symbol}
+   <- Tuple{typeof(collect), Base.Generator{String, DataFrames.var"#_norm_eq##0#_norm_eq##1"}}
+   direct callers: 1
+      Tuple{typeof(DataFrames._norm_eq), String, String, Symbol}
+== introspection  Tuple{typeof(collect), Base.Generator{Vector{Int64}, DataFrames.var"#699#700"{DataFrame, Int64}}}  (in 10 cones)
+   fault nofact: Tuple{typeof(Base.indexed_iterate), Tuple{Any, Int64}, Int64}
+   fault nofact: Tuple{typeof(Base.indexed_iterate), Tuple{Any, Int64}, Int64, Int64}
+   fault nofact: Tuple{typeof(Base._array_for_inner), DataType, Base.HasShape{1}, Tuple{Base.OneTo{Int64}}}
+   fault nofact: Tuple{typeof(ndims), Vector}
+   fault nofact: Tuple{Type{UnionAll}, TypeVar, Type{AbstractArray{var"#s188", 1}}}
+   fault nofact: Tuple{typeof(Base.collect_to_with_first!), Vector, Any, Base.Generator{Vector{Int64}, DataFrames.var"#699#700"{DataFrame, Int64}}, Int64}
+   <- Tuple{DataFrames.var"##_stackview#697", Symbol, Symbol, Type, typeof(DataFrames._stackview), DataFrame, Vector{Int64}, Vector{Int64}}
+   <- Tuple{typeof(collect), Base.Generator{Vector{Int64}, DataFrames.var"#699#700"{DataFrame, Int64}}}
+   direct callers: 3
+      Tuple{DataFrames.var"##_stackview#697", Symbol, Symbol, Type, typeof(DataFrames._stackview), DataFrame, Vector{Int64}, Vector{Int64}}
+      Tuple{DataFrames.var"##_stackview#697", Symbol, Symbol, Type{String}, typeof(DataFrames._stackview), DataFrame, Vector{Int64}, Vector{Int64}}
+      Tuple{DataFrames.var"##_stackview#697", Symbol, Symbol, DataType, typeof(DataFrames._stackview), DataFrame, Vector{Int64}, Vector{Int64}}
+== other  Tuple{typeof(collect), Base.Generator{Vector{String}, DataFrames.var"#34#35"{DataFrames.Index}}}  (in 8 cones)
+   fault nofact: Tuple{Type{UnionAll}, TypeVar, Type{AbstractArray{var"#s188"<:Int64, 1}}}
+   <- Tuple{typeof(getindex), DataFrames.Index, Vector{String}}
+   <- Tuple{typeof(collect), Base.Generator{Vector{String}, DataFrames.var"#34#35"{DataFrames.Index}}}
+   direct callers: 1
+      Tuple{typeof(getindex), DataFrames.Index, Vector{String}}
+== introspection  Tuple{typeof(collect), Base.Generator{UnitRange{Int64}, Base.var"#_ntuple##0#_ntuple##1"{DataFrames.var"#DFPerm##0#DFPerm##1"{DataFrame}}}}  (in 29 cones)
+   fault nofact: Tuple{typeof(Base.indexed_iterate), Tuple{AbstractVector, Int64}, Int64}
+   fault nofact: Tuple{typeof(Base.indexed_iterate), Tuple{AbstractVector, Int64}, Int64, Int64}
+   fault nofact: Tuple{typeof(Base._array_for_inner), Type{<:AbstractVector{T}} where T, Base.HasShape{1}, Tuple{Base.OneTo{Int64}}}
+   fault nofact: Tuple{typeof(ndims), Vector}
+   fault nofact: Tuple{Type{UnionAll}, TypeVar, Type{AbstractArray{var"#s188", 1}}}
+   fault nofact: Tuple{typeof(Base.collect_to_with_first!), Vector, AbstractVector, Base.Generator{UnitRange{Int64}, Base.var"#_ntuple##0#_ntuple##1"{DataFrames.var"#DFPerm##0#DFPerm##1"{DataFrame}}}, Int64}
+   <- Tuple{Type{DataFrames.DFPerm}, Vector{Base.Order.ReverseOrdering{Base.Order.ForwardOrdering}}, DataFrame}
+   <- Tuple{typeof(ntuple), DataFrames.var"#DFPerm##0#DFPerm##1"{DataFrame}, Int64}
+   <- Tuple{typeof(Base._ntuple), DataFrames.var"#DFPerm##0#DFPerm##1"{DataFrame}, Int64}
+   <- Tuple{typeof(collect), Base.Generator{UnitRange{Int64}, Base.var"#_ntuple##0#_ntuple##1"{DataFrames.var"#DFPerm##0#DFPerm##1"{DataFrame}}}}
+   direct callers: 1
+      Tuple{typeof(Base._ntuple), DataFrames.var"#DFPerm##0#DFPerm##1"{DataFrame}, Int64}
+== introspection  Tuple{typeof(collect), Base.Generator{Vector{Symbol}, DataFrames.var"#_compose_joined_table##0#_compose_joined_table##1"{DataFrames.DataFrameJoiner}}}  (in 24 cones)
+   fault nofact: Tuple{typeof(Base.indexed_iterate), Tuple{Any, Int64}, Int64}
+   fault nofact: Tuple{typeof(Base.indexed_iterate), Tuple{Any, Int64}, Int64, Int64}
+   fault nofact: Tuple{typeof(Base._array_for_inner), DataType, Base.HasShape{1}, Tuple{Base.OneTo{Int64}}}
+   fault nofact: Tuple{typeof(ndims), Vector}
+   fault nofact: Tuple{Type{UnionAll}, TypeVar, Type{AbstractArray{var"#s188", 1}}}
+   fault nofact: Tuple{typeof(Base.collect_to_with_first!), Vector, Any, Base.Generator{Vector{Symbol}, DataFrames.var"#_compose_joined_table##0#_compose_joined_table##1"{DataFrames.DataFrameJoiner}}, Int64}
+   <- Tuple{typeof(DataFrames._compose_joined_table), DataFrames.DataFrameJoiner, Symbol, Bool, typeof(identity), typeof(identity), Nothing, Vector{Int64}, Vector{Int64}, Vector{Int64}, 
+   <- Tuple{typeof(collect), Base.Generator{Vector{Symbol}, DataFrames.var"#_compose_joined_table##0#_compose_joined_table##1"{DataFrames.DataFrameJoiner}}}
+   direct callers: 8
+      Tuple{typeof(DataFrames._compose_joined_table), DataFrames.DataFrameJoiner, Symbol, Bool, typeof(identity), typeof(identity), Nothing, Vector{Int64}, Vector{Int
+      Tuple{typeof(DataFrames._compose_joined_table), DataFrames.DataFrameJoiner, Symbol, Bool, typeof(identity), typeof(identity), Nothing, Vector{Int64}, Vector{Int
+      Tuple{typeof(DataFrames._compose_joined_table), DataFrames.DataFrameJoiner, Symbol, Bool, typeof(identity), typeof(identity), Nothing, Vector{Int64}, Vector{Int
+      Tuple{typeof(DataFrames._compose_joined_table), DataFrames.DataFrameJoiner, Symbol, Bool, typeof(identity), typeof(identity), Nothing, Vector{Int64}, Vector{Int
+      Tuple{typeof(DataFrames._compose_joined_table), DataFrames.DataFrameJoiner, Symbol, Bool, Function, Function, Nothing, Vector{Int64}, Vector{Int64}, Vector{Int6
+      Tuple{typeof(DataFrames._compose_joined_table), DataFrames.DataFrameJoiner, Symbol, Bool, Function, Function, Nothing, Vector{Int64}, Vector{Int64}, UnitRange{I
+== other  Tuple{typeof(collect), Base.Generator{Vector{Symbol}, CSV.var"#266#267"}}  (in 3 cones)
+   fault nofact: Tuple{Type{UnionAll}, TypeVar, Type{AbstractArray{var"#s188"<:CSV.ColumnDecision, 1}}}
+   <- Tuple{CSV.var"##settlecolumns#264", Vector{CSV.ValueOpts}, typeof(CSV.settlecolumns), Vector{Symbol}, CSV.ValueOpts, Tables.BoundScan}
+   <- Tuple{typeof(collect), Base.Generator{Vector{Symbol}, CSV.var"#266#267"}}
+   direct callers: 2
+      Tuple{CSV.var"##settlecolumns#264", Vector{CSV.ValueOpts}, typeof(CSV.settlecolumns), Vector{Symbol}, CSV.ValueOpts, Tables.BoundScan}
+      Tuple{CSV.var"##settlecolumns#264", Nothing, typeof(CSV.settlecolumns), Vector{Symbol}, CSV.ValueOpts, Tables.BoundScan}
+== introspection  Tuple{typeof(collect), Base.Generator{UnitRange{Int64}, Base.var"#_ntuple##0#_ntuple##1"{DataFrames.var"#331#332"{DataFrames.ColumnVectors, Base.OneTo{Int64}}}}}  (in 5 cones)
+   fault nofact: Tuple{typeof(Base.indexed_iterate), Tuple{Any, Int64}, Int64}
+   fault nofact: Tuple{typeof(Base.indexed_iterate), Tuple{Any, Int64}, Int64, Int64}
+   fault nofact: Tuple{typeof(Base._array_for_inner), DataType, Base.HasShape{1}, Tuple{Base.OneTo{Int64}}}
+   fault nofact: Tuple{typeof(ndims), Vector}
+   fault nofact: Tuple{Type{UnionAll}, TypeVar, Type{AbstractArray{var"#s188", 1}}}
+   fault nofact: Tuple{typeof(Base.collect_to_with_first!), Vector, Any, Base.Generator{UnitRange{Int64}, Base.var"#_ntuple##0#_ntuple##1"{DataFrames.var"#331#332"{DataFrames.ColumnVectors, Base.OneTo{Int64}}}}, Int64
+   <- Tuple{Type{NamedTuple}, DataFrameRow{DataFrame, DataFrames.Index}}
+   <- Tuple{typeof(ntuple), DataFrames.var"#331#332"{DataFrames.ColumnVectors, Base.OneTo{Int64}}, Int64}
+   <- Tuple{typeof(Base._ntuple), DataFrames.var"#331#332"{DataFrames.ColumnVectors, Base.OneTo{Int64}}, Int64}
+   <- Tuple{typeof(collect), Base.Generator{UnitRange{Int64}, Base.var"#_ntuple##0#_ntuple##1"{DataFrames.var"#331#332"{DataFrames.ColumnVectors, Base.OneTo{Int64}}}}}
+   direct callers: 1
+      Tuple{typeof(Base._ntuple), DataFrames.var"#331#332"{DataFrames.ColumnVectors, Base.OneTo{Int64}}, Int64}
+== introspection  Tuple{typeof(collect), Base.Generator{UnitRange{Int64}, DataFrames.var"#ordering##4#ordering##5"{Vector{Base.Order.Ordering}}}}  (in 9 cones)
+   fault nofact: Tuple{typeof(Base.indexed_iterate), Tuple{Any, Int64}, Int64}
+   fault nofact: Tuple{typeof(Base.indexed_iterate), Tuple{Any, Int64}, Int64, Int64}
+   fault nofact: Tuple{typeof(Base._array_for_inner), DataType, Base.HasShape{1}, Tuple{Base.OneTo{Int64}}}
+   fault nofact: Tuple{typeof(ndims), Vector}
+   fault nofact: Tuple{Type{UnionAll}, TypeVar, Type{AbstractArray{var"#s188", 1}}}
+   fault nofact: Tuple{typeof(Base.collect_to_with_first!), Vector, Any, Base.Generator{UnitRange{Int64}, DataFrames.var"#ordering##4#ordering##5"{Vector{Base.Order.Ordering}}}, Int64}
+   <- Tuple{typeof(DataFrames.ordering), DataFrame, Vector{Symbol}, AbstractVector{S}, AbstractVector{T}, Vector{Bool}, Vector{Base.Order.ForwardOrdering}} where {S<:Function, T<:Functio
+   <- Tuple{typeof(collect), Base.Generator{UnitRange{Int64}, DataFrames.var"#ordering##4#ordering##5"{Vector{Base.Order.Ordering}}}}
+   direct callers: 2
+      Tuple{typeof(DataFrames.ordering), DataFrame, Vector{Symbol}, AbstractVector{S}, AbstractVector{T}, Vector{Bool}, Vector{Base.Order.ForwardOrdering}} where {S<:
+      Tuple{typeof(DataFrames.ordering), DataFrame, Vector{Symbol}, Vector{typeof(isless)}, Vector{typeof(identity)}, Vector{Bool}, Vector{Base.Order.ForwardOrdering}
+== other  Tuple{typeof(collect), Base.Generator{Vector{CSV.ColumnDecision}, CSV.var"#_parse##14#_parse##15"}}  (in 115 cones)
+   fault nofact: Tuple{Type{UnionAll}, TypeVar, Type{AbstractArray{var"#s188"<:Bool, 1}}}
+   <- Tuple{typeof(CSV._parse), Vector{UInt8}, CSV.Dialect, CSV.ValueOpts, Symbol, Union{Nothing, Dict{Type, Type}}, Int64, Bool, Int64, Int64, Symbol, Bool, Bool, Union{Nothing, Int64},
+   <- Tuple{typeof(collect), Base.Generator{Vector{CSV.ColumnDecision}, CSV.var"#_parse##14#_parse##15"}}
+   direct callers: 16
+      Tuple{typeof(CSV._parse), Vector{UInt8}, CSV.Dialect, CSV.ValueOpts, Symbol, Union{Nothing, Dict{Type, Type}}, Int64, Bool, Int64, Int64, Symbol, Bool, Bool, Un
+      Tuple{typeof(CSV._parse), Vector{UInt8}, CSV.Dialect, CSV.ValueOpts, Symbol, Union{Nothing, Dict{Type, Type}}, Int64, Bool, Int64, Int64, Symbol, Bool, Bool, Un
+      Tuple{typeof(CSV._parse), Vector{UInt8}, CSV.Dialect, CSV.ValueOpts, Symbol, Union{Nothing, Dict{Type, Type}}, Int64, Bool, Int64, Int64, Symbol, Bool, Bool, Un
+      Tuple{typeof(CSV._parse), Vector{UInt8}, CSV.Dialect, CSV.ValueOpts, Symbol, Union{Nothing, Dict{Type, Type}}, Int64, Bool, Int64, Int64, Symbol, Bool, Bool, Un
+      Tuple{typeof(CSV._parse), Vector{UInt8}, CSV.Dialect, CSV.ValueOpts, Symbol, Union{Nothing, Dict{Type, Type}}, Int64, Bool, Int64, Int64, Symbol, Bool, Bool, Un
+      Tuple{typeof(CSV._parse), Vector{UInt8}, CSV.Dialect, CSV.ValueOpts, Symbol, Union{Nothing, Dict{Type, Type}}, Int64, Bool, Int64, Int64, Symbol, Bool, Bool, Un
+== other  Tuple{typeof(collect), Base.Generator{Vector{Symbol}, Tables.var"#11#12"}}  (in 1 cones)
+   fault nofact: Tuple{Type{UnionAll}, TypeVar, Type{AbstractArray{var"#s188"<:Symbol, 1}}}
+   <- Tuple{typeof(Tables.schema), CSV.ParsedTable}
+   <- Tuple{Type{Tables.Schema}, Vector{Symbol}, Vector{Type}}
+   <- Tuple{Tables.var"##Schema#9", Bool, Type{Tables.Schema}, Vector{Symbol}, Vector{Type}}
+   <- Tuple{typeof(collect), Base.Generator{Vector{Symbol}, Tables.var"#11#12"}}
+   direct callers: 1
+      Tuple{Tables.var"##Schema#9", Bool, Type{Tables.Schema}, Vector{Symbol}, Vector{Type}}
+== other  Tuple{typeof(collect), Base.Generator{PooledArrays.PooledVector{String, UInt32, Vector{UInt32}}, DataFrames.var"#map2refs##2#map2refs##3"{Dict{String, UInt32}}}}  (in 1 cones)
+   fault nofact: Tuple{Type{UnionAll}, TypeVar, Type{AbstractArray{var"#s188"<:Union{Missing, UInt32}, 1}}}
+   <- Tuple{typeof(DataFrames.map2refs), PooledArrays.PooledVector{String, UInt32, Vector{UInt32}}, Dict{String, UInt32}}
+   <- Tuple{typeof(collect), Base.Generator{PooledArrays.PooledVector{String, UInt32, Vector{UInt32}}, DataFrames.var"#map2refs##2#map2refs##3"{Dict{String, UInt32}}}}
+   direct callers: 1
+      Tuple{typeof(DataFrames.map2refs), PooledArrays.PooledVector{String, UInt32, Vector{UInt32}}, Dict{String, UInt32}}
+== other  Tuple{typeof(collect), Base.Generator{Vector{Tables.BoundColumn}, CSV.var"#_project##2#_project##3"}}  (in 1 cones)
+   fault nofact: Tuple{Type{UnionAll}, TypeVar, Type{AbstractArray{var"#s188"<:Symbol, 1}}}
+   <- Tuple{typeof(CSV._project), CSV.ParsedTable, Tables.BoundScan, Vector{Symbol}}
+   <- Tuple{typeof(collect), Base.Generator{Vector{Tables.BoundColumn}, CSV.var"#_project##2#_project##3"}}
+   direct callers: 1
+      Tuple{typeof(CSV._project), CSV.ParsedTable, Tables.BoundScan, Vector{Symbol}}
+== type_join  Tuple{typeof(Base.typejoin_union_tuple), Type{Tuple{Int64, Symbol}}}  (in 483 cones)
+   fault nofact: Tuple{typeof(setindex!), Vector{Any}, Any, Int64}
+   <- Tuple{typeof(DataFrames.fuzzymatch), Dict{Symbol, Int64}, Symbol}
+   <- Tuple{typeof(collect), Base.Generator{Base.KeySet{Symbol, Dict{Symbol, Int64}}, DataFrames.var"#fuzzymatch##0#fuzzymatch##1"{String}}}
+   <- Tuple{typeof(Base.promote_typejoin_union), Type{Tuple{Int64, Symbol}}}
+   <- Tuple{typeof(Base.typejoin_union_tuple), Type{Tuple{Int64, Symbol}}}
+   direct callers: 1
+      Tuple{typeof(Base.promote_typejoin_union), Type{Tuple{Int64, Symbol}}}
+== other  Tuple{typeof(collect), Base.Generator{Vector{Symbol}, DataFrames.var"#34#35"{DataFrames.Index}}}  (in 103 cones)
+   fault nofact: Tuple{Type{UnionAll}, TypeVar, Type{AbstractArray{var"#s188"<:Int64, 1}}}
+   <- Tuple{typeof(getindex), DataFrames.Index, Vector{Symbol}}
+   <- Tuple{typeof(collect), Base.Generator{Vector{Symbol}, DataFrames.var"#34#35"{DataFrames.Index}}}
+   direct callers: 1
+      Tuple{typeof(getindex), DataFrames.Index, Vector{Symbol}}
+== other  Tuple{typeof(collect), Base.Generator{String, DataFrames.var"#_norm_eq##2#_norm_eq##3"}}  (in 484 cones)
+   fault nofact: Tuple{Type{UnionAll}, TypeVar, Type{AbstractArray{var"#s188"<:Char, 1}}}
+   <- Tuple{typeof(DataFrames._norm_eq), String, String, Symbol}
+   <- Tuple{typeof(collect), Base.Generator{String, DataFrames.var"#_norm_eq##2#_norm_eq##3"}}
+   direct callers: 1
+      Tuple{typeof(DataFrames._norm_eq), String, String, Symbol}
+== other  Tuple{typeof(collect), Base.Generator{Base.KeySet{Symbol, Dict{Symbol, Int64}}, DataFrames.var"#fuzzymatch##0#fuzzymatch##1"{String}}}  (in 483 cones)
+   fault nofact: Tuple{Type{UnionAll}, TypeVar, Type{AbstractArray{var"#s188"<:Tuple{Int64, Symbol}, 1}}}
+   <- Tuple{typeof(DataFrames.fuzzymatch), Dict{Symbol, Int64}, Symbol}
+   <- Tuple{typeof(collect), Base.Generator{Base.KeySet{Symbol, Dict{Symbol, Int64}}, DataFrames.var"#fuzzymatch##0#fuzzymatch##1"{String}}}
+   direct callers: 1
+      Tuple{typeof(DataFrames.fuzzymatch), Dict{Symbol, Int64}, Symbol}
+== introspection  Tuple{typeof(collect), Base.Generator{Vector{Int64}, DataFrames.var"#693#694"{DataFrame, Int64}}}  (in 5 cones)
+   fault nofact: Tuple{typeof(Base.indexed_iterate), Tuple{Any, Int64}, Int64}
+   fault nofact: Tuple{typeof(Base.indexed_iterate), Tuple{Any, Int64}, Int64, Int64}
+   fault nofact: Tuple{typeof(Base._array_for_inner), DataType, Base.HasShape{1}, Tuple{Base.OneTo{Int64}}}
+   fault nofact: Tuple{typeof(ndims), Vector}
+   fault nofact: Tuple{Type{UnionAll}, TypeVar, Type{AbstractArray{var"#s188", 1}}}
+   fault nofact: Tuple{typeof(Base.collect_to_with_first!), Vector, Any, Base.Generator{Vector{Int64}, DataFrames.var"#693#694"{DataFrame, Int64}}, Int64}
+   <- Tuple{DataFrames.var"##stack#688", Symbol, Symbol, Bool, Type{String}, typeof(stack), DataFrame, Vector{Int64}, InvertedIndex{Vector{Int64}}}
+   <- Tuple{typeof(collect), Base.Generator{Vector{Int64}, DataFrames.var"#693#694"{DataFrame, Int64}}}
+   direct callers: 2
+      Tuple{DataFrames.var"##stack#688", Symbol, Symbol, Bool, Type{String}, typeof(stack), DataFrame, Vector{Int64}, InvertedIndex{Vector{Int64}}}
+      Tuple{DataFrames.var"##stack#688", Symbol, Symbol, Bool, Type, typeof(stack), DataFrame, Vector{Int64}, InvertedIndex{Vector{Int64}}}
+== introspection  Tuple{typeof(collect), Base.Generator{UnitRange{Int64}, Base.var"#_ntuple##0#_ntuple##1"{DataFrames.var"#433#434"{GroupedDataFrame{DataFrame}}}}}  (in 133 cones)
+   fault nofact: Tuple{typeof(Base.indexed_iterate), Tuple{AbstractVector, Int64}, Int64}
+   fault nofact: Tuple{typeof(Base.indexed_iterate), Tuple{AbstractVector, Int64}, Int64, Int64}
+   fault nofact: Tuple{typeof(Base._array_for_inner), Type{<:AbstractVector{T}} where T, Base.HasShape{1}, Tuple{Base.OneTo{Int64}}}
+   fault nofact: Tuple{typeof(ndims), Vector}
+   fault nofact: Tuple{Type{UnionAll}, TypeVar, Type{AbstractArray{var"#s188", 1}}}
+   fault nofact: Tuple{typeof(Base.collect_to_with_first!), Vector, AbstractVector, Base.Generator{UnitRange{Int64}, Base.var"#_ntuple##0#_ntuple##1"{DataFrames.var"#433#434"{GroupedDataFrame{DataFrame}}}}, Int64}
+   <- Tuple{DataFrames.var"#431#432"{GroupedDataFrame{DataFrame}, Symbol}}
+   <- Tuple{typeof(ntuple), DataFrames.var"#433#434"{GroupedDataFrame{DataFrame}}, Int64}
+   <- Tuple{typeof(Base._ntuple), DataFrames.var"#433#434"{GroupedDataFrame{DataFrame}}, Int64}
+   <- Tuple{typeof(collect), Base.Generator{UnitRange{Int64}, Base.var"#_ntuple##0#_ntuple##1"{DataFrames.var"#433#434"{GroupedDataFrame{DataFrame}}}}}
+   direct callers: 1
+      Tuple{typeof(Base._ntuple), DataFrames.var"#433#434"{GroupedDataFrame{DataFrame}}, Int64}
+== other  Tuple{typeof(collect), Base.Generator{Vector{Symbol}, CSV.var"#163#164"}}  (in 95 cones)
+   fault nofact: Tuple{Type{UnionAll}, TypeVar, Type{AbstractArray{var"#s188"<:Symbol, 1}}}
+   <- Tuple{CSV.var"##_transposedfile#152", Nothing, Bool, Bool, Type, Symbol, Int64, Bool, Nothing, Nothing, Char, Bool, Nothing, Bool, Bool, Nothing, Bool, Bool, Base.Pairs{Symbol, Uni
+   <- Tuple{typeof(collect), Base.Generator{Vector{Symbol}, CSV.var"#163#164"}}
+   direct callers: 31
+      Tuple{CSV.var"##_transposedfile#152", Nothing, Bool, Bool, Type, Symbol, Int64, Bool, Nothing, Nothing, Char, Bool, Nothing, Bool, Bool, Nothing, Bool, Bool, Ba
+      Tuple{CSV.var"##_transposedfile#152", Nothing, Bool, Bool, Type{String}, Symbol, Int64, Bool, Nothing, Nothing, Char, Bool, Nothing, Bool, Bool, Nothing, Bool, 
+      Tuple{CSV.var"##_transposedfile#152", Nothing, Bool, Bool, Type{DataStrings.DataString}, Symbol, Int64, Bool, Nothing, Nothing, Char, Bool, Nothing, Bool, Bool,
+      Tuple{CSV.var"##_transposedfile#152", Nothing, Bool, Bool, Type, Symbol, Int64, Bool, Nothing, Nothing, Char, Bool, Nothing, Bool, Bool, Nothing, Bool, Bool, Ba
+      Tuple{CSV.var"##_transposedfile#152", Nothing, Bool, Bool, Type{DataStrings.DataString}, Symbol, Int64, Bool, Nothing, Nothing, Char, Bool, Nothing, Bool, Bool,
+      Tuple{CSV.var"##_transposedfile#152", Nothing, Bool, Bool, Type{InlineStrings.InlineString}, Symbol, Int64, Bool, Nothing, Nothing, Char, Bool, Nothing, Bool, B
+== introspection  Tuple{typeof(collect), Base.Generator{DataFrames.DataFrameColumns{DataFrame}, typeof(identity)}}  (in 2 cones)
+   fault nofact: Tuple{typeof(Base.indexed_iterate), Tuple{AbstractVector, Int64}, Int64}
+   fault nofact: Tuple{typeof(Base.indexed_iterate), Tuple{AbstractVector, Int64}, Int64, Int64}
+   fault nofact: Tuple{typeof(Base._array_for_inner), Type{<:AbstractVector{T}} where T, Base.HasShape{1}, Tuple{Base.OneTo{Int64}}}
+   fault nofact: Tuple{typeof(ndims), Vector}
+   fault nofact: Tuple{Type{UnionAll}, TypeVar, Type{AbstractArray{var"#s188", 1}}}
+   fault nofact: Tuple{typeof(Base.collect_to_with_first!), Vector, AbstractVector, Base.Generator{DataFrames.DataFrameColumns{DataFrame}, typeof(identity)}, Int64}
+   <- Tuple{typeof(DataFrames.table_transformation), DataFrame, ByRow{typeof(sum)}}
+   <- Tuple{typeof(map), typeof(identity), DataFrames.DataFrameColumns{DataFrame}}
+   <- Tuple{typeof(collect), Base.Generator{DataFrames.DataFrameColumns{DataFrame}, typeof(identity)}}
+   direct callers: 1
+      Tuple{typeof(map), typeof(identity), DataFrames.DataFrameColumns{DataFrame}}
+== error_path  Tuple{typeof(collect), Base.Generator{Nothing, Type{T}} where T}  (in 4 cones)
+   fault nofact: Tuple{typeof(getproperty), Base.Generator{Nothing, Type{T}} where T, Symbol}
+   fault nofact: Tuple{typeof(Base.promote_typejoin_union), Type}
+   fault nofact: Tuple{typeof(Base._similar_shape), Base.Generator{Nothing, Type{T}} where T, Base.HasLength}
+   <- Tuple{typeof(DataFrames.default_table_transformation), DataFrame, ByRow{typeof(Statistics.mean)}}
+   <- Tuple{typeof(Tables.columntable), DataFrame}
+   <- Tuple{typeof(Tables.columntable), Tables.Schema{nothing, nothing}, DataFrames.DataFrameColumns{DataFrame}}
+   <- Tuple{typeof(map), Type, Nothing}
+   <- Tuple{typeof(collect), Base.Generator{Nothing, Type{T}} where T}
+   direct callers: 1
+      Tuple{typeof(map), Type, Nothing}
+== other  Tuple{typeof(collect), Base.Generator{Vector{Symbol}, Tables.var"#11#12"}}  (in 0 cones)
+   fault nofact: Tuple{Type{UnionAll}, TypeVar, Type{AbstractArray{var"#s188"<:Symbol, 1}}}
+   direct callers: 1
+      Tuple{Tables.var"##Schema#9", Bool, Type{Tables.Schema}, Vector{Symbol}, Vector{DataType}}
+== introspection  Tuple{typeof(collect), Base.Generator{Vector{Int64}, DataFrames.var"#695#696"{DataFrame}}}  (in 5 cones)
+   fault nofact: Tuple{typeof(Base.indexed_iterate), Tuple{AbstractVector, Int64}, Int64}
+   fault nofact: Tuple{typeof(Base.indexed_iterate), Tuple{AbstractVector, Int64}, Int64, Int64}
+   fault nofact: Tuple{typeof(Base._array_for_inner), Type{<:AbstractVector{T}} where T, Base.HasShape{1}, Tuple{Base.OneTo{Int64}}}
+   fault nofact: Tuple{typeof(ndims), Vector}
+   fault nofact: Tuple{Type{UnionAll}, TypeVar, Type{AbstractArray{var"#s188", 1}}}
+   fault nofact: Tuple{typeof(Base.collect_to_with_first!), Vector, AbstractVector, Base.Generator{Vector{Int64}, DataFrames.var"#695#696"{DataFrame}}, Int64}
+   <- Tuple{DataFrames.var"##stack#688", Symbol, Symbol, Bool, Type{String}, typeof(stack), DataFrame, Vector{Int64}, InvertedIndex{Vector{Int64}}}
+   <- Tuple{typeof(collect), Base.Generator{Vector{Int64}, DataFrames.var"#695#696"{DataFrame}}}
+   direct callers: 2
+      Tuple{DataFrames.var"##stack#688", Symbol, Symbol, Bool, Type{String}, typeof(stack), DataFrame, Vector{Int64}, InvertedIndex{Vector{Int64}}}
+      Tuple{DataFrames.var"##stack#688", Symbol, Symbol, Bool, Type, typeof(stack), DataFrame, Vector{Int64}, InvertedIndex{Vector{Int64}}}
+# done rc 0 | 3 s | 2026-11-22T20:15:09+01:00 | load-after 7.89 9.52 9.57

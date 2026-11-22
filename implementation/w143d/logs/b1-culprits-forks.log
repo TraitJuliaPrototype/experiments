@@ -1,0 +1,66 @@
+# W-143d b1-culprits forks diag/culprit.jl Base.notify Base.close Base.sync_end Base.typejoin_union_tuple Base._promote_typejoin_union Base.promote_typejoin_union | 2026-11-22T19:44:44+01:00 | load-before 14.83 13.01 9.61
+# wt/w143-julia 09cc082278 (binary 09cc082278*) | TraitWorld e2cb5d02c1 | forks a3a37d6b5e | TraitDifferentialEquations 21a5aa57cf | experiments 927f32d7d7
+# product setting, strict mode off, one thread, one fresh process; depot /p/projects/coen/julia-trait-bound/.julia-depot/agent-depots/w143d/w143-julia before the shared one
+== type_join  Tuple{typeof(Base.typejoin_union_tuple), Type{Tuple{Int64, Symbol}}}  (in 483 cones)
+   fault nofact: Tuple{typeof(Base._promote_typejoin_union), Any}
+   fault nofact: Tuple{typeof(setindex!), Vector{Any}, Any, Int64}
+   <- Tuple{typeof(DataFrames.fuzzymatch), Dict{Symbol, Int64}, Symbol}
+   <- Tuple{typeof(collect), Base.Generator{Base.KeySet{Symbol, Dict{Symbol, Int64}}, DataFrames.var"#fuzzymatch##0#fuzzymatch##1"{String}}}
+   <- Tuple{typeof(Base.promote_typejoin_union), Type{Tuple{Int64, Symbol}}}
+   <- Tuple{typeof(Base.typejoin_union_tuple), Type{Tuple{Int64, Symbol}}}
+   direct callers: 1
+      Tuple{typeof(Base.promote_typejoin_union), Type{Tuple{Int64, Symbol}}}
+== cycle_or_unset  Tuple{typeof(Base._promote_typejoin_union), Any}  (in 483 cones)
+   <- Tuple{typeof(DataFrames.fuzzymatch), Dict{Symbol, Int64}, Symbol}
+   <- Tuple{typeof(collect), Base.Generator{Base.KeySet{Symbol, Dict{Symbol, Int64}}, DataFrames.var"#fuzzymatch##0#fuzzymatch##1"{String}}}
+   <- Tuple{typeof(Base.promote_typejoin_union), Type{Tuple{Int64, Symbol}}}
+   <- Tuple{typeof(Base.typejoin_union_tuple), Type{Tuple{Int64, Symbol}}}
+   <- Tuple{typeof(Base._promote_typejoin_union), Any}
+   direct callers: 2
+      Tuple{typeof(Base.typejoin_union_tuple), Type{Tuple{Int64, Symbol}}}
+      Tuple{typeof(Base.promote_typejoin_union), Type}
+== task_lock  Tuple{typeof(Base.sync_end), Channel{Any}}  (in 833 cones)
+   fault nofact: Tuple{typeof(push!), CompositeException, Any}
+   fault nofact: Tuple{typeof(push!), Vector{Any}, Any}
+   <- Tuple{typeof(DataFrames._threaded_getindex), UnitRange{Int64}, UnitRange{Int64}, DataFrames.ColumnVectors, DataFrames.Index}
+   <- Tuple{typeof(Base.sync_end), Channel{Any}}
+   direct callers: 87
+      Tuple{typeof(DataFrames._threaded_getindex), UnitRange{Int64}, UnitRange{Int64}, DataFrames.ColumnVectors, DataFrames.Index}
+      Tuple{DataFrames.var"#_#186#188", Bool, Type{DataFrame}, Vector{AbstractVector}, DataFrames.Index}
+      Tuple{typeof(CSV._taskforeach), Function, UnitRange{Int64}, Int64, Nothing}
+      Tuple{typeof(CSV._taskforeach), CSV.var"#_rowranges##0#_rowranges##1"{_A, Int64, Int64} where _A, UnitRange{Int64}, Int64, Nothing}
+      Tuple{typeof(CSV._taskforeach), CSV.var"#178#179", Any, Int64, Nothing}
+      Tuple{typeof(CSV._taskforeach), CSV.var"#176#177"{_A, Base.Threads.Atomic{Bool}} where _A, Any, Int64, Nothing}
+== task_lock  Tuple{typeof(close), Channel{Any}, Exception}  (in 837 cones)
+   fault nofact: Tuple{typeof(Base.notify_error), Base.GenericCondition{ReentrantLock}, Exception}
+   <- Tuple{typeof(DataFrames._threaded_getindex), UnitRange{Int64}, UnitRange{Int64}, DataFrames.ColumnVectors, DataFrames.Index}
+   <- Tuple{typeof(Base.sync_end), Channel{Any}}
+   <- Tuple{typeof(close), Channel{Any}}
+   <- Tuple{typeof(close), Channel{Any}, Exception}
+   direct callers: 1
+      Tuple{typeof(close), Channel{Any}}
+== type_join  Tuple{typeof(Base.promote_typejoin_union), Type}  (in 4 cones)
+   fault nofact: Tuple{typeof(Base._promote_typejoin_union), Any}
+   <- Tuple{typeof(DataFrames.default_table_transformation), DataFrame, ByRow{typeof(sum)}}
+   <- Tuple{typeof(Tables.columntable), DataFrame}
+   <- Tuple{typeof(Tables.columntable), Tables.Schema{nothing, nothing}, DataFrames.DataFrameColumns{DataFrame}}
+   <- Tuple{typeof(map), Type, Nothing}
+   <- Tuple{typeof(collect), Base.Generator{Nothing, Type{T}} where T}
+   <- Tuple{typeof(Base.promote_typejoin_union), Type}
+   direct callers: 2
+      Tuple{typeof(collect), Base.Generator{Nothing, Type{T}} where T}
+      Tuple{typeof(collect), Base.Generator{Nothing, Type{T}} where T}
+== by_instance  Tuple{typeof(notify), Base.GenericCondition{Base.Threads.SpinLock}, Nothing, Bool, Bool}  (in 1000 cones)
+   fault mi: MethodInstance for Base._schedule(::Task, ::Any, ::Bool)
+      its code: bit true, facts false, rettype Task
+   <- Tuple{typeof(CSV._adoptbuffer!), CSV.StringColumn, Vector{UInt8}}
+   <- Tuple{typeof(unlock), ReentrantLock}
+   <- Tuple{Base.var"#_unlock#unlock##0", ReentrantLock}
+   <- Tuple{Base.var"#notifywaiters#unlock##1", ReentrantLock}
+   <- Tuple{typeof(Core.kwcall), @NamedTuple{all::Bool}, typeof(notify), Base.GenericCondition{Base.Threads.SpinLock}}
+   <- Tuple{typeof(Core.kwcall), @NamedTuple{all::Bool}, typeof(notify), Base.GenericCondition{Base.Threads.SpinLock}, Nothing}
+   <- Tuple{Base.var"##notify#395", Bool, Bool, typeof(notify), Base.GenericCondition{Base.Threads.SpinLock}, Nothing}
+   <- Tuple{typeof(notify), Base.GenericCondition{Base.Threads.SpinLock}, Nothing, Bool, Bool}
+   direct callers: 1
+      Tuple{Base.var"##notify#395", Bool, Bool, typeof(notify), Base.GenericCondition{Base.Threads.SpinLock}, Nothing}
+# done rc 0 | 4 s | 2026-11-22T19:44:49+01:00 | load-after 14.83 13.01 9.61
