@@ -6,7 +6,7 @@
 #     bash trees.sh            # makes what is missing, then lists every tree of B with its commit
 #     bash trees.sh --list     # lists only
 set -u
-R=$(cd "$(dirname "$0")/../../../.." && pwd); T=$R/wt/w159-tag
+R=$(cd "$(dirname "$0")/../../.." && pwd); T=$R/wt/w159-tag
 if [ "${1:-}" != --list ]; then
   mkdir -p "$T"
   for r in TraitTables TraitCSV TraitReport forks; do
