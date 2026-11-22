@@ -1,0 +1,291 @@
+== a10552facc load 11.82 12.42 12.46 10/59654 3612082
+PASS m2_abstract_query.jl
+PASS m2_ambiguity_arity.jl
+PASS m2_ambiguity_called_before.jl
+PASS m2_ambiguity_declared_super.jl
+PASS m2_ambiguity_predates.jl
+PASS m2_ambiguity_report.jl
+PASS m2_closed_open_order.jl
+PASS m2_dispatch_worlds.jl
+PASS m2_future_min_worlds.jl
+PASS m2_parametric_replay.jl
+PASS m2_post_declare_infer.jl
+PASS m2_query_world_task.jl
+PASS m2_set_in_set.jl
+PASS m2_set_query_split.jl
+PASS m2_stale_caller.jl
+PASS m2_typemap_linear.jl
+PASS m2_union_normal_form.jl
+PASS m2_vararg_union_worlds.jl
+PASS m2_volume.jl
+gates: 19 passed, 0 failed
+PASS n10_inputs.jl
+FAIL n11_late_shadow.jl (exit 1)
+    ERROR: LoadError: could not load symbol "jl_method_set_declared_result":
+    /p/projects/coen/julia-trait-bound/wt/w19-julia/usr/bin/../lib/libjulia-internal.so.1.13: undefined symbol: jl_method_set_declared_result
+    Stacktrace:
+     [1] top-level scope
+       @ /p/projects/coen/julia-trait-bound/experiments/implementation/gates/n11_late_shadow.jl:41
+     [2] include(mod::Module, _path::String)
+       @ Base ./Base.jl:309
+     [3] exec_options(opts::Base.JLOptions)
+       @ Base ./client.jl:344
+     [4] _start()
+       @ Base ./client.jl:577
+    in expression starting at /p/projects/coen/julia-trait-bound/experiments/implementation/gates/n11_late_shadow.jl:41
+PASS n12_image_instances.jl
+FAIL n13_attribute_free_vars.jl (exit 1)
+    ERROR: LoadError: UndefVarError: `Callable` not defined in `Core`
+    Suggestion: check for spelling errors or missing imports.
+    Stacktrace:
+     [1] getproperty(x::Module, f::Symbol)
+       @ Base ./Base_compiler.jl:50
+     [2] top-level scope
+       @ /p/projects/coen/julia-trait-bound/experiments/implementation/gates/n13_attribute_free_vars.jl:11
+     [3] include(mod::Module, _path::String)
+       @ Base ./Base.jl:309
+     [4] exec_options(opts::Base.JLOptions)
+       @ Base ./client.jl:344
+     [5] _start()
+       @ Base ./client.jl:577
+    in expression starting at /p/projects/coen/julia-trait-bound/experiments/implementation/gates/n13_attribute_free_vars.jl:11
+FAIL n14_callable_args.jl (exit 1)
+    ERROR: LoadError: UndefVarError: `Callable` not defined in `Core`
+    Suggestion: check for spelling errors or missing imports.
+    Stacktrace:
+     [1] getproperty(x::Module, f::Symbol)
+       @ Base ./Base_compiler.jl:50
+     [2] top-level scope
+       @ /p/projects/coen/julia-trait-bound/experiments/implementation/gates/n14_callable_args.jl:11
+     [3] include(mod::Module, _path::String)
+       @ Base ./Base.jl:309
+     [4] exec_options(opts::Base.JLOptions)
+       @ Base ./client.jl:344
+     [5] _start()
+       @ Base ./client.jl:577
+    in expression starting at /p/projects/coen/julia-trait-bound/experiments/implementation/gates/n14_callable_args.jl:11
+PASS n15_image_policy.jl
+FAIL n16_declared_result.jl (exit 1)
+    ERROR: LoadError: AssertionError: dr(a1, (Int,)) === Float64
+    Stacktrace:
+     [1] top-level scope
+       @ /p/projects/coen/julia-trait-bound/experiments/implementation/gates/n16_declared_result.jl:32
+     [2] include(mod::Module, _path::String)
+       @ Base ./Base.jl:309
+     [3] exec_options(opts::Base.JLOptions)
+       @ Base ./client.jl:344
+     [4] _start()
+       @ Base ./client.jl:577
+    in expression starting at /p/projects/coen/julia-trait-bound/experiments/implementation/gates/n16_declared_result.jl:32
+PASS n17_rtsite_targets.jl
+FAIL n18_closed_after_load.jl (exit 1)
+    ERROR: LoadError: could not load symbol "jl_module_is_loaded":
+    /p/projects/coen/julia-trait-bound/wt/w19-julia/usr/bin/../lib/libjulia-internal.so.1.13: undefined symbol: jl_module_is_loaded
+    Stacktrace:
+     [1] loaded(m::Module)
+       @ Main /p/projects/coen/julia-trait-bound/experiments/implementation/gates/n18_closed_after_load.jl:16
+     [2] top-level scope
+       @ /p/projects/coen/julia-trait-bound/experiments/implementation/gates/n18_closed_after_load.jl:19
+     [3] include(mod::Module, _path::String)
+       @ Base ./Base.jl:309
+     [4] exec_options(opts::Base.JLOptions)
+       @ Base ./client.jl:344
+     [5] _start()
+       @ Base ./client.jl:577
+    in expression starting at /p/projects/coen/julia-trait-bound/experiments/implementation/gates/n18_closed_after_load.jl:19
+FAIL n19_io_trait.jl (exit 1)
+    ERROR: LoadError: could not load symbol "jl_has_contract":
+    /p/projects/coen/julia-trait-bound/wt/w19-julia/usr/bin/../lib/libjulia-internal.so.1.13: undefined symbol: jl_has_contract
+    Stacktrace:
+     [1] top-level scope
+       @ /p/projects/coen/julia-trait-bound/experiments/implementation/gates/n19_io_trait.jl:21
+     [2] include(mod::Module, _path::String)
+       @ Base ./Base.jl:309
+     [3] exec_options(opts::Base.JLOptions)
+       @ Base ./client.jl:344
+     [4] _start()
+       @ Base ./client.jl:577
+    in expression starting at /p/projects/coen/julia-trait-bound/experiments/implementation/gates/n19_io_trait.jl:21
+FAIL n20_unmet_lookup.jl (exit 1)
+    ERROR: LoadError: could not load symbol "jl_set_closed_after_load":
+    /p/projects/coen/julia-trait-bound/wt/w19-julia/usr/bin/../lib/libjulia-internal.so.1.13: undefined symbol: jl_set_closed_after_load
+    Stacktrace:
+     [1] top-level scope
+       @ /p/projects/coen/julia-trait-bound/experiments/implementation/gates/n20_unmet_lookup.jl:36
+     [2] include(mod::Module, _path::String)
+       @ Base ./Base.jl:309
+     [3] exec_options(opts::Base.JLOptions)
+       @ Base ./client.jl:344
+     [4] _start()
+       @ Base ./client.jl:577
+    in expression starting at /p/projects/coen/julia-trait-bound/experiments/implementation/gates/n20_unmet_lookup.jl:36
+PASS n21_callsig_backedge.jl
+FAIL n22_declared_assert.jl (exit 1)
+    ERROR: LoadError: could not load symbol "jl_method_set_declared_result":
+    /p/projects/coen/julia-trait-bound/wt/w19-julia/usr/bin/../lib/libjulia-internal.so.1.13: undefined symbol: jl_method_set_declared_result
+    Stacktrace:
+     [1] top-level scope
+       @ /p/projects/coen/julia-trait-bound/experiments/implementation/gates/n22_declared_assert.jl:16
+     [2] include(mod::Module, _path::String)
+       @ Base ./Base.jl:309
+     [3] exec_options(opts::Base.JLOptions)
+       @ Base ./client.jl:344
+     [4] _start()
+       @ Base ./client.jl:577
+    in expression starting at /p/projects/coen/julia-trait-bound/experiments/implementation/gates/n22_declared_assert.jl:16
+FAIL n23_contract_image.jl (exit 1)
+    ERROR: LoadError: could not load symbol "jl_method_set_declared_result":
+    /p/projects/coen/julia-trait-bound/wt/w19-julia/usr/bin/../lib/libjulia-internal.so.1.13: undefined symbol: jl_method_set_declared_result
+    Stacktrace:
+     [1] top-level scope
+       @ /p/projects/coen/julia-trait-bound/experiments/implementation/gates/n23_contract_image.jl:20
+     [2] include(mod::Module, _path::String)
+       @ Base ./Base.jl:309
+     [3] exec_options(opts::Base.JLOptions)
+       @ Base ./client.jl:344
+     [4] _start()
+       @ Base ./client.jl:577
+    in expression starting at /p/projects/coen/julia-trait-bound/experiments/implementation/gates/n23_contract_image.jl:20
+PASS n24_hook_compile_queue.jl
+PASS n25_image_before_set_method.jl
+FAIL n26_callable_late_method.jl (exit 1)
+        @ Base ./client.jl:577
+    in expression starting at /p/projects/coen/julia-trait-bound/TraitWorld/src/dynamic.jl:5
+    in expression starting at /p/projects/coen/julia-trait-bound/TraitWorld/src/TraitWorld.jl:1
+    in expression starting at stdin:5
+    
+      1 dependency had output during precompilation:
+    ┌ TraitWorld
+    │  [Output was shown above]
+    └  
+    ERROR: LoadError: The following 1 package failed to precompile:
+    
+    TraitWorld 
+    Failed to precompile TraitWorld [7a3c1e52-9b4d-4f6e-8a21-5d0c3b9e7f14] to "/p/projects/coen/julia-trait-bound/.julia-depot/agent-depots/w19/compiled/v1.13/TraitWorld/jl_axM6Zl" (ProcessExited(1)).
+    
+    in expression starting at /p/projects/coen/julia-trait-bound/experiments/implementation/gates/n26_callable_late_method.jl:10
+PASS n27_invariant_parameter.jl
+PASS n28_wide_caller.jl
+PASS n29_membership_method.jl
+PASS n2_all_dispatch.jl
+PASS n2_all_form.jl
+PASS n2_all_probe.jl
+PASS n2_all_rank.jl
+PASS n2_open_abstract.jl
+PASS n2_set_order_late.jl
+FAIL n30_where_variable.jl (exit 1)
+    ERROR: LoadError: UndefVarError: `Dynamic` not defined in `Core`
+    Suggestion: check for spelling errors or missing imports.
+    Stacktrace:
+     [1] getproperty(x::Module, f::Symbol)
+       @ Base ./Base_compiler.jl:50
+     [2] top-level scope
+       @ /p/projects/coen/julia-trait-bound/experiments/implementation/gates/n30_where_variable.jl:12
+     [3] include(mod::Module, _path::String)
+       @ Base ./Base.jl:309
+     [4] exec_options(opts::Base.JLOptions)
+       @ Base ./client.jl:344
+     [5] _start()
+       @ Base ./client.jl:577
+    in expression starting at /p/projects/coen/julia-trait-bound/experiments/implementation/gates/n30_where_variable.jl:12
+PASS n31_isa_narrows.jl
+PASS n32_nested_set.jl
+FAIL n33_compiled_as_julia.jl (exit 1)
+    ERROR: LoadError: UndefVarError: `Dynamic` not defined in `Core`
+    Suggestion: check for spelling errors or missing imports.
+    Stacktrace:
+     [1] getproperty(x::Module, f::Symbol)
+       @ Base ./Base_compiler.jl:50
+     [2] top-level scope
+       @ /p/projects/coen/julia-trait-bound/experiments/implementation/gates/n33_compiled_as_julia.jl:19
+     [3] include(mod::Module, _path::String)
+       @ Base ./Base.jl:309
+     [4] exec_options(opts::Base.JLOptions)
+       @ Base ./client.jl:344
+     [5] _start()
+       @ Base ./client.jl:577
+    in expression starting at /p/projects/coen/julia-trait-bound/experiments/implementation/gates/n33_compiled_as_julia.jl:19
+FAIL n34_closed_invoke_compiled.jl (exit 1)
+      get_verify_typeinf_trim(::Vector{Any})
+       @ Base /p/projects/coen/julia-trait-bound/wt/w19-julia/usr/share/julia/Compiler/src/verifytrim.jl:440
+    
+    Stacktrace:
+     [1] refused(list::Vector{Any})
+       @ Main /p/projects/coen/julia-trait-bound/experiments/implementation/gates/n34_closed_invoke_compiled.jl:34
+     [2] top-level scope
+       @ /p/projects/coen/julia-trait-bound/experiments/implementation/gates/n34_closed_invoke_compiled.jl:37
+     [3] include(mod::Module, _path::String)
+       @ Base ./Base.jl:309
+     [4] exec_options(opts::Base.JLOptions)
+       @ Base ./client.jl:344
+     [5] _start()
+       @ Base ./client.jl:577
+    in expression starting at /p/projects/coen/julia-trait-bound/experiments/implementation/gates/n34_closed_invoke_compiled.jl:37
+FAIL n35_trusted_result.jl (exit 1)
+        @ Base ./client.jl:577
+    in expression starting at /p/projects/coen/julia-trait-bound/TraitWorld/src/dynamic.jl:5
+    in expression starting at /p/projects/coen/julia-trait-bound/TraitWorld/src/TraitWorld.jl:1
+    in expression starting at stdin:5
+    
+      1 dependency had output during precompilation:
+    ┌ TraitWorld
+    │  [Output was shown above]
+    └  
+    ERROR: LoadError: The following 1 package failed to precompile:
+    
+    TraitWorld 
+    Failed to precompile TraitWorld [7a3c1e52-9b4d-4f6e-8a21-5d0c3b9e7f14] to "/p/projects/coen/julia-trait-bound/.julia-depot/agent-depots/w19/compiled/v1.13/TraitWorld/jl_8i9hox" (ProcessExited(1)).
+    
+    in expression starting at /p/projects/coen/julia-trait-bound/experiments/implementation/gates/n35_trusted_result.jl:18
+FAIL n36_library_deep.jl (exit 1)
+    in expression starting at /p/projects/coen/julia-trait-bound/TraitWorld/src/dynamic.jl:5
+    in expression starting at /p/projects/coen/julia-trait-bound/TraitWorld/src/TraitWorld.jl:1
+    in expression starting at stdin:5
+    
+      1 dependency had output during precompilation:
+    ┌ TraitWorld
+    │  [Output was shown above]
+    └  
+    ERROR: LoadError: The following 1 package failed to precompile:
+    
+    TraitWorld 
+    Failed to precompile TraitWorld [7a3c1e52-9b4d-4f6e-8a21-5d0c3b9e7f14] to "/p/projects/coen/julia-trait-bound/.julia-depot/agent-depots/w19/compiled/v1.13/TraitWorld/jl_pweHf3" (ProcessExited(1)).
+    
+    in expression starting at /p/projects/coen/julia-trait-bound/experiments/implementation/w167/lib_static.jl:32
+    in expression starting at /p/projects/coen/julia-trait-bound/experiments/implementation/gates/n36_library_deep.jl:9
+PASS n3_image_memberships.jl
+PASS n7_guards.jl
+FAIL n8_callable_box.jl (exit 1)
+        @ Base ./client.jl:577
+    in expression starting at /p/projects/coen/julia-trait-bound/TraitWorld/src/dynamic.jl:5
+    in expression starting at /p/projects/coen/julia-trait-bound/TraitWorld/src/TraitWorld.jl:1
+    in expression starting at stdin:5
+    
+      1 dependency had output during precompilation:
+    ┌ TraitWorld
+    │  [Output was shown above]
+    └  
+    ERROR: LoadError: The following 1 package failed to precompile:
+    
+    TraitWorld 
+    Failed to precompile TraitWorld [7a3c1e52-9b4d-4f6e-8a21-5d0c3b9e7f14] to "/p/projects/coen/julia-trait-bound/.julia-depot/agent-depots/w19/compiled/v1.13/TraitWorld/jl_TyQned" (ProcessExited(1)).
+    
+    in expression starting at /p/projects/coen/julia-trait-bound/experiments/implementation/gates/n8_callable_box.jl:12
+FAIL n8_callable.jl (exit 1)
+    ERROR: LoadError: UndefVarError: `Callable` not defined in `Core`
+    Suggestion: check for spelling errors or missing imports.
+    Stacktrace:
+     [1] getproperty(x::Module, f::Symbol)
+       @ Base ./Base_compiler.jl:50
+     [2] top-level scope
+       @ /p/projects/coen/julia-trait-bound/experiments/implementation/gates/n8_callable.jl:13
+     [3] include(mod::Module, _path::String)
+       @ Base ./Base.jl:309
+     [4] exec_options(opts::Base.JLOptions)
+       @ Base ./client.jl:344
+     [5] _start()
+       @ Base ./client.jl:577
+    in expression starting at /p/projects/coen/julia-trait-bound/experiments/implementation/gates/n8_callable.jl:13
+PASS n9_fully_typed.jl
+gates: 21 passed, 17 failed
+== load 17.94 15.50 13.63 4/59580 3617375

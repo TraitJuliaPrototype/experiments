@@ -1,0 +1,95 @@
+== add1bb1db7 load 16.42 11.56 8.33 11/59629 3114659
+PASS m1_audit_probes.jl
+PASS m1_compiled_isa.jl
+PASS m1_late_implement.jl
+PASS m1_late_open_stale.jl
+FAIL m1_no_wrappers.jl (exit 1)
+    ERROR: LoadError: UndefVarError: `Dynamic` not defined in `Core`
+    Suggestion: check for spelling errors or missing imports.
+    Stacktrace:
+     [1] getproperty
+       @ ./Base_compiler.jl:50 [inlined]
+     [2] top-level scope
+       @ /p/projects/coen/julia-trait-bound/experiments/implementation/gates/m1_no_wrappers.jl:11
+     [3] include(mod::Module, _path::String)
+       @ Base ./Base.jl:309
+     [4] exec_options(opts::Base.JLOptions)
+       @ Base ./client.jl:344
+     [5] _start()
+       @ Base ./client.jl:577
+    in expression starting at /p/projects/coen/julia-trait-bound/experiments/implementation/gates/m1_no_wrappers.jl:11
+PASS m1_open_family_fold.jl
+PASS m1_parametric_member.jl
+PASS m1_parametric_set.jl
+PASS m1_typevalue_isa.jl
+PASS m1_union_isa.jl
+PASS m1_worlds_minworld.jl
+gates: 10 passed, 1 failed
+PASS m2_abstract_query.jl
+PASS m2_ambiguity_arity.jl
+FAIL m2_ambiguity_called_before.jl (exit 1)
+       @ Base ./client.jl:344
+     [4] _start()
+       @ Base ./client.jl:577
+    in expression starting at /tmp/jl_VEDczAlMHu:2
+    
+    Stacktrace:
+     [1] top-level scope
+       @ /p/projects/coen/julia-trait-bound/experiments/implementation/gates/m2_ambiguity_called_before.jl:54
+     [2] include(mod::Module, _path::String)
+       @ Base ./Base.jl:309
+     [3] exec_options(opts::Base.JLOptions)
+       @ Base ./client.jl:344
+     [4] _start()
+       @ Base ./client.jl:577
+    in expression starting at /p/projects/coen/julia-trait-bound/experiments/implementation/gates/m2_ambiguity_called_before.jl:54
+FAIL m2_ambiguity_declared_super.jl (exit 1)
+       @ Base ./client.jl:344
+     [4] _start()
+       @ Base ./client.jl:577
+    in expression starting at /tmp/jl_gD6lCratiT:104
+    
+    Stacktrace:
+     [1] top-level scope
+       @ /p/projects/coen/julia-trait-bound/experiments/implementation/gates/m2_ambiguity_declared_super.jl:157
+     [2] include(mod::Module, _path::String)
+       @ Base ./Base.jl:309
+     [3] exec_options(opts::Base.JLOptions)
+       @ Base ./client.jl:344
+     [4] _start()
+       @ Base ./client.jl:577
+    in expression starting at /p/projects/coen/julia-trait-bound/experiments/implementation/gates/m2_ambiguity_declared_super.jl:157
+FAIL m2_ambiguity_predates.jl (exit 1)
+       @ Base ./client.jl:344
+     [4] _start()
+       @ Base ./client.jl:577
+    in expression starting at /tmp/jl_FOXCBaP0RQ:11
+    
+    Stacktrace:
+     [1] top-level scope
+       @ /p/projects/coen/julia-trait-bound/experiments/implementation/gates/m2_ambiguity_predates.jl:54
+     [2] include(mod::Module, _path::String)
+       @ Base ./Base.jl:309
+     [3] exec_options(opts::Base.JLOptions)
+       @ Base ./client.jl:344
+     [4] _start()
+       @ Base ./client.jl:577
+    in expression starting at /p/projects/coen/julia-trait-bound/experiments/implementation/gates/m2_ambiguity_predates.jl:54
+PASS m2_ambiguity_report.jl
+PASS m2_closed_open_order.jl
+PASS m2_dispatch_worlds.jl
+PASS m2_future_min_worlds.jl
+PASS m2_parametric_replay.jl
+PASS m2_post_declare_infer.jl
+PASS m2_query_world_task.jl
+PASS m2_set_in_set.jl
+PASS m2_set_query_split.jl
+PASS m2_stale_caller.jl
+PASS m2_typemap_linear.jl
+PASS m2_union_normal_form.jl
+PASS m2_vararg_union_worlds.jl
+PASS m2_volume.jl
+gates: 16 passed, 3 failed
+gates: 0 passed, 0 failed
+gates: 0 passed, 0 failed
+== load 20.31 12.80 8.83 15/59660 3117888

@@ -688,3 +688,200 @@ Then the gates in full, Base's suites against vanilla and the nine loads at the 
 - **The subtyping tension** (above) is recorded here only; its proposal is not built.
 - **Comments and commit messages** are my wording and not reviewed. The traits commits carry `Co-Authored-By: Claude <noreply@anthropic.com>`.
 - **`w19-facts-tests`** (df29ab9cde) is superseded by `-v2` and left as pushed.
+
+# Fifth part: the traits series T6 to T10, on the facts series with its tests
+
+The brief: the stack moved onto the facts series with its tests (`w19-facts-tests-v2`); then T6 to T10 of [the plan](../../../writeup/plans/2026-11-22-upstream-series.md) §2.3, each a commit on the one below (a part too large for one review cut in parts), cut from `45b6d15e34..683ea4fc16` by subject, comments without the references' section numbers, work items or review names.
+
+## How to run (fifth part)
+
+```
+bash i-run.sh <tag> "<tests>" "<gate patterns>" [micro] [plain]   # on wt/w19-julia: Base's tests (precompile alone), the gates, micro-timings, the plain session
+bash i-run-t10.sh t10                                                # T10's head: all of the above, the gates' copies gates/i-*.jl, TraitWorld's load, the nine loads
+julia --project=experiments/implementation w19/gates/i-n18_closed_after_load.jl   # a copy of a gate (below)
+```
+
+## 1. The stack moved
+
+`w19-traits-v2-base` (11e089de85): `w19-stack` (series G, 18 commits), the facts series with its tests (`w19-facts-tests-v2`'s 16 commits: F0 to F12 with F4 in three, F8 with the line of `test/precompile.jl`, F9 to F12 with `test/facts.jl`), then the `dp_ip = ip` commit; every commit cherry-picked without a conflict. T1 to T5 on it, as `traits-v2/<nn>-<slug>` (the fourth part's commits, unchanged but for their parent): 
+
+| Part | Branch | Commit (was) |
+|---|---|---|
+| T1 | `traits-v2/01-core-slots` | 5a42081741 (8d0ade4061) |
+| T2a | `traits-v2/02a-declaration` | 9dc720469a (d47fd35e91) |
+| T2b | `traits-v2/02b-subtyping` | 4ed6c9007c (0fcd07f6a9) |
+| T2c | `traits-v2/02c-caches` | 4b04eb44ba (e3c4ddb9f8) |
+| T2d | `traits-v2/02d-compiler` | b42afd1f60 (33642b6684) |
+| T3 | `traits-v2/03-all` | 2b2a9030a0 (a91da281f5) |
+| T4 | `traits-v2/04-dispatch` | c0daec60fd (1d3582cc6c) |
+| T5 | `traits-v2/05-invalidation` | 2758486a56 (8a0754ebe8) |
+
+The tree at T5 is `w19-traits`' plus `test/facts.jl`, its line in `test/choosetests.jl` and the line of `test/precompile.jl` (`git diff w19-traits traits-v2/05-invalidation`: 3 files). Built (build 1): `precompile` alone 457 pass (`logs/i-tests-stack-precompile.log`); `facts`, `subtype`, `core` 7,671,790 pass, 50 broken (`logs/i-tests-stack-facts_subtype_core.log`). The fourth part's line-977 failure is gone: F8 carries the fix.
+
+## 2. The parts T6 to T10
+
+The stack `w19-traits-v2` (head below) on `traits-v2/05-invalidation`. Sizes: files, lines added and removed against the part below.
+
+| Part | Branch, commit | Subject | Size | Checked | Test |
+|---|---|---|---|---|---|
+| T6 | `traits-v2/06-membership-method` a86b764265 | Compiler, gf, datatype: a membership is a method of `Core.implements`; answers folded through it hold an edge to it | 17 files, +485 −37 | built (build 2, as fa1fec3410: the commit's test then looked at optimized code; the final form passes at builds 5, 6, 4) | `test/subtype.jl` "a membership's method, and the edges of answers folded through it"; `test/core.jl` the entry's fields |
+| T7 | `traits-v2/07-final-negatives` d127a2fc13 | Compiler, gf, datatype: final negatives, and a match met only at an intersection no type is in | 12 files, +577 −13 | built in T8's build (build 5) | `test/subtype.jl` "final negatives" |
+| T8 | `traits-v2/08-images` 3d38bca9af | staticdata, datatype: memberships in package images | 7 files, +305 −9 | built (build 5) | `test/precompile.jl` "memberships in package images" |
+| T9a | `traits-v2/09a-library-hooks` acce77e827 | gf, method, staticdata: hooks for a trait library at a definition, a deletion, a module's end and an image | 12 files, +304 −5 | compiled (`make -C src`, wt/w19-check) | `test/subtype.jl` "a library's hooks at a definition, a deletion and a module's end" |
+| T9b | `traits-v2/09b-member-hook` 250dbcaa14 | gf, staticdata, Compiler: the member hook, at dispatch and in the compile queue | 10 files, +611 −0 | compiled (`make -C src`, wt/w19-check) | `test/subtype.jl` "the member hook" |
+| T9c | `traits-v2/09c-strict-mode` a10552facc | datatype, gf: a strict mode for a trait library, which refuses a membership that makes methods ambiguous | 6 files, +193 −8 | built (build 6; T9a and T9b in it) | `test/subtype.jl` "a strict mode" |
+| T10 | `traits-v2/10-contracts` 591b21d8c9 | Compiler, datatype, lowering: declared results, fields, contracts and operations | 14 files, +569 −12 | built (build 4, as 153fce6251: one line of `test/precompile.jl` more) | `test/subtype.jl` "declared results, fields and operations"; `test/core.jl` the new fields |
+
+**In all:** 31 files, 3,039 lines added, 79 removed, of which the tests 302 (`test/subtype.jl` +223, `test/precompile.jl` +77). The plan's estimate for T6 to T10 with their share of TX: about 2,000 lines and 260. By file: `gf.c` +931, `datatype.c` +776, `abstractinterpretation.jl` +239, `method.c` +194, `subtype.c` +133, the rest under 90 each.
+
+**What each part holds, and where it departs from the plan.**
+- **T6** the membership's method and the positive folds. `Core.implements` (`base/boot.jl`), the method made at the declaration and ended at the taking back, the entry's `method` field; the recording form of every positive gate (`isa`, `<:`, a dispatch match, `new`'s field tests, a store's and a `typeassert`'s test with `IR_FLAG_TYPES_PROVEN`), `isa`'s narrowing, the deep class's clause for a membership's instance. **The absence edge is not in T6:** nothing makes one before T7 (a negative folds only where it is final), so it goes with T7, where it is first read. `typesubtract`'s two gates, missing from T2d, come with T6.
+- **T7** final negatives: a negative is final where it holds (a concrete non-member; an abstract type whose intersection with the set has no type); the absence signature and its edge; the drop of an unmet match at a final pair, with its signatures handed to inference; `isambiguous` and the report pass over an unmet intersection. **Not made, no reader:** the bit `closed_after_load` (every set has it; `jl_membership_final` asks `open_set`) and a module's `loaded` mark (`type_declarers_loaded` has no caller in the final tree, and `jl_membership_final` does not read the mark). Base's walk at the end of its build (`base/sysimg.jl`, `jl_invalidate_code_instances_new_world`) serves `Callable`, the only set of Base's build: it goes with T12. The match's query world (`ml_matches_c`), T4's by subject, comes with T7's split of `ml_matches`.
+- **T8** memberships in package images; the system image keeps three indices (the methods at sets, the entries at each set, the absence signatures). **The member checks an image keeps** go with T9b: they are the member hook's state.
+- **T9** in three, as T2 was: **T9a** the hooks at a definition, an expansion, an image, a module's end and a deletion, with the scope options `bounded` and `no_pirates` (bits 1 and 2 of the facts series' options word `jl_module_t.options`, enum `jl_module_option`, meta `:module_option`); **T9b** the member hook, at dispatch and in the compile queue, its states, the checks an image keeps; **T9c** strict mode. Each compiles on the one below; the stack is built at T10.
+- **T10** declared results, fields, contracts and operations, and `BINDING_FLAG_OPEN_OPERATION` in `is_owner_only` (E3). **Not made, no reader:** `Method.declared_covers` (plan §5 already lists it for removal) and each function's list of methods at sets (`index_func_set_method`, `jl_func_methods_at_sets`: no caller in the final tree, nor in the library). `jl_method_set_declared_result(m, rt)` takes no `covers` argument (`base/iotrait.jl`, T13, calls it with three).
+
+**The commit messages** say what, why, the rule in plain words and the test; subjects in Julia's `component: summary` form. T6 to T10 carry `Co-Authored-By: Claude <noreply@anthropic.com>`.
+
+### Two defects of the final tree found while cutting
+
+- **A final negative does not bound the code's worlds** (`next`'s `negative_fold_blocked(a, b, sv)` and the lookup's drop): the frame records the absence edge but not the worlds in which the pair's absence holds. Code inferred for a world before a membership (`Base.invoke_in_world`, a task in an older world) is then valid in the later worlds too and answers the old negative there; code inferred after a membership is taken back is valid in the older worlds where it held. Found by the second part's tests of T2 (`late5_xb`) and T5 (`is_ix`), which failed at T10's first build (`logs/i-tests-t10-build3.log`). **Fixed in T7** at the rule: the code's worlds are bounded by the worlds in which no method meets the absence signature (`absence_worlds`, the lookup Julia's validation of the edge makes); the lookup's result is bounded the same way where it dropped a match (`_findall`). Both tests pass at T10's second build. `next` needs the same two lines.
+- **`Base.isambiguous`'s docstring attaches to `has_unmet_intersection`** in `next` (`base/reflection.jl`: the helper sits between the docstring and the function). In T7 the helper stands before the docstring.
+
+### Hand-made hunks (forms the final tree does not have)
+
+- `negative_fold_blocked(a, b, sv)` in T6 forwards to the frame-free gate; T7 gives it the final form (and `absence_worlds`, above).
+- `is_implements_sig` (`facts.jl`) for the final tree's `is_absence_sig` (a membership's method and an absence edge are both signatures of `Core.implements`).
+- `jl_declare_membership` in each part's form: T6 the method and the deep ending by it; T8 the session's list for images; T9c strict mode's refusal; without the candidates (T11).
+- `jl_delete_membership`: T6 the method's end; T9b the member states forgotten; without the candidates (T11).
+- `jl_activate_memberships`: T8 without the inactive method's refusal (T9a) and the candidates (T11); `jl_memberships_activated`: T8 without strict mode's collection (T9c).
+- `ml_matches`: T7 makes `ml_matches_i` (cells out) with the wrappers `ml_matches_c` and `ml_matches`, the counter's check in the wrappers; the report keeps `ml_matches` until T9c takes `ml_matches_i`.
+- `jl_membership_final` without `closed_after_load`; the staticdata tags 3 of the final tree's 6 (T11 adds the candidates and the split tables' miss); the gc roots and header lines in each part's share.
+- `abstract_call_gf_by_type`: T10's declared result returns at once, with no split (T11), no `trusted` effect (T15), no closed build (T16), no `operation` keyword (T11).
+- The options word keeps the facts series' names (`options`, `jl_get_module_options`); the final tree's `trait_options`, `jl_get_module_trait_options`, `:trait_option` are S3's rename, not made.
+
+## 3. The seams to the parts above
+
+| Where | T6 to T10 | The final tree adds | Added by |
+|---|---|---|---|
+| `abstract_call_gf_by_type` | the declared result, a `DeclaredResultInfo` | the split over the candidates, `operation` keyword; `trusted` effects; the closed build's splits | T11; T15; T16 |
+| `jl_declare_membership`, `jl_delete_membership`, `jl_activate_memberships` | entry, method, list, strict mode, member states | `register_candidate`, `unregister_candidates` | T11 |
+| staticdata's tags | `open_set_methods`, `jl_set_entries`, `jl_absence_sigs` | `jl_set_candidates`, `jl_split_table_miss_func` (`jl_func_set_methods` not made) | T11 |
+| `jl_typename_t` | `contract`, `declared_fields`, `operations` | the bit `erases` and `jl_set_erases` | T14 |
+| `jl_compilation_sig`, `jl_isa_compileable_sig` | unchanged | `is_trait_arg_type` (a set written with the method's variables) | T14 |
+| `rtsite_target` (`facts.jl`) | unchanged | the trait-argument clause (E6) | T14 |
+| `base/sysimg.jl`, `jl_invalidate_code_instances_new_world` | not made | Base's walk at the end of its build, guarded by "a set exists" | T12 |
+| `post_boot_hooks` | unchanged | `Callable` opened, its inputs | T12 |
+| `jl_method_set_declared_result` | `(m, rt)` | `base/iotrait.jl`'s calls with a third argument | T13 |
+| the options word | `options`, `jl_get_module_options`, bits 1, 2, 16, 32, 64 | named `trait_options` (the library calls `jl_get_module_trait_options`) | S3's rename |
+| `handle_declared_result!` (`inlining.jl`) | an operation's call | the split's fallback calls it | T11 |
+| `effects.jl`, `optimize.jl` | `IR_FLAG_TYPES_PROVEN` (bit 20) | `IR_FLAG_TRUSTED_*` (bits 21, 22), `merge_override_effects!` | T15 |
+
+## 4. What plain code pays, at T6 and at T10
+
+No set declared; vanilla v1.13.2 the same hour; one thread.
+
+**Micro-timings** (`motiv/h-micro.jl`; ns per call, minimum of 7 rounds, two rounds of processes each; `logs/i-micro-t6.log`, `logs/i-micro-t10.log`; T5 from the fourth part):
+
+| | vanilla | T5 | T6 | T10 |
+|---|---|---|---|---|
+| `jl_subtype` | 238.9–240.0 | 268.1–268.4 | 264.7–265.2 (+11 %) | 269.9–270.4 (+13 %) |
+| `jl_type_intersection` | 278.3–279.7 | 308.8–308.9 | 311.5–314.8 (+12 %) | 317.5–317.7 (+14 %) |
+| the type cache | 76.9–78.1 | 79.0–79.2 | 80.2–80.6 (+4 %) | 80.0–81.2 (+3 %) |
+| method matching | 177.6–179.9 | 186.5–186.8 | 184.0–185.7 (+3 %) | 193.3–200.2 (+8 to +11 %) |
+
+- T6 adds nothing measurable to the walk (its gates sit in the compiler).
+- **Method matching costs more at T10:** T7's drop (`drop_unmet_matches`: a call of `jl_unmet_final_cells` per match, which returns at the match's open-set bit) and the match's query world (`ml_matches_c` sets and restores it per match). A tension of the same kind as GT-9's: a session with no set pays a test per match. Proposal: one session bit, set by the first `jl_set_open_set`, read before the drop and the query world; with no set in the session neither runs. Not built.
+
+**The session** (`motiv/f-plain.jl`; upstream CSV and DataFrames plainly; a warm-up and 3 fresh processes, interleaved; `logs/i-plain-t6.log` load 8.6–9.7, `logs/i-plain-t10.log` load 7.1–8.1):
+
+| | `using CSV, DataFrames` | valid CodeInstances after the load | after the work | first work |
+|---|---|---|---|---|
+| vanilla (T6's hour) | 740–967 ms | 116,454 | 117,046 | 4.42–4.44 s |
+| T6 | 699–1,184 ms | 117,981 | 118,573 | 4.38–4.49 s |
+| vanilla (T10's hour) | 662–744 ms | 116,730 | 117,322 | 4.40–4.42 s |
+| T10 | 659–683 ms | 118,337 | 118,929 | 4.40–4.41 s |
+
+Digests equal. The first work is vanilla's at both; the CodeInstances' difference is the stack below (`w19-g-facts`); the load's times at T6's hour are noisy (both builds).
+
+## 5. On T10's head
+
+Build 4 (153fce6251; the branch's head differs from it in one line of `test/precompile.jl`, a stray line removed, run on the built binary).
+
+- **Base's tests** (`Base.runtests([...]; ncores=1)`; `logs/i-tests-t10.log`): `subtype`, `core`, `worlds`, `reflection`, `Compiler/inference`, `Compiler/invalidation`, `Compiler/effects`, `facts` pass: 7,675,173 pass, 68 broken. `precompile` alone: 467 pass (`logs/i-tests-t10-precompile.log`), its new testset "memberships in package images" included.
+- **The gates** (`run_all.sh` with the stub library; `logs/i-gates-t10.log`): `m1_*` 10 of 11, `m2_*` 19 of 19, `n*` 22 of 38, `f*` 6 of 7. Of the fourth part's waiting table, now passing: `m2_ambiguity_called_before`, `_declared_super`, `_predates` (T9c), `n11_late_shadow` (T10), `n12_image_instances`, `n3_image_memberships` (T8), `n24_hook_compile_queue` (T9b), `n29_membership_method` (T6, T7), `n31_isa_narrows` (T6), `f7_membership_edges` (T6). Still failing, each with its reason:
+
+| Gate | Why | Needs |
+|---|---|---|
+| `m1_no_wrappers`, `n30_where_variable`, `n33_compiled_as_julia` | `Core.Dynamic` | T14 |
+| `n8_callable`, `n13_attribute_free_vars`, `n14_callable_args` | `Core.Callable` | T12 (n13 also T14) |
+| `n16_declared_result` | reads `Method.declared_covers`, not made (no reader); its copy `gates/i-n16_declared_result.jl` without that assertion passes | — |
+| `n18_closed_after_load` | calls `jl_set_closed_after_load`, `jl_module_is_loaded`, not made (no reader); its copy `gates/i-n18_closed_after_load.jl` without them passes | — |
+| `n20_unmet_lookup` | calls `jl_set_closed_after_load`; its part (5) needs `Callable`. The copy `gates/i-n20_unmet_lookup.jl` without both passes | T12 for (5) |
+| `n19_io_trait` | `IO`'s contract | T13 (with T11) |
+| `n22_declared_assert`, `n23_contract_image` | `jl_candidates_of` | T11 |
+| `n26_callable_late_method`, `n35_trusted_result`, `n36_library_deep`, `n8_callable_box` | the library does not load (below) | T11 to T17 |
+| `n34_closed_invoke_compiled` | the trimmed build's verifier | T16 |
+| `f2_policy_flags` | `jl_get_module_trait_options` (S3's name) | S3's rename |
+
+- **The nine loads** (`f-loads.sh`, unchanged; `logs/i-loads-t10.log`; a warm-up and 2 runs per cell, load 7.3–16.7): by facts 14 of 3,487 own image instances lost (G2 2,773), plainly 434 of 4,715; the work after the loads (A) 1.38–1.39 s by facts against 5.20–5.21 s; order B 2.43–2.45 s against 6.11–6.15 s. **The facts cells are T5's exactly** (14 of 3,487; G2 2,773). Plainly the packages' images hold 30 instances more than at T5 (4,715 against 4,685) and lose 10 more (434 against 424): not read; plain packages' images are rebuilt with each build, and the instances move with each set of images (third part, "Not done").
+- **The library** (TraitWorld `unified` e2cb5d0, read only; `logs/i-traitworld-t10.log`): does not load. Its first stop: `const Dynamic = Core.Dynamic` (`src/dynamic.jl:5`). What it needs, by part, read from its source: `Core.Dynamic`, `Core.Compiled`, `jl_set_erases` and `jl_is_trait_arg_type` (T14); `Core.Callable` (T12); `jl_register_candidate`, `jl_candidates_of`, `jl_set_member_patterns`, `jl_open_set_methods_of` (T11, T16; `jl_open_set_methods_of` is the index's reader for compiling ahead); `jl_get_module_trait_options` (S3's rename); `Compiler.DefinitionCheckInterpreter` (T17); `Compiler.declared_field_type`, `Compiler.is_owner_only` are in the stack. The entry points of T6 to T10 it calls are all present: the hooks, `jl_set_strict_memberships`, `jl_take_activation_ambiguities`, `jl_membership_replay_sigs`, `jl_membership_method_sig`, `jl_activated_memberships(_count)`, `jl_activated_member_checks`, `jl_set_contract(_operations)`, `jl_set_declared_fields`, `jl_supertrait_instances`, `jl_set_open_operation`.
+
+### The parts below T10, built
+
+| Build | At | Base's tests | Gates (`m1`, `m2`, `n`, `f`) |
+|---|---|---|---|
+| 2 | T6 (fa1fec3410) | `subtype`, `core`, `worlds`: 7,671,909 pass, 1 failure, 50 broken (`logs/i-tests-t6.log`): the commit's `IR_FLAG_TYPES_PROVEN` test looked at optimized code, where the store it names is gone; the commit's test reads unoptimized code and passes at every later build | 10 of 11, 16 of 19, 17 of 38, 6 of 7 (`logs/i-gates-t6.log`, `logs/i-gates-t6-nf.log`, run as add1bb1db7 on the build) |
+| 5 | T8 (3d38bca9af), T7 in it | `subtype`, `core`, `worlds`: 7,671,921 pass, 50 broken; `precompile` alone 467 pass (`logs/i-tests-t8.log`, `logs/i-tests-t8-precompile.log`) | 10 of 11, 16 of 19, 20 of 38, 6 of 7 (`logs/i-gates-t8.log`); the copies `i-n18`, `i-n20` pass (`logs/i-gates-copies-t8.log`) |
+| 6 | T9c (a10552facc), T9a and T9b in it | `subtype`, `core`, `worlds`: 7,671,937 pass, 50 broken (`logs/i-tests-t9c.log`) | `m2` 19 of 19, `n` 21 of 38 (`logs/i-gates-t9c.log`) |
+
+`wt/w19-julia` is left at T9c's build (build 6).
+
+## 6. What stays for later: T11 to T17
+
+| Part | What it needs from the stack as it is | Order of builds |
+|---|---|---|
+| T11 the split and the table | T10 (operations, `DeclaredResultInfo`, `handle_declared_result!`), `up/16`; the candidates in `jl_declare_membership`, `jl_delete_membership`, `jl_activate_memberships`; the tags `jl_set_candidates`, `jl_split_table_miss_func`; `base/splittable.jl`, `splittarget.jl`, `Compiler/src/splittable.jl` | 1 (T11 with T15): `n22`, `n23` |
+| T15 the `trusted` effect | T10; F1's `Effects`; bits 21, 22 beside T6's bit 20 | with T11: `n35` (with the library) |
+| T12 `Callable` | T2; T15; `post_boot_hooks`; `Function`'s entry in `base/Base.jl`; Base's walk at the end of its build (`base/sysimg.jl`, `jl_invalidate_code_instances_new_world`), guarded by "a set exists" since the bit `closed_after_load` is not made | 2 (T12, T13): `n8`, `n14`, `i-n20` with its part (5) |
+| T13 `IO`'s contract | T10 (`jl_declare_contract`; `jl_method_set_declared_result` with two arguments), T11 | with T12: `n19`, `show`, REPL |
+| T14 the kept forms | T9a (the expansion hook), `TypeName.erases`, `is_trait_arg_type` in `jl_compilation_sig`, E6 in `rtsite_target` | 3 (T14 with T17 and S3's rename): `m1_no_wrappers`, `n30`, `n33`; then TraitWorld's suite |
+| T17 the definition-time check | none | with T14 |
+| T16 a closed build | T11, T12, F4, F8, F11 | 4: `n34`, `w166/build_c.sh` |
+| S3's rename | the options word | with T14, or the library calls `jl_get_module_options` |
+
+Then the gates in full, Base's suites against vanilla, the library's suite and the nine loads at the head: about four builds.
+
+## 7. Builds (fifth part)
+
+`WIDE=0 tools-local/build.sh wt/w19-julia` (`-j4`, niced), one after another. Logs: `logs/i-build<n>-*.tw-build.log`.
+
+| Build | Commit | Part | Start load (128 cores) | Wall | Peak RSS | Exit |
+|---|---|---|---|---|---|---|
+| 1 | 2758486a56 | T5 on the moved stack | 3.7 | 358 s | 5.0 GB | 0 |
+| 2 | fa1fec3410 | T6 | 4.9 | 779 s | 5.5 GB | 0 |
+| 3 | ae22648b7c | T10, first cut (without the world bound of final negatives) | 5.3 | 779 s | 4.9 GB | 0 |
+| 4 | 153fce6251 | T10 | 28.5 | 739 s | 4.8 GB | 0 |
+| 5 | 3d38bca9af | T8 | 8.0 | 789 s | 5.0 GB | 0 |
+| 6 | a10552facc | T9c | 6.1 | 779 s | 5.0 GB | 0 |
+
+Six of the twelve builds the brief allows.
+
+## 8. Where the plan was wrong or incomplete (fifth part)
+
+- **T6's absence edge belongs to T7:** before final negatives nothing folds a negative, so nothing makes the edge.
+- **T7's "every set closed after load, a module's loaded mark"** reads as two mechanisms; in the final tree neither is read where it matters: every set has the bit, and no rule reads the mark. T7 is final negatives alone.
+- **T7 needs a world bound the final tree lacks** (above): a final negative's code must not outlive, or predate, the pair's absence.
+- **T8's "member checks kept"** is the member hook's state: it comes with T9 (T9b).
+- **T9 is three patches** (hooks at definitions, the member hook, strict mode): 1,108 lines in all, too large for one review.
+- **T10 drops two readerless pieces** (`declared_covers`, each function's list of methods at sets).
+- **Plain method matching pays** at T7 (+8 to +11 % in the micro-timing): the plan's "one bit per question" does not hold for the drop and the query world either.
+- **Sizes:** T6 to T10 are 3,039 lines added, 2,737 without their tests (the plan's estimate with TX: about 2,260).
+
+## Not done, not verified (fifth part)
+
+- **T9a, T9b and T9c are compiled, not built alone;** T6, T8 and T10 are built (T7 built in T8's build). Every commit of T6 to T10 compiles (`make -C src` in `wt/w19-check`, exit 0 at each).
+- **The static check of GC roots** (`w163/sagc.sh`) was not run over T6 to T10's C: new globals (`jl_absence_sigs`, `jl_declared_memberships`, `jl_activated_entries`, `jl_activation_ambiguities`, the hooks, the member states) are rooted by both collectors.
+- **The method-matching tension's proposal** (one session bit) is not built.
+- **Comments and commit messages** are my wording and not reviewed. The test names in `test/subtype.jl` follow the fourth part's style.
+- **The final tree's world-bound defect** is fixed in the series only; `next` is unchanged (not in this part's scope).

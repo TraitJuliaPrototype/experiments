@@ -1,0 +1,282 @@
+== 3bbe4144fb load 12.88 11.39 10.03 7/59835 3302508
+ERROR: LoadError: break me
+Stacktrace:
+  [1] error(s::String)
+    @ Base ./error.jl:44
+  [2] top-level scope
+    @ /tmp/jltestdepot_BPYCvX/FooBar2.jl:2
+  [3] include(mod::Module, _path::String)
+    @ Base ./Base.jl:309
+  [4] include_package_for_output(pkg::Base.PkgId, input::String, depot_path::Vector{String}, dl_load_path::Vector{String}, load_path::Vector{String}, concrete_deps::Vector{Pair{Base.PkgId, UInt128}}, source::Nothing, preresolved::Vector{Pair{Base.PkgId, String}})
+    @ Base ./loading.jl:3210
+  [5] top-level scope
+    @ stdin:5
+  [6] eval(m::Module, e::Any)
+    @ Core ./boot.jl:503
+  [7] include_string(mapexpr::typeof(identity), mod::Module, code::String, filename::String)
+    @ Base ./loading.jl:3045
+  [8] include_string
+    @ ./loading.jl:3055 [inlined]
+  [9] exec_options(opts::Base.JLOptions)
+    @ Base ./client.jl:342
+ [10] _start()
+    @ Base ./client.jl:577
+in expression starting at /tmp/jltestdepot_BPYCvX/FooBar2.jl:1
+in expression starting at stdin:5
+
+  1 dependency had output during precompilation:
+┌ FooBar2
+│  [Output was shown above]
+└  
+ERROR: LoadError: Evaluation into the closed module `Base` breaks incremental compilation because the side effects will not be permanent. This is likely due to some other module mutating `Base` with `eval` during precompilation - don't do this.
+Stacktrace:
+  [1] eval(m::Module, e::Any)
+    @ Core ./boot.jl:503
+  [2] top-level scope
+    @ /tmp/jltestdepot_BPYCvX/FooBar3.jl:2
+  [3] include(mod::Module, _path::String)
+    @ Base ./Base.jl:309
+  [4] include_package_for_output(pkg::Base.PkgId, input::String, depot_path::Vector{String}, dl_load_path::Vector{String}, load_path::Vector{String}, concrete_deps::Vector{Pair{Base.PkgId, UInt128}}, source::Nothing, preresolved::Vector{Pair{Base.PkgId, String}})
+    @ Base ./loading.jl:3210
+  [5] top-level scope
+    @ stdin:5
+  [6] eval(m::Module, e::Any)
+    @ Core ./boot.jl:503
+  [7] include_string(mapexpr::typeof(identity), mod::Module, code::String, filename::String)
+    @ Base ./loading.jl:3045
+  [8] include_string
+    @ ./loading.jl:3055 [inlined]
+  [9] exec_options(opts::Base.JLOptions)
+    @ Base ./client.jl:342
+ [10] _start()
+    @ Base ./client.jl:577
+in expression starting at /tmp/jltestdepot_BPYCvX/FooBar3.jl:1
+in expression starting at stdin:5
+
+  1 dependency had output during precompilation:
+┌ FooBar3
+│  [Output was shown above]
+└  
+ERROR: LoadError: Evaluation into the closed module `Base` breaks incremental compilation because the side effects will not be permanent. This is likely due to some other module mutating `Base` with `eval` during precompilation - don't do this.
+Stacktrace:
+  [1] include(mod::Module, _path::String)
+    @ Base ./Base.jl:309
+  [2] top-level scope
+    @ /tmp/jltestdepot_BPYCvX/FooBar3.jl:2
+  [3] include(mod::Module, _path::String)
+    @ Base ./Base.jl:309
+  [4] include_package_for_output(pkg::Base.PkgId, input::String, depot_path::Vector{String}, dl_load_path::Vector{String}, load_path::Vector{String}, concrete_deps::Vector{Pair{Base.PkgId, UInt128}}, source::Nothing, preresolved::Vector{Pair{Base.PkgId, String}})
+    @ Base ./loading.jl:3210
+  [5] top-level scope
+    @ stdin:5
+  [6] eval(m::Module, e::Any)
+    @ Core ./boot.jl:503
+  [7] include_string(mapexpr::typeof(identity), mod::Module, code::String, filename::String)
+    @ Base ./loading.jl:3045
+  [8] include_string
+    @ ./loading.jl:3055 [inlined]
+  [9] exec_options(opts::Base.JLOptions)
+    @ Base ./client.jl:342
+ [10] _start()
+    @ Base ./client.jl:577
+in expression starting at /tmp/jltestdepot_BPYCvX/FooBar3_inc.jl:1
+in expression starting at /tmp/jltestdepot_BPYCvX/FooBar3.jl:1
+in expression starting at stdin:5
+
+  1 dependency had output during precompilation:
+┌ FooBar3
+│  [Output was shown above]
+└  
+ERROR: LoadError: Test run finished with errors
+in expression starting at /p/projects/coen/julia-trait-bound/wt/w19-julia/usr/share/julia/test/runtests.jl:103
+Running parallel tests with:
+  getpid() = 3302530
+  nworkers() = 1
+  nthreads(:interactive) = 1
+  nthreads(:default) = 4
+  Sys.CPU_THREADS = 1
+  Sys.total_memory() = 754.783 GiB
+  Sys.free_memory() = 626.991 GiB
+  Sys.uptime() = 1.56637805e6 (435.1 hours)
+
+Test  (Worker) | Time (s) | GC (s) | GC % | Alloc (MB) | RSS (MB)
+precompile (1) |        started at 2026-11-22T20:11:21.511
+precompile (1) |         failed at 2026-11-22T20:14:25.663
+Error During Test at /p/projects/coen/julia-trait-bound/wt/w19-julia/usr/share/julia/test/precompile.jl:2011
+  Test threw exception
+  Expression: Base.invokelatest(A.h, A.S()) === :set
+  MethodError: no method matching MembA.S()
+  The applicable method may be too new: running in world age 39982, while current world is 39983.
+  Closest candidates are:
+    MembA.S() (method too new to be called from this world context.)
+     @ MembA /tmp/jltestdepot_TJ3mom/MembA.jl:24
+  Stacktrace:
+   [1] macro expansion
+     @ /p/projects/coen/julia-trait-bound/wt/w19-julia/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:755 [inlined]
+   [2] (::Main.Test72Main_precompile.var"#180#181")(dir::String)
+     @ Main.Test72Main_precompile /p/projects/coen/julia-trait-bound/wt/w19-julia/usr/share/julia/test/precompile.jl:2011
+Error During Test at /p/projects/coen/julia-trait-bound/wt/w19-julia/usr/share/julia/test/precompile.jl:2012
+  Test threw exception
+  Expression: Base.invokelatest(A.h, A.T()) === :any
+  MethodError: no method matching MembA.T()
+  The applicable method may be too new: running in world age 39982, while current world is 39983.
+  Closest candidates are:
+    MembA.T() (method too new to be called from this world context.)
+     @ MembA /tmp/jltestdepot_TJ3mom/MembA.jl:25
+  Stacktrace:
+   [1] macro expansion
+     @ /p/projects/coen/julia-trait-bound/wt/w19-julia/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:755 [inlined]
+   [2] (::Main.Test72Main_precompile.var"#180#181")(dir::String)
+     @ Main.Test72Main_precompile /p/projects/coen/julia-trait-bound/wt/w19-julia/usr/share/julia/test/precompile.jl:2012
+Test Failed at /p/projects/coen/julia-trait-bound/wt/w19-julia/usr/share/julia/test/precompile.jl:2019
+  Expression: Base.invokelatest((()->begin
+            #= /p/projects/coen/julia-trait-bound/wt/w19-julia/usr/share/julia/test/precompile.jl:2019 =#
+            A.T <: A.X
+        end))
+   Evaluated: Base.invokelatest(Main.Test72Main_precompile.var"#186#187"{Module}(MembA))
+Error During Test at /p/projects/coen/julia-trait-bound/wt/w19-julia/usr/share/julia/test/precompile.jl:2020
+  Test threw exception
+  Expression: Base.invokelatest(A.h, A.T()) === :set
+  MethodError: no method matching MembA.T()
+  The applicable method may be too new: running in world age 39982, while current world is 39983.
+  Closest candidates are:
+    MembA.T() (method too new to be called from this world context.)
+     @ MembA /tmp/jltestdepot_TJ3mom/MembA.jl:25
+  Stacktrace:
+   [1] macro expansion
+     @ /p/projects/coen/julia-trait-bound/wt/w19-julia/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:755 [inlined]
+   [2] (::Main.Test72Main_precompile.var"#180#181")(dir::String)
+     @ Main.Test72Main_precompile /p/projects/coen/julia-trait-bound/wt/w19-julia/usr/share/julia/test/precompile.jl:2020
+Test Failed at /p/projects/coen/julia-trait-bound/wt/w19-julia/usr/share/julia/test/precompile.jl:2021
+  Expression: ccall(:jl_activated_memberships_count, Csize_t, ()) == n0 + 1
+   Evaluated: 0x0000000000000001 == 0x0000000000000002
+Test Failed at /p/projects/coen/julia-trait-bound/wt/w19-julia/usr/share/julia/test/precompile.jl:2025
+  Expression: Base.invokelatest((()->begin
+            #= /p/projects/coen/julia-trait-bound/wt/w19-julia/usr/share/julia/test/precompile.jl:2025 =#
+            A.U <: A.P{Int} && !(A.U <: A.P{String})
+        end))
+   Evaluated: Base.invokelatest(Main.Test72Main_precompile.var"#188#189"{Module}(MembA))
+
+
+Test Summary:  | Pass  Fail  Error  Total  Time
+  Overall      |  461     3      3    467  0.4s
+    precompile |  461     3      3    467  3m05.4s
+    FAILURE
+
+The global RNG seed was 0x1320d85432c7fe8ae2ba661b168aa1c4.
+
+Error in testset precompile:
+Error During Test at /p/projects/coen/julia-trait-bound/wt/w19-julia/usr/share/julia/test/precompile.jl:2011
+  Test threw exception
+  Expression: Base.invokelatest(A.h, A.S()) === :set
+  MethodError: no method matching MembA.S()
+  The applicable method may be too new: running in world age 39982, while current world is 39983.
+  Closest candidates are:
+    MembA.S() (method too new to be called from this world context.)
+     @ MembA /tmp/jltestdepot_TJ3mom/MembA.jl:24
+  Stacktrace:
+   [1] macro expansion
+     @ /p/projects/coen/julia-trait-bound/wt/w19-julia/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:755 [inlined]
+   [2] (::Main.Test72Main_precompile.var"#180#181")(dir::String)
+     @ Main.Test72Main_precompile /p/projects/coen/julia-trait-bound/wt/w19-julia/usr/share/julia/test/precompile.jl:2011
+Error in testset precompile:
+Error During Test at /p/projects/coen/julia-trait-bound/wt/w19-julia/usr/share/julia/test/precompile.jl:2012
+  Test threw exception
+  Expression: Base.invokelatest(A.h, A.T()) === :any
+  MethodError: no method matching MembA.T()
+  The applicable method may be too new: running in world age 39982, while current world is 39983.
+  Closest candidates are:
+    MembA.T() (method too new to be called from this world context.)
+     @ MembA /tmp/jltestdepot_TJ3mom/MembA.jl:25
+  Stacktrace:
+   [1] macro expansion
+     @ /p/projects/coen/julia-trait-bound/wt/w19-julia/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:755 [inlined]
+   [2] (::Main.Test72Main_precompile.var"#180#181")(dir::String)
+     @ Main.Test72Main_precompile /p/projects/coen/julia-trait-bound/wt/w19-julia/usr/share/julia/test/precompile.jl:2012
+Error in testset precompile:
+Test Failed at /p/projects/coen/julia-trait-bound/wt/w19-julia/usr/share/julia/test/precompile.jl:2019
+  Expression: Base.invokelatest((()->begin
+            #= /p/projects/coen/julia-trait-bound/wt/w19-julia/usr/share/julia/test/precompile.jl:2019 =#
+            A.T <: A.X
+        end))
+   Evaluated: Base.invokelatest(Main.Test72Main_precompile.var"#186#187"{Module}(MembA))
+Error in testset precompile:
+Error During Test at /p/projects/coen/julia-trait-bound/wt/w19-julia/usr/share/julia/test/precompile.jl:2020
+  Test threw exception
+  Expression: Base.invokelatest(A.h, A.T()) === :set
+  MethodError: no method matching MembA.T()
+  The applicable method may be too new: running in world age 39982, while current world is 39983.
+  Closest candidates are:
+    MembA.T() (method too new to be called from this world context.)
+     @ MembA /tmp/jltestdepot_TJ3mom/MembA.jl:25
+  Stacktrace:
+   [1] macro expansion
+     @ /p/projects/coen/julia-trait-bound/wt/w19-julia/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:755 [inlined]
+   [2] (::Main.Test72Main_precompile.var"#180#181")(dir::String)
+     @ Main.Test72Main_precompile /p/projects/coen/julia-trait-bound/wt/w19-julia/usr/share/julia/test/precompile.jl:2020
+Error in testset precompile:
+Test Failed at /p/projects/coen/julia-trait-bound/wt/w19-julia/usr/share/julia/test/precompile.jl:2021
+  Expression: ccall(:jl_activated_memberships_count, Csize_t, ()) == n0 + 1
+   Evaluated: 0x0000000000000001 == 0x0000000000000002
+Error in testset precompile:
+Test Failed at /p/projects/coen/julia-trait-bound/wt/w19-julia/usr/share/julia/test/precompile.jl:2025
+  Expression: Base.invokelatest((()->begin
+            #= /p/projects/coen/julia-trait-bound/wt/w19-julia/usr/share/julia/test/precompile.jl:2025 =#
+            A.U <: A.P{Int} && !(A.U <: A.P{String})
+        end))
+   Evaluated: Base.invokelatest(Main.Test72Main_precompile.var"#188#189"{Module}(MembA))
+ERROR: A test has failed. Please submit a bug report (https://github.com/JuliaLang/julia/issues)
+including error messages above and the output of versioninfo():
+Julia Version 1.13.2
+Commit ae22648b7c* (2026-11-22 18:44 UTC)
+Platform Info:
+  OS: Linux (x86_64-pc-linux-gnu)
+  CPU: 128 × AMD EPYC 9354 32-Core Processor
+  WORD_SIZE: 64
+  LLVM: libLLVM-20.1.8 (ORCJIT, znver4)
+  GC: Built with stock GC
+Threads: 4 default, 1 interactive, 4 GC (on 4 virtual cores)
+Environment:
+  JULIA_CPU_THREADS = 4
+  JULIA_PKG_GC_AUTO = false
+  JULIA_NUM_PRECOMPILE_TASKS = 4
+  JULIA_DEPOT_PATH = /p/projects/coen/julia-trait-bound/.julia-depot/agent-depots/w19:/p/projects/coen/julia-trait-bound/.julia-depot:
+  JULIA_PKG_OFFLINE = true
+  LD_LIBRARY_PATH = /p/system/packages_rhel9/tools/git/2.52.0/lib64:/p/system/packages_rhel9/tools/git/2.52.0/lib:/p/system/packages_rhel9/libraries/mpc/1.3.1/lib64:/p/system/packages_rhel9/libraries/mpc/1.3.1/lib:/p/system/packages_rhel9/libraries/mpfr/4.2.1/lib64:/p/system/packages_rhel9/libraries/mpfr/4.2.1/lib:/p/system/packages_rhel9/libraries/gmp/6.3.0/lib64:/p/system/packages_rhel9/libraries/gmp/6.3.0/lib:/p/system/packages_rhel9/compiler/gcc/13.2.0/lib64:/usr/local/lib::/home/hellmann/gurobi/lib
+  JULIA_NUM_THREADS = 4
+
+Stacktrace:
+ [1] error(s::String)
+   @ Base ./error.jl:44
+ [2] runtests(tests::Vector{String}; ncores::Int64, exit_on_error::Bool, revise::Bool, propagate_project::Bool, seed::Nothing, julia_args::Cmd)
+   @ Base ./util.jl:726
+ [3] top-level scope
+   @ none:1
+ [4] eval(m::Module, e::Any)
+   @ Core ./boot.jl:503
+ [5] exec_options(opts::Base.JLOptions)
+   @ Base ./client.jl:310
+ [6] _start()
+   @ Base ./client.jl:577
+
+caused by: failed process: Process(setenv(`/p/projects/coen/julia-trait-bound/wt/w19-julia/usr/bin/julia -C native -J/p/projects/coen/julia-trait-bound/wt/w19-julia/usr/lib/julia/sys.so -g1 --startup-file=no /p/projects/coen/julia-trait-bound/wt/w19-julia/usr/bin/../share/julia/test/runtests.jl precompile`,["TERM=screen", "__LMOD_REF_COUNT_C_INCLUDE_PATH=/p/system/packages_rhel9/tools/git/2.52.0/include:1;/p/system/packages_rhel9/libraries/mpc/1.3.1/include:1;/p/system/packages_rhel9/libraries/mpfr/4.2.1/include:1;/p/system/packages_rhel9/libraries/gmp/6.3.0/include:1", "_ModuleTable005_=ZmlsZXNfcmhlbDkvcGFyYWxsZWw6L3Avc3lzdGVtL21vZHVsZWZpbGVzX3JoZWw5L3Rvb2xzIiwKfQo=", "__LMOD_REF_COUNT_PATH=/p/system/packages_rhel9/tools/git/2.52.0/bin:1;/p/system/packages_rhel9/libraries/mpc/1.3.1/bin:1;/p/system/packages_rhel9/libraries/mpfr/4.2.1/bin:1;/p/system/packages_rhel9/libraries/gmp/6.3.0/bin:1;/p/system/packages_rhel9/compiler/gcc/13.2.0/libexec:1;/p/system/packages_rhel9/compiler/gcc/13.2.0/bin:1;.:2;/p/system/packages/bin:2;/home/hellmann/.juliaup/bin:1;/home/hellmann/.local/bin:1;/usr/local/bin:3;/usr/bin:1;/usr/local/sbin:1;/usr/sbin:3;/opt/mellanox/doca/tools:2;/usr/lpp/X11/bin:2;/usr/lpp/bin:4;/usr/local/frame/bin:2;/home/hellmann/bin:2;/usr/lpp/xgmon/bin:2;/home/hellmann/gurobi/bin:2", "OPENBLAS_NUM_THREADS=1", "LMOD_ROOT=/usr/share/lmod", "AI_AGENT=claude-code_2-1-319_agent", "CLAUDE_CODE_SESSION_ID=d2985a1f-dcb5-5d03-b2eb-56d692b52b92", "OPENBLAS_MAIN_FREE=1", "SHELL=/bin/bash"  …  "CPLUS_INCLUDE_PATH=/p/system/packages_rhel9/tools/git/2.52.0/include:/p/system/packages_rhel9/libraries/mpc/1.3.1/include:/p/system/packages_rhel9/libraries/mpfr/4.2.1/include:/p/system/packages_rhel9/libraries/gmp/6.3.0/include", "CLAUDECODE=1", "HOME=/home/hellmann", "TW_ROOT=/p/projects/coen/julia-trait-bound", "GIT_ROOT=/p/system/packages_rhel9/tools/git/2.52.0", "JULIA_NUM_THREADS=4", "DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/3147/bus", "_ModuleTable003_=bW9kdWxlZmlsZXNfcmhlbDkvbGlicmFyaWVzL21wYy8xLjMuMSIsCmZ1bGxOYW1lID0gIm1wYy8xLjMuMSIsCmxvYWRPcmRlciA9IDMsCnByb3BUID0ge30sCnN0YWNrRGVwdGggPSAxLApzdGF0dXMgPSAiYWN0aXZlIiwKdXNlck5hbWUgPSAibXBjIiwKd1YgPSAiMDAwMDAwMDAxLjAwMDAwMDAwMy4wMDAwMDAwMDEuKnpmaW5hbCIsCn0sCm1wZnIgPSB7CmZuID0gIi9wL3N5c3RlbS9tb2R1bGVmaWxlc19yaGVsOS9saWJyYXJpZXMvbXBmci80LjIuMSIsCmZ1bGxOYW1lID0gIm1wZnIvNC4yLjEiLApsb2FkT3JkZXIgPSAyLApwcm9wVCA9IHt9LApzdGFja0RlcHRoID0gMSwKc3RhdHVzID0gImFjdGl2ZSIsCnVzZXJOYW1lID0gIm1wZnIiLAp3ViA9ICIwMDAwMDAwMDQuMDAw", "_ModuleTable002_=LApmdWxsTmFtZSA9ICJnaXQvMi41Mi4wIiwKbG9hZE9yZGVyID0gNSwKcHJvcFQgPSB7fSwKc3RhY2tEZXB0aCA9IDAsCnN0YXR1cyA9ICJhY3RpdmUiLAp1c2VyTmFtZSA9ICJnaXQvMi41Mi4wIiwKd1YgPSAiMDAwMDAwMDAyLjAwMDAwMDA1Mi4qemZpbmFsIiwKfSwKZ21wID0gewpmbiA9ICIvcC9zeXN0ZW0vbW9kdWxlZmlsZXNfcmhlbDkvbGlicmFyaWVzL2dtcC82LjMuMCIsCmZ1bGxOYW1lID0gImdtcC82LjMuMCIsCmxvYWRPcmRlciA9IDEsCnByb3BUID0ge30sCnN0YWNrRGVwdGggPSAxLApzdGF0dXMgPSAiYWN0aXZlIiwKdXNlck5hbWUgPSAiZ21wIiwKd1YgPSAiMDAwMDAwMDA2LjAwMDAwMDAwMy4qemZpbmFsIiwKfSwKbXBjID0gewpmbiA9ICIvcC9zeXN0ZW0v", "XDG_SESSION_CLASS=user"]), ProcessExited(1)) [1]
+
+Stacktrace:
+ [1] pipeline_error
+   @ ./process.jl:610 [inlined]
+ [2] run(::Cmd; wait::Bool)
+   @ Base ./process.jl:525
+ [3] run
+   @ ./process.jl:522 [inlined]
+ [4] runtests(tests::Vector{String}; ncores::Int64, exit_on_error::Bool, revise::Bool, propagate_project::Bool, seed::Nothing, julia_args::Cmd)
+   @ Base ./util.jl:718
+ [5] top-level scope
+   @ none:1
+ [6] eval(m::Module, e::Any)
+   @ Core ./boot.jl:503
+ [7] exec_options(opts::Base.JLOptions)
+   @ Base ./client.jl:310
+ [8] _start()
+   @ Base ./client.jl:577
+exit 1
+== load 8.34 9.89 9.68 4/59634 3320565
