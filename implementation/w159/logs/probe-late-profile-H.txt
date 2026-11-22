@@ -1,0 +1,191 @@
+using TraitWorld (late, profiled) 374.7 ms
+ Count  Overhead File                                                                    Line Function
+ =====  ======== ====                                                                    ==== ========
+     8         0 @juliasrc/jitlayers.cpp                                                1624 operator()
+     8         0 @julialib/libLLVM.so.20.1jl                                               ? _ZN4llvm24CodeGenTargetMachineImpl17addPassesToEmitMCERNS_6legacy15PassManagerBaseERPNS_9MCContextERNS_17…
+     8         0 @julialib/libLLVM.so.20.1jl                                               ? _ZL23addPassesToGenerateCodeRN4llvm24CodeGenTargetMachineImplERNS_6legacy15PassManagerBaseEbRNS_28Machine…
+     8         0 @julialib/libLLVM.so.20.1jl                                               ? _ZN4llvm16TargetPassConfig7addPassEPNS_4PassE
+     8         1 @julialib/libLLVM.so.20.1jl                                               ? _ZN4llvm17PMTopLevelManager12schedulePassEPNS_4PassE
+     8         0 @julialib/libLLVM.so.20.1jl                                               ? _ZN12_GLOBAL__N_115PostRAScheduler20runOnMachineFunctionERN4llvm15MachineFunctionE.part.0
+     8         1 @julialib/libLLVM.so.20.1jl                                               ? _ZN4llvm8RAGreedy8trySplitERKNS_12LiveIntervalERNS_15AllocationOrderERNS_15SmallVectorImplINS_8RegisterEE…
+     8         0 @juliasrc/typemap.c                                                     751 jl_typemap_intersection_visitor
+     9         0 @julialib/libLLVM.so.20.1jl                                               ? _ZN4llvm7DSEPass3runERNS_8FunctionERNS_15AnalysisManagerIS1_JEEE
+     9         2 @julialib/libLLVM.so.20.1jl                                               ? _ZN12_GLOBAL__N_1L19eliminateDeadStoresERN4llvm8FunctionERNS0_9AAResultsERNS0_9MemorySSAERNS0_13Dominator…
+     9         0 @Compiler/src/ssair/inlining.jl                                          84 ssa_inlining_pass!
+     9         0 @juliasrc/gf.c                                                         7978 ml_matches_i
+     9         0 @Compiler/src/reinfer.jl                                                340 verify_method(codeinst::Core.CodeInstance, validation_world::UInt64, workspace::Base.Compiler.ReinferUtil…
+     9         0 @juliasrc/staticdata.c                                                 4541 jl_restore_package_image_from_stream
+     9         0 @juliasrc/staticdata_utils.c                                            984 jl_activate_methods
+     9         0 @juliasrc/support/ios.c                                                 318 _ios_read
+    10         0 @julialib/libLLVM.so.20.1jl                                               ? _ZN15LiveDebugValues16InstrRefBasedLDV12ExtendRangesERN4llvm15MachineFunctionEPNS1_20MachineDominatorTree…
+    10         0 @Base/io.jl                                                             429 #open#326
+    10         0 @Base/util.jl                                                           535 _crc32c
+    11         0 @julialib/libLLVM.so.20.1jl                                               ? _ZN4llvm8RAGreedy13selectOrSplitERKNS_12LiveIntervalERNS_15SmallVectorImplINS_8RegisterEEE
+    11         0 @julialib/libLLVM.so.20.1jl                                               ? _ZN4llvm8RAGreedy17selectOrSplitImplERKNS_12LiveIntervalERNS_15SmallVectorImplINS_8RegisterEEERNS_8SmallS…
+    11         0 @julialib/libLLVM.so.20.1jl                                               ? _ZN12_GLOBAL__N_111DAGCombiner7combineEPN4llvm6SDNodeE
+    11         7 /lib64/libc.so.6                                                          ? _int_malloc
+    11         0 @julialib/libLLVM.so.20.1jl                                               ? _ZN4llvm7GVNPass19processNonLocalLoadEPNS_8LoadInstE.part.0
+    11         0 @julialib/libLLVM.so.20.1jl                                               ? _ZN4llvm23MemoryDependenceResults28getNonLocalPointerDependencyEPNS_11InstructionERNS_15SmallVectorImplIN…
+    11         0 @julialib/libLLVM.so.20.1jl                                               ? _ZN4llvm23MemoryDependenceResults27getNonLocalPointerDepFromBBEPNS_11InstructionERKNS_12PHITransAddrERKNS…
+    11         0 @julialib/libLLVM.so.20.1jl                                               ? _ZN4llvm23MemoryDependenceResults23getNonLocalInfoForBlockEPNS_11InstructionERKNS_14MemoryLocationEbPNS_1…
+    11         0 @julialib/libLLVM.so.20.1jl                                               ? _ZN4llvm23MemoryDependenceResults24getPointerDependencyFromERKNS_14MemoryLocationEbNS_21ilist_iterator_w_…
+    11         0 @julialib/libLLVM.so.20.1jl                                               ? _ZN4llvm23MemoryDependenceResults30getSimplePointerDependencyFromERKNS_14MemoryLocationEbNS_21ilist_itera…
+    11         0 @Compiler/src/reinfer.jl                                                581 verify_call(sig::Any, expecteds::Core.SimpleVector, i::Int64, n::Int64, world::UInt64, fully_covers::Bool…
+    11         0 @Base/runtime_internals.jl                                             1611 _methods_by_ftype
+    11         0 @juliasrc/gf.c                                                         5126 ijl_matching_methods
+    11         0 @juliasrc/gf.c                                                         5139 ijl_matching_methods
+    11         0 @juliasrc/staticdata.c                                                 4027 jl_restore_system_image_from_stream_
+    12         0 @julialib/libLLVM.so.20.1jl                                               ? _ZN4llvm16SelectionDAGISel22DoInstructionSelectionEv
+    12         0 @julialib/libLLVM.so.20.1jl                                               ? _ZN12_GLOBAL__N_115X86DAGToDAGISel6SelectEPN4llvm6SDNodeE
+    12         5 @julialib/libLLVM.so.20.1jl                                               ? _ZN4llvm16SelectionDAGISel16SelectCodeCommonEPNS_6SDNodeEPKhj
+    12         0 @julialib/libLLVM.so.20.1jl                                               ? _ZN4llvm12RegAllocBase16allocatePhysRegsEv
+    12         0 /workspace/srcdir/gcc-15.2.0/libstdc++-v3/libsupc++/new_op.cc            50 operator new
+    12         0 @julialib/libLLVM.so.20.1jl                                               ? _ZN4llvm13BasicAAResult5aliasERKNS_14MemoryLocationES3_RNS_11AAQueryInfoEPKNS_11InstructionE
+    12         2 @julialib/libLLVM.so.20.1jl                                               ? _ZN4llvm13BasicAAResult10aliasCheckEPKNS_5ValueENS_12LocationSizeES3_S4_RNS_11AAQueryInfoEPKNS_11Instruct…
+    12         0 @juliasrc/gf.c                                                         1294 ml_matches
+    12         0 @juliasrc/gf.c                                                         1302 ml_matches
+    12         0 @Compiler/src/reinfer.jl                                                233 verify_method(codeinst::Core.CodeInstance, validation_world::UInt64, workspace::Base.Compiler.ReinferUtil…
+    12         0 @Base/loading.jl                                                       4151 any_includes_stale(includes::Vector{Base.CacheHeaderIncludes}, cachefile::String, reasons::Dict{String, I…
+    12         0 @Base/loading.jl                                                       2102 _require_search_from_serialized(pkg::Base.PkgId, sourcepath::String, build_id::UInt128, stalecheck::Bool;…
+    13         0 @julialib/libLLVM.so.20.1jl                                               ? _ZN4llvm8RAGreedy20runOnMachineFunctionERNS_15MachineFunctionE
+    13         1 @julialib/libLLVM.so.20.1jl                                               ? _ZN4llvm12SelectionDAG7CombineENS_12CombineLevelEPNS_14BatchAAResultsENS_15CodeGenOptLevelE
+    13         0 @julialib/libLLVM.so.20.1jl                                               ? _ZN4llvm16InstCombinerImpl3runEv
+    13         0 @juliasrc/jitlayers.cpp                                                 819 jl_emit_codeinst_to_jit_impl
+    13         0 @juliasrc/codegen.cpp                                                 10339 jl_emit_codeinst
+    13         0 @juliasrc/codegen.cpp                                                 10268 jl_emit_code
+    13         0 @juliasrc/typemap.c                                                     549 jl_typemap_intersection_node_visitor
+    14         0 @Compiler/src/typeinfer.jl                                             1747 typeinf_ext_toplevel
+    14         0 @Compiler/src/typeinfer.jl                                             1740 add_codeinsts_to_jit!(interp::Compiler.NativeInterpreter, ci::Core.CodeInstance, source_mode::UInt8)
+    15         4 /lib64/libc.so.6                                                          ? malloc
+    16         0 @julialib/libLLVM.so.20.1jl                                               ? _ZN4llvm7GVNPass12processBlockEPNS_10BasicBlockE
+    16         1 @julialib/libLLVM.so.20.1jl                                               ? _ZN4llvm7GVNPass18processInstructionEPNS_11InstructionE
+    16         0 @julialib/libLLVM.so.20.1jl                                               ? _ZN4llvm15InstCombinePass3runERNS_8FunctionERNS_15AnalysisManagerIS1_JEEE
+    16         0 @julialib/libLLVM.so.20.1jl                                               ? _ZL31combineInstructionsOverFunctionRN4llvm8FunctionERNS_19InstructionWorklistEPNS_9AAResultsERNS_15Assum…
+    16         0 @Base/io.jl                                                             426 open
+    16         0 @juliasrc/support/ios.c                                                 107 _os_read
+    16        16 /lib64/libc.so.6                                                          ? read
+    18         0 @julialib/libLLVM.so.20.1jl                                               ? _ZN4llvm7GVNPass3runERNS_8FunctionERNS_15AnalysisManagerIS1_JEEE
+    18         0 @julialib/libLLVM.so.20.1jl                                               ? _ZN4llvm7GVNPass7runImplERNS_8FunctionERNS_15AssumptionCacheERNS_13DominatorTreeERKNS_17TargetLibraryInfo…
+    19         0 @Compiler/src/abstractinterpretation.jl                                3031 (::Compiler.var"#infercalls#abstract_apply##0"{Compiler.StmtInfo, Compiler.Future{Compiler.CallMeta}, Com…
+    19         0 @Base/loading.jl                                                       4376 stale_cachefile(modkey::Base.PkgId, build_id::UInt128, modpath::String, cachefile::String; ignore_loaded:…
+    20         0 @Compiler/src/abstractinterpretation.jl                                2014 abstract_call_method_with_const_args(interp::Compiler.NativeInterpreter, result::Compiler.MethodCallResul…
+    20         0 @Compiler/src/abstractinterpretation.jl                                2469 const_prop_call(interp::Compiler.NativeInterpreter, mi::Core.MethodInstance, result::Compiler.MethodCallR…
+    20         0 @Compiler/src/abstractinterpretation.jl                                3873 abstract_call_known(interp::Compiler.NativeInterpreter, f::Any, arginfo::Compiler.ArgInfo, si::Compiler.S…
+    20         0 @Compiler/src/abstractinterpretation.jl                                3051 abstract_apply(interp::Compiler.NativeInterpreter, argtypes::Vector{Any}, si::Compiler.StmtInfo, sv::Comp…
+    22         0 @Compiler/src/abstractinterpretation.jl                                1257 (::Compiler.var"#handle1#153"{Int64, Compiler.Future{Compiler.MethodCallResult}, Int64, Vector{Union{Noth…
+    22         0 @Compiler/src/abstractinterpretation.jl                                1983 abstract_call_method_with_const_args
+    23         0 @Compiler/src/abstractinterpretation.jl                                1341 (::Compiler.var"#infercalls#152"{Compiler.ArgInfo, Compiler.StmtInfo, Base.RefValue{Bool}, Compiler.CallI…
+    23         0 @Base/loading.jl                                                       2118 _require_search_from_serialized(pkg::Base.PkgId, sourcepath::String, build_id::UInt128, stalecheck::Bool;…
+    23         0 @Base/loading.jl                                                       4215 stale_cachefile
+    24         0 @julialib/julia/sys.so                                                    ? jfptr_handle1_87194
+    25         0 @Compiler/src/reinfer.jl                                                101 verify_method_graph(codeinst::Core.CodeInstance, validation_world::UInt64, workspace::Base.Compiler.Reinf…
+    26         0 @Compiler/src/reinfer.jl                                                 77 insert_backedges(internal_methods::Vector{Any})
+    26         0 @Compiler/src/reinfer.jl                                                 87 scan_new_code!(internal_methods::Vector{Any}, workspace::Base.Compiler.ReinferUtils.VerifyMethodWorkspace)
+    28         0 @juliasrc/staticdata.c                                                 4500 jl_restore_package_image_from_stream
+    29         0 @Base/loading.jl                                                       1344 _include_from_serialized(pkg::Base.PkgId, path::String, ocachepath::String, depmods::Vector{Any}; registe…
+    29         0 @Compiler/src/reinfer.jl                                                664 insert_backedges_typeinf
+    29         0 @juliasrc/gf.c                                                          662 ijl_call_in_typeinf_world
+    29         0 @julialib/julia/sys.so                                                    ? jfptr_insert_backedges_95098
+    31         0 @Compiler/src/optimize.jl                                              1055 optimize(interp::Compiler.NativeInterpreter, opt::Compiler.OptimizationState{Compiler.NativeInterpreter},…
+    31         0 @Compiler/src/optimize.jl                                              1083 run_passes_ipo_safe
+    31         0 @Compiler/src/optimize.jl                                              1070 run_passes_ipo_safe(ci::Core.CodeInfo, sv::Compiler.OptimizationState{Compiler.NativeInterpreter}, optimi…
+    32         0 @julialib/libLLVM.so.20.1jl                                               ? _ZN4llvm16SelectionDAGISel17CodeGenAndEmitDAGEv
+    32         0 @Compiler/src/typeinfer.jl                                              260 finish_nocycle(::Compiler.NativeInterpreter, frame::Compiler.InferenceState, time_before::UInt64)
+    32         0 @julialib/julia/sys.so                                                    ? jfptr_optimize_91804
+    32         0 @Compiler/src/abstractinterpretation.jl                                1246 (::Compiler.var"#infercalls#152"{Compiler.ArgInfo, Compiler.StmtInfo, Base.RefValue{Bool}, Compiler.CallI…
+    32         0 @Compiler/src/abstractinterpretation.jl                                1850 abstract_call_method(interp::Compiler.NativeInterpreter, method::Method, sig::Any, sparams::Core.SimpleVe…
+    32         0 @Compiler/src/typeinfer.jl                                             1128 typeinf_edge(interp::Compiler.NativeInterpreter, method::Method, atype::Any, sparams::Core.SimpleVector, …
+    32         0 @Compiler/src/facts.jl                                                  225 typeinf_other_policy(interp::Compiler.NativeInterpreter, method::Method, mi::Core.MethodInstance, caller:…
+    34         0 @julialib/julia/sys.so                                                    ? jfptr_finish_nocycle_92646
+    35         0 @Compiler/src/abstractinterpretation.jl                                5876 typeinf(interp::Compiler.NativeInterpreter, frame::Compiler.InferenceState)
+    36         0 @julialib/libLLVM.so.20.1jl                                               ? _ZN4llvm22SelectionDAGISelLegacy20runOnMachineFunctionERNS_15MachineFunctionE
+    36         0 @julialib/libLLVM.so.20.1jl                                               ? _ZN4llvm16SelectionDAGISel20runOnMachineFunctionERNS_15MachineFunctionE
+    36         0 @julialib/libLLVM.so.20.1jl                                               ? _ZN4llvm16SelectionDAGISel20SelectAllBasicBlocksERKNS_8FunctionE
+    39         0 @Base/loading.jl                                                       1327 _include_from_serialized(pkg::Base.PkgId, path::String, ocachepath::String, depmods::Vector{Any}; registe…
+    39         0 @juliasrc/staticdata.c                                                 4656 ijl_restore_package_image_from_file
+    39         0 @juliasrc/staticdata.c                                                 4590 jl_restore_incremental_from_buf
+    45         0 @Compiler/src/abstractinterpretation.jl                                1448 abstract_call_gf_by_type(interp::Compiler.NativeInterpreter, func::Any, arginfo::Compiler.ArgInfo, si::Co…
+    46         0 @Compiler/src/abstractinterpretation.jl                                5869 typeinf(interp::Compiler.NativeInterpreter, frame::Compiler.InferenceState)
+    46         0 @julialib/julia/sys.so                                                    ? jfptr_typeinf_local_94156
+    46         0 @Compiler/src/abstractinterpretation.jl                                5708 typeinf_local(interp::Compiler.NativeInterpreter, frame::Compiler.InferenceState, nextresult::Compiler.Cu…
+    46         0 @Compiler/src/abstractinterpretation.jl                                5159 abstract_eval_basic_statement
+    46         0 @Compiler/src/abstractinterpretation.jl                                5202 abstract_eval_basic_statement
+    46         0 @Compiler/src/abstractinterpretation.jl                                4805 abstract_eval_statement_expr(interp::Compiler.NativeInterpreter, e::Expr, sstate::Compiler.StatementState…
+    46         0 @Compiler/src/abstractinterpretation.jl                                4444 abstract_eval_call
+    46         0 @Compiler/src/abstractinterpretation.jl                                4426 abstract_call(interp::Compiler.NativeInterpreter, arginfo::Compiler.ArgInfo, sstate::Compiler.StatementSt…
+    46         0 @Compiler/src/abstractinterpretation.jl                                4266 abstract_call
+    46         0 @Compiler/src/abstractinterpretation.jl                                4273 abstract_call(interp::Compiler.NativeInterpreter, arginfo::Compiler.ArgInfo, si::Compiler.StmtInfo, sv::C…
+    46         0 @Compiler/src/abstractinterpretation.jl                                4023 abstract_call_known(interp::Compiler.NativeInterpreter, f::Any, arginfo::Compiler.ArgInfo, si::Compiler.S…
+    46         0 @Compiler/src/abstractinterpretation.jl                                1092 abstract_call_gf_by_type
+    49         0 @Compiler/src/typeinfer.jl                                             1746 typeinf_ext_toplevel
+    49         0 @Compiler/src/typeinfer.jl                                             1490 typeinf_ext(interp::Compiler.NativeInterpreter, mi::Core.MethodInstance, source_mode::UInt8)
+    63         0 @juliasrc/gf.c                                                         5593 jl_compile_method_internal_policy
+    63         0 @juliasrc/gf.c                                                          555 jl_type_infer_policy
+    63         0 @julialib/julia/sys.so                                                    ? jfptr_typeinf_ext_toplevel_90431
+    63         0 @Compiler/src/typeinfer.jl                                             1760 typeinf_ext_toplevel(mi::Core.MethodInstance, world::UInt64, source_mode::UInt8, trim_mode::UInt8, facts:…
+    68         0 @Base/loading.jl                                                       2213 _require_search_from_serialized(pkg::Base.PkgId, sourcepath::String, build_id::UInt128, stalecheck::Bool;…
+    68         0 @Base/loading.jl                                                       1303 _include_from_serialized
+    77         0 @julialib/libLLVM.so.20.1jl                                               ? _ZN4llvm27ModuleToFunctionPassAdaptor3runERNS_6ModuleERNS_15AnalysisManagerIS1_JEEE
+    78         0 @julialib/libLLVM.so.20.1jl                                               ? _ZN4llvm11PassManagerINS_8FunctionENS_15AnalysisManagerIS1_JEEEJEE3runERS1_RS3_
+    88         0 @juliasrc/pipeline.cpp                                                  792 run
+    88         0 @julialib/libLLVM.so.20.1jl                                               ? _ZN4llvm11PassManagerINS_6ModuleENS_15AnalysisManagerIS1_JEEEJEE3runERS1_RS3_
+    88         0 …ulia-trait-bound/julia-next/usr/include/llvm/IR/PassManagerInternal.h   91 run
+    90         0 @juliasrc/jitlayers.cpp                                                2117 addModule
+    90         0 @juliasrc/jitlayers.cpp                                                1648 operator()
+    90         0 @juliasrc/jitlayers.cpp                                                1473 operator()
+    90         0 …nd/julia-next/usr/include/llvm/ExecutionEngine/Orc/ThreadSafeModule.h  136 withModuleDo<(anonymous namespace)::sizedOptimizerT<4>::operator()(llvm::orc::ThreadSafeModule)::<lambda(…
+    90         0 @juliasrc/jitlayers.cpp                                                1512 operator()
+   104         0 @Base/loading.jl                                                       2626 _require_prelocked(uuidkey::Base.PkgId, env::String)
+   104         0 @Base/loading.jl                                                       2758 __require_prelocked(pkg::Base.PkgId, env::String)
+   104         0 @Base/loading.jl                                                       2098 _require_search_from_serialized
+   105         0 @julialib/libLLVM.so.20.1jl                                               ? _ZN4llvm19MachineFunctionPass13runOnFunctionERNS_8FunctionE.part.0
+   114         0 @julialib/libLLVM.so.20.1jl                                               ? _ZN4llvm13FPPassManager11runOnModuleERNS_6ModuleE
+   114         0 @julialib/libLLVM.so.20.1jl                                               ? _ZN4llvm13FPPassManager13runOnFunctionERNS_8FunctionE
+   116         0 @juliasrc/jitlayers.cpp                                                1627 operator()
+   116         0 @julialib/libLLVM.so.20.1jl                                               ? _ZN4llvm6legacy15PassManagerImpl3runERNS_6ModuleE
+   126         0 @juliasrc/jitlayers.cpp                                                2130 addModule
+   212         0 @juliasrc/jitlayers.cpp                                                 681 jl_compile_codeinst_now
+   221         0 @juliasrc/gf.c                                                         5605 jl_compile_method_internal_policy
+   221         0 @juliasrc/jitlayers.cpp                                                 875 jl_compile_codeinst_impl
+   277         0 @Base/loading.jl                                                       2634 _require_prelocked(uuidkey::Base.PkgId, env::String)
+   277         0 @Base/loading.jl                                                       1496 run_package_callbacks(modkey::Base.PkgId)
+   284         0 @juliasrc/gf.c                                                         7229 apply_generic_reach
+   284         0 @juliasrc/gf.c                                                         6091 _jl_invoke
+   381         0 @juliasrc/interpreter.c                                                 566 eval_body
+   381         0 @julialib/julia/sys.so                                                    ? jfptr__eval_using_59050
+   381         0 @Base/module.jl                                                         137 _eval_using(to::Module, path::Expr)
+   381         0 @Base/module.jl                                                          60 eval_import_path_all(at::Module, path::Expr, keyword::String)
+   381         0 @Base/module.jl                                                          36 eval_import_path
+   381         0 @Base/loading.jl                                                       2494 require
+   381         0 @julialib/julia/sys.so                                                    ? jfptr___require_52197
+   381         0 @Base/loading.jl                                                       2518 __require(into::Module, mod::Symbol)
+   381         0 @Base/lock.jl                                                           376 macro expansion
+   381         0 @Base/loading.jl                                                       2554 macro expansion
+   388         0 /p/projects/coen/julia-trait-bound/julia-next/julia                       ? _start
+   388         0 /lib64/libc.so.6                                                          ? __libc_start_main
+   388         0 /lib64/libc.so.6                                                          ? __libc_start_call_main
+   388         0 /p/projects/coen/julia-trait-bound/julia-next/cli/loader_exe.c           58 main
+   388         0 @juliasrc/jlapi.c                                                      1152 jl_repl_entrypoint
+   388         0 @juliasrc/jlapi.c                                                       985 true_main
+   388         0 @juliasrc/julia.h                                                      2389 jl_apply
+   388         0 @julialib/julia/sys.so                                                    ? jfptr__start_75521
+   388         0 @Base/client.jl                                                         577 _start()
+   388         0 @Base/client.jl                                                         344 exec_options(opts::Base.JLOptions)
+   388         0 @Base/Base.jl                                                           318 include(mod::Module, _path::String)
+   388         0 @Base/loading.jl                                                       3109 _include(mapexpr::Function, mod::Module, _path::String)
+   388         0 @Base/loading.jl                                                       3049 include_string(mapexpr::typeof(identity), mod::Module, code::String, filename::String)
+   388         0 @Base/boot.jl                                                           546 eval(m::Module, e::Any)
+   388         0 @juliasrc/toplevel.c                                                    801 ijl_toplevel_eval_in
+   388         0 @juliasrc/toplevel.c                                                    756 ijl_toplevel_eval
+   388         0 @juliasrc/toplevel.c                                                    685 jl_toplevel_eval_flex
+   388         0 @juliasrc/toplevel.c                                                    587 jl_eval_toplevel_stmts
+   388         0 @juliasrc/toplevel.c                                                    733 jl_toplevel_eval_flex
+   388         0 @Base/timing.jl                                                         463 top-level scope
+   388         0 @julialib/julia/sys.so                                                    ? jfptr_eval_18834
+   388         0 @juliasrc/toplevel.c                                                    744 jl_toplevel_eval_flex
+   388         0 @juliasrc/interpreter.c                                                 907 jl_interpret_toplevel_thunk
+   388         0 @juliasrc/interpreter.c                                                 695 eval_body
+   388         0 @juliasrc/interpreter.c                                                 202 eval_stmt_value
+   388         0 @juliasrc/interpreter.c                                                 251 eval_value
+   388         0 @juliasrc/interpreter.c                                                 130 do_call
+Total snapshots: 388. Utilization: 100% across all threads and tasks. Use the `groupby` kwarg to break down by thread and/or task.

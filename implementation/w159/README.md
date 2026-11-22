@@ -128,7 +128,7 @@ Upstream CSV and DataFrames compiled plainly (`w134/plain.jl`). Median (range), 
 
 - The criterion: the head's first work is above vanilla's range of the same hour (3.32–3.34 against 3.25–3.28 s), by 0.04 to 0.09 s: not within it, and not above it by more than 0.1 s. By the brief, open issue 225's first step was run (below).
 - The tag's first work is 0.37 s below vanilla's, the head's 0.07 s above: the head is 0.44 s slower than the tag (open issue 225's question).
-- The library loaded late ends no plain instance on the head (209 at the tag); its load takes 168 ms there against 58 ms loaded first (E-499 on `next` 5448a8b7bf: 35–49 ms late). Not profiled.
+- The library loaded late ends no plain instance on the head (209 at the tag); its load takes 168 ms there against 58 ms loaded first (E-499 on `next` 5448a8b7bf: 35–49 ms late). The profile (`probes/late_profile.jl`, `logs/probe-late-profile-{H,B}.txt`; one profiled process each, 375 against 129 ms under the profiler): on the head 277 of 381 samples are in `run_package_callbacks`, 221 of them code generation: the library's load-time callback compiled again, its image code invalid after CSV's and DataFrames' methods (the pattern of E-516's TraitWorld instances below). At the tag no sample is in a package callback.
 
 ### E-511: nine unrelated loads (`logs/g1-loads-r1.log`; a warm-up and 2 processes per cell, H and B interleaved; load 2.6–3.1)
 
@@ -146,6 +146,7 @@ Upstream CSV and DataFrames compiled plainly (`w134/plain.jl`). Median (range), 
 - By facts: 0.4 % lost (criterion 1 %), and the work after the loads 1.46 s against plain's 5.25 s: G-1's standing holds.
 - The forks: the work after the loads is 12 times their first work (GT-8's line: twice): GT-8 stands. Against the tag they lose three times as many own instances (CSV 137 against 35), of more instances in the image (5,705 against 4,799); the times are the same within the spread. Among all packages loaded for the work the head also loses 16 of TraitWorld's own instances (0 at the tag).
 - Plain code's first work is 0.30 s slower on the head than at the tag (4.46 against 4.16 s), as in E-515.
+- **What ends the forks' instances** (`w134/cause.jl` with the work first, `logs/probe-cause-forks-{H,B}.txt`; its "facts 0" is the tool's flag bit, which it does not read on the head): on the head 162 of the log's entries of the eight packages hang from one method, SparseArrays' `Base._cat(::Any, ::Union{Number, AbstractVecOrMat{<:Number}}, …)`, through Base's `vcat(::Int64, ::Vector{Int64})` to `CSV._parse`, `_parseprepared` and `_filefromprepared` (depth 4 to 8); at the tag 17 hang from SparseArrays' `vcat`, and 47 from FilePathsBase's `open` (on the head 32). GT-8's pattern with the culprit it names (a standard library's method on `vcat`), and more of CSV's reader above it.
 
 ### E-512: at a demonstrator's prompt (`logs/g1-edit-r1.log`; a warm-up and 2 processes per kind; load 2.4–2.9)
 
@@ -319,3 +320,24 @@ At the tag every `compiled_for(` of `ByType` counts as a cast, on the head as th
 | the library (118 testsets), the documentation's examples (33, 126, 10), the ODE port (35), NetworkDynamics' six files (the two known failures) | the main session, 2026-11-21 (`../w158/README.md`, session note item 33) | as stated there |
 
 Not run: TraitReport's check and session, TraitMakie's session, the ODE port's session, the forks' CSV (8 minutes) and DataFrames (36 minutes) suites.
+
+### E-527, open issue 225: the first step of the bisection (`logs/oi225-9b6dacf5c5.log`)
+
+`bash rows/oi225.sh setup; bash rows/oi225.sh step 9b6dacf5c5` (the prior's first step), in `wt/w159-bisect` (a worktree of the julia repository, detached), built with `tools-local/build.sh` and `WIDE=0` (`-j4`): 900 s, BUILD EXIT 0, Base's stage 32.8 s. Its own depot `agent-depots/w159/oi225-9b6dacf5c5`. Then `w134/plain.jl none` in `env_up`, a warm-up and 3 runs, interleaved with the tag and vanilla; load 3.4 to 5.1 (others' jobs).
+
+| build | first work, median (range), s |
+|---|---|
+| `next` 9b6dacf5c5 (X) | 3.363 (3.362–3.366) |
+| the tag 7b374f39ce | 2.908 (2.897–2.953) |
+| vanilla | 3.273 (3.261–3.276) |
+
+**Verdict: bad** (+0.455 s against the tag; the line is 0.20 s). The commits left (first-parent, after the tag): 7063158f42 (the G2 bit marks the deep class, D-5), 3037289af6 (a split's inlined branch names its CodeInstance), 9b6dacf5c5 itself (the code slot removed, D-7). Two more builds decide it: `bash rows/oi225.sh step 3037289af6`, then 7063158f42 or none. Not run: the main session decides. The tree `wt/w159-bisect` and its build are kept for it.
+
+### What was not run
+
+- E-514 upstream on vanilla (`UPSTREAM=1`): `ndport/env_upstream` has no images in V's depot.
+- E-520: six of the thirteen small programs (the smaller vehicle, as the list above says).
+- E-523: TraitReport's check and session, TraitMakie's and the ODE port's sessions, the forks' CSV and DataFrames suites.
+- E-528's next step: the list of the process that writes the ODE port's image.
+- E-527 beyond its first step.
+- The PNGs of the plot and the report programs against a session's: not compared (stdout only).

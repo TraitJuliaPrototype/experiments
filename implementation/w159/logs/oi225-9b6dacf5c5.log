@@ -1,0 +1,80 @@
+# W-159 open issue 225: plain code's first work, 9b6dacf5c5 against the tag and vanilla (w134/plain.jl none) | 2026-11-22T05:12:50+01:00 | load-before 7.62 5.23 3.94 | login02
+# setting X: julia w159-bisect 9b6dacf5c5 (binary 9b6dacf5c5*) | TW TraitWorld-base e11c7cc58b | TDE wt/w161-tde-base b7306285fe | TM wt/w160-tm c862914ffa | TT wt/w159-tag/TraitTables c3391750fb | TC wt/w159-tag/TraitCSV 92c46d01bc | TR wt/w159-tag/TraitReport a4bcf332db | FORKS wt/w159-tag/forks 439bae73ff | ND wt/w151-base/NetworkDynamics 6310040ec0 | depot .julia-depot/agent-depots/w159/oi225-9b6dacf5c5
+# setting B: julia julia-unified 7b374f39ce (binary 7b374f39ce*) | TW TraitWorld-base e11c7cc58b | TDE wt/w161-tde-base b7306285fe | TM wt/w160-tm c862914ffa | TT wt/w159-tag/TraitTables c3391750fb | TC wt/w159-tag/TraitCSV 92c46d01bc | TR wt/w159-tag/TraitReport a4bcf332db | FORKS wt/w159-tag/forks 439bae73ff | ND wt/w151-base/NetworkDynamics 6310040ec0 | depot .julia-depot/agent-depots/w159/B
+# setting V: julia julia-vanilla 45b6d15e34 (binary 45b6d15e34*) | depot .julia-depot/agent-depots/w159/V
+# experiments ed15ea380d | product setting, strict mode off, one thread, fresh process per cell
+# NOTE setting X: the binary is marked '*' (its tree had a tracked change when it was built); the tree is clean now
+# NOTE setting B: the binary is marked '*' (its tree had a tracked change when it was built); the tree is clean now
+# NOTE setting V: the binary is marked '*' (its tree had a tracked change when it was built); the tree is clean now
+== images X | load 7.17 5.18 3.93
+Precompiling packages...
+   0.4 s  ✓ DataValueInterfaces
+   0.4 s  ✓ Reexport
+   0.4 s  ✓ DataStrings
+   0.7 s  ✓ InlineStrings
+-- rc 0 | load 5.36 4.99 3.93
+# preflight X up: images ok: CSV DataFrames
+# preflight B up: images ok: CSV DataFrames
+# preflight V up: images ok: CSV DataFrames
+== X run w | load 5.09 4.94 3.92
+using CSV, DataFrames 791.51 ms
+first work 3363.98 ms, compile 3358.72 ms
+repeated: median 0.18 ms, least 0.18 ms
+-- rc 0 | load 4.84 4.89 3.91
+== B run w | load 4.84 4.89 3.91
+using CSV, DataFrames 954.55 ms
+first work 2915.17 ms, compile 2911.09 ms
+repeated: median 0.19 ms, least 0.19 ms
+-- rc 0 | load 4.61 4.85 3.90
+== V run w | load 4.61 4.85 3.90
+using CSV, DataFrames 802.58 ms
+first work 3264.81 ms, compile 3260.94 ms
+repeated: median 0.18 ms, least 0.17 ms
+-- rc 0 | load 4.81 4.88 3.92
+== X run 1 | load 4.81 4.88 3.92
+using CSV, DataFrames 747.91 ms
+first work 3366.16 ms, compile 3363.56 ms
+repeated: median 0.19 ms, least 0.19 ms
+-- rc 0 | load 4.58 4.83 3.91
+== B run 1 | load 4.58 4.83 3.91
+using CSV, DataFrames 765.41 ms
+first work 2908.39 ms, compile 2905.7 ms
+repeated: median 0.2 ms, least 0.19 ms
+-- rc 0 | load 4.37 4.79 3.90
+== V run 1 | load 4.37 4.79 3.90
+using CSV, DataFrames 652.52 ms
+first work 3276.28 ms, compile 3273.66 ms
+repeated: median 0.18 ms, least 0.18 ms
+-- rc 0 | load 4.18 4.74 3.89
+== X run 2 | load 4.18 4.74 3.89
+using CSV, DataFrames 738.2 ms
+first work 3363.47 ms, compile 3360.9 ms
+repeated: median 0.19 ms, least 0.18 ms
+-- rc 0 | load 4.01 4.69 3.88
+== B run 2 | load 4.01 4.69 3.88
+using CSV, DataFrames 764.56 ms
+first work 2952.88 ms, compile 2949.88 ms
+repeated: median 0.19 ms, least 0.19 ms
+-- rc 0 | load 3.85 4.65 3.87
+== V run 2 | load 3.85 4.65 3.87
+using CSV, DataFrames 646.87 ms
+first work 3273.25 ms, compile 3270.55 ms
+repeated: median 0.18 ms, least 0.17 ms
+-- rc 0 | load 3.70 4.61 3.86
+== X run 3 | load 3.70 4.61 3.86
+using CSV, DataFrames 740.91 ms
+first work 3361.55 ms, compile 3359.0 ms
+repeated: median 0.19 ms, least 0.18 ms
+-- rc 0 | load 3.56 4.56 3.85
+== B run 3 | load 3.56 4.56 3.85
+using CSV, DataFrames 760.98 ms
+first work 2897.09 ms, compile 2894.4 ms
+repeated: median 0.19 ms, least 0.19 ms
+-- rc 0 | load 3.44 4.52 3.84
+== V run 3 | load 3.44 4.52 3.84
+using CSV, DataFrames 646.87 ms
+first work 3260.87 ms, compile 3258.2 ms
+repeated: median 0.18 ms, least 0.17 ms
+-- rc 0 | load 3.32 4.48 3.83
+# verdict 9b6dacf5c5: bad (median first work X 3.36347 s, the tag 2.90839 s, vanilla 3.27325 s; difference 0.45508 s)
+# done 2026-11-22T05:14:49+01:00 | load-after 3.32 4.48 3.83
