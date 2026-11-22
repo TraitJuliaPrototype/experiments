@@ -1,0 +1,21 @@
+# W-143e head-mi_why facts diag/mi_why.jl  | 2026-11-22T21:20:15+01:00 | load-before 8.46 13.56 13.63
+# julia-next bfaf484f55 (binary bfaf484f55*) | TraitWorld e2cb5d02c1 | forks a3a37d6b5e | TraitDifferentialEquations 21a5aa57cf | experiments 1c92cb214a
+# product setting, strict mode off, one thread, one fresh process; depot /p/projects/coen/julia-trait-bound/.julia-depot/agent-depots/w143e/julia-next before the shared one
+why | callee | faults | most cones | widened by | @nospecializeinfer | callee's code now | e.g.
+widened  Base._promote_typesubtract                  1   361  @nospecialize no  plain+bit             Tuple{typeof(Base.promote_typejoin), Type, Type} -> Tuple{typeof(Base._promote_typesubtract), Any}
+inferred Base.print                                  2   186  -             no  plain+bit             Tuple{typeof(print), IOBuffer, String, UnitRange{Int64}, String} -> Tuple{typeof(print), IOBuffer, UnitRange{Int64}}
+inferred Base.show_block                             4    67  -             no  plain                 Tuple{typeof(Base.show_block), IOContext{IOBuffer}, Symbol, Expr, Any, Int64, In -> Tuple{typeof(Base.show_block), IOContext{IOBuffer}, Symbol, Vector{Any}, Any, In
+inferred Base.show_list                              3    67  -             no  plain                 Tuple{typeof(Base.show_generator), IOContext{IOBuffer}, Expr, Int64, Int64} -> Tuple{typeof(Base.show_list), IOContext{IOBuffer}, Any, String, Int64, Int64, In
+inferred Base.Broadcast.materialize!                 1    30  -             no  plain+bit             Tuple{typeof(DataFrames.compute_indices), Vector{Int64}, Int64} -> Tuple{typeof(Base.Broadcast.materialize!), Vector{Int64}, Base.Broadcast.Broadca
+inferred Base.ntuple                                 1    29  -             no  plain                 Tuple{DataFrames.var"#433#434"{GroupedDataFrame{DataFrame}, Symbol}} -> Tuple{typeof(ntuple), DataFrames.var"#435#436"{GroupedDataFrame{DataFrame}}, Int
+inferred Base.lock                                   2    28  -             no  plain                 Tuple{typeof(getproperty), GroupedDataFrame{DataFrame}, Symbol} -> Tuple{typeof(lock), DataFrames.var"#431#432"{GroupedDataFrame{DataFrame}, Symbol
+inferred Base.copy                                   1    25  -             no  plain+bit             Tuple{CSV.var"#directchunk!##0#directchunk!##1"{Vector{Type}, Vector{Any}}} -> Tuple{typeof(copy), Vector{Type}}
+inferred DataFrames.select                           1    10  @nospecialize no                        Tuple{Type{DataFrames.DataFrameJoiner}, DataFrame, DataFrame, Symbol, Symbol, Sy -> Tuple{typeof(Core.kwcall), @NamedTuple{copycols::Bool}, typeof(select), SubDataF
+inferred Base.checkbounds                            1     8  -             no  plain+bit             Tuple{typeof(getindex), DataFrames.IntegerRefpool{Int64}, Int64} -> Tuple{typeof(checkbounds), DataFrames.IntegerRefpool{Int64}, Int64}
+inferred Base.Broadcast.restart_copyto_nonleaf!      8     5  -             no                        Tuple{typeof(Base.Broadcast.copyto_nonleaf!), Matrix, Base.Broadcast.Broadcasted -> Tuple{typeof(Base.Broadcast.restart_copyto_nonleaf!), BitMatrix, Matrix, Base.Br
+widened  Base.throw_field_access                     1     5  Type          no  plain                 Tuple{typeof(fieldname), DataType, Int64} -> Tuple{Base.var"#throw_field_access#fieldname##1", Type, Int64, Int64}
+inferred Base.Sort.#_sort!#20                        3     2  -             no                        Tuple{typeof(Core.kwcall), @NamedTuple{t::Vector{Int64}, offset::Int64, swap::Bo -> Tuple{Base.Sort.var"##_sort!#20", Vector{Int64}, Int64, Bool, Bool, typeof(Base.
+inferred DataFrames.getindex                         1     2  -             no  facts                 Tuple{DataFrames.var"##leftjoin!#774", Symbol, Bool, Nothing, Symbol, typeof(lef -> Tuple{typeof(getindex), SubDataFrame{DataFrame, DataFrames.Index, Vector{Int64}}
+query    Base.iterate                                7     1  -             no                        Tuple{typeof(hasmethod), typeof(iterate), Type{Tuple{Matrix{Bool}}}} -> Tuple{typeof(iterate), Matrix{Bool}}
+faults by why: inferred 28, query 7, widened 2
+# done rc 0 | 5 s | 2026-11-22T21:20:21+01:00 | load-after 8.80 13.46 13.60

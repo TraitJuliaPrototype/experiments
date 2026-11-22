@@ -1,0 +1,42 @@
+# TraitWorld e2cb5d02c1 tests on wt/w143-julia d1e64d8b56 | 2026-11-22T22:00:51+01:00 | load 3.68 5.04 7.29
+the bounded check reads a split as the call as written |    7      7  0.2s
+Test Summary:                                            | Pass  Total  Time
+no hint at an operation that is another owner's function |    4      4  0.5s
+Test Summary:                                          | Pass  Total  Time
+a check's error has the user's line as its first frame |    4      4  0.1s
+Test Summary:                                      | Pass  Total  Time
+an operation called outside its declared signature |    5      5  0.2s
+[ Info: TraitWorld: storage.jl
+Test Summary:                | Pass  Total  Time
+storage keeps the form given |    8      8  0.2s
+[ Info: TraitWorld: build.jl
+Test Summary:                                            | Pass  Total  Time
+make_executable, make_library: the checks before a build |    7      7  0.6s
+Test Summary:                                               | Pass  Total  Time
+a function written at the prompt: the session's definitions |    5      5  0.6s
+[ Info: TraitWorld: bytype.jl
+Test Summary: | Pass  Total  Time
+the wrapper   |   11     11  0.1s
+
+the trait's default as generated methods: Test Failed at /p/projects/coen/julia-trait-bound/TraitWorld/test/bytype.jl:93
+  Expression: count((st->begin
+                #= /p/projects/coen/julia-trait-bound/TraitWorld/test/bytype.jl:93 =#
+                Meta.isexpr(st, :new) && st.args[1] in (Dynamic{Shape}, QuoteNode(Dynamic{Shape}))
+            end), ci.code) == 2
+   Evaluated: 0 == 2
+  Stacktrace:
+   [1] top-level scope
+     @ /p/projects/coen/julia-trait-bound/TraitWorld/test/bytype.jl:71
+   [2] macro expansion
+     @ /p/projects/coen/julia-trait-bound/wt/w143-julia/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:1967 [inlined]
+   [3] macro expansion
+     @ /p/projects/coen/julia-trait-bound/TraitWorld/test/bytype.jl:93 [inlined]
+   [4] macro expansion
+     @ /p/projects/coen/julia-trait-bound/wt/w143-julia/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:758 [inlined]
+Test Summary:                            | Pass  Fail  Total  Time
+the trait's default as generated methods |   20     1     21  1.5s
+RNG of the outermost testset: Random.Xoshiro(0x097c929c79df345e, 0x32e8026b28621622, 0xa45abf71d2b20632, 0x1f95a82e7bc4ed71, 0xb511f05c72e213d5)
+ERROR: LoadError: Some tests did not pass: 20 passed, 1 failed, 0 errored, 0 broken.
+in expression starting at /p/projects/coen/julia-trait-bound/TraitWorld/test/bytype.jl:70
+in expression starting at /p/projects/coen/julia-trait-bound/TraitWorld/test/runtests.jl:3
+# rc 1 | 2026-11-22T22:01:23+01:00

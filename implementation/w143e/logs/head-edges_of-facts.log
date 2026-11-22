@@ -1,0 +1,81 @@
+# W-143e head-edges_of facts diag/edges_of.jl  | 2026-11-22T21:20:30+01:00 | load-before 9.46 13.52 13.61
+# julia-next bfaf484f55 (binary bfaf484f55*) | TraitWorld e2cb5d02c1 | forks a3a37d6b5e | TraitDifferentialEquations 21a5aa57cf | experiments 1c92cb214a
+# product setting, strict mode off, one thread, one fresh process; depot /p/projects/coen/julia-trait-bound/.julia-depot/agent-depots/w143e/julia-next before the shared one
+culprits with a fault at a top-level union whose splits are facts: 8
+    6  Tuple{typeof(Base._accumulaten!), typeof(Base.mul_prod), Vector{Int64}, Vector{Int64}, Any, Base.OneTo{Int64}, Any, Nothing}
+   fault nofact Tuple{typeof(Base.reduce_first), typeof(Base.mul_prod), Union{UInt16, UInt32, UInt8}}
+   its edge group: lookup: 3 matches at Tuple{typeof(Base.reduce_first), typeof(Base.mul_prod), Any}
+              callee CI Tuple{typeof(Base.reduce_first), typeof(Base.mul_prod), Union{UInt16, UInt32, UInt8}}
+              callee CI Tuple{typeof(Base.reduce_first), typeof(Base.mul_prod), Union{Int16, Int32, Int8}}
+              callee CI Tuple{typeof(Base.reduce_first), typeof(Base.mul_prod), Any}
+   the culprit's other faults: nofact Tuple{typeof(Base.reduce_first), typeof(Base.mul_prod), Union{Int16, Int32, Int8}}
+      nofact Tuple{typeof(Base.reduce_first), typeof(Base.mul_prod), Any}
+      nofact Tuple{typeof(setindex!), Vector{Int64}, Any, Int64, Int64, Int64}
+      nofact Tuple{typeof(setindex!), Vector{Int64}, Any, Union{Integer, CartesianIndex}, Int64, Union{Integer, C
+      nofact Tuple{typeof(setindex!), Vector{Int64}, Any, Any, Int64, Any}
+      nofact Tuple{typeof(Base.indexed_iterate), Tuple{Any, Any}, Int64}
+      nofact Tuple{typeof(Base.indexed_iterate), Tuple{Any, Any}, Int64, Int64}
+    6  Tuple{typeof(Base._accumulaten!), typeof(Base.mul_prod), Vector{Int64}, Vector{Int64}, Any, Base.OneTo{Int64}, Any, Nothing}
+   fault nofact Tuple{typeof(Base.reduce_first), typeof(Base.mul_prod), Union{Int16, Int32, Int8}}
+   its edge group: lookup: 3 matches at Tuple{typeof(Base.reduce_first), typeof(Base.mul_prod), Any}
+              callee CI Tuple{typeof(Base.reduce_first), typeof(Base.mul_prod), Union{UInt16, UInt32, UInt8}}
+              callee CI Tuple{typeof(Base.reduce_first), typeof(Base.mul_prod), Union{Int16, Int32, Int8}}
+              callee CI Tuple{typeof(Base.reduce_first), typeof(Base.mul_prod), Any}
+   the culprit's other faults: nofact Tuple{typeof(Base.reduce_first), typeof(Base.mul_prod), Union{UInt16, UInt32, UInt8}}
+      nofact Tuple{typeof(Base.reduce_first), typeof(Base.mul_prod), Any}
+      nofact Tuple{typeof(setindex!), Vector{Int64}, Any, Int64, Int64, Int64}
+      nofact Tuple{typeof(setindex!), Vector{Int64}, Any, Union{Integer, CartesianIndex}, Int64, Union{Integer, C
+      nofact Tuple{typeof(setindex!), Vector{Int64}, Any, Any, Int64, Any}
+      nofact Tuple{typeof(Base.indexed_iterate), Tuple{Any, Any}, Int64}
+      nofact Tuple{typeof(Base.indexed_iterate), Tuple{Any, Any}, Int64, Int64}
+    5  Tuple{Base.Filesystem.var"#temp_cleanup_purge_prelocked##0#temp_cleanup_purge_prelocked##1"{Bool}, Pair{String, Bool}}
+   fault nofact Tuple{typeof(string), String, String, String, Union{Char, SubString{String}, String, Symbol}, String}
+   its edge group: lookup: 3 matches at Tuple{typeof(string), String, String, String, Any, String}
+              callee CI Tuple{typeof(string), String, String, String, Union{Char, String, Symbol}, String}
+              callee CI Tuple{typeof(string), String, String, String, Union{Char, SubString{String}, String, Symbol}, String}
+              callee CI Tuple{typeof(string), String, String, String, Any, String}
+   the culprit's other faults: nofact Tuple{typeof(string), String, String, String, Union{Char, String, Symbol}, String}
+      nofact Tuple{typeof(string), String, String, String, Any, String}
+      nofact Tuple{typeof(Base.CoreLogging.handle_message_nothrow), Base.CoreLogging.AbstractLogger, Base.CoreLog
+    5  Tuple{Base.Filesystem.var"#temp_cleanup_purge_prelocked##0#temp_cleanup_purge_prelocked##1"{Bool}, Pair{String, Bool}}
+   fault nofact Tuple{typeof(string), String, String, String, Union{Char, String, Symbol}, String}
+   its edge group: lookup: 3 matches at Tuple{typeof(string), String, String, String, Any, String}
+              callee CI Tuple{typeof(string), String, String, String, Union{Char, String, Symbol}, String}
+              callee CI Tuple{typeof(string), String, String, String, Union{Char, SubString{String}, String, Symbol}, String}
+              callee CI Tuple{typeof(string), String, String, String, Any, String}
+   the culprit's other faults: nofact Tuple{typeof(string), String, String, String, Union{Char, SubString{String}, String, Symbol}, String
+      nofact Tuple{typeof(string), String, String, String, Any, String}
+      nofact Tuple{typeof(Base.CoreLogging.handle_message_nothrow), Base.CoreLogging.AbstractLogger, Base.CoreLog
+    4  Tuple{typeof(Base.mapreduce_first), Function, typeof(Base.add_sum), String}
+   fault nofact Tuple{typeof(Base.reduce_first), typeof(Base.add_sum), Union{UInt16, UInt32, UInt8}}
+   its edge group: lookup: 3 matches at Tuple{typeof(Base.reduce_first), typeof(Base.add_sum), Any}
+              callee CI Tuple{typeof(Base.reduce_first), typeof(Base.add_sum), Union{Int16, Int32, Int8}}
+              callee CI Tuple{typeof(Base.reduce_first), typeof(Base.add_sum), Union{UInt16, UInt32, UInt8}}
+              callee CI Tuple{typeof(Base.reduce_first), typeof(Base.add_sum), Any}
+   the culprit's other faults: nofact Tuple{typeof(Base.reduce_first), typeof(Base.add_sum), Union{Int16, Int32, Int8}}
+      nofact Tuple{typeof(Base.reduce_first), typeof(Base.add_sum), Any}
+    4  Tuple{typeof(Base.mapreduce_first), Function, typeof(Base.add_sum), String}
+   fault nofact Tuple{typeof(Base.reduce_first), typeof(Base.add_sum), Union{Int16, Int32, Int8}}
+   its edge group: lookup: 3 matches at Tuple{typeof(Base.reduce_first), typeof(Base.add_sum), Any}
+              callee CI Tuple{typeof(Base.reduce_first), typeof(Base.add_sum), Union{Int16, Int32, Int8}}
+              callee CI Tuple{typeof(Base.reduce_first), typeof(Base.add_sum), Union{UInt16, UInt32, UInt8}}
+              callee CI Tuple{typeof(Base.reduce_first), typeof(Base.add_sum), Any}
+   the culprit's other faults: nofact Tuple{typeof(Base.reduce_first), typeof(Base.add_sum), Union{UInt16, UInt32, UInt8}}
+      nofact Tuple{typeof(Base.reduce_first), typeof(Base.add_sum), Any}
+    2  Tuple{typeof(Base._reducedim_init), Function, typeof(Base.add_sum), typeof(zero), typeof(sum), Vector{String}, Function}
+   fault nofact Tuple{typeof(Base._realtype), Union{typeof(abs), typeof(abs2)}, Type{String}}
+   its edge group: lookup: 2 matches at Tuple{typeof(Base._realtype), Function, Type{String}}
+              callee CI Tuple{typeof(Base._realtype), Union{typeof(abs), typeof(abs2)}, Type{String}}
+              callee CI Tuple{typeof(Base._realtype), Function, Type{String}}
+   the culprit's other faults: nofact Tuple{typeof(Base._realtype), Function, Type{String}}
+      nofact Tuple{typeof(sum), Function, Vector{String}}
+      nofact Tuple{typeof(Base.reducedim_initarray), Vector{String}, Function, Any, DataType}
+    2  Tuple{typeof(Base._reducedim_init), Function, typeof(Base.add_sum), typeof(zero), typeof(sum), PooledArrays.PooledVector{String, UInt32, Vec
+   fault nofact Tuple{typeof(Base._realtype), Union{typeof(abs), typeof(abs2)}, Type{String}}
+   its edge group: lookup: 2 matches at Tuple{typeof(Base._realtype), Function, Type{String}}
+              callee CI Tuple{typeof(Base._realtype), Union{typeof(abs), typeof(abs2)}, Type{String}}
+              callee CI Tuple{typeof(Base._realtype), Function, Type{String}}
+   the culprit's other faults: nofact Tuple{typeof(Base._realtype), Function, Type{String}}
+      nofact Tuple{typeof(sum), Function, PooledArrays.PooledVector{String, UInt32, Vector{UInt32}}}
+      nofact Tuple{typeof(Base.reducedim_initarray), PooledArrays.PooledVector{String, UInt32, Vector{UInt32}}, F
+# done rc 0 | 5 s | 2026-11-22T21:20:36+01:00 | load-after 8.93 13.28 13.53

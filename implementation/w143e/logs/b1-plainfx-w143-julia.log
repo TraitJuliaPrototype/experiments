@@ -1,0 +1,11 @@
+# wt/w143-julia d1e64d8b56 | motiv/plainfx.jl | 2026-11-22T22:00:14+01:00 | load 3.12 5.15 7.42
+julia d1e64d8b56*
+promote_typejoin(::Type{Int}, ::Type{Nothing}) inferred: Type{Union{Nothing, Int64}}
+promote_typejoin(Int, Nothing) with constants inferred: Type{Union{Nothing, Int64}}
+[x, nothing] inferred: Vector{Union{Nothing, Int64}} | [x, missing, 1.0]: Vector{Union{Missing, Float64}}
+collect of a generator over Any inferred: Vector
+map(identity, Any[1, nothing]): Vector{Union{Nothing, Int64}} | [1, nothing, missing]: Vector{Union{Missing, Nothing, Int64}}
+Base.promote_typejoin(Union{Int, Nothing}, Missing): Union{Missing, Nothing, Int64}
+fieldname(Complex{Int}, 3): ArgumentError: Cannot access field 3 since type Complex{Int64} only has 2 fields.
+fieldname(Complex{Int}, 2): im
+instances of _promote_typesubtract in this session: 1 DataType[Tuple{typeof(Base._promote_typesubtract), Any}]

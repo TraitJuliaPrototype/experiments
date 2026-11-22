@@ -1,0 +1,251 @@
+# W-143e b1 ode census.jl  | 2026-11-22T21:45:16+01:00 | load-before 5.60 7.98 10.56
+# wt/w143-julia d1e64d8b56 (binary d1e64d8b56*) | TraitWorld e2cb5d02c1 | forks a3a37d6b5e | TraitDifferentialEquations 21a5aa57cf | experiments 98973d3270*
+# product setting, strict mode off, one thread, one fresh process; depot /p/projects/coen/julia-trait-bound/.julia-depot/agent-depots/w143e/w143-julia before the shared one
+# census | project demo | work ode | own TraitDifferentialEquations,ODECore,TraitArrayTools,TraitRodas,TraitNonlinearSolve,TraitIndexing,TraitImplicit,TraitLinSolvers,TraitNLSolvers | julia d1e64d8b56* | load 5.6 | digest -8.02113 0.0178659
+the replay's check: instances reached with the bit and a fault of their own 0
+dispatch edges that are facts only as calls of an owner-only function: in the own facts instances 202; below them 202
+DEEP SHARE | own image instances 594 (78.6 %) of 756 | own facts instances 606 (77.9 %) of 778 | made by the work 12 (54.5 %) of 22
+reached through edges 7647; without the bit 496; culprits (a fault of their own) 158; without the bit, no fault and every callee with it 0
+below the own facts instances, outside the own modules: 6859; outside the class 319 (the facts copies P3's demand rule would make); of them culprits 138
+own facts instances outside the class 172; culprits in a cone, median 3, most 56
+
+## by kind: culprit instances, method names, own facts instances whose cone holds one, whose cone lies in the kind (what fixing the kind buys)
+other               49 instances   33 names | in a cone   121 | the kind alone    47
+introspection       52 instances   32 names | in a cone    59 | the kind alone    19
+by_instance         40 instances    3 names | in a cone    96 | the kind alone     5
+type_join            2 instances    2 names | in a cone     8 | the kind alone     2
+any_container        9 instances    5 names | in a cone     7 | the kind alone     0
+error_path           5 instances    4 names | in a cone     6 | the kind alone     0
+ctor_kind            1 instances    1 names | in a cone     2 | the kind alone     0
+
+## the kinds together, greedy (what each buys on top of the ones before): own facts instances in the class (of 778)
+  + other           653 (83.9 %)
+  + by_instance     715 (91.9 %)
+  + introspection   761 (97.8 %)
+  + any_container   768 (98.7 %)
+  + type_join       772 (99.2 %)
+  + error_path      776 (99.7 %)
+  + ctor_kind       778 (100.0 %)
+
+## by method name (top 40 by the cones they are in): instances, kind, in a cone, the name alone
+    82  Base.collect                                    4 inst  other,introspection        alone 15
+    57  ODECore.solve_ode                               7 inst  by_instance,introspection  alone 0
+    44  Base.tail                                       7 inst  introspection              alone 19
+    38  Base.hasmethod                                 32 inst  by_instance                alone 5
+    31  ODECore._problem                                7 inst  other                      alone 23
+    11  Base.iterate                                    3 inst  other,any_container        alone 0
+    11  TraitRodas.rodas5_initdt!                       1 inst  other                      alone 1
+    11  Base.indexed_iterate                            2 inst  other                      alone 0
+    10  TraitRodas.dual_jacobian                        1 inst  other                      alone 1
+    10  TraitRodas.rodas5_start                         1 inst  other                      alone 0
+     8  Base.typejoin                                   1 inst  type_join                  alone 2
+     7  Base.show_bound                                 2 inst  introspection              alone 0
+     7  Base.parentmodule                               1 inst  introspection              alone 0
+     7  Base.make_wheres                                1 inst  introspection              alone 0
+     7  Base.make_typealias                             1 inst  introspection              alone 0
+     7  Base.unionlen                                   1 inst  introspection              alone 0
+     7  Base.print                                      4 inst  introspection,by_instance  alone 0
+     7  Base.show_at_namedtuple                         2 inst  introspection              alone 0
+     7  Base._uniontypes                                2 inst  any_container              alone 0
+     7  Base.show_typealias                             3 inst  introspection              alone 0
+     7  Base.show_can_elide                             1 inst  other                      alone 0
+     7  Base._push!                                     1 inst  introspection              alone 0
+     7  Base.show_unionaliases                          1 inst  introspection              alone 0
+     7  Base.keys                                       1 inst  other                      alone 0
+     7  Base.makeproper                                 2 inst  introspection              alone 0
+     7  Base.modulesof!                                 3 inst  other,introspection        alone 0
+     7  Base.push!                                      3 inst  introspection,any_container alone 0
+     7  Base.maybe_kws_nt                               1 inst  introspection              alone 0
+     7  Base.show_typeparams                            2 inst  other                      alone 0
+     7  Base.is_global_function                         1 inst  introspection              alone 0
+     7  Base.show                                       4 inst  other,introspection        alone 0
+     7  Base._show_type                                 1 inst  introspection              alone 0
+     7  Base.uniontypes                                 2 inst  any_container              alone 0
+     7  Base.make_typealiases                           2 inst  any_container              alone 0
+     7  Base.show_datatype                              3 inst  introspection              alone 0
+     7  Base.io_has_tvar_name                           1 inst  introspection              alone 0
+     7  Base.eachindex                                  1 inst  other                      alone 0
+     7  Base.print_without_params                       3 inst  introspection              alone 0
+     7  Base.print_to_string                            1 inst  introspection              alone 0
+     4  Base.collect_to_with_first!                     1 inst  other                      alone 0
+
+## greedy: the method name that buys most on top of the ones before (own facts instances in the class)
+  start 606 (77.9 %)
+   1. + ODECore._problem                             [:other]                      629 (80.8 %)
+   2. + Base.tail                                    [:introspection]              648 (83.3 %)
+   3. + Base.hasmethod                               [:by_instance]                686 (88.2 %)
+   4. + Base.collect                                 [:other, :introspection]      701 (90.1 %)
+   5. + ODECore.solve_ode                            [:by_instance, :introspection]745 (95.8 %)
+   6. + Base.typejoin                                [:type_join]                  749 (96.3 %)
+   7. + ODECore._problem_names                       [:other]                      751 (96.5 %)
+   8. + TraitRodas.rodas5_initdt!                    [:other]                      752 (96.7 %)
+   9. + TraitRodas.dual_jacobian                     [:other]                      753 (96.8 %)
+  10. + TraitRodas.rodas5_start                      [:other]                      763 (98.1 %)
+  11. + ODECore.attach!                              [:other]                      764 (98.2 %)
+  12. + ODECore.init_ode                             [:introspection]              765 (98.3 %)
+  13. + Base.iterate                                 [:other, :any_container]      765 (98.3 %)
+  14. + Base.indexed_iterate                         [:other]                      765 (98.3 %)
+  15. + Base.show_bound                              [:introspection]              765 (98.3 %)
+  16. + Base.parentmodule                            [:introspection]              765 (98.3 %)
+  17. + Base.make_wheres                             [:introspection]              765 (98.3 %)
+  18. + Base.make_typealias                          [:introspection]              765 (98.3 %)
+  19. + Base.unionlen                                [:introspection]              765 (98.3 %)
+  20. + Base.print                                   [:introspection, :by_instance]765 (98.3 %)
+  21. + Base.show_at_namedtuple                      [:introspection]              765 (98.3 %)
+  22. + Base._uniontypes                             [:any_container]              765 (98.3 %)
+  23. + Base.show_typealias                          [:introspection]              765 (98.3 %)
+  24. + Base.show_can_elide                          [:other]                      765 (98.3 %)
+  25. + Base._push!                                  [:introspection]              765 (98.3 %)
+
+## the culprit instances most own facts instances rest on
+    72  other          Tuple{typeof(collect), Base.Generator{Vector{Int64}, ODECore.var"#EventState##1#EventState##2"}}
+            nofact: Tuple{Type{UnionAll}, TypeVar, Type{AbstractArray{var"#s188"<:Vector{Float64}, 1}}}
+    71  other          Tuple{typeof(collect), Base.Generator{Vector{Int64}, ODECore.var"#EventState##3#EventState##4"}}
+            nofact: Tuple{Type{UnionAll}, TypeVar, Type{AbstractArray{var"#s188"<:Vector{Int8}, 1}}}
+    44  introspection  Tuple{typeof(Base.tail), Tuple{DataType, DataType}}
+            nofact: Tuple{typeof(Base.argtail), DataType, DataType}
+    44  introspection  Tuple{typeof(Base.tail), Tuple{DataType}}
+            nofact: Tuple{typeof(Base.argtail), DataType}
+    27  introspection  Tuple{typeof(Base.tail), Tuple{DataType, DataType, DataType}}
+            nofact: Tuple{typeof(Base.argtail), DataType, DataType, DataType}
+    26  introspection  Tuple{typeof(Base.tail), NTuple{4, DataType}}
+            nofact: Tuple{typeof(Base.argtail), Vararg{DataType, 4}}
+    26  introspection  Tuple{typeof(Base.tail), NTuple{5, DataType}}
+            nofact: Tuple{typeof(Base.argtail), Vararg{DataType, 5}}
+    25  other          Tuple{typeof(collect), Base.Generator{Vector{Vector{Float64}}, TraitRodas.var"#push_step!##0#push_step!##1"}}
+            nofact: Tuple{Type{UnionAll}, TypeVar, Type{AbstractArray{var"#s188"<:Vector{Float64}, 1}}}
+    24  by_instance    Tuple{typeof(ODECore.solve_ode), ODEProblem{Float64, Vector{Float64}, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64},
+            mi: MethodInstance for ODECore.param_integrator(::Type{Vector{Float64}}, ::Vector{Float64}, ::Float64, ::Any, ::Dynamic{IndexProvider{Symbol}}, 
+    18  by_instance    Tuple{typeof(hasmethod), TraitNonlinearSolve.ProblemResidual{Dynamic{NonlinearProblemTrait{Float64, Float64}}}, Type{Tuple{Vector{
+            mi: MethodInstance for (::TraitNonlinearSolve.ProblemResidual{Dynamic{NonlinearProblemTrait{Float64, Float64}}})(::Vector{Float64}, ::Vector{Flo
+    18  by_instance    Tuple{typeof(hasmethod), TraitNonlinearSolve.ProblemNLJac{Dynamic{NonlinearProblemTrait{Float64, Float64}}}, Type{Tuple{Matrix{Flo
+            mi: MethodInstance for (::TraitNonlinearSolve.ProblemNLJac{Dynamic{NonlinearProblemTrait{Float64, Float64}}})(::Matrix{Float64}, ::Vector{Float6
+    16  introspection  Tuple{typeof(Base.tail), NTuple{6, DataType}}
+            nofact: Tuple{typeof(Base.argtail), Vararg{DataType, 6}}
+    16  introspection  Tuple{typeof(Base.tail), NTuple{7, DataType}}
+            nofact: Tuple{typeof(Base.argtail), Vararg{DataType, 7}}
+    12  by_instance    Tuple{typeof(ODECore.solve_ode), ODEProblem{Float64, Vector{Float64}, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64},
+            mi: MethodInstance for ODECore.param_integrator(::Type{Vector{Float64}}, ::Vector{Float64}, ::Float64, ::Any, ::Dynamic{IndexProvider{Symbol}}, 
+    11  other          Tuple{typeof(ODECore._problem), Any, Any, Vector{Float64}, Tuple{Float64, Float64}, Vector{Float64}, Any, Any, Any, ODECore.Entere
+            nofact: Tuple{typeof(ODECore._names), Union{Compiled{<:IndexProvider{K}}, Dynamic{<:IndexProvider{K}}}} where K
+    11  other          Tuple{typeof(TraitRodas.rodas5_initdt!), TraitRodas.Rodas5Integrator}
+            nofact: Tuple{typeof(ODECore.core_rhs!), ODECore.CoreProblem{T, F, J} where {F<:Callable{Tuple{Vector{T}, Vector{T}, Float64}, Nothing}, J<:Callable
+    10  other          Tuple{typeof(TraitRodas.rodas5_start), ODECore.CoreProblem{Float64, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, F
+            nofact: Tuple{typeof(ODECore.initialize_step_callbacks!), Array{ODECore.StepCallback{U, T}, 1}, Array{ODECore.StepEvent{U, T}, 1}, U, T, Dynamic{ODE
+            nofact: Tuple{typeof(ODECore._save_start!), Vector{Float64}, Array{Vector{T}, 1}, Vector{T}, Float64, Vector{Float64}} where T
+    10  other          Tuple{typeof(TraitRodas.dual_jacobian), Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{
+            nofact: Tuple{typeof(TraitRodas._dual_jacobian), Any, Int64, Val{N}} where N
+    10  by_instance    Tuple{typeof(hasmethod), typeof(ODECore.no_initialize), Type{Tuple{Vector{Float64}, Float64, Dynamic{IntegratorView{Vector{Float64
+            mi: MethodInstance for no_initialize(::Vector{Float64}, ::Float64, ::Dynamic{IntegratorView{Vector{Float64}, Float64, Vector{Float64}}})
+     8  other          Tuple{typeof(ODECore._problem), Any, Any, Vector{Float64}, Tuple{Float64, Float64}, Nothing, Any, Any, Any, ODECore.EnteredCallbac
+            nofact: Tuple{typeof(ODECore._names), Union{Compiled{<:IndexProvider{K}}, Dynamic{<:IndexProvider{K}}}} where K
+     8  type_join      Tuple{typeof(typejoin), Any, Any}
+            nofact: Tuple{typeof(setindex!), Vector{Any}, Any, Int64}
+     7  other          Tuple{typeof(show), IOBuffer, TypeVar}
+            nofact: Tuple{Base.var"#show_bound#show##0", IOBuffer, Any}
+     7  introspection  Tuple{typeof(print), IOBuffer, DataType}
+            nofact: Tuple{typeof(show), IOBuffer, DataType}
+     7  introspection  Tuple{typeof(Base.show_typealias), IOBuffer, Type}
+            nofact: Tuple{typeof(Base.makeproper), IOBuffer, Type}
+            nofact: Tuple{typeof(Base.make_typealias), Type}
+     7  introspection  Tuple{typeof(Base.show_at_namedtuple), IOContext{IOBuffer}, Tuple, DataType}
+            nofact: Tuple{typeof(eachindex), Tuple}
+            nofact: Tuple{typeof(getindex), Tuple, Int64}
+     7  introspection  Tuple{typeof(push!), Vector{UnionAll}, UnionAll}
+            nofact: Tuple{typeof(Base._push!), Vector{UnionAll}, UnionAll}
+     7  other          Tuple{typeof(Base.show_typeparams), IOBuffer, Core.SimpleVector, Core.SimpleVector, Vector{TypeVar}}
+            nofact: Tuple{Base.var"#egal_var#show_typeparams##0", TypeVar, Any}
+     7  introspection  Tuple{typeof(Base.show_unionaliases), IOBuffer, Union}
+            nofact: Tuple{typeof(Base.makeproper), IOBuffer, Union}
+            nofact: Tuple{typeof(Base.make_typealiases), Union}
+     7  introspection  Tuple{typeof(Base.unionlen), Any}
+            nofact: Tuple{typeof(getproperty), Union, Symbol}
+            nofact: Tuple{typeof(Base.unionlen), Any}
+     7  introspection  Tuple{typeof(print), IOBuffer, Type}
+            nofact: Tuple{typeof(show), IOBuffer, Type}
+
+## faults by the function called (top 40 by the cones of its culprits): culprits with such a fault, in a cone, the fault's function alone
+    96  (by instance)                                                    40 culprits  alone 5
+    82  constructor UnionAll                                              4 culprits  alone 15
+    44  Base.argtail                                                      7 culprits  alone 19
+    34  ODECore._names                                                    8 culprits  alone 24
+    15  Base.setindex!                                                    5 culprits  alone 2
+    13  Base.getproperty                                                 19 culprits  alone 0
+    11  Base.length                                                       2 culprits  alone 0
+    11  ODECore.core_rhs!                                                 1 culprits  alone 1
+    11  Base.indexed_iterate                                              5 culprits  alone 0
+    11  Base.getindex                                                     4 culprits  alone 0
+    10  TraitRodas._dual_jacobian                                         1 culprits  alone 1
+    10  ODECore.initialize_step_callbacks!                                1 culprits  alone 0
+    10  ODECore.events_at!                                                1 culprits  alone 0
+    10  ODECore._save_start!                                              1 culprits  alone 0
+     7  Base.show_bound                                                   2 culprits  alone 0
+     7  Base.parentmodule                                                 1 culprits  alone 0
+     7  Base.make_wheres                                                  2 culprits  alone 0
+     7  Base.make_typealias                                               1 culprits  alone 0
+     7  Base.unionlen                                                     3 culprits  alone 0
+     7  Core.has_free_typevars                                            5 culprits  alone 0
+     7  Base.__safe_setindex!                                             2 culprits  alone 0
+     7  Base.print                                                        1 culprits  alone 0
+     7  constructor TypeVar                                               1 culprits  alone 0
+     7  Base.show_at_namedtuple                                           2 culprits  alone 0
+     7  Base._uniontypes                                                  4 culprits  alone 0
+     7  Base.show_typealias                                               3 culprits  alone 0
+     7  constructor Pair                                                  1 culprits  alone 0
+     7  Base.unwrap_unionall                                             11 culprits  alone 0
+     7  Base._push!                                                       1 culprits  alone 0
+     7  Base.show_unionaliases                                            1 culprits  alone 0
+     7  Base.inferencebarrier                                             2 culprits  alone 0
+     7  Base.keys                                                         1 culprits  alone 0
+     7  Base.show_sym                                                     2 culprits  alone 0
+     7  Base.makeproper                                                   2 culprits  alone 0
+     7  Compiler.has_typevar                                              2 culprits  alone 0
+     7  Base.modulesof!                                                   6 culprits  alone 0
+     7  Base.push!                                                        4 culprits  alone 0
+     7  Base._str_sizehint                                                1 culprits  alone 0
+     7  Base.maybe_kws_nt                                                 2 culprits  alone 0
+     7  Base.show                                                         2 culprits  alone 0
+what-if: Base's and Core's functions owner-only by declaration, internal (neither exported nor public), no package method in the session: 31 culprits resolved; own facts instances in the class 625 (80.3 %)
+what-if: Base's and Core's functions owner-only by declaration, any, no package method in the session: 33 culprits resolved; own facts instances in the class 625 (80.3 %)
+
+own facts instances kept out only by callees named by instance alone, whose code has the bit now: 3
+
+## the candidates' groups (disjoint: a fault counts in the first group it meets): culprits with such a fault, culprits the group alone fixes, own facts instances in the class with it alone
+record: TypeVar and UnionAll inferred at (Any, Any)                        culprits     5 | fixed alone     3 | 621 (79.8 %)
+record: a top-level union whose splits are facts                           culprits     0 | fixed alone     0 | 606 (77.9 %)
+lowering: a keyword body (#f#N) called at an abstract argument             culprits     0 | fixed alone     0 | 606 (77.9 %)
+Base: a type's field read by getproperty at a kind                         culprits    17 | fixed alone     5 | 606 (77.9 %)
+218: a tuple with an abstract element, indexed                             culprits     9 | fixed alone     2 | 606 (77.9 %)
+218 (b): a store into a container of Any                                   culprits     7 | fixed alone     4 | 608 (78.1 %)
+218: the task code (a payload typed Any to schedule, notify, close)        culprits     0 | fixed alone     0 | 606 (77.9 %)
+219: a query that names the matched instance (hasmethod)                   culprits    40 | fixed alone    40 | 611 (78.5 %)
+218: any other call with a kind among its arguments                        culprits    53 | fixed alone    33 | 625 (80.3 %)
+218: a call at an abstract argument, Base's or Core's function             culprits    47 | fixed alone    24 | 606 (77.9 %)
+a call at an abstract argument, another module's function (the port's, the library's, the compiler's) culprits    21 | fixed alone    17 | 633 (81.4 %)
+
+## what each group is needed for: own facts instances in the class with every other group fixed, and with all
+record: TypeVar and UnionAll inferred at (Any, Any)                        without it 696 (89.5 %) | needs it 82
+record: a top-level union whose splits are facts                           without it 778 (100.0 %) | needs it 0
+lowering: a keyword body (#f#N) called at an abstract argument             without it 778 (100.0 %) | needs it 0
+Base: a type's field read by getproperty at a kind                         without it 771 (99.1 %) | needs it 7
+218: a tuple with an abstract element, indexed                             without it 767 (98.6 %) | needs it 11
+218 (b): a store into a container of Any                                   without it 763 (98.1 %) | needs it 15
+218: the task code (a payload typed Any to schedule, notify, close)        without it 778 (100.0 %) | needs it 0
+219: a query that names the matched instance (hasmethod)                   without it 682 (87.7 %) | needs it 96
+218: any other call with a kind among its arguments                        without it 719 (92.4 %) | needs it 59
+218: a call at an abstract argument, Base's or Core's function             without it 765 (98.3 %) | needs it 13
+a call at an abstract argument, another module's function (the port's, the library's, the compiler's) without it 718 (92.3 %) | needs it 60
+
+## the groups, greedy (what each buys on top of the ones before)
+  + a call at an abstract argument, another module's function (the port's, the library's, the compiler's)633 (81.4 %)
+  + 218: any other call with a kind among its arguments                       654 (84.1 %)
+  + 219: a query that names the matched instance (hasmethod)                  692 (88.9 %)
+  + record: TypeVar and UnionAll inferred at (Any, Any)                       761 (97.8 %)
+  + 218 (b): a store into a container of Any                                  765 (98.3 %)
+  + 218: a call at an abstract argument, Base's or Core's function            767 (98.6 %)
+  + 218: a tuple with an abstract element, indexed                            771 (99.1 %)
+  + Base: a type's field read by getproperty at a kind                        778 (100.0 %)
+  + record: a top-level union whose splits are facts                          778 (100.0 %)
+  + lowering: a keyword body (#f#N) called at an abstract argument            778 (100.0 %)
+  + 218: the task code (a payload typed Any to schedule, notify, close)       778 (100.0 %)
+# done rc 0 | 71 s | 2026-11-22T21:46:28+01:00 | load-after 4.66 7.20 10.10

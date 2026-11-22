@@ -1,4 +1,5 @@
-# W-143d (E-540): W-143c's census library, unchanged; W-143c (E-535): the census's library, copied from `../w157/census_lib.jl` and adapted to the head
+# W-143e (E-541): W-143d's, with one change: a fault at an instance that a lookup of several matches names counts at the
+# lookup's signature (`lookup_sigs`; README, "The tool's change"). W-143d (E-540): W-143c's census library, unchanged; W-143c (E-535): the census's library, copied from `../w157/census_lib.jl` and adapted to the head
 # (`next` cf0f039f51). The deep class is the G2 bit (compiler §3.2); the culprits are found by the build's
 # predicate (`Compiler.edges_satisfy_g2`) replayed edge by edge; their kinds; each own instance's cone.
 # What changed against W-157's copy (README, "The tool's changes"):
@@ -52,8 +53,30 @@ names_back(e::Core.MethodInstance, mi::Core.MethodInstance) =
 # the instance's own faults, by the build's predicate (compiler §3.2) replayed edge by edge; a callee
 # without the bit is no fault of its own (it is followed).
 struct Fault; kind::Symbol; sig::Any; end   # :nofact (a dispatch edge), :nomethod (no match), :mi (by instance)
+# W-143e: the call's signature of each instance that a lookup with several matches names. Such an instance's signature
+# is the matched method's met with the call's (a method declared at a union gives a union no call has): its fault is
+# the lookup's, where the call's signature is no fact either. The predicate's verdict is the same.
+function lookup_sigs(edges)
+    d = IdDict{Any,Any}(); i = 1
+    while i <= length(edges)
+        e = edges[i]
+        if e isa Int
+            n = abs(e)
+            if n > 1
+                for j in i+2:min(i+1+n, length(edges))
+                    x = edges[j]; m = x isa Core.CodeInstance ? x.def : x
+                    m isa Core.MethodInstance && (d[m] = edges[i+1])
+                end
+            end
+            i += 2 + n
+        else
+            i += 1
+        end
+    end
+    d
+end
 function faults(ci::Core.CodeInstance)
-    mi = C.get_ci_mi(ci); out = Fault[]
+    mi = C.get_ci_mi(ci); out = Fault[]; lk = lookup_sigs(ci.edges)
     for e in ci.edges
         if e isa Core.MethodInstance
             (e === mi || ismembmi(e)) && continue
@@ -68,7 +91,11 @@ function faults(ci::Core.CodeInstance)
             ismembmi(item) && continue
             (invokesig === nothing || invokesig isa C.CallSigBackedge) || continue
             s = invokesig isa C.CallSigBackedge ? invokesig.sig : item.specTypes
-            C.is_fact_sig(s) || push!(out, Fault(:nofact, s))
+            if !C.is_fact_sig(s)
+                ls = invokesig === nothing ? get(lk, item, nothing) : nothing
+                ls !== nothing && !C.is_fact_sig(ls) && (s = ls)
+                any(f -> f.kind === :nofact && f.sig === s, out) || push!(out, Fault(:nofact, s))
+            end
         end
     end
     out
