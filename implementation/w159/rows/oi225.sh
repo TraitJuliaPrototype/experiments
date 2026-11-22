@@ -21,7 +21,8 @@ CSV=$R/experiments/interfaces/App/data/sample.csv
 case ${1:-} in
 setup)
   [ -d "$BT" ] || git -C "$R/julia-1.13" worktree add --detach "$BT" $GOOD || exit 1
-  mkdir -p "$BT/deps/srccache"; cp -rn "$R/julia-next/deps/srccache/." "$BT/deps/srccache/"
+  # the downloaded files only: an extracted source directory copied makes the build's `mkdir` fail (patchelf)
+  mkdir -p "$BT/deps/srccache"; find "$R/julia-next/deps/srccache" -mindepth 1 -maxdepth 1 -type f -exec cp -n {} "$BT/deps/srccache/" \;
   echo "worktree $BT at $(git -C "$BT" rev-parse --short=10 HEAD); the first build makes the dependencies (longer than a step)" ;;
 step)
   c=$(git -C "$BT" rev-parse --short=10 "$2") || exit 125
