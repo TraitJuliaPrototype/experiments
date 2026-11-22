@@ -1,0 +1,673 @@
+# W-167 lib_static | julia cf0f039f51* | TraitWorld /p/projects/coen/julia-trait-bound/wt/w158g-tw/src/TraitWorld.jl | load 3.7
+# flags: facts by Compiler.ci_policy_facts, G2 = 0x10 and FROM_IMAGE = 0x04 from julia.h; self-check ok
+INSTANCES 362 | facts 362 | deep 353 | from the image 269 | without its machine code 93
+HOOKS 11 instances, deep 11 | MACROS 0, deep 0 | functions passed to _runtime_site 20
+    deep    TraitWorld.__init__()
+    deep    TraitWorld._definition_hook(::Method, ::Bool)
+    deep    TraitWorld._deletion_hook(::Method)
+    deep    TraitWorld._expand_definition(::Core.SimpleVector, ::Core.CodeInfo, ::Module)
+    deep    TraitWorld._fully_typed_hook(::Core.SimpleVector)
+    deep    TraitWorld._image_methods_hook(::Vector{Any}, ::String)
+    deep    TraitWorld._member_hook(::Any, ::Any)
+    deep    TraitWorld._module_end_hook(::Module)
+    deep    TraitWorld._report_at_load!(::Base.PkgId)
+    deep    TraitWorld._report_endings!(::Vector{Any})
+    deep    TraitWorld._strict_at_load!(::Base.PkgId)
+BY PATH (outside the class): hook 0 | macro 0 | site 7 | other 2
+
+## outside the class: 9 (2 named exceptions), each with its culprits
+OUT [site] (::TraitWorld.var"#_fully_typed_hook##0#_fully_typed_hook##1")()
+    ENTRY Base.CoreLogging.current_logger_for_env(::Base.CoreLogging.LogLevel, ::Symbol, ::Module)
+    Base.ScopedValues.get(::Base.ScopedValues.ScopedValue{Base.CoreLogging.LogState}) [other]: nofact Tuple{typeof(only), Tuple{Any}}
+    Base.Iterators.only(::Tuple{Any}) [other]: nofact Tuple{typeof(getindex), Tuple{Any}, Int64}
+OUT [site] (::TraitWorld.var"#_image_methods_hook##0#_image_methods_hook##1"{String, Method, ImplementError})()
+    ENTRY Base.CoreLogging.current_logger_for_env(::Base.CoreLogging.LogLevel, ::Symbol, ::Module)
+    Base.ScopedValues.get(::Base.ScopedValues.ScopedValue{Base.CoreLogging.LogState}) [other]: nofact Tuple{typeof(only), Tuple{Any}}
+    Base.Iterators.only(::Tuple{Any}) [other]: nofact Tuple{typeof(getindex), Tuple{Any}, Int64}
+OUT [site] (::TraitWorld.var"#_report_load_ambiguities!##0#_report_load_ambiguities!##1"{Int64})()
+    ENTRY Base.CoreLogging.current_logger_for_env(::Base.CoreLogging.LogLevel, ::Symbol, ::Module)
+    Base.ScopedValues.get(::Base.ScopedValues.ScopedValue{Base.CoreLogging.LogState}) [other]: nofact Tuple{typeof(only), Tuple{Any}}
+    Base.Iterators.only(::Tuple{Any}) [other]: nofact Tuple{typeof(getindex), Tuple{Any}, Int64}
+OUT [site] (::TraitWorld.var"#_report_load_memberships!##0#_report_load_memberships!##1"{Vector{String}})()
+    ENTRY Base.CoreLogging.current_logger_for_env(::Base.CoreLogging.LogLevel, ::Symbol, ::Module)
+    Base.ScopedValues.get(::Base.ScopedValues.ScopedValue{Base.CoreLogging.LogState}) [other]: nofact Tuple{typeof(only), Tuple{Any}}
+    Base.Iterators.only(::Tuple{Any}) [other]: nofact Tuple{typeof(getindex), Tuple{Any}, Int64}
+OUT [site] (::TraitWorld.var"#_strict_at_load!##2#_strict_at_load!##3"{Vector{TraitWorld.PirateAtLoadError}})()
+    ENTRY Base.CoreLogging.current_logger_for_env(::Base.CoreLogging.LogLevel, ::Symbol, ::Module)
+    Base.ScopedValues.get(::Base.ScopedValues.ScopedValue{Base.CoreLogging.LogState}) [other]: nofact Tuple{typeof(only), Tuple{Any}}
+    Base.Iterators.only(::Tuple{Any}) [other]: nofact Tuple{typeof(getindex), Tuple{Any}, Int64}
+OUT [site] (::TraitWorld.var"#_strict_image_refusals##2#_strict_image_refusals##3"{Method})()
+    ENTRY Base.CoreLogging.current_logger_for_env(::Base.CoreLogging.LogLevel, ::Symbol, ::Module)
+    Base.ScopedValues.get(::Base.ScopedValues.ScopedValue{Base.CoreLogging.LogState}) [other]: nofact Tuple{typeof(only), Tuple{Any}}
+    Base.Iterators.only(::Tuple{Any}) [other]: nofact Tuple{typeof(getindex), Tuple{Any}, Int64}
+OUT [site] TraitWorld._env_binds(::Dict{Symbol, Any})
+    ENTRY iterate(::Dict{Symbol, Any})
+    ENTRY iterate(::Dict{Symbol, Any}, ::Int64)
+    Base._iterate_dict(::Dict{Symbol, Any}, ::Int64) [any_container]: nofact Tuple{Type{Pair{Symbol, Any}}, Symbol, Any}
+EXCEPTION [other] TraitWorld._equation_value_method(::Symbol, ::Vector{Symbol}, ::Vector{Any}, ::Vector{Any}, ::Vector{Pair{Symbol, Any}}) | _equation_value_method: a part of `@trait`'s expansion (`_trait`), as above
+    ENTRY collect(::Base.Generator{Base.Iterators.Filter{TraitWorld.var"#_equation_value_method##3#_equation_value_method##4", Vector{Pair{Symbol, Any}}}, TraitWorld.var"#_equation
+    Base.grow_to!(::Vector{Tuple{Symbol, Any}}, ::Base.Generator{Base.Iterators.Filter{TraitWorld.var"#_equation_value_method##3#_equation_value [introspection]: nofact Tuple{typeof(getindex), Tuple{Tuple{Symbol, Any}, Int64}, Int64}; nofact Tuple{typeof(empty), Vector{Tuple{Symbol, Any}}, Type{<:Tuple{Symbol, Any}}}; nofact Tuple{typeof(push!), Vector{<:Tuple{Symbol, Any}}, Tuple{Symbol, Any}}
+    Base.grow_to!(::Vector{<:Tuple{Symbol, Any}}, ::Base.Generator{Base.Iterators.Filter{TraitWorld.var"#_equation_value_method##3#_equation_val [other]: nofact Tuple{typeof(eltype), Vector{<:Tuple{Symbol, Any}}}; nofact Tuple{typeof(Base.indexed_iterate), Tuple{Tuple{Symbol, Any}, Int64}, Int64}; nofact Tuple{typeof(Base.indexed_iterate), Tuple{Tuple{Symbol, Any}, Int64}, Int64, Int64}
+    Base.grow_to!(::Vector, ::Base.Generator{Base.Iterators.Filter{TraitWorld.var"#_equation_value_method##3#_equation_value_method##4", Vector{ [any_container]: nofact Tuple{typeof(eltype), Vector}; nofact Tuple{typeof(Base.indexed_iterate), Tuple{Tuple{Symbol, Any}, Int64}, Int64}; nofact Tuple{typeof(Base.indexed_iterate), Tuple{Tuple{Symbol, Any}, Int64}, Int64, Int64}
+    Base.push_widen(::Vector, ::Tuple{Symbol, Any}) [type_join]: nofact Tuple{typeof(eltype), Vector}; nofact Tuple{typeof(Base.promote_typejoin), Any, Type{<:Tuple{Symbol, Any}}}; nofact Tuple{typeof(empty), Vector, Type}
+    push!(::Vector, ::Tuple{Symbol, Any}) [other]: nomethod Tuple{typeof(Base._push!), Vector, Any}; nofact Tuple{typeof(Base._push!), Vector{T}, T} where T
+    Base._push!(::Vector{T}, ::T) where T [any_container]: nofact Tuple{typeof(Base._growend!), Vector, Int64}; nofact Tuple{typeof(length), Vector}; nofact Tuple{typeof(Base.__safe_setindex!), Vector{Any}, Any, Int64}
+    Base.__safe_setindex!(::Vector, ::Any, ::Int64) [any_container]: nofact Tuple{typeof(Base.__safe_setindex!), Vector{Any}, Any, Int64}; nofact Tuple{typeof(Base.__safe_setindex!), Vector{T}, T, Int64} where T
+    Base.__safe_setindex!(::Vector{T}, ::T, ::Int64) where T [other]: nofact Tuple{typeof(getproperty), Vector, Symbol}
+    length(::Vector) [other]: nofact Tuple{typeof(size), Vector}
+    Base._growend!(::Vector, ::Int64) [other]: nofact Tuple{typeof(getproperty), Vector, Symbol}; nofact Tuple{typeof(getproperty), MemoryRef, Symbol}; nofact Tuple{typeof(length), Memory}
+    Base._growend_internal!(::Vector, ::Int64, ::Int64) [other]: nofact Tuple{typeof(getproperty), Vector, Symbol}; nofact Tuple{typeof(getproperty), MemoryRef, Symbol}; nofact Tuple{typeof(length), Memory}
+    unsafe_copyto!(::MemoryRef, ::MemoryRef, ::Int64) [other]: nofact Tuple{typeof(memoryref), MemoryRef, Int64}; nofact Tuple{typeof(getproperty), MemoryRef, Symbol}; nofact Tuple{typeof(unsafe_copyto!), Memory, Int64, Memory, Int64, Int64}
+    unsafe_copyto!(::Memory, ::Int64, ::Memory, ::Int64, ::Int64) [any_container]: nofact Tuple{typeof(pointer), Memory, Int64}; nofact Tuple{typeof(<), Ptr, Ptr}; nofact Tuple{typeof(>), Ptr, Ptr}
+    Base._unsetindex!(::Memory, ::Int64) [other]: nofact Tuple{typeof(memoryref), Memory, Int64}; nofact Tuple{typeof(Base._unsetindex!), MemoryRef}
+    Base._unsetindex!(::MemoryRef) [introspection]: nofact Tuple{typeof(memoryref), MemoryRef, Int64}; nofact Tuple{typeof(getproperty), MemoryRef, Symbol}; nofact Tuple{typeof(Base.datatype_arrayelem), Type{Memory{T}} where T}
+    pointer(::MemoryRef) [other]: nofact Tuple{typeof(Base.unsafe_convert), Type{Ptr{Nothing}}, MemoryRef}
+    Base.unsafe_convert(::Type{Ptr{Nothing}}, ::MemoryRef) [introspection]: nofact Tuple{typeof(Base.datatype_arrayelem), Type{Memory{T}} where T}; nofact Tuple{typeof(Base.datatype_layoutsize), Type{Memory{T}} where T}; nofact Tuple{typeof(Base.unsafe_convert), Type{Ptr{Nothing}}, Memory}
+    Base.datatype_layoutsize(::Type{Memory{T}} where T) [introspection]: nofact Tuple{typeof(getproperty), Type{Memory{T}} where T, Symbol}
+    Base.datatype_arrayelem(::Type{Memory{T}} where T) [introspection]: nofact Tuple{typeof(getproperty), Type{Memory{T}} where T, Symbol}
+    Base.datatype_pointerfree(::DataType) [introspection]: nofact Tuple{typeof(Base.datatype_npointers), DataType}
+    setindex!(::Memory, ::Any, ::Int64) [other]: nomethod Tuple{typeof(Base._setindex!), Memory, Any, Int64}; nofact Tuple{typeof(Base._setindex!), Memory{T}, T, Int64} where T
+    Base._setindex!(::Memory{T}, ::T, ::Int64) where T [other]: nofact Tuple{typeof(memoryref), Memory}
+    getindex(::Memory, ::Int64) [other]: nofact Tuple{typeof(checkbounds), Memory, Int64}; nofact Tuple{typeof(Base.default_access_order), Memory}
+    checkbounds(::Memory, ::Int64) [other]: nofact Tuple{typeof(checkbounds), Type{Bool}, Memory, Int64}; nofact Tuple{typeof(Base.throw_boundserror), Memory, Tuple{Int64}}
+    Base.throw_boundserror(::Memory, ::Tuple{Int64}) [error_path]: nofact Tuple{Type{BoundsError}, Memory, Tuple{Int64}}
+    checkbounds(::Type{Bool}, ::Memory, ::Int64) [other]: nofact Tuple{typeof(length), Memory}
+    length(::Memory) [other]: nofact Tuple{typeof(size), Memory}
+    isassigned(::Memory, ::Int64) [other]: nofact Tuple{typeof(checkbounds), Type{Bool}, Memory, Int64}; nofact Tuple{typeof(memoryref), Memory, Int64}; nofact Tuple{typeof(Base.default_access_order), Memory}
+    >(::Ptr, ::Ptr) [other]: nofact Tuple{typeof(<), Ptr, Ptr}
+    <(::Ptr, ::Ptr) [other]: nofact Tuple{Type{UInt64}, Ptr}
+    pointer(::Memory, ::Int64) [other]: nofact Tuple{typeof(pointer), Memory}; nofact Tuple{typeof(Base._memory_offset), Memory, Int64}; nofact Tuple{typeof(+), Ptr, Int64}
+    Base._memory_offset(::Memory, ::Int64) [other]: nofact Tuple{typeof(Base._to_linear_index), Memory, Int64}; nofact Tuple{Type{LinearIndices}, Memory}; nofact Tuple{typeof(Base.elsize), Memory}
+    Base.elsize(::Memory) [introspection]: nofact Tuple{typeof(Base.elsize), Type{Memory{T}} where T}
+    Base.elsize(::Type{Memory{T}} where T) [introspection]: nomethod Tuple{typeof(Base.aligned_sizeof), Any}; nofact Tuple{typeof(Base.aligned_sizeof), Type}
+    Base.aligned_sizeof(::Type) [introspection]: nofact Tuple{typeof(Base.allocatedinline), Union}; nofact Tuple{typeof(Base.uniontype_layout), Union}; nofact Tuple{typeof(Base.allocatedinline), Type}
+    LinearIndices(::Memory) [other]: nofact Tuple{typeof(axes), Memory}
+    axes(::Memory) [other]: nofact Tuple{typeof(size), Memory}
+    pointer(::Memory) [introspection]: nofact Tuple{typeof(Base.cconvert), Type{Ptr{_A}} where _A, Memory}; nofact Tuple{typeof(Base.unsafe_convert), Type{Ptr{Nothing}}, Memory}; nofact Tuple{typeof(Base.unsafe_convert), Type{Ptr{_A}} where _A, Memory}
+    Base.unsafe_convert(::Type{Ptr{_A}} where _A, ::Memory) [introspection]: nofact Tuple{typeof(convert), Type{Ptr{_A}} where _A, Ptr{Nothing}}
+    unsafe_copyto!(::MemoryRef{T}, ::MemoryRef{T}, ::Int64) where T [introspection]: nofact Tuple{typeof(memoryref), MemoryRef, Int64}; nofact Tuple{typeof(isbitstype), Any}; nofact Tuple{typeof(Base.unsafe_convert), Type{Ptr{Nothing}}, MemoryRef}
+    isbitstype(::Any) [introspection]: nofact Tuple{typeof(getproperty), DataType, Symbol}
+    Base.array_new_memory(::Memory, ::Int64) [other]: nofact Tuple{Type{Memory{T}} where T, UndefInitializer, Int64}
+    push!(::Vector{Any}, ::Tuple{Symbol, Any}) [any_container]: nofact Tuple{typeof(Base.__safe_setindex!), Vector{Any}, Tuple{Symbol, Any}, Int64}
+    append!(::Vector, ::Vector) [other]: nofact Tuple{Type{Base.IteratorSize}, Vector}; nofact Tuple{typeof(Base._append!), Vector, Base.HasShape{1}, Vector}
+    Base._append!(::Vector, ::Base.HasShape{1}, ::Vector) [any_container]: nofact Tuple{typeof(length), Vector}; nofact Tuple{typeof(Core.kwcall), @NamedTuple{shrink::Bool}, typeof(sizehint!), Vector, Int64}; nofact Tuple{typeof(iterate), Vector}
+    iterate(::Vector, ::Int64) [other]: nofact Tuple{typeof(Base._iterate_abstractarray), Vector, Int64}
+    Base._iterate_abstractarray(::Vector, ::Int64) [other]: nofact Tuple{typeof(checkbounds), Type{Bool}, Vector, Int64}; nofact Tuple{typeof(getindex), Vector, Int64}
+    getindex(::Vector, ::Int64) [other]: nofact Tuple{typeof(checkbounds), Vector, Int64}
+    checkbounds(::Vector, ::Int64) [other]: nofact Tuple{typeof(checkbounds), Type{Bool}, Vector, Int64}; nofact Tuple{typeof(Base.throw_boundserror), Vector, Tuple{Int64}}
+    Base.throw_boundserror(::Vector, ::Tuple{Int64}) [error_path]: nofact Tuple{Type{BoundsError}, Vector, Tuple{Int64}}
+    checkbounds(::Type{Bool}, ::Vector, ::Int64) [other]: nofact Tuple{typeof(length), Vector}
+    push!(::Vector, ::Any) [other]: nomethod Tuple{typeof(Base._push!), Vector, Any}; nofact Tuple{typeof(Base._push!), Vector{T}, T} where T
+    push!(::Vector{Any}, ::Any) [any_container]: nofact Tuple{typeof(Base.__safe_setindex!), Vector{Any}, Any, Int64}
+    iterate(::Vector) [other]: nofact Tuple{typeof(Base.iterate_starting_state), Vector}; nofact Tuple{typeof(iterate), Vector, Int64}
+    Base.iterate_starting_state(::Vector) [other]: nofact Tuple{Type{IndexStyle}, Vector}; nofact Tuple{typeof(Base.iterate_starting_state), Vector, IndexLinear}
+    Base.iterate_starting_state(::Vector, ::IndexLinear) [other]: nofact Tuple{typeof(firstindex), Vector}
+    firstindex(::Vector) [other]: nofact Tuple{typeof(eachindex), IndexLinear, Vector}
+    eachindex(::IndexLinear, ::Vector) [other]: nofact Tuple{typeof(length), Vector}
+    IndexStyle(::Vector) [ctor_kind]: nofact Tuple{Type{IndexStyle}, Type{Vector{T}} where T}
+    Core.kwcall(::@NamedTuple{shrink::Bool}, ::typeof(sizehint!), ::Vector, ::Int64) [other]: nofact Tuple{Base.var"##sizehint!#81", Bool, Bool, typeof(sizehint!), Vector, Int64}
+    Base.var"#sizehint!#81"(::Bool, ::Bool, ::typeof(sizehint!), ::Vector, ::Int64) [other]: nofact Tuple{typeof(length), Vector}; nofact Tuple{typeof(getproperty), Vector, Symbol}; nofact Tuple{typeof(getproperty), MemoryRef, Symbol}
+    Base._growbeg!(::Vector, ::Int64) [other]: nofact Tuple{typeof(getproperty), Vector, Symbol}; nofact Tuple{typeof(length), Vector}; nofact Tuple{typeof(memoryref), MemoryRef, Int64}
+    Base._growbeg_internal!(::Vector, ::Int64, ::Int64) [other]: nofact Tuple{typeof(getproperty), Vector, Symbol}; nofact Tuple{typeof(getproperty), MemoryRef, Symbol}; nofact Tuple{typeof(length), Memory}
+    unsafe_copyto!(::Memory{T}, ::Int64, ::Memory{T}, ::Int64, ::Int64) where T [other]: nofact Tuple{typeof(memoryref), Memory, Int64}; nofact Tuple{typeof(unsafe_copyto!), MemoryRef{T}, MemoryRef{T}, Int64} where T
+    Base.IteratorSize(::Vector) [ctor_kind]: nofact Tuple{Type{Base.IteratorSize}, Type{Vector{T}} where T}
+    append!(::Vector{T}, ::Vector{T} where T<:T) where T [other]: nofact Tuple{typeof(length), Vector}; nofact Tuple{typeof(Base._growend!), Vector, Int64}; nofact Tuple{typeof(firstindex), Vector}
+    sizehint!(::Vector, ::Int64) [other]: nofact Tuple{Base.var"##sizehint!#81", Bool, Bool, typeof(sizehint!), Vector, Int64}
+    empty(::Vector, ::Type) [introspection]: nofact Tuple{typeof(similar), Vector, Type, Int64}
+    similar(::Vector, ::Type, ::Int64) [introspection]: nofact Tuple{typeof(similar), Vector, Type, Tuple{Int64}}
+    similar(::Vector, ::Type, ::Tuple{Int64}) [other]: nofact Tuple{Type{Vector{T}} where T, UndefInitializer, Tuple{Int64}}
+    (::Type{Vector{T}} where T)(::UndefInitializer, ::Tuple{Int64}) [other]: nofact Tuple{Type{Vector{T}} where T, UndefInitializer, Int64}
+    (::Type{Vector{T}} where T)(::UndefInitializer, ::Int64) [other]: nomethod Tuple{Type{<:Memory}, UndefInitializer, Int64}; nofact Tuple{Type{Memory{T}} where T, UndefInitializer, Int64}; nofact Tuple{typeof(memoryref), Memory}
+    typejoin(::Any, ::Any) [type_join]: nofact Tuple{typeof(setindex!), Vector{Any}, Any, Int64}; nofact Tuple{typeof(getproperty), Type{Type{T}}, Symbol}
+    eltype(::Vector) [introspection]: nofact Tuple{typeof(eltype), Type{Vector{T}} where T}
+    Base.indexed_iterate(::Tuple{Tuple{Symbol, Any}, Int64}, ::Int64) [other]: nofact Tuple{typeof(Base.indexed_iterate), Tuple{Tuple{Symbol, Any}, Int64}, Int64, Int64}
+    Base.push_widen(::Vector{<:Tuple{Symbol, Any}}, ::Tuple{Symbol, Any}) [type_join]: nofact Tuple{typeof(eltype), Vector{<:Tuple{Symbol, Any}}}; nofact Tuple{typeof(Base.promote_typejoin), Type{<:Tuple{Symbol, Any}}, Type{<:Tuple{Symbol, Any}}}; nofact Tuple{typeof(empty), Vector{<:Tuple{Symbol, Any}}, Type}
+    append!(::Vector, ::Vector{<:Tuple{Symbol, Any}}) [other]: nofact Tuple{Type{Base.IteratorSize}, Vector{<:Tuple{Symbol, Any}}}; nofact Tuple{typeof(Base._append!), Vector, Base.HasShape{1}, Vector{<:Tuple{Symbol, Any}}}
+    Base._append!(::Vector, ::Base.HasShape{1}, ::Vector{<:Tuple{Symbol, Any}}) [any_container]: nofact Tuple{typeof(length), Vector{<:Tuple{Symbol, Any}}}; nofact Tuple{typeof(length), Vector}; nofact Tuple{typeof(Core.kwcall), @NamedTuple{shrink::Bool}, typeof(sizehint!), Vector, Int64}
+    iterate(::Vector{<:Tuple{Symbol, Any}}, ::Int64) [other]: nofact Tuple{typeof(Base._iterate_abstractarray), Vector{<:Tuple{Symbol, Any}}, Int64}
+    Base._iterate_abstractarray(::Vector{<:Tuple{Symbol, Any}}, ::Int64) [other]: nofact Tuple{typeof(checkbounds), Type{Bool}, Vector{<:Tuple{Symbol, Any}}, Int64}; nofact Tuple{typeof(getindex), Vector{<:Tuple{Symbol, Any}}, Int64}
+    getindex(::Vector{<:Tuple{Symbol, Any}}, ::Int64) [other]: nofact Tuple{typeof(checkbounds), Vector{<:Tuple{Symbol, Any}}, Int64}
+    checkbounds(::Vector{<:Tuple{Symbol, Any}}, ::Int64) [other]: nofact Tuple{typeof(checkbounds), Type{Bool}, Vector{<:Tuple{Symbol, Any}}, Int64}; nofact Tuple{typeof(Base.throw_boundserror), Vector{<:Tuple{Symbol, Any}}, Tuple{Int64}}
+    Base.throw_boundserror(::Vector{<:Tuple{Symbol, Any}}, ::Tuple{Int64}) [error_path]: nofact Tuple{Type{BoundsError}, Vector{<:Tuple{Symbol, Any}}, Tuple{Int64}}
+    checkbounds(::Type{Bool}, ::Vector{<:Tuple{Symbol, Any}}, ::Int64) [other]: nofact Tuple{typeof(length), Vector{<:Tuple{Symbol, Any}}}
+    length(::Vector{T} where T<:Tuple{Symbol, Any}) [other]: nofact Tuple{typeof(size), Vector{T} where T<:Tuple{Symbol, Any}}
+    iterate(::Vector{<:Tuple{Symbol, Any}}) [other]: nofact Tuple{typeof(Base.iterate_starting_state), Vector{<:Tuple{Symbol, Any}}}; nofact Tuple{typeof(iterate), Vector{<:Tuple{Symbol, Any}}, Int64}
+    Base.iterate_starting_state(::Vector{<:Tuple{Symbol, Any}}) [other]: nofact Tuple{Type{IndexStyle}, Vector{<:Tuple{Symbol, Any}}}; nofact Tuple{typeof(Base.iterate_starting_state), Vector{<:Tuple{Symbol, Any}}, IndexLinear}
+    Base.iterate_starting_state(::Vector{<:Tuple{Symbol, Any}}, ::IndexLinear) [other]: nofact Tuple{typeof(firstindex), Vector{<:Tuple{Symbol, Any}}}
+    firstindex(::Vector{<:Tuple{Symbol, Any}}) [other]: nofact Tuple{typeof(eachindex), IndexLinear, Vector{<:Tuple{Symbol, Any}}}
+    eachindex(::IndexLinear, ::Vector{<:Tuple{Symbol, Any}}) [other]: nofact Tuple{typeof(length), Vector{<:Tuple{Symbol, Any}}}
+    IndexStyle(::Vector{<:Tuple{Symbol, Any}}) [ctor_kind]: nofact Tuple{Type{IndexStyle}, Type{Vector{var"#s189"}} where var"#s189"<:Tuple{Symbol, Any}}
+    Base.IteratorSize(::Vector{<:Tuple{Symbol, Any}}) [ctor_kind]: nofact Tuple{Type{Base.IteratorSize}, Type{Vector{var"#s189"}} where var"#s189"<:Tuple{Symbol, Any}}
+    append!(::Vector{T}, ::Vector{<:Tuple{Symbol, Any}}) where T [other]: nofact Tuple{typeof(length), Vector{<:Tuple{Symbol, Any}}}; nofact Tuple{typeof(Base._growend!), Vector, Int64}; nofact Tuple{typeof(length), Vector}
+    empty(::Vector{<:Tuple{Symbol, Any}}, ::Type) [introspection]: nofact Tuple{typeof(similar), Vector{<:Tuple{Symbol, Any}}, Type, Int64}
+    similar(::Vector{<:Tuple{Symbol, Any}}, ::Type, ::Int64) [introspection]: nofact Tuple{typeof(similar), Vector{<:Tuple{Symbol, Any}}, Type, Tuple{Int64}}
+    similar(::Vector{<:Tuple{Symbol, Any}}, ::Type, ::Tuple{Int64}) [other]: nofact Tuple{Type{Vector{T}} where T, UndefInitializer, Tuple{Int64}}
+    eltype(::Vector{<:Tuple{Symbol, Any}}) [introspection]: nofact Tuple{typeof(eltype), Type{Vector{var"#s189"}} where var"#s189"<:Tuple{Symbol, Any}}
+    push!(::Vector{<:Tuple{Symbol, Any}}, ::Tuple{Symbol, Any}) [introspection]: nofact Tuple{typeof(convert), Type{Union{}}, Tuple{Symbol, Any}}; nofact Tuple{typeof(convert), Type{T}, Tuple{Symbol, Any}} where T<:Tuple{Symbol, Any}; nofact Tuple{typeof(convert), Type{<:Tuple{Symbol, Any}}, Tuple{Symbol, Any}}
+    Base._push!(::Vector{T}, ::Tuple{Symbol, Any}) where T<:Tuple{Symbol, Any} [other]: nofact Tuple{typeof(Base._growend!), Vector{T} where T<:Tuple{Symbol, Any}, Int64}; nofact Tuple{typeof(length), Vector{T} where T<:Tuple{Symbol, Any}}; nofact Tuple{typeof(Base.__safe_setindex!), Vector{T}, Tuple{Symbol, Any}, Int64} where T<:Tuple{Symbol, Any}
+    Base.__safe_setindex!(::Vector{T} where T<:Tuple{Symbol, Any}, ::Tuple{Symbol, Any}, ::Int64) [introspection]: nofact Tuple{typeof(convert), Type{Union{}}, Tuple{Symbol, Any}}; nofact Tuple{typeof(convert), Type{T}, Tuple{Symbol, Any}} where T<:Tuple{Symbol, Any}; nofact Tuple{typeof(convert), Type{<:Tuple{Symbol, Any}}, Tuple{Symbol, Any}}
+    Base.__safe_setindex!(::Vector{T}, ::Tuple{Symbol, Any}, ::Int64) where T<:Tuple{Symbol, Any} [other]: nofact Tuple{typeof(getproperty), Vector{T} where T<:Tuple{Symbol, Any}, Symbol}
+    convert(::Type{<:Tuple{Symbol, Any}}, ::Tuple{Symbol, Any}) [introspection]: nofact Tuple{typeof(typeintersect), Type{Tuple{Any, Any}}, Type{<:Tuple{Symbol, Any}}}; nofact Tuple{typeof(Base._tuple_error), Type{<:Tuple{Symbol, Any}}, Tuple{Symbol, Any}}; nofact Tuple{typeof(Core._typeof_captured_variable), Tuple{Symbol, Any}}
+    ntuple(::Base.var"#cvt1#convert##0"{<:Tuple{Symbol, Any}, <:Tuple{Symbol, Any}}, ::Val{2}) [other]: nofact Tuple{Base.var"#cvt1#convert##0"{<:Tuple{Symbol, Any}, <:Tuple{Symbol, Any}}, Int64}
+    (::Base.var"#cvt1#convert##0"{<:Tuple{Symbol, Any}, <:Tuple{Symbol, Any}})(::Int64) [introspection]: nomethod Tuple{typeof(convert), Type{<:Symbol}, Symbol}
+    Core._typeof_captured_variable(::Tuple{Symbol, Any}) [other]: nofact Tuple{typeof(Core.Typeof), Tuple{Symbol, Any}}
+    Base._tuple_error(::Type{<:Tuple{Symbol, Any}}, ::Tuple{Symbol, Any}) [error_path]: nofact Tuple{Type{MethodError}, typeof(convert), Tuple{Type, Tuple{Symbol, Any}}}
+    MethodError(::typeof(convert), ::Tuple{Type, Tuple{Symbol, Any}}) [error_path]: nofact Tuple{Type{MethodError}, typeof(convert), Tuple{Type, Tuple{Symbol, Any}}, UInt64}
+    Base._growend!(::Vector{T} where T<:Tuple{Symbol, Any}, ::Int64) [other]: nofact Tuple{typeof(getproperty), Vector{T} where T<:Tuple{Symbol, Any}, Symbol}; nofact Tuple{typeof(getproperty), MemoryRef{T} where T<:Tuple{Symbol, Any}, Symbol}; nofact Tuple{typeof(length), Memory{T} where T<:Tuple{Symbol, Any}}
+    Base._growend_internal!(::Vector{T} where T<:Tuple{Symbol, Any}, ::Int64, ::Int64) [other]: nofact Tuple{typeof(getproperty), Vector{T} where T<:Tuple{Symbol, Any}, Symbol}; nofact Tuple{typeof(getproperty), MemoryRef{T} where T<:Tuple{Symbol, Any}, Symbol}; nofact Tuple{typeof(length), Memory{T} where T<:Tuple{Symbol, Any}}
+    unsafe_copyto!(::MemoryRef{T} where T<:Tuple{Symbol, Any}, ::MemoryRef{T} where T<:Tuple{Symbol, Any}, ::Int64) [other]: nofact Tuple{typeof(memoryref), MemoryRef{T} where T<:Tuple{Symbol, Any}, Int64}; nofact Tuple{typeof(getproperty), MemoryRef{T} where T<:Tuple{Symbol, Any}, Symbol}; nofact Tuple{typeof(unsafe_copyto!), Memory{T} where T<:Tuple{Symbol, Any}, Int64, Memory{T} where T<:Tuple{Symbol, Any}, Int64, Int64}
+    unsafe_copyto!(::Memory{T} where T<:Tuple{Symbol, Any}, ::Int64, ::Memory{T} where T<:Tuple{Symbol, Any}, ::Int64, ::Int64) [other]: nofact Tuple{typeof(pointer), Memory{T} where T<:Tuple{Symbol, Any}, Int64}; nofact Tuple{typeof(<), Ptr{T} where T<:Tuple{Symbol, Any}, Ptr{T} where T<:Tuple{Symbol, Any}}; nofact Tuple{typeof(>), Ptr{T} where T<:Tuple{Symbol, Any}, Ptr{T} where T<:Tuple{Symbol, Any}}
+    Base._unsetindex!(::Memory{T} where T<:Tuple{Symbol, Any}, ::Int64) [other]: nofact Tuple{typeof(memoryref), Memory{T} where T<:Tuple{Symbol, Any}, Int64}; nofact Tuple{typeof(Base._unsetindex!), MemoryRef{T} where T<:Tuple{Symbol, Any}}
+    Base._unsetindex!(::MemoryRef{T} where T<:Tuple{Symbol, Any}) [introspection]: nofact Tuple{typeof(memoryref), MemoryRef{T} where T<:Tuple{Symbol, Any}, Int64}; nofact Tuple{typeof(getproperty), MemoryRef{T} where T<:Tuple{Symbol, Any}, Symbol}; nofact Tuple{typeof(Base.datatype_arrayelem), Type{Memory{T}} where T<:Tuple{Symbol, Any}}
+    pointer(::MemoryRef{T} where T<:Tuple{Symbol, Any}) [other]: nofact Tuple{typeof(Base.unsafe_convert), Type{Ptr{Nothing}}, MemoryRef{T} where T<:Tuple{Symbol, Any}}
+    Base.unsafe_convert(::Type{Ptr{Nothing}}, ::MemoryRef{T} where T<:Tuple{Symbol, Any}) [introspection]: nofact Tuple{typeof(Base.datatype_arrayelem), Type{Memory{T}} where T<:Tuple{Symbol, Any}}; nofact Tuple{typeof(Base.datatype_layoutsize), Type{Memory{T}} where T<:Tuple{Symbol, Any}}; nofact Tuple{typeof(Base.unsafe_convert), Type{Ptr{Nothing}}, Memory{T} where T<:Tuple{Symbol, Any}}
+    Base.datatype_layoutsize(::Type{Memory{T}} where T<:Tuple{Symbol, Any}) [introspection]: nofact Tuple{typeof(getproperty), Type{Memory{T}} where T<:Tuple{Symbol, Any}, Symbol}
+    Base.datatype_arrayelem(::Type{Memory{T}} where T<:Tuple{Symbol, Any}) [introspection]: nofact Tuple{typeof(getproperty), Type{Memory{T}} where T<:Tuple{Symbol, Any}, Symbol}
+    Base.datatype_pointerfree(::Type{T} where T<:Tuple{Symbol, Any}) [introspection]: nomethod Tuple{typeof(Base.datatype_npointers), Type{T} where T<:Tuple{Symbol, Any}}; nofact Tuple{typeof(Base.datatype_npointers), Type{T} where T<:Tuple{Symbol, Any}}
+    setindex!(::Memory{T} where T<:Tuple{Symbol, Any}, ::Tuple{Symbol, Any}, ::Int64) [introspection]: nofact Tuple{typeof(convert), Type{Union{}}, Tuple{Symbol, Any}}; nofact Tuple{typeof(convert), Type{T}, Tuple{Symbol, Any}} where T<:Tuple{Symbol, Any}; nofact Tuple{typeof(convert), Type{<:Tuple{Symbol, Any}}, Tuple{Symbol, Any}}
+    Base._setindex!(::Memory{T}, ::Tuple{Symbol, Any}, ::Int64) where T<:Tuple{Symbol, Any} [other]: nofact Tuple{typeof(memoryref), Memory{T} where T<:Tuple{Symbol, Any}}
+    getindex(::Memory{T} where T<:Tuple{Symbol, Any}, ::Int64) [other]: nofact Tuple{typeof(checkbounds), Memory{T} where T<:Tuple{Symbol, Any}, Int64}; nofact Tuple{typeof(Base.default_access_order), Memory{T} where T<:Tuple{Symbol, Any}}
+    checkbounds(::Memory{T} where T<:Tuple{Symbol, Any}, ::Int64) [other]: nofact Tuple{typeof(checkbounds), Type{Bool}, Memory{T} where T<:Tuple{Symbol, Any}, Int64}; nofact Tuple{typeof(Base.throw_boundserror), Memory{T} where T<:Tuple{Symbol, Any}, Tuple{Int64}}
+    Base.throw_boundserror(::Memory{T} where T<:Tuple{Symbol, Any}, ::Tuple{Int64}) [error_path]: nofact Tuple{Type{BoundsError}, Memory{T} where T<:Tuple{Symbol, Any}, Tuple{Int64}}
+    checkbounds(::Type{Bool}, ::Memory{T} where T<:Tuple{Symbol, Any}, ::Int64) [other]: nofact Tuple{typeof(length), Memory{T} where T<:Tuple{Symbol, Any}}
+    length(::Memory{T} where T<:Tuple{Symbol, Any}) [other]: nofact Tuple{typeof(size), Memory{T} where T<:Tuple{Symbol, Any}}
+    isassigned(::Memory{T} where T<:Tuple{Symbol, Any}, ::Int64) [other]: nofact Tuple{typeof(checkbounds), Type{Bool}, Memory{T} where T<:Tuple{Symbol, Any}, Int64}; nofact Tuple{typeof(memoryref), Memory{T} where T<:Tuple{Symbol, Any}, Int64}; nofact Tuple{typeof(Base.default_access_order), Memory{T} where T<:Tuple{Symbol, Any}}
+    >(::Ptr{T} where T<:Tuple{Symbol, Any}, ::Ptr{T} where T<:Tuple{Symbol, Any}) [other]: nofact Tuple{typeof(<), Ptr{T} where T<:Tuple{Symbol, Any}, Ptr{T} where T<:Tuple{Symbol, Any}}
+    <(::Ptr{T} where T<:Tuple{Symbol, Any}, ::Ptr{T} where T<:Tuple{Symbol, Any}) [other]: nofact Tuple{Type{UInt64}, Ptr{T} where T<:Tuple{Symbol, Any}}
+    pointer(::Memory{T} where T<:Tuple{Symbol, Any}, ::Int64) [other]: nofact Tuple{typeof(pointer), Memory{T} where T<:Tuple{Symbol, Any}}; nofact Tuple{typeof(Base._memory_offset), Memory{T} where T<:Tuple{Symbol, Any}, Int64}; nofact Tuple{typeof(+), Ptr{T} where T<:Tuple{Symbol, Any}, Int64}
+    Base._memory_offset(::Memory{T} where T<:Tuple{Symbol, Any}, ::Int64) [other]: nofact Tuple{typeof(Base._to_linear_index), Memory{T} where T<:Tuple{Symbol, Any}, Int64}; nofact Tuple{Type{LinearIndices}, Memory{T} where T<:Tuple{Symbol, Any}}; nofact Tuple{typeof(Base.elsize), Memory{T} where T<:Tuple{Symbol, Any}}
+    Base.elsize(::Memory{T} where T<:Tuple{Symbol, Any}) [introspection]: nofact Tuple{typeof(Base.elsize), Type{Memory{T}} where T<:Tuple{Symbol, Any}}
+    Base.elsize(::Type{Memory{T}} where T<:Tuple{Symbol, Any}) [introspection]: nofact Tuple{typeof(Base.aligned_sizeof), Type{T} where T<:Tuple{Symbol, Any}}
+    Base.aligned_sizeof(::Type{T} where T<:Tuple{Symbol, Any}) [introspection]: nofact Tuple{typeof(Base.allocatedinline), Union}; nofact Tuple{typeof(Base.uniontype_layout), Union}; nofact Tuple{typeof(Base.allocatedinline), Type{T} where T<:Tuple{Symbol, Any}}
+    LinearIndices(::Memory{T} where T<:Tuple{Symbol, Any}) [other]: nofact Tuple{typeof(axes), Memory{T} where T<:Tuple{Symbol, Any}}
+    axes(::Memory{T} where T<:Tuple{Symbol, Any}) [other]: nofact Tuple{typeof(size), Memory{T} where T<:Tuple{Symbol, Any}}
+    pointer(::Memory{T} where T<:Tuple{Symbol, Any}) [introspection]: nofact Tuple{typeof(Base.cconvert), Type{Ptr{T}} where T<:Tuple{Symbol, Any}, Memory{T} where T<:Tuple{Symbol, Any}}; nofact Tuple{typeof(Base.unsafe_convert), Type{Ptr{T}} where T<:Tuple{Symbol, Any}, Memory{T} where T<:Tuple{Symbol, Any}}
+    Base.unsafe_convert(::Type{Ptr{T}} where T<:Tuple{Symbol, Any}, ::Memory{T} where T<:Tuple{Symbol, Any}) [introspection]: nofact Tuple{typeof(convert), Type{Ptr{T}} where T<:Tuple{Symbol, Any}, Ptr{Nothing}}
+    unsafe_copyto!(::MemoryRef{T}, ::MemoryRef{T}, ::Int64) where T<:Tuple{Symbol, Any} [introspection]: nofact Tuple{typeof(memoryref), MemoryRef{T} where T<:Tuple{Symbol, Any}, Int64}; nofact Tuple{typeof(isbitstype), Type{T} where T<:Tuple{Symbol, Any}}; nofact Tuple{typeof(Base.unsafe_convert), Type{Ptr{Nothing}}, MemoryRef{T} where T<:Tuple{Symbol, Any}}
+    isbitstype(::Type{T} where T<:Tuple{Symbol, Any}) [introspection]: nofact Tuple{typeof(getproperty), DataType, Symbol}
+    Base.array_new_memory(::Memory{T} where T<:Tuple{Symbol, Any}, ::Int64) [other]: nofact Tuple{Type{Memory{T}} where T<:Tuple{Symbol, Any}, UndefInitializer, Int64}
+    empty(::Vector{Tuple{Symbol, Any}}, ::Type{<:Tuple{Symbol, Any}}) [introspection]: nofact Tuple{typeof(similar), Vector{Tuple{Symbol, Any}}, Type{<:Tuple{Symbol, Any}}, Int64}
+    similar(::Vector{Tuple{Symbol, Any}}, ::Type{<:Tuple{Symbol, Any}}, ::Int64) [introspection]: nofact Tuple{typeof(similar), Vector{Tuple{Symbol, Any}}, Type{<:Tuple{Symbol, Any}}, Tuple{Int64}}
+    similar(::Vector{Tuple{Symbol, Any}}, ::Type, ::Tuple{Int64}) [other]: nofact Tuple{Type{Vector{T}} where T, UndefInitializer, Tuple{Int64}}
+    similar(::Vector{Tuple{Symbol, Any}}, ::Type{<:Tuple{Symbol, Any}}, ::Tuple{Int64}) [other]: nofact Tuple{Type{Vector{var"#s189"}} where var"#s189"<:Tuple{Symbol, Any}, UndefInitializer, Tuple{Int64}}
+    (::Type{Vector{var"#s189"}} where var"#s189"<:Tuple{Symbol, Any})(::UndefInitializer, ::Tuple{Int64}) [other]: nofact Tuple{Type{Vector{var"#s189"}} where var"#s189"<:Tuple{Symbol, Any}, UndefInitializer, Int64}
+    (::Type{Vector{var"#s189"}} where var"#s189"<:Tuple{Symbol, Any})(::UndefInitializer, ::Int64) [other]: nomethod Tuple{Type{<:Memory{<:Tuple{Symbol, Any}}}, UndefInitializer, Int64}; nofact Tuple{Type{Memory{T}}, UndefInitializer, Int64} where T<:Tuple{Symbol, Any}; nofact Tuple{typeof(memoryref), Memory{T} where T<:Tuple{Symbol, Any}}
+    Base.typejoin_union_tuple(::Type{Tuple{Symbol, Any}}) [type_join]: nofact Tuple{typeof(Base.unwrapva), Any}; nofact Tuple{typeof(getproperty), Union, Symbol}; nofact Tuple{typeof(typejoin), Any, Any}
+    Base.promote_typejoin_union(::Type{T}) where T [type_join]: nofact Tuple{typeof(getproperty), Type, Symbol}; nomethod Tuple{typeof(Base.promote_typejoin_union), Any}; nofact Tuple{typeof(Base.promote_typejoin), Type, Type}
+    Base.typejoin_union_tuple(::DataType) [type_join]: nofact Tuple{typeof(getproperty), DataType, Symbol}; nofact Tuple{typeof(Base.unwrapva), Any}; nofact Tuple{typeof(getproperty), Union, Symbol}
+EXCEPTION [other] TraitWorld._trait(::Module, ::Symbol, ::Expr) | _trait: the expansion of `@trait`: it builds syntax from the user's expressions (values of any type), where the macro expands (a package's build, the prompt), never at a load or at a method's definition
+    ENTRY Base.Broadcast.materialize(::Base.Broadcast.Broadcasted{Base.Broadcast.DefaultArrayStyle{1}, Nothing, Type{QuoteNode}, Tuple{Vector{Any}}})
+    ENTRY collect(::Base.Generator{Vector{Pair{Symbol, Symbol}}, TraitWorld.var"#_trait##5#_trait##6"})
+    ENTRY collect(::Base.Generator{Vector{Tuple{Symbol, Any, Bool}}, TraitWorld.var"#_trait##7#_trait##8"})
+    ENTRY collect(::Base.Generator{Vector{Tuple{Symbol, Any, Bool}}, TraitWorld.var"#_trait##9#_trait##10"})
+    collect(::Base.Generator{Vector{Tuple{Symbol, Any, Bool}}, TraitWorld.var"#_trait##9#_trait##10"}) [introspection]: nofact Tuple{typeof(Base.indexed_iterate), Tuple{Any, Int64}, Int64}; nofact Tuple{typeof(Base.indexed_iterate), Tuple{Any, Int64}, Int64, Int64}; nofact Tuple{typeof(Base._array_for_inner), DataType, Base.HasShape{1}, Tuple{Base.OneTo{Int64}}}
+    Base.collect_to_with_first!(::Vector, ::Any, ::Base.Generator{Vector{Tuple{Symbol, Any, Bool}}, TraitWorld.var"#_trait##9#_trait##10"}, ::In [any_container]: nofact Tuple{Type{LinearIndices}, Vector}; nofact Tuple{typeof(setindex!), Vector{Any}, Any, Int64}; nofact Tuple{typeof(setindex!), Vector, Any, Int64}
+    Base.collect_to!(::Vector, ::Base.Generator{Vector{Tuple{Symbol, Any, Bool}}, TraitWorld.var"#_trait##9#_trait##10"}, ::Int64, ::Int64) [any_container]: nofact Tuple{typeof(Base.indexed_iterate), Tuple{Any, Int64}, Int64}; nofact Tuple{typeof(Base.indexed_iterate), Tuple{Any, Int64}, Int64, Int64}; nofact Tuple{typeof(setindex!), Vector{Any}, Any, Int64}
+    Base.setindex_widen_up_to(::Vector, ::Any, ::Int64) [type_join]: nofact Tuple{typeof(Base.promote_typejoin), Any, DataType}; nofact Tuple{typeof(similar), Vector, Type}; nofact Tuple{Type{LinearIndices}, Vector}
+    setindex!(::Vector, ::Any, ::Int64) [other]: nomethod Tuple{typeof(Base._setindex!), Vector, Any, Int64}; nofact Tuple{typeof(Base._setindex!), Vector{T}, Any, Int64} where T
+    Base._setindex!(::Vector{T}, ::Any, ::Int64) where T [other]: nofact Tuple{typeof(checkbounds), Type{Bool}, Vector, Int64}; nofact Tuple{typeof(Base.throw_boundserror), Vector, Tuple{Int64}}; nofact Tuple{typeof(getproperty), Vector, Symbol}
+    Base.throw_boundserror(::Vector, ::Tuple{Int64}) [error_path]: nofact Tuple{Type{BoundsError}, Vector, Tuple{Int64}}
+    checkbounds(::Type{Bool}, ::Vector, ::Int64) [other]: nofact Tuple{typeof(length), Vector}
+    length(::Vector) [other]: nofact Tuple{typeof(size), Vector}
+    LinearIndices(::Vector) [other]: nofact Tuple{typeof(axes), Vector}
+    axes(::Vector) [other]: nofact Tuple{typeof(size), Vector}
+    similar(::Vector, ::Type) [other]: nofact Tuple{typeof(size), Vector, Int64}; nofact Tuple{Type{Vector{T}} where T, UndefInitializer, Int64}
+    (::Type{Vector{T}} where T)(::UndefInitializer, ::Int64) [other]: nomethod Tuple{Type{<:Memory}, UndefInitializer, Int64}; nofact Tuple{Type{Memory{T}} where T, UndefInitializer, Int64}; nofact Tuple{typeof(memoryref), Memory}
+    size(::Vector, ::Int64) [other]: nofact Tuple{typeof(size), Vector}
+    typejoin(::Any, ::Any) [type_join]: nofact Tuple{typeof(setindex!), Vector{Any}, Any, Int64}; nofact Tuple{typeof(getproperty), Type{Type{T}}, Symbol}
+    Base.indexed_iterate(::Tuple{Any, Int64}, ::Int64) [other]: nofact Tuple{typeof(Base.indexed_iterate), Tuple{Any, Int64}, Int64, Int64}
+    iterate(::Base.Generator{Vector{Tuple{Symbol, Any, Bool}}, TraitWorld.var"#_trait##9#_trait##10"}, ::Int64) [other]: nofact Tuple{typeof(getindex), Tuple{Tuple{Symbol, Any, Bool}, Int64}, Int64}; nofact Tuple{TraitWorld.var"#_trait##9#_trait##10", Tuple{Symbol, Any, Bool}}
+    LinearIndices(::Vector) [other]: nofact Tuple{typeof(axes), Vector}
+    Base._array_for_inner(::DataType, ::Base.HasShape{1}, ::Tuple{Base.OneTo{Int64}}) [introspection]: nofact Tuple{typeof(similar), Type{Vector{_A}} where _A, Tuple{Base.OneTo{Int64}}}
+    similar(::Type{Vector{_A}} where _A, ::Tuple{Base.OneTo{Int64}}) [introspection]: nofact Tuple{typeof(similar), Type{Vector{_A}} where _A, Tuple{Int64}}
+    similar(::Type{Vector{_A}} where _A, ::Tuple{Int64}) [introspection]: nofact Tuple{typeof(similar), Type{Array{_A}} where _A, Tuple{Int64}}
+    similar(::Type{Array{_A}} where _A, ::Tuple{Int64}) [other]: nofact Tuple{Type{Array{_A}} where _A, UndefInitializer, Tuple{Int64}}
+    (::Type{Array{_A}} where _A)(::UndefInitializer, ::Tuple{Int64}) [other]: nofact Tuple{Type{Vector{_A}} where _A, UndefInitializer, Tuple{Int64}}
+    (::Type{Vector{T}} where T)(::UndefInitializer, ::Tuple{Int64}) [other]: nofact Tuple{Type{Vector{T}} where T, UndefInitializer, Int64}
+    iterate(::Base.Generator{Vector{Tuple{Symbol, Any, Bool}}, TraitWorld.var"#_trait##9#_trait##10"}) [other]: nofact Tuple{typeof(getindex), Tuple{Tuple{Symbol, Any, Bool}, Int64}, Int64}; nofact Tuple{TraitWorld.var"#_trait##9#_trait##10", Tuple{Symbol, Any, Bool}}
+    collect(::Base.Generator{Vector{Tuple{Symbol, Any, Bool}}, TraitWorld.var"#_trait##7#_trait##8"}) [introspection]: nofact Tuple{typeof(Base.indexed_iterate), Tuple{Any, Int64}, Int64}; nofact Tuple{typeof(Base.indexed_iterate), Tuple{Any, Int64}, Int64, Int64}; nofact Tuple{typeof(Base._array_for_inner), DataType, Base.HasShape{1}, Tuple{Base.OneTo{Int64}}}
+    Base.collect_to_with_first!(::Vector, ::Any, ::Base.Generator{Vector{Tuple{Symbol, Any, Bool}}, TraitWorld.var"#_trait##7#_trait##8"}, ::Int [any_container]: nofact Tuple{Type{LinearIndices}, Vector}; nofact Tuple{typeof(setindex!), Vector{Any}, Any, Int64}; nofact Tuple{typeof(setindex!), Vector, Any, Int64}
+    Base.collect_to!(::Vector, ::Base.Generator{Vector{Tuple{Symbol, Any, Bool}}, TraitWorld.var"#_trait##7#_trait##8"}, ::Int64, ::Int64) [any_container]: nofact Tuple{typeof(Base.indexed_iterate), Tuple{Any, Int64}, Int64}; nofact Tuple{typeof(Base.indexed_iterate), Tuple{Any, Int64}, Int64, Int64}; nofact Tuple{typeof(setindex!), Vector{Any}, Any, Int64}
+    iterate(::Base.Generator{Vector{Tuple{Symbol, Any, Bool}}, TraitWorld.var"#_trait##7#_trait##8"}, ::Int64) [other]: nofact Tuple{typeof(getindex), Tuple{Tuple{Symbol, Any, Bool}, Int64}, Int64}; nofact Tuple{TraitWorld.var"#_trait##7#_trait##8", Tuple{Symbol, Any, Bool}}
+    LinearIndices(::Vector) [other]: nofact Tuple{typeof(axes), Vector}
+    iterate(::Base.Generator{Vector{Tuple{Symbol, Any, Bool}}, TraitWorld.var"#_trait##7#_trait##8"}) [other]: nofact Tuple{typeof(getindex), Tuple{Tuple{Symbol, Any, Bool}, Int64}, Int64}; nofact Tuple{TraitWorld.var"#_trait##7#_trait##8", Tuple{Symbol, Any, Bool}}
+    collect(::Base.Generator{Vector{Pair{Symbol, Symbol}}, TraitWorld.var"#_trait##5#_trait##6"}) [other]: nofact Tuple{Type{TypeVar}, Any, Any}; nofact Tuple{Type{UnionAll}, Any, Any}
+    Base.Broadcast._broadcast_getindex(::Base.Broadcast.Broadcasted{Nothing, Tuple{Base.OneTo{Int64}}, Type{QuoteNode}, Tuple{Base.Broadcast.Ext [other]: nofact Tuple{typeof(Base.Broadcast._broadcast_getindex_evalf), Type{QuoteNode}, Any}
+    Base.Broadcast._broadcast_getindex_evalf(::Type{QuoteNode}, ::Any) [other]: nofact Tuple{Type{QuoteNode}, Any}
+    Base.Broadcast.combine_eltypes(::Type{QuoteNode}, ::Tuple{Vector{Any}}) [other]: nofact Tuple{Type{QuoteNode}, Any}
+    Base.grow_to!(::Vector{Tuple{Symbol, Any}}, ::Base.Generator{Base.Iterators.Filter{TraitWorld.var"#_equation_value_method##3#_equation_value [introspection]: nofact Tuple{typeof(getindex), Tuple{Tuple{Symbol, Any}, Int64}, Int64}; nofact Tuple{typeof(empty), Vector{Tuple{Symbol, Any}}, Type{<:Tuple{Symbol, Any}}}; nofact Tuple{typeof(push!), Vector{<:Tuple{Symbol, Any}}, Tuple{Symbol, Any}}
+    Base.grow_to!(::Vector{<:Tuple{Symbol, Any}}, ::Base.Generator{Base.Iterators.Filter{TraitWorld.var"#_equation_value_method##3#_equation_val [other]: nofact Tuple{typeof(eltype), Vector{<:Tuple{Symbol, Any}}}; nofact Tuple{typeof(Base.indexed_iterate), Tuple{Tuple{Symbol, Any}, Int64}, Int64}; nofact Tuple{typeof(Base.indexed_iterate), Tuple{Tuple{Symbol, Any}, Int64}, Int64, Int64}
+    Base.grow_to!(::Vector, ::Base.Generator{Base.Iterators.Filter{TraitWorld.var"#_equation_value_method##3#_equation_value_method##4", Vector{ [any_container]: nofact Tuple{typeof(eltype), Vector}; nofact Tuple{typeof(Base.indexed_iterate), Tuple{Tuple{Symbol, Any}, Int64}, Int64}; nofact Tuple{typeof(Base.indexed_iterate), Tuple{Tuple{Symbol, Any}, Int64}, Int64, Int64}
+    Base.push_widen(::Vector, ::Tuple{Symbol, Any}) [type_join]: nofact Tuple{typeof(eltype), Vector}; nofact Tuple{typeof(Base.promote_typejoin), Any, Type{<:Tuple{Symbol, Any}}}; nofact Tuple{typeof(empty), Vector, Type}
+    push!(::Vector, ::Tuple{Symbol, Any}) [other]: nomethod Tuple{typeof(Base._push!), Vector, Any}; nofact Tuple{typeof(Base._push!), Vector{T}, T} where T
+    Base._push!(::Vector{T}, ::T) where T [any_container]: nofact Tuple{typeof(Base._growend!), Vector, Int64}; nofact Tuple{typeof(length), Vector}; nofact Tuple{typeof(Base.__safe_setindex!), Vector{Any}, Any, Int64}
+    Base.__safe_setindex!(::Vector, ::Any, ::Int64) [any_container]: nofact Tuple{typeof(Base.__safe_setindex!), Vector{Any}, Any, Int64}; nofact Tuple{typeof(Base.__safe_setindex!), Vector{T}, T, Int64} where T
+    Base.__safe_setindex!(::Vector{T}, ::T, ::Int64) where T [other]: nofact Tuple{typeof(getproperty), Vector, Symbol}
+    Base._growend!(::Vector, ::Int64) [other]: nofact Tuple{typeof(getproperty), Vector, Symbol}; nofact Tuple{typeof(getproperty), MemoryRef, Symbol}; nofact Tuple{typeof(length), Memory}
+    Base._growend_internal!(::Vector, ::Int64, ::Int64) [other]: nofact Tuple{typeof(getproperty), Vector, Symbol}; nofact Tuple{typeof(getproperty), MemoryRef, Symbol}; nofact Tuple{typeof(length), Memory}
+    unsafe_copyto!(::MemoryRef, ::MemoryRef, ::Int64) [other]: nofact Tuple{typeof(memoryref), MemoryRef, Int64}; nofact Tuple{typeof(getproperty), MemoryRef, Symbol}; nofact Tuple{typeof(unsafe_copyto!), Memory, Int64, Memory, Int64, Int64}
+    unsafe_copyto!(::Memory, ::Int64, ::Memory, ::Int64, ::Int64) [any_container]: nofact Tuple{typeof(pointer), Memory, Int64}; nofact Tuple{typeof(<), Ptr, Ptr}; nofact Tuple{typeof(>), Ptr, Ptr}
+    Base._unsetindex!(::Memory, ::Int64) [other]: nofact Tuple{typeof(memoryref), Memory, Int64}; nofact Tuple{typeof(Base._unsetindex!), MemoryRef}
+    Base._unsetindex!(::MemoryRef) [introspection]: nofact Tuple{typeof(memoryref), MemoryRef, Int64}; nofact Tuple{typeof(getproperty), MemoryRef, Symbol}; nofact Tuple{typeof(Base.datatype_arrayelem), Type{Memory{T}} where T}
+    pointer(::MemoryRef) [other]: nofact Tuple{typeof(Base.unsafe_convert), Type{Ptr{Nothing}}, MemoryRef}
+    Base.unsafe_convert(::Type{Ptr{Nothing}}, ::MemoryRef) [introspection]: nofact Tuple{typeof(Base.datatype_arrayelem), Type{Memory{T}} where T}; nofact Tuple{typeof(Base.datatype_layoutsize), Type{Memory{T}} where T}; nofact Tuple{typeof(Base.unsafe_convert), Type{Ptr{Nothing}}, Memory}
+    Base.datatype_layoutsize(::Type{Memory{T}} where T) [introspection]: nofact Tuple{typeof(getproperty), Type{Memory{T}} where T, Symbol}
+    Base.datatype_arrayelem(::Type{Memory{T}} where T) [introspection]: nofact Tuple{typeof(getproperty), Type{Memory{T}} where T, Symbol}
+    Base.datatype_pointerfree(::DataType) [introspection]: nofact Tuple{typeof(Base.datatype_npointers), DataType}
+    setindex!(::Memory, ::Any, ::Int64) [other]: nomethod Tuple{typeof(Base._setindex!), Memory, Any, Int64}; nofact Tuple{typeof(Base._setindex!), Memory{T}, T, Int64} where T
+    Base._setindex!(::Memory{T}, ::T, ::Int64) where T [other]: nofact Tuple{typeof(memoryref), Memory}
+    getindex(::Memory, ::Int64) [other]: nofact Tuple{typeof(checkbounds), Memory, Int64}; nofact Tuple{typeof(Base.default_access_order), Memory}
+    checkbounds(::Memory, ::Int64) [other]: nofact Tuple{typeof(checkbounds), Type{Bool}, Memory, Int64}; nofact Tuple{typeof(Base.throw_boundserror), Memory, Tuple{Int64}}
+    Base.throw_boundserror(::Memory, ::Tuple{Int64}) [error_path]: nofact Tuple{Type{BoundsError}, Memory, Tuple{Int64}}
+    checkbounds(::Type{Bool}, ::Memory, ::Int64) [other]: nofact Tuple{typeof(length), Memory}
+    length(::Memory) [other]: nofact Tuple{typeof(size), Memory}
+    isassigned(::Memory, ::Int64) [other]: nofact Tuple{typeof(checkbounds), Type{Bool}, Memory, Int64}; nofact Tuple{typeof(memoryref), Memory, Int64}; nofact Tuple{typeof(Base.default_access_order), Memory}
+    >(::Ptr, ::Ptr) [other]: nofact Tuple{typeof(<), Ptr, Ptr}
+    <(::Ptr, ::Ptr) [other]: nofact Tuple{Type{UInt64}, Ptr}
+    pointer(::Memory, ::Int64) [other]: nofact Tuple{typeof(pointer), Memory}; nofact Tuple{typeof(Base._memory_offset), Memory, Int64}; nofact Tuple{typeof(+), Ptr, Int64}
+    Base._memory_offset(::Memory, ::Int64) [other]: nofact Tuple{typeof(Base._to_linear_index), Memory, Int64}; nofact Tuple{Type{LinearIndices}, Memory}; nofact Tuple{typeof(Base.elsize), Memory}
+    Base.elsize(::Memory) [introspection]: nofact Tuple{typeof(Base.elsize), Type{Memory{T}} where T}
+    Base.elsize(::Type{Memory{T}} where T) [introspection]: nomethod Tuple{typeof(Base.aligned_sizeof), Any}; nofact Tuple{typeof(Base.aligned_sizeof), Type}
+    Base.aligned_sizeof(::Type) [introspection]: nofact Tuple{typeof(Base.allocatedinline), Union}; nofact Tuple{typeof(Base.uniontype_layout), Union}; nofact Tuple{typeof(Base.allocatedinline), Type}
+    LinearIndices(::Memory) [other]: nofact Tuple{typeof(axes), Memory}
+    axes(::Memory) [other]: nofact Tuple{typeof(size), Memory}
+    pointer(::Memory) [introspection]: nofact Tuple{typeof(Base.cconvert), Type{Ptr{_A}} where _A, Memory}; nofact Tuple{typeof(Base.unsafe_convert), Type{Ptr{Nothing}}, Memory}; nofact Tuple{typeof(Base.unsafe_convert), Type{Ptr{_A}} where _A, Memory}
+    Base.unsafe_convert(::Type{Ptr{_A}} where _A, ::Memory) [introspection]: nofact Tuple{typeof(convert), Type{Ptr{_A}} where _A, Ptr{Nothing}}
+    unsafe_copyto!(::MemoryRef{T}, ::MemoryRef{T}, ::Int64) where T [introspection]: nofact Tuple{typeof(memoryref), MemoryRef, Int64}; nofact Tuple{typeof(isbitstype), Any}; nofact Tuple{typeof(Base.unsafe_convert), Type{Ptr{Nothing}}, MemoryRef}
+    isbitstype(::Any) [introspection]: nofact Tuple{typeof(getproperty), DataType, Symbol}
+    Base.array_new_memory(::Memory, ::Int64) [other]: nofact Tuple{Type{Memory{T}} where T, UndefInitializer, Int64}
+    push!(::Vector{Any}, ::Tuple{Symbol, Any}) [any_container]: nofact Tuple{typeof(Base.__safe_setindex!), Vector{Any}, Tuple{Symbol, Any}, Int64}
+    append!(::Vector, ::Vector) [other]: nofact Tuple{Type{Base.IteratorSize}, Vector}; nofact Tuple{typeof(Base._append!), Vector, Base.HasShape{1}, Vector}
+    Base._append!(::Vector, ::Base.HasShape{1}, ::Vector) [any_container]: nofact Tuple{typeof(length), Vector}; nofact Tuple{typeof(Core.kwcall), @NamedTuple{shrink::Bool}, typeof(sizehint!), Vector, Int64}; nofact Tuple{typeof(iterate), Vector}
+    iterate(::Vector, ::Int64) [other]: nofact Tuple{typeof(Base._iterate_abstractarray), Vector, Int64}
+    Base._iterate_abstractarray(::Vector, ::Int64) [other]: nofact Tuple{typeof(checkbounds), Type{Bool}, Vector, Int64}; nofact Tuple{typeof(getindex), Vector, Int64}
+    getindex(::Vector, ::Int64) [other]: nofact Tuple{typeof(checkbounds), Vector, Int64}
+    checkbounds(::Vector, ::Int64) [other]: nofact Tuple{typeof(checkbounds), Type{Bool}, Vector, Int64}; nofact Tuple{typeof(Base.throw_boundserror), Vector, Tuple{Int64}}
+    push!(::Vector, ::Any) [other]: nomethod Tuple{typeof(Base._push!), Vector, Any}; nofact Tuple{typeof(Base._push!), Vector{T}, T} where T
+    push!(::Vector{Any}, ::Any) [any_container]: nofact Tuple{typeof(Base.__safe_setindex!), Vector{Any}, Any, Int64}
+    iterate(::Vector) [other]: nofact Tuple{typeof(Base.iterate_starting_state), Vector}; nofact Tuple{typeof(iterate), Vector, Int64}
+    Base.iterate_starting_state(::Vector) [other]: nofact Tuple{Type{IndexStyle}, Vector}; nofact Tuple{typeof(Base.iterate_starting_state), Vector, IndexLinear}
+    Base.iterate_starting_state(::Vector, ::IndexLinear) [other]: nofact Tuple{typeof(firstindex), Vector}
+    firstindex(::Vector) [other]: nofact Tuple{typeof(eachindex), IndexLinear, Vector}
+    eachindex(::IndexLinear, ::Vector) [other]: nofact Tuple{typeof(length), Vector}
+    IndexStyle(::Vector) [ctor_kind]: nofact Tuple{Type{IndexStyle}, Type{Vector{T}} where T}
+    Core.kwcall(::@NamedTuple{shrink::Bool}, ::typeof(sizehint!), ::Vector, ::Int64) [other]: nofact Tuple{Base.var"##sizehint!#81", Bool, Bool, typeof(sizehint!), Vector, Int64}
+    Base.var"#sizehint!#81"(::Bool, ::Bool, ::typeof(sizehint!), ::Vector, ::Int64) [other]: nofact Tuple{typeof(length), Vector}; nofact Tuple{typeof(getproperty), Vector, Symbol}; nofact Tuple{typeof(getproperty), MemoryRef, Symbol}
+    Base._growbeg!(::Vector, ::Int64) [other]: nofact Tuple{typeof(getproperty), Vector, Symbol}; nofact Tuple{typeof(length), Vector}; nofact Tuple{typeof(memoryref), MemoryRef, Int64}
+    Base._growbeg_internal!(::Vector, ::Int64, ::Int64) [other]: nofact Tuple{typeof(getproperty), Vector, Symbol}; nofact Tuple{typeof(getproperty), MemoryRef, Symbol}; nofact Tuple{typeof(length), Memory}
+    unsafe_copyto!(::Memory{T}, ::Int64, ::Memory{T}, ::Int64, ::Int64) where T [other]: nofact Tuple{typeof(memoryref), Memory, Int64}; nofact Tuple{typeof(unsafe_copyto!), MemoryRef{T}, MemoryRef{T}, Int64} where T
+    Base.IteratorSize(::Vector) [ctor_kind]: nofact Tuple{Type{Base.IteratorSize}, Type{Vector{T}} where T}
+    append!(::Vector{T}, ::Vector{T} where T<:T) where T [other]: nofact Tuple{typeof(length), Vector}; nofact Tuple{typeof(Base._growend!), Vector, Int64}; nofact Tuple{typeof(firstindex), Vector}
+    sizehint!(::Vector, ::Int64) [other]: nofact Tuple{Base.var"##sizehint!#81", Bool, Bool, typeof(sizehint!), Vector, Int64}
+    empty(::Vector, ::Type) [introspection]: nofact Tuple{typeof(similar), Vector, Type, Int64}
+    similar(::Vector, ::Type, ::Int64) [introspection]: nofact Tuple{typeof(similar), Vector, Type, Tuple{Int64}}
+    similar(::Vector, ::Type, ::Tuple{Int64}) [other]: nofact Tuple{Type{Vector{T}} where T, UndefInitializer, Tuple{Int64}}
+    eltype(::Vector) [introspection]: nofact Tuple{typeof(eltype), Type{Vector{T}} where T}
+    Base.indexed_iterate(::Tuple{Tuple{Symbol, Any}, Int64}, ::Int64) [other]: nofact Tuple{typeof(Base.indexed_iterate), Tuple{Tuple{Symbol, Any}, Int64}, Int64, Int64}
+    Base.push_widen(::Vector{<:Tuple{Symbol, Any}}, ::Tuple{Symbol, Any}) [type_join]: nofact Tuple{typeof(eltype), Vector{<:Tuple{Symbol, Any}}}; nofact Tuple{typeof(Base.promote_typejoin), Type{<:Tuple{Symbol, Any}}, Type{<:Tuple{Symbol, Any}}}; nofact Tuple{typeof(empty), Vector{<:Tuple{Symbol, Any}}, Type}
+    append!(::Vector, ::Vector{<:Tuple{Symbol, Any}}) [other]: nofact Tuple{Type{Base.IteratorSize}, Vector{<:Tuple{Symbol, Any}}}; nofact Tuple{typeof(Base._append!), Vector, Base.HasShape{1}, Vector{<:Tuple{Symbol, Any}}}
+    Base._append!(::Vector, ::Base.HasShape{1}, ::Vector{<:Tuple{Symbol, Any}}) [any_container]: nofact Tuple{typeof(length), Vector{<:Tuple{Symbol, Any}}}; nofact Tuple{typeof(length), Vector}; nofact Tuple{typeof(Core.kwcall), @NamedTuple{shrink::Bool}, typeof(sizehint!), Vector, Int64}
+    iterate(::Vector{<:Tuple{Symbol, Any}}, ::Int64) [other]: nofact Tuple{typeof(Base._iterate_abstractarray), Vector{<:Tuple{Symbol, Any}}, Int64}
+    Base._iterate_abstractarray(::Vector{<:Tuple{Symbol, Any}}, ::Int64) [other]: nofact Tuple{typeof(checkbounds), Type{Bool}, Vector{<:Tuple{Symbol, Any}}, Int64}; nofact Tuple{typeof(getindex), Vector{<:Tuple{Symbol, Any}}, Int64}
+    getindex(::Vector{<:Tuple{Symbol, Any}}, ::Int64) [other]: nofact Tuple{typeof(checkbounds), Vector{<:Tuple{Symbol, Any}}, Int64}
+    checkbounds(::Vector{<:Tuple{Symbol, Any}}, ::Int64) [other]: nofact Tuple{typeof(checkbounds), Type{Bool}, Vector{<:Tuple{Symbol, Any}}, Int64}; nofact Tuple{typeof(Base.throw_boundserror), Vector{<:Tuple{Symbol, Any}}, Tuple{Int64}}
+    Base.throw_boundserror(::Vector{<:Tuple{Symbol, Any}}, ::Tuple{Int64}) [error_path]: nofact Tuple{Type{BoundsError}, Vector{<:Tuple{Symbol, Any}}, Tuple{Int64}}
+    checkbounds(::Type{Bool}, ::Vector{<:Tuple{Symbol, Any}}, ::Int64) [other]: nofact Tuple{typeof(length), Vector{<:Tuple{Symbol, Any}}}
+    length(::Vector{T} where T<:Tuple{Symbol, Any}) [other]: nofact Tuple{typeof(size), Vector{T} where T<:Tuple{Symbol, Any}}
+    iterate(::Vector{<:Tuple{Symbol, Any}}) [other]: nofact Tuple{typeof(Base.iterate_starting_state), Vector{<:Tuple{Symbol, Any}}}; nofact Tuple{typeof(iterate), Vector{<:Tuple{Symbol, Any}}, Int64}
+    Base.iterate_starting_state(::Vector{<:Tuple{Symbol, Any}}) [other]: nofact Tuple{Type{IndexStyle}, Vector{<:Tuple{Symbol, Any}}}; nofact Tuple{typeof(Base.iterate_starting_state), Vector{<:Tuple{Symbol, Any}}, IndexLinear}
+    Base.iterate_starting_state(::Vector{<:Tuple{Symbol, Any}}, ::IndexLinear) [other]: nofact Tuple{typeof(firstindex), Vector{<:Tuple{Symbol, Any}}}
+    firstindex(::Vector{<:Tuple{Symbol, Any}}) [other]: nofact Tuple{typeof(eachindex), IndexLinear, Vector{<:Tuple{Symbol, Any}}}
+    eachindex(::IndexLinear, ::Vector{<:Tuple{Symbol, Any}}) [other]: nofact Tuple{typeof(length), Vector{<:Tuple{Symbol, Any}}}
+    IndexStyle(::Vector{<:Tuple{Symbol, Any}}) [ctor_kind]: nofact Tuple{Type{IndexStyle}, Type{Vector{var"#s189"}} where var"#s189"<:Tuple{Symbol, Any}}
+    Base.IteratorSize(::Vector{<:Tuple{Symbol, Any}}) [ctor_kind]: nofact Tuple{Type{Base.IteratorSize}, Type{Vector{var"#s189"}} where var"#s189"<:Tuple{Symbol, Any}}
+    append!(::Vector{T}, ::Vector{<:Tuple{Symbol, Any}}) where T [other]: nofact Tuple{typeof(length), Vector{<:Tuple{Symbol, Any}}}; nofact Tuple{typeof(Base._growend!), Vector, Int64}; nofact Tuple{typeof(length), Vector}
+    empty(::Vector{<:Tuple{Symbol, Any}}, ::Type) [introspection]: nofact Tuple{typeof(similar), Vector{<:Tuple{Symbol, Any}}, Type, Int64}
+    similar(::Vector{<:Tuple{Symbol, Any}}, ::Type, ::Int64) [introspection]: nofact Tuple{typeof(similar), Vector{<:Tuple{Symbol, Any}}, Type, Tuple{Int64}}
+    similar(::Vector{<:Tuple{Symbol, Any}}, ::Type, ::Tuple{Int64}) [other]: nofact Tuple{Type{Vector{T}} where T, UndefInitializer, Tuple{Int64}}
+    eltype(::Vector{<:Tuple{Symbol, Any}}) [introspection]: nofact Tuple{typeof(eltype), Type{Vector{var"#s189"}} where var"#s189"<:Tuple{Symbol, Any}}
+    push!(::Vector{<:Tuple{Symbol, Any}}, ::Tuple{Symbol, Any}) [introspection]: nofact Tuple{typeof(convert), Type{Union{}}, Tuple{Symbol, Any}}; nofact Tuple{typeof(convert), Type{T}, Tuple{Symbol, Any}} where T<:Tuple{Symbol, Any}; nofact Tuple{typeof(convert), Type{<:Tuple{Symbol, Any}}, Tuple{Symbol, Any}}
+    Base._push!(::Vector{T}, ::Tuple{Symbol, Any}) where T<:Tuple{Symbol, Any} [other]: nofact Tuple{typeof(Base._growend!), Vector{T} where T<:Tuple{Symbol, Any}, Int64}; nofact Tuple{typeof(length), Vector{T} where T<:Tuple{Symbol, Any}}; nofact Tuple{typeof(Base.__safe_setindex!), Vector{T}, Tuple{Symbol, Any}, Int64} where T<:Tuple{Symbol, Any}
+    Base.__safe_setindex!(::Vector{T} where T<:Tuple{Symbol, Any}, ::Tuple{Symbol, Any}, ::Int64) [introspection]: nofact Tuple{typeof(convert), Type{Union{}}, Tuple{Symbol, Any}}; nofact Tuple{typeof(convert), Type{T}, Tuple{Symbol, Any}} where T<:Tuple{Symbol, Any}; nofact Tuple{typeof(convert), Type{<:Tuple{Symbol, Any}}, Tuple{Symbol, Any}}
+    Base.__safe_setindex!(::Vector{T}, ::Tuple{Symbol, Any}, ::Int64) where T<:Tuple{Symbol, Any} [other]: nofact Tuple{typeof(getproperty), Vector{T} where T<:Tuple{Symbol, Any}, Symbol}
+    convert(::Type{<:Tuple{Symbol, Any}}, ::Tuple{Symbol, Any}) [introspection]: nofact Tuple{typeof(typeintersect), Type{Tuple{Any, Any}}, Type{<:Tuple{Symbol, Any}}}; nofact Tuple{typeof(Base._tuple_error), Type{<:Tuple{Symbol, Any}}, Tuple{Symbol, Any}}; nofact Tuple{typeof(Core._typeof_captured_variable), Tuple{Symbol, Any}}
+    ntuple(::Base.var"#cvt1#convert##0"{<:Tuple{Symbol, Any}, <:Tuple{Symbol, Any}}, ::Val{2}) [other]: nofact Tuple{Base.var"#cvt1#convert##0"{<:Tuple{Symbol, Any}, <:Tuple{Symbol, Any}}, Int64}
+    (::Base.var"#cvt1#convert##0"{<:Tuple{Symbol, Any}, <:Tuple{Symbol, Any}})(::Int64) [introspection]: nomethod Tuple{typeof(convert), Type{<:Symbol}, Symbol}
+    Core._typeof_captured_variable(::Tuple{Symbol, Any}) [other]: nofact Tuple{typeof(Core.Typeof), Tuple{Symbol, Any}}
+    Base._tuple_error(::Type{<:Tuple{Symbol, Any}}, ::Tuple{Symbol, Any}) [error_path]: nofact Tuple{Type{MethodError}, typeof(convert), Tuple{Type, Tuple{Symbol, Any}}}
+    MethodError(::typeof(convert), ::Tuple{Type, Tuple{Symbol, Any}}) [error_path]: nofact Tuple{Type{MethodError}, typeof(convert), Tuple{Type, Tuple{Symbol, Any}}, UInt64}
+    Base._growend!(::Vector{T} where T<:Tuple{Symbol, Any}, ::Int64) [other]: nofact Tuple{typeof(getproperty), Vector{T} where T<:Tuple{Symbol, Any}, Symbol}; nofact Tuple{typeof(getproperty), MemoryRef{T} where T<:Tuple{Symbol, Any}, Symbol}; nofact Tuple{typeof(length), Memory{T} where T<:Tuple{Symbol, Any}}
+    Base._growend_internal!(::Vector{T} where T<:Tuple{Symbol, Any}, ::Int64, ::Int64) [other]: nofact Tuple{typeof(getproperty), Vector{T} where T<:Tuple{Symbol, Any}, Symbol}; nofact Tuple{typeof(getproperty), MemoryRef{T} where T<:Tuple{Symbol, Any}, Symbol}; nofact Tuple{typeof(length), Memory{T} where T<:Tuple{Symbol, Any}}
+    unsafe_copyto!(::MemoryRef{T} where T<:Tuple{Symbol, Any}, ::MemoryRef{T} where T<:Tuple{Symbol, Any}, ::Int64) [other]: nofact Tuple{typeof(memoryref), MemoryRef{T} where T<:Tuple{Symbol, Any}, Int64}; nofact Tuple{typeof(getproperty), MemoryRef{T} where T<:Tuple{Symbol, Any}, Symbol}; nofact Tuple{typeof(unsafe_copyto!), Memory{T} where T<:Tuple{Symbol, Any}, Int64, Memory{T} where T<:Tuple{Symbol, Any}, Int64, Int64}
+    unsafe_copyto!(::Memory{T} where T<:Tuple{Symbol, Any}, ::Int64, ::Memory{T} where T<:Tuple{Symbol, Any}, ::Int64, ::Int64) [other]: nofact Tuple{typeof(pointer), Memory{T} where T<:Tuple{Symbol, Any}, Int64}; nofact Tuple{typeof(<), Ptr{T} where T<:Tuple{Symbol, Any}, Ptr{T} where T<:Tuple{Symbol, Any}}; nofact Tuple{typeof(>), Ptr{T} where T<:Tuple{Symbol, Any}, Ptr{T} where T<:Tuple{Symbol, Any}}
+    Base._unsetindex!(::Memory{T} where T<:Tuple{Symbol, Any}, ::Int64) [other]: nofact Tuple{typeof(memoryref), Memory{T} where T<:Tuple{Symbol, Any}, Int64}; nofact Tuple{typeof(Base._unsetindex!), MemoryRef{T} where T<:Tuple{Symbol, Any}}
+    Base._unsetindex!(::MemoryRef{T} where T<:Tuple{Symbol, Any}) [introspection]: nofact Tuple{typeof(memoryref), MemoryRef{T} where T<:Tuple{Symbol, Any}, Int64}; nofact Tuple{typeof(getproperty), MemoryRef{T} where T<:Tuple{Symbol, Any}, Symbol}; nofact Tuple{typeof(Base.datatype_arrayelem), Type{Memory{T}} where T<:Tuple{Symbol, Any}}
+    pointer(::MemoryRef{T} where T<:Tuple{Symbol, Any}) [other]: nofact Tuple{typeof(Base.unsafe_convert), Type{Ptr{Nothing}}, MemoryRef{T} where T<:Tuple{Symbol, Any}}
+    Base.unsafe_convert(::Type{Ptr{Nothing}}, ::MemoryRef{T} where T<:Tuple{Symbol, Any}) [introspection]: nofact Tuple{typeof(Base.datatype_arrayelem), Type{Memory{T}} where T<:Tuple{Symbol, Any}}; nofact Tuple{typeof(Base.datatype_layoutsize), Type{Memory{T}} where T<:Tuple{Symbol, Any}}; nofact Tuple{typeof(Base.unsafe_convert), Type{Ptr{Nothing}}, Memory{T} where T<:Tuple{Symbol, Any}}
+    Base.datatype_layoutsize(::Type{Memory{T}} where T<:Tuple{Symbol, Any}) [introspection]: nofact Tuple{typeof(getproperty), Type{Memory{T}} where T<:Tuple{Symbol, Any}, Symbol}
+    Base.datatype_arrayelem(::Type{Memory{T}} where T<:Tuple{Symbol, Any}) [introspection]: nofact Tuple{typeof(getproperty), Type{Memory{T}} where T<:Tuple{Symbol, Any}, Symbol}
+    Base.datatype_pointerfree(::Type{T} where T<:Tuple{Symbol, Any}) [introspection]: nomethod Tuple{typeof(Base.datatype_npointers), Type{T} where T<:Tuple{Symbol, Any}}; nofact Tuple{typeof(Base.datatype_npointers), Type{T} where T<:Tuple{Symbol, Any}}
+    setindex!(::Memory{T} where T<:Tuple{Symbol, Any}, ::Tuple{Symbol, Any}, ::Int64) [introspection]: nofact Tuple{typeof(convert), Type{Union{}}, Tuple{Symbol, Any}}; nofact Tuple{typeof(convert), Type{T}, Tuple{Symbol, Any}} where T<:Tuple{Symbol, Any}; nofact Tuple{typeof(convert), Type{<:Tuple{Symbol, Any}}, Tuple{Symbol, Any}}
+    Base._setindex!(::Memory{T}, ::Tuple{Symbol, Any}, ::Int64) where T<:Tuple{Symbol, Any} [other]: nofact Tuple{typeof(memoryref), Memory{T} where T<:Tuple{Symbol, Any}}
+    getindex(::Memory{T} where T<:Tuple{Symbol, Any}, ::Int64) [other]: nofact Tuple{typeof(checkbounds), Memory{T} where T<:Tuple{Symbol, Any}, Int64}; nofact Tuple{typeof(Base.default_access_order), Memory{T} where T<:Tuple{Symbol, Any}}
+    checkbounds(::Memory{T} where T<:Tuple{Symbol, Any}, ::Int64) [other]: nofact Tuple{typeof(checkbounds), Type{Bool}, Memory{T} where T<:Tuple{Symbol, Any}, Int64}; nofact Tuple{typeof(Base.throw_boundserror), Memory{T} where T<:Tuple{Symbol, Any}, Tuple{Int64}}
+    Base.throw_boundserror(::Memory{T} where T<:Tuple{Symbol, Any}, ::Tuple{Int64}) [error_path]: nofact Tuple{Type{BoundsError}, Memory{T} where T<:Tuple{Symbol, Any}, Tuple{Int64}}
+    checkbounds(::Type{Bool}, ::Memory{T} where T<:Tuple{Symbol, Any}, ::Int64) [other]: nofact Tuple{typeof(length), Memory{T} where T<:Tuple{Symbol, Any}}
+    length(::Memory{T} where T<:Tuple{Symbol, Any}) [other]: nofact Tuple{typeof(size), Memory{T} where T<:Tuple{Symbol, Any}}
+    isassigned(::Memory{T} where T<:Tuple{Symbol, Any}, ::Int64) [other]: nofact Tuple{typeof(checkbounds), Type{Bool}, Memory{T} where T<:Tuple{Symbol, Any}, Int64}; nofact Tuple{typeof(memoryref), Memory{T} where T<:Tuple{Symbol, Any}, Int64}; nofact Tuple{typeof(Base.default_access_order), Memory{T} where T<:Tuple{Symbol, Any}}
+    >(::Ptr{T} where T<:Tuple{Symbol, Any}, ::Ptr{T} where T<:Tuple{Symbol, Any}) [other]: nofact Tuple{typeof(<), Ptr{T} where T<:Tuple{Symbol, Any}, Ptr{T} where T<:Tuple{Symbol, Any}}
+    <(::Ptr{T} where T<:Tuple{Symbol, Any}, ::Ptr{T} where T<:Tuple{Symbol, Any}) [other]: nofact Tuple{Type{UInt64}, Ptr{T} where T<:Tuple{Symbol, Any}}
+    pointer(::Memory{T} where T<:Tuple{Symbol, Any}, ::Int64) [other]: nofact Tuple{typeof(pointer), Memory{T} where T<:Tuple{Symbol, Any}}; nofact Tuple{typeof(Base._memory_offset), Memory{T} where T<:Tuple{Symbol, Any}, Int64}; nofact Tuple{typeof(+), Ptr{T} where T<:Tuple{Symbol, Any}, Int64}
+    Base._memory_offset(::Memory{T} where T<:Tuple{Symbol, Any}, ::Int64) [other]: nofact Tuple{typeof(Base._to_linear_index), Memory{T} where T<:Tuple{Symbol, Any}, Int64}; nofact Tuple{Type{LinearIndices}, Memory{T} where T<:Tuple{Symbol, Any}}; nofact Tuple{typeof(Base.elsize), Memory{T} where T<:Tuple{Symbol, Any}}
+    Base.elsize(::Memory{T} where T<:Tuple{Symbol, Any}) [introspection]: nofact Tuple{typeof(Base.elsize), Type{Memory{T}} where T<:Tuple{Symbol, Any}}
+    Base.elsize(::Type{Memory{T}} where T<:Tuple{Symbol, Any}) [introspection]: nofact Tuple{typeof(Base.aligned_sizeof), Type{T} where T<:Tuple{Symbol, Any}}
+    Base.aligned_sizeof(::Type{T} where T<:Tuple{Symbol, Any}) [introspection]: nofact Tuple{typeof(Base.allocatedinline), Union}; nofact Tuple{typeof(Base.uniontype_layout), Union}; nofact Tuple{typeof(Base.allocatedinline), Type{T} where T<:Tuple{Symbol, Any}}
+    LinearIndices(::Memory{T} where T<:Tuple{Symbol, Any}) [other]: nofact Tuple{typeof(axes), Memory{T} where T<:Tuple{Symbol, Any}}
+    axes(::Memory{T} where T<:Tuple{Symbol, Any}) [other]: nofact Tuple{typeof(size), Memory{T} where T<:Tuple{Symbol, Any}}
+    pointer(::Memory{T} where T<:Tuple{Symbol, Any}) [introspection]: nofact Tuple{typeof(Base.cconvert), Type{Ptr{T}} where T<:Tuple{Symbol, Any}, Memory{T} where T<:Tuple{Symbol, Any}}; nofact Tuple{typeof(Base.unsafe_convert), Type{Ptr{T}} where T<:Tuple{Symbol, Any}, Memory{T} where T<:Tuple{Symbol, Any}}
+    Base.unsafe_convert(::Type{Ptr{T}} where T<:Tuple{Symbol, Any}, ::Memory{T} where T<:Tuple{Symbol, Any}) [introspection]: nofact Tuple{typeof(convert), Type{Ptr{T}} where T<:Tuple{Symbol, Any}, Ptr{Nothing}}
+    unsafe_copyto!(::MemoryRef{T}, ::MemoryRef{T}, ::Int64) where T<:Tuple{Symbol, Any} [introspection]: nofact Tuple{typeof(memoryref), MemoryRef{T} where T<:Tuple{Symbol, Any}, Int64}; nofact Tuple{typeof(isbitstype), Type{T} where T<:Tuple{Symbol, Any}}; nofact Tuple{typeof(Base.unsafe_convert), Type{Ptr{Nothing}}, MemoryRef{T} where T<:Tuple{Symbol, Any}}
+    isbitstype(::Type{T} where T<:Tuple{Symbol, Any}) [introspection]: nofact Tuple{typeof(getproperty), DataType, Symbol}
+    Base.array_new_memory(::Memory{T} where T<:Tuple{Symbol, Any}, ::Int64) [other]: nofact Tuple{Type{Memory{T}} where T<:Tuple{Symbol, Any}, UndefInitializer, Int64}
+    empty(::Vector{Tuple{Symbol, Any}}, ::Type{<:Tuple{Symbol, Any}}) [introspection]: nofact Tuple{typeof(similar), Vector{Tuple{Symbol, Any}}, Type{<:Tuple{Symbol, Any}}, Int64}
+    similar(::Vector{Tuple{Symbol, Any}}, ::Type{<:Tuple{Symbol, Any}}, ::Int64) [introspection]: nofact Tuple{typeof(similar), Vector{Tuple{Symbol, Any}}, Type{<:Tuple{Symbol, Any}}, Tuple{Int64}}
+    similar(::Vector{Tuple{Symbol, Any}}, ::Type, ::Tuple{Int64}) [other]: nofact Tuple{Type{Vector{T}} where T, UndefInitializer, Tuple{Int64}}
+    similar(::Vector{Tuple{Symbol, Any}}, ::Type{<:Tuple{Symbol, Any}}, ::Tuple{Int64}) [other]: nofact Tuple{Type{Vector{var"#s189"}} where var"#s189"<:Tuple{Symbol, Any}, UndefInitializer, Tuple{Int64}}
+    (::Type{Vector{var"#s189"}} where var"#s189"<:Tuple{Symbol, Any})(::UndefInitializer, ::Tuple{Int64}) [other]: nofact Tuple{Type{Vector{var"#s189"}} where var"#s189"<:Tuple{Symbol, Any}, UndefInitializer, Int64}
+    (::Type{Vector{var"#s189"}} where var"#s189"<:Tuple{Symbol, Any})(::UndefInitializer, ::Int64) [other]: nomethod Tuple{Type{<:Memory{<:Tuple{Symbol, Any}}}, UndefInitializer, Int64}; nofact Tuple{Type{Memory{T}}, UndefInitializer, Int64} where T<:Tuple{Symbol, Any}; nofact Tuple{typeof(memoryref), Memory{T} where T<:Tuple{Symbol, Any}}
+    Base.typejoin_union_tuple(::Type{Tuple{Symbol, Any}}) [type_join]: nofact Tuple{typeof(Base.unwrapva), Any}; nofact Tuple{typeof(getproperty), Union, Symbol}; nofact Tuple{typeof(typejoin), Any, Any}
+    Base.promote_typejoin_union(::Type{T}) where T [type_join]: nofact Tuple{typeof(getproperty), Type, Symbol}; nomethod Tuple{typeof(Base.promote_typejoin_union), Any}; nofact Tuple{typeof(Base.promote_typejoin), Type, Type}
+    Base.typejoin_union_tuple(::DataType) [type_join]: nofact Tuple{typeof(getproperty), DataType, Symbol}; nofact Tuple{typeof(Base.unwrapva), Any}; nofact Tuple{typeof(getproperty), Union, Symbol}
+
+## the culprits: in the cones of, alone in, the culprit (outside the library unless `own`)
+   6   0  Base.ScopedValues.get(::Base.ScopedValues.ScopedValue{Base.CoreLogging.LogState})
+   6   0  Base.Iterators.only(::Tuple{Any})
+   2   0  checkbounds(::Type{Bool}, ::Vector{<:Tuple{Symbol, Any}}, ::Int64)
+   2   0  Base._growend!(::Vector{T} where T<:Tuple{Symbol, Any}, ::Int64)
+   2   0  unsafe_copyto!(::MemoryRef{T}, ::MemoryRef{T}, ::Int64) where T
+   2   0  push!(::Vector{Any}, ::Any)
+   2   0  Base.var"#sizehint!#81"(::Bool, ::Bool, ::typeof(sizehint!), ::Vector, ::Int64)
+   2   0  Base.push_widen(::Vector, ::Tuple{Symbol, Any})
+   2   0  similar(::Vector, ::Type, ::Tuple{Int64})
+   2   0  unsafe_copyto!(::MemoryRef, ::MemoryRef, ::Int64)
+   2   0  Base.grow_to!(::Vector, ::Base.Generator{Base.Iterators.Filter{TraitWorld.var"#_equation_value_method##3#_equation_value_method##4", Vector{Pair{Symbol, Any}}}, TraitWorl
+   2   0  Base.__safe_setindex!(::Vector, ::Any, ::Int64)
+   2   0  eachindex(::IndexLinear, ::Vector{<:Tuple{Symbol, Any}})
+   2   0  push!(::Vector{<:Tuple{Symbol, Any}}, ::Tuple{Symbol, Any})
+   2   0  getindex(::Memory{T} where T<:Tuple{Symbol, Any}, ::Int64)
+   2   0  getindex(::Memory, ::Int64)
+   2   0  Base.elsize(::Type{Memory{T}} where T<:Tuple{Symbol, Any})
+   2   0  axes(::Memory)
+   2   0  append!(::Vector{T}, ::Vector{T} where T<:T) where T
+   2   0  Base.datatype_layoutsize(::Type{Memory{T}} where T<:Tuple{Symbol, Any})
+   2   0  Core.kwcall(::@NamedTuple{shrink::Bool}, ::typeof(sizehint!), ::Vector, ::Int64)
+   2   0  length(::Vector{T} where T<:Tuple{Symbol, Any})
+   2   0  Base.typejoin_union_tuple(::Type{Tuple{Symbol, Any}})
+   2   0  Base.__safe_setindex!(::Vector{T}, ::T, ::Int64) where T
+   2   0  Base.unsafe_convert(::Type{Ptr{Nothing}}, ::MemoryRef)
+   2   0  Base._memory_offset(::Memory, ::Int64)
+   2   0  unsafe_copyto!(::MemoryRef{T}, ::MemoryRef{T}, ::Int64) where T<:Tuple{Symbol, Any}
+   2   0  (::Type{Vector{var"#s189"}} where var"#s189"<:Tuple{Symbol, Any})(::UndefInitializer, ::Int64)
+   2   0  (::Type{Vector{T}} where T)(::UndefInitializer, ::Int64)
+   2   0  pointer(::Memory{T} where T<:Tuple{Symbol, Any})
+   2   0  checkbounds(::Type{Bool}, ::Vector, ::Int64)
+   2   0  iterate(::Vector, ::Int64)
+   2   0  MethodError(::typeof(convert), ::Tuple{Type, Tuple{Symbol, Any}})
+   2   0  Base.elsize(::Memory)
+   2   0  Base._growend!(::Vector, ::Int64)
+   2   0  checkbounds(::Vector, ::Int64)
+   2   0  convert(::Type{<:Tuple{Symbol, Any}}, ::Tuple{Symbol, Any})
+   2   0  empty(::Vector{Tuple{Symbol, Any}}, ::Type{<:Tuple{Symbol, Any}})
+   2   0  checkbounds(::Type{Bool}, ::Memory, ::Int64)
+   2   0  pointer(::Memory{T} where T<:Tuple{Symbol, Any}, ::Int64)
+   2   0  similar(::Vector{Tuple{Symbol, Any}}, ::Type{<:Tuple{Symbol, Any}}, ::Tuple{Int64})
+   2   0  isbitstype(::Any)
+   2   0  similar(::Vector{<:Tuple{Symbol, Any}}, ::Type, ::Int64)
+   2   0  isbitstype(::Type{T} where T<:Tuple{Symbol, Any})
+   2   0  checkbounds(::Vector{<:Tuple{Symbol, Any}}, ::Int64)
+   2   0  Base._growend_internal!(::Vector{T} where T<:Tuple{Symbol, Any}, ::Int64, ::Int64)
+   2   0  iterate(::Vector)
+   2   0  iterate(::Vector{<:Tuple{Symbol, Any}}, ::Int64)
+   2   0  pointer(::MemoryRef{T} where T<:Tuple{Symbol, Any})
+   2   0  firstindex(::Vector)
+   2   0  Base.push_widen(::Vector{<:Tuple{Symbol, Any}}, ::Tuple{Symbol, Any})
+   2   0  isassigned(::Memory, ::Int64)
+   2   0  Base._growbeg_internal!(::Vector, ::Int64, ::Int64)
+   2   0  append!(::Vector, ::Vector{<:Tuple{Symbol, Any}})
+   2   0  length(::Memory{T} where T<:Tuple{Symbol, Any})
+   2   0  Base.unsafe_convert(::Type{Ptr{Nothing}}, ::MemoryRef{T} where T<:Tuple{Symbol, Any})
+   2   0  Base.iterate_starting_state(::Vector, ::IndexLinear)
+   2   0  Base.unsafe_convert(::Type{Ptr{T}} where T<:Tuple{Symbol, Any}, ::Memory{T} where T<:Tuple{Symbol, Any})
+   2   0  Base.unsafe_convert(::Type{Ptr{_A}} where _A, ::Memory)
+   2   0  Base.grow_to!(::Vector{Tuple{Symbol, Any}}, ::Base.Generator{Base.Iterators.Filter{TraitWorld.var"#_equation_value_method##3#_equation_value_method##4", Vector{Pair{Symbo
+   2   0  Base._unsetindex!(::MemoryRef)
+   2   0  Base._iterate_abstractarray(::Vector, ::Int64)
+   2   0  getindex(::Vector, ::Int64)
+   2   0  (::Base.var"#cvt1#convert##0"{<:Tuple{Symbol, Any}, <:Tuple{Symbol, Any}})(::Int64)
+   2   0  (::Type{Vector{T}} where T)(::UndefInitializer, ::Tuple{Int64})
+   2   0  Base.datatype_arrayelem(::Type{Memory{T}} where T)
+   2   0  Base.aligned_sizeof(::Type{T} where T<:Tuple{Symbol, Any})
+   2   0  length(::Vector)
+   2   0  Base.iterate_starting_state(::Vector)
+   2   0  pointer(::MemoryRef)
+   2   0  isassigned(::Memory{T} where T<:Tuple{Symbol, Any}, ::Int64)
+   2   0  Base._append!(::Vector, ::Base.HasShape{1}, ::Vector{<:Tuple{Symbol, Any}})
+   2   0  Base.datatype_pointerfree(::Type{T} where T<:Tuple{Symbol, Any})
+   2   0  >(::Ptr{T} where T<:Tuple{Symbol, Any}, ::Ptr{T} where T<:Tuple{Symbol, Any})
+   2   0  Base._unsetindex!(::Memory, ::Int64)
+   2   0  Base.indexed_iterate(::Tuple{Tuple{Symbol, Any}, Int64}, ::Int64)
+   2   0  getindex(::Vector{<:Tuple{Symbol, Any}}, ::Int64)
+   2   0  <(::Ptr{T} where T<:Tuple{Symbol, Any}, ::Ptr{T} where T<:Tuple{Symbol, Any})
+   2   0  append!(::Vector{T}, ::Vector{<:Tuple{Symbol, Any}}) where T
+   2   0  Base._unsetindex!(::MemoryRef{T} where T<:Tuple{Symbol, Any})
+   2   0  IndexStyle(::Vector{<:Tuple{Symbol, Any}})
+   2   0  setindex!(::Memory{T} where T<:Tuple{Symbol, Any}, ::Tuple{Symbol, Any}, ::Int64)
+   2   0  Base.datatype_layoutsize(::Type{Memory{T}} where T)
+   2   0  Core._typeof_captured_variable(::Tuple{Symbol, Any})
+   2   0  setindex!(::Memory, ::Any, ::Int64)
+   2   0  iterate(::Vector{<:Tuple{Symbol, Any}})
+   2   0  LinearIndices(::Memory{T} where T<:Tuple{Symbol, Any})
+   2   0  (::Type{Vector{var"#s189"}} where var"#s189"<:Tuple{Symbol, Any})(::UndefInitializer, ::Tuple{Int64})
+   2   0  Base.promote_typejoin_union(::Type{T}) where T
+   2   0  Base._append!(::Vector, ::Base.HasShape{1}, ::Vector)
+   2   0  Base.datatype_pointerfree(::DataType)
+   2   0  Base._setindex!(::Memory{T}, ::T, ::Int64) where T
+   2   0  length(::Memory)
+   2   0  checkbounds(::Memory, ::Int64)
+   2   0  Base._push!(::Vector{T}, ::Tuple{Symbol, Any}) where T<:Tuple{Symbol, Any}
+   2   0  Base._memory_offset(::Memory{T} where T<:Tuple{Symbol, Any}, ::Int64)
+   2   0  unsafe_copyto!(::Memory, ::Int64, ::Memory, ::Int64, ::Int64)
+   2   0  Base.__safe_setindex!(::Vector{T} where T<:Tuple{Symbol, Any}, ::Tuple{Symbol, Any}, ::Int64)
+   2   0  Base._iterate_abstractarray(::Vector{<:Tuple{Symbol, Any}}, ::Int64)
+   2   0  firstindex(::Vector{<:Tuple{Symbol, Any}})
+   2   0  similar(::Vector{<:Tuple{Symbol, Any}}, ::Type, ::Tuple{Int64})
+   2   0  Base.elsize(::Type{Memory{T}} where T)
+   2   0  LinearIndices(::Memory)
+   2   0  Base.aligned_sizeof(::Type)
+   2   0  unsafe_copyto!(::MemoryRef{T} where T<:Tuple{Symbol, Any}, ::MemoryRef{T} where T<:Tuple{Symbol, Any}, ::Int64)
+   2   0  unsafe_copyto!(::Memory{T} where T<:Tuple{Symbol, Any}, ::Int64, ::Memory{T} where T<:Tuple{Symbol, Any}, ::Int64, ::Int64)
+   2   0  >(::Ptr, ::Ptr)
+   2   0  similar(::Vector{Tuple{Symbol, Any}}, ::Type, ::Tuple{Int64})
+   2   0  Base._push!(::Vector{T}, ::T) where T
+   2   0  Base.throw_boundserror(::Memory, ::Tuple{Int64})
+   2   0  typejoin(::Any, ::Any)
+   2   0  Base._tuple_error(::Type{<:Tuple{Symbol, Any}}, ::Tuple{Symbol, Any})
+   2   0  Base.grow_to!(::Vector{<:Tuple{Symbol, Any}}, ::Base.Generator{Base.Iterators.Filter{TraitWorld.var"#_equation_value_method##3#_equation_value_method##4", Vector{Pair{Sym
+   2   0  Base.datatype_arrayelem(::Type{Memory{T}} where T<:Tuple{Symbol, Any})
+   2   0  Base.IteratorSize(::Vector)
+   2   0  Base.throw_boundserror(::Memory{T} where T<:Tuple{Symbol, Any}, ::Tuple{Int64})
+   2   0  eachindex(::IndexLinear, ::Vector)
+   2   0  eltype(::Vector)
+   2   0  push!(::Vector, ::Tuple{Symbol, Any})
+   2   0  pointer(::Memory, ::Int64)
+   2   0  sizehint!(::Vector, ::Int64)
+   2   0  Base.iterate_starting_state(::Vector{<:Tuple{Symbol, Any}})
+   2   0  ntuple(::Base.var"#cvt1#convert##0"{<:Tuple{Symbol, Any}, <:Tuple{Symbol, Any}}, ::Val{2})
+   2   0  Base._unsetindex!(::Memory{T} where T<:Tuple{Symbol, Any}, ::Int64)
+   2   0  Base._setindex!(::Memory{T}, ::Tuple{Symbol, Any}, ::Int64) where T<:Tuple{Symbol, Any}
+   2   0  append!(::Vector, ::Vector)
+   2   0  checkbounds(::Type{Bool}, ::Memory{T} where T<:Tuple{Symbol, Any}, ::Int64)
+   2   0  IndexStyle(::Vector)
+   2   0  Base.throw_boundserror(::Vector, ::Tuple{Int64})
+   2   0  Base.__safe_setindex!(::Vector{T}, ::Tuple{Symbol, Any}, ::Int64) where T<:Tuple{Symbol, Any}
+   2   0  Base.elsize(::Memory{T} where T<:Tuple{Symbol, Any})
+   2   0  eltype(::Vector{<:Tuple{Symbol, Any}})
+   2   0  similar(::Vector{Tuple{Symbol, Any}}, ::Type{<:Tuple{Symbol, Any}}, ::Int64)
+   2   0  Base.throw_boundserror(::Vector{<:Tuple{Symbol, Any}}, ::Tuple{Int64})
+   2   0  Base.IteratorSize(::Vector{<:Tuple{Symbol, Any}})
+   2   0  empty(::Vector{<:Tuple{Symbol, Any}}, ::Type)
+   2   0  similar(::Vector, ::Type, ::Int64)
+   2   0  pointer(::Memory)
+   2   0  push!(::Vector{Any}, ::Tuple{Symbol, Any})
+   2   0  empty(::Vector, ::Type)
+   2   0  Base._growend_internal!(::Vector, ::Int64, ::Int64)
+   2   0  unsafe_copyto!(::Memory{T}, ::Int64, ::Memory{T}, ::Int64, ::Int64) where T
+   2   0  Base.array_new_memory(::Memory{T} where T<:Tuple{Symbol, Any}, ::Int64)
+   2   0  Base.array_new_memory(::Memory, ::Int64)
+   2   0  Base._growbeg!(::Vector, ::Int64)
+   2   0  checkbounds(::Memory{T} where T<:Tuple{Symbol, Any}, ::Int64)
+   2   0  axes(::Memory{T} where T<:Tuple{Symbol, Any})
+   2   0  Base.typejoin_union_tuple(::DataType)
+   2   0  push!(::Vector, ::Any)
+   2   0  Base.iterate_starting_state(::Vector{<:Tuple{Symbol, Any}}, ::IndexLinear)
+   2   0  <(::Ptr, ::Ptr)
+   1   0  collect(::Base.Generator{Vector{Tuple{Symbol, Any, Bool}}, TraitWorld.var"#_trait##9#_trait##10"})
+   1   0  size(::Vector, ::Int64)
+   1   0  (::Type{Array{_A}} where _A)(::UndefInitializer, ::Tuple{Int64})
+   1   0  iterate(::Base.Generator{Vector{Tuple{Symbol, Any, Bool}}, TraitWorld.var"#_trait##9#_trait##10"})
+   1   0  Base._setindex!(::Vector{T}, ::Any, ::Int64) where T
+   1   0  similar(::Type{Array{_A}} where _A, ::Tuple{Int64})
+   1   0  Base.indexed_iterate(::Tuple{Any, Int64}, ::Int64)
+   1   0  iterate(::Base.Generator{Vector{Tuple{Symbol, Any, Bool}}, TraitWorld.var"#_trait##7#_trait##8"})
+   1   0  Base.Broadcast.combine_eltypes(::Type{QuoteNode}, ::Tuple{Vector{Any}})
+   1   0  Base.collect_to!(::Vector, ::Base.Generator{Vector{Tuple{Symbol, Any, Bool}}, TraitWorld.var"#_trait##7#_trait##8"}, ::Int64, ::Int64)
+   1   0  Base.collect_to_with_first!(::Vector, ::Any, ::Base.Generator{Vector{Tuple{Symbol, Any, Bool}}, TraitWorld.var"#_trait##9#_trait##10"}, ::Int64)
+   1   0  LinearIndices(::Vector)
+   1   1  Base._iterate_dict(::Dict{Symbol, Any}, ::Int64)
+   1   0  iterate(::Base.Generator{Vector{Tuple{Symbol, Any, Bool}}, TraitWorld.var"#_trait##7#_trait##8"}, ::Int64)
+   1   0  Base.Broadcast._broadcast_getindex_evalf(::Type{QuoteNode}, ::Any)
+   1   0  similar(::Vector, ::Type)
+   1   0  similar(::Type{Vector{_A}} where _A, ::Tuple{Base.OneTo{Int64}})
+   1   0  collect(::Base.Generator{Vector{Tuple{Symbol, Any, Bool}}, TraitWorld.var"#_trait##7#_trait##8"})
+   1   0  LinearIndices(::Vector)
+   1   0  collect(::Base.Generator{Vector{Pair{Symbol, Symbol}}, TraitWorld.var"#_trait##5#_trait##6"})
+   1   0  LinearIndices(::Vector)
+   1   0  Base.collect_to!(::Vector, ::Base.Generator{Vector{Tuple{Symbol, Any, Bool}}, TraitWorld.var"#_trait##9#_trait##10"}, ::Int64, ::Int64)
+   1   0  similar(::Type{Vector{_A}} where _A, ::Tuple{Int64})
+   1   0  iterate(::Base.Generator{Vector{Tuple{Symbol, Any, Bool}}, TraitWorld.var"#_trait##9#_trait##10"}, ::Int64)
+   1   0  Base._array_for_inner(::DataType, ::Base.HasShape{1}, ::Tuple{Base.OneTo{Int64}})
+   1   0  Base.setindex_widen_up_to(::Vector, ::Any, ::Int64)
+   1   0  axes(::Vector)
+   1   0  setindex!(::Vector, ::Any, ::Int64)
+   1   0  Base.collect_to_with_first!(::Vector, ::Any, ::Base.Generator{Vector{Tuple{Symbol, Any, Bool}}, TraitWorld.var"#_trait##7#_trait##8"}, ::Int64)
+   1   0  Base.Broadcast._broadcast_getindex(::Base.Broadcast.Broadcasted{Nothing, Tuple{Base.OneTo{Int64}}, Type{QuoteNode}, Tuple{Base.Broadcast.Extruded{Vector{Any}, Tuple{Bool}
+
+## the library's calls into code outside the class (ENTRY): callee, the library's instances that call it
+   6  Base.CoreLogging.current_logger_for_env(::Base.CoreLogging.LogLevel, ::Symbol, ::Module)  <- (::TraitWorld.var"#_fully_typed_hook##0#_fully_typed_hook##1, (::TraitWorld.var"#_image_methods_hook##0#_image_methods_hoo, (::TraitWorld.var"#_report_load_ambiguities!##0#_report_load, (::TraitWorld.var"#_report_load_memberships!##0#_report_load, ...
+   1  iterate(::Dict{Symbol, Any})  <- TraitWorld._env_binds(::Dict{Symbol, Any})
+   1  iterate(::Dict{Symbol, Any}, ::Int64)  <- TraitWorld._env_binds(::Dict{Symbol, Any})
+   1  collect(::Base.Generator{Vector{Tuple{Symbol, Any, Bool}}, TraitWorld.var"#_trait##9#_trait##10"})  <- TraitWorld._trait(::Module, ::Symbol, ::Expr)
+   1  collect(::Base.Generator{Vector{Pair{Symbol, Symbol}}, TraitWorld.var"#_trait##5#_trait##6"})  <- TraitWorld._trait(::Module, ::Symbol, ::Expr)
+   1  collect(::Base.Generator{Base.Iterators.Filter{TraitWorld.var"#_equation_value_method##3#_equation_value_method##4", Vector{Pair{Symbol, Any}}}, TraitWorld.var"#_equation  <- TraitWorld._equation_value_method(::Symbol, ::Vector{Symbol}
+   1  Base.Broadcast.materialize(::Base.Broadcast.Broadcasted{Base.Broadcast.DefaultArrayStyle{1}, Nothing, Type{QuoteNode}, Tuple{Vector{Any}}})  <- TraitWorld._trait(::Module, ::Symbol, ::Expr)
+   1  collect(::Base.Generator{Vector{Tuple{Symbol, Any, Bool}}, TraitWorld.var"#_trait##7#_trait##8"})  <- TraitWorld._trait(::Module, ::Symbol, ::Expr)
+
+## the library's instances with a fault of their own (FAULT): 0
+
+## no machine code from the image (inlined into callers, a constant, or compiled in this session): 93
+    (::TraitWorld.var"#_collect_vars!##0#_collect_vars!##1")(::TypeVar)
+    (::TraitWorld.var"#_collect_vars!##2#_collect_vars!##3")(::TypeVar)
+    (::TraitWorld.var"#_end_pending_bounded##0#_end_pending_bounded##1")(::Tuple{Method, Vector{Symbol}})
+    (::TraitWorld.var"#_end_pending_bounded##2#_end_pending_bounded##3"{Module})(::Tuple{Method, Vector{Symbol}})
+    (::TraitWorld.var"#_end_pending_bounded##4#_end_pending_bounded##5"{Module})(::Tuple{Method, Vector{Symbol}})
+    (::TraitWorld.var"#_implement_vars!##0#_implement_vars!##1")(::Any, ::Any)
+    (::TraitWorld.var"#_implement_vars!##0#_implement_vars!##1")(::Any, ::DataType)
+    (::TraitWorld.var"#_implement_vars!##0#_implement_vars!##1")(::Any, ::Type)
+    (::TraitWorld.var"#_implement_vars!##0#_implement_vars!##1")(::Any, ::UnionAll)
+    (::TraitWorld.var"#_params_at##2#_params_at##3")(::Symbol)
+    (::TraitWorld.var"#_parse_body##0#_parse_body##1")(::Any)
+    (::TraitWorld.var"#_parse_body##2#_parse_body##3"{Symbol})(::Pair{Symbol, Any})
+    (::TraitWorld.var"#_set_declared_fields!##0#_set_declared_fields!##1"{Symbol})(::TypeVar)
+    (::TraitWorld.var"#_set_operations!##0#_set_operations!##1"{TypeVar})(::TypeVar)
+    (::TraitWorld.var"#_trait##5#_trait##6")(::Pair{Symbol, Symbol})
+    (::TraitWorld.var"#_trait##7#_trait##8")(::Tuple{Symbol, Any, Bool})
+    (::TraitWorld.var"#_trait##9#_trait##10")(::Tuple{Symbol, Any, Bool})
+    (::TraitWorld.var"#_written_method##0#_written_method##1"{Nothing})(::Tuple{String, String})
+    (::TraitWorld.var"#_written_method##0#_written_method##1"{SubString{String}})(::Tuple{String, String})
+    (::TraitWorld.var"#here#_kept_equation##1")()
+    (::TraitWorld.var"#lib#_equation_value_method##0")(::Symbol)
+    (::TraitWorld.var"#lib#_kept_equation##0")(::Symbol)
+    (::TraitWorld.var"#lib#_kept_forwarders##0")(::Symbol)
+    (::TraitWorld.var"#lib#_trait##2")(::Symbol)
+    Core.kwcall(::@NamedTuple{final::Bool}, ::typeof(TraitWorld._decide_bounded), ::Method)
+    Core.kwcall(::@NamedTuple{world::UInt64, method::Method}, ::typeof(TraitWorld._classify_interp), ::Module)
+    Core.kwcall(::@NamedTuple{world::UInt64}, ::typeof(TraitWorld._classify), ::Method)
+    TraitWorld.ClassifyState(::Vector{TraitWorld.TraitUse}, ::Vector{TraitWorld.TraitUse}, ::Vector{Symbol}, ::Module, ::Method, ::Vector{Any})
+    TraitWorld.How(::Nothing)
+    TraitWorld.How(::Symbol)
+    TraitWorld.InProgress()
+    TraitWorld.NoForward()
+    TraitWorld._NoStake(::Module)
+    TraitWorld._NoStake(::Symbol)
+    TraitWorld._NotPure()
+    TraitWorld._ahead_on()
+    TraitWorld._bounded(::Method)
+    TraitWorld._code_name(::Core.CodeInstance)
+    TraitWorld._decide_bounded(::Method)
+    TraitWorld._deep(::Core.CodeInstance)
+    TraitWorld._facts_code(::Core.CodeInstance)
+    TraitWorld._has_forwarder_meta(::Core.CodeInfo)
+    TraitWorld._implements_typename()
+    TraitWorld._in_by_identity(::Type{Callable}, ::Vector{Any})
+    TraitWorld._may_be_empty(::Core.TypeofVararg)
+    TraitWorld._mentions(::Expr, ::Symbol)
+    TraitWorld._mentions(::Symbol, ::Symbol)
+    TraitWorld._no_pirates(::Module)
+    TraitWorld._owned_or_julia(::Method)
+    TraitWorld._owner_name(::Module)
+    TraitWorld._owner_name(::Symbol)
+    TraitWorld._owns_any(::Module, ::IdSet{Any})
+    TraitWorld._owns_any(::Symbol, ::IdSet{Any})
+    TraitWorld._parse_head(::Symbol)
+    TraitWorld._report_init!()
+    TraitWorld._report_now!()
+    TraitWorld._runtime_site(::TraitWorld.var"#_fully_typed_hook##0#_fully_typed_hook##1")
+    TraitWorld._runtime_site(::TraitWorld.var"#_image_methods_hook##0#_image_methods_hook##1"{String, Method, ImplementError})
+    TraitWorld._runtime_site(::TraitWorld.var"#_report_load_ambiguities!##0#_report_load_ambiguities!##1"{Int64})
+    TraitWorld._runtime_site(::TraitWorld.var"#_report_load_memberships!##0#_report_load_memberships!##1"{Vector{String}})
+    TraitWorld._runtime_site(::TraitWorld.var"#_strict_at_load!##2#_strict_at_load!##3"{Vector{TraitWorld.PirateAtLoadError}})
+    TraitWorld._runtime_site(::TraitWorld.var"#_strict_image_refusals##2#_strict_image_refusals##3"{Method})
+    TraitWorld._runtime_site(::Type{Compiler.NativeInterpreter}, ::UInt64)
+    TraitWorld._runtime_site(::typeof(Base.Experimental.register_error_hint), ::typeof(TraitWorld._method_error_hint), ::Type{MethodError})
+    TraitWorld._runtime_site(::typeof(Base.arg_decl_parts), ::Method)
+    TraitWorld._runtime_site(::typeof(Base.parsed_toml), ::String)
+    TraitWorld._runtime_site(::typeof(Base.specializations), ::Method)
+    TraitWorld._runtime_site(::typeof(TraitWorld._env_binds), ::Dict{Symbol, Any})
+    TraitWorld._runtime_site(::typeof(TraitWorld._facts_interp), ::UInt64)
+    TraitWorld._runtime_site(::typeof(TraitWorld._ft_error), ::Core.MethodInstance)
+    TraitWorld._runtime_site(::typeof(collect), ::Base.KeySet{Any, IdDict{Any, Any}})
+    TraitWorld._runtime_site(::typeof(copy), ::Core.CodeInfo)
+    TraitWorld._runtime_site(::typeof(join), ::Vector{Any}, ::String)
+    TraitWorld._runtime_site(::typeof(string), ::Dates.CompoundPeriod)
+    TraitWorld._runtime_site(::typeof(string), ::Method)
+    TraitWorld._runtime_site(::typeof(string), ::Tuple{Expr})
+    TraitWorld._runtime_site(::typeof(string), ::TypeVar)
+    TraitWorld._setenv!(::Dict{Symbol, Any}, ::Symbol, ::TypeVar)
+    TraitWorld._setenv!(::Dict{Symbol, Any}, ::Symbol, ::Type{Any})
+    TraitWorld._state(::Compiler.DefinitionCheckInterpreter)
+    TraitWorld._strict_init!()
+    TraitWorld._strict_log_stop!()
+    TraitWorld._strict_violation(::Method)
+    TraitWorld._svec_index(::TypeVar, ::Core.SimpleVector)
+    TraitWorld._take_endings()
+    TraitWorld._validation_log_on!()
+    TraitWorld._validation_log_ref()
+    TraitWorld._winning_fact(::Method, ::TraitWorld._NoStake)
+    TraitWorld._winning_fact(::Method, ::TraitWorld.var"#_warn_extension_method##0#_warn_extension_method##1")
+    TraitWorld.var"#_classify_interp#48"(::UInt64, ::Method, ::typeof(TraitWorld._classify_interp), ::Module)
+    TraitWorld.var"#classify#53"(::UInt64, ::typeof(classify), ::Method)
+    check_at_box(::Method)
+    classify(::Method)
+
+OUTSIDE 0 (hook 0, macro 0, other 0) | behind a run-time site by intent 7 | named exceptions 2 | of 362
+STATIC OK

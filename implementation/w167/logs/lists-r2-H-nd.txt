@@ -1,0 +1,80 @@
+# W-167 lib_ended | julia cf0f039f51* | project /p/projects/coen/julia-trait-bound/experiments/implementation/w167/envs/H/ndtest/Project.toml | load 4.0 4.3 4.0
+# flags: facts by Compiler.ci_policy_facts, G2 = 0x10 and FROM_IMAGE = 0x04 from julia.h; self-check ok
+# TraitWorld /p/projects/coen/julia-trait-bound/TraitWorld/src/TraitWorld.jl | its instances before the load 342, facts 342, deep 248, from its image 257
+# loaded NetworkDynamics in 2606.4 ms (logging on) | log entries: runtime 5816, image validation 3311
+
+CAUSE jl_method_table_insert ForwardDiff.promote_rule at /p/projects/coen/julia-trait-bound/.julia-depot/packages/ForwardDiff/ix15H/src/dual.jl:457 Tuple{typeof(promote_rule), Type{R}, Type{ForwardDiff.Dual{T, V, N}}} where {R<:Real, T, V, N}
+  promote_type(::Type, ::Type{Int64})
+    Base.promote_result(::Type{T} where T<:Unsigned, ::Type{Int64}, ::Type{T}, ::Type{Int64}) where T
+      promote_type(::Type{T} where T<:Unsigned, ::Type{Int64})
+        Base._promote(::Unsigned, ::Int64)
+          promote(::Unsigned, ::Int64)
+            ==(::Unsigned, ::Int64)
+              !=(::Unsigned, ::Int64)
+                Base.ndigits0znb(::Unsigned, ::Int64)
+                  Base.ndigits0z(::Unsigned, ::Int64)
+                    Base.var"#ndigits#398"(::Int64, ::Int64, ::typeof(ndigits), ::Unsigned)
+                      Core.kwcall(::@NamedTuple{pad::Int64}, ::typeof(ndigits), ::Unsigned)
+                        Base.dec(::Unsigned, ::Int64, ::Bool)
+                          Base.var"#string#399"(::Int64, ::Int64, ::typeof(string), ::Integer)
+                            string(::Integer)
+                              Base.Broadcast.combine_eltypes(::typeof(string), ::Tuple{Vector{Any}})
+                                copy(::Base.Broadcast.Broadcasted{Base.Broadcast.DefaultArrayStyle{1}, Tuple{Base.OneTo{Int64}}, typeof(string), Tuple{Vector{Any}}})
+                                  Base.Broadcast.materialize(::Base.Broadcast.Broadcasted{Base.Broadcast.DefaultArrayStyle{1}, Nothing, typeof(string), Tuple{Vector{Any}}})
+                                    LIB TraitWorld._written_method(::Method)
+                                      LIB TraitWorld._code_name(::Core.CodeInstance)
+                                        LIB showerror(::IOBuffer, ::TraitWorld.PirateAtLoadError)
+                                          Base.var"#sprint#431"(::Nothing, ::Int64, ::typeof(sprint), ::typeof(showerror), ::TraitWorld.PirateAtLoadError)
+                                            sprint(::typeof(showerror), ::TraitWorld.PirateAtLoadError)
+                                              Base.Broadcast.combine_eltypes(::typeof(sprint), ::Tuple{Base.RefValue{typeof(showerror)}, Vector{TraitWorld.PirateAtLoadError}})
+                                                copy(::Base.Broadcast.Broadcasted{Base.Broadcast.DefaultArrayStyle{1}, Tuple{Base.OneTo{Int64}}, typeof(sprint), Tuple{Base.RefValue{typeof(showerror)}, Vector{TraitWorld
+                                                  Base.Broadcast.materialize(::Base.Broadcast.Broadcasted{Base.Broadcast.DefaultArrayStyle{1}, Nothing, typeof(sprint), Tuple{Base.RefValue{typeof(showerror)}, Vector{Trait
+                                                    LIB TraitWorld._strict_at_load!(::Base.PkgId)
+                                      LIB TraitWorld._code_name(::Any)
+                                        LIB showerror(::IOBuffer, ::TraitWorld.PirateAtLoadError)
+                                      LIB TraitWorld._bounded_head(::Method)
+                                        LIB TraitWorld.var"#_decide_bounded#64"(::Bool, ::typeof(TraitWorld._decide_bounded), ::Method)
+                                          LIB Core.kwcall(::@NamedTuple{final::Bool}, ::typeof(TraitWorld._decide_bounded), ::Method)
+                                            LIB TraitWorld._end_pending_bounded(::Module)
+                                              LIB TraitWorld._module_end_hook(::Module)
+                                          LIB TraitWorld._decide_bounded(::Method)
+                                            LIB TraitWorld._check_pending_bounded(::Module, ::Symbol)
+                                              LIB TraitWorld._check_bounded(::Method)
+                                                LIB TraitWorld._definition_checks(::Method, ::Bool)
+                                                  LIB TraitWorld._definition_hook(::Method, ::Bool)
+                                            LIB TraitWorld._check_bounded(::Method)
+
+## the library's instances ended: 15 in the runtime's log (unique instances)
+LIB Core.kwcall(::@NamedTuple{final::Bool}, ::typeof(TraitWorld._decide_bounded), ::Method)
+    via Base.Broadcast.materialize(::Base.Broadcast.Broadcasted{Base.Broadcast.DefaultArrayStyle{1}, Nothing, typeof(string), Tuple{Vector{Any}}}) | hook TraitWorld._module_end_hook(::Module) | cause ForwardDiff.promote_rule Tuple{typeof(promote_rule), Type{R}, Type{ForwardDiff.Dual{T, V, N}}} where {R<:Real, T, V, N}
+LIB TraitWorld._bounded_head(::Method)
+    via Base.Broadcast.materialize(::Base.Broadcast.Broadcasted{Base.Broadcast.DefaultArrayStyle{1}, Nothing, typeof(string), Tuple{Vector{Any}}}) | hook TraitWorld._check_bounded(::Method) | cause ForwardDiff.promote_rule Tuple{typeof(promote_rule), Type{R}, Type{ForwardDiff.Dual{T, V, N}}} where {R<:Real, T, V, N}
+LIB TraitWorld._check_bounded(::Method)
+    via Base.Broadcast.materialize(::Base.Broadcast.Broadcasted{Base.Broadcast.DefaultArrayStyle{1}, Nothing, typeof(string), Tuple{Vector{Any}}}) | hook TraitWorld._definition_hook(::Method, ::Bool) | cause ForwardDiff.promote_rule Tuple{typeof(promote_rule), Type{R}, Type{ForwardDiff.Dual{T, V, N}}} where {R<:Real, T, V, N}
+    via Base.Broadcast.materialize(::Base.Broadcast.Broadcasted{Base.Broadcast.DefaultArrayStyle{1}, Nothing, typeof(string), Tuple{Vector{Any}}}) | hook TraitWorld._check_bounded(::Method) | cause ForwardDiff.promote_rule Tuple{typeof(promote_rule), Type{R}, Type{ForwardDiff.Dual{T, V, N}}} where {R<:Real, T, V, N}
+LIB TraitWorld._check_pending_bounded(::Module, ::Symbol)
+    via Base.Broadcast.materialize(::Base.Broadcast.Broadcasted{Base.Broadcast.DefaultArrayStyle{1}, Nothing, typeof(string), Tuple{Vector{Any}}}) | hook TraitWorld._definition_hook(::Method, ::Bool) | cause ForwardDiff.promote_rule Tuple{typeof(promote_rule), Type{R}, Type{ForwardDiff.Dual{T, V, N}}} where {R<:Real, T, V, N}
+LIB TraitWorld._code_name(::Any)
+    via Base.Broadcast.materialize(::Base.Broadcast.Broadcasted{Base.Broadcast.DefaultArrayStyle{1}, Nothing, typeof(string), Tuple{Vector{Any}}}) | hook showerror(::IOBuffer, ::TraitWorld.PirateAtLoadError) | cause ForwardDiff.promote_rule Tuple{typeof(promote_rule), Type{R}, Type{ForwardDiff.Dual{T, V, N}}} where {R<:Real, T, V, N}
+LIB TraitWorld._code_name(::Core.CodeInstance)
+    via Base.Broadcast.materialize(::Base.Broadcast.Broadcasted{Base.Broadcast.DefaultArrayStyle{1}, Nothing, typeof(string), Tuple{Vector{Any}}}) | hook TraitWorld._strict_at_load!(::Base.PkgId) | cause ForwardDiff.promote_rule Tuple{typeof(promote_rule), Type{R}, Type{ForwardDiff.Dual{T, V, N}}} where {R<:Real, T, V, N}
+LIB TraitWorld._decide_bounded(::Method)
+    via Base.Broadcast.materialize(::Base.Broadcast.Broadcasted{Base.Broadcast.DefaultArrayStyle{1}, Nothing, typeof(string), Tuple{Vector{Any}}}) | hook TraitWorld._check_bounded(::Method) | cause ForwardDiff.promote_rule Tuple{typeof(promote_rule), Type{R}, Type{ForwardDiff.Dual{T, V, N}}} where {R<:Real, T, V, N}
+LIB TraitWorld._definition_checks(::Method, ::Bool)
+    via Base.Broadcast.materialize(::Base.Broadcast.Broadcasted{Base.Broadcast.DefaultArrayStyle{1}, Nothing, typeof(string), Tuple{Vector{Any}}}) | hook TraitWorld._definition_hook(::Method, ::Bool) | cause ForwardDiff.promote_rule Tuple{typeof(promote_rule), Type{R}, Type{ForwardDiff.Dual{T, V, N}}} where {R<:Real, T, V, N}
+LIB TraitWorld._definition_hook(::Method, ::Bool)
+    via Base.Broadcast.materialize(::Base.Broadcast.Broadcasted{Base.Broadcast.DefaultArrayStyle{1}, Nothing, typeof(string), Tuple{Vector{Any}}}) | hook TraitWorld._definition_hook(::Method, ::Bool) | cause ForwardDiff.promote_rule Tuple{typeof(promote_rule), Type{R}, Type{ForwardDiff.Dual{T, V, N}}} where {R<:Real, T, V, N}
+LIB TraitWorld._end_pending_bounded(::Module)
+    via Base.Broadcast.materialize(::Base.Broadcast.Broadcasted{Base.Broadcast.DefaultArrayStyle{1}, Nothing, typeof(string), Tuple{Vector{Any}}}) | hook TraitWorld._module_end_hook(::Module) | cause ForwardDiff.promote_rule Tuple{typeof(promote_rule), Type{R}, Type{ForwardDiff.Dual{T, V, N}}} where {R<:Real, T, V, N}
+LIB TraitWorld._module_end_hook(::Module)
+    via Base.Broadcast.materialize(::Base.Broadcast.Broadcasted{Base.Broadcast.DefaultArrayStyle{1}, Nothing, typeof(string), Tuple{Vector{Any}}}) | hook TraitWorld._module_end_hook(::Module) | cause ForwardDiff.promote_rule Tuple{typeof(promote_rule), Type{R}, Type{ForwardDiff.Dual{T, V, N}}} where {R<:Real, T, V, N}
+LIB TraitWorld._strict_at_load!(::Base.PkgId)
+    via Base.Broadcast.materialize(::Base.Broadcast.Broadcasted{Base.Broadcast.DefaultArrayStyle{1}, Nothing, typeof(sprint), Tuple{Base.RefValue{ty | hook TraitWorld._strict_at_load!(::Base.PkgId) | cause ForwardDiff.promote_rule Tuple{typeof(promote_rule), Type{R}, Type{ForwardDiff.Dual{T, V, N}}} where {R<:Real, T, V, N}
+LIB TraitWorld._written_method(::Method)
+    via Base.Broadcast.materialize(::Base.Broadcast.Broadcasted{Base.Broadcast.DefaultArrayStyle{1}, Nothing, typeof(string), Tuple{Vector{Any}}}) | hook TraitWorld._check_bounded(::Method) | cause ForwardDiff.promote_rule Tuple{typeof(promote_rule), Type{R}, Type{ForwardDiff.Dual{T, V, N}}} where {R<:Real, T, V, N}
+LIB TraitWorld.var"#_decide_bounded#64"(::Bool, ::typeof(TraitWorld._decide_bounded), ::Method)
+    via Base.Broadcast.materialize(::Base.Broadcast.Broadcasted{Base.Broadcast.DefaultArrayStyle{1}, Nothing, typeof(string), Tuple{Vector{Any}}}) | hook TraitWorld._check_bounded(::Method) | cause ForwardDiff.promote_rule Tuple{typeof(promote_rule), Type{R}, Type{ForwardDiff.Dual{T, V, N}}} where {R<:Real, T, V, N}
+LIB showerror(::IOBuffer, ::TraitWorld.PirateAtLoadError)
+    via Base.Broadcast.materialize(::Base.Broadcast.Broadcasted{Base.Broadcast.DefaultArrayStyle{1}, Nothing, typeof(string), Tuple{Vector{Any}}}) | hook TraitWorld._strict_at_load!(::Base.PkgId) | cause ForwardDiff.promote_rule Tuple{typeof(promote_rule), Type{R}, Type{ForwardDiff.Dual{T, V, N}}} where {R<:Real, T, V, N}
+    via Base.Broadcast.materialize(::Base.Broadcast.Broadcasted{Base.Broadcast.DefaultArrayStyle{1}, Nothing, typeof(string), Tuple{Vector{Any}}}) | hook showerror(::IOBuffer, ::TraitWorld.PirateAtLoadError) | cause ForwardDiff.promote_rule Tuple{typeof(promote_rule), Type{R}, Type{ForwardDiff.Dual{T, V, N}}} where {R<:Real, T, V, N}
+ENDED (valid before, not after) 15 | of them facts 15, deep before 0

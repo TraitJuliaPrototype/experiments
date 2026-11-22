@@ -1,0 +1,97 @@
+# W-159 W-167 lists (r2) | 2026-11-22T06:24:33+01:00 | load-before 4.96 4.51 4.01 | login02
+# setting H: julia julia-next cf0f039f51 (binary cf0f039f51*) | TW TraitWorld 42d60e13bf | TDE TraitDifferentialEquations 06c28c376f | TM TraitMakie 1888698d7a | TT TraitTables e1ec1f4368 | TC TraitCSV 094dcb2e21 | TR TraitReport ec34d1219c | FORKS forks a3a37d6b5e | ND ndport/pkgs/NetworkDynamics-unified c2bbf0d9aa | depot .julia-depot/agent-depots/w159/H
+# setting G: julia julia-next cf0f039f51 (binary cf0f039f51*) | TW wt/w158g-tw 57879c31f6 | TDE TraitDifferentialEquations 06c28c376f | TM TraitMakie 1888698d7a | TT TraitTables e1ec1f4368 | TC TraitCSV 094dcb2e21 | TR TraitReport ec34d1219c | FORKS forks a3a37d6b5e | ND ndport/pkgs/NetworkDynamics-unified c2bbf0d9aa | depot .julia-depot/agent-depots/w167/G
+# experiments dd07a3e8cc | product setting, strict mode off, one thread, fresh process per cell
+# NOTE setting H: the binary is marked '*' (its tree had a tracked change when it was built); the tree is clean now
+# preflight H demo: images ok: TraitWorld TraitDifferentialEquations TraitMakie TraitTables TraitCSV
+# preflight H forks: images ok: TraitWorld CSV DataFrames
+# preflight H lib: images ok: TraitWorld CSV DataFrames
+# preflight H ndtest: images ok: TraitWorld NetworkDynamics
+# preflight H TraitWorld: images ok: TraitWorld
+== H static | load 4.80 4.48 4.01
+INSTANCES 342 | facts 342 | deep 248 | from the image 257 | without its machine code 85
+HOOKS 11 instances, deep 1 | MACROS 0, deep 0 | functions passed to _runtime_site 0
+OUTSIDE 92 (hook 50, macro 0, other 42) | behind a run-time site by intent 0 | named exceptions 2 | of 342
+STATIC FAIL
+-- rc 0 | load 4.52 4.43 3.99 | experiments/implementation/w167/logs/lists-r2-H-static.txt
+== H static-after-ode | load 4.52 4.43 3.99
+INSTANCES 599 | facts 599 | deep 432 | from the image 345 | without its machine code 254
+HOOKS 10 instances, deep 1 | MACROS 0, deep 0 | functions passed to _runtime_site 0
+OUTSIDE 165 (hook 47, macro 0, other 118) | behind a run-time site by intent 0 | named exceptions 2 | of 599
+STATIC FAIL
+-- rc 0 | load 4.12 4.35 3.98 | experiments/implementation/w167/logs/lists-r2-H-static-after-ode.txt
+== H ode | load 4.12 4.35 3.98
+# TraitWorld /p/projects/coen/julia-trait-bound/TraitWorld/src/TraitWorld.jl | its instances before the load 342, facts 342, deep 248, from its image 257
+ENDED (valid before, not after) 15 | of them facts 15, deep before 0
+-- rc 0 | load 4.12 4.35 3.98 | experiments/implementation/w167/logs/lists-r2-H-ode.txt
+== H forks | load 4.12 4.35 3.98
+# TraitWorld /p/projects/coen/julia-trait-bound/TraitWorld/src/TraitWorld.jl | its instances before the load 342, facts 342, deep 248, from its image 257
+ENDED (valid before, not after) 15 | of them facts 15, deep before 0
+-- rc 0 | load 4.03 4.33 3.97 | experiments/implementation/w167/logs/lists-r2-H-forks.txt
+== H nd | load 4.03 4.33 3.97
+# TraitWorld /p/projects/coen/julia-trait-bound/TraitWorld/src/TraitWorld.jl | its instances before the load 342, facts 342, deep 248, from its image 257
+ENDED (valid before, not after) 15 | of them facts 15, deep before 0
+-- rc 0 | load 3.95 4.30 3.97 | experiments/implementation/w167/logs/lists-r2-H-nd.txt
+== H makie | load 3.95 4.30 3.97
+# TraitWorld /p/projects/coen/julia-trait-bound/TraitWorld/src/TraitWorld.jl | its instances before the load 342, facts 342, deep 248, from its image 257
+ENDED (valid before, not after) 0 | of them facts 0, deep before 0
+-- rc 0 | load 3.95 4.30 3.97 | experiments/implementation/w167/logs/lists-r2-H-makie.txt
+== H tables | load 3.95 4.30 3.97
+# TraitWorld /p/projects/coen/julia-trait-bound/TraitWorld/src/TraitWorld.jl | its instances before the load 342, facts 342, deep 248, from its image 257
+ENDED (valid before, not after) 0 | of them facts 0, deep before 0
+-- rc 0 | load 3.87 4.28 3.96 | experiments/implementation/w167/logs/lists-r2-H-tables.txt
+== H upstream | load 3.87 4.28 3.96
+# TraitWorld /p/projects/coen/julia-trait-bound/TraitWorld/src/TraitWorld.jl | its instances before the load 342, facts 342, deep 248, from its image 257
+ENDED (valid before, not after) 15 | of them facts 15, deep before 0
+-- rc 0 | load 3.87 4.28 3.96 | experiments/implementation/w167/logs/lists-r2-H-upstream.txt
+== H upstream-late | load 3.87 4.28 3.96
+# TraitWorld /p/projects/coen/julia-trait-bound/TraitWorld/src/TraitWorld.jl
+ENDED (image code rejected at load, entries) 15
+-- rc 0 | load 3.80 4.26 3.96 | experiments/implementation/w167/logs/lists-r2-H-upstream-late.txt
+# NOTE setting G: the binary is marked '*' (its tree had a tracked change when it was built); the tree is clean now
+# preflight G demo: images ok: TraitWorld TraitDifferentialEquations TraitMakie TraitTables TraitCSV
+# preflight G forks: images ok: TraitWorld CSV DataFrames
+# preflight G lib: images ok: TraitWorld CSV DataFrames
+# preflight G ndtest: images ok: TraitWorld NetworkDynamics
+# preflight G w158g-tw: images ok: TraitWorld
+== G static | load 3.80 4.26 3.96
+INSTANCES 362 | facts 362 | deep 353 | from the image 269 | without its machine code 93
+HOOKS 11 instances, deep 11 | MACROS 0, deep 0 | functions passed to _runtime_site 20
+OUTSIDE 0 (hook 0, macro 0, other 0) | behind a run-time site by intent 7 | named exceptions 2 | of 362
+STATIC OK
+-- rc 0 | load 3.74 4.24 3.95 | experiments/implementation/w167/logs/lists-r2-G-static.txt
+== G static-after-ode | load 3.74 4.24 3.95
+INSTANCES 632 | facts 632 | deep 547 | from the image 372 | without its machine code 260
+HOOKS 11 instances, deep 11 | MACROS 0, deep 0 | functions passed to _runtime_site 20
+OUTSIDE 76 (hook 0, macro 0, other 76) | behind a run-time site by intent 7 | named exceptions 2 | of 632
+STATIC FAIL
+-- rc 0 | load 4.41 4.36 4.00 | experiments/implementation/w167/logs/lists-r2-G-static-after-ode.txt
+== G ode | load 4.41 4.36 4.00
+# TraitWorld /p/projects/coen/julia-trait-bound/wt/w158g-tw/src/TraitWorld.jl | its instances before the load 362, facts 362, deep 353, from its image 269
+ENDED (valid before, not after) 0 | of them facts 0, deep before 0
+-- rc 0 | load 4.41 4.36 4.00 | experiments/implementation/w167/logs/lists-r2-G-ode.txt
+== G forks | load 4.41 4.36 4.00
+# TraitWorld /p/projects/coen/julia-trait-bound/wt/w158g-tw/src/TraitWorld.jl | its instances before the load 362, facts 362, deep 353, from its image 269
+ENDED (valid before, not after) 0 | of them facts 0, deep before 0
+-- rc 0 | load 5.18 4.52 4.05 | experiments/implementation/w167/logs/lists-r2-G-forks.txt
+== G nd | load 5.18 4.52 4.05
+# TraitWorld /p/projects/coen/julia-trait-bound/wt/w158g-tw/src/TraitWorld.jl | its instances before the load 362, facts 362, deep 353, from its image 269
+ENDED (valid before, not after) 0 | of them facts 0, deep before 0
+-- rc 0 | load 5.17 4.52 4.06 | experiments/implementation/w167/logs/lists-r2-G-nd.txt
+== G makie | load 5.17 4.52 4.06
+# TraitWorld /p/projects/coen/julia-trait-bound/wt/w158g-tw/src/TraitWorld.jl | its instances before the load 362, facts 362, deep 353, from its image 269
+ENDED (valid before, not after) 0 | of them facts 0, deep before 0
+-- rc 0 | load 5.17 4.52 4.06 | experiments/implementation/w167/logs/lists-r2-G-makie.txt
+== G tables | load 5.17 4.52 4.06
+# TraitWorld /p/projects/coen/julia-trait-bound/wt/w158g-tw/src/TraitWorld.jl | its instances before the load 362, facts 362, deep 353, from its image 269
+ENDED (valid before, not after) 0 | of them facts 0, deep before 0
+-- rc 0 | load 5.17 4.52 4.06 | experiments/implementation/w167/logs/lists-r2-G-tables.txt
+== G upstream | load 5.17 4.52 4.06
+# TraitWorld /p/projects/coen/julia-trait-bound/wt/w158g-tw/src/TraitWorld.jl | its instances before the load 362, facts 362, deep 353, from its image 269
+ENDED (valid before, not after) 0 | of them facts 0, deep before 0
+-- rc 0 | load 5.23 4.55 4.07 | experiments/implementation/w167/logs/lists-r2-G-upstream.txt
+== G upstream-late | load 5.23 4.55 4.07
+# TraitWorld /p/projects/coen/julia-trait-bound/wt/w158g-tw/src/TraitWorld.jl
+ENDED (image code rejected at load, entries) 0
+-- rc 0 | load 6.18 4.76 4.14 | experiments/implementation/w167/logs/lists-r2-G-upstream-late.txt
+# done 2026-11-22T06:26:15+01:00 | load-after 6.18 4.76 4.14

@@ -1,0 +1,21 @@
+# 2026-11-22T06:34:14+01:00 load 2.43 3.44 3.82 | julia cf0f039f51 | library /p/projects/coen/julia-trait-bound/wt/w158g-tw 57879c3
+pathof /p/projects/coen/julia-trait-bound/wt/w158g-tw/src/TraitWorld.jl
+PASS  §18 sq([1.0, 2.0, 3.0])
+PASS  §18 the pirate is refused: PirateError
+      message: PirateError: strict mode refuses `abs2(::Float64)`, defined by Main.Meddler2. |   It would win at the call `abs2(::Float64)`, which code compiled by facts makes (in `Main.Norms.sq`). |   Main.Meddler2 owns neither the function nor a type in that signature (a pirate). Define it where a type it is for is owned, name the definer a joint owner (`@joint_owners`), or turn strict mode off (`TraitWorld.strict!(false)`) to follow it as plain Julia does.
+PASS  §18 sq is unchanged
+PASS  §18 the pirate was never defined
+PASS  §18 a pirate that changes no code compiled by facts is accepted
+PASS  §18 a method for your own type is no pirate: accepted
+PASS  §18 tally(Any[1, "a", 2.0]) == 3
+PASS  §18 a method of an owner-only function, for your own type, that would change code compiled by facts: PirateError
+MESSAGE §18 owner-only:
+PirateError: strict mode refuses `weight(::Heavy)`, defined by Main.
+  It would win at the call `weight(::Any)`, which code compiled by facts makes (in `Main.Tally.tally`).
+  A pirate: `weight` is an owner-only function of Main.Tally (neither exported nor declared `public`): only Main.Tally adds methods to it, whatever types they are for.
+  To let other modules add methods, Main.Tally declares it `public` or exports it, or names Main a joint owner (`@joint_owners`). Otherwise define a function of your own; or turn strict mode off (`TraitWorld.strict!(false)`) to follow it as plain Julia does.
+PASS  §18 the PirateError names the owner-only function
+PASS  §18 tally is unchanged
+
+10 pass, 0 fail, 0 known deviations
+exit 0

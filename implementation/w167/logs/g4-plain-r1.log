@@ -1,0 +1,194 @@
+# W-159 W-167 E-515 plain code's session (w134/plain.jl) | 2026-11-22T06:26:35+01:00 | load-before 5.54 4.71 4.13 | login02
+# setting V: julia julia-vanilla 45b6d15e34 (binary 45b6d15e34*) | depot .julia-depot/agent-depots/w159/V
+# setting G: julia julia-next cf0f039f51 (binary cf0f039f51*) | TW wt/w158g-tw 57879c31f6 | TDE TraitDifferentialEquations 06c28c376f | TM TraitMakie 1888698d7a | TT TraitTables e1ec1f4368 | TC TraitCSV 094dcb2e21 | TR TraitReport ec34d1219c | FORKS forks a3a37d6b5e | ND ndport/pkgs/NetworkDynamics-unified c2bbf0d9aa | depot .julia-depot/agent-depots/w167/G
+# setting H: julia julia-next cf0f039f51 (binary cf0f039f51*) | TW TraitWorld 42d60e13bf | TDE TraitDifferentialEquations 06c28c376f | TM TraitMakie 1888698d7a | TT TraitTables e1ec1f4368 | TC TraitCSV 094dcb2e21 | TR TraitReport ec34d1219c | FORKS forks a3a37d6b5e | ND ndport/pkgs/NetworkDynamics-unified c2bbf0d9aa | depot .julia-depot/agent-depots/w159/H
+# experiments dd07a3e8cc | product setting, strict mode off, one thread, fresh process per cell
+# NOTE setting V: the binary is marked '*' (its tree had a tracked change when it was built); the tree is clean now
+# preflight V up: images ok: CSV DataFrames
+# NOTE setting G: the binary is marked '*' (its tree had a tracked change when it was built); the tree is clean now
+# preflight G up: images ok: CSV DataFrames
+# preflight G lib: images ok: CSV DataFrames TraitWorld
+# NOTE setting H: the binary is marked '*' (its tree had a tracked change when it was built); the tree is clean now
+# preflight H up: images ok: CSV DataFrames
+# preflight H lib: images ok: CSV DataFrames TraitWorld
+== V none run w | load 5.34 4.68 4.13
+using CSV, DataFrames 847.08 ms
+first work 3276.93 ms, compile 3270.76 ms
+repeated: median 0.18 ms, least 0.18 ms
+-- rc 0 | load 5.63 4.75 4.15
+== G none run w | load 5.63 4.75 4.15
+using CSV, DataFrames 842.09 ms
+first work 3385.32 ms, compile 3381.53 ms
+repeated: median 0.19 ms, least 0.18 ms
+-- rc 0 | load 5.42 4.72 4.15
+== H none run w | load 5.42 4.72 4.15
+using CSV, DataFrames 754.13 ms
+first work 3388.05 ms, compile 3385.31 ms
+repeated: median 0.18 ms, least 0.18 ms
+-- rc 0 | load 5.70 4.79 4.17
+== G first run w | load 5.70 4.79 4.17
+using TraitWorld 67.68 ms
+using CSV, DataFrames 790.77 ms
+first work 3405.43 ms, compile 3402.53 ms
+repeated: median 0.19 ms, least 0.18 ms
+-- rc 0 | load 5.49 4.76 4.17
+== H first run w | load 5.49 4.76 4.17
+using TraitWorld 63.1 ms
+using CSV, DataFrames 1201.06 ms
+first work 3330.52 ms, compile 3326.34 ms
+repeated: median 0.19 ms, least 0.18 ms
+-- rc 0 | load 5.37 4.75 4.17
+== G late run w | load 5.37 4.75 4.17
+using CSV, DataFrames 1061.32 ms
+first work 3358.45 ms, compile 3355.7 ms
+repeated: median 0.19 ms, least 0.18 ms
+using TraitWorld (late) 56.63 ms
+ended by the library's load: 0 of 120780 | 
+work after the library's load 1.07 ms, compile 0.0 ms
+repeated after: median 0.19 ms, least 0.18 ms
+-- rc 0 | load 5.18 4.72 4.16
+== H late run w | load 5.18 4.72 4.16
+using CSV, DataFrames 755.3 ms
+first work 3379.02 ms, compile 3376.27 ms
+repeated: median 0.19 ms, least 0.18 ms
+using TraitWorld (late) 182.27 ms
+ended by the library's load: 0 of 120780 | 
+work after the library's load 1.1 ms, compile 0.0 ms
+repeated after: median 0.19 ms, least 0.18 ms
+-- rc 0 | load 5.21 4.74 4.17
+== V none run 1 | load 5.21 4.74 4.17
+using CSV, DataFrames 822.09 ms
+first work 3285.14 ms, compile 3281.51 ms
+repeated: median 0.18 ms, least 0.17 ms
+-- rc 0 | load 5.03 4.71 4.17
+== G none run 1 | load 5.03 4.71 4.17
+using CSV, DataFrames 764.15 ms
+first work 3400.51 ms, compile 3397.68 ms
+repeated: median 0.19 ms, least 0.18 ms
+-- rc 0 | load 5.19 4.75 4.18
+== H none run 1 | load 5.19 4.75 4.18
+using CSV, DataFrames 779.62 ms
+first work 3376.62 ms, compile 3372.29 ms
+repeated: median 0.19 ms, least 0.18 ms
+-- rc 0 | load 5.02 4.72 4.18
+== G first run 1 | load 5.02 4.72 4.18
+using TraitWorld 85.9 ms
+using CSV, DataFrames 1040.84 ms
+first work 3391.12 ms, compile 3388.32 ms
+repeated: median 0.19 ms, least 0.18 ms
+-- rc 0 | load 4.93 4.71 4.18
+== H first run 1 | load 4.93 4.71 4.18
+using TraitWorld 69.9 ms
+using CSV, DataFrames 1104.0 ms
+first work 3335.59 ms, compile 3332.89 ms
+repeated: median 0.18 ms, least 0.18 ms
+-- rc 0 | load 5.34 4.80 4.21
+== G late run 1 | load 5.34 4.80 4.21
+using CSV, DataFrames 761.69 ms
+first work 3324.63 ms, compile 3322.02 ms
+repeated: median 0.19 ms, least 0.18 ms
+using TraitWorld (late) 33.25 ms
+ended by the library's load: 0 of 120780 | 
+work after the library's load 1.09 ms, compile 0.0 ms
+repeated after: median 0.19 ms, least 0.18 ms
+-- rc 0 | load 5.15 4.77 4.20
+== H late run 1 | load 5.15 4.77 4.20
+using CSV, DataFrames 757.31 ms
+first work 3323.41 ms, compile 3320.77 ms
+repeated: median 0.18 ms, least 0.18 ms
+using TraitWorld (late) 168.82 ms
+ended by the library's load: 0 of 120780 | 
+work after the library's load 1.11 ms, compile 0.0 ms
+repeated after: median 0.18 ms, least 0.18 ms
+-- rc 0 | load 4.98 4.74 4.19
+== V none run 2 | load 4.98 4.74 4.19
+using CSV, DataFrames 818.72 ms
+first work 3258.53 ms, compile 3254.36 ms
+repeated: median 0.18 ms, least 0.17 ms
+-- rc 0 | load 5.38 4.83 4.22
+== G none run 2 | load 5.38 4.83 4.22
+using CSV, DataFrames 770.22 ms
+first work 3394.77 ms, compile 3391.97 ms
+repeated: median 0.19 ms, least 0.18 ms
+-- rc 0 | load 5.19 4.80 4.22
+== H none run 2 | load 5.19 4.80 4.22
+using CSV, DataFrames 757.09 ms
+first work 3382.97 ms, compile 3380.26 ms
+repeated: median 0.19 ms, least 0.18 ms
+-- rc 0 | load 5.10 4.78 4.22
+== G first run 2 | load 5.10 4.78 4.22
+using TraitWorld 57.49 ms
+using CSV, DataFrames 784.63 ms
+first work 3394.26 ms, compile 3391.35 ms
+repeated: median 0.17 ms, least 0.17 ms
+-- rc 0 | load 5.37 4.85 4.25
+== H first run 2 | load 5.37 4.85 4.25
+using TraitWorld 60.04 ms
+using CSV, DataFrames 1079.9 ms
+first work 3333.72 ms, compile 3330.82 ms
+repeated: median 0.19 ms, least 0.18 ms
+-- rc 0 | load 5.18 4.82 4.24
+== G late run 2 | load 5.18 4.82 4.24
+using CSV, DataFrames 756.65 ms
+first work 3388.4 ms, compile 3385.63 ms
+repeated: median 0.18 ms, least 0.18 ms
+using TraitWorld (late) 32.4 ms
+ended by the library's load: 0 of 120780 | 
+work after the library's load 1.05 ms, compile 0.0 ms
+repeated after: median 0.18 ms, least 0.18 ms
+-- rc 0 | load 5.81 4.96 4.29
+== H late run 2 | load 5.81 4.96 4.29
+using CSV, DataFrames 750.69 ms
+first work 3377.37 ms, compile 3374.61 ms
+repeated: median 0.18 ms, least 0.18 ms
+using TraitWorld (late) 171.32 ms
+ended by the library's load: 0 of 120780 | 
+work after the library's load 1.06 ms, compile 0.0 ms
+repeated after: median 0.18 ms, least 0.18 ms
+-- rc 0 | load 5.58 4.93 4.28
+== V none run 3 | load 5.58 4.93 4.28
+using CSV, DataFrames 656.6 ms
+first work 3286.83 ms, compile 3284.06 ms
+repeated: median 0.17 ms, least 0.17 ms
+-- rc 0 | load 5.37 4.89 4.27
+== G none run 3 | load 5.37 4.89 4.27
+using CSV, DataFrames 778.05 ms
+first work 3374.65 ms, compile 3371.84 ms
+repeated: median 0.19 ms, least 0.18 ms
+-- rc 0 | load 5.18 4.86 4.27
+== H none run 3 | load 5.18 4.86 4.27
+using CSV, DataFrames 755.9 ms
+first work 3387.26 ms, compile 3384.48 ms
+repeated: median 0.19 ms, least 0.18 ms
+-- rc 0 | load 5.01 4.83 4.26
+== G first run 3 | load 5.01 4.83 4.26
+using TraitWorld 56.74 ms
+using CSV, DataFrames 782.76 ms
+first work 3399.22 ms, compile 3396.32 ms
+repeated: median 0.18 ms, least 0.18 ms
+-- rc 0 | load 4.85 4.80 4.25
+== H first run 3 | load 4.85 4.80 4.25
+using TraitWorld 60.42 ms
+using CSV, DataFrames 1085.2 ms
+first work 3340.77 ms, compile 3337.9 ms
+repeated: median 0.19 ms, least 0.18 ms
+-- rc 0 | load 4.70 4.77 4.24
+== G late run 3 | load 4.70 4.77 4.24
+using CSV, DataFrames 763.85 ms
+first work 3398.83 ms, compile 3396.01 ms
+repeated: median 0.19 ms, least 0.18 ms
+using TraitWorld (late) 32.79 ms
+ended by the library's load: 0 of 120780 | 
+work after the library's load 1.07 ms, compile 0.0 ms
+repeated after: median 0.19 ms, least 0.18 ms
+-- rc 0 | load 4.51 4.73 4.24
+== H late run 3 | load 4.51 4.73 4.24
+using CSV, DataFrames 761.51 ms
+first work 3400.68 ms, compile 3397.86 ms
+repeated: median 0.19 ms, least 0.18 ms
+using TraitWorld (late) 173.48 ms
+ended by the library's load: 0 of 120780 | 
+work after the library's load 1.13 ms, compile 0.0 ms
+repeated after: median 0.19 ms, least 0.18 ms
+-- rc 0 | load 4.47 4.72 4.23
+# done 2026-11-22T06:29:16+01:00 | load-after 4.47 4.72 4.23

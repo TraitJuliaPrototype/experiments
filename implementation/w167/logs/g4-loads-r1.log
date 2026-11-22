@@ -1,0 +1,116 @@
+# W-159 W-167 E-516 a port's load (w145/loads/load.jl), rows traitworld ode forks nd, modes walk | 2026-11-22T06:29:49+01:00 | load-before 3.50 4.45 4.16 | login02
+# setting G: julia julia-next cf0f039f51 (binary cf0f039f51*) | TW wt/w158g-tw 57879c31f6 | TDE TraitDifferentialEquations 06c28c376f | TM TraitMakie 1888698d7a | TT TraitTables e1ec1f4368 | TC TraitCSV 094dcb2e21 | TR TraitReport ec34d1219c | FORKS forks a3a37d6b5e | ND ndport/pkgs/NetworkDynamics-unified c2bbf0d9aa | depot .julia-depot/agent-depots/w167/G
+# setting H: julia julia-next cf0f039f51 (binary cf0f039f51*) | TW TraitWorld 42d60e13bf | TDE TraitDifferentialEquations 06c28c376f | TM TraitMakie 1888698d7a | TT TraitTables e1ec1f4368 | TC TraitCSV 094dcb2e21 | TR TraitReport ec34d1219c | FORKS forks a3a37d6b5e | ND ndport/pkgs/NetworkDynamics-unified c2bbf0d9aa | depot .julia-depot/agent-depots/w159/H
+# experiments dd07a3e8cc | product setting, strict mode off, one thread, fresh process per cell
+# NOTE setting G: the binary is marked '*' (its tree had a tracked change when it was built); the tree is clean now
+# preflight G w158g-tw: images ok: TraitWorld
+# preflight G demo: images ok: TraitTables TraitCSV TraitDifferentialEquations TraitMakie
+# preflight G forks: images ok: CSV DataFrames
+# preflight G ndtest: images ok: NetworkDynamics
+# NOTE setting H: the binary is marked '*' (its tree had a tracked change when it was built); the tree is clean now
+# preflight H TraitWorld: images ok: TraitWorld
+# preflight H demo: images ok: TraitTables TraitCSV TraitDifferentialEquations TraitMakie
+# preflight H forks: images ok: CSV DataFrames
+# preflight H ndtest: images ok: NetworkDynamics
+G traitworld run 1 | load 3.42 4.41 4.15 | walk TraitWorld | TraitWorld 57.1 ms | total 57.1 ms | log entries 24 | instances in the log 9 (distinct 9)
+G traitworld run 2 | load 3.39 4.38 4.14 | walk TraitWorld | TraitWorld 56.2 ms | total 56.2 ms | log entries 24 | instances in the log 9 (distinct 9)
+G traitworld run 3 | load 3.39 4.38 4.14 | walk TraitWorld | TraitWorld 56.8 ms | total 56.8 ms | log entries 24 | instances in the log 9 (distinct 9)
+G traitworld walk  EVENT 2 jl_method_table_insert
+G traitworld walk  ENDED 9 Base
+H traitworld run 1 | load 3.39 4.38 4.14 | walk TraitWorld | TraitWorld 61.8 ms | total 61.8 ms | log entries 24 | instances in the log 9 (distinct 9)
+H traitworld run 2 | load 3.39 4.38 4.14 | walk TraitWorld | TraitWorld 61.5 ms | total 61.5 ms | log entries 24 | instances in the log 9 (distinct 9)
+H traitworld run 3 | load 3.39 4.38 4.14 | walk TraitWorld | TraitWorld 62.8 ms | total 62.8 ms | log entries 24 | instances in the log 9 (distinct 9)
+H traitworld walk  EVENT 2 jl_method_table_insert
+H traitworld walk  ENDED 9 Base
+G ode run 1 | load 3.60 4.41 4.15 | walk TraitDifferentialEquations | TraitDifferentialEquations 391.8 ms | total 391.8 ms | log entries 2338 | instances in the log 623 (distinct 623)
+G ode run 2 | load 3.60 4.41 4.15 | walk TraitDifferentialEquations | TraitDifferentialEquations 384.7 ms | total 384.7 ms | log entries 2338 | instances in the log 623 (distinct 623)
+G ode run 3 | load 3.60 4.41 4.15 | walk TraitDifferentialEquations | TraitDifferentialEquations 388.3 ms | total 388.3 ms | log entries 2338 | instances in the log 623 (distinct 623)
+G ode walk  EVENT 15 jl_method_table_insert
+G ode walk  ENDED 489 Compiler
+G ode walk  ENDED 134 Base
+H ode run 1 | load 3.55 4.39 4.15 | walk TraitDifferentialEquations | TraitDifferentialEquations 515.3 ms | total 515.3 ms | log entries 2370 | instances in the log 643 (distinct 643)
+H ode run 2 | load 3.55 4.39 4.15 | walk TraitDifferentialEquations | TraitDifferentialEquations 515.7 ms | total 515.7 ms | log entries 2370 | instances in the log 643 (distinct 643)
+H ode run 3 | load 3.58 4.38 4.15 | walk TraitDifferentialEquations | TraitDifferentialEquations 516.2 ms | total 516.2 ms | log entries 2370 | instances in the log 643 (distinct 643)
+H ode walk  EVENT 11 jl_method_table_insert
+H ode walk  ENDED 489 Compiler
+H ode walk  ENDED 139 Base
+H ode walk  ENDED 15 TraitWorld
+G forks run 1 | load 3.58 4.38 4.15 | walk CSV+DataFrames | CSV 338.6 ms, DataFrames 606.6 ms | total 945.2 ms | log entries 2169 | instances in the log 666 (distinct 666)
+G forks run 2 | load 3.62 4.37 4.14 | walk CSV+DataFrames | CSV 330.4 ms, DataFrames 602.9 ms | total 933.3 ms | log entries 2169 | instances in the log 666 (distinct 666)
+G forks run 3 | load 3.62 4.37 4.14 | walk CSV+DataFrames | CSV 331.1 ms, DataFrames 603.7 ms | total 934.8 ms | log entries 2169 | instances in the log 666 (distinct 666)
+G forks walk  EVENT 56 jl_method_table_insert
+G forks walk  EVENT 4 invalidate_mt_cache
+G forks walk  ENDED 468 Base
+G forks walk  ENDED 132 Compiler
+G forks walk  ENDED 18 PrettyTables
+G forks walk  ENDED 15 StyledStrings
+G forks walk  ENDED 12 OrderedCollections
+G forks walk  ENDED 9 LinearAlgebra
+G forks walk  ENDED 8 Tables
+G forks walk  ENDED 2 CSV
+G forks walk  ENDED 1 FileWatching
+G forks walk  ENDED 1 DataFrames
+H forks run 1 | load 3.57 4.35 4.14 | walk CSV+DataFrames | CSV 473.2 ms, DataFrames 743.3 ms | total 1216.5 ms | log entries 2324 | instances in the log 695 (distinct 695)
+H forks run 2 | load 3.57 4.35 4.14 | walk CSV+DataFrames | CSV 467.5 ms, DataFrames 737.3 ms | total 1204.8 ms | log entries 2324 | instances in the log 695 (distinct 695)
+H forks run 3 | load 3.52 4.33 4.13 | walk CSV+DataFrames | CSV 468.5 ms, DataFrames 744.2 ms | total 1212.7 ms | log entries 2324 | instances in the log 695 (distinct 695)
+H forks walk  EVENT 58 jl_method_table_insert
+H forks walk  EVENT 4 invalidate_mt_cache
+H forks walk  ENDED 482 Base
+H forks walk  ENDED 132 Compiler
+H forks walk  ENDED 18 PrettyTables
+H forks walk  ENDED 15 TraitWorld
+H forks walk  ENDED 15 StyledStrings
+H forks walk  ENDED 12 OrderedCollections
+H forks walk  ENDED 9 LinearAlgebra
+H forks walk  ENDED 8 Tables
+H forks walk  ENDED 2 CSV
+H forks walk  ENDED 1 FileWatching
+H forks walk  ENDED 1 DataFrames
+G nd run 1 | load 3.48 4.31 4.13 | walk NetworkDynamics | NetworkDynamics 1871.1 ms | total 1871.1 ms | log entries 5813 | instances in the log 1545 (distinct 1545)
+G nd run 2 | load 3.48 4.31 4.13 | walk NetworkDynamics | NetworkDynamics 1859.5 ms | total 1859.5 ms | log entries 5813 | instances in the log 1545 (distinct 1545)
+G nd run 3 | load 3.44 4.28 4.12 | walk NetworkDynamics | NetworkDynamics 1845.5 ms | total 1845.5 ms | log entries 5813 | instances in the log 1545 (distinct 1545)
+G nd walk  EVENT 119 jl_method_table_insert
+G nd walk  EVENT 3 invalidate_mt_cache
+G nd walk  ENDED 783 Base
+G nd walk  ENDED 652 Compiler
+G nd walk  ENDED 27 StaticArrays
+G nd walk  ENDED 22 PrettyTables
+G nd walk  ENDED 13 OrderedCollections
+G nd walk  ENDED 12 StyledStrings
+G nd walk  ENDED 8 Markdown
+G nd walk  ENDED 7 LinearAlgebra
+G nd walk  ENDED 6 Tables
+G nd walk  ENDED 3 PreallocationTools
+G nd walk  ENDED 2 Dates
+G nd walk  ENDED 2 ForwardDiff
+G nd walk  ENDED 2 TimerOutputs
+G nd walk  ENDED 2 StaticArrayInterface
+G nd walk  ENDED 1 ODECore
+G nd walk  ENDED 1 TableTraits
+G nd walk  ENDED 1 FileWatching
+G nd walk  ENDED 1 StaticArraysCore
+H nd run 1 | load 3.41 4.26 4.11 | walk NetworkDynamics | NetworkDynamics 1973.6 ms | total 1973.6 ms | log entries 5840 | instances in the log 1574 (distinct 1574)
+H nd run 2 | load 3.37 4.24 4.11 | walk NetworkDynamics | NetworkDynamics 1978.9 ms | total 1978.9 ms | log entries 5840 | instances in the log 1574 (distinct 1574)
+H nd run 3 | load 3.37 4.24 4.11 | walk NetworkDynamics | NetworkDynamics 1975.2 ms | total 1975.2 ms | log entries 5840 | instances in the log 1574 (distinct 1574)
+H nd walk  EVENT 120 jl_method_table_insert
+H nd walk  EVENT 3 invalidate_mt_cache
+H nd walk  ENDED 797 Base
+H nd walk  ENDED 652 Compiler
+H nd walk  ENDED 27 StaticArrays
+H nd walk  ENDED 22 PrettyTables
+H nd walk  ENDED 15 TraitWorld
+H nd walk  ENDED 13 OrderedCollections
+H nd walk  ENDED 12 StyledStrings
+H nd walk  ENDED 8 Markdown
+H nd walk  ENDED 7 LinearAlgebra
+H nd walk  ENDED 6 Tables
+H nd walk  ENDED 3 PreallocationTools
+H nd walk  ENDED 2 Dates
+H nd walk  ENDED 2 ForwardDiff
+H nd walk  ENDED 2 TimerOutputs
+H nd walk  ENDED 2 StaticArrayInterface
+H nd walk  ENDED 1 ODECore
+H nd walk  ENDED 1 TableTraits
+H nd walk  ENDED 1 FileWatching
+H nd walk  ENDED 1 StaticArraysCore
+# done 2026-11-22T06:30:53+01:00 | load-after 3.37 4.24 4.11

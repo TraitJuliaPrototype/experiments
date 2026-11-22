@@ -19,12 +19,12 @@ asserts. One Julia process per gate, niced, 4 cores (`source env.sh` first).
 
 ## What is in force
 
-- **The gates in force** are the files `*.jl` in this directory, but `util.jl` (shared probes): 74 files, `m1_*` and
-  `m2_*` (the type system and dispatch, 30), `n*` (37) and `f*` (7). The list is below.
+- **The gates in force** are the files `*.jl` in this directory, but `util.jl` (shared probes): 75 files, `m1_*` and
+  `m2_*` (the type system and dispatch, 30), `n*` (38) and `f*` (7). The list is below.
 - **The project.** A gate runs with the stub library of `../src/Traits.jl` (`--project=experiments/implementation`:
   `@trait X`, `@implement X S`, `declare_membership`; no contract checks, no fields, no operations as entries). A gate
   whose header has the line `# project: TraitWorld` runs with the library's tree (`--project=TraitWorld`), since its
-  rule is the library's: `n8_callable_box.jl`, `n26_callable_late_method.jl`, `n35_trusted_result.jl`.
+  rule is the library's: `n8_callable_box.jl`, `n26_callable_late_method.jl`, `n35_trusted_result.jl`, `n36_library_deep.jl`.
 - **Expected failures inside a gate.** None. W-165 flipped the two that W-164 wrote (`n8_callable.jl`, the tie of two
   methods at `Callable` instances, compiler C-147; `n20_unmet_lookup.jl` (5), the unmet lookup's ambiguity at
   `Callable` and at a bare parametric set, C-148): each now asserts the rule, and fails on `next` a5bd871cce
@@ -75,6 +75,7 @@ asserts. One Julia process per gate, niced, 4 cores (`source env.sh` first).
 | 2026-11-18 | `next` a5bd871cce | `run_all.sh` with a pattern, as its callers run it: `'m1_*'`, a single name, a name not in force | 11 of 11; 1 of 1; `m3_g2_bit` found in `not-in-force/` and run (it fails); an unknown name runs nothing (`logs/w164-pattern-julia-next.log`) |
 | 2026-11-18 | `next` a5bd871cce, TraitWorld 3e64ede | one wrong assertion per rewritten case, the replaced rule's answer (`logs/w164_mutants.sh`) | 9 of 9 fail on the head, as they should (`logs/w164-mutants-julia-next.log`) |
 | 2026-11-18 | `w165` 02139b2168 (W-165; the binary reports `02139b2168*`), TraitWorld `unified` 3e64ede; load 3 to 5 of 128 | `run_all.sh wt/w165-julia`, with the two checks flipped | gates in force 72 of 72; stage gates 9 of 9 (`../w165/logs/gates-w165.log`); the two flipped gates fail on `next` a5bd871cce, as they should (`../w165/logs/gates-head-flipped.log`) |
+| 2026-11-22 | `next` cf0f039f51 (`julia-next`), TraitWorld `w167` 57879c3 (`LIB=wt/w158g-tw`); load 3.2 to 3.4 of 128 | `run_all.sh julia-next` (W-167): `n36_library_deep` new | gates in force 75 of 75; stage gates 9 of 9 (`../w167/logs/gates-w167.log`); `n36` fails on the freeze's library `unified` 42d60e1, as it should (`../w167/logs/gates-n36-freeze.log`) |
 
 ## The gates in force
 
@@ -157,6 +158,14 @@ gates in its header comment.
   taken out of the session's compiler on `w158` 42657e9dbd (`../w158/m-probes/mutant.jl`: 44 forms, then the stop
   at `unreachable`; `../w158/logs/m6-gate-n35-mutant-42657e9.log`); on `w158` f1d6e51efa the same forms were holes
   (`../w158/m-probes/forms.jl`, the README's sixth part).
+- `n36_library_deep.jl` — W-167 (TraitWorld; compiler §3.2, facts §2.2; open issue 254): the library's own code is in
+  the deep class, so that no unrelated load ends it. Every hook the runtime or Base calls (at a definition, a module's
+  end, an image's load, a package's load: 11 instances) carries the G2 bit, and no instance of the library outside the
+  class is on a hook's path, a macro's or a tool's, but `@trait`'s expansion (named, with its reason): the code that
+  handles values of any type by its purpose is reached through a run-time site by intent (`_runtime_site`). It runs
+  `../w167/lib_static.jl` (QUIET); the flags are read by `../w167/flags.jl`, which checks itself. *Shown:* it fails on
+  the freeze's library (`unified` 42d60e1: 10 of 11 hooks outside; `../w167/logs/gates-n36-freeze.log`) and passes
+  on `w167` 57879c3 (353 of 362 instances deep).
 - `n7_guards.jl` — W-140: a membership invalidates as a method does. A call holds no guard and no cell;
   the membership invalidates the caller whose selection it changes, an older world keeps the old
   answer; a caller matched through the type's own supertypes stays valid; a method at a set defined

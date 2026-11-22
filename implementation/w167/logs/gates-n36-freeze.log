@@ -1,0 +1,17 @@
+FAIL n36_library_deep.jl (exit 1)
+        [hook] check_at_box: check_at_box(::Method)
+        [hook] showerror: showerror(::IOBuffer, ::TraitWorld.PirateAtLoadError)
+        [other] textbound: textbound(::Dates.CompoundPeriod)
+    STATIC FAIL
+    ERROR: LoadError: AssertionError: every hook is in the deep class: outside TraitWorld._fully_typed_hook(::Core.SimpleVector), TraitWorld._definition_hook(::Method, ::Bool), TraitWorld._report_endings!(::Vector{Any}), TraitWorld._image_methods_hook(::Vector{Any}, ::String), TraitWorld.__init__(), TraitWorld._expand_definition(::Core.SimpleVector, ::Core.CodeInfo, ::Module), TraitWorld._report_at_load!(::Base.PkgId), TraitWorld._module_end_hook(::Module), TraitWorld._strict_at_load!(::Base.PkgId), TraitWorld._deletion_hook(::Method)
+    Stacktrace:
+     [1] top-level scope
+       @ /p/projects/coen/julia-trait-bound/experiments/implementation/gates/n36_library_deep.jl:11
+     [2] include(mod::Module, _path::String)
+       @ Base ./Base.jl:318
+     [3] exec_options(opts::Base.JLOptions)
+       @ Base ./client.jl:344
+     [4] _start()
+       @ Base ./client.jl:577
+    in expression starting at /p/projects/coen/julia-trait-bound/experiments/implementation/gates/n36_library_deep.jl:11
+gates: 0 passed, 1 failed

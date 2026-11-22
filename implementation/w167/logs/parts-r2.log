@@ -1,0 +1,84 @@
+# W-159 W-167 the ODE port's load in parts (load_parts.jl), log off and on | 2026-11-22T06:32:09+01:00 | load-before 2.83 3.91 4.00 | login02
+# setting G: julia julia-next cf0f039f51 (binary cf0f039f51*) | TW wt/w158g-tw 57879c31f6 | TDE TraitDifferentialEquations 06c28c376f | TM TraitMakie 1888698d7a | TT TraitTables e1ec1f4368 | TC TraitCSV 094dcb2e21 | TR TraitReport ec34d1219c | FORKS forks a3a37d6b5e | ND ndport/pkgs/NetworkDynamics-unified c2bbf0d9aa | depot .julia-depot/agent-depots/w167/G
+# setting H: julia julia-next cf0f039f51 (binary cf0f039f51*) | TW TraitWorld 42d60e13bf | TDE TraitDifferentialEquations 06c28c376f | TM TraitMakie 1888698d7a | TT TraitTables e1ec1f4368 | TC TraitCSV 094dcb2e21 | TR TraitReport ec34d1219c | FORKS forks a3a37d6b5e | ND ndport/pkgs/NetworkDynamics-unified c2bbf0d9aa | depot .julia-depot/agent-depots/w159/H
+# setting B: julia julia-unified 7b374f39ce (binary 7b374f39ce*) | TW TraitWorld-base e11c7cc58b | TDE wt/w161-tde-base b7306285fe | TM wt/w160-tm c862914ffa | TT wt/w159-tag/TraitTables c3391750fb | TC wt/w159-tag/TraitCSV 92c46d01bc | TR wt/w159-tag/TraitReport a4bcf332db | FORKS wt/w159-tag/forks 439bae73ff | ND wt/w151-base/NetworkDynamics 6310040ec0 | depot .julia-depot/agent-depots/w159/B
+# experiments dd07a3e8cc | product setting, strict mode off, one thread, fresh process per cell
+# NOTE setting G: the binary is marked '*' (its tree had a tracked change when it was built); the tree is clean now
+# preflight G demo: images ok: TraitWorld TraitDifferentialEquations
+# NOTE setting H: the binary is marked '*' (its tree had a tracked change when it was built); the tree is clean now
+# preflight H demo: images ok: TraitWorld TraitDifferentialEquations
+# NOTE setting B: the binary is marked '*' (its tree had a tracked change when it was built); the tree is clean now
+# preflight B demo: images ok: TraitWorld TraitDifferentialEquations
+== G log=0 run w | load 2.86 3.88 3.99
+LOADPARTS walk TraitDifferentialEquations | total 351.2 ms | image hook 48.8 ms (23 images) | callbacks _report_at_load! 0.0 ms (23), _strict_at_load! 0.0 ms (23) | compiling 56.6 ms, of it again 14.2 ms | TraitWorld first 75.5 ms | /p/projects/coen/julia-trait-bound/wt/w158g-tw/src/TraitWorld.jl
+-- rc 0 | load 2.86 3.88 3.99
+== H log=0 run w | load 2.86 3.88 3.99
+LOADPARTS walk TraitDifferentialEquations | total 447.8 ms | image hook 41.5 ms (23 images) | callbacks _report_at_load! 0.0 ms (23), _strict_at_load! 133.6 ms (23) | compiling 183.3 ms, of it again 133.6 ms | TraitWorld first 63.6 ms | /p/projects/coen/julia-trait-bound/TraitWorld/src/TraitWorld.jl
+-- rc 0 | load 2.86 3.88 3.99
+== B log=0 run w | load 2.86 3.88 3.99
+LOADPARTS walk TraitDifferentialEquations | total 291.4 ms | image hook 17.0 ms (23 images) | callbacks _strict_at_load! 8.2 ms (23) | compiling 58.0 ms, of it again 0.0 ms | TraitWorld first 82.4 ms | /p/projects/coen/julia-trait-bound/TraitWorld-base/src/TraitWorld.jl
+-- rc 0 | load 2.86 3.88 3.99
+== G log=1 run w | load 2.86 3.88 3.99
+LOADPARTS walk log TraitDifferentialEquations | total 310.6 ms | image hook 48.0 ms (23 images) | callbacks _report_at_load! 0.0 ms (23), _strict_at_load! 0.0 ms (23) | compiling 65.1 ms, of it again 14.1 ms | TraitWorld first 59.5 ms | /p/projects/coen/julia-trait-bound/wt/w158g-tw/src/TraitWorld.jl
+-- rc 0 | load 2.86 3.88 3.99
+== H log=1 run w | load 2.86 3.88 3.99
+LOADPARTS walk log TraitDifferentialEquations | total 442.3 ms | image hook 41.3 ms (23 images) | callbacks _report_at_load! 0.0 ms (23), _strict_at_load! 134.0 ms (23) | compiling 192.0 ms, of it again 134.0 ms | TraitWorld first 61.8 ms | /p/projects/coen/julia-trait-bound/TraitWorld/src/TraitWorld.jl
+-- rc 0 | load 2.87 3.87 3.98
+== B log=1 run w | load 2.87 3.87 3.98
+LOADPARTS walk log TraitDifferentialEquations | total 245.6 ms | image hook 16.5 ms (23 images) | callbacks _strict_at_load! 8.1 ms (23) | compiling 65.3 ms, of it again 0.0 ms | TraitWorld first 63.6 ms | /p/projects/coen/julia-trait-bound/TraitWorld-base/src/TraitWorld.jl
+-- rc 0 | load 2.87 3.87 3.98
+== G log=0 run 1 | load 2.87 3.87 3.98
+LOADPARTS walk TraitDifferentialEquations | total 313.9 ms | image hook 47.9 ms (23 images) | callbacks _report_at_load! 0.0 ms (23), _strict_at_load! 0.0 ms (23) | compiling 56.3 ms, of it again 13.9 ms | TraitWorld first 58.2 ms | /p/projects/coen/julia-trait-bound/wt/w158g-tw/src/TraitWorld.jl
+-- rc 0 | load 2.87 3.87 3.98
+== H log=0 run 1 | load 2.87 3.87 3.98
+LOADPARTS walk TraitDifferentialEquations | total 443.2 ms | image hook 41.1 ms (23 images) | callbacks _report_at_load! 0.0 ms (23), _strict_at_load! 133.9 ms (23) | compiling 183.4 ms, of it again 133.9 ms | TraitWorld first 62.6 ms | /p/projects/coen/julia-trait-bound/TraitWorld/src/TraitWorld.jl
+-- rc 0 | load 2.87 3.87 3.98
+== B log=0 run 1 | load 2.87 3.87 3.98
+LOADPARTS walk TraitDifferentialEquations | total 253.2 ms | image hook 17.5 ms (23 images) | callbacks _strict_at_load! 8.8 ms (23) | compiling 60.6 ms, of it again 0.0 ms | TraitWorld first 65.6 ms | /p/projects/coen/julia-trait-bound/TraitWorld-base/src/TraitWorld.jl
+-- rc 0 | load 2.88 3.85 3.98
+== G log=1 run 1 | load 2.88 3.85 3.98
+LOADPARTS walk log TraitDifferentialEquations | total 315.7 ms | image hook 48.0 ms (23 images) | callbacks _report_at_load! 0.0 ms (23), _strict_at_load! 0.0 ms (23) | compiling 65.2 ms, of it again 13.9 ms | TraitWorld first 59.5 ms | /p/projects/coen/julia-trait-bound/wt/w158g-tw/src/TraitWorld.jl
+-- rc 0 | load 2.88 3.85 3.98
+== H log=1 run 1 | load 2.88 3.85 3.98
+LOADPARTS walk log TraitDifferentialEquations | total 439.2 ms | image hook 41.2 ms (23 images) | callbacks _report_at_load! 0.0 ms (23), _strict_at_load! 133.1 ms (23) | compiling 191.1 ms, of it again 133.1 ms | TraitWorld first 61.4 ms | /p/projects/coen/julia-trait-bound/TraitWorld/src/TraitWorld.jl
+-- rc 0 | load 2.88 3.85 3.98
+== B log=1 run 1 | load 2.88 3.85 3.98
+LOADPARTS walk log TraitDifferentialEquations | total 247.4 ms | image hook 16.4 ms (23 images) | callbacks _strict_at_load! 8.0 ms (23) | compiling 64.9 ms, of it again 0.0 ms | TraitWorld first 61.8 ms | /p/projects/coen/julia-trait-bound/TraitWorld-base/src/TraitWorld.jl
+-- rc 0 | load 2.88 3.85 3.98
+== G log=0 run 2 | load 2.88 3.85 3.98
+LOADPARTS walk TraitDifferentialEquations | total 312.9 ms | image hook 47.9 ms (23 images) | callbacks _report_at_load! 0.0 ms (23), _strict_at_load! 0.0 ms (23) | compiling 56.3 ms, of it again 14.0 ms | TraitWorld first 58.2 ms | /p/projects/coen/julia-trait-bound/wt/w158g-tw/src/TraitWorld.jl
+-- rc 0 | load 2.88 3.85 3.98
+== H log=0 run 2 | load 2.88 3.85 3.98
+LOADPARTS walk TraitDifferentialEquations | total 439.2 ms | image hook 41.0 ms (23 images) | callbacks _report_at_load! 0.0 ms (23), _strict_at_load! 133.2 ms (23) | compiling 182.6 ms, of it again 133.1 ms | TraitWorld first 61.9 ms | /p/projects/coen/julia-trait-bound/TraitWorld/src/TraitWorld.jl
+-- rc 0 | load 2.89 3.84 3.97
+== B log=0 run 2 | load 2.89 3.84 3.97
+LOADPARTS walk TraitDifferentialEquations | total 245.7 ms | image hook 16.5 ms (23 images) | callbacks _strict_at_load! 8.1 ms (23) | compiling 57.5 ms, of it again 0.0 ms | TraitWorld first 63.9 ms | /p/projects/coen/julia-trait-bound/TraitWorld-base/src/TraitWorld.jl
+-- rc 0 | load 2.89 3.84 3.97
+== G log=1 run 2 | load 2.89 3.84 3.97
+LOADPARTS walk log TraitDifferentialEquations | total 313.3 ms | image hook 47.8 ms (23 images) | callbacks _report_at_load! 0.0 ms (23), _strict_at_load! 0.0 ms (23) | compiling 64.9 ms, of it again 14.0 ms | TraitWorld first 59.4 ms | /p/projects/coen/julia-trait-bound/wt/w158g-tw/src/TraitWorld.jl
+-- rc 0 | load 2.89 3.84 3.97
+== H log=1 run 2 | load 2.89 3.84 3.97
+LOADPARTS walk log TraitDifferentialEquations | total 441.7 ms | image hook 41.4 ms (23 images) | callbacks _report_at_load! 0.0 ms (23), _strict_at_load! 133.4 ms (23) | compiling 191.6 ms, of it again 133.4 ms | TraitWorld first 62.2 ms | /p/projects/coen/julia-trait-bound/TraitWorld/src/TraitWorld.jl
+-- rc 0 | load 2.89 3.84 3.97
+== B log=1 run 2 | load 2.89 3.84 3.97
+LOADPARTS walk log TraitDifferentialEquations | total 244.2 ms | image hook 16.2 ms (23 images) | callbacks _strict_at_load! 8.0 ms (23) | compiling 64.9 ms, of it again 0.0 ms | TraitWorld first 63.9 ms | /p/projects/coen/julia-trait-bound/TraitWorld-base/src/TraitWorld.jl
+-- rc 0 | load 2.90 3.82 3.97
+== G log=0 run 3 | load 2.90 3.82 3.97
+LOADPARTS walk TraitDifferentialEquations | total 312.2 ms | image hook 47.9 ms (23 images) | callbacks _report_at_load! 0.0 ms (23), _strict_at_load! 0.0 ms (23) | compiling 56.4 ms, of it again 14.0 ms | TraitWorld first 58.4 ms | /p/projects/coen/julia-trait-bound/wt/w158g-tw/src/TraitWorld.jl
+-- rc 0 | load 2.90 3.82 3.97
+== H log=0 run 3 | load 2.90 3.82 3.97
+LOADPARTS walk TraitDifferentialEquations | total 438.3 ms | image hook 41.0 ms (23 images) | callbacks _report_at_load! 0.0 ms (23), _strict_at_load! 133.6 ms (23) | compiling 183.1 ms, of it again 133.6 ms | TraitWorld first 61.0 ms | /p/projects/coen/julia-trait-bound/TraitWorld/src/TraitWorld.jl
+-- rc 0 | load 2.90 3.82 3.97
+== B log=0 run 3 | load 2.90 3.82 3.97
+LOADPARTS walk TraitDifferentialEquations | total 249.5 ms | image hook 16.5 ms (23 images) | callbacks _strict_at_load! 8.1 ms (23) | compiling 57.5 ms, of it again 0.0 ms | TraitWorld first 62.3 ms | /p/projects/coen/julia-trait-bound/TraitWorld-base/src/TraitWorld.jl
+-- rc 0 | load 2.90 3.82 3.97
+== G log=1 run 3 | load 2.90 3.82 3.97
+LOADPARTS walk log TraitDifferentialEquations | total 316.3 ms | image hook 48.0 ms (23 images) | callbacks _report_at_load! 0.0 ms (23), _strict_at_load! 0.0 ms (23) | compiling 65.1 ms, of it again 13.9 ms | TraitWorld first 58.1 ms | /p/projects/coen/julia-trait-bound/wt/w158g-tw/src/TraitWorld.jl
+-- rc 0 | load 2.90 3.82 3.97
+== H log=1 run 3 | load 2.90 3.82 3.97
+LOADPARTS walk log TraitDifferentialEquations | total 439.5 ms | image hook 41.3 ms (23 images) | callbacks _report_at_load! 0.0 ms (23), _strict_at_load! 133.3 ms (23) | compiling 191.5 ms, of it again 133.3 ms | TraitWorld first 62.4 ms | /p/projects/coen/julia-trait-bound/TraitWorld/src/TraitWorld.jl
+-- rc 0 | load 2.99 3.83 3.97
+== B log=1 run 3 | load 2.99 3.83 3.97
+LOADPARTS walk log TraitDifferentialEquations | total 243.9 ms | image hook 16.5 ms (23 images) | callbacks _strict_at_load! 8.1 ms (23) | compiling 65.4 ms, of it again 0.0 ms | TraitWorld first 63.0 ms | /p/projects/coen/julia-trait-bound/TraitWorld-base/src/TraitWorld.jl
+-- rc 0 | load 2.99 3.83 3.97
+# done 2026-11-22T06:32:42+01:00 | load-after 2.99 3.83 3.97

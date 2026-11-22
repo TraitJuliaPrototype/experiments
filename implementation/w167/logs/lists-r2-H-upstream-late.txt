@@ -1,0 +1,24 @@
+# W-167 lib_ended | julia cf0f039f51* | project /p/projects/coen/julia-trait-bound/experiments/implementation/w167/envs/H/lib/Project.toml | load 3.9 4.3 4.0 | LATE: the packages first
+# flags: facts by Compiler.ci_policy_facts, G2 = 0x10 and FROM_IMAGE = 0x04 from julia.h; self-check ok
+# loaded CSV, DataFrames then TraitWorld in 751.5 ms (logging on) | log entries: runtime 3007, image validation 2368
+# TraitWorld /p/projects/coen/julia-trait-bound/TraitWorld/src/TraitWorld.jl
+
+## the library's image code rejected at load (image validation): 15
+VERIFY CI TraitWorld._written_method(::Method) | cause CI Base.Broadcast.materialize(::Base.Broadcast.Broadcasted{Base.Broadcast.DefaultArrayStyle{1}, Nothing, typeof(string), Tuple{Vector{Any}}})
+VERIFY CI TraitWorld._code_name(::Core.CodeInstance) | cause CI TraitWorld._written_method(::Method)
+VERIFY CI showerror(::IOBuffer, ::TraitWorld.PirateAtLoadError) | cause CI TraitWorld._code_name(::Core.CodeInstance)
+VERIFY CI TraitWorld._code_name(::Any) | cause CI TraitWorld._written_method(::Method)
+VERIFY CI TraitWorld._bounded_head(::Method) | cause CI TraitWorld._written_method(::Method)
+VERIFY CI TraitWorld.var"#_decide_bounded#64"(::Bool, ::typeof(TraitWorld._decide_bounded), ::Method) | cause CI TraitWorld._bounded_head(::Method)
+VERIFY CI Core.kwcall(::@NamedTuple{final::Bool}, ::typeof(TraitWorld._decide_bounded), ::Method) | cause CI TraitWorld.var"#_decide_bounded#64"(::Bool, ::typeof(TraitWorld._decide_bounded), ::Method)
+VERIFY CI TraitWorld._end_pending_bounded(::Module) | cause CI Core.kwcall(::@NamedTuple{final::Bool}, ::typeof(TraitWorld._decide_bounded), ::Method)
+VERIFY CI TraitWorld._module_end_hook(::Module) | cause CI TraitWorld._end_pending_bounded(::Module)
+VERIFY CI TraitWorld._decide_bounded(::Method) | cause CI TraitWorld.var"#_decide_bounded#64"(::Bool, ::typeof(TraitWorld._decide_bounded), ::Method)
+VERIFY CI TraitWorld._check_pending_bounded(::Module, ::Symbol) | cause CI TraitWorld._decide_bounded(::Method)
+VERIFY CI TraitWorld._check_bounded(::Method) | cause CI TraitWorld._check_pending_bounded(::Module, ::Symbol)
+VERIFY CI TraitWorld._definition_checks(::Method, ::Bool) | cause CI TraitWorld._check_bounded(::Method)
+VERIFY CI TraitWorld._definition_hook(::Method, ::Bool) | cause CI TraitWorld._definition_checks(::Method, ::Bool)
+VERIFY CI TraitWorld._strict_at_load!(::Base.PkgId) | cause CI Base.Broadcast.materialize(::Base.Broadcast.Broadcasted{Base.Broadcast.DefaultArrayStyle{1}, Nothing, typeof(sprint), Tuple{Base.RefValue{typeof(showerror)},
+
+## the library's instances ended: 0 in the runtime's log (unique instances)
+ENDED (image code rejected at load, entries) 15

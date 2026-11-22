@@ -1,0 +1,90 @@
+# W-167 lib_ended | julia cf0f039f51* | project /p/projects/coen/julia-trait-bound/experiments/implementation/w167/envs/H/lib/Project.toml | load 3.9 4.3 4.0
+# flags: facts by Compiler.ci_policy_facts, G2 = 0x10 and FROM_IMAGE = 0x04 from julia.h; self-check ok
+# TraitWorld /p/projects/coen/julia-trait-bound/TraitWorld/src/TraitWorld.jl | its instances before the load 342, facts 342, deep 248, from its image 257
+# loaded CSV, DataFrames in 1345.7 ms (logging on) | log entries: runtime 3124, image validation 2270
+
+CAUSE jl_method_table_insert DataStrings.convert at /p/projects/coen/julia-trait-bound/.julia-depot/packages/DataStrings/sr2Hk/src/DataStrings.jl:520 Tuple{typeof(convert), Type{String}, DataStrings.DataString}
+    setindex!(::Vector{String}, ::Any, ::Int64)
+      string(::Base.Libc.Libdl.LazyLibraryPath)
+        Base.Broadcast.combine_eltypes(::typeof(string), ::Tuple{Vector{Any}})
+          copy(::Base.Broadcast.Broadcasted{Base.Broadcast.DefaultArrayStyle{1}, Tuple{Base.OneTo{Int64}}, typeof(string), Tuple{Vector{Any}}})
+            Base.Broadcast.materialize(::Base.Broadcast.Broadcasted{Base.Broadcast.DefaultArrayStyle{1}, Nothing, typeof(string), Tuple{Vector{Any}}})
+              LIB TraitWorld._written_method(::Method)
+                LIB TraitWorld._code_name(::Core.CodeInstance)
+                  LIB showerror(::IOBuffer, ::TraitWorld.PirateAtLoadError)
+                    Base.var"#sprint#431"(::Nothing, ::Int64, ::typeof(sprint), ::typeof(showerror), ::TraitWorld.PirateAtLoadError)
+                      sprint(::typeof(showerror), ::TraitWorld.PirateAtLoadError)
+                        Base.Broadcast.combine_eltypes(::typeof(sprint), ::Tuple{Base.RefValue{typeof(showerror)}, Vector{TraitWorld.PirateAtLoadError}})
+                          copy(::Base.Broadcast.Broadcasted{Base.Broadcast.DefaultArrayStyle{1}, Tuple{Base.OneTo{Int64}}, typeof(sprint), Tuple{Base.RefValue{typeof(showerror)}, Vector{TraitWorld
+                            Base.Broadcast.materialize(::Base.Broadcast.Broadcasted{Base.Broadcast.DefaultArrayStyle{1}, Nothing, typeof(sprint), Tuple{Base.RefValue{typeof(showerror)}, Vector{Trait
+                              LIB TraitWorld._strict_at_load!(::Base.PkgId)
+                LIB TraitWorld._code_name(::Any)
+                  LIB showerror(::IOBuffer, ::TraitWorld.PirateAtLoadError)
+                LIB TraitWorld._bounded_head(::Method)
+                  LIB TraitWorld.var"#_decide_bounded#64"(::Bool, ::typeof(TraitWorld._decide_bounded), ::Method)
+                    LIB Core.kwcall(::@NamedTuple{final::Bool}, ::typeof(TraitWorld._decide_bounded), ::Method)
+                      LIB TraitWorld._end_pending_bounded(::Module)
+                        LIB TraitWorld._module_end_hook(::Module)
+                    LIB TraitWorld._decide_bounded(::Method)
+                      LIB TraitWorld._check_pending_bounded(::Module, ::Symbol)
+                        LIB TraitWorld._check_bounded(::Method)
+                          LIB TraitWorld._definition_checks(::Method, ::Bool)
+                            LIB TraitWorld._definition_hook(::Method, ::Bool)
+                      LIB TraitWorld._check_bounded(::Method)
+
+CAUSE jl_method_table_insert InlineStrings.string at /p/projects/coen/julia-trait-bound/.julia-depot/packages/InlineStrings/3hOt5/src/InlineStrings.jl:564 Tuple{typeof(string), InlineStrings.InlineString}
+  Base.Broadcast.combine_eltypes(::typeof(string), ::Tuple{Vector{Any}})
+    copy(::Base.Broadcast.Broadcasted{Base.Broadcast.DefaultArrayStyle{1}, Tuple{Base.OneTo{Int64}}, typeof(string), Tuple{Vector{Any}}})
+      Base.Broadcast.materialize(::Base.Broadcast.Broadcasted{Base.Broadcast.DefaultArrayStyle{1}, Nothing, typeof(string), Tuple{Vector{Any}}})
+        LIB TraitWorld._written_method(::Method)
+          LIB TraitWorld._code_name(::Core.CodeInstance)
+            LIB showerror(::IOBuffer, ::TraitWorld.PirateAtLoadError)
+              Base.var"#sprint#431"(::Nothing, ::Int64, ::typeof(sprint), ::typeof(showerror), ::TraitWorld.PirateAtLoadError)
+                sprint(::typeof(showerror), ::TraitWorld.PirateAtLoadError)
+                  Base.Broadcast.combine_eltypes(::typeof(sprint), ::Tuple{Base.RefValue{typeof(showerror)}, Vector{TraitWorld.PirateAtLoadError}})
+                    copy(::Base.Broadcast.Broadcasted{Base.Broadcast.DefaultArrayStyle{1}, Tuple{Base.OneTo{Int64}}, typeof(sprint), Tuple{Base.RefValue{typeof(showerror)}, Vector{TraitWorld
+                      Base.Broadcast.materialize(::Base.Broadcast.Broadcasted{Base.Broadcast.DefaultArrayStyle{1}, Nothing, typeof(sprint), Tuple{Base.RefValue{typeof(showerror)}, Vector{Trait
+                        LIB TraitWorld._strict_at_load!(::Base.PkgId)
+          LIB TraitWorld._code_name(::Any)
+            LIB showerror(::IOBuffer, ::TraitWorld.PirateAtLoadError)
+
+## the library's instances ended: 15 in the runtime's log (unique instances)
+LIB Core.kwcall(::@NamedTuple{final::Bool}, ::typeof(TraitWorld._decide_bounded), ::Method)
+    via Base.Broadcast.materialize(::Base.Broadcast.Broadcasted{Base.Broadcast.DefaultArrayStyle{1}, Nothing, typeof(string), Tuple{Vector{Any}}}) | hook TraitWorld._module_end_hook(::Module) | cause DataStrings.convert Tuple{typeof(convert), Type{String}, DataStrings.DataString}
+LIB TraitWorld._bounded_head(::Method)
+    via Base.Broadcast.materialize(::Base.Broadcast.Broadcasted{Base.Broadcast.DefaultArrayStyle{1}, Nothing, typeof(string), Tuple{Vector{Any}}}) | hook TraitWorld._check_bounded(::Method) | cause DataStrings.convert Tuple{typeof(convert), Type{String}, DataStrings.DataString}
+LIB TraitWorld._check_bounded(::Method)
+    via Base.Broadcast.materialize(::Base.Broadcast.Broadcasted{Base.Broadcast.DefaultArrayStyle{1}, Nothing, typeof(string), Tuple{Vector{Any}}}) | hook TraitWorld._definition_hook(::Method, ::Bool) | cause DataStrings.convert Tuple{typeof(convert), Type{String}, DataStrings.DataString}
+    via Base.Broadcast.materialize(::Base.Broadcast.Broadcasted{Base.Broadcast.DefaultArrayStyle{1}, Nothing, typeof(string), Tuple{Vector{Any}}}) | hook TraitWorld._check_bounded(::Method) | cause DataStrings.convert Tuple{typeof(convert), Type{String}, DataStrings.DataString}
+LIB TraitWorld._check_pending_bounded(::Module, ::Symbol)
+    via Base.Broadcast.materialize(::Base.Broadcast.Broadcasted{Base.Broadcast.DefaultArrayStyle{1}, Nothing, typeof(string), Tuple{Vector{Any}}}) | hook TraitWorld._definition_hook(::Method, ::Bool) | cause DataStrings.convert Tuple{typeof(convert), Type{String}, DataStrings.DataString}
+LIB TraitWorld._code_name(::Any)
+    via Base.Broadcast.materialize(::Base.Broadcast.Broadcasted{Base.Broadcast.DefaultArrayStyle{1}, Nothing, typeof(string), Tuple{Vector{Any}}}) | hook showerror(::IOBuffer, ::TraitWorld.PirateAtLoadError) | cause DataStrings.convert Tuple{typeof(convert), Type{String}, DataStrings.DataString}
+    via Base.Broadcast.materialize(::Base.Broadcast.Broadcasted{Base.Broadcast.DefaultArrayStyle{1}, Nothing, typeof(string), Tuple{Vector{Any}}}) | hook showerror(::IOBuffer, ::TraitWorld.PirateAtLoadError) | cause InlineStrings.string Tuple{typeof(string), InlineStrings.InlineString}
+LIB TraitWorld._code_name(::Core.CodeInstance)
+    via Base.Broadcast.materialize(::Base.Broadcast.Broadcasted{Base.Broadcast.DefaultArrayStyle{1}, Nothing, typeof(string), Tuple{Vector{Any}}}) | hook TraitWorld._strict_at_load!(::Base.PkgId) | cause DataStrings.convert Tuple{typeof(convert), Type{String}, DataStrings.DataString}
+    via Base.Broadcast.materialize(::Base.Broadcast.Broadcasted{Base.Broadcast.DefaultArrayStyle{1}, Nothing, typeof(string), Tuple{Vector{Any}}}) | hook TraitWorld._strict_at_load!(::Base.PkgId) | cause InlineStrings.string Tuple{typeof(string), InlineStrings.InlineString}
+LIB TraitWorld._decide_bounded(::Method)
+    via Base.Broadcast.materialize(::Base.Broadcast.Broadcasted{Base.Broadcast.DefaultArrayStyle{1}, Nothing, typeof(string), Tuple{Vector{Any}}}) | hook TraitWorld._check_bounded(::Method) | cause DataStrings.convert Tuple{typeof(convert), Type{String}, DataStrings.DataString}
+LIB TraitWorld._definition_checks(::Method, ::Bool)
+    via Base.Broadcast.materialize(::Base.Broadcast.Broadcasted{Base.Broadcast.DefaultArrayStyle{1}, Nothing, typeof(string), Tuple{Vector{Any}}}) | hook TraitWorld._definition_hook(::Method, ::Bool) | cause DataStrings.convert Tuple{typeof(convert), Type{String}, DataStrings.DataString}
+LIB TraitWorld._definition_hook(::Method, ::Bool)
+    via Base.Broadcast.materialize(::Base.Broadcast.Broadcasted{Base.Broadcast.DefaultArrayStyle{1}, Nothing, typeof(string), Tuple{Vector{Any}}}) | hook TraitWorld._definition_hook(::Method, ::Bool) | cause DataStrings.convert Tuple{typeof(convert), Type{String}, DataStrings.DataString}
+LIB TraitWorld._end_pending_bounded(::Module)
+    via Base.Broadcast.materialize(::Base.Broadcast.Broadcasted{Base.Broadcast.DefaultArrayStyle{1}, Nothing, typeof(string), Tuple{Vector{Any}}}) | hook TraitWorld._module_end_hook(::Module) | cause DataStrings.convert Tuple{typeof(convert), Type{String}, DataStrings.DataString}
+LIB TraitWorld._module_end_hook(::Module)
+    via Base.Broadcast.materialize(::Base.Broadcast.Broadcasted{Base.Broadcast.DefaultArrayStyle{1}, Nothing, typeof(string), Tuple{Vector{Any}}}) | hook TraitWorld._module_end_hook(::Module) | cause DataStrings.convert Tuple{typeof(convert), Type{String}, DataStrings.DataString}
+LIB TraitWorld._strict_at_load!(::Base.PkgId)
+    via Base.Broadcast.materialize(::Base.Broadcast.Broadcasted{Base.Broadcast.DefaultArrayStyle{1}, Nothing, typeof(sprint), Tuple{Base.RefValue{ty | hook TraitWorld._strict_at_load!(::Base.PkgId) | cause DataStrings.convert Tuple{typeof(convert), Type{String}, DataStrings.DataString}
+    via Base.Broadcast.materialize(::Base.Broadcast.Broadcasted{Base.Broadcast.DefaultArrayStyle{1}, Nothing, typeof(sprint), Tuple{Base.RefValue{ty | hook TraitWorld._strict_at_load!(::Base.PkgId) | cause InlineStrings.string Tuple{typeof(string), InlineStrings.InlineString}
+LIB TraitWorld._written_method(::Method)
+    via Base.Broadcast.materialize(::Base.Broadcast.Broadcasted{Base.Broadcast.DefaultArrayStyle{1}, Nothing, typeof(string), Tuple{Vector{Any}}}) | hook TraitWorld._check_bounded(::Method) | cause DataStrings.convert Tuple{typeof(convert), Type{String}, DataStrings.DataString}
+    via Base.Broadcast.materialize(::Base.Broadcast.Broadcasted{Base.Broadcast.DefaultArrayStyle{1}, Nothing, typeof(string), Tuple{Vector{Any}}}) | hook showerror(::IOBuffer, ::TraitWorld.PirateAtLoadError) | cause InlineStrings.string Tuple{typeof(string), InlineStrings.InlineString}
+LIB TraitWorld.var"#_decide_bounded#64"(::Bool, ::typeof(TraitWorld._decide_bounded), ::Method)
+    via Base.Broadcast.materialize(::Base.Broadcast.Broadcasted{Base.Broadcast.DefaultArrayStyle{1}, Nothing, typeof(string), Tuple{Vector{Any}}}) | hook TraitWorld._check_bounded(::Method) | cause DataStrings.convert Tuple{typeof(convert), Type{String}, DataStrings.DataString}
+LIB showerror(::IOBuffer, ::TraitWorld.PirateAtLoadError)
+    via Base.Broadcast.materialize(::Base.Broadcast.Broadcasted{Base.Broadcast.DefaultArrayStyle{1}, Nothing, typeof(string), Tuple{Vector{Any}}}) | hook TraitWorld._strict_at_load!(::Base.PkgId) | cause DataStrings.convert Tuple{typeof(convert), Type{String}, DataStrings.DataString}
+    via Base.Broadcast.materialize(::Base.Broadcast.Broadcasted{Base.Broadcast.DefaultArrayStyle{1}, Nothing, typeof(string), Tuple{Vector{Any}}}) | hook showerror(::IOBuffer, ::TraitWorld.PirateAtLoadError) | cause DataStrings.convert Tuple{typeof(convert), Type{String}, DataStrings.DataString}
+    via Base.Broadcast.materialize(::Base.Broadcast.Broadcasted{Base.Broadcast.DefaultArrayStyle{1}, Nothing, typeof(string), Tuple{Vector{Any}}}) | hook TraitWorld._strict_at_load!(::Base.PkgId) | cause InlineStrings.string Tuple{typeof(string), InlineStrings.InlineString}
+    via Base.Broadcast.materialize(::Base.Broadcast.Broadcasted{Base.Broadcast.DefaultArrayStyle{1}, Nothing, typeof(string), Tuple{Vector{Any}}}) | hook showerror(::IOBuffer, ::TraitWorld.PirateAtLoadError) | cause InlineStrings.string Tuple{typeof(string), InlineStrings.InlineString}
+ENDED (valid before, not after) 15 | of them facts 15, deep before 0
