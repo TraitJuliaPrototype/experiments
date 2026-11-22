@@ -1,0 +1,48 @@
+# up/19 without !== 3f8281f25c against vanilla | 2026-11-22T11:35:44+01:00 | load 5.31 4.96 4.15
+## census
+backedge entries: ordinary 267706, invoke 3889, by the call's signature 871
+   113  typejoin(a, b) @ Base promotion.jl:24
+    69  promote_type(::Type{Union{}}, ::Type{T}) where T @ Base promotion.jl:313
+    57  promote_type(::Type{T}, ::Type{Union{}}) where T @ Base promotion.jl:312
+    57  ⊑(lattice::Compiler.PartialsLattice, a, b) @ Compiler /p/projects/coen/julia-trait-bound/wt/w19-julia/usr/share/julia/Compiler/src/typelattice.jl:442
+    47  ⊑(lattice::Compiler.InferenceLattice, a, b) @ Compiler /p/projects/coen/julia-trait-bound/wt/w19-julia/usr/share/julia/Compiler/src/typelattice.jl:383
+    36  promote_typejoin_union(::Type{T}) where T @ Base promotion.jl:190
+    32  preserve_handle(x) @ Base libuv.jl:62
+    30  typesplit(a, b) @ Base promotion.jl:147
+    30  unpreserve_handle(x) @ Base libuv.jl:69
+    29  Compiler.Future{T}(f, prev::Compiler.Future{S}, interp::Compiler.AbstractInterpreter, sv::Union{Compiler.IRInterpretationState, Compiler.InferenceState}) where {T, S} @ Compiler /p/projects/coen/julia-trait-bound/wt/w19-julia/usr/share/julia/Compiler/src/inferencestate.jl:1187
+    29  promote_result(::Type{T}, ::Type{S}, ::Type{Union{}}, ::Type{Union{}}) where {T, S} @ Base promotion.jl:345
+    26  getindex(t::Tuple, i::Int64) @ Base tuple.jl:33
+    17  ⊑(a, b) @ Compiler /p/projects/coen/julia-trait-bound/wt/w19-julia/usr/share/julia/Compiler/src/abstractlattice.jl:304
+    17  length(t::AbstractArray) @ Base essentials.jl:11
+    16  widenmustalias(typ) @ Compiler /p/projects/coen/julia-trait-bound/wt/w19-julia/usr/share/julia/Compiler/src/typelattice.jl:302
+## system image instances
+julia-vanilla: MethodInstances 65611, CodeInstances 69447 | Base 56859, Compiler 5973, Core 4773, LinearAlgebra 676, Random 568, SHA 322, FileWatching 111, Sockets 98, Artifacts 50, libblastrampoline_jll 7, OpenBLAS_jll 5, Main 5
+wt/w19-julia: MethodInstances 65593, CodeInstances 69434 | Base 56845, Compiler 5974, Core 4773, LinearAlgebra 676, Random 568, SHA 322, FileWatching 111, Sockets 98, Artifacts 50, libblastrampoline_jll 7, OpenBLAS_jll 5, Main 5
+## probes (vanilla in logs/f-callsig-probes.log)
+ne           invalidated instances   4610  | Base.show 126, Base.print 120, Base.string 67, Base.show_delim_array 64, Base.print_to_string 62
+typejoin     invalidated instances   1938  | Base.promote_result 78, Base.eltype 76, Base.promote_type 67, Base.promote_typejoin 47, Base._compute_eltype 38
+promote_type invalidated instances    253  | Compiler.abstract_call_gf_by_type 26, Compiler.abstract_call_method_with_const_args 22, Compiler.abstract_modifyop! 18, Compiler.infercalls 12, Compiler.abstract_call 12
+preserve     invalidated instances      1  | Base.preserve_handle 1
+length       invalidated instances      0  | 
+## the test, standalone
+0
+## plain session (envs/up, f-plain.jl)
+images ready
+== julia-vanilla run w | load 3.34 4.30 4.02
+load 908.5 ms | CodeInstances after the load 116523 (facts 0, G2 0) | first work 4410.3 ms, compile 4411.5 ms, again 1.5 ms | after the work 117115 (facts 0, G2 0) | digest ce94074fa1261ca2
+== wt/w19-julia run w | load 3.23 4.26 4.01
+load 718.6 ms | CodeInstances after the load 116743 (facts 0, G2 0) | first work 4386.3 ms, compile 4391.1 ms, again 1.4 ms | after the work 117335 (facts 0, G2 0) | digest ce94074fa1261ca2
+== julia-vanilla run 1 | load 3.20 4.22 4.00
+load 646.9 ms | CodeInstances after the load 116523 (facts 0, G2 0) | first work 4400.7 ms, compile 4405.3 ms, again 1.5 ms | after the work 117115 (facts 0, G2 0) | digest ce94074fa1261ca2
+== wt/w19-julia run 1 | load 3.10 4.18 3.99
+load 740.4 ms | CodeInstances after the load 116743 (facts 0, G2 0) | first work 4500.9 ms, compile 4505.6 ms, again 1.5 ms | after the work 117335 (facts 0, G2 0) | digest ce94074fa1261ca2
+== julia-vanilla run 2 | load 3.33 4.21 4.00
+load 649.8 ms | CodeInstances after the load 116523 (facts 0, G2 0) | first work 4393.8 ms, compile 4398.3 ms, again 1.4 ms | after the work 117115 (facts 0, G2 0) | digest ce94074fa1261ca2
+== wt/w19-julia run 2 | load 3.23 4.17 3.99
+load 731.2 ms | CodeInstances after the load 116743 (facts 0, G2 0) | first work 4505.5 ms, compile 4510.5 ms, again 1.5 ms | after the work 117335 (facts 0, G2 0) | digest ce94074fa1261ca2
+== julia-vanilla run 3 | load 3.13 4.14 3.97
+load 657.0 ms | CodeInstances after the load 116523 (facts 0, G2 0) | first work 4415.7 ms, compile 4420.0 ms, again 1.4 ms | after the work 117115 (facts 0, G2 0) | digest ce94074fa1261ca2
+== wt/w19-julia run 3 | load 3.04 4.10 3.96
+load 739.1 ms | CodeInstances after the load 116743 (facts 0, G2 0) | first work 4512.1 ms, compile 4517.1 ms, again 1.5 ms | after the work 117335 (facts 0, G2 0) | digest ce94074fa1261ca2
+# done 2026-11-22T11:38:52+01:00 load 2.95 4.07 3.95

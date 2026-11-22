@@ -1,4 +1,4 @@
-# W-19: the changes to Julia as small patches for upstream (first part: the patches useful without traits)
+# W-19: the changes to Julia as small patches for upstream (first part: the patches useful without traits; second part: `up/19` and the facts series)
 
 The work queue's W-19 (with W-143). The user: "Split all the changes to julia into a set of small, self contained and as orthogonal as possible parts. Each should be easily reviewable by a core developer in isolation."
 
@@ -130,7 +130,7 @@ The inventory ([`writeup/design/julia-changes.md`](../../../writeup/design/julia
 - *The world-checked caches of §8.1 and §8.2, and an image's rule for a signature type without a hash (§9)*: made (`up/16`, `up/14`, `up/17`); §8.2's exact-type entries are Optional and not built.
 
 **Found general in the diff, not in §11, not made here** (candidates, `PLAN.md` §2.4):
-- *The call's own signature in a dispatch edge and its backedge* (compiler §3.1; inventory rows 79, 83, s3-8, kind facts): a caller of a `@nospecialize` method at `Int` stays valid when the method gets a sibling at `String`. Useful without facts; it changes the backedge format, so it needs its own build and `test/precompile.jl`.
+- *The call's own signature in a dispatch edge and its backedge* (compiler §3.1; inventory rows 79, 83, s3-8, kind facts): made in the second part as `up/19`, without its clause for `!==`.
 - *One compiled code per result* (compiler §3.3, `equivalent_cached_ci`; rows 121, 126): general if plain Julia also compiles an instance twice where the first cached entry by ABI has no code; E-389 counted it on a build with two policies only.
 
 ## The census (W-143)
@@ -176,4 +176,183 @@ By kind together (greedy): other 66.1 %, type joins 69.5 %, introspection 71.1 %
 - **The comments:** each patch's comments are rewritten in plain terms; their wording is mine and was not reviewed.
 - **The `up/*` branches carry the line `Co-Authored-By: Claude <noreply@anthropic.com>`** as the brief asks; the main session decides their final authorship line.
 - **The census was not run** on the stacked tree (no facts mode there) nor on `next` cf0f039f51; the section above reports E-476 to E-478.
-- **S1** (the call's own signature in a backedge, `PLAN.md` §2.4), the strongest candidate for a nineteenth general patch, is not made.
+- **S1** (the call's own signature in a backedge, `PLAN.md` §2.4), the strongest candidate for a nineteenth general patch, is made in the second part: `up/19`.
+
+# Second part: the dispatch edge's patch (`up/19`), and the facts series made
+
+The brief: `up/19` (the plan's S1) as a nineteenth patch useful without traits; the facts series' smallest form (F0, F2, F1, F3, F4, F5, S1, F7, F8 of [the plan](../../../writeup/plans/2026-11-22-upstream-series.md)), each part one commit, stacked on v1.13.2; its result on its head. The source is the final diff, as in the first part. Comments are rewritten without the references' section numbers; the facts series keeps the facts mode's own terms (it is that series), and no trait term.
+
+## How to run (second part)
+
+```
+git -C wt/w19-julia checkout <branch>; WIDE=0 tools-local/build.sh wt/w19-julia
+julia motiv/f-callsig-census.jl                     # up/19: the backedges by the call's signature in a session
+julia motiv/f-callsig-probes.jl <probe>             # up/19: a package's method, the instances it invalidates
+julia motiv/f-callsig-test.jl                       # up/19's test, standalone, for vanilla as the control
+julia motiv/f-count-cis.jl                          # the system image's instances
+experiments/implementation/gates/run_all.sh <tree> 'f[1-7]_*'; julia gates/f-*.jl   # the facts gates; facts-only copies
+PREP=1 bash f-loads.sh <tree> <label>; bash f-loads.sh <tree> <label> 2             # E-392's nine loads (w134/lost.jl)
+julia --project=envs/up motiv/f-plain.jl <csv>      # plain code's session with the facts mode off
+```
+
+`envs/` and `pkgs-facts-w19/` are made by hand (ignored by git): `pkgs-facts-w19` is `w134/pkgs-facts` with the one line `Base.Experimental.@compiler_options facts=true` (the series has no other option; the round's line carries `bounded=false no_pirates=false`, trait options the series does not have); `envs/facts` and `envs/up` are `w134/env_facts` and `w134/env_up` made by `w159/mkenv.py` with that copy. The depots: `agent-depots/w19` (tests, gates), `agent-depots/w19-loads` (the loads, the plain session).
+
+## `up/19`: a dispatch backedge keeps the call's own signature
+
+| Branch, commit | Size | Checked | Test |
+|---|---|---|---|
+| `up/19-callsig-backedge` 3f8281f25c | 4 files (`Compiler/src/typeinfer.jl`, `src/gf.c`, `src/method.c`, `test/worlds.jl`), +72 −12 | **alone** (build 5): `worlds` (172, with its new test), `Compiler/invalidation` (105, 4 broken as on vanilla), `core` pass; `precompile` 454 pass alone (`logs/f-tests-up19-v2.log`) | `test/worlds.jl`: a caller at `Int` of a `@nospecializeinfer` method stays valid when a method for `String` is defined; a caller at `Any`, and a method that meets the call's signature, invalidate. Vanilla fails it at its first discriminating line (`motiv/f-callsig-test.jl`, `logs/f-callsig-test.log`) |
+
+- **What it is:** the plan's S1 without the clause for `!==` (below). The forward edge of a call with one covering match whose instance is wider than the call's signature already holds the call's signature (`1, atype, callee`); the backedge now holds it too (`svec(sig)`), and a later method invalidates the caller only where it replaces the matched method over the intersection with the call's signature.
+- **Which calls reach a wider instance in plain Julia:** a method whose `@nospecialize` arguments inference does not specialize on either (`Base.@nospecializeinfer`). A plain `@nospecialize` method is inferred at the call's concrete types (`k(::Int)` from `k(@nospecialize(x))`), its instance is the call's, and its backedge was precise already. In the system image: 871 backedges by the call's signature (beside 267,706 ordinary and 3,889 `invoke` entries), most to `typejoin`, `promote_type`, the compiler's `⊑`, `preserve_handle` (`logs/f-up19-v2.log`).
+- **Motivation** (`motiv/f-callsig-probes.jl`, one process per probe; vanilla `logs/f-callsig-probes.log`, `up/19` `logs/f-up19-v2.log`): a package's `Base.preserve_handle(::MyType)` invalidates 443 → 1 instances. `typejoin`, `promote_type`: 1,938 → 1,938, 253 → 253 (their callers call at abstract types). A method of `!==`: 4,610 → 4,610.
+- **Cost:**
+  - the system image 194,446,048 bytes against vanilla's 194,307,784 (+0.07 %); the same source built twice gave sizes 270 kB apart (builds 1 and 4), so the difference is within the spread;
+  - the compiler's image stage 287.7 s against 289.2 s (one build each);
+  - **a package's load is slower:** upstream CSV and DataFrames compiled plainly, `using` 718–740 ms against vanilla's 647–657 ms (+12 %; a warm-up and 3 fresh processes each, interleaved, load 3.0–3.3; `motiv/f-plain.jl`, `logs/f-up19-v2.log`). The session holds 116,743 valid CodeInstances after the load against 116,523: the packages' images keep 269 external instances vanilla's do not and lack 59 (`motiv/f-dump-cis.jl`), found as connected to the image's own code through the backedges by the call's signature. The first work 4.39–4.51 s against 4.39–4.42 s. Which of the two (more external code in the images, or the collection of backedges at insertion, `store_backedges` with an `Any[]` per caller) costs the load time is not isolated. A tension for the plan's claim that S1 is a free win: below.
+- **The clause for `!==`, moved to F7.** The final tree's hunk matches a call of `!==` at the call's own types. In plain Julia that makes inference infer `!==` at each call's types: 423 instances of `!==` in the system image against 1 (build 4, 28c9bbfcf8, `logs/f-plain-up19.log`), and a method of `!==` invalidates 4,610 → 225. Its load cost was the same as without it (723–805 ms), so the load cost is the backedges' own. `!==` is not a function packages extend; the clause serves the facts mode (a call of `!==` at a fact signature) and goes with F7. A principled form: `!==` declared `@nospecializeinfer` in `boot.jl`, one instance, the call's signature on its backedge (this patch). Not built.
+
+## The facts series, made
+
+The stack `w19-facts` (0474538f42): F0, F2, F1, F3, F4, F5, S1, F7, F8, each one commit on the one before, on v1.13.2. Its head's tree is the tree built as 64a8dcab67 (build 2): moving the `!==` clause from S1 to F7 left the head's tree unchanged (`git diff 64a8dcab67 0474538f42` is empty), so the head's measurements below hold for it.
+
+| Part | Branch, commit | Subject | Files | Size | Checked | Test |
+|---|---|---|---|---|---|---|
+| F0 | `facts/00-fields` 7b7d01ff5b | `Method.facts`, `Module.facts`, `JL_CI_FLAGS_FACTS`, the instance's policy bits | `julia.h`, `julia_internal.h`, `jltypes.c`, `method.c`, `module.c`, `staticdata.c` | 6 files, +21 −6 | compiled (`make -C src`, 78 objects, rc 0); built with F2 (build 7): `Method.facts::UInt8` after `purity`, `core` passes | `test/core.jl` |
+| F2 | `facts/02-policy` 4603a198ae | the policy: `@compiler_options facts=true`, `:facts_boundary`, `:facts_always`, lowering carries them, `jl_method_policy` | `experimental.jl`, `Compiler.jl`, `ast.c`, `ast.scm`, `julia-syntax.scm`, `interpreter.c`, `julia.h`, `julia_internal.h`, `method.c`, `module.c` | 10 files, +95 −3 | **built (build 7)**: `f-f2_policy_flags` passes; `core`, `syntax`, `keywordargs` pass (`logs/f-gates-f02.log`) | `gates/f-f2_policy_flags.jl` |
+| F1 | `facts/01-nortsite` 6ed068147f | the `nortsite` effect bit | `effects.jl` | 1 file, +28 −8 | parsed; built with F3 (build 6) | `Compiler/test/effects.jl` |
+| F3 | `facts/03-inference` 64b34bc408 | the facts inference, `NativeInterpreter(; facts = true)`, a cache owner of its own until F4 | `facts.jl` (new), `abstractinterpretation.jl`, `typeinfer.jl`, `types.jl`, `Compiler.jl` | 5 files, +163 −21 | **built (build 6)**: `f1_facts_sites` and `f-f2_policy_flags` pass; `Compiler/effects`, `Compiler/inference`, `core` pass; reflection with `facts = true` gives `Any` at `Real`, plain `Union{Float64, Int64}` (`logs/f-gates-f03.log`) | gate `f1_facts_sites` |
+| F4 | `facts/04-policy-code` 17c8325fb9 | one CodeInstance per MethodInstance and policy; calls between policies | `gf.c`, `builtins.c`, `builtin_proto.h`, `codegen.cpp`, `interpreter.c`, `engine.cpp`, `julia.h`, `julia_internal.h`, `jl_exported_funcs.inc`, `cicache.jl`, `facts.jl`, `typeinfer.jl`, `types.jl` | 13 files, +614 −82 | **built (build 3)**: gates `f1`, `f3`, `f5`, `f-f2`, `f-f6` pass; `worlds`, `Compiler/effects`, `Compiler/inference`, `core`, `ccall` pass; `threads` 163 pass, 5 fail in the CPU-affinity test (below) (`logs/f-gates-f04.log`, `logs/f-threads-f04.log`) | gates `f3_policy_code`, `f-f6_reach_policy` |
+| F5 | `facts/05-return-type` 627bbc6e1d | `return_type` gives plain inference's answer | `facts.jl`, `tfuncs.jl`, `typeinfer.jl`, `types.jl` | 4 files, +22 −13 | compiled (`make -C src`, rc 0; no C change), parsed; built in the head | gate `f5_return_type` |
+| S1 | `facts/s1-callsig-backedge` cbc70a73e4 | `up/19`, cherry-picked | as `up/19` | 4 files, +72 −12 | `up/19` built alone (build 5); its C in the stack compiled (`make -C src`, rc 0) | `test/worlds.jl` |
+| F7 | `facts/07-g2` 93283cc1ea | the deep class: the G2 bit, a cycle as one, an edge names the callee's code; a call of `!==` matched at its own types | `facts.jl`, `typeinfer.jl`, `abstractinterpretation.jl`, `gf.c`, `method.c`, `julia.h`, `staticdata.c`, `test/worlds.jl` | 8 files, +121 −13 | compiled (`make -C src`, rc 0), parsed; built in the head | gate `f4_g2_bit` |
+| F8 | `facts/08-images` 0474538f42 | images keep deep G2 code and a run-time site's target; `--trim` plain | `facts.jl`, `typeinfer.jl`, `gf.c`, `module.c`, `staticdata.c`, `staticdata_utils.c` | 6 files, +81 −2 | **the head, built (build 2)**: the gates and tests below; the nine loads | gates `n15_image_policy`, `n17_rtsite_targets` |
+
+**In all:** 27 files, 1,191 lines added, 134 removed (with `up/19` and its test); the plan's estimate for this series was about 1,700. By directory: `src/` 17 files, `Compiler/src/` 8, `base/` 1, `test/` 1.
+
+**Checked by:** full builds of F2 (with F0), F3 (with F1), F4, `up/19` (S1) and the head (F8, with F5 and F7); `make -C src` (the C runtime compiled and linked) at F0, F5, S1 and F7 in the stack (`logs/f-compile-checks.log`; S1 and F7 at their commits before the `!==` clause moved, whose C differs from the pushed commits' in two comments); every changed Julia file parsed at every part (`Meta.parseall`). F1, F5 and F7 were not built alone: F1's and F5's C is their parent's; F7's tree is the head's but for F8's hunks.
+
+**The head's gates** (`logs/f-gates-head.log`): `f1_facts_sites`, `f3_policy_code`, `f4_g2_bit`, `f5_return_type`, `n15_image_policy`, `n17_rtsite_targets` pass. Not passing, each for a part not in the series:
+- `f2_policy_flags`: its module sets `bounded=true no_pirates=true` and reads `jl_get_module_trait_options` (S3's trait options). The facts-only copy `gates/f-f2_policy_flags.jl` passes.
+- `f6_reach_policy`: its last part runs a session under `JULIA_COMPILE_BY_FACTS=1` (F6, the test bed). The copy without it, `gates/f-f6_reach_policy.jl`, passes.
+- `f7_membership_edges`: sets.
+- `n34_closed_invoke_compiled`: the trimmed build's verifier resolves an invoke by the policy of the code it names (row 159, `verifytrim.jl`), which the plan lists under T16. Under `--trim` every method is plain (F8), so the case the gate builds by hand does not arise from a build of this series.
+- The other gates of the facts mode need a set or the library (`n9_fully_typed`: F11; `n36_library_deep`: the library, F9).
+
+**The head's tests** (`logs/f-tests-head.log`; `Base.runtests([...]; ncores=1)`, load 3.6–5.5): `worlds`, `Compiler/invalidation`, `Compiler/effects`, `Compiler/inference`, `core`, `reflection` pass (7,357,364 pass, 25 broken); `precompile` 454 pass alone. (Run after `core` in the same worker, `precompile` failed on `up/19` at `UseBaz`'s assertion that `Baz` is not loaded (`logs/f-tests-up19.log`); alone it passes on `up/19`, on vanilla and on the head (`logs/f-tests-precompile.log`). Not run in that order on vanilla.)
+
+**`threads` on F4:** 5 failures, all in the test that a process with a CPU affinity of `n` cores starts `n ÷ 2` threads; it reads `"1"` where it expects 2 to 4. `env.sh` sets `JULIA_NUM_THREADS` and `JULIA_CPU_THREADS`, which that test's child process inherits. The other 163 pass. Not run on vanilla.
+
+### The series' result: E-392's nine loads by facts against plainly
+
+`f-loads.sh` (E-392's harness `w134/lost.jl`, unchanged) on the head (64a8dcab67, the tree of `w19-facts`); upstream CSV and DataFrames compiled plainly (`envs/up`) and by facts with the one line `@compiler_options facts=true` per module (`envs/facts`); orders A (the work, the nine loads, the work again) and B (the loads, then the work); a warm-up and 2 fresh processes per cell; product setting, one thread; load 2.6–4.2 (`logs/f-loads-head.log`). The library is not loaded. Counts are equal in every run; times are the range of the three.
+
+| | own image instances (the eight packages) | lost to the nine loads | first work (A) | the work after the loads (A) | the work after the loads (B) |
+|---|---|---|---|---|---|
+| plainly | 4,670 | 424 (9.1 %) | 4.38–4.40 s | 5.14–5.16 s | 6.13–6.16 s |
+| by facts | 3,461 (all facts; G2 1,372) | **14 (0.4 %)** | 1.72–1.74 s | **1.43–1.45 s** | 2.41–2.43 s |
+
+- Digests equal in every cell. The code the work made: plainly 217, of which the loads end 131; by facts 77, of which 5.
+- The round's facts cells on `next` (E-511): 14 of 3,490 lost, the work after the loads 1.45–1.46 s against plain's 5.19–5.32 s (426 of 4,688). **The facts series alone reproduces it:** neither the type system's sets, nor F6, F9 to F12, nor the 18 patches of series G are needed.
+
+### What plain code pays with the facts mode off
+
+Upstream CSV and DataFrames compiled plainly, no module with an option (`motiv/f-plain.jl`; a warm-up and 3 fresh processes per build, interleaved with vanilla, the same hour):
+
+| Build | `using CSV, DataFrames` | valid CodeInstances after the load | after the work | facts code | first work (compile) | log |
+|---|---|---|---|---|---|---|
+| vanilla v1.13.2 | 647–676 ms | 116,523 | 117,115 | 0 | 4.39–4.56 s | each log |
+| F4 (F0 to F4) | 638–645 ms | 116,589 | 117,181 | 0 | 4.36–4.48 s | `logs/f-plain-f04.log` |
+| `up/19` alone | 718–740 ms | 116,743 | 117,335 | 0 | 4.39–4.51 s | `logs/f-up19-v2.log` |
+| the head (F8) | 714–829 ms | 117,847 | 118,455 | 0 | 4.40–4.43 s | `logs/f-plain-head.log` |
+
+- **The facts runtime costs plain code nothing measurable** (F4: the load, the counts and the work as vanilla's).
+- **The load's cost is S1's** (+12 % with `up/19` alone; the head's +6–27 % includes it); the head's +1,324 instances after the load include the 422 instances of `!==` of F7's clause in the system image.
+- The system image: F2 194,750,504 bytes (+0.23 % against vanilla), F3 195,338,912 (+0.53 %), F4 195,394,024 (+0.56 %), the head 195,653,592 (+0.69 %); the compiler's stage 289.6 s, 289.8 s, 297.1 s, 296.1 s against vanilla's 289.2 s (one build each; two builds of one source differed by 0.27 MB). Most of the growth appears at F3, whose C is F2's: not read further.
+
+### Orthogonality with series G
+
+- `git merge-tree w19-stack w19-facts` merges without a conflict. **Not clean by meaning:** in the merged tree `up/15`'s dispatch profiler takes the call site as `jl_return_address()` inside `apply_generic_reach`, which F4 made a function of its own (`NOINLINE`): the profiler would record the entry's return address, not the call site's. The final tree has `dp_ip = ip`. Whichever lands second changes that line (the plan's E7).
+- `up/17` and F8 change the same loop of `queue_external_cis` in separate hunks.
+
+## Builds (second part)
+
+`WIDE=0 tools-local/build.sh wt/w19-julia` (`-j4`, niced, every image stage rebuilt), one after another. Logs: `logs/f-build<n>-*.tw-build.log`.
+
+| Build | Branch | Commit | Load at start (of 128) | Wall | `sys.so` (bytes) | Compiler stage | Result |
+|---|---|---|---|---|---|---|---|
+| 1 | `up/19` (with `!==`, before its test fix) | c32b862601 | 2.24 | 686 s | 195,072,528 | 288.2 s | BUILD EXIT 0 |
+| 2 | `w19-facts` (the head) | 64a8dcab67 | 4.21 | 768 s | 195,653,592 | 296.1 s | BUILD EXIT 0 |
+| 3 | `facts/04-policy-code` | 17c8325fb9 | 5.34 | 758 s | 195,394,024 | 297.1 s | BUILD EXIT 0 |
+| 4 | `up/19` (with `!==`, the test fixed) | 28c9bbfcf8 | 3.27 | 747 s | 194,801,784 | 287.0 s | BUILD EXIT 0 |
+| 5 | `up/19` (pushed) | 3f8281f25c | 2.16 | 676 s | 194,446,048 | 287.7 s | BUILD EXIT 0 |
+| 6 | `facts/03-inference` | 64b34bc408 | 2.79 | 747 s | 195,338,912 | 289.8 s | BUILD EXIT 0 |
+| 7 | `facts/02-policy` | 4603a198ae | 2.62 | 675 s | 194,750,504 | 289.6 s | BUILD EXIT 0 |
+
+Seven of the ten builds. Vanilla v1.13.2 (`julia-vanilla`, built 2026-11-06 at `-j64`): `sys.so` 194,307,784 bytes, its compiler stage 289.2 s. The tree `wt/w19-julia` is left at `facts/02-policy` (build 7); the head's build is build 2 (rebuild with `git -C wt/w19-julia checkout w19-facts` to measure it again).
+
+## The seams: where the final tree's hunk carries a clause of another part
+
+The facts series has the facts-only form; the final tree's form is what the later part adds. A row names the part that adds the clause.
+
+| Where | The facts series | The final tree adds | Added by |
+|---|---|---|---|
+| `jl_method_t` (`julia.h`, `jltypes.c`'s field list) | `uint8_t facts` (bits 0-1, the policy) after `purity` | `declared_result`, `declared_covers` before it; bits 2-3 (4 warn, 8 enforce) of `facts` | T10; F11 |
+| `jl_module_t` | `int8_t facts`, inherited at creation | `uint8_t trait_options` (bounded 1, no_pirates 2, fully typed 16/32, owner_only 64), `uint8_t loaded` | S3 split: F9 (owner_only), F11, T9; T7 (loaded) |
+| `jl_method_policy` (`module.c`) | trim → plain; module flag 2 → plain; method flag 2 → facts, 1 → caller; module flag 1 → facts; else plain | `\|\| jl_method_fully_typed(m) != 0` in the facts clause; for a neutral method `if (!facts_all() \|\| method_is_builtin(m)) return PLAIN; return CALLER;` | F11; F6 |
+| `mi_policy_uncached`, `mi_policy_facts_at` (`gf.c`) | a thunk of a module of flag 1 → facts, else plain; the runtime's entries reach plain code | `jl_compile_by_facts_all() ? FACTS : PLAIN`; `if (reach == JL_REACH_RUNTIME) return jl_compile_by_facts_all();` | F6 |
+| `jl_type_infer` (`gf.c`) | the policy's sixth argument, the reservation per policy | the query world of memberships around the call (`jl_set_membership_query_world`), the member hook's compile queue (`jl_member_queue_drain`, inferred again) | T2; T9 |
+| `jl_call_in_typeinf_world`, `jl_gdbcodetyped1` | unchanged | the query world of memberships | T2 |
+| `apply_generic_reach` (`gf.c`) | the lookup keyed by `ip` | `dp_ip = ip` for the dispatch profiler | `up/15` (G); see "the plan", E7 |
+| `eval_body` (`interpreter.c`), `@compiler_options` (`experimental.jl`) | `Expr(:meta, :facts, v)` | `Expr(:meta, :trait_option, bit << 1 \| v)`; options `bounded`, `no_pirates`, `owner_only`, `fully_typed` | S3 |
+| `jl_method_set_source` (`method.c`), `policy-meta-sym?` (`ast.scm`) | `facts_boundary`, `facts_always` | `fully_typed_warn`, `fully_typed_enforce` | F11 |
+| `is_fact_sig` (`facts.jl`) | dispatch tuple, unions within the splitting cost, a `Vararg` of a concrete member, a closure at kinds | `\|\| owner_only_call(T)`, with `is_owner_only` (the binding flags, bit 64 of `trait_options`, the open-operation flag) | F9 (E2, E3); T10 |
+| `Effects` (`effects.jl`) | `nortsite`, bit 15 inverted | `trusted::UInt8`, bits 16-17; `merge_override_effects!` and `adjust_cycle_frame!` set `IR_FLAGS_EFFECTS \| IR_FLAGS_TRUSTED` | T15 (E9) |
+| `adjust_effects` (`typeinfer.jl`) | no asserted effect over a frame with a run-time site | the fully typed fault makes the effects unknown | F11 |
+| `NativeInterpreter` (`types.jl`) | `facts`, `crossings`, `plainrt`; `cache_owner` `:plain_rt` or nothing | `closed`, `overlay_table`, `ClosedCheck`; `cache_owner` the check's owner; `method_table` through the overlay; `DefinitionCheckInterpreter` beside | T16; T17 (E8) |
+| `edges_satisfy_g2`, `name_callee_code` (`facts.jl`) | dispatch edges at fact signatures, callees with the bit | an absence edge (`is_absence_sig`) and a membership's method (`is_membership_mi`) count as facts; a membership's instance is not renamed | T6 (E4) |
+| `queue_external_cis` (`staticdata_utils.c`) | the G2 branch | `up/17`'s signature without a hash, and the counters of `JULIA_DEBUG_EXTERNAL_CIS` | `up/17` (G); a debugging switch (plan §5) |
+| `compile!` (`typeinfer.jl`) | `rtsite_targets` | `collectinvokes!(…; instances = true)` (an invoke that names its instance) and `equivalent_cached_ci` | T16; F12 |
+| `abstract_call_gf_by_type` | the facts matching through `find_method_matches`; the returns with no edge | an operation's call (`declared_operation_result`), the closed build's splits, `record_match_memberships!`, `member_check_failed` | T10/T11; T16; T2/T9 (E12) |
+| `optimize` (`optimize.jl`) | unchanged | `insert_fully_typed_check!` | F11 |
+
+## What stays for later (listed, not made)
+
+| Part | Size (the plan's estimate) | What it needs | Its seams in the series |
+|---|---|---|---|
+| F6 the test bed (`JULIA_COMPILE_BY_FACTS=1`) | about 20 | F4 | `jl_compile_by_facts_all` in `mi_policy_uncached`, `mi_policy_facts_at` and `jl_method_policy` (with `method_is_builtin`); the runtime's entries reach facts code; plan §5 asks for `--compile-by-facts=all` or its removal |
+| F9 ownership (owner-only functions) | about 45 | F3; a field or a neutrally named module options word (S3 split), `BINDING_FLAG_OWNER_ONLY`, `jl_set_owner_only`, `jl_binding_owner_only_p` | `owner_only_call(T)` in `is_fact_sig`; without T10's open-operation flag; a gate without the library is still to write (`n36_library_deep` needs it) |
+| F10 the deep endings | about 65 | F7 | `invalidate_code_instance` (the note), `reinfer.jl`'s `jl_note_deep_ending`, the collectors' roots; kinds `:definition`, `:deletion`, `:validation`; T5/T8 add `:membership`. Plan §5: a general invalidation log instead |
+| F11 fully typed mode | about 60 | F3; the module options word (S3) | `jl_method_policy`'s clause; bits 4, 8 of `Method.facts`; `policy-meta-sym?`; `adjust_effects`; `insert_fully_typed_check!` in `optimize`; its check `closed_check` is T16's |
+| F12 one compiled code per result (`equivalent_cached_ci`) | 25 | F4 (its policy clause); otherwise general (S2) | `compile!` and `add_codeinsts_to_jit!` call `jl_get_ci_equiv`, which F4 already makes policy-aware |
+| T1 Core's types and slots | 220 | — | none of the facts series; `jltypes.c`'s `Method` field list gains T10's `declared_result` before `facts` (a field index changes) |
+| T2 sets and memberships | 1,730 | T1 | the membership query world around `jl_type_infer_policy`, `jl_call_in_typeinf_world`, `jl_gdbcodetyped1` (F4's functions); nothing reads the facts fields |
+| T3 intersections `All{X, Y}` | 390 | T2 | none |
+
+The seams F4 and F7 leave for T6 (an absence edge and a membership's method as facts in `edges_satisfy_g2`) and T16 (the interpreter's `closed` field, `compile!`'s instances) are in the table above.
+
+## Where the plan was wrong or incomplete
+
+- **S1 is not free in plain Julia.** It costs a package's load about a tenth (above). The plan calls it a general win with only a build and two tests to show.
+- **S1's case in plain Julia is `@nospecializeinfer`, not `@nospecialize`.** Plain inference specializes a `@nospecialize` argument at a concrete call; only a method inferred without specializing (`Base.@nospecializeinfer`, or a set's method compiled once) reaches a wider instance. Compiler §3.1's example (`k(@nospecialize(x))` at `Int` reaching `k(::Any)`) holds only with `@nospecializeinfer`.
+- **S1's `!==` clause is facts', not general.** It makes inference infer `!==` at each call's types (1 → 423 instances in the system image), and its comment, the inventory row s3-8 and compiler §3.1 say it infers `!==` at `(Any, Any)`: the code does not. Moved to F7.
+- **F4 is too large to review as one patch** (614 lines, 13 files). A split that builds: F4a the CodeInstance per policy (the flags' readers and writers in `gf.c`, `engine.cpp`, `cicache.jl`, `code_policy`; about 200 lines); F4b the calls between policies at run time (the entries, the builtins' variants, codegen's choice, the interpreter's policy; about 250); F4c inference across policies (`typeinf_other_policy`, the compile queues, reflection's top frame; about 150).
+- **F3 needs an interim cache owner** to be sound alone: without F4's policy flag, code inferred by facts would be cached as Julia's own owner's and run as plain code. The series' F3 caches it under `:facts` (reflection only); F4 replaces it.
+- **F5 touches F4's helpers** (`policy_interp`, `infers_other_policy`, `interp_for_policy`, `typeinf_edge`: the `plainrt` clauses). The plan's graph has F5 after F4 only.
+- **F6 and F11 are inside F2's and F4's functions** (`jl_method_policy`, `mi_policy_uncached`, `mi_policy_facts_at`; `jl_method_set_source`, `policy-meta-sym?`, `adjust_effects`), not separate files. The plan lists them as parts but not as entanglements.
+- **Entanglements not on the list:** the membership query world and the member hook's queue in `jl_type_infer` (T2, T9, inside F4's function); `IR_FLAGS_TRUSTED` in `merge_override_effects!` and `adjust_cycle_frame!` (T15, in F3's and F1's lines); `up/17`'s and `JULIA_DEBUG_EXTERNAL_CIS`'s hunks in F8's loop (`queue_external_cis`).
+- **E7 is textually clean, not by meaning:** with `up/15` and F4 both applied, the profiler must read the call site from `apply_generic_reach`'s `ip`, not from `jl_return_address()` inside it.
+- **The gate `n34_closed_invoke_compiled`** belongs with the verifier's change (row 159, `verifytrim.jl`), which the plan does not place; it is a closed build's (T16), not F8's.
+- **`test/precompile.jl`'s rewrite** (`(be.def::Core.MethodInstance).def::Method`, plan §5's last bullet) follows neither S1 nor F7: `precompile` passes on `up/19` and on the facts head without it.
+- **The sizes:** the series made is 1,191 lines added (with `up/19` and its test), not about 1,700.
+- **The claim holds:** the facts series alone reproduces E-511's facts cells (14 own image instances lost, the work after the loads 1.43–1.45 s against plain's 5.14–5.16 s), with no set, no F9 to F12 and no patch of series G.
+
+## Not done, not verified (second part)
+
+- **S1's load cost is not isolated** between its two candidates (more external code kept by the images; the backedges' collection at insertion). One build of each variant would tell.
+- **`!==` declared `@nospecializeinfer`** (the principled form of F7's clause) is not built.
+- **F1, F5 and F7 are not built alone** (C compiled, Julia parsed; built in the head).
+- **`threads`' CPU-affinity failures on F4** are not run on vanilla; read as the environment's (`JULIA_NUM_THREADS`, `JULIA_CPU_THREADS` from `env.sh`).
+- **The G stack and the facts stack together** (`w19-stack` merged with `w19-facts`) are not built; the merge is textually clean and wrong by meaning in one line (E7).
+- **The census** (`w157/census.jl`) was not run on the facts head.
+- **The commit messages' wording** is mine and was not reviewed; the facts parts' subjects (`facts F<n>: …`) do not follow Julia's `component: summary` form.
