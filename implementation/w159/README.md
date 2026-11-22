@@ -341,3 +341,83 @@ Not run: TraitReport's check and session, TraitMakie's session, the ODE port's s
 - E-528's next step: the list of the process that writes the ODE port's image.
 - E-527 beyond its first step.
 - The PNGs of the plot and the report programs against a session's: not compared (stdout only).
+
+
+## The rest, run after the round
+
+W-168, run on 2026-11-22 after the round, label `r2`, the same freeze `round-2026-11-c` (julia `next` cf0f039f51, TraitWorld `unified` 42d60e1, TraitDifferentialEquations 06c28c3, TraitMakie 1888698, TraitTables e1ec1f4, TraitCSV 094dcb2, TraitReport ec34d12, forks a3a37d6; the tag's trees as above). Product setting, strict mode off, one thread, a fresh process per cell, niced, one Julia job at a time, a depot per setting. The machine's 1-minute load, 1.9 to 5.0 of 128 (others' jobs and one other agent's small test jobs); counts do not move with it, times are stated with it.
+
+**What was changed to run it** (the experiments repository, the commit of this section):
+- `w135/apps/verify.jl` (open issue 256, proposal (a)): the check is the function `_verify_app_main(f)`, called as `get(ENV, "VERIFY", "0") == "1" && Base.invokelatest(_verify_app_main, main)`. A call through `invokelatest` is not inferred into its caller, and a function that is defined and not called is not inferred. Checked both ways on the ODE program: `VERIFY=1` prints `verify_main: 143 targets, 0 entry points, 0 run-time sites, complete true` with the old file and the new (10.2 and 11.4 s); `VERIFY=0` loads in 1.18 s in `session_marks.jl` (the round: 2.06 to 2.10 s).
+- New: `rows/g6_check.sh` with `probes/check_cost.jl` (the check's cost in a session), `rows/g6_png.sh` (the PNGs), `rows/g7_forks.sh` (the forks' upstream suites), `rows/oi257_gates.sh` (the gates' masks), `probes/missing_sources.jl` (which sources of an environment's manifest the depot lacks), `prepare.sh` takes `ndup` (V only) and `PREP_LABEL`. Its first run of `g6_check.sh` passed no argument to the table program (`logs/g6-check-r2-firstattempt-tablefailed.log`: the table cells ended in `BoundsError`, the ODE cells ran); the log `g6-check-r2.log` is the run with the fix.
+
+### E-521 again, the harness fixed (`logs/g6-sessions-r2.log`, traces `logs/g6-sessions-r2-*.trace`; a warm-up and 3 runs, interleaved H, B; load 2.9-3.2)
+
+Median (range), n = 3; beside it the round's numbers (`r1`, E-521) in brackets.
+
+| session | setting | wall (s) | load mark (ms) | first run (ms), of it compiling | the last run's compiles |
+|---|---|---|---|---|---|
+| table | head | 0.559 (0.559-0.560) [0.68] | 226.7 (226.4-227.3) [356] | 65.6 (65.5-65.6), 64.7 | 15, 169 ms |
+| | tag | 0.593 (0.592-0.594) [0.74] | 248.1 (247.5-248.9) [413] | 74.6 (74.6-74.8), 74.0 | 15, 184 ms |
+| ODE | head | **1.315 (1.304-1.322)** [2.71] | **674.2 (667.0-680.9)** [2,059-2,096] | 370.1 (368.2-372.9), 367.4 | 73, 871 ms |
+| | tag | 1.074 (1.062-1.077) [1.25] | 384.4 (381.7-387.6) [586-868] | 409.7 (405.5-410.5), 405.7 | 61, 680 ms |
+| ODE, plain twin (PlainODE) | head | 0.848 (0.848-0.853) [0.85] | 205.5 (205.2-205.8) [207] | 374.6 (373.4-374.9), 371.5 | 48, 548 ms |
+| | tag | 0.939 (0.938-0.946) [0.94] | 220.1 (219.5-223.2) [219] | 444.3 (443.3-448.6), 441.1 | 49, 629 ms |
+
+- The fix removes the inference of `verify_main` from every program that includes `verify.jl`: the table's load mark falls by 130 ms (the tag's by 165) and the tag's ODE load mark by 200 to 480 ms as well. The head's ODE session's wall falls from 2.71 to 1.32 s.
+- What is left on the head's ODE session: 0.24 s over the tag's and 0.47 s over PlainODE's. Its load mark is 674 ms against PlainODE's 206: the port's `using` (open issue 255), not the harness.
+- Open issue 256 (a) is done. The second row of the issue is the next table.
+
+### The check's cost in a session (`logs/g6-check-r2.log`, `probes/check_cost.jl`; 3 fresh processes per cell, the head only; load 1.9-2.5)
+
+`TraitWorld.verify_main` and `TraitWorld.fully_typed` at `main` for `(Vector{String},)`, the program loaded as the session loads it (`VERIFY=0`), then the check called a second time in the same process. The plain baseline has none: the walk's count of what the check does is in the last columns (signatures the walk inferred; the build's own check, `closed_check`, apart).
+
+| program | check | first call (s), of it compiling | second call (s), of it compiling | the walk (ms; signatures) | the build's check (ms) | result |
+|---|---|---|---|---|---|---|
+| table | `verify_main` | 3.61-3.64, 2.28 | 1.95-1.97, 0.63-0.65 | 1,311-1,347; 1,396 | 655-673 | 1,396 targets, 28 entry points, 0 sites |
+| table | `fully_typed` | 2.39 (2.386-2.391), 2.18-2.19 | 0.764-0.773, 0.62-0.63 | 125; 401 (the walk's bound of 400 reached) | 655-666 | 0 sites, fully typed |
+| ODE | `verify_main` | 10.25-10.29, 10.11-10.15 | 2.50-2.57, 2.40-2.45 | 49-53; 143 | 2,484-2,534 | 143 targets, 0 entry points, 0 sites |
+| ODE | `fully_typed` | 10.21-10.22, 10.08-10.09 | 2.50-2.55, 2.40-2.45 | 49-50; 143 | 2,483-2,614 | 0 sites, fully typed |
+
+- The first call is mostly compilation: 63 % (table, `verify_main`; its walk's 1.3 s is not), 91 % (table, `fully_typed`), 98.6 % (ODE, 10.1 s): the check's own code and the program's, inferred. The second call is cheaper by the check's own code only: 0.77 s (table, `fully_typed`) and 2.5 s (ODE) are 81 % and 96 % compilation again: the build's check infers the program again at each call, with no cache between calls.
+- The cost follows the program's compiled code, not the walk: the ODE's walk is 49 ms and its build's check 2.5 s.
+
+### E-520, all thirteen small programs (`logs/g6-small-r2.log`, `logs/g6-r2/`; one build each)
+
+The session's `fully_typed` agrees with the build on 13 of 13. Eleven are fully typed and build and run with the session's output (`typed_trait` 2,159,784 bytes, `typed_plain` 1,923,592, `vector_trait` 2,223,416, `dynamic_trait` 2,216,208, `family_trait` 2,230,304, `barrier_trait` 2,224,856, `ft_union` 2,062,432, `ft_abstract_result` 2,062,488, `ft_plain_hole` 2,068,256, `ft_any_call` 2,219,856, `ft_abstract_member` 2,058,952). Two are not fully typed in the session and refused by the build: `vector_plain` (1 site in the session, 2 errors in the build) and `ft_many_members` (1 site, 2 errors: a trait with 70 members, compiler C-87). The tag's divergences of E-384 (six of thirteen) are none on the freeze. Load 2.9-3.7.
+
+### E-519, the PNGs (`logs/g6-png-r2.log`, `logs/g6-png-r2/`; `rows/g6_png.sh`)
+
+The plot's and the report's programs built under `--trim=safe` (0 errors, `from source: none`), each binary and a session of the same program run in a directory of its own with the same argument, the PNGs compared with `cmp`:
+
+| program | binary (bytes) | stdout equal | PNG of the binary against the session's | binary against binary |
+|---|---|---|---|---|
+| plot | 4,950,360 | yes | **identical** (20,162 bytes, sha256 c0fa6b22633a6247) | identical |
+| report | 5,391,968 | yes | **identical** (10,531 bytes, sha256 42b3bb7d1272e798) | identical |
+
+### E-523, the suites left (`logs/g7-suites-r2.log`; the logs `../w156/logs/w159-r2-*.log`; `logs/g7-forks-CSV-r2csv.log`, `logs/g7-forks-DataFrames-r2df.log`)
+
+| suite | result |
+|---|---|
+| TraitReport's check (`scripts/check.sh`) | exit 0, 3 ok, 0 FAIL (24 s) |
+| TraitReport's session (`scripts/session.sh`) | 8 of 8 checks ok, 1 error, 1 expected (5 s) |
+| TraitMakie's REPL session (`scripts/session.jl`) | 10 of 10 checks ok, 1 error, 1 expected (4 s) |
+| the ODE port's REPL session (`scripts/session.jl`) | 14 CHECK ok, 0 FAIL; the RESULT lines equal the plain session's (9) (36 s) |
+| the forks, upstream's CSV suite (`Pkg.test("CSV")`) | **330,549 of 330,549 pass** (7 min 49 s; the start 1.9, the end 4.4) |
+| the forks, upstream's DataFrames suite (`Pkg.test("DataFrames")`) | 4 errors, each an `@inferred` that sees `Any`: `data.jl:283`, `dataframe.jl:1180`, `sort.jl:282`, `tables.jl:326` ("return type DataFrame does not match inferred return type Any"); the rest pass (32 min 30 s; load 3.4-4.9). The same four as the forks' README lists for 2026-11-14 (open issue 157 (a)) |
+
+### E-514 upstream on vanilla: not run (`logs/g2-nd-upstream-missing-r2.txt`, `logs/prepare-V-ndup.log`)
+
+`ndport/env_upstream` cannot be loaded offline: 73 of its manifest's 352 packages have no source in the depot stack (`agent-depots/w159/V`, the workspace's `.julia-depot`), among them NetworkDynamics 1.3.0, CairoMakie 0.15.16, Makie 0.24.16, GraphMakie, Graphs, DiffEqBase, DiffEqCallbacks, SciMLBase, OrdinaryDiffEqCore, OrdinaryDiffEqRosenbrock, OrdinaryDiffEqTsit5, RecursiveArrayTools and 61 more (the list is the log). `prepare.sh V ndup` stops at `failed to find source of parent package: "Roots"` after 1 s. No `Pkg` operation was run.
+
+### Open issue 257, the flags (`logs/oi257-gates-r2.log`, `logs/oi257-scripts-r2.tsv`, `logs/probe-cause-forks-H-r2.txt`; `../../tools/ciflags.jl`)
+
+- **The cause was not the mask.** On the head and at the tag the facts bit is 0x20 and the G2 bit 0x10 (`julia.h`, `Base.Compiler.ci_policy_facts`). `cause.jl`'s "facts 0" is the log's shape: the invalidation log holds `MethodInstance`s (and `Method`s, strings, integers), and the tool read the flag only of a `CodeInstance`. With `ciflags.jl` (a `MethodInstance`'s code is its `cache` chain) `cause.jl` on the head, the forks, the work first: 182 own entries, 180 facts, 1 G2; the group under SparseArrays' `_cat`: 162 own entries, **facts 162** (it printed 0). `CAUSE_EXPECT=facts` fails a run with no facts entry.
+- **The scripts:** 46 scripts under `experiments/implementation/` hold `0x10` or `0x20` (the table, one row each). Every one reads 0x10 as G2 and 0x20 as facts: the masks are right for the head and the tag (the file's own labels and the headers agree). Nine of them are gates (the eight of `gates/` and the stage gate `w155/gate_deep.jl`).
+- **The gates, each run as it is and with 0x10 and 0x20 swapped in a copy** (`rows/oi257_gates.sh`): `f4_g2_bit`, `f6_reach_policy`, `n21_callsig_backedge`, `n26_callable_late_method`, `n34_closed_invoke_compiled` and `w155/gate_deep.jl` fail with the masks swapped (each by its assertion, as the log names): they discriminate. `f3_policy_code`, `n15_image_policy` and `n17_rtsite_targets` **pass with the masks swapped**: both bits are set on the instances they look at (a call at `Any` in facts code is a run-time site, not an edge, so the instance is G2), and a gate that read the wrong bit would pass. Fixed: each reads the facts bit through `Base.Compiler.ci_policy_facts`; the three pass on the head.
+
+### Still not run after this
+
+- E-514's plain run (upstream NetworkDynamics on vanilla): the packages' sources are missing offline (above).
+- The plain baseline of the check in a session (there is none: plain Julia has no check; the table gives the count of what the check does).
+- E-528's next step and E-527 beyond its second step: not part of W-168.
