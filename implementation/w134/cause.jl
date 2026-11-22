@@ -4,7 +4,10 @@
 # CAUSE_WORK=<csv>: E-355's work runs before the loads, so the instances it made are in the session (E-356).
 # CAUSE_DEMO=D|T with CAUSE_CSV=<csv>: a demonstrator's session and work before the loads (E-357).
 # CAUSE_ROOTS=A,B,...: the root modules whose instances are reported, in place of the eight.
-const FACTS = 0x20
+# The flags are read through the runtime's own definitions (tools/ciflags.jl, open issue 257). The log's entries
+# are MethodInstances: their code, and its flags, are in their CodeInstances.
+# CAUSE_EXPECT=facts: the run fails where no entry of the eight is facts code (the packages are compiled by facts).
+include(joinpath(@__DIR__, "..", "..", "tools", "ciflags.jl")); using .CIFlags
 const CORE8 = haskey(ENV, "CAUSE_ROOTS") ? Tuple(Symbol.(split(ENV["CAUSE_ROOTS"], ","))) :
     (:CSV, :DataFrames, :Tables, :Parsers, :InlineStrings, :PooledArrays, :WeakRefStrings, :SentinelArrays)
 if haskey(ENV, "CAUSE_DEMO")     # E-357: a demonstrator's session (demo_session.jl) and its work before the loads
@@ -24,7 +27,12 @@ inv = ccall(:jl_debug_method_invalidation, Any, (Cint,), 1)
 for p in ARGS; Core.eval(Main, Meta.parse("using $p")); end
 ccall(:jl_debug_method_invalidation, Any, (Cint,), 0)
 root(x) = x isa Core.CodeInstance ? root(x.def) : x isa Core.MethodInstance && x.def isa Method ? nameof(Base.moduleroot(x.def.module)) : :none
-facts(x) = x isa Core.CodeInstance && (x.flags & FACTS) != 0
+facts(x) = facts_of(x)
+let own = [x for x in inv if (x isa Core.CodeInstance || x isa Core.MethodInstance) && root(x) in CORE8]
+    println("own entries: ", length(own), "; facts ", count(facts, own), ", G2 ", count(g2_of, own), "; the entries' types: ",
+            join(sort!(unique(string(typeof(x)) for x in inv if !(x isa String || x isa Integer))), ", "))
+    get(ENV, "CAUSE_EXPECT", "") == "facts" && require_facts(count(facts, own), "the $(length(own)) own entries of the log")
+end
 println(length(inv), " log entries; tags: ", join(unique(string(x) for x in inv if x isa String), ", "))
 group = Any[]; depths = Any[]
 for i in eachindex(inv)

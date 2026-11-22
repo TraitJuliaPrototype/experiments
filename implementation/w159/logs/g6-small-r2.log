@@ -1,0 +1,19 @@
+# W-159 G-6 E-384 the small programs: session check, build, run (w139/apps) | 2026-11-22T05:58:46+01:00 | load-before 2.37 3.10 3.45 | login02
+# setting H: julia julia-next cf0f039f51 (binary cf0f039f51*) | TW TraitWorld 42d60e13bf | TDE TraitDifferentialEquations 06c28c376f | TM TraitMakie 1888698d7a | TT TraitTables e1ec1f4368 | TC TraitCSV 094dcb2e21 | TR TraitReport ec34d1219c | FORKS forks a3a37d6b5e | ND ndport/pkgs/NetworkDynamics-unified c2bbf0d9aa | depot .julia-depot/agent-depots/w159/H
+# experiments 1b966c2491* | product setting, strict mode off, one thread, fresh process per cell
+# NOTE setting H: the binary is marked '*' (its tree had a tracked change when it was built); the tree is clean now
+# preflight H TraitWorld: images ok: TraitWorld
+H typed_trait | session: fully typed | build: 0 errors, 0 warnings | object: exit 0 | link: 2159784 bytes | binary exit 0, output equal yes | agree yes | load 3.29 3.26 3.50
+H typed_plain | session: fully typed | build: 0 errors, 0 warnings | object: exit 0 | link: 1923592 bytes | binary exit 0, output equal yes | agree yes | load 3.19 3.24 3.49
+H vector_trait | session: fully typed | build: 0 errors, 0 warnings | object: exit 0 | link: 2223416 bytes | binary exit 0, output equal yes | agree yes | load 3.01 3.20 3.47
+H vector_plain | session: not: 1 sites | build: 2 errors, 0 warnings | Trim verify finished with 2 errors, 0 warnings. | object: exit 1 | binary exit -, output equal - | agree yes | load 2.93 3.18 3.47
+H dynamic_trait | session: fully typed | build: 0 errors, 0 warnings | object: exit 0 | link: 2216208 bytes | binary exit 0, output equal yes | agree yes | load 2.96 3.17 3.46
+H family_trait | session: fully typed | build: 0 errors, 0 warnings | object: exit 0 | link: 2230304 bytes | binary exit 0, output equal yes | agree yes | load 2.89 3.15 3.45
+H barrier_trait | session: fully typed | build: 0 errors, 0 warnings | object: exit 0 | link: 2224856 bytes | binary exit 0, output equal yes | agree yes | load 3.15 3.19 3.46
+H ft_union | session: fully typed | build: 0 errors, 0 warnings | object: exit 0 | link: 2062432 bytes | binary exit 0, output equal yes | agree yes | load 3.19 3.20 3.46
+H ft_abstract_result | session: fully typed | build: 0 errors, 0 warnings | object: exit 0 | link: 2062488 bytes | binary exit 0, output equal yes | agree yes | load 3.33 3.22 3.46
+H ft_plain_hole | session: fully typed | build: 0 errors, 0 warnings | object: exit 0 | link: 2068256 bytes | binary exit 0, output equal yes | agree yes | load 3.13 3.18 3.45
+H ft_any_call | session: fully typed | build: 0 errors, 0 warnings | object: exit 0 | link: 2219856 bytes | binary exit 0, output equal yes | agree yes | load 3.27 3.21 3.45
+H ft_abstract_member | session: fully typed | build: 0 errors, 0 warnings | object: exit 0 | link: 2058952 bytes | binary exit 0, output equal yes | agree yes | load 3.70 3.30 3.48
+H ft_many_members | session: not: 1 sites | build: 2 errors, 0 warnings | Trim verify finished with 2 errors, 0 warnings. | object: exit 1 | binary exit -, output equal - | agree yes | load 3.57 3.28 3.47
+# done 2026-11-22T06:01:04+01:00 | load-after 3.57 3.28 3.47

@@ -277,3 +277,7 @@ The `throw_boundserror` calls belong to the split's inlined candidates (`Vector{
 - `cthulhu/`: the environment with Cthulhu, `descend_examples.jl`, `test_descend.jl`, `logs/`.
 - `scripts/x6_callpath.jl`, `scripts/x6_conformance.jl`, `scripts/x6_declared.jl`, `scripts/forks_loadreport.jl`; their logs in `logs/`.
 - `depot_check.jl`: for each `Manifest.toml` named on stdin, the registry packages the depot has no installation of (its header says how to run it). `doclint/`: the documents' lint.
+
+## `ciflags.jl`: the runtime's code-instance flags (open issue 257)
+
+`include("…/tools/ciflags.jl"); using .CIFlags`, then `facts_of(x)`, `g2_of(x)` (a `CodeInstance`, or a `MethodInstance`: any of its code instances), `entry_kind(x)` for an entry of an invalidation log (on the head the log holds `MethodInstance`s, whose flags are in their `cache` chain), `selfcheck()` and `require_facts(n, what)` (a count of 0 facts instances where the code is compiled by facts fails the run). The facts bit is read through the runtime's `Base.Compiler.ci_policy_facts`, the G2 bit and the fallback from the build's `julia.h`; no tool holds `0x10` or `0x20`. Used by `implementation/w134/cause.jl`. The scripts that still hold the masks, each checked against the head: `implementation/w159/logs/oi257-scripts-r2.tsv`.

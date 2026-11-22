@@ -1,0 +1,47 @@
+# W-168 piece 6: cause.jl on the head with tools/ciflags.jl, forks (env_forks), the work first, the seven loads of g1_loads (without CairoMakie, REPL), as probe-cause-forks-H.txt; CAUSE_EXPECT=facts; 2026-11-22T06:07:25+01:00 load 2.93 3.43 3.43
+own entries: 182; facts 180, G2 1; the entries' types: Core.MethodInstance, DataType, Method
+5104 log entries; tags: jl_method_table_insert, invalidate_mt_cache
+
+jl_method_table_insert: SparseArrays._cat Tuple{typeof(Base._cat), Any, Union{Number, AbstractVecOrMat{<:Number}}, Vararg{Union{Number, AbstractVecOrMat{<:Number}}}}
+   ends 198 entries; of the eight 162 (facts 162)
+     depth 4 facts Tuple{typeof(CSV._parse), Vector{UInt8}, CSV.Dialect, CSV.ValueOpts, Symbol, Union{Nothing, Dict{Type, Type}}, Int64, Bool, Int64, Int64, Symbol, Bool, Bool, Union{Nothing, Int64}, Nothing, Vector{Symbol}, Nothing, Nothing, Union{Nothing, Vector{CSV.ValueOpts}}, CSV.ColumnPlan, Nothing, Nothing}
+     depth 5 facts Tuple{typeof(CSV._parse), Vector{UInt8}, CSV.Dialect, CSV.ValueOpts, Symbol, Union{Nothing, Dict{Type, Type}}, Int64, Bool, Int64, Int64, Symbol, Bool, Bool, Union{Nothing, Int64}, Nothing, Vector{Symbol}, Nothing, Nothing, Union{Nothing, Vector{CSV.ValueOpts}}, CSV.ColumnPlan, Nothing, Nothing}
+     depth 5 facts Tuple{typeof(CSV._parse), Vector{UInt8}, CSV.Dialect, CSV.ValueOpts, Symbol, Union{Nothing, Dict{Type, Type}}, Int64, Bool, Int64, Int64, Symbol, Bool, Bool, Union{Nothing, Int64}, Nothing, Vector{Symbol}, Nothing, Nothing, Union{Nothing, Vector{CSV.ValueOpts}}, CSV.ColumnPlan, Nothing, CSV.BufferIndex}
+     depth 6 facts Tuple{CSV.var"##_parseprepared#116", Bool, Nothing, Bool, Int64, Nothing, Nothing, Bool, typeof(CSV._parseprepared), CSV.IndexedSource, CSV.ColumnPlan}
+     depth 7 facts Tuple{typeof(Core.kwcall), @NamedTuple{parallel::Bool, ntasks::Nothing, validate::Bool, maxproblems::Int64}, typeof(CSV._parseprepared), CSV.IndexedSource, CSV.ColumnPlan}
+     depth 8 facts Tuple{typeof(CSV._filefromprepared), CSV.IndexedSource, String, Nothing, Nothing, Nothing, Bool, Bool, Val{String}, Symbol, Int64, Bool, Bool, Nothing, Nothing}
+     before: depth invalidate_mt_cache plain Base Tuple{typeof(hvcat), NTuple{12, Int64}, Int64, Vararg{Int64}}
+     before: depth 1 plain Base Tuple{Base.var"##cat#108", Val{1}, typeof(cat), Int64, Vector{Int64}}
+     before: depth 2 plain Base Tuple{typeof(Core.kwcall), @NamedTuple{dims::Val{1}}, typeof(cat), Int64, Vector{Int64}}
+     before: depth 3 plain Base Tuple{typeof(vcat), Int64, Vector{Int64}}
+
+jl_method_table_insert: Unitful.Colon Tuple{Colon, Any, Quantity}
+   ends 1142 entries; of the eight 1 (facts 0)
+     depth 0 plain Tuple{typeof(convert), Type{Vector{Symbol}}, PooledArrays.PooledVector{Symbol, R}} where R
+     before: depth 4 plain Base Tuple{typeof(Base.collect_to_with_first!), Vector, Any, Base.Generator{UnitRange{Int64}, F} where F<:(Base.var"#_ntuple##0#_ntuple##1"{Base.var"#__cat_offset1!##0#__cat_offset1!##1"{_A, Tuple{Bool}, var"#s189", Pair{DataType, ArgTools.var"#51#52"}}} where {_A, var"#s189"<:Tuple}), Int64}
+     before: depth 5 plain Base Tuple{typeof(collect), Base.Generator{UnitRange{Int64}, F} where F<:(Base.var"#_ntuple##0#_ntuple##1"{Base.var"#__cat_offset1!##0#__cat_offset1!##1"{_A, Tuple{Bool}, var"#s189", Pair{DataType, ArgTools.var"#51#52"}}} where {_A, var"#s189"<:Tuple})}
+     before: depth 1 plain Base Tuple{typeof(ntuple), Base.var"#__cat_offset1!##0#__cat_offset1!##1"{_A, Tuple{Bool}, <:Tuple, Pair{DataType, ArgTools.var"#51#52"}} where _A, Int64}
+     before: depth 0 plain StyledStrings Tuple{typeof(StyledStrings.StyledMarkup.begin_style!), StyledStrings.StyledMarkup.State, Int64, Char}
+
+jl_method_table_insert: IntervalArithmetic.promote_rule Tuple{typeof(promote_rule), Type{T}, Type{ExactReal{S}}} where {T<:Real, S<:Real}
+   ends 175 entries; of the eight 1 (facts 0)
+     depth 5 plain Tuple{typeof(convert), Type{Vector{Symbol}}, PooledArrays.PooledVector{Symbol, R}} where R
+     before: depth 5 plain Base Tuple{Base.var"#__cat_offset1!##0#__cat_offset1!##1"{_A, Tuple{Bool}, <:Tuple, Pair{DataType, ArgTools.var"#21#22"}} where _A, Int64}
+     before: depth 5 plain Base Tuple{Base.var"#__cat_offset1!##0#__cat_offset1!##1"{_A, Tuple{Bool}, <:Tuple, Pair{DataType, ArgTools.var"#47#48"}} where _A, Int64}
+     before: depth 5 plain Base Tuple{Base.var"#__cat_offset1!##0#__cat_offset1!##1"{_A, Tuple{Bool}, <:Tuple, Pair{DataType, ArgTools.var"#51#52"}} where _A, Int64}
+     before: depth 5 plain StyledStrings Tuple{typeof(StyledStrings.StyledMarkup.begin_style!), StyledStrings.StyledMarkup.State, Int64, Char}
+
+jl_method_table_insert: FillArrays.reduce_first Tuple{typeof(Base.reduce_first), typeof(+), FillArrays.AbstractOnes}
+   ends 289 entries; of the eight 18 (facts 18)
+     depth 31 facts Tuple{typeof(DataFrames.ColumnKernels._stats), DataFrames.ColumnKernels.CellVector{InlineStrings.String15, Vector{InlineStrings.String15}}, Vector{Symbol}}
+     depth 32 facts Tuple{typeof(DataFrames.ColumnKernels.colstats), Vector{InlineStrings.String15}, Vector{Symbol}}
+     depth 25 facts Tuple{typeof(DataFrames.ColumnKernels._stats), DataFrames.ColumnKernels.CellVector{InlineStrings.String15, Vector{InlineStrings.String15}}, Vector{Symbol}}
+     depth 31 facts Tuple{typeof(DataFrames.ColumnKernels._stats), DataFrames.ColumnKernels.CellVector{String, PooledArrays.PooledVector{String, UInt32, Vector{UInt32}}}, Vector{Symbol}}
+     depth 32 facts Tuple{typeof(DataFrames.ColumnKernels.colstats), PooledArrays.PooledVector{String, UInt32, Vector{UInt32}}, Vector{Symbol}}
+     depth 25 facts Tuple{typeof(DataFrames.ColumnKernels._stats), DataFrames.ColumnKernels.CellVector{String, PooledArrays.PooledVector{String, UInt32, Vector{UInt32}}}, Vector{Symbol}}
+     before: depth 27 plain Statistics Tuple{typeof(Core.kwcall), @NamedTuple{corrected::Bool, mean::Nothing}, typeof(var), DataFrames.ColumnKernels.CellVector{InlineStrings.String15, Vector{InlineStrings.String15}}}
+     before: depth 28 plain Statistics Tuple{typeof(Statistics._std), DataFrames.ColumnKernels.CellVector{InlineStrings.String15, Vector{InlineStrings.String15}}, Bool, Nothing, Colon}
+     before: depth 29 plain Statistics Tuple{Statistics.var"##std#14", Bool, Nothing, Colon, typeof(std), DataFrames.ColumnKernels.CellVector{InlineStrings.String15, Vector{InlineStrings.String15}}}
+     before: depth 30 plain Statistics Tuple{typeof(Core.kwcall), @NamedTuple{mean::Nothing}, typeof(std), DataFrames.ColumnKernels.CellVector{InlineStrings.String15, Vector{InlineStrings.String15}}}
+
+unclosed tail: 0 entries, of the eight 0

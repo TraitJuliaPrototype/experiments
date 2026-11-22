@@ -29,7 +29,9 @@ end
 cf = native_ci(FM.f, (Vector{Any},))
 cp = native_ci(pf, (Vector{Any},))
 @assert cf !== nothing && cp !== nothing
-@assert (cf.flags & 0x20) != 0 && (cp.flags & 0x20) == 0
+# the policy through the runtime's accessor, not a mask: the G2 bit (0x10) is set on both code instances here (a call at
+# Any in facts code is a run-time site, not an edge), so a gate that read 0x10 for 0x20 passed too (open issue 257)
+@assert CC.ci_policy_facts(cf) && !CC.ci_policy_facts(cp)
 @assert !CC.is_nortsite(CC.decode_effects(cf.ipo_purity_bits))     # facts code with a run-time site
 @assert CC.is_nortsite(CC.decode_effects(cp.ipo_purity_bits))      # plain code has none
 println("f3_policy_code: OK")

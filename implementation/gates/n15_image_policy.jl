@@ -62,7 +62,7 @@ ok, out, err = child("""
                 while ci !== nothing
                     if ci.owner === nothing
                         global n += 1
-                        (getfield(ci, :flags, :monotonic)::UInt8 & 0x20) == 0 && push!(plain, string(mi.specTypes))
+                        Base.Compiler.ci_policy_facts(ci) || push!(plain, string(mi.specTypes))    # the runtime's accessor, not a mask (open issue 257)
                     end
                     ci = isdefined(ci, :next) ? ci.next : nothing
                 end

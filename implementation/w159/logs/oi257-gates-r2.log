@@ -1,0 +1,28 @@
+# W-159 open issue 257: the gates that read flag bits, as they are and with the masks swapped | 2026-11-22T06:08:21+01:00 | load-before 1.90 3.06 3.31 | login02
+# setting H: julia julia-next cf0f039f51 (binary cf0f039f51*) | TW TraitWorld 42d60e13bf | TDE TraitDifferentialEquations 06c28c376f | TM TraitMakie 1888698d7a | TT TraitTables e1ec1f4368 | TC TraitCSV 094dcb2e21 | TR TraitReport ec34d1219c | FORKS forks a3a37d6b5e | ND ndport/pkgs/NetworkDynamics-unified c2bbf0d9aa | depot .julia-depot/agent-depots/w159/H
+# experiments 1b966c2491* | product setting, strict mode off, one thread, fresh process per cell
+# NOTE setting H: the binary is marked '*' (its tree had a tracked change when it was built); the tree is clean now
+f3_policy_code | control | exit 0 | f3_policy_code: OK | load 1.90 3.06 3.31
+f3_policy_code | mutant | exit 0 | f3_policy_code: OK | load 1.91 3.04 3.30
+f4_g2_bit | control | exit 0 | f4_g2_bit: OK | load 1.91 3.04 3.30
+f4_g2_bit | mutant | exit 1 | in expression starting at /tmp/tmp.xsCAIkeXMd/f4_g2_bit/gate.jl:18 | load 1.91 3.04 3.30
+    ERROR: LoadError: AssertionError: (native_ci(c, (Int,))).flags & 0x20 != 0
+f6_reach_policy | control | exit 0 | f6_reach_policy: OK | load 2.02 2.96 3.26
+f6_reach_policy | mutant | exit 1 | in expression starting at /tmp/tmp.xsCAIkeXMd/f6_reach_policy/gate.jl:44 | load 2.02 2.96 3.26
+    ERROR: LoadError: AssertionError: plain plain_call: [:facts]
+n15_image_policy | control | exit 0 | n15_image_policy: OK | load 2.02 2.96 3.26
+n15_image_policy | mutant | exit 0 | n15_image_policy: OK | load 2.02 2.94 3.26
+n17_rtsite_targets | control | exit 0 | n17_rtsite_targets: OK | load 2.02 2.94 3.26
+n17_rtsite_targets | mutant | exit 0 | n17_rtsite_targets: OK | load 2.10 2.94 3.25
+n21_callsig_backedge | control | exit 0 | n21_callsig_backedge: OK | load 2.10 2.94 3.25
+n21_callsig_backedge | mutant | exit 1 | in expression starting at /tmp/tmp.xsCAIkeXMd/n21_callsig_backedge/gate.jl:56 | load 2.09 2.93 3.25
+    ERROR: LoadError: AssertionError: a plain caller at a member, the callee not inlined: G2 at the call's signature
+n26_callable_late_method | control | exit 0 | n26_callable_late_method: OK | load 2.09 2.93 3.25
+n26_callable_late_method | mutant | exit 1 | in expression starting at /tmp/tmp.xsCAIkeXMd/n26_callable_late_method/gate.jl:70 | load 2.09 2.93 3.25
+    ERROR: LoadError: AssertionError: a constructor's caller holds no edge to its argument's call methods
+n34_closed_invoke_compiled | control | exit 0 | n34_closed_invoke_compiled: OK | load 2.09 2.93 3.25
+n34_closed_invoke_compiled | mutant | exit 1 | in expression starting at /tmp/tmp.xsCAIkeXMd/n34_closed_invoke_compiled/gate.jl:42 | load 2.08 2.91 3.24
+    ERROR: LoadError: AssertionError: the invoke of code of no compiled policy: Any[]
+w155_gate_deep | control | exit 0 | gate_deep: OK | load 2.08 2.91 3.24
+w155_gate_deep | mutant | exit 1 | gate_deep: FAILED | load 2.08 2.91 3.24
+# done 2026-11-22T06:09:17+01:00 | load-after 2.08 2.91 3.24

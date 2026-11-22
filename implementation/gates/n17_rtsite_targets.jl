@@ -53,7 +53,7 @@ ok, out, err = child("""
             ci = isdefined(mi, :cache) ? mi.cache : nothing
             while ci !== nothing
                 if ci.owner === nothing
-                    facts = (getfield(ci, :flags, :monotonic)::UInt8 & 0x20) != 0
+                    facts = Base.Compiler.ci_policy_facts(ci)    # the runtime's accessor, not a mask (open issue 257)
                     push!(out, string(mi.specTypes.parameters[2], facts ? " facts" : " plain"))
                 end
                 ci = isdefined(ci, :next) ? ci.next : nothing

@@ -1,0 +1,69 @@
+# W-159 G-6 E-387 and open issue 228: the table and the ODE sessions (w120/session_marks.jl) | 2026-11-22T05:49:45+01:00 | load-before 3.19 3.60 3.40 | login02
+# setting H: julia julia-next cf0f039f51 (binary cf0f039f51*) | TW TraitWorld 42d60e13bf | TDE TraitDifferentialEquations 06c28c376f | TM TraitMakie 1888698d7a | TT TraitTables e1ec1f4368 | TC TraitCSV 094dcb2e21 | TR TraitReport ec34d1219c | FORKS forks a3a37d6b5e | ND ndport/pkgs/NetworkDynamics-unified c2bbf0d9aa | depot .julia-depot/agent-depots/w159/H
+# setting B: julia julia-unified 7b374f39ce (binary 7b374f39ce*) | TW TraitWorld-base e11c7cc58b | TDE wt/w161-tde-base b7306285fe | TM wt/w160-tm c862914ffa | TT wt/w159-tag/TraitTables c3391750fb | TC wt/w159-tag/TraitCSV 92c46d01bc | TR wt/w159-tag/TraitReport a4bcf332db | FORKS wt/w159-tag/forks 439bae73ff | ND wt/w151-base/NetworkDynamics 6310040ec0 | depot .julia-depot/agent-depots/w159/B
+# experiments 1b966c2491* | product setting, strict mode off, one thread, fresh process per cell
+# NOTE setting H: the binary is marked '*' (its tree had a tracked change when it was built); the tree is clean now
+# preflight H demo: images ok: TraitWorld TraitTables TraitCSV TraitDifferentialEquations PlainODE
+# NOTE setting B: the binary is marked '*' (its tree had a tracked change when it was built); the tree is clean now
+# preflight B demo: images ok: TraitWorld TraitTables TraitCSV TraitDifferentialEquations PlainODE
+H table run 1: wall .5586 s | load 3.10 3.57 3.39 | load 226.7 ms | first run 65.5 ms, of it compiling 64.6 ms (again after an invalidation 0.0 ms) | second run 0.2 ms
+B table run 1: wall .5927 s | load 3.10 3.57 3.39 | load 247.5 ms | first run 74.6 ms, of it compiling 74.0 ms (again after an invalidation 0.0 ms) | second run 0.2 ms
+H table run 2: wall .5586 s | load 3.10 3.57 3.39 | load 227.3 ms | first run 65.6 ms, of it compiling 64.7 ms (again after an invalidation 0.0 ms) | second run 0.2 ms
+B table run 2: wall .5943 s | load 3.10 3.57 3.39 | load 248.1 ms | first run 74.6 ms, of it compiling 74.0 ms (again after an invalidation 0.0 ms) | second run 0.2 ms
+H table run 3: wall .5596 s | load 3.10 3.57 3.39 | load 226.4 ms | first run 65.6 ms, of it compiling 64.8 ms (again after an invalidation 0.0 ms) | second run 0.2 ms
+B table run 3: wall .5923 s | load 3.17 3.58 3.39 | load 248.9 ms | first run 74.8 ms, of it compiling 74.3 ms (again after an invalidation 0.0 ms) | second run 0.2 ms
+# H table, the last run's compiles:
+/p/projects/coen/julia-trait-bound/experiments/implementation/w159/logs/g6-sessions-r2-table-H.trace: 15 compiles, 169 ms
+  session         3 compiles     81.8 ms  48.3 %
+  recompile       1 compiles      5.8 ms   3.4 %
+  own image       0 compiles      0.0 ms   0.0 %
+  composition     0 compiles      0.0 ms   0.0 %
+  julia          11 compiles     81.6 ms  48.2 %
+# B table, the last run's compiles:
+/p/projects/coen/julia-trait-bound/experiments/implementation/w159/logs/g6-sessions-r2-table-B.trace: 15 compiles, 184 ms
+  session         3 compiles     89.2 ms  48.5 %
+  recompile       1 compiles      6.1 ms   3.3 %
+  own image       0 compiles      0.0 ms   0.0 %
+  composition     0 compiles      0.0 ms   0.0 %
+  julia          11 compiles     88.7 ms  48.2 %
+H ode run 1: wall 1.315 s | load 3.17 3.58 3.39 | load 674.2 ms | first run 372.9 ms, of it compiling 370.2 ms (again after an invalidation 0.0 ms) | second run 1.6 ms
+B ode run 1: wall 1.062 s | load 3.08 3.55 3.38 | load 381.7 ms | first run 405.5 ms, of it compiling 401.4 ms (again after an invalidation 0.0 ms) | second run 2.0 ms
+H ode run 2: wall 1.304 s | load 3.08 3.55 3.38 | load 667.0 ms | first run 368.2 ms, of it compiling 365.6 ms (again after an invalidation 0.0 ms) | second run 1.6 ms
+B ode run 2: wall 1.077 s | load 3.08 3.55 3.38 | load 387.6 ms | first run 409.7 ms, of it compiling 405.7 ms (again after an invalidation 0.0 ms) | second run 2.0 ms
+H ode run 3: wall 1.322 s | load 3.08 3.55 3.38 | load 680.9 ms | first run 370.1 ms, of it compiling 367.4 ms (again after an invalidation 0.0 ms) | second run 1.6 ms
+B ode run 3: wall 1.074 s | load 2.99 3.53 3.38 | load 384.4 ms | first run 410.5 ms, of it compiling 406.5 ms (again after an invalidation 0.0 ms) | second run 2.0 ms
+# H ode, the last run's compiles:
+/p/projects/coen/julia-trait-bound/experiments/implementation/w159/logs/g6-sessions-r2-ode-H.trace: 73 compiles, 871 ms
+  session         9 compiles    316.4 ms  36.3 %
+  recompile       5 compiles    234.9 ms  27.0 %
+  own image      10 compiles     59.8 ms   6.9 %
+  composition     4 compiles     25.4 ms   2.9 %
+  julia          45 compiles    234.4 ms  26.9 %
+# B ode, the last run's compiles:
+/p/projects/coen/julia-trait-bound/experiments/implementation/w159/logs/g6-sessions-r2-ode-B.trace: 61 compiles, 680 ms
+  session         9 compiles    350.1 ms  51.5 %
+  recompile       2 compiles     29.5 ms   4.3 %
+  own image       2 compiles     31.1 ms   4.6 %
+  composition     2 compiles     12.9 ms   1.9 %
+  julia          46 compiles    256.8 ms  37.7 %
+H ode-plain run 1: wall .8478 s | load 2.99 3.53 3.38 | load 205.2 ms | first run 374.9 ms, of it compiling 371.8 ms (again after an invalidation 0.0 ms) | second run 0.5 ms
+B ode-plain run 1: wall .9391 s | load 2.99 3.53 3.38 | load 219.5 ms | first run 444.3 ms, of it compiling 441.1 ms (again after an invalidation 0.0 ms) | second run 0.5 ms
+H ode-plain run 2: wall .8527 s | load 2.99 3.53 3.38 | load 205.8 ms | first run 374.6 ms, of it compiling 371.5 ms (again after an invalidation 0.0 ms) | second run 0.5 ms
+B ode-plain run 2: wall .9462 s | load 2.91 3.50 3.37 | load 223.2 ms | first run 448.6 ms, of it compiling 445.3 ms (again after an invalidation 0.0 ms) | second run 0.5 ms
+H ode-plain run 3: wall .8481 s | load 2.91 3.50 3.37 | load 205.5 ms | first run 373.4 ms, of it compiling 370.3 ms (again after an invalidation 0.0 ms) | second run 0.5 ms
+B ode-plain run 3: wall .9383 s | load 2.91 3.50 3.37 | load 220.1 ms | first run 443.3 ms, of it compiling 440.0 ms (again after an invalidation 0.0 ms) | second run 0.5 ms
+# H ode-plain, the last run's compiles:
+/p/projects/coen/julia-trait-bound/experiments/implementation/w159/logs/g6-sessions-r2-ode-plain-H.trace: 48 compiles, 548 ms
+  session         6 compiles    363.4 ms  66.4 %
+  recompile       1 compiles      5.7 ms   1.0 %
+  own image       1 compiles      0.0 ms   0.0 %
+  composition     0 compiles      0.0 ms   0.0 %
+  julia          40 compiles    178.4 ms  32.6 %
+# B ode-plain, the last run's compiles:
+/p/projects/coen/julia-trait-bound/experiments/implementation/w159/logs/g6-sessions-r2-ode-plain-B.trace: 49 compiles, 629 ms
+  session         6 compiles    427.3 ms  67.9 %
+  recompile       1 compiles      5.9 ms   0.9 %
+  own image       1 compiles      0.0 ms   0.0 %
+  composition     0 compiles      0.0 ms   0.0 %
+  julia          41 compiles    195.7 ms  31.1 %
+# done 2026-11-22T05:50:12+01:00 | load-after 2.91 3.50 3.37

@@ -1,0 +1,71 @@
+# W-159 G-6 open issue 256 (b): the check's cost in a session (probes/check_cost.jl) | 2026-11-22T05:51:15+01:00 | load-before 7.33 4.23 3.60 | login02
+# setting H: julia julia-next cf0f039f51 (binary cf0f039f51*) | TW TraitWorld 42d60e13bf | TDE TraitDifferentialEquations 06c28c376f | TM TraitMakie 1888698d7a | TT TraitTables e1ec1f4368 | TC TraitCSV 094dcb2e21 | TR TraitReport ec34d1219c | FORKS forks a3a37d6b5e | ND ndport/pkgs/NetworkDynamics-unified c2bbf0d9aa | depot .julia-depot/agent-depots/w159/H
+# experiments 1b966c2491* | product setting, strict mode off, one thread, fresh process per cell
+# NOTE setting H: the binary is marked '*' (its tree had a tracked change when it was built); the tree is clean now
+# preflight H demo: images ok: TraitWorld TraitTables TraitCSV TraitDifferentialEquations
+== H table verify run 1 | load 7.33 4.23 3.60
+first verify: wall 3604.9 ms, compiling 2257.3 ms | targets 1396, entry points 28, sites 0, complete true
+second verify: wall 1951.1 ms, compiling 628.0 ms | targets 1396, entry points 28, sites 0, complete true
+split: walk 1298.3 ms (1396 signatures inferred, 39 sites of its own), build's check 652.7 ms (0 sites)
+ERROR: BoundsError: attempt to access 0-element Vector{String} at index [1]
+-- load 10.98 5.09 3.89
+== H table verify run 2 | load 10.98 5.09 3.89
+first verify: wall 3573.2 ms, compiling 2232.2 ms | targets 1396, entry points 28, sites 0, complete true
+second verify: wall 1972.5 ms, compiling 651.9 ms | targets 1396, entry points 28, sites 0, complete true
+split: walk 1328.0 ms (1396 signatures inferred, 39 sites of its own), build's check 648.8 ms (0 sites)
+ERROR: BoundsError: attempt to access 0-element Vector{String} at index [1]
+-- load 14.70 6.11 4.24
+== H table verify run 3 | load 14.70 6.11 4.24
+first verify: wall 3557.4 ms, compiling 2221.3 ms | targets 1396, entry points 28, sites 0, complete true
+second verify: wall 1957.3 ms, compiling 633.6 ms | targets 1396, entry points 28, sites 0, complete true
+split: walk 1308.2 ms (1396 signatures inferred, 39 sites of its own), build's check 638.3 ms (0 sites)
+ERROR: BoundsError: attempt to access 0-element Vector{String} at index [1]
+-- load 12.75 5.98 4.21
+== H table fully run 1 | load 12.75 5.98 4.21
+first fully: wall 2404.0 ms, compiling 2197.6 ms | sites 0, complete true, fully typed true
+second fully: wall 864.0 ms, compiling 705.5 ms | sites 0, complete true, fully typed true
+split: walk 139.6 ms (401 signatures inferred, 4 sites of its own), build's check 644.5 ms (0 sites)
+ERROR: BoundsError: attempt to access 0-element Vector{String} at index [1]
+-- load 11.39 5.91 4.21
+== H table fully run 2 | load 11.39 5.91 4.21
+first fully: wall 2406.5 ms, compiling 2199.8 ms | sites 0, complete true, fully typed true
+second fully: wall 778.7 ms, compiling 634.1 ms | sites 0, complete true, fully typed true
+split: walk 124.5 ms (401 signatures inferred, 4 sites of its own), build's check 623.9 ms (0 sites)
+ERROR: BoundsError: attempt to access 0-element Vector{String} at index [1]
+-- load 10.64 5.85 4.20
+== H table fully run 3 | load 10.64 5.85 4.20
+first fully: wall 2438.5 ms, compiling 2226.5 ms | sites 0, complete true, fully typed true
+second fully: wall 851.5 ms, compiling 689.2 ms | sites 0, complete true, fully typed true
+split: walk 138.5 ms (401 signatures inferred, 4 sites of its own), build's check 650.8 ms (0 sites)
+ERROR: BoundsError: attempt to access 0-element Vector{String} at index [1]
+-- load 10.03 5.80 4.19
+== H ode verify run 1 | load 10.03 5.80 4.19
+first verify: wall 10325.2 ms, compiling 10178.6 ms | targets 143, entry points 0, sites 0, complete true
+second verify: wall 2589.7 ms, compiling 2486.9 ms | targets 143, entry points 0, sites 0, complete true
+split: walk 87.2 ms (143 signatures inferred, 10 sites of its own), build's check 2571.5 ms (0 sites)
+-- load 7.82 5.57 4.15
+== H ode verify run 2 | load 7.82 5.57 4.15
+first verify: wall 10093.4 ms, compiling 9956.2 ms | targets 143, entry points 0, sites 0, complete true
+second verify: wall 2504.2 ms, compiling 2406.4 ms | targets 143, entry points 0, sites 0, complete true
+split: walk 49.8 ms (143 signatures inferred, 10 sites of its own), build's check 2449.5 ms (0 sites)
+-- load 6.24 5.35 4.11
+== H ode verify run 3 | load 6.24 5.35 4.11
+first verify: wall 10172.3 ms, compiling 10037.9 ms | targets 143, entry points 0, sites 0, complete true
+second verify: wall 2498.2 ms, compiling 2401.4 ms | targets 143, entry points 0, sites 0, complete true
+split: walk 49.2 ms (143 signatures inferred, 10 sites of its own), build's check 2525.2 ms (0 sites)
+-- load 5.30 5.19 4.07
+== H ode fully run 1 | load 5.30 5.19 4.07
+first fully: wall 10047.3 ms, compiling 9913.8 ms | sites 0, complete true, fully typed true
+second fully: wall 2489.6 ms, compiling 2393.8 ms | sites 0, complete true, fully typed true
+split: walk 49.5 ms (143 signatures inferred, 10 sites of its own), build's check 2504.4 ms (0 sites)
+-- load 4.42 4.99 4.03
+== H ode fully run 2 | load 4.42 4.99 4.03
+first fully: wall 10056.6 ms, compiling 9920.6 ms | sites 0, complete true, fully typed true
+second fully: wall 2522.2 ms, compiling 2425.4 ms | sites 0, complete true, fully typed true
+split: walk 49.0 ms (143 signatures inferred, 10 sites of its own), build's check 2482.5 ms (0 sites)
+-- load 4.30 4.94 4.03
+== H ode fully run 3 | load 4.30 4.94 4.03
+first fully: wall 10122.8 ms, compiling 9989.4 ms | sites 0, complete true, fully typed true
+second fully: wall 2581.5 ms, compiling 2484.7 ms | sites 0, complete true, fully typed true
+split: walk 48.1 ms (143 signatures inferred, 10 sites of its own), build's check 2523.1 ms (0 sites)
+-- load 3.65 4.75 3.99

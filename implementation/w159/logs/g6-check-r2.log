@@ -1,0 +1,66 @@
+# W-159 G-6 open issue 256 (b): the check's cost in a session (probes/check_cost.jl) | 2026-11-22T05:56:05+01:00 | load-before 1.89 3.63 3.67 | login02
+# setting H: julia julia-next cf0f039f51 (binary cf0f039f51*) | TW TraitWorld 42d60e13bf | TDE TraitDifferentialEquations 06c28c376f | TM TraitMakie 1888698d7a | TT TraitTables e1ec1f4368 | TC TraitCSV 094dcb2e21 | TR TraitReport ec34d1219c | FORKS forks a3a37d6b5e | ND ndport/pkgs/NetworkDynamics-unified c2bbf0d9aa | depot .julia-depot/agent-depots/w159/H
+# experiments 1b966c2491* | product setting, strict mode off, one thread, fresh process per cell
+# NOTE setting H: the binary is marked '*' (its tree had a tracked change when it was built); the tree is clean now
+# preflight H demo: images ok: TraitWorld TraitTables TraitCSV TraitDifferentialEquations
+== H table verify run 1 | load 1.89 3.63 3.67
+first verify: wall 3644.5 ms, compiling 2294.1 ms | targets 1396, entry points 28, sites 0, complete true
+second verify: wall 1970.5 ms, compiling 645.9 ms | targets 1396, entry points 28, sites 0, complete true
+split: walk 1319.3 ms (1396 signatures inferred, 39 sites of its own), build's check 655.4 ms (0 sites)
+-- load 1.91 3.58 3.65
+== H table verify run 2 | load 1.91 3.58 3.65
+first verify: wall 3618.5 ms, compiling 2277.7 ms | targets 1396, entry points 28, sites 0, complete true
+second verify: wall 1965.8 ms, compiling 640.8 ms | targets 1396, entry points 28, sites 0, complete true
+split: walk 1346.8 ms (1396 signatures inferred, 39 sites of its own), build's check 673.1 ms (0 sites)
+-- load 2.00 3.54 3.64
+== H table verify run 3 | load 2.00 3.54 3.64
+first verify: wall 3612.5 ms, compiling 2275.4 ms | targets 1396, entry points 28, sites 0, complete true
+second verify: wall 1949.0 ms, compiling 627.0 ms | targets 1396, entry points 28, sites 0, complete true
+split: walk 1311.1 ms (1396 signatures inferred, 39 sites of its own), build's check 659.1 ms (0 sites)
+-- load 2.00 3.51 3.63
+== H table fully run 1 | load 2.00 3.51 3.63
+first fully: wall 2385.8 ms, compiling 2182.2 ms | sites 0, complete true, fully typed true
+second fully: wall 764.2 ms, compiling 621.1 ms | sites 0, complete true, fully typed true
+split: walk 124.8 ms (401 signatures inferred, 4 sites of its own), build's check 655.0 ms (0 sites)
+-- load 2.00 3.49 3.62
+== H table fully run 2 | load 2.00 3.49 3.62
+first fully: wall 2389.9 ms, compiling 2185.9 ms | sites 0, complete true, fully typed true
+second fully: wall 772.6 ms, compiling 628.1 ms | sites 0, complete true, fully typed true
+split: walk 124.5 ms (401 signatures inferred, 4 sites of its own), build's check 665.8 ms (0 sites)
+-- load 2.00 3.46 3.61
+== H table fully run 3 | load 2.00 3.46 3.61
+first fully: wall 2391.4 ms, compiling 2186.8 ms | sites 0, complete true, fully typed true
+second fully: wall 770.8 ms, compiling 626.6 ms | sites 0, complete true, fully typed true
+split: walk 124.9 ms (401 signatures inferred, 4 sites of its own), build's check 665.5 ms (0 sites)
+-- load 2.00 3.44 3.60
+== H ode verify run 1 | load 2.00 3.44 3.60
+first verify: wall 10247.8 ms, compiling 10112.2 ms | targets 143, entry points 0, sites 0, complete true
+second verify: wall 2568.3 ms, compiling 2437.8 ms | targets 143, entry points 0, sites 0, complete true
+split: walk 52.7 ms (143 signatures inferred, 10 sites of its own), build's check 2533.8 ms (0 sites)
+-- load 2.23 3.40 3.58
+== H ode verify run 2 | load 2.23 3.40 3.58
+first verify: wall 10249.3 ms, compiling 10111.9 ms | targets 143, entry points 0, sites 0, complete true
+second verify: wall 2548.6 ms, compiling 2451.1 ms | targets 143, entry points 0, sites 0, complete true
+split: walk 48.6 ms (143 signatures inferred, 10 sites of its own), build's check 2483.7 ms (0 sites)
+-- load 2.18 3.33 3.56
+== H ode verify run 3 | load 2.18 3.33 3.56
+first verify: wall 10289.2 ms, compiling 10154.6 ms | targets 143, entry points 0, sites 0, complete true
+second verify: wall 2498.1 ms, compiling 2401.6 ms | targets 143, entry points 0, sites 0, complete true
+split: walk 49.0 ms (143 signatures inferred, 10 sites of its own), build's check 2522.7 ms (0 sites)
+-- load 2.45 3.31 3.54
+== H ode fully run 1 | load 2.45 3.31 3.54
+first fully: wall 10211.8 ms, compiling 10077.0 ms | sites 0, complete true, fully typed true
+second fully: wall 2546.1 ms, compiling 2449.2 ms | sites 0, complete true, fully typed true
+split: walk 48.6 ms (143 signatures inferred, 10 sites of its own), build's check 2514.6 ms (0 sites)
+-- load 2.32 3.22 3.51
+== H ode fully run 2 | load 2.32 3.22 3.51
+first fully: wall 10213.0 ms, compiling 10079.9 ms | sites 0, complete true, fully typed true
+second fully: wall 2526.7 ms, compiling 2430.1 ms | sites 0, complete true, fully typed true
+split: walk 48.5 ms (143 signatures inferred, 10 sites of its own), build's check 2527.1 ms (0 sites)
+-- load 2.25 3.16 3.49
+== H ode fully run 3 | load 2.25 3.16 3.49
+first fully: wall 10221.1 ms, compiling 10086.9 ms | sites 0, complete true, fully typed true
+second fully: wall 2499.6 ms, compiling 2403.4 ms | sites 0, complete true, fully typed true
+split: walk 49.7 ms (143 signatures inferred, 10 sites of its own), build's check 2613.7 ms (0 sites)
+-- load 2.34 3.12 3.46
+# done 2026-11-22T05:58:36+01:00 | load-after 2.34 3.12 3.46
