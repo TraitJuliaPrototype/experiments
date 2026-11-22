@@ -132,6 +132,69 @@ end
 # open issue 195 (a): the callees named by instance alone whose code is in the class now
 mi_fixable = count(x -> !isempty(cone[x]) && all(y -> culprit[y] === :by_instance && all(f -> f.kind !== :mi || any(bit, micode(f.sig)), fcache[y]), cone[x]), outside)
 println("\nown facts instances kept out only by callees named by instance alone, whose code has the bit now: ", mi_fixable)
+# W-143c: the candidates' groups (README, "The candidates"): each a predicate on a fault, by the fix it stands for.
+# A culprit is fixed by a set of groups when each of its faults is in one of them; what a set buys is the own
+# facts instances whose whole cone it fixes.
+function splits_fact(@nospecialize(s))   # a top-level union whose splits are fact signatures (compiler §1.2)
+    s isa DataType && s <: Tuple || return false
+    ps = s.parameters; any(p -> p isa Union, ps) || return false
+    any(Base.isvarargtype, ps) && return false
+    n = prod(p -> p isa Union ? length(Base.uniontypes(p)) : 1, ps)
+    n <= C.MAX_FACT_SPLITS || return false
+    combos = Iterators.product((p isa Union ? Base.uniontypes(p) : Any[p] for p in ps)...)
+    return all(c -> C.is_fact_sig(Tuple{c...}), combos)
+end
+fargs(@nospecialize(s)) = args(s)
+fn_is(@nospecialize(s), names...) = (f = fname(s); n = fnname(f); n !== nothing && n in names)
+iskindarg(@nospecialize(t)) = iskind(t) || t === Core.TypeofVararg
+abstract_tuple(@nospecialize(t)) = t isa DataType && t <: Tuple && !isconcretetype(t)
+const GROUPS = [
+    ("record: TypeVar and UnionAll inferred at (Any, Any)", f -> f.kind !== :mi && (g = fname(f.sig); g === Type{TypeVar} || g === Type{UnionAll})),
+    ("record: a top-level union whose splits are facts", f -> f.kind !== :mi && splits_fact(f.sig)),
+    ("lowering: a keyword body (#f#N) called at an abstract argument", f -> f.kind !== :mi && (g = fname(f.sig);
+        g isa DataType && g <: Function && occursin(r"^#[^#]+#\d+$", string(g.name.singletonname)))),
+    ("Base: a type's field read by getproperty at a kind", f -> f.kind !== :mi && fn_is(f.sig, :getproperty, :setproperty!) && !isempty(fargs(f.sig)) && iskindarg(fargs(f.sig)[1])),
+    ("218: a tuple with an abstract element, indexed", f -> f.kind !== :mi && fn_is(f.sig, :getindex, :indexed_iterate) && !isempty(fargs(f.sig)) && abstract_tuple(fargs(f.sig)[1])),
+    ("218 (b): a store into a container of Any", f -> f.kind !== :mi && ((fn_is(f.sig, :push!, :setindex!, :__safe_setindex!, :_setindex!, :_push!, :pushfirst!) &&
+        !isempty(fargs(f.sig)) && isanycontainer(fargs(f.sig)[1])) || (g = fname(f.sig); g isa DataType && g.name === Type.body.name &&
+        (p = g.parameters[1]; p isa DataType && (p.name === Pair.body.body.name || p.name === Base.ImmutableDict.body.body.name) && p.parameters[end] === Any)))),
+    ("218: the task code (a payload typed Any to schedule, notify, close)", f -> f.kind !== :mi && (fn_is(f.sig, TASKS...) ||
+        (fname(f.sig) === typeof(Core.kwcall) && length(fargs(f.sig)) >= 2 && fnname(fargs(f.sig)[2]) in TASKS) ||
+        (fname(f.sig) isa DataType && occursin("schedule#", string(fname(f.sig)))) ||
+        (!isempty(fargs(f.sig)) && fargs(f.sig)[1] isa Type && (fargs(f.sig)[1] <: Channel || fargs(f.sig)[1] === CompositeException)))),
+    ("219: a query that names the matched instance (hasmethod)", f -> f.kind === :mi),
+    ("218: any other call with a kind among its arguments", f -> f.kind !== :mi && any(iskindarg, fargs(f.sig))),
+    ("218: a call at an abstract argument, Base's or Core's function", f -> f.kind !== :mi && (g = fname(f.sig); m = g isa DataType ? parentmodule(g) : nothing;
+        m !== nothing && nameof(Base.moduleroot(m)) in (:Base, :Core))),
+    ("a call at an abstract argument, another module's function (the port's, the library's, the compiler's)", f -> f.kind !== :mi),
+]
+realc = [(y, k) for (y, k) in culprit if k !== :cycle_or_unset]
+# the groups are disjoint: a fault belongs to the first group whose predicate it meets
+first_group(f) = findfirst(g -> g[2](f), GROUPS)
+fgroups = IdDict{Any,Vector{Int}}(y => [first_group(f) for f in fcache[y]] for (y, k) in realc)
+fixedby(is) = IdSet{Any}([y for (y, k) in realc if all(in(is), fgroups[y])])
+println("\n## the candidates' groups (disjoint: a fault counts in the first group it meets): culprits with such a fault, culprits the group alone fixes, own facts instances in the class with it alone")
+for (i, (lab, g)) in enumerate(GROUPS)
+    nf = count(((y, k),) -> i in fgroups[y], realc)
+    fx = fixedby([i])
+    println(rpad(lab, 74), " culprits ", lpad(nf, 5), " | fixed alone ", lpad(length(fx), 5), " | ", pc(base0 + reachof(fx), length(factsown)))
+end
+println("\n## what each group is needed for: own facts instances in the class with every other group fixed, and with all")
+let all_ = collect(1:length(GROUPS)), nall = reachof(fixedby(all_))
+    for (i, (lab, g)) in enumerate(GROUPS)
+        n = reachof(fixedby(filter(!=(i), all_)))
+        println(rpad(lab, 74), " without it ", pc(base0 + n, length(factsown)), " | needs it ", nall - n)
+    end
+end
+println("\n## the groups, greedy (what each buys on top of the ones before)")
+let chosen = Int[], left = collect(1:length(GROUPS))
+    while !isempty(left)
+        best = 0; bestn = -1
+        for i in left; n = reachof(fixedby([chosen; i])); n > bestn && (bestn = n; best = i); end
+        push!(chosen, best); filter!(!=(best), left)
+        println("  + ", rpad(GROUPS[best][1], 74), pc(base0 + bestn, length(factsown)))
+    end
+end
 if haskey(ENV, "CENSUS_TSV")
     open(ENV["CENSUS_TSV"], "w") do io
         println(io, "method\tkind\tinstances\tin_cone\talone\troot")

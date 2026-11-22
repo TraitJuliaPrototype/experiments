@@ -83,7 +83,7 @@ function owner_only_edges(ci::Core.CodeInstance)
             item isa Core.MethodInstance && !ismembmi(item) && (invokesig === nothing || invokesig isa C.CallSigBackedge) ?
                 (invokesig isa C.CallSigBackedge ? invokesig.sig : item.specTypes) : nothing
         s === nothing && continue
-        C.owner_only_call(s) && !fact_but_owner(s) && (n += 1)
+        s isa DataType && C.owner_only_call(s) && !fact_but_owner(s) && (n += 1)
     end
     n
 end

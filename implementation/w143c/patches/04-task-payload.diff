@@ -1,0 +1,22 @@
+--- a/base/channels.jl
++++ b/base/channels.jl
+@@ -200,7 +200,7 @@
+ function close(c::Channel, @nospecialize(excp::Exception))
+     lock(c)
+     try
+-        c.excp = excp
++        setfield!(c, :excp, excp)
+         @atomic :release c.state = :closed
+         notify_error(c.cond_take, excp)
+         notify_error(c.cond_wait, excp)
+--- a/base/condition.jl
++++ b/base/condition.jl
+@@ -169,7 +169,7 @@
+     return cnt
+ end
+ 
+-notify_error(c::GenericCondition, err) = notify(c, err, true, true)
++notify_error(c::GenericCondition, @nospecialize(err)) = invoke(notify, Tuple{GenericCondition, Any, Any, Any}, c, err, true, true)
+ 
+ """
+     isempty(condition)

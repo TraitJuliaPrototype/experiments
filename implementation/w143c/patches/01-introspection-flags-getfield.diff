@@ -1,0 +1,50 @@
+--- a/base/runtime_internals.jl
++++ b/base/runtime_internals.jl
+@@ -852,7 +852,7 @@
+     isa(t, DataType) || return false
+     # n.b. DataType's memoized `flags` word is UInt32 here (the traits fork widened
+     # it, and the field's self-description follows); the masks keep that width
+-    return (t.flags & 0x00000080) == 0x00000080
++    return (getfield(t, :flags) & 0x00000080) == 0x00000080
+ end
+ 
+ """
+@@ -879,7 +879,7 @@
+ false
+ ```
+ """
+-isbitstype(@nospecialize t) = (@_total_meta; isa(t, DataType) && (t.flags & 0x00000008) == 0x00000008)
++isbitstype(@nospecialize t) = (@_total_meta; isa(t, DataType) && (getfield(t, :flags) & 0x00000008) == 0x00000008)
+ 
+ """
+     isbits(x)
+@@ -946,9 +946,9 @@
+ false
+ ```
+ """
+-isdispatchtuple(@nospecialize(t)) = (@_total_meta; isa(t, DataType) && (t.flags & 0x00000004) == 0x00000004)
++isdispatchtuple(@nospecialize(t)) = (@_total_meta; isa(t, DataType) && (getfield(t, :flags) & 0x00000004) == 0x00000004)
+ 
+-datatype_ismutationfree(dt::DataType) = (@_total_meta; (dt.flags & 0x00000100) == 0x00000100)
++datatype_ismutationfree(dt::DataType) = (@_total_meta; (getfield(dt, :flags) & 0x00000100) == 0x00000100)
+ 
+ """
+     Base.ismutationfree(T)
+@@ -970,7 +970,7 @@
+     return false
+ end
+ 
+-datatype_isidentityfree(dt::DataType) = (@_total_meta; (dt.flags & 0x00000200) == 0x00000200)
++datatype_isidentityfree(dt::DataType) = (@_total_meta; (getfield(dt, :flags) & 0x00000200) == 0x00000200)
+ 
+ """
+     Base.isidentityfree(T)
+@@ -1085,7 +1085,7 @@
+ false
+ ```
+ """
+-isconcretetype(@nospecialize(t)) = (@_total_meta; isa(t, DataType) && (t.flags & 0x00000002) == 0x00000002)
++isconcretetype(@nospecialize(t)) = (@_total_meta; isa(t, DataType) && (getfield(t, :flags) & 0x00000002) == 0x00000002)
+ 
+ """
+     isabstracttype(T)
