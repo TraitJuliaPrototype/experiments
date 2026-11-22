@@ -1,0 +1,18 @@
+# W-159 G-2 NetworkDynamics' workload (ndport/scripts/workload.jl) | 2026-11-22T10:18:09+01:00 | load-before 10.26 10.98 7.54 | login02
+# setting V: julia julia-vanilla 45b6d15e34 (binary 45b6d15e34*) | depot .julia-depot/agent-depots/w159/V
+# experiments 8fc582fd53 | product setting, strict mode off, one thread, fresh process per cell
+# ndport 4fecc023af (the workload's scripts, the same for every setting) GraphMakie 498be7c265 Graphs dbcb7c7072
+# NOTE setting V: the binary is marked '*' (its tree had a tracked change when it was built); the tree is clean now
+# preflight V ndup: images ok: NetworkDynamics OrdinaryDiffEqTsit5 CairoMakie GraphMakie
+== V run 0 (0: the warm-up) | rc 0 | session 90.418 s | load 6.30 9.31 7.27 | W total 89.8 | T again: 258.6 ms
+== V run 1 (0: the warm-up) | rc 0 | session 92.003 s | load 13.02 10.06 7.69 | W total 91.3 | T again: 230.7 ms
+== V run 2 (0: the warm-up) | rc 0 | session 90.207 s | load 6.41 8.59 7.38 | W total 89.5 | T again: 225.3 ms
+# digests H run 1 against B run 1:
+  File "/p/projects/coen/julia-trait-bound/ndport/scripts/compare_digests.py", line 17, in digests
+    for line in open(path):
+FileNotFoundError: [Errno 2] No such file or directory: '/p/projects/coen/julia-trait-bound/experiments/implementation/w159/logs/g2-nd-r3-B-1.out'
+# digests H run 2 against B run 2:
+  File "/p/projects/coen/julia-trait-bound/ndport/scripts/compare_digests.py", line 17, in digests
+    for line in open(path):
+FileNotFoundError: [Errno 2] No such file or directory: '/p/projects/coen/julia-trait-bound/experiments/implementation/w159/logs/g2-nd-r3-B-2.out'
+# done 2026-11-22T10:22:49+01:00 | load-after 6.41 8.59 7.38
