@@ -69,6 +69,14 @@ julia-unified/julia --startup-file=no experiments/implementation/audit/image_unc
 ../julia-unified/julia --startup-file=no --project=. ../experiments/implementation/audit/set_index.jl [Pkg,…] [n]
 ```
 
+```sh
+# the set-folds report (W-171, E-542): a differential test of every fold about a set across worlds; the section
+# "The set-folds report" below. Each case runs in a worker process; a case whose compiled code stops the process is
+# kept as a crash and the next worker goes on.
+julia-next/julia --startup-file=no --project=experiments/implementation experiments/implementation/audit/set_folds.jl \
+    [--only=<regex on shape/sequence>] [--questions=sub,isa,…] [--sample=<n> --seed=<s>] [--show=<n>] [--probes=<dir>]
+```
+
 The compile trace of the imports (`trace-imports-*.log`) is Julia's own: `--trace-compile=<log> --trace-compile-timing -e 'using …'`.
 
 The unmet-instance report counts instances with code valid in the latest world: an invalidated instance
@@ -114,3 +122,54 @@ The load report's `split_edge` over-matches (the Fable plan, §2.2): its rows "a
 | E-344 (`unified` e42047dba2, TraitWorld 6871ea9) | type closures (`type-closures-e344.log`, trace `trace-typeclosures-e344.log`: the goal's imports and one definition) | 1 instance of `_forget_records!`'s closure, 12.7 ms; a full sync of the goal's 122 activated memberships from the cursor at 0 compiled it per trait: 141 ms the first time, 2.6–3.2 ms after. Fixed by a loop in TraitWorld (E-344's addendum) |
 | 352b916899 (E-351) | uncompiled instances, the goal's task (`trace-task-fu-e351.log`, `image-uncompiled-task-fu-e351.log`) | 28 instances compiled in the session, 310 ms; 8 are the system image's with inferred code and no machine code, 45.6 ms: `iterate(::Enumerate{Vector{Symbol}})` 13.6 + 5.1 ms and `length(::Vector{Pair{Symbol,Any}})` 3.4 ms under TraitWorld's records' walk, `issorted(::Vector{String}, ::ReverseOrdering)` 12.1 ms; the imports alone (`image-uncompiled-imports-fu-e345b.log`): 4 of 6, 34.4 of 73.5 ms |
 | a2ea2aff32 (W-140, E-365) | the index (`set-index-tables-a2ea2aff32.log`, `set-index-tde-a2ea2aff32.log`) | TraitTables: 30 methods with a set in the signature, 32 (method, set) pairs, none missing. The ODE port: 214 methods, 247 pairs, none missing. The pattern: the index walked a signature's parameters, then a `Vararg`'s element, then a union's arms, each added after a stale call was found; a variable's bound (`f(c::C) where C <: X{T}`) was the fourth, found by gate `m2_parametric_replay` once no guard hid it |
+
+## The set-folds report (W-171, E-542)
+
+`set_folds.jl` is a differential test, not a report of a codebase: it builds its own cases. A case is a **shape** (two
+types A and B with a set at one position, a value under A, and the expected answer of `A <: B` given whether the pair
+holds) and a **sequence** of world changes. For each case it defines the question functions, compiles a copy of each
+first in each world the sequence makes, and asks every copy in every world (in the latest world when it was made, and
+afterwards by `Base.invoke_in_world`). Each answer is compared with the runtime's answer asked afresh in that world by
+`ccall` (`jl_subtype`, `jl_isa`, `jl_type_intersection`, `jl_types_equal`, `jl_new_structv`; dispatch from the method
+table's definitions valid in the task's world, which reads no dispatch cache), and the fresh answer with the shape's
+expected one. Compiled code whose result is `Union{}` where the fresh answer returns is not run (it would run into
+`unreachable`) and counts as `:would_trap`.
+
+- **Questions (10):** `A <: B`, `typeintersect(A, B) === Union{}`, `A == B`, `hasmethod(h, Tuple{A})`; at the value:
+  `x isa B`, `(x::B; true)`, `new` of a struct whose field is typed B (`Expr(:new)`, no conversion), `g(x)`'s selected
+  method, `applicable(h, x)`, `which(g, Tuple{typeof(x)})` (in the latest world only: `which` asks it by definition).
+- **Forms:** the function compiled for the types (`q`), through one more caller (`r`), and, where the shape has one, a
+  method compiled once at a set (`@nospecializeinfer`, `o`) and its caller (`ro`).
+- **Shapes (26 in the stub mode):** the type; a member defined after the methods at the set; a covariant parameter (a
+  tuple, two); an invariant parameter; a union's component (one side, both); an intersection `All{X, Y}`; a variable's
+  upper bound, lower bound (member in the lower bound against a set argument), both bounds; a lower bound compared for
+  equality at the top and inside an invariant parameter; a lower bound whose answer rests on two entries (the gate
+  `n38`'s shape); `Type{S}` against `Type{<:X}`; a type value (`Type{S}`'s entry); a `Vararg` tail; a family; a family
+  bounded by a set; a set's input (the instance, a bound on it, another value); an abstract member; a set as member; a
+  parameter through a declared supertype; an intersection no type is in (a member type defined later). Two more
+  (`Dynamic{X}`, `Compiled{T}`) are for `--mode=traitworld`, which is not working yet (below).
+- **Sequences (14 + 2):** declared; taken back; declared again; a path through a second set (the second link made, then
+  each link taken back); a supertrait through one and two entries (and taken back); a method at B defined, defined
+  where a more specific one exists, deleted; a method then the membership then its taking back; for the last shape a
+  member type defined later and its membership taken back.
+- The cross product is 348 cases and 96,880 checks, about 150 s on the head; a build without `jl_delete_membership`
+  runs the 173 cases with no taking back. Deterministic: no sample unless `--sample`.
+
+**What it cannot ask:** a membership in a package image (loaded after the function is compiled, or the function
+compiled in the image and the membership declared in the session): each case would need a package built in a depot,
+not done; TraitWorld's kept forms, a declared result at a set (an operation's result, a declared field's type) and the
+`trusted` mark: the `traitworld` mode declares memberships by the library's macro with type objects, which it does not
+take, and was not run; a store into storage typed by a set (`setfield!`, `memoryrefset!`) and `typeassert` folded by
+the optimizer's `⊑` queries (C-51); `Callable{A, S}`; an intersection of three components and two instances of one
+set at different inputs; a set deeper than eight levels or under a `Vararg` in a method's signature (the walk's
+conservative path, C-88); a redeclaration with another receiver; strict mode's refusals; another thread; a closed build.
+
+| Date | Build | Cases | Mismatches (groups) | By question | Fresh against expected | Notes |
+|---|---|---|---|---|---|---|
+| 2026-11-23 | `w159-bisect` 3037289af6 (before rows 181, 182, 184, D-13) | 173 | 2,392 (419) | int 564, new 410, tassert 410, sub 264, hasm 220, isa 164, disp 144, app 122, which 64, eq 30 | 252 | row 181's hole: `lower_bound_eq`, `lower_bound_inv` `sub` in the form `q` kept after the membership |
+| 2026-11-23 | `absence-worlds` 8884715703 (row 184, not 182) | 348 | 9,455 (1,134) | int 2,658, tassert 1,290, new 1,228, sub 1,154, hasm 830, isa 791, app 648, disp 522, which 190, eq 144 | 652 | row 182's hole: `lower_bound_rev` `sub`, `isa` in the form `q` run in an earlier world |
+| 2026-11-23 | `w143e` d1e64d8b56 (rows 181, 182, not 184) | 348 | 9,725 (1,227) | int 2,658, sub 1,340, new 1,134, tassert 1,134, isa 1,121, hasm 830, app 650, disp 524, which 190, eq 144 | 652 | row 184's hole: 93 groups more than `next`, `sub` and `isa` run in a world before a taking back |
+| 2026-11-23 | `next` dd42dc8c3f | 348 | 8,975 (1,134) | int 2,658, new 1,134, tassert 1,134, sub 1,018, hasm 830, isa 697, app 648, disp 522, which 190, eq 144 | 652 | none of the three; the patterns of E-542 |
+| 2026-11-23 | `w171` 2ddbe12394 | 348 | 2,032 (246) | hasm 758, app 562, disp 522, which 190 | 652 | no type question left; dispatch: C-162, C-164, C-165; fresh against expected: C-163 |
+
+Logs: `../w171/logs/set-folds-<build>.log`; the patterns, their probes and fixes: `../w171/README.md`.
