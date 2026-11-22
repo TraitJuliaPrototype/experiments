@@ -1,0 +1,67 @@
+order	commit	files	added	removed	tests_added	subject
+1	d98ee473f4	1	30	15	0	reinterpretarray: padding helpers call type functions by invoke and builtins
+2	f586b0f046	2	29	22	0	base: type-introspection helpers read fields with getfield and call each other by invoke
+3	ea3d9c153b	3	47	41	0	base: type joins read fields with getfield and call each other by invoke
+4	6934a63453	2	10	5	0	base: error paths build their exception at a concrete signature
+5	b8bdbf16e7	1	1	1	0	task: yieldto sets the task's result with setfield!, as schedule does
+6	cac2070045	1	4	2	0	base: Val(x) builds its singleton with new
+7	cd6577be71	1	4	1	0	show: IOContext stores a property through ImmutableDict's own constructor by invoke
+8	d49436997c	1	3	1	0	sort: specialize issorted's keyword body on lt and by
+9	0fa2734531	1	4	0	0	reflection: run the native compiler in its world for an explicit NativeInterpreter
+10	8056f52601	1	5	1	0	Compiler: compile the run-time return_type entry into the system image
+11	9491187370	1	22	2	0	Compiler: an invoke keeps the exact specialization when only a varargs tail is widened
+12	1c8bf5da19	3	26	9	0	Compiler: an inference cycle's members inline each other
+13	f871be6204	1	4	2	0	Compiler: applicable at argument types that meet in Union{}
+14	2f4a8b3221	1	58	1	0	gf: the per-call-site cache holds entries that match every type at their Any positions
+15	c9c7173370	1	150	1	0	gf: a dispatch profiler (JULIA_DISPATCH_PROFILE=1)
+16	8834c112c1	4	188	17	0	cfunction: the calling convention :caller_world, a world-checked thunk
+17	e593a25311	1	8	0	0	staticdata: an image keeps no external code specialized at a signature type without a hash
+18	bd0e219c41	1	2	0	0	generate_precompile: compile Base.infer_return_type's inference into the system image
+19	5d258413ac	6	21	6	0	julia.h, jltypes: fields for a per-method compile policy (`Method.facts`, `Module.facts`, a CodeInstance flag)
+20	7479a964dd	10	95	3	0	lowering, module: `@compiler_options facts=true` and the method metas `:facts_boundary`, `:facts_always`
+21	31373ff81e	1	28	8	0	Compiler: the `nortsite` effect bit (no call dispatched at run time here or in a callee)
+22	dfd4b0c306	5	163	21	0	Compiler: a facts inference that infers a call only at a fact signature (`NativeInterpreter(; facts = true)`)
+23	f4515ff8d5	7	231	42	0	gf, engine, Compiler: one CodeInstance per MethodInstance and policy
+24	aaae9f4128	8	310	37	0	gf, codegen, builtins, interpreter: a call runs the callee's code of the caller's policy
+25	2b4303b969	3	75	5	0	Compiler: inference across the two policies
+26	b8c8779998	4	22	13	0	Compiler: `return_type` gives plain inference's answer under either policy
+27	66d021b480	4	66	7	21	Compiler, gf: a dispatch backedge keeps the call's own signature where the call reached a wider instance
+28	edcbbfc72e	9	125	14	9	Compiler, gf: the G2 bit, set on a CodeInstance whose edges are facts at any depth
+29	763fbf387a	7	82	3	1	staticdata, Compiler: package images and `--trim` under the facts policy
+30	6b006ff583	3	45	8	0	gf, module: `JULIA_COMPILE_BY_FACTS=1` compiles a session's own code by facts (a test bed)
+31	f0b3f2eb19	9	173	7	80	Compiler, module: owner-only functions, whose calls are facts at any signature
+32	62c5ebd3db	6	162	0	67	gf: keep what a definition ends of the deep class, for a tool to take
+33	fd11a559b2	14	183	6	56	Compiler, gf: fully typed mode, a check at the start of facts code that dispatches at run time
+34	3f2d58d7ae	2	53	2	28	Compiler: a compile request takes the code of any equivalent cached entry, a compiled one first
+35	11e089de85	1	1	1	0	gf: the dispatch profiler takes the call site from `apply_generic_reach`'s `ip`
+36	5a42081741	8	142	27	14	julia.h, jltypes: the layout for sets and memberships (`TypeName.memberships`, `Core.MembershipEntry`, `DataType.has_open_set`)
+37	9dc720469a	11	595	0	0	datatype, subtype: declaring a set and a membership, with its checks and its worlds
+38	4ed6c9007c	3	376	21	0	subtype: a membership is a supertype in the worlds it is in force
+39	4b04eb44ba	1	162	7	0	subtype: a non-member's answers at a set without the walk, and reachability memoized per world range
+40	b42afd1f60	13	354	14	139	Compiler, codegen, gf: inference asks memberships in the world it infers for, and folds no answer a membership could change
+41	2b2a9030a0	9	524	6	39	jltypes, subtype: intersections `All{X, Y}` in their normal form
+42	c0daec60fd	8	733	3	75	gf, typemap, subtype: dispatch at sets, a match's worlds through memberships, and the ambiguity report at a membership
+43	2758486a56	6	1345	148	46	gf, datatype: a membership invalidates as a method does, and a membership taken back
+44	a86b764265	17	485	37	58	Compiler, gf, datatype: a membership is a method of `Core.implements`; answers folded through it hold an edge to it
+45	d127a2fc13	12	577	13	35	Compiler, gf, datatype: final negatives, and a match met only at an intersection no type is in
+46	3d38bca9af	7	305	9	77	staticdata, datatype: memberships in package images
+47	acce77e827	12	304	5	46	gf, method, staticdata: hooks for a trait library at a definition, a deletion, a module's end and an image
+48	250dbcaa14	10	611	0	19	gf, staticdata, Compiler: the member hook, at dispatch and in the compile queue
+49	a10552facc	6	193	8	19	datatype, gf: a strict mode for a trait library, which refuses a membership that makes methods ambiguous
+50	591b21d8c9	14	569	12	48	Compiler, datatype, lowering: declared results, fields, contracts and operations
+51	9ee75aa0ab	3	23	4	17	datatype: the bit "a set occurs in this type" sees a set in a type variable's lower bound
+52	c34124b7ad	1	23	23	0	base: the type predicates and the layout readers read a type's fields with `getfield`
+53	7db528d7ac	3	29	21	0	base: the joins under `promote_typejoin_union` and a tuple's `eltype` read fields with `getfield` and call through `invoke`
+54	e06fd69b58	1	5	4	0	base: `CyclePadding`'s iteration reads its tuples with `getfield`
+55	425487aff1	3	11	7	0	base: the task code passes an exception and a payload at the callee's own signature
+56	5888a9752d	3	22	9	10	Core, Compiler: `TypeVar` and `UnionAll` are inferred once and matched at the call's own signature
+57	98960887b3	2	27	0	8	Compiler: a call's edge at a top-level union is split, each split with its own edge
+58	9c84cbccae	6	168	23	0	Compiler, effects: the `trusted` effect, and the checks of a result a member's own code does not check
+59	37f596a45c	14	675	25	0	Compiler, datatype, gf: an operation's call split over its set's candidates, and the table of a call's targets
+60	da7f0088bf	11	210	6	0	Core, Compiler, jltypes: `Callable{A, S}`, the functions called with arguments of `A` that return an `S`
+61	cad6b04cd6	6	51	8	0	base, REPL: `IO`'s contract, `IOContext{IO}`, and the display at `IOContext{IO}`
+62	7a1cbc5645	6	112	3	0	Core, gf: the kept forms `Dynamic{X}` and `Compiled{T}`, and an argument typed by a set
+63	035be40faa	3	66	2	0	Compiler: the definition-time check's interpreter (`DefinitionCheckInterpreter`) and its bootstrap entries
+64	2ee6d6876e	9	26	26	7	module, lowering: the module's options word for the trait language's scope options is named `trait_options`
+65	a1d44b4554	9	1420	70	0	Compiler: a closed build (`--trim`): the members of a set are those the build has
+66	6e0701d6af	3	3	3	1	Compiler: the union-splitting cost in a test of `callsig_splits`; two comments

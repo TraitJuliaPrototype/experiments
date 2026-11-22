@@ -1,0 +1,43 @@
+== 180f23e4cd load 4.38 4.99 5.90 9/60028 3790048 23:06:03
+make[1]: Entering directory '/p/projects/coen/julia-trait-bound/wt/w19-julia/test/trimming'
+/p/projects/coen/julia-trait-bound/wt/w19-julia/usr/bin/julia --startup-file=no --history-file=no -e 'using Pkg; Pkg.activate("/p/projects/coen/julia-trait-bound/wt/w19-julia/test/trimming"); Pkg.instantiate()'
+/p/projects/coen/julia-trait-bound/wt/w19-julia/usr/bin/julia -t 1 -J /p/projects/coen/julia-trait-bound/wt/w19-julia/usr/bin/../lib/julia/sys.so --startup-file=no --history-file=no --output-o /p/projects/coen/julia-trait-bound/wt/w19-julia/test/trimming/libsimple-o.a --output-incremental=no --strip-ir --strip-metadata --experimental --trim /p/projects/coen/julia-trait-bound/wt/w19-julia/test/trimming/juliac-buildscript.jl /p/projects/coen/julia-trait-bound/wt/w19-julia/test/trimming/libsimple.jl --output-lib true /p/projects/coen/julia-trait-bound/wt/w19-julia/test/trimming/bindinginfo_libsimple.json
+  Activating project at `/p/projects/coen/julia-trait-bound/wt/w19-julia/test/trimming`
+ERROR: no registries have been installed. Cannot resolve the following packages:
+  `JSON [682c06a0]`
+Stacktrace:
+  [1] pkgerror(msg::String)
+    @ Pkg.Types /p/projects/coen/julia-trait-bound/wt/w19-julia/usr/share/julia/stdlib/v1.13/Pkg/src/Types.jl:68
+  [2] check_registered(registries::Vector{Pkg.Registry.RegistryInstance}, pkgs::Vector{PackageSpec})
+    @ Pkg.Operations /p/projects/coen/julia-trait-bound/wt/w19-julia/usr/share/julia/stdlib/v1.13/Pkg/src/Operations.jl:2187
+  [3] up(ctx::Pkg.Types.Context, pkgs::Vector{PackageSpec}, level::UpgradeLevel; skip_writing_project::Bool, preserve::Nothing)
+    @ Pkg.Operations /p/projects/coen/julia-trait-bound/wt/w19-julia/usr/share/julia/stdlib/v1.13/Pkg/src/Operations.jl:2685
+  [4] up
+    @ /p/projects/coen/julia-trait-bound/wt/w19-julia/usr/share/julia/stdlib/v1.13/Pkg/src/Operations.jl:2660 [inlined]
+  [5] up(ctx::Pkg.Types.Context, pkgs::Vector{PackageSpec}; level::UpgradeLevel, mode::PackageMode, preserve::Nothing, update_registry::Bool, skip_writing_project::Bool, workspace::Bool, kwargs::@Kwargs{})
+    @ Pkg.API /p/projects/coen/julia-trait-bound/wt/w19-julia/usr/share/julia/stdlib/v1.13/Pkg/src/API.jl:480
+  [6] up
+    @ /p/projects/coen/julia-trait-bound/wt/w19-julia/usr/share/julia/stdlib/v1.13/Pkg/src/API.jl:447 [inlined]
+  [7] up
+    @ /p/projects/coen/julia-trait-bound/wt/w19-julia/usr/share/julia/stdlib/v1.13/Pkg/src/API.jl:177 [inlined]
+  [8] instantiate(ctx::Pkg.Types.Context; manifest::Nothing, update_registry::Bool, verbose::Bool, platform::Base.BinaryPlatforms.Platform, allow_build::Bool, allow_autoprecomp::Bool, workspace::Bool, julia_version_strict::Bool, kwargs::@Kwargs{})
+    @ Pkg.API /p/projects/coen/julia-trait-bound/wt/w19-julia/usr/share/julia/stdlib/v1.13/Pkg/src/API.jl:1300
+  [9] instantiate
+    @ /p/projects/coen/julia-trait-bound/wt/w19-julia/usr/share/julia/stdlib/v1.13/Pkg/src/API.jl:1272 [inlined]
+ [10] instantiate(; kwargs::@Kwargs{})
+    @ Pkg.API /p/projects/coen/julia-trait-bound/wt/w19-julia/usr/share/julia/stdlib/v1.13/Pkg/src/API.jl:1271
+ [11] top-level scope
+    @ none:1
+ [12] eval(m::Module, e::Any)
+    @ Core ./boot.jl:548
+ [13] exec_options(opts::Base.JLOptions)
+    @ Base ./client.jl:310
+ [14] _start()
+    @ Base ./client.jl:577
+make[1]: *** [Makefile:41: Manifest.toml] Error 1
+make[1]: *** Waiting for unfinished jobs....
+make[1]: Leaving directory '/p/projects/coen/julia-trait-bound/wt/w19-julia/test/trimming'
+make: *** [Makefile:77: trimming] Error 2
+make: Leaving directory '/p/projects/coen/julia-trait-bound/wt/w19-julia/test'
+exit 2
+== 23:06:11

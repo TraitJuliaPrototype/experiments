@@ -1,0 +1,31 @@
+== 2ee6d6876e load 3.57 5.99 6.77 2/58981 3914165
+WARNING: method v at v(Test68Main_subtype.SetsAndMemberships.UX, Int64) is ambiguous for Test68Main_subtype.SetsAndMemberships.UC, a member of Test68Main_subtype.SetsAndMemberships.UX, with the method at v(Test68Main_subtype.SetsAndMemberships.UA, Any); a method at v(All{Test68Main_subtype.SetsAndMemberships.UA, Test68Main_subtype.SetsAndMemberships.UX}, Int64) would resolve it
+WARNING: Detected access to binding `SetsAndMemberships.refused_def` in a world prior to its definition world.
+  Julia 1.12 has introduced more strict world age semantics for global bindings.
+  !!! This code may malfunction under Revise.
+  !!! This code will error in future versions of Julia.
+Hint: Add an appropriate `invokelatest` around the access to this binding.
+To make this warning an error, and hence obtain a stack trace, use `julia --depwarn=error`.
+Running parallel tests with:
+  getpid() = 3914175
+  nworkers() = 1
+  nthreads(:interactive) = 1
+  nthreads(:default) = 4
+  Sys.CPU_THREADS = 1
+  Sys.total_memory() = 754.783 GiB
+  Sys.free_memory() = 637.247 GiB
+  Sys.uptime() = 1.58016757e6 (438.9 hours)
+
+Test  (Worker) | Time (s) | GC (s) | GC % | Alloc (MB) | RSS (MB)
+facts      (1) |        started at 2026-11-23T00:01:11.123
+facts      (1) |     2.04 |   0.00 |  0.0 |      48.86 |   391.23
+subtype    (1) |        started at 2026-11-23T00:01:13.404
+subtype    (1) |    12.07 |   0.15 |  1.3 |    1058.39 |   710.32
+core       (1) |        started at 2026-11-23T00:01:25.470
+core       (1) |    58.70 |   2.82 |  4.8 |   12562.82 |  2276.72
+
+Test Summary: |    Pass  Broken    Total     Time
+  Overall     | 7671855      50  7671905  1m14.8s
+    SUCCESS
+exit 0
+== load 3.12 5.25 6.44 6/58972 3915073

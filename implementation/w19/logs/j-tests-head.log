@@ -1,0 +1,118 @@
+== 180f23e4cd load 3.64 5.81 6.82 3/59685 3747857
+WARNING: method v at v(Test25Main_subtype.SetsAndMemberships.UX, Int64) is ambiguous for Test25Main_subtype.SetsAndMemberships.UC, a member of Test25Main_subtype.SetsAndMemberships.UX, with the method at v(Test25Main_subtype.SetsAndMemberships.UA, Any); a method at v(All{Test25Main_subtype.SetsAndMemberships.UA, Test25Main_subtype.SetsAndMemberships.UX}, Int64) would resolve it
+WARNING: Detected access to binding `SetsAndMemberships.refused_def` in a world prior to its definition world.
+  Julia 1.12 has introduced more strict world age semantics for global bindings.
+  !!! This code may malfunction under Revise.
+  !!! This code will error in future versions of Julia.
+Hint: Add an appropriate `invokelatest` around the access to this binding.
+To make this warning an error, and hence obtain a stack trace, use `julia --depwarn=error`.
+ERROR: LoadError: Test run finished with errors
+in expression starting at /p/projects/coen/julia-trait-bound/wt/w19-julia/usr/share/julia/test/runtests.jl:103
+Running parallel tests with:
+  getpid() = 3747867
+  nworkers() = 1
+  nthreads(:interactive) = 1
+  nthreads(:default) = 4
+  Sys.CPU_THREADS = 1
+  Sys.total_memory() = 754.783 GiB
+  Sys.free_memory() = 632.602 GiB
+  Sys.uptime() = 1.57541931e6 (437.6 hours)
+
+Test              (Worker) | Time (s) | GC (s) | GC % | Alloc (MB) | RSS (MB)
+subtype                (1) |        started at 2026-11-22T22:42:02.893
+subtype                (1) |    12.41 |   0.15 |  1.2 |    1079.92 |   692.72
+core                   (1) |        started at 2026-11-22T22:42:15.561
+core                   (1) |    58.95 |   2.89 |  4.9 |   12626.71 |  2275.75
+worlds                 (1) |        started at 2026-11-22T22:43:14.882
+worlds                 (1) |     1.94 |   0.00 |  0.0 |      93.55 |  2275.75
+reflection             (1) |        started at 2026-11-22T22:43:16.821
+reflection             (1) |    13.40 |   0.11 |  0.8 |    1147.10 |  2275.75
+Compiler/inference     (1) |        started at 2026-11-22T22:43:30.221
+Compiler/inference     (1) |         failed at 2026-11-22T22:44:46.627
+Test Failed at /p/projects/coen/julia-trait-bound/wt/w19-julia/usr/share/julia/Compiler/test/inference.jl:6746
+  Expression: Compiler.callsig_splits(Tuple{typeof(!==), Union{Int8, Int16, Int32, Int64, Int128}, Nothing}) === nothing
+   Evaluated: Any[Tuple{typeof(!==), Int128, Nothing}, Tuple{typeof(!==), Int16, Nothing}, Tuple{typeof(!==), Int32, Nothing}, Tuple{typeof(!==), Int64, Nothing}, Tuple{typeof(!==), Int8, Nothing}] === nothing
+
+Compiler/invalidation  (1) |        started at 2026-11-22T22:44:46.676
+Compiler/invalidation  (1) |    22.21 |   0.08 |  0.4 |     572.28 |  2275.75
+Compiler/effects       (1) |        started at 2026-11-22T22:45:08.890
+Compiler/effects       (1) |     1.98 |   0.00 |  0.0 |     179.47 |  2275.75
+facts                  (1) |        started at 2026-11-22T22:45:10.871
+facts                  (1) |     1.72 |   0.00 |  0.0 |      23.26 |  2275.75
+show                   (1) |        started at 2026-11-22T22:45:12.592
+show                   (1) |    25.55 |   0.17 |  0.7 |    2373.27 |  2275.75
+
+Test Summary:             |    Pass  Fail  Broken    Total     Time
+  Overall                 | 7828477     1      78  7828556  3m37.0s
+    subtype               |  317732            43   317775    13.8s
+    core                  | 7354051             7  7354058    59.0s
+    worlds                |     172                    172     2.3s
+    reflection            |     615                    615    13.4s
+    Compiler/inference    |    1854     1      10     1865  1m16.4s
+    Compiler/invalidation |     105             4      109    22.2s
+    Compiler/effects      |     585             4      589     2.0s
+    facts                 |      72                     72     1.7s
+    show                  |  153291            10   153301    25.6s
+    FAILURE
+
+The global RNG seed was 0xb877faa6d1a329c02e8ff8d10ae22e18.
+
+Error in testset Compiler/inference:
+Test Failed at /p/projects/coen/julia-trait-bound/wt/w19-julia/usr/share/julia/Compiler/test/inference.jl:6746
+  Expression: Compiler.callsig_splits(Tuple{typeof(!==), Union{Int8, Int16, Int32, Int64, Int128}, Nothing}) === nothing
+   Evaluated: Any[Tuple{typeof(!==), Int128, Nothing}, Tuple{typeof(!==), Int16, Nothing}, Tuple{typeof(!==), Int32, Nothing}, Tuple{typeof(!==), Int64, Nothing}, Tuple{typeof(!==), Int8, Nothing}] === nothing
+ERROR: A test has failed. Please submit a bug report (https://github.com/JuliaLang/julia/issues)
+including error messages above and the output of versioninfo():
+Julia Version 1.13.2
+Commit 180f23e4cd* (2026-11-22 21:19 UTC)
+Platform Info:
+  OS: Linux (x86_64-pc-linux-gnu)
+  CPU: 128 × AMD EPYC 9354 32-Core Processor
+  WORD_SIZE: 64
+  LLVM: libLLVM-20.1.8 (ORCJIT, znver4)
+  GC: Built with stock GC
+Threads: 4 default, 1 interactive, 4 GC (on 4 virtual cores)
+Environment:
+  JULIA_CPU_THREADS = 4
+  JULIA_PKG_GC_AUTO = false
+  JULIA_NUM_PRECOMPILE_TASKS = 4
+  JULIA_DEPOT_PATH = /p/projects/coen/julia-trait-bound/.julia-depot/agent-depots/w19:/p/projects/coen/julia-trait-bound/.julia-depot:
+  JULIA_PKG_OFFLINE = true
+  LD_LIBRARY_PATH = /p/system/packages_rhel9/tools/git/2.52.0/lib64:/p/system/packages_rhel9/tools/git/2.52.0/lib:/p/system/packages_rhel9/libraries/mpc/1.3.1/lib64:/p/system/packages_rhel9/libraries/mpc/1.3.1/lib:/p/system/packages_rhel9/libraries/mpfr/4.2.1/lib64:/p/system/packages_rhel9/libraries/mpfr/4.2.1/lib:/p/system/packages_rhel9/libraries/gmp/6.3.0/lib64:/p/system/packages_rhel9/libraries/gmp/6.3.0/lib:/p/system/packages_rhel9/compiler/gcc/13.2.0/lib64:/usr/local/lib::/home/hellmann/gurobi/lib
+  JULIA_NUM_THREADS = 4
+
+Stacktrace:
+ [1] error(s::String)
+   @ Base ./error.jl:44
+ [2] runtests(tests::Vector{SubString{String}}; ncores::Int64, exit_on_error::Bool, revise::Bool, propagate_project::Bool, seed::Nothing, julia_args::Cmd)
+   @ Base ./util.jl:726
+ [3] top-level scope
+   @ none:1
+ [4] eval(m::Module, e::Any)
+   @ Core ./boot.jl:548
+ [5] exec_options(opts::Base.JLOptions)
+   @ Base ./client.jl:310
+ [6] _start()
+   @ Base ./client.jl:577
+
+caused by: failed process: Process(setenv(`/p/projects/coen/julia-trait-bound/wt/w19-julia/usr/bin/julia -C native -J/p/projects/coen/julia-trait-bound/wt/w19-julia/usr/lib/julia/sys.so -g1 --startup-file=no /p/projects/coen/julia-trait-bound/wt/w19-julia/usr/bin/../share/julia/test/runtests.jl subtype core worlds reflection Compiler/inference Compiler/invalidation Compiler/effects facts show`,["TERM=screen", "__LMOD_REF_COUNT_C_INCLUDE_PATH=/p/system/packages_rhel9/tools/git/2.52.0/include:1;/p/system/packages_rhel9/libraries/mpc/1.3.1/include:1;/p/system/packages_rhel9/libraries/mpfr/4.2.1/include:1;/p/system/packages_rhel9/libraries/gmp/6.3.0/include:1", "_ModuleTable005_=ZmlsZXNfcmhlbDkvcGFyYWxsZWw6L3Avc3lzdGVtL21vZHVsZWZpbGVzX3JoZWw5L3Rvb2xzIiwKfQo=", "__LMOD_REF_COUNT_PATH=/p/system/packages_rhel9/tools/git/2.52.0/bin:1;/p/system/packages_rhel9/libraries/mpc/1.3.1/bin:1;/p/system/packages_rhel9/libraries/mpfr/4.2.1/bin:1;/p/system/packages_rhel9/libraries/gmp/6.3.0/bin:1;/p/system/packages_rhel9/compiler/gcc/13.2.0/libexec:1;/p/system/packages_rhel9/compiler/gcc/13.2.0/bin:1;.:2;/p/system/packages/bin:2;/home/hellmann/.juliaup/bin:1;/home/hellmann/.local/bin:1;/usr/local/bin:3;/usr/bin:1;/usr/local/sbin:1;/usr/sbin:3;/opt/mellanox/doca/tools:2;/usr/lpp/X11/bin:2;/usr/lpp/bin:4;/usr/local/frame/bin:2;/home/hellmann/bin:2;/usr/lpp/xgmon/bin:2;/home/hellmann/gurobi/bin:2", "OPENBLAS_NUM_THREADS=1", "LMOD_ROOT=/usr/share/lmod", "AI_AGENT=claude-code_2-1-319_agent", "CLAUDE_CODE_SESSION_ID=d2985a1f-dcb5-5d03-b2eb-56d692b52b92", "OPENBLAS_MAIN_FREE=1", "SHELL=/bin/bash"  …  "CPLUS_INCLUDE_PATH=/p/system/packages_rhel9/tools/git/2.52.0/include:/p/system/packages_rhel9/libraries/mpc/1.3.1/include:/p/system/packages_rhel9/libraries/mpfr/4.2.1/include:/p/system/packages_rhel9/libraries/gmp/6.3.0/include", "CLAUDECODE=1", "HOME=/home/hellmann", "TW_ROOT=/p/projects/coen/julia-trait-bound", "GIT_ROOT=/p/system/packages_rhel9/tools/git/2.52.0", "JULIA_NUM_THREADS=4", "DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/3147/bus", "_ModuleTable003_=bW9kdWxlZmlsZXNfcmhlbDkvbGlicmFyaWVzL21wYy8xLjMuMSIsCmZ1bGxOYW1lID0gIm1wYy8xLjMuMSIsCmxvYWRPcmRlciA9IDMsCnByb3BUID0ge30sCnN0YWNrRGVwdGggPSAxLApzdGF0dXMgPSAiYWN0aXZlIiwKdXNlck5hbWUgPSAibXBjIiwKd1YgPSAiMDAwMDAwMDAxLjAwMDAwMDAwMy4wMDAwMDAwMDEuKnpmaW5hbCIsCn0sCm1wZnIgPSB7CmZuID0gIi9wL3N5c3RlbS9tb2R1bGVmaWxlc19yaGVsOS9saWJyYXJpZXMvbXBmci80LjIuMSIsCmZ1bGxOYW1lID0gIm1wZnIvNC4yLjEiLApsb2FkT3JkZXIgPSAyLApwcm9wVCA9IHt9LApzdGFja0RlcHRoID0gMSwKc3RhdHVzID0gImFjdGl2ZSIsCnVzZXJOYW1lID0gIm1wZnIiLAp3ViA9ICIwMDAwMDAwMDQuMDAw", "_ModuleTable002_=LApmdWxsTmFtZSA9ICJnaXQvMi41Mi4wIiwKbG9hZE9yZGVyID0gNSwKcHJvcFQgPSB7fSwKc3RhY2tEZXB0aCA9IDAsCnN0YXR1cyA9ICJhY3RpdmUiLAp1c2VyTmFtZSA9ICJnaXQvMi41Mi4wIiwKd1YgPSAiMDAwMDAwMDAyLjAwMDAwMDA1Mi4qemZpbmFsIiwKfSwKZ21wID0gewpmbiA9ICIvcC9zeXN0ZW0vbW9kdWxlZmlsZXNfcmhlbDkvbGlicmFyaWVzL2dtcC82LjMuMCIsCmZ1bGxOYW1lID0gImdtcC82LjMuMCIsCmxvYWRPcmRlciA9IDEsCnByb3BUID0ge30sCnN0YWNrRGVwdGggPSAxLApzdGF0dXMgPSAiYWN0aXZlIiwKdXNlck5hbWUgPSAiZ21wIiwKd1YgPSAiMDAwMDAwMDA2LjAwMDAwMDAwMy4qemZpbmFsIiwKfSwKbXBjID0gewpmbiA9ICIvcC9zeXN0ZW0v", "XDG_SESSION_CLASS=user"]), ProcessExited(1)) [1]
+
+Stacktrace:
+ [1] pipeline_error
+   @ ./process.jl:610 [inlined]
+ [2] run(::Cmd; wait::Bool)
+   @ Base ./process.jl:525
+ [3] run
+   @ ./process.jl:522 [inlined]
+ [4] runtests(tests::Vector{SubString{String}}; ncores::Int64, exit_on_error::Bool, revise::Bool, propagate_project::Bool, seed::Nothing, julia_args::Cmd)
+   @ Base ./util.jl:718
+ [5] top-level scope
+   @ none:1
+ [6] eval(m::Module, e::Any)
+   @ Core ./boot.jl:548
+ [7] exec_options(opts::Base.JLOptions)
+   @ Base ./client.jl:310
+ [8] _start()
+   @ Base ./client.jl:577
+exit 1
+== load 7.00 6.81 7.04 3/59817 3753145

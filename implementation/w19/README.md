@@ -1,4 +1,4 @@
-# W-19: the changes to Julia as small patches for upstream (first part: the patches useful without traits; second part: `up/19` and the facts series)
+# W-19: the changes to Julia as small patches for upstream (first part: the patches useful without traits; second part: `up/19` and the facts series; third to sixth parts: the rest of the facts series, the traits series T1 to T17, `up/20` to `up/26`)
 
 The work queue's W-19 (with W-143). The user: "Split all the changes to julia into a set of small, self contained and as orthogonal as possible parts. Each should be easily reviewable by a core developer in isolation."
 
@@ -885,3 +885,251 @@ Six of the twelve builds the brief allows.
 - **The method-matching tension's proposal** (one session bit) is not built.
 - **Comments and commit messages** are my wording and not reviewed. The test names in `test/subtype.jl` follow the fourth part's style.
 - **The final tree's world-bound defect** is fixed in the series only; `next` is unchanged (not in this part's scope).
+
+# Sixth part: the traits series' last parts T11 to T17, and the general patches of rows 174 to 180
+
+The brief: row 181 into the traits series; rows 174 to 178 and 180 as general patches `up/20` to `up/25`, built together as `w19-stack-v2`; row 179 as `up/26` on `up/19`; then T11 to T17 and S3's rename on `w19-traits-v2`, cut from `45b6d15e34..8884715703`, the series' head equal to the final tree but for what the plan's §5 keeps out; on the head the gates, Base's tests, the library's suite, the examples, the nine loads and what plain code pays.
+
+## How to run (sixth part)
+
+```
+bash j-run.sh <tag> "<tests>" "<gate patterns>" [micro] [plain]   # Base's tests (precompile alone), gates, micro-timings, plain session
+bash j-run-head.sh <tag>                                           # the head: gates, TraitWorld's suite, examples, Base's tests, micro, plain, nine loads
+julia motiv/j-invalidations.jl <probe>                             # the invalidation probes, with the new ones for up/22 and up/24
+```
+
+The parts were cut by tools kept here as a record (`tools/j-*.py`, `tools/j-pipeline.sh`; written in the session's scratch directory, whose paths they still name): `j-hunks.py` (a diff into hunks, comment-only hunks told apart), `j-hfilter.py` (a subset of hunks applied, by line range), `j-cfuncs.py`, `j-cmerge.py`, `j-cremove.py` (a C file by top-level function: compare, add, remove), `j-scrub.py`, `j-scrubfix.py` (the references' section numbers, work items and experiments taken out of the lines a tree adds), `j-cut-*.py` (each part taken off the tree above it), `j-fixups.py` and `j-pipeline.sh` (the clean-up of each tree, and the commits).
+
+## 1. The small items
+
+**Row 181** (`open_set_witness` follows a variable's lower bound): `traits-v2/10a-lower-bound` 9ee75aa0ab on T10, with its test in `test/subtype.jl` ("a set in a type variable's lower bound"). It belongs in T1 (where `has_open_set` and its witness are made); the commit says so.
+
+**Rows 174 to 178 and 180: `up/20` to `up/25`**, each one commit on v1.13.2; **row 179: `up/26`** on `up/19-callsig-backedge-v2`.
+
+| # | Branch, commit | What | Size | Checked | Test | Motivation (vanilla → `w19-stack-v2`) |
+|---|---|---|---|---|---|---|
+| P20 | `up/20-noteq-once` 7bc8de81a3 | `!==` declared `@nospecializeinfer`, and inference's clause for it matches the call at its own types | 3 files, +16 −3 | stack (build 1); parsed alone | `Compiler/test/inference.jl` (one instance at `(Any, Any)`) | with `up/19`: a method of `!==` ends 240 instances against 4,610 (measured on the facts series, third part); alone it changes no invalidation |
+| P21 | `up/21-type-predicates-getfield` 37f7521325 | the type predicates and the layout readers read `flags`, `layout`, `name` with `getfield` | 1 file, +23 −23 | stack | `test/reflection.jl`, `test/core.jl` | with P22 and `up/02`, `up/03`: `getproperty(::Type{W19B}, ::Symbol)` 4,977 → 2,800 (`w19-stack`: 4,137) |
+| P22 | `up/22-joins-union-eltype` af16915f45 | `promote_typejoin_union`, `typejoin_union_tuple`, a tuple's `eltype`, `rewrap_unionall` of a `Vararg` by `getfield` and `invoke` | 3 files, +29 −21 | stack | `test/core.jl`, `test/tuple.jl`, `test/missing.jl` | `promote_typejoin(::Type{W19J}, ::Type{W19J})` 1,063 → 102; `typejoin` 1,938 → 618 (`w19-stack`: 850) |
+| P23 | `up/23-cyclepadding-getfield` bfd9885680 | `CyclePadding`'s iteration reads its tuples with `getfield` | 1 file, +5 −3 | stack | `test/reinterpretarray.jl` | none measured alone (`up/01`'s probe) |
+| P24 | `up/24-task-callee-signature` 46c2b7126f | `close`, `notify_error`, `notify` pass the payload at the callee's own signature; `schedule`'s body positional (`_schedule`) | 3 files, +11 −7 | stack | `test/channels.jl` | `schedule(::Task, ::W19K)` 1,269 → 7; `notify(::GenericCondition, ::W19L, …)` 56 → 56 |
+| P25 | `up/25-typevar-unionall-once` 26123a26c7 | `TypeVar`, `UnionAll` declared `@nospecializeinfer`, matched at the call's own types | 3 files, +23 −9 | stack | `Compiler/test/inference.jl` | with `up/19`: a package's method ends only the callers that meet it; alone none |
+| P26 | `up/26-callsig-union-split-v2` 647fce9b01 (on `up/19-callsig-backedge-v2`) | a call's edge at a top-level union is split, each split with its own edge (`callsig_splits`) | 2 files, +28 | parsed; its test corrected after the head's run (`-v2`) | `Compiler/test/inference.jl` (the splits of a signature) | no invalidation changes in plain Julia: the edges name the splits, which a tool that reads edges can use (the facts mode's fact signatures) |
+
+- **`w19-stack-v2`** (7f61c1dd85): `w19-stack` with `up/20` to `up/25`. Built once (build 1). Base's tests `Compiler/inference`, `reflection`, `core`, `tuple`, `missing`, `reinterpretarray`, `channels`: 7,359,157 pass, 19 broken (`logs/j-tests-stackv2.log`). The probes: `logs/j-probes-stackv2.log` (`motiv/j-invalidations.jl`, one process each, the same hour as vanilla).
+- **Conflicts in the stack:** `up/22`'s `Type.body.name` read sits in a line `up/03` also changes (`a.name` → `bname`); `up/23` rewrites the iteration `up/01` changed; `up/25` adds the one-line macro `@_nospecializeinfer_meta` that `up/20` adds too (merged as one). Each patch alone is written against v1.13.2's text.
+- **`up/26` was first pushed with a wrong test** (`up/26-callsig-union-split` 3758475a09): `unionsplitcost` leaves the largest union out of its product, so one union of five members is within the cost. `-v2` takes two unions of three.
+
+## 2. The parts T11 to T17 and S3
+
+The stack `w19-traits-v2-head` (6e0701d6af) on `w19-traits-v2` (591b21d8c9). Sizes against the part below.
+
+| Order | Part | Branch, commit | Subject | Size | Checked | Test |
+|---|---|---|---|---|---|---|
+| 51 | row 181 | `traits-v2/10a-lower-bound` 9ee75aa0ab | datatype: the bit "a set occurs in this type" sees a set in a type variable's lower bound | 3 files, +23 −4 | compiled in the parts above; built in the head | `test/subtype.jl` "a set in a type variable's lower bound" |
+| 52–57 | G's rows 175–180 in the series | `traits-v2/10b-general-additions` 98960887b3 (six commits: `up/21`–`up/25` cherry-picked, then row 179 with the facts series' constant) | as `up/21` to `up/26` | 12 files, +117 −64 | parsed; built in the head | as the patches |
+| 58 | T15 | `traits-v2/15-trusted` 9c84cbccae | Compiler, effects: the `trusted` effect, and the checks of a result a member's own code does not check | 6 files, +168 −23 | compiled, parsed | gate `n35_trusted_result` (library) |
+| 59 | T11 | `traits-v2/11-split` 37f596a45c | an operation's call split over its set's candidates, and the table of a call's targets | 14 files, +675 −25 | compiled, parsed | gates `n22_declared_assert`, `n23_contract_image` |
+| 60 | T12 | `traits-v2/12-callable` da7f0088bf | `Callable{A, S}` | 11 files, +210 −6 | compiled, parsed | gates `n8_callable`, `n14_callable_args` |
+| 61 | T13 | `traits-v2/13-io-contract` cad6b04cd6 | `IO`'s contract, `IOContext{IO}`, the display at `IOContext{IO}` | 6 files, +51 −8 | compiled, parsed | gate `n19_io_trait`; `test/show.jl` |
+| 62 | T14 | `traits-v2/14-kept-forms` 7a1cbc5645 | the kept forms `Dynamic{X}`, `Compiled{T}`, an argument typed by a set | 6 files, +112 −3 | compiled, parsed | gates `m1_no_wrappers`, `n30_where_variable`, `n33_compiled_as_julia` |
+| 63 | T17 | `traits-v2/17-definition-check` 035be40faa | the definition-time check's interpreter | 3 files, +66 −2 | compiled, parsed | the library's suite |
+| 64 | S3 | `traits-v2/s3-trait-options` 2ee6d6876e | the options word named `trait_options` | 9 files, +26 −26 | compiled, parsed | `test/facts.jl`, `test/subtype.jl` |
+| 65 | T16 | `traits-v2/16-closed-build` a1d44b4554 | a closed build: the members of a set are those the build has | 9 files, +1,420 −70 | **built (build 2, as 180f23e4cd: the same code, comments differ)** | gate `n34_closed_invoke_compiled` |
+| 66 | — | `traits-v2/16b-test-fix` 6e0701d6af | the test of `callsig_splits` (the cost above), two comments | 3 files, +3 −3 | ran on the head's binary | `Compiler/test/inference.jl` |
+
+**In all (T11 to T17, S3, with the additions 10a, 10b and the fix 16b):** 48 files, 2,824 lines added, 187 removed against T10; T15 to T16 alone 2,685 added, 120 removed. The plan's estimate for T11 to T17 with their share of TX: about 1,900.
+
+**How the parts were cut.** Backwards from the head: the head assembled from the final diff by hunk (comment-only hunks left in the series' wording; the C files by function: the parts' functions added, the series' own functions kept where the final tree moved or renamed them), checked to compile and built (build 2); then each part taken off the tree above it in the reverse order (T16, S3, T17, T14, T13, T12, T11), leaving T15 over T10. Each tree then had the same clean-up (`tools/j-fixups.py`: the series' comment wording, `datatype.c` as the series' file with the parts' functions inserted, the scrub's leftovers) and was committed on the one below. Every commit compiles (`make -C src`, exit 0) and its changed Julia files parse (`logs/j-compile-checks.log`).
+
+**The order departs from the brief's in one place: T15 comes before T11.** T11's split asserts a branch's result with T15's check (`trusted_result_check`), and T12's call of a `Callable` is marked trusted; T15 needs only T10 and F1. The brief's groups stay: T15 with T11; T12 with T13; T14 with T17 and S3; T16.
+
+**What each part holds, and where it departs from the plan.**
+- **T15** the effect bits (`Effects.trusted`, two kinds: an operation's result, and a `Callable`'s that T12 reads), the IR flags `IR_FLAGS_TRUSTED` beside T6's `IR_FLAG_TYPES_PROVEN`, the mark at an operation's call, a trusted call's result widened where another instance may run (a call and `abstract_invoke`), the inliner's checks (`check_trusted_result!`, `trusted_result_check` as `typeassert`), and the join of a constant result taken for its effects with the call's type (row 82, a fix to T10's declared results, placed here).
+- **T11** the candidates (`register_candidate` at a declaration, an activation and a removal; `jl_register_candidate`, `jl_candidates_of`), the split and its pointers (`operation_split_type`, `SplitCallInfo`, `split_branch_pointer`, `split_inline_leaf`, `split_case_edge!`), the table (`Compiler/src/splittable.jl`, `base/splittable.jl`, `base/splittarget.jl`, `jl_split_table_ptr`, `jl_set_split_table_miss`), the image's tags for both.
+- **T12** `Core.Callable` with its two inputs (`post_boot_hooks`), `Function`'s entry (`base/Base.jl`), the call's inference and its checks (`callable_result`, `callable_args`, `CallableCallInfo`, `handle_callable_call!`, `Core._callable_argcheck`, `Core._callable_result` and its precompile statement), and Base's walk at the end of its build (`base/sysimg.jl`, `jl_invalidate_code_instances_new_world`), unconditional: the final tree guards it by "a set closed after load exists", which `Callable` always makes true.
+- **T13** as planned. `jl_method_set_declared_result` takes two arguments (T10 dropped `covers`), so `base/iotrait.jl` calls it with two.
+- **T14** `Core.Dynamic`, `Core.Compiled`, `Core._new_dynamic`; `is_trait_arg_type` in `jl_compilation_sig` and `jl_isa_compileable_sig`; the bit `erases` and `jl_set_erases` (a reader of the bit, for the library), set for `Callable` here, not in T12; `jl_open_set_methods_of` (the set-to-methods index read by the library's compiling ahead), which the plan puts in T16, here because the library loads from T14 on and calls it while a package is precompiled.
+- **T17** as planned; the hook's call in `abstract_call_known`.
+- **S3** the rename only: `jl_module_t.options` → `trait_options`, `jl_set_module_option` → `jl_set_module_trait_option`, `jl_get_module_options` → `jl_get_module_trait_options`, the meta `:module_option` → `:trait_option`. The named bits (`enum jl_module_option`) stay; the final tree writes them as literals.
+- **T16** everything named `closed_*`, the `named` instances of the build's queue (`MAX_NAMED_INSTANCES`), `ClosedCheck` and the overlay table, `closed_check`, the verifier's policy check (row 159), `jl_set_enumerable`, `jl_set_member_patterns`, `CLOSED_OUTPUT`, the Julia wrapper `is_trait_arg_type` (its one reader is `closed_set_signature`), and the `Callable` kind of a split (`kind` in `handle_call!`; a split of a `Callable`'s call is made only by a closed build).
+
+### Hand-made hunks (forms the final tree does not have)
+
+- `abstract_call_gf_by_type` in three forms: T15 returns the declared result with the trusted effects; T11 adds the keyword `operation` and the split over the candidates (`operation_split_type(atype)`, a pair); T16 adds `max_union_splitting`, `member_split`, `closed_bound`, the closed build's lists and splits (`operation_split_type(atype, closed_rules)`, a triple).
+- `UnionSplit` in two: T15 adds `trusted` alone (a union split's fallback and a case at wider types checked); T11 adds `fallback_rt` and `table`. `ir_inline_unionsplit!`, `cfg_inline_unionsplit!`, `check_trusted_result!` follow.
+- `trusted_result_check` is `typeassert` alone in T15 and T11; T12 adds the box's `TypeError` for a `Callable`'s result.
+- `trusted_effects` without the closed build's clause until T16; `SplitCallInfo` without `closed` until T16; `split_fallback_table` without its `closed` argument until T16.
+- `handle_call!`'s `kind` is `UInt32(0)` before T16.
+- `abstract_apply` unchanged before T16; `abstract_call_unknown`'s `Callable` block without the closed build's splits before T16.
+- The definition hook's comment about `Dynamic{X}` in the split's operation keyword reworded ("they are the split already"), since the box comes with T14.
+
+### Seams left in the series
+
+| Where | The series | The final tree | Why |
+|---|---|---|---|
+| `Effects.trusted`, `IR_FLAG_TRUSTED_CALLABLE` | in T15, with both kinds | the same | the `Callable` kind has its first reader in T12 |
+| `jl_open_set_methods_of` | T14 | (no part) | the library's compiling ahead calls it from T14 on |
+| Base's walk at the end of its build (`base/sysimg.jl`) | T12, unconditional | guarded by `jl_any_closed_after_load` | no `closed_after_load` bit in the series (plan §5) |
+| `jl_method_set_declared_result` | two arguments (T10), `base/iotrait.jl` passes two | three (`covers`) | `declared_covers` has no reader (plan §5) |
+| the module's options word | `enum jl_module_option` with named bits, renamed field and functions (S3) | literals | the series' first form (F9) kept |
+| `FACT_UNION_SPLITTING` in `callsig_splits` | the facts series' constant in the series (10b); `up/26` has its own `CALLSIG_UNION_SPLITTING` | the facts constant | `up/26` stands on v1.13.2 without the facts series |
+
+## 3. The head against the final tree
+
+`git diff w19-traits-v2-head 8884715703 --stat`: 70 files, 2,293 lines added, 2,838 removed (`logs/j-head-vs-final.txt`). Every file's difference is one of:
+
+| Kind | Files | What |
+|---|---|---|
+| **comments** | most of the 70 (293 of the diff's 494 hunks at the start of the part are comment-only) | the series' wording: no references' section numbers, work items, experiments or review names; the earlier parts' rewritten comments kept where the final tree's differ |
+| **the series' tests** | `test/subtype.jl`, `test/precompile.jl`, `test/facts.jl`, `test/worlds.jl`, `test/core.jl`, `test/choosetests.jl`, `Compiler/test/inference.jl` | the testsets the parts add (the final tree has none of them): 919 lines in all |
+| **plan §5: what nothing reads** | `src/datatype.c` (`closed_after_load`, `jl_set_closed_after_load`, `jl_is_closed_after_load`, `jl_any_closed_after_load`, the modules' loaded marks: `module_loaded`, `jl_module_set_loaded`, `jl_module_is_loaded`, `type_declarers_loaded`), `src/julia.h` (`closed_after_load`, `jl_module_t.loaded`, `Method.declared_covers`), `src/module.c`, `src/method.c`, `src/jltypes.c` (`declared_covers` in `Method`'s field list; `Callable` closed after load), `base/Base.jl`, `base/loading.jl`, `base/sysimg.jl` (the loaded marks), `src/gf.c` (`membership_walk_invalidates` and its switch, each function's list of methods at sets: `jl_func_set_methods`, `index_func_set_method`, `jl_func_methods_at_sets`), `src/subtype.c` (`membership_prune` and its switch), `src/staticdata.c` (the tag of `jl_func_set_methods`), `src/gc-*.c` (its root), `src/jl_exported_funcs.inc` | removed before upstream (plan §5, compiler C-88 (d)) |
+| **plan §5: debugging switches** | `src/staticdata_utils.c` | `JULIA_DEBUG_EXTERNAL_CIS`'s counters; `JULIA_CLOSED_BUILD_REPORT` and `JULIA_MEMBERSHIP_LOG` are in the series (T16, T5) |
+| **the earlier parts' forms** | `src/gf.c` (`ml_matches` through `ml_matches_c`; `open_set_walk_names`, `jl_ci_set_g2`, `jl_method_set_declared_result` placed elsewhere), `src/datatype.c` (functions placed in another order), `src/subtype.c` (`jl_set_meets_kinds`, which reads the cells the series does not make; a refactor of `kind_meets_set`), `src/typemap.c` (one line written as two), `src/jltypes.c` (a cast), `Compiler/src/facts.jl` (`is_implements_sig` for the final tree's `is_absence_sig`), `Compiler/src/typeutils.jl`, `Compiler/src/abstractlattice.jl` (an `if` as `||`), `base/reflection.jl` (`Base.isambiguous`'s docstring attached to it), `src/julia_internal.h` (declarations in another order) | as the fifth part lists them |
+
+Nothing of T11 to T17 is missing: every function the final tree adds for them is in the head (`tools/j-cfuncs.py` over each C file, and the hunks of the Julia files).
+
+## 4. On the head
+
+Build 2: the head as 180f23e4cd, whose code is `w19-traits-v2-full`'s (a1d44b4554; the two trees differ in comments only) and the head `w19-traits-v2-head` (6e0701d6af) but for the corrected test line and two comments. System image 212,087,704 bytes (T10 198,343,368; vanilla 194,307,784).
+
+- **The gates** (`run_all.sh` with no pattern, the stage gates too; `logs/j-gates-head.log`): **73 of 77 pass, the 9 stage gates pass.** `n37_absence_worlds` passes. Not passing:
+  - `n16_declared_result`, `n18_closed_after_load`, `n20_unmet_lookup`: they read `Method.declared_covers` or call `jl_set_closed_after_load`, `jl_module_is_loaded`, which the series does not make (plan §5); their copies without those lines, `gates/i-n16_declared_result.jl`, `i-n18_closed_after_load.jl`, `i-n20_unmet_lookup.jl`, pass at T11, T13 and S3 (`logs/j-gates-copies-s3.log`; not run on the head's build).
+  - `n38_lower_bound_entries`: a candidate gate of W-143e that fails on `next` bfaf484f55 too (its header says so): a positive answer through an entry whose member occurs in a lower bound records only one of its two entries. The final tree has no fix; neither has the series.
+- **The library's suite** (TraitWorld `unified` e2cb5d0, read only, run as a file; `logs/j-traitworld-head.log`): **120 testsets, all pass**, exit 0.
+- **The examples** (`experiments/docs-examples/`, from `TraitWorld/`; `logs/j-examples-head.log`): `intro.jl` 33 pass, `tutorial.jl` 129 pass, `strict.jl` 10 pass; 0 fail.
+- **Base's tests** (`Base.runtests([...]; ncores=1)`; `logs/j-tests-head.log`): `subtype`, `core`, `worlds`, `reflection`, `Compiler/inference`, `Compiler/invalidation`, `Compiler/effects`, `facts`, `show`: 7,828,477 pass, 78 broken, 1 failure: `Compiler/test/inference.jl:6746`, the new test of `callsig_splits` that misread `unionsplitcost` (corrected in 16b and in `up/26-…-v2`; the corrected line evaluates as expected on the head's binary). `precompile` alone: 467 pass (`logs/j-tests-head-precompile.log`). `trimming` (`make -C test trimming`) does not run here: its first step is `Pkg.instantiate()` of `JSON`, which needs a registry (offline; Pkg operations are not run in this depot) (`logs/j-tests-head-trimming.log`).
+- **The nine loads** (`f-loads.sh`, unchanged; `logs/j-loads-head.log`; a warm-up and 2 runs per cell, load 4.1–4.6): by facts **14 of 3,490** own image instances lost (G2 2,799), plainly 434 of 4,712 (G2 2,676); the work after the loads (A) **1.40 s by facts against 5.37–5.47 s**; order B 2.44–2.46 s against 6.20–6.39 s. Digests equal. **The facts cells are the round's (E-511: 14 of 3,490)**; at T10 the series' facts images held 3,487 (G2 2,773): the 3 instances more and the G2 bits come with the parts above T10 (the general additions 10b among them), not read further.
+- **What plain code pays** (no set declared; vanilla the same hour; one thread):
+  - micro-timings (`motiv/h-micro.jl`, ns per call, minimum of 7 rounds, two rounds of processes; `logs/j-micro-head.log`): `jl_subtype` 263.2–265.4 against 238.1–238.4 (+11 %), `jl_type_intersection` 308.0–310.7 against 277.3–278.4 (+11 %), the type cache 79.9–80.0 against 77.4–78.3 (+2 %), method matching 194.4–196.6 against 179.4–181.5 (+8 %). T10's were +13 %, +14 %, +3 %, +8 to +11 %: T11 to T17 add nothing to these paths;
+  - the plain session (`motiv/f-plain.jl`, upstream CSV and DataFrames compiled plainly, a warm-up and 3 fresh processes interleaved, load 5.2–6.7; `logs/j-plain-head.log`): `using CSV, DataFrames` 672–691 ms against 643–657 ms (+4 to +5 %), valid CodeInstances after the load 119,211 against 116,454, after the work 119,806 against 117,046; the first work 4.45–4.47 s against 4.40–4.41 s (+1.2 %). Digests equal.
+
+### The groups' last parts, built
+
+| Build | At | Base's tests | Gates (`run_all.sh`, 77 and 9 stage gates) | Failing, and the part each needs |
+|---|---|---|---|---|
+| 4 | T11 (37f596a45c), T15 in it | `subtype`, `core`, `Compiler/inference`: 7,673,637 pass, 60 broken, 1 failure (the test of `callsig_splits`, above) (`logs/j-tests-t11.log`) | 58 pass; stage 1 (`logs/j-gates-t11.log`); `n22_declared_assert` passes | `n19_io_trait`, `n23_contract_image` (T13: `IO`'s contract and candidates); `n8_callable`, `n14_callable_args` (T12); `m1_no_wrappers`, `n13`, `n30`, `n33` (T14); `f2_policy_flags` (S3); `n26`, `n35`, `n36`, `n37`, `n8_callable_box` and 8 stage gates (the library, which loads from T14); `n34` (T16); `n16`, `n18`, `n20` (copies pass); `n38` (fails on `next`) |
+| 3 | T13 (cad6b04cd6), T12 in it | `subtype`, `core`, `show`: 7,825,074 pass, 60 broken (`logs/j-tests-t13.log`) | 62 pass; stage 1 (`logs/j-gates-t13.log`); `n8_callable`, `n14_callable_args`, `n19_io_trait`, `n23_contract_image` pass | as at T11 less those four |
+| 5 | S3 (2ee6d6876e), T14 and T17 in it | `facts`, `subtype`, `core`: 7,671,855 pass, 50 broken (`logs/j-tests-s3.log`) | 72 pass; **stage 9 of 9** (`logs/j-gates-s3.log`); `m1_no_wrappers`, `n13`, `n30`, `n33`, `f2_policy_flags`, `n26`, `n35`, `n36`, `n37`, `n8_callable_box` pass | `n34` (T16); `n16`, `n18`, `n20` (copies pass); `n38` (fails on `next`). **The library loads;** its suite stops in `test/core.jl` "block and forwarding" (2 errors: `Compiler.closed_check`, T16's check in a session, which fully typed mode's report calls) (`logs/j-traitworld-s3.log`); the examples `intro.jl` (33) and `strict.jl` (10) pass, `tutorial.jl` stops at the same call (`logs/j-examples-s3.log`) |
+
+The gates' copies `i-n16`, `i-n18`, `i-n20` pass at T11, T13 and S3 (`logs/j-gates-copies-<tag>.log`).
+
+## 5. Builds (sixth part)
+
+`WIDE=0 tools-local/build.sh wt/w19-julia` (`-j4`, niced), one after another. Logs: `logs/j-build<n>-*.tw-build.log`.
+
+| Build | Branch | Commit | Load at start (of 128) | Wall | `sys.so` (bytes) | Result |
+|---|---|---|---|---|---|---|
+| 1 | `w19-stack-v2` | 7f61c1dd85 | 4.0 | 758 s | 196,180,136 | BUILD EXIT 0 |
+| 2 | the head (WIP 180f23e4cd = `traits-v2/16-closed-build`'s code) | 180f23e4cd | 8.3 | 870 s | 212,087,704 | BUILD EXIT 0 |
+| 3 | `traits-v2/13-io-contract` | cad6b04cd6 | 4.6 | 789 s | 200,454,632 | BUILD EXIT 0 |
+| 4 | `traits-v2/11-split` | 37f596a45c | 3.5 | 789 s | 199,857,032 | BUILD EXIT 0 |
+| 5 | `traits-v2/s3-trait-options` | 2ee6d6876e | 5.6 | 850 s | 209,486,864 | BUILD EXIT 0 |
+
+Five of the twelve builds the brief allows. `wt/w19-julia` is left at build 5 (S3). Besides: `make -C src` at every commit of T15 to T16 in `wt/w19-check` (`logs/j-compile-checks.log`). The system image: T10 198.3 MB, T11 199.9 MB, T13 200.5 MB, S3 209.5 MB (T17's bootstrap entries of the definition-time check), the head 212.1 MB (with T16).
+
+## 6. The whole series
+
+The stack `w19-traits-v2-head` on v1.13.2: series G (18 patches), the facts series with its tests (16 commits, F4 in three), the dispatch profiler's call site (E7), the traits series T1 to T17 with S3, the general additions placed in it (row 181, rows 175 to 180, row 179) and the test fix: **66 commits, 82 files, 12,381 lines added, 653 removed** (`git diff --shortstat 45b6d15e34 w19-traits-v2-head`). The final tree's diff (`45b6d15e34..8884715703`): 77 files, 11,848 added, 665 removed. The series is 533 lines larger: its tests (919 lines added under `test/` and `Compiler/test/`, none in the final tree) less what plan §5 keeps out and the comments' shorter wording. The table, one row per commit (sizes from `git show --shortstat`; `logs/j-series.tsv`; "alone": the commit's own tree built; "compiled": `make -C src` and the Julia files parsed; "in X": built only as part of the tree X):
+
+| Order | Part | Branch | Commit (stack) | Files | Added | Removed | What | Checked | Test |
+|---|---|---|---|---|---|---|---|---|---|
+| 1 | P01 | `up/01-reinterpret-padding-typed` | d98ee473f4 | 1 | 30 | 15 | reinterpretarray: padding helpers call type functions by invoke and builtins | stack; session | test/reinterpretarray.jl |
+| 2 | P02 | `up/02-introspection-getfield-invoke` | f586b0f046 | 2 | 29 | 22 | base: type-introspection helpers read fields with getfield and call each other by invoke | stack; session | test/reflection.jl, core.jl |
+| 3 | P03 | `up/03-typejoin-getfield-invoke` | ea3d9c153b | 3 | 47 | 41 | base: type joins read fields with getfield and call each other by invoke | stack; session | test/core.jl, tuple.jl, missing.jl |
+| 4 | P04 | `up/04-error-paths-concrete` | 6934a63453 | 2 | 10 | 5 | base: error paths build their exception at a concrete signature | stack | test/core.jl, int.jl, strings/basic.jl |
+| 5 | P05 | `up/05-yieldto-setfield` | b8bdbf16e7 | 1 | 1 | 1 | task: yieldto sets the task's result with setfield!, as schedule does | stack; session | test/channels.jl |
+| 6 | P06 | `up/06-val-new` | cac2070045 | 1 | 4 | 2 | base: Val(x) builds its singleton with new | stack | test/core.jl |
+| 7 | P07 | `up/07-iocontext-property-invoke` | cd6577be71 | 1 | 4 | 1 | show: IOContext stores a property through ImmutableDict's own constructor by invoke | stack | test/show.jl |
+| 8 | P08 | `up/08-issorted-specialize` | d49436997c | 1 | 3 | 1 | sort: specialize issorted's keyword body on lt and by | stack; session | test/sorting.jl; motiv/uniq.jl trimmed |
+| 9 | P09 | `up/09-reflection-interp-world` | 0fa2734531 | 1 | 4 | 0 | reflection: run the native compiler in its world for an explicit NativeInterpreter | stack; session | test/reflection.jl |
+| 10 | P10 | `up/10-bootstrap-return-type` | 8056f52601 | 1 | 5 | 1 | Compiler: compile the run-time return_type entry into the system image | stack | Compiler/test/inference.jl |
+| 11 | P11 | `up/11-invoke-exact-vararg` | 9491187370 | 1 | 22 | 2 | Compiler: an invoke keeps the exact specialization when only a varargs tail is widened | alone | Compiler/test/inline.jl |
+| 12 | P12 | `up/12-cycle-inline` | 1c8bf5da19 | 3 | 26 | 9 | Compiler: an inference cycle's members inline each other | alone | Compiler/test/inline.jl, inference.jl |
+| 13 | P13 | `up/13-applicable-union-bottom` | f871be6204 | 1 | 4 | 2 | Compiler: applicable at argument types that meet in Union{} | stack | Compiler/test/inference.jl |
+| 14 | P14 | `up/14-callsite-cache-wildcard` | 2f4a8b3221 | 1 | 58 | 1 | gf: the per-call-site cache holds entries that match every type at their Any positions | alone | test/worlds.jl, core.jl |
+| 15 | P15 | `up/15-dispatch-profiler` | c9c7173370 | 1 | 150 | 1 | gf: a dispatch profiler (JULIA_DISPATCH_PROFILE=1) | alone | motiv/dispatch_site.jl |
+| 16 | P16 | `up/16-cfunction-caller-world` | 8834c112c1 | 4 | 188 | 17 | cfunction: the calling convention :caller_world, a world-checked thunk | alone | motiv/caller_world.jl |
+| 17 | P17 | `up/17-image-hashless-external` | e593a25311 | 1 | 8 | 0 | staticdata: an image keeps no external code specialized at a signature type without a hash | alone | test/precompile.jl |
+| 18 | P18 | `up/18-precompile-typeinf-type` | bd0e219c41 | 1 | 2 | 0 | generate_precompile: compile Base.infer_return_type's inference into the system image | alone | motiv/first_calls.jl |
+| 19 | F0 | `facts/00-fields` | 5d258413ac | 6 | 21 | 6 | julia.h, jltypes: fields for a per-method compile policy (`Method.facts`, `Module.facts`, a CodeInstance flag) | built with F2 | test/core.jl |
+| 20 | F2 | `facts/02-policy` | 7479a964dd | 10 | 95 | 3 | lowering, module: `@compiler_options facts=true` and the method metas `:facts_boundary`, `:facts_always` | alone | gates/f-f2_policy_flags.jl |
+| 21 | F1 | `facts/01-nortsite` | 31373ff81e | 1 | 28 | 8 | Compiler: the `nortsite` effect bit (no call dispatched at run time here or in a callee) | built with F3 | Compiler/test/effects.jl |
+| 22 | F3 | `facts/03-inference` | dfd4b0c306 | 5 | 163 | 21 | Compiler: a facts inference that infers a call only at a fact signature (`NativeInterpreter(; facts = true)`) | alone | gate f1_facts_sites |
+| 23 | F4a | `facts/04a-ci-policy` | f4515ff8d5 | 7 | 231 | 42 | gf, engine, Compiler: one CodeInstance per MethodInstance and policy | compiled | gate f3_policy_code |
+| 24 | F4b | `facts/04b-reach-calls` | aaae9f4128 | 8 | 310 | 37 | gf, codegen, builtins, interpreter: a call runs the callee's code of the caller's policy | compiled | gates f3, f-f6 |
+| 25 | F4c | `facts/04c-cross-inference` | 2b4303b969 | 3 | 75 | 5 | Compiler: inference across the two policies | alone (= F4) | gates f1, f3, f5 |
+| 26 | F5 | `facts/05-return-type` | b8c8779998 | 4 | 22 | 13 | Compiler: `return_type` gives plain inference's answer under either policy | in the facts head | gate f5_return_type |
+| 27 | S1 | `up/19-callsig-backedge-v2` | 66d021b480 | 4 | 66 | 7 | Compiler, gf: a dispatch backedge keeps the call's own signature where the call reached a wider instance | alone (as up/19) | test/worlds.jl |
+| 28 | F7 | `facts/07-g2-v2` | edcbbfc72e | 9 | 125 | 14 | Compiler, gf: the G2 bit, set on a CodeInstance whose edges are facts at any depth | in the facts head | gate f4_g2_bit |
+| 29 | F8 | `facts/08-images (tests-v2: with test/precompile.jl)` | 763fbf387a | 7 | 82 | 3 | staticdata, Compiler: package images and `--trim` under the facts policy | alone (the facts head) | gates n15, n17 |
+| 30 | F6 | `facts/06-testbed` | 6b006ff583 | 3 | 45 | 8 | gf, module: `JULIA_COMPILE_BY_FACTS=1` compiles a session's own code by facts (a test bed) | in the facts head | gate f6_reach_policy |
+| 31 | F9 | `facts/09-owner-only` | f0b3f2eb19 | 9 | 173 | 7 | Compiler, module: owner-only functions, whose calls are facts at any signature | in the facts head | test/facts.jl |
+| 32 | F10 | `facts/10-deep-endings` | 62c5ebd3db | 6 | 162 | 0 | gf: keep what a definition ends of the deep class, for a tool to take | in the facts head | test/facts.jl |
+| 33 | F11 | `facts/11-fully-typed` | fd11a559b2 | 14 | 183 | 6 | Compiler, gf: fully typed mode, a check at the start of facts code that dispatches at run time | in the facts head | test/facts.jl |
+| 34 | F12 | `facts/12-one-code` | 3f2d58d7ae | 2 | 53 | 2 | Compiler: a compile request takes the code of any equivalent cached entry, a compiled one first | in the facts head | test/facts.jl |
+| 35 | E7 | `(w19-traits-v2-base)` | 11e089de85 | 1 | 1 | 1 | gf: the dispatch profiler takes the call site from `apply_generic_reach`'s `ip` | in w19-g-facts | motiv/dispatch_site.jl |
+| 36 | T1 | `traits-v2/01-core-slots` | 5a42081741 | 8 | 142 | 27 | julia.h, jltypes: the layout for sets and memberships (`TypeName.memberships`, `Core.MembershipEntry`, `DataType.has_open_set`) | compiled (built in T2d) | test/core.jl |
+| 37 | T2a | `traits-v2/02a-declaration` | 9dc720469a | 11 | 595 | 0 | datatype, subtype: declaring a set and a membership, with its checks and its worlds | compiled | with T2d |
+| 38 | T2b | `traits-v2/02b-subtyping` | 4ed6c9007c | 3 | 376 | 21 | subtype: a membership is a supertype in the worlds it is in force | compiled | with T2d |
+| 39 | T2c | `traits-v2/02c-caches` | 4b04eb44ba | 1 | 162 | 7 | subtype: a non-member's answers at a set without the walk, and reachability memoized per world range | compiled | with T2d |
+| 40 | T2d | `traits-v2/02d-compiler` | b42afd1f60 | 13 | 354 | 14 | Compiler, codegen, gf: inference asks memberships in the world it infers for, and folds no answer a membership could change | alone | test/subtype.jl |
+| 41 | T3 | `traits-v2/03-all` | 2b2a9030a0 | 9 | 524 | 6 | jltypes, subtype: intersections `All{X, Y}` in their normal form | built with T4; final form in T5 | test/subtype.jl |
+| 42 | T4 | `traits-v2/04-dispatch` | c0daec60fd | 8 | 733 | 3 | gf, typemap, subtype: dispatch at sets, a match's worlds through memberships, and the ambiguity report at a membership | alone | test/subtype.jl |
+| 43 | T5 | `traits-v2/05-invalidation` | 2758486a56 | 6 | 1345 | 148 | gf, datatype: a membership invalidates as a method does, and a membership taken back | alone | test/subtype.jl |
+| 44 | T6 | `traits-v2/06-membership-method` | a86b764265 | 17 | 485 | 37 | Compiler, gf, datatype: a membership is a method of `Core.implements`; answers folded through it hold an edge to it | alone | test/subtype.jl, core.jl |
+| 45 | T7 | `traits-v2/07-final-negatives` | d127a2fc13 | 12 | 577 | 13 | Compiler, gf, datatype: final negatives, and a match met only at an intersection no type is in | in T8 | test/subtype.jl |
+| 46 | T8 | `traits-v2/08-images` | 3d38bca9af | 7 | 305 | 9 | staticdata, datatype: memberships in package images | alone | test/precompile.jl |
+| 47 | T9a | `traits-v2/09a-library-hooks` | acce77e827 | 12 | 304 | 5 | gf, method, staticdata: hooks for a trait library at a definition, a deletion, a module's end and an image | compiled | test/subtype.jl |
+| 48 | T9b | `traits-v2/09b-member-hook` | 250dbcaa14 | 10 | 611 | 0 | gf, staticdata, Compiler: the member hook, at dispatch and in the compile queue | compiled | test/subtype.jl |
+| 49 | T9c | `traits-v2/09c-strict-mode` | a10552facc | 6 | 193 | 8 | datatype, gf: a strict mode for a trait library, which refuses a membership that makes methods ambiguous | alone | test/subtype.jl |
+| 50 | T10 | `traits-v2/10-contracts` | 591b21d8c9 | 14 | 569 | 12 | Compiler, datatype, lowering: declared results, fields, contracts and operations | alone | test/subtype.jl, core.jl |
+| 51 | row 181 | `traits-v2/10a-lower-bound` | 9ee75aa0ab | 3 | 23 | 4 | datatype: the bit "a set occurs in this type" sees a set in a type variable's lower bound | compiled; in the head | test/subtype.jl |
+| 52 | up/21 | `(10b)` | c34124b7ad | 1 | 23 | 23 | base: the type predicates and the layout readers read a type's fields with `getfield` | in the head | test/reflection.jl, core.jl |
+| 53 | up/22 | `(10b)` | 7db528d7ac | 3 | 29 | 21 | base: the joins under `promote_typejoin_union` and a tuple's `eltype` read fields with `getfield` and call through `invoke` | in the head | test/core.jl, tuple.jl |
+| 54 | up/23 | `(10b)` | e06fd69b58 | 1 | 5 | 4 | base: `CyclePadding`'s iteration reads its tuples with `getfield` | in the head | test/reinterpretarray.jl |
+| 55 | up/24 | `(10b)` | 425487aff1 | 3 | 11 | 7 | base: the task code passes an exception and a payload at the callee's own signature | in the head | test/channels.jl |
+| 56 | up/25 | `(10b)` | 5888a9752d | 3 | 22 | 9 | Core, Compiler: `TypeVar` and `UnionAll` are inferred once and matched at the call's own signature | in the head | Compiler/test/inference.jl |
+| 57 | up/26 | `traits-v2/10b-general-additions` | 98960887b3 | 2 | 27 | 0 | Compiler: a call's edge at a top-level union is split, each split with its own edge | in the head | Compiler/test/inference.jl |
+| 58 | T15 | `traits-v2/15-trusted` | 9c84cbccae | 6 | 168 | 23 | Compiler, effects: the `trusted` effect, and the checks of a result a member's own code does not check | compiled | gate n35 (library) |
+| 59 | T11 | `traits-v2/11-split` | 37f596a45c | 14 | 675 | 25 | Compiler, datatype, gf: an operation's call split over its set's candidates, and the table of a call's targets | BUILT_T11 | gates n22, n23 |
+| 60 | T12 | `traits-v2/12-callable` | da7f0088bf | 11 | 210 | 6 | Core, Compiler, jltypes: `Callable{A, S}`, the functions called with arguments of `A` that return an `S` | compiled | gates n8, n14 |
+| 61 | T13 | `traits-v2/13-io-contract` | cad6b04cd6 | 6 | 51 | 8 | base, REPL: `IO`'s contract, `IOContext{IO}`, and the display at `IOContext{IO}` | BUILT_T13 | gate n19; test/show.jl |
+| 62 | T14 | `traits-v2/14-kept-forms` | 7a1cbc5645 | 6 | 112 | 3 | Core, gf: the kept forms `Dynamic{X}` and `Compiled{T}`, and an argument typed by a set | compiled | gates m1_no_wrappers, n30, n33 |
+| 63 | T17 | `traits-v2/17-definition-check` | 035be40faa | 3 | 66 | 2 | Compiler: the definition-time check's interpreter (`DefinitionCheckInterpreter`) and its bootstrap entries | compiled | library suite |
+| 64 | S3 | `traits-v2/s3-trait-options` | 2ee6d6876e | 9 | 26 | 26 | module, lowering: the module's options word for the trait language's scope options is named `trait_options` | BUILT_S3 | test/facts.jl, subtype.jl |
+| 65 | T16 | `traits-v2/16-closed-build` | a1d44b4554 | 9 | 1420 | 70 | Compiler: a closed build (`--trim`): the members of a set are those the build has | alone (the head) | gate n34 |
+| 66 | — | `traits-v2/16b-test-fix` | 6e0701d6af | 3 | 3 | 3 | Compiler: the union-splitting cost in a test of `callsig_splits`; two comments | on the head binary | Compiler/test/inference.jl |
+
+By series: G 595 added, 121 removed (18 commits); F 1,834 and 182, of which tests 262 (16); T1 to T5 4,231 and 226, tests 313 (8); T6 to T10 3,044 and 84, tests 302 (7); the additions 10a, 10b 140 and 68, tests 35 (7); T15 to T16 with 16b 2,731 and 166, tests 8 (9). The general patches outside the stack: `up/19-callsig-backedge-v2` (+66 −7), `up/20` to `up/25` (+107 −66), `up/26-callsig-union-split-v2` (+28).
+
+## 7. What stays (listed, not made)
+
+- **What of the final tree is in no patch, and why:** the bit `closed_after_load` and its functions, the modules' loaded marks (Base's loader, `__init__`, `sysimg.jl`), `Method.declared_covers`, `membership_walk_invalidates` and `membership_prune` with their switches, each function's list of methods at sets (`jl_func_set_methods`), `jl_set_meets_kinds` (reads the cells the series does not make): nothing reads them (plan §5). `JULIA_DEBUG_EXTERNAL_CIS`'s counters: a debugging switch (plan §5). Row 137's casts (the third part: v1.13.2 does not need them).
+- **The commits not built alone:** T1, T2a, T2b, T2c, T3 (its final form), T7, T9a, T9b (earlier parts); 10a and 10b (built in the head); T15, T12, T14, T17 (compiled and parsed; their groups' last commits built); F4a, F4b, F5, F7, F6, F9 to F12 and E7 (earlier parts); `up/20` to `up/25` alone (built in `w19-stack-v2`); `up/26` (parsed; its test corrected after the head's run).
+- **The wording still to review:** every commit message and comment of T11 to T17, S3, 10a, 10b and 16b, and of `up/20` to `up/26`, is mine; the comments of the head were scrubbed of the references' section numbers by a tool, and the leftovers it made were tidied by hand where found (`tools/j-fixups.py`).
+- **Tests:** T11 to T17 add no testset of their own to Julia's `test/`; each names the gates that test it (`experiments/implementation/gates/`), which pass on the head. A testset in `test/subtype.jl` per part, as T1 to T10 have, is still to write.
+
+## 8. Where the plan was wrong or incomplete (sixth part)
+
+- **T15 comes before T11 and T12.** T11's split asserts a branch's result with T15's check, and a `Callable`'s call is marked trusted; T15 needs only T10 and F1.
+- **The sizes:** T15 168 lines (plan 50), T11 675 (620), T12 210 (110), T13 51 (50), T14 112 (65), T17 66 (85), S3 26, T16 1,420 (880). T11 to T17 with S3: 2,685 lines added net (the plan with TX: about 1,900).
+- **T16 is too large to review as one patch** (1,420 lines, nine files). A cut that would build: the members by use and the build's rounds (`closed_note_used!`, `closed_candidates`, the rounds in `typeinf_ext_toplevel`; about 550), the closed splits in inference and the inliner (`closed_member_split`, `closed_callable_split`, `closed_set_signature`, the operation split over every member; about 600), the check in a session and the verifier (`closed_check`, `ClosedCheck`, the overlay table, the named instances, row 159; about 270).
+- **`jl_open_set_methods_of` is T14's, not T16's:** the library's compiling ahead calls it while a package is precompiled, and the library loads from T14 on. The bit `erases` and `jl_set_erases` (a reader, despite its name) are T14's too; `Callable`'s bit is set there.
+- **Base's walk at the end of its build is T12's and unconditional:** without `closed_after_load`, `Callable` makes the guard always true.
+- **S3 is a rename of four names;** the named bits of the options word (F9's `enum jl_module_option`) stay, where the final tree writes literals.
+- **Rows 175 to 180 and 179 are in the traits stack as 10b** (they belong in series G and with S1): the stack below T1 is `w19-stack`, without them, and the head must hold them.
+- **T11 to T17 have no testset of their own in Julia's `test/`;** their gates test them. The plan's "gate, tests" column names gates that need the library for T15 (`n35`), T12 (`n26`, `n8_callable_box`) and the box (`n13`): those pass only from T14 on.
+- **"The library loads from T14 on" holds; its suite needs T16:** fully typed mode's report runs the closed build's check in a session (`Compiler.closed_check`), and `test/core.jl` reaches it. The suite passes whole on the head only.
+- **`up/26` is no plain-Julia change in what is invalidated:** in plain Julia a call's signature with a top-level union reaches `_add_edges_impl` only from the clauses that match `!==`, `TypeVar` and `UnionAll` at their own types (`up/20`, `up/25`); the splits name the same signatures. It serves the facts mode's fact signatures; the plan's place for it is with S1 or F7, not series G.
+
+## 9. Not done, not verified (sixth part)
+
+- **T15, T12, T14 and T17 are compiled and parsed, not built alone;** T11, T13, S3 and the head are built. 10a and 10b are built only in the head.
+- **No testset in Julia's `test/` for T11 to T17** (above).
+- **`trimming` was not run** (it needs `Pkg.instantiate()` with a registry).
+- **The gates' copies `i-n16`, `i-n18`, `i-n20` were run on T11, T13 and S3, not on the head** (the head's build was replaced by build 3 before they ran); the head's own gates `n16`, `n18`, `n20` fail only at the lines the copies drop.
+- **The static check of GC roots** (`w163/sagc.sh`) was not run over T11 to T16's C (the new globals `jl_set_candidates`, `jl_split_table_miss_func` are rooted by both collectors and kept by the system image).
+- **The head's comments were scrubbed by a tool;** its leftovers were fixed where a search found them, not by reading every comment.
+- **`w19-stack-v2`'s probes compare the stack of 24 patches with vanilla,** not each patch alone; `up/20` and `up/25` change no invalidation without `up/19`, which `w19-stack-v2` does not hold.
+- **The nine loads' facts images hold 3,490 instances on the head against 3,487 at T10;** which part adds the 3 is not read.
