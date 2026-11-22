@@ -102,7 +102,7 @@ The tables' sessions give E-535's counts exactly (cf0f039f51 → 683ea4fc16 chan
 | B | bfaf484f55 | the runtime: `has_open_set` follows a type variable's lower bound too (`open_set_witness`) | 2 files, +6 −4 | `subtype` passes; gates `m1_*`, `m2_*`, `n2_*` and all in force pass | not plain: a soundness fix of the trait mechanism (point 3) | none: types without a set keep their bit clear |
 
 - **Base's tests on build 2** (`logs/tests-b2.log`, one worker, load 16 to 29): `core`, `reflection`, `tuple`, `missing`, `reinterpretarray`, `channels`, `broadcast`, `subtype`, `worlds`, `Compiler/inference` pass (7,677,469 pass, 63 broken); `threads` as above.
-- **The gates on build 2** (`logs/gates-b2.log`): 75 in force pass, 9 stage gates pass.
+- **The gates on build 2** (`logs/gates-b2.log`): 75 in force pass, 9 stage gates pass. **The library's tests** (`TraitWorld/test/runtests.jl` as a file, `logs/traitworld-tests-b2.log`): pass, rc 0.
 - **Plain code's first work** (`logs/plain-b2.log`; upstream CSV and DataFrames compiled plainly, a warm-up and 3 runs each, interleaved, load 16 to 20): `next` 4.43–4.45 s, build 2 4.46–4.48 s; the load 679–705 ms and 690–705 ms; digests equal. Valid CodeInstances after the load 119,540 → 118,937 (`TypeVar`, `UnionAll` and `_schedule` inferred once), those with the G2 bit 90,581 → 91,225.
 - **The probes** (`logs/probes.log`, one process each): the `notify(::GenericCondition, ::W143N, all, error)` probe ends 56 instances on all three (the loader's callers of `notify` at a payload of unknown type, not the task code's).
 
