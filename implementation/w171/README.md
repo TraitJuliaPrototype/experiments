@@ -76,4 +76,5 @@ row 184 on `w143e` d1e64d8b56). On branch `w171` 2ddbe12394: 2,032 mismatches in
 
 - The gates in force: 77 passed, 0 failed; the stage gates 9 passed (`logs/gates-w171-2ddbe12394.log`).
 - Base's `subtype`, `core`, `worlds`: SUCCESS (`logs/base-*-w171-2ddbe12394.log`).
+- TraitWorld's tests as a file: no failure (`logs/traitworld-tests-w171-2ddbe12394.log`).
 - The candidate gates `gates/n39`, `n40`, `n41`: each fails on `next` dd42dc8c3f and passes on `w171`.
