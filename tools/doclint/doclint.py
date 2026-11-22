@@ -28,7 +28,7 @@ HISTORY = [
 ]
 # Plans and reviews a current document may link to.
 LIVE = [
-    "plans/2026-11-15-next-iteration.md", "plans/2026-11-14-synthesis.md",
+    "plans/2026-11-15-next-iteration.md", "plans/2026-11-14-synthesis.md", "plans/2026-11-22-upstream-series.md",
     "reviews/2026-11-15-conceptual-design.md",
 ]
 
