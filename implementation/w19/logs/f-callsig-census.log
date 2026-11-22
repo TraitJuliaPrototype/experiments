@@ -1,0 +1,19 @@
+== julia-vanilla 45b6d15e34 | load 3.47
+backedge entries: ordinary 268512, invoke 3891, by the call's signature 0
+== wt/w19-julia 28c9bbfcf8 | load 3.47
+backedge entries: ordinary 273325, invoke 3884, by the call's signature 869
+   113  typejoin(a, b) @ Base promotion.jl:24
+    69  promote_type(::Type{Union{}}, ::Type{T}) where T @ Base promotion.jl:313
+    57  ⊑(lattice::Compiler.PartialsLattice, a, b) @ Compiler /p/projects/coen/julia-trait-bound/wt/w19-julia/usr/share/julia/Compiler/src/typelattice.jl:442
+    57  promote_type(::Type{T}, ::Type{Union{}}) where T @ Base promotion.jl:312
+    47  ⊑(lattice::Compiler.InferenceLattice, a, b) @ Compiler /p/projects/coen/julia-trait-bound/wt/w19-julia/usr/share/julia/Compiler/src/typelattice.jl:383
+    36  promote_typejoin_union(::Type{T}) where T @ Base promotion.jl:190
+    32  preserve_handle(x) @ Base libuv.jl:62
+    30  typesplit(a, b) @ Base promotion.jl:147
+    30  unpreserve_handle(x) @ Base libuv.jl:69
+    29  Compiler.Future{T}(f, prev::Compiler.Future{S}, interp::Compiler.AbstractInterpreter, sv::Union{Compiler.IRInterpretationState, Compiler.InferenceState}) where {T, S} @ Compiler /p/projects/coen/julia-trait-bound/wt/w19-julia/usr/share/julia/Compiler/src/inferencestate.jl:1187
+    29  promote_result(::Type{T}, ::Type{S}, ::Type{Union{}}, ::Type{Union{}}) where {T, S} @ Base promotion.jl:345
+    26  getindex(t::Tuple, i::Int64) @ Base tuple.jl:33
+    17  ⊑(a, b) @ Compiler /p/projects/coen/julia-trait-bound/wt/w19-julia/usr/share/julia/Compiler/src/abstractlattice.jl:304
+    17  length(t::AbstractArray) @ Base essentials.jl:11
+    16  widenmustalias(typ) @ Compiler /p/projects/coen/julia-trait-bound/wt/w19-julia/usr/share/julia/Compiler/src/typelattice.jl:302

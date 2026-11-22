@@ -1,0 +1,34 @@
+# facts head 64a8dcab67 tests | 2026-11-22T10:09:35+01:00 | load 3.63 4.39 4.28
+Running parallel tests with:
+  getpid() = 2089825
+  nworkers() = 1
+Test              (Worker) | Time (s) | GC (s) | GC % | Alloc (MB) | RSS (MB)
+worlds                 (1) |        started at 2026-11-22T10:09:41.171
+worlds                 (1) |     2.32 |   0.02 |  0.8 |     128.40 |   340.82
+Compiler/invalidation  (1) |        started at 2026-11-22T10:09:43.810
+Compiler/invalidation  (1) |    21.08 |   0.18 |  0.8 |    1012.16 |   496.65
+Compiler/effects       (1) |        started at 2026-11-22T10:10:04.894
+Compiler/effects       (1) |     2.32 |   0.03 |  1.1 |     229.18 |   496.65
+Compiler/inference     (1) |        started at 2026-11-22T10:10:07.220
+Compiler/inference     (1) |    73.19 |   0.83 |  1.1 |    3992.22 |   632.98
+core                   (1) |        started at 2026-11-22T10:11:20.408
+core                   (1) |    59.66 |   4.39 |  7.4 |   12365.59 |  2442.61
+reflection             (1) |        started at 2026-11-22T10:12:20.544
+reflection             (1) |    11.25 |   0.04 |  0.4 |     640.87 |  2442.61
+Test Summary: |    Pass  Broken    Total     Time
+  Overall     | 7357364      25  7357389  2m52.2s
+    SUCCESS
+# part 2 2026-11-22T10:12:32+01:00 load 4.24 5.47 4.82
+    @ Base ./client.jl:577
+in expression starting at /tmp/jltestdepot_scSNgs/FooBar3_inc.jl:1
+in expression starting at /tmp/jltestdepot_scSNgs/FooBar3.jl:1
+in expression starting at stdin:5
+  1 dependency had output during precompilation:
+┌ FooBar3
+│  [Output was shown above]
+└  
+precompile (1) |   178.58 |   0.20 |  0.1 |    1315.89 |   458.19
+Test Summary: | Pass  Total  Time
+  Overall     |  454    454  0.4s
+    SUCCESS
+# end 2026-11-22T10:15:37+01:00 load 13.19 8.67 6.13

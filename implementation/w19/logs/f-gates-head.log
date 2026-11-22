@@ -1,0 +1,79 @@
+# facts head w19-facts 64a8dcab67 | 2026-11-22T10:09:04+01:00 | load 4.74 4.64 4.36
+PASS f1_facts_sites.jl
+FAIL f2_policy_flags.jl (exit 1)
+    Stacktrace:
+     [1] error(s::String)
+       @ Base ./error.jl:44
+     [2] var"@compiler_options"(__source__::LineNumberNode, __module__::Module, args::Vararg{Any})
+       @ Base.Experimental ./experimental.jl:210
+     [3] fl_lower(ex::Expr, mod::Module, filename::String, lineno::UInt64, world::UInt64, warn::Bool)
+       @ Base ./flfrontend.jl:24
+     [4] include(mod::Module, _path::String)
+       @ Base ./Base.jl:309
+     [5] exec_options(opts::Base.JLOptions)
+       @ Base ./client.jl:344
+     [6] _start()
+       @ Base ./client.jl:577
+    in expression starting at /p/projects/coen/julia-trait-bound/experiments/implementation/gates/f2_policy_flags.jl:7
+    in expression starting at /p/projects/coen/julia-trait-bound/experiments/implementation/gates/f2_policy_flags.jl:6
+PASS f3_policy_code.jl
+PASS f4_g2_bit.jl
+PASS f5_return_type.jl
+FAIL f6_reach_policy.jl (exit 1)
+     [3] read
+       @ ./process.jl:499 [inlined]
+     [4] (::var"#2#3")()
+       @ Main /p/projects/coen/julia-trait-bound/experiments/implementation/gates/f6_reach_policy.jl:65
+     [5] withenv(f::var"#2#3", keyvals::Pair{String, String})
+       @ Base ./env.jl:273
+     [6] top-level scope
+       @ /p/projects/coen/julia-trait-bound/experiments/implementation/gates/f6_reach_policy.jl:64
+     [7] include(mod::Module, _path::String)
+       @ Base ./Base.jl:309
+     [8] exec_options(opts::Base.JLOptions)
+       @ Base ./client.jl:344
+     [9] _start()
+       @ Base ./client.jl:577
+    in expression starting at /p/projects/coen/julia-trait-bound/experiments/implementation/gates/f6_reach_policy.jl:64
+FAIL f7_membership_edges.jl (exit 1)
+    ERROR: LoadError: could not load symbol "jl_set_open_set":
+    /p/projects/coen/julia-trait-bound/wt/w19-julia/usr/bin/../lib/libjulia-internal.so.1.13: undefined symbol: jl_set_open_set
+    Stacktrace:
+     [1] _open_set!(T::Any)
+       @ Traits /p/projects/coen/julia-trait-bound/experiments/implementation/src/Traits.jl:12
+     [2] top-level scope
+       @ /p/projects/coen/julia-trait-bound/experiments/implementation/src/Traits.jl:53
+     [3] include(mod::Module, _path::String)
+       @ Base ./Base.jl:309
+     [4] exec_options(opts::Base.JLOptions)
+       @ Base ./client.jl:344
+     [5] _start()
+       @ Base ./client.jl:577
+    in expression starting at /p/projects/coen/julia-trait-bound/experiments/implementation/gates/f7_membership_edges.jl:14
+gates: 4 passed, 3 failed
+PASS n15_image_policy.jl
+gates: 1 passed, 0 failed
+PASS n17_rtsite_targets.jl
+gates: 1 passed, 0 failed
+FAIL n34_closed_invoke_compiled.jl (exit 1)
+      get_verify_typeinf_trim(::Vector{Any})
+       @ Base /p/projects/coen/julia-trait-bound/wt/w19-julia/usr/share/julia/Compiler/src/verifytrim.jl:440
+    
+    Stacktrace:
+     [1] refused(list::Vector{Any})
+       @ Main /p/projects/coen/julia-trait-bound/experiments/implementation/gates/n34_closed_invoke_compiled.jl:34
+     [2] top-level scope
+       @ /p/projects/coen/julia-trait-bound/experiments/implementation/gates/n34_closed_invoke_compiled.jl:37
+     [3] include(mod::Module, _path::String)
+       @ Base ./Base.jl:309
+     [4] exec_options(opts::Base.JLOptions)
+       @ Base ./client.jl:344
+     [5] _start()
+       @ Base ./client.jl:577
+    in expression starting at /p/projects/coen/julia-trait-bound/experiments/implementation/gates/n34_closed_invoke_compiled.jl:37
+gates: 0 passed, 1 failed
+== f-f2_policy_flags.jl
+f-f2_policy_flags (facts only): OK
+== f-f6_reach_policy.jl
+f-f6_reach_policy (no test bed): OK
+# end 2026-11-22T10:09:22+01:00 load 4.20 4.53 4.33

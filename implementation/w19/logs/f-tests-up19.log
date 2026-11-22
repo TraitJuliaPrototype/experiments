@@ -1,0 +1,277 @@
+# up/19 c32b862601 tests | 2026-11-22T09:41:45+01:00 | load 5.10 4.82 4.20
+┌ Warning: Module Baz with build ID fafbfcfd-0958-96b0-f1fa-37deeb97e71c is missing from the cache.
+│ This may mean Baz [top-level] does not support precompilation but is imported by a module that does.
+└ @ Base loading.jl:2768
+┌ Warning: Module Baz with build ID fafbfcfd-0958-96b0-f1fa-37deeb97e71c is missing from the cache.
+│ This may mean Baz [top-level] does not support precompilation but is imported by a module that does.
+└ @ Base loading.jl:2768
+
+  1 dependency had output during precompilation:
+┌ UseBaz
+│  [Output was shown above]
+└  
+ERROR: LoadError: Test run finished with errors
+in expression starting at /p/projects/coen/julia-trait-bound/wt/w19-julia/usr/share/julia/test/runtests.jl:103
+Running parallel tests with:
+  getpid() = 2015833
+  nworkers() = 1
+  nthreads(:interactive) = 1
+  nthreads(:default) = 4
+  Sys.CPU_THREADS = 1
+  Sys.total_memory() = 754.783 GiB
+  Sys.free_memory() = 651.880 GiB
+  Sys.uptime() = 1.52860752e6 (424.6 hours)
+
+Test              (Worker) | Time (s) | GC (s) | GC % | Alloc (MB) | RSS (MB)
+worlds                 (1) |        started at 2026-11-22T09:41:50.927
+worlds                 (1) |         failed at 2026-11-22T09:41:53.500
+Test Failed at /p/projects/coen/julia-trait-bound/wt/w19-julia/usr/share/julia/test/worlds.jl:678
+  Expression: cd.max_world != typemax(UInt)
+   Evaluated: 0xffffffffffffffff != 0xffffffffffffffff
+Test Failed at /p/projects/coen/julia-trait-bound/wt/w19-julia/usr/share/julia/test/worlds.jl:680
+  Expression: dcallsig("s") == 3
+   Evaluated: 2 == 3
+Test Failed at /p/projects/coen/julia-trait-bound/wt/w19-julia/usr/share/julia/test/worlds.jl:682
+  Expression: ce.max_world != typemax(UInt)
+   Evaluated: 0xffffffffffffffff != 0xffffffffffffffff
+Test Failed at /p/projects/coen/julia-trait-bound/wt/w19-julia/usr/share/julia/test/worlds.jl:683
+  Expression: ecallsig(Int8(1)) == 4 && ccallsig(1) == 1
+
+Compiler/invalidation  (1) |        started at 2026-11-22T09:41:53.536
+Compiler/invalidation  (1) |    21.11 |   0.21 |  1.0 |     995.87 |   474.56
+core                   (1) |        started at 2026-11-22T09:42:14.758
+core                   (1) |    63.64 |   2.81 |  4.4 |   12686.26 |  2322.65
+precompile             (1) |        started at 2026-11-22T09:43:18.867
+precompile             (1) |         failed at 2026-11-22T09:46:06.222
+Error During Test at /p/projects/coen/julia-trait-bound/wt/w19-julia/usr/share/julia/test/precompile_utils.jl:6
+  Got exception outside of a @test
+  LoadError: AssertionError: !(haskey(Base.loaded_modules, Base.PkgId("Baz")))
+  Stacktrace:
+    [1] top-level scope
+      @ /tmp/jltestdepot_Wyzpgw/UseBaz.jl:4
+    [2] include(mod::Module, _path::String)
+      @ Base ./Base.jl:309
+    [3] __require_prelocked(pkg::Base.PkgId, env::String)
+      @ Base ./loading.jl:2868
+    [4] _require_prelocked(uuidkey::Base.PkgId, env::String)
+      @ Base ./loading.jl:2622
+    [5] macro expansion
+      @ ./loading.jl:2550 [inlined]
+    [6] macro expansion
+      @ ./lock.jl:376 [inlined]
+    [7] __require(into::Module, mod::Symbol)
+      @ Base ./loading.jl:2514
+    [8] require
+      @ ./loading.jl:2490 [inlined]
+    [9] eval_import_path
+      @ ./module.jl:36 [inlined]
+   [10] eval_import_path_all(at::Module, path::Expr, keyword::String)
+      @ Base ./module.jl:60
+   [11] _eval_using(to::Module, path::Expr)
+      @ Base ./module.jl:137
+   [12] top-level scope
+      @ none:1
+   [13] eval(m::Module, e::Any)
+      @ Core ./boot.jl:489
+   [14] (::Main.Test90Main_precompile.var"#32#33"{String})(dir::String)
+      @ Main.Test90Main_precompile /p/projects/coen/julia-trait-bound/wt/w19-julia/usr/share/julia/test/precompile.jl:621
+   [15] precompile_test_harness(f::Any, separate::Bool)
+      @ Main.Test90Main_precompile /p/projects/coen/julia-trait-bound/wt/w19-julia/usr/share/julia/test/precompile_utils.jl:14
+   [16] (::Main.Test90Main_precompile.var"#30#31")(dir2::String)
+      @ Main.Test90Main_precompile /p/projects/coen/julia-trait-bound/wt/w19-julia/usr/share/julia/test/precompile.jl:77
+   [17] precompile_test_harness(f::Any, separate::Bool)
+      @ Main.Test90Main_precompile /p/projects/coen/julia-trait-bound/wt/w19-julia/usr/share/julia/test/precompile_utils.jl:14
+   [18] macro expansion
+      @ /p/projects/coen/julia-trait-bound/wt/w19-julia/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:1967 [inlined]
+   [19] precompile_test_harness(f::Any, testset::String)
+      @ Main.Test90Main_precompile /p/projects/coen/julia-trait-bound/wt/w19-julia/usr/share/julia/test/precompile_utils.jl:6
+   [20] top-level scope
+      @ /p/projects/coen/julia-trait-bound/wt/w19-julia/usr/share/julia/test/precompile.jl:76
+   [21] include(mod::Module, _path::String)
+      @ Base ./Base.jl:309
+   [22] macro expansion
+      @ /p/projects/coen/julia-trait-bound/wt/w19-julia/usr/share/julia/test/testdefs.jl:35 [inlined]
+   [23] macro expansion
+      @ /p/projects/coen/julia-trait-bound/wt/w19-julia/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:1967 [inlined]
+   [24] macro expansion
+      @ /p/projects/coen/julia-trait-bound/wt/w19-julia/usr/share/julia/test/testdefs.jl:27 [inlined]
+   [25] macro expansion
+      @ ./timing.jl:699 [inlined]
+   [26] runtests(name::String, path::String, isolate::Bool; seed::UInt128)
+      @ Main /p/projects/coen/julia-trait-bound/wt/w19-julia/usr/share/julia/test/testdefs.jl:25
+   [27] #invokelatest_gr#232
+      @ ./reflection.jl:1350 [inlined]
+   [28] invokelatest_gr
+      @ ./reflection.jl:1342 [inlined]
+   [29] (::var"#33#34")()
+      @ Main /p/projects/coen/julia-trait-bound/wt/w19-julia/usr/share/julia/test/runtests.jl:364
+   [30] cd(f::var"#33#34", dir::String)
+      @ Base.Filesystem ./file.jl:112
+   [31] top-level scope
+      @ /p/projects/coen/julia-trait-bound/wt/w19-julia/usr/share/julia/test/runtests.jl:103
+   [32] include(mod::Module, _path::String)
+      @ Base ./Base.jl:309
+   [33] exec_options(opts::Base.JLOptions)
+      @ Base ./client.jl:344
+   [34] _start()
+      @ Base ./client.jl:577
+  in expression starting at /tmp/jltestdepot_Wyzpgw/UseBaz.jl:1
+
+
+Test Summary:             |    Pass  Fail  Error  Broken    Total     Time
+  Overall                 | 7354736     4      1      11  7354752  1m29.1s
+    worlds                |     168     4                     172     3.7s
+    Compiler/invalidation |     105                    4      109    21.1s
+    core                  | 7354041                    7  7354048  1m03.6s
+    precompile            |     422            1              423  2m47.8s
+    FAILURE
+
+The global RNG seed was 0x95182609b832887387a64f14d732c39b.
+
+Error in testset worlds:
+Test Failed at /p/projects/coen/julia-trait-bound/wt/w19-julia/usr/share/julia/test/worlds.jl:678
+  Expression: cd.max_world != typemax(UInt)
+   Evaluated: 0xffffffffffffffff != 0xffffffffffffffff
+Error in testset worlds:
+Test Failed at /p/projects/coen/julia-trait-bound/wt/w19-julia/usr/share/julia/test/worlds.jl:680
+  Expression: dcallsig("s") == 3
+   Evaluated: 2 == 3
+Error in testset worlds:
+Test Failed at /p/projects/coen/julia-trait-bound/wt/w19-julia/usr/share/julia/test/worlds.jl:682
+  Expression: ce.max_world != typemax(UInt)
+   Evaluated: 0xffffffffffffffff != 0xffffffffffffffff
+Error in testset worlds:
+Test Failed at /p/projects/coen/julia-trait-bound/wt/w19-julia/usr/share/julia/test/worlds.jl:683
+  Expression: ecallsig(Int8(1)) == 4 && ccallsig(1) == 1
+Error in testset precompile:
+Error During Test at /p/projects/coen/julia-trait-bound/wt/w19-julia/usr/share/julia/test/precompile_utils.jl:6
+  Got exception outside of a @test
+  LoadError: AssertionError: !(haskey(Base.loaded_modules, Base.PkgId("Baz")))
+  Stacktrace:
+    [1] top-level scope
+      @ /tmp/jltestdepot_Wyzpgw/UseBaz.jl:4
+    [2] include(mod::Module, _path::String)
+      @ Base ./Base.jl:309
+    [3] __require_prelocked(pkg::Base.PkgId, env::String)
+      @ Base ./loading.jl:2868
+    [4] _require_prelocked(uuidkey::Base.PkgId, env::String)
+      @ Base ./loading.jl:2622
+    [5] macro expansion
+      @ ./loading.jl:2550 [inlined]
+    [6] macro expansion
+      @ ./lock.jl:376 [inlined]
+    [7] __require(into::Module, mod::Symbol)
+      @ Base ./loading.jl:2514
+    [8] require
+      @ ./loading.jl:2490 [inlined]
+    [9] eval_import_path
+      @ ./module.jl:36 [inlined]
+   [10] eval_import_path_all(at::Module, path::Expr, keyword::String)
+      @ Base ./module.jl:60
+   [11] _eval_using(to::Module, path::Expr)
+      @ Base ./module.jl:137
+   [12] top-level scope
+      @ none:1
+   [13] eval(m::Module, e::Any)
+      @ Core ./boot.jl:489
+   [14] (::Main.Test90Main_precompile.var"#32#33"{String})(dir::String)
+      @ Main.Test90Main_precompile /p/projects/coen/julia-trait-bound/wt/w19-julia/usr/share/julia/test/precompile.jl:621
+   [15] precompile_test_harness(f::Any, separate::Bool)
+      @ Main.Test90Main_precompile /p/projects/coen/julia-trait-bound/wt/w19-julia/usr/share/julia/test/precompile_utils.jl:14
+   [16] (::Main.Test90Main_precompile.var"#30#31")(dir2::String)
+      @ Main.Test90Main_precompile /p/projects/coen/julia-trait-bound/wt/w19-julia/usr/share/julia/test/precompile.jl:77
+   [17] precompile_test_harness(f::Any, separate::Bool)
+      @ Main.Test90Main_precompile /p/projects/coen/julia-trait-bound/wt/w19-julia/usr/share/julia/test/precompile_utils.jl:14
+   [18] macro expansion
+      @ /p/projects/coen/julia-trait-bound/wt/w19-julia/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:1967 [inlined]
+   [19] precompile_test_harness(f::Any, testset::String)
+      @ Main.Test90Main_precompile /p/projects/coen/julia-trait-bound/wt/w19-julia/usr/share/julia/test/precompile_utils.jl:6
+   [20] top-level scope
+      @ /p/projects/coen/julia-trait-bound/wt/w19-julia/usr/share/julia/test/precompile.jl:76
+   [21] include(mod::Module, _path::String)
+      @ Base ./Base.jl:309
+   [22] macro expansion
+      @ /p/projects/coen/julia-trait-bound/wt/w19-julia/usr/share/julia/test/testdefs.jl:35 [inlined]
+   [23] macro expansion
+      @ /p/projects/coen/julia-trait-bound/wt/w19-julia/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:1967 [inlined]
+   [24] macro expansion
+      @ /p/projects/coen/julia-trait-bound/wt/w19-julia/usr/share/julia/test/testdefs.jl:27 [inlined]
+   [25] macro expansion
+      @ ./timing.jl:699 [inlined]
+   [26] runtests(name::String, path::String, isolate::Bool; seed::UInt128)
+      @ Main /p/projects/coen/julia-trait-bound/wt/w19-julia/usr/share/julia/test/testdefs.jl:25
+   [27] #invokelatest_gr#232
+      @ ./reflection.jl:1350 [inlined]
+   [28] invokelatest_gr
+      @ ./reflection.jl:1342 [inlined]
+   [29] (::var"#33#34")()
+      @ Main /p/projects/coen/julia-trait-bound/wt/w19-julia/usr/share/julia/test/runtests.jl:364
+   [30] cd(f::var"#33#34", dir::String)
+      @ Base.Filesystem ./file.jl:112
+   [31] top-level scope
+      @ /p/projects/coen/julia-trait-bound/wt/w19-julia/usr/share/julia/test/runtests.jl:103
+   [32] include(mod::Module, _path::String)
+      @ Base ./Base.jl:309
+   [33] exec_options(opts::Base.JLOptions)
+      @ Base ./client.jl:344
+   [34] _start()
+      @ Base ./client.jl:577
+  in expression starting at /tmp/jltestdepot_Wyzpgw/UseBaz.jl:1
+ERROR: A test has failed. Please submit a bug report (https://github.com/JuliaLang/julia/issues)
+including error messages above and the output of versioninfo():
+Julia Version 1.13.2
+Commit c32b862601* (2026-11-22 08:29 UTC)
+Platform Info:
+  OS: Linux (x86_64-pc-linux-gnu)
+  CPU: 128 × AMD EPYC 9354 32-Core Processor
+  WORD_SIZE: 64
+  LLVM: libLLVM-20.1.8 (ORCJIT, znver4)
+  GC: Built with stock GC
+Threads: 4 default, 1 interactive, 4 GC (on 4 virtual cores)
+Environment:
+  JULIA_CPU_THREADS = 4
+  JULIA_PKG_GC_AUTO = false
+  JULIA_NUM_PRECOMPILE_TASKS = 4
+  JULIA_DEPOT_PATH = /p/projects/coen/julia-trait-bound/.julia-depot/agent-depots/w19:/p/projects/coen/julia-trait-bound/.julia-depot:
+  JULIA_PKG_OFFLINE = true
+  LD_LIBRARY_PATH = /p/system/packages_rhel9/tools/git/2.52.0/lib64:/p/system/packages_rhel9/tools/git/2.52.0/lib:/p/system/packages_rhel9/libraries/mpc/1.3.1/lib64:/p/system/packages_rhel9/libraries/mpc/1.3.1/lib:/p/system/packages_rhel9/libraries/mpfr/4.2.1/lib64:/p/system/packages_rhel9/libraries/mpfr/4.2.1/lib:/p/system/packages_rhel9/libraries/gmp/6.3.0/lib64:/p/system/packages_rhel9/libraries/gmp/6.3.0/lib:/p/system/packages_rhel9/compiler/gcc/13.2.0/lib64:/usr/local/lib::/home/hellmann/gurobi/lib
+  JULIA_NUM_THREADS = 4
+
+Stacktrace:
+ [1] error(s::String)
+   @ Base ./error.jl:44
+ [2] runtests(tests::Vector{String}; ncores::Int64, exit_on_error::Bool, revise::Bool, propagate_project::Bool, seed::Nothing, julia_args::Cmd)
+   @ Base ./util.jl:726
+ [3] top-level scope
+   @ none:1
+ [4] eval(m::Module, e::Any)
+   @ Core ./boot.jl:489
+ [5] exec_options(opts::Base.JLOptions)
+   @ Base ./client.jl:310
+ [6] _start()
+   @ Base ./client.jl:577
+
+caused by: failed process: Process(setenv(`/p/projects/coen/julia-trait-bound/wt/w19-julia/usr/bin/julia -C native -J/p/projects/coen/julia-trait-bound/wt/w19-julia/usr/lib/julia/sys.so -g1 --startup-file=no /p/projects/coen/julia-trait-bound/wt/w19-julia/usr/bin/../share/julia/test/runtests.jl worlds Compiler/invalidation core precompile`,["TERM=screen", "__LMOD_REF_COUNT_C_INCLUDE_PATH=/p/system/packages_rhel9/tools/git/2.52.0/include:1;/p/system/packages_rhel9/libraries/mpc/1.3.1/include:1;/p/system/packages_rhel9/libraries/mpfr/4.2.1/include:1;/p/system/packages_rhel9/libraries/gmp/6.3.0/include:1", "_ModuleTable005_=ZmlsZXNfcmhlbDkvcGFyYWxsZWw6L3Avc3lzdGVtL21vZHVsZWZpbGVzX3JoZWw5L3Rvb2xzIiwKfQo=", "__LMOD_REF_COUNT_PATH=/p/system/packages_rhel9/tools/git/2.52.0/bin:1;/p/system/packages_rhel9/libraries/mpc/1.3.1/bin:1;/p/system/packages_rhel9/libraries/mpfr/4.2.1/bin:1;/p/system/packages_rhel9/libraries/gmp/6.3.0/bin:1;/p/system/packages_rhel9/compiler/gcc/13.2.0/libexec:1;/p/system/packages_rhel9/compiler/gcc/13.2.0/bin:1;.:2;/p/system/packages/bin:2;/home/hellmann/.juliaup/bin:1;/home/hellmann/.local/bin:1;/usr/local/bin:3;/usr/bin:1;/usr/local/sbin:1;/usr/sbin:3;/opt/mellanox/doca/tools:2;/usr/lpp/X11/bin:2;/usr/lpp/bin:4;/usr/local/frame/bin:2;/home/hellmann/bin:2;/usr/lpp/xgmon/bin:2;/home/hellmann/gurobi/bin:2", "OPENBLAS_NUM_THREADS=1", "LMOD_ROOT=/usr/share/lmod", "AI_AGENT=claude-code_2-1-319_agent", "CLAUDE_CODE_SESSION_ID=d2985a1f-dcb5-5d03-b2eb-56d692b52b92", "OPENBLAS_MAIN_FREE=1", "SHELL=/bin/bash"  …  "CPLUS_INCLUDE_PATH=/p/system/packages_rhel9/tools/git/2.52.0/include:/p/system/packages_rhel9/libraries/mpc/1.3.1/include:/p/system/packages_rhel9/libraries/mpfr/4.2.1/include:/p/system/packages_rhel9/libraries/gmp/6.3.0/include", "CLAUDECODE=1", "HOME=/home/hellmann", "TW_ROOT=/p/projects/coen/julia-trait-bound", "GIT_ROOT=/p/system/packages_rhel9/tools/git/2.52.0", "JULIA_NUM_THREADS=4", "DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/3147/bus", "_ModuleTable003_=bW9kdWxlZmlsZXNfcmhlbDkvbGlicmFyaWVzL21wYy8xLjMuMSIsCmZ1bGxOYW1lID0gIm1wYy8xLjMuMSIsCmxvYWRPcmRlciA9IDMsCnByb3BUID0ge30sCnN0YWNrRGVwdGggPSAxLApzdGF0dXMgPSAiYWN0aXZlIiwKdXNlck5hbWUgPSAibXBjIiwKd1YgPSAiMDAwMDAwMDAxLjAwMDAwMDAwMy4wMDAwMDAwMDEuKnpmaW5hbCIsCn0sCm1wZnIgPSB7CmZuID0gIi9wL3N5c3RlbS9tb2R1bGVmaWxlc19yaGVsOS9saWJyYXJpZXMvbXBmci80LjIuMSIsCmZ1bGxOYW1lID0gIm1wZnIvNC4yLjEiLApsb2FkT3JkZXIgPSAyLApwcm9wVCA9IHt9LApzdGFja0RlcHRoID0gMSwKc3RhdHVzID0gImFjdGl2ZSIsCnVzZXJOYW1lID0gIm1wZnIiLAp3ViA9ICIwMDAwMDAwMDQuMDAw", "_ModuleTable002_=LApmdWxsTmFtZSA9ICJnaXQvMi41Mi4wIiwKbG9hZE9yZGVyID0gNSwKcHJvcFQgPSB7fSwKc3RhY2tEZXB0aCA9IDAsCnN0YXR1cyA9ICJhY3RpdmUiLAp1c2VyTmFtZSA9ICJnaXQvMi41Mi4wIiwKd1YgPSAiMDAwMDAwMDAyLjAwMDAwMDA1Mi4qemZpbmFsIiwKfSwKZ21wID0gewpmbiA9ICIvcC9zeXN0ZW0vbW9kdWxlZmlsZXNfcmhlbDkvbGlicmFyaWVzL2dtcC82LjMuMCIsCmZ1bGxOYW1lID0gImdtcC82LjMuMCIsCmxvYWRPcmRlciA9IDEsCnByb3BUID0ge30sCnN0YWNrRGVwdGggPSAxLApzdGF0dXMgPSAiYWN0aXZlIiwKdXNlck5hbWUgPSAiZ21wIiwKd1YgPSAiMDAwMDAwMDA2LjAwMDAwMDAwMy4qemZpbmFsIiwKfSwKbXBjID0gewpmbiA9ICIvcC9zeXN0ZW0v", "XDG_SESSION_CLASS=user"]), ProcessExited(1)) [1]
+
+Stacktrace:
+ [1] pipeline_error
+   @ ./process.jl:610 [inlined]
+ [2] run(::Cmd; wait::Bool)
+   @ Base ./process.jl:525
+ [3] run
+   @ ./process.jl:522 [inlined]
+ [4] runtests(tests::Vector{String}; ncores::Int64, exit_on_error::Bool, revise::Bool, propagate_project::Bool, seed::Nothing, julia_args::Cmd)
+   @ Base ./util.jl:718
+ [5] top-level scope
+   @ none:1
+ [6] eval(m::Module, e::Any)
+   @ Core ./boot.jl:489
+ [7] exec_options(opts::Base.JLOptions)
+   @ Base ./client.jl:310
+ [8] _start()
+   @ Base ./client.jl:577
+
+real	4m23.676s
+user	4m7.928s
+sys	0m29.064s
+# end 2026-11-22T09:46:09+01:00 load 4.78 5.36 4.60
