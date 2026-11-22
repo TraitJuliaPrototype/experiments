@@ -1,0 +1,35 @@
+MethodError: no method matching getindex(::Nothing, ::Int64)
+The function `getindex` exists, but no method is defined for this combination of argument types.
+Stacktrace:
+  [1] lorenz!(du::Vector{Float64}, u::Vector{Float64}, p::Nothing, t::Float64)
+    @ Main /p/projects/coen/julia-trait-bound/experiments/implementation/w136/sciml/port.jl:11
+  [2] (::ODECore.PartialFn{typeof(lorenz!), Nothing})(a::Vector{Float64}, u::Vector{Float64}, t::Float64)
+    @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/ODECore/src/core.jl:401
+  [3] (::Dynamic{All{Callable{…}, Callable{…}}})(::Vector{Float64}, ::Vector{Float64}, ::Float64)
+    @ TraitWorld /p/projects/coen/julia-trait-bound/TraitWorld/src/callable.jl:42
+  [4] core_rhs!
+    @ /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/ODECore/src/core.jl:528 [inlined]
+  [5] tsit5_init(m::ODECore.CoreProblem{…}, u0::Vector{…}, tspan::Tuple{…}, callbacks::ODECore.StepCallbacks{…}, opts::ODECore.SolverOptions)
+    @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/ODECore/src/core.jl:1393
+  [6] solve_core
+    @ /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/ODECore/src/core.jl:1362 [inlined]
+  [7] solve_ode(prob::ODEProblem{…}, alg::Tsit5, callbacks::ODECore.EnteredCallbacks{…}, opts::ODECore.SolverOptions)
+    @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/ODECore/src/core.jl:1282
+  [8] solve_ode
+    @ /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/ODECore/src/core.jl:1274 [inlined]
+  [9] _solve(prob::ODEProblem{…}, alg::Tsit5, callback::Nothing, kw::@NamedTuple{})
+    @ TraitDifferentialEquations /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/src/TraitDifferentialEquations.jl:59
+ [10] solve(prob::ODEProblem{Float64, Nothing, Dynamic{All{…}}, typeof(ODECore.core_no_jacobian)}, alg::Tsit5)
+    @ TraitDifferentialEquations /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/src/TraitDifferentialEquations.jl:55
+ [11] (::var"#9#10")()
+    @ Main /p/projects/coen/julia-trait-bound/experiments/implementation/w136/sciml/port.jl:15
+ [12] report(form::String, tag::String, f::var"#9#10")
+    @ Main /p/projects/coen/julia-trait-bound/experiments/implementation/w136/sciml/report.jl:6
+ [13] top-level scope
+    @ /p/projects/coen/julia-trait-bound/experiments/implementation/w136/sciml/port.jl:15
+ [14] include(mod::Module, _path::String)
+    @ Base ./Base.jl:318
+ [15] exec_options(opts::Base.JLOptions)
+    @ Base ./client.jl:344
+ [16] _start()
+    @ Base ./client.jl:577

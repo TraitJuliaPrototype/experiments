@@ -1,0 +1,81 @@
+MethodError: no method matching Float64(::ForwardDiff.Dual{ODECore.ODETag, Float64, 8})
+The type `Float64` exists, but no method is defined for this combination of argument types when trying to construct it.
+
+Closest candidates are:
+  (::Type{T})(::Real, !Matched::RoundingMode) where T<:AbstractFloat
+   @ Base rounding.jl:265
+  (::Type{T})(::T) where T<:Number
+   @ Core boot.jl:1065
+  Float64(!Matched::Irrational{:SQRT_HALF})
+   @ Random irrationals.jl:271
+  ...
+
+Stacktrace:
+  [1] convert(::Type{Float64}, x::ForwardDiff.Dual{ODECore.ODETag, Float64, 8})
+    @ Base ./number.jl:7
+  [2] setindex!
+    @ ./genericmemory.jl:266 [inlined]
+  [3] unsafe_copyto!(dest::Memory{Float64}, doffs::Int64, src::Memory{ForwardDiff.Dual{…}}, soffs::Int64, n::Int64)
+    @ Base ./genericmemory.jl:172
+  [4] unsafe_copyto!
+    @ ./genericmemory.jl:151 [inlined]
+  [5] _copyto_impl!
+    @ ./array.jl:300 [inlined]
+  [6] copyto!
+    @ ./array.jl:286 [inlined]
+  [7] _copyto2arg!
+    @ ./array.jl:311 [inlined]
+  [8] copyto!
+    @ ./array.jl:313 [inlined]
+  [9] copyto!
+    @ ./broadcast.jl:993 [inlined]
+ [10] copyto!
+    @ ./broadcast.jl:952 [inlined]
+ [11] materialize!
+    @ ./broadcast.jl:910 [inlined]
+ [12] materialize!
+    @ ./broadcast.jl:907 [inlined]
+ [13] cached!(du::Vector{ForwardDiff.Dual{…}}, u::Vector{ForwardDiff.Dual{…}}, p::Vector{Float64}, t::Float64)
+    @ Main /p/projects/coen/julia-trait-bound/experiments/implementation/w136/sciml/port.jl:18
+ [14] (::ODECore.PartialFn{…})(a::Vector{…}, u::Vector{…}, t::Float64)
+    @ ODECore /p/projects/coen/julia-trait-bound/wt/w161-tde-base/lib/ODECore/src/core.jl:365
+ [15] (::Dynamic{All{…}})(::Vector{ForwardDiff.Dual{…}}, ::Vector{ForwardDiff.Dual{…}}, ::Float64)
+    @ TraitWorld /p/projects/coen/julia-trait-bound/TraitWorld-base/src/callable.jl:27
+ [16] _callable_call(::Type{…}, ::Type{…}, ::Dynamic{…}, ::Vector{…}, ::Vector{…}, ::Float64)
+    @ Core ./boot.jl:475
+ [17] _ad_jacobian!(fd::Callable{Tuple{…}, Nothing}, J::Matrix{Float64}, u::Vector{Float64}, t::Float64, ::Val{8})
+    @ ODECore /p/projects/coen/julia-trait-bound/wt/w161-tde-base/lib/ODECore/src/core.jl:450
+ [18] core_jacobian!
+    @ /p/projects/coen/julia-trait-bound/wt/w161-tde-base/lib/ODECore/src/core.jl:498 [inlined]
+ [19] rodas5_step!(m::ODECore.CoreProblem{…}, i::TraitRodas.Rodas5Integrator{…}, dt::Float64, abstol::Float64, reltol::Float64)
+    @ TraitRodas /p/projects/coen/julia-trait-bound/wt/w161-tde-base/lib/TraitRodas/src/rodas5.jl:176
+ [20] rodas5_advance!(i::TraitRodas.Rodas5Integrator{Nothing, ODECore.CoreProblem{…}})
+    @ TraitRodas /p/projects/coen/julia-trait-bound/wt/w161-tde-base/lib/TraitRodas/src/rodas5.jl:352
+ [21] advance!
+    @ /p/projects/coen/julia-trait-bound/wt/w161-tde-base/lib/TraitRodas/src/rodas5.jl:166 [inlined]
+ [22] run_to_end!
+    @ /p/projects/coen/julia-trait-bound/wt/w161-tde-base/lib/ODECore/src/core.jl:927 [inlined]
+ [23] _rodas5_run(i::TraitRodas.Rodas5Integrator{Nothing, ODECore.CoreProblem{…}})
+    @ TraitRodas /p/projects/coen/julia-trait-bound/wt/w161-tde-base/lib/TraitRodas/src/rodas5.jl:275
+ [24] rodas5_solve(m::ODECore.CoreProblem{…}, alg::Rodas5{…}, u0::Vector{…}, tspan::Tuple{…}, callbacks::Vector{…}, opts::ODECore.SolverOptions)
+    @ TraitRodas /p/projects/coen/julia-trait-bound/wt/w161-tde-base/lib/TraitRodas/src/rodas5.jl:273
+ [25] solve_core
+    @ /p/projects/coen/julia-trait-bound/wt/w161-tde-base/lib/TraitRodas/src/rodas5.jl:245 [inlined]
+ [26] solve_ode(prob::ODEProblem{…}, alg::Rodas5{…}, callbacks::Vector{…}, opts::ODECore.SolverOptions)
+    @ ODECore /p/projects/coen/julia-trait-bound/wt/w161-tde-base/lib/ODECore/src/core.jl:1237
+ [27] _solve
+    @ /p/projects/coen/julia-trait-bound/wt/w161-tde-base/src/TraitDifferentialEquations.jl:64 [inlined]
+ [28] solve(prob::ODEProblem{Float64, Vector{…}, Dynamic{…}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU})
+    @ TraitDifferentialEquations /p/projects/coen/julia-trait-bound/wt/w161-tde-base/src/TraitDifferentialEquations.jl:61
+ [29] (::var"#15#16")()
+    @ Main /p/projects/coen/julia-trait-bound/experiments/implementation/w136/sciml/port.jl:23
+ [30] report(form::String, tag::String, f::var"#15#16")
+    @ Main /p/projects/coen/julia-trait-bound/experiments/implementation/w136/sciml/report.jl:6
+ [31] top-level scope
+    @ /p/projects/coen/julia-trait-bound/experiments/implementation/w136/sciml/port.jl:23
+ [32] include(mod::Module, _path::String)
+    @ Base ./Base.jl:315
+ [33] exec_options(opts::Base.JLOptions)
+    @ Base ./client.jl:344
+ [34] _start()
+    @ Base ./client.jl:577

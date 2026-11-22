@@ -1,0 +1,20 @@
+# W-159 G-2 NetworkDynamics' workload (ndport/scripts/workload.jl) | 2026-11-22T04:39:36+01:00 | load-before 2.72 2.58 3.21 | login02
+# setting H: julia julia-next cf0f039f51 (binary cf0f039f51*) | TW TraitWorld 42d60e13bf | TDE TraitDifferentialEquations 06c28c376f | TM TraitMakie 1888698d7a | TT TraitTables e1ec1f4368 | TC TraitCSV 094dcb2e21 | TR TraitReport ec34d1219c | FORKS forks a3a37d6b5e | ND ndport/pkgs/NetworkDynamics-unified c2bbf0d9aa | depot .julia-depot/agent-depots/w159/H
+# setting B: julia julia-unified 7b374f39ce (binary 7b374f39ce*) | TW TraitWorld-base e11c7cc58b | TDE wt/w161-tde-base b7306285fe | TM wt/w160-tm c862914ffa | TT wt/w159-tag/TraitTables c3391750fb | TC wt/w159-tag/TraitCSV 92c46d01bc | TR wt/w159-tag/TraitReport a4bcf332db | FORKS wt/w159-tag/forks 439bae73ff | ND wt/w151-base/NetworkDynamics 6310040ec0 | depot .julia-depot/agent-depots/w159/B
+# experiments 02ade9c813 | product setting, strict mode off, one thread, fresh process per cell
+# ndport 4fecc023af (the workload's scripts, the same for every setting) GraphMakie 498be7c265 Graphs dbcb7c7072
+# NOTE setting H: the binary is marked '*' (its tree had a tracked change when it was built); the tree is clean now
+# preflight H nd: images ok: NetworkDynamics TraitDifferentialEquations MakieCompat GraphMakie
+# NOTE setting B: the binary is marked '*' (its tree had a tracked change when it was built); the tree is clean now
+# preflight B nd: images ok: NetworkDynamics TraitDifferentialEquations MakieCompat GraphMakie
+== H run 0 (0: the warm-up) | rc 0 | session 43.338 s | load 3.54 2.95 3.31 | W total 42.9 | T again: 315.4 ms
+== B run 0 (0: the warm-up) | rc 0 | session 43.507 s | load 3.17 2.95 3.29 | W total 43.2 | T again: 388.1 ms
+== H run 1 (0: the warm-up) | rc 0 | session 44.136 s | load 2.85 2.89 3.25 | W total 43.8 | T again: 313.3 ms
+== B run 1 (0: the warm-up) | rc 0 | session 44.649 s | load 2.63 2.84 3.22 | W total 44.1 | T again: 435.6 ms
+== H run 2 (0: the warm-up) | rc 0 | session 43.573 s | load 2.63 2.84 3.20 | W total 43.0 | T again: 311.8 ms
+== B run 2 (0: the warm-up) | rc 0 | session 44.026 s | load 2.32 2.73 3.15 | W total 43.5 | T again: 418 ms
+# digests H run 1 against B run 1:
+compared 32 digests: 0 exact differences, 0 failures
+# digests H run 2 against B run 2:
+compared 32 digests: 0 exact differences, 0 failures
+# done 2026-11-22T04:44:08+01:00 | load-after 2.32 2.73 3.15

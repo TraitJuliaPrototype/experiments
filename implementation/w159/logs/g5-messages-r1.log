@@ -1,0 +1,76 @@
+# W-159 G-5 E-385 the fifteen mistakes and SciML's three cases (w136) | 2026-11-22T04:35:02+01:00 | load-before 1.83 2.43 3.41 | login02
+# setting H: julia julia-next cf0f039f51 (binary cf0f039f51*) | TW TraitWorld 42d60e13bf | TDE TraitDifferentialEquations 06c28c376f | TM TraitMakie 1888698d7a | TT TraitTables e1ec1f4368 | TC TraitCSV 094dcb2e21 | TR TraitReport ec34d1219c | FORKS forks a3a37d6b5e | ND ndport/pkgs/NetworkDynamics-unified c2bbf0d9aa | depot .julia-depot/agent-depots/w159/H
+# setting B: julia julia-unified 7b374f39ce (binary 7b374f39ce*) | TW TraitWorld-base e11c7cc58b | TDE wt/w161-tde-base b7306285fe | TM wt/w160-tm c862914ffa | TT wt/w159-tag/TraitTables c3391750fb | TC wt/w159-tag/TraitCSV 92c46d01bc | TR wt/w159-tag/TraitReport a4bcf332db | FORKS wt/w159-tag/forks 439bae73ff | ND wt/w151-base/NetworkDynamics 6310040ec0 | depot .julia-depot/agent-depots/w159/B
+# setting V: julia julia-vanilla 45b6d15e34 (binary 45b6d15e34*) | depot .julia-depot/agent-depots/w159/V
+# experiments 15fa460b63 | product setting, strict mode off, one thread, fresh process per cell
+# NOTE setting H: the binary is marked '*' (its tree had a tracked change when it was built); the tree is clean now
+# preflight H TraitWorld: images ok: TraitWorld
+# NOTE setting B: the binary is marked '*' (its tree had a tracked change when it was built); the tree is clean now
+# preflight B TraitWorld-base: images ok: TraitWorld
+# NOTE setting V: the binary is marked '*' (its tree had a tracked change when it was built); the tree is clean now
+# preflight H demo: images ok: TraitDifferentialEquations PlainODE
+# preflight B demo: images ok: TraitDifferentialEquations PlainODE
+V 01_missing_operation.plain exit 1 | load 1.86 2.42 3.40
+H 01_missing_operation.plain-build exit 1 | load 1.86 2.42 3.40
+H 01_missing_operation.trait exit 1 | load 2.03 2.45 3.40
+B 01_missing_operation.trait exit 1 | load 2.11 2.46 3.40
+V 02a_result_int.plain exit 0 | load 2.11 2.46 3.40
+H 02a_result_int.plain-build exit 0 | load 2.11 2.46 3.40
+H 02a_result_int.trait exit 1 | load 2.11 2.46 3.40
+B 02a_result_int.trait exit 1 | load 2.10 2.45 3.39
+V 02b_result_symbol.plain exit 1 | load 2.10 2.45 3.39
+H 02b_result_symbol.plain-build exit 1 | load 2.09 2.44 3.38
+H 02b_result_symbol.trait exit 1 | load 2.09 2.44 3.38
+B 02b_result_symbol.trait exit 1 | load 2.08 2.43 3.38
+V 03a_wrong_argument.plain exit 1 | load 2.08 2.43 3.38
+H 03a_wrong_argument.plain-build exit 1 | load 2.08 2.43 3.38
+H 03a_wrong_argument.trait exit 1 | load 2.08 2.43 3.37
+B 03a_wrong_argument.trait exit 1 | load 2.07 2.42 3.36
+V 03b_wrong_operation_argument.plain exit 1 | load 2.07 2.42 3.36
+H 03b_wrong_operation_argument.plain-build exit 1 | load 2.06 2.41 3.35
+H 03b_wrong_operation_argument.trait exit 1 | load 2.06 2.41 3.35
+B 03b_wrong_operation_argument.trait exit 1 | load 2.06 2.40 3.35
+V 04a_ambiguity_two_traits.plain exit 0 | load 2.06 2.40 3.35
+H 04a_ambiguity_two_traits.plain-build exit 0 | load 2.06 2.40 3.35
+H 04a_ambiguity_two_traits.trait exit 1 | load 2.05 2.40 3.34
+H 04a_ambiguity_two_traits.trait-strict exit 1 | load 2.05 2.40 3.34
+B 04a_ambiguity_two_traits.trait exit 1 | load 2.13 2.41 3.34
+B 04a_ambiguity_two_traits.trait-strict exit 1 | load 2.12 2.40 3.33
+V 04b_ambiguity_two_arguments.plain exit 1 | load 2.12 2.40 3.33
+H 04b_ambiguity_two_arguments.plain-build exit 1 | load 2.12 2.40 3.33
+H 04b_ambiguity_two_arguments.trait exit 1 | load 2.11 2.39 3.32
+B 04b_ambiguity_two_arguments.trait exit 1 | load 2.18 2.40 3.32
+V 05_pirate.plain exit 0 | load 2.18 2.40 3.32
+H 05_pirate.plain-build exit 0 | load 2.18 2.40 3.32
+H 05_pirate.trait exit 0 | load 2.18 2.40 3.32
+H 05_pirate.trait-strict exit 1 | load 2.17 2.40 3.31
+B 05_pirate.trait exit 0 | load 2.17 2.40 3.31
+B 05_pirate.trait-strict exit 1 | load 2.15 2.39 3.30
+V 06_break_after.plain exit 1 | load 2.15 2.39 3.30
+H 06_break_after.plain-build exit 1 | load 2.15 2.39 3.30
+H 06_break_after.trait exit 1 | load 2.14 2.38 3.30
+H 06_break_after.trait-strict exit 1 | load 2.13 2.38 3.29
+B 06_break_after.trait exit 1 | load 2.13 2.38 3.29
+B 06_break_after.trait-strict exit 1 | load 2.12 2.37 3.28
+V 07a_never_joined.plain exit 1 | load 2.12 2.37 3.28
+H 07a_never_joined.plain-build exit 1 | load 2.19 2.38 3.28
+H 07a_never_joined.trait exit 1 | load 2.19 2.38 3.28
+B 07a_never_joined.trait exit 1 | load 2.17 2.37 3.27
+H 07b_use_before_implement.trait exit 1 | load 2.16 2.37 3.27
+B 07b_use_before_implement.trait exit 1 | load 2.16 2.37 3.27
+V 08_member_in_running_loop.plain exit 0 | load 2.16 2.37 3.27
+H 08_member_in_running_loop.plain-build exit 0 | load 2.16 2.37 3.27
+H 08_member_in_running_loop.trait exit 1 | load 2.39 2.41 3.28
+B 08_member_in_running_loop.trait exit 1 | load 2.36 2.40 3.27
+V 09_library_outside_contract.plain exit 1 | load 2.36 2.40 3.27
+H 09_library_outside_contract.plain-build exit 1 | load 2.36 2.40 3.27
+H 09_library_outside_contract.trait exit 1 | load 2.33 2.40 3.26
+B 09_library_outside_contract.trait exit 1 | load 2.33 2.40 3.26
+H sciml trait exit 0 | load 2.30 2.39 3.25
+H sciml plain exit 0 | load 2.68 2.47 3.28
+B sciml trait exit 0 | load 2.68 2.47 3.28
+B sciml plain exit 0 | load 2.94 2.53 3.29
+# H: /p/projects/coen/julia-trait-bound/experiments/implementation/w159/logs/g5-r1/H/summary.md
+# B: /p/projects/coen/julia-trait-bound/experiments/implementation/w159/logs/g5-r1/B/summary.md
+# V: /p/projects/coen/julia-trait-bound/experiments/implementation/w159/logs/g5-r1/V/summary.md
+# done 2026-11-22T04:37:30+01:00 | load-after 2.94 2.53 3.29

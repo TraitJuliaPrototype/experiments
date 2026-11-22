@@ -1,0 +1,85 @@
+MethodError: no method matching Float64(::ForwardDiff.Dual{ODECore.ODETag, Float64, 8})
+The type `Float64` exists, but no method is defined for this combination of argument types when trying to construct it.
+
+Closest candidates are:
+  (::Type{T})(::Real, !Matched::RoundingMode) where T<:AbstractFloat
+   @ Base rounding.jl:265
+  (::Type{T})(::T) where T<:Number
+   @ Core boot.jl:1079
+  Float64(!Matched::Irrational{:SQRT_HALF})
+   @ Random irrationals.jl:271
+  ...
+
+Stacktrace:
+  [1] convert(::Type{Float64}, x::ForwardDiff.Dual{ODECore.ODETag, Float64, 8})
+    @ Base ./number.jl:7
+  [2] setindex!
+    @ ./genericmemory.jl:266 [inlined]
+  [3] unsafe_copyto!(dest::Memory{Float64}, doffs::Int64, src::Memory{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, soffs::Int64, n::Int64)
+    @ Base ./genericmemory.jl:172
+  [4] unsafe_copyto!
+    @ ./genericmemory.jl:151 [inlined]
+  [5] _copyto_impl!
+    @ ./array.jl:300 [inlined]
+  [6] copyto!
+    @ ./array.jl:286 [inlined]
+  [7] _copyto2arg!
+    @ ./array.jl:311 [inlined]
+  [8] copyto!
+    @ ./array.jl:313 [inlined]
+  [9] copyto!
+    @ ./broadcast.jl:993 [inlined]
+ [10] copyto!
+    @ ./broadcast.jl:952 [inlined]
+ [11] materialize!
+    @ ./broadcast.jl:910 [inlined]
+ [12] materialize!
+    @ ./broadcast.jl:907 [inlined]
+ [13] cached!(du::Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, u::Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, p::Vector{Float64}, t::Float64)
+    @ Main /p/projects/coen/julia-trait-bound/experiments/implementation/w136/sciml/port.jl:18
+ [14] (::ODECore.PartialFn{typeof(cached!), Vector{Float64}})(a::Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, u::Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, t::Float64)
+    @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/ODECore/src/core.jl:401
+ [15] _call_at_signatures
+    @ /p/projects/coen/julia-trait-bound/TraitWorld/src/callable.jl:50 [inlined]
+ [16] _call_at_signatures
+    @ /p/projects/coen/julia-trait-bound/TraitWorld/src/callable.jl:51 [inlined]
+ [17] (::Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}})(::Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, ::Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, ::Float64)
+    @ TraitWorld /p/projects/coen/julia-trait-bound/TraitWorld/src/callable.jl:43
+ [18] _ad_jacobian!(fd::Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, J::Matrix{Float64}, u::Vector{Float64}, t::Float64, ::Val{8})
+    @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/ODECore/src/core.jl:484
+ [19] core_jacobian!
+    @ /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/ODECore/src/core.jl:531 [inlined]
+ [20] rodas5_step!(m::ODECore.CoreProblem{Float64, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}, i::TraitRodas.Rodas5Integrator{Nothing, ODECore.CoreProblem{Float64, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}}, dt::Float64, abstol::Float64, reltol::Float64)
+    @ TraitRodas /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/TraitRodas/src/rodas5.jl:195
+ [21] rodas5_advance!(i::TraitRodas.Rodas5Integrator{Nothing, ODECore.CoreProblem{Float64, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}})
+    @ TraitRodas /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/TraitRodas/src/rodas5.jl:376
+ [22] advance!
+    @ /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/TraitRodas/src/rodas5.jl:185 [inlined]
+ [23] run_to_end!
+    @ /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/ODECore/src/core.jl:969 [inlined]
+ [24] _rodas5_run
+    @ /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/TraitRodas/src/rodas5.jl:299 [inlined]
+ [25] rodas5_solve
+    @ /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/TraitRodas/src/rodas5.jl:297 [inlined]
+ [26] solve_core
+    @ /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/TraitRodas/src/rodas5.jl:264 [inlined]
+ [27] solve_ode(prob::ODEProblem{Float64, Vector{Float64}, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU, nothing}, callbacks::ODECore.EnteredCallbacks{Vector{Float64}, Float64, Vector{Float64}}, opts::ODECore.SolverOptions)
+    @ ODECore /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/ODECore/src/core.jl:1282
+ [28] solve_ode
+    @ /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/lib/ODECore/src/core.jl:1274 [inlined]
+ [29] _solve(prob::ODEProblem{Float64, Vector{Float64}, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU, nothing}, callback::Nothing, kw::@NamedTuple{})
+    @ TraitDifferentialEquations /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/src/TraitDifferentialEquations.jl:59
+ [30] solve(prob::ODEProblem{Float64, Vector{Float64}, Dynamic{All{Callable{Tuple{Vector{Float64}, Vector{Float64}, Float64}, Nothing}, Callable{Tuple{Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Vector{ForwardDiff.Dual{ODECore.ODETag, Float64, 8}}, Float64}, Nothing}}}, typeof(ODECore.core_no_jacobian)}, alg::Rodas5{DenseLU, nothing})
+    @ TraitDifferentialEquations /p/projects/coen/julia-trait-bound/TraitDifferentialEquations/src/TraitDifferentialEquations.jl:55
+ [31] (::var"#15#16")()
+    @ Main /p/projects/coen/julia-trait-bound/experiments/implementation/w136/sciml/port.jl:23
+ [32] report(form::String, tag::String, f::var"#15#16")
+    @ Main /p/projects/coen/julia-trait-bound/experiments/implementation/w136/sciml/report.jl:6
+ [33] top-level scope
+    @ /p/projects/coen/julia-trait-bound/experiments/implementation/w136/sciml/port.jl:23
+ [34] include(mod::Module, _path::String)
+    @ Base ./Base.jl:318
+ [35] exec_options(opts::Base.JLOptions)
+    @ Base ./client.jl:344
+ [36] _start()
+    @ Base ./client.jl:577

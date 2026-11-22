@@ -1,0 +1,198 @@
+lorenz -8.02113
+robertson 0.0178659
+   671.2 ms (compiling 379.7, recompiling 225.6)  #= none:1 =# @static if PLAIN         #= none:2 =#         using PlainODE         #= none:
+    13.9 ms (compiling 12.1, recompiling 0.0)  function (#= none:1 =# @main())(args::Vector{String})::Cint     #= none:1 =#     #= none:2
+ Count  Overhead File                                                                    Line Function
+ =====  ======== ====                                                                    ==== ========
+    30         0 @juliasrc/gf.c                                                         7141 jl_lookup_generic_
+    30         2 @juliasrc/julia_internal.h                                             2047 jl_typemap_assoc_exact
+    30         0 @juliasrc/ircode.c                                                     1164 ijl_uncompress_ir
+    30         0 @Compiler/src/ssair/ir.jl                                               653 _advance(stmt::Any, op::Int64)
+    30         0 @Base/bitset.jl                                                          19 BitSet
+    31         0 @juliasrc/pipeline.cpp                                                  792 run
+    31         0 @julialib/libLLVM.so.20.1jl                                               ? _ZN4llvm11PassManagerINS_6ModuleENS_15AnalysisManagerIS1_JEEEJEE3runERS1_RS3_
+    31         0 …ulia-trait-bound/julia-next/usr/include/llvm/IR/PassManagerInternal.h   91 run
+    31         0 @Compiler/src/ssair/inlining.jl                                        1520 handle_any_const_result!(cases::Vector{Compiler.InliningCase}, result::Any, match::Core.MethodMatch, argt…
+    31         0 @Compiler/src/ssair/inlining.jl                                        1722 handle_const_prop_result!
+    31         0 @Compiler/src/ssair/inlining.jl                                        1729 handle_const_prop_result!(cases::Vector{Compiler.InliningCase}, result::Compiler.ConstPropResult, match::…
+    31         0 @Compiler/src/inferencestate.jl                                         340 Compiler.InferenceState(result::Compiler.InferenceResult, src::Core.CodeInfo, cache_mode::UInt8, interp::…
+    32         0 @juliasrc/jitlayers.cpp                                                2117 addModule
+    32         0 @juliasrc/jitlayers.cpp                                                1648 operator()
+    32         0 @juliasrc/jitlayers.cpp                                                1473 operator()
+    32         0 …nd/julia-next/usr/include/llvm/ExecutionEngine/Orc/ThreadSafeModule.h  136 withModuleDo<(anonymous namespace)::sizedOptimizerT<4>::operator()(llvm::orc::ThreadSafeModule)::<lambda(…
+    32         0 @juliasrc/jitlayers.cpp                                                1512 operator()
+    32         0 @Compiler/src/ssair/inlining.jl                                        1065 resolve_todo(mi::Core.MethodInstance, result::Compiler.InferenceResult, info::Compiler.CallInfo, flag::UI…
+    32         0 @Compiler/src/ssair/passes.jl                                          2162 adce_pass!(ir::Compiler.IRCode, inlining::Compiler.InliningState{Compiler.NativeInterpreter})
+    32         0 @juliasrc/gc-stock.c                                                   1294 gc_sweep_pool_parallel
+    32         1 @juliasrc/gc-stock.c                                                   1002 gc_sweep_pool_page
+    33         0 @Compiler/src/ssair/passes.jl                                          1555 sroa_pass!(ir::Compiler.IRCode, inlining::Compiler.InliningState{Compiler.NativeInterpreter})
+    33         1 @Compiler/src/ssair/domtree.jl                                          266 compute_domtree_nodes!(domtree::Compiler.GenericDomTree{false})
+    33         0 @juliasrc/gc-stock.c                                                   1399 gc_sweep_pool
+    34         0 @Compiler/src/ssair/ir.jl                                              2166 compact!(code::Compiler.IRCode, allow_cfg_transforms::Bool)
+    34         0 @juliasrc/gc-stock.c                                                   3282 _jl_gc_collect
+    35         0 @Base/runtime_internals.jl                                             1625 _uncompressed_ir(codeinst::Core.CodeInstance, s::String)
+    35         0 @Compiler/src/optimize.jl                                              1029 ipo_dataflow_analysis!(interp::Compiler.NativeInterpreter, opt::Compiler.OptimizationState{Compiler.Nativ…
+    35         0 @Compiler/src/optimize.jl                                               672 PostOptAnalysisState
+    35         0 @Compiler/src/inferencestate.jl                                         129 TwoPhaseDefUseMap
+    36         0 @Compiler/src/inferencestate.jl                                         606 InferenceState
+    37         0 @Base/array.jl                                                          622 zeros
+    37         0 @Base/array.jl                                                          626 zeros
+    37         0 @Compiler/src/ssair/passes.jl                                           277 walk_to_defs(compact::Compiler.IncrementalCompact, defssa::Any, typeconstraint::Any, predecessors::typeof…
+    39         0 @Base/array.jl                                                          436 getindex
+    40         0 @julialib/libLLVM.so.20.1jl                                               ? _ZN4llvm13FPPassManager11runOnModuleERNS_6ModuleE
+    40         1 @julialib/libLLVM.so.20.1jl                                               ? _ZN4llvm13FPPassManager13runOnFunctionERNS_8FunctionE
+    40         0 @Compiler/src/ssair/ir.jl                                              2164 compact!
+    42         0 @juliasrc/jitlayers.cpp                                                1627 operator()
+    42         0 @julialib/libLLVM.so.20.1jl                                               ? _ZN4llvm6legacy15PassManagerImpl3runERNS_6ModuleE
+    42         0 @Compiler/src/abstractinterpretation.jl                                2008 abstract_call_method_with_const_args(interp::Compiler.NativeInterpreter, result::Compiler.MethodCallResul…
+    42         0 @Base/array.jl                                                          701 _array_for_inner
+    42         0 @Base/abstractarray.jl                                                  876 similar
+    42         0 @Base/array.jl                                                          409 similar
+    42         0 @Base/abstractarray.jl                                                  877 similar
+    42         0 @Base/boot.jl                                                           730 Array
+    42         0 @Compiler/src/ssair/passes.jl                                           615 lift_comparison_leaves!(tfunc::typeof(Compiler.isa_tfunc), compact::Compiler.IncrementalCompact, val::Any…
+    43         0 @Base/array.jl                                                          704 _array_for
+    43         0 @Compiler/src/ssair/passes.jl                                          1410 sroa_pass!(ir::Compiler.IRCode, inlining::Compiler.InliningState{Compiler.NativeInterpreter})
+    43         0 @Compiler/src/ssair/passes.jl                                           578 lift_comparison!(::typeof(===), compact::Compiler.IncrementalCompact, idx::Int64, stmt::Expr, 𝕃ₒ::Compile…
+    44         2 @Compiler/src/ssair/ir.jl                                               661 iterate
+    44         0 @Compiler/src/typeinfer.jl                                              336 finish_cycle(::Compiler.NativeInterpreter, frames::Vector{Union{Compiler.IRInterpretationState, Compiler.…
+    46         0 @juliasrc/builtins.c                                                    904 apply_iterate_reach
+    46         0 @Compiler/src/ssair/domtree.jl                                          260 update_domtree!
+    46         0 @Compiler/src/abstractinterpretation.jl                                4395 collect_argtypes(interp::Compiler.NativeInterpreter, ea::Vector{Any}, sstate::Compiler.StatementState, sv…
+    47         0 @Compiler/src/typeinfer.jl                                              127 finish!(interp::Compiler.NativeInterpreter, caller::Compiler.InferenceState, validation_world::UInt64, ti…
+    48         0 @Compiler/src/ssair/inlining.jl                                        1063 resolve_todo(mi::Core.MethodInstance, result::Nothing, info::Compiler.CallInfo, flag::UInt32, state::Comp…
+    48         0 @Compiler/src/optimize.jl                                              1057 optimize(interp::Compiler.NativeInterpreter, opt::Compiler.OptimizationState{Compiler.NativeInterpreter},…
+    48         0 @Compiler/src/ssair/passes.jl                                           192 collect_leaves
+    48         0 @juliasrc/gc-stock.c                                                   1852 gc_mark_objarray
+    49         0 @Compiler/src/ssair/passes.jl                                             5 is_known_call
+    50        50 @Base/essentials.jl                                                     979 getindex
+    50        50 @juliasrc/gc-common.h                                                   144 gc_marked
+    50         0 @Compiler/src/typeinfer.jl                                             1187 typeinf_edge(interp::Compiler.NativeInterpreter, method::Method, atype::Any, sparams::Core.SimpleVector, …
+    51         0 @juliasrc/gc-stock.c                                                   1698 gc_try_claim_and_push
+    51         2 @juliasrc/gc-stock.c                                                    241 gc_try_setmark_tag
+    53         0 @juliasrc/jitlayers.cpp                                                2130 addModule
+    53         0 @Compiler/src/abstractinterpretation.jl                                4439 abstract_eval_call
+    57         0 @Compiler/src/ssair/inlining.jl                                        1523 handle_any_const_result!(cases::Vector{Compiler.InliningCase}, result::Any, match::Core.MethodMatch, argt…
+    57         0 @Compiler/src/ssair/inlining.jl                                        1708 handle_match!
+    57         0 @Compiler/src/ssair/inlining.jl                                        1716 handle_match!(cases::Vector{Compiler.InliningCase}, match::Core.MethodMatch, argtypes::Vector{Any}, info:…
+    57         0 @Compiler/src/ssair/inlining.jl                                        1111 analyze_method!
+    57         0 @Compiler/src/ssair/inlining.jl                                        1144 analyze_method!(match::Core.MethodMatch, argtypes::Vector{Any}, info::Compiler.CallInfo, flag::UInt32, st…
+    58         0 @juliasrc/gc-stock.c                                                   2433 gc_mark_outrefs
+    59         4 @Compiler/src/optimize.jl                                               517 argextype
+    60         0 @Compiler/src/optimize.jl                                               516 argextype
+    62         1 @Compiler/src/ssair/ir.jl                                              1550 process_node!(compact::Compiler.IncrementalCompact, result_idx::Int64, inst::Compiler.Instruction, idx::I…
+    62         0 @juliasrc/gc-stock.c                                                   1718 gc_mark_obj8
+    65         0 @Compiler/src/optimize.jl                                              1367 slot2reg
+    65         0 @Compiler/src/optimize.jl                                               552 argextype(x::Any, src::Compiler.IRCode, sptypes::Vector{Compiler.VarState}, slottypes::Vector{Any})
+    65         0 @Compiler/src/abstractinterpretation.jl                                4956 abstract_eval_globalref_type
+    65         0 @Compiler/src/abstractinterpretation.jl                                5085 abstract_load_all_consistent_leaf_partitions
+    65         0 @Compiler/src/abstractinterpretation.jl                                5070 scan_leaf_partitions
+    65        65 @juliasrc/gc-common.h                                                   149 gc_old
+    66         1 @juliasrc/gc-stock.c                                                   1696 gc_try_claim_and_push
+    68         1 @Compiler/src/ssair/inlining.jl                                         804 batch_inline!(ir::Compiler.IRCode, todo::Vector{Pair{Int64, Any}}, propagate_inbounds::Bool, interp::Comp…
+    70         0 @Compiler/src/ssair/domtree.jl                                          184 DFS!(D::Compiler.DFSTree, blocks::Vector{Compiler.BasicBlock}, is_post_dominator::Bool)
+    74         0 @juliasrc/gf.c                                                         7225 apply_generic_reach
+    76         0 @juliasrc/gf.c                                                         5692 jl_fptr_wait_for_compiled
+    78         0 @Compiler/src/ssair/domtree.jl                                          252 update_domtree!
+    81        30 @julialib/libLLVM.so.20.1jl                                               ? .plt
+    81         3 @juliasrc/gc-stock.c                                                   2486 gc_mark_outrefs
+    82         0 @Compiler/src/typeinfer.jl                                              260 finish_nocycle(::Compiler.NativeInterpreter, frame::Compiler.InferenceState, time_before::UInt64)
+    84         0 @Base/boot.jl                                                           720 Array
+    85         0 @juliasrc/jitlayers.cpp                                                 681 jl_compile_codeinst_now
+    88         0 @Base/boot.jl                                                           707 Array
+    90         0 @Compiler/src/abstractinterpretation.jl                                5876 typeinf(interp::Compiler.NativeInterpreter, frame::Compiler.InferenceState)
+    90         0 @Compiler/src/ssair/inlining.jl                                        1583 compute_inlining_cases(info::Compiler.CallInfo, flag::UInt32, sig::Compiler.Signature, state::Compiler.In…
+    91         0 @juliasrc/jitlayers.cpp                                                 875 jl_compile_codeinst_impl
+    91         0 @Compiler/src/ssair/inlining.jl                                        1511 handle_any_const_result!
+    95         0 @Base/array.jl                                                         1345 push!
+    95         0 @Base/array.jl                                                         1348 _push!
+    99         0 @Base/array.jl                                                         1181 _growend_internal!(a::Vector{Pair{Int64, Any}}, delta::Int64, len::Int64)
+    99         0 @Base/array.jl                                                         1101 array_new_memory
+    99         0 @Compiler/src/ssair/ir.jl                                               736 CFGTransformState!(blocks::Vector{Compiler.BasicBlock}, allow_cfg_transforms::Bool)
+   106         0 @Compiler/src/ssair/inlining.jl                                        1619 handle_call!(todo::Vector{Pair{Int64, Any}}, ir::Compiler.IRCode, idx::Int64, stmt::Expr, info::Compiler.…
+   106         1 @Compiler/src/ssair/ir.jl                                              1967 iterate_compact(compact::Compiler.IncrementalCompact)
+   108         0 @Compiler/src/ssair/inlining.jl                                          84 ssa_inlining_pass!
+   110         2 @Base/array.jl                                                         1205 _growend!
+   112         0 @Compiler/src/ssair/passes.jl                                          2120 adce_pass!(ir::Compiler.IRCode, inlining::Compiler.InliningState{Compiler.NativeInterpreter})
+   119         0 @Compiler/src/ssair/ir.jl                                               807 IncrementalCompact
+   126         0 @Compiler/src/ssair/inlining.jl                                        1967 assemble_inline_todo!(ir::Compiler.IRCode, state::Compiler.InliningState{Compiler.NativeInterpreter})
+   127         0 @Compiler/src/ssair/domtree.jl                                          242 construct_domtree(blocks::Vector{Compiler.BasicBlock})
+   129         7 @Base/boot.jl                                                           708 Array
+   139         1 @Compiler/src/ssair/ir.jl                                              1889 iterate
+   145         0 @juliasrc/gc-stock.c                                                    806 jl_gc_alloc_
+   145         0 @juliasrc/gc-stock.c                                                    792 jl_gc_small_alloc_noinline
+   151         0 @Compiler/src/ssair/inlining.jl                                          81 ssa_inlining_pass!
+   152         0 @juliasrc/genericmemory.c                                                41 jl_alloc_genericmemory_unchecked
+   160         0 @juliasrc/gc-stock.c                                                    783 ijl_gc_small_alloc
+   197         7 @Base/boot.jl                                                           647 GenericMemory
+   205         0 @juliasrc/gc-stock.c                                                   2542 gc_mark_loop_serial_
+   209         0 @juliasrc/gc-stock.c                                                   2565 gc_mark_loop_serial
+   220         0 @juliasrc/gc-stock.c                                                   3150 _jl_gc_collect
+   220         0 @juliasrc/gc-stock.c                                                   2753 gc_mark_loop
+   259         0 @juliasrc/gc-stock.c                                                    355 maybe_collect
+   259         0 @juliasrc/gc-stock.c                                                   3590 ijl_gc_collect
+   264         0 @juliasrc/gc-stock.c                                                    734 jl_gc_small_alloc_inner
+   718         0 @Compiler/src/typeinfer.jl                                              312 finish_cycle(::Compiler.NativeInterpreter, frames::Vector{Union{Compiler.IRInterpretationState, Compiler.…
+   752         0 @Compiler/src/optimize.jl                                              1055 optimize(interp::Compiler.NativeInterpreter, opt::Compiler.OptimizationState{Compiler.NativeInterpreter},…
+   752         0 @Compiler/src/optimize.jl                                              1083 run_passes_ipo_safe
+   752         0 @Compiler/src/optimize.jl                                              1070 run_passes_ipo_safe(ci::Core.CodeInfo, sv::Compiler.OptimizationState{Compiler.NativeInterpreter}, optimi…
+   786         0 @Compiler/src/abstractinterpretation.jl                                5900 typeinf(interp::Compiler.NativeInterpreter, frame::Compiler.InferenceState)
+  1271         2 @Compiler/src/abstractinterpretation.jl                                1246 (::Compiler.var"#infercalls#152"{Compiler.ArgInfo, Compiler.StmtInfo, Base.RefValue{Bool}, Compiler.CallI…
+  1276         0 @Compiler/src/abstractinterpretation.jl                                1850 abstract_call_method(interp::Compiler.NativeInterpreter, method::Method, sig::Any, sparams::Core.SimpleVe…
+  1276         0 @Compiler/src/typeinfer.jl                                             1128 typeinf_edge(interp::Compiler.NativeInterpreter, method::Method, atype::Any, sparams::Core.SimpleVector, …
+  1276         0 @Compiler/src/facts.jl                                                  225 typeinf_other_policy(interp::Compiler.NativeInterpreter, method::Method, mi::Core.MethodInstance, caller:…
+  1282         0 @Compiler/src/abstractinterpretation.jl                                1341 (::Compiler.var"#infercalls#152"{Compiler.ArgInfo, Compiler.StmtInfo, Base.RefValue{Bool}, Compiler.CallI…
+  1282         0 @Compiler/src/abstractinterpretation.jl                                2014 abstract_call_method_with_const_args(interp::Compiler.NativeInterpreter, result::Compiler.MethodCallResul…
+  1282         0 @Compiler/src/abstractinterpretation.jl                                2469 const_prop_call(interp::Compiler.NativeInterpreter, mi::Core.MethodInstance, result::Compiler.MethodCallR…
+  1284         0 @Compiler/src/abstractinterpretation.jl                                1257 (::Compiler.var"#handle1#153"{Int64, Compiler.Future{Compiler.MethodCallResult}, Int64, Vector{Union{Noth…
+  1284         0 @Compiler/src/abstractinterpretation.jl                                1983 abstract_call_method_with_const_args
+  1285         0 @Compiler/src/abstractinterpretation.jl                                1448 abstract_call_gf_by_type(interp::Compiler.NativeInterpreter, func::Any, arginfo::Compiler.ArgInfo, si::Co…
+  1286         0 @Compiler/src/abstractinterpretation.jl                                4023 abstract_call_known(interp::Compiler.NativeInterpreter, f::Any, arginfo::Compiler.ArgInfo, si::Compiler.S…
+  1286         1 @Compiler/src/abstractinterpretation.jl                                1092 abstract_call_gf_by_type
+  1287         0 @Compiler/src/abstractinterpretation.jl                                5202 abstract_eval_basic_statement
+  1287         0 @Compiler/src/abstractinterpretation.jl                                4805 abstract_eval_statement_expr(interp::Compiler.NativeInterpreter, e::Expr, sstate::Compiler.StatementState…
+  1287         0 @Compiler/src/abstractinterpretation.jl                                4444 abstract_eval_call
+  1287         0 @Compiler/src/abstractinterpretation.jl                                4426 abstract_call(interp::Compiler.NativeInterpreter, arginfo::Compiler.ArgInfo, sstate::Compiler.StatementSt…
+  1287         0 @Compiler/src/abstractinterpretation.jl                                4266 abstract_call
+  1287         0 @Compiler/src/abstractinterpretation.jl                                4273 abstract_call(interp::Compiler.NativeInterpreter, arginfo::Compiler.ArgInfo, si::Compiler.StmtInfo, sv::C…
+  1288         0 @Compiler/src/abstractinterpretation.jl                                5869 typeinf(interp::Compiler.NativeInterpreter, frame::Compiler.InferenceState)
+  1288         0 @Compiler/src/abstractinterpretation.jl                                5708 typeinf_local(interp::Compiler.NativeInterpreter, frame::Compiler.InferenceState, nextresult::Compiler.Cu…
+  1288         0 @Compiler/src/abstractinterpretation.jl                                5159 abstract_eval_basic_statement
+  1296         0 @Compiler/src/typeinfer.jl                                             1490 typeinf_ext(interp::Compiler.NativeInterpreter, mi::Core.MethodInstance, source_mode::UInt8)
+  1297         0 @Compiler/src/typeinfer.jl                                             1746 typeinf_ext_toplevel
+  1301         0 @juliasrc/toplevel.c                                                    731 jl_toplevel_eval_flex
+  1302         0 @juliasrc/gf.c                                                          555 jl_type_infer_policy
+  1302         0 @Compiler/src/typeinfer.jl                                             1760 typeinf_ext_toplevel(mi::Core.MethodInstance, world::UInt64, source_mode::UInt8, trim_mode::UInt8, facts:…
+  1378         0 @juliasrc/interpreter.c                                                 566 eval_body
+  1378         0 @juliasrc/interpreter.c                                                 589 eval_body
+  1378         0 @Base/Base.jl                                                           320 (::Base.IncludeInto)(fname::String)
+  1378         0 @Base/Base.jl                                                           319 include(mapexpr::Function, mod::Module, _path::String)
+  1381         0 /p/projects/coen/julia-trait-bound/julia-next/julia                       ? _start
+  1381         0 /lib64/libc.so.6                                                          ? __libc_start_main
+  1381         0 /lib64/libc.so.6                                                          ? __libc_start_call_main
+  1381         0 /p/projects/coen/julia-trait-bound/julia-next/cli/loader_exe.c           58 main
+  1381         0 @juliasrc/jlapi.c                                                      1152 jl_repl_entrypoint
+  1381         0 @juliasrc/jlapi.c                                                       985 true_main
+  1381         0 @juliasrc/julia.h                                                      2389 jl_apply
+  1381        12 @julialib/julia/sys.so                                                    ? .plt
+  1381         0 @Base/client.jl                                                         577 _start()
+  1381         0 @Base/client.jl                                                         344 exec_options(opts::Base.JLOptions)
+  1381         0 @Base/Base.jl                                                           318 include(mod::Module, _path::String)
+  1381         0 @Base/loading.jl                                                       3109 _include(mapexpr::Function, mod::Module, _path::String)
+  1381         0 @Base/loading.jl                                                       3049 include_string(mapexpr::typeof(identity), mod::Module, code::String, filename::String)
+  1381         0 @Base/boot.jl                                                           546 eval(m::Module, e::Any)
+  1381         0 @juliasrc/toplevel.c                                                    801 ijl_toplevel_eval_in
+  1381         0 @juliasrc/toplevel.c                                                    756 ijl_toplevel_eval
+  1381         0 @juliasrc/toplevel.c                                                    685 jl_toplevel_eval_flex
+  1381         0 @juliasrc/toplevel.c                                                    587 jl_eval_toplevel_stmts
+  1381         0 @juliasrc/toplevel.c                                                    733 jl_toplevel_eval_flex
+  1381         0 @Traits/w159/probes/defs_timed.jl                                        14 top-level scope
+  1381         0 @Base/timing.jl                                                         463 macro expansion
+  1381         0 @juliasrc/toplevel.c                                                    744 jl_toplevel_eval_flex
+  1381         0 @juliasrc/interpreter.c                                                 907 jl_interpret_toplevel_thunk
+  1381         0 @juliasrc/interpreter.c                                                 695 eval_body
+  1381         0 @juliasrc/interpreter.c                                                 202 eval_stmt_value
+  1381         0 @juliasrc/interpreter.c                                                 251 eval_value
+  1381         0 @juliasrc/interpreter.c                                                 130 do_call
+Total snapshots: 1381. Utilization: 100% across all threads and tasks. Use the `groupby` kwarg to break down by thread and/or task.
+  1835.9 ms (compiling 3428.2, recompiling 0.0)  PLAIN || include("verify.jl")

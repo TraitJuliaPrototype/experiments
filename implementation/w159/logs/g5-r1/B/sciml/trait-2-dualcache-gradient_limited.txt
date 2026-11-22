@@ -1,0 +1,81 @@
+MethodError: no method matching Float64(::ForwardDiff.Dual{ForwardDiff.Tag{TraitDifferentialEquations.Sig{Tuple{…}, Float64}, Float64}, Float64, 3})
+The type `Float64` exists, but no method is defined for this combination of argument types when trying to construct it.
+
+Closest candidates are:
+  (::Type{T})(::Real, !Matched::RoundingMode) where T<:AbstractFloat
+   @ Base rounding.jl:265
+  (::Type{T})(::T) where T<:Number
+   @ Core boot.jl:1065
+  Float64(!Matched::Irrational{:SQRT_HALF})
+   @ Random irrationals.jl:271
+  ...
+
+Stacktrace:
+  [1] convert(::Type{Float64}, x::ForwardDiff.Dual{ForwardDiff.Tag{TraitDifferentialEquations.Sig{…}, Float64}, Float64, 3})
+    @ Base ./number.jl:7
+  [2] setindex!
+    @ ./genericmemory.jl:266 [inlined]
+  [3] unsafe_copyto!(dest::Memory{Float64}, doffs::Int64, src::Memory{ForwardDiff.Dual{…}}, soffs::Int64, n::Int64)
+    @ Base ./genericmemory.jl:172
+  [4] unsafe_copyto!
+    @ ./genericmemory.jl:151 [inlined]
+  [5] _copyto_impl!
+    @ ./array.jl:300 [inlined]
+  [6] copyto!
+    @ ./array.jl:286 [inlined]
+  [7] _copyto2arg!
+    @ ./array.jl:311 [inlined]
+  [8] copyto!
+    @ ./array.jl:313 [inlined]
+  [9] copyto!
+    @ ./broadcast.jl:993 [inlined]
+ [10] copyto!
+    @ ./broadcast.jl:952 [inlined]
+ [11] materialize!
+    @ ./broadcast.jl:910 [inlined]
+ [12] materialize!
+    @ ./broadcast.jl:907 [inlined]
+ [13] cached!(du::Vector{ForwardDiff.Dual{…}}, u::Vector{ForwardDiff.Dual{…}}, p::Vector{ForwardDiff.Dual{…}}, t::Float64)
+    @ Main /p/projects/coen/julia-trait-bound/experiments/implementation/w136/sciml/port.jl:18
+ [14] (::ODECore.PartialFn{…})(a::Vector{…}, u::Vector{…}, t::Float64)
+    @ ODECore /p/projects/coen/julia-trait-bound/wt/w161-tde-base/lib/ODECore/src/core.jl:365
+ [15] (::Dynamic{Callable{…}})(::Vector{ForwardDiff.Dual{…}}, ::Vector{ForwardDiff.Dual{…}}, ::Float64)
+    @ TraitWorld /p/projects/coen/julia-trait-bound/TraitWorld-base/src/callable.jl:25
+ [16] core_rhs!
+    @ /p/projects/coen/julia-trait-bound/wt/w161-tde-base/lib/ODECore/src/core.jl:495 [inlined]
+ [17] tsit5_init(m::ODECore.CoreProblem{…}, u0::Vector{…}, tspan::Tuple{…}, callbacks::Vector{…}, opts::ODECore.SolverOptions)
+    @ ODECore /p/projects/coen/julia-trait-bound/wt/w161-tde-base/lib/ODECore/src/core.jl:1345
+ [18] solve_core
+    @ /p/projects/coen/julia-trait-bound/wt/w161-tde-base/lib/ODECore/src/core.jl:1314 [inlined]
+ [19] solve_ode(prob::ODEProblem{…}, alg::Tsit5, callbacks::Vector{…}, opts::ODECore.SolverOptions)
+    @ ODECore /p/projects/coen/julia-trait-bound/wt/w161-tde-base/lib/ODECore/src/core.jl:1237
+ [20] _solve
+    @ /p/projects/coen/julia-trait-bound/wt/w161-tde-base/src/TraitDifferentialEquations.jl:64 [inlined]
+ [21] solve(prob::ODEProblem{ForwardDiff.Dual{…}, Vector{…}, Dynamic{…}, typeof(ODECore.core_no_jacobian)}, alg::Tsit5)
+    @ TraitDifferentialEquations /p/projects/coen/julia-trait-bound/wt/w161-tde-base/src/TraitDifferentialEquations.jl:61
+ [22] loss(p::Vector{ForwardDiff.Dual{ForwardDiff.Tag{TraitDifferentialEquations.Sig{…}, Float64}, Float64, 3}})
+    @ Main /p/projects/coen/julia-trait-bound/experiments/implementation/w136/sciml/port.jl:21
+ [23] (::Dynamic{Callable{Tuple{…}, ForwardDiff.Dual{…}}})(args::Vector{ForwardDiff.Dual{ForwardDiff.Tag{…}, Float64, 3}})
+    @ TraitWorld /p/projects/coen/julia-trait-bound/TraitWorld-base/src/callable.jl:25
+ [24] vector_mode_dual_eval!
+    @ /p/projects/coen/julia-trait-bound/.julia-depot/packages/ForwardDiff/ix15H/src/apiutils.jl:24 [inlined]
+ [25] vector_mode_gradient(f::Dynamic{…}, x::Vector{…}, cfg::ForwardDiff.GradientConfig{…})
+    @ ForwardDiff /p/projects/coen/julia-trait-bound/.julia-depot/packages/ForwardDiff/ix15H/src/gradient.jl:98
+ [26] gradient(f::Dynamic{…}, x::Vector{…}, cfg::ForwardDiff.GradientConfig{…}, ::Val{…})
+    @ ForwardDiff /p/projects/coen/julia-trait-bound/.julia-depot/packages/ForwardDiff/ix15H/src/gradient.jl:0
+ [27] _gradient_sig(loss::Any, p::Vector{Float64}, ::Val{3})
+    @ TraitDifferentialEquations /p/projects/coen/julia-trait-bound/wt/w161-tde-base/src/TraitDifferentialEquations.jl:126
+ [28] gradient(loss::Any, p::Vector{Float64})
+    @ TraitDifferentialEquations /p/projects/coen/julia-trait-bound/wt/w161-tde-base/src/TraitDifferentialEquations.jl:0
+ [29] #12
+    @ /p/projects/coen/julia-trait-bound/experiments/implementation/w136/sciml/port.jl:22 [inlined]
+ [30] report(form::String, tag::String, f::var"#12#13")
+    @ Main /p/projects/coen/julia-trait-bound/experiments/implementation/w136/sciml/report.jl:6
+ [31] top-level scope
+    @ /p/projects/coen/julia-trait-bound/experiments/implementation/w136/sciml/port.jl:22
+ [32] include(mod::Module, _path::String)
+    @ Base ./Base.jl:315
+ [33] exec_options(opts::Base.JLOptions)
+    @ Base ./client.jl:344
+ [34] _start()
+    @ Base ./client.jl:577

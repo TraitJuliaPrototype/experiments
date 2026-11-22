@@ -1,0 +1,238 @@
+# W-159 G-4 E-382 a port's load (w145/loads/load.jl), modes walk | 2026-11-22T04:37:30+01:00 | load-before 2.94 2.53 3.29 | login02
+# setting H: julia julia-next cf0f039f51 (binary cf0f039f51*) | TW TraitWorld 42d60e13bf | TDE TraitDifferentialEquations 06c28c376f | TM TraitMakie 1888698d7a | TT TraitTables e1ec1f4368 | TC TraitCSV 094dcb2e21 | TR TraitReport ec34d1219c | FORKS forks a3a37d6b5e | ND ndport/pkgs/NetworkDynamics-unified c2bbf0d9aa | depot .julia-depot/agent-depots/w159/H
+# setting B: julia julia-unified 7b374f39ce (binary 7b374f39ce*) | TW TraitWorld-base e11c7cc58b | TDE wt/w161-tde-base b7306285fe | TM wt/w160-tm c862914ffa | TT wt/w159-tag/TraitTables c3391750fb | TC wt/w159-tag/TraitCSV 92c46d01bc | TR wt/w159-tag/TraitReport a4bcf332db | FORKS wt/w159-tag/forks 439bae73ff | ND wt/w151-base/NetworkDynamics 6310040ec0 | depot .julia-depot/agent-depots/w159/B
+# setting V: julia julia-vanilla 45b6d15e34 (binary 45b6d15e34*) | depot .julia-depot/agent-depots/w159/V
+# experiments 02ade9c813 | product setting, strict mode off, one thread, fresh process per cell
+# NOTE setting H: the binary is marked '*' (its tree had a tracked change when it was built); the tree is clean now
+# preflight H TraitWorld: images ok: TraitWorld
+# preflight H demo: images ok: TraitTables TraitCSV TraitDifferentialEquations TraitMakie
+# preflight H forks: images ok: CSV DataFrames
+# preflight H facts: images ok: CSV DataFrames
+# preflight H up: images ok: CSV DataFrames
+# preflight H ndtest: images ok: NetworkDynamics
+# NOTE setting B: the binary is marked '*' (its tree had a tracked change when it was built); the tree is clean now
+# preflight B TraitWorld-base: images ok: TraitWorld
+# preflight B demo: images ok: TraitTables TraitCSV TraitDifferentialEquations TraitMakie
+# preflight B forks: images ok: CSV DataFrames
+# preflight B facts: images ok: CSV DataFrames
+# preflight B up: images ok: CSV DataFrames
+# preflight B ndtest: images ok: NetworkDynamics
+# NOTE setting V: the binary is marked '*' (its tree had a tracked change when it was built); the tree is clean now
+# preflight V up: images ok: CSV DataFrames
+H traitworld run 1 | load 2.81 2.52 3.27 | walk TraitWorld | TraitWorld 59.6 ms | total 59.6 ms | log entries 24 | instances in the log 9 (distinct 9)
+H traitworld run 2 | load 2.81 2.52 3.27 | walk TraitWorld | TraitWorld 60.5 ms | total 60.5 ms | log entries 24 | instances in the log 9 (distinct 9)
+H traitworld run 3 | load 2.74 2.51 3.27 | walk TraitWorld | TraitWorld 58.7 ms | total 58.7 ms | log entries 24 | instances in the log 9 (distinct 9)
+H traitworld walk  EVENT 2 jl_method_table_insert
+H traitworld walk  ENDED 9 Base
+H tables run 1 | load 2.74 2.51 3.27 | walk TraitTables+TraitCSV | TraitTables 79.0 ms, TraitCSV 74.7 ms | total 153.7 ms | log entries 24 | instances in the log 9 (distinct 9)
+H tables run 2 | load 2.74 2.51 3.27 | walk TraitTables+TraitCSV | TraitTables 79.1 ms, TraitCSV 73.9 ms | total 153.0 ms | log entries 24 | instances in the log 9 (distinct 9)
+H tables run 3 | load 2.74 2.51 3.27 | walk TraitTables+TraitCSV | TraitTables 78.6 ms, TraitCSV 74.8 ms | total 153.4 ms | log entries 24 | instances in the log 9 (distinct 9)
+H tables walk  EVENT 2 jl_method_table_insert
+H tables walk  ENDED 9 Base
+H tables-strict run 1 | load 3.08 2.58 3.29 | walk TraitTables+TraitCSV | TraitTables 149.1 ms, TraitCSV 66.1 ms | total 215.2 ms | log entries 24 | instances in the log 9 (distinct 9)
+H tables-strict run 2 | load 3.08 2.58 3.29 | walk TraitTables+TraitCSV | TraitTables 149.1 ms, TraitCSV 66.1 ms | total 215.2 ms | log entries 24 | instances in the log 9 (distinct 9)
+H tables-strict run 3 | load 3.08 2.58 3.29 | walk TraitTables+TraitCSV | TraitTables 149.8 ms, TraitCSV 66.6 ms | total 216.4 ms | log entries 24 | instances in the log 9 (distinct 9)
+H tables-strict walk  EVENT 2 jl_method_table_insert
+H tables-strict walk  ENDED 9 Base
+H ode run 1 | load 3.00 2.57 3.28 | walk TraitDifferentialEquations | TraitDifferentialEquations 505.9 ms | total 505.9 ms | log entries 2370 | instances in the log 643 (distinct 643)
+H ode run 2 | load 3.00 2.57 3.28 | walk TraitDifferentialEquations | TraitDifferentialEquations 508.2 ms | total 508.2 ms | log entries 2370 | instances in the log 643 (distinct 643)
+H ode run 3 | load 3.00 2.57 3.28 | walk TraitDifferentialEquations | TraitDifferentialEquations 509.2 ms | total 509.2 ms | log entries 2370 | instances in the log 643 (distinct 643)
+H ode walk  EVENT 11 jl_method_table_insert
+H ode walk  ENDED 489 Compiler
+H ode walk  ENDED 139 Base
+H ode walk  ENDED 15 TraitWorld
+H makie run 1 | load 2.92 2.56 3.27 | walk TraitMakie | TraitMakie 256.6 ms | total 256.6 ms | log entries 88 | instances in the log 37 (distinct 37)
+H makie run 2 | load 2.92 2.56 3.27 | walk TraitMakie | TraitMakie 245.3 ms | total 245.3 ms | log entries 88 | instances in the log 37 (distinct 37)
+H makie run 3 | load 2.92 2.56 3.27 | walk TraitMakie | TraitMakie 246.1 ms | total 246.1 ms | log entries 88 | instances in the log 37 (distinct 37)
+H makie walk  EVENT 8 jl_method_table_insert
+H makie walk  ENDED 37 Base
+H forks run 1 | load 2.84 2.55 3.27 | walk CSV+DataFrames | CSV 471.8 ms, DataFrames 734.3 ms | total 1206.1 ms | log entries 2324 | instances in the log 695 (distinct 695)
+H forks run 2 | load 2.84 2.55 3.27 | walk CSV+DataFrames | CSV 464.7 ms, DataFrames 731.0 ms | total 1195.7 ms | log entries 2324 | instances in the log 695 (distinct 695)
+H forks run 3 | load 2.78 2.54 3.26 | walk CSV+DataFrames | CSV 460.3 ms, DataFrames 726.2 ms | total 1186.4 ms | log entries 2324 | instances in the log 695 (distinct 695)
+H forks walk  EVENT 58 jl_method_table_insert
+H forks walk  EVENT 4 invalidate_mt_cache
+H forks walk  ENDED 482 Base
+H forks walk  ENDED 132 Compiler
+H forks walk  ENDED 18 PrettyTables
+H forks walk  ENDED 15 TraitWorld
+H forks walk  ENDED 15 StyledStrings
+H forks walk  ENDED 12 OrderedCollections
+H forks walk  ENDED 9 LinearAlgebra
+H forks walk  ENDED 8 Tables
+H forks walk  ENDED 2 CSV
+H forks walk  ENDED 1 FileWatching
+H forks walk  ENDED 1 DataFrames
+H upstream-facts run 1 | load 2.78 2.54 3.26 | walk CSV+DataFrames | CSV 213.7 ms, DataFrames 373.1 ms | total 586.8 ms | log entries 2112 | instances in the log 666 (distinct 666)
+H upstream-facts run 2 | load 2.79 2.55 3.26 | walk CSV+DataFrames | CSV 213.8 ms, DataFrames 374.7 ms | total 588.5 ms | log entries 2112 | instances in the log 666 (distinct 666)
+H upstream-facts run 3 | load 2.79 2.55 3.26 | walk CSV+DataFrames | CSV 212.7 ms, DataFrames 374.4 ms | total 587.1 ms | log entries 2112 | instances in the log 666 (distinct 666)
+H upstream-facts walk  EVENT 58 jl_method_table_insert
+H upstream-facts walk  EVENT 3 invalidate_mt_cache
+H upstream-facts walk  ENDED 445 Base
+H upstream-facts walk  ENDED 132 Compiler
+H upstream-facts walk  ENDED 64 PrettyTables
+H upstream-facts walk  ENDED 15 StyledStrings
+H upstream-facts walk  ENDED 9 LinearAlgebra
+H upstream-facts walk  ENDED 1 FileWatching
+H upstream run 1 | load 2.79 2.55 3.26 | walk CSV+DataFrames | CSV 251.2 ms, DataFrames 496.9 ms | total 748.0 ms | log entries 3007 | instances in the log 940 (distinct 940)
+H upstream run 2 | load 2.73 2.54 3.25 | walk CSV+DataFrames | CSV 252.4 ms, DataFrames 497.2 ms | total 749.6 ms | log entries 3007 | instances in the log 940 (distinct 940)
+H upstream run 3 | load 2.73 2.54 3.25 | walk CSV+DataFrames | CSV 251.9 ms, DataFrames 499.7 ms | total 751.6 ms | log entries 3007 | instances in the log 940 (distinct 940)
+H upstream walk  EVENT 84 jl_method_table_insert
+H upstream walk  EVENT 4 invalidate_mt_cache
+H upstream walk  ENDED 505 Base
+H upstream walk  ENDED 220 CSV
+H upstream walk  ENDED 132 Compiler
+H upstream walk  ENDED 20 PrettyTables
+H upstream walk  ENDED 15 StyledStrings
+H upstream walk  ENDED 12 OrderedCollections
+H upstream walk  ENDED 9 LinearAlgebra
+H upstream walk  ENDED 9 Tables
+H upstream walk  ENDED 7 CodecZlib
+H upstream walk  ENDED 6 TranscodingStreams
+H upstream walk  ENDED 3 PooledArrays
+H upstream walk  ENDED 1 TableTraits
+H upstream walk  ENDED 1 FileWatching
+H nd run 1 | load 2.83 2.57 3.25 | walk NetworkDynamics | NetworkDynamics 2052.2 ms | total 2052.2 ms | log entries 5840 | instances in the log 1574 (distinct 1574)
+H nd run 2 | load 2.76 2.56 3.25 | walk NetworkDynamics | NetworkDynamics 1968.4 ms | total 1968.4 ms | log entries 5840 | instances in the log 1574 (distinct 1574)
+H nd run 3 | load 2.78 2.57 3.25 | walk NetworkDynamics | NetworkDynamics 1961.8 ms | total 1961.8 ms | log entries 5840 | instances in the log 1574 (distinct 1574)
+H nd walk  EVENT 120 jl_method_table_insert
+H nd walk  EVENT 3 invalidate_mt_cache
+H nd walk  ENDED 797 Base
+H nd walk  ENDED 652 Compiler
+H nd walk  ENDED 27 StaticArrays
+H nd walk  ENDED 22 PrettyTables
+H nd walk  ENDED 15 TraitWorld
+H nd walk  ENDED 13 OrderedCollections
+H nd walk  ENDED 12 StyledStrings
+H nd walk  ENDED 8 Markdown
+H nd walk  ENDED 7 LinearAlgebra
+H nd walk  ENDED 6 Tables
+H nd walk  ENDED 3 PreallocationTools
+H nd walk  ENDED 2 Dates
+H nd walk  ENDED 2 ForwardDiff
+H nd walk  ENDED 2 TimerOutputs
+H nd walk  ENDED 2 StaticArrayInterface
+H nd walk  ENDED 1 ODECore
+H nd walk  ENDED 1 TableTraits
+H nd walk  ENDED 1 FileWatching
+H nd walk  ENDED 1 StaticArraysCore
+B traitworld run 1 | load 2.78 2.57 3.25 | walk TraitWorld | TraitWorld 63.6 ms | total 63.6 ms | log entries 65 | instances in the log 23 (distinct 23)
+B traitworld run 2 | load 2.78 2.57 3.25 | walk TraitWorld | TraitWorld 61.6 ms | total 61.6 ms | log entries 65 | instances in the log 23 (distinct 23)
+B traitworld run 3 | load 2.78 2.57 3.25 | walk TraitWorld | TraitWorld 60.7 ms | total 60.7 ms | log entries 65 | instances in the log 23 (distinct 23)
+B traitworld walk  EVENT 2 jl_method_table_insert
+B traitworld walk  EVENT 1 jl_membership_dispatch_walk
+B traitworld walk  ENDED 23 Base
+B tables run 1 | load 2.72 2.56 3.24 | walk TraitTables+TraitCSV | TraitTables 98.3 ms, TraitCSV 77.2 ms | total 175.5 ms | log entries 65 | instances in the log 23 (distinct 23)
+B tables run 2 | load 2.72 2.56 3.24 | walk TraitTables+TraitCSV | TraitTables 97.3 ms, TraitCSV 76.8 ms | total 174.2 ms | log entries 65 | instances in the log 23 (distinct 23)
+B tables run 3 | load 2.72 2.56 3.24 | walk TraitTables+TraitCSV | TraitTables 96.5 ms, TraitCSV 75.7 ms | total 172.2 ms | log entries 65 | instances in the log 23 (distinct 23)
+B tables walk  EVENT 2 jl_method_table_insert
+B tables walk  EVENT 1 jl_membership_dispatch_walk
+B tables walk  ENDED 23 Base
+B tables-strict run 1 | load 2.72 2.56 3.24 | walk TraitTables+TraitCSV | TraitTables 172.7 ms, TraitCSV 68.5 ms | total 241.2 ms | log entries 65 | instances in the log 23 (distinct 23)
+B tables-strict run 2 | load 2.66 2.55 3.23 | walk TraitTables+TraitCSV | TraitTables 171.7 ms, TraitCSV 67.8 ms | total 239.6 ms | log entries 65 | instances in the log 23 (distinct 23)
+B tables-strict run 3 | load 2.66 2.55 3.23 | walk TraitTables+TraitCSV | TraitTables 171.6 ms, TraitCSV 67.2 ms | total 238.8 ms | log entries 65 | instances in the log 23 (distinct 23)
+B tables-strict walk  EVENT 2 jl_method_table_insert
+B tables-strict walk  EVENT 1 jl_membership_dispatch_walk
+B tables-strict walk  ENDED 23 Base
+B ode run 1 | load 2.66 2.55 3.23 | walk TraitDifferentialEquations | TraitDifferentialEquations 299.9 ms | total 299.9 ms | log entries 2783 | instances in the log 630 (distinct 630)
+B ode run 2 | load 2.66 2.55 3.23 | walk TraitDifferentialEquations | TraitDifferentialEquations 301.4 ms | total 301.4 ms | log entries 2783 | instances in the log 630 (distinct 630)
+B ode run 3 | load 2.61 2.54 3.23 | walk TraitDifferentialEquations | TraitDifferentialEquations 300.6 ms | total 300.6 ms | log entries 2783 | instances in the log 630 (distinct 630)
+B ode walk  EVENT 11 jl_method_table_insert
+B ode walk  EVENT 1 jl_membership_dispatch_walk
+B ode walk  ENDED 493 Compiler
+B ode walk  ENDED 137 Base
+B makie run 1 | load 2.61 2.54 3.23 | walk TraitMakie | TraitMakie 269.9 ms | total 269.9 ms | log entries 129 | instances in the log 51 (distinct 51)
+B makie run 2 | load 2.61 2.54 3.23 | walk TraitMakie | TraitMakie 266.6 ms | total 266.6 ms | log entries 129 | instances in the log 51 (distinct 51)
+B makie run 3 | load 2.56 2.53 3.22 | walk TraitMakie | TraitMakie 269.7 ms | total 269.7 ms | log entries 129 | instances in the log 51 (distinct 51)
+B makie walk  EVENT 8 jl_method_table_insert
+B makie walk  EVENT 1 jl_membership_dispatch_walk
+B makie walk  ENDED 51 Base
+B forks run 1 | load 2.56 2.53 3.22 | walk CSV+DataFrames | CSV 396.9 ms, DataFrames 700.6 ms | total 1097.4 ms | log entries 4876 | instances in the log 1233 (distinct 1233)
+B forks run 2 | load 2.76 2.57 3.23 | walk CSV+DataFrames | CSV 390.2 ms, DataFrames 756.1 ms | total 1146.2 ms | log entries 4876 | instances in the log 1233 (distinct 1233)
+B forks run 3 | load 2.76 2.57 3.23 | walk CSV+DataFrames | CSV 582.5 ms, DataFrames 915.2 ms | total 1497.7 ms | log entries 4876 | instances in the log 1233 (distinct 1233)
+B forks walk  EVENT 60 jl_method_table_insert
+B forks walk  EVENT 4 invalidate_mt_cache
+B forks walk  EVENT 1 jl_membership_dispatch_walk
+B forks walk  ENDED 616 Compiler
+B forks walk  ENDED 532 Base
+B forks walk  ENDED 18 PrettyTables
+B forks walk  ENDED 18 CSV
+B forks walk  ENDED 15 StyledStrings
+B forks walk  ENDED 12 OrderedCollections
+B forks walk  ENDED 9 LinearAlgebra
+B forks walk  ENDED 8 Tables
+B forks walk  ENDED 3 PooledArrays
+B forks walk  ENDED 1 FileWatching
+B forks walk  ENDED 1 DataFrames
+B upstream-facts run 1 | load 2.86 2.59 3.23 | walk CSV+DataFrames | CSV 221.5 ms, DataFrames 389.5 ms | total 611.0 ms | log entries 4693 | instances in the log 1185 (distinct 1185)
+B upstream-facts run 2 | load 2.86 2.59 3.23 | walk CSV+DataFrames | CSV 214.6 ms, DataFrames 382.3 ms | total 596.9 ms | log entries 4693 | instances in the log 1185 (distinct 1185)
+B upstream-facts run 3 | load 2.86 2.59 3.23 | walk CSV+DataFrames | CSV 214.6 ms, DataFrames 381.3 ms | total 595.9 ms | log entries 4693 | instances in the log 1185 (distinct 1185)
+B upstream-facts walk  EVENT 54 jl_method_table_insert
+B upstream-facts walk  EVENT 3 invalidate_mt_cache
+B upstream-facts walk  ENDED 615 Compiler
+B upstream-facts walk  ENDED 481 Base
+B upstream-facts walk  ENDED 64 PrettyTables
+B upstream-facts walk  ENDED 15 StyledStrings
+B upstream-facts walk  ENDED 9 LinearAlgebra
+B upstream-facts walk  ENDED 1 FileWatching
+B upstream run 1 | load 2.79 2.58 3.23 | walk CSV+DataFrames | CSV 260.1 ms, DataFrames 511.2 ms | total 771.3 ms | log entries 5577 | instances in the log 1458 (distinct 1458)
+B upstream run 2 | load 2.79 2.58 3.23 | walk CSV+DataFrames | CSV 253.6 ms, DataFrames 501.6 ms | total 755.2 ms | log entries 5577 | instances in the log 1458 (distinct 1458)
+B upstream run 3 | load 2.79 2.58 3.23 | walk CSV+DataFrames | CSV 261.1 ms, DataFrames 503.5 ms | total 764.6 ms | log entries 5577 | instances in the log 1458 (distinct 1458)
+B upstream walk  EVENT 77 jl_method_table_insert
+B upstream walk  EVENT 4 invalidate_mt_cache
+B upstream walk  ENDED 615 Compiler
+B upstream walk  ENDED 540 Base
+B upstream walk  ENDED 220 CSV
+B upstream walk  ENDED 20 PrettyTables
+B upstream walk  ENDED 15 StyledStrings
+B upstream walk  ENDED 12 OrderedCollections
+B upstream walk  ENDED 9 LinearAlgebra
+B upstream walk  ENDED 9 Tables
+B upstream walk  ENDED 7 CodecZlib
+B upstream walk  ENDED 6 TranscodingStreams
+B upstream walk  ENDED 3 PooledArrays
+B upstream walk  ENDED 1 TableTraits
+B upstream walk  ENDED 1 FileWatching
+B nd run 1 | load 2.67 2.56 3.21 | walk NetworkDynamics | NetworkDynamics 1916.1 ms | total 1916.1 ms | log entries 6867 | instances in the log 1578 (distinct 1578)
+B nd run 2 | load 2.67 2.56 3.21 | walk NetworkDynamics | NetworkDynamics 1779.4 ms | total 1779.4 ms | log entries 6867 | instances in the log 1578 (distinct 1578)
+B nd run 3 | load 2.69 2.57 3.21 | walk NetworkDynamics | NetworkDynamics 1787.2 ms | total 1787.2 ms | log entries 6867 | instances in the log 1578 (distinct 1578)
+B nd walk  EVENT 120 jl_method_table_insert
+B nd walk  EVENT 28 jl_method_table_disable
+B nd walk  EVENT 3 invalidate_mt_cache
+B nd walk  EVENT 1 jl_membership_dispatch_walk
+B nd walk  ENDED 802 Base
+B nd walk  ENDED 656 Compiler
+B nd walk  ENDED 27 StaticArrays
+B nd walk  ENDED 22 PrettyTables
+B nd walk  ENDED 13 OrderedCollections
+B nd walk  ENDED 12 StyledStrings
+B nd walk  ENDED 8 Markdown
+B nd walk  ENDED 7 ChainRulesCore
+B nd walk  ENDED 7 LinearAlgebra
+B nd walk  ENDED 6 NetworkDynamics
+B nd walk  ENDED 6 Tables
+B nd walk  ENDED 3 PreallocationTools
+B nd walk  ENDED 2 ForwardDiff
+B nd walk  ENDED 2 TimerOutputs
+B nd walk  ENDED 2 StaticArrayInterface
+B nd walk  ENDED 1 TableTraits
+B nd walk  ENDED 1 FileWatching
+B nd walk  ENDED 1 StaticArraysCore
+V upstream-vanilla run 1 | load 2.69 2.57 3.21 | walk CSV+DataFrames | CSV 211.2 ms, DataFrames 443.2 ms | total 654.4 ms | log entries 2921 | instances in the log 908 (distinct 908)
+V upstream-vanilla run 2 | load 2.72 2.58 3.21 | walk CSV+DataFrames | CSV 206.7 ms, DataFrames 445.3 ms | total 652.1 ms | log entries 2921 | instances in the log 908 (distinct 908)
+V upstream-vanilla run 3 | load 2.72 2.58 3.21 | walk CSV+DataFrames | CSV 212.4 ms, DataFrames 448.2 ms | total 660.6 ms | log entries 2921 | instances in the log 908 (distinct 908)
+V upstream-vanilla walk  EVENT 76 jl_method_table_insert
+V upstream-vanilla walk  EVENT 4 invalidate_mt_cache
+V upstream-vanilla walk  ENDED 483 Base
+V upstream-vanilla walk  ENDED 220 CSV
+V upstream-vanilla walk  ENDED 122 Compiler
+V upstream-vanilla walk  ENDED 20 PrettyTables
+V upstream-vanilla walk  ENDED 15 StyledStrings
+V upstream-vanilla walk  ENDED 12 OrderedCollections
+V upstream-vanilla walk  ENDED 9 LinearAlgebra
+V upstream-vanilla walk  ENDED 9 Tables
+V upstream-vanilla walk  ENDED 7 CodecZlib
+V upstream-vanilla walk  ENDED 6 TranscodingStreams
+V upstream-vanilla walk  ENDED 3 PooledArrays
+V upstream-vanilla walk  ENDED 1 TableTraits
+V upstream-vanilla walk  ENDED 1 FileWatching
+# done 2026-11-22T04:39:35+01:00 | load-after 2.72 2.58 3.21
