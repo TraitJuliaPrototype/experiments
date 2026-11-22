@@ -1,0 +1,120 @@
+ERROR: LoadError: Some tests did not pass: 8 passed, 7 failed, 1 errored, 0 broken.
+in expression starting at /p/projects/coen/julia-trait-bound/wt/w158g-tw/test/messages.jl:130
+Test Summary:      | Pass  Total  Time
+the messages' form |    8      8  0.6s
+Test Summary:                | Pass  Total  Time
+a signature prints as a call |    4      4  0.1s
+Test Summary:                                 | Pass  Total  Time
+the bounded check names the method as written |   24     24  1.3s
+
+the bounded check at a name its module never defines: Test Failed at /p/projects/coen/julia-trait-bound/wt/w158g-tw/test/messages.jl:133
+  Expression: occursin(r"nothere\(a\): `nothere` is not defined in Main\.(\w+\.)*MU\d+, at line 5", m)
+   Evaluated: occursin(r"nothere\(a\): `nothere` is not defined in Main\.(\w+\.)*MU\d+, at line 5", "nothing")
+  Stacktrace:
+   [1] top-level scope
+     @ /p/projects/coen/julia-trait-bound/wt/w158g-tw/test/messages.jl:131
+   [2] macro expansion
+     @ /p/projects/coen/julia-trait-bound/julia-next/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:1967 [inlined]
+   [3] macro expansion
+     @ /p/projects/coen/julia-trait-bound/wt/w158g-tw/test/messages.jl:133 [inlined]
+   [4] macro expansion
+     @ /p/projects/coen/julia-trait-bound/julia-next/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:758 [inlined]
+
+the bounded check at a name its module never defines: Test Failed at /p/projects/coen/julia-trait-bound/wt/w158g-tw/test/messages.jl:136
+  Expression: occursin(r"marea\(a\): `marea` is not defined in [\w.]+; `marea` is an operation of [\w.]*MShape: `using [\w.]*MsgLib: marea` imports it, at line 5", m)
+   Evaluated: occursin(r"marea\(a\): `marea` is not defined in [\w.]+; `marea` is an operation of [\w.]*MShape: `using [\w.]*MsgLib: marea` imports it, at line 5", "nothing")
+  Stacktrace:
+   [1] top-level scope
+     @ /p/projects/coen/julia-trait-bound/wt/w158g-tw/test/messages.jl:131
+   [2] macro expansion
+     @ /p/projects/coen/julia-trait-bound/julia-next/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:1967 [inlined]
+   [3] macro expansion
+     @ /p/projects/coen/julia-trait-bound/wt/w158g-tw/test/messages.jl:136 [inlined]
+   [4] macro expansion
+     @ /p/projects/coen/julia-trait-bound/julia-next/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:758 [inlined]
+
+the bounded check at a name its module never defines: Test Failed at /p/projects/coen/julia-trait-bound/wt/w158g-tw/test/messages.jl:137
+  Expression: occursin("sum(marea, ts): `marea` is not defined in", m)
+   Evaluated: occursin("sum(marea, ts): `marea` is not defined in", "nothing")
+  Stacktrace:
+   [1] top-level scope
+     @ /p/projects/coen/julia-trait-bound/wt/w158g-tw/test/messages.jl:131
+   [2] macro expansion
+     @ /p/projects/coen/julia-trait-bound/julia-next/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:1967 [inlined]
+   [3] macro expansion
+     @ /p/projects/coen/julia-trait-bound/wt/w158g-tw/test/messages.jl:137 [inlined]
+   [4] macro expansion
+     @ /p/projects/coen/julia-trait-bound/julia-next/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:758 [inlined]
+
+the bounded check at a name its module never defines: Test Failed at /p/projects/coen/julia-trait-bound/wt/w158g-tw/test/messages.jl:138
+  Expression: occursin("nothere(a): `nothere` is not defined", umsg("using ..MsgLib: marea\nmbr(a::MShape) = marea(a) > 0 ? nothere(a) : 0.0"))
+   Evaluated: occursin("nothere(a): `nothere` is not defined", "nothing")
+  Stacktrace:
+   [1] top-level scope
+     @ /p/projects/coen/julia-trait-bound/wt/w158g-tw/test/messages.jl:131
+   [2] macro expansion
+     @ /p/projects/coen/julia-trait-bound/julia-next/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:1967 [inlined]
+   [3] macro expansion
+     @ /p/projects/coen/julia-trait-bound/wt/w158g-tw/test/messages.jl:138 [inlined]
+   [4] macro expansion
+     @ /p/projects/coen/julia-trait-bound/julia-next/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:758 [inlined]
+
+the bounded check at a name its module never defines: Test Failed at /p/projects/coen/julia-trait-bound/wt/w158g-tw/test/messages.jl:139
+  Expression: occursin("`nothere` is not defined", umsg("global nothere\nmdecl(a::MShape) = nothere(a)"))
+   Evaluated: occursin("`nothere` is not defined", "nothing")
+  Stacktrace:
+   [1] top-level scope
+     @ /p/projects/coen/julia-trait-bound/wt/w158g-tw/test/messages.jl:131
+   [2] macro expansion
+     @ /p/projects/coen/julia-trait-bound/julia-next/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:1967 [inlined]
+   [3] macro expansion
+     @ /p/projects/coen/julia-trait-bound/wt/w158g-tw/test/messages.jl:139 [inlined]
+   [4] macro expansion
+     @ /p/projects/coen/julia-trait-bound/julia-next/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:758 [inlined]
+
+the bounded check at a name its module never defines: Test Failed at /p/projects/coen/julia-trait-bound/wt/w158g-tw/test/messages.jl:141
+  Expression: occursin("later(a): `later` is not defined", umsg("mini(a::MShape) = later(a)\n__init__() = @eval later(x) = 1.0"))
+   Evaluated: occursin("later(a): `later` is not defined", "nothing")
+  Stacktrace:
+   [1] top-level scope
+     @ /p/projects/coen/julia-trait-bound/wt/w158g-tw/test/messages.jl:131
+   [2] macro expansion
+     @ /p/projects/coen/julia-trait-bound/julia-next/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:1967 [inlined]
+   [3] macro expansion
+     @ /p/projects/coen/julia-trait-bound/wt/w158g-tw/test/messages.jl:141 [inlined]
+   [4] macro expansion
+     @ /p/projects/coen/julia-trait-bound/julia-next/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:758 [inlined]
+
+the bounded check at a name its module never defines: Test Failed at /p/projects/coen/julia-trait-bound/wt/w158g-tw/test/messages.jl:149
+  Expression: occursin("K(a) has no method", umsg("K::Int = 3\nmk(a::MShape) = K(a)"))
+   Evaluated: occursin("K(a) has no method", "TraitUseError: `mk(a::Main.messages.MsgLib.MShape)` is declared bounded, and is not bounded: read with `a` in a box, `Dynamic{Main.messages.MsgLib.MShape}`:\n  %1(a) has no method, at line 6")
+  Stacktrace:
+   [1] top-level scope
+     @ /p/projects/coen/julia-trait-bound/wt/w158g-tw/test/messages.jl:131
+   [2] macro expansion
+     @ /p/projects/coen/julia-trait-bound/julia-next/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:1967 [inlined]
+   [3] macro expansion
+     @ /p/projects/coen/julia-trait-bound/wt/w158g-tw/test/messages.jl:149 [inlined]
+   [4] macro expansion
+     @ /p/projects/coen/julia-trait-bound/julia-next/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:758 [inlined]
+
+the bounded check at a name its module never defines: Error During Test at /p/projects/coen/julia-trait-bound/wt/w158g-tw/test/messages.jl:156
+  Test threw exception
+  Expression: occursin("nothere(a): `nothere` is not defined in", only(check_definitions(M)))
+  ArgumentError: Collection is empty, must contain exactly 1 element
+  Stacktrace:
+   [1] _only
+     @ ./iterators.jl:1622 [inlined]
+   [2] only(x::Vector{String})
+     @ Base.Iterators ./iterators.jl:1617
+   [3] top-level scope
+     @ /p/projects/coen/julia-trait-bound/wt/w158g-tw/test/messages.jl:131
+   [4] macro expansion
+     @ /p/projects/coen/julia-trait-bound/julia-next/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:1967 [inlined]
+   [5] macro expansion
+     @ /p/projects/coen/julia-trait-bound/wt/w158g-tw/test/messages.jl:156 [inlined]
+   [6] macro expansion
+     @ /p/projects/coen/julia-trait-bound/julia-next/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:755 [inlined]
+Test Summary:                                        | Pass  Fail  Error  Total  Time
+the bounded check at a name its module never defines |    8     7      1     16  2.0s
+RNG of the outermost testset: Random.Xoshiro(0xd552df5fbaad7f86, 0x2616a5f9169b9494, 0x7c513214503a47ac, 0x9f816aa24164627d, 0x11b6b62059625509)

@@ -1,0 +1,58 @@
+# 2026-11-22T02:27:38+01:00 load 7.70 6.50 5.33 | julia 85bd884a57 | library /p/projects/coen/julia-trait-bound/wt/w158g-tw 46687cb
+box or wrapper type	cases.jl:16	ArgumentError	ArgumentError: Dynamic{X} needs the trait's parameters
+box or wrapper type	cases.jl:16	ErrorException	@trait_module: no option decides how a trait argument is compiled (traits §7.5, §13); got dynamic = true. The value's type decides: a library erases at its door, `f(m::Model) = _f(Dynamic{Model}(m))`; a trait whose methods erase every plain member declares `@default_dynamic`; a caller asks for code 
+box or wrapper type	cases.jl:16	MethodError	MethodError: no method matching ccol(::Compiled{CT}, ::Float64)
+box or wrapper type	cases.jl:16	MethodError	MethodError: no method matching ccol(::Dynamic{CTab}, ::Float64)
+box or wrapper type	cases.jl:16	MethodError	MethodError: no method matching cm3(::Compiled{typeof(uppercase)}, ::Float64)
+box or wrapper type	cases.jl:16	MethodError	MethodError: no method matching f11(::Dynamic{CPlaced})
+box or wrapper type	cases.jl:16	MethodError	cm(!Matched::Compiled{Z} where Z<:Callable{Tuple{Float64}, Float64}, ::Float64)
+box or wrapper type	cases.jl:16	NotFullyTypedError	NotFullyTypedError: not fully typed: cf1(::Dynamic{CData})
+box or wrapper type	cases.jl:16	TraitUseError	TraitUseError: `(t::CTab) -> …` in `cmapper` is declared bounded, and is not bounded: read with `t` in a box, `Dynamic{CTab}`:
+box or wrapper type	cases.jl:16	TraitUseError	TraitUseError: `call(ts::CTab...)` is declared bounded, and is not bounded: read with each of `ts` in a box, `Dynamic{CTab}`:
+box or wrapper type	cases.jl:16	TraitUseError	TraitUseError: `cb10(t::CTab)` is declared bounded, and is not bounded: read with `t` in a box, `Dynamic{CTab}`:
+box or wrapper type	cases.jl:16	TraitUseError	TraitUseError: `cboth(a::CTab, b::CTab, k::Int64)` is declared bounded, and is not bounded: read with `a` in a box, `Dynamic{CTab}`, and `b` in a box, `Dynamic{CTab}`:
+box or wrapper type	cases.jl:16	TraitUseError	TraitUseError: `cfirst(t::C) where C<:CTab` is declared bounded, and is not bounded: read with `t` in a box, `Dynamic{CTab}`:
+box or wrapper type	cases.jl:16	TraitUseError	TraitUseError: `clast(v::CVec{T}) where T` is declared bounded, and is not bounded: read with `v` in a box, `Dynamic{CVec{Float64}}`:
+box or wrapper type	cases.jl:16	TraitUseError	TraitUseError: `cmass(p::CPlaced)` is declared bounded, and is not bounded: read with `p` in a box, `Dynamic{CPlaced}`:
+box or wrapper type	cases.jl:16	TraitUseError	TraitUseError: `cscaled(t::CTab; k::Float64)` is declared bounded, and is not bounded: read with `t` in a box, `Dynamic{CTab}`:
+box or wrapper type	cases.jl:16	TraitUseError	TraitUseError: `csum(t::CTab)` is declared bounded, and is not bounded: read with `t` in a box, `Dynamic{CTab}`:
+box or wrapper type	cases.jl:16	TraitUseError	TraitUseError: `f(a::OShape)` is declared bounded, and is not bounded: read with `a` in a box, `Dynamic{OShape}`:
+box or wrapper type	cases.jl:16	TraitUseError	TraitUseError: `f(a::OShape, ts::OShape...)` is declared bounded, and is not bounded: read with `a` in a box, `Dynamic{OShape}`, and each of `ts` in a box, `Dynamic{OShape}`:
+box or wrapper type	common.jl:44	MethodError	transform(!Matched::Compiled{Z} where Z<:Callable{Tuple{Float64}, Float64}, ::Samples{Float64})
+box or wrapper type	common.jl:44	TraitUseError	TraitUseError: `outline(s::Shape)` is declared bounded, and is not bounded: read with `s` in a box, `Dynamic{Shape}`:
+box or wrapper type	core.jl:280	MethodError	sz(!Matched::Compiled{<:Main.core.Sized2})
+box or wrapper type	core.jl:476	TraitUseError	TraitUseError: `wide2(t::Main.core.ClassifyCase.CTable)` is declared bounded, and is not bounded: read with `t` in a box, `Dynamic{Main.core.ClassifyCase.CTable}`:
+box or wrapper type	fullytyped.jl:93	NotFullyTypedError	NotFullyTypedError: not fully typed: dsum(::Dynamic{Datum})
+box or wrapper type	hints.jl:24	MethodError	applyc(!Matched::Compiled{Z} where Z<:Callable{Tuple{Int64}, Int64}, ::Any)
+box or wrapper type	hints.jl:24	MethodError	applyc(!Matched::Compiled{Z} where Z<:Callable{Tuple{Int64}, Int64}, ::Any)
+box or wrapper type	hints.jl:24	MethodError	col(!Matched::Compiled{<:Main.hints.ColTable}, !Matched::Int64)
+box or wrapper type	intro.jl:145	TraitUseError	TraitUseError: `colsum(t::ColTable)` is declared bounded, and is not bounded: read with `t` in a box, `Dynamic{ColTable}`:
+box or wrapper type	messages.jl:15	MethodError	mscale(!Matched::Compiled{<:Main.messages.MScalable}, !Matched::Float64)
+box or wrapper type	messages.jl:15	TraitUseError	TraitUseError: `(t::Main.messages.MsgLib.MShape) -> …` in `mclo2` is declared bounded, and is not bounded: read with `t` in a box, `Dynamic{Main.messages.MsgLib.MShape}`:
+box or wrapper type	messages.jl:15	TraitUseError	TraitUseError: `(t::Main.messages.MsgLib.MShape) -> …` in `mclo` is declared bounded, and is not bounded: read with `t` in a box, `Dynamic{Main.messages.MsgLib.MShape}`:
+box or wrapper type	messages.jl:15	TraitUseError	TraitUseError: `gref(p::Main.messages.MS2435087598.GProb{Float64})` is declared bounded, and is not bounded: read with `p` in a box, `Dynamic{Main.messages.MS2435087598.GProb{Float64}}`:
+box or wrapper type	messages.jl:15	TraitUseError	TraitUseError: `gref2(p::Main.messages.MS3064678994.GProb{Float64}, a::Main.messages.MS3064678994.GAlg)` is declared bounded, and is not bounded: read with `p` in a box, `Dynamic{Main.messages.MS3064678994.GProb{Float64}}`, and `a` in a box, `Dynamic{Main.messages.MS3064678994.GAlg}`:
+box or wrapper type	messages.jl:15	TraitUseError	TraitUseError: `gref3(p::Main.messages.MS3960956449.GProb{Float64}, k)` is declared bounded, and is not bounded: read with `p` in a box, `Dynamic{Main.messages.MS3960956449.GProb{Float64}}`:
+box or wrapper type	messages.jl:15	TraitUseError	TraitUseError: `mboth(a::Main.messages.MsgLib.MShape, b::Main.messages.MsgLib.MShape, k::Int64)` is declared bounded, and is not bounded: read with `a` in a box, `Dynamic{Main.messages.MsgLib.MShape}`, and `b` in a box, `Dynamic{Main.messages.MsgLib.MShape}`:
+box or wrapper type	messages.jl:15	TraitUseError	TraitUseError: `mbr(a::Main.messages.MsgLib.MShape)` is declared bounded, and is not bounded: read with `a` in a box, `Dynamic{Main.messages.MsgLib.MShape}`:
+box or wrapper type	messages.jl:15	TraitUseError	TraitUseError: `mdecl(a::Main.messages.MsgLib.MShape)` is declared bounded, and is not bounded: read with `a` in a box, `Dynamic{Main.messages.MsgLib.MShape}`:
+box or wrapper type	messages.jl:15	TraitUseError	TraitUseError: `mdensity(b::Main.messages.MsgOpen.MBox)` is declared bounded, and is not bounded: read with `b` in a box, `Dynamic{Main.messages.MsgOpen.MBox}`:
+box or wrapper type	messages.jl:15	TraitUseError	TraitUseError: `mfv(a::Main.messages.MsgLib.MShape, ts::Main.messages.MsgLib.MShape...)` is declared bounded, and is not bounded: read with `a` in a box, `Dynamic{Main.messages.MsgLib.MShape}`, and each of `ts` in a box, `Dynamic{Main.messages.MsgLib.MShape}`:
+box or wrapper type	messages.jl:15	TraitUseError	TraitUseError: `mfv(a::Main.messages.MsgLib.MShape, ts::Main.messages.MsgLib.MShape...)` is declared bounded, and is not bounded: read with `a` in a box, `Dynamic{Main.messages.MsgLib.MShape}`, and each of `ts` in a box, `Dynamic{Main.messages.MsgLib.MShape}`:
+box or wrapper type	messages.jl:15	TraitUseError	TraitUseError: `mini(a::Main.messages.MsgLib.MShape)` is declared bounded, and is not bounded: read with `a` in a box, `Dynamic{Main.messages.MsgLib.MShape}`:
+box or wrapper type	messages.jl:15	TraitUseError	TraitUseError: `mk(a::Main.messages.MsgLib.MShape)` is declared bounded, and is not bounded: read with `a` in a box, `Dynamic{Main.messages.MsgLib.MShape}`:
+box or wrapper type	messages.jl:15	TraitUseError	TraitUseError: `mkw(t::Main.messages.MsgLib.MShape; k::Float64)` is declared bounded, and is not bounded: read with `t` in a box, `Dynamic{Main.messages.MsgLib.MShape}`:
+box or wrapper type	messages.jl:15	TraitUseError	TraitUseError: `mkw2(t::Main.messages.MsgLib.MShape; k::Float64)` is declared bounded, and is not bounded: read with `t` in a box, `Dynamic{Main.messages.MsgLib.MShape}`:
+box or wrapper type	messages.jl:15	TraitUseError	TraitUseError: `mlate(a::Main.messages.MsgLib.MShape)` is declared bounded, and is not bounded: read with `a` in a box, `Dynamic{Main.messages.MsgLib.MShape}`:
+box or wrapper type	messages.jl:15	TraitUseError	TraitUseError: `mnot(a::Main.messages.MsgLib.MShape)` is declared bounded, and is not bounded: read with `a` in a box, `Dynamic{Main.messages.MsgLib.MShape}`:
+box or wrapper type	messages.jl:15	TraitUseError	TraitUseError: `msum(t::Main.messages.MsgLib.MShape)` is declared bounded, and is not bounded: read with `t` in a box, `Dynamic{Main.messages.MsgLib.MShape}`:
+box or wrapper type	messages.jl:15	TraitUseError	TraitUseError: `msum2(t::Main.messages.MsgLib.MShape)` is declared bounded, and is not bounded: read with `t` in a box, `Dynamic{Main.messages.MsgLib.MShape}`:
+box or wrapper type	messages.jl:15	TraitUseError	TraitUseError: `mva(ts::Main.messages.MsgLib.MShape...)` is declared bounded, and is not bounded: read with each of `ts` in a box, `Dynamic{Main.messages.MsgLib.MShape}`:
+box or wrapper type	messages.jl:15	TraitUseError	TraitUseError: `mva2(ts::Main.messages.MsgLib.MShape...)` is declared bounded, and is not bounded: read with each of `ts` in a box, `Dynamic{Main.messages.MsgLib.MShape}`:
+box or wrapper type	messages.jl:15	TraitUseError	TraitUseError: `mva3(ts::Main.messages.MsgLib.MShape...)` is declared bounded, and is not bounded: read with each of `ts` in a box, `Dynamic{Main.messages.MsgLib.MShape}`:
+box or wrapper type	messages.jl:15	TraitUseError	TraitUseError: `mva4(ts::Vararg{Main.messages.MsgLib.MShape, 2})` is declared bounded, and is not bounded: read with each of `ts` in a box, `Dynamic{Main.messages.MsgLib.MShape}`:
+box or wrapper type	messages.jl:15	TraitUseError	TraitUseError: `mva5(ts::Main.messages.MsgLib.MShape...)` is declared bounded, and is not bounded: read with each of `ts` in a box, `Dynamic{Main.messages.MsgLib.MShape}`:
+box or wrapper type	messages.jl:15	TraitUseError	TraitUseError: `mvw(ts::T...) where T<:Main.messages.MsgLib.MShape` is declared bounded, and is not bounded: read with each of `ts` in a box, `Dynamic{Main.messages.MsgLib.MShape}`:
+box or wrapper type	messages.jl:15	TraitUseError	TraitUseError: `mwhere(t::C) where C<:Main.messages.MsgLib.MShape` is declared bounded, and is not bounded: read with `t` in a box, `Dynamic{Main.messages.MsgLib.MShape}`:
+box or wrapper type	trait_modules.jl:131	TraitUseError	TraitUseError: `g(p::Main.trait_modules.Bounded.Pt)` is declared bounded, and is not bounded: read with `p` in a box, `Dynamic{Main.trait_modules.Bounded.Pt}`:
+# 157 distinct messages; with each form: tuple type 0, generated name 0, compiler object 0, library internal 0, box or wrapper type 56

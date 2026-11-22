@@ -1,0 +1,77 @@
+TraitWorld /p/projects/coen/julia-trait-bound/wt/w158g-tw/src/TraitWorld.jl
+module	trait	operation	module owner_only	exported	public	@owner_only	owner-only (compiler)	methods	methods from other packages
+TraitWorld.BaseTraits	BoundedText	textbound	true	true	true	false	false	23	
+TraitWorld.BaseTraits	LinearOp	apply!	true	true	true	false	false	3	
+TraitTables.TableCore	Column	nrows	true	true	true	false	false	3	
+TraitTables.TableCore	Column	cell	true	true	true	false	false	3	
+TraitCSV.CSVCore	CSVColumn	parsecell!	true	true	true	false	false	7	
+TraitCSV.CSVCore	CSVColumn	emptylike	true	true	true	false	false	7	
+TraitMakie.PlotCore	ColorSpec	rgba	true	true	true	false	false	7	
+TraitMakie.PlotCore	Colormap	cmapcolor	true	true	true	false	false	4	
+TraitMakie.PlotCore	MarkerShape	outline	true	true	true	false	false	4	
+TraitMakie.PlotCore	Plot	datalimits	true	true	true	false	false	11	
+TraitMakie.PlotCore	Plot	draw!	true	true	true	false	false	11	
+TraitMakie.PlotCore	Plot	setcolor!	true	true	true	false	false	11	
+TraitMakie.PlotCore	Positions	npoints	true	true	true	false	false	7	
+TraitMakie.PlotCore	Positions	pointx	true	true	true	false	false	7	
+TraitMakie.PlotCore	Positions	pointy	true	true	true	false	false	7	
+TraitMakie.PlotCore	Sample	nvalues	true	true	true	false	false	5	
+TraitMakie.PlotCore	Sample	value	true	true	true	false	false	5	
+TraitMakie.PlotCore	Scale	scaled	true	true	true	false	false	4	
+TraitMakie.PlotCore	Scale	scaleticks	true	true	true	false	false	4	
+TraitMakie.PlotCore	Scale	ticklabel	true	true	true	false	false	4	
+TraitIndexing	HasSystem	system	true	true	true	false	false	9	ODECore TraitNonlinearSolve
+TraitIndexing	IndexProvider	variable_index	true	true	true	false	false	5	ODECore
+TraitIndexing	IndexProvider	parameter_index	true	true	true	false	false	5	ODECore
+TraitIndexing	IndexProvider	observed	true	true	true	false	false	1	
+TraitIndexing	SeriesProvider	series_times	true	true	true	false	false	3	ODECore
+TraitIndexing	SeriesProvider	series_state	true	true	true	false	false	3	ODECore
+TraitIndexing	SeriesProvider	series_parameters	true	true	true	false	false	3	ODECore
+TraitIndexing	ValueProvider	state_values	true	true	true	false	false	4	ODECore
+TraitIndexing	ValueProvider	parameter_values	true	true	true	false	false	4	ODECore
+TraitIndexing	ValueProvider	current_time	true	true	true	false	false	4	ODECore
+TraitArrayTools	Trajectory	times	true	true	true	false	false	4	ODECore
+TraitArrayTools	Trajectory	state	true	true	true	false	false	4	ODECore
+TraitArrayTools	Trajectory	at	true	true	true	false	false	4	ODECore
+ODECore	Callback	condition	true	true	true	false	false	3	
+ODECore	Callback	affect!	true	true	true	false	false	3	
+ODECore	Callback	initialize!	true	true	true	false	false	2	
+ODECore	CoreIntegrator	advance!	true	true	true	false	false	4	TraitRodas
+ODECore	CoreIntegrator	core_solution	true	true	true	false	false	4	TraitRodas
+ODECore	EventCallback	event_condition	true	true	true	false	false	3	
+ODECore	EventCallback	event_affect!	true	true	true	false	false	3	
+ODECore	EventCallback	event_affect_neg!	true	true	true	false	false	2	
+ODECore	EventCallback	event_initialize!	true	true	true	false	false	2	
+ODECore	HasCallbacks	problem_callbacks	true	true	true	false	false	3	
+ODECore	HasJacobianPrototype	jac_prototype	true	true	true	false	false	6	TraitNonlinearSolve
+ODECore	HasMassMatrix	mass_matrix	true	true	true	false	false	4	
+ODECore	IntegratorView	add_tstop!	true	true	true	false	false	3	
+ODECore	IntegratorView	terminate!	true	true	true	false	false	3	
+ODECore	IntegratorView	interp!	true	true	true	false	false	3	
+ODECore	IntegratorView	auto_dt_reset!	true	true	true	false	false	3	
+ODECore	IntegratorView	save_discretes!	true	true	true	false	false	3	
+ODECore	Interpolant	interpolate	true	true	true	false	false	4	TraitRodas
+ODECore	LinearSolver	linfactor	true	true	true	false	false	3	
+ODECore	NLCache	nlstage!	true	true	true	false	false	3	
+ODECore	NonlinearSolver	nlcache	true	true	true	false	false	3	
+ODECore	ODEAlgorithm	solve_core	true	true	true	false	false	4	TraitRodas
+ODECore	ODEAlgorithm	takes_mass_matrix	true	true	true	false	false	1	
+ODECore	ODEProblemTrait	rhs!	true	true	true	false	false	3	
+ODECore	ODEProblemTrait	jacobian!	true	true	true	false	false	2	
+ODECore	ODEProblemTrait	rhs_function	true	true	true	false	false	2	
+ODECore	ODEStepper	init_core	true	true	true	false	false	4	TraitRodas
+ODECore	StepCallback	step_condition	true	false	true	false	false	3	
+ODECore	StepCallback	step_affect!	true	false	true	false	false	3	
+ODECore	StepCallback	step_initialize!	true	false	true	false	false	2	
+ODECore	StepEvent	step_event_condition	true	false	true	false	false	3	
+ODECore	StepEvent	step_event_affect!	true	false	true	false	false	3	
+ODECore	StepEvent	step_event_affect_neg!	true	false	true	false	false	2	
+ODECore	StepEvent	step_event_initialize!	true	false	true	false	false	2	
+ODECore	StepView	step_tstop!	true	false	true	false	false	4	TraitRodas
+ODECore	StepView	step_terminate!	true	false	true	false	false	4	TraitRodas
+ODECore	StepView	step_interp!	true	false	true	false	false	4	TraitRodas
+ODECore	StepView	step_dt_reset!	true	false	true	false	false	4	TraitRodas
+TraitNonlinearSolve	NonlinearAlgorithm	solve_nl	true	true	true	false	false	5	
+TraitNonlinearSolve	NonlinearProblemTrait	residual!	true	true	true	false	false	3	
+TraitNonlinearSolve	NonlinearProblemTrait	nl_jacobian!	true	true	true	false	false	2	
+# operations 74; owner-only to the compiler 0; of those with methods from other packages 0

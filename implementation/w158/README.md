@@ -1454,3 +1454,147 @@ comment), its `precompile` (4).
   argument types: a check more, never fewer.
 - **The before-state on f1d6e51efa** is from this part's runs whose logs were not kept; the mutant is the kept control.
 - **The ODE session's checks** were not counted by the in-session counter (the program does not load from source).
+
+## A name never defined; a trait's operation and its members (traits T-161, T-162), 2026-11-22
+
+Two rows of traits' Deviations: T-161 (§7.3, "When": "At its module's end a call of a name the module never defines is
+a fault") and T-162 (§12.2: a trait's operation is not owner-only by the default). Julia `julia-next` 85bd884a57
+(the binary built 2026-11-22 01:53), read only; the library `wt/w158g-tw`, branch `w158o` from `unified` 15070de; the
+depot `agent-depots/w158n2` before the shared one. One Julia job at a time, niced; load 3.3 to 7.7 of 128. Logs:
+`logs/o-*` (and the messages' tool's `logs/b-messages-o-46687cb*`); probes: `o-probes/`.
+
+**How to run** (after `source o-probes/env.sh`; `$LIBO` is the library's worktree):
+```sh
+(cd $LIBO && $JN --project=. $W158/o-probes/undefined.jl)         # piece 1: the bounded check at a name never defined, 20 cases
+(cd $LIBO && $JN --project=. $W158/o-probes/undef_ir.jl)          # piece 1: the box instance's code at such a call
+(cd $LIBO && $JN --project=. $W158/o-probes/operation_cases.jl)   # piece 2: the cases of the operation's rule
+$JN --project=g-probes/env_demo_g o-probes/operations.jl           # piece 2: every operation of the demonstrators' traits
+bash o-probes/sessions.sh <tag> [N]                                # sessions.sh with this part's depot and env_demo_g
+```
+
+### 1. Traits T-161: a call of a name the module never defines (TraitWorld 114a933)
+
+**What the check read.** The method's instance at the box holds the call as the load of the global and a call left
+to dispatch (`%1 = M.nothere::Any`, `dynamic (%1)(a)::Any`; `undef_ir.jl`). The check found methods of `Any` at
+`(::Any)(::Dynamic{X})` and read it as Julia's barrier.
+
+**Built** (`src/atbox.jl`, `src/classify.jl`): a call whose callee, or a function it passes on (`sum(uarea, ts)`), is
+the load of a global of the method's own module that is not defined, with a value at the box, is a fault of its own
+kind (`:undefined`). Before the module's end the method waits for the name (as for a name its own code names, now also
+where an inlined callee of the module names it); at the module's end the fault refuses the method in a `bounded` scope,
+and `check_definitions` lists it anywhere. The message (§11.3's form):
+
+```
+TraitUseError: `f(a::Main.UL.UShape, ts::Main.UL.UShape...)` is declared bounded, and is not bounded: read with `a` in a box, …:
+  uarea(a): `uarea` is not defined in Main.U2; `uarea` is an operation of Main.UL.UShape: `using Main.UL: uarea` imports it, at line 5
+  sum(uarea, ts): `uarea` is not defined in Main.U2; `uarea` is an operation of Main.UL.UShape: `using Main.UL: uarea` imports it, at line 5
+```
+A callee that is a global's load prints by the global's name: `K(a) has no method`, not `%1(a)` or `Main.U3.K(a)`.
+
+The cases (`logs/o-undefined-46687cb.log`):
+
+| case | the check |
+|---|---|
+| a name no module defines, `nothere(a)`; in a branch; through a local; `global nothere` never assigned | refused at the module's end: "`nothere` is not defined in M" |
+| the trait's operation not imported (the old form of `mfvok`) | refused; the hint names the import |
+| defined later in the module: no method at the box / a method | waits, then refused ("`later(a)` has no method") / accepted |
+| defined at the module's end by `@eval`, or by a macro | accepted (the hook runs after the module's last statement) |
+| defined by `eval` in `__init__` | refused: the module's end comes before `__init__` |
+| a `const` global that is not a function; a typed global `K::Int` | refused, "`K(a)` has no method" (a `MethodError` at the known type, as before) |
+| an untyped global `K = 3` | accepted: a global whose value the code does not know; the call is Julia's barrier |
+| a call of a name never defined with no value at the box, `nothere(1) + uarea(a)` | accepted: not the check's (a fault is a call with a value at the box) |
+| another module's name, `UL.nothere(a)` | accepted: the end of the method's module does not decide another module's names |
+| a helper of the module that calls the name, `h(x) = nothere(x)`, not inlined | accepted: the instance reads `h(a)` as returning `Any`; a callee's own calls are read only below a call that only throws |
+| a scope with `bounded = false` | accepted; `check_definitions` lists the fault |
+
+Tests: `test/messages.jl`, testset "the bounded check at a name its module never defines", 16 checks; on 15070de's
+`src` 7 fail (`logs/o-messages-test-before-15070de.log`).
+
+### 2. Traits T-162: a trait's operation is not owner-only by the default (TraitWorld 46687cb)
+
+**What the mark gives the compiler.** `Compiler.is_owner_only(F)` (`Compiler/src/facts.jl`) is true for a function
+declared `@owner_only` (the binding's flag, `jl_set_owner_only`), or for a function of a module whose `owner_only`
+option is on that the module neither exports nor declares `public`. `is_fact_sig` then takes a call of it at any
+signature as a fact: inferred as plain inference infers it, with Julia's dispatch edge. The library's ownership reads
+the same predicate (`_owner_only_ftype`). So an operation that members extend must not carry it: a member's method
+would end code compiled by facts at `op(::Any)`, a fact no non-pirate may change. At a value known by the trait the
+call is typed by the contract (compiler §7.1) whether the operation is owner-only or not; at a concrete type it is a
+dispatch tuple. Taking the mark off changes only a call at a value of a type the code does not know (`op(v[1])`,
+`v::Vector{Any}`): a fact before, a run-time site after.
+
+**What the demonstrators had** (`o-probes/operations.jl`, `logs/o-operations-114a933.log`, `-46687cb.log`): 74
+operations of the demonstrators' traits whose functions are their modules' own (TraitWorld.BaseTraits, TableCore,
+CSVCore, PlotCore, TraitIndexing, TraitArrayTools, ODECore, TraitNonlinearSolve); 67 exported or `public`.
+
+| module | trait | operations not exported, not `public` | methods from other packages | the calls |
+|---|---|---|---|---|
+| ODECore | `StepCallback` | `step_condition`, `step_affect!`, `step_initialize!` | none | at an element of a `Vector{StepCallback{U, T}}` (ODECore, TraitRodas): typed by the contract |
+| ODECore | `StepEvent` | `step_event_condition`, `step_event_affect!`, `step_event_affect_neg!`, `step_event_initialize!` | none | at an element of a `Vector{StepEvent{U, T}}`, and `event_affect_dir!(cb, …)` called with one: typed by the contract |
+| every other trait module | | none | | |
+
+After: 0 owner-only, the 7 `public`, read from ODECore's image. No call of the 7 is at a value of a type the code
+does not know, so nothing relied on the mark. The suites pass (below); the sessions compile the same and hold the
+same instances but the library's own (`logs/o-sessions-p1-114a933.log`, `logs/o-sessions-p2-46687cb.log`, 3 runs
+after a warm-up):
+
+| | report: compiles | table: compiles | instances TraitTables, TraitCSV, TraitMakie | TraitWorld (report, table; methods) |
+|---|---|---|---|---|
+| 114a933 (T-161 only) | 24 | 19 | 129, 34, 323 | 474, 413; 810 |
+| 46687cb | 24 | 19 | 129, 34, 323 | 475, 414; 813 (`_open_operations!`, `_declared_owner_only`, `_operation_of`) |
+
+**Built** (`src/ownership.jl`, `src/implement.jl`, `src/trait.jl`, docstrings in `src/scope.jl`). Julia is read only,
+so the library cannot change `is_owner_only`; it takes the mark off the way Julia reads it. At the module's end (the
+module-end hook), each operation of a trait the module declares whose function is its owner's, owner-only and not
+declared `@owner_only`, is declared `public` (`Core.eval(M, Expr(:public, name))`); at the prompt (`Main`, which has
+no end) at the declaration. Not at the declaration in a module: Julia refuses `export f` after `public f` ("cannot
+declare M.f exported; it is already declared public"), and a module may export an operation after its `@trait` (the
+case "exported after its `@trait`" is accepted). `@owner_only op` closes an operation (the flag wins in both readers).
+The message at a closed operation's pirate: "`carea` is an operation of Main.OOTr.CShape that Main.OOTr declares
+`@owner_only`: only Main.OOTr adds methods to it, whatever types they are for. To let other modules add methods,
+Main.OOTr does not declare it `@owner_only`, …". The text of "declared `@owner_only`" reads the flag, not
+`Base.ispublic`.
+
+The cases (`o-probes/operation_cases.jl`, `logs/o-operation_cases-46687cb.log`):
+
+| case | the library |
+|---|---|
+| a member's module adds the operation's method for its own type, in a block or beside it | accepted (in a `no_pirates` scope, and under strict mode) |
+| a module adds the operation's method for its own type that is no member | accepted: the classic rule, own type |
+| a third module: the operation's method for a type it does not own (`oa(::Int)`) | classic pirate: `OwnershipError`, "owns neither the function (owned by Main.OL) nor a type …" |
+| a third module: a membership for a type it does not own | a pirate's membership: `OwnershipError` |
+| a third module: the operation's method at the trait itself, `oa(::OS, ::Int)` | classic pirate (a trait it does not own) |
+| an operation closed by `@owner_only` | the member's method is a pirate's: `OwnershipError`, the operation's message |
+| another module's trait names a trait module's internal function as its operation (`IA.helper(s::BX)::Int`) | refused at the `@trait`: its kept forms' methods of `IA.helper` are a pirate's; `IA.helper` stays owner-only |
+| a call of the operation at `Any`, compiled in the module's body before its end | inferred as a fact, `(Float64, deep)`; a member's method later ends it, with no pirate report |
+
+Tests: `test/owner_only.jl`, testset "a trait's operation is not owner-only by the default", 18 checks; on 114a933's
+`src` 3 fail and 1 errors of the 7 reached (`logs/o-owner_only-test-before-114a933.log`). The documentation's
+example: `docs-examples/tutorial.jl` §16 (`Plates`, `Steel`), 2 checks. The messages' tool: three cases replace the
+old "a trait's unexported operation, in a block" (now no error; a closed operation; a classic pirate at the
+operation) and two cases of T-161.
+
+### 3. The checks, TraitWorld 46687cb
+
+| check | result |
+|---|---|
+| the library (`-e 'using TraitWorld; include("test/runtests.jl")'`) | 117 testsets (115 and the two new), no failure, 30 s (`logs/o-library-46687cb.log`; 116 on 114a933, `logs/o-library-114a933.log`) |
+| the documentation's examples | intro 33 pass; tutorial 126 pass (124 and §16's two; compiler C-157's check passes); strict 10 pass (`logs/o-docs-*-46687cb.log`) |
+| the gates (`LIB=wt/w158g-tw run_all.sh julia-next`) | 73 of 74, stage gates 9 of 9 (`logs/o-gates-46687cb.log`). `n35_trusted_result` fails, 8 forms ("Ops declared result" 7 holes, `Core.invoke`'s constant): the same output with the library at `unified` 15070de and at 114a933 on this binary (`logs/o-gate-n35-15070de.log`, `-46687cb.log`); the gate passed on `wt/w158-julia`'s binary of 85bd884a57 (`logs/m6-gates-85bd884.log`). Not this work's; the binary `julia-next/julia` (`85bd884a57*`) is the difference |
+| TraitDifferentialEquations, TraitTables, TraitMakie (`g-probes/env_demo_g`, `env_tables_g`) | 35, 3, 8 testsets, no failure (`logs/o-{port,tables,makie}-46687cb.log`) |
+| the messages' tool (`messages/run.sh o-46687cb`) | 157 distinct messages; tuple type, generated name, compiler object, library internal: 0 (`logs/b-messages-o-46687cb-scan.txt`) |
+| the sessions | the table above |
+
+### 4. Not built, not verified
+
+- **T-161 below a callee:** a helper of the module that calls a name never defined is not read (its instance returns
+  `Any`); a callee inlined into the instance is read.
+- **T-162 in the module's body:** until the module's end an operation is owner-only to the compiler. Code compiled in
+  the body (a top-level call, a workload, an instance the bounded check keeps) that calls it at a value of a type the
+  code does not know is a fact of an owner-only function, and stays valid after the module's end: compiler C-130 (a
+  later `public` ends nothing). A member's method ends it through its edge (G1), with no pirate report.
+- **`Base.ispublic` is true for an open operation** the module did not declare `public`, and `names(M)` lists it. No
+  demonstrator reads `names` without `all = true`.
+- **A `@trait` evaluated into a module after its end** (not `Main`) leaves its operations owner-only.
+- **The principled form** is Julia's: `is_owner_only` would leave out a function the library marks as an operation
+  (a binding flag set by `@trait`, beside `@owner_only`'s), with no `public` and no gap in the module's body. Not built
+  (Julia read only).

@@ -1,0 +1,73 @@
+┌ Warning: a pirate ended code compiled by facts that only a stakeholder's change or a pirate can end: `helper(::T)`, defined by Main.OOThird in Main.OOThird, which does not own the function: `helper` is an owner-only function of Main.OOLib (neither exported nor declared `public`): only Main.OOLib adds methods to it, whatever types they are for. It ended 1 instance: Main.OOLib.useall. It is followed, as plain Julia follows it: that code is compiled again. To let other modules add methods, Main.OOLib declares it `public` or exports it, or names Main.OOThird a joint owner (`@joint_owners`). Otherwise define a function of your own; strict mode (`TraitWorld.strict!()`) refuses such a definition; `TraitWorld.report_pirates!(false)` silences this report.
+└ @ TraitWorld /p/projects/coen/julia-trait-bound/wt/w158g-tw/src/report.jl:138
+ERROR: LoadError: Some tests did not pass: 3 passed, 3 failed, 1 errored, 0 broken.
+in expression starting at /p/projects/coen/julia-trait-bound/wt/w158g-tw/test/owner_only.jl:193
+Test Summary:        | Pass  Total  Time
+owner-only functions |   22     22  0.7s
+Test Summary:                                   | Pass  Total  Time
+the messages at an owner-only function's pirate |   20     20  0.1s
+
+a trait's operation is not owner-only by the default: Test Failed at /p/projects/coen/julia-trait-bound/wt/w158g-tw/test/owner_only.jl:197
+  Expression: !(CC.is_owner_only(typeof(OOTr.oarea)))
+   Evaluated: !(CC.is_owner_only(typeof(Main.OOTr.oarea)))
+  Stacktrace:
+   [1] top-level scope
+     @ /p/projects/coen/julia-trait-bound/wt/w158g-tw/test/owner_only.jl:194
+   [2] macro expansion
+     @ /p/projects/coen/julia-trait-bound/julia-next/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:1967 [inlined]
+   [3] macro expansion
+     @ /p/projects/coen/julia-trait-bound/wt/w158g-tw/test/owner_only.jl:197 [inlined]
+   [4] macro expansion
+     @ /p/projects/coen/julia-trait-bound/julia-next/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:758 [inlined]
+
+a trait's operation is not owner-only by the default: Test Failed at /p/projects/coen/julia-trait-bound/wt/w158g-tw/test/owner_only.jl:200
+  Expression: Base.ispublic(OOTr, :oarea) && (!(Base.ispublic(OOTr, :carea)) && !(Base.ispublic(OOTr, :ohelper)))
+  Stacktrace:
+   [1] top-level scope
+     @ /p/projects/coen/julia-trait-bound/wt/w158g-tw/test/owner_only.jl:194
+   [2] macro expansion
+     @ /p/projects/coen/julia-trait-bound/julia-next/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:1967 [inlined]
+   [3] macro expansion
+     @ /p/projects/coen/julia-trait-bound/wt/w158g-tw/test/owner_only.jl:200 [inlined]
+   [4] macro expansion
+     @ /p/projects/coen/julia-trait-bound/julia-next/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:758 [inlined]
+
+a trait's operation is not owner-only by the default: Test Failed at /p/projects/coen/julia-trait-bound/wt/w158g-tw/test/owner_only.jl:214
+  Expression: e === nothing
+   Evaluated: OwnershipError("oarea(::Sq) in Main.OOMem is a pirate, and the scope declares `no_pirates`: `oarea` is an owner-only function of Main.OOTr (neither exported nor declared `public`): only Main.OOTr adds methods to it, whatever types they are for. To let other modules add methods, Main.OOTr declares it `public` or exports it, or names Main.OOMem a joint owner (`@joint_owners`). Otherwise define a function of your own") === nothing
+  Stacktrace:
+   [1] top-level scope
+     @ /p/projects/coen/julia-trait-bound/wt/w158g-tw/test/owner_only.jl:194
+   [2] macro expansion
+     @ /p/projects/coen/julia-trait-bound/julia-next/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:1967 [inlined]
+   [3] macro expansion
+     @ /p/projects/coen/julia-trait-bound/wt/w158g-tw/test/owner_only.jl:214 [inlined]
+   [4] macro expansion
+     @ /p/projects/coen/julia-trait-bound/julia-next/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:758 [inlined]
+
+a trait's operation is not owner-only by the default: Error During Test at /p/projects/coen/julia-trait-bound/wt/w158g-tw/test/owner_only.jl:193
+  Got exception outside of a @test
+  UndefVarError: `Ci` not defined in `Main.OOMem`
+  Suggestion: check for spelling errors or missing imports.
+  Stacktrace:
+   [1] G(m::Symbol, n::Symbol)
+     @ Main.owner_only /p/projects/coen/julia-trait-bound/wt/w158g-tw/test/owner_only.jl:8
+   [2] top-level scope
+     @ /p/projects/coen/julia-trait-bound/wt/w158g-tw/test/owner_only.jl:194
+   [3] macro expansion
+     @ /p/projects/coen/julia-trait-bound/julia-next/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:1967 [inlined]
+   [4] macro expansion
+     @ /p/projects/coen/julia-trait-bound/wt/w158g-tw/test/owner_only.jl:216 [inlined]
+   [5] include(mod::Module, _path::String)
+     @ Base ./Base.jl:318
+   [6] top-level scope
+     @ none:1
+   [7] eval(m::Module, e::Any)
+     @ Core ./boot.jl:546
+   [8] exec_options(opts::Base.JLOptions)
+     @ Base ./client.jl:310
+   [9] _start()
+     @ Base ./client.jl:577
+Test Summary:                                        | Pass  Fail  Error  Total  Time
+a trait's operation is not owner-only by the default |    3     3      1      7  2.1s
+RNG of the outermost testset: Random.Xoshiro(0xc83ad492ae0d0a12, 0x48a627954c41f50e, 0xae06edce8075bfc1, 0x950ba5a4e15ae8cb, 0x1ba177dd3e9c058e)

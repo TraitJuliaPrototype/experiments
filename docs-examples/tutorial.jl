@@ -582,6 +582,31 @@ check("§16 that OwnershipError names the owner-only function and its owner, Mai
       e isa Exception && occursin("`weight` is an owner-only function of Main.Tally", msg(e)) &&
       occursin("declares it `public` or exports it", msg(e)) && !occursin("owns neither", msg(e)))
 
+# a trait's operation is not owner-only by the default (traits §12.2): a member's package adds its method for its own
+# type, whether the trait's module exports the operation or not
+module Plates
+using TraitWorld
+@trait_module
+export Plate
+@trait Plate begin
+    thickness(p::Plate)::Float64     # not exported
+end
+end
+using .Plates
+e = thrown(:(module Steel
+    using TraitWorld, ..Plates
+    @trait_module
+    struct Sheet
+        mm::Float64
+    end
+    @implement Plate Sheet begin
+        thickness(s) = s.mm
+    end
+    end))
+check("§16 a member's module adds its method of another module's trait's operation, not exported: accepted", e === nothing)
+check("§16 the operation at the member: Plates.thickness(Sheet(2.5)) == 2.5",
+      e === nothing && Base.invokelatest(() -> Plates.thickness(Main.Steel.Sheet(2.5))) == 2.5)
+
 # --- §17: concreteness and fully typed code -----------------------------------------------------
 
 module Weights

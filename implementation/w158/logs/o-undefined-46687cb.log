@@ -1,0 +1,22 @@
+TraitWorld /p/projects/coen/julia-trait-bound/wt/w158g-tw/src/TraitWorld.jl
+never defined: the trait's operation not imported                  | refused: TraitUseError: `f(a::Main.UL.UShape, ts::Main.UL.UShape...)` is declared bounded, and is not bounded: read with `a` in a box, `Dynamic{Main.UL.UShape}`, and each of `ts` in a box, `Dynamic{Main.UL.UShape}`:   uarea(a): `uarea` is not defined in Main.U217626108; `uarea` is an operation of Main.UL.UShape: `using Main.UL: uarea` imports it, at line 5   sum(uarea, ts): `uarea` is not defined in Main.U217626108; `uarea` is an operation of Main.UL.UShape: `using Main.UL: uarea` imports it, at line 5
+never defined: a name no module defines                            | refused: TraitUseError: `f(a::Main.UL.UShape)` is declared bounded, and is not bounded: read with `a` in a box, `Dynamic{Main.UL.UShape}`:   nothere(a): `nothere` is not defined in Main.U2648930981, at line 5
+never defined, in a branch                                         | refused: TraitUseError: `f(a::Main.UL.UShape)` is declared bounded, and is not bounded: read with `a` in a box, `Dynamic{Main.UL.UShape}`:   nothere(a): `nothere` is not defined in Main.U298728645, at line 6
+never defined, through a local                                     | refused: TraitUseError: `f(a::Main.UL.UShape)` is declared bounded, and is not bounded: read with `a` in a box, `Dynamic{Main.UL.UShape}`:   nothere(a): `nothere` is not defined in Main.U1172334425, at line 5
+declared global, never assigned                                    | refused: TraitUseError: `f(a::Main.UL.UShape)` is declared bounded, and is not bounded: read with `a` in a box, `Dynamic{Main.UL.UShape}`:   nothere(a): `nothere` is not defined in Main.U3541022367, at line 6
+defined later in the module, with no method at the box             | refused: TraitUseError: `f(a::Main.UL.UShape)` is declared bounded, and is not bounded: read with `a` in a box, `Dynamic{Main.UL.UShape}`:   later(a) has no method, at line 5
+defined later in the module, with a method at the box              | accepted
+defined at the module's end by @eval                               | accepted
+defined at the module's end by a macro                             | accepted
+defined in __init__ by eval (after the module's end)               | refused: TraitUseError: `f(a::Main.UL.UShape)` is declared bounded, and is not bounded: read with `a` in a box, `Dynamic{Main.UL.UShape}`:   later(a): `later` is not defined in Main.U2070925923, at line 5
+imported: the operation at the box                                 | accepted
+imported: an operation's call with no method at the box            | refused: TraitUseError: `f(a::Main.UL.UShape)` is declared bounded, and is not bounded: read with `a` in a box, `Dynamic{Main.UL.UShape}`:   uarea(a, 1) has no method, at line 6
+a const global that is not a function                              | refused: TraitUseError: `f(a::Main.UL.UShape)` is declared bounded, and is not bounded: read with `a` in a box, `Dynamic{Main.UL.UShape}`:   K(a) has no method, at line 6
+a typed global that is not a function                              | refused: TraitUseError: `f(a::Main.UL.UShape)` is declared bounded, and is not bounded: read with `a` in a box, `Dynamic{Main.UL.UShape}`:   K(a) has no method, at line 6
+an untyped global (its value unknown)                              | accepted
+a name never defined, called with no value at the box              | accepted
+another module's name, written UL.nothere                          | accepted
+through a helper of the module that calls a name never defined     | accepted
+through a helper, the name defined later with a method at the box  | accepted
+through a helper not inlined                                       | accepted
+bounded = false: check_definitions                                 | ["`f(a::Main.UL.UShape)` at none:5: nothere(a): `nothere` is not defined in Main.U3054547462"]

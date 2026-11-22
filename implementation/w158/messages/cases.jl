@@ -143,8 +143,13 @@ score(x) = 0                                    # exported, and declared owner-o
 @owner_only score
 tally(xs::Vector{Any}) = (n = 0; for x in xs; n += weight(x) + score(x); end; n)
 @trait OShape begin
-    oarea(s::OShape)::Float64                   # an operation the module does not export: owner-only
+    oarea(s::OShape)::Float64                   # an operation the module does not export: open to members (T-162)
 end
+export CShape
+@trait CShape begin
+    carea(s::CShape)::Float64                   # an operation the module closes
+end
+@owner_only carea
 end
 using .OOwn
 tally(Any[1, "a"])
@@ -160,13 +165,37 @@ provoke("owner-only by @owner_only: a method in a trait module", :(module OO2
     struct Mine end
     OOwn.score(::Mine) = 0
     end))
-provoke("owner-only: a trait's unexported operation, in a block", :(module OO3
+provoke("a trait's unexported operation, in a member's block: no error (T-162)", :(module OO3
     using TraitWorld, ..OOwn
     @trait_module
     struct Sq; s::Float64; end
     @implement OShape Sq begin
         oarea(q) = q.s^2
     end
+    end))
+provoke("owner-only by @owner_only: a trait's closed operation, in a block", :(module OO3c
+    using TraitWorld, ..OOwn
+    @trait_module
+    struct Sq; s::Float64; end
+    @implement CShape Sq begin
+        carea(q) = q.s^2
+    end
+    end))
+provoke("classic: a trait's unexported operation for a type the module does not own", :(module OO3p
+    using TraitWorld, ..OOwn
+    @trait_module
+    OOwn.oarea(x::Float64) = x
+    end))
+# at its module's end a call of a name the module never defines (traits §7.3, "When"; T-161)
+provoke("the bounded check: a name never defined", :(module OU1
+    using TraitWorld, ..OOwn
+    @trait_module
+    f(a::OShape) = nothere(a)
+    end))
+provoke("the bounded check: the trait's operation not imported", :(module OU2
+    using TraitWorld, ..OOwn
+    @trait_module
+    f(a::OShape, ts::OShape...) = oarea(a) + sum(oarea, ts)
     end))
 provoke("classic: a method in a trait module", :(module OO4
     using TraitWorld
