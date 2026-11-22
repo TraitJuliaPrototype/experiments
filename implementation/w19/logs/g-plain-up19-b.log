@@ -1,0 +1,56 @@
+# W-19 g-plain up19-b | 2026-11-22T13:02:08+01:00 | load 9.76 6.93 5.38 | runs 3 + warm-up
+# julia-vanilla: binary 45b6d15e34*
+  55 dependencies successfully precompiled in 228 seconds. 260 already precompiled.
+  20 dependencies precompiled but different versions are currently loaded (ArgTools, Base64, Downloads, JuliaSyntaxHighlighting and LibCURL, and 15 more). Restart julia to access the new versions. Otherwise, 94 dependents of these packages may trigger further precompilation to work with the unexpected versions.
+# wt/w19-julia: binary 8dd33781d9*
+  31.2 s  ✓ CairoMakie
+  275 dependencies successfully precompiled in 248 seconds. 40 already precompiled.
+images ready
+== julia-vanilla run w | load 7.55 6.05 5.40
+load 963.0 ms | CodeInstances after the load 116523 (facts 0, G2 0) | first work 4432.5 ms, compile 4434.3 ms, again 1.4 ms | after the work 117115 (facts 0, G2 0) | digest ce94074fa1261ca2
+== wt/w19-julia run w | load 6.85 5.95 5.37
+load 1137.4 ms | CodeInstances after the load 116612 (facts 0, G2 0) | first work 4427.4 ms, compile 4430.4 ms, again 1.4 ms | after the work 117204 (facts 0, G2 0) | digest ce94074fa1261ca2
+== julia-vanilla run 1 | load 6.46 5.89 5.35
+load 654.9 ms | CodeInstances after the load 116523 (facts 0, G2 0) | first work 4458.7 ms, compile 4463.2 ms, again 1.4 ms | after the work 117115 (facts 0, G2 0) | digest ce94074fa1261ca2
+== wt/w19-julia run 1 | load 6.59 5.92 5.37
+load 1477.9 ms | CodeInstances after the load 116612 (facts 0, G2 0) | first work 4436.2 ms, compile 4438.9 ms, again 1.5 ms | after the work 117204 (facts 0, G2 0) | digest ce94074fa1261ca2
+== julia-vanilla run 2 | load 6.38 5.89 5.36
+load 719.9 ms | CodeInstances after the load 116523 (facts 0, G2 0) | first work 4422.1 ms, compile 4427.3 ms, again 1.4 ms | after the work 117115 (facts 0, G2 0) | digest ce94074fa1261ca2
+== wt/w19-julia run 2 | load 6.11 5.84 5.35
+load 1065.5 ms | CodeInstances after the load 116612 (facts 0, G2 0) | first work 4416.1 ms, compile 4420.7 ms, again 1.4 ms | after the work 117204 (facts 0, G2 0) | digest ce94074fa1261ca2
+== julia-vanilla run 3 | load 5.94 5.81 5.34
+load 647.9 ms | CodeInstances after the load 116523 (facts 0, G2 0) | first work 4433.6 ms, compile 4438.6 ms, again 1.4 ms | after the work 117115 (facts 0, G2 0) | digest ce94074fa1261ca2
+== wt/w19-julia run 3 | load 5.62 5.75 5.32
+load 1086.2 ms | CodeInstances after the load 116612 (facts 0, G2 0) | first work 4424.8 ms, compile 4429.2 ms, again 1.4 ms | after the work 117204 (facts 0, G2 0) | digest ce94074fa1261ca2
+== profile julia-vanilla run 1 | load 5.37 5.69 5.31
+└ @ Profile /p/projects/coen/julia-trait-bound/julia-vanilla/usr/share/julia/stdlib/v1.13/Profile/src/Profile.jl:693
+load 89543.6 ms, samples 490784
+== profile wt/w19-julia run 1 | load 3.77 5.06 5.12
+load 2555.2 ms, samples 10519
+== profile julia-vanilla run 2 | load 3.63 5.00 5.10
+load 2011.2 ms, samples 6431
+== profile wt/w19-julia run 2 | load 3.63 5.00 5.10
+load 2564.0 ms, samples 10603
+== profile julia-vanilla run 3 | load 3.66 4.99 5.10
+load 2036.9 ms, samples 6473
+== profile wt/w19-julia run 3 | load 3.61 4.95 5.09
+load 2555.3 ms, samples 10581
+== counts edges julia-vanilla | load 3.48 4.90 5.07
+session backedges after the load: MethodInstances with backedges 106840 | ordinary 449920, invoke 5463, by the call's signature 0
+the packages' valid CodeInstances 11611, with edges 9978, edge items 94061 (largest 211), one-match triples 409 of which at an instance wider than the call 408
+== counts inval julia-vanilla | load 3.48 4.90 5.07
+invalidation log: C side 2921 entries (instances 1402), validation side 2270 entries (instances 1440)
+  verify_methods              694
+  jl_method_table_insert      76
+  insert_backedges_callee     47
+  invalidate_mt_cache         4
+== counts edges wt/w19-julia | load 3.48 4.90 5.07
+session backedges after the load: MethodInstances with backedges 106990 | ordinary 449202, invoke 5470, by the call's signature 1964
+the packages' valid CodeInstances 11623, with edges 9988, edge items 94140 (largest 211), one-match triples 413 of which at an instance wider than the call 412
+== counts inval wt/w19-julia | load 3.44 4.87 5.06
+invalidation log: C side 2927 entries (instances 1404), validation side 2253 entries (instances 1432)
+  verify_methods              691
+  jl_method_table_insert      79
+  insert_backedges_callee     45
+  invalidate_mt_cache         4
+# done 2026-11-22T13:14:53+01:00 load 3.44 4.87 5.06

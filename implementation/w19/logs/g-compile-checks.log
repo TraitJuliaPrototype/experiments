@@ -1,0 +1,12 @@
+# compile-only checks (make -C src -j4: the C runtime and its link), wt/w19-check | 2026-11-22T14:04:00+01:00 | load 5.45 4.68 4.57
+== facts/04a-ci-policy 8987c0d019 -- rc 2, 77 s, warnings 0, errors 1
+collect2: error: ld returned 1 exit status
+== facts/04b-reach-calls a272e2fe06 -- rc 2, 74 s, warnings 0, errors 1
+collect2: error: ld returned 1 exit status
+(libjulia's loader made first: make -C cli; the two checks above stopped at the link for want of it)
+== facts/04a-ci-policy 8987c0d019 -- rc 0, 75 s, warnings 0, errors 0
+== facts/04b-reach-calls a272e2fe06 -- rc 0, 75 s, warnings 0, errors 0
+== facts/06-testbed be8fad72ae -- rc 0, 75 s, warnings 0, errors 0
+== facts/09-owner-only 1045937aba -- rc 0, 76 s, warnings 0, errors 0
+== facts/10-deep-endings 8057cd0f34 -- rc 0, 76 s, warnings 0, errors 0
+== facts/11-fully-typed 4fc5c06b81 -- rc 0, 74 s, warnings 0, errors 0

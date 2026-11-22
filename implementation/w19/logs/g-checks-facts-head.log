@@ -1,0 +1,26 @@
+# W-19 g-checks facts-head | wt/w19-julia 7315c0b1bd | 2026-11-22T14:02:34+01:00 | load 3.35 4.37 4.48
+## instances of !== in the system image
+MethodInstances 1: Tuple{typeof(!==), Any, Any}
+## probes
+ne         ne           invalidated instances    240  | Compiler.abstract_call_gf_by_type 24, Compiler.abstract_call_method_with_const_args 22, Compiler.abstract_modifyop! 18, Compiler.infercalls 12, Compiler.abstract_call 12
+preserve   preserve     invalidated instances      1  | Base.preserve_handle 1
+## compiled twice
+instances 64545 | compiled more than once for one result: 0 (0 extra CodeInstances)
+## gates
+PASS f1_facts_sites.jl
+PASS f3_policy_code.jl
+PASS f4_g2_bit.jl
+PASS f5_return_type.jl
+FAIL f7_membership_edges.jl (exit 1)
+gates: 4 passed, 1 failed
+PASS n15_image_policy.jl
+PASS n17_rtsite_targets.jl
+gates: 2 passed, 0 failed
+PASS f6_reach_policy.jl
+gates: 1 passed, 0 failed
+f-f2_policy_flags.jl         f-f2_policy_flags (facts only): OK 
+f-f6_reach_policy.jl         f-f6_reach_policy (no test bed): OK 
+g-f10_deep_endings.jl        g-f10_deep_endings: OK 
+g-f11_fully_typed.jl         g-f11_fully_typed: OK 
+g-f9_owner_only.jl           g-f9_owner_only: OK 
+# done 2026-11-22T14:03:14+01:00 load 3.64 4.34 4.47

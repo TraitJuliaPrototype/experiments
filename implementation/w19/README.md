@@ -356,3 +356,148 @@ The seams F4 and F7 leave for T6 (an absence edge and a membership's method as f
 - **The G stack and the facts stack together** (`w19-stack` merged with `w19-facts`) are not built; the merge is textually clean and wrong by meaning in one line (E7).
 - **The census** (`w157/census.jl`) was not run on the facts head.
 - **The commit messages' wording** is mine and was not reviewed; the facts parts' subjects (`facts F<n>: …`) do not follow Julia's `component: summary` form.
+
+# Third part: what `up/19` cost a plain load, `!==` once, and the rest of the facts series
+
+The brief: the cause of `up/19`'s plain load cost and the fix at it (GT-34); `!==` as a `@nospecializeinfer` function (C-159); F4 split in three; F6, F9 to F12; the two series together; `threads` on vanilla; the commit subjects in Julia's form.
+
+## How to run (third part)
+
+```
+bash g-plain.sh <label> julia-vanilla <tree>             # the plain load of upstream CSV and DataFrames, interleaved (RUNS=3)
+PROF=1 bash g-plain.sh <label> julia-vanilla <tree>      # also the load under the profiler (motiv/g-profile.jl) and the counters
+python3 tools/g-profcmp.py <a1.tsv,...> <b1.tsv,...> self 30   # two builds' profiles compared by function
+julia --project=envs/up motiv/g-dupcheck.jl              # store_backedges' duplicate check in its three forms, over a session's edge lists
+bash g-checks.sh <tree> <label>                          # !== instances, the up/19 probes, code compiled twice, the facts gates and the series' gates
+```
+
+## 1. What `up/19` cost a plain load: the cause, and the fix
+
+**The cause is the backedges' collection, not the instances kept.** Profiles of `using CSV, DataFrames` (upstream, compiled plainly; one process per profile, 0.1 ms sampling, C frames; 3 per build; `logs/g-prof-up19-a-*.tsv`, read with `tools/g-profcmp.py`):
+
+| | samples of the load | `store_backedges` (inclusive) | `insert_backedges` |
+|---|---|---|---|
+| vanilla v1.13.2 | 6,416–6,527 | 393–790 | 2,919–3,004 |
+| `up/19` 3f8281f25c (rebuilt, build 1) | 7,034–7,104 | 1,406–1,478 | 3,634–3,671 |
+
+- The difference between the two loads, about 620 samples, is `store_backedges`' (+786). Under it: `indexed_iterate` 0 → 299, `jl_get_nth_field_checked` 16 → 306, `jl_subtype_env` 954 → 1,285 (of which `obvious_subtype` 324 → 689).
+- `store_backedges` runs for every CodeInstance an image's validation keeps (`verify_method`'s last stage). `up/19` collected each caller's backedges into a `Vector{Any}` of boxed pairs and read each back with `::Tuple{Any,Any}` and a destructuring, in the duplicate check's loop, quadratic in the edges: a subtype check and two dynamic field reads per step.
+- **Not the cause:** the external instances. The counters (`motiv/g-load-counts.jl`, logs `g-plain-up19-*.log`): the packages' valid CodeInstances 11,619 vanilla, 11,623 `up/19`; one-match triples in their edges 413 and 413; the invalidation log at the load 1,402 and 1,417 instances (C side), 1,440 and 1,432 (validation). The session's backedges by the call's signature after the load: 1,961–1,969 (871 of them the system image's). The work per svec backedge at insertion (`_invalidate_dispatch_backedges`' intersection) is not visible in the profile.
+- The second part's "269 instances more" was a count of one pair of image sets: the valid instances after the load move with each new set of images (below, "Not done") and do not move the load's time.
+
+**Two attempts, and the fix:**
+- The duplicate check walking the iterator twice, as v1.13.2 does (build 2, 8dd33781d9): **worse**, `using` 1,066–1,478 ms. The iterator's result type, `Union{Nothing, Tuple{Union{Tuple{Any,MethodInstance}, Tuple{Any,MethodTable}, Tuple{Nothing,Binding}}, Int}}` on v1.13.2, widens with `Tuple{CallSigBackedge, MethodInstance}` as one more member to `Union{Nothing, Tuple{Any, Int}}` (inference's union bound), and every step dispatches dynamically: `store_backedges` 4,598–4,801 samples (`logs/g-prof-up19-b-*`).
+- **The fix** (build 3, `up/19` amended 2e9675d8aa): the walk as v1.13.2's, and the call-signature pair typed `Any` for inference (`compilerbarrier(:type, CallSigBackedge(sig))`), so the iterator's result type is v1.13.2's. What a backedge records and which method ends its caller are unchanged. The three forms over the 92,568 edge lists of a session after the load (`motiv/g-dupcheck.jl`, `logs/g-dupcheck.log`, three rounds): the new member 1,081 ms, collected into a vector 281 ms, typed `Any` 67 ms.
+- **After it** (`logs/g-plain-up19-c.log`, `logs/g-plain-up19-c-time.log`): `store_backedges` 367–411 samples against vanilla's 365–405; `using CSV, DataFrames` 641–655 ms against vanilla's 654–663 ms (runs 3 to 6 of a warm-up and 6 fresh processes each, interleaved; load 5.1–7.3; runs w to 2 of both builds 721–1,205 ms, the machine's disturbance). `preserve_handle`'s probe: 1 (vanilla 443). The first work 4.38–4.48 s both.
+- **The facts head** with the fix (build 4, `w19-facts` 7315c0b1bd): `using` 650–744 ms against vanilla's 665–691 ms (a warm-up and 4 each, load 4.7–10.8; `logs/g-plain-facts-head.log`). The second part's head took 714–829 ms.
+
+**Delivered twice:**
+- `up/19-callsig-backedge` amended: 2e9675d8aa (4 files, +66 −7). Pushed as **`up/19-callsig-backedge-v2`**: a force-push of `up/19-callsig-backedge` was refused by this session's permissions, so the old branch still points at 3f8281f25c. The facts series restacked on it (below), pushed the same way with `-v2`.
+- For `next`: branch **`w19-callsig-load`** from cf0f039f51 (worktree `wt/w19-next`), commit 57eed205c5 "Compiler: store_backedges checks for duplicates on the iterator, with no vector per caller" (1 file, +10 −11). Parsed, not built: the same change was built and measured as `up/19` (build 3) and in the facts head (build 4).
+
+## 2. `!==` once, at `(Any, Any)` (C-159)
+
+- **The form:** `!==` declared `@nospecializeinfer` in `base/boot.jl` (the meta itself, through a local `@_nospecializeinfer_meta`: Base's macro does not exist yet there). Inference's clause for `!==` in `abstract_call_known` stays: it matches the call at the call's own types and takes `===`'s result. Matched so, the call reaches the one instance at `(Any, Any)` (`get_nospecializeinfer_sig`), its edge is `1, atype, callee` and its backedge keeps the call's signature (`up/19`). The inliner takes the same instance (`specialize_method` widens a `@nospecializeinfer` method), so `x !== y` still inlines.
+- **The counts** (build 4, the facts head, `logs/g-checks-facts-head.log`): `!==`'s MethodInstances in the system image **1** (`Tuple{typeof(!==), Any, Any}`; with the clause alone 423 on F7, 430 on `next`). A package's method of `!==` for its own type invalidates **240** instances (vanilla 4,610; the clause alone 225). Gate `f4_g2_bit` passes; the nine loads' facts cells are unchanged (below).
+- **Where:** amended into F7 (`facts/07-g2-v2` 34ead33143), and for `next` the second commit of `w19-callsig-load`, 683ea4fc16 "Core: `!==` is inferred once, at `(Any, Any)` (`@nospecializeinfer`)" (1 file, +4 −1; parsed).
+- **It is general:** with `up/19` in plain Julia, the declaration and a clause that matches at the call's types give `!==` one instance and precise backedges. On series G alone (whose clause matches at `(Any, Any)`) the declaration changes nothing; the pair could be `up/20`.
+
+## 3. The rest of the facts series
+
+**The stacks** (julia repository; each part one commit on the one below, on v1.13.2):
+- `w19-facts-v2` (7315c0b1bd): F0, F2, F1, F3, F4, F5, S1, F7, F8 (the second part's, S1 and F7 amended above), then F6, F9, F10, F11, F12. The branch `w19-facts` was to move there; its force-push was refused, so it still names the second part's head 0474538f42. The new parts' branches: `facts/06-testbed`, `facts/09-owner-only`, `facts/10-deep-endings`, `facts/11-fully-typed`, `facts/12-one-code`.
+- `w19-facts-split` (c325ea04fa): the same tree (`git diff w19-facts-v2 w19-facts-split` is empty), with F4 cut in three (`facts/04a-ci-policy`, `facts/04b-reach-calls`, `facts/04c-cross-inference`) and every commit's subject in Julia's form (`component: summary`), the bodies without the series' labels.
+
+| Part | Commit (`w19-facts-split`) | Subject | Size | Checked | Test |
+|---|---|---|---|---|---|
+| F0 | 0def925769 | julia.h, jltypes: fields for a per-method compile policy (`Method.facts`, `Module.facts`, a CodeInstance flag) | 6 files, +21 −6 | as in the second part | `test/core.jl` |
+| F2 | 9ae1d2517d | lowering, module: `@compiler_options facts=true` and the method metas `:facts_boundary`, `:facts_always` | 10, +95 −3 | as in the second part | `gates/f-f2_policy_flags.jl` |
+| F1 | 709100331e | Compiler: the `nortsite` effect bit | 1, +28 −8 | as in the second part | `Compiler/test/effects.jl` |
+| F3 | e6b82d55b4 | Compiler: a facts inference that infers a call only at a fact signature | 5, +163 −21 | as in the second part | gate `f1_facts_sites` |
+| F4a | 8987c0d019 | gf, engine, Compiler: one CodeInstance per MethodInstance and policy | 7, +231 −42 | C compiled and linked (`make -C src`, rc 0); Julia parsed | gate `f3_policy_code` (without a boundary) |
+| F4b | a272e2fe06 | gf, codegen, builtins, interpreter: a call runs the callee's code of the caller's policy | 8, +310 −37 | C compiled and linked; its C is F4's | gates `f3_policy_code`, `f-f6_reach_policy` |
+| F4c | 42bea6a355 | Compiler: inference across the two policies | 3, +75 −5 | its tree is F4's (built in the second part, build 3) | gates `f1`, `f3`, `f5` |
+| F5 | 6040f2427d | Compiler: `return_type` gives plain inference's answer under either policy | 4, +22 −13 | built in the head | gate `f5_return_type` |
+| S1 | 0a264420d4 | Compiler, gf: a dispatch backedge keeps the call's own signature where the call reached a wider instance | 4, +66 −7 | `up/19` built alone (build 3) | `test/worlds.jl` |
+| F7 | 3cb4ff6254 | Compiler, gf: the G2 bit, set on a CodeInstance whose edges are facts at any depth | 9, +125 −14 | built in the head | gate `f4_g2_bit` |
+| F8 | 27613f7a09 | staticdata, Compiler: package images and `--trim` under the facts policy | 6, +81 −2 | built in the head | gates `n15`, `n17` |
+| F6 | d161259ac5 | gf, module: `JULIA_COMPILE_BY_FACTS=1` compiles a session's own code by facts (a test bed) | 3, +45 −8 | C compiled at its commit; **built in the head (build 4)** | gate `f6_reach_policy`, whole (its test-bed part), passes |
+| F9 | e46e654bc3 | Compiler, module: owner-only functions, whose calls are facts at any signature | 7, +93 −6 | C compiled at its commit; built in the head | `gates/g-f9_owner_only.jl` (new, no trait) passes |
+| F10 | 5bcf29370f | gf: keep what a definition ends of the deep class, for a tool to take | 5, +95 | C compiled at its commit; built in the head | `gates/g-f10_deep_endings.jl` (new) passes |
+| F11 | 240520472a | Compiler, gf: fully typed mode, a check at the start of facts code that dispatches at run time | 13, +127 −6 | C compiled at its commit; built in the head | `gates/g-f11_fully_typed.jl` (new) passes |
+| F12 | c325ea04fa | Compiler: a compile request takes the code of any equivalent cached entry, a compiled one first | 1, +25 −2 | built in the head | `motiv/g-twice.jl`: 0 instances compiled twice for one result in the head's system image (vanilla 0); gate `f3_policy_code` |
+
+**In all:** 32 files, 1,555 lines added, 133 removed (the smallest series, F0 to F8 with S1: 28 files, +1,189 −130). Compile checks: `logs/g-compile-checks.log` (worktree `wt/w19-check`, made for them).
+
+**The head's checks** (build 4, `logs/g-checks-facts-head.log`): gates `f1_facts_sites`, `f3_policy_code`, `f4_g2_bit`, `f5_return_type`, `f6_reach_policy` (whole, with F6), `n15_image_policy`, `n17_rtsite_targets` pass; `f7_membership_edges` fails (it needs sets); the facts-only copies `f-f2`, `f-f6` and the new gates `g-f9`, `g-f10`, `g-f11` pass.
+
+**The nine loads on the head** (`f-loads.sh`, unchanged harness; `logs/g-loads-facts-head.log`; a warm-up and 2 runs per cell, load 7.8–8.7): by facts 14 of 3,461 own image instances lost (G2 1,372), plainly 424 of 4,662; the work after the loads (A) 1.36–1.46 s by facts against 5.18–5.29 s; order B 2.45–2.50 s against 6.11–6.20 s. The facts cells are the second part's (14 of 3,461; 1.43–1.45 s): neither S1's fix, nor `!==` once, nor F6, F9 to F12 change them. Plainly 4,662 against 4,670: the packages' plain images hold 8 instances fewer (not read; `!==` at the packages' call types is the likely cause).
+
+**F4's cut.** Each third compiles on the one below (C compiled and linked; Julia parsed); only F4c's tree (= F4) is built. What holds between them:
+- F4a alone: a method of a module compiled by facts runs facts code wherever it is called (the policy is the CodeInstance's, and every lookup takes the policy it wants); a boundary method runs plain code from every caller; a facts caller's callee of the other policy is inferred in the caller's inference. Reflection with the plain interpreter at a facts method may cache a plain CodeInstance of it, which nothing runs. Sound, not yet per caller.
+- F4b adds the entries per policy (dispatch, builtins, codegen, interpreter): a boundary runs the caller's policy's code.
+- F4c adds inference across policies (`typeinf_other_policy`, the compile queues, reflection's uncached top frame).
+- The cut needs one hand-made hunk: F4a's `_jl_invoke` asks the policy the runtime reaches with (`mi_policy_facts_at(mfunc, JL_REACH_RUNTIME)`), which F4b replaces by the caller's `reach`.
+
+**The seams of the new parts** (the facts-only form; what the final tree adds):
+
+| Where | The series | The final tree adds | Added by |
+|---|---|---|---|
+| the module options word | `jl_module_t.options`, `jl_set_module_option`, `jl_get_module_options`, `Expr(:meta, :module_option, bit << 1 \| value)`, `enum jl_module_option` (owner_only 64; F11: fully typed 16, 32) | named `trait_options`, `jl_set_module_trait_option`, `jl_get_module_trait_options`, `:trait_option`, bits as literals; bounded 1, no_pirates 2 | S3 (rename), T9 |
+| `is_owner_only` (`facts.jl`) | the binding flag; the module option and the public flag | `jl_binding_open_operation_p` (a trait's operation open to its members), `BINDING_FLAG_OPEN_OPERATION` 0x20 | T10 |
+| the deep endings (`gf.c`) | kinds `:definition`, `:deletion`, `:validation`; `deep_ending_push`/`pop` static | kind `:membership`, the exported `jl_deep_ending_push`/`pop` and their calls in `datatype.c` | T5, T8 |
+| `jl_method_fully_typed` (`module.c`) | reads `m->module->options` | reads `trait_options` | S3 (rename) |
+| `jl_method_policy` | F6's test-bed clause, F11's fully typed clause, in that order | the same | — |
+
+**Commit messages.** In `w19-facts-split` every subject is `component: summary`; the bodies say what, why and the test, and the labels F*n*, S1 and "the series" are gone from them but for the test lines of F9 to F12, which name the gates' directory (the tests are not in Julia's `test/` yet). The branches `facts/00` to `facts/08` keep the second part's subjects (`facts F<n>: …`).
+
+## The two series together: `w19-g-facts`
+
+`w19-stack` (series G, the 18 patches) with the facts series on top (`w19-facts-v2`, cherry-picked without a conflict), and one commit by meaning: 541d9fa6fd "gf: the dispatch profiler takes the call site from `apply_generic_reach`'s `ip`" (`dp_ip = ip`, the final tree's line). 32 files, 1,556 lines added, 134 removed over the stack. Built once (build 5).
+
+- **The gates** (`logs/g-checks-g-facts.log`): as on the facts head: `f1`, `f3`, `f4`, `f5`, `f6` (whole), `n15`, `n17` pass, `f7` fails (sets); `f-f2`, `f-f6`, `g-f9`, `g-f10`, `g-f11` pass. `!==` 1 instance; a method of `!==` invalidates 244; `preserve_handle` 1; no instance compiled twice.
+- **The dispatch profiler** with `dp_ip = ip` names the dynamic calls' sites one by one (`logs/g-dispatch-profile-g-facts.log`).
+- **Base's tests** (`logs/g-tests-g-facts.log`; `Base.runtests([...]; ncores=1)`, load 4.1–4.9): `worlds`, `Compiler/invalidation`, `Compiler/effects`, `Compiler/inference`, `core`, `reflection` pass (7,357,364 pass, 25 broken, as on the facts head of the second part).
+- **`precompile` alone fails** on `w19-g-facts` (430 pass, 1 error; `logs/g-tests-g-facts-precompile.log`): the "code caching" test's branch for an instance's internal callers reads `(be.def::Method).def`, which no backedge satisfies (a backedge's `def` is a MethodInstance); on v1.13.2, on `w19-stack` and on the second part's facts head no `Int16` instance of the test's `f` has a backedge, so the branch never runs. On `w19-g-facts` it has backedges and the branch runs. With that line as `next` has it (`(be.def::Core.MethodInstance).def::Method`, the plan's §5 last bullet) `precompile` passes, 457 tests (the tree's file restored afterwards). Which part makes the branch live is not found; `precompile` was not run on the new facts head (build 4).
+- **The nine loads** (`logs/g-loads-g-facts.log`; a warm-up and 2 runs per cell, load 3.2–5.0): by facts 14 of **3,487** own image instances lost (G2 **2,773**), plainly 424 of 4,685 (G2 2,642); the work after the loads 1.38–1.41 s by facts against 5.27–5.29 s. **G changes the facts cells' make-up, not the result:** the packages' facts images hold 26 instances more and twice as many carry the G2 bit (1,372 on the facts head; G's patches take calls off abstract signatures), and the same 14 are lost.
+
+## `threads` on vanilla
+
+v1.13.2 under the same environment (`env.sh`: `JULIA_NUM_THREADS=4`, `JULIA_CPU_THREADS=4`): 163 pass, the same 5 fail at `threads.jl:472` (a child process with a CPU affinity of `n` cores reads `"1"` where `n ÷ 2` is expected; `logs/g-tests-vanilla-threads.log`). The failures are the environment's, not F4's.
+
+## Builds (third part)
+
+`WIDE=0 tools-local/build.sh wt/w19-julia` (`-j4`, niced, every image stage rebuilt), one after another. Logs: `logs/g-build<n>-*.tw-build.log`.
+
+| Build | Branch | Commit | Load at start (of 128) | Wall | `sys.so` (bytes) | Compiler stage | Result |
+|---|---|---|---|---|---|---|---|
+| 1 | `up/19` (second part's, for the profile) | 3f8281f25c | 1.57 | 758 s | 194,791,456 | 286.6 s | BUILD EXIT 0 |
+| 2 | `up/19`, the walk without the type fix | 8dd33781d9 | 4.04 | 665 s | not recorded | 287.1 s | BUILD EXIT 0 |
+| 3 | `up/19-callsig-backedge-v2` | 2e9675d8aa | 2.00 | 676 s | 194,871,752 | 290.2 s | BUILD EXIT 0 |
+| 4 | `w19-facts-v2` (F0 to F12) | 7315c0b1bd | 4.54 | 768 s | 195,636,792 | 298.5 s | BUILD EXIT 0 |
+| 5 | `w19-g-facts` | 541d9fa6fd | 3.96 | 768 s | 197,700,544 | 299.3 s | BUILD EXIT 0 |
+
+Five of the ten builds. The tree `wt/w19-julia` is left at `w19-g-facts` (build 5). Besides: `make -C src` at F4a, F4b, F6, F9, F10, F11 in `wt/w19-check` (`logs/g-compile-checks.log`).
+
+## What stays for later: the traits series (listed, not made)
+
+| Part | What it needs from the series as it stands | Seams in the series |
+|---|---|---|
+| T1 Core's types and slots | nothing of F; series G for `runtime_internals.jl` (the flags masks next to `up/02`'s helpers) | `jltypes.c`'s `Method` field list: T10's `declared_result` goes before `facts` (F0), so a field index moves |
+| T2 sets and memberships | T1; F4a's functions for its query world | the membership query world around `jl_type_infer_policy` (F4a), `jl_call_in_typeinf_world`, `jl_gdbcodetyped1` |
+| T3 intersections | T2 | none |
+| T4 dispatch at sets | T2; G's `up/14`, `up/15` and F4b in `jl_lookup_generic_`/`apply_generic_reach` (E7) | T9's member hook at a miss joins the same function |
+| T5 a membership's invalidation | T4; S1's backedge format (a one-element svec, read by `jl_membership_dispatch_walk`); F10 | the deep endings' `:membership` kind and the exported `jl_deep_ending_push`/`pop` |
+
+The order of builds: T1 on `w19-g-facts` (one build; `test/core.jl`); T2 (one; gates `m1_*`, `m2_set_*`, `n10_inputs`, Base's four suites against vanilla); T4 then T3 (one, both; `m2_*`, `n2_all_*`); T5 (one; `n27`, `n28`, `n32`), then the nine loads once more to see that sets leave the facts cells as they are.
+
+## Not done, not verified (third part)
+
+- **The force-pushes were refused** by this session's permissions: `up/19-callsig-backedge`, `facts/s1-callsig-backedge`, `facts/07-g2`, `facts/08-images` and `w19-facts` still name the second part's commits; the new ones are pushed as `…-v2`. Moving the five names is for the main session.
+- **`w19-callsig-load`** (two commits on `next`) is parsed, not built.
+- **`precompile` was not run on the new facts head** (build 4); it fails on `w19-g-facts` for a test line, and the part that makes that line run is not found.
+- **F4a and F4b are not built:** C compiled and linked, Julia parsed; their trees are not the head's. F4a's claim (a boundary runs plain code from every caller until F4b) is read from the code, not run.
+- **F9 to F12's tests are gates of this directory,** not tests in Julia's `test/`; F12's test counts code compiled twice and finds 0 on the head as on vanilla, so it does not discriminate there (the case is a build with many entries per instance, E-389).
+- **The static check of GC roots** (`w163/sagc.sh`) was not run on F10's and F11's C (two globals and a hook, rooted by both collectors).
+- **The plain load's times** are noisy on this host this afternoon (both builds' first runs 900–1,200 ms); the comparison rests on the runs after the disturbance and on the profiles' sample counts.
+- **The second part's "269 external instances more"** is not explained: the count moves with each new set of package images (116,630, 116,612 and 116,840 valid instances after the load for `up/19`'s three builds, 116,523 and 116,454 for vanilla's two sets) and does not move the load's time.

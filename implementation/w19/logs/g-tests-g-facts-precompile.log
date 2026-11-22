@@ -1,0 +1,346 @@
+# W-19 g-tests g-facts-precompile | wt/w19-julia 541d9fa6fd | 2026-11-22T14:58:08+01:00 | load 2.37 3.10 3.91 | precompile
+Running parallel tests with:
+  getpid() = 2529118
+  nworkers() = 1
+  nthreads(:interactive) = 1
+  nthreads(:default) = 4
+  Sys.CPU_THREADS = 1
+  Sys.total_memory() = 754.783 GiB
+  Sys.free_memory() = 638.031 GiB
+  Sys.uptime() = 1.54759076e6 (429.9 hours)
+Test  (Worker) | Time (s) | GC (s) | GC % | Alloc (MB) | RSS (MB)
+precompile (1) |        started at 2026-11-22T14:58:14.212
+ERROR: LoadError: break me
+Stacktrace:
+  [1] error(s::String)
+    @ Base ./error.jl:44
+  [2] top-level scope
+    @ /tmp/jltestdepot_s9Rpbr/FooBar2.jl:2
+  [3] include(mod::Module, _path::String)
+    @ Base ./Base.jl:309
+  [4] include_package_for_output(pkg::Base.PkgId, input::String, depot_path::Vector{String}, dl_load_path::Vector{String}, load_path::Vector{String}, concrete_deps::Vector{Pair{Base.PkgId, UInt128}}, source::Nothing, preresolved::Vector{Pair{Base.PkgId, String}})
+    @ Base ./loading.jl:3210
+  [5] top-level scope
+    @ stdin:5
+  [6] eval(m::Module, e::Any)
+    @ Core ./boot.jl:492
+  [7] include_string(mapexpr::typeof(identity), mod::Module, code::String, filename::String)
+    @ Base ./loading.jl:3045
+  [8] include_string
+    @ ./loading.jl:3055 [inlined]
+  [9] exec_options(opts::Base.JLOptions)
+    @ Base ./client.jl:342
+ [10] _start()
+    @ Base ./client.jl:577
+in expression starting at /tmp/jltestdepot_s9Rpbr/FooBar2.jl:1
+in expression starting at stdin:5
+  1 dependency had output during precompilation:
+┌ FooBar2
+│  [Output was shown above]
+└  
+ERROR: LoadError: Evaluation into the closed module `Base` breaks incremental compilation because the side effects will not be permanent. This is likely due to some other module mutating `Base` with `eval` during precompilation - don't do this.
+Stacktrace:
+  [1] eval(m::Module, e::Any)
+    @ Core ./boot.jl:492
+  [2] top-level scope
+    @ /tmp/jltestdepot_s9Rpbr/FooBar3.jl:2
+  [3] include(mod::Module, _path::String)
+    @ Base ./Base.jl:309
+  [4] include_package_for_output(pkg::Base.PkgId, input::String, depot_path::Vector{String}, dl_load_path::Vector{String}, load_path::Vector{String}, concrete_deps::Vector{Pair{Base.PkgId, UInt128}}, source::Nothing, preresolved::Vector{Pair{Base.PkgId, String}})
+    @ Base ./loading.jl:3210
+  [5] top-level scope
+    @ stdin:5
+  [6] eval(m::Module, e::Any)
+    @ Core ./boot.jl:492
+  [7] include_string(mapexpr::typeof(identity), mod::Module, code::String, filename::String)
+    @ Base ./loading.jl:3045
+  [8] include_string
+    @ ./loading.jl:3055 [inlined]
+  [9] exec_options(opts::Base.JLOptions)
+    @ Base ./client.jl:342
+ [10] _start()
+    @ Base ./client.jl:577
+in expression starting at /tmp/jltestdepot_s9Rpbr/FooBar3.jl:1
+in expression starting at stdin:5
+  1 dependency had output during precompilation:
+┌ FooBar3
+│  [Output was shown above]
+└  
+ERROR: LoadError: Evaluation into the closed module `Base` breaks incremental compilation because the side effects will not be permanent. This is likely due to some other module mutating `Base` with `eval` during precompilation - don't do this.
+Stacktrace:
+  [1] include(mod::Module, _path::String)
+    @ Base ./Base.jl:309
+  [2] top-level scope
+    @ /tmp/jltestdepot_s9Rpbr/FooBar3.jl:2
+  [3] include(mod::Module, _path::String)
+    @ Base ./Base.jl:309
+  [4] include_package_for_output(pkg::Base.PkgId, input::String, depot_path::Vector{String}, dl_load_path::Vector{String}, load_path::Vector{String}, concrete_deps::Vector{Pair{Base.PkgId, UInt128}}, source::Nothing, preresolved::Vector{Pair{Base.PkgId, String}})
+    @ Base ./loading.jl:3210
+  [5] top-level scope
+    @ stdin:5
+  [6] eval(m::Module, e::Any)
+    @ Core ./boot.jl:492
+  [7] include_string(mapexpr::typeof(identity), mod::Module, code::String, filename::String)
+    @ Base ./loading.jl:3045
+  [8] include_string
+    @ ./loading.jl:3055 [inlined]
+  [9] exec_options(opts::Base.JLOptions)
+    @ Base ./client.jl:342
+ [10] _start()
+    @ Base ./client.jl:577
+in expression starting at /tmp/jltestdepot_s9Rpbr/FooBar3_inc.jl:1
+in expression starting at /tmp/jltestdepot_s9Rpbr/FooBar3.jl:1
+in expression starting at stdin:5
+  1 dependency had output during precompilation:
+┌ FooBar3
+│  [Output was shown above]
+└  
+precompile (1) |         failed at 2026-11-22T15:01:12.122
+Error During Test at /p/projects/coen/julia-trait-bound/wt/w19-julia/usr/share/julia/test/precompile_utils.jl:6
+  Got exception outside of a @test
+  TypeError: in typeassert, expected Method, got a value of type Core.MethodInstance
+  Stacktrace:
+    [1] (::Main.Test62Main_precompile.var"#95#96"{Symbol, Symbol, Symbol})()
+      @ Main.Test62Main_precompile /p/projects/coen/julia-trait-bound/wt/w19-julia/usr/share/julia/test/precompile.jl:977
+    [2] (::Main.Test62Main_precompile.var"#83#84")(dir::String)
+      @ Main.Test62Main_precompile /p/projects/coen/julia-trait-bound/wt/w19-julia/usr/share/julia/test/precompile.jl:956
+    [3] precompile_test_harness(f::Any, separate::Bool)
+      @ Main.Test62Main_precompile /p/projects/coen/julia-trait-bound/wt/w19-julia/usr/share/julia/test/precompile_utils.jl:14
+    [4] macro expansion
+      @ /p/projects/coen/julia-trait-bound/wt/w19-julia/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:1967 [inlined]
+    [5] precompile_test_harness(f::Any, testset::String)
+      @ Main.Test62Main_precompile /p/projects/coen/julia-trait-bound/wt/w19-julia/usr/share/julia/test/precompile_utils.jl:6
+    [6] top-level scope
+      @ /p/projects/coen/julia-trait-bound/wt/w19-julia/usr/share/julia/test/precompile.jl:801
+    [7] include(mod::Module, _path::String)
+      @ Base ./Base.jl:309
+    [8] macro expansion
+      @ /p/projects/coen/julia-trait-bound/wt/w19-julia/usr/share/julia/test/testdefs.jl:35 [inlined]
+    [9] macro expansion
+      @ /p/projects/coen/julia-trait-bound/wt/w19-julia/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:1967 [inlined]
+   [10] macro expansion
+      @ /p/projects/coen/julia-trait-bound/wt/w19-julia/usr/share/julia/test/testdefs.jl:27 [inlined]
+   [11] macro expansion
+      @ ./timing.jl:699 [inlined]
+   [12] runtests(name::String, path::String, isolate::Bool; seed::UInt128)
+      @ Main /p/projects/coen/julia-trait-bound/wt/w19-julia/usr/share/julia/test/testdefs.jl:25
+   [13] #invokelatest_gr#232
+      @ ./reflection.jl:1354 [inlined]
+   [14] invokelatest_gr
+      @ ./reflection.jl:1346 [inlined]
+   [15] (::var"#33#34")()
+      @ Main /p/projects/coen/julia-trait-bound/wt/w19-julia/usr/share/julia/test/runtests.jl:364
+   [16] cd(f::var"#33#34", dir::String)
+      @ Base.Filesystem ./file.jl:112
+   [17] top-level scope
+      @ /p/projects/coen/julia-trait-bound/wt/w19-julia/usr/share/julia/test/runtests.jl:103
+   [18] include(mod::Module, _path::String)
+      @ Base ./Base.jl:309
+   [19] exec_options(opts::Base.JLOptions)
+      @ Base ./client.jl:344
+   [20] _start()
+      @ Base ./client.jl:577
+Test Summary:  | Pass  Error  Total  Time
+  Overall      |  430      1    431  0.4s
+    precompile |  430      1    431  2m59.1s
+    FAILURE
+The global RNG seed was 0xc6414e5162db81e0870eb4c58250644b.
+Error in testset precompile:
+Error During Test at /p/projects/coen/julia-trait-bound/wt/w19-julia/usr/share/julia/test/precompile_utils.jl:6
+  Got exception outside of a @test
+  TypeError: in typeassert, expected Method, got a value of type Core.MethodInstance
+  Stacktrace:
+    [1] (::Main.Test62Main_precompile.var"#95#96"{Symbol, Symbol, Symbol})()
+      @ Main.Test62Main_precompile /p/projects/coen/julia-trait-bound/wt/w19-julia/usr/share/julia/test/precompile.jl:977
+    [2] (::Main.Test62Main_precompile.var"#83#84")(dir::String)
+      @ Main.Test62Main_precompile /p/projects/coen/julia-trait-bound/wt/w19-julia/usr/share/julia/test/precompile.jl:956
+    [3] precompile_test_harness(f::Any, separate::Bool)
+      @ Main.Test62Main_precompile /p/projects/coen/julia-trait-bound/wt/w19-julia/usr/share/julia/test/precompile_utils.jl:14
+    [4] macro expansion
+      @ /p/projects/coen/julia-trait-bound/wt/w19-julia/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:1967 [inlined]
+    [5] precompile_test_harness(f::Any, testset::String)
+      @ Main.Test62Main_precompile /p/projects/coen/julia-trait-bound/wt/w19-julia/usr/share/julia/test/precompile_utils.jl:6
+    [6] top-level scope
+      @ /p/projects/coen/julia-trait-bound/wt/w19-julia/usr/share/julia/test/precompile.jl:801
+    [7] include(mod::Module, _path::String)
+      @ Base ./Base.jl:309
+    [8] macro expansion
+      @ /p/projects/coen/julia-trait-bound/wt/w19-julia/usr/share/julia/test/testdefs.jl:35 [inlined]
+    [9] macro expansion
+      @ /p/projects/coen/julia-trait-bound/wt/w19-julia/usr/share/julia/stdlib/v1.13/Test/src/Test.jl:1967 [inlined]
+   [10] macro expansion
+      @ /p/projects/coen/julia-trait-bound/wt/w19-julia/usr/share/julia/test/testdefs.jl:27 [inlined]
+   [11] macro expansion
+      @ ./timing.jl:699 [inlined]
+   [12] runtests(name::String, path::String, isolate::Bool; seed::UInt128)
+      @ Main /p/projects/coen/julia-trait-bound/wt/w19-julia/usr/share/julia/test/testdefs.jl:25
+   [13] #invokelatest_gr#232
+      @ ./reflection.jl:1354 [inlined]
+   [14] invokelatest_gr
+      @ ./reflection.jl:1346 [inlined]
+   [15] (::var"#33#34")()
+      @ Main /p/projects/coen/julia-trait-bound/wt/w19-julia/usr/share/julia/test/runtests.jl:364
+   [16] cd(f::var"#33#34", dir::String)
+      @ Base.Filesystem ./file.jl:112
+   [17] top-level scope
+      @ /p/projects/coen/julia-trait-bound/wt/w19-julia/usr/share/julia/test/runtests.jl:103
+   [18] include(mod::Module, _path::String)
+      @ Base ./Base.jl:309
+   [19] exec_options(opts::Base.JLOptions)
+      @ Base ./client.jl:344
+   [20] _start()
+      @ Base ./client.jl:577
+ERROR: LoadError: Test run finished with errors
+in expression starting at /p/projects/coen/julia-trait-bound/wt/w19-julia/usr/share/julia/test/runtests.jl:103
+ERROR: A test has failed. Please submit a bug report (https://github.com/JuliaLang/julia/issues)
+including error messages above and the output of versioninfo():
+Julia Version 1.13.2
+Commit 541d9fa6fd* (2026-11-22 12:40 UTC)
+Platform Info:
+  OS: Linux (x86_64-pc-linux-gnu)
+  CPU: 128 × AMD EPYC 9354 32-Core Processor
+  WORD_SIZE: 64
+  LLVM: libLLVM-20.1.8 (ORCJIT, znver4)
+  GC: Built with stock GC
+Threads: 4 default, 1 interactive, 4 GC (on 4 virtual cores)
+Environment:
+  JULIA_CPU_THREADS = 4
+  JULIA_PKG_GC_AUTO = false
+  JULIA_NUM_PRECOMPILE_TASKS = 4
+  JULIA_PKG_OFFLINE = true
+  JULIA_NUM_THREADS = 4
+Stacktrace:
+ [1] error(s::String)
+   @ Base ./error.jl:44
+ [2] runtests(tests::Vector{String}; ncores::Int64, exit_on_error::Bool, revise::Bool, propagate_project::Bool, seed::Nothing, julia_args::Cmd)
+   @ Base ./util.jl:726
+ [3] top-level scope
+   @ none:1
+ [4] eval(m::Module, e::Any)
+   @ Core ./boot.jl:492
+ [5] exec_options(opts::Base.JLOptions)
+   @ Base ./client.jl:310
+ [6] _start()
+   @ Base ./client.jl:577
+caused by: failed process: Process(setenv(`/p/projects/coen/julia-trait-bound/wt/w19-julia/usr/bin/julia -C native -J/p/projects/coen/julia-trait-bound/wt/w19-julia/usr/lib/julia/sys.so -g1 --startup-file=no /p/projects/coen/julia-trait-bound/wt/w19-julia/usr/bin/../share/julia/test/runtests.jl precompile`, [environment]), ProcessExited(1)) [1]
+Stacktrace:
+ [1] pipeline_error
+   @ ./process.jl:610 [inlined]
+ [2] run(::Cmd; wait::Bool)
+   @ Base ./process.jl:525
+ [3] run
+   @ ./process.jl:522 [inlined]
+ [4] runtests(tests::Vector{String}; ncores::Int64, exit_on_error::Bool, revise::Bool, propagate_project::Bool, seed::Nothing, julia_args::Cmd)
+   @ Base ./util.jl:718
+ [5] top-level scope
+   @ none:1
+ [6] eval(m::Module, e::Any)
+   @ Core ./boot.jl:492
+ [7] exec_options(opts::Base.JLOptions)
+   @ Base ./client.jl:310
+ [8] _start()
+   @ Base ./client.jl:577
+-- rc 1 | 2026-11-22T15:01:15+01:00 | load 2.79 2.97 3.71
+# the same, with test/precompile.jl's line 977 as in next (be.def::Core.MethodInstance), uncommitted in the tree
+# W-19 g-tests g-facts-precompile | wt/w19-julia 541d9fa6fd | 2026-11-22T15:02:10+01:00 | load 1.83 2.67 3.56 | precompile
+Running parallel tests with:
+  getpid() = 2534818
+  nworkers() = 1
+  nthreads(:interactive) = 1
+  nthreads(:default) = 4
+  Sys.CPU_THREADS = 1
+  Sys.total_memory() = 754.783 GiB
+  Sys.free_memory() = 635.574 GiB
+  Sys.uptime() = 1.54783256e6 (430.0 hours)
+Test  (Worker) | Time (s) | GC (s) | GC % | Alloc (MB) | RSS (MB)
+precompile (1) |        started at 2026-11-22T15:02:16.065
+ERROR: LoadError: break me
+Stacktrace:
+  [1] error(s::String)
+    @ Base ./error.jl:44
+  [2] top-level scope
+    @ /tmp/jltestdepot_Zd7L9d/FooBar2.jl:2
+  [3] include(mod::Module, _path::String)
+    @ Base ./Base.jl:309
+  [4] include_package_for_output(pkg::Base.PkgId, input::String, depot_path::Vector{String}, dl_load_path::Vector{String}, load_path::Vector{String}, concrete_deps::Vector{Pair{Base.PkgId, UInt128}}, source::Nothing, preresolved::Vector{Pair{Base.PkgId, String}})
+    @ Base ./loading.jl:3210
+  [5] top-level scope
+    @ stdin:5
+  [6] eval(m::Module, e::Any)
+    @ Core ./boot.jl:492
+  [7] include_string(mapexpr::typeof(identity), mod::Module, code::String, filename::String)
+    @ Base ./loading.jl:3045
+  [8] include_string
+    @ ./loading.jl:3055 [inlined]
+  [9] exec_options(opts::Base.JLOptions)
+    @ Base ./client.jl:342
+ [10] _start()
+    @ Base ./client.jl:577
+in expression starting at /tmp/jltestdepot_Zd7L9d/FooBar2.jl:1
+in expression starting at stdin:5
+  1 dependency had output during precompilation:
+┌ FooBar2
+│  [Output was shown above]
+└  
+ERROR: LoadError: Evaluation into the closed module `Base` breaks incremental compilation because the side effects will not be permanent. This is likely due to some other module mutating `Base` with `eval` during precompilation - don't do this.
+Stacktrace:
+  [1] eval(m::Module, e::Any)
+    @ Core ./boot.jl:492
+  [2] top-level scope
+    @ /tmp/jltestdepot_Zd7L9d/FooBar3.jl:2
+  [3] include(mod::Module, _path::String)
+    @ Base ./Base.jl:309
+  [4] include_package_for_output(pkg::Base.PkgId, input::String, depot_path::Vector{String}, dl_load_path::Vector{String}, load_path::Vector{String}, concrete_deps::Vector{Pair{Base.PkgId, UInt128}}, source::Nothing, preresolved::Vector{Pair{Base.PkgId, String}})
+    @ Base ./loading.jl:3210
+  [5] top-level scope
+    @ stdin:5
+  [6] eval(m::Module, e::Any)
+    @ Core ./boot.jl:492
+  [7] include_string(mapexpr::typeof(identity), mod::Module, code::String, filename::String)
+    @ Base ./loading.jl:3045
+  [8] include_string
+    @ ./loading.jl:3055 [inlined]
+  [9] exec_options(opts::Base.JLOptions)
+    @ Base ./client.jl:342
+ [10] _start()
+    @ Base ./client.jl:577
+in expression starting at /tmp/jltestdepot_Zd7L9d/FooBar3.jl:1
+in expression starting at stdin:5
+  1 dependency had output during precompilation:
+┌ FooBar3
+│  [Output was shown above]
+└  
+ERROR: LoadError: Evaluation into the closed module `Base` breaks incremental compilation because the side effects will not be permanent. This is likely due to some other module mutating `Base` with `eval` during precompilation - don't do this.
+Stacktrace:
+  [1] include(mod::Module, _path::String)
+    @ Base ./Base.jl:309
+  [2] top-level scope
+    @ /tmp/jltestdepot_Zd7L9d/FooBar3.jl:2
+  [3] include(mod::Module, _path::String)
+    @ Base ./Base.jl:309
+  [4] include_package_for_output(pkg::Base.PkgId, input::String, depot_path::Vector{String}, dl_load_path::Vector{String}, load_path::Vector{String}, concrete_deps::Vector{Pair{Base.PkgId, UInt128}}, source::Nothing, preresolved::Vector{Pair{Base.PkgId, String}})
+    @ Base ./loading.jl:3210
+  [5] top-level scope
+    @ stdin:5
+  [6] eval(m::Module, e::Any)
+    @ Core ./boot.jl:492
+  [7] include_string(mapexpr::typeof(identity), mod::Module, code::String, filename::String)
+    @ Base ./loading.jl:3045
+  [8] include_string
+    @ ./loading.jl:3055 [inlined]
+  [9] exec_options(opts::Base.JLOptions)
+    @ Base ./client.jl:342
+ [10] _start()
+    @ Base ./client.jl:577
+in expression starting at /tmp/jltestdepot_Zd7L9d/FooBar3_inc.jl:1
+in expression starting at /tmp/jltestdepot_Zd7L9d/FooBar3.jl:1
+in expression starting at stdin:5
+  1 dependency had output during precompilation:
+┌ FooBar3
+│  [Output was shown above]
+└  
+precompile (1) |   184.15 |   0.23 |  0.1 |    1318.15 |   475.16
+Test Summary: | Pass  Total  Time
+  Overall     |  457    457  0.4s
+    SUCCESS
+-- rc 0 | 2026-11-22T15:05:20+01:00 | load 2.74 2.74 3.42
