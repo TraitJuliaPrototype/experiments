@@ -151,3 +151,36 @@ would count it.
 - The candidate gates `gates/n42` to `n48`: each fails on `next` 2ddbe12394 and passes on 3e9c193025 (`n47`, `n48`
   run with `--project=TraitWorld`, as their header says).
 - The tool: 0 mismatches in the stub mode and the image mode; 112 in one shape in the library mode (C-167).
+
+### What the folds the rule takes away cost (row 187 with `w171b`'s additions)
+
+`cost/cost.sh` (log `cost/logs/cost-r1.log`): H is `w171b` 3e9c193025 (row 187 and C-164's rule: a set answer that
+inference does not fold, a choice left to the run among methods at a set, `applicable` there, and a call given a
+set's type as a constant are not consistent, and `hasmethod`'s negative at a set is not folded); B is
+`wt/w143-julia` d1e64d8b56, the build before them (it also lacks rows 184 to 186 and 188, which change no fold's
+consistency). The same trait trees (TraitWorld 0f54043af4, the ODE port 21a5aa57cf), product setting, strict mode
+off, one thread; a warm-up process per cell and Julia, then 3 fresh processes each, H and B interleaved; load 2.0
+to 2.7 on 128 cores. Idiomatic trait code; the ODE program's plain twin is plain code on the build.
+
+| Cell | H (3 runs) | B (3 runs) |
+|---|---|---|
+| the library's load (`using TraitWorld`) | 71–76 ms | 73–74 ms |
+| the ODE program's load | 425–437 ms (compile 57 ms) | 432–471 ms (compile 61 ms) |
+| its first run | 353–356 ms (compile 351–354 ms) | 366–369 ms (compile 364–367 ms) |
+| its second run | 0.92–0.94 ms | 0.94–0.97 ms |
+| the plain twin: load, first run | 181–199 ms, 372–375 ms | 180–192 ms, 378–381 ms |
+| E-513's calls: an operation at a known type, trait / plain | 0.79 / 0.79 ns | 0.79 / 0.79 ns |
+| a method at the trait at a known type, trait / plain | 0.79 / 0.79 ns | 0.79 / 0.79 ns |
+| a `Dynamic` default compiled once; `compiled_for`; a box held | 8.6–8.7; 2.38; 7.14 ns | 9.1; 2.38; 7.15 ns |
+| `Vector{Shape}`; a `Dynamic{Shape}` field | 2.86–2.87; 5.56 ns | 2.86; 5.56 ns |
+| a `Callable` argument boxed; `compiled_for(f)` | 25.8–29.2; 0.79 ns | 25.6–26.1; 0.79 ns |
+| POLLU (20 states), the port boxed: min, median per solve | 0.565–0.567, 0.573–0.574 ms | 0.575–0.601, 0.583–0.607 ms |
+| POLLU, `compiled_for(f)` | 0.534–0.544, 0.542–0.549 ms (one process 0.805) | 0.548–0.556, 0.555–0.563 ms |
+
+No cell loses: the folds the rule takes away are not on these paths (an operation at a known type costs a plain
+call's time on both). The one rule that could be narrower while staying sound: a call given a set's type as a
+constant need not lose its consistency where the callee's effects are inferred, since inference already marks
+every answer about a set it leaves to the run as not consistent (the builtins' tests, `new`'s field test, a choice
+among methods at a set, `applicable`, a `ccall` into the runtime); only effects a method asserts (`@assume_effects`,
+`@_total_meta`, as `typeintersect` and `==` of types do) can claim consistency over such an answer. Not built: no
+cell shows a cost it would recover.
