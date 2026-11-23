@@ -1,0 +1,24 @@
+Compiler: a closed build branches over a set's members where a call does not know its argument's member
+
+The second of three parts of a closed build. Where a call's argument is known only by its trait (typed
+by a set instance), the build branches over the set's members by use (the first part's), each branch
+the call at the member's type, past them `MethodError`:
+- a call whose matched method's static parameter such an argument binds (`closed_sparam_bits`),
+  that takes the wrapper of such a value (`Compiled{<:X}`, `closed_wrapper_bits`), or whose method
+  the member's type chooses (a method at a struct, a family or a kept form beside one at the set;
+  `closed_choice_bits`, `closed_choosing_type`): the branches are the product of the choosing
+  arguments' members within 64, an argument past it left as it is (`closed_member_split`); where
+  the method the members reach is a forwarder (its mark `Expr(:meta, :erasing_forwarder)`), the
+  forwarder's instance at the call's types, each argument boxed by its own branches
+  (`closed_forwarder_call`); a join of more wrappers than a union keeps is the wrapper of a value
+  known only by the set (`closed_bound`);
+- a call of a function known only as `Callable{A, S}`, or as bare `Callable`, branches over the set
+  type's members by use, its result asserted to `S` (`closed_callable_split`), also a splatted call;
+- a call that does not know its argument's member otherwise runs the method's instance at the set
+  (`closed_set_signature`, the inliner), whose operations branch over the members;
+- the methods a call at such an argument takes are listed up to 64, and a call at unions of kept forms
+  splits over each combination up to 64.
+
+Test: with the third part, whose check in a session runs these rules.
+
+Co-Authored-By: Claude <noreply@anthropic.com>

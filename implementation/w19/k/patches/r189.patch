@@ -1,0 +1,136 @@
+commit 86cc20d662e2fad458fe45958e1540052a54bc71
+Author: frank <hellmann@pik-potsdam.de>
+Date:   Mon Nov 23 00:58:43 2026 +0100
+
+    runtime: a match at a kind, or its absence, holds only while the set's entries for type values do
+    
+    A kind of type object (`DataType`, `UnionAll`, `Union`, `Type{T}` with a free `T`) meets a set where the set takes
+    a type value (compiler §4.10), and that rests on the set's entries for type values, which are kept on each value's
+    TypeName, not on any type of the query. The worlds of a lookup were narrowed only by the entries reachable from the
+    query's types, so a lookup at `Tuple{typeof(g), Type}` asked in a world before `Type{S}`'s membership in `X` was
+    valid in the worlds where it holds, and the method cache's entry at that widened signature, made from a lookup at
+    `Type{S}` in the earlier world, answered `g(::Any)` there; code compiled at the kind after the membership was taken
+    back ran in the worlds where it held (E-542's pattern 8). Now a range asked at a query with a kind at a covariant
+    place is narrowed by the entries for type values of the signature's sets and of the sets that join them
+    (`jl_type_has_kind`, `value_entries_range`), and the typemap's visitor asks it also where the intersection is empty.
+    
+    Reference: compiler §4.10, §5.3 (a match's worlds through an entry are the entry's).
+    Test: experiments/implementation/w171/gates/n42_kind_value_worlds.jl.
+    
+    Co-Authored-By: Claude <noreply@anthropic.com>
+
+diff --git a/src/julia_internal.h b/src/julia_internal.h
+index 63ae90395a..7ab365a554 100644
+--- a/src/julia_internal.h
++++ b/src/julia_internal.h
+@@ -1034,6 +1034,7 @@ int jl_membership_range_is_fast(size_t world) JL_NOTSAFEPOINT;
+ // `sig`, where given, is the signature of the method matched (no part of the range reads it)
+ JL_DLLEXPORT int jl_membership_world_range(jl_value_t *t, jl_value_t *sig, size_t world, size_t *lo, size_t *hi);
+ JL_DLLEXPORT int jl_type_has_memberships(jl_value_t *t) JL_NOTSAFEPOINT;
++JL_DLLEXPORT int jl_type_has_kind(jl_value_t *t) JL_NOTSAFEPOINT;
+ // whether call types hold an argument met only as an intersection no type of the world is in (datatype.c)
+ JL_DLLEXPORT int jl_has_unmet_argument(jl_value_t *ti, size_t world);
+ JL_DLLEXPORT jl_value_t *jl_unmet_final_cells(jl_value_t *spec);
+diff --git a/src/subtype.c b/src/subtype.c
+index 3e317d96f8..149bddcd71 100644
+--- a/src/subtype.c
++++ b/src/subtype.c
+@@ -1718,6 +1718,56 @@ int jl_membership_range_is_fast(size_t world) JL_NOTSAFEPOINT
+     return world != 0 && world >= jl_atomic_load_acquire(&membership_last_change);
+ }
+ 
++static void open_sets_in(jl_value_t *t, arraylist_t *out) JL_NOTSAFEPOINT;
++
++// whether a kind of type object (`DataType`, `UnionAll`, `Union`, `Type{T}` with a free `T`) is at a covariant place
++// of `t`: an argument, a union's component, a tuple's element
++JL_DLLEXPORT int jl_type_has_kind(jl_value_t *t) JL_NOTSAFEPOINT
++{
++    t = jl_unwrap_unionall(t);
++    if (jl_is_uniontype(t))
++        return jl_type_has_kind(((jl_uniontype_t*)t)->a) || jl_type_has_kind(((jl_uniontype_t*)t)->b);
++    if (jl_is_vararg(t))
++        return ((jl_vararg_t*)t)->T != NULL && jl_type_has_kind(((jl_vararg_t*)t)->T);
++    if (!jl_is_datatype(t))
++        return 0;
++    jl_datatype_t *dt = (jl_datatype_t*)t;
++    if (dt == jl_datatype_type || dt == jl_unionall_type || dt == jl_uniontype_type ||
++        (dt->name == jl_type_typename && jl_has_free_typevars(t)))
++        return 1;
++    if (jl_is_tuple_type(t))
++        for (size_t i = 0; i < jl_nparams(dt); i++)
++            if (jl_type_has_kind(jl_tparam(dt, i)))
++                return 1;
++    return 0;
++}
++
++// The entries on which whether the set `yname` takes type values rests (`set_takes_type_values`): its entries
++// for a type value and its entries of a set, followed into that set. Each narrows [*lo, *hi] around `world`.
++static int value_entries_range(jl_typename_t *yname, size_t world, size_t *lo, size_t *hi, int depth) JL_NOTSAFEPOINT
++{
++    jl_genericmemory_t *index = jl_set_entries;
++    jl_array_t *list = index == NULL ? NULL : (jl_array_t*)jl_eqtable_get(index, (jl_value_t*)yname, NULL);
++    int found = 0;
++    for (size_t i = 0; list != NULL && i < jl_array_nrows(list); i++) {
++        jl_membership_t *en = (jl_membership_t*)jl_array_ptr_ref(list, i);
++        if (en == NULL)
++            continue;
++        jl_value_t *mu = jl_unwrap_unionall(en->member);
++        if (entry_for_value(en)) {
++            narrow_by_entry(en, world, lo, hi);
++            found = 1;
++        }
++        else if (jl_is_datatype(mu) && ((jl_datatype_t*)mu)->name->open_set && depth < 16) {
++            if (value_entries_range(((jl_datatype_t*)mu)->name, world, lo, hi, depth + 1)) {
++                narrow_by_entry(en, world, lo, hi);
++                found = 1;
++            }
++        }
++    }
++    return found;
++}
++
+ JL_DLLEXPORT int jl_membership_world_range(jl_value_t *t, jl_value_t *sig, size_t world, size_t *lo, size_t *hi)
+ {
+     if (world == 0)     // no range asked: whether `t` reaches an entry
+@@ -1736,8 +1786,19 @@ JL_DLLEXPORT int jl_membership_world_range(jl_value_t *t, jl_value_t *sig, size_
+         arraylist_new(&seen, 0);
+         found = membership_range_visit(t, world, lo, hi, &seen);
+         arraylist_free(&seen);
++        // A kind meets a set where the set takes a type value: the answer at a kind rests on the
++        // set's entries for type values, which no type in `t` holds (they are on each value's TypeName). So
++        // the worlds of a match at a kind against a method at a set, or of its absence, are those in which
++        // the set's entries for type values are as they are in `world`.
++        if (sig != NULL && jl_type_has_kind(t)) {
++            arraylist_t sets;
++            arraylist_new(&sets, 0);
++            open_sets_in(sig, &sets);
++            for (size_t i = 0; i < sets.len; i++)
++                found |= value_entries_range((jl_typename_t*)sets.items[i], world, lo, hi, 0);
++            arraylist_free(&sets);
++        }
+     }
+-    (void)sig;
+     return found;
+ }
+ 
+diff --git a/src/typemap.c b/src/typemap.c
+index 967d2ee715..80cd1f929c 100644
+--- a/src/typemap.c
++++ b/src/typemap.c
+@@ -555,12 +555,13 @@ static int jl_typemap_intersection_node_visitor(jl_typemap_entry_t *ml, struct t
+         // Bit-identical without open sets (a memoized bit).
+         // An empty intersection rests on no entry where the query's types hold none (the
+         // common case: a non-member of the set), and then nothing narrows the range.
++        // A query at a kind meets the set where the set takes a type value: that rests on the set's
++        // entries for type values, held on no type of the query.
+         if (!closure->skip_ranges && jl_has_open_set_in((jl_value_t*)ml->sig) &&
+             (closure->ti != (jl_value_t*)jl_bottom_type || jl_membership_range_is_fast(closure->world) ||
+-             jl_type_has_memberships(closure->type))) {
++             jl_type_has_memberships(closure->type) || jl_type_has_kind(closure->type))) {
+             size_t lo = closure->min_valid, hi = closure->max_valid;
+-            jl_value_t *msig = closure->ti != (jl_value_t*)jl_bottom_type ? (jl_value_t*)ml->sig : NULL;
+-            if (jl_membership_world_range(closure->type, msig, closure->world, &lo, &hi)) {
++            if (jl_membership_world_range(closure->type, (jl_value_t*)ml->sig, closure->world, &lo, &hi)) {
+                 closure->min_valid = lo;
+                 closure->max_valid = hi;
+             }

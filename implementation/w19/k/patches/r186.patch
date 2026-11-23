@@ -1,0 +1,39 @@
+commit 04bafd8f5274bb5aa33f113a1b57bae5830fe80d
+Author: frank <hellmann@pik-potsdam.de>
+Date:   Sun Nov 22 23:13:05 2026 +0100
+
+    runtime: a membership taken back ends the callers of the member's instance that has no code
+    
+    The removal walk (compiler §5.5) ended the code of each instance of a method at the set compiled at the member,
+    with its callers, through the instance's CodeInstances. Code that names the instance alone, with no code of
+    its own (an `applicable` or `hasmethod` folded through the membership), kept its answer after the membership
+    was taken back. The walk now ends the instance's backedges too, as a method's deletion does
+    (`invalidate_backedges`).
+    
+    Reference: compiler §5.5 (taken back: the instances at the member end, with their callers), §5.6.
+    Test: experiments/implementation/audit/set_folds.jl (E-542); experiments/implementation/w171/gates.
+    
+    Co-Authored-By: Claude <noreply@anthropic.com>
+
+diff --git a/src/gf.c b/src/gf.c
+index 9868cc0cf4..b5db4422c6 100644
+--- a/src/gf.c
++++ b/src/gf.c
+@@ -4945,13 +4945,15 @@ JL_DLLEXPORT void jl_membership_removal_walk(jl_value_t *member, jl_value_t *set
+                     continue;
+                 jl_array_ptr_1d_push(shadowed, (jl_value_t*)mi);
+                 if (jl_subtype((jl_value_t*)mi->specTypes, substsig)) {
+-                    // an instance compiled at the member (a default's method compiled for it): it ends, with its callers
++                    // an instance at the member (a default's method compiled for it): it ends, with its callers;
++                    // also the callers of an instance with no code (an `applicable` or `hasmethod` folded through
++                    // the membership names the instance alone), as a method's deletion ends them
+                     jl_code_instance_t *ci = jl_atomic_load_relaxed(&mi->cache);
+                     while (ci) {
+                         invalidate_code_instance(ci, world, 1);
+                         ci = jl_atomic_load_relaxed(&ci->next);
+                     }
+-                    jl_atomic_store_relaxed(&mi->dispatch_status, 0);
++                    invalidate_backedges(mi, world, "jl_membership_removal_walk");
+                 }
+                 else {
+                     membership_removal_backedges(mi, substsig, m, world);

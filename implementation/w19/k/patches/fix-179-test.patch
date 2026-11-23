@@ -1,0 +1,24 @@
+commit 6e0701d6af2b1d355fbb10bbe871e26d49caa398
+Author: frank <hellmann@pik-potsdam.de>
+Date:   Sun Nov 22 22:46:38 2026 +0100
+
+    Compiler: the union-splitting cost in a test of `callsig_splits`; two comments
+    
+    `unionsplitcost` leaves the largest union out of the product it counts, so a signature with one union
+    of five members is within the cost, and the test that expected no splits for it failed. The test now
+    takes two unions of three members each, whose cost (six) is past the default of four.
+    
+    Co-Authored-By: Claude <noreply@anthropic.com>
+
+diff --git a/Compiler/test/inference.jl b/Compiler/test/inference.jl
+index 97d40fd585..c536f0b1c2 100644
+--- a/Compiler/test/inference.jl
++++ b/Compiler/test/inference.jl
+@@ -6743,6 +6743,6 @@ let sigs = Compiler.callsig_splits(Tuple{typeof(!==), Union{Nothing,Int}, Nothin
+     @test sigs !== nothing && Set(sigs) == Set(Any[Tuple{typeof(!==), Nothing, Nothing}, Tuple{typeof(!==), Int, Nothing}])
+ end
+ @test Compiler.callsig_splits(Tuple{typeof(!==), Int, Nothing}) === nothing
+-@test Compiler.callsig_splits(Tuple{typeof(!==), Union{Int8,Int16,Int32,Int64,Int128}, Nothing}) === nothing
++@test Compiler.callsig_splits(Tuple{typeof(!==), Union{Int8,Int16,Int32}, Union{Nothing,Missing,Float64}}) === nothing
+ 
+ end # module inference

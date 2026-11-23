@@ -1,0 +1,62 @@
+commit 9ee75aa0abd2028872273fab1ef2d4b911e7272a
+Author: frank <hellmann@pik-potsdam.de>
+Date:   Sun Nov 22 22:07:33 2026 +0100
+
+    datatype: the bit "a set occurs in this type" sees a set in a type variable's lower bound
+    
+    `has_open_set` says whether a membership can affect a question about a type; inference, code
+    generation and the intersection's fast paths read it before they fold a negative. Its witness
+    followed a type variable's upper bound only. Subtyping walks the lower bound too, so for
+    `A = Ref{S} where S >: X` and `B = Ref{S} where S >: Union{X, M}` the bit was clear on `A`, `B`
+    and `Vector{A}`, yet `M`'s membership in `X` makes `A == B` and `Vector{A} <: Vector{B}` true:
+    code that tested `Vector{A} <: Vector{B}` before the membership was folded to `false` and kept
+    that answer after it. The witness now follows both bounds. A bound is `Union{}` or `Any` for
+    most type variables, so the bit's cost when a type is made is unchanged.
+    
+    This belongs in the part that makes the witness ("julia.h, jltypes: the layout for sets and
+    memberships"); it is placed after the declared results for now, so that the parts already
+    published keep their commits.
+    
+    Test: `test/subtype.jl` "a set in a type variable's lower bound".
+    
+    Co-Authored-By: Claude <noreply@anthropic.com>
+
+diff --git a/src/datatype.c b/src/datatype.c
+index e13263db73..3cb7cb0bb9 100644
+--- a/src/datatype.c
++++ b/src/datatype.c
+@@ -104,8 +104,10 @@ JL_DLLEXPORT jl_typename_t *jl_new_typename_in(jl_sym_t *name, jl_module_t *modu
+     return tn;
+ }
+ 
+-// Whether a set occurs in v: as the type, a parameter, a union component or a bound. A DataType's bit
+-// is final from its construction, since a set is a set from its declaration, so the recursion stops there.
++// Whether a set occurs in v: as the type, a parameter, a union component or a variable's bound, lower
++// or upper (subtyping walks both bounds, so a membership decides a question where a set occurs only as
++// a lower bound). A DataType's bit is final from its construction, since a set is a set from its
++// declaration, so the recursion stops there.
+ static int open_set_witness(jl_value_t *v) JL_NOTSAFEPOINT
+ {
+     jl_value_t *uw = jl_is_unionall(v) ? jl_unwrap_unionall(v) : v;
+@@ -119,7 +121,7 @@ static int open_set_witness(jl_value_t *v) JL_NOTSAFEPOINT
+         return open_set_witness(((jl_uniontype_t*)uw)->a) ||
+                open_set_witness(((jl_uniontype_t*)uw)->b);
+     if (jl_is_typevar(uw))
+-        return open_set_witness(((jl_tvar_t*)uw)->ub);
++        return open_set_witness(((jl_tvar_t*)uw)->lb) || open_set_witness(((jl_tvar_t*)uw)->ub);
+     return 0;
+ }
+ 
+diff --git a/src/julia.h b/src/julia.h
+index 7dbdd8f6ed..c5bbf8c836 100644
+--- a/src/julia.h
++++ b/src/julia.h
+@@ -692,7 +692,7 @@ typedef struct _jl_datatype_t {
+     uint32_t isprimitivetype:1; // whether this is declared with 'primitive type' keyword (sized, no fields, and immutable)
+     uint32_t ismutationfree:1; // whether any mutable memory is reachable through this type (in the type or via fields)
+     uint32_t isidentityfree:1; // whether this type or any object reachable through its fields has non-content-based identity
+-    uint32_t has_open_set:1; // whether a set occurs in this type, as the type, a parameter or a union component: when clear, no membership can affect a question about this type. A set is a set from its declaration, so the bit is final when the type is built
++    uint32_t has_open_set:1; // whether a set occurs in this type, as the type, a parameter, a union component or a type variable's bound (lower or upper): when clear, no membership can affect a question about this type. A set is a set from its declaration, so the bit is final when the type is built
+     uint32_t _unused_flags:15; // with the bits above and smalltag this fills the word (11 + 15 + 6)
+     uint32_t smalltag:6; // whether this type has a small-tag optimization
+ } jl_datatype_t;

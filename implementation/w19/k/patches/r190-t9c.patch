@@ -1,0 +1,28 @@
+diff --git a/src/gf.c b/src/gf.c
+index b5db4422c6..1ce3c06a1c 100644
+--- a/src/gf.c
++++ b/src/gf.c
+@@ -4633,6 +4703,23 @@ JL_DLLEXPORT jl_value_t *jl_membership_replay_sigs(jl_value_t *member, jl_value_
+             jl_array_ptr_1d_push(out, clean == 1 && sub != NULL ? sub : jl_nothing); // 3: the method's own
+         }
+     }
++    // the methods whose lower bound the member meets, each at its own signature
++    ms = (jl_value_t*)jl_alloc_vec_any(0);
++    sub = (jl_value_t*)jl_alloc_vec_any(0);
++    lower_bound_targets(member, jl_atomic_load_relaxed(&jl_world_counter), (jl_array_t*)sub, (jl_array_t*)ms);
++    for (size_t i = 0; i < jl_array_nrows((jl_array_t*)ms); i++) {
++        jl_value_t *m = jl_array_ptr_ref((jl_array_t*)ms, i);
++        size_t k;
++        for (k = 0; k < jl_array_nrows(out); k += 2)
++            if (jl_array_ptr_ref(out, k) == m)
++                break;
++        if (k < jl_array_nrows(out)) {
++            jl_array_ptr_set(out, k + 1, jl_nothing);
++            continue;
++        }
++        jl_array_ptr_1d_push(out, m);
++        jl_array_ptr_1d_push(out, jl_nothing);
++    }
+     JL_UNLOCK(&world_counter_lock);
+     JL_GC_POP();
+     return (jl_value_t*)out;

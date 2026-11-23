@@ -1,0 +1,45 @@
+commit 2ddbe123941054fb4d32968e91d8fdde82eab466
+Author: frank <hellmann@pik-potsdam.de>
+Date:   Sun Nov 22 23:38:49 2026 +0100
+
+    runtime: whether a positive answer came through an entry sees a Vararg tail and a parameter through a declared supertype
+    
+    `jl_subtype_via_membership` decides where a positive answer about a type and a set rests on an entry; where it
+    answers 0 the positive folds with no entry recorded (inference's `positive_fold_blocked`, code generation's
+    `<:` and `isa`; compiler §3.1, §4.8). It answered 0 for two tuples of different lengths
+    (`Tuple{Int, S, S} <: Tuple{Int, Vararg{X}}`: the chain walk met the tuple's own name and took it as the chain's
+    answer) and for a type whose declared supertype carries the parameter the entry decides (`P{S} <: AP{<:X}`). Folded
+    with no edge, the answer stood after the membership was taken back. Now tuples of different lengths answer 1, and
+    a chain that reaches X's type name compares the supertype's parameters.
+    
+    Reference: compiler §3.1 (a positive membership is recorded as its entry), §4.8.
+    Test: experiments/implementation/audit/set_folds.jl (E-542); experiments/implementation/w171/gates/n39_could_join_shapes.jl.
+    
+    Co-Authored-By: Claude <noreply@anthropic.com>
+
+diff --git a/src/subtype.c b/src/subtype.c
+index a875a429dc..3e317d96f8 100644
+--- a/src/subtype.c
++++ b/src/subtype.c
+@@ -1970,6 +1970,8 @@ JL_DLLEXPORT int jl_subtype_via_membership(jl_value_t *S, jl_value_t *X)
+         return 1;
+     if (jl_is_type_type(su) && ((jl_datatype_t*)xu)->name->open_set)
+         return 1; // the induced Type{S} rule is always entry-answered
++    if (((jl_datatype_t*)su)->name == ((jl_datatype_t*)xu)->name && jl_nparams(su) != jl_nparams(xu))
++        return 1; // two tuples of different lengths (a Vararg tail): the positions do not pair
+     if (((jl_datatype_t*)su)->name == ((jl_datatype_t*)xu)->name && jl_nparams(su) == jl_nparams(xu)) {
+         // the same container: the truth may come from a PARAMETER
+         // (Tuple{Bar,Int} vs Tuple{SetB,Int} with Bar a declared member) — mirror
+@@ -1995,7 +1997,11 @@ JL_DLLEXPORT int jl_subtype_via_membership(jl_value_t *S, jl_value_t *X)
+             return 1;
+         xd = xd->super;
+     }
+-    return xd == jl_any_type; // the chain missed: only an entry could say true
++    if (xd == jl_any_type)
++        return 1; // the chain missed: only an entry could say true
++    // the chain reached X's type name: the declared supertype carries S's parameters
++    // (`P{S} <: AP{<:X}` through `struct P{T} <: AP{T}`), whose answer may come from an entry
++    return xd == (jl_datatype_t*)su ? 0 : jl_subtype_via_membership((jl_value_t*)xd, X);
+ }
+ 
+ // orientation-free pair relevance used by codegen (item 10e)

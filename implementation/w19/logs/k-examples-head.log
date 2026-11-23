@@ -1,0 +1,294 @@
+== 9a25e86ff3 load 7.43 7.53 6.83 8/54245 194896 04:35:47
+## intro
+PASS  the library exports compiled_for, the wrapper's function
+PASS  Measurements <: ColTable
+PASS  m isa ColTable
+PASS  colmean(m, 1) == 1.5
+PASS  at the prompt, colmean(m, 1) runs the code compiled for Measurements
+      colmean's instances after the call: Tuple{typeof(colmean), Dynamic{ColTable}, Int64}, Tuple{typeof(colmean), Measurements, Int64}
+PASS  colmean(r, 2) == 3.0
+PASS  meandiff(m, r, 1) == 0.0
+PASS  colmap(x -> 2x, m, 2) == [6.0, 10.0]
+PASS  colmap(compiled_for(x -> 2x), m, 2) == [6.0, 10.0]
+PASS  colmean(Dynamic{ColTable}(m), 1) == 1.5
+PASS  colmean(compiled_for(m), 1) == 1.5
+PASS  means(s, 1) == [1.5, 1.5]
+PASS  the shelf holds the members' own values
+PASS  Dynamic{ColTable}(r) isa ColTable
+PASS  colmean(d, 2) == 3.0
+PASS  unwrap(d) === r
+PASS  compiled_for(m) isa ColTable, and is not m
+PASS  a Vector{Dynamic{ColTable}} boxes each member stored
+PASS  colmap(uppercase, m, 1) raises MethodError
+PASS  a trait module accepts a method that passes f on to map
+PASS  colmap2(x -> 2x, m, 2) == [6.0, 10.0]
+PASS  @implement ColTable Counts raises ImplementError
+MESSAGE ImplementError:
+ImplementError: Counts cannot be a member of ColTable
+  - col's method at Counts infers its result as Vector{Int64}, outside the declared Vector{Float64}
+PASS  the ImplementError's message is the page's
+PASS  Counts is no member
+PASS  a closure returning an Int raises TypeError
+MESSAGE TypeError:
+TypeError: in Callable, expected Float64, got a value of type Int64
+PASS  the TypeError's message is the page's
+PASS  an unbounded method in a trait module raises TraitUseError
+MESSAGE TraitUseError:
+TraitUseError: `colsum(t::ColTable)` is declared bounded, and is not bounded: read with `t` in a box, `Dynamic{ColTable}`:
+  sum(t) reaches iterate(::Dynamic{ColTable}), which has no method (through sum → mapreduce → mapfoldl → mapfoldl_impl → foldl_impl → _foldl_impl), at line 142
+PASS  the TraitUseError names the method as written, with `t` in a box, no tuple type
+PASS  the TraitUseError's message is the page's, but for the line
+PASS  colmean(42, 1) raises MethodError
+PASS  a member's fields give the parameters: Euler <: Integrator{Vector{Float64}, Float64}
+PASS  a method at the trait writes a writable declared field
+PASS  a field of another type than declared (t::Int against t::Float64): ImplementError
+MESSAGE Integrator:
+ImplementError: Stiff cannot be a member of Integrator
+  - the writable field t is stored as Int64; the trait declares Float64
+
+33 pass, 0 fail, 0 known deviations
+exit 0
+== 9a25e86ff3 load 7.48 7.54 6.83 7/54252 194946 04:35:50
+## tutorial
+PASS  §3 area(Circle(1.0)) == 3.141592653589793
+PASS  §3 describe(Rect(2.0, 3.0))
+PASS  §3 describe(Circle(1.0)): the default, reached from plain code
+PASS  §3 Circle <: Shape
+PASS  §3 Circle(1.0) isa Shape
+PASS  §3 Int is no Shape
+PASS  §4 ratio(Circle(1.0)) == 0.5
+PASS  §4 at the prompt, ratio(Circle(1.0)) runs the code compiled for Circle
+PASS  §4 ratio(Rect(2.0, 3.0)) == 0.6
+PASS  §4 bigger(Rect, Circle)
+PASS  §4 title(Circle(1.0))
+PASS  §4 title(Rect(2.0, 3.0))
+PASS  §4 circle_ratio
+PASS  §4 ratio(compiled_for(Circle(1.0)))
+PASS  §4 ratio(Dynamic{Shape}(Circle(1.0)))
+MESSAGE operations(Circle(1.0)):
+Circle(1.0) is a Circle, a member of Shape
+
+Shape
+  operations:
+    area(s::Shape)::Float64
+    perimeter(s::Shape)::Float64
+    describe(s::Shape)::String   # a default
+  methods at Shape:
+    ratio(s::Shape)
+    bigger(a::Shape, b::Shape)
+    title(s::Shape)
+    fits(s::Shape; within, margin)
+    scaled_area(s::Shape, k::Float64)
+    scaled_area(s::Shape)
+    largest(ss::Shape...)
+    kind(s::Shape)
+    add!(sc::Scene, s::Shape)
+
+other: methods at Circle
+    circle_ratio(c::Circle)
+PASS  §4 operations(Circle(1.0)): the member, its trait and the contract's lines, a default marked
+PASS  §4 operations(Circle(1.0)): the methods at Shape, as written, in the order defined
+PASS  §4 operations(Circle(1.0)): other, the method at Circle itself
+PASS  §5 area(Tile(…)) == 2.0
+PASS  §5 ratio(Tile(…))
+PASS  §5 ratio(Window(…))
+PASS  §5 describe(Tile(…)): the default, at the field
+PASS  §6 move! wrote the user's object
+PASS  §6 greet(sp)
+PASS  §6 greet(Book)
+PASS  §6 a writable field needs a mutable type: ImplementError
+PASS  §7 report(sp)
+PASS  §7 Sprite <: All{Shape, Placed}
+PASS  §7 Circle is no All{Shape, Placed}
+PASS  §7 a const names the intersection: Sprite <: Sprite2D, Circle is not
+PASS  §8 a later override is refused with ImplementError
+MESSAGE §8:
+ImplementError: a method is refused: Circle is a member of Shape, and the method would break its check
+  - a default of Shape serves describe at Circle since its membership: define the method before `@implement`, or in its block
+PASS  §8 the message says to define the method before the membership, or in its block
+PASS  §8 title(Circle(1.0)) unchanged
+PASS  §9 fits(Circle; within = Rect)
+PASS  §9 fits(Rect; within = Circle) is false
+PASS  §9 scaled_area(Rect(2.0, 3.0)) == 24.0
+PASS  §9 largest of three types
+PASS  §9 margin = 1 raises TypeError
+MESSAGE §9 margin:
+TypeError: in keyword argument margin, expected Float64, got a value of type Int64
+PASS  §9 the message: in keyword argument margin, expected Float64
+PASS  §9 within = 42 raises TypeError
+MESSAGE §9 within:
+TypeError: in keyword argument within, expected Shape, got a value of type Int64
+PASS  §9 the message: in keyword argument within, expected Shape
+PASS  §10 kind([1.0, 2.0])
+PASS  §10 kind(Circle(1.0))
+PASS  §10 kind(42)
+PASS  §10 the membership that makes Spot a member of both traits is accepted
+MESSAGE §10 ambiguity:
+WARNING: method pick at pick(Geometry.Shape) is ambiguous for Main.Spot, a member of Geometry.Shape, with the method at pick(Geometry.Placed); a method at pick(All{Geometry.Placed, Geometry.Shape}) would resolve it
+
+PASS  §10 that membership reports the ambiguity of pick(::Shape) and pick(::Placed), and the method at All that resolves it
+PASS  §10 pick(spot) is ambiguous: MethodError
+PASS  §10 a method at All{Shape, Placed} resolves it
+PASS  §11 doubled(Circle(1.0))
+PASS  §11 doubled(Tile): the label kept
+PASS  §11 nudged(sp): a new Sprite
+PASS  §11 doubled(Dynamic{Scalable}(Circle(1.0))) is a box of Circle(2.0)
+PASS  §11 nudged(Dynamic{Placed}(sp)) is a box of a new Sprite, x = 2.0
+PASS  §11 nudged is bounded: a trait module accepts it without @unbounded
+PASS  §11 at a box, withfields names only the fields the trait declares: ArgumentError
+MESSAGE §11 withfields at a box:
+ArgumentError: withfields: name is not a declared field of Placed; withfields(unwrap(d); …) rebuilds the object
+PASS  §11 withfields at a member names any field
+PASS  §12 totalarea
+PASS  §12 the scene holds the circle itself, added at the prompt
+PASS  §12 the item answers for itself: a Scalable, == the circle
+PASS  §12 the same from a function that knows the type
+PASS  §12 a kept form is stored as the kept form
+PASS  §12 Vector{Dynamic{Shape}}: each item a Dynamic{Shape}
+PASS  §12 unwrap(bs[3]) == Circle(1.0): the wrapper's choice erased there
+PASS  §12 the wrapper is a Shape and a Scalable, not a Circle
+PASS  §12 Dynamic{Shape} isa Shape
+PASS  §12 area(d)
+PASS  §12 ratio(d)
+PASS  §12 unwrap(d)
+PASS  §12 Dynamic{Shape}(42) raises TypeError
+PASS  §13 total([1.0, 2.0, 3.5])
+PASS  §13 total([1, 2, 3]) is an Int
+PASS  §13 total(Series(Float32[1, 2]))
+PASS  §13 mean64(Series([1.0, 4.0]))
+PASS  §13 Vector{Int} <: Samples{Int}
+PASS  §13 mean64([1, 2]) raises MethodError
+MESSAGE §13 mean64:
+MethodError: no method matching mean64(::Vector{Int64})
+The function `mean64` exists, but no method is defined for this combination of argument types.
+Hint: `s` is a member of `Samples{Int64}`; the method takes `Samples{Float64}`
+
+Closest candidates are:
+  mean64(!Matched::Samples{Float64})
+   @ Main.Signals /p/projects/coen/julia-trait-bound/experiments/docs-examples/tutorial.jl:323
+
+PASS  §13 the hint: `s` is a member of `Samples{Int64}`; the method takes `Samples{Float64}`
+PASS  §13 a stated parameter against its equation: ImplementError
+PASS  §13 a parameter stated at the membership: MyVec <: ArrayLike{Float32, 1}, not ArrayLike{Float64, 1}
+PASS  §13 dotp
+PASS  §13 dotp([1.0], [1]) raises MethodError
+MESSAGE §13 dotp:
+MethodError: no method matching dotp(::Vector{Float64}, ::Vector{Int64})
+The function `dotp` exists, but no method is defined for this combination of argument types.
+Hint: `T` is `Float64` for `a` and `Int64` for `b`
+
+Closest candidates are:
+  dotp(::Samples{T}, !Matched::Samples{T}) where T
+   @ Main.Dots /p/projects/coen/julia-trait-bound/experiments/docs-examples/tutorial.jl:410
+
+PASS  §13 the hint: `T` is `Float64` for `a` and `Int64` for `b`
+PASS  §13 dotp written with a generator is bounded
+PASS  §13 the generator's dotp
+PASS  §14 transform(x -> 2x, …)
+PASS  §14 transform(compiled_for(…), …)
+PASS  §14 sumby(abs2, …)
+PASS  §14 a result of the wrong type raises TypeError
+MESSAGE §14 transform:
+TypeError: in Callable, expected Float64, got a value of type Int64
+PASS  §14 the message: in Callable, expected Float64
+PASS  §14 a function with no method at Float64 raises MethodError
+MESSAGE §14 uppercase:
+MethodError: no method matching transform(::typeof(uppercase), ::Vector{Float64})
+This error has been manually thrown, explicitly, so the method may exist but be intentionally marked as unimplemented.
+Hint: `uppercase` is given at `Callable{Tuple{Float64}, Float64}`, and none of its methods takes `Tuple{Float64}`; its methods take (::WrapperChar), (::SubString{<:Base.AnnotatedString}), (::Base.Ann
+PASS  §14 the hint: uppercase is given at Callable{Tuple{Float64}, Float64}, and none of its methods takes Tuple{Float64}
+PASS  §14 sin isa Callable{Tuple{Float64}, Float64}
+PASS  §14 uppercase isa Callable{Tuple{Float64}, Float64}: membership reads no method
+PASS  §14 a trait module accepts a method that passes f on to map
+PASS  §14 countif
+PASS  §14 Gate(f): F is the box's type
+PASS  §14 Gate(compiled_for(f)): F is the wrapper's type
+PASS  §14 Threshold(f) holds the box
+PASS  §14 inside, f is the box or the wrapper; unwrap(f) is the function
+PASS  §14 countgate
+PASS  §14 a container typed by Callable keeps each function as given
+PASS  §14 passes(tests, 2.0) == 1
+MESSAGE §14 passes:
+TypeError: non-boolean (Int64) used in boolean context
+PASS  §14 a function known only by its signature is called as a box is: its result checked, a TypeError that expects Bool
+PASS  §15 energy([1.0, 2.0])
+PASS  §15 energy(Ring([3.0, 4.0]))
+PASS  §15 Ring <: Signal, transitively
+PASS  §15 Vector{Float64} <: Signal
+PASS  §16 a result of the wrong type: ImplementError
+MESSAGE §16 Square:
+ImplementError: Square cannot be a member of Shape
+  - area's method at Square infers its result as Int64, outside the declared Float64
+PASS  §16 the message: area's method at Square infers its result as Int64, outside the declared Float64
+PASS  §16 a missing operation: ImplementError
+MESSAGE §16 Dot:
+ImplementError: Dot cannot be a member of Shape
+  - no method serves perimeter(s::Shape)::Float64 at Dot
+PASS  §16 the message: no method serves perimeter(s::Shape)::Float64 at Dot
+PASS  §16 ratio(42) raises MethodError
+MESSAGE §16 ratio(42):
+MethodError: no method matching ratio(::Int64)
+The function `ratio` exists, but no method is defined for this combination of argument types.
+Hint: `Int64` is not a member of `Shape`; `@implement Shape Int64` declares it
+
+Closest candidates are:
+  ratio(!Matched::Shape)
+   @ Main.Geometry /p/projects/coen/julia-trait-bound/experiments/docs-examples/tutorial.jl:23
+
+PASS  §16 an unbounded method in a trait module: TraitUseError
+MESSAGE §16 Sloppy:
+TraitUseError: `outline(s::Shape)` is declared bounded, and is not bounded: read with `s` in a box, `Dynamic{Shape}`:
+  length(s) has no method, at line 546
+PASS  §16 a pirate in a trait module: OwnershipError
+MESSAGE §16 Meddler:
+OwnershipError: sum(::Vector{Int8}) in Main.Meddler is a pirate, and the scope declares `no_pirates`: Main.Meddler owns neither the function (owned by Julia) nor a type in each of its signatures (owned by Julia). The function's owner or the owner of a type it is for defines it, or names Main.Meddler a joint owner (`@joint_owners`)
+PASS  §16 tally(Any[1, "a", 2.0]) == 3
+PASS  §16 a method of an owner-only function, for the user's own type: followed by default
+MESSAGE §16 Tally:
+a pirate ended code compiled by facts that only a stakeholder's change or a pirate can end: `weight(::Heavy)`, defined by Main in Main, which does not own the function: `weight` is an owner-only function of Main.Tally (neither exported nor declared `public`): only Main.Tally adds methods to it, whatever types they are for. It ended 1 instance: Main.Tally.tally. It is followed, as plain Julia follows it: that code is compiled again. To let other modules add methods, Main.Tally declares it `public` or exports it, or names Main a joint owner (`@joint_owners`). Otherwise define a function of your own; strict mode (`TraitWorld.strict!()`) refuses such a definition; `TraitWorld.report_pirates!(false)` silences this report.
+PASS  §16 a warning names the pirate, the owner-only function and the code it ended
+PASS  §16 the pirate is followed: tally(Any[1, Heavy(5)]) == 6
+PASS  §16 in a trait module, a method of another module's owner-only function is refused: OwnershipError
+MESSAGE §16 Meddler4:
+OwnershipError: weight(::Mine) in Main.Meddler4 is a pirate, and the scope declares `no_pirates`: `weight` is an owner-only function of Main.Tally (neither exported nor declared `public`): only Main.Tally adds methods to it, whatever types they are for. To let other modules add methods, Main.Tally declares it `public` or exports it, or names Main.Meddler4 a joint owner (`@joint_owners`). Otherwise define a function of your own
+PASS  §16 that OwnershipError names the owner-only function and its owner, Main.Tally, and what Tally writes to let others extend it (traits §11.3)
+PASS  §16 a member's module adds its method of another module's trait's operation, not exported: accepted
+PASS  §16 the operation at the member: Plates.thickness(Sheet(2.5)) == 2.5
+PASS  §17 an abstract field refused by @enforce_concrete_only: ImplementError
+MESSAGE §17 Crate:
+ImplementError: Crate cannot be a member of Weighted
+  - Self is AbstractVector{Float64}, which is not concrete (@enforce_concrete_only Self in Weighted)
+PASS  §17 the message: Self is AbstractVector{Float64}, which is not concrete
+PASS  §17 Box joins
+PASS  §17 firstsample([1.5, 2.0])
+PASS  §17 firstsample(Real[…]) raises TraitUseError
+MESSAGE §17 firstsample:
+TraitUseError: `firstsample`: `T` is Real, which is not concrete (`@enforce_concrete_only T`)
+PASS  §17 the message: `T` is Real, which is not concrete
+PASS  §17 totalarea is fully typed
+PASS  §17 wscaled is not
+
+129 pass, 0 fail, 0 known deviations
+exit 0
+== 9a25e86ff3 load 7.44 7.53 6.84 8/54293 195079 04:36:00
+## strict
+PASS  §18 sq([1.0, 2.0, 3.0])
+PASS  §18 the pirate is refused: PirateError
+      message: PirateError: strict mode refuses `abs2(::Float64)`, defined by Main.Meddler2. |   It would win at the call `abs2(::Float64)`, which code compiled by facts makes (in `Main.Norms.sq`). |   Main.Meddler2 owns neither the function nor a type in that signature (a pirate). Define it where a type it is for is owned, name the definer a joint owner (`@joint_owners`), or turn strict mode off (`TraitWorld.strict!(false)`) to follow it as plain Julia does.
+PASS  §18 sq is unchanged
+PASS  §18 the pirate was never defined
+PASS  §18 a pirate that changes no code compiled by facts is accepted
+PASS  §18 a method for your own type is no pirate: accepted
+PASS  §18 tally(Any[1, "a", 2.0]) == 3
+PASS  §18 a method of an owner-only function, for your own type, that would change code compiled by facts: PirateError
+MESSAGE §18 owner-only:
+PirateError: strict mode refuses `weight(::Heavy)`, defined by Main.
+  It would win at the call `weight(::Any)`, which code compiled by facts makes (in `Main.Tally.tally`).
+  A pirate: `weight` is an owner-only function of Main.Tally (neither exported nor declared `public`): only Main.Tally adds methods to it, whatever types they are for.
+  To let other modules add methods, Main.Tally declares it `public` or exports it, or names Main a joint owner (`@joint_owners`). Otherwise define a function of your own; or turn strict mode off (`TraitWorld.strict!(false)`) to follow it as plain Julia does.
+PASS  §18 the PirateError names the owner-only function
+PASS  §18 tally is unchanged
+
+10 pass, 0 fail, 0 known deviations
+exit 0
+== 9a25e86ff3 load 7.40 7.52 6.84 9/54311 195214 04:36:02

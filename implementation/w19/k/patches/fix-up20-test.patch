@@ -1,0 +1,12 @@
+diff --git a/Compiler/test/inference.jl b/Compiler/test/inference.jl
+--- a/Compiler/test/inference.jl
++++ b/Compiler/test/inference.jl
+@@ -6733,7 +6733,7 @@
+ not_identical(a, b) = a !== b
+ @test Base.infer_return_type(not_identical, (NotIdenticalT, NotIdenticalT)) === Bool
+ @test not_identical(NotIdenticalT(1), NotIdenticalT(2))
+-@test all(mi -> mi.specTypes === Tuple{typeof(!==), Any, Any}, Base.specializations(only(methods(!==))))
++@test all(mi -> mi.specTypes === Tuple{typeof(!==), Any, Any}, Base.specializations(which(!==, Tuple{Any, Any})))
+ @test only(code_typed(not_identical, (Union{Nothing,Int}, Nothing)))[2] === Bool
+ 
+ end # module inference

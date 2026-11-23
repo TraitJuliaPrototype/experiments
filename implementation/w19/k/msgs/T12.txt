@@ -1,0 +1,22 @@
+Core, Compiler, jltypes: `Callable{A, S}`, the functions called with arguments of `A` that return an `S`
+
+`Core.Callable{A, S}` is a set of Core's build, opened when Core is built, with both parameters as
+inputs: every `Function` is a member of every instance by one entry (`base/Base.jl`), and a callable
+type that is no function joins by its own declaration. A call of a value known as `Callable{A, S}`
+is inferred as `S` (`callable_result`; at an intersection of such, the component whose `A` the
+arguments match), marked trusted: the function's own code knows nothing of `S`. The inliner checks the
+arguments against `A` where inference cannot prove them (`Core._callable_argcheck`, `MethodError`) and
+the result (`Core._callable_result`, the box's `TypeError`), by an invoke of the check compiled into
+the system image (`CallableCallInfo`, `handle_callable_call!`).
+
+Code compiled while Base is built may hold a match at an intersection with `Callable` that no type is
+in, whose negative becomes final with Base's own sets: at the end of Base's build those instances are
+invalidated in a new world, with their callers (`jl_invalidate_code_instances_new_world`,
+`base/sysimg.jl`).
+
+Test: `test/subtype.jl` "Callable{A, S}" (every function a member of every instance, whatever its
+methods; a callable type by its declaration; a call through the signature raises `MethodError`
+outside `A`, also where inference proves it outside); gates `n8_callable`, `n14_callable_args`,
+`n26_callable_late_method` (with the library).
+
+Co-Authored-By: Claude <noreply@anthropic.com>

@@ -1,0 +1,20 @@
+base, REPL: `IO`'s contract, `IOContext{IO}`, and the display at `IOContext{IO}`
+
+`IO` is Julia's closed abstract type, and a method typed `io::IO` is compiled per stream type. Base
+declares `IO`'s contract (`base/iotrait.jl`): nine operations, each Base's method at `::IO`, with the
+declared result `Any` (no result can be promised for Julia's streams, which no check reaches), and the
+split's candidates `IOBuffer`, `IOStream`, `TTY`, `PipeEndpoint`. At a value typed `IO` (a field, an
+element, an argument declared `@nospecialize`) an operation's call branches over the candidates and
+goes through the table past them.
+
+`IOContext{IO}(io, key => value, …)` is the erased stream: one type whatever the stream it holds, its
+properties stored through `ImmutableDict`'s own constructor by `invoke`. The REPL's `show_limited` and
+Base's `TextDisplay` pass `IOContext{IO}` to `show`, so every value's `show` method runs at one stream
+type, which a package image's workload at `IOContext{IO}(IOBuffer())` covers. A package's `show`
+method that dispatches on the stream's own type (a method at `IOContext{Base.TTY}`) is not reached
+from the display.
+
+Test: `test/show.jl` "IO's contract and IOContext{IO}" (the contract's candidates; an operation at a
+value typed `IO`; the erased stream's type and its properties); gate `n19_io_trait`.
+
+Co-Authored-By: Claude <noreply@anthropic.com>

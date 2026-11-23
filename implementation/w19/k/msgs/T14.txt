@@ -1,0 +1,28 @@
+Core, gf: the kept forms `Dynamic{X}` and `Compiled{T}`, and an argument typed by a set
+
+`Core.Dynamic{X}`, the box, holds a member of the set `X` so that code for it is compiled once per set
+instance; its membership test is `new`'s field test with no conversion (`Core._new_dynamic`).
+`Core.Compiled{T}`, the wrapper, holds a value at its own type so that code for it is compiled for
+that type. Both are ordinary structs; a trait library declares their memberships and their methods,
+and Core defines them so that the forwarders the expansion hook makes name them.
+
+An argument typed by a set that names the method's variables (`X{T}`) is compiled once at that
+instance with the variables' values from the match (`jl_compilation_sig`, `jl_isa_compileable_sig`;
+`is_trait_arg_type`, `jl_is_trait_arg_type`), never at a type with a free variable. Julia's
+despecialization of a function argument the method does not call skips an argument declared at a
+set: how such an argument is compiled is the set's rule, and `Function` is one of `Callable`'s
+members. A set of Core's build that erases by default carries the bit `erases` (`Callable`), read
+through `jl_set_erases`. The runtime lists the methods whose signatures name a set
+(`jl_open_set_methods_of`), for a library that compiles them ahead for a new member.
+
+A library declares each kept form a member of its set by a pattern bounded by the set (`Compiled{Z}
+where Z <: X`), so whether `Compiled{S}` is in `X` rests on `S`'s memberships, a pair other than
+(`Compiled{S}`, `X`): a concrete type on whose chain a pattern's variable is bounded by a type in which
+a set occurs is no final non-member (`chain_has_set_bounded_pattern` in `jl_membership_final`).
+
+Test: test/subtype.jl, "a type in a pattern bounded by a set is no final non-member", "the kept
+forms Dynamic{X} and Compiled{T}" (ordinary structs; an argument typed `X{T}` compiled once is
+compiled at the instance; the erasing bit; the methods that name a set); gates `m1_no_wrappers`,
+`n30_where_variable`, `n33_compiled_as_julia`; the library's suite.
+
+Co-Authored-By: Claude <noreply@anthropic.com>

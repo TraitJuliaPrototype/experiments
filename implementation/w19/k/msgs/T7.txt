@@ -1,0 +1,49 @@
+Compiler, gf, datatype: final negatives, and a match met only at an intersection no type is in
+
+A negative about a set is now relied on where it holds: "the concrete type `S` is not a member of
+the set `X`", and "no type under the abstract type `A` is in `X`" where their intersection has no
+type. The code records the pair's absence signature, a signature of `Core.implements` with no
+method (`Tuple{typeof(implements), Type{<:X}, Type{S}}`), as a call that found no method records
+its signature: a backedge at the method table, validated by a lookup. A membership declared later
+adds the method that meets that signature and ends the code, as a method definition ends the
+callers that found none. One signature per pair and session (`jl_absence_sigs`, rooted, and kept
+by the system image with the other indices of sets in a later part).
+
+Inference folds such a negative at `isa` and `<:` in an inference frame
+(`negative_fold_blocked(a, b, sv)`), and at an intersection `All{A, X}` no type is in. The code's
+worlds are bounded by the worlds in which the pair's absence holds (`absence_worlds`): code inferred
+for a world before a membership, or after one is taken back, is not run where the membership holds.
+
+Method matching drops a match met only at an intersection that no type of the query's world is in,
+at a final pair, before the matches are sorted and their ambiguities computed (`drop_unmet_matches`
+in `ml_matches_i`); the dropped pairs' absence signatures go to inference
+(`jl_matching_methods_cells`, `MethodLookupResult.cells`), which records them. `Base.isambiguous`
+and the ambiguity report at a membership pass over an argument met only at such an intersection:
+two methods are ambiguous only over values that exist.
+
+Method matching runs in the query's world (`ml_matches_c`): membership questions inside the match
+are asked there also where the task's world is frozen below the latest entries.
+
+An answer about a set that inference leaves to the run is not consistent, so no compile-time
+evaluation folds it with an edge to the callee's code alone, which records nothing for it: `isa`,
+`<:` and a `typeassert` about a set that inference did not fold (`builtin_effects`), `new`'s field
+test that is not proved, a call given as a constant a type in which a set occurs (it is not
+evaluated at compile time: `typeintersect` and `==` of types assert their consistency over the
+runtime's answer; `names_open_set_const`, `concrete_eval_eligible`), and a call whose method is
+chosen when it runs among matches one of which rests on memberships (a signature that names a set,
+or has a variable with a lower bound), and such an `applicable` (`choice_rests_on_memberships`).
+`hasmethod`'s "no method covers these types" folds only with the absence signatures of the pairs
+the lookup dropped at a final pair; where a method that meets the types rests on memberships, or
+the types name a set, it is not folded.
+
+A kind of type object (`DataType`, `UnionAll`, `Union`, `Type{T}` with a free `T`) meets a set where
+the set takes a type value, which rests on the set's entries for type values, held on each value's
+TypeName and on no type of the query: the worlds of a match at a kind, or of its absence, are
+narrowed by those entries (`jl_type_has_kind`, `value_entries_range`), also where the intersection
+is empty.
+
+Test: test/subtype.jl, "final negatives", "an answer about a set that inference does not fold is
+not consistent", "a match at a kind holds only while the set's entries for type values do", "a
+choice among methods at a set, and `hasmethod` at a set, are not folded".
+
+Co-Authored-By: Claude <noreply@anthropic.com>

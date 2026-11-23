@@ -1,0 +1,36 @@
+Compiler, gf, datatype: a membership is a method of `Core.implements`; answers folded through it hold an edge to it
+
+A membership now has a method of a function the runtime defines, `Core.implements`, at
+`(Type{X}, Type{S})` for the set `X` and the member `S` (`Type{<:S}` for an abstract member).
+The declaration makes it in the declarer's module and activates it in the entry's world; taking
+the membership back ends it as a deleted method ends; a program defines no method of
+`implements` and deletes none of its methods. The entry keeps its method (`MembershipEntry.method`).
+
+With that method, inference relies on a positive answer that holds through a membership as it
+relies on a dispatch: the frame records an `invoke` edge to the method's instance, and starts its
+worlds no earlier than the entry's. The entries recorded are every entry live in the world on a
+TypeName reachable from either side, through parameters, both bounds of each variable, supertypes
+and entries' instances, whose set reaches a set either side names (`jl_membership_entries_for`): a
+lower bound turns the question around (in `Ref{Y} <: Ref{T} where T >: Z` the walk asks `Z <: Y`,
+the member on the right and the set on the left), and a fold rests on no fewer entries than it uses. The parts before this one could only refuse such folds; they
+now fold where an inference frame records them:
+- `isa` and `<:` (`isa_tfunc`, `subtype_tfunc`, reached with the frame from `builtin_tfunction`);
+- a dispatch match through an entry (`record_match_memberships!`);
+- `new`'s field tests, a `setfield!`'s and `memoryrefset!`'s value test and a `typeassert`
+  (`prove_type_test!`): the statement carries `IR_FLAG_TYPES_PROVEN`, and code generation emits
+  no run-time test for it (`emit_isa`, `ctx.types_proven`).
+Elsewhere (the optimizer's queries, a frame that is not an inference frame) the answer is not
+folded, as before. `typesubtract` gets the two gates the earlier part left out: no subtraction to
+`Union{}` through an entry, no negative.
+
+A test `x isa X` at a set narrows its true branch to the set where the set is under what was known
+of the value: the test proves it when it runs. No negative is folded.
+
+The deep class admits the edge: a membership's instance has no code, and only the membership's end
+breaks code that relies on it (`edges_satisfy_g2`, `name_callee_code`). What a membership ends of
+the deep class is named by its method.
+
+Test: test/subtype.jl, "a membership's method, and the edges of answers folded through it", "a
+positive answer through entries records the entries of both sides" (and taken back).
+
+Co-Authored-By: Claude <noreply@anthropic.com>

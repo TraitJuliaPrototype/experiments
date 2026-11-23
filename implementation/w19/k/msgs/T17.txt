@@ -1,0 +1,14 @@
+Compiler: the definition-time check's interpreter (`DefinitionCheckInterpreter`) and its bootstrap entries
+
+A trait library checks a method at a set where it is defined: it infers the method's body with an
+interpreter whose code cache is ephemeral and which calls the library's hook at each known call of
+`abstract_call_known`. The interpreter is the compiler's own (`DefinitionCheckInterpreter`,
+`DefinitionCheckCache`), behind a test that folds for every other interpreter, so the library defines
+no method of the compiler's functions and loading it invalidates none of the compiler's code. The
+compiler's bootstrap compiles the interpreter's entries (`typeinf_frame`, `typeinf`, `typeinf_local`,
+`optimize` and the others), for a library that runs the check in inference's world.
+
+Test: `Compiler/test/inference.jl` (the interpreter infers a method at a signature, calling the hook
+at each known call, and leaves no code in the session's cache); the library's suite.
+
+Co-Authored-By: Claude <noreply@anthropic.com>

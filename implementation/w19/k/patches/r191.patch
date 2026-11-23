@@ -1,0 +1,120 @@
+commit 9970f8799a10a2ae40e5629661ad81f31e4b2a5e
+Author: frank <hellmann@pik-potsdam.de>
+Date:   Mon Nov 23 01:53:16 2026 +0100
+
+    Compiler: a choice left to the run among methods at a set is not consistent; `hasmethod`'s negative at a set is not folded
+    
+    A membership adds no method (compiler §5.5): a call whose matches include a method at a set has the same matches
+    after the membership, and code that leaves the choice to the run stays valid, so the walk keeps it. Two answers
+    fold that choice, or a signature's coverage, at compile time with nothing that records it. A call whose method is
+    chosen when it runs among matches one of which rests on memberships (a signature that names a set, or has a
+    variable with a lower bound) answers by the world's memberships, yet its effects were consistent: a caller
+    evaluated it at compile time at a constant (a singleton member) and kept the answer after the membership (E-542's
+    pattern 7, `disp` and `app` compiled once at a set or an abstract type). And `hasmethod` folded "no method covers
+    these types" with a missing-method edge, which the walk keeps where the method matched before though it did not
+    cover. Now such a call, and such an `applicable`, are not consistent (`choice_rests_on_memberships`: row 187's
+    rule for an answer about a set that inference does not fold), and `hasmethod`'s negative folds only with the
+    absence edges of the pairs the lookup dropped at a final pair; where a method that meets the types rests on
+    memberships, or the types name a set, it is not folded.
+    
+    Reference: compiler §4.8, §5.5.
+    Test: experiments/implementation/w171/gates/n44_set_choice_not_folded.jl.
+    
+    Co-Authored-By: Claude <noreply@anthropic.com>
+
+diff --git a/Compiler/src/abstractinterpretation.jl b/Compiler/src/abstractinterpretation.jl
+index 57a2eabab7..abe40de5d1 100644
+--- a/Compiler/src/abstractinterpretation.jl
++++ b/Compiler/src/abstractinterpretation.jl
+@@ -1365,6 +1365,12 @@ function abstract_call_gf_by_type(interp::AbstractInterpreter, @nospecialize(fun
+                 state.all_effects = Effects(state.all_effects; nothrow=false)
+                 state.exctype = state.exctype ⊔ₚ MethodError
+             end
++            # a method chosen when the call runs, among matches at a set, answers by the world's memberships:
++            # not consistent, so no compile-time evaluation folds the choice
++            if state.all_effects.consistent !== ALWAYS_FALSE &&
++               choice_rests_on_memberships(applicable, fully_covering(state.matches))
++                state.all_effects = Effects(state.all_effects; consistent = ALWAYS_FALSE)
++            end
+             local fargs = arginfo.fargs
+             if sv isa InferenceState && fargs !== nothing
+                 state.slotrefinements = collect_slot_refinements(𝕃ᵢ, applicable, argtypes, fargs, sv)
+diff --git a/Compiler/src/tfuncs.jl b/Compiler/src/tfuncs.jl
+index 69ef918381..523348d6a6 100644
+--- a/Compiler/src/tfuncs.jl
++++ b/Compiler/src/tfuncs.jl
+@@ -3268,6 +3268,9 @@ function abstract_applicable(interp::AbstractInterpreter, argtypes::Vector{Any},
+             end
+             if rt !== Bool
+                 info = VirtualMethodMatchInfo(matches.info)
++            elseif choice_rests_on_memberships(applicable, fully_covering(matches))
++                # answered when it runs by the world's memberships: not consistent
++                return Future(CallMeta(rt, Union{}, Effects(EFFECTS_TOTAL; consistent = ALWAYS_FALSE), info))
+             end
+         end
+     end
+@@ -3300,8 +3303,19 @@ function _hasmethod_tfunc(interp::AbstractInterpreter, argtypes::Vector{Any}, sv
+     match, valid_worlds = findsup(types, method_table(interp))
+     update_valid_age!(sv, valid_worlds)
+     if match === nothing
++        # "no method covers `types`" is a negative about a set where a method that meets `types` rests on
++        # memberships, or `types` names a set: a membership can make the method cover it, while the call's
++        # matches stay the same. It folds only with the absence edges of the pairs it rests on,
++        # those of the matches the lookup dropped at a final pair. Elsewhere it is not folded.
++        lookup = findall(types, method_table(interp))
++        if lookup === nothing || names_open_set(types) ||
++           any(i -> sig_rests_on_memberships(lookup[i].method.sig), 1:length(lookup))
++            return CallMeta(Bool, Any, Effects(EFFECTS_TOTAL; consistent = ALWAYS_FALSE), NoCallInfo())
++        end
++        valid_worlds = intersect(valid_worlds, lookup.valid_worlds)
++        update_valid_age!(sv, valid_worlds)
+         rt = Const(false)
+-        vresults = MethodLookupResult(Any[], valid_worlds, true)
++        vresults = MethodLookupResult(Any[], valid_worlds, true, lookup.cells)
+         mt = Core.methodtable
+         vinfo = MethodMatchInfo(vresults, mt, types, false) # XXX: this should actually be an info with invoke-type edge
+     else
+diff --git a/Compiler/src/typeutils.jl b/Compiler/src/typeutils.jl
+index a9e8e07fd8..87d214f4f6 100644
+--- a/Compiler/src/typeutils.jl
++++ b/Compiler/src/typeutils.jl
+@@ -117,6 +117,39 @@ function names_open_set(@nospecialize(a))::Bool
+     return ccall(:jl_has_open_set, Cint, (Any,), T) != 0
+ end
+ names_open_set(argtypes::Vector{Any}, start::Int) = any(i -> names_open_set(argtypes[i]), start:length(argtypes))
++# Whether a membership can change which types are under a method's signature: it names an open set, or it has a
++# variable with a lower bound (`h(::Ph{T}) where T >: S` takes `Ph{X}` once `S` joins `X`).
++function sig_rests_on_memberships(@nospecialize(sig))::Bool
++    ccall(:jl_has_open_set, Cint, (Any,), sig) != 0 && return true
++    return has_lower_bound(sig, 0)
++end
++# a variable with a lower bound at a covariant place: the top, a tuple's element, a union's component, a `Vararg`
++function has_lower_bound(@nospecialize(t), depth::Int)::Bool
++    depth > 8 && return false
++    while isa(t, UnionAll)
++        t.var.lb === Union{} || return true
++        t = t.body
++    end
++    isa(t, Union) && return has_lower_bound(t.a, depth + 1) || has_lower_bound(t.b, depth + 1)
++    isvarargtype(t) && return isdefined(t, :T) && has_lower_bound(unwrapva(t), depth + 1)
++    if isa(t, DataType) && t.name === Tuple.name
++        for p in t.parameters
++            has_lower_bound(p, depth + 1) && return true
++        end
++    end
++    return false
++end
++# Whether a call's method is chosen when it runs among matches one of which rests on memberships:
++# the choice is a question about a set that inference did not fold, answered by the world's memberships. A
++# membership adds no method, so the code that leaves the choice to the run keeps its validity; an answer
++# computed at compile time from it at a narrower argument (concrete evaluation) would not.
++function choice_rests_on_memberships(applicable, fullcover::Bool)::Bool
++    (length(applicable) > 1 || !fullcover) || return false
++    for i = 1:length(applicable)
++        sig_rests_on_memberships(applicable[i].match.method.sig) && return true
++    end
++    return false
++end
+ function positive_fold_blocked(@nospecialize(a), @nospecialize(b))::Bool
+     (ccall(:jl_has_open_set, Cint, (Any,), a) != 0 || ccall(:jl_has_open_set, Cint, (Any,), b) != 0) || return false
+     return ccall(:jl_subtype_via_membership, Cint, (Any, Any), a, b) != 0

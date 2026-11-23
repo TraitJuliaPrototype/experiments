@@ -1,0 +1,129 @@
+commit edb0e3dcaece0de086a5a9ee3768a8de71d53a2a
+Author: frank <hellmann@pik-potsdam.de>
+Date:   Sun Nov 22 23:13:05 2026 +0100
+
+    Compiler: an answer about a set that inference does not fold is not consistent; a set given as a constant is not evaluated at compile time
+    
+    Concrete evaluation runs a call at compile time where its effects are consistent, and folds the result with an
+    edge to the callee's code only (compiler §3.1). A test about a set that inference left unfolded (`isa`, `<:`, a
+    `typeassert`, `new`'s field test) answers by the world's memberships, and its code records nothing for it; and
+    `typeintersect` and `==` of types assert their consistency (`@_total_meta`) over the runtime's answer. So a
+    caller folded `Tuple{S} <: Tuple{X}`, `typeintersect(S, X) === Union{}`, `A == B` or a typeassert's throw in the
+    world it was compiled in, and kept it after a membership (E-542). Now such a builtin's call and such a field
+    test are not consistent, and a call given as a constant a type in which an open set occurs is not consistent and
+    is not evaluated at compile time (`names_open_set`, `names_open_set_const`, `concrete_eval_eligible`).
+    
+    Reference: compiler §4.8 (code that relies on an answer about a set holds only where it does).
+    Test: experiments/implementation/audit/set_folds.jl (E-542); experiments/implementation/w171/gates.
+    
+    Co-Authored-By: Claude <noreply@anthropic.com>
+
+diff --git a/Compiler/src/abstractinterpretation.jl b/Compiler/src/abstractinterpretation.jl
+index 6eab073789..57a2eabab7 100644
+--- a/Compiler/src/abstractinterpretation.jl
++++ b/Compiler/src/abstractinterpretation.jl
+@@ -1300,6 +1300,12 @@ function abstract_call_gf_by_type(interp::AbstractInterpreter, @nospecialize(fun
+                     end
+                 end
+ 
++                # a call given a type in which an open set occurs as a constant may answer by the world's
++                # memberships (`typeintersect`, `==` of types, whatever asserts its consistency): it is not
++                # consistent, and is not evaluated at compile time (`concrete_eval_eligible`)
++                if effects.consistent !== ALWAYS_FALSE && names_open_set_const(this_argtypes)
++                    effects = Effects(effects; consistent = ALWAYS_FALSE)
++                end
+                 state.all_effects = merge_effects(state.all_effects, effects)
+                 if const_result !== nothing
+                     local const_results = state.const_results
+@@ -2057,6 +2063,11 @@ function concrete_eval_eligible(interp::AbstractInterpreter,
+             return :none
+         end
+     end
++    if names_open_set_const(arginfo.argtypes)
++        # its answer may differ in another world, and compile-time evaluation records nothing for it
++        add_remark!(interp, sv, "[constprop] Concrete eval disabled for a set given as a constant")
++        return :none
++    end
+     if result.edge !== nothing && is_foldable(effects, #=check_rtcall=#true)
+         if f !== nothing && is_all_const_arg(arginfo, #=start=#2)
+             if (is_nonoverlayed(interp) || is_nonoverlayed(effects) ||
+@@ -2086,6 +2097,18 @@ function concrete_eval_eligible(interp::AbstractInterpreter,
+     return :none
+ end
+ 
++# Whether an argument after the function is a constant type in which an open set occurs.
++function names_open_set_const(argtypes::Vector{Any})
++    for i = 2:length(argtypes)
++        a = argtypes[i]
++        isvarargtype(a) && continue
++        a = widenslotwrapper(a)
++        isa(a, Const) && isa(a.val, Type) && ccall(:jl_has_open_set, Cint, (Any,), a.val) != 0 && return true
++        isType(a) && (p = a.parameters[1]; isa(p, Type) && ccall(:jl_has_open_set, Cint, (Any,), p) != 0) && return true
++    end
++    return false
++end
++
+ is_all_const_arg(arginfo::ArgInfo, start::Int) = is_all_const_arg(arginfo.argtypes, start::Int)
+ function is_all_const_arg(argtypes::Vector{Any}, start::Int)
+     for i = start:length(argtypes)
+@@ -4482,10 +4505,13 @@ function abstract_eval_new(interp::AbstractInterpreter, e::Expr, sstate::Stateme
+             for i = 1:nargs
+                 at = widenslotwrapper(abstract_eval_value(interp, e.args[i+1], sstate, sv))
+                 ft = fieldtype(rt, i)
+-                nothrow && (nothrow = ⊑(𝕃ᵢ, at, ft))
++                proved = ⊑(𝕃ᵢ, at, ft)
+                 # a field's test that holds through a membership entry is relied on with an edge on
+                 # the entry, as `isa`'s positive is (compiler §4.8)
+-                nothrow && (nothrow = !positive_fold_blocked(widenconst(at), ft, sv))
++                proved && (proved = !positive_fold_blocked(widenconst(at), ft, sv))
++                nothrow &= proved
++                # a field's test about a set that is not proved passes or throws by the world: not consistent
++                !proved && (names_open_set(at) || names_open_set(ft)) && (consistent = ALWAYS_FALSE)
+                 at = tmeet(𝕃ᵢ, at, ft)
+                 at === Bottom && return RTEffects(Bottom, TypeError, EFFECTS_THROWS)
+                 if ismutable && !isconst(rt, i)
+diff --git a/Compiler/src/tfuncs.jl b/Compiler/src/tfuncs.jl
+index 22903981b9..69ef918381 100644
+--- a/Compiler/src/tfuncs.jl
++++ b/Compiler/src/tfuncs.jl
+@@ -2721,6 +2721,12 @@ function builtin_effects(𝕃::AbstractLattice, @nospecialize(f::Builtin), argty
+             effect_free = ALWAYS_FALSE
+         end
+         nothrow = builtin_nothrow(𝕃, f, argtypes, rt)
++        # an answer about a set that inference did not fold changes with the world, and nothing records it: it is
++        # not consistent, so no concrete evaluation runs it at compile time
++        if consistent !== ALWAYS_FALSE && (f === isa || f === (<:) || f === typeassert) &&
++           (f === typeassert ? !nothrow : !isa(rt, Const)) && names_open_set(argtypes, 1)
++            consistent = ALWAYS_FALSE
++        end
+         if contains_is(_INACCESSIBLEMEM_BUILTINS, f)
+             inaccessiblememonly = ALWAYS_TRUE
+         elseif contains_is(_ARGMEM_BUILTINS, f)
+diff --git a/Compiler/src/typeutils.jl b/Compiler/src/typeutils.jl
+index 5386ac372c..a9e8e07fd8 100644
+--- a/Compiler/src/typeutils.jl
++++ b/Compiler/src/typeutils.jl
+@@ -100,6 +100,23 @@ function add_absence_edge!(edges::Vector{Any}, @nospecialize(sig))
+     push!(edges, 0, sig)
+     return nothing
+ end
++# Whether an open set occurs in the type a lattice element stands for, in the type it holds as a constant, or in
++# the type of the constant: an answer about it may change with the world.
++function names_open_set(@nospecialize(a))::Bool
++    isvarargtype(a) && return names_open_set(unwrapva(a))
++    if isa(a, Const)
++        v = a.val
++        isa(v, Type) && ccall(:jl_has_open_set, Cint, (Any,), v) != 0 && return true
++        return ccall(:jl_has_open_set, Cint, (Any,), typeof(v)) != 0
++    end
++    T = widenconst(a)
++    if isType(T)
++        p = T.parameters[1]
++        isa(p, Type) && ccall(:jl_has_open_set, Cint, (Any,), p) != 0 && return true
++    end
++    return ccall(:jl_has_open_set, Cint, (Any,), T) != 0
++end
++names_open_set(argtypes::Vector{Any}, start::Int) = any(i -> names_open_set(argtypes[i]), start:length(argtypes))
+ function positive_fold_blocked(@nospecialize(a), @nospecialize(b))::Bool
+     (ccall(:jl_has_open_set, Cint, (Any,), a) != 0 || ccall(:jl_has_open_set, Cint, (Any,), b) != 0) || return false
+     return ccall(:jl_subtype_via_membership, Cint, (Any, Any), a, b) != 0

@@ -1,0 +1,25 @@
+commit 6e0701d6af2b1d355fbb10bbe871e26d49caa398
+Author: frank <hellmann@pik-potsdam.de>
+Date:   Sun Nov 22 22:46:38 2026 +0100
+
+    Compiler: the union-splitting cost in a test of `callsig_splits`; two comments
+    
+    `unionsplitcost` leaves the largest union out of the product it counts, so a signature with one union
+    of five members is within the cost, and the test that expected no splits for it failed. The test now
+    takes two unions of three members each, whose cost (six) is past the default of four.
+    
+    Co-Authored-By: Claude <noreply@anthropic.com>
+
+diff --git a/Compiler/src/facts.jl b/Compiler/src/facts.jl
+index 231e569e56..a7046e7a1c 100644
+--- a/Compiler/src/facts.jl
++++ b/Compiler/src/facts.jl
+@@ -193,7 +193,7 @@ function policy_interp(interp::NativeInterpreter, facts::Bool; nested::Bool = tr
+                              facts, interp.crossings + Int(nested), false, nothing, nothing)
+ end
+ 
+-"Whether `interp` infers `mi`'s top frame under the other policy than its method's (facts )."
++"Whether `interp` infers `mi`'s top frame under the other policy than its method's (reflection)."
+ infers_other_policy(::AbstractInterpreter, ::MethodInstance) = false
+ infers_other_policy(interp::NativeInterpreter, mi::MethodInstance) =
+     !interp.plainrt && mi.def isa Method && mi_policy_facts_at(mi, interp.facts) !== interp.facts

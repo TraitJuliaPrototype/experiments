@@ -1,0 +1,16 @@
+Compiler: a call's edge at a top-level union is split, each split with its own edge
+
+A call with one fully covering match that reaches an instance wider than its signature keeps the
+call's signature in its dispatch edge and its backedge (the call-signature backedge, earlier in this
+series). Where that signature has a union at its top level, as a call of `!==`, `TypeVar` or
+`UnionAll` matched at its own argument types has (`(Union{Nothing, Int64}, Nothing)` in
+`in(::Char, ::String)`), the edge named the union. It is now split as inference splits a call,
+within the facts inference's union-splitting cost (`callsig_splits`), and each split is recorded
+with its own edge: each a fact signature where its types are concrete, so the deep class can admit
+the caller. The union of the splits is the call's signature, so a method defined later ends the
+caller exactly where it did.
+
+Test: `Compiler/test/inference.jl` (the splits of a signature; none past the cost, which leaves the
+largest union out of its product); the gate `f4_g2_bit`.
+
+Co-Authored-By: Claude <noreply@anthropic.com>

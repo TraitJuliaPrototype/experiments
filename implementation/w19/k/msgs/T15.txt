@@ -1,0 +1,28 @@
+Compiler, effects: the `trusted` effect, and the checks of a result a member's own code does not check
+
+A declared result is read at a set: an operation's call at a receiver typed by its set is inferred as
+the operation's declared result. The code that runs is the member's own method, compiled for the
+member's type, which knows nothing of the declared result, and a member of a pattern is checked only
+at its first use. A result that rests on such a declaration is trusted, not proved.
+
+The `Effects` gain `trusted` (two bits, beside `nortsite`: an operation's result, and the result of a
+call of a function known only by its signature, which a later part reads), carried to callers as the
+other bits are, and cleared at concrete argument types, where the instance inferred is the one that
+runs. Statements get two IR flags for it (`IR_FLAGS_TRUSTED`), set with the effects' flags
+(`merge_override_effects!`, `adjust_cycle_frame!`). A call or an `invoke` that is trusted where
+another instance may run has its type alone as its result, not a constant or a condition read from
+the instance inferred. The inliner checks a trusted result where the code that runs may be another
+instance than the one inferred (`check_trusted_result!`): a call left to dispatch, a union split's
+fallback, an invoke of an instance at wider types. Compiled code never takes a value that its call's
+type excludes.
+
+The result of a constant-propagated call taken for its effects or its exception type joins the
+call's type: with declared results, inference at a wider argument (an operation's result through the
+set) and at a narrower one (the member's own method) is not monotone.
+
+Test: `test/subtype.jl` "an operation's result is checked where the member's code does not check
+it" (the call through the trait is inferred as the declared result and marked trusted; a member's
+method redefined to another type raises a `TypeError` there, a dynamic call returns its result) and
+"declared results, fields and operations"; gate `n35_trusted_result` (with a trait library).
+
+Co-Authored-By: Claude <noreply@anthropic.com>

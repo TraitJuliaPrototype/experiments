@@ -1,0 +1,28 @@
+Compiler, datatype, gf: an operation's call split over its set's candidates, and the table of a call's targets
+
+An operation's call at a receiver typed by its set is inferred as the declared result and left to
+dispatch. Each set now keeps its candidates: the concrete members its memberships name, in the order
+they were declared (`register_candidate` at a declaration and at an image's activation, removed when
+a membership is taken back; `jl_register_candidate`, `jl_candidates_of`; a closed type with a contract
+names its own). The call is split over the first four candidates of the receiver's set
+(`operation_split_type`): each branch knows the value's type and is the call at that candidate,
+inlined where the candidate's method is a leaf (it calls only builtins and intrinsics), else a call
+through a `:caller_world` pointer to the candidate's target, which holds no edge
+(`split_branch_pointer`); a branch's result not known to be the declared result is asserted.
+
+Past the candidates, the call goes through a table of its targets (`Compiler/src/splittable.jl`,
+`base/splittable.jl`, `base/splittarget.jl`; `jl_split_table_ptr`): one table per call signature, from
+the value's type to a `:caller_world` pointer to the call's target compiled for that type, made at the
+first miss by Base's `_split_table_miss!` and kept per session. Where no pointer can be made (a
+session without the compiler) the call is dynamic. The system image keeps the candidates and the miss.
+
+A split records no edges of its own (`SplitCallInfo`): its result is the declared result, a part of
+the set's contract. The inliner records the edge of each branch it inlines or makes a static call,
+naming the code it inlined (`split_case_edge!`). An invalidation below a candidate stops at the split.
+
+Test: `test/subtype.jl` "an operation's call split over its set's candidates, and the table past
+them" (the candidates in declaration order; the optimized code tests the first four; the fifth is
+called through the table); gates `n22_declared_assert`, `n23_contract_image`; `n19_io_trait` with
+`IO`'s contract.
+
+Co-Authored-By: Claude <noreply@anthropic.com>

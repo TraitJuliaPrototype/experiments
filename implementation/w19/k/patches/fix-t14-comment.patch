@@ -1,0 +1,12 @@
+diff --git a/src/datatype.c b/src/datatype.c
+--- a/src/datatype.c
++++ b/src/datatype.c
+@@ -1417,7 +1417,7 @@
+     jl_gc_wb(tn, contract);
+ }
+ 
+-// Whether a set erases by default (compiler §4.1, §6.3): a bit Core's build sets on `Callable`; a
++// Whether a set erases by default: a bit Core's build sets on `Callable`; a
+ // library's set carries it in its contract. The method definition's expansion hook reads it.
+ JL_DLLEXPORT int jl_set_erases(jl_value_t *T)
+ {

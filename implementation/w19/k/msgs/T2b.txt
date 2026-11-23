@@ -1,0 +1,39 @@
+subtype: a membership is a supertype in the worlds it is in force
+
+The second of four parts. Subtyping and intersection read the entries a membership declaration
+made: where a type's declared supertype chain misses a set, each entry in force on the type's
+TypeName, and on the TypeName of each type on its chain, is one more supertype.
+
+- `subtype`: at a set `y` the chain's miss is no answer; `subtype_membership` tries the type's
+  entries whose set reaches `y` (`jl_typename_reaches`), as the walk tries the members of a union
+  on the right of `<:`, so the rest of the walk can revisit the choice. An entry's pattern
+  variables join the walk as existential variables: matching the type pins them, and the instance
+  is compared with the variables' values (`subtype_entry`). So memberships compose with each other
+  and with declared supertypes, and a set's parameters compare as any type's do.
+- A type value is a member by an entry for `Type{S}`, kept on `S`'s TypeName: `S isa X`, never
+  `S <: X`. A kind of type object (`DataType`, `UnionAll`, `Union`) meets a set with such an entry.
+  `jl_isa` and `jl_has_intersect_type_not_kind` follow.
+- Inside the equality of an invariant parameter no entry is consulted: a membership adds subtype
+  answers, never type equalities (`Vector{Int}` is no `Vector{X}`). The walk keeps a count
+  (`noentry`) that a variable's bound resets, since a bound is a subtype question; a question asked
+  afresh from inside the walk keeps the rule (`subtype_fresh`, `subtype_noentry`). A variable bound
+  inside the parameter being compared is part of that equality: the walk keeps the invariant depth
+  at which the outermost equality began (`noentry_depth`), and such a variable's bounds are compared
+  with no entry, in subtyping and in intersection. So `Ph{Ph{T} where T >: X}` and
+  `Ph{Ph{T} where T >: Union{X, S}}` are two types in every world, as `isa` of an instance says.
+- Intersection: where the chains miss and one side is a set, the instance of each entry is met with
+  the set (`intersect_membership`); with free variables the type itself is the answer, an
+  over-approximation as intersection allows. Two sets, or a set and an abstract type, that no entry
+  relates do not meet in this world; a method match's worlds come with dispatch at sets.
+- The query's world is the task's query world where it is set, else its world age: an entry is
+  invisible to code running in an older world.
+- `obviously_disjoint` and `obvious_subtype` do not decide a pair with a set; a union's
+  simplification and a type expression's normal form use declared supertypes alone
+  (`jl_subtype_declared`), so a type expression gives the same type in every world.
+
+A type without a set in it (`has_open_set` clear) takes none of these paths: each new branch is
+behind a test of a TypeName's `open_set` bit at a point where the walk has already found no answer.
+
+Test: with the fourth part.
+
+Co-Authored-By: Claude <noreply@anthropic.com>

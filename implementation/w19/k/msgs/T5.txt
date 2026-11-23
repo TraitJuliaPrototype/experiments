@@ -1,0 +1,58 @@
+gf, datatype: a membership invalidates as a method does, and a membership taken back
+
+A membership makes the methods at its set apply to the member, as a method definition makes itself
+apply. This makes it invalidate the code and the dispatch caches that relied on the earlier answer,
+as the definition of that method at the member would.
+
+- The walk (`jl_membership_dispatch_walk`), run by the declaration under the world counter's lock
+  in the entry's world: for every method at the set or at a set the member joins (the list by set),
+  the method's insertion is replayed with the member in place of the set
+  (`membership_subst_sig`; below a position's top too: in a union, a tuple's component, an
+  intersection, the bound a type declares for its parameter, `membership_subst_nested`). The
+  replay runs the insertion's own code (`invalidate_intersecting`, the body of
+  `jl_method_table_activate` it shares): the specializations and the callers whose selected method
+  changes are invalidated, and the dispatch caches lowered. Only the method's own function is
+  visited, by an intersection with `Tuple{F, Vararg{Any}}`.
+- What a membership does not change keeps its code: a method that names the set only as an
+  invariant parameter (`Vector{X}`) is not replayed; a call that matched the replayed method in the
+  world before the membership (a call at `Any`, at an abstract type that met the set) has the same
+  matches after it (`replay_matched_before`); the wide instance of another method stays.
+- A method whose variable has a lower bound at a covariant place (`h(::Ph{T}) where T >: S`) is
+  selected, once `S` joins `X`, at a type that names the set (`Ph{X}`): there a type under the
+  member, not the set, carries the membership. The list by set keeps such methods under the key
+  `nothing` (twenty of Base's methods: `T >: Missing`, `T >: Nothing`); the walk and the removal
+  walk replay each whose bound meets the member at the method's own signature
+  (`lower_bound_targets`), and a match's worlds are narrowed by the entries of the signature's lower
+  bounds (`jl_sig_lower_bounds`).
+- An entry at instances of its own variables (a member of the bare set, every instance) reaches a
+  method at one instance where the two meet (`membership_param_meets`).
+- A shape that one substituted signature cannot state (the set under a `Vararg`, in a lower bound,
+  in several places below a position's top) takes the conservative path: the method's own instances
+  and callers end, and every ground specialization of the table that the method matches in the
+  entry's world (`membership_shadow_visitor`). Where a bound the signature sets names the set, the
+  method is replayed at its own signature.
+- A dispatch backedge that keeps the call's own signature (a call that reached a wider instance)
+  is judged at that signature.
+- What the membership ends of the code compiled by facts in the deep class is kept, for a tool that
+  asks (`jl_deep_ending_push("membership", entry)`), as a definition's is.
+- A membership taken back (`jl_delete_membership`): its entry ends in the current world, and the
+  removal walk ends what relied on it: each method at the set is replayed at the member as if
+  deleted there (its instances at the member and their callers, also the callers of an instance with
+  no code, as an `applicable` or `hasmethod` folded through the membership names it, a caller of a wider instance whose
+  call selected it at the member, the cache entries, a call at the member that found no method or
+  an ambiguity). A call at the member that selected the member's own method keeps its code. A member
+  by its declared supertype cannot be taken back, nor while a package image is built.
+- Counters of the walk for tests (`jl_membership_stat`) and a line per declaration on
+  `JULIA_MEMBERSHIP_LOG`.
+
+Test: `test/subtype.jl`, "a membership invalidates as a method does" (a caller compiled before
+the membership dispatches to the method at the set after it and keeps its answer in the older
+world; a call that dispatches at run time keeps its code; a variable's bound names the set; an
+invariant parameter does not vary and its caller keeps its code) and "a membership taken back"
+(the answer and the caller's code follow; a second taking back is refused); "a positive at a Vararg
+tail and at a declared supertype's parameter, taken back" (the rule of the commit "inference asks memberships in the world it infers
+for", tested here because it needs the taking back), "a membership taken back ends the callers of an instance with no code", "a membership
+replays the methods whose lower bound the member meets" (declared, taken back, through a path of
+two), "a membership at every instance reaches a method at one instance".
+
+Co-Authored-By: Claude <noreply@anthropic.com>

@@ -1,0 +1,38 @@
+Compiler, codegen, gf: inference asks memberships in the world it infers for, and folds no answer a membership could change
+
+The fourth of four parts: what makes code compiled before a membership right after it.
+
+- Inference runs with its task's world frozen at the compiler's own world, below every membership
+  of the program. `jl_type_infer`, `jl_gdbcodetyped1` and the image's compile queues
+  (`typeinf_ext_toplevel`) set the query world to the world they infer for;
+  `jl_call_in_typeinf_world` (reflection, `Base.code_typed`) to the caller's world, unless an
+  enclosing query has set one.
+- The compiler folds no answer about a pair that names a set where a membership could change it:
+  - a negative (`isa`, `<:`, an empty `typeintersect` in `tmeet`, a constant's type in the
+    lattice) where a later declaration could make the pair meet (`jl_could_join`: a type of
+    another name could become a member unless it is a Core kind; inside a container, per
+    parameter; two tuples of different lengths, a `Vararg` tail, by whether a set occurs in either;
+    `Type{S}` against a type that is no set, per parameter; a type whose declared supertype carries
+    its parameter, through that supertype);
+  - a positive that the declared supertypes alone do not answer (`jl_subtype_via_membership`): it
+    rests on an entry, which is in force in some worlds only (also two tuples of different lengths,
+    and a chain that reaches the set's type name through a declared supertype that carries the
+    parameter);
+  - the early constant evaluation of `isa`, `<:`, `>:` and `typeassert` with an argument that
+    names a set is left to the tfuncs, which ask the same.
+  Code generation asks the same before it decides a test statically (`emit_isa`, the refinement of
+  a constant's type, `<:` of two type constants: `jl_membership_flip_possible`). Such a test is left
+  to run, and asks the entries in force in the world it runs in. A pair with no set in it reads one
+  bit per side and folds as before.
+
+Test: `test/subtype.jl`, "Sets and memberships" (a membership is a supertype from the world after
+it, also for code compiled before it, and not in an older world; tuple parameters, a typeassert, a
+union's simplification; invariant parameters; a set's parameters and one instance per member; a
+type value's entry; a set that joins another, and a cycle refused; inputs; a redeclaration ends the
+old entry; the declaration's refusals; inference keeps a negative `isa` at a set as `Bool`), "a set
+in a type variable's lower bound", "a negative at a Vararg tail, at Type{S} and at a declared
+supertype's parameter", "a variable bound inside an invariant parameter compares its bounds with no
+entry" (the rule of the commit "a membership is a supertype in the worlds it is in
+force").
+
+Co-Authored-By: Claude <noreply@anthropic.com>

@@ -1,0 +1,31 @@
+Compiler, gf: the G2 bit, set on a CodeInstance whose edges are facts at any depth
+
+Code is *deep G2* when every dispatch edge of its record is at a fact signature and every callee
+among its edges is a CodeInstance that is deep G2 itself: only a definition by the owners of the
+functions and types its facts name (or a pirate) can invalidate it, at any depth. An image may then
+keep such code where nothing static reaches it (the next commit), and a tool may ask which code an unrelated
+load can end. The class is a property of the record, of either policy: plain code is in it where
+its calls happen to be facts.
+
+- `JL_CI_FLAGS_G2` (0b010000), set by `jl_ci_set_g2` when a CodeInstance is finished
+  (`set_g2!` in `finish!` and for a constant-propagated result's edge instance in
+  `codeinst_as_edge`), kept in images with the code and across the runtime's copies of a
+  CodeInstance.
+- Decided with no walk (`edges_satisfy_g2`): a callee finishes before its callers, so its bit is
+  final. A dispatch edge at a method table is checked at its signature; an ordinary call at its own
+  signature, which the call-signature backedge keeps where the call reached a wider instance (`CallSigBackedge`); an `invoke`
+  at a declared signature is not gated; a binding edge is no dispatch.
+- An inference cycle is decided as one: every member carries the bit where every member's record
+  passes, else none (`finish_cycle`).
+- An edge names the callee's code where it exists when the caller finishes (`name_callee_code`): a
+  callee that inference reached before it had a CodeInstance (a recursion, a limited inference)
+  and that finished before the caller is named by its CodeInstance of the policy the call reaches,
+  valid in the caller's worlds. A callee named by its MethodInstance alone carries no bit.
+
+Test: gate `f4_g2_bit` (a facts caller at a fact is G2, at an abstract signature not; a cycle;
+an edge to a callee named by its code); `test/worlds.jl` (a method of `!==` for another type leaves
+a caller at `Int`: `!==` is inferred once and matched at the call's types, an earlier patch, and its
+backedge keeps the call's signature); `test/precompile.jl`.
+
+Co-Authored-By: Claude <noreply@anthropic.com>
+

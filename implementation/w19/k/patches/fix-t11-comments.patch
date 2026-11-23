@@ -1,0 +1,23 @@
+diff --git a/src/datatype.c b/src/datatype.c
+--- a/src/datatype.c
++++ b/src/datatype.c
+@@ -230,7 +230,7 @@
+     JL_GC_POP();
+ }
+ 
+-// a member taken back leaves its set's candidates (compiler §4.3, §7.2), a pattern's every member with
++// a member taken back leaves its set's candidates, a pattern's every member with
+ // it: the list replaced without them. Called under the world counter's lock, so no declaration adds one
+ // meanwhile.
+ static void unregister_candidates(jl_typename_t *set, jl_value_t *member)
+@@ -1449,8 +1449,8 @@
+     return jl_svecref(jl_atomic_load_relaxed(&((jl_datatype_t*)jl_unwrap_unionall(T))->name->contract), 0);
+ }
+ 
+-// a member of a pattern joins its set's candidates at its first use (the library, compiler §10.4);
+-// a closed type's candidates are its contract's, named once with it (§7.2)
++// a member of a pattern joins its set's candidates at its first use (the member hook);
++// a closed type's candidates are its contract's, named once with it
+ JL_DLLEXPORT void jl_register_candidate(jl_value_t *set, jl_value_t *T)
+ {
+     jl_value_t *uw = jl_unwrap_unionall(set);

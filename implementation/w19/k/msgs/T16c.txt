@@ -1,0 +1,24 @@
+Compiler: a closed build's rules as a check in a session, and the verifier of an invoke that names its instance
+
+The third of three parts of a closed build.
+- The check (`closed_check(mis, world, overlay)`): the method instances `mis` and what they reach are
+  inferred by a closed build's rules, every method plainly, in the build's rounds, into a cache of
+  their own (the owner `ClosedCheck`, a fresh object; `NativeInterpreter(; closed)`), and verified by
+  the build's verifier: the calls a build from `mis` would refuse, each instance's caller, each set a
+  split was made at with its members, the rounds. The session's code is not touched; the check's code
+  ends with it. `overlay` holds the methods the build replaces in Base, laid over the session's
+  methods (`method_table` reads it).
+- The build's queue compiles an invoke that names its method instance and not its code (a body
+  inlined from an image's cache), as any target, for at most four instances of one method
+  (`MAX_NAMED_INSTANCES`): a call that inference limited names a new instance at each step of a
+  recursion over growing types.
+- The verifier takes an invoke whose code the build did not compile as resolved only where the build
+  compiles the instance's code of the policy the trampoline's `jl_invoke` asks; an invoke that names
+  its instance where the build compiled it.
+
+Test: `test/subtype.jl` "a closed build's check: the members of a set are those the program has" (an
+operation's call split over a concrete member and the one instance of a family the program uses);
+`Compiler/test/verifytrim.jl` (an invoke resolved by the code it names or by its instance's code of the
+policy asked, refused for code of the other policy only).
+
+Co-Authored-By: Claude <noreply@anthropic.com>

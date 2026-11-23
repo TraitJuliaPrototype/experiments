@@ -1,0 +1,968 @@
+== julia-next 3e9c193025 load 5.31 4.90 5.77 7/54244 213319
+set_folds: Julia 1.13.2 3e9c193025*, mode stub, jl_delete_membership present
+cases: 557 (36 shapes, 18 sequences); questions: sub int eq hasm isa tassert new stf mrs disp app which op fld
+ran in 285.0 s: 189704 checks
+
+== compiled against fresh: 7982 mismatches (question, shape, sequence: count, forms, kinds)
+  disp    deep9             redeclared           28  forms q,r        kept_after_change×8 old_copy_in_later_world×8 first_compiled×4 own_world×4 run_in_earlier_world×4  compiled/fresh :Any/:B
+  disp    lb_in_tuple       redeclared           28  forms q,r        kept_after_change×8 old_copy_in_later_world×8 first_compiled×4 own_world×4 run_in_earlier_world×4  compiled/fresh :Any/:B
+  hasm    deep9             redeclared           28  forms q,r        kept_after_change×8 old_copy_in_later_world×8 first_compiled×4 own_world×4 run_in_earlier_world×4  compiled/fresh false/true
+  hasm    deep9             redeclared_by        22  forms q,r        kept_after_change×6 old_copy_in_later_world×6 first_compiled×4 own_world×4 run_in_earlier_world×2  compiled/fresh false/true
+  mrs     abstract_member   redeclared           22  forms q,r        kept_after_change×8 old_copy_in_later_world×8 run_in_earlier_world×4 own_world×2  compiled/fresh :would_trap/true
+  mrs     all3              redeclared           22  forms q,r        kept_after_change×8 old_copy_in_later_world×8 run_in_earlier_world×4 own_world×2  compiled/fresh :would_trap/true
+  mrs     both_bounds       redeclared           22  forms q,r        kept_after_change×8 old_copy_in_later_world×8 run_in_earlier_world×4 own_world×2  compiled/fresh :would_trap/true
+  mrs     deep9             redeclared           22  forms q,r        kept_after_change×8 old_copy_in_later_world×8 run_in_earlier_world×4 own_world×2  compiled/fresh :would_trap/true
+  mrs     deep9_lb          redeclared           22  forms q,r        kept_after_change×8 old_copy_in_later_world×8 run_in_earlier_world×4 own_world×2  compiled/fresh :would_trap/true
+  mrs     family            redeclared           22  forms q,r        kept_after_change×8 old_copy_in_later_world×8 run_in_earlier_world×4 own_world×2  compiled/fresh :would_trap/true
+  mrs     family_bounded    redeclared           22  forms q,r        kept_after_change×8 old_copy_in_later_world×8 run_in_earlier_world×4 own_world×2  compiled/fresh :would_trap/true
+  mrs     input             redeclared           22  forms q,r        kept_after_change×8 old_copy_in_later_world×8 run_in_earlier_world×4 own_world×2  compiled/fresh :would_trap/true
+  mrs     input_ub          redeclared           22  forms q,r        kept_after_change×8 old_copy_in_later_world×8 run_in_earlier_world×4 own_world×2  compiled/fresh :would_trap/true
+  mrs     inputs2           redeclared           22  forms q,r        kept_after_change×8 old_copy_in_later_world×8 run_in_earlier_world×4 own_world×2  compiled/fresh :would_trap/true
+  mrs     intersection      redeclared           22  forms q,r        kept_after_change×8 old_copy_in_later_world×8 run_in_earlier_world×4 own_world×2  compiled/fresh :would_trap/true
+  mrs     late_member       redeclared           22  forms q,r        kept_after_change×8 old_copy_in_later_world×8 run_in_earlier_world×4 own_world×2  compiled/fresh :would_trap/true
+  mrs     lb_in_tuple       redeclared           22  forms q,r        kept_after_change×8 old_copy_in_later_world×8 run_in_earlier_world×4 own_world×2  compiled/fresh :would_trap/true
+  mrs     lb_in_union       redeclared           22  forms q,r        kept_after_change×8 old_copy_in_later_world×8 run_in_earlier_world×4 own_world×2  compiled/fresh :would_trap/true
+  mrs     lb_tuple          redeclared           22  forms q,r        kept_after_change×8 old_copy_in_later_world×8 run_in_earlier_world×4 own_world×2  compiled/fresh :would_trap/true
+  mrs     lb_union          redeclared           22  forms q,r        kept_after_change×8 old_copy_in_later_world×8 run_in_earlier_world×4 own_world×2  compiled/fresh :would_trap/true
+  mrs     lb_vararg         redeclared           22  forms q,r        kept_after_change×8 old_copy_in_later_world×8 run_in_earlier_world×4 own_world×2  compiled/fresh :would_trap/true
+  mrs     lower_bound       redeclared           22  forms q,r        kept_after_change×8 old_copy_in_later_world×8 run_in_earlier_world×4 own_world×2  compiled/fresh :would_trap/true
+  mrs     lower_bound_rev   redeclared           22  forms q,r        kept_after_change×8 old_copy_in_later_world×8 run_in_earlier_world×4 own_world×2  compiled/fresh :would_trap/true
+  mrs     member_method     redeclared           22  forms q,r        kept_after_change×8 old_copy_in_later_world×8 run_in_earlier_world×4 own_world×2  compiled/fresh :would_trap/true
+  mrs     set_member        redeclared           22  forms q,r        kept_after_change×8 old_copy_in_later_world×8 run_in_earlier_world×4 own_world×2  compiled/fresh :would_trap/true
+  mrs     super_param       redeclared           22  forms q,r        kept_after_change×8 old_copy_in_later_world×8 run_in_earlier_world×4 own_world×2  compiled/fresh :would_trap/true
+  mrs     tuple             redeclared           22  forms q,r        kept_after_change×8 old_copy_in_later_world×8 run_in_earlier_world×4 own_world×2  compiled/fresh :would_trap/true
+  mrs     tuple2            redeclared           22  forms q,r        kept_after_change×8 old_copy_in_later_world×8 run_in_earlier_world×4 own_world×2  compiled/fresh :would_trap/true
+  mrs     type              redeclared           22  forms q,r        kept_after_change×8 old_copy_in_later_world×8 run_in_earlier_world×4 own_world×2  compiled/fresh :would_trap/true
+  mrs     union             redeclared           22  forms q,r        kept_after_change×8 old_copy_in_later_world×8 run_in_earlier_world×4 own_world×2  compiled/fresh :would_trap/true
+  mrs     upper_bound       redeclared           22  forms q,r        kept_after_change×8 old_copy_in_later_world×8 run_in_earlier_world×4 own_world×2  compiled/fresh :would_trap/true
+  mrs     vararg            redeclared           22  forms q,r        kept_after_change×8 old_copy_in_later_world×8 run_in_earlier_world×4 own_world×2  compiled/fresh :would_trap/true
+  stf     abstract_member   redeclared           22  forms q,r        kept_after_change×8 old_copy_in_later_world×8 run_in_earlier_world×4 own_world×2  compiled/fresh :would_trap/true
+  stf     all3              redeclared           22  forms q,r        kept_after_change×8 old_copy_in_later_world×8 run_in_earlier_world×4 own_world×2  compiled/fresh :would_trap/true
+  stf     both_bounds       redeclared           22  forms q,r        kept_after_change×8 old_copy_in_later_world×8 run_in_earlier_world×4 own_world×2  compiled/fresh :would_trap/true
+  stf     deep9             redeclared           22  forms q,r        kept_after_change×8 old_copy_in_later_world×8 run_in_earlier_world×4 own_world×2  compiled/fresh :would_trap/true
+  stf     deep9_lb          redeclared           22  forms q,r        kept_after_change×8 old_copy_in_later_world×8 run_in_earlier_world×4 own_world×2  compiled/fresh :would_trap/true
+  stf     family            redeclared           22  forms q,r        kept_after_change×8 old_copy_in_later_world×8 run_in_earlier_world×4 own_world×2  compiled/fresh :would_trap/true
+  stf     family_bounded    redeclared           22  forms q,r        kept_after_change×8 old_copy_in_later_world×8 run_in_earlier_world×4 own_world×2  compiled/fresh :would_trap/true
+  stf     input             redeclared           22  forms q,r        kept_after_change×8 old_copy_in_later_world×8 run_in_earlier_world×4 own_world×2  compiled/fresh :would_trap/true
+  stf     input_ub          redeclared           22  forms q,r        kept_after_change×8 old_copy_in_later_world×8 run_in_earlier_world×4 own_world×2  compiled/fresh :would_trap/true
+  stf     inputs2           redeclared           22  forms q,r        kept_after_change×8 old_copy_in_later_world×8 run_in_earlier_world×4 own_world×2  compiled/fresh :would_trap/true
+  stf     intersection      redeclared           22  forms q,r        kept_after_change×8 old_copy_in_later_world×8 run_in_earlier_world×4 own_world×2  compiled/fresh :would_trap/true
+  stf     late_member       redeclared           22  forms q,r        kept_after_change×8 old_copy_in_later_world×8 run_in_earlier_world×4 own_world×2  compiled/fresh :would_trap/true
+  stf     lb_in_tuple       redeclared           22  forms q,r        kept_after_change×8 old_copy_in_later_world×8 run_in_earlier_world×4 own_world×2  compiled/fresh :would_trap/true
+  stf     lb_in_union       redeclared           22  forms q,r        kept_after_change×8 old_copy_in_later_world×8 run_in_earlier_world×4 own_world×2  compiled/fresh :would_trap/true
+  stf     lb_tuple          redeclared           22  forms q,r        kept_after_change×8 old_copy_in_later_world×8 run_in_earlier_world×4 own_world×2  compiled/fresh :would_trap/true
+  stf     lb_union          redeclared           22  forms q,r        kept_after_change×8 old_copy_in_later_world×8 run_in_earlier_world×4 own_world×2  compiled/fresh :would_trap/true
+  stf     lb_vararg         redeclared           22  forms q,r        kept_after_change×8 old_copy_in_later_world×8 run_in_earlier_world×4 own_world×2  compiled/fresh :would_trap/true
+  stf     lower_bound       redeclared           22  forms q,r        kept_after_change×8 old_copy_in_later_world×8 run_in_earlier_world×4 own_world×2  compiled/fresh :would_trap/true
+  stf     lower_bound_rev   redeclared           22  forms q,r        kept_after_change×8 old_copy_in_later_world×8 run_in_earlier_world×4 own_world×2  compiled/fresh :would_trap/true
+  stf     member_method     redeclared           22  forms q,r        kept_after_change×8 old_copy_in_later_world×8 run_in_earlier_world×4 own_world×2  compiled/fresh :would_trap/true
+  stf     set_member        redeclared           22  forms q,r        kept_after_change×8 old_copy_in_later_world×8 run_in_earlier_world×4 own_world×2  compiled/fresh :would_trap/true
+  stf     super_param       redeclared           22  forms q,r        kept_after_change×8 old_copy_in_later_world×8 run_in_earlier_world×4 own_world×2  compiled/fresh :would_trap/true
+  stf     tuple             redeclared           22  forms q,r        kept_after_change×8 old_copy_in_later_world×8 run_in_earlier_world×4 own_world×2  compiled/fresh :would_trap/true
+  stf     tuple2            redeclared           22  forms q,r        kept_after_change×8 old_copy_in_later_world×8 run_in_earlier_world×4 own_world×2  compiled/fresh :would_trap/true
+  stf     type              redeclared           22  forms q,r        kept_after_change×8 old_copy_in_later_world×8 run_in_earlier_world×4 own_world×2  compiled/fresh :would_trap/true
+  stf     union             redeclared           22  forms q,r        kept_after_change×8 old_copy_in_later_world×8 run_in_earlier_world×4 own_world×2  compiled/fresh :would_trap/true
+  stf     upper_bound       redeclared           22  forms q,r        kept_after_change×8 old_copy_in_later_world×8 run_in_earlier_world×4 own_world×2  compiled/fresh :would_trap/true
+  stf     vararg            redeclared           22  forms q,r        kept_after_change×8 old_copy_in_later_world×8 run_in_earlier_world×4 own_world×2  compiled/fresh :would_trap/true
+  disp    set_member        method_at_member     20  forms o,q,r,ro   first_compiled×4 kept_after_change×4 old_copy_in_later_world×4 own_world×4 run_in_earlier_world×4  compiled/fresh :A/:B
+  app     deep9             redeclared           18  forms q,r        kept_after_change×6 old_copy_in_later_world×6 first_compiled×2 own_world×2 run_in_earlier_world×2  compiled/fresh false/true true/false
+  app     lb_in_tuple       redeclared           18  forms q,r        kept_after_change×6 old_copy_in_later_world×6 first_compiled×2 own_world×2 run_in_earlier_world×2  compiled/fresh false/true true/false
+  app     deep9             method_then_member   16  forms q,r        kept_after_change×6 old_copy_in_later_world×6 first_compiled×2 own_world×2  compiled/fresh false/true true/false
+  app     deep9             path_first_back      16  forms q,r        kept_after_change×6 old_copy_in_later_world×6 first_compiled×2 own_world×2  compiled/fresh false/true true/false
+  app     lb_in_tuple       method_then_member   16  forms q,r        kept_after_change×6 old_copy_in_later_world×6 first_compiled×2 own_world×2  compiled/fresh false/true true/false
+  app     lb_in_tuple       path_first_back      16  forms q,r        kept_after_change×6 old_copy_in_later_world×6 first_compiled×2 own_world×2  compiled/fresh false/true true/false
+  disp    deep9             redeclared_by        16  forms q,r        kept_after_change×6 old_copy_in_later_world×6 first_compiled×2 own_world×2  compiled/fresh :Any/:B
+  disp    lb_in_tuple       redeclared_by        16  forms q,r        kept_after_change×6 old_copy_in_later_world×6 first_compiled×2 own_world×2  compiled/fresh :Any/:B
+  hasm    lb_in_tuple       method_then_member   16  forms q,r        kept_after_change×6 old_copy_in_later_world×6 first_compiled×2 own_world×2  compiled/fresh true/false
+  hasm    lb_in_tuple       path_first_back      16  forms q,r        kept_after_change×6 old_copy_in_later_world×6 first_compiled×2 own_world×2  compiled/fresh true/false
+  disp    deep9             method_then_member   14  forms q,r        kept_after_change×4 old_copy_in_later_world×4 first_compiled×2 own_world×2 run_in_earlier_world×2  compiled/fresh :Any/:B
+  disp    deep9             path_first_back      14  forms q,r        kept_after_change×4 old_copy_in_later_world×4 first_compiled×2 own_world×2 run_in_earlier_world×2  compiled/fresh :Any/:B
+  disp    lb_in_tuple       method_then_member   14  forms q,r        kept_after_change×4 old_copy_in_later_world×4 first_compiled×2 own_world×2 run_in_earlier_world×2  compiled/fresh :Any/:B
+  disp    lb_in_tuple       path_first_back      14  forms q,r        kept_after_change×4 old_copy_in_later_world×4 first_compiled×2 own_world×2 run_in_earlier_world×2  compiled/fresh :Any/:B
+  hasm    deep9             method_then_member   14  forms q,r        kept_after_change×4 old_copy_in_later_world×4 first_compiled×2 own_world×2 run_in_earlier_world×2  compiled/fresh false/true
+  hasm    deep9             path_first_back      14  forms q,r        kept_after_change×4 old_copy_in_later_world×4 first_compiled×2 own_world×2 run_in_earlier_world×2  compiled/fresh false/true
+  hasm    deep9             path_second_back     14  forms q,r        kept_after_change×4 old_copy_in_later_world×4 first_compiled×2 own_world×2 run_in_earlier_world×2  compiled/fresh false/true
+  hasm    lb_in_tuple       redeclared           14  forms q,r        kept_after_change×4 old_copy_in_later_world×4 first_compiled×2 own_world×2 run_in_earlier_world×2  compiled/fresh true/false
+  mrs     type_value        redeclared           14  forms q,r        kept_after_change×6 old_copy_in_later_world×6 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     type_value        redeclared           14  forms q,r        kept_after_change×6 old_copy_in_later_world×6 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  app     deep9             method_at_member     12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 first_compiled×2 own_world×2  compiled/fresh false/true true/false
+  app     deep9             path_second_back     12  forms q,r        kept_after_change×6 old_copy_in_later_world×6  compiled/fresh false/true true/false
+  app     deep9             super1_back          12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 first_compiled×2 own_world×2  compiled/fresh false/true true/false
+  app     deep9             super2_back          12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 first_compiled×2 own_world×2  compiled/fresh false/true true/false
+  app     deep9             taken_back           12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 first_compiled×2 own_world×2  compiled/fresh false/true true/false
+  app     lb_in_tuple       method_at_member     12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 first_compiled×2 own_world×2  compiled/fresh false/true true/false
+  app     lb_in_tuple       path_second_back     12  forms q,r        kept_after_change×6 old_copy_in_later_world×6  compiled/fresh false/true true/false
+  app     lb_in_tuple       super1_back          12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 first_compiled×2 own_world×2  compiled/fresh false/true true/false
+  app     lb_in_tuple       super2_back          12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 first_compiled×2 own_world×2  compiled/fresh false/true true/false
+  app     lb_in_tuple       taken_back           12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 first_compiled×2 own_world×2  compiled/fresh false/true true/false
+  disp    deep9             path_second          12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 first_compiled×2 own_world×2  compiled/fresh :Any/:B
+  disp    deep9             path_second_back     12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 first_compiled×2 own_world×2  compiled/fresh :Any/:B
+  disp    lb_in_tuple       path_second          12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 first_compiled×2 own_world×2  compiled/fresh :Any/:B
+  disp    lb_in_tuple       path_second_back     12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 first_compiled×2 own_world×2  compiled/fresh :Any/:B
+  hasm    deep9             path_second          12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 first_compiled×2 own_world×2  compiled/fresh false/true
+  hasm    lb_in_tuple       method_at_member     12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 first_compiled×2 own_world×2  compiled/fresh true/false
+  hasm    lb_in_tuple       super1_back          12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 first_compiled×2 own_world×2  compiled/fresh true/false
+  hasm    lb_in_tuple       super2_back          12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 first_compiled×2 own_world×2  compiled/fresh true/false
+  hasm    lb_in_tuple       taken_back           12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 first_compiled×2 own_world×2  compiled/fresh true/false
+  mrs     abstract_member   method_then_member   12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     abstract_member   path_first_back      12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     abstract_member   path_second_back     12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     abstract_member   redeclared_by        12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     all3              method_then_member   12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     all3              path_first_back      12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     all3              path_second_back     12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     all3              redeclared_by        12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     both_bounds       method_then_member   12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     both_bounds       path_first_back      12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     both_bounds       path_second_back     12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     both_bounds       redeclared_by        12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     deep9             method_then_member   12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     deep9             path_first_back      12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     deep9             path_second_back     12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     deep9             redeclared_by        12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     deep9_lb          method_then_member   12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     deep9_lb          path_first_back      12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     deep9_lb          path_second_back     12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     deep9_lb          redeclared_by        12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     family            method_then_member   12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     family            path_first_back      12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     family            path_second_back     12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     family            redeclared_by        12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     family_bounded    method_then_member   12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     family_bounded    path_first_back      12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     family_bounded    path_second_back     12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     family_bounded    redeclared_by        12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     input             method_then_member   12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     input             path_first_back      12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     input             path_second_back     12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     input             redeclared_by        12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     input_ub          method_then_member   12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     input_ub          path_first_back      12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     input_ub          path_second_back     12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     input_ub          redeclared_by        12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     inputs2           method_then_member   12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     inputs2           path_first_back      12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     inputs2           path_second_back     12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     inputs2           redeclared_by        12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     intersection      method_then_member   12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     intersection      path_first_back      12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     intersection      path_second_back     12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     intersection      redeclared_by        12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     late_member       path_first_back      12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     late_member       path_second_back     12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     late_member       redeclared_by        12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     lb_in_tuple       method_then_member   12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     lb_in_tuple       path_first_back      12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     lb_in_tuple       path_second_back     12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     lb_in_tuple       redeclared_by        12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     lb_in_union       method_then_member   12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     lb_in_union       path_first_back      12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     lb_in_union       path_second_back     12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     lb_in_union       redeclared_by        12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     lb_tuple          method_then_member   12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     lb_tuple          path_first_back      12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     lb_tuple          path_second_back     12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     lb_tuple          redeclared_by        12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     lb_union          method_then_member   12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     lb_union          path_first_back      12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     lb_union          path_second_back     12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     lb_union          redeclared_by        12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     lb_vararg         method_then_member   12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     lb_vararg         path_first_back      12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     lb_vararg         path_second_back     12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     lb_vararg         redeclared_by        12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     lower_bound       method_then_member   12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     lower_bound       path_first_back      12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     lower_bound       path_second_back     12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     lower_bound       redeclared_by        12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     lower_bound_rev   method_then_member   12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     lower_bound_rev   path_first_back      12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     lower_bound_rev   path_second_back     12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     lower_bound_rev   redeclared_by        12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     member_method     method_then_member   12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     member_method     path_first_back      12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     member_method     path_second_back     12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     member_method     redeclared_by        12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     set_member        method_then_member   12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     set_member        path_first_back      12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     set_member        path_second_back     12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     set_member        redeclared_by        12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     super_param       method_then_member   12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     super_param       path_first_back      12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     super_param       path_second_back     12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     super_param       redeclared_by        12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     tuple             method_then_member   12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     tuple             path_first_back      12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     tuple             path_second_back     12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     tuple             redeclared_by        12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     tuple2            method_then_member   12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     tuple2            path_first_back      12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     tuple2            path_second_back     12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     tuple2            redeclared_by        12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     type              method_then_member   12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     type              path_first_back      12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     type              path_second_back     12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     type              redeclared_by        12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     union             method_then_member   12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     union             path_first_back      12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     union             path_second_back     12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     union             redeclared_by        12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     upper_bound       method_then_member   12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     upper_bound       path_first_back      12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     upper_bound       path_second_back     12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     upper_bound       redeclared_by        12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     vararg            method_then_member   12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     vararg            path_first_back      12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     vararg            path_second_back     12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     vararg            redeclared_by        12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     abstract_member   method_then_member   12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     abstract_member   path_first_back      12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     abstract_member   path_second_back     12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     abstract_member   redeclared_by        12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     all3              method_then_member   12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     all3              path_first_back      12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     all3              path_second_back     12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     all3              redeclared_by        12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     both_bounds       method_then_member   12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     both_bounds       path_first_back      12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     both_bounds       path_second_back     12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     both_bounds       redeclared_by        12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     deep9             method_then_member   12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     deep9             path_first_back      12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     deep9             path_second_back     12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     deep9             redeclared_by        12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     deep9_lb          method_then_member   12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     deep9_lb          path_first_back      12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     deep9_lb          path_second_back     12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     deep9_lb          redeclared_by        12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     family            method_then_member   12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     family            path_first_back      12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     family            path_second_back     12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     family            redeclared_by        12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     family_bounded    method_then_member   12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     family_bounded    path_first_back      12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     family_bounded    path_second_back     12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     family_bounded    redeclared_by        12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     input             method_then_member   12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     input             path_first_back      12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     input             path_second_back     12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     input             redeclared_by        12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     input_ub          method_then_member   12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     input_ub          path_first_back      12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     input_ub          path_second_back     12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     input_ub          redeclared_by        12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     inputs2           method_then_member   12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     inputs2           path_first_back      12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     inputs2           path_second_back     12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     inputs2           redeclared_by        12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     intersection      method_then_member   12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     intersection      path_first_back      12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     intersection      path_second_back     12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     intersection      redeclared_by        12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     late_member       path_first_back      12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     late_member       path_second_back     12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     late_member       redeclared_by        12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     lb_in_tuple       method_then_member   12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     lb_in_tuple       path_first_back      12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     lb_in_tuple       path_second_back     12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     lb_in_tuple       redeclared_by        12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     lb_in_union       method_then_member   12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     lb_in_union       path_first_back      12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     lb_in_union       path_second_back     12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     lb_in_union       redeclared_by        12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     lb_tuple          method_then_member   12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     lb_tuple          path_first_back      12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     lb_tuple          path_second_back     12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     lb_tuple          redeclared_by        12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     lb_union          method_then_member   12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     lb_union          path_first_back      12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     lb_union          path_second_back     12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     lb_union          redeclared_by        12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     lb_vararg         method_then_member   12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     lb_vararg         path_first_back      12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     lb_vararg         path_second_back     12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     lb_vararg         redeclared_by        12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     lower_bound       method_then_member   12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     lower_bound       path_first_back      12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     lower_bound       path_second_back     12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     lower_bound       redeclared_by        12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     lower_bound_rev   method_then_member   12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     lower_bound_rev   path_first_back      12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     lower_bound_rev   path_second_back     12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     lower_bound_rev   redeclared_by        12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     member_method     method_then_member   12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     member_method     path_first_back      12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     member_method     path_second_back     12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     member_method     redeclared_by        12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     set_member        method_then_member   12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     set_member        path_first_back      12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     set_member        path_second_back     12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     set_member        redeclared_by        12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     super_param       method_then_member   12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     super_param       path_first_back      12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     super_param       path_second_back     12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     super_param       redeclared_by        12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     tuple             method_then_member   12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     tuple             path_first_back      12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     tuple             path_second_back     12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     tuple             redeclared_by        12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     tuple2            method_then_member   12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     tuple2            path_first_back      12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     tuple2            path_second_back     12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     tuple2            redeclared_by        12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     type              method_then_member   12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     type              path_first_back      12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     type              path_second_back     12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     type              redeclared_by        12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     union             method_then_member   12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     union             path_first_back      12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     union             path_second_back     12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     union             redeclared_by        12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     upper_bound       method_then_member   12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     upper_bound       path_first_back      12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     upper_bound       path_second_back     12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     upper_bound       redeclared_by        12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     vararg            method_then_member   12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     vararg            path_first_back      12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     vararg            path_second_back     12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     vararg            redeclared_by        12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  which   deep9             redeclared           12  forms q,r        kept_after_change×8 first_compiled×4  compiled/fresh (:g, Tuple{Main.SF_deep9__redeclared.var"#g", Any})/(:g, Tuple{Main.SF_deep9__redeclared.var"#g", Tuple{Tuple{Tuple{Tuple{Tuple{Tuple{Tuple{Tuple{Tuple{Main.SF_deep9__redeclared.X}}}}}}}}}})
+  which   lb_in_tuple       redeclared           12  forms q,r        kept_after_change×8 first_compiled×4  compiled/fresh (:g, Tuple{Main.SF_lb_in_tuple__redeclared.var"#g", Any})/(:g, Tuple{Main.SF_lb_in_tuple__redeclared.var"#g", Main.SF_lb_in_tuple__redeclared.Ph{T} where T>:Tuple{Main.SF_lb_in_tuple__redeclared.S}})
+  disp    deep9             super1_back          10  forms q,r        first_compiled×2 kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :Any/:B
+  disp    deep9             super2_back          10  forms q,r        first_compiled×2 kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :Any/:B
+  disp    deep9             taken_back           10  forms q,r        first_compiled×2 kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :Any/:B
+  disp    lb_in_tuple       super1_back          10  forms q,r        first_compiled×2 kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :Any/:B
+  disp    lb_in_tuple       super2_back          10  forms q,r        first_compiled×2 kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :Any/:B
+  disp    lb_in_tuple       taken_back           10  forms q,r        first_compiled×2 kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :Any/:B
+  hasm    deep9             method_at_member     10  forms q,r        first_compiled×2 kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh false/true
+  hasm    deep9             super1_back          10  forms q,r        first_compiled×2 kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh false/true
+  hasm    deep9             super2_back          10  forms q,r        first_compiled×2 kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh false/true
+  hasm    deep9             taken_back           10  forms q,r        first_compiled×2 kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh false/true
+  mrs     type_value        method_then_member   10  forms q,r        kept_after_change×4 old_copy_in_later_world×4 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     type_value        path_first_back      10  forms q,r        kept_after_change×4 old_copy_in_later_world×4 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     type_value        path_second_back     10  forms q,r        kept_after_change×4 old_copy_in_later_world×4 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     type_value        method_then_member   10  forms q,r        kept_after_change×4 old_copy_in_later_world×4 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     type_value        path_first_back      10  forms q,r        kept_after_change×4 old_copy_in_later_world×4 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     type_value        path_second_back     10  forms q,r        kept_after_change×4 old_copy_in_later_world×4 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  app     deep9             path_second           8  forms q,r        kept_after_change×4 old_copy_in_later_world×4  compiled/fresh false/true
+  app     deep9             redeclared_by         8  forms q,r        kept_after_change×4 old_copy_in_later_world×4  compiled/fresh false/true
+  app     lb_in_tuple       path_second           8  forms q,r        kept_after_change×4 old_copy_in_later_world×4  compiled/fresh false/true
+  app     lb_in_tuple       redeclared_by         8  forms q,r        kept_after_change×4 old_copy_in_later_world×4  compiled/fresh false/true
+  disp    deep9             declared              8  forms q,r        first_compiled×2 kept_after_change×2 old_copy_in_later_world×2 own_world×2  compiled/fresh :Any/:B
+  disp    deep9             super1                8  forms q,r        first_compiled×2 kept_after_change×2 old_copy_in_later_world×2 own_world×2  compiled/fresh :Any/:B
+  disp    deep9             super2                8  forms q,r        first_compiled×2 kept_after_change×2 old_copy_in_later_world×2 own_world×2  compiled/fresh :Any/:B
+  disp    lb_in_tuple       declared              8  forms q,r        first_compiled×2 kept_after_change×2 old_copy_in_later_world×2 own_world×2  compiled/fresh :Any/:B
+  disp    lb_in_tuple       super1                8  forms q,r        first_compiled×2 kept_after_change×2 old_copy_in_later_world×2 own_world×2  compiled/fresh :Any/:B
+  disp    lb_in_tuple       super2                8  forms q,r        first_compiled×2 kept_after_change×2 old_copy_in_later_world×2 own_world×2  compiled/fresh :Any/:B
+  hasm    deep9             declared              8  forms q,r        first_compiled×2 kept_after_change×2 old_copy_in_later_world×2 own_world×2  compiled/fresh false/true
+  hasm    deep9             super1                8  forms q,r        first_compiled×2 kept_after_change×2 old_copy_in_later_world×2 own_world×2  compiled/fresh false/true
+  hasm    deep9             super2                8  forms q,r        first_compiled×2 kept_after_change×2 old_copy_in_later_world×2 own_world×2  compiled/fresh false/true
+  mrs     abstract_member   method_at_member      8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     abstract_member   path_second           8  forms q,r        kept_after_change×4 old_copy_in_later_world×4  compiled/fresh :would_trap/true
+  mrs     abstract_member   super1_back           8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     abstract_member   super2_back           8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     abstract_member   taken_back            8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     all3              method_at_member      8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     all3              path_second           8  forms q,r        kept_after_change×4 old_copy_in_later_world×4  compiled/fresh :would_trap/true
+  mrs     all3              super1_back           8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     all3              super2_back           8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     all3              taken_back            8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     both_bounds       method_at_member      8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     both_bounds       path_second           8  forms q,r        kept_after_change×4 old_copy_in_later_world×4  compiled/fresh :would_trap/true
+  mrs     both_bounds       super1_back           8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     both_bounds       super2_back           8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     both_bounds       taken_back            8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     deep9             method_at_member      8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     deep9             path_second           8  forms q,r        kept_after_change×4 old_copy_in_later_world×4  compiled/fresh :would_trap/true
+  mrs     deep9             super1_back           8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     deep9             super2_back           8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     deep9             taken_back            8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     deep9_lb          method_at_member      8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     deep9_lb          path_second           8  forms q,r        kept_after_change×4 old_copy_in_later_world×4  compiled/fresh :would_trap/true
+  mrs     deep9_lb          super1_back           8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     deep9_lb          super2_back           8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     deep9_lb          taken_back            8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     family            method_at_member      8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     family            path_second           8  forms q,r        kept_after_change×4 old_copy_in_later_world×4  compiled/fresh :would_trap/true
+  mrs     family            super1_back           8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     family            super2_back           8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     family            taken_back            8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     family_bounded    method_at_member      8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     family_bounded    path_second           8  forms q,r        kept_after_change×4 old_copy_in_later_world×4  compiled/fresh :would_trap/true
+  mrs     family_bounded    super1_back           8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     family_bounded    super2_back           8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     family_bounded    taken_back            8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     input             method_at_member      8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     input             path_second           8  forms q,r        kept_after_change×4 old_copy_in_later_world×4  compiled/fresh :would_trap/true
+  mrs     input             super1_back           8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     input             super2_back           8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     input             taken_back            8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     input_ub          method_at_member      8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     input_ub          path_second           8  forms q,r        kept_after_change×4 old_copy_in_later_world×4  compiled/fresh :would_trap/true
+  mrs     input_ub          super1_back           8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     input_ub          super2_back           8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     input_ub          taken_back            8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     inputs2           method_at_member      8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     inputs2           path_second           8  forms q,r        kept_after_change×4 old_copy_in_later_world×4  compiled/fresh :would_trap/true
+  mrs     inputs2           super1_back           8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     inputs2           super2_back           8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     inputs2           taken_back            8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     intersection      method_at_member      8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     intersection      path_second           8  forms q,r        kept_after_change×4 old_copy_in_later_world×4  compiled/fresh :would_trap/true
+  mrs     intersection      super1_back           8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     intersection      super2_back           8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     intersection      taken_back            8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     late_member       path_second           8  forms q,r        kept_after_change×4 old_copy_in_later_world×4  compiled/fresh :would_trap/true
+  mrs     late_member       super1_back           8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     late_member       super2_back           8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     late_member       taken_back            8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     lb_in_tuple       method_at_member      8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     lb_in_tuple       path_second           8  forms q,r        kept_after_change×4 old_copy_in_later_world×4  compiled/fresh :would_trap/true
+  mrs     lb_in_tuple       super1_back           8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     lb_in_tuple       super2_back           8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     lb_in_tuple       taken_back            8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     lb_in_union       method_at_member      8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     lb_in_union       path_second           8  forms q,r        kept_after_change×4 old_copy_in_later_world×4  compiled/fresh :would_trap/true
+  mrs     lb_in_union       super1_back           8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     lb_in_union       super2_back           8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     lb_in_union       taken_back            8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     lb_tuple          method_at_member      8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     lb_tuple          path_second           8  forms q,r        kept_after_change×4 old_copy_in_later_world×4  compiled/fresh :would_trap/true
+  mrs     lb_tuple          super1_back           8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     lb_tuple          super2_back           8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     lb_tuple          taken_back            8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     lb_union          method_at_member      8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     lb_union          path_second           8  forms q,r        kept_after_change×4 old_copy_in_later_world×4  compiled/fresh :would_trap/true
+  mrs     lb_union          super1_back           8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     lb_union          super2_back           8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     lb_union          taken_back            8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     lb_vararg         method_at_member      8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     lb_vararg         path_second           8  forms q,r        kept_after_change×4 old_copy_in_later_world×4  compiled/fresh :would_trap/true
+  mrs     lb_vararg         super1_back           8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     lb_vararg         super2_back           8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     lb_vararg         taken_back            8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     lower_bound       method_at_member      8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     lower_bound       path_second           8  forms q,r        kept_after_change×4 old_copy_in_later_world×4  compiled/fresh :would_trap/true
+  mrs     lower_bound       super1_back           8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     lower_bound       super2_back           8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     lower_bound       taken_back            8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     lower_bound_rev   method_at_member      8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     lower_bound_rev   path_second           8  forms q,r        kept_after_change×4 old_copy_in_later_world×4  compiled/fresh :would_trap/true
+  mrs     lower_bound_rev   super1_back           8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     lower_bound_rev   super2_back           8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     lower_bound_rev   taken_back            8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     member_method     method_at_member      8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     member_method     path_second           8  forms q,r        kept_after_change×4 old_copy_in_later_world×4  compiled/fresh :would_trap/true
+  mrs     member_method     super1_back           8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     member_method     super2_back           8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     member_method     taken_back            8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     set_member        method_at_member      8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     set_member        path_second           8  forms q,r        kept_after_change×4 old_copy_in_later_world×4  compiled/fresh :would_trap/true
+  mrs     set_member        super1_back           8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     set_member        super2_back           8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     set_member        taken_back            8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     super_param       method_at_member      8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     super_param       path_second           8  forms q,r        kept_after_change×4 old_copy_in_later_world×4  compiled/fresh :would_trap/true
+  mrs     super_param       super1_back           8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     super_param       super2_back           8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     super_param       taken_back            8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     tuple             method_at_member      8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     tuple             path_second           8  forms q,r        kept_after_change×4 old_copy_in_later_world×4  compiled/fresh :would_trap/true
+  mrs     tuple             super1_back           8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     tuple             super2_back           8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     tuple             taken_back            8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     tuple2            method_at_member      8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     tuple2            path_second           8  forms q,r        kept_after_change×4 old_copy_in_later_world×4  compiled/fresh :would_trap/true
+  mrs     tuple2            super1_back           8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     tuple2            super2_back           8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     tuple2            taken_back            8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     type              method_at_member      8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     type              path_second           8  forms q,r        kept_after_change×4 old_copy_in_later_world×4  compiled/fresh :would_trap/true
+  mrs     type              super1_back           8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     type              super2_back           8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     type              taken_back            8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     type_value        path_second           8  forms q,r        kept_after_change×4 old_copy_in_later_world×4  compiled/fresh :would_trap/true
+  mrs     type_value        redeclared_by         8  forms q,r        kept_after_change×4 old_copy_in_later_world×4  compiled/fresh :would_trap/true
+  mrs     union             method_at_member      8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     union             path_second           8  forms q,r        kept_after_change×4 old_copy_in_later_world×4  compiled/fresh :would_trap/true
+  mrs     union             super1_back           8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     union             super2_back           8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     union             taken_back            8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     upper_bound       method_at_member      8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     upper_bound       path_second           8  forms q,r        kept_after_change×4 old_copy_in_later_world×4  compiled/fresh :would_trap/true
+  mrs     upper_bound       super1_back           8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     upper_bound       super2_back           8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     upper_bound       taken_back            8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     vararg            method_at_member      8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     vararg            path_second           8  forms q,r        kept_after_change×4 old_copy_in_later_world×4  compiled/fresh :would_trap/true
+  mrs     vararg            super1_back           8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     vararg            super2_back           8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     vararg            taken_back            8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     abstract_member   method_at_member      8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     abstract_member   path_second           8  forms q,r        kept_after_change×4 old_copy_in_later_world×4  compiled/fresh :would_trap/true
+  stf     abstract_member   super1_back           8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     abstract_member   super2_back           8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     abstract_member   taken_back            8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     all3              method_at_member      8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     all3              path_second           8  forms q,r        kept_after_change×4 old_copy_in_later_world×4  compiled/fresh :would_trap/true
+  stf     all3              super1_back           8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     all3              super2_back           8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     all3              taken_back            8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     both_bounds       method_at_member      8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     both_bounds       path_second           8  forms q,r        kept_after_change×4 old_copy_in_later_world×4  compiled/fresh :would_trap/true
+  stf     both_bounds       super1_back           8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     both_bounds       super2_back           8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     both_bounds       taken_back            8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     deep9             method_at_member      8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     deep9             path_second           8  forms q,r        kept_after_change×4 old_copy_in_later_world×4  compiled/fresh :would_trap/true
+  stf     deep9             super1_back           8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     deep9             super2_back           8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     deep9             taken_back            8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     deep9_lb          method_at_member      8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     deep9_lb          path_second           8  forms q,r        kept_after_change×4 old_copy_in_later_world×4  compiled/fresh :would_trap/true
+  stf     deep9_lb          super1_back           8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     deep9_lb          super2_back           8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     deep9_lb          taken_back            8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     family            method_at_member      8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     family            path_second           8  forms q,r        kept_after_change×4 old_copy_in_later_world×4  compiled/fresh :would_trap/true
+  stf     family            super1_back           8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     family            super2_back           8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     family            taken_back            8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     family_bounded    method_at_member      8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     family_bounded    path_second           8  forms q,r        kept_after_change×4 old_copy_in_later_world×4  compiled/fresh :would_trap/true
+  stf     family_bounded    super1_back           8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     family_bounded    super2_back           8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     family_bounded    taken_back            8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     input             method_at_member      8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     input             path_second           8  forms q,r        kept_after_change×4 old_copy_in_later_world×4  compiled/fresh :would_trap/true
+  stf     input             super1_back           8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     input             super2_back           8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     input             taken_back            8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     input_ub          method_at_member      8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     input_ub          path_second           8  forms q,r        kept_after_change×4 old_copy_in_later_world×4  compiled/fresh :would_trap/true
+  stf     input_ub          super1_back           8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     input_ub          super2_back           8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     input_ub          taken_back            8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     inputs2           method_at_member      8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     inputs2           path_second           8  forms q,r        kept_after_change×4 old_copy_in_later_world×4  compiled/fresh :would_trap/true
+  stf     inputs2           super1_back           8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     inputs2           super2_back           8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     inputs2           taken_back            8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     intersection      method_at_member      8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     intersection      path_second           8  forms q,r        kept_after_change×4 old_copy_in_later_world×4  compiled/fresh :would_trap/true
+  stf     intersection      super1_back           8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     intersection      super2_back           8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     intersection      taken_back            8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     late_member       path_second           8  forms q,r        kept_after_change×4 old_copy_in_later_world×4  compiled/fresh :would_trap/true
+  stf     late_member       super1_back           8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     late_member       super2_back           8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     late_member       taken_back            8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     lb_in_tuple       method_at_member      8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     lb_in_tuple       path_second           8  forms q,r        kept_after_change×4 old_copy_in_later_world×4  compiled/fresh :would_trap/true
+  stf     lb_in_tuple       super1_back           8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     lb_in_tuple       super2_back           8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     lb_in_tuple       taken_back            8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     lb_in_union       method_at_member      8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     lb_in_union       path_second           8  forms q,r        kept_after_change×4 old_copy_in_later_world×4  compiled/fresh :would_trap/true
+  stf     lb_in_union       super1_back           8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     lb_in_union       super2_back           8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     lb_in_union       taken_back            8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     lb_tuple          method_at_member      8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     lb_tuple          path_second           8  forms q,r        kept_after_change×4 old_copy_in_later_world×4  compiled/fresh :would_trap/true
+  stf     lb_tuple          super1_back           8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     lb_tuple          super2_back           8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     lb_tuple          taken_back            8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     lb_union          method_at_member      8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     lb_union          path_second           8  forms q,r        kept_after_change×4 old_copy_in_later_world×4  compiled/fresh :would_trap/true
+  stf     lb_union          super1_back           8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     lb_union          super2_back           8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     lb_union          taken_back            8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     lb_vararg         method_at_member      8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     lb_vararg         path_second           8  forms q,r        kept_after_change×4 old_copy_in_later_world×4  compiled/fresh :would_trap/true
+  stf     lb_vararg         super1_back           8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     lb_vararg         super2_back           8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     lb_vararg         taken_back            8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     lower_bound       method_at_member      8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     lower_bound       path_second           8  forms q,r        kept_after_change×4 old_copy_in_later_world×4  compiled/fresh :would_trap/true
+  stf     lower_bound       super1_back           8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     lower_bound       super2_back           8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     lower_bound       taken_back            8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     lower_bound_rev   method_at_member      8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     lower_bound_rev   path_second           8  forms q,r        kept_after_change×4 old_copy_in_later_world×4  compiled/fresh :would_trap/true
+  stf     lower_bound_rev   super1_back           8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     lower_bound_rev   super2_back           8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     lower_bound_rev   taken_back            8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     member_method     method_at_member      8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     member_method     path_second           8  forms q,r        kept_after_change×4 old_copy_in_later_world×4  compiled/fresh :would_trap/true
+  stf     member_method     super1_back           8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     member_method     super2_back           8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     member_method     taken_back            8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     set_member        method_at_member      8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     set_member        path_second           8  forms q,r        kept_after_change×4 old_copy_in_later_world×4  compiled/fresh :would_trap/true
+  stf     set_member        super1_back           8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     set_member        super2_back           8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     set_member        taken_back            8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     super_param       method_at_member      8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     super_param       path_second           8  forms q,r        kept_after_change×4 old_copy_in_later_world×4  compiled/fresh :would_trap/true
+  stf     super_param       super1_back           8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     super_param       super2_back           8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     super_param       taken_back            8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     tuple             method_at_member      8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     tuple             path_second           8  forms q,r        kept_after_change×4 old_copy_in_later_world×4  compiled/fresh :would_trap/true
+  stf     tuple             super1_back           8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     tuple             super2_back           8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     tuple             taken_back            8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     tuple2            method_at_member      8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     tuple2            path_second           8  forms q,r        kept_after_change×4 old_copy_in_later_world×4  compiled/fresh :would_trap/true
+  stf     tuple2            super1_back           8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     tuple2            super2_back           8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     tuple2            taken_back            8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     type              method_at_member      8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     type              path_second           8  forms q,r        kept_after_change×4 old_copy_in_later_world×4  compiled/fresh :would_trap/true
+  stf     type              super1_back           8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     type              super2_back           8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     type              taken_back            8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     type_value        path_second           8  forms q,r        kept_after_change×4 old_copy_in_later_world×4  compiled/fresh :would_trap/true
+  stf     type_value        redeclared_by         8  forms q,r        kept_after_change×4 old_copy_in_later_world×4  compiled/fresh :would_trap/true
+  stf     union             method_at_member      8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     union             path_second           8  forms q,r        kept_after_change×4 old_copy_in_later_world×4  compiled/fresh :would_trap/true
+  stf     union             super1_back           8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     union             super2_back           8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     union             taken_back            8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     upper_bound       method_at_member      8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     upper_bound       path_second           8  forms q,r        kept_after_change×4 old_copy_in_later_world×4  compiled/fresh :would_trap/true
+  stf     upper_bound       super1_back           8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     upper_bound       super2_back           8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     upper_bound       taken_back            8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     vararg            method_at_member      8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     vararg            path_second           8  forms q,r        kept_after_change×4 old_copy_in_later_world×4  compiled/fresh :would_trap/true
+  stf     vararg            super1_back           8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     vararg            super2_back           8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     vararg            taken_back            8  forms q,r        kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  which   set_member        method_at_member      8  forms o,q,r,ro   first_compiled×4 kept_after_change×4  compiled/fresh (:g, Tuple{Main.SF_set_member__method_at_member.var"#g", Main.SF_set_member__method_at_member.Y0})/(:g, Tuple{Main.SF_set_member__method_at_member.var"#g", Main.SF_set_member__method_at_member.X})
+  mrs     type_value        method_at_member      6  forms q,r        kept_after_change×2 old_copy_in_later_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     type_value        super1_back           6  forms q,r        kept_after_change×2 old_copy_in_later_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     type_value        super2_back           6  forms q,r        kept_after_change×2 old_copy_in_later_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  mrs     type_value        taken_back            6  forms q,r        kept_after_change×2 old_copy_in_later_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     type_value        method_at_member      6  forms q,r        kept_after_change×2 old_copy_in_later_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     type_value        super1_back           6  forms q,r        kept_after_change×2 old_copy_in_later_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     type_value        super2_back           6  forms q,r        kept_after_change×2 old_copy_in_later_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  stf     type_value        taken_back            6  forms q,r        kept_after_change×2 old_copy_in_later_world×2 run_in_earlier_world×2  compiled/fresh :would_trap/true
+  which   deep9             method_then_member    6  forms q,r        kept_after_change×4 first_compiled×2  compiled/fresh (:g, Tuple{Main.SF_deep9__method_then_member.var"#g", Any})/(:g, Tuple{Main.SF_deep9__method_then_member.var"#g", Tuple{Tuple{Tuple{Tuple{Tuple{Tuple{Tuple{Tuple{Tuple{Main.SF_deep9__method_then_member.X}}}}}}}}}})
+  which   deep9             path_first_back       6  forms q,r        kept_after_change×4 first_compiled×2  compiled/fresh (:g, Tuple{Main.SF_deep9__path_first_back.var"#g", Any})/(:g, Tuple{Main.SF_deep9__path_first_back.var"#g", Tuple{Tuple{Tuple{Tuple{Tuple{Tuple{Tuple{Tuple{Tuple{Main.SF_deep9__path_first_back.X}}}}}}}}}})
+  which   deep9             path_second           6  forms q,r        kept_after_change×4 first_compiled×2  compiled/fresh (:g, Tuple{Main.SF_deep9__path_second.var"#g", Any})/(:g, Tuple{Main.SF_deep9__path_second.var"#g", Tuple{Tuple{Tuple{Tuple{Tuple{Tuple{Tuple{Tuple{Tuple{Main.SF_deep9__path_second.X}}}}}}}}}})
+  which   deep9             path_second_back      6  forms q,r        kept_after_change×4 first_compiled×2  compiled/fresh (:g, Tuple{Main.SF_deep9__path_second_back.var"#g", Any})/(:g, Tuple{Main.SF_deep9__path_second_back.var"#g", Tuple{Tuple{Tuple{Tuple{Tuple{Tuple{Tuple{Tuple{Tuple{Main.SF_deep9__path_second_back.X}}}}}}}}}})
+  which   lb_in_tuple       method_then_member    6  forms q,r        kept_after_change×4 first_compiled×2  compiled/fresh (:g, Tuple{Main.SF_lb_in_tuple__method_then_member.var"#g", Any})/(:g, Tuple{Main.SF_lb_in_tuple__method_then_member.var"#g", Main.SF_lb_in_tuple__method_then_member.Ph{T} where T>:Tuple{Main.SF_lb_in_tuple__method_then_member.S}})
+  which   lb_in_tuple       path_first_back       6  forms q,r        kept_after_change×4 first_compiled×2  compiled/fresh (:g, Tuple{Main.SF_lb_in_tuple__path_first_back.var"#g", Any})/(:g, Tuple{Main.SF_lb_in_tuple__path_first_back.var"#g", Main.SF_lb_in_tuple__path_first_back.Ph{T} where T>:Tuple{Main.SF_lb_in_tuple__path_first_back.S}})
+  which   lb_in_tuple       path_second           6  forms q,r        kept_after_change×4 first_compiled×2  compiled/fresh (:g, Tuple{Main.SF_lb_in_tuple__path_second.var"#g", Any})/(:g, Tuple{Main.SF_lb_in_tuple__path_second.var"#g", Main.SF_lb_in_tuple__path_second.Ph{T} where T>:Tuple{Main.SF_lb_in_tuple__path_second.S}})
+  which   lb_in_tuple       path_second_back      6  forms q,r        kept_after_change×4 first_compiled×2  compiled/fresh (:g, Tuple{Main.SF_lb_in_tuple__path_second_back.var"#g", Any})/(:g, Tuple{Main.SF_lb_in_tuple__path_second_back.var"#g", Main.SF_lb_in_tuple__path_second_back.Ph{T} where T>:Tuple{Main.SF_lb_in_tuple__path_second_back.S}})
+  app     deep9             declared              4  forms q,r        kept_after_change×2 old_copy_in_later_world×2  compiled/fresh false/true
+  app     deep9             super1                4  forms q,r        kept_after_change×2 old_copy_in_later_world×2  compiled/fresh false/true
+  app     deep9             super2                4  forms q,r        kept_after_change×2 old_copy_in_later_world×2  compiled/fresh false/true
+  app     lb_in_tuple       declared              4  forms q,r        kept_after_change×2 old_copy_in_later_world×2  compiled/fresh false/true
+  app     lb_in_tuple       super1                4  forms q,r        kept_after_change×2 old_copy_in_later_world×2  compiled/fresh false/true
+  app     lb_in_tuple       super2                4  forms q,r        kept_after_change×2 old_copy_in_later_world×2  compiled/fresh false/true
+  disp    member_method     method_at_member      4  forms o,ro       kept_after_change×2 old_copy_in_later_world×2  compiled/fresh :B/:A
+  mrs     abstract_member   declared              4  forms q,r        kept_after_change×2 old_copy_in_later_world×2  compiled/fresh :would_trap/true
+  mrs     abstract_member   super1                4  forms q,r        kept_after_change×2 old_copy_in_later_world×2  compiled/fresh :would_trap/true
+  mrs     abstract_member   super2                4  forms q,r        kept_after_change×2 old_copy_in_later_world×2  compiled/fresh :would_trap/true
+  mrs     all3              declared              4  forms q,r        kept_after_change×2 old_copy_in_later_world×2  compiled/fresh :would_trap/true
+  mrs     all3              super1                4  forms q,r        kept_after_change×2 old_copy_in_later_world×2  compiled/fresh :would_trap/true
+  mrs     all3              super2                4  forms q,r        kept_after_change×2 old_copy_in_later_world×2  compiled/fresh :would_trap/true
+  mrs     both_bounds       declared              4  forms q,r        kept_after_change×2 old_copy_in_later_world×2  compiled/fresh :would_trap/true
+  mrs     both_bounds       super1                4  forms q,r        kept_after_change×2 old_copy_in_later_world×2  compiled/fresh :would_trap/true
+  mrs     both_bounds       super2                4  forms q,r        kept_after_change×2 old_copy_in_later_world×2  compiled/fresh :would_trap/true
+  mrs     deep9             declared              4  forms q,r        kept_after_change×2 old_copy_in_later_world×2  compiled/fresh :would_trap/true
+  mrs     deep9             super1                4  forms q,r        kept_after_change×2 old_copy_in_later_world×2  compiled/fresh :would_trap/true
+  mrs     deep9             super2                4  forms q,r        kept_after_change×2 old_copy_in_later_world×2  compiled/fresh :would_trap/true
+  mrs     deep9_lb          declared              4  forms q,r        kept_after_change×2 old_copy_in_later_world×2  compiled/fresh :would_trap/true
+  mrs     deep9_lb          super1                4  forms q,r        kept_after_change×2 old_copy_in_later_world×2  compiled/fresh :would_trap/true
+  mrs     deep9_lb          super2                4  forms q,r        kept_after_change×2 old_copy_in_later_world×2  compiled/fresh :would_trap/true
+  mrs     family            declared              4  forms q,r        kept_after_change×2 old_copy_in_later_world×2  compiled/fresh :would_trap/true
+  mrs     family            super1                4  forms q,r        kept_after_change×2 old_copy_in_later_world×2  compiled/fresh :would_trap/true
+  mrs     family            super2                4  forms q,r        kept_after_change×2 old_copy_in_later_world×2  compiled/fresh :would_trap/true
+  mrs     family_bounded    declared              4  forms q,r        kept_after_change×2 old_copy_in_later_world×2  compiled/fresh :would_trap/true
+  mrs     family_bounded    super1                4  forms q,r        kept_after_change×2 old_copy_in_later_world×2  compiled/fresh :would_trap/true
+  mrs     family_bounded    super2                4  forms q,r        kept_after_change×2 old_copy_in_later_world×2  compiled/fresh :would_trap/true
+  mrs     input             declared              4  forms q,r        kept_after_change×2 old_copy_in_later_world×2  compiled/fresh :would_trap/true
+  mrs     input             super1                4  forms q,r        kept_after_change×2 old_copy_in_later_world×2  compiled/fresh :would_trap/true
+  mrs     input             super2                4  forms q,r        kept_after_change×2 old_copy_in_later_world×2  compiled/fresh :would_trap/true
+  mrs     input_ub          declared              4  forms q,r        kept_after_change×2 old_copy_in_later_world×2  compiled/fresh :would_trap/true
+  mrs     input_ub          super1                4  forms q,r        kept_after_change×2 old_copy_in_later_world×2  compiled/fresh :would_trap/true
+  mrs     input_ub          super2                4  forms q,r        kept_after_change×2 old_copy_in_later_world×2  compiled/fresh :would_trap/true
+  mrs     inputs2           declared              4  forms q,r        kept_after_change×2 old_copy_in_later_world×2  compiled/fresh :would_trap/true
+  mrs     inputs2           super1                4  forms q,r        kept_after_change×2 old_copy_in_later_world×2  compiled/fresh :would_trap/true
+  mrs     inputs2           super2                4  forms q,r        kept_after_change×2 old_copy_in_later_world×2  compiled/fresh :would_trap/true
+  mrs     intersection      declared              4  forms q,r        kept_after_change×2 old_copy_in_later_world×2  compiled/fresh :would_trap/true
+  mrs     intersection      super1                4  forms q,r        kept_after_change×2 old_copy_in_later_world×2  compiled/fresh :would_trap/true
+  mrs     intersection      super2                4  forms q,r        kept_after_change×2 old_copy_in_later_world×2  compiled/fresh :would_trap/true
+  mrs     late_member       declared              4  forms q,r        kept_after_change×2 old_copy_in_later_world×2  compiled/fresh :would_trap/true
+  mrs     late_member       super1                4  forms q,r        kept_after_change×2 old_copy_in_later_world×2  compiled/fresh :would_trap/true
+  mrs     late_member       super2                4  forms q,r        kept_after_change×2 old_copy_in_later_world×2  compiled/fresh :would_trap/true
+  mrs     lb_in_tuple       declared              4  forms q,r        kept_after_change×2 old_copy_in_later_world×2  compiled/fresh :would_trap/true
+  mrs     lb_in_tuple       super1                4  forms q,r        kept_after_change×2 old_copy_in_later_world×2  compiled/fresh :would_trap/true
+  mrs     lb_in_tuple       super2                4  forms q,r        kept_after_change×2 old_copy_in_later_world×2  compiled/fresh :would_trap/true
+  mrs     lb_in_union       declared              4  forms q,r        kept_after_change×2 old_copy_in_later_world×2  compiled/fresh :would_trap/true
+  mrs     lb_in_union       super1                4  forms q,r        kept_after_change×2 old_copy_in_later_world×2  compiled/fresh :would_trap/true
+  mrs     lb_in_union       super2                4  forms q,r        kept_after_change×2 old_copy_in_later_world×2  compiled/fresh :would_trap/true
+  mrs     lb_tuple          declared              4  forms q,r        kept_after_change×2 old_copy_in_later_world×2  compiled/fresh :would_trap/true
+  mrs     lb_tuple          super1                4  forms q,r        kept_after_change×2 old_copy_in_later_world×2  compiled/fresh :would_trap/true
+  mrs     lb_tuple          super2                4  forms q,r        kept_after_change×2 old_copy_in_later_world×2  compiled/fresh :would_trap/true
+  mrs     lb_union          declared              4  forms q,r        kept_after_change×2 old_copy_in_later_world×2  compiled/fresh :would_trap/true
+  mrs     lb_union          super1                4  forms q,r        kept_after_change×2 old_copy_in_later_world×2  compiled/fresh :would_trap/true
+  mrs     lb_union          super2                4  forms q,r        kept_after_change×2 old_copy_in_later_world×2  compiled/fresh :would_trap/true
+  mrs     lb_vararg         declared              4  forms q,r        kept_after_change×2 old_copy_in_later_world×2  compiled/fresh :would_trap/true
+  mrs     lb_vararg         super1                4  forms q,r        kept_after_change×2 old_copy_in_later_world×2  compiled/fresh :would_trap/true
+  mrs     lb_vararg         super2                4  forms q,r        kept_after_change×2 old_copy_in_later_world×2  compiled/fresh :would_trap/true
+  mrs     lower_bound       declared              4  forms q,r        kept_after_change×2 old_copy_in_later_world×2  compiled/fresh :would_trap/true
+  mrs     lower_bound       super1                4  forms q,r        kept_after_change×2 old_copy_in_later_world×2  compiled/fresh :would_trap/true
+  mrs     lower_bound       super2                4  forms q,r        kept_after_change×2 old_copy_in_later_world×2  compiled/fresh :would_trap/true
+  mrs     lower_bound_rev   declared              4  forms q,r        kept_after_change×2 old_copy_in_later_world×2  compiled/fresh :would_trap/true
+  mrs     lower_bound_rev   super1                4  forms q,r        kept_after_change×2 old_copy_in_later_world×2  compiled/fresh :would_trap/true
+  mrs     lower_bound_rev   super2                4  forms q,r        kept_after_change×2 old_copy_in_later_world×2  compiled/fresh :would_trap/true
+  mrs     member_method     declared              4  forms q,r        kept_after_change×2 old_copy_in_later_world×2  compiled/fresh :would_trap/true
+  mrs     member_method     super1                4  forms q,r        kept_after_change×2 old_copy_in_later_world×2  compiled/fresh :would_trap/true
+  mrs     member_method     super2                4  forms q,r        kept_after_change×2 old_copy_in_later_world×2  compiled/fresh :would_trap/true
+  mrs     set_member        declared              4  forms q,r        kept_after_change×2 old_copy_in_later_world×2  compiled/fresh :would_trap/true
+  mrs     set_member        super1                4  forms q,r        kept_after_change×2 old_copy_in_later_world×2  compiled/fresh :would_trap/true
+  mrs     set_member        super2                4  forms q,r        kept_after_change×2 old_copy_in_later_world×2  compiled/fresh :would_trap/true
+  mrs     super_param       declared              4  forms q,r        kept_after_change×2 old_copy_in_later_world×2  compiled/fresh :would_trap/true
+  mrs     super_param       super1                4  forms q,r        kept_after_change×2 old_copy_in_later_world×2  compiled/fresh :would_trap/true
+  mrs     super_param       super2                4  forms q,r        kept_after_change×2 old_copy_in_later_world×2  compiled/fresh :would_trap/true
+  mrs     tuple             declared              4  forms q,r        kept_after_change×2 old_copy_in_later_world×2  compiled/fresh :would_trap/true
+  mrs     tuple             super1                4  forms q,r        kept_after_change×2 old_copy_in_later_world×2  compiled/fresh :would_trap/true
+  mrs     tuple             super2                4  forms q,r        kept_after_change×2 old_copy_in_later_world×2  compiled/fresh :would_trap/true
+  mrs     tuple2            declared              4  forms q,r        kept_after_change×2 old_copy_in_later_world×2  compiled/fresh :would_trap/true
+  mrs     tuple2            super1                4  forms q,r        kept_after_change×2 old_copy_in_later_world×2  compiled/fresh :would_trap/true
+  mrs     tuple2            super2                4  forms q,r        kept_after_change×2 old_copy_in_later_world×2  compiled/fresh :would_trap/true
+  mrs     type              declared              4  forms q,r        kept_after_change×2 old_copy_in_later_world×2  compiled/fresh :would_trap/true
+  mrs     type              super1                4  forms q,r        kept_after_change×2 old_copy_in_later_world×2  compiled/fresh :would_trap/true
+  mrs     type              super2                4  forms q,r        kept_after_change×2 old_copy_in_later_world×2  compiled/fresh :would_trap/true
+  mrs     type_value        declared              4  forms q,r        kept_after_change×2 old_copy_in_later_world×2  compiled/fresh :would_trap/true
+  mrs     type_value        super1                4  forms q,r        kept_after_change×2 old_copy_in_later_world×2  compiled/fresh :would_trap/true
+  mrs     type_value        super2                4  forms q,r        kept_after_change×2 old_copy_in_later_world×2  compiled/fresh :would_trap/true
+  mrs     union             declared              4  forms q,r        kept_after_change×2 old_copy_in_later_world×2  compiled/fresh :would_trap/true
+  mrs     union             super1                4  forms q,r        kept_after_change×2 old_copy_in_later_world×2  compiled/fresh :would_trap/true
+  mrs     union             super2                4  forms q,r        kept_after_change×2 old_copy_in_later_world×2  compiled/fresh :would_trap/true
+  mrs     upper_bound       declared              4  forms q,r        kept_after_change×2 old_copy_in_later_world×2  compiled/fresh :would_trap/true
+  mrs     upper_bound       super1                4  forms q,r        kept_after_change×2 old_copy_in_later_world×2  compiled/fresh :would_trap/true
+  mrs     upper_bound       super2                4  forms q,r        kept_after_change×2 old_copy_in_later_world×2  compiled/fresh :would_trap/true
+  mrs     vararg            declared              4  forms q,r        kept_after_change×2 old_copy_in_later_world×2  compiled/fresh :would_trap/true
+  mrs     vararg            super1                4  forms q,r        kept_after_change×2 old_copy_in_later_world×2  compiled/fresh :would_trap/true
+  mrs     vararg            super2                4  forms q,r        kept_after_change×2 old_copy_in_later_world×2  compiled/fresh :would_trap/true
+  stf     abstract_member   declared              4  forms q,r        kept_after_change×2 old_copy_in_later_world×2  compiled/fresh :would_trap/true
+  stf     abstract_member   super1                4  forms q,r        kept_after_change×2 old_copy_in_later_world×2  compiled/fresh :would_trap/true
+  stf     abstract_member   super2                4  forms q,r        kept_after_change×2 old_copy_in_later_world×2  compiled/fresh :would_trap/true
+  stf     all3              declared              4  forms q,r        kept_after_change×2 old_copy_in_later_world×2  compiled/fresh :would_trap/true
+  stf     all3              super1                4  forms q,r        kept_after_change×2 old_copy_in_later_world×2  compiled/fresh :would_trap/true
+  stf     all3              super2                4  forms q,r        kept_after_change×2 old_copy_in_later_world×2  compiled/fresh :would_trap/true
+  stf     both_bounds       declared              4  forms q,r        kept_after_change×2 old_copy_in_later_world×2  compiled/fresh :would_trap/true
+  stf     both_bounds       super1                4  forms q,r        kept_after_change×2 old_copy_in_later_world×2  compiled/fresh :would_trap/true
+  stf     both_bounds       super2                4  forms q,r        kept_after_change×2 old_copy_in_later_world×2  compiled/fresh :would_trap/true
+  stf     deep9             declared              4  forms q,r        kept_after_change×2 old_copy_in_later_world×2  compiled/fresh :would_trap/true
+  stf     deep9             super1                4  forms q,r        kept_after_change×2 old_copy_in_later_world×2  compiled/fresh :would_trap/true
+  stf     deep9             super2                4  forms q,r        kept_after_change×2 old_copy_in_later_world×2  compiled/fresh :would_trap/true
+  stf     deep9_lb          declared              4  forms q,r        kept_after_change×2 old_copy_in_later_world×2  compiled/fresh :would_trap/true
+  stf     deep9_lb          super1                4  forms q,r        kept_after_change×2 old_copy_in_later_world×2  compiled/fresh :would_trap/true
+  stf     deep9_lb          super2                4  forms q,r        kept_after_change×2 old_copy_in_later_world×2  compiled/fresh :would_trap/true
+  stf     family            declared              4  forms q,r        kept_after_change×2 old_copy_in_later_world×2  compiled/fresh :would_trap/true
+  stf     family            super1                4  forms q,r        kept_after_change×2 old_copy_in_later_world×2  compiled/fresh :would_trap/true
+  stf     family            super2                4  forms q,r        kept_after_change×2 old_copy_in_later_world×2  compiled/fresh :would_trap/true
+  stf     family_bounded    declared              4  forms q,r        kept_after_change×2 old_copy_in_later_world×2  compiled/fresh :would_trap/true
+  stf     family_bounded    super1                4  forms q,r        kept_after_change×2 old_copy_in_later_world×2  compiled/fresh :would_trap/true
+  stf     family_bounded    super2                4  forms q,r        kept_after_change×2 old_copy_in_later_world×2  compiled/fresh :would_trap/true
+  stf     input             declared              4  forms q,r        kept_after_change×2 old_copy_in_later_world×2  compiled/fresh :would_trap/true
+  stf     input             super1                4  forms q,r        kept_after_change×2 old_copy_in_later_world×2  compiled/fresh :would_trap/true
+  stf     input             super2                4  forms q,r        kept_after_change×2 old_copy_in_later_world×2  compiled/fresh :would_trap/true
+  stf     input_ub          declared              4  forms q,r        kept_after_change×2 old_copy_in_later_world×2  compiled/fresh :would_trap/true
+  stf     input_ub          super1                4  forms q,r        kept_after_change×2 old_copy_in_later_world×2  compiled/fresh :would_trap/true
+  stf     input_ub          super2                4  forms q,r        kept_after_change×2 old_copy_in_later_world×2  compiled/fresh :would_trap/true
+  stf     inputs2           declared              4  forms q,r        kept_after_change×2 old_copy_in_later_world×2  compiled/fresh :would_trap/true
+  stf     inputs2           super1                4  forms q,r        kept_after_change×2 old_copy_in_later_world×2  compiled/fresh :would_trap/true
+  stf     inputs2           super2                4  forms q,r        kept_after_change×2 old_copy_in_later_world×2  compiled/fresh :would_trap/true
+  stf     intersection      declared              4  forms q,r        kept_after_change×2 old_copy_in_later_world×2  compiled/fresh :would_trap/true
+  stf     intersection      super1                4  forms q,r        kept_after_change×2 old_copy_in_later_world×2  compiled/fresh :would_trap/true
+  stf     intersection      super2                4  forms q,r        kept_after_change×2 old_copy_in_later_world×2  compiled/fresh :would_trap/true
+  stf     late_member       declared              4  forms q,r        kept_after_change×2 old_copy_in_later_world×2  compiled/fresh :would_trap/true
+  stf     late_member       super1                4  forms q,r        kept_after_change×2 old_copy_in_later_world×2  compiled/fresh :would_trap/true
+  stf     late_member       super2                4  forms q,r        kept_after_change×2 old_copy_in_later_world×2  compiled/fresh :would_trap/true
+  stf     lb_in_tuple       declared              4  forms q,r        kept_after_change×2 old_copy_in_later_world×2  compiled/fresh :would_trap/true
+  stf     lb_in_tuple       super1                4  forms q,r        kept_after_change×2 old_copy_in_later_world×2  compiled/fresh :would_trap/true
+  stf     lb_in_tuple       super2                4  forms q,r        kept_after_change×2 old_copy_in_later_world×2  compiled/fresh :would_trap/true
+  stf     lb_in_union       declared              4  forms q,r        kept_after_change×2 old_copy_in_later_world×2  compiled/fresh :would_trap/true
+  stf     lb_in_union       super1                4  forms q,r        kept_after_change×2 old_copy_in_later_world×2  compiled/fresh :would_trap/true
+  stf     lb_in_union       super2                4  forms q,r        kept_after_change×2 old_copy_in_later_world×2  compiled/fresh :would_trap/true
+  stf     lb_tuple          declared              4  forms q,r        kept_after_change×2 old_copy_in_later_world×2  compiled/fresh :would_trap/true
+  stf     lb_tuple          super1                4  forms q,r        kept_after_change×2 old_copy_in_later_world×2  compiled/fresh :would_trap/true
+  stf     lb_tuple          super2                4  forms q,r        kept_after_change×2 old_copy_in_later_world×2  compiled/fresh :would_trap/true
+  stf     lb_union          declared              4  forms q,r        kept_after_change×2 old_copy_in_later_world×2  compiled/fresh :would_trap/true
+  stf     lb_union          super1                4  forms q,r        kept_after_change×2 old_copy_in_later_world×2  compiled/fresh :would_trap/true
+  stf     lb_union          super2                4  forms q,r        kept_after_change×2 old_copy_in_later_world×2  compiled/fresh :would_trap/true
+  stf     lb_vararg         declared              4  forms q,r        kept_after_change×2 old_copy_in_later_world×2  compiled/fresh :would_trap/true
+  stf     lb_vararg         super1                4  forms q,r        kept_after_change×2 old_copy_in_later_world×2  compiled/fresh :would_trap/true
+  stf     lb_vararg         super2                4  forms q,r        kept_after_change×2 old_copy_in_later_world×2  compiled/fresh :would_trap/true
+  stf     lower_bound       declared              4  forms q,r        kept_after_change×2 old_copy_in_later_world×2  compiled/fresh :would_trap/true
+  stf     lower_bound       super1                4  forms q,r        kept_after_change×2 old_copy_in_later_world×2  compiled/fresh :would_trap/true
+  stf     lower_bound       super2                4  forms q,r        kept_after_change×2 old_copy_in_later_world×2  compiled/fresh :would_trap/true
+  stf     lower_bound_rev   declared              4  forms q,r        kept_after_change×2 old_copy_in_later_world×2  compiled/fresh :would_trap/true
+  stf     lower_bound_rev   super1                4  forms q,r        kept_after_change×2 old_copy_in_later_world×2  compiled/fresh :would_trap/true
+  stf     lower_bound_rev   super2                4  forms q,r        kept_after_change×2 old_copy_in_later_world×2  compiled/fresh :would_trap/true
+  stf     member_method     declared              4  forms q,r        kept_after_change×2 old_copy_in_later_world×2  compiled/fresh :would_trap/true
+  stf     member_method     super1                4  forms q,r        kept_after_change×2 old_copy_in_later_world×2  compiled/fresh :would_trap/true
+  stf     member_method     super2                4  forms q,r        kept_after_change×2 old_copy_in_later_world×2  compiled/fresh :would_trap/true
+  stf     set_member        declared              4  forms q,r        kept_after_change×2 old_copy_in_later_world×2  compiled/fresh :would_trap/true
+  stf     set_member        super1                4  forms q,r        kept_after_change×2 old_copy_in_later_world×2  compiled/fresh :would_trap/true
+  stf     set_member        super2                4  forms q,r        kept_after_change×2 old_copy_in_later_world×2  compiled/fresh :would_trap/true
+  stf     super_param       declared              4  forms q,r        kept_after_change×2 old_copy_in_later_world×2  compiled/fresh :would_trap/true
+  stf     super_param       super1                4  forms q,r        kept_after_change×2 old_copy_in_later_world×2  compiled/fresh :would_trap/true
+  stf     super_param       super2                4  forms q,r        kept_after_change×2 old_copy_in_later_world×2  compiled/fresh :would_trap/true
+  stf     tuple             declared              4  forms q,r        kept_after_change×2 old_copy_in_later_world×2  compiled/fresh :would_trap/true
+  stf     tuple             super1                4  forms q,r        kept_after_change×2 old_copy_in_later_world×2  compiled/fresh :would_trap/true
+  stf     tuple             super2                4  forms q,r        kept_after_change×2 old_copy_in_later_world×2  compiled/fresh :would_trap/true
+  stf     tuple2            declared              4  forms q,r        kept_after_change×2 old_copy_in_later_world×2  compiled/fresh :would_trap/true
+  stf     tuple2            super1                4  forms q,r        kept_after_change×2 old_copy_in_later_world×2  compiled/fresh :would_trap/true
+  stf     tuple2            super2                4  forms q,r        kept_after_change×2 old_copy_in_later_world×2  compiled/fresh :would_trap/true
+  stf     type              declared              4  forms q,r        kept_after_change×2 old_copy_in_later_world×2  compiled/fresh :would_trap/true
+  stf     type              super1                4  forms q,r        kept_after_change×2 old_copy_in_later_world×2  compiled/fresh :would_trap/true
+  stf     type              super2                4  forms q,r        kept_after_change×2 old_copy_in_later_world×2  compiled/fresh :would_trap/true
+  stf     type_value        declared              4  forms q,r        kept_after_change×2 old_copy_in_later_world×2  compiled/fresh :would_trap/true
+  stf     type_value        super1                4  forms q,r        kept_after_change×2 old_copy_in_later_world×2  compiled/fresh :would_trap/true
+  stf     type_value        super2                4  forms q,r        kept_after_change×2 old_copy_in_later_world×2  compiled/fresh :would_trap/true
+  stf     union             declared              4  forms q,r        kept_after_change×2 old_copy_in_later_world×2  compiled/fresh :would_trap/true
+  stf     union             super1                4  forms q,r        kept_after_change×2 old_copy_in_later_world×2  compiled/fresh :would_trap/true
+  stf     union             super2                4  forms q,r        kept_after_change×2 old_copy_in_later_world×2  compiled/fresh :would_trap/true
+  stf     upper_bound       declared              4  forms q,r        kept_after_change×2 old_copy_in_later_world×2  compiled/fresh :would_trap/true
+  stf     upper_bound       super1                4  forms q,r        kept_after_change×2 old_copy_in_later_world×2  compiled/fresh :would_trap/true
+  stf     upper_bound       super2                4  forms q,r        kept_after_change×2 old_copy_in_later_world×2  compiled/fresh :would_trap/true
+  stf     vararg            declared              4  forms q,r        kept_after_change×2 old_copy_in_later_world×2  compiled/fresh :would_trap/true
+  stf     vararg            super1                4  forms q,r        kept_after_change×2 old_copy_in_later_world×2  compiled/fresh :would_trap/true
+  stf     vararg            super2                4  forms q,r        kept_after_change×2 old_copy_in_later_world×2  compiled/fresh :would_trap/true
+  which   deep9             declared              4  forms q,r        first_compiled×2 kept_after_change×2  compiled/fresh (:g, Tuple{Main.SF_deep9__declared.var"#g", Any})/(:g, Tuple{Main.SF_deep9__declared.var"#g", Tuple{Tuple{Tuple{Tuple{Tuple{Tuple{Tuple{Tuple{Tuple{Main.SF_deep9__declared.X}}}}}}}}}})
+  which   deep9             redeclared_by         4  forms q,r        first_compiled×2 kept_after_change×2  compiled/fresh (:g, Tuple{Main.SF_deep9__redeclared_by.var"#g", Any})/(:g, Tuple{Main.SF_deep9__redeclared_by.var"#g", Tuple{Tuple{Tuple{Tuple{Tuple{Tuple{Tuple{Tuple{Tuple{Main.SF_deep9__redeclared_by.X}}}}}}}}}})
+  which   deep9             super1                4  forms q,r        first_compiled×2 kept_after_change×2  compiled/fresh (:g, Tuple{Main.SF_deep9__super1.var"#g", Any})/(:g, Tuple{Main.SF_deep9__super1.var"#g", Tuple{Tuple{Tuple{Tuple{Tuple{Tuple{Tuple{Tuple{Tuple{Main.SF_deep9__super1.X}}}}}}}}}})
+  which   deep9             super1_back           4  forms q,r        first_compiled×2 kept_after_change×2  compiled/fresh (:g, Tuple{Main.SF_deep9__super1_back.var"#g", Any})/(:g, Tuple{Main.SF_deep9__super1_back.var"#g", Tuple{Tuple{Tuple{Tuple{Tuple{Tuple{Tuple{Tuple{Tuple{Main.SF_deep9__super1_back.X}}}}}}}}}})
+  which   deep9             super2                4  forms q,r        first_compiled×2 kept_after_change×2  compiled/fresh (:g, Tuple{Main.SF_deep9__super2.var"#g", Any})/(:g, Tuple{Main.SF_deep9__super2.var"#g", Tuple{Tuple{Tuple{Tuple{Tuple{Tuple{Tuple{Tuple{Tuple{Main.SF_deep9__super2.X}}}}}}}}}})
+  which   deep9             super2_back           4  forms q,r        first_compiled×2 kept_after_change×2  compiled/fresh (:g, Tuple{Main.SF_deep9__super2_back.var"#g", Any})/(:g, Tuple{Main.SF_deep9__super2_back.var"#g", Tuple{Tuple{Tuple{Tuple{Tuple{Tuple{Tuple{Tuple{Tuple{Main.SF_deep9__super2_back.X}}}}}}}}}})
+  which   deep9             taken_back            4  forms q,r        first_compiled×2 kept_after_change×2  compiled/fresh (:g, Tuple{Main.SF_deep9__taken_back.var"#g", Any})/(:g, Tuple{Main.SF_deep9__taken_back.var"#g", Tuple{Tuple{Tuple{Tuple{Tuple{Tuple{Tuple{Tuple{Tuple{Main.SF_deep9__taken_back.X}}}}}}}}}})
+  which   lb_in_tuple       declared              4  forms q,r        first_compiled×2 kept_after_change×2  compiled/fresh (:g, Tuple{Main.SF_lb_in_tuple__declared.var"#g", Any})/(:g, Tuple{Main.SF_lb_in_tuple__declared.var"#g", Main.SF_lb_in_tuple__declared.Ph{T} where T>:Tuple{Main.SF_lb_in_tuple__declared.S}})
+  which   lb_in_tuple       redeclared_by         4  forms q,r        first_compiled×2 kept_after_change×2  compiled/fresh (:g, Tuple{Main.SF_lb_in_tuple__redeclared_by.var"#g", Any})/(:g, Tuple{Main.SF_lb_in_tuple__redeclared_by.var"#g", Main.SF_lb_in_tuple__redeclared_by.Ph{T} where T>:Tuple{Main.SF_lb_in_tuple__redeclared_by.S}})
+  which   lb_in_tuple       super1                4  forms q,r        first_compiled×2 kept_after_change×2  compiled/fresh (:g, Tuple{Main.SF_lb_in_tuple__super1.var"#g", Any})/(:g, Tuple{Main.SF_lb_in_tuple__super1.var"#g", Main.SF_lb_in_tuple__super1.Ph{T} where T>:Tuple{Main.SF_lb_in_tuple__super1.S}})
+  which   lb_in_tuple       super1_back           4  forms q,r        first_compiled×2 kept_after_change×2  compiled/fresh (:g, Tuple{Main.SF_lb_in_tuple__super1_back.var"#g", Any})/(:g, Tuple{Main.SF_lb_in_tuple__super1_back.var"#g", Main.SF_lb_in_tuple__super1_back.Ph{T} where T>:Tuple{Main.SF_lb_in_tuple__super1_back.S}})
+  which   lb_in_tuple       super2                4  forms q,r        first_compiled×2 kept_after_change×2  compiled/fresh (:g, Tuple{Main.SF_lb_in_tuple__super2.var"#g", Any})/(:g, Tuple{Main.SF_lb_in_tuple__super2.var"#g", Main.SF_lb_in_tuple__super2.Ph{T} where T>:Tuple{Main.SF_lb_in_tuple__super2.S}})
+  which   lb_in_tuple       super2_back           4  forms q,r        first_compiled×2 kept_after_change×2  compiled/fresh (:g, Tuple{Main.SF_lb_in_tuple__super2_back.var"#g", Any})/(:g, Tuple{Main.SF_lb_in_tuple__super2_back.var"#g", Main.SF_lb_in_tuple__super2_back.Ph{T} where T>:Tuple{Main.SF_lb_in_tuple__super2_back.S}})
+  which   lb_in_tuple       taken_back            4  forms q,r        first_compiled×2 kept_after_change×2  compiled/fresh (:g, Tuple{Main.SF_lb_in_tuple__taken_back.var"#g", Any})/(:g, Tuple{Main.SF_lb_in_tuple__taken_back.var"#g", Main.SF_lb_in_tuple__taken_back.Ph{T} where T>:Tuple{Main.SF_lb_in_tuple__taken_back.S}})
+
+== by question: mrs 3492, stf 3492, disp 324, app 276, hasm 262, which 136
+== by shape: deep9 764, lb_in_tuple 690, set_member 272, member_method 248, abstract_member 244, all3 244, both_bounds 244, deep9_lb 244, family 244, family_bounded 244, input 244, input_ub 244, inputs2 244, intersection 244, lb_in_union 244, lb_tuple 244, lb_union 244, lb_vararg 244, lower_bound 244, lower_bound_rev 244, super_param 244, tuple 244, tuple2 244, type 244, union 244, upper_bound 244, vararg 244, late_member 204, type_value 192
+== by sequence: redeclared 1418, path_first_back 794, method_then_member 770, path_second_back 766, redeclared_by 766, super1_back 534, super2_back 534, taken_back 534, path_second 528, method_at_member 522, declared 272, super1 272, super2 272
+== by kind: kept_after_change 2774, old_copy_in_later_world 2694, run_in_earlier_world 1202, own_world 1128, first_compiled 184
+== by form: q 3982, r 3982, o 9, ro 9
+
+== the runtime's dynamic answer (its caches) against fresh: 208
+  ("disp", "set_member", "method_at_member") 20  e.g. world 1: :A against :B
+  ("app", "deep9", "method_then_member") 16  e.g. world 3: true against false
+  ("app", "deep9", "path_first_back") 16  e.g. world 3: true against false
+  ("app", "lb_in_tuple", "method_then_member") 16  e.g. world 3: true against false
+  ("app", "lb_in_tuple", "path_first_back") 16  e.g. world 3: true against false
+  ("app", "deep9", "redeclared") 14  e.g. world 2: true against false
+  ("app", "lb_in_tuple", "redeclared") 14  e.g. world 2: true against false
+  ("app", "deep9", "method_at_member") 12  e.g. world 2: true against false
+  ("app", "deep9", "super1_back") 12  e.g. world 2: true against false
+  ("app", "deep9", "super2_back") 12  e.g. world 2: true against false
+  ("app", "deep9", "taken_back") 12  e.g. world 2: true against false
+  ("app", "lb_in_tuple", "method_at_member") 12  e.g. world 2: true against false
+  ("app", "lb_in_tuple", "super1_back") 12  e.g. world 2: true against false
+  ("app", "lb_in_tuple", "super2_back") 12  e.g. world 2: true against false
+  ("app", "lb_in_tuple", "taken_back") 12  e.g. world 2: true against false
+
+== fresh against the shape's expected answer: 20
+  ("disp", "set_member", "method_at_member") 20  e.g. world 1: fresh :B expected :A
+
+== the first mismatch of each group (at most 20), with the code's worlds and edges
+-- type/declared stf form r copy 0 world 1 (kept_after_change): compiled :would_trap fresh true expected true
+    worlds 40217, 40218; the pair holds false, true
+      Tuple{Main.SF_type__declared.var"#r_stf_0", Main.SF_type__declared.S}  worlds 40119:∞  <- runs in world 40218
+        edges: code Tuple{Main.SF_type__declared.var"#q_stf_0", Main.SF_type__declared.S}
+-- type/declared mrs form r copy 0 world 1 (kept_after_change): compiled :would_trap fresh true expected true
+    worlds 40217, 40218; the pair holds false, true
+      Tuple{Main.SF_type__declared.var"#r_mrs_0", Main.SF_type__declared.S}  worlds 40123:∞  <- runs in world 40218
+        edges: code Tuple{Main.SF_type__declared.var"#q_mrs_0", Main.SF_type__declared.S}
+-- type/taken_back stf form r copy 0 world 1 (kept_after_change): compiled :would_trap fresh true expected true
+    worlds 40425, 40426; the pair holds false, true
+      Tuple{Main.SF_type__taken_back.var"#r_stf_0", Main.SF_type__taken_back.S}  worlds 40279:∞  <- runs in world 40426
+        edges: code Tuple{Main.SF_type__taken_back.var"#q_stf_0", Main.SF_type__taken_back.S}
+-- type/taken_back mrs form r copy 0 world 1 (kept_after_change): compiled :would_trap fresh true expected true
+    worlds 40425, 40426; the pair holds false, true
+      Tuple{Main.SF_type__taken_back.var"#r_mrs_0", Main.SF_type__taken_back.S}  worlds 40283:∞  <- runs in world 40426
+        edges: code Tuple{Main.SF_type__taken_back.var"#q_mrs_0", Main.SF_type__taken_back.S}
+-- type/redeclared stf form r copy 0 world 1 (kept_after_change): compiled :would_trap fresh true expected true
+    worlds 40682, 40683; the pair holds false, true
+      Tuple{Main.SF_type__redeclared.var"#r_stf_0", Main.SF_type__redeclared.S}  worlds 40488:∞  <- runs in world 40683
+        edges: code Tuple{Main.SF_type__redeclared.var"#q_stf_0", Main.SF_type__redeclared.S}
+-- type/redeclared mrs form r copy 0 world 1 (kept_after_change): compiled :would_trap fresh true expected true
+    worlds 40682, 40683; the pair holds false, true
+      Tuple{Main.SF_type__redeclared.var"#r_mrs_0", Main.SF_type__redeclared.S}  worlds 40492:∞  <- runs in world 40683
+        edges: code Tuple{Main.SF_type__redeclared.var"#q_mrs_0", Main.SF_type__redeclared.S}
+-- type/path_second stf form r copy 1 world 2 (kept_after_change): compiled :would_trap fresh true expected true
+    worlds 40892, 40893, 40894; the pair holds false, false, true
+      Tuple{Main.SF_type__path_second.var"#r_stf_1", Main.SF_type__path_second.S}  worlds 40794:∞  <- runs in world 40894
+        edges: code Tuple{Main.SF_type__path_second.var"#q_stf_1", Main.SF_type__path_second.S}
+-- type/path_second mrs form r copy 1 world 2 (kept_after_change): compiled :would_trap fresh true expected true
+    worlds 40892, 40893, 40894; the pair holds false, false, true
+      Tuple{Main.SF_type__path_second.var"#r_mrs_1", Main.SF_type__path_second.S}  worlds 40798:∞  <- runs in world 40894
+        edges: code Tuple{Main.SF_type__path_second.var"#q_mrs_1", Main.SF_type__path_second.S}
+-- type/path_second_back stf form r copy 1 world 2 (kept_after_change): compiled :would_trap fresh true expected true
+    worlds 41149, 41150, 41151; the pair holds false, false, true
+      Tuple{Main.SF_type__path_second_back.var"#r_stf_1", Main.SF_type__path_second_back.S}  worlds 41003:∞  <- runs in world 41151
+        edges: code Tuple{Main.SF_type__path_second_back.var"#q_stf_1", Main.SF_type__path_second_back.S}
+-- type/path_second_back mrs form r copy 1 world 2 (kept_after_change): compiled :would_trap fresh true expected true
+    worlds 41149, 41150, 41151; the pair holds false, false, true
+      Tuple{Main.SF_type__path_second_back.var"#r_mrs_1", Main.SF_type__path_second_back.S}  worlds 41007:∞  <- runs in world 41151
+        edges: code Tuple{Main.SF_type__path_second_back.var"#q_mrs_1", Main.SF_type__path_second_back.S}
+-- type/path_first_back stf form r copy 1 world 2 (kept_after_change): compiled :would_trap fresh true expected true
+    worlds 41407, 41408, 41409; the pair holds false, false, true
+      Tuple{Main.SF_type__path_first_back.var"#r_stf_1", Main.SF_type__path_first_back.S}  worlds 41261:∞  <- runs in world 41409
+        edges: code Tuple{Main.SF_type__path_first_back.var"#q_stf_1", Main.SF_type__path_first_back.S}
+-- type/path_first_back mrs form r copy 1 world 2 (kept_after_change): compiled :would_trap fresh true expected true
+    worlds 41407, 41408, 41409; the pair holds false, false, true
+      Tuple{Main.SF_type__path_first_back.var"#r_mrs_1", Main.SF_type__path_first_back.S}  worlds 41265:∞  <- runs in world 41409
+        edges: code Tuple{Main.SF_type__path_first_back.var"#q_mrs_1", Main.SF_type__path_first_back.S}
+-- type/super1 stf form r copy 0 world 1 (kept_after_change): compiled :would_trap fresh true expected true
+    worlds 41570, 41571; the pair holds false, true
+      Tuple{Main.SF_type__super1.var"#r_stf_0", Main.SF_type__super1.S}  worlds 41471:∞  <- runs in world 41571
+        edges: code Tuple{Main.SF_type__super1.var"#q_stf_0", Main.SF_type__super1.S}
+-- type/super1 mrs form r copy 0 world 1 (kept_after_change): compiled :would_trap fresh true expected true
+    worlds 41570, 41571; the pair holds false, true
+      Tuple{Main.SF_type__super1.var"#r_mrs_0", Main.SF_type__super1.S}  worlds 41475:∞  <- runs in world 41571
+        edges: code Tuple{Main.SF_type__super1.var"#q_mrs_0", Main.SF_type__super1.S}
+-- type/super1_back stf form r copy 0 world 1 (kept_after_change): compiled :would_trap fresh true expected true
+    worlds 41779, 41780; the pair holds false, true
+      Tuple{Main.SF_type__super1_back.var"#r_stf_0", Main.SF_type__super1_back.S}  worlds 41632:∞  <- runs in world 41780
+        edges: code Tuple{Main.SF_type__super1_back.var"#q_stf_0", Main.SF_type__super1_back.S}
+-- type/super1_back mrs form r copy 0 world 1 (kept_after_change): compiled :would_trap fresh true expected true
+    worlds 41779, 41780; the pair holds false, true
+      Tuple{Main.SF_type__super1_back.var"#r_mrs_0", Main.SF_type__super1_back.S}  worlds 41636:∞  <- runs in world 41780
+        edges: code Tuple{Main.SF_type__super1_back.var"#q_mrs_0", Main.SF_type__super1_back.S}
+-- type/super2 stf form r copy 0 world 1 (kept_after_change): compiled :would_trap fresh true expected true
+    worlds 41942, 41943; the pair holds false, true
+      Tuple{Main.SF_type__super2.var"#r_stf_0", Main.SF_type__super2.S}  worlds 41842:∞  <- runs in world 41943
+        edges: code Tuple{Main.SF_type__super2.var"#q_stf_0", Main.SF_type__super2.S}
+-- type/super2 mrs form r copy 0 world 1 (kept_after_change): compiled :would_trap fresh true expected true
+    worlds 41942, 41943; the pair holds false, true
+      Tuple{Main.SF_type__super2.var"#r_mrs_0", Main.SF_type__super2.S}  worlds 41846:∞  <- runs in world 41943
+        edges: code Tuple{Main.SF_type__super2.var"#q_mrs_0", Main.SF_type__super2.S}
+-- type/super2_back stf form r copy 0 world 1 (kept_after_change): compiled :would_trap fresh true expected true
+    worlds 42152, 42153; the pair holds false, true
+      Tuple{Main.SF_type__super2_back.var"#r_stf_0", Main.SF_type__super2_back.S}  worlds 42004:∞  <- runs in world 42153
+        edges: code Tuple{Main.SF_type__super2_back.var"#q_stf_0", Main.SF_type__super2_back.S}
+-- type/super2_back mrs form r copy 0 world 1 (kept_after_change): compiled :would_trap fresh true expected true
+    worlds 42152, 42153; the pair holds false, true
+      Tuple{Main.SF_type__super2_back.var"#r_mrs_0", Main.SF_type__super2_back.S}  worlds 42008:∞  <- runs in world 42153
+        edges: code Tuple{Main.SF_type__super2_back.var"#q_mrs_0", Main.SF_type__super2_back.S}
+-- type/method_then_member stf form r copy 1 world 2 (kept_after_change): compiled :would_trap fresh true expected true
+    worlds 42898, 42900, 42901; the pair holds false, false, true
+      Tuple{Main.SF_type__method_then_member.var"#r_stf_1", Main.SF_type__method_then_member.S}  worlds 42752:∞  <- runs in world 42901
+        edges: code Tuple{Main.SF_type__method_then_member.var"#q_stf_1", Main.SF_type__method_then_member.S}
+
+set_folds: 557 cases, 189704 checks, 7982 mismatches in 847 groups, 0 crashes, 0 case errors, 208 dynamic, 20 fresh-vs-expected, 285.0 s
+exit 0

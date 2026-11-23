@@ -1,0 +1,34 @@
+julia.h, jltypes: the layout for sets and memberships (`TypeName.memberships`, `Core.MembershipEntry`, `DataType.has_open_set`)
+
+The data structures of a series that adds sets to the type system. A *set* is an abstract type
+whose subtypes are not fixed by declared supertypes alone: a type becomes a member of a set, and
+so a subtype of it, by a *membership* declared after both types exist, in a new world. The parts
+after this one declare sets and memberships, answer subtyping and dispatch through them, and
+invalidate code as a method definition does. This part only adds the slots; nothing declares a
+set, and every answer is as before.
+
+- `TypeName`: the bit `open_set` (the type is a set), the bit `never_member` (Core's kinds,
+  `Module`, type variables, intrinsics, opaque closures, memory, and the builtin functions' types,
+  which can never be members, so the compiler's answers about them never change), the byte
+  `input_params` (which parameters of a set are inputs: a member has one instance of the set per
+  value of the inputs), and the atomic field `memberships`, a `SimpleVector` of the type's entries,
+  replaced copy-on-write; `jl_emptysvec` until a membership is declared.
+- `Core.MembershipEntry` (`jl_membership_t`): one declared membership, kept on the member's
+  TypeName: the set, the member pattern, the set's instance for it, the world range in which it is
+  in force (`max_world` atomic, lowered when the membership is redeclared), the declaring module,
+  and the forwarding field a library may name (`receiver`, `by`).
+- `DataType.has_open_set`: whether a set occurs in the type (itself, a parameter, a union
+  component, a type variable's bound, lower or upper), memoized when the type is built. Subtyping
+  walks both bounds of a variable, so a membership decides a question where a set occurs only as a
+  lower bound (`Ref{S} where S >: X`): the bit counts the lower bound too. Since a type is a set from its declaration,
+  before any other type can name it, the bit is final. With it clear, no membership can change an
+  answer about the type: subtyping, intersection and the compiler test it first, so code without
+  sets reads one bit. The memoized bits fill DataType's 16-bit word, so the word is widened to 32
+  bits (`flags`, and the masks of `base/runtime_internals.jl`, which keep that width because they
+  run before integer promotion is defined).
+- `jl_has_open_set_in(v)` reads the bit inline, and through unions, variables and varargs.
+
+Test: `test/core.jl` (the atomic fields of `TypeName`; the new fields' defaults; `flags` a
+`UInt32`; Core's kinds and builtins never members; `Core.MembershipEntry`'s fields).
+
+Co-Authored-By: Claude <noreply@anthropic.com>

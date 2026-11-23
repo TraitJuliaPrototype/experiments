@@ -1,0 +1,90 @@
+commit 21a9652b44ccb4d8de76af71dc1745fa6e8b9b8a
+Author: frank <hellmann@pik-potsdam.de>
+Date:   Sun Nov 22 21:23:47 2026 +0100
+
+    runtime: a positive answer through an entry records the entries of both sides, both bounds of each variable
+    
+    Inference folds a positive answer `S <: X` through a membership entry only where it can record the
+    entries the answer rests on (`record_memberships!`, `jl_membership_entries_for`), and the code's worlds
+    start at theirs (compiler §3.1, §4.8). The walk that collects them took the open sets of X, upper bounds
+    only, and the entries on S's TypeNames. A lower bound turns the question around: in
+    `Tuple{SZ, Ref{LY}} <: Tuple{LZ, Ref{T}} where T >: LX` subtyping asks `LX <: LY`, the member in X's
+    lower bound and the set in S. That entry was not recorded: the code folded `true` with the worlds of
+    `SZ in LZ` alone, ran in a world before `LX in LY` and kept its answer when that membership was taken
+    back. Now the sets are those of S and X and the entries those on the TypeNames of S and X, each
+    variable's lower and upper bound included (`open_sets_in`, `membership_entries_visit`). The set is a
+    superset of the entries the walk can use: a fold rests on no fewer than it uses.
+    
+    Reference: compiler §3.1 (a positive membership is recorded as its entry), §4.8. Retires C-161.
+    Test: experiments/implementation/w143e/motiv/lb_entries.jl; gates f7_membership_edges, m1_*, m2_*,
+    n2_*; test/subtype.jl.
+    
+    Co-Authored-By: Claude <noreply@anthropic.com>
+
+diff --git a/src/subtype.c b/src/subtype.c
+index 2fdb8e407d..3569a33e27 100644
+--- a/src/subtype.c
++++ b/src/subtype.c
+@@ -1741,13 +1741,14 @@ JL_DLLEXPORT int jl_membership_world_range(jl_value_t *t, jl_value_t *sig, size_
+     return found;
+ }
+ 
+-// the TypeNames of the open sets that occur in t: through parameters, unions, UnionAlls,
+-// varargs and an intersection's components
++// the TypeNames of the open sets that occur in t: through parameters, unions, UnionAlls (a
++// variable's lower and upper bound), varargs and an intersection's components
+ static void open_sets_in(jl_value_t *t, arraylist_t *out) JL_NOTSAFEPOINT
+ {
+     if (t == NULL)
+         return;
+     if (jl_is_unionall(t)) {
++        open_sets_in(((jl_unionall_t*)t)->var->lb, out);
+         open_sets_in(((jl_unionall_t*)t)->var->ub, out);
+         open_sets_in(((jl_unionall_t*)t)->body, out);
+         return;
+@@ -1776,14 +1777,15 @@ static void open_sets_in(jl_value_t *t, arraylist_t *out) JL_NOTSAFEPOINT
+         open_sets_in(jl_tparam(t, i), out);
+ }
+ 
+-// the entries live in `world` on a TypeName reachable from t (through parameters,
+-// supertypes and entries' instances) whose set reaches one of `targets`
++// the entries live in `world` on a TypeName reachable from t (through parameters, a variable's
++// bounds, supertypes and entries' instances) whose set reaches one of `targets`
+ static void membership_entries_visit(jl_value_t *t, size_t world, arraylist_t *targets,
+                                      arraylist_t *out, arraylist_t *seen)
+ {
+     if (t == NULL)
+         return;
+     if (jl_is_unionall(t)) {
++        membership_entries_visit(((jl_unionall_t*)t)->var->lb, world, targets, out, seen);
+         membership_entries_visit(((jl_unionall_t*)t)->var->ub, world, targets, out, seen);
+         membership_entries_visit(((jl_unionall_t*)t)->body, world, targets, out, seen);
+         return;
+@@ -1829,9 +1831,11 @@ static void membership_entries_visit(jl_value_t *t, size_t world, arraylist_t *t
+ }
+ 
+ // The entries a positive answer `S <: X` may rest on in `world` (compiler §3.1, §4.8): each
+-// entry live there, on a TypeName reachable from S, whose set reaches an open set that X names.
+-// Inference records them in the code's record when it folds the answer, and bounds the code's
+-// worlds by theirs. Empty where S reaches none.
++// entry live there, on a TypeName reachable from S or X, whose set reaches an open set that S or
++// X names. A lower bound turns the question around: in `Ref{Y} <: Ref{T} where T >: Z` the walk
++// asks `Z <: Y`, the member in X and the set in S; so both sides are read, both bounds of each
++// variable. Inference records them in the code's record when it folds the answer, and bounds the
++// code's worlds by theirs. Empty where neither side reaches one.
+ JL_DLLEXPORT jl_value_t *jl_membership_entries_for(jl_value_t *S, jl_value_t *X, size_t world)
+ {
+     arraylist_t targets, out, seen;
+@@ -1839,8 +1843,11 @@ JL_DLLEXPORT jl_value_t *jl_membership_entries_for(jl_value_t *S, jl_value_t *X,
+     arraylist_new(&out, 0);
+     arraylist_new(&seen, 0);
+     open_sets_in(X, &targets);
+-    if (targets.len > 0)
++    open_sets_in(S, &targets);
++    if (targets.len > 0) {
+         membership_entries_visit(S, world, &targets, &out, &seen);
++        membership_entries_visit(X, world, &targets, &out, &seen);
++    }
+     jl_svec_t *r = jl_alloc_svec_uninit(out.len);
+     for (size_t i = 0; i < out.len; i++)
+         jl_svecset(r, i, (jl_value_t*)out.items[i]);

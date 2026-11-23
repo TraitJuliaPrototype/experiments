@@ -1,0 +1,29 @@
+Compiler, datatype: a closed build counts the members of a set by use, and compiles in rounds
+
+The first of three parts of a closed build. A trimmed build (`--trim`) compiles a closed program: no
+member is added after the build. From the start of the output's compile (`CLOSED_OUTPUT`, set by
+`compile_and_emit_native`) the build's own rules apply where this part makes them:
+- an operation's call at a value known by its trait is split over every member of the set where the
+  members can be listed (`jl_set_enumerable`, `closed_candidates`), not over the first four
+  candidates, with the box `Dynamic{X}` where the build forgets one at such a place; past the
+  branches the call raises `MethodError` (`SplitCallInfo.closed`), and no table is made for it;
+- a set's members are those the build has: each entry's concrete type, and of an entry at a family
+  `S{T} where T` or at an abstract type the types under it that the build's optimized code forgets at
+  a place typed by the set, or that flow there (passed on, narrowed by a test), and the values its
+  constants hold (`closed_note_used!`, `note_used_type!`, `note_closed_flow!`;
+  `jl_set_member_patterns`);
+- the build compiles in rounds: where a split was inferred with fewer members than a later round
+  finds, the instances noted at such calls (`note_closed_operation!`) are inferred again with their
+  callers (`closed_build_reinfer!`, `closed_invalidate_callers!`), until no round adds a member; a
+  split with no member is a "no method" fact only in the last rounds (`CLOSED_NO_MEMBER`);
+- code the build runs while it loads its program is compiled as in a session; the instances whose
+  inference met an operation's call at a set are noted from the process's start and inferred again;
+- nothing is trusted: every call runs the instance inferred (`trusted_effects`).
+`JULIA_CLOSED_BUILD_REPORT` prints the build's sets with their members, the rounds and the types
+forgotten.
+
+A session is unchanged: every rule is behind `closed_build()`.
+
+Test: with the third part, whose check in a session runs these rules.
+
+Co-Authored-By: Claude <noreply@anthropic.com>

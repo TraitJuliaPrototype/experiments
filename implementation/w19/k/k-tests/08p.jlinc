@@ -1,0 +1,23 @@
+    # an image's methods are inserted with their questions about memberships asked in their own world, not
+    # the loading code's older one: `Y0 in X` declared by an image reaches, through `S0 in Y0`, the code
+    # that folded `S0() isa X` to `false`
+    write(joinpath(dir, "MembE.jl"), """
+        module MembE
+        $setmacro
+        @set X
+        @set Y0
+        struct S0 end
+        member!(Y0, S0)
+        q(x) = x isa X
+        end
+        """)
+    write(joinpath(dir, "MembF.jl"), """
+        module MembF
+        using MembE
+        MembE.member!(MembE.X, MembE.Y0, @__MODULE__)
+        end
+        """)
+    E = Base.require(Main, :MembE)
+    @test Base.invokelatest(() -> E.q(E.S0())) === false
+    Base.require(Main, :MembF)
+    @test Base.invokelatest(() -> E.q(E.S0())) === true

@@ -1,0 +1,25 @@
+commit 6e0701d6af2b1d355fbb10bbe871e26d49caa398
+Author: frank <hellmann@pik-potsdam.de>
+Date:   Sun Nov 22 22:46:38 2026 +0100
+
+    Compiler: the union-splitting cost in a test of `callsig_splits`; two comments
+    
+    `unionsplitcost` leaves the largest union out of the product it counts, so a signature with one union
+    of five members is within the cost, and the test that expected no splits for it failed. The test now
+    takes two unions of three members each, whose cost (six) is past the default of four.
+    
+    Co-Authored-By: Claude <noreply@anthropic.com>
+
+diff --git a/Compiler/src/types.jl b/Compiler/src/types.jl
+index 1fd53ddefd..70fd0042df 100644
+--- a/Compiler/src/types.jl
++++ b/Compiler/src/types.jl
+@@ -552,7 +552,7 @@ The definition-time check: Julia's inference of a method at its own signature, w
+ ephemeral cache, so that every function the method reaches is inferred again, and at each known call
+ `hook(interp, f, argtypes, sv)`, the library's, which records a use outside a set's contract in `state`.
+ The interpreter is the compiler's own: a library that runs the check defines no method of the
+-compiler's functions, so loading it invalidates none of the compiler's code (compiler ).
++compiler's functions, so loading it invalidates none of the compiler's code.
+ """
+ struct DefinitionCheckCache
+     dict::IdDict{MethodInstance,CodeInstance}

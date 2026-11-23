@@ -1,0 +1,17 @@
+datatype, gf: a strict mode for a trait library, which refuses a membership that makes methods ambiguous
+
+A library's strict mode (`jl_set_strict_memberships`) turns the ambiguity report at a membership into
+a refusal: the declaration asks, in the entry's world before the counter advances to it and under the
+world counter's lock, whether the entry makes methods ambiguous (`jl_membership_ambiguities`, the
+search through `ml_matches_i`, which takes the world past the counter there); a finding retires the
+entry before it begins and raises an error that names each ambiguity as the report's warning does.
+At an image's activation the findings are kept as messages for the library
+(`jl_take_activation_ambiguities`) in place of the warning.
+
+For the library's check of a pirate's membership: what a membership would replay
+(`jl_membership_replay_sigs`, also the methods whose lower bound the member meets, each at its own
+signature) and its method's signature (`jl_membership_method_sig`).
+
+Test: test/subtype.jl, "a strict mode".
+
+Co-Authored-By: Claude <noreply@anthropic.com>

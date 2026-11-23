@@ -1,0 +1,60 @@
+commit 3e9c19302548ae75a971eab1ae50dd43222fd2a5
+Author: frank <hellmann@pik-potsdam.de>
+Date:   Mon Nov 23 02:44:46 2026 +0100
+
+    runtime: a type in a pattern bounded by a set is no final non-member
+    
+    The library declares each kept form a member of its set by a pattern bounded by the set (`Compiled{Z} where Z <: X`,
+    `Dynamic{Z} where Z <: X`). `Compiled{S}` is in `X` where `S` is, so whether it is rests on `S`'s memberships, and
+    its non-membership's cell, the pair (`Compiled{S}`, `X`), is met by no membership of `S`: inference folded
+    `Compiled{S} <: X` and `Dynamic{Y} <: X` to `false` as final and kept it after `S` joined `X` (found by the
+    set-folds report's library mode, shapes `compiled` and `dynamic`). Now a concrete type on whose chain a pattern's
+    entry has a variable bounded by a type in which an open set occurs is no final non-member: the negative is not
+    folded (`chain_has_set_bounded_pattern` in `jl_membership_final`).
+    
+    Reference: compiler §4.8, §6.9.
+    Test: experiments/implementation/w171/gates/n48_kept_form_not_final.jl.
+    
+    Co-Authored-By: Claude <noreply@anthropic.com>
+
+diff --git a/src/datatype.c b/src/datatype.c
+index 8de12a6451..3f50a43e5d 100644
+--- a/src/datatype.c
++++ b/src/datatype.c
+@@ -623,6 +623,25 @@ static int type_declarers_loaded(jl_value_t *t, int depth)
+     return 1; // a value parameter
+ }
+ 
++// Whether a type on `S`'s chain holds a pattern's entry whose variable is bounded by a type in which an open set
++// occurs (`Compiled{Z} where Z <: X`, the library's entries for the kept forms): `S` is in that pattern's set where
++// its parameter is under the bound, which a membership of the parameter changes.
++static int chain_has_set_bounded_pattern(jl_datatype_t *S)
++{
++    for (jl_datatype_t *d = S; d != NULL && d != jl_any_type; d = d->super) {
++        jl_svec_t *list = jl_typename_memberships(d->name);
++        for (size_t i = 0; i < jl_svec_len(list); i++) {
++            jl_value_t *p = ((jl_membership_t*)jl_svecref(list, i))->member;
++            for (; jl_is_unionall(p); p = ((jl_unionall_t*)p)->body) {
++                jl_tvar_t *v = ((jl_unionall_t*)p)->var;
++                if (jl_has_open_set_in(v->ub) || jl_has_open_set_in(v->lb))
++                    return 1;
++            }
++        }
++    }
++    return 0;
++}
++
+ // Is "S is not a member of X" final (compiler §4.8)? X is a set closed after load, S a concrete type
+ // that is not a member of X in the query world, and the declarers have finished loading: X's module and
+ // the module of every TypeName in S. Code that relies on it records the pair's final cell.
+@@ -644,6 +663,10 @@ JL_DLLEXPORT int jl_membership_final(jl_value_t *S, jl_value_t *X)
+     }
+     if (!jl_is_concrete_type(S) || jl_is_type_type(S) || ((jl_datatype_t*)S)->name->never_member)
+         return 0;
++    // a pattern of S's bounded by a set: whether S is in it rests on its parameter's memberships, whose pair is
++    // not this one (`Compiled{S} <: X` once `S` joins `X`): not final
++    if (chain_has_set_bounded_pattern((jl_datatype_t*)S))
++        return 0;
+     // a non-membership is relied on wherever it holds, while a declarer loads and for a type or set of
+     // Main too (W-140, stage 2): the code records the pair's cell, and a membership declared later
+     // invalidates it, as a method definition invalidates its callers

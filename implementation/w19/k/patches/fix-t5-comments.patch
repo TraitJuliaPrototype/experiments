@@ -1,0 +1,21 @@
+diff --git a/src/gf.c b/src/gf.c
+--- a/src/gf.c
++++ b/src/gf.c
+@@ -4325,7 +4325,7 @@
+                                               size_t entry_min_world)
+ {
+     if (!jl_atomic_load_relaxed(&allow_new_worlds))
+-        return; // entries land at package *execution*, not serialization (M6 replays them)
++        return; // entries land when a package runs, not while its image is written (its activation replays them)
+     size_t max_world = entry_min_world - 1; // the entry's visibility, not the counter's
+     // gc slots: 0 sets, 1 targets, 2 ms, 3 oldmi, 4 oldvalue, 5 dummy_sig, 6 dummy,
+     // 7 loctag, 8 isect, 9 isect2. JL_GC_PUSHARGS slots hold the values themselves,
+@@ -4362,7 +4362,7 @@
+             continue;
+         int clean = 1;
+         // rooted at once: the member's signature can be a fresh UnionAll, and the search type below
+-        // allocates (open issue 189: unrooted, a collection there left the typemap entry a freed object)
++        // allocates (unrooted, a collection there left the typemap entry a freed object)
+         jl_value_t *substsing = gc[5] = membership_subst_sig(m, sets, member, &clean);
+         if (clean != 0 && in_list(lbt, (jl_value_t*)m)) {
+             // a lower bound: no one signature with the member says what the membership adds there; the replay

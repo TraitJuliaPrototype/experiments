@@ -1,0 +1,38 @@
+commit d7b373bf921ce65794d269d911079ce184261b3d
+Author: frank <hellmann@pik-potsdam.de>
+Date:   Mon Nov 23 02:44:46 2026 +0100
+
+    runtime: a membership's walk reaches a method at an instance an entry at every instance meets
+    
+    An entry whose instance has variables of its own (`@implement Callable T` declares `T` a member of every
+    `Callable{A, S}`) was paired with a method's parameter by subtyping: `Callable{A, S} where {A, S}` is under no
+    `Callable{Tuple{Int}, Int}`, so the walk took the method at that instance for one the membership does not reach and
+    replayed nothing; the dispatch caches and the callers kept `g(::Any)` for `T` (found by the set-folds report's
+    library mode, shape `callable`). Now such an instance reaches the parameter where the two meet, as a pattern's
+    instance with free variables does (`membership_param_meets`).
+    
+    Reference: compiler §5.5, §7.4.
+    Test: experiments/implementation/w171/gates/n47_callable_every_instance.jl.
+    
+    Co-Authored-By: Claude <noreply@anthropic.com>
+
+diff --git a/src/gf.c b/src/gf.c
+index 1ce3c06a1c..b7ecd20813 100644
+--- a/src/gf.c
++++ b/src/gf.c
+@@ -4189,6 +4189,15 @@ static int membership_param_meets(jl_value_t *Y, jl_value_t *uw, jl_value_t *msi
+ {
+     if (jl_has_free_typevars(Y))
+         return 1; // a pattern's instance
++    if (jl_is_unionall(Y)) {
++        // an entry at instances of its own variables (`@implement Callable T`: every instance): it reaches the
++        // method's parameter where the two meet
++        jl_value_t *w = jl_rewrap_unionall(uw, msig);
++        JL_GC_PUSH1(&w);
++        int meets = jl_has_free_typevars(w) || !jl_has_empty_intersection(Y, w);
++        JL_GC_POP();
++        return meets;
++    }
+     if (!jl_has_free_typevars(uw))
+         return jl_egal(Y, uw) || jl_subtype(Y, uw);
+     jl_value_t *w = jl_rewrap_unionall(uw, msig);

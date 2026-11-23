@@ -1,0 +1,24 @@
+staticdata, datatype: memberships in package images
+
+A package image now keeps the memberships its modules declared, also of another package's type
+in another package's set: the session's list of declarations (`jl_declared_memberships`) gives
+the image the live entries its own modules declared. The entries are written with no world; at
+load they are activated in the world the image's methods are activated in (their memberships'
+methods among them), before the image's code is validated. The methods' insertion asks its
+questions about memberships in that world, not in the older one the loading code runs in, where
+the entries of the session and of the images loaded since are not in force, and an entry on another module's type
+joins that type's list. Then the membership's walk and the ambiguity report run as at a
+declaration.
+
+An entry that would give its member a second instance of its set, against the entries in force at
+load, is refused with a warning, and its method retired (`jl_membership_method_retire`). An older
+entry for the same member, set and inputs ends where the image's begins. The entries images
+activate are listed for a library (`jl_activated_memberships`).
+
+The system image keeps the indices of sets: the methods at sets, the entries at each set and the
+pairs' absence signatures.
+
+Test: test/precompile.jl, "memberships in package images" (with an image that declares a set a
+member of another, which reaches code that folded a member of the first through the second).
+
+Co-Authored-By: Claude <noreply@anthropic.com>
