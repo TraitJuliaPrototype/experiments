@@ -184,3 +184,124 @@ every answer about a set it leaves to the run as not consistent (the builtins' t
 among methods at a set, `applicable`, a `ccall` into the runtime); only effects a method asserts (`@assume_effects`,
 `@_total_meta`, as `typeintersect` and `==` of types do) can claim consistency over such an answer. Not built: no
 cell shows a cost it would recover.
+
+## Third part (E-544)
+
+**The registry's row (E-544).** What do the audit's two open rows (compiler C-166, C-167) and the tool's gaps hide: a
+membership's replay at the member's kept forms; a method at the member's own type at a call compiled at the set; lower
+bounds at contravariant places and past the runtime's depth; a declared field read and a store at a set; an
+intersection of three components; two instances of one set at different inputs; a redeclaration with another
+receiver; a closed build's compiled answers against a session's; threads? Baseline: the runtime's own answer in each
+world; for a closed build, the session's answer. Would change the references: a mismatch is a hole at its rule.
+
+Branch `w171c` of the julia repository (worktree `wt/w171-julia`), on `w171b` = `next` 3e9c193025. Candidate gates
+`gates/n49_…`.
+
+### C-167 and C-166
+
+- **C-167, the replay at a member's kept forms.** A membership of `S` in `X` puts under `X` more than `S`: each type of
+  a pattern whose variable is bounded by a set the walk reaches (`Compiled{Z} where Z <: X`, the library's kept forms:
+  `Compiled{S}`). The walk replayed a method at `X` at `S` alone, so `hasmethod(h, Tuple{Compiled{S}})` and a call at a
+  wrapper compiled before the membership kept the old answer (the library mode's 112). The rule (compiler §5.5): the
+  replay's signature is what the membership adds under the method. Fix 20d5c1eaed (`src/gf.c`, 102 lines added): the
+  walk finds every entry live in the world whose pattern's variable has a bound naming one of the walk's sets, at any
+  set (`membership_bounded_patterns`, from the entries at each set), and replays each such pattern as a member, at the
+  pattern itself; a call that matched before (at an earlier member's kept form) keeps its code. Taken back, the same,
+  and an instance at a type the method still takes keeps its code. Gate `gates/n50_kept_form_replay.jl` (fails on
+  `next` 3e9c193025). The library mode after it: 0 (below).
+- **C-166, a method at the member's own type at a call compiled at the set.** The caller's answer is wrong, not only
+  reflection's: `g` is no operation of `X`, so a call compiled once at `X` is Julia's call, inferred at the matches at
+  `X`; `g(::S)` was no match while `S` was no member, the caller called `g(::X)` statically, and once `S` joined `X`
+  it kept calling `g(::X)` for an `S` (`probes/member_method_at_set.jl`: `q(S()) = X`). The same holds where a
+  member's subtype has the method (an abstract member) and where a set member's member has it. In a closed build every
+  member is declared before the build compiles, so the answer is right there (the closed mode, below). The rule it
+  breaks: compiler §4.8, every negative a compiled answer rests on is recorded; the lookup at `X` dropped `g(::S)`
+  because `S` was no member, a folded negative with no edge (and §5.5's "a caller holds no absence edge for a call" is
+  what made it a hole). Fix 79e9f3321a (`src/gf.c`, `src/typemap.c`, `src/datatype.c`, 281 lines added): a lookup that
+  inference asks (`jl_matching_methods_cells`) at a query that names a set visits every entry (the shortcut that stops
+  at a fully covering method that met no other at its insertion is skipped), and for each entry whose intersection
+  with the query is empty finds the pairs a membership would need (`ml_matches_dropped`, `drop_position`: the set at a
+  position, a tuple's components, `Type{<:X}`, a union's arms, a parameter through a declared supertype; an invariant
+  parameter's equality needs none); it returns one absence per set at the union of the member sides (`drop_cells`,
+  `Type{<:Union{S, …}}`), every membership of the set where a shape names no pair. Inference records them as it records
+  the unmet matches' cells. Gate `gates/n51_member_method_at_set.jl` (fails on `next` 3e9c193025). Before the build,
+  the union form was chosen over one absence per pair: a call `show(io, x::X)` drops about 300 methods.
+
+### The tool's gaps: what each mode generates and finds
+
+| Mode | What it generates | On `w171c` 1d39e9e764 (C-166, C-167 fixed) | On the head 0bbd759c13 |
+|---|---|---|---|
+| stub | 557 cases (37 shapes, 16 sequences), 13 questions, 189,704 checks | 7,946 mismatches in 841 groups: `stf` 3,492, `mrs` 3,492 (every shape), `disp` 320, `hasm` 262, `app` 244, `which` 136 (`deep9`, `lb_in_tuple`, `set_member`/`method_at_member`); 20 fresh against expected | 0; 294 s |
+| library | 551 cases (40 shapes), 185,352 checks | 4,062 mismatches: `stf` 2,470, `mrs` 1,088, `disp`, `hasm`, `app`, `which` 504 (`deep9`, `set_member`/`method_at_member`, as in the stub mode); 96 crashes (every lower-bound shape: a store compiled `Union{}` ran into `unreachable`), 4 case errors (the tool's `field` shape: a writable declared field needs a mutable member; it declares `@const` now) | 0; 371 s |
+| image | 13 shapes, 4 directions, 1,409 checks | — | 0; 15 s |
+| closed build | 22 shapes, 3 final states, 709 answers, one trimmed program | — (on 20730dea1c: 0 of 709) | 0 of 709 |
+| threads | 1,000 rounds of 4 changes, 9 questions | stores wrong (73,249 of 1,037,700) and `disp` 170, `app` 50 | 0 wrong (3 runs, 72,018 to 97,857 checks) |
+
+Logs: `logs/set-folds-w171c-<commit>.log`, `set-folds-traitworld-…`, `set-folds-images-…`, `set-folds-closed-…`,
+`set-folds-threads-…`, `thread-race-…`.
+
+**The patterns found, each at its rule:**
+
+1. **A store's type test about a set** (`stf`, `mrs`: a store into a field typed by a set, into a `Memory{X}`). Two
+   causes. Inference proved the store throws by an empty intersection (`setfield!_tfunc`, `memoryrefset!_tfunc`) with
+   no edge; and `setfield!` returns the value it stores, so a store whose test throws claimed consistency and a caller
+   evaluated it at compile time at a singleton value, keeping the throw. The code ran into `unreachable` once the
+   membership was declared (`probes/store_trap.jl`). Rule: compiler §4.8 (an answer about a set that inference does not
+   fold is not consistent; a negative folds only with an edge). The same `hasintersect` decision sat at `===`, a
+   global's declared type, `invoke` at a CodeInstance, `Callable`'s argument check and the optimizer's pruning of phi
+   edges. Fixes f708a0171a (`may_intersect`: an empty intersection that a membership could change is no proof where no
+   frame records the pair; 12 lines) and 20730dea1c (a store whose test names an open set and is not proved nothrow is
+   not consistent, `store_test_names_open_set`; 21 lines). Gate `gates/n54_store_set_test.jl`. The tool for the
+   pattern: `../audit/negative_sites.jl`, every place in the compiler that decides by an empty intersection.
+2. **The walks' depth was silent** (`deep9`: the set nine tuples deep). The walks over a signature stop at depth 8; the
+   set-to-methods index then listed the method under no set, and `set_name_nested` read a set past the depth as no
+   set: no membership replayed the method. A lower bound with parameters (`T >: Tuple{S}`, `lb_in_tuple`) holds the
+   member below its top, which the lower-bound replay's intersection test missed. Rule: compiler §5.5 (where one
+   signature does not say what the membership adds, the replay is at the method's own signature). Fix 268aef4b91 (a
+   place past the depth lists the method under `nothing`, which every walk replays at its own signature; a bound with
+   parameters meets every member) and e45b5b4198 (a union's nesting is no depth: a union of eleven integer types went
+   past it, and every membership replayed 66 of Base's methods, `m2_volume` failed). Gate `gates/n53_walk_past_depth.jl`.
+3. **The interference record read for a pair at sets** (`set_member`/`method_at_member`: `which` and the fresh oracle
+   chose `g(::X)` for a member of `Y0`, dispatch chose `g(::Y0)`). Julia's method matching walks each method's list of
+   interferences, made at insertion; a membership declared later orders such a pair (`g(::Y0)` more specific than
+   `g(::X)` once `Y0` joins `X`), and the readers took a listed method as one still interfering: a lookup at `X`
+   dropped `g(::Y0)` as ambiguous, and code compiled at `X` after the membership called `g(::X)` for a member of `Y0`
+   (`probes/slurp_order.jl`, a wrong answer with no world change after the compile). Rule: compiler §5.2 (a pair in
+   which either names an open set is asked in the query's world). Fix 9c12940b58 (each listed method asked again,
+   `method_in_interferences`; 8 lines). Gate `gates/n52_interference_in_world.jl`.
+4. **A declaration advanced the world counter before its walk** (the thread mode's `disp`, `app`). A thread that read
+   the counter in that window ran code compiled before the membership in its world; asked again later the answer was
+   right (`probes/thread_race.jl`: 22 to 3,844 wrong answers a run on 20730dea1c, none kept; defining and deleting a
+   method, plain Julia's case, gave none in 10 to 15 million checks). Rule: compiler §4.3 (a membership is declared as
+   a method is inserted). Fix 0bbd759c13 (the walk and the ambiguity report run, then the counter advances; 9 lines).
+   Gate `gates/n55_declaration_order.jl`. An image's activated memberships are still walked after the load's world is
+   published (C-168's text below).
+
+**The questions that found nothing:** a declared field read at a set, compiled once at it; an intersection of three
+components; two instances of one set at different inputs; a redeclaration with another receiver; lower bounds under a
+tuple, a union and a `Vararg`, and a member in a union in a lower bound; a closed build's answers; the image mode.
+
+### The gate `n49_set_folds.jl`
+
+The slice: the stub mode at 16 shapes (`type`, `vararg`, `super_param`, `type_type`, `type_value`, `lower_bound`,
+`lower_bound_rev`, `lower_bound_eq`, `lower_bound_inv`, `both_bounds`, `set_member`, `abstract_member`, `union_both`,
+`member_method`, `deep9`, `lb_in_tuple`) and 4 sequences (declared, taken back, declared again, a method at the member
+first), every question; the library mode at `compiled`, `dynamic`, `callable`, declared and taken back; the image mode
+whole. 62 s on the head (`logs/n49-w171c-0bbd759c13.log`). It fails on `wt/w143-julia` d1e64d8b56 (3,866 mismatches in
+the stub slice), `wt/w158-julia` (now at bfaf484f55, row 181: 3,958) and `wt/w159-bisect` 3037289af6 (492 in its 15
+cases without `jl_delete_membership`) (`logs/n49-old-builds.log`). Every case of the fifteen fixes of E-542 and E-543
+is in the slice (their shapes and sequences above); the builds without each single fix do not exist.
+
+### Checks of `w171c` 0bbd759c13
+
+- The gates in force: 87 passed, 0 failed; the stage gates 9 passed (`logs/gates-w171c-0bbd759c13.log`).
+- The candidate gates `gates/n50` to `n54` fail on `next` 3e9c193025 and pass on the head (`logs/new-gates-on-next-3e9c193025.log`);
+  `n55` fails on 20730dea1c (the thread runs above) and passes on the head.
+- TraitWorld's tests as a file: 120 test sets, no failure (`logs/traitworld-tests-w171c-0bbd759c13.log`).
+- Base's `subtype`, `worlds`, `core`, `ambiguous`, `reflection`: SUCCESS (`logs/base-*-w171c-0bbd759c13.log`).
+- The tool: 0 mismatches in the stub, library, image and closed-build modes; 0 wrong answers with threads.
+- The negative-sites report on the head (`logs/negative-sites-w171c-0bbd759c13.log`): 53 places decide by an empty
+  intersection; 11 gated for a set, 38 against a constant type (`Symbol`, `Int`, `Bool`: a set meets one only by a
+  membership of that type), 4 open: two in a closed build (its flows, the verifier: one world, nothing joins later),
+  `ccall`'s pointer argument against `Ptr` (a constant type the pattern missed), and an opaque closure's signature
+  against the call's (`abstractinterpretation.jl` 4065: a signature that names a set is not gated; no case built).

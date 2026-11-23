@@ -79,6 +79,14 @@ julia-next/julia --startup-file=no --project=experiments/implementation experime
 julia-next/julia --startup-file=no --project=TraitWorld experiments/implementation/audit/set_folds.jl --mode=traitworld
 # its image mode (E-543): memberships and code in package images, built in a temporary depot
 julia-next/julia --startup-file=no --project=experiments/implementation experiments/implementation/audit/set_folds_images.jl [--keep]
+# its closed-build mode (E-544): the answers a trimmed program compiles against a session's (one program, built by
+# the tree's juliac script with --trim=safe in a temporary directory)
+julia-next/julia --startup-file=no --project=experiments/implementation experiments/implementation/audit/set_folds_closed.jl [--keep] [--shapes=a,b]
+# its thread mode (E-544): two threads ask while a third declares and takes back, a smoke test
+julia-next/julia -t 3 --startup-file=no --project=experiments/implementation experiments/implementation/audit/set_folds_threads.jl [rounds]
+# the negative-sites report (E-544): every place in the compiler's source that decides by an empty intersection,
+# gated for a set or not
+julia-next/julia --startup-file=no experiments/implementation/audit/negative_sites.jl <julia tree> [--open]
 ```
 
 The compile trace of the imports (`trace-imports-*.log`) is Julia's own: `--trace-compile=<log> --trace-compile-timing -e 'using …'`.
@@ -144,7 +152,18 @@ expected one. Compiled code whose result is `Union{}` where the fresh answer ret
   method, `applicable(h, x)`, `which(g, Tuple{typeof(x)})` (in the latest world only: `which` asks it by definition).
 - **Forms:** the function compiled for the types (`q`), through one more caller (`r`), and, where the shape has one, a
   method compiled once at a set (`@nospecializeinfer`, `o`) and its caller (`ro`).
-- **Shapes (26 in the stub mode):** the type; a member defined after the methods at the set; a covariant parameter (a
+- **Questions added by E-544 (13 in all):** a store into a field typed B (`setfield!` of a mutable struct's field) and
+  into a `Memory{B}` (`memoryrefset!`), each against the runtime's `jl_isa`; in the library mode a declared field
+  read at a value typed by its set (`x.u`, compiled once at the set).
+- **Shapes added by E-544:** a lower bound under a tuple, a union and a `Vararg`, and a member inside a lower bound
+  (`T >: Union{S, Int}`, `T >: Tuple{S}`); the set nine tuples deep, and a lower bound there (past the walks' depth of
+  8); an intersection of three components; two instances of one set at different inputs (`All{X2{Int}, X2{String}}`);
+  `member_method`, code compiled once at the set (`W = X`, first compiled with another member's value, `warm`) and a
+  method at the member's own type; in the library mode `compiled` with a value (the questions at a value), `field`.
+  37 shapes in the stub mode, 40 in the library mode.
+- **Sequences added by E-544:** `method_at_member` (a method at A before the membership, compiler C-166) and
+  `redeclared_by` (declared, then declared again with another receiver; the stub mode). 16 in all.
+- **Shapes (26 in the stub mode before E-544):** the type; a member defined after the methods at the set; a covariant parameter (a
   tuple, two); an invariant parameter; a union's component (one side, both); an intersection `All{X, Y}`; a variable's
   upper bound, lower bound (member in the lower bound against a set argument), both bounds; a lower bound compared for
   equality at the top and inside an invariant parameter; a lower bound whose answer rests on two entries (the gate
@@ -173,12 +192,21 @@ session), `image_positive` (a package that declares the memberships and folds th
 taken back in the session), `refused` (an image's membership refused at activation as a second instance of a set,
 with code in that image that folded it). Two copies of each question, two worlds; 1,409 checks, 15 s.
 
-**What it cannot ask:** a declared field read at a set; a method at the member's own type defined before the
-membership, with a call compiled at the set (compiler C-166: no sequence puts a method at `A`); a store into storage
-typed by a set (`setfield!`, `memoryrefset!`) and `typeassert` folded by
-the optimizer's `⊑` queries (C-51); `Callable{A, S}`; an intersection of three components and two instances of one
-set at different inputs; a set deeper than eight levels or under a `Vararg` in a method's signature (the walk's
-conservative path, C-88); a redeclaration with another receiver; strict mode's refusals; another thread; a closed build.
+**The closed-build mode** (`set_folds_closed.jl`, E-544): 22 shapes a program holds, each in three final states (the
+pair declared; declared and taken back while the program loads; never declared), the questions at a value (but
+`hasmethod` and `which`, which a trimmed program does not hold) and the three without one, compiled for the value's
+type and, where the shape has one, once at a set. One program, built with `--trim=safe`; its 709 answers against the
+session's.
+
+**The thread mode** (`set_folds_threads.jl`, E-544): two threads ask nine questions (a subtype test, `isa`, a
+typeassert, `new`'s field test, a store, a call at methods at `Any` and at the set, `applicable`, and two compiled once
+at a set) while a third declares and takes back two memberships (the member, a set it is in) a thousand times, each
+change waiting until both threads have asked every question once more. A wrong answer is one that differs from the
+runtime's in the world the thread read; a crash ends the process.
+
+**What it cannot ask:** `typeassert` folded by the optimizer's `⊑` queries (C-51); strict mode's refusals; a set
+under a `Vararg` in a method's signature (the walk's conservative path, C-88); in a closed build `hasmethod` and
+`which`; with threads, an image loaded while another thread asks (C-168).
 
 | Date | Build | Cases | Mismatches (groups) | By question | Fresh against expected | Notes |
 |---|---|---|---|---|---|---|
@@ -195,5 +223,9 @@ conservative path, C-88); a redeclaration with another receiver; strict mode's r
 | 2026-11-23 | `w171b` 3e9c193025, library mode | 386 | 112 (9) | hasm 112 | 0 | `hasmethod(h, Tuple{Compiled{S}})` only: compiler C-167 |
 | 2026-11-23 | `w171b` 3c7394979a, image mode | 13 shapes, 4 directions | 1 of 1,409 | isa | — | `loaded_after`, `set_member`: an image's membership's method activated in the loading code's world |
 | 2026-11-23 | `w171b` 054016ea75 and 3e9c193025, image mode | 13 shapes, 4 directions | 0 of 1,409 | — | — | the refused image's own code answers by the refusal |
+| 2026-11-23 | `w171c` 1d39e9e764 (C-166, C-167), E-544's tool | 557 | 7,946 (841) | stf 3,492, mrs 3,492, disp 320, hasm 262, app 244, which 136 | 20 | the stores (every shape); `deep9`, `lb_in_tuple` (the walks' depth); `set_member`/`method_at_member` (the interference record) |
+| 2026-11-23 | `w171c` 1d39e9e764, library mode | 551 | 4,062 (529); 96 crashes | stf 2,470, mrs 1,088, disp 156, hasm 146, app 134, which 68 | 20 | the lower-bound shapes' stores crash; the `field` shape's declaration refused (fixed in the tool) |
+| 2026-11-23 | `w171c` 20730dea1c | 557 | 0 (0) | — | 0 | library mode 0 of 185,352; image 0 of 1,409; closed 0 of 709; threads 131 to 319 wrong (`disp`, `app`) |
+| 2026-11-23 | `w171c` 0bbd759c13 (the head) | 557 | 0 (0) | — | 0 | 294 s; library mode 0 of 185,352 (371 s); image 0 of 1,409; closed 0 of 709; threads 0 wrong in 3 runs |
 
 Logs: `../w171/logs/set-folds-<build>.log`; the patterns, their probes and fixes: `../w171/README.md`.

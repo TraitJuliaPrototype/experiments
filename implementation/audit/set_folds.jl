@@ -8,13 +8,14 @@
 #     julia --project=TraitWorld                 experiments/implementation/audit/set_folds.jl --mode=traitworld
 # Options:
 #     --mode=stub|traitworld   the stub library (default; the runtime's entry points, as the gates) or TraitWorld
-#                              (adds the kept forms `Dynamic{X}`, `Compiled{T}`; not working yet: the library's
-#                              `@implement` does not take the type objects this mode passes it)
+#                              (the library's declarations, the kept forms `Dynamic{X}`, `Compiled{T}`, `Callable`,
+#                              an operation's declared result, a declared field)
 #     --only=<regex>           the cases whose name `shape/sequence` matches
 #     --questions=a,b,…        only these questions (sub int eq hasm isa tassert new disp app which)
 #     --sample=<n> --seed=<s>  a seeded sample of n cases (the seed is printed)
 #     --show=<n>               print n mismatches in full, each with its probe and the code's worlds and edges (20)
 #     --probes=<dir>           write each group's first mismatch as a probe file there
+#     --shapes=a,b,…           only these shapes (the gate's slice: ../w171/gates/n49_set_folds.jl)
 # It asserts nothing. Exit status 0; the last line is the tally. See README.md, "The set-folds report".
 
 using Random
@@ -36,6 +37,7 @@ else
 end
 const HAS_DELETE = try cglobal(:jl_delete_membership); true catch; false end
 const ONLY = haskey(ARGS_D, "only") ? Regex(ARGS_D["only"]) : nothing
+const SHAPESEL = haskey(ARGS_D, "shapes") ? split(ARGS_D["shapes"], ',') : nothing
 const SHOW = parse(Int, get(ARGS_D, "show", "20"))
 const PROBES = get(ARGS_D, "probes", "")
 
@@ -65,7 +67,12 @@ Base.@kwdef struct Shape
     decl::String = ""            # traitworld: the declaration of the pair, `{set}` and `{member}` replaced
     onlyseqs::Vector{String} = String[]  # where not empty, only these sequences
     stub::Bool = true            # also in the stub mode
+    warm::String = ""            # a value under W in every world: the code compiled once is first compiled with it
 end
+
+# a type or value nested `n` levels in tuples (the runtime's walks stop at 8)
+nest(s, n) = n == 0 ? s : "Tuple{" * nest(s, n - 1) * "}"
+nestv(s, n) = n == 0 ? s : "(" * nestv(s, n - 1) * ",)"
 
 const SHAPES = Shape[
     Shape(name = "type", defs = "struct S end", A = "S", B = "X", val = "S()", sub = m -> m),
@@ -111,9 +118,38 @@ const SHAPES = Shape[
     Shape(name = "unmet", defs = "abstract type AM end\nstruct S0 end", setup = "@implement X S0", member = "",
           A = "X", B = "AM", val = "S0()", W = "X", sub = m -> false, valsub = (m, vi) -> vi == 2,
           seqs = :unmet, val2 = "T2()"),
+    # E-544: a lower bound below a position's top, and a member inside a lower bound (compiler §5.5)
+    Shape(name = "lb_tuple", defs = "struct S end", A = "Tuple{Ph{X}}", B = "Tuple{Ph{T}} where T>:S",
+          val = "(Ph{X}(),)", sub = m -> m),
+    Shape(name = "lb_union", defs = "struct S end", A = "Ph{X}", B = "Union{Int, Ph{T} where T>:S}",
+          val = "Ph{X}()", sub = m -> m),
+    Shape(name = "lb_vararg", defs = "struct S end", A = "Tuple{Int, Ph{X}}", B = "Tuple{Int, Vararg{Ph{T}}} where T>:S",
+          val = "(1, Ph{X}())", sub = m -> m),
+    Shape(name = "lb_in_union", defs = "struct S end", A = "Ph{Union{X, Int}}", B = "Ph{T} where T>:Union{S, Int}",
+          val = "Ph{Union{X, Int}}()", sub = m -> m),
+    Shape(name = "lb_in_tuple", defs = "struct S end", A = "Ph{Tuple{X}}", B = "Ph{T} where T>:Tuple{S}",
+          val = "Ph{Tuple{X}}()", sub = m -> m),
+    # past the depth of the runtime's walks (8): the set nine tuples deep, and a lower bound there
+    Shape(name = "deep9", defs = "struct S end", A = nest("S", 9), B = nest("X", 9), val = nestv("S()", 9), sub = m -> m),
+    Shape(name = "deep9_lb", defs = "struct S end", A = nest("Ph{X}", 9), B = nest("Ph{T}", 9) * " where T>:S",
+          val = nestv("Ph{X}()", 9), sub = m -> m),
+    # an intersection of three components; two instances of one set at different inputs
+    Shape(name = "all3", defs = "struct S end\n@trait Yb\n@trait Yd", setup = "SFLIB_DECLARE(S, Yb)\nSFLIB_DECLARE(S, Yd)",
+          A = "S", B = "Core.All{Tuple{X, Yb, Yd}}", val = "S()", sub = m -> m),
+    Shape(name = "inputs2", defs = "@trait X2{I}\nccall(:jl_set_input_params, Cvoid, (Any, UInt8), X2, 0x01)\nstruct S end",
+          setup = "SFLIB_DECLARE(S, X2{String})", set = "X2{Int}", A = "S", B = "Core.All{Tuple{X2{Int}, X2{String}}}",
+          val = "S()", sub = m -> m),
+    # a method at the member's own type defined before the membership, and code compiled once at the set (compiler C-166)
+    Shape(name = "member_method", defs = "struct S end\nstruct T1 end", setup = "SFLIB_DECLARE(T1, X)", A = "S", B = "X",
+          val = "S()", W = "X", warm = "T1()", sub = m -> m),
     Shape(name = "dynamic", defs = "@trait Y0", member = "Y0", A = "Core.Dynamic{Y0}", B = "X",
           sub = m -> m, traitworld = true),
-    Shape(name = "compiled", defs = "struct S end", A = "Core.Compiled{S}", B = "X", sub = m -> m, traitworld = true),
+    Shape(name = "compiled", defs = "struct S end", A = "Core.Compiled{S}", B = "X", val = "Core.Compiled{S}(S())",
+          sub = m -> m, traitworld = true),
+    # a declared field read at a value typed by its set, compiled once at the set (compiler §7.1)
+    Shape(name = "field", defs = "struct S; u::Int; end\n@trait XF begin\n    @const u::Int\nend", set = "XF", A = "S", B = "XF",
+          val = "S(1)", W = "XF", sub = m -> m, traitworld = true,
+          onlyseqs = ["declared", "taken_back", "redeclared", "method_then_member"]),
     # the library's forms of a declaration: a block, a forwarding field, a family by `where`
     Shape(name = "block", defs = "struct S end", A = "S", B = "X", val = "S()", sub = m -> m, traitworld = true,
           decl = "TraitWorld.@implement {set} {member} begin end"),
@@ -156,20 +192,24 @@ const MEMBER_SEQS = Seq[
     Seq("method_added_less", [(:add, :SX), :defA], [:defB]),
     Seq("method_deleted", [(:add, :SX), :defB], [:delB]),
     Seq("method_then_member", [], [:defB, (:add, :SX), (:del, :SX)]),
+    # E-544: a method at A defined before the membership (C-166); a redeclaration with another receiver
+    Seq("method_at_member", [:defA], [(:add, :SX), (:del, :SX)]),
+    Seq("redeclared_by", [], [(:add, :SX), (:redecl, :SX)]),
 ]
 const UNMET_SEQS = Seq[
     Seq("type_later", [], [:typeT2]),
     Seq("type_later_back", [], [:typeT2, :delT2]),
 ]
 needs_delete(q::Seq) = any(c -> c isa Tuple && c[1] === :del || c === :delT2, q.changes)
+redeclares(q::Seq) = any(c -> c isa Tuple && c[1] === :redecl, q.changes)
 
 ## The questions -------------------------------------------------------------------------------------------------
 # Each has a body for the compiled copies and a body for the fresh answer; `x` is the value.
 const NOARG_Q = [:sub, :int, :eq, :hasm]
-const VAL_Q = [:isa, :tassert, :new, :disp, :app, :which, :op]
+const VAL_Q = [:isa, :tassert, :new, :stf, :mrs, :disp, :app, :which, :op, :fld]
 const QSEL = haskey(ARGS_D, "questions") ? Symbol.(split(ARGS_D["questions"], ',')) : vcat(NOARG_Q, VAL_Q)
-# the operation's question only where the shape declares the operation
-qsel(sh) = filter(q -> q !== :op || occursin("oval", sh.defs), QSEL)
+# the operation's question only where the shape declares the operation; the declared field's where it declares one
+qsel(sh) = filter(q -> (q !== :op || occursin("oval", sh.defs)) && (q !== :fld || occursin("u::Int\nend", sh.defs)), QSEL)
 qbody(q) = q === :sub ? "A <: B" :
            q === :int ? "typeintersect(A, B) === Union{}" :
            q === :eq ? "A == B" :
@@ -177,6 +217,9 @@ qbody(q) = q === :sub ? "A <: B" :
            q === :isa ? "x isa B" :
            q === :tassert ? "(x::B; true)" :
            q === :new ? "(@newHB(x); true)" :
+           q === :stf ? "(m = MB(); setfield!(m, :v, x); true)" :
+           q === :mrs ? "(Core.memoryrefset!(Core.memoryrefnew(Memory{B}(undef, 1)), x, :not_atomic, true); true)" :
+           q === :fld ? "x.u" :
            q === :disp ? "g(x)" :
            q === :app ? "applicable(h, x)" :
            q === :which ? "which(g, Tuple{Core.Typeof(x)})" :
@@ -209,6 +252,8 @@ fbody(q) = q === :sub ? "ccall(:jl_subtype, Cint, (Any, Any), A, B) != 0" :
            q === :isa ? "ccall(:jl_isa, Cint, (Any, Any), x, B) != 0" :
            q === :tassert ? "ccall(:jl_isa, Cint, (Any, Any), x, B) != 0 ? true : :TypeError" :
            q === :new ? "(ccall(:jl_new_structv, Any, (Any, Ptr{Any}, UInt32), HB, Any[x], 1); true)" :
+           q in (:stf, :mrs) ? "ccall(:jl_isa, Cint, (Any, Any), x, B) != 0 ? true : :TypeError" :
+           q === :fld ? "getfield(x, :u)" :
            q === :disp ? "Main.SF_dispatch(g, x)" :
            q === :app ? "Main.SF_dispatch(h, x) !== :nomethod" :
            q === :which ? "Main.SF_which(g, x)" :
@@ -230,6 +275,9 @@ function change_src(sh::Shape, c)
                 return replace(d, "{set}" => set, "{member}" => mem)
             end
             return "SFLIB_DECLARE($mem, $set)"
+        elseif c[1] === :redecl
+            # the runtime's entry point, with the receiver `:none` (the first declaration's is `:self`)
+            return "Traits.declare_membership($mem, $set, @__MODULE__, nothing, :none)"
         else
             MODE == "traitworld" && return "TraitWorld.delete_membership($set, $mem)"
             return "ccall(:jl_delete_membership, Cvoid, (Any, Any, Any), $mem, $set, @__MODULE__)"
@@ -273,6 +321,7 @@ function case_src(sh::Shape, q::Seq, ncopies::Int)
     end
     println(io, "function g end\nfunction h end")
     println(io, "struct HB; v::B; end\nmacro newHB(x) esc(Expr(:new, :HB, x)) end")
+    println(io, "mutable struct MB; v::B; MB() = new(); end")
     for k in 0:ncopies-1
         for qq in qsel(sh)
             if qq in NOARG_Q
@@ -359,6 +408,7 @@ function expected(sh::Shape, q::Symbol, m::Bool, vi::Int, mstate)
     q === :isa && return vs
     q === :tassert && return vs ? true : :TypeError
     q === :new && return vs ? true : :TypeError
+    q in (:stf, :mrs) && return vs ? true : :TypeError
     q === :eq && return sh.eq === nothing ? missing : sh.eq(m)
     q === :int && return missing          # only one direction is known
     q === :disp && return hasA ? :A : (hasB && vs) ? :B : :Any
@@ -402,7 +452,14 @@ function run_case(sh::Shape, q::Seq; declare, record)
         vs
     end
     info = (M = M, worlds = worlds, states = states)
+    warmv = isempty(sh.warm) ? nothing : Base.invokelatest(Core.eval, M, Meta.parse(sh.warm))
     function ask(where_, k, j, w)
+        # a new copy's code compiled once at W, first with a value under W in every world (compiler C-166)
+        if warmv !== nothing && where_ === :latest && k == j
+            for qq in qsel(sh), form in ("o", "ro")
+                qq in NOARG_Q || latest(fn(form, qq, k), warmv)
+            end
+        end
         m, mstate, _ = states[j+1]
         for qq in qsel(sh)
             if qq in NOARG_Q
@@ -436,7 +493,7 @@ function run_case(sh::Shape, q::Seq; declare, record)
     for (j, c) in enumerate(q.changes)
         include_string(M, change_src(sh, c))
         if c isa Tuple
-            c[1] === :add ? push!(links, c[2]) : delete!(links, c[2])
+            c[1] === :add || c[1] === :redecl ? push!(links, c[2]) : delete!(links, c[2])
         elseif c === :defB
             hasB = true
         elseif c === :delB
@@ -512,6 +569,7 @@ function probe_src(c::Check)
     end
     println(io, "function g end\nfunction h end")
     println(io, "struct HB; v::B; end\nmacro newHB(x) esc(Expr(:new, :HB, x)) end")
+    println(io, "mutable struct MB; v::B; MB() = new(); end")
     qq = c.question
     arg = qq in NOARG_Q ? "" : "x"
     w = isempty(sh.W) ? "" : sh.W
@@ -551,6 +609,7 @@ function cases()
     out = Tuple{Shape,Seq}[]
     for sh in SHAPES
         sh.traitworld && MODE != "traitworld" && continue
+        SHAPESEL === nothing || sh.name in SHAPESEL || continue
         # the library declares a set's inputs itself; a pattern of a free variable is refused there
         MODE == "traitworld" && (startswith(sh.name, "input") || sh.name == "unmet") && continue
         seqs = sh.seqs === :unmet ? UNMET_SEQS : MEMBER_SEQS
@@ -560,6 +619,7 @@ function cases()
             sh.late && startswith(q.name, "method") && continue
             name = "$(sh.name)/$(q.name)"
             ONLY === nothing || occursin(ONLY, name) || continue
+            (redeclares(q) && MODE == "traitworld") && continue
             if needs_delete(q) && !HAS_DELETE
                 push!(SKIPPED, "$name (no jl_delete_membership in this build)")
                 continue
