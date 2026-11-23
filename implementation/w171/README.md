@@ -305,3 +305,15 @@ is in the slice (their shapes and sequences above); the builds without each sing
   membership of that type), 4 open: two in a closed build (its flows, the verifier: one world, nothing joins later),
   `ccall`'s pointer argument against `Ptr` (a constant type the pattern missed), and an opaque closure's signature
   against the call's (`abstractinterpretation.jl` 4065: a signature that names a set is not gated; no case built).
+
+## Fourth part (E-545)
+
+**The registry's row (E-545).** What do the audit's twenty-three fixes cost a session that uses no set, by fix: which
+functions of a plain load and of plain code's first work grew, and does a query that names no set take the plain
+path? And the audit's last rows (compiler C-168 to C-170): does a task run code an image's activation ends; does the
+library's pirate check see a selection changed at a kept form; can an opaque closure's signature test decide wrongly
+at a set? Baseline: vanilla v1.13.2; the head before the audit as a regression control. Would change the rules'
+implementation: a cost a test on the question's types avoids is removed; a cost the rule sets goes to GT-9.
+
+Branch `w171d` of the julia repository (worktree `wt/w171-julia`), on `w171c` = `next` 0bbd759c13. Candidate gates
+`gates/n56_…`.
