@@ -1133,3 +1133,362 @@ By series: G 595 added, 121 removed (18 commits); F 1,834 and 182, of which test
 - **The head's comments were scrubbed by a tool;** its leftovers were fixed where a search found them, not by reading every comment.
 - **`w19-stack-v2`'s probes compare the stack of 24 patches with vanilla,** not each patch alone; `up/20` and `up/25` change no invalidation without `up/19`, which `w19-stack-v2` does not hold.
 - **The nine loads' facts images hold 3,490 instances on the head against 3,487 at T10;** which part adds the 3 is not read.
+
+# Seventh part: the series follows `next`, T16 in three, the tests of the last parts
+
+## Handover (the session ended, 2026-11-23 08:07)
+
+- **Made and pushed** (julia repository): the stack **`w19-traits-v3-head` a168645b2e** (68 commits on v1.13.2; its
+  parts `traits-v3/01-core-slots` … `traits-v3/s3-trait-options`, `traits-v3/00-callsig-union-split`,
+  `traits-v3/16a-closed-members-v2` 40da8b5149, `16b-closed-splits-v2` 0bfa5f620d, `16c-closed-check-v2` a168645b2e);
+  G **`w19-stack-v3`** 4365ea8679 (with `up/27`); the standalone **`up/27-promote-typesubtract-once`** 05a669aa46;
+  `w19-traits-v3-base` 4d66e4a200 (G and F); `w19-traits-v3-built` 9a25e86ff3 (the head as built). Superseded, left as
+  pushed: `w19-traits-v3` 515923d3eb and `w19-traits-v3-wip1` (the same tree as the head, T16a and T16b of the first
+  cut), `traits-v3/16a-closed-members`, `16b-closed-splits`, `16c-closed-check` (the first cut, whose T16a does not build).
+- **Checked:** the head (build 1): gates 84 of 87 and 9 stage gates, Base's tests, `precompile`, the library's suite,
+  the examples, the four trimmed programs, the set-folds report (as `next` with the same tool), the nine loads, the
+  micro-timings and the plain session, the static check of GC roots (0 findings). Built alone with their tests and the
+  gates: T16a, T16b, T7, T1, T2c, T9b, T14, T15, T12. Every T commit compiles (`make -C src`).
+- **Half-done:** F4a's build (`k-parts.sh`, build 12) was stopped in its first minutes; `wt/w19-julia` is checked out
+  at F4a 84fb1dfa1f with a partial build (rebuild before use). `wt/w19-patch` is at the head; `wt/w19-check` at T16c.
+  The README section below and the report are complete for what was run.
+- **`next` moved to 0bbd759c13:** rows 196 to 203 of `writeup/design/julia-changes.md` are not in this series.
+- **Next steps, in order:** (1) rows 196 to 203 into their parts, with `k/steps-v3.txt` (rerun `k/k-restack.py`
+  on `wt/w19-patch`: the rerere records of the seven conflicts are in the repository's `rr-cache`; a rerun makes
+  new commit ids, so new branch names); (2) F4a and F4b built alone, then T2a, T2b, T3, T4, T5, T6, T8, T9a, T9c, T10,
+  T11, T13, T17, S3 (compiled only, or built only without their rows); (3) the method-matching cost (+21 % at the
+  head, GT-9) into the open issues by the main session; (4) the inventory §5 and the plan as in the report.
+
+The brief: rows 182 to 195 of the inventory (`next` 3e9c193025) into the parts where their code is made, in a new
+stack; T16 cut in three; testsets in Julia's `test/` for T11 to T17; the parts not built alone built; on the head the
+gates, Base's tests, the library's suite and the examples, the trimmed programs, the set-folds report in its three
+modes, the nine loads and what plain code pays; Julia's static check of GC roots; every message and comment read
+once more.
+
+## How to run (seventh part)
+
+```
+python3 k/k-restack.py wt/w19-patch k/steps-v3.txt [--resume]   # the stack, from v1.13.2: picks, the rows' patches, tests, messages
+python3 k/k-t16-cut.py wt/w19-patch <S3> <T16> <out>            # T16 cut in three (k/patches/t16{a,b,c}.patch)
+<tree>/julia k/k-rowtests.jl [02d.jl ...]                       # the rows' testsets standalone (fail on the sixth part's S3)
+<tree>/julia k/k-tests-standalone.jl                            # the testsets of T11 to T17 standalone
+<tree>/julia k/k-imagetest.jl                                   # row 193's image case standalone
+bash k-run-head.sh <tag> [steps]                                # the head: gates, Base's tests, suite, examples, set-folds, micro, plain, loads
+bash k-mbuilds.sh <tag>                                         # the four trimmed programs on wt/w19-julia (agent-depots/w19)
+bash k-parts.sh <n> <label> <commit> "<tests>" [tw]             # one part built alone, its tests and the gates
+bash k-compile-checks.sh <log> <commit>...                      # make -C src and the Julia files parsed, per commit
+```
+
+`k/` holds the restack's inputs: `steps-v3.txt` (one line per commit), `patches/` (each row's hunks as applied at
+its part, adapted where the part's text differs from `next`'s; the fixes of comments), `k-tests/` (the testsets and
+the anchors they are inserted at), `msgs/` (the messages that changed), `k-msgfilter.py` (the wording pass over
+every message), `k-hunks.py`, `k-basetree.sh`, `k-filepatch.sh`, `k-scrub.py` (tools used to cut the patches).
+
+## 1. The stack
+
+The stack `w19-traits-v3-head` (a168645b2e; `w19-traits-v3`, 515923d3eb, has the same tree, its T16a and T16b before the fix below) on v1.13.2: **68 commits, 85 files, 13,320 lines added, 659 removed**
+(`logs/k-series.tsv`). Its parts:
+
+- **G, `w19-stack-v3`** (4365ea8679): `w19-stack-v2`'s 24 patches (`up/01` to `up/18`, `up/20` to `up/25`) and
+  **`up/27`** (row 183: `_promote_typesubtract` and `fieldname`'s error path `@nospecializeinfer`, inferred at the
+  instance that runs; standalone branch `up/27-promote-typesubtract-once` 05a669aa46 on v1.13.2, 3 files, +13 −3,
+  test in `test/reflection.jl`). The messages of `up/20`, `up/22`, `up/25` no longer name other branches.
+- **F**: `w19-facts-tests-v2`'s 16 commits cherry-picked on G. F7 no longer carries the `!==` clause, which G's
+  `up/20` holds: its message drops that bullet; its test of a `!==` method in `test/worlds.jl` stays (it needs S1).
+  Then the dispatch profiler's call site (E7) and **row 179** (`callsig_splits`), with the sixth part's test fix
+  (16b) folded in: it follows the facts series, whose constant it reads (`traits-v3/00-callsig-union-split`).
+- **T**: the 25 parts below, each with its rows; T16 in three. The sixth part's additions 10a (row 181) and 10b
+  (rows 175 to 180 and 179) are gone from between T10 and T15: row 181 is in T1, rows 175 to 180 are G's.
+
+### Where each row went
+
+| Row | `next` | Part | How |
+|---|---|---|---|
+| 181 (the bit sees a lower bound) | bfaf484f55 | T1 (C), T2d (its testset) | the witness is T1's; the testset needs sets. With row 192 the testset's caller asks `A <: B` at the top, where a membership counts, not `Vector{A} <: Vector{B}`, which is false in every world now |
+| 182 (a positive records the entries of both sides) | 21a9652b44 | T6 | `jl_membership_entries_for` is T6's; adapted to the series' comment |
+| 183 (`_promote_typesubtract`, `throw_field_access` once) | d1e64d8b56 | `up/27` (G) | general |
+| 184 (absence worlds) | dd42dc8c3f | T7 | already there (fifth part) |
+| 185 (`jl_could_join`: Vararg tail, `Type{S}`, a declared supertype) | 461605c7f2 | T2d | adapted by hand (the series' comments) |
+| 186 (taken back: an instance with no code) | 04bafd8f52 | T5 | as is |
+| 187 (an unfolded set answer is not consistent) | edb0e3dcae | T7 | its `new` hunk needs T6's frame form, its `typeutils.jl` context T7's absence edge |
+| 188 (`jl_subtype_via_membership`: Vararg tail, a declared supertype) | 2ddbe12394 | T2d | adapted by hand |
+| 189 (a match at a kind: the type-value entries' worlds) | 86cc20d662 | T7 | needs `open_sets_in` (T6); written by hand on top of row 190's T5 form |
+| 190 (methods with a lower bound replayed) | aa362a2ddd | T5, the replay signatures' hunk T9c | the walk, the index, the match worlds in T5 (written by hand: no implements check before T6, which T6's pick adds; no kind clause before T7); `jl_membership_replay_sigs` is T9c's |
+| 191 (a choice at a set not consistent; `hasmethod`'s negative) | 9970f8799a | T7 | needs `MethodLookupResult.cells` (T7) |
+| 192 (`noentry_depth`) | 3c7394979a | T2b | adapted by hand (no `entryinst` before T3) |
+| 193 (an image's methods asked in their world) | 054016ea75 | T8 | as is |
+| 194 (an entry at every instance meets a method's instance) | d7b373bf92 | T5 | as is |
+| 195 (a type in a pattern bounded by a set is no final non-member) | 3e9c193025 | T14 (the kept forms' pattern, as the brief places it) | written by hand into the series' `jl_membership_final` (no loaded marks) |
+
+The rows' comments lost the references' section numbers and work items (`k/k-scrub.py`). Where the brief named
+another part (the entries' collection and the shortcuts in T2b/T2c), the code is made later: `jl_could_join` and
+`jl_subtype_via_membership` in T2d, `jl_membership_entries_for` in T6; the rows follow the code.
+
+### The testsets the rows add
+
+Each audit gate's cases (`gates/n37` to `n48`) as testsets in plain style through the runtime's entry points
+(`jl_set_open_set`, `jl_declare_membership`, `jl_delete_membership`), in the part that carries the fix
+(`k/k-tests/`). Each fails on the sixth part's S3 build (2ee6d6876e, which lacks rows 182 to 195; rows 185 and 187
+stop the process at a typeassert folded to `unreachable`, as their gates say) and passes on `next` 3e9c193025
+(`k/k-rowtests-w19-julia-s3.log`, `k/k-rowtests-julia-next.log`, `k/k-imagetest.jl`):
+
+| Part | Testset (`test/subtype.jl` unless named) | Gate |
+|---|---|---|
+| T2d | "a set in a type variable's lower bound"; "a negative at a Vararg tail, at Type{S} and at a declared supertype's parameter"; "a variable bound inside an invariant parameter compares its bounds with no entry" | 10a's, `n39` (negatives), `n45` |
+| T5 | "a positive at a Vararg tail and at a declared supertype's parameter, taken back"; "a membership taken back ends the callers of an instance with no code"; "a membership replays the methods whose lower bound the member meets" (declared, taken back, a path of two); "a membership at every instance reaches a method at one instance" | `n39` (positives), `n40`, `n43`, `n47` (with a set of the test's own: `Callable` comes in T12) |
+| T6 | "a positive answer through entries records the entries of both sides" (and taken back) | `n38` |
+| T7 | "an answer about a set that inference does not fold is not consistent"; "a match at a kind holds only while the set's entries for type values do"; "a choice among methods at a set, and `hasmethod` at a set, are not folded" | `n41`, `n42`, `n44` |
+| T8 | `test/precompile.jl` "memberships in package images": two packages more, an image that declares a set a member of another | `n46` |
+| T14 | "a type in a pattern bounded by a set is no final non-member" | `n48` |
+
+`n37` (row 184) has its case in T7's earlier testsets ("memberships compose", "a membership taken back").
+
+## 2. T16 cut in three
+
+`k/k-t16-cut.py` takes T16's tree and works backwards: (c) the whole, (b) without the check in a session and the
+verifier, (a) without the closed splits. Each compiles on the one below (`make -C src`; only T16a changes C) and
+parses; every name a part's Julia code calls is defined in its tree (a scan of `closed_*` and `CLOSED_*`).
+
+| Part | Branch, commit | Subject | Size | What |
+|---|---|---|---|---|
+| T16a | `traits-v3/16a-closed-members-v2` 40da8b5149 | Compiler: a closed build counts a set's members by use, in rounds | 6 files, +800 −37 | `CLOSED_OUTPUT`, `closed_build`, the members by use (`closed_note_used!`, `note_used_type!`, `note_closed_flow!`, `closed_candidates`, families, `closed_entry_free`), an operation's split over every member (`operation_split_type(atype, closed_rules)`, `SplitCallInfo.closed`, no table), the rounds in `typeinf_ext_toplevel` with the callers inferred again, `jl_set_enumerable`, `jl_set_member_patterns`, `JULIA_CLOSED_BUILD_REPORT` |
+| T16b | `traits-v3/16b-closed-splits-v2` 0bfa5f620d | Compiler: a closed build branches over a set's members | 2 files, +466 −5 | `closed_member_split` with the static-parameter, wrapper and choice bits, the forwarders, `closed_bound`, `closed_callable_split`, `closed_set_signature` (the inliner), the `Callable` kind of a split |
+| T16c | `traits-v3/16c-closed-check-v2` a168645b2e | Compiler: a closed build's check in a session, and its verifier | 7 files, +208 −25 | `closed_check`, `ClosedCheck`, `NativeInterpreter`'s `closed` and `overlay_table`, `method_table` reading the overlay, the build's queue following an invoke that names its instance (`MAX_NAMED_INSTANCES`), the verifier's policy check |
+
+**The first cut did not build:** T16a's system image stopped in the compiler's bootstrap (`FieldError: FailedMethodMatch has no field valid_worlds`, build 2): the removal of T16b's lines in `abstract_call_gf_by_type` took out the `isa(matches, FailedMethodMatch)` return that sits between them. Fixed in the cut script; the pushed `traits-v3/16a-closed-members` and `16b-closed-splits` are that first cut, the `-v2` branches the fixed one (the trees of T16c are equal). **Hand-made in the cut:** `closed_build`
+and `closed_process` take no `NativeInterpreter` method before T16c; `abstract_call_gf_by_type`'s keywords
+`member_split` and `closed_bound` come with T16b (T16a keeps `max_union_splitting`, which its operation split
+uses); `split_fallback_table(…, closed)` and `handled_all_cases` for a closed split are T16a's, `handle_call!`'s
+`Callable` kind T16b's; `closed_kept_form` stays in T16a, which `closed_record_family` reads.
+`closed_build_reinfer!` and `closed_invalidate_callers!` keep their `owner` argument (`nothing` before T16c).
+
+**A defect of the sixth part's T16, found while cutting:** `method_table(interp::NativeInterpreter)` did not read
+the check's overlay (`next` has `function method_table(interp::NativeInterpreter); ot = interp.overlay_table; …`),
+so `closed_check(mis, world, overlay)` built the overlay table and never used it. T16c has the final tree's form.
+Three of T16's comments still carried the scrub's leftovers ("(compiler\n# )", ", :"); `src/datatype.c` had a
+comment of `jl_candidates_of` above `jl_set_enumerable` and two section numbers: fixed in T16a.
+
+## 3. Testsets for T11 to T17
+
+| Part | Testset | From |
+|---|---|---|
+| T15 | `test/subtype.jl` "an operation's result is checked where the member's code does not check it" (declared result inferred, the `trusted` effect set, a member's method redefined to `UInt` raises `TypeError` through the trait, a dynamic call returns it) | `n22`'s assertion |
+| T11 | `test/subtype.jl` "an operation's call split over its set's candidates, and the table past them" (candidates in declaration order, the first four tested in the optimized code, the fifth through the table) | `n22` |
+| T12 | `test/subtype.jl` "Callable{A, S}" | `n8`, `n14` |
+| T13 | `test/show.jl` "IO's contract and IOContext{IO}" | `n19` |
+| T14 | `test/subtype.jl` "the kept forms Dynamic{X} and Compiled{T}" (ordinary structs; an argument `@nospecialize(x::P{T})` compiled at `P{Int}`; `jl_set_erases`; `jl_open_set_methods_of`) | `m1_no_wrappers`, `n33` |
+| T17 | `Compiler/test/inference.jl` (the interpreter infers a method, calls the hook at each known call, leaves no code in the session's cache) | the library's use |
+| T16c | `test/subtype.jl` "a closed build's check: the members of a set are those the program has" (a concrete member and the one instance of a family the program uses); `Compiler/test/verifytrim.jl` (an invoke resolved by its code or its instance's code of the policy asked, refused for the other policy only) | `n34` |
+
+`test/trimming` does not run here: its first step is `Pkg.instantiate()` with a registry (offline). The testsets
+pass on `next` (`k/k-tests-standalone-next.log`) and on the head (Base's tests below).
+
+## 4. The head
+
+Built as `w19-traits-v3-built` 9a25e86ff3 (build 1); the pushed head a168645b2e differs from it in six comment
+lines (`src/gf.c`, `src/datatype.c`) and one test line (below), and was checked out on the built binary for the
+rerun of `Compiler/inference` and everything after the gates.
+
+- **The gates** (`run_all.sh`, `logs/k-gates-head.log`): **84 of 87 pass, the 9 stage gates pass.** `n38` passes now
+  (row 182). `n16`, `n18`, `n20` read `Method.declared_covers` or call `jl_set_closed_after_load` and
+  `jl_module_is_loaded`, which the series does not make; their copies `gates/i-n16`, `i-n18`, `i-n20` pass on the
+  head (`logs/k-gates-copies-head.log`).
+- **Base's tests** (`logs/k-tests-head.log`): `subtype`, `core`, `worlds`, `reflection`, `Compiler/inference`,
+  `Compiler/invalidation`, `Compiler/effects`, `Compiler/verifytrim`, `facts`, `show`: 7,828,647 pass, 78 broken,
+  1 error: `up/20`'s test asked `only(methods(!==))`, and `test/worlds.jl`, run before it in the worker, defines a
+  method of `!==` (F7's test). The test now asks `which(!==, Tuple{Any, Any})` (`up/20` in `w19-stack-v3`; the
+  standalone branch `up/20-noteq-once` keeps the old line); `Compiler/inference` then passes, 1,862 pass, 10 broken
+  (`logs/k-tests-head-inference-rerun.log`). `precompile` alone: 469 pass (`logs/k-tests-head-precompile.log`).
+- **The library's suite** (TraitWorld 0f54043, read only, as a file): 120 testsets, exit 0
+  (`logs/k-traitworld-head.log`). **The examples:** `intro.jl`, `tutorial.jl`, `strict.jl` exit 0
+  (`logs/k-examples-head.log`).
+- **The trimmed programs** (`k-mbuilds.sh head`: `w166/build_c.sh` with `JULIA_TREE=wt/w19-julia`, depot
+  `agent-depots/w19`; `logs/k-mbuilds-head.log`): table, report, plot, ode: **0 errors each**, each binary's output
+  equal to a session's, the PNGs equal.
+- **The set-folds report** (the tool as it stands in the working tree, with the third part of W-171's new shapes, a
+  snapshot not committed by that work): stub mode 557 cases, 189,704 checks, 7,982 mismatches in 847 groups;
+  library mode 551 cases, 185,352 checks, 7,966 in 858; image mode 1,409 checks, **0 mismatches**. **The same tool on
+  `next` 3e9c193025 gives the same counts and the same groups** (`logs/k-folds-*-next-control.log`): the mismatches
+  are W-171's open shapes (`redeclared`, `deep9`, `mrs` …), not the series'.
+- **The nine loads** (`f-loads.sh`, unchanged; `logs/k-loads-head.log`; a warm-up and 2 runs per cell, load 4.1–5.2):
+  by facts **14 of 3,490** own image instances lost (G2 2,799), plainly 426 of 4,694 (G2 2,673); the work after the
+  loads (A) **1.39 s by facts against 5.38–5.40 s**; order B 2.45–2.53 s against 6.21 s. Digests equal.
+- **What plain code pays** (no set declared; one thread):
+  - micro-timings (`motiv/h-micro.jl`, `logs/k-micro-head.log`, `logs/k-micro-head-vs-next.log`, ns per call,
+    minimum of 7 rounds, two rounds; vanilla / `next` 3e9c193025 / the head): `jl_subtype` 238–241 / 274 / 263–265
+    (+11 %); `jl_type_intersection` 278–279 / 322–323 / 315–318 (+14 %); the type cache 77 / – / 81 (+5 %);
+    **method matching 179 / 204–208 / 216–221 (+21 %)**, where the sixth part's head paid +8 %: rows 189 and 190
+    ask each method a lookup visits for a kind in the query and for entries at its lower bounds
+    (`jl_type_has_kind`, `jl_sig_lower_bounds_have_memberships`, in the typemap's visitor and `ml_matches_visitor`).
+    `next` pays +15 % there; the head's other 5 % are the series' forms of `ml_matches` (the earlier parts' wrapper
+    `ml_matches_c`). A tension of GT-9's kind, grown by the audit's rules;
+  - the plain session (`motiv/f-plain.jl`, upstream CSV and DataFrames plainly, a warm-up and 3 runs interleaved,
+    load 3.8–4.0; `logs/k-plain-head.log`): `using CSV, DataFrames` 671–674 ms against 648–657 ms (runs 2 and 3; the
+    first runs 745–748 ms both), +3 %; the first work 4.44–4.45 s against 4.43–4.44 s; digests equal.
+
+### The head against `next` 3e9c193025
+
+`git diff --stat 3e9c193025 a168645b2e` (`logs/k-head-vs-next.txt`): 73 files, 3,349 lines added, 2,297 removed. The
+kinds of the sixth part's account, and what changed in them:
+- **the series' tests**: 10 files under `test/` and `Compiler/test/`, 1,412 lines (the sixth part 919): the rows'
+  testsets, those of T11 to T17, `up/27`'s in `test/reflection.jl`;
+- **comments**: the series' wording, without the references' section numbers, work items or experiments;
+- **plan §5's removals** (nothing reads them): `closed_after_load` and its functions, the modules' loaded marks,
+  `Method.declared_covers`, `membership_walk_invalidates`, `membership_prune`, each function's list of methods at
+  sets, `JULIA_DEBUG_EXTERNAL_CIS`'s counters, row 137's casts;
+- **the earlier parts' forms**: `ml_matches_c`, `is_implements_sig`, functions placed in another order in
+  `datatype.c` and `gf.c`, an `if` written as `||`.
+Nothing of rows 182 to 195 is missing: `git diff w19-traits-v2-head <head> -- src Compiler/src base` against
+`git diff 8884715703 3e9c193025` (the rows on `next`) differs in comment lines only (the series' wording), but for `method_table` reading the overlay. And the one hunk of the
+final tree the sixth part's series lacked, `method_table` reading the overlay, is in T16c.
+
+## 5. The static check of the collectors' roots
+
+`w163/sagc.sh julia-next wt/w19-julia` (the tool tree's clang and plugin; the files `next` changes, the head's
+code): **15 files, 0 findings** (`logs/k-sagc-head.log`; `ast.c`, `builtins.c`, `datatype.c`, `gc-stock.c`, `gf.c`,
+`init.c`, `interpreter.c`, `jltypes.c`, `method.c`, `module.c`, `staticdata.c`, `subtype.c`, `task.c`, `toplevel.c`,
+`typemap.c`). The `.cpp` files (`analyzegc`) were not run.
+
+## 6. The wording
+
+- **Subjects:** 43 subjects shortened to Julia's length (at most 80 characters, most under 72), the detail kept in
+  the body (`k/k-msgfilter.py`, `SUBJECTS`).
+- **Names a reader does not know:** the first mention of the design's gates in a message says "outside Julia's
+  suite, the design's gate …"; `up/03`, `up/19`, `up/20` named by what the patch does; "the facts series" in G's
+  `up/20` and S3, "the fourth part's rule", "the gates the earlier part left out", "not gated" reworded; E-364 and
+  E-510 out of T16a and T16b.
+- **Comments:** `(M6 replays them)` and `(open issue 189: …)` in T5's walk; four section numbers and "the library,
+  compiler §10.4" in T11's and T14's `datatype.c`; T16's leftovers (above); "a caller kept over an equal result (the
+  code slot)" names a mechanism the series does not have.
+- What is left as it was: the series' structure in the messages ("the second of four parts"), the gates named in the
+  Test lines of F2 to F8 and T11 to T16 beside Julia's tests (they need a trait library or are not in Julia's
+  suite yet).
+
+## 7. Builds (seventh part)
+
+`WIDE=0 tools-local/build.sh wt/w19-julia` (`-j4`, niced), one after another; `k-parts.sh` for the parts (its tests
+and `run_all.sh`; logs `logs/k-part-<label>.log`, `logs/k-build<n>-<label>.tw-build.log`, numbered as the queue ran,
+one less than below from T16a on). The gate counts of the parts include seven new gates (`n49` to `n55`) another
+work had put into `gates/` meanwhile; they fail on every part, as on `next` 3e9c193025.
+
+| Build | Part | Commit | Load at start | Wall | `sys.so` (bytes) | Base's tests | Gates (pass/all), stage gates |
+|---|---|---|---|---|---|---|---|
+| 1 | the head (T16c) | 9a25e86ff3 | 6.28 | 869 s | 212,442,728 | above | 84/87, 9/9 |
+| 2 | T16a, first cut | 7a3b7db724 | 3.33 | 112 s | — | — | BUILD EXIT 2: `FailedMethodMatch` has no `valid_worlds` (§2) |
+| 3 | T16a | 40da8b5149 | 3.46 | 778 s | 210,528,048 | `subtype`, `core`, `Compiler/inference`, `Compiler/verifytrim`: 7,673,790 pass | 83/87 (`n34` waits for T16c), 9/9; the library's suite stops at `closed_check` (T16c) |
+| 4 | T16b | 0bfa5f620d | 3.21 | 787 s | 212,272,136 | the same, 7,673,790 pass | 83/87, 9/9; the suite as at T16a |
+| 5 | T7 | c7f544c147 | 3.43 | 777 s | 198,700,032 | `subtype`, `core`, `worlds`, `reflection`: 7,672,610 pass (the rows' testsets of T2d to T7 among them) | 57/87, 1/9 (the rest need later parts or the library) |
+| 6 | T1 | c3f75e36b5 | 3.55 | 777 s | 197,903,232 | `core`, `subtype`: 7,671,619 pass | 8/87 (no set yet) |
+| 7 | T2c | 4cd52cab4b | 6.63 | 767 s | 198,278,216 | `subtype`, `core`: 7,671,619 pass | 16/94 |
+| 8 | T9b | 1ff25e99ca | 3.92 | 788 s | 198,799,056 | `subtype`, `core`, `worlds`: 7,672,003 pass | 62/94 |
+| 9 | T14 | c48e583f56 | 4.35 | 808 s | 200,696,816 | `subtype`, `core`, `show`: 7,825,176 pass | 75/94, 2/9; **the library does not load at T14**: it needs `DefinitionCheckInterpreter` (T17) |
+| 10 | T15 | 47a15953dc | 4.30 | 788 s | 199,280,736 | `subtype`, `core`, `Compiler/inference`, `Compiler/effects`: 7,674,297 pass | 66/94 |
+| 11 | T12 | e3d41e9c6a | 4.76 | 798 s | 200,028,056 | `subtype`, `core`: 7,671,866 pass | 69/94 |
+| 12 | F4a | 84fb1dfa1f | 5.06 | stopped | — | — | stopped when the session ended |
+
+Every Base test run passed (SUCCESS). Besides: `make -C src` at every T commit in `wt/w19-check` (rc 0,
+`logs/k-compile-checks.log`; run on an intermediate restack whose trees differ from the pushed ones in comment and
+test lines only).
+
+## 8. The whole series
+
+`w19-traits-v3-head` on v1.13.2: 68 commits, 85 files, 13,320 lines added, 659 removed (`logs/k-series.tsv`). "compiled": `make -C src` and, for the parts the cut made, the Julia files parsed; "built alone in an earlier part": the part's tree of the sixth part, without this part's rows.
+
+| Order | Part | Commit | Files | Added | Removed | Subject | Checked |
+|---|---|---|---|---|---|---|---|
+| 1 | P01 | ece5bfe72c | 1 | 30 | 15 | reinterpretarray: padding helpers call type functions by invoke and builtins | stack (w19-stack); see the first part |
+| 2 | P02 | d013b3a557 | 2 | 29 | 22 | base: introspection helpers read fields with getfield, call by invoke | stack (w19-stack); see the first part |
+| 3 | P03 | 4ec16d3688 | 3 | 47 | 41 | base: type joins read fields with getfield and call each other by invoke | stack (w19-stack); see the first part |
+| 4 | P04 | 3b3c056094 | 2 | 10 | 5 | base: error paths build their exception at a concrete signature | stack (w19-stack); see the first part |
+| 5 | P05 | 708303db43 | 1 | 1 | 1 | task: yieldto sets the task's result with setfield!, as schedule does | stack (w19-stack); see the first part |
+| 6 | P06 | 26a2a6b4c7 | 1 | 4 | 2 | base: Val(x) builds its singleton with new | stack (w19-stack); see the first part |
+| 7 | P07 | 690f86f81c | 1 | 4 | 1 | show: IOContext(io, k => v) builds its ImmutableDict by invoke | stack (w19-stack); see the first part |
+| 8 | P08 | b901c3b9e7 | 1 | 3 | 1 | sort: specialize issorted's keyword body on lt and by | stack (w19-stack); see the first part |
+| 9 | P09 | 9c89c09ee6 | 1 | 4 | 0 | reflection: an explicit NativeInterpreter runs the compiler in its world | stack (w19-stack); see the first part |
+| 10 | P10 | fa76a461be | 1 | 5 | 1 | Compiler: compile the run-time return_type entry into the system image | stack (w19-stack); see the first part |
+| 11 | P11 | 58d9295200 | 1 | 22 | 2 | Compiler: invoke keeps the exact specialization over a widened varargs tail | alone (first part) |
+| 12 | P12 | 4dc056bd04 | 3 | 26 | 9 | Compiler: an inference cycle's members inline each other | alone (first part) |
+| 13 | P13 | 5b41117731 | 1 | 4 | 2 | Compiler: applicable at argument types that meet in Union{} | stack (w19-stack); see the first part |
+| 14 | P14 | bde0783a17 | 1 | 58 | 1 | gf: the per-call-site cache holds entries with Any positions as wildcards | alone (first part) |
+| 15 | P15 | e14ff2b02e | 1 | 150 | 1 | gf: a dispatch profiler (JULIA_DISPATCH_PROFILE=1) | alone (first part) |
+| 16 | P16 | 4556afaeda | 4 | 188 | 17 | cfunction: the calling convention :caller_world, a world-checked thunk | alone (first part) |
+| 17 | P17 | 0ae71cb6fc | 1 | 8 | 0 | staticdata: keep no external code at a signature type without a hash | alone (first part) |
+| 18 | P18 | 53904a0ecd | 1 | 2 | 0 | generate_precompile: compile Base.infer_return_type's inference | alone (first part) |
+| 19 | P20 | 22f70fa3cd | 3 | 16 | 3 | Core, Compiler: infer `!==` once and match a call at its own types | stack (w19-stack-v2, sixth part's build 1) |
+| 20 | P21 | 9d2988c5dc | 1 | 23 | 23 | base: type predicates and layout readers read fields with `getfield` | stack (w19-stack-v2, sixth part's build 1) |
+| 21 | P22 | 00d45f0081 | 3 | 29 | 21 | base: getfield and invoke under promote_typejoin_union and tuple eltype | stack (w19-stack-v2, sixth part's build 1) |
+| 22 | P23 | ff733b6383 | 1 | 5 | 4 | base: `CyclePadding`'s iteration reads its tuples with `getfield` | stack (w19-stack-v2, sixth part's build 1) |
+| 23 | P24 | 2171017204 | 3 | 11 | 7 | base: task code passes a payload at the callee's own signature | stack (w19-stack-v2, sixth part's build 1) |
+| 24 | P25 | 31b82dad4a | 3 | 21 | 9 | Core, Compiler: infer TypeVar and UnionAll once, match calls at own types | stack (w19-stack-v2, sixth part's build 1) |
+| 25 | P27 | 4365ea8679 | 3 | 13 | 3 | base: infer `_promote_typesubtract` and `fieldname`'s error path once | in the head (build 1); alone: parsed |
+| 26 | F0 | 222aac45a2 | 6 | 21 | 6 | julia.h, jltypes: fields for a per-method compile policy | in the facts head (third/fourth part) |
+| 27 | F2 | 18acba87e6 | 10 | 95 | 3 | lowering, module: `@compiler_options facts=true` and the policy metas | alone (second part) |
+| 28 | F1 | b0374150c1 | 1 | 28 | 8 | Compiler: the `nortsite` effect bit | in the facts head (third/fourth part) |
+| 29 | F3 | 35443114ea | 5 | 163 | 21 | Compiler: a facts inference that infers calls only at fact signatures | alone (second part) |
+| 30 | F4a | 84fb1dfa1f | 7 | 231 | 42 | gf, engine, Compiler: one CodeInstance per MethodInstance and policy | compiled; its build was stopped when the session ended |
+| 31 | F4b | 5d857cb79a | 8 | 310 | 37 | gf, codegen: a call runs the callee's code of the caller's policy | compiled |
+| 32 | F4c | b232e21f88 | 3 | 75 | 5 | Compiler: inference across the two policies | alone (= F4, second part) |
+| 33 | F5 | 833590da35 | 4 | 22 | 13 | Compiler: `return_type` gives plain inference's answer under either policy | in the facts head (third/fourth part) |
+| 34 | S1 | 5e9ed5cb25 | 4 | 66 | 7 | Compiler, gf: a dispatch backedge keeps the call's own signature | alone (as up/19) |
+| 35 | F7 | 33a68fd1df | 7 | 117 | 11 | Compiler, gf: the G2 bit, on code whose edges are facts at any depth | in the facts head (third/fourth part) |
+| 36 | F8 | 087ea77d90 | 7 | 82 | 3 | staticdata, Compiler: package images and `--trim` under the facts policy | alone (the facts head) |
+| 37 | F6 | f0229aff8d | 3 | 45 | 8 | gf, module: `JULIA_COMPILE_BY_FACTS=1`, a test bed for the facts policy | in the facts head (third/fourth part) |
+| 38 | F9 | ac315834f5 | 9 | 173 | 7 | Compiler, module: owner-only functions, whose calls are facts at any signature | in the facts head (third/fourth part) |
+| 39 | F10 | 9302fef4ad | 6 | 162 | 0 | gf: keep what a definition ends of the deep class, for a tool to take | in the facts head (third/fourth part) |
+| 40 | F11 | 88c5b0debf | 14 | 183 | 6 | Compiler, gf: fully typed mode, a check at the start of facts code | in the facts head (third/fourth part) |
+| 41 | F12 | bfe47f3f95 | 2 | 53 | 2 | Compiler: a compile request takes the code of an equivalent cached entry | in the facts head (third/fourth part) |
+| 42 | E7 | d4b4078c62 | 1 | 1 | 1 | gf: the dispatch profiler takes the call site from `apply_generic_reach`'s `ip` | in w19-g-facts; the head |
+| 43 | row179 | 4d66e4a200 | 2 | 27 | 0 | Compiler: split a call's edge at a top-level union | in the head (build 1) |
+| 44 | T1 | c3f75e36b5 | 8 | 144 | 27 | julia.h, jltypes: the layout for sets and memberships | **alone (build 6)** |
+| 45 | T2a | 28697f3483 | 11 | 595 | 0 | datatype, subtype: declaring a set and a membership | compiled |
+| 46 | T2b | 8221ea5251 | 3 | 401 | 26 | subtype: a membership is a supertype in the worlds it is in force | compiled |
+| 47 | T2c | 4cd52cab4b | 1 | 162 | 7 | subtype: a non-member's answers without the walk; reachability memoized | **alone (build 7)** |
+| 48 | T2d | ffe67c5b35 | 13 | 431 | 14 | Compiler, codegen, gf: fold no answer a membership could change | compiled; built alone in an earlier part without this part's rows |
+| 49 | T3 | 28b410cf3d | 9 | 524 | 6 | jltypes, subtype: intersections `All{X, Y}` in their normal form | compiled |
+| 50 | T4 | 055767533a | 8 | 733 | 3 | gf, typemap: dispatch at sets, and the ambiguity report at a membership | compiled |
+| 51 | T5 | 1c189eda1e | 7 | 1618 | 153 | gf, datatype: a membership invalidates as a method does; taking one back | compiled; built alone in an earlier part without this part's rows |
+| 52 | T6 | 7a088ce157 | 17 | 537 | 38 | Compiler, gf: a membership is a method of `Core.implements` | compiled; built alone in an earlier part without this part's rows |
+| 53 | T7 | c7f544c147 | 15 | 836 | 20 | Compiler, gf, datatype: final negatives, and matches met at no type | **alone (build 5)** |
+| 54 | T8 | 4a859ae2b7 | 7 | 334 | 9 | staticdata, datatype: memberships in package images | compiled; built alone in an earlier part without this part's rows |
+| 55 | T9a | 72ac4e9d46 | 12 | 304 | 5 | gf, method, staticdata: hooks for a trait library | compiled |
+| 56 | T9b | 1ff25e99ca | 10 | 611 | 0 | gf, staticdata, Compiler: the member hook, at dispatch and in the compile queue | **alone (build 8)** |
+| 57 | T9c | 9b33b96004 | 6 | 210 | 8 | datatype, gf: strict mode refuses a membership that makes an ambiguity | compiled; built alone in an earlier part without this part's rows |
+| 58 | T10 | 8e38cfd0f7 | 14 | 569 | 12 | Compiler, datatype, lowering: declared results, fields, contracts and operations | compiled; built alone in an earlier part without this part's rows |
+| 59 | T15 | 47a15953dc | 7 | 189 | 23 | Compiler: the `trusted` effect and the checks of an operation's result | **alone (build 10)** |
+| 60 | T11 | 8d0e4f61cb | 15 | 699 | 25 | Compiler, gf: an operation's call split over the candidates, then a table | compiled; built alone in an earlier part without this part's rows |
+| 61 | T12 | e3d41e9c6a | 12 | 233 | 6 | Core, Compiler: `Callable{A, S}`, functions called with `A` returning `S` | **alone (build 11)** |
+| 62 | T13 | 4b56d74311 | 7 | 65 | 8 | base, REPL: `IO`'s contract, `IOContext{IO}`, and the display at `IOContext{IO}` | compiled; built alone in an earlier part without this part's rows |
+| 63 | T14 | c48e583f56 | 7 | 178 | 3 | Core, gf: the kept forms `Dynamic{X}`, `Compiled{T}`; arguments at a set | **alone (build 9)** |
+| 64 | T17 | 2d5139ae48 | 4 | 80 | 2 | Compiler: the definition-time check's interpreter | compiled |
+| 65 | S3 | 2785e50fca | 9 | 25 | 25 | module, lowering: name the module's trait options word `trait_options` | compiled; built alone in an earlier part without this part's rows |
+| 66 | T16a | 40da8b5149 | 6 | 800 | 37 | Compiler: a closed build counts a set's members by use, in rounds | **alone (build 3)** |
+| 67 | T16b | 0bfa5f620d | 2 | 466 | 5 | Compiler: a closed build branches over a set's members | **alone (build 4)** |
+| 68 | T16c | a168645b2e | 7 | 208 | 25 | Compiler: a closed build's check in a session, and its verifier | **alone (build 1)** |
+
+
+## 9. Where the plan was wrong or incomplete (seventh part)
+
+- **Row 183 is general**: `up/27`, not a traits row.
+- **Rows 185 and 188 are T2d's, 182 T6's**: the functions they change are made there, not in T2b or T2c.
+- **Row 190 spans three parts**: the walk and the match worlds (T5), the replay signatures (T9c, strict mode's), and
+  its kind context (row 189, T7). Its index entry needs T6's implements check, which T6's pick adds.
+- **The sixth part's T16 lacked `method_table` reading the overlay** (above).
+- **Method matching pays +21 %** at the head, against +8 % at the sixth part's: the audit's rows 189 and 190 (GT-9).
+- **The library loads from T17 on, not T14**: it calls `Compiler.DefinitionCheckInterpreter` when it is precompiled (build 9); the sixth part saw it load at S3, which holds T17.
+- **T16's cut** is 800, 466 and 208 lines added, not the plan's 550, 600 and 270: the members by use carry the
+  operation split and the rounds' bookkeeping; the check is small once the verifier's lines are counted with it.
+
+## 10. Not done, not verified (seventh part)
+
+- **Not built alone:** T2a, T2b, T3, T4, T5, T6, T8, T9a, T9c, T10, T11, T13, T17, S3 (compiled; T2d, T5, T6, T8, T9c,
+  T10, T11, T13 and S3 were built alone in earlier parts, without the rows they now carry); F4a's build was stopped,
+  F4b not built; `up/27` alone parsed, not built (built in the head).
+- **`test/trimming`** not run (it needs a registry). The `.cpp` files were not in the static check.
+- **The set-folds report** ran with another work's uncommitted tool (its hash in `logs/k-folds-tool-version.txt`);
+  the control on `next` used the same file.
+- **The micro-timings' attribution** of the method-matching cost to rows 189 and 190 is read from the code and from
+  `next`'s +15 %; no build without those rows was timed.
+- **Wording:** every message was read through the filter's scans and the changed ones by hand; the comments were
+  searched for the references' numbers and work items, not each read. The standalone `up/20` to `up/26` branches keep
+  their old messages and `up/20`'s order-dependent test line.
+- **`next` 0bbd759c13**: rows 196 to 203 are not in the series.

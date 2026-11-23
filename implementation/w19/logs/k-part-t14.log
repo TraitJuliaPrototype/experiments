@@ -1,0 +1,40 @@
+# build 8 t14 c48e583f56 start 07:08:37 load 4.35 5.16 5.44
+# BUILD EXIT 0 wall 808 s, peak RSS of the largest process 5123 MB (sampled), narrowed 0 sys.so 200696816
+## Base tests: subtype core show
+  Overall     | 7825176      60  7825236  1m42.8s
+    SUCCESS
+## gates
+FAIL f2_policy_flags.jl (exit 1)
+FAIL n16_declared_result.jl (exit 1)
+FAIL n18_closed_after_load.jl (exit 1)
+FAIL n20_unmet_lookup.jl (exit 1)
+FAIL n26_callable_late_method.jl (exit 1)
+FAIL n34_closed_invoke_compiled.jl (exit 1)
+FAIL n35_trusted_result.jl (exit 1)
+FAIL n36_library_deep.jl (exit 1)
+FAIL n37_absence_worlds.jl (exit 1)
+FAIL n47_callable_every_instance.jl (exit 1)
+FAIL n48_kept_form_not_final.jl (exit 1)
+FAIL n49_set_folds.jl (exit 1)
+FAIL n50_kept_form_replay.jl (exit 1)
+FAIL n51_member_method_at_set.jl (exit 1)
+FAIL n52_interference_in_world.jl (exit 1)
+FAIL n53_walk_past_depth.jl (exit 1)
+FAIL n54_store_set_test.jl (exit 1)
+FAIL n55_declaration_order.jl (exit 1)
+FAIL n8_callable_box.jl (exit 1)
+gates: 75 passed, 19 failed
+FAIL w155b/gate_d11.jl (exit 1)
+FAIL w160/check/new_fold.jl (exit 1)
+FAIL w160/check/stores.jl (exit 1)
+FAIL w160/check/mistakes.jl (exit 1)
+FAIL w161/merge/delete_forwarder.jl (exit 1)
+FAIL w161/d2/gate.jl (exit 1)
+FAIL w161/d4/op150.jl (exit 1)
+stage gates: 2 passed, 7 failed, 0 skipped
+## TraitWorld's suite
+ERROR: LoadError: UndefVarError: `DefinitionCheckInterpreter` not defined in `Compiler`
+ERROR: LoadError: The following 1 package failed to precompile:
+Failed to precompile TraitWorld [7a3c1e52-9b4d-4f6e-8a21-5d0c3b9e7f14] to "/p/projects/coen/julia-trait-bound/.julia-depot/agent-depots/w19/compiled/v1.13/TraitWorld/jl_ZEcNHw" (ProcessExited(1)).
+exit 1
+# done 07:27:07 load 4.24 4.87 5.03

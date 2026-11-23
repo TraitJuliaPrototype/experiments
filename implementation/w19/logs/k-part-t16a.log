@@ -1,1 +1,23 @@
 # build 2 t16a 40da8b5149 start 05:21:20 load 3.46 3.87 4.45
+# BUILD EXIT 0 wall 778 s, peak RSS of the largest process 5554 MB (sampled), narrowed 0 sys.so 210528048
+## Base tests: subtype core Compiler/inference Compiler/verifytrim
+  Overall     | 7673790      60  7673850  2m40.7s
+    SUCCESS
+## gates
+FAIL n16_declared_result.jl (exit 1)
+FAIL n18_closed_after_load.jl (exit 1)
+FAIL n20_unmet_lookup.jl (exit 1)
+FAIL n34_closed_invoke_compiled.jl (exit 1)
+gates: 83 passed, 4 failed
+stage gates: 9 passed, 0 failed, 0 skipped
+## TraitWorld's suite
+Test Summary: | Pass  Total  Time
+Test Summary: | Pass  Total  Time
+Test Summary: | Pass  Total  Time
+Test Summary: | Pass  Total  Time
+block and forwarding: Error During Test at /p/projects/coen/julia-trait-bound/TraitWorld/test/core.jl:123
+  UndefVarError: `closed_check` not defined in `Compiler`
+block and forwarding: Error During Test at /p/projects/coen/julia-trait-bound/TraitWorld/test/core.jl:124
+  UndefVarError: `closed_check` not defined in `Compiler`
+exit 1
+# done 05:39:29 load 3.21 5.16 5.26
