@@ -204,9 +204,14 @@ at a set) while a third declares and takes back two memberships (the member, a s
 change waiting until both threads have asked every question once more. A wrong answer is one that differs from the
 runtime's in the world the thread read; a crash ends the process.
 
+**Beside it** (E-545): `../w171/probes/image_thread_race.jl`, two threads that ask a call compiled for each member
+while a third loads forty images that each declare one membership (gate `n56`); `../w171/probes/pirate_kept_form.jl`,
+strict mode's check of a pirate's membership at a kept form (gate `n57`); `../w171/probes/opaque_closure_set.jl`, an
+opaque closure's call at a set (gate `n58`).
+
 **What it cannot ask:** `typeassert` folded by the optimizer's `⊑` queries (C-51); strict mode's refusals; a set
 under a `Vararg` in a method's signature (the walk's conservative path, C-88); in a closed build `hasmethod` and
-`which`; with threads, an image loaded while another thread asks (C-168).
+`which`.
 
 | Date | Build | Cases | Mismatches (groups) | By question | Fresh against expected | Notes |
 |---|---|---|---|---|---|---|

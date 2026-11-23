@@ -1,0 +1,39 @@
+# E-545 plain r3 | 2026-11-23T07:44:50+01:00 | load 3.57 5.11 5.31 | runs 3 + warm-up | upstream CSV, DataFrames compiled plainly; one thread; plain code
+# H: julia-next 0bbd759c13 binary 0bbd759c13*
+# N: wt/w171-julia ba98f879c5 binary fb7b3d41f2*
+images ready
+== H run w | load 3.57 5.11 5.31 -> 3.56 5.06 5.29
+load 685.6 ms | CodeInstances after the load 118969 (facts 0, G2 91152) | first work 4532.5 ms, compile 4537.9 ms, again 1.8 ms | after the work 119564 (facts 0, G2 91391) | digest ce94074fa1261ca2
+== N run w | load 3.56 5.06 5.29 -> 3.68 5.06 5.29
+load 678.6 ms | CodeInstances after the load 119172 (facts 0, G2 91230) | first work 4473.4 ms, compile 4477.7 ms, again 1.9 ms | after the work 119767 (facts 0, G2 91469) | digest ce94074fa1261ca2
+== H run 1 | load 3.68 5.06 5.29 -> 3.62 5.02 5.28
+load 1096.5 ms | CodeInstances after the load 118969 (facts 0, G2 91152) | first work 4521.7 ms, compile 4525.8 ms, again 1.5 ms | after the work 119564 (facts 0, G2 91391) | digest ce94074fa1261ca2
+== N run 1 | load 3.62 5.02 5.28 -> 3.65 5.01 5.27
+load 954.3 ms | CodeInstances after the load 119172 (facts 0, G2 91230) | first work 4620.2 ms, compile 4624.5 ms, again 1.5 ms | after the work 119767 (facts 0, G2 91469) | digest ce94074fa1261ca2
+== H run 2 | load 3.65 5.01 5.27 -> 3.68 4.99 5.26
+load 707.2 ms | CodeInstances after the load 118969 (facts 0, G2 91152) | first work 4521.6 ms, compile 4528.1 ms, again 1.5 ms | after the work 119564 (facts 0, G2 91391) | digest ce94074fa1261ca2
+== N run 2 | load 3.68 4.99 5.26 -> 3.72 4.96 5.25
+load 844.6 ms | CodeInstances after the load 119172 (facts 0, G2 91230) | first work 4440.7 ms, compile 4446.0 ms, again 1.4 ms | after the work 119767 (facts 0, G2 91469) | digest ce94074fa1261ca2
+== H run 3 | load 3.72 4.96 5.25 -> 3.66 4.92 5.24
+load 1058.0 ms | CodeInstances after the load 118969 (facts 0, G2 91152) | first work 4461.4 ms, compile 4464.0 ms, again 1.4 ms | after the work 119564 (facts 0, G2 91391) | digest ce94074fa1261ca2
+== N run 3 | load 3.66 4.92 5.24 -> 3.61 4.89 5.23
+load 750.2 ms | CodeInstances after the load 119172 (facts 0, G2 91230) | first work 4519.7 ms, compile 4526.0 ms, again 1.5 ms | after the work 119767 (facts 0, G2 91469) | digest ce94074fa1261ca2
+== profile H run 1 | load 3.61 4.89 5.23 -> 4.76 5.02 5.25
+load 1753.2 ms, samples 6785
+first work 20065.4 ms, samples 50284
+== profile N run 1 | load 4.76 5.02 5.25 -> 6.25 5.38 5.37
+load 2342.1 ms, samples 9247
+first work 20851.4 ms, samples 49171
+== profile H run 2 | load 6.25 5.38 5.37 -> 6.51 5.54 5.42
+load 2265.2 ms, samples 9152
+first work 18306.5 ms, samples 47689
+== profile N run 2 | load 6.51 5.54 5.42 -> 5.51 5.41 5.39
+load 2170.6 ms, samples 8464
+first work 18874.9 ms, samples 48329
+== profile H run 3 | load 5.51 5.41 5.39 -> 4.84 5.26 5.33
+load 2118.8 ms, samples 7692
+first work 18822.3 ms, samples 49077
+== profile N run 3 | load 4.84 5.26 5.33 -> 4.11 5.04 5.26
+load 2185.7 ms, samples 8965
+first work 17465.1 ms, samples 47482
+# done 2026-11-23T07:49:08+01:00 | load 4.11 5.04 5.26

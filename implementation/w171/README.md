@@ -317,3 +317,62 @@ implementation: a cost a test on the question's types avoids is removed; a cost 
 
 Branch `w171d` of the julia repository (worktree `wt/w171-julia`), on `w171c` = `next` 0bbd759c13. Candidate gates
 `gates/n56_…`.
+
+### Handover (2026-11-23, the session ended by the user)
+
+**Built and pushed.** Branch `w171d`, five commits on 0bbd759c13, pushed; `wt/w171-julia` is built at its head
+ba98f879c5 (`BUILD EXIT 0`, 08:03), but nothing has been checked on that build yet:
+1. 196b8e344a C-168: an image's activated memberships are walked before the world counter advances (`src/staticdata.c`).
+2. 52a9913232 C-169: `jl_membership_replay_sigs` lists the replays of each pattern bounded by the set, at the pattern
+   with the member as its variable's bound (`Compiled{Z} where Z <: S`; `bounded_pattern_at_member`, `src/gf.c`).
+3. 545349d2e2 cost, row 190: a lookup asks a lower bound's entries only of a method marked as having one
+   (`Method.declared_covers` bit 2, set in `jl_index_open_set_methods`; `jl_method_sig_lower_bounds`).
+4. 726ef30981 cost, row 198: a listed interference between two closed signatures is read from the list
+   (`listed_interference_holds`; no `has_key` lookup).
+5. ba98f879c5 C-170: an opaque closure's call whose empty intersection with its signature could change by a membership
+   is left to the closure's own test when it runs (result the closure's declared one); a positive through an entry
+   records the entry; an unproved test about a set is not consistent (`abstract_call_opaque_closure`).
+
+**The probes' answers on `next` 0bbd759c13** (before the fixes):
+- C-168: a hole. `probes/image_thread_race.jl` (40 images, 200 methods at the set): 6,160 and 12,542 wrong answers in two
+  runs, none kept when asked again (`logs/image-thread-race-next-0bbd759c13.log`).
+- C-169: no wrong final state, a check in the wrong order. `probes/pirate_kept_form.jl`: the pirate's membership at the
+  kept form is refused only after its declaration (`PirateError`, `later = true`), by the invalidation log: the membership
+  was in force in one world and the code compiled by facts was invalidated. The replay list named `tag` at `D` only.
+- C-170: a hole. `probes/opaque_closure_set.jl`: the caller compiled before the membership keeps `rettype Union{}` and
+  runs into `unreachable` once the closure returns.
+
+**Checked on the first build** (fb7b3d41f2 = commits 1 to 4 and the first form of 5): `gates/n56` passes (245,806
+checks, 0 wrong) and `n57` passes. `n58` failed: the first form of 5 (`may_intersect` only) inferred and inlined the
+closure's body at the non-member, so the call ran with no test (`called` before the membership, where the runtime raises
+`TypeError`). Commit 5 was amended to leave such a call to the closure's own test; the second build has it, unchecked.
+
+**The cost by part** (`cost/plain.sh`, `cost/prof-plain.jl`, `cost/auditfns.py`; logs `cost/logs/plain-r1.log` to
+`plain-r3.log`, `prof-r*-*.tsv`, `auditfns-r1-r3.log`; upstream CSV and DataFrames compiled plainly, one thread, plain code):
+- Timing, r1 (load 4.3 to 6.6): load V 644–647, P (`wt/w143-julia` d1e64d8b56, without rows 184 to 203) 670–675,
+  H (`next` 0bbd759c13) 670–671 ms; first work 4.43–4.44 s on all three. The 25 ms are in P already: rows 184 to 203 add
+  nothing a timing resolves, and the 0.05 to 0.1 s of first work were not reproduced. r2 and r3 (the same hour, load 3.5
+  to 6.5) vary by 200 ms between runs of one build: not usable for a few ms.
+- The profile (samples of 0.1 ms, a load of about 8,200 samples, a first work of about 48,000): rows 184 to 203 hold
+  about 100 load samples on H, 1.2 %: `lower_bounds_have_memberships` 47 (row 190), `method_in_interferences` 24 and
+  `has_key` 10 (row 198), `sig_has_open_set` 12 (rows 190, 198), `jl_sig_lower_bounds` 5 (row 190). On N (fb7b3d41f2):
+  about 43: `jl_method_sig_lower_bounds` 20 (the read of the method's mark per visited entry), `jl_sig_lower_bounds` 7,
+  `sig_has_open_set` 8, `listed_interference_holds` 6, `has_key` 2. The first work: about 43 samples on H (0.09 %:
+  `may_intersect` row 200, `names_open_set_const` and `names_open_set` rows 187, 191, 202, `lower_bounds_have_memberships`
+  row 190, `method_in_interferences` row 198), about 30 on N. Row 181's `open_set_witness` 3 to 7 samples; row 197's
+  drops do not run for a query that names no set (gated on the query's `has_open_set`).
+- Not attributed: the 25 ms between vanilla and P (rows 175 to 183 and the stack before them). P holds 2,308 more
+  CodeInstances after the load than vanilla; `wt/w158-julia` (binary bfaf484f55, row 181) was timed in r2 only, too noisy.
+
+**Not done, in order:**
+1. On `wt/w171-julia` ba98f879c5: `gates/n56`, `n57`, `n58` (`n58` must give `TypeError called TypeError`), then each of
+   them on `julia-next` 0bbd759c13 (expected to fail: n56 wrong answers, n57 `later = true`, n58 a crash).
+2. The gates in force (`gates/run_all.sh wt/w171-julia`), TraitWorld's tests as a file, Base's `subtype`, `worlds`,
+   `core`, `ambiguous`, `reflection`, the compiler's tests (commit 5 changes inference of opaque closures).
+3. The set-folds report in its five modes and the negative-sites report on ba98f879c5 (the opaque closure's site is
+   expected gated: 3 open), with rows in `../audit/README.md`'s table and a section for the negative-sites report there.
+4. Trait code's cells: `COST_DEPOT=<agent depot> COST_B=julia-next bash cost/cost.sh r4` (H is `wt/w171-julia`).
+5. The cost profile again on ba98f879c5 (`PROF=1 bash cost/plain.sh r4 V=julia-vanilla H=julia-next N=wt/w171-julia`)
+   in a quiet hour; and, for the 25 ms before row 184, a timing of `wt/w158-julia` (row 181) beside P and vanilla.
+6. The record: E-545's outcome, C-168 to C-170 retired (with commits 1, 2, 5) once their gates pass, the inventory's rows
+   204 to 208, GT-9's lines (rows 184 to 203: about 1 % of a plain load's samples, half of it removed by commits 3, 4).

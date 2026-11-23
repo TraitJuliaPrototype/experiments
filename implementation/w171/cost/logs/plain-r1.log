@@ -1,0 +1,57 @@
+# E-545 plain r1 | 2026-11-23T07:05:06+01:00 | load 4.91 5.87 5.67 | runs 3 + warm-up | upstream CSV, DataFrames compiled plainly; one thread; plain code
+# V: julia-vanilla 45b6d15e34 binary 45b6d15e34*
+# H: julia-next 0bbd759c13 binary 0bbd759c13*
+# P: wt/w143-julia d1e64d8b56 binary d1e64d8b56*
+images ready
+== V run w | load 6.59 5.64 5.58 -> 6.30 5.60 5.57
+load 1004.1 ms | CodeInstances after the load 116523 (facts 0, G2 0) | first work 4456.9 ms, compile 4458.5 ms, again 1.4 ms | after the work 117115 (facts 0, G2 0) | digest ce94074fa1261ca2
+== H run w | load 6.30 5.60 5.57 -> 6.04 5.55 5.55
+load 1026.3 ms | CodeInstances after the load 118954 (facts 0, G2 91140) | first work 4465.2 ms, compile 4467.9 ms, again 1.4 ms | after the work 119549 (facts 0, G2 91379) | digest ce94074fa1261ca2
+== P run w | load 6.04 5.55 5.55 -> 5.79 5.51 5.54
+load 917.8 ms | CodeInstances after the load 118831 (facts 0, G2 91127) | first work 4451.9 ms, compile 4454.5 ms, again 1.4 ms | after the work 119426 (facts 0, G2 91366) | digest ce94074fa1261ca2
+== V run 1 | load 5.79 5.51 5.54 -> 5.65 5.48 5.53
+load 763.0 ms | CodeInstances after the load 116523 (facts 0, G2 0) | first work 4427.4 ms, compile 4431.3 ms, again 1.4 ms | after the work 117115 (facts 0, G2 0) | digest ce94074fa1261ca2
+== H run 1 | load 5.65 5.48 5.53 -> 5.24 5.40 5.50
+load 690.5 ms | CodeInstances after the load 118954 (facts 0, G2 91140) | first work 4428.9 ms, compile 4433.3 ms, again 1.4 ms | after the work 119549 (facts 0, G2 91379) | digest ce94074fa1261ca2
+== P run 1 | load 5.24 5.40 5.50 -> 5.06 5.36 5.49
+load 675.0 ms | CodeInstances after the load 118831 (facts 0, G2 91127) | first work 4433.4 ms, compile 4437.8 ms, again 1.4 ms | after the work 119426 (facts 0, G2 91366) | digest ce94074fa1261ca2
+== V run 2 | load 5.06 5.36 5.49 -> 4.90 5.32 5.48
+load 647.2 ms | CodeInstances after the load 116523 (facts 0, G2 0) | first work 4437.9 ms, compile 4442.9 ms, again 1.4 ms | after the work 117115 (facts 0, G2 0) | digest ce94074fa1261ca2
+== H run 2 | load 4.90 5.32 5.48 -> 4.75 5.28 5.46
+load 671.4 ms | CodeInstances after the load 118954 (facts 0, G2 91140) | first work 4432.9 ms, compile 4437.2 ms, again 1.4 ms | after the work 119549 (facts 0, G2 91379) | digest ce94074fa1261ca2
+== P run 2 | load 4.75 5.28 5.46 -> 4.60 5.25 5.45
+load 675.0 ms | CodeInstances after the load 118831 (facts 0, G2 91127) | first work 4442.5 ms, compile 4447.0 ms, again 1.5 ms | after the work 119426 (facts 0, G2 91366) | digest ce94074fa1261ca2
+== V run 3 | load 4.60 5.25 5.45 -> 4.48 5.21 5.44
+load 644.3 ms | CodeInstances after the load 116523 (facts 0, G2 0) | first work 4427.9 ms, compile 4432.9 ms, again 1.4 ms | after the work 117115 (facts 0, G2 0) | digest ce94074fa1261ca2
+== H run 3 | load 4.48 5.21 5.44 -> 4.36 5.17 5.42
+load 669.9 ms | CodeInstances after the load 118954 (facts 0, G2 91140) | first work 4442.8 ms, compile 4447.4 ms, again 1.4 ms | after the work 119549 (facts 0, G2 91379) | digest ce94074fa1261ca2
+== P run 3 | load 4.36 5.17 5.42 -> 4.33 5.15 5.42
+load 670.0 ms | CodeInstances after the load 118831 (facts 0, G2 91127) | first work 4449.8 ms, compile 4454.2 ms, again 1.4 ms | after the work 119426 (facts 0, G2 91366) | digest ce94074fa1261ca2
+== profile V run 1 | load 4.33 5.15 5.42 -> 4.12 5.01 5.36
+load 1911.5 ms, samples 6405
+first work 18953.1 ms, samples 48013
+== profile H run 1 | load 4.12 5.01 5.36 -> 3.86 4.59 5.15
+load 90917.1 ms, samples 468201
+first work 19309.5 ms, samples 47744
+== profile P run 1 | load 3.86 4.59 5.15 -> 3.59 4.44 5.08
+load 2540.1 ms, samples 8058
+first work 19447.2 ms, samples 47202
+== profile V run 2 | load 3.59 4.44 5.08 -> 3.82 4.39 5.03
+load 2186.7 ms, samples 7429
+first work 21341.8 ms, samples 48898
+== profile H run 2 | load 3.82 4.39 5.03 -> 3.45 4.23 4.96
+load 2081.8 ms, samples 8009
+first work 19245.7 ms, samples 50922
+== profile P run 2 | load 3.45 4.23 4.96 -> 5.08 4.56 5.04
+load 2598.2 ms, samples 8545
+first work 19640.0 ms, samples 48238
+== profile V run 3 | load 5.08 4.56 5.04 -> 4.89 4.58 5.03
+load 2724.0 ms, samples 8930
+first work 21570.6 ms, samples 50163
+== profile H run 3 | load 4.89 4.58 5.03 -> 4.16 4.44 4.96
+load 2287.9 ms, samples 9136
+first work 18217.2 ms, samples 47877
+== profile P run 3 | load 4.16 4.44 4.96 -> 4.43 4.46 4.95
+load 2422.9 ms, samples 7864
+first work 19223.6 ms, samples 47709
+# done 2026-11-23T07:18:00+01:00 | load 4.43 4.46 4.95

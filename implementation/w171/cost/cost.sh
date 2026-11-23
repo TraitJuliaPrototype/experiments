@@ -18,8 +18,9 @@ unset JULIA_COMPILE_BY_FACTS JULIA_TW_STRICT JULIA_LOAD_PATH
 ulimit -c 0
 label=$1; RUNS=${2:-3}
 LOG=$C/logs/cost-$label.log; mkdir -p "$C/logs"
-D=$R/.julia-depot/agent-depots/w171b
-declare -A J=([H]=$R/wt/w171-julia [B]=$R/wt/w143-julia)
+# the depot and the control may be given: COST_DEPOT (default agent-depots/w171b), COST_B (a tree, default wt/w143-julia)
+D=${COST_DEPOT:-$R/.julia-depot/agent-depots/w171b}
+declare -A J=([H]=$R/wt/w171-julia [B]=$R/${COST_B:-wt/w143-julia})
 ENV_DEMO=$IMPL/w159/envs/H/demo
 load() { cut -d' ' -f1-3 /proc/loadavg; }
 rev() { echo "$(git -C "$1" rev-parse --short=10 HEAD)$([ -z "$(git -C "$1" status --porcelain --untracked-files=no 2>/dev/null)" ] || echo '*')"; }
