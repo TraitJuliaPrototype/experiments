@@ -1,0 +1,276 @@
+set_folds: Julia 1.13.2 054016ea75*, mode traitworld, jl_delete_membership present
+cases: 386 (29 shapes, 14 sequences); questions: sub int eq hasm isa tassert new disp app which op
+ran in 223.9 s: 101596 checks
+!! case error forwarding/declared: LoadError: ImplementError: Main.SF_forwarding__declared.WS cannot be a member of Main.SF_forwarding__declared.X   - the field s::Main.SF_forwarding__declared.S is not a member of Main.SF_forwarding__declared.X: forwarding needs a member, by its own methods or the defaults in expression starting at s
+!! case error forwarding/taken_back: LoadError: ImplementError: Main.SF_forwarding__taken_back.WS cannot be a member of Main.SF_forwarding__taken_back.X   - the field s::Main.SF_forwarding__taken_back.S is not a member of Main.SF_forwarding__taken_back.X: forwarding needs a member, by its own methods or the defaults in expression start
+!! case error forwarding/redeclared: LoadError: ImplementError: Main.SF_forwarding__redeclared.WS cannot be a member of Main.SF_forwarding__redeclared.X   - the field s::Main.SF_forwarding__redeclared.S is not a member of Main.SF_forwarding__redeclared.X: forwarding needs a member, by its own methods or the defaults in expression start
+!! case error forwarding/method_added: LoadError: ImplementError: Main.SF_forwarding__method_added.WS cannot be a member of Main.SF_forwarding__method_added.X   - the field s::Main.SF_forwarding__method_added.S is not a member of Main.SF_forwarding__method_added.X: forwarding needs a member, by its own methods or the defaults in expressi
+!! case error forwarding/method_added_less: LoadError: ImplementError: Main.SF_forwarding__method_added_less.WS cannot be a member of Main.SF_forwarding__method_added_less.X   - the field s::Main.SF_forwarding__method_added_less.S is not a member of Main.SF_forwarding__method_added_less.X: forwarding needs a member, by its own methods or the 
+!! case error forwarding/method_deleted: LoadError: ImplementError: Main.SF_forwarding__method_deleted.WS cannot be a member of Main.SF_forwarding__method_deleted.X   - the field s::Main.SF_forwarding__method_deleted.S is not a member of Main.SF_forwarding__method_deleted.X: forwarding needs a member, by its own methods or the defaults in 
+!! case error forwarding/method_then_member: LoadError: ImplementError: Main.SF_forwarding__method_then_member.WS cannot be a member of Main.SF_forwarding__method_then_member.X   - the field s::Main.SF_forwarding__method_then_member.S is not a member of Main.SF_forwarding__method_then_member.X: forwarding needs a member, by its own methods or 
+
+== compiled against fresh: 452 mismatches (question, shape, sequence: count, forms, kinds)
+  disp    callable          redeclared           28  forms q,r        kept_after_change×8 old_copy_in_later_world×8 first_compiled×4 own_world×4 run_in_earlier_world×4  compiled/fresh :Any/:B
+  hasm    callable          redeclared           28  forms q,r        kept_after_change×8 old_copy_in_later_world×8 first_compiled×4 own_world×4 run_in_earlier_world×4  compiled/fresh false/true
+  hasm    compiled          redeclared           28  forms q,r        kept_after_change×8 old_copy_in_later_world×8 first_compiled×4 own_world×4 run_in_earlier_world×4  compiled/fresh false/true
+  app     callable          redeclared           18  forms q,r        kept_after_change×6 old_copy_in_later_world×6 first_compiled×2 own_world×2 run_in_earlier_world×2  compiled/fresh false/true true/false
+  app     callable          method_then_member   16  forms q,r        kept_after_change×6 old_copy_in_later_world×6 first_compiled×2 own_world×2  compiled/fresh false/true true/false
+  hasm    compiled          path_first_back      16  forms q,r        kept_after_change×6 old_copy_in_later_world×6 first_compiled×2 own_world×2  compiled/fresh true/false
+  sub     compiled          redeclared           16  forms q,r        kept_after_change×8 old_copy_in_later_world×8  compiled/fresh false/true
+  sub     dynamic           redeclared           16  forms q,r        kept_after_change×8 old_copy_in_later_world×8  compiled/fresh false/true
+  disp    callable          method_then_member   14  forms q,r        kept_after_change×4 old_copy_in_later_world×4 first_compiled×2 own_world×2 run_in_earlier_world×2  compiled/fresh :Any/:B
+  hasm    callable          method_then_member   14  forms q,r        kept_after_change×4 old_copy_in_later_world×4 first_compiled×2 own_world×2 run_in_earlier_world×2  compiled/fresh false/true
+  hasm    compiled          method_then_member   14  forms q,r        kept_after_change×4 old_copy_in_later_world×4 first_compiled×2 own_world×2 run_in_earlier_world×2  compiled/fresh false/true
+  app     callable          taken_back           12  forms q,r        kept_after_change×4 old_copy_in_later_world×4 first_compiled×2 own_world×2  compiled/fresh false/true true/false
+  which   callable          redeclared           12  forms q,r        kept_after_change×8 first_compiled×4  compiled/fresh (:g, Tuple{Main.SF_callable__redeclared.var"#g", Any})/(:g, Tuple{Main.SF_callable__redeclared.var"#g", Callable{Tuple{Int64}, Int64}})
+  disp    callable          taken_back           10  forms q,r        first_compiled×2 kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh :Any/:B
+  hasm    callable          taken_back           10  forms q,r        first_compiled×2 kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh false/true
+  hasm    compiled          super1_back          10  forms q,r        first_compiled×2 kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh false/true
+  hasm    compiled          super2_back          10  forms q,r        first_compiled×2 kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh false/true
+  hasm    compiled          taken_back           10  forms q,r        first_compiled×2 kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh false/true
+  disp    callable          declared              8  forms q,r        first_compiled×2 kept_after_change×2 old_copy_in_later_world×2 own_world×2  compiled/fresh :Any/:B
+  hasm    callable          declared              8  forms q,r        first_compiled×2 kept_after_change×2 old_copy_in_later_world×2 own_world×2  compiled/fresh false/true
+  hasm    compiled          declared              8  forms q,r        first_compiled×2 kept_after_change×2 old_copy_in_later_world×2 own_world×2  compiled/fresh false/true
+  hasm    compiled          super1                8  forms q,r        first_compiled×2 kept_after_change×2 old_copy_in_later_world×2 own_world×2  compiled/fresh false/true
+  hasm    compiled          super2                8  forms q,r        first_compiled×2 kept_after_change×2 old_copy_in_later_world×2 own_world×2  compiled/fresh false/true
+  sub     compiled          method_then_member    8  forms q,r        kept_after_change×4 old_copy_in_later_world×4  compiled/fresh false/true
+  sub     compiled          path_first_back       8  forms q,r        kept_after_change×4 old_copy_in_later_world×4  compiled/fresh false/true
+  sub     compiled          path_second           8  forms q,r        kept_after_change×4 old_copy_in_later_world×4  compiled/fresh false/true
+  sub     compiled          path_second_back      8  forms q,r        kept_after_change×4 old_copy_in_later_world×4  compiled/fresh false/true
+  sub     dynamic           method_then_member    8  forms q,r        kept_after_change×4 old_copy_in_later_world×4  compiled/fresh false/true
+  sub     dynamic           path_first_back       8  forms q,r        kept_after_change×4 old_copy_in_later_world×4  compiled/fresh false/true
+  sub     dynamic           path_second           8  forms q,r        kept_after_change×4 old_copy_in_later_world×4  compiled/fresh false/true
+  sub     dynamic           path_second_back      8  forms q,r        kept_after_change×4 old_copy_in_later_world×4  compiled/fresh false/true
+  which   callable          method_then_member    6  forms q,r        kept_after_change×4 first_compiled×2  compiled/fresh (:g, Tuple{Main.SF_callable__method_then_member.var"#g", Any})/(:g, Tuple{Main.SF_callable__method_then_member.var"#g", Callable{Tuple{Int64}, Int64}})
+  app     callable          declared              4  forms q,r        kept_after_change×2 old_copy_in_later_world×2  compiled/fresh false/true
+  sub     compiled          declared              4  forms q,r        kept_after_change×2 old_copy_in_later_world×2  compiled/fresh false/true
+  sub     compiled          super1                4  forms q,r        kept_after_change×2 old_copy_in_later_world×2  compiled/fresh false/true
+  sub     compiled          super1_back           4  forms q,r        kept_after_change×2 old_copy_in_later_world×2  compiled/fresh false/true
+  sub     compiled          super2                4  forms q,r        kept_after_change×2 old_copy_in_later_world×2  compiled/fresh false/true
+  sub     compiled          super2_back           4  forms q,r        kept_after_change×2 old_copy_in_later_world×2  compiled/fresh false/true
+  sub     compiled          taken_back            4  forms q,r        kept_after_change×2 old_copy_in_later_world×2  compiled/fresh false/true
+  sub     dynamic           declared              4  forms q,r        kept_after_change×2 old_copy_in_later_world×2  compiled/fresh false/true
+  sub     dynamic           super1                4  forms q,r        kept_after_change×2 old_copy_in_later_world×2  compiled/fresh false/true
+  sub     dynamic           super1_back           4  forms q,r        kept_after_change×2 old_copy_in_later_world×2  compiled/fresh false/true
+  sub     dynamic           super2                4  forms q,r        kept_after_change×2 old_copy_in_later_world×2  compiled/fresh false/true
+  sub     dynamic           super2_back           4  forms q,r        kept_after_change×2 old_copy_in_later_world×2  compiled/fresh false/true
+  sub     dynamic           taken_back            4  forms q,r        kept_after_change×2 old_copy_in_later_world×2  compiled/fresh false/true
+  which   callable          declared              4  forms q,r        first_compiled×2 kept_after_change×2  compiled/fresh (:g, Tuple{Main.SF_callable__declared.var"#g", Any})/(:g, Tuple{Main.SF_callable__declared.var"#g", Callable{Tuple{Int64}, Int64}})
+  which   callable          taken_back            4  forms q,r        first_compiled×2 kept_after_change×2  compiled/fresh (:g, Tuple{Main.SF_callable__taken_back.var"#g", Any})/(:g, Tuple{Main.SF_callable__taken_back.var"#g", Callable{Tuple{Int64}, Int64}})
+
+== by question: hasm 172, sub 144, disp 60, app 50, which 26
+== by shape: callable 196, compiled 184, dynamic 72
+== by sequence: redeclared 146, method_then_member 80, taken_back 54, declared 40, path_first_back 32, super1_back 18, super2_back 18, path_second 16, path_second_back 16, super1 16, super2 16
+== by kind: kept_after_change 168, old_copy_in_later_world 152, first_compiled 56, own_world 46, run_in_earlier_world 30
+== by form: q 226, r 226
+
+== the runtime's dynamic answer (its caches) against fresh: 102
+  ("disp", "callable", "redeclared") 28  e.g. world 1: :Any against :B
+  ("app", "callable", "method_then_member") 16  e.g. world 3: true against false
+  ("app", "callable", "redeclared") 14  e.g. world 2: true against false
+  ("disp", "callable", "method_then_member") 14  e.g. world 2: :Any against :B
+  ("app", "callable", "taken_back") 12  e.g. world 2: true against false
+  ("disp", "callable", "taken_back") 10  e.g. world 1: :Any against :B
+  ("disp", "callable", "declared") 8  e.g. world 1: :Any against :B
+
+== fresh against the shape's expected answer: 0
+
+== the first mismatch of each group (at most 400), with the code's worlds and edges
+-- dynamic/declared sub form r copy 0 world 1 (kept_after_change): compiled false fresh true expected true
+    worlds 97138, 97139; the pair holds false, true
+      Tuple{Main.SF_dynamic__declared.var"#r_sub_0"}  worlds 97032:∞  <- runs in world 97139
+        edges: code Tuple{Main.SF_dynamic__declared.var"#q_sub_0"}
+-- dynamic/taken_back sub form r copy 0 world 1 (kept_after_change): compiled false fresh true expected true
+    worlds 97322, 97323; the pair holds false, true
+      Tuple{Main.SF_dynamic__taken_back.var"#r_sub_0"}  worlds 97176:∞  <- runs in world 97323
+        edges: code Tuple{Main.SF_dynamic__taken_back.var"#q_sub_0"}
+-- dynamic/redeclared sub form r copy 0 world 1 (kept_after_change): compiled false fresh true expected true
+    worlds 97547, 97548; the pair holds false, true
+      Tuple{Main.SF_dynamic__redeclared.var"#r_sub_0"}  worlds 97361:∞  <- runs in world 97548
+        edges: code Tuple{Main.SF_dynamic__redeclared.var"#q_sub_0"}
+-- dynamic/path_second sub form r copy 1 world 2 (kept_after_change): compiled false fresh true expected true
+    worlds 97733, 97734, 97735; the pair holds false, false, true
+      Tuple{Main.SF_dynamic__path_second.var"#r_sub_1"}  worlds 97734:∞  <- runs in world 97735
+        edges: code Tuple{Main.SF_dynamic__path_second.var"#q_sub_1"}
+-- dynamic/path_second_back sub form r copy 1 world 2 (kept_after_change): compiled false fresh true expected true
+    worlds 97958, 97959, 97960; the pair holds false, false, true
+      Tuple{Main.SF_dynamic__path_second_back.var"#r_sub_1"}  worlds 97959:∞  <- runs in world 97960
+        edges: code Tuple{Main.SF_dynamic__path_second_back.var"#q_sub_1"}
+-- dynamic/path_first_back sub form r copy 1 world 2 (kept_after_change): compiled false fresh true expected true
+    worlds 98184, 98185, 98186; the pair holds false, false, true
+      Tuple{Main.SF_dynamic__path_first_back.var"#r_sub_1"}  worlds 98185:∞  <- runs in world 98186
+        edges: code Tuple{Main.SF_dynamic__path_first_back.var"#q_sub_1"}
+-- dynamic/super1 sub form r copy 0 world 1 (kept_after_change): compiled false fresh true expected true
+    worlds 98331, 98332; the pair holds false, true
+      Tuple{Main.SF_dynamic__super1.var"#r_sub_0"}  worlds 98331:∞  <- runs in world 98332
+        edges: code Tuple{Main.SF_dynamic__super1.var"#q_sub_0"}
+-- dynamic/super1_back sub form r copy 0 world 1 (kept_after_change): compiled false fresh true expected true
+    worlds 98516, 98517; the pair holds false, true
+      Tuple{Main.SF_dynamic__super1_back.var"#r_sub_0"}  worlds 98516:∞  <- runs in world 98517
+        edges: code Tuple{Main.SF_dynamic__super1_back.var"#q_sub_0"}
+-- dynamic/super2 sub form r copy 0 world 1 (kept_after_change): compiled false fresh true expected true
+    worlds 98663, 98664; the pair holds false, true
+      Tuple{Main.SF_dynamic__super2.var"#r_sub_0"}  worlds 98663:∞  <- runs in world 98664
+        edges: code Tuple{Main.SF_dynamic__super2.var"#q_sub_0"}
+-- dynamic/super2_back sub form r copy 0 world 1 (kept_after_change): compiled false fresh true expected true
+    worlds 98849, 98850; the pair holds false, true
+      Tuple{Main.SF_dynamic__super2_back.var"#r_sub_0"}  worlds 98849:∞  <- runs in world 98850
+        edges: code Tuple{Main.SF_dynamic__super2_back.var"#q_sub_0"}
+-- dynamic/method_then_member sub form r copy 1 world 2 (kept_after_change): compiled false fresh true expected true
+    worlds 99515, 99517, 99518; the pair holds false, false, true
+      Tuple{Main.SF_dynamic__method_then_member.var"#r_sub_1"}  worlds 99369:∞  <- runs in world 99518
+        edges: code Tuple{Main.SF_dynamic__method_then_member.var"#q_sub_1"}
+-- compiled/declared hasm form r copy 1 world 1 (first_compiled): compiled false fresh true expected true
+    worlds 99661, 99662; the pair holds false, true
+      Tuple{Main.SF_compiled__declared.var"#r_hasm_1"}  worlds 99607:∞  <- runs in world 99662
+        edges: code Tuple{Main.SF_compiled__declared.var"#q_hasm_1"}
+-- compiled/declared sub form r copy 0 world 1 (kept_after_change): compiled false fresh true expected true
+    worlds 99661, 99662; the pair holds false, true
+      Tuple{Main.SF_compiled__declared.var"#r_sub_0"}  worlds 99555:∞  <- runs in world 99662
+        edges: code Tuple{Main.SF_compiled__declared.var"#q_sub_0"}
+-- compiled/taken_back hasm form r copy 1 world 1 (first_compiled): compiled false fresh true expected true
+    worlds 99844, 99845; the pair holds false, true
+      Tuple{Main.SF_compiled__taken_back.var"#r_hasm_1"}  worlds 99750:∞  <- runs in world 99845
+        edges: code Tuple{Main.SF_compiled__taken_back.var"#q_hasm_1"}
+-- compiled/taken_back sub form r copy 0 world 1 (kept_after_change): compiled false fresh true expected true
+    worlds 99844, 99845; the pair holds false, true
+      Tuple{Main.SF_compiled__taken_back.var"#r_sub_0"}  worlds 99698:∞  <- runs in world 99845
+        edges: code Tuple{Main.SF_compiled__taken_back.var"#q_sub_0"}
+-- compiled/redeclared hasm form r copy 1 world 1 (first_compiled): compiled false fresh true expected true
+    worlds 100068, 100069; the pair holds false, true
+      Tuple{Main.SF_compiled__redeclared.var"#r_hasm_1"}  worlds 99934:∞  <- runs in world 100069
+        edges: code Tuple{Main.SF_compiled__redeclared.var"#q_hasm_1"}
+-- compiled/redeclared sub form r copy 0 world 1 (kept_after_change): compiled false fresh true expected true
+    worlds 100068, 100069; the pair holds false, true
+      Tuple{Main.SF_compiled__redeclared.var"#r_sub_0"}  worlds 99882:∞  <- runs in world 100069
+        edges: code Tuple{Main.SF_compiled__redeclared.var"#q_sub_0"}
+-- compiled/path_second sub form r copy 1 world 2 (kept_after_change): compiled false fresh true expected true
+    worlds 100253, 100254, 100255; the pair holds false, false, true
+      Tuple{Main.SF_compiled__path_second.var"#r_sub_1"}  worlds 100254:∞  <- runs in world 100255
+        edges: code Tuple{Main.SF_compiled__path_second.var"#q_sub_1"}
+-- compiled/path_second_back sub form r copy 1 world 2 (kept_after_change): compiled false fresh true expected true
+    worlds 100477, 100478, 100479; the pair holds false, false, true
+      Tuple{Main.SF_compiled__path_second_back.var"#r_sub_1"}  worlds 100478:∞  <- runs in world 100479
+        edges: code Tuple{Main.SF_compiled__path_second_back.var"#q_sub_1"}
+-- compiled/path_first_back sub form r copy 1 world 2 (kept_after_change): compiled false fresh true expected true
+    worlds 100702, 100703, 100704; the pair holds false, false, true
+      Tuple{Main.SF_compiled__path_first_back.var"#r_sub_1"}  worlds 100703:∞  <- runs in world 100704
+        edges: code Tuple{Main.SF_compiled__path_first_back.var"#q_sub_1"}
+-- compiled/path_first_back hasm form r copy 3 world 3 (first_compiled): compiled true fresh false expected false
+    worlds 100702, 100703, 100704, 100705; the pair holds false, false, true, false
+      Tuple{Main.SF_compiled__path_first_back.var"#r_hasm_3"}  worlds 100704:∞  <- runs in world 100705
+        edges: code Tuple{Main.SF_compiled__path_first_back.var"#q_hasm_3"}
+-- compiled/super1 hasm form r copy 1 world 1 (first_compiled): compiled false fresh true expected true
+    worlds 100848, 100849; the pair holds false, true
+      Tuple{Main.SF_compiled__super1.var"#r_hasm_1"}  worlds 100848:∞  <- runs in world 100849
+        edges: code Tuple{Main.SF_compiled__super1.var"#q_hasm_1"}
+-- compiled/super1 sub form r copy 0 world 1 (kept_after_change): compiled false fresh true expected true
+    worlds 100848, 100849; the pair holds false, true
+      Tuple{Main.SF_compiled__super1.var"#r_sub_0"}  worlds 100848:∞  <- runs in world 100849
+        edges: code Tuple{Main.SF_compiled__super1.var"#q_sub_0"}
+-- compiled/super1_back hasm form r copy 1 world 1 (first_compiled): compiled false fresh true expected true
+    worlds 101032, 101033; the pair holds false, true
+      Tuple{Main.SF_compiled__super1_back.var"#r_hasm_1"}  worlds 101032:∞  <- runs in world 101033
+        edges: code Tuple{Main.SF_compiled__super1_back.var"#q_hasm_1"}
+-- compiled/super1_back sub form r copy 0 world 1 (kept_after_change): compiled false fresh true expected true
+    worlds 101032, 101033; the pair holds false, true
+      Tuple{Main.SF_compiled__super1_back.var"#r_sub_0"}  worlds 101032:∞  <- runs in world 101033
+        edges: code Tuple{Main.SF_compiled__super1_back.var"#q_sub_0"}
+-- compiled/super2 hasm form r copy 1 world 1 (first_compiled): compiled false fresh true expected true
+    worlds 101178, 101179; the pair holds false, true
+      Tuple{Main.SF_compiled__super2.var"#r_hasm_1"}  worlds 101178:∞  <- runs in world 101179
+        edges: code Tuple{Main.SF_compiled__super2.var"#q_hasm_1"}
+-- compiled/super2 sub form r copy 0 world 1 (kept_after_change): compiled false fresh true expected true
+    worlds 101178, 101179; the pair holds false, true
+      Tuple{Main.SF_compiled__super2.var"#r_sub_0"}  worlds 101178:∞  <- runs in world 101179
+        edges: code Tuple{Main.SF_compiled__super2.var"#q_sub_0"}
+-- compiled/super2_back hasm form r copy 1 world 1 (first_compiled): compiled false fresh true expected true
+    worlds 101363, 101364; the pair holds false, true
+      Tuple{Main.SF_compiled__super2_back.var"#r_hasm_1"}  worlds 101363:∞  <- runs in world 101364
+        edges: code Tuple{Main.SF_compiled__super2_back.var"#q_hasm_1"}
+-- compiled/super2_back sub form r copy 0 world 1 (kept_after_change): compiled false fresh true expected true
+    worlds 101363, 101364; the pair holds false, true
+      Tuple{Main.SF_compiled__super2_back.var"#r_sub_0"}  worlds 101363:∞  <- runs in world 101364
+        edges: code Tuple{Main.SF_compiled__super2_back.var"#q_sub_0"}
+-- compiled/method_then_member hasm form r copy 2 world 2 (first_compiled): compiled false fresh true expected true
+    worlds 102025, 102027, 102028; the pair holds false, false, true
+      Tuple{Main.SF_compiled__method_then_member.var"#r_hasm_2"}  worlds 101931:∞  <- runs in world 102028
+        edges: code Tuple{Main.SF_compiled__method_then_member.var"#q_hasm_2"}
+-- compiled/method_then_member sub form r copy 1 world 2 (kept_after_change): compiled false fresh true expected true
+    worlds 102025, 102027, 102028; the pair holds false, false, true
+      Tuple{Main.SF_compiled__method_then_member.var"#r_sub_1"}  worlds 101879:∞  <- runs in world 102028
+        edges: code Tuple{Main.SF_compiled__method_then_member.var"#q_sub_1"}
+!! case error forwarding/declared: LoadError: ImplementError: Main.SF_forwarding__declared.WS cannot be a member of Main.SF_forwarding__declared.X   - the field s::Main.SF_forwarding__declared.S is not a member of Main.SF_forwarding__declared.X: forwarding needs a member, by its own methods or the defaults in expression starting at s
+!! case error forwarding/taken_back: LoadError: ImplementError: Main.SF_forwarding__taken_back.WS cannot be a member of Main.SF_forwarding__taken_back.X   - the field s::Main.SF_forwarding__taken_back.S is not a member of Main.SF_forwarding__taken_back.X: forwarding needs a member, by its own methods or the defaults in expression start
+!! case error forwarding/redeclared: LoadError: ImplementError: Main.SF_forwarding__redeclared.WS cannot be a member of Main.SF_forwarding__redeclared.X   - the field s::Main.SF_forwarding__redeclared.S is not a member of Main.SF_forwarding__redeclared.X: forwarding needs a member, by its own methods or the defaults in expression start
+!! case error forwarding/method_added: LoadError: ImplementError: Main.SF_forwarding__method_added.WS cannot be a member of Main.SF_forwarding__method_added.X   - the field s::Main.SF_forwarding__method_added.S is not a member of Main.SF_forwarding__method_added.X: forwarding needs a member, by its own methods or the defaults in expressi
+!! case error forwarding/method_added_less: LoadError: ImplementError: Main.SF_forwarding__method_added_less.WS cannot be a member of Main.SF_forwarding__method_added_less.X   - the field s::Main.SF_forwarding__method_added_less.S is not a member of Main.SF_forwarding__method_added_less.X: forwarding needs a member, by its own methods or the 
+!! case error forwarding/method_deleted: LoadError: ImplementError: Main.SF_forwarding__method_deleted.WS cannot be a member of Main.SF_forwarding__method_deleted.X   - the field s::Main.SF_forwarding__method_deleted.S is not a member of Main.SF_forwarding__method_deleted.X: forwarding needs a member, by its own methods or the defaults in 
+!! case error forwarding/method_then_member: LoadError: ImplementError: Main.SF_forwarding__method_then_member.WS cannot be a member of Main.SF_forwarding__method_then_member.X   - the field s::Main.SF_forwarding__method_then_member.S is not a member of Main.SF_forwarding__method_then_member.X: forwarding needs a member, by its own methods or 
+-- callable/declared hasm form r copy 1 world 1 (first_compiled): compiled false fresh true expected true
+    worlds 109740, 109741; the pair holds false, true
+      Tuple{Main.SF_callable__declared.var"#r_hasm_1"}  worlds 109686:∞  <- runs in world 109741
+        edges: code Tuple{Main.SF_callable__declared.var"#q_hasm_1"}
+-- callable/declared disp form r copy 1 world 1 (first_compiled): compiled :Any fresh :B expected :B
+    worlds 109740, 109741; the pair holds false, true
+      Tuple{Main.SF_callable__declared.var"#r_disp_1", Main.SF_callable__declared.S}  worlds 109702:∞  <- runs in world 109741
+        edges: code Tuple{Main.SF_callable__declared.var"#q_disp_1", Main.SF_callable__declared.S}
+-- callable/declared which form r copy 1 world 1 (first_compiled): compiled (:g, Tuple{Main.SF_callable__declared.var"#g", Any}) fresh (:g, Tuple{Main.SF_callable__declared.var"#g", Callable{Tuple{Int64}, Int64}}) expected missing
+    worlds 109740, 109741; the pair holds false, true
+      Tuple{Main.SF_callable__declared.var"#r_which_1", Main.SF_callable__declared.S}  worlds 109741:∞  <- runs in world 109741
+        edges: code Tuple{Main.SF_callable__declared.var"#q_which_1", Main.SF_callable__declared.S}
+-- callable/declared app form r copy 0 world 1 (kept_after_change): compiled false fresh true expected true
+    worlds 109740, 109741; the pair holds false, true
+      Tuple{Main.SF_callable__declared.var"#r_app_0", Main.SF_callable__declared.S}  worlds 109666:∞  <- runs in world 109741
+        edges: code Tuple{Main.SF_callable__declared.var"#q_app_0", Main.SF_callable__declared.S}
+-- callable/taken_back hasm form r copy 1 world 1 (first_compiled): compiled false fresh true expected true
+    worlds 109930, 109931; the pair holds false, true
+      Tuple{Main.SF_callable__taken_back.var"#r_hasm_1"}  worlds 109836:∞  <- runs in world 109931
+        edges: code Tuple{Main.SF_callable__taken_back.var"#q_hasm_1"}
+-- callable/taken_back disp form r copy 1 world 1 (first_compiled): compiled :Any fresh :B expected :B
+    worlds 109930, 109931; the pair holds false, true
+      Tuple{Main.SF_callable__taken_back.var"#r_disp_1", Main.SF_callable__taken_back.S}  worlds 109852:∞  <- runs in world 109931
+        edges: code Tuple{Main.SF_callable__taken_back.var"#q_disp_1", Main.SF_callable__taken_back.S}
+-- callable/taken_back which form r copy 1 world 1 (first_compiled): compiled (:g, Tuple{Main.SF_callable__taken_back.var"#g", Any}) fresh (:g, Tuple{Main.SF_callable__taken_back.var"#g", Callable{Tuple{Int64}, Int64}}) expected missing
+    worlds 109930, 109931; the pair holds false, true
+      Tuple{Main.SF_callable__taken_back.var"#r_which_1", Main.SF_callable__taken_back.S}  worlds 109931:∞  <- runs in world 109931
+        edges: code Tuple{Main.SF_callable__taken_back.var"#q_which_1", Main.SF_callable__taken_back.S}
+-- callable/taken_back app form r copy 0 world 1 (kept_after_change): compiled false fresh true expected true
+    worlds 109930, 109931; the pair holds false, true
+      Tuple{Main.SF_callable__taken_back.var"#r_app_0", Main.SF_callable__taken_back.S}  worlds 109816:∞  <- runs in world 109931
+        edges: code Tuple{Main.SF_callable__taken_back.var"#q_app_0", Main.SF_callable__taken_back.S}
+-- callable/redeclared hasm form r copy 1 world 1 (first_compiled): compiled false fresh true expected true
+    worlds 110161, 110162; the pair holds false, true
+      Tuple{Main.SF_callable__redeclared.var"#r_hasm_1"}  worlds 110027:∞  <- runs in world 110162
+        edges: code Tuple{Main.SF_callable__redeclared.var"#q_hasm_1"}
+-- callable/redeclared disp form r copy 1 world 1 (first_compiled): compiled :Any fresh :B expected :B
+    worlds 110161, 110162; the pair holds false, true
+      Tuple{Main.SF_callable__redeclared.var"#r_disp_1", Main.SF_callable__redeclared.S}  worlds 110043:∞  <- runs in world 110162
+        edges: code Tuple{Main.SF_callable__redeclared.var"#q_disp_1", Main.SF_callable__redeclared.S}
+-- callable/redeclared which form r copy 1 world 1 (first_compiled): compiled (:g, Tuple{Main.SF_callable__redeclared.var"#g", Any}) fresh (:g, Tuple{Main.SF_callable__redeclared.var"#g", Callable{Tuple{Int64}, Int64}}) expected missing
+    worlds 110161, 110162; the pair holds false, true
+      Tuple{Main.SF_callable__redeclared.var"#r_which_1", Main.SF_callable__redeclared.S}  worlds 110162:∞  <- runs in world 110162
+        edges: code Tuple{Main.SF_callable__redeclared.var"#q_which_1", Main.SF_callable__redeclared.S}
+-- callable/redeclared app form r copy 0 world 1 (kept_after_change): compiled false fresh true expected true
+    worlds 110161, 110162; the pair holds false, true
+      Tuple{Main.SF_callable__redeclared.var"#r_app_0", Main.SF_callable__redeclared.S}  worlds 110007:∞  <- runs in world 110162
+        edges: code Tuple{Main.SF_callable__redeclared.var"#q_app_0", Main.SF_callable__redeclared.S}
+-- callable/method_then_member hasm form r copy 2 world 2 (first_compiled): compiled false fresh true expected true
+    worlds 110696, 110702, 110703; the pair holds false, false, true
+      Tuple{Main.SF_callable__method_then_member.var"#r_hasm_2"}  worlds 110602:∞  <- runs in world 110703
+        edges: code Tuple{Main.SF_callable__method_then_member.var"#q_hasm_2"}
+-- callable/method_then_member disp form r copy 2 world 2 (first_compiled): compiled :Any fresh :B expected :B
+    worlds 110696, 110702, 110703; the pair holds false, false, true
+      Tuple{Main.SF_callable__method_then_member.var"#r_disp_2", Main.SF_callable__method_then_member.S}  worlds 110618:∞  <- runs in world 110703
+        edges: code Tuple{Main.SF_callable__method_then_member.var"#q_disp_2", Main.SF_callable__method_then_member.S}
+-- callable/method_then_member which form r copy 2 world 2 (first_compiled): compiled (:g, Tuple{Main.SF_callable__method_then_member.var"#g", Any}) fresh (:g, Tuple{Main.SF_callable__method_then_member.var"#g", Callable{Tuple{Int64}, Int64}}) expected missing
+    worlds 110696, 110702, 110703; the pair holds false, false, true
+      Tuple{Main.SF_callable__method_then_member.var"#r_which_2", Main.SF_callable__method_then_member.S}  worlds 110703:∞  <- runs in world 110703
+        edges: code Tuple{Main.SF_callable__method_then_member.var"#q_which_2", Main.SF_callable__method_then_member.S}
+-- callable/method_then_member app form r copy 1 world 2 (kept_after_change): compiled false fresh true expected true
+    worlds 110696, 110702, 110703; the pair holds false, false, true
+      Tuple{Main.SF_callable__method_then_member.var"#r_app_1", Main.SF_callable__method_then_member.S}  worlds 110582:∞  <- runs in world 110703
+        edges: code Tuple{Main.SF_callable__method_then_member.var"#q_app_1", Main.SF_callable__method_then_member.S}
+
+
+set_folds: 386 cases, 101596 checks, 452 mismatches in 47 groups, 0 crashes, 7 case errors, 102 dynamic, 0 fresh-vs-expected, 223.9 s

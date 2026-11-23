@@ -1,0 +1,65 @@
+set_folds: Julia 1.13.2 3e9c193025*, mode traitworld, jl_delete_membership present
+cases: 386 (29 shapes, 14 sequences); questions: sub int eq hasm isa tassert new disp app which op
+ran in 176.6 s: 103262 checks
+
+== compiled against fresh: 112 mismatches (question, shape, sequence: count, forms, kinds)
+  hasm    compiled          redeclared           28  forms q,r        kept_after_change×8 old_copy_in_later_world×8 first_compiled×4 own_world×4 run_in_earlier_world×4  compiled/fresh false/true
+  hasm    compiled          path_first_back      16  forms q,r        kept_after_change×6 old_copy_in_later_world×6 first_compiled×2 own_world×2  compiled/fresh true/false
+  hasm    compiled          method_then_member   14  forms q,r        kept_after_change×4 old_copy_in_later_world×4 first_compiled×2 own_world×2 run_in_earlier_world×2  compiled/fresh false/true
+  hasm    compiled          super1_back          10  forms q,r        first_compiled×2 kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh false/true
+  hasm    compiled          super2_back          10  forms q,r        first_compiled×2 kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh false/true
+  hasm    compiled          taken_back           10  forms q,r        first_compiled×2 kept_after_change×2 old_copy_in_later_world×2 own_world×2 run_in_earlier_world×2  compiled/fresh false/true
+  hasm    compiled          declared              8  forms q,r        first_compiled×2 kept_after_change×2 old_copy_in_later_world×2 own_world×2  compiled/fresh false/true
+  hasm    compiled          super1                8  forms q,r        first_compiled×2 kept_after_change×2 old_copy_in_later_world×2 own_world×2  compiled/fresh false/true
+  hasm    compiled          super2                8  forms q,r        first_compiled×2 kept_after_change×2 old_copy_in_later_world×2 own_world×2  compiled/fresh false/true
+
+== by question: hasm 112
+== by shape: compiled 112
+== by sequence: redeclared 28, path_first_back 16, method_then_member 14, super1_back 10, super2_back 10, taken_back 10, declared 8, super1 8, super2 8
+== by kind: kept_after_change 30, old_copy_in_later_world 30, first_compiled 20, own_world 20, run_in_earlier_world 12
+== by form: q 56, r 56
+
+== the runtime's dynamic answer (its caches) against fresh: 0
+
+== fresh against the shape's expected answer: 0
+
+== the first mismatch of each group (at most 400), with the code's worlds and edges
+-- compiled/declared hasm form r copy 1 world 1 (first_compiled): compiled false fresh true expected true
+    worlds 99661, 99662; the pair holds false, true
+      Tuple{Main.SF_compiled__declared.var"#r_hasm_1"}  worlds 99607:∞  <- runs in world 99662
+        edges: code Tuple{Main.SF_compiled__declared.var"#q_hasm_1"}
+-- compiled/taken_back hasm form r copy 1 world 1 (first_compiled): compiled false fresh true expected true
+    worlds 99844, 99845; the pair holds false, true
+      Tuple{Main.SF_compiled__taken_back.var"#r_hasm_1"}  worlds 99750:∞  <- runs in world 99845
+        edges: code Tuple{Main.SF_compiled__taken_back.var"#q_hasm_1"}
+-- compiled/redeclared hasm form r copy 1 world 1 (first_compiled): compiled false fresh true expected true
+    worlds 100068, 100069; the pair holds false, true
+      Tuple{Main.SF_compiled__redeclared.var"#r_hasm_1"}  worlds 99934:∞  <- runs in world 100069
+        edges: code Tuple{Main.SF_compiled__redeclared.var"#q_hasm_1"}
+-- compiled/path_first_back hasm form r copy 3 world 3 (first_compiled): compiled true fresh false expected false
+    worlds 100702, 100703, 100704, 100705; the pair holds false, false, true, false
+      Tuple{Main.SF_compiled__path_first_back.var"#r_hasm_3"}  worlds 100704:∞  <- runs in world 100705
+        edges: code Tuple{Main.SF_compiled__path_first_back.var"#q_hasm_3"}
+-- compiled/super1 hasm form r copy 1 world 1 (first_compiled): compiled false fresh true expected true
+    worlds 100848, 100849; the pair holds false, true
+      Tuple{Main.SF_compiled__super1.var"#r_hasm_1"}  worlds 100848:∞  <- runs in world 100849
+        edges: code Tuple{Main.SF_compiled__super1.var"#q_hasm_1"}
+-- compiled/super1_back hasm form r copy 1 world 1 (first_compiled): compiled false fresh true expected true
+    worlds 101032, 101033; the pair holds false, true
+      Tuple{Main.SF_compiled__super1_back.var"#r_hasm_1"}  worlds 101032:∞  <- runs in world 101033
+        edges: code Tuple{Main.SF_compiled__super1_back.var"#q_hasm_1"}
+-- compiled/super2 hasm form r copy 1 world 1 (first_compiled): compiled false fresh true expected true
+    worlds 101178, 101179; the pair holds false, true
+      Tuple{Main.SF_compiled__super2.var"#r_hasm_1"}  worlds 101178:∞  <- runs in world 101179
+        edges: code Tuple{Main.SF_compiled__super2.var"#q_hasm_1"}
+-- compiled/super2_back hasm form r copy 1 world 1 (first_compiled): compiled false fresh true expected true
+    worlds 101363, 101364; the pair holds false, true
+      Tuple{Main.SF_compiled__super2_back.var"#r_hasm_1"}  worlds 101363:∞  <- runs in world 101364
+        edges: code Tuple{Main.SF_compiled__super2_back.var"#q_hasm_1"}
+-- compiled/method_then_member hasm form r copy 2 world 2 (first_compiled): compiled false fresh true expected true
+    worlds 102025, 102027, 102028; the pair holds false, false, true
+      Tuple{Main.SF_compiled__method_then_member.var"#r_hasm_2"}  worlds 101931:∞  <- runs in world 102028
+        edges: code Tuple{Main.SF_compiled__method_then_member.var"#q_hasm_2"}
+
+
+set_folds: 386 cases, 103262 checks, 112 mismatches in 9 groups, 0 crashes, 0 case errors, 0 dynamic, 0 fresh-vs-expected, 176.6 s

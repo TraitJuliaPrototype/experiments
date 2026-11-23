@@ -78,3 +78,76 @@ row 184 on `w143e` d1e64d8b56). On branch `w171` 2ddbe12394: 2,032 mismatches in
 - Base's `subtype`, `core`, `worlds`: SUCCESS (`logs/base-*-w171-2ddbe12394.log`).
 - TraitWorld's tests as a file: no failure (`logs/traitworld-tests-w171-2ddbe12394.log`).
 - The candidate gates `gates/n39`, `n40`, `n41`: each fails on `next` dd42dc8c3f and passes on `w171`.
+
+## Second part (E-543)
+
+**The registry's row (E-543).** After the fixes of the audit's four open patterns (compiler C-162 to C-165), does
+the tool report nothing; what do its modes for package images and for the library's forms (the kept forms, declared
+results with the `trusted` mark, `Callable`) find; and what does trait code pay for the folds the rule "a set answer
+is not consistent" takes away (the library's and the ODE port's load and first run, a call through a trait at a known
+type, a small stiff solve)? Baseline: the runtime's own answer in each world; for the cost, the build before the rule
+on the same trait code, and each cell's plain twin. Would change the references: a mismatch is a hole at its rule; a
+cost that a narrower sound rule avoids changes the rule; a cost the rule sets is a tension.
+
+Branch `w171b` of the julia repository (worktree `wt/w171-julia`), on `w171` = `next` 2ddbe12394. Candidate gates
+`gates/n42_…` and up: each fails on 2ddbe12394 and passes on `w171b`.
+
+### The four patterns, each at its rule
+
+| Pattern (row) | Cause | Fix (branch `w171b`) | Gate | The tool after it |
+|---|---|---|---|---|
+| a type value's membership taken back (C-165) | a kind of type object meets a set where the set takes a type value; that rests on the set's entries for type values, held on each value's TypeName, on no type of the query; a lookup's worlds were narrowed only by the query's entries, so the method cache's entry at the widened signature `Tuple{typeof(g), Type}`, made from a lookup at `Type{S}` in a world before the membership, answered `g(::Any)` in the worlds where it holds | 86cc20d662: a range asked at a query with a kind at a covariant place is narrowed by the type-value entries of the signature's sets and of the sets that join them (`jl_type_has_kind`, `value_entries_range`); the typemap's visitor asks it also where the intersection is empty. `src/subtype.c`, `src/typemap.c`: 67 lines added, 4 removed | `gates/n42_kind_value_worlds.jl` | 1,998 mismatches in 232 groups (`type_value` gone; log `set-folds-w171b-86cc20d662.log`) |
+| a method with the member in a variable's lower bound (C-162) | a lower bound is the one contravariant place of a signature: there a type under the member, not the set, carries the membership (`h(::Ph{T}) where T >: S` takes `Ph{X}` once `S` joins `X`); the signature names no set, so the set-to-methods index did not list it and no walk replayed it, and a match's worlds were narrowed by the query's entries only | aa362a2ddd: the index lists each method with a lower bound at a covariant place under the key `nothing` (20 of Base's methods: `T >: Missing`, `T >: Nothing`); the declaration's and the removal's walks replay each whose bound meets the member, at the method's own signature (`lower_bound_targets`); the library's replay signatures name them; a match's worlds are narrowed by the signature's lower bounds' entries (`jl_sig_lower_bounds`). `src/gf.c`, `src/subtype.c`, `src/typemap.c`: 182 added, 5 removed | `gates/n43_lower_bound_replay.jl` | 920 in 130 (`lower_bound`, `lower_bound_rev`, `both_bounds` gone; `set-folds-w171b-aa362a2ddd.log`) |
+| a call or `hasmethod` at an abstract type, a set or a union (C-164) | a membership adds no method: the code that leaves a call's choice to the run keeps its validity, and the walk keeps it (compiler §5.5). Two answers fold that choice at compile time with nothing that records it: a caller's compile-time evaluation of a callee whose method is chosen at the run among matches at a set (consistent effects; the tool's values are singletons), and `hasmethod`'s "no method covers these types", whose missing-method edge the walk keeps where the method matched before without covering | 9970f8799a: such a call and such an `applicable` are not consistent (`choice_rests_on_memberships`; row 187's rule); `hasmethod`'s negative folds only with the absence edges of the pairs the lookup dropped at a final pair, and is not folded where a method that meets the types rests on memberships or the types name a set. `Compiler/src/`: 54 added, 1 removed | `gates/n44_set_choice_not_folded.jl` | with C-163's fix: 0 (`set_member`, `abstract_member`, `union_both`, `lower_bound_eq` gone) |
+| equality inside an invariant parameter through variables' bounds (C-163) | the equality consulted no entry, but a variable's bound was asked with entries wherever it was met, also for a variable bound inside the parameter being compared | 3c7394979a, decided by the reference (§4.5, §4.9: "two types inside an invariant parameter are equal in every world or in none"; §4.4): the walk keeps the invariant depth at which the outermost equality began (`noentry_depth`); a variable bound at that depth or deeper is part of the equality and its bounds are compared with no entry, in subtyping and in intersection. A variable bound outside the parameter (`Vector{<:X}`) is a subtype question with entries. `src/subtype.c`: 33 added, 13 removed | `gates/n45_invariant_bound_equality.jl` | 0 mismatches, 0 dynamic, 0 fresh-against-expected (`set-folds-w171b-3c7394979a.log`) |
+
+**C-163's answers that change** (by the reference): `Ph{Ph{T} where T >: X} <: Ph{Ph{T} where T >: Union{X, S}}` is
+false in every world (true on `next` once `S` joins `X`), and so are `==` of the two, their intersection (`Union{}`),
+`hasmethod`, `applicable` and dispatch at a method typed by the second at the first's instance; `isa` is unchanged.
+At the top (`A == B` for the two `UnionAll`s) a membership still counts, and so for an outer variable's bound
+(`Vector{Ph{X}} <: Vector{Ph{T}} where T >: S`). `w143d/motiv/lb_bit.jl` prints `Vector{A} <: Vector{B}` false
+after the membership now; row 181's fix (the bit sees a lower bound) is unaffected: it serves the top-level `A == B`.
+
+**What the tool still cannot see** (found beside it, compiler C-166's candidate): a method at the member's own type
+(`g(::S)`) defined before the membership, and a call compiled once at the set (`q(::X)`, which found `g(::X)` alone):
+once `S` joins `X` the call at `X` meets `g(::S)`, and the caller keeps its static call (`probes/member_method_at_set.jl`).
+The tool's shapes put methods only at `B`; a sequence with a method at `A` before the membership is the mode that
+would count it.
+
+### The tool's modes, and what they found
+
+- **Package images** (`../audit/set_folds_images.jl`, the README's "The set-folds report"): on 3c7394979a one
+  mismatch of 1,409: `loaded_after`, `set_member`, `x isa X` compiled before a package's image declared `Y0 in X`
+  stayed `false`. Cause: package loading runs in a fixed older world (`_require_world_age`), and the method table's
+  insertion of the image's methods asked its membership questions there; the membership's method at `Type{<:Y0}`
+  meets `S0`'s absence edge only through `S0 in Y0`, an entry not in force in that world. Fix 054016ea75: the insertion
+  asks in the world the image's methods begin in (`src/staticdata.c`, 5 lines; compiler §4.11, §9). Gate
+  `gates/n46_image_activation_world.jl`. After it: 0 of 1,409 (`logs/set-folds-images-w171b-054016ea75.log`,
+  `…-3e9c193025.log`); the refused image's own folded code answers by the refusal.
+- **The library's forms** (`--mode=traitworld`): on 054016ea75 452 mismatches in 47 groups (and `forwarding` refused
+  by the library, its field's type no member; the shape now declares it first):
+  - `callable` (hasm, disp, app, which): `@implement Callable S` is an entry at every instance (`Callable{A, S}
+    where {A, S}`), which the walk paired with a method's parameter (`Callable{Tuple{Int}, Int}`) by subtyping, so it
+    replayed nothing. Fix d7b373bf92: such an instance reaches the parameter where the two meet
+    (`membership_param_meets`, `src/gf.c`, 9 lines; compiler §5.5, §7.4). Gate `gates/n47_callable_every_instance.jl`.
+  - `compiled`, `dynamic` (sub): the library makes each kept form a member by a pattern bounded by the set
+    (`Compiled{Z} where Z <: X`); `Compiled{S} <: X` rests on `S`'s memberships, yet its non-membership was final, with
+    a cell no membership of `S` meets. Fix 3e9c193025: a type on whose chain a pattern's variable is bounded by a set
+    is no final non-member (`chain_has_set_bounded_pattern`, `src/datatype.c`, 23 lines; compiler §4.8, §6.9). Gate
+    `gates/n48_kept_form_not_final.jl`.
+  - `compiled` (hasm), 112 left on 3e9c193025: a membership adds the kept forms at the member under the set too
+    (`Compiled{S}`), and the walk replays a method at the set at the member only; `hasmethod(h, Tuple{Compiled{S}})`
+    keeps `false`. Not built (compiler C-167's candidate): the replay's signature would take the member's kept forms
+    beside it (`Union{S, Compiled{S}}` for a concrete member, `Dynamic{Y}` for a set member). Probe
+    `probes/kept_form_replay.jl`.
+  - The operation's declared result with the `trusted` mark, the block, the forwarding field, the family by `where`
+    and the library's deletion: no mismatch.
+
+### Checks of `w171b` 3e9c193025
+
+- The gates in force: 80 passed, 0 failed; the stage gates 9 passed (`logs/gates-w171b-3e9c193025.log`).
+- Base's `subtype`, `core`, `worlds`, `ambiguous`, `reflection`: SUCCESS (`logs/base-*-w171b-3e9c193025.log`).
+- TraitWorld's tests as a file: 120 test sets, no failure (`logs/traitworld-tests-w171b-3e9c193025.log`).
+- The candidate gates `gates/n42` to `n48`: each fails on `next` 2ddbe12394 and passes on 3e9c193025 (`n47`, `n48`
+  run with `--project=TraitWorld`, as their header says).
+- The tool: 0 mismatches in the stub mode and the image mode; 112 in one shape in the library mode (C-167).

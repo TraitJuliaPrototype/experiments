@@ -62,6 +62,9 @@ Base.@kwdef struct Shape
     seqs::Symbol = :member       # :member (the generic sequences) or :unmet (a member type defined later)
     traitworld::Bool = false     # only with TraitWorld
     val2::String = ""            # a second value, made by the change :typeT2
+    decl::String = ""            # traitworld: the declaration of the pair, `{set}` and `{member}` replaced
+    onlyseqs::Vector{String} = String[]  # where not empty, only these sequences
+    stub::Bool = true            # also in the stub mode
 end
 
 const SHAPES = Shape[
@@ -111,6 +114,23 @@ const SHAPES = Shape[
     Shape(name = "dynamic", defs = "@trait Y0", member = "Y0", A = "Core.Dynamic{Y0}", B = "X",
           sub = m -> m, traitworld = true),
     Shape(name = "compiled", defs = "struct S end", A = "Core.Compiled{S}", B = "X", sub = m -> m, traitworld = true),
+    # the library's forms of a declaration: a block, a forwarding field, a family by `where`
+    Shape(name = "block", defs = "struct S end", A = "S", B = "X", val = "S()", sub = m -> m, traitworld = true,
+          decl = "TraitWorld.@implement {set} {member} begin end"),
+    Shape(name = "forwarding", defs = "struct S end\nstruct WS; s::S; end", setup = "TraitWorld.@implement X S",
+          member = "WS", A = "WS", B = "X", val = "WS(S())", sub = m -> m, traitworld = true,
+          decl = "TraitWorld.@implement {set} {member} by s"),
+    Shape(name = "family_where", defs = "struct F{T} end", member = "F{T} where T", A = "F{Int}", B = "X",
+          val = "F{Int}()", sub = m -> m, traitworld = true, decl = "TraitWorld.@implement {set} F{T} where T"),
+    # Callable: a callable struct declared a member of `Callable{Tuple{Int}, Int}` (compiler §7.4)
+    Shape(name = "callable", defs = "struct S end\n(s::S)(x::Int) = x", set = "Core.Callable{Tuple{Int}, Int}",
+          A = "S", B = "Core.Callable{Tuple{Int}, Int}", val = "S()", sub = m -> m, traitworld = true,
+          decl = "TraitWorld.@implement Core.Callable {member}",
+          onlyseqs = ["declared", "taken_back", "redeclared", "method_added", "method_deleted", "method_then_member"]),
+    # an operation's declared result read at a value typed by the set, with the `trusted` mark (compiler §7.1)
+    Shape(name = "operation", defs = "struct S end\n@trait XO begin\n    oval(x::XO)::Int\nend\noval(::S) = 1",
+          set = "XO", A = "S", B = "XO", val = "S()", W = "XO", sub = m -> m, traitworld = true,
+          onlyseqs = ["declared", "taken_back", "redeclared", "method_added", "method_deleted", "method_then_member"]),
 ]
 
 ## The sequences -------------------------------------------------------------------------------------------------
@@ -146,8 +166,10 @@ needs_delete(q::Seq) = any(c -> c isa Tuple && c[1] === :del || c === :delT2, q.
 ## The questions -------------------------------------------------------------------------------------------------
 # Each has a body for the compiled copies and a body for the fresh answer; `x` is the value.
 const NOARG_Q = [:sub, :int, :eq, :hasm]
-const VAL_Q = [:isa, :tassert, :new, :disp, :app, :which]
+const VAL_Q = [:isa, :tassert, :new, :disp, :app, :which, :op]
 const QSEL = haskey(ARGS_D, "questions") ? Symbol.(split(ARGS_D["questions"], ',')) : vcat(NOARG_Q, VAL_Q)
+# the operation's question only where the shape declares the operation
+qsel(sh) = filter(q -> q !== :op || occursin("oval", sh.defs), QSEL)
 qbody(q) = q === :sub ? "A <: B" :
            q === :int ? "typeintersect(A, B) === Union{}" :
            q === :eq ? "A == B" :
@@ -157,7 +179,8 @@ qbody(q) = q === :sub ? "A <: B" :
            q === :new ? "(@newHB(x); true)" :
            q === :disp ? "g(x)" :
            q === :app ? "applicable(h, x)" :
-           q === :which ? "which(g, Tuple{Core.Typeof(x)})" : error(q)
+           q === :which ? "which(g, Tuple{Core.Typeof(x)})" :
+           q === :op ? "oval(x)" : error(q)
 const IB = "Base.inferencebarrier"
 # The fresh answers are asked of the runtime by `ccall`, which neither inference nor code generation folds; dispatch
 # by the methods valid in the task's world (a search that is not a leaf query reads no cache) and `jl_subtype` there.
@@ -188,7 +211,8 @@ fbody(q) = q === :sub ? "ccall(:jl_subtype, Cint, (Any, Any), A, B) != 0" :
            q === :new ? "(ccall(:jl_new_structv, Any, (Any, Ptr{Any}, UInt32), HB, Any[x], 1); true)" :
            q === :disp ? "Main.SF_dispatch(g, x)" :
            q === :app ? "Main.SF_dispatch(h, x) !== :nomethod" :
-           q === :which ? "Main.SF_which(g, x)" : error(q)
+           q === :which ? "Main.SF_which(g, x)" :
+           q === :op ? "Main.SF_dispatch(oval, x)" : error(q)
 # the dynamic answer (through the runtime's caches) where it differs from the fresh one's path
 dbody(q) = q === :disp ? "g($IB(x))" : q === :app ? "applicable($IB(h), $IB(x))" :
            q === :hasm ? "hasmethod($IB(h), $IB(Tuple{A}))" : q === :sub ? "$IB(A) <: $IB(B)" :
@@ -201,8 +225,13 @@ function change_src(sh::Shape, c)
     if c isa Tuple
         mem, set = link_parts(sh, c[2])
         if c[1] === :add
+            if MODE == "traitworld"
+                d = c[2] === :SX && !isempty(sh.decl) ? sh.decl : "TraitWorld.@implement {set} {member}"
+                return replace(d, "{set}" => set, "{member}" => mem)
+            end
             return "SFLIB_DECLARE($mem, $set)"
         else
+            MODE == "traitworld" && return "TraitWorld.delete_membership($set, $mem)"
             return "ccall(:jl_delete_membership, Cvoid, (Any, Any, Any), $mem, $set, @__MODULE__)"
         end
     elseif c === :defB
@@ -245,7 +274,7 @@ function case_src(sh::Shape, q::Seq, ncopies::Int)
     println(io, "function g end\nfunction h end")
     println(io, "struct HB; v::B; end\nmacro newHB(x) esc(Expr(:new, :HB, x)) end")
     for k in 0:ncopies-1
-        for qq in QSEL
+        for qq in qsel(sh)
             if qq in NOARG_Q
                 println(io, "q_$(qq)_$(k)() = ", qbody(qq))
                 println(io, "r_$(qq)_$(k)() = q_$(qq)_$(k)()")
@@ -259,7 +288,7 @@ function case_src(sh::Shape, q::Seq, ncopies::Int)
             end
         end
     end
-    for qq in QSEL
+    for qq in qsel(sh)
         if qq in NOARG_Q
             println(io, "f_$(qq)() = ", fbody(qq))
         else
@@ -375,7 +404,7 @@ function run_case(sh::Shape, q::Seq; declare, record)
     info = (M = M, worlds = worlds, states = states)
     function ask(where_, k, j, w)
         m, mstate, _ = states[j+1]
-        for qq in QSEL
+        for qq in qsel(sh)
             if qq in NOARG_Q
                 fr = w === nothing ? latest(gg(M, Symbol("f_", qq))) : inworld(w, gg(M, Symbol("f_", qq)))
                 ex = expected(sh, qq, m, 1, mstate)
@@ -522,7 +551,10 @@ function cases()
     out = Tuple{Shape,Seq}[]
     for sh in SHAPES
         sh.traitworld && MODE != "traitworld" && continue
+        # the library declares a set's inputs itself; a pattern of a free variable is refused there
+        MODE == "traitworld" && (startswith(sh.name, "input") || sh.name == "unmet") && continue
         seqs = sh.seqs === :unmet ? UNMET_SEQS : MEMBER_SEQS
+        isempty(sh.onlyseqs) || (seqs = filter(q -> q.name in sh.onlyseqs, seqs))
         for q in seqs
             # the methods at B are part of a late member's definitions
             sh.late && startswith(q.name, "method") && continue

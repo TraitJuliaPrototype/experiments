@@ -75,6 +75,10 @@ julia-unified/julia --startup-file=no experiments/implementation/audit/image_unc
 # kept as a crash and the next worker goes on.
 julia-next/julia --startup-file=no --project=experiments/implementation experiments/implementation/audit/set_folds.jl \
     [--only=<regex on shape/sequence>] [--questions=sub,isa,…] [--sample=<n> --seed=<s>] [--show=<n>] [--probes=<dir>]
+# its library mode (E-543): the library's declarations and deletions, its kept forms, Callable, an operation
+julia-next/julia --startup-file=no --project=TraitWorld experiments/implementation/audit/set_folds.jl --mode=traitworld
+# its image mode (E-543): memberships and code in package images, built in a temporary depot
+julia-next/julia --startup-file=no --project=experiments/implementation experiments/implementation/audit/set_folds_images.jl [--keep]
 ```
 
 The compile trace of the imports (`trace-imports-*.log`) is Julia's own: `--trace-compile=<log> --trace-compile-timing -e 'using …'`.
@@ -155,11 +159,23 @@ expected one. Compiled code whose result is `Union{}` where the fresh answer ret
 - The cross product is 348 cases and 96,880 checks, about 150 s on the head; a build without `jl_delete_membership`
   runs the 173 cases with no taking back. Deterministic: no sample unless `--sample`.
 
-**What it cannot ask:** a membership in a package image (loaded after the function is compiled, or the function
-compiled in the image and the membership declared in the session): each case would need a package built in a depot,
-not done; TraitWorld's kept forms, a declared result at a set (an operation's result, a declared field's type) and the
-`trusted` mark: the `traitworld` mode declares memberships by the library's macro with type objects, which it does not
-take, and was not run; a store into storage typed by a set (`setfield!`, `memoryrefset!`) and `typeassert` folded by
+**The library mode** (`--mode=traitworld`, E-543): memberships declared by the library's `@implement` (also with a
+block, a forwarding field and a family by `where`) and taken back by `TraitWorld.delete_membership`; the shapes but
+`input*` and `unmet` (the library declares a set's inputs itself), and six more: the kept forms `Dynamic{Y0}` and
+`Compiled{S}`, `block`, `forwarding`, `family_where`, `callable` (`@implement Callable S`, a callable struct, against
+`Callable{Tuple{Int}, Int}`) and `operation` (a question `oval(x)`, an operation's declared result read at a value typed
+by its set, with the `trusted` mark, also compiled once at the set). 386 cases.
+
+**The image mode** (`set_folds_images.jl`, E-543): 13 of the shapes in four directions, each a child process on a
+fresh depot: `loaded_after` (the functions compiled in the session, then a precompiled package's memberships
+loaded), `image_code` (the functions compiled in a package's image by its workload, the memberships declared in the
+session), `image_positive` (a package that declares the memberships and folds them in its image, the memberships
+taken back in the session), `refused` (an image's membership refused at activation as a second instance of a set,
+with code in that image that folded it). Two copies of each question, two worlds; 1,409 checks, 15 s.
+
+**What it cannot ask:** a declared field read at a set; a method at the member's own type defined before the
+membership, with a call compiled at the set (compiler C-166: no sequence puts a method at `A`); a store into storage
+typed by a set (`setfield!`, `memoryrefset!`) and `typeassert` folded by
 the optimizer's `⊑` queries (C-51); `Callable{A, S}`; an intersection of three components and two instances of one
 set at different inputs; a set deeper than eight levels or under a `Vararg` in a method's signature (the walk's
 conservative path, C-88); a redeclaration with another receiver; strict mode's refusals; another thread; a closed build.
@@ -171,5 +187,13 @@ conservative path, C-88); a redeclaration with another receiver; strict mode's r
 | 2026-11-23 | `w143e` d1e64d8b56 (rows 181, 182, not 184) | 348 | 9,725 (1,227) | int 2,658, sub 1,340, new 1,134, tassert 1,134, isa 1,121, hasm 830, app 650, disp 524, which 190, eq 144 | 652 | row 184's hole: 93 groups more than `next`, `sub` and `isa` run in a world before a taking back |
 | 2026-11-23 | `next` dd42dc8c3f | 348 | 8,975 (1,134) | int 2,658, new 1,134, tassert 1,134, sub 1,018, hasm 830, isa 697, app 648, disp 522, which 190, eq 144 | 652 | none of the three; the patterns of E-542 |
 | 2026-11-23 | `w171` 2ddbe12394 | 348 | 2,032 (246) | hasm 758, app 562, disp 522, which 190 | 652 | no type question left; dispatch: C-162, C-164, C-165; fresh against expected: C-163 |
+| 2026-11-23 | `w171b` 86cc20d662 (C-165) | 348 | 1,998 (232) | hasm 758, app 546, disp 504, which 190 | 652 | `type_value` gone |
+| 2026-11-23 | `w171b` aa362a2ddd (C-162) | 348 | 920 (130) | hasm 446, app 202, disp 202, which 70 | 652 | `lower_bound`, `lower_bound_rev`, `both_bounds` gone |
+| 2026-11-23 | `w171b` 3c7394979a (C-164, C-163) | 348 | 0 (0) | — | 0 | nothing reported; 0 dynamic |
+| 2026-11-23 | `w171b` 3e9c193025 (the head) | 348 | 0 (0) | — | 0 | as above |
+| 2026-11-23 | `w171b` 054016ea75, library mode | 386 | 452 (47) | hasm, disp, app, sub, which at `callable`, `compiled`, `dynamic`; `forwarding` refused by the library (its field's type no member: the shape fixed after) | 0 | the Callable entry at every instance not replayed; the kept forms' non-membership folded as final; `hasmethod` at `Compiled{S}` |
+| 2026-11-23 | `w171b` 3e9c193025, library mode | 386 | 112 (9) | hasm 112 | 0 | `hasmethod(h, Tuple{Compiled{S}})` only: compiler C-167 |
+| 2026-11-23 | `w171b` 3c7394979a, image mode | 13 shapes, 4 directions | 1 of 1,409 | isa | — | `loaded_after`, `set_member`: an image's membership's method activated in the loading code's world |
+| 2026-11-23 | `w171b` 054016ea75 and 3e9c193025, image mode | 13 shapes, 4 directions | 0 of 1,409 | — | — | the refused image's own code answers by the refusal |
 
 Logs: `../w171/logs/set-folds-<build>.log`; the patterns, their probes and fixes: `../w171/README.md`.
