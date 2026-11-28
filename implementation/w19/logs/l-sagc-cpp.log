@@ -1,0 +1,14 @@
+julia-next engine rc 0 errors 0 warnings 0
+julia-next runtime_ccall rc 0 errors 0 warnings 0
+julia-next cgutils rc 2 errors 20 warnings 0
+julia-next codegen rc 2 errors 20 warnings 0
+julia-vanilla engine rc 2 errors 1 warnings 0
+julia-vanilla runtime_ccall rc 2 errors 1 warnings 0
+julia-vanilla cgutils rc 2 errors 1 warnings 0
+julia-vanilla codegen rc 2 errors 1 warnings 0
+# The rows above ran `make -C <tree>/src clang-sagc-<file>`: cgutils.cpp is included by codegen.cpp (no target of
+# its own: its errors are a standalone compile's), and julia-vanilla has no analyzer installed (GCChecker.cpp does not
+# build). With julia-next's analyzer over each tree's codegen.cpp and no error limit (clang stops at 20 by default):
+# julia-vanilla 107 findings, julia-next 7fdfa7e0f8 107; by file, message and the flagged source line 104 equal, the
+# other 3 the same jl_isa/jl_subtype calls on lines the design rewrote (l-sagc-cpp-codegen-{vanilla,next}.txt).
+# engine.cpp and runtime_ccall.cpp: 0 on julia-next.

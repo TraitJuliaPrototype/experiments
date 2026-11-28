@@ -1,0 +1,557 @@
+### ast.c
+### builtins.c
+### datatype.c
+### gc-stock.c
+### gf.c
+/p/projects/coen/julia-trait-bound/wt/w19-julia/src/gf.c:2431:16: error: Passing non-rooted value as argument to function that may GC [julia.GCChecker]
+ 2431 |         return lower_bound_meets(((jl_uniontype_t*)bu)->a, member) || lower_bound_meets(((jl_uniontype_t*)bu)->b, member);
+      |                ^
+/p/projects/coen/julia-trait-bound/wt/w19-julia/src/gf.c:5115:9: note: Assuming the condition is false
+ 5115 |     if (!jl_atomic_load_relaxed(&allow_new_worlds))
+      |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/p/projects/coen/julia-trait-bound/wt/w19-julia/src/gf.c:5115:5: note: Taking false branch
+ 5115 |     if (!jl_atomic_load_relaxed(&allow_new_worlds))
+      |     ^
+/p/projects/coen/julia-trait-bound/wt/w19-julia/src/gf.c:5117:5: note: Calling 'membership_removal_walk_one'
+ 5117 |     membership_removal_walk_one(member, set_instance, world, 0);
+      |     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/p/projects/coen/julia-trait-bound/wt/w19-julia/src/gf.c:5137:5: note: GC frame changed here
+ 5137 |     JL_GC_PUSHARGS(gc, 9);
+      |     ^~~~~~~~~~~~~~~~~~~~~
+/p/projects/coen/julia-trait-bound/wt/w19-julia/src/julia.h:1175:3: note: expanded from macro 'JL_GC_PUSHARGS'
+ 1175 |   _JL_GC_PUSHARGS(rts_var, (n));
+      |   ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/p/projects/coen/julia-trait-bound/wt/w19-julia/src/gf.c:5141:24: note: Assuming the condition is false
+ 5141 |     for (size_t s = 0; s < jl_array_nrows(sets); s++) {
+      |                        ^~~~~~~~~~~~~~~~~~~~~~~~
+/p/projects/coen/julia-trait-bound/wt/w19-julia/src/gf.c:5141:5: note: Loop condition is false. Execution continues on line 5154
+ 5141 |     for (size_t s = 0; s < jl_array_nrows(sets); s++) {
+      |     ^
+/p/projects/coen/julia-trait-bound/wt/w19-julia/src/gf.c:5156:5: note: Calling 'lower_bound_targets'
+ 5156 |     lower_bound_targets(member, world, targets, lbt);
+      |     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/p/projects/coen/julia-trait-bound/wt/w19-julia/src/gf.c:2550:5: note: GC frame changed here
+ 2550 |     JL_GC_PUSH1(&ms);
+      |     ^~~~~~~~~~~~~~~~
+/p/projects/coen/julia-trait-bound/wt/w19-julia/src/gf.c:2553:24: note: Assuming the condition is true
+ 2553 |     for (size_t i = 0; i < jl_array_nrows(ms); i++) {
+      |                        ^~~~~~~~~~~~~~~~~~~~~~
+/p/projects/coen/julia-trait-bound/wt/w19-julia/src/gf.c:2553:5: note: Loop condition is true.  Entering loop body
+ 2553 |     for (size_t i = 0; i < jl_array_nrows(ms); i++) {
+      |     ^
+/p/projects/coen/julia-trait-bound/wt/w19-julia/src/gf.c:2560:28: note: Assuming 'k' is < field 'len'
+ 2560 |         for (size_t k = 0; k < lbs.len && !meets; k++)
+      |                            ^~~~~~~~~~~
+/p/projects/coen/julia-trait-bound/wt/w19-julia/src/gf.c:2560:28: note: Left side of '&&' is true
+/p/projects/coen/julia-trait-bound/wt/w19-julia/src/gf.c:2560:43: note: Assuming 'meets' is 0
+ 2560 |         for (size_t k = 0; k < lbs.len && !meets; k++)
+      |                                           ^~~~~~
+/p/projects/coen/julia-trait-bound/wt/w19-julia/src/gf.c:2560:9: note: Loop condition is true.  Entering loop body
+ 2560 |         for (size_t k = 0; k < lbs.len && !meets; k++)
+      |         ^
+/p/projects/coen/julia-trait-bound/wt/w19-julia/src/gf.c:2561:21: note: Calling 'lower_bound_meets'
+ 2561 |             meets = lower_bound_meets((jl_value_t*)lbs.items[k], member);
+      |                     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/p/projects/coen/julia-trait-bound/wt/w19-julia/src/gf.c:2427:9: note: Assuming the condition is false
+ 2427 |     if (jl_has_free_typevars(b))
+      |         ^~~~~~~~~~~~~~~~~~~~~~~
+./jl_internal_funcs.inc:238:30: note: expanded from macro 'jl_has_free_typevars'
+  238 | #define jl_has_free_typevars ijl_has_free_typevars
+      |                              ^
+/p/projects/coen/julia-trait-bound/wt/w19-julia/src/gf.c:2427:5: note: Taking false branch
+ 2427 |     if (jl_has_free_typevars(b))
+      |     ^
+/p/projects/coen/julia-trait-bound/wt/w19-julia/src/gf.c:2429:22: note: Could not propagate root. Argument value was untracked
+ 2429 |     jl_value_t *bu = jl_unwrap_unionall(b);
+      |                      ^~~~~~~~~~~~~~~~~~~~~
+./jl_internal_funcs.inc:505:28: note: expanded from macro 'jl_unwrap_unionall'
+  505 | #define jl_unwrap_unionall ijl_unwrap_unionall
+      |                            ^
+/p/projects/coen/julia-trait-bound/wt/w19-julia/src/gf.c:2430:9: note: Assuming the condition is true
+ 2430 |     if (jl_is_uniontype(bu))
+      |         ^~~~~~~~~~~~~~~~~~~
+/p/projects/coen/julia-trait-bound/wt/w19-julia/src/julia.h:1664:30: note: expanded from macro 'jl_is_uniontype'
+ 1664 | #define jl_is_uniontype(v)   jl_typetagis(v,jl_uniontype_tag<<4)
+      |                              ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/p/projects/coen/julia-trait-bound/wt/w19-julia/src/julia.h:137:28: note: expanded from macro 'jl_typetagis'
+  137 | #define jl_typetagis(v,t) (jl_typetagof(v)==(uintptr_t)(t))
+      |                            ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/p/projects/coen/julia-trait-bound/wt/w19-julia/src/julia.h:119:25: note: expanded from macro 'jl_typetagof'
+  119 | #define jl_typetagof(v) ((uintptr_t)_jl_typeof((jl_value_t*)(v)))
+      |                         ^
+/p/projects/coen/julia-trait-bound/wt/w19-julia/src/gf.c:2430:5: note: Taking true branch
+ 2430 |     if (jl_is_uniontype(bu))
+      |     ^
+/p/projects/coen/julia-trait-bound/wt/w19-julia/src/gf.c:2431:34: note: No Root to propagate. Tracking
+ 2431 |         return lower_bound_meets(((jl_uniontype_t*)bu)->a, member) || lower_bound_meets(((jl_uniontype_t*)bu)->b, member);
+      |                                  ^~~~~~~~~~~~~~~~~~~~~~~~
+/p/projects/coen/julia-trait-bound/wt/w19-julia/src/gf.c:2431:16: note: Passing non-rooted value as argument to function that may GC
+ 2431 |         return lower_bound_meets(((jl_uniontype_t*)bu)->a, member) || lower_bound_meets(((jl_uniontype_t*)bu)->b, member);
+      |                ^                 ~~~~~~~~~~~~~~~~~~~~~~~~
+/p/projects/coen/julia-trait-bound/wt/w19-julia/src/gf.c:4767:32: error: Access to field 'length' results in a dereference of a null pointer (loaded from variable 'tab') [core.NullDereference]
+ 4767 |         for (size_t t = 1; t < tab->length; t += 2) {
+      |                                ^
+/p/projects/coen/julia-trait-bound/wt/w19-julia/src/gf.c:5115:9: note: Assuming the condition is false
+ 5115 |     if (!jl_atomic_load_relaxed(&allow_new_worlds))
+      |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/p/projects/coen/julia-trait-bound/wt/w19-julia/src/gf.c:5115:5: note: Taking false branch
+ 5115 |     if (!jl_atomic_load_relaxed(&allow_new_worlds))
+      |     ^
+/p/projects/coen/julia-trait-bound/wt/w19-julia/src/gf.c:5124:5: note: Calling 'membership_bounded_patterns'
+ 5124 |     membership_bounded_patterns(sets, world, member, set_instance, derived);
+      |     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/p/projects/coen/julia-trait-bound/wt/w19-julia/src/gf.c:4762:12: note: 'added' is 1
+ 4762 |     while (added && jl_array_nrows(out) < 64) {
+      |            ^~~~~
+/p/projects/coen/julia-trait-bound/wt/w19-julia/src/gf.c:4762:12: note: Left side of '&&' is true
+/p/projects/coen/julia-trait-bound/wt/w19-julia/src/gf.c:4762:21: note: Assuming the condition is true
+ 4762 |     while (added && jl_array_nrows(out) < 64) {
+      |                     ^~~~~~~~~~~~~~~~~~~~~~~~
+/p/projects/coen/julia-trait-bound/wt/w19-julia/src/julia.h:1298:27: note: expanded from macro 'jl_array_nrows'
+ 1298 | #define jl_array_nrows(a) (((jl_array_t*)(a))->dimsize[0])
+      |                           ^
+/p/projects/coen/julia-trait-bound/wt/w19-julia/src/gf.c:4762:5: note: Loop condition is true.  Entering loop body
+ 4762 |     while (added && jl_array_nrows(out) < 64) {
+      |     ^
+/p/projects/coen/julia-trait-bound/wt/w19-julia/src/gf.c:4765:13: note: Assuming 'tab' is not equal to NULL
+ 4765 |         if (tab == NULL)
+      |             ^~~~~~~~~~~
+/p/projects/coen/julia-trait-bound/wt/w19-julia/src/gf.c:4765:9: note: Taking false branch
+ 4765 |         if (tab == NULL)
+      |         ^
+/p/projects/coen/julia-trait-bound/wt/w19-julia/src/gf.c:4767:28: note: Assuming 't' is < field 'length'
+ 4767 |         for (size_t t = 1; t < tab->length; t += 2) {
+      |                            ^~~~~~~~~~~~~~~
+/p/projects/coen/julia-trait-bound/wt/w19-julia/src/gf.c:4767:9: note: Loop condition is true.  Entering loop body
+ 4767 |         for (size_t t = 1; t < tab->length; t += 2) {
+      |         ^
+/p/projects/coen/julia-trait-bound/wt/w19-julia/src/gf.c:4769:17: note: Assuming 'list' is not equal to NULL
+ 4769 |             if (list == NULL || !jl_is_array(list))
+      |                 ^~~~~~~~~~~~
+/p/projects/coen/julia-trait-bound/wt/w19-julia/src/gf.c:4769:17: note: Left side of '||' is false
+/p/projects/coen/julia-trait-bound/wt/w19-julia/src/gf.c:4769:13: note: Taking true branch
+ 4769 |             if (list == NULL || !jl_is_array(list))
+      |             ^
+/p/projects/coen/julia-trait-bound/wt/w19-julia/src/gf.c:4770:17: note:  Execution continues on line 4767
+ 4770 |                 continue;
+      |                 ^
+/p/projects/coen/julia-trait-bound/wt/w19-julia/src/gf.c:4767:28: note: Assuming 't' is < field 'length'
+ 4767 |         for (size_t t = 1; t < tab->length; t += 2) {
+      |                            ^~~~~~~~~~~~~~~
+/p/projects/coen/julia-trait-bound/wt/w19-julia/src/gf.c:4767:9: note: Loop condition is true.  Entering loop body
+ 4767 |         for (size_t t = 1; t < tab->length; t += 2) {
+      |         ^
+/p/projects/coen/julia-trait-bound/wt/w19-julia/src/gf.c:4769:17: note: Assuming 'list' is not equal to NULL
+ 4769 |             if (list == NULL || !jl_is_array(list))
+      |                 ^~~~~~~~~~~~
+/p/projects/coen/julia-trait-bound/wt/w19-julia/src/gf.c:4769:17: note: Left side of '||' is false
+/p/projects/coen/julia-trait-bound/wt/w19-julia/src/gf.c:4769:13: note: Taking false branch
+ 4769 |             if (list == NULL || !jl_is_array(list))
+      |             ^
+/p/projects/coen/julia-trait-bound/wt/w19-julia/src/gf.c:4771:32: note: Assuming the condition is true
+ 4771 |             for (size_t i = 0; i < jl_array_nrows((jl_array_t*)list); i++) {
+      |                                ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/p/projects/coen/julia-trait-bound/wt/w19-julia/src/gf.c:4771:13: note: Loop condition is true.  Entering loop body
+ 4771 |             for (size_t i = 0; i < jl_array_nrows((jl_array_t*)list); i++) {
+      |             ^
+/p/projects/coen/julia-trait-bound/wt/w19-julia/src/gf.c:4773:21: note: Assuming 'world' is >= field 'min_world'
+ 4773 |                 if (en->min_world > world || jl_atomic_load_relaxed(&en->max_world) < world)
+      |                     ^~~~~~~~~~~~~~~~~~~~~
+/p/projects/coen/julia-trait-bound/wt/w19-julia/src/gf.c:4773:21: note: Left side of '||' is false
+/p/projects/coen/julia-trait-bound/wt/w19-julia/src/gf.c:4773:46: note: Assuming the condition is false
+ 4773 |                 if (en->min_world > world || jl_atomic_load_relaxed(&en->max_world) < world)
+      |                                              ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/p/projects/coen/julia-trait-bound/wt/w19-julia/src/julia_atomics.h:318:32: note: expanded from macro 'jl_atomic_load_relaxed'
+  318 | #define jl_atomic_load_relaxed jl_atomic_load
+      |                                ^
+/p/projects/coen/julia-trait-bound/wt/w19-julia/src/julia_atomics.h:316:37: note: expanded from macro 'jl_atomic_load'
+  316 | #define jl_atomic_load(obj)         (*(obj))
+      |                                     ^
+/p/projects/coen/julia-trait-bound/wt/w19-julia/src/gf.c:4773:17: note: Taking false branch
+ 4773 |                 if (en->min_world > world || jl_atomic_load_relaxed(&en->max_world) < world)
+      |                 ^
+/p/projects/coen/julia-trait-bound/wt/w19-julia/src/gf.c:4775:22: note: Assuming the condition is true
+ 4775 |                 if (!jl_is_unionall(en->member) || (en->member == member0 && en->instance == inst0))
+      |                      ^~~~~~~~~~~~~~~~~~~~~~~~~~
+/p/projects/coen/julia-trait-bound/wt/w19-julia/src/julia.h:1666:30: note: expanded from macro 'jl_is_unionall'
+ 1666 | #define jl_is_unionall(v)    jl_typetagis(v,jl_unionall_tag<<4)
+      |                              ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/p/projects/coen/julia-trait-bound/wt/w19-julia/src/julia.h:137:28: note: expanded from macro 'jl_typetagis'
+  137 | #define jl_typetagis(v,t) (jl_typetagof(v)==(uintptr_t)(t))
+      |                            ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/p/projects/coen/julia-trait-bound/wt/w19-julia/src/julia.h:119:25: note: expanded from macro 'jl_typetagof'
+  119 | #define jl_typetagof(v) ((uintptr_t)_jl_typeof((jl_value_t*)(v)))
+      |                         ^
+/p/projects/coen/julia-trait-bound/wt/w19-julia/src/gf.c:4775:21: note: Left side of '||' is false
+ 4775 |                 if (!jl_is_unionall(en->member) || (en->member == member0 && en->instance == inst0))
+      |                     ^
+/p/projects/coen/julia-trait-bound/wt/w19-julia/src/gf.c:4775:53: note: Assuming 'member0' is not equal to field 'member'
+ 4775 |                 if (!jl_is_unionall(en->member) || (en->member == member0 && en->instance == inst0))
+      |                                                     ^~~~~~~~~~~~~~~~~~~~~
+/p/projects/coen/julia-trait-bound/wt/w19-julia/src/gf.c:4775:75: note: Left side of '&&' is false
+ 4775 |                 if (!jl_is_unionall(en->member) || (en->member == member0 && en->instance == inst0))
+      |                                                                           ^
+/p/projects/coen/julia-trait-bound/wt/w19-julia/src/gf.c:4778:36: note: Assuming the condition is false
+ 4778 |                 for (size_t k = 0; k + 1 < jl_array_nrows(out) && !seen; k += 2)
+      |                                    ^~~~~~~~~~~~~~~~~~~~~~~~~~~
+/p/projects/coen/julia-trait-bound/wt/w19-julia/src/gf.c:4778:64: note: Left side of '&&' is false
+ 4778 |                 for (size_t k = 0; k + 1 < jl_array_nrows(out) && !seen; k += 2)
+      |                                                                ^
+/p/projects/coen/julia-trait-bound/wt/w19-julia/src/gf.c:4780:21: note: 'seen' is 0
+ 4780 |                 if (seen)
+      |                     ^~~~
+/p/projects/coen/julia-trait-bound/wt/w19-julia/src/gf.c:4780:17: note: Taking false branch
+ 4780 |                 if (seen)
+      |                 ^
+/p/projects/coen/julia-trait-bound/wt/w19-julia/src/gf.c:4783:50: note: Assuming the condition is true
+ 4783 |                 for (jl_value_t *p = en->member; jl_is_unionall(p) && !bounded; p = ((jl_unionall_t*)p)->body) {
+      |                                                  ^~~~~~~~~~~~~~~~~
+/p/projects/coen/julia-trait-bound/wt/w19-julia/src/julia.h:1666:30: note: expanded from macro 'jl_is_unionall'
+ 1666 | #define jl_is_unionall(v)    jl_typetagis(v,jl_unionall_tag<<4)
+      |                              ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/p/projects/coen/julia-trait-bound/wt/w19-julia/src/julia.h:137:28: note: expanded from macro 'jl_typetagis'
+  137 | #define jl_typetagis(v,t) (jl_typetagof(v)==(uintptr_t)(t))
+      |                            ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/p/projects/coen/julia-trait-bound/wt/w19-julia/src/julia.h:119:25: note: expanded from macro 'jl_typetagof'
+  119 | #define jl_typetagof(v) ((uintptr_t)_jl_typeof((jl_value_t*)(v)))
+      |                         ^
+/p/projects/coen/julia-trait-bound/wt/w19-julia/src/gf.c:4783:50: note: Left side of '&&' is true
+/p/projects/coen/julia-trait-bound/wt/w19-julia/src/julia.h:1666:30: note: expanded from macro 'jl_is_unionall'
+ 1666 | #define jl_is_unionall(v)    jl_typetagis(v,jl_unionall_tag<<4)
+      |                              ^
+/p/projects/coen/julia-trait-bound/wt/w19-julia/src/julia.h:137:27: note: expanded from macro 'jl_typetagis'
+  137 | #define jl_typetagis(v,t) (jl_typetagof(v)==(uintptr_t)(t))
+      |                           ^
+/p/projects/coen/julia-trait-bound/wt/w19-julia/src/gf.c:4783:17: note: Loop condition is true.  Entering loop body
+ 4783 |                 for (jl_value_t *p = en->member; jl_is_unionall(p) && !bounded; p = ((jl_unionall_t*)p)->body) {
+      |                 ^
+/p/projects/coen/julia-trait-bound/wt/w19-julia/src/gf.c:4785:40: note: Assuming the condition is true
+ 4785 |                     for (size_t s = 0; s < jl_array_nrows(sets) && !bounded; s++) {
+      |                                        ^~~~~~~~~~~~~~~~~~~~~~~~
+/p/projects/coen/julia-trait-bound/wt/w19-julia/src/gf.c:4785:40: note: Left side of '&&' is true
+/p/projects/coen/julia-trait-bound/wt/w19-julia/src/gf.c:4785:21: note: Loop condition is true.  Entering loop body
+ 4785 |                     for (size_t s = 0; s < jl_array_nrows(sets) && !bounded; s++) {
+      |                     ^
+/p/projects/coen/julia-trait-bound/wt/w19-julia/src/gf.c:4787:35: note: Assuming the condition is true
+ 4787 |                         bounded = jl_is_datatype(Yuw) && set_name_nested(v->ub, ((jl_datatype_t*)Yuw)->name, 1, 1);
+      |                                   ^~~~~~~~~~~~~~~~~~~
+/p/projects/coen/julia-trait-bound/wt/w19-julia/src/julia.h:1659:30: note: expanded from macro 'jl_is_datatype'
+ 1659 | #define jl_is_datatype(v)    jl_typetagis(v,jl_datatype_tag<<4)
+      |                              ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/p/projects/coen/julia-trait-bound/wt/w19-julia/src/julia.h:137:28: note: expanded from macro 'jl_typetagis'
+  137 | #define jl_typetagis(v,t) (jl_typetagof(v)==(uintptr_t)(t))
+      |                            ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/p/projects/coen/julia-trait-bound/wt/w19-julia/src/julia.h:119:25: note: expanded from macro 'jl_typetagof'
+  119 | #define jl_typetagof(v) ((uintptr_t)_jl_typeof((jl_value_t*)(v)))
+      |                         ^
+/p/projects/coen/julia-trait-bound/wt/w19-julia/src/gf.c:4787:35: note: Left side of '&&' is true
+/p/projects/coen/julia-trait-bound/wt/w19-julia/src/julia.h:1659:30: note: expanded from macro 'jl_is_datatype'
+ 1659 | #define jl_is_datatype(v)    jl_typetagis(v,jl_datatype_tag<<4)
+      |                              ^
+/p/projects/coen/julia-trait-bound/wt/w19-julia/src/julia.h:137:27: note: expanded from macro 'jl_typetagis'
+  137 | #define jl_typetagis(v,t) (jl_typetagof(v)==(uintptr_t)(t))
+      |                           ^
+/p/projects/coen/julia-trait-bound/wt/w19-julia/src/gf.c:4785:40: note: Assuming the condition is false
+ 4785 |                     for (size_t s = 0; s < jl_array_nrows(sets) && !bounded; s++) {
+      |                                        ^~~~~~~~~~~~~~~~~~~~~~~~
+/p/projects/coen/julia-trait-bound/wt/w19-julia/src/gf.c:4785:65: note: Left side of '&&' is false
+ 4785 |                     for (size_t s = 0; s < jl_array_nrows(sets) && !bounded; s++) {
+      |                                                                 ^
+/p/projects/coen/julia-trait-bound/wt/w19-julia/src/gf.c:4783:50: note: Assuming the condition is false
+ 4783 |                 for (jl_value_t *p = en->member; jl_is_unionall(p) && !bounded; p = ((jl_unionall_t*)p)->body) {
+      |                                                  ^~~~~~~~~~~~~~~~~
+/p/projects/coen/julia-trait-bound/wt/w19-julia/src/julia.h:1666:30: note: expanded from macro 'jl_is_unionall'
+ 1666 | #define jl_is_unionall(v)    jl_typetagis(v,jl_unionall_tag<<4)
+      |                              ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/p/projects/coen/julia-trait-bound/wt/w19-julia/src/julia.h:137:28: note: expanded from macro 'jl_typetagis'
+  137 | #define jl_typetagis(v,t) (jl_typetagof(v)==(uintptr_t)(t))
+      |                            ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/p/projects/coen/julia-trait-bound/wt/w19-julia/src/julia.h:119:25: note: expanded from macro 'jl_typetagof'
+  119 | #define jl_typetagof(v) ((uintptr_t)_jl_typeof((jl_value_t*)(v)))
+      |                         ^
+/p/projects/coen/julia-trait-bound/wt/w19-julia/src/gf.c:4783:68: note: Left side of '&&' is false
+ 4783 |                 for (jl_value_t *p = en->member; jl_is_unionall(p) && !bounded; p = ((jl_unionall_t*)p)->body) {
+      |                                                                    ^
+/p/projects/coen/julia-trait-bound/wt/w19-julia/src/gf.c:4790:22: note: 'bounded' is 1
+ 4790 |                 if (!bounded)
+      |                      ^~~~~~~
+/p/projects/coen/julia-trait-bound/wt/w19-julia/src/gf.c:4790:17: note: Taking false branch
+ 4790 |                 if (!bounded)
+      |                 ^
+/p/projects/coen/julia-trait-bound/wt/w19-julia/src/gf.c:4795:17: note: Value assigned to 'jl_set_entries'
+ 4795 |                 membership_superset_sets(en->instance, world, more);
+      |                 ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/p/projects/coen/julia-trait-bound/wt/w19-julia/src/gf.c:4796:36: note: Assuming the condition is false
+ 4796 |                 for (size_t k = 0; k < jl_array_nrows(more); k++)
+      |                                    ^~~~~~~~~~~~~~~~~~~~~~~~
+/p/projects/coen/julia-trait-bound/wt/w19-julia/src/gf.c:4796:17: note: Loop condition is false. Execution continues on line 4799
+ 4796 |                 for (size_t k = 0; k < jl_array_nrows(more); k++)
+      |                 ^
+/p/projects/coen/julia-trait-bound/wt/w19-julia/src/gf.c:4800:17: note: Value assigned to 'tab'
+ 4800 |                 tab = jl_set_entries;
+      |                 ^~~~~~~~~~~~~~~~~~~~
+/p/projects/coen/julia-trait-bound/wt/w19-julia/src/gf.c:4801:21: note: Assuming 'tab' is equal to NULL
+ 4801 |                 if (tab == NULL || t >= tab->length)
+      |                     ^~~~~~~~~~~
+/p/projects/coen/julia-trait-bound/wt/w19-julia/src/gf.c:4801:33: note: Left side of '||' is true
+ 4801 |                 if (tab == NULL || t >= tab->length)
+      |                                 ^
+/p/projects/coen/julia-trait-bound/wt/w19-julia/src/gf.c:4802:21: note:  Execution continues on line 4767
+ 4802 |                     break;
+      |                     ^
+/p/projects/coen/julia-trait-bound/wt/w19-julia/src/gf.c:4767:32: note: Access to field 'length' results in a dereference of a null pointer (loaded from variable 'tab')
+ 4767 |         for (size_t t = 1; t < tab->length; t += 2) {
+      |                                ^~~
+/p/projects/coen/julia-trait-bound/wt/w19-julia/src/gf.c:8415:32: error: Dereference of null pointer (loaded from variable 'cells_out') [core.NullDereference]
+ 8415 |         if (jl_is_svec(dc) && !jl_is_svec(*cells_out)) {
+      |                                ^           ~~~~~~~~~
+/p/projects/coen/julia-trait-bound/wt/w19-julia/src/julia.h:1657:30: note: expanded from macro 'jl_is_svec'
+ 1657 | #define jl_is_svec(v)        jl_typetagis(v,jl_simplevector_tag<<4)
+      |                              ^            ~
+/p/projects/coen/julia-trait-bound/wt/w19-julia/src/julia.h:137:28: note: expanded from macro 'jl_typetagis'
+  137 | #define jl_typetagis(v,t) (jl_typetagof(v)==(uintptr_t)(t))
+      |                            ^            ~
+/p/projects/coen/julia-trait-bound/wt/w19-julia/src/julia.h:119:61: note: expanded from macro 'jl_typetagof'
+  119 | #define jl_typetagof(v) ((uintptr_t)_jl_typeof((jl_value_t*)(v)))
+      |                                                             ^~
+/p/projects/coen/julia-trait-bound/wt/w19-julia/src/gf.c:8268:12: note: Assuming the condition is true
+ 8268 |     assert(jl_is_datatype(unw));
+      |     ~~~~~~~^~~~~~~~~~~~~~~~~~~~
+/p/projects/coen/julia-trait-bound/wt/w19-julia/src/julia.h:1659:30: note: expanded from macro 'jl_is_datatype'
+ 1659 | #define jl_is_datatype(v)    jl_typetagis(v,jl_datatype_tag<<4)
+      |                              ^
+/p/projects/coen/julia-trait-bound/wt/w19-julia/src/julia.h:137:28: note: expanded from macro 'jl_typetagis'
+  137 | #define jl_typetagis(v,t) (jl_typetagof(v)==(uintptr_t)(t))
+      |                            ^
+/p/projects/coen/julia-trait-bound/wt/w19-julia/src/julia.h:119:25: note: expanded from macro 'jl_typetagof'
+  119 | #define jl_typetagof(v) ((uintptr_t)_jl_typeof((jl_value_t*)(v)))
+      |                         ^
+/usr/include/assert.h:106:11: note: expanded from macro 'assert'
+  106 |       if (expr)                                                         \
+      |           ^~~~
+/p/projects/coen/julia-trait-bound/wt/w19-julia/src/gf.c:8268:5: note: Taking true branch
+ 8268 |     assert(jl_is_datatype(unw));
+      |     ^
+/usr/include/assert.h:106:7: note: expanded from macro 'assert'
+  106 |       if (expr)                                                         \
+      |       ^
+/p/projects/coen/julia-trait-bound/wt/w19-julia/src/gf.c:8271:9: note: Assuming 'l' is <= 0
+ 8271 |     if (l > 0) {
+      |         ^~~~~
+/p/projects/coen/julia-trait-bound/wt/w19-julia/src/gf.c:8271:5: note: Taking false branch
+ 8271 |     if (l > 0) {
+      |     ^
+/p/projects/coen/julia-trait-bound/wt/w19-julia/src/gf.c:8313:9: note: Assuming 'cells_out' is equal to NULL
+ 8313 |     if (cells_out != NULL && ((jl_datatype_t*)unw)->has_open_set) {
+      |         ^~~~~~~~~~~~~~~~~
+/p/projects/coen/julia-trait-bound/wt/w19-julia/src/gf.c:8313:27: note: Left side of '&&' is false
+ 8313 |     if (cells_out != NULL && ((jl_datatype_t*)unw)->has_open_set) {
+      |                           ^
+/p/projects/coen/julia-trait-bound/wt/w19-julia/src/gf.c:8318:9: note: Assuming 'mc' is non-null
+ 8318 |     if (mc) {
+      |         ^~
+/p/projects/coen/julia-trait-bound/wt/w19-julia/src/gf.c:8318:5: note: Taking true branch
+ 8318 |     if (mc) {
+      |     ^
+/p/projects/coen/julia-trait-bound/wt/w19-julia/src/gf.c:8320:13: note: Assuming field 'isdispatchtuple' is 0
+ 8320 |         if (((jl_datatype_t*)unw)->isdispatchtuple) {
+      |             ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/p/projects/coen/julia-trait-bound/wt/w19-julia/src/gf.c:8320:9: note: Taking false branch
+ 8320 |         if (((jl_datatype_t*)unw)->isdispatchtuple) {
+      |         ^
+/p/projects/coen/julia-trait-bound/wt/w19-julia/src/gf.c:8356:36: note: Field 'isdispatchtuple' is 0
+ 8356 |         if (((jl_datatype_t*)unw)->isdispatchtuple) {
+      |                                    ^
+/p/projects/coen/julia-trait-bound/wt/w19-julia/src/gf.c:8356:9: note: Taking false branch
+ 8356 |         if (((jl_datatype_t*)unw)->isdispatchtuple) {
+      |         ^
+/p/projects/coen/julia-trait-bound/wt/w19-julia/src/gf.c:8390:9: note: Assuming the condition is true
+ 8390 |     if (!jl_typemap_intersection_visitor(jl_atomic_load_relaxed(&mt->defs), 0, &env.match) && env.t == jl_an_empty_vec_any) {
+      |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/p/projects/coen/julia-trait-bound/wt/w19-julia/src/gf.c:8390:9: note: Left side of '&&' is true
+/p/projects/coen/julia-trait-bound/wt/w19-julia/src/gf.c:8390:95: note: Assuming 'jl_an_empty_vec_any' is not equal to field 't'
+ 8390 |     if (!jl_typemap_intersection_visitor(jl_atomic_load_relaxed(&mt->defs), 0, &env.match) && env.t == jl_an_empty_vec_any) {
+      |                                                                                               ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/p/projects/coen/julia-trait-bound/wt/w19-julia/src/gf.c:8390:5: note: Taking false branch
+ 8390 |     if (!jl_typemap_intersection_visitor(jl_atomic_load_relaxed(&mt->defs), 0, &env.match) && env.t == jl_an_empty_vec_any) {
+      |     ^
+/p/projects/coen/julia-trait-bound/wt/w19-julia/src/gf.c:8407:9: note: Assuming 'len' is <= 0
+ 8407 |     if (len > 0)
+      |         ^~~~~~~
+/p/projects/coen/julia-trait-bound/wt/w19-julia/src/gf.c:8407:5: note: Taking false branch
+ 8407 |     if (len > 0)
+      |     ^
+/p/projects/coen/julia-trait-bound/wt/w19-julia/src/gf.c:8409:9: note: Assuming field 'drops' is not equal to NULL
+ 8409 |     if (env.drops != NULL && jl_array_nrows(env.drops) > 0) {
+      |         ^~~~~~~~~~~~~~~~~
+/p/projects/coen/julia-trait-bound/wt/w19-julia/src/gf.c:8409:9: note: Left side of '&&' is true
+/p/projects/coen/julia-trait-bound/wt/w19-julia/src/gf.c:8409:30: note: Assuming the condition is true
+ 8409 |     if (env.drops != NULL && jl_array_nrows(env.drops) > 0) {
+      |                              ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/p/projects/coen/julia-trait-bound/wt/w19-julia/src/julia.h:1298:27: note: expanded from macro 'jl_array_nrows'
+ 1298 | #define jl_array_nrows(a) (((jl_array_t*)(a))->dimsize[0])
+      |                           ^
+/p/projects/coen/julia-trait-bound/wt/w19-julia/src/gf.c:8409:5: note: Taking true branch
+ 8409 |     if (env.drops != NULL && jl_array_nrows(env.drops) > 0) {
+      |     ^
+/p/projects/coen/julia-trait-bound/wt/w19-julia/src/gf.c:8415:13: note: Assuming the condition is true
+ 8415 |         if (jl_is_svec(dc) && !jl_is_svec(*cells_out)) {
+      |             ^~~~~~~~~~~~~~
+/p/projects/coen/julia-trait-bound/wt/w19-julia/src/julia.h:1657:30: note: expanded from macro 'jl_is_svec'
+ 1657 | #define jl_is_svec(v)        jl_typetagis(v,jl_simplevector_tag<<4)
+      |                              ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/p/projects/coen/julia-trait-bound/wt/w19-julia/src/julia.h:137:28: note: expanded from macro 'jl_typetagis'
+  137 | #define jl_typetagis(v,t) (jl_typetagof(v)==(uintptr_t)(t))
+      |                            ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/p/projects/coen/julia-trait-bound/wt/w19-julia/src/julia.h:119:25: note: expanded from macro 'jl_typetagof'
+  119 | #define jl_typetagof(v) ((uintptr_t)_jl_typeof((jl_value_t*)(v)))
+      |                         ^
+/p/projects/coen/julia-trait-bound/wt/w19-julia/src/gf.c:8415:13: note: Left side of '&&' is true
+/p/projects/coen/julia-trait-bound/wt/w19-julia/src/julia.h:1657:30: note: expanded from macro 'jl_is_svec'
+ 1657 | #define jl_is_svec(v)        jl_typetagis(v,jl_simplevector_tag<<4)
+      |                              ^
+/p/projects/coen/julia-trait-bound/wt/w19-julia/src/julia.h:137:27: note: expanded from macro 'jl_typetagis'
+  137 | #define jl_typetagis(v,t) (jl_typetagof(v)==(uintptr_t)(t))
+      |                           ^
+/p/projects/coen/julia-trait-bound/wt/w19-julia/src/gf.c:8415:32: note: Dereference of null pointer (loaded from variable 'cells_out')
+ 8415 |         if (jl_is_svec(dc) && !jl_is_svec(*cells_out)) {
+      |                                ^           ~~~~~~~~~
+/p/projects/coen/julia-trait-bound/wt/w19-julia/src/julia.h:1657:30: note: expanded from macro 'jl_is_svec'
+ 1657 | #define jl_is_svec(v)        jl_typetagis(v,jl_simplevector_tag<<4)
+      |                              ^            ~
+/p/projects/coen/julia-trait-bound/wt/w19-julia/src/julia.h:137:28: note: expanded from macro 'jl_typetagis'
+  137 | #define jl_typetagis(v,t) (jl_typetagof(v)==(uintptr_t)(t))
+      |                            ^            ~
+/p/projects/coen/julia-trait-bound/wt/w19-julia/src/julia.h:119:61: note: expanded from macro 'jl_typetagof'
+  119 | #define jl_typetagof(v) ((uintptr_t)_jl_typeof((jl_value_t*)(v)))
+      |                                                             ^~
+/p/projects/coen/julia-trait-bound/wt/w19-julia/src/gf.c:8419:31: error: Dereference of null pointer (loaded from variable 'cells_out') [core.NullDereference]
+ 8419 |             jl_value_t *acc = *cells_out;
+      |                               ^~~~~~~~~~
+/p/projects/coen/julia-trait-bound/wt/w19-julia/src/gf.c:8268:12: note: Assuming the condition is true
+ 8268 |     assert(jl_is_datatype(unw));
+      |     ~~~~~~~^~~~~~~~~~~~~~~~~~~~
+/p/projects/coen/julia-trait-bound/wt/w19-julia/src/julia.h:1659:30: note: expanded from macro 'jl_is_datatype'
+ 1659 | #define jl_is_datatype(v)    jl_typetagis(v,jl_datatype_tag<<4)
+      |                              ^
+/p/projects/coen/julia-trait-bound/wt/w19-julia/src/julia.h:137:28: note: expanded from macro 'jl_typetagis'
+  137 | #define jl_typetagis(v,t) (jl_typetagof(v)==(uintptr_t)(t))
+      |                            ^
+/p/projects/coen/julia-trait-bound/wt/w19-julia/src/julia.h:119:25: note: expanded from macro 'jl_typetagof'
+  119 | #define jl_typetagof(v) ((uintptr_t)_jl_typeof((jl_value_t*)(v)))
+      |                         ^
+/usr/include/assert.h:106:11: note: expanded from macro 'assert'
+  106 |       if (expr)                                                         \
+      |           ^~~~
+/p/projects/coen/julia-trait-bound/wt/w19-julia/src/gf.c:8268:5: note: Taking true branch
+ 8268 |     assert(jl_is_datatype(unw));
+      |     ^
+/usr/include/assert.h:106:7: note: expanded from macro 'assert'
+  106 |       if (expr)                                                         \
+      |       ^
+/p/projects/coen/julia-trait-bound/wt/w19-julia/src/gf.c:8271:9: note: Assuming 'l' is <= 0
+ 8271 |     if (l > 0) {
+      |         ^~~~~
+/p/projects/coen/julia-trait-bound/wt/w19-julia/src/gf.c:8271:5: note: Taking false branch
+ 8271 |     if (l > 0) {
+      |     ^
+/p/projects/coen/julia-trait-bound/wt/w19-julia/src/gf.c:8313:9: note: Assuming 'cells_out' is equal to NULL
+ 8313 |     if (cells_out != NULL && ((jl_datatype_t*)unw)->has_open_set) {
+      |         ^~~~~~~~~~~~~~~~~
+/p/projects/coen/julia-trait-bound/wt/w19-julia/src/gf.c:8313:27: note: Left side of '&&' is false
+ 8313 |     if (cells_out != NULL && ((jl_datatype_t*)unw)->has_open_set) {
+      |                           ^
+/p/projects/coen/julia-trait-bound/wt/w19-julia/src/gf.c:8318:9: note: Assuming 'mc' is non-null
+ 8318 |     if (mc) {
+      |         ^~
+/p/projects/coen/julia-trait-bound/wt/w19-julia/src/gf.c:8318:5: note: Taking true branch
+ 8318 |     if (mc) {
+      |     ^
+/p/projects/coen/julia-trait-bound/wt/w19-julia/src/gf.c:8320:13: note: Assuming field 'isdispatchtuple' is 0
+ 8320 |         if (((jl_datatype_t*)unw)->isdispatchtuple) {
+      |             ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/p/projects/coen/julia-trait-bound/wt/w19-julia/src/gf.c:8320:9: note: Taking false branch
+ 8320 |         if (((jl_datatype_t*)unw)->isdispatchtuple) {
+      |         ^
+/p/projects/coen/julia-trait-bound/wt/w19-julia/src/gf.c:8356:36: note: Field 'isdispatchtuple' is 0
+ 8356 |         if (((jl_datatype_t*)unw)->isdispatchtuple) {
+      |                                    ^
+/p/projects/coen/julia-trait-bound/wt/w19-julia/src/gf.c:8356:9: note: Taking false branch
+ 8356 |         if (((jl_datatype_t*)unw)->isdispatchtuple) {
+      |         ^
+/p/projects/coen/julia-trait-bound/wt/w19-julia/src/gf.c:8390:9: note: Assuming the condition is true
+ 8390 |     if (!jl_typemap_intersection_visitor(jl_atomic_load_relaxed(&mt->defs), 0, &env.match) && env.t == jl_an_empty_vec_any) {
+      |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/p/projects/coen/julia-trait-bound/wt/w19-julia/src/gf.c:8390:9: note: Left side of '&&' is true
+/p/projects/coen/julia-trait-bound/wt/w19-julia/src/gf.c:8390:95: note: Assuming 'jl_an_empty_vec_any' is not equal to field 't'
+ 8390 |     if (!jl_typemap_intersection_visitor(jl_atomic_load_relaxed(&mt->defs), 0, &env.match) && env.t == jl_an_empty_vec_any) {
+      |                                                                                               ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/p/projects/coen/julia-trait-bound/wt/w19-julia/src/gf.c:8390:5: note: Taking false branch
+ 8390 |     if (!jl_typemap_intersection_visitor(jl_atomic_load_relaxed(&mt->defs), 0, &env.match) && env.t == jl_an_empty_vec_any) {
+      |     ^
+/p/projects/coen/julia-trait-bound/wt/w19-julia/src/gf.c:8407:9: note: Assuming 'len' is <= 0
+ 8407 |     if (len > 0)
+      |         ^~~~~~~
+/p/projects/coen/julia-trait-bound/wt/w19-julia/src/gf.c:8407:5: note: Taking false branch
+ 8407 |     if (len > 0)
+      |     ^
+/p/projects/coen/julia-trait-bound/wt/w19-julia/src/gf.c:8409:9: note: Assuming field 'drops' is not equal to NULL
+ 8409 |     if (env.drops != NULL && jl_array_nrows(env.drops) > 0) {
+      |         ^~~~~~~~~~~~~~~~~
+/p/projects/coen/julia-trait-bound/wt/w19-julia/src/gf.c:8409:9: note: Left side of '&&' is true
+/p/projects/coen/julia-trait-bound/wt/w19-julia/src/gf.c:8409:30: note: Assuming the condition is true
+ 8409 |     if (env.drops != NULL && jl_array_nrows(env.drops) > 0) {
+      |                              ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/p/projects/coen/julia-trait-bound/wt/w19-julia/src/julia.h:1298:27: note: expanded from macro 'jl_array_nrows'
+ 1298 | #define jl_array_nrows(a) (((jl_array_t*)(a))->dimsize[0])
+      |                           ^
+/p/projects/coen/julia-trait-bound/wt/w19-julia/src/gf.c:8409:5: note: Taking true branch
+ 8409 |     if (env.drops != NULL && jl_array_nrows(env.drops) > 0) {
+      |     ^
+/p/projects/coen/julia-trait-bound/wt/w19-julia/src/gf.c:8415:13: note: Assuming the condition is false
+ 8415 |         if (jl_is_svec(dc) && !jl_is_svec(*cells_out)) {
+      |             ^~~~~~~~~~~~~~
+/p/projects/coen/julia-trait-bound/wt/w19-julia/src/julia.h:1657:30: note: expanded from macro 'jl_is_svec'
+ 1657 | #define jl_is_svec(v)        jl_typetagis(v,jl_simplevector_tag<<4)
+      |                              ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/p/projects/coen/julia-trait-bound/wt/w19-julia/src/julia.h:137:28: note: expanded from macro 'jl_typetagis'
+  137 | #define jl_typetagis(v,t) (jl_typetagof(v)==(uintptr_t)(t))
+      |                            ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/p/projects/coen/julia-trait-bound/wt/w19-julia/src/julia.h:119:25: note: expanded from macro 'jl_typetagof'
+  119 | #define jl_typetagof(v) ((uintptr_t)_jl_typeof((jl_value_t*)(v)))
+      |                         ^
+/p/projects/coen/julia-trait-bound/wt/w19-julia/src/gf.c:8415:28: note: Left side of '&&' is false
+ 8415 |         if (jl_is_svec(dc) && !jl_is_svec(*cells_out)) {
+      |                            ^
+/p/projects/coen/julia-trait-bound/wt/w19-julia/src/gf.c:8418:18: note: Assuming the condition is true
+ 8418 |         else if (jl_is_svec(dc)) {
+      |                  ^~~~~~~~~~~~~~
+/p/projects/coen/julia-trait-bound/wt/w19-julia/src/julia.h:1657:30: note: expanded from macro 'jl_is_svec'
+ 1657 | #define jl_is_svec(v)        jl_typetagis(v,jl_simplevector_tag<<4)
+      |                              ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/p/projects/coen/julia-trait-bound/wt/w19-julia/src/julia.h:137:28: note: expanded from macro 'jl_typetagis'
+  137 | #define jl_typetagis(v,t) (jl_typetagof(v)==(uintptr_t)(t))
+      |                            ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/p/projects/coen/julia-trait-bound/wt/w19-julia/src/julia.h:119:25: note: expanded from macro 'jl_typetagof'
+  119 | #define jl_typetagof(v) ((uintptr_t)_jl_typeof((jl_value_t*)(v)))
+      |                         ^
+/p/projects/coen/julia-trait-bound/wt/w19-julia/src/gf.c:8418:14: note: Taking true branch
+ 8418 |         else if (jl_is_svec(dc)) {
+      |              ^
+/p/projects/coen/julia-trait-bound/wt/w19-julia/src/gf.c:8419:31: note: Dereference of null pointer (loaded from variable 'cells_out')
+ 8419 |             jl_value_t *acc = *cells_out;
+      |                               ^~~~~~~~~~
+4 errors generated.
+### init.c
+### interpreter.c
+### jltypes.c
+### method.c
+### module.c
+### staticdata.c
+### subtype.c
+### task.c
+### toplevel.c
+### typemap.c
+## summary
+gf.c: 4 findings
+checked: 15 files; findings: 4

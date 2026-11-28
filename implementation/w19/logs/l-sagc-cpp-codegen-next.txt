@@ -1,0 +1,107 @@
+ccall.cpp | Passing non-rooted value as argument to function that may GC [julia.GCChecker] | t = bitstype_to_llvm(tti, LLVMCtx, true);
+ccall.cpp | Passing non-rooted value as argument to function that may GC [julia.GCChecker] | t = _julia_struct_to_llvm(ctx, LLVMCtx, tti, &isboxed, llvmcall);
+cgutils.cpp | Argument value may have been GCed [julia.GCChecker] | if (jl_has_intersect_type_not_kind(type) || jl_has_intersect_type_not_kind(intersected_type)) {
+cgutils.cpp | Passing non-rooted value as argument to function that may GC [julia.GCChecker] | Align align_src(julia_alignment(x.typ));
+cgutils.cpp | Passing non-rooted value as argument to function that may GC [julia.GCChecker] | assert(jl_is_concrete_immutable(jt) && "This type shouldn't have been unboxed.");
+cgutils.cpp | Passing non-rooted value as argument to function that may GC [julia.GCChecker] | auto sizes = split_value_size(typ);
+cgutils.cpp | Passing non-rooted value as argument to function that may GC [julia.GCChecker] | auto sizes = split_value_size(typ);
+cgutils.cpp | Passing non-rooted value as argument to function that may GC [julia.GCChecker] | bool allunboxed = is_uniontype_allunboxed(p.typ);
+cgutils.cpp | Passing non-rooted value as argument to function that may GC [julia.GCChecker] | bool allunbox = for_each_uniontype_small(f, ((jl_uniontype_t*)ty)->a, counter);
+cgutils.cpp | Passing non-rooted value as argument to function that may GC [julia.GCChecker] | bool v = jl_isa(x.constant, type);
+cgutils.cpp | Passing non-rooted value as argument to function that may GC [julia.GCChecker] | Constant *val = julia_const_to_llvm(ctx, x.constant);
+cgutils.cpp | Passing non-rooted value as argument to function that may GC [julia.GCChecker] | else if (jl_is_not_broken_subtype(x.typ, type) && jl_subtype(x.typ, type) &&
+cgutils.cpp | Passing non-rooted value as argument to function that may GC [julia.GCChecker] | for_each_uniontype_small(
+cgutils.cpp | Passing non-rooted value as argument to function that may GC [julia.GCChecker] | if (jl_is_type_type(intersected_type) && jl_pointer_egal(intersected_type)) {
+cgutils.cpp | Passing non-rooted value as argument to function that may GC [julia.GCChecker] | if (try_emit_typed_copy(ctx, dst, dst_ai, src_ptr, src_ai, src.typ, sz,
+cgutils.cpp | Passing non-rooted value as argument to function that may GC [julia.GCChecker] | return emit_tagfrom(ctx, dt);
+cgutils.cpp | Passing non-rooted value as argument to function that may GC [julia.GCChecker] | return emit_typeof(ctx, p.V, maybenull, justtag, notag(p.typ));
+cgutils.cpp | Passing non-rooted value as argument to function that may GC [julia.GCChecker] | return track_pjlvalue(ctx, literal_pointer_val(ctx, vinfo.constant));
+cgutils.cpp | Passing non-rooted value as argument to function that may GC [julia.GCChecker] | size_t shrunken_size = split_value_size(typ).first;
+cgutils.cpp | Passing non-rooted value as argument to function that may GC [julia.GCChecker] | unsigned tindex = get_box_tindex(dt, arg.typ);
+codegen.cpp | Argument value may have been GCed [julia.GCChecker] | jl_binding_t *bnd = jl_get_module_binding(m, s, 1);
+codegen.cpp | Argument value may have been GCed [julia.GCChecker] | jl_cgval_t constant(NULL, true, typ, NULL, best_tbaa(ctx.tbaa(), typ), jl_gc_roots_t());
+codegen.cpp | Argument value may have been GCed [julia.GCChecker] | jl_throw(err);
+codegen.cpp | Calling potential safepoint as CXXConstructorCall from function annotated JL_NOTSAFEPOINT [julia.GCChecker] | jl_codectx_t ctx(M->getContext(), params, codeinst);
+codegen.cpp | Calling potential safepoint as SimpleFunctionCall from function annotated JL_NOTSAFEPOINT [julia.GCChecker] | ctx.topalloca = ctx.builder.CreateCall(prepare_call(or_new ? jladoptthread_func : jlpgcstack_func));
+codegen.cpp | Calling potential safepoint as SimpleFunctionCall from function annotated JL_NOTSAFEPOINT [julia.GCChecker] | emit_specsig_to_specsig(gf_thunk, cc, return_roots, calltype, rettype, is_for_opaque_closure, nargs, params, target, calltype, rettype, nullptr, nullptr);
+codegen.cpp | Calling potential safepoint as SimpleFunctionCall from function annotated JL_NOTSAFEPOINT [julia.GCChecker] | jl_printf(stream, "%s\t", decls.specFunctionObject.c_str());
+codegen.cpp | Calling potential safepoint as SimpleFunctionCall from function annotated JL_NOTSAFEPOINT [julia.GCChecker] | return cast<Function>(M->getOrInsertFunction(preal_decl, get_func_sig(M->getContext()), get_func_attrs(M->getContext())).getCallee());
+codegen.cpp | Calling potential safepoint as SimpleFunctionCall from function annotated JL_NOTSAFEPOINT [julia.GCChecker] | theFunc = M->getOrInsertFunction(theFptrName, jlinvoke_func->_type(M->getContext()), jlinvoke_func->_attrs(M->getContext())).getCallee();
+codegen.cpp | Creating derivative of value that may have been GCed [julia.GCChecker] | const jl_datatype_layout_t *layout = ((jl_datatype_t*)mty_dt)->layout;
+codegen.cpp | Passing non-rooted value as argument to function that may GC [julia.GCChecker] | argv[0] = emit_expr(ctx, args[0]);
+codegen.cpp | Passing non-rooted value as argument to function that may GC [julia.GCChecker] | argv[i] = emit_expr(ctx, args[i]);
+codegen.cpp | Passing non-rooted value as argument to function that may GC [julia.GCChecker] | argv[i] = emit_expr(ctx, args[i]);
+codegen.cpp | Passing non-rooted value as argument to function that may GC [julia.GCChecker] | bool allunboxed = for_each_uniontype_small(
+codegen.cpp | Passing non-rooted value as argument to function that may GC [julia.GCChecker] | bool has = jl_isa(v.constant, typ);
+codegen.cpp | Passing non-rooted value as argument to function that may GC [julia.GCChecker] | bp = julia_binding_gv(ctx, rkp.binding_if_global);
+codegen.cpp | Passing non-rooted value as argument to function that may GC [julia.GCChecker] | dest = try_emit_union_alloca(ctx, ((jl_uniontype_t*)phiType), allunbox, min_align, nbytes);
+codegen.cpp | Passing non-rooted value as argument to function that may GC [julia.GCChecker] | else if (deserves_stack(jt)) {
+codegen.cpp | Passing non-rooted value as argument to function that may GC [julia.GCChecker] | emit_assignment(ctx, args[0], args[1], ssaidx_0based);
+codegen.cpp | Passing non-rooted value as argument to function that may GC [julia.GCChecker] | emit_globalop(ctx, mod, sym, rval_info, jl_cgval_t(), AtomicOrdering::Release, AtomicOrdering::NotAtomic,
+codegen.cpp | Passing non-rooted value as argument to function that may GC [julia.GCChecker] | for_each_uniontype_small(
+codegen.cpp | Passing non-rooted value as argument to function that may GC [julia.GCChecker] | if (allpointers((jl_datatype_t*)v.typ))
+codegen.cpp | Passing non-rooted value as argument to function that may GC [julia.GCChecker] | if (jl_is_datatype(uty) && jl_struct_try_layout(uty)) {
+codegen.cpp | Passing non-rooted value as argument to function that may GC [julia.GCChecker] | if (jl_pointer_egal(arg1.typ) || jl_pointer_egal(arg2.typ)) {
+codegen.cpp | Passing non-rooted value as argument to function that may GC [julia.GCChecker] | if (jl_pointer_egal(arg1.typ) || jl_pointer_egal(arg2.typ)) {
+codegen.cpp | Passing non-rooted value as argument to function that may GC [julia.GCChecker] | if (jl_subtype(ty.typ, (jl_value_t*)jl_type_type)) {
+codegen.cpp | Passing non-rooted value as argument to function that may GC [julia.GCChecker] | if (jl_type_intersection(rt1, rt2) == (jl_value_t*)jl_bottom_type) // types are disjoint (exhaustive test)
+codegen.cpp | Passing non-rooted value as argument to function that may GC [julia.GCChecker] | if (!verify_ref_type(ctx, declrt, unionall_env, 0, "cfunction")) {
+codegen.cpp | Passing non-rooted value as argument to function that may GC [julia.GCChecker] | info.is_user_code = in_user_mod(modu);
+codegen.cpp | Passing non-rooted value as argument to function that may GC [julia.GCChecker] | isbool = jl_subtype((jl_value_t*)jl_bool_type, condV.typ);
+codegen.cpp | Passing non-rooted value as argument to function that may GC [julia.GCChecker] | is_user_code = in_user_mod(modu);
+codegen.cpp | Passing non-rooted value as argument to function that may GC [julia.GCChecker] | jl_array_ptr_1d_push(roots, val);
+codegen.cpp | Passing non-rooted value as argument to function that may GC [julia.GCChecker] | jl_binding_t *bnd = jl_get_module_binding(ctx.module, sym, 1);
+codegen.cpp | Passing non-rooted value as argument to function that may GC [julia.GCChecker] | jl_cgval_t ast = emit_expr(ctx, args[0]);
+codegen.cpp | Passing non-rooted value as argument to function that may GC [julia.GCChecker] | jl_cgval_t f = emit_expr(ctx, args[0]);
+codegen.cpp | Passing non-rooted value as argument to function that may GC [julia.GCChecker] | jl_cgval_t fexpr_val = emit_expr(ctx, args[1]);
+codegen.cpp | Passing non-rooted value as argument to function that may GC [julia.GCChecker] | jl_cgval_t lival = emit_expr(ctx, args[0]);
+codegen.cpp | Passing non-rooted value as argument to function that may GC [julia.GCChecker] | jl_cgval_t lival = emit_expr(ctx, args[0]);
+codegen.cpp | Passing non-rooted value as argument to function that may GC [julia.GCChecker] | jl_cgval_t res = emit_call(ctx, ex, expr_t, is_promotable);
+codegen.cpp | Passing non-rooted value as argument to function that may GC [julia.GCChecker] | jl_cgval_t token = emit_expr(ctx, args[0]);
+codegen.cpp | Passing non-rooted value as argument to function that may GC [julia.GCChecker] | jl_llvm_functions_t decls = jl_emit_codeinst(result_m, codeinst, src, params); // contains safepoints
+codegen.cpp | Passing non-rooted value as argument to function that may GC [julia.GCChecker] | jl_temporary_root(ctx, constval);
+codegen.cpp | Passing non-rooted value as argument to function that may GC [julia.GCChecker] | literal_pointer_val(ctx, (jl_value_t*)ctx.module),
+codegen.cpp | Passing non-rooted value as argument to function that may GC [julia.GCChecker] | maybe_mark_load_dereferenceable(boxed, vi.usedUndef || vi.pTIndex, vi.value.typ);
+codegen.cpp | Passing non-rooted value as argument to function that may GC [julia.GCChecker] | Metadata *MD = to_md_tree(args[i], ctx.builder.getContext());
+codegen.cpp | Passing non-rooted value as argument to function that may GC [julia.GCChecker] | result = emit_call_specfun_other(ctx, mi, ctx.rettype, protoname, nullptr, argv, nargs, &cc, &return_roots, rt);
+codegen.cpp | Passing non-rooted value as argument to function that may GC [julia.GCChecker] | result = mark_julia_const(ctx, codeinst->rettype_const);
+codegen.cpp | Passing non-rooted value as argument to function that may GC [julia.GCChecker] | result = update_julia_type(ctx, mark_julia_type(ctx, ret, true, ctx.rettype), rt);
+codegen.cpp | Passing non-rooted value as argument to function that may GC [julia.GCChecker] | result = update_julia_type(ctx, mark_julia_type(ctx, ret, true, ctx.rettype), rt);
+codegen.cpp | Passing non-rooted value as argument to function that may GC [julia.GCChecker] | *ret = emit_globalref(ctx, (jl_module_t*)mod.constant, name, get_llvm_atomic_order(order), /*from_literal_globalref*/false);
+codegen.cpp | Passing non-rooted value as argument to function that may GC [julia.GCChecker] | *ret = emit_isdefinedglobal(ctx, (jl_module_t*)mod.constant, (jl_sym_t*)sym.constant, allow_import, order);
+codegen.cpp | Passing non-rooted value as argument to function that may GC [julia.GCChecker] | *ret = mark_julia_const(ctx, jl_typeof(p.constant));
+codegen.cpp | Passing non-rooted value as argument to function that may GC [julia.GCChecker] | *ret = mark_julia_const(ctx, ty);
+codegen.cpp | Passing non-rooted value as argument to function that may GC [julia.GCChecker] | return emit_exactly_isa(ctx, arg1, (jl_datatype_t*)rt2); // rt2 is a singleton type
+codegen.cpp | Passing non-rooted value as argument to function that may GC [julia.GCChecker] | return emit_exactly_isa(ctx, arg2, (jl_datatype_t*)rt1); // rt1 is a singleton type
+codegen.cpp | Passing non-rooted value as argument to function that may GC [julia.GCChecker] | return emit_globalref(ctx, ctx.module, sym, AtomicOrdering::Unordered);
+codegen.cpp | Passing non-rooted value as argument to function that may GC [julia.GCChecker] | return emit_invoke(ctx, ex, expr_t);
+codegen.cpp | Passing non-rooted value as argument to function that may GC [julia.GCChecker] | return emit_invoke_modify(ctx, ex, expr_t);
+codegen.cpp | Passing non-rooted value as argument to function that may GC [julia.GCChecker] | return jl_is_type_type(t) && type_has_unique_rep(jl_tparam0(t));
+codegen.cpp | Passing non-rooted value as argument to function that may GC [julia.GCChecker] | return mark_julia_const(ctx, bounds_check_enabled(ctx, def) ? jl_true : jl_false);
+codegen.cpp | Passing non-rooted value as argument to function that may GC [julia.GCChecker] | return mark_julia_const(ctx, constval);
+codegen.cpp | Passing non-rooted value as argument to function that may GC [julia.GCChecker] | return mark_julia_const(ctx, e);
+codegen.cpp | Passing non-rooted value as argument to function that may GC [julia.GCChecker] | return update_julia_type(ctx, emit_checked_var(ctx, bpval, name, (jl_value_t*)mod, false, ctx.tbaa().tbaa_binding), ty);
+codegen.cpp | Passing non-rooted value as argument to function that may GC [julia.GCChecker] | return value_to_pointer(ctx, v.V, v.typ, v.TIndex);
+codegen.cpp | Passing non-rooted value as argument to function that may GC [julia.GCChecker] | rval_info = convert_julia_type(ctx, rval_info, slot_type, &skip);
+codegen.cpp | Passing non-rooted value as argument to function that may GC [julia.GCChecker] | rval_info = update_julia_type(ctx, rval_info, vi.value.typ);
+codegen.cpp | Passing non-rooted value as argument to function that may GC [julia.GCChecker] | slot = update_julia_type(ctx, slot, declType);
+codegen.cpp | Passing non-rooted value as argument to function that may GC [julia.GCChecker] | src = jl_uncompress_ir(def, codeinst, (jl_value_t*)src);
+codegen.cpp | Passing non-rooted value as argument to function that may GC [julia.GCChecker] | std::tie(specsig, needsparams) = uses_specsig(get_ci_abi(codeinst), mi, codeinst->rettype, ctx.params->prefer_specsig);
+codegen.cpp | Passing non-rooted value as argument to function that may GC [julia.GCChecker] | unsigned old_idx = get_box_tindex(jt, v.typ);
+codegen.cpp | Passing non-rooted value as argument to function that may GC [julia.GCChecker] | Value *a1 = boxed(ctx, emit_expr(ctx, args[1]));
+codegen.cpp | Passing non-rooted value as argument to function that may GC [julia.GCChecker] | Value *bp = julia_binding_gv(ctx, rkp.binding_if_global);
+codegen.cpp | Passing non-rooted value as argument to function that may GC [julia.GCChecker] | Value *cond = ctx.builder.CreateTrunc(emit_unbox(ctx, getInt8Ty(ctx.builder.getContext()), emit_expr(ctx, args[1]), (jl_value_t*)jl_bool_type), getInt1Ty(ctx.builder.getContext()));
+codegen.cpp | Passing non-rooted value as argument to function that may GC [julia.GCChecker] | Value *F = gen_cfun_wrapper(
+codegen.cpp | Passing non-rooted value as argument to function that may GC [julia.GCChecker] | Value *lv = try_emit_union_alloca(ctx, (jl_uniontype_t*)jt, allunbox, align, nbytes);
+codegen.cpp | Passing non-rooted value as argument to function that may GC [julia.GCChecker] | Value *varg1 = arg1.constant ? literal_pointer_val(ctx, arg1.constant) : arg1.Vboxed;
+codegen.cpp | Passing non-rooted value as argument to function that may GC [julia.GCChecker] | Value *varg2 = arg2.constant ? literal_pointer_val(ctx, arg2.constant) : arg2.Vboxed;
+codegen.cpp | Passing non-rooted value as argument to function that may GC [julia.GCChecker] | v = mark_julia_slot(ssaslot, vi.value.typ, tindex, ctx.tbaa().tbaa_stack, jl_gc_roots_t());
+codegen.cpp | Return value may have been GCed [julia.GCChecker] | return constant;
+codegen.cpp | Return value may have been GCed [julia.GCChecker] | return constant;
+codegen.cpp | Return value may have been GCed [julia.GCChecker] | return newv;
+codegen.cpp | Return value may have been GCed [julia.GCChecker] | return result;
+codegen.cpp | Return value may have been GCed [julia.GCChecker] | return retval;
+codegen.cpp | Return value may have been GCed [julia.GCChecker] | return retval;
+codegen.cpp | Return value may have been GCed [julia.GCChecker] | return tagval;
+codegen.cpp | Return value may have been GCed [julia.GCChecker] | return theArg;
+intrinsics.cpp | Passing non-rooted value as argument to function that may GC [julia.GCChecker] | Constant *c = x.constant ? julia_const_to_llvm(ctx, x.constant) : nullptr;

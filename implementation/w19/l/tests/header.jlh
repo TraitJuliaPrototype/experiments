@@ -1,0 +1,26 @@
+module SetsAndMemberships
+using Test
+
+# `@set X` or `@set X P...`: an abstract type `X{P...}` made a set before its binding is published
+macro set(name, params...)
+    tvs = [:($p = TypeVar($(QuoteNode(p)))) for p in params]
+    t = gensym(:set)
+    return esc(quote
+        Core.declare_global($__module__, $(QuoteNode(name)), false)
+        $(Expr(:latestworld))
+        let $(tvs...)
+            local $t = Core._abstracttype($__module__, $(QuoteNode(name)), Core.svec($(params...)))
+            ccall(:jl_set_open_set, Cvoid, (Any,), $t)
+            Core._setsuper!($t, Any)
+            Core._typebody!(false, $t)
+            Core.declare_const($__module__, $(QuoteNode(name)), $t)
+        end
+        $(Expr(:latestworld))
+        nothing
+    end)
+end
+# declare S a member of X in a new world; the next top-level statement runs in it
+member!(@nospecialize(X), @nospecialize(S)) =
+    ccall(:jl_declare_membership, Any, (Any, Any, Any, Any, Any), S, X, @__MODULE__, nothing, :self)
+setinputs!(@nospecialize(T), m::UInt8) = ccall(:jl_set_input_params, Cvoid, (Any, UInt8), T, m)
+world() = Base.get_world_counter()

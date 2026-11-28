@@ -1,0 +1,20 @@
+# W-166c ode 2026-11-22T18:40:53+01:00 load 3.95 4.93 5.52 | julia-next 683ea4fc16 TraitWorld 4a31dff project experiments/implementation/w156/env_demo trim=safe images=1 driver=julia-next/test/trimming depot=.julia-depot/agent-depots/w158:shared 
+images: exit 0 after 1 s (TraitWorld TraitDifferentialEquations)
+from source: none
+Error #1: unresolved call to function from statement _apply_iterate(
+  iterate::typeof(iterate),
+  compilerbarrier(
+    :type::Symbol,
+    f::Any
+  )::Any,
+  args::Any
+)::Any
+
+Stacktrace:
+ [1] _runtime_site(::Function, ::Function, ::Vararg{Any})
+   @ TraitWorld /p/projects/coen/julia-trait-bound/TraitWorld/src/runtime.jl:12
+ [2] __init__()
+   @ TraitWorld /p/projects/coen/julia-trait-bound/TraitWorld/src/TraitWorld.jl:96
+
+Trim verify finished with 1 error, 0 warnings.
+object: exit 1 after 8 s

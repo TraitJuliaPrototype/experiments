@@ -1,0 +1,45 @@
+== 1be9309da2 load 12.40 10.09 9.59 13/58770 543266 18:06:24
+WARNING: method v at v(Test12Main_subtype.SetsAndMemberships.UX, Int64) is ambiguous for Test12Main_subtype.SetsAndMemberships.UC, a member of Test12Main_subtype.SetsAndMemberships.UX, with the method at v(Test12Main_subtype.SetsAndMemberships.UA, Any); a method at v(All{Test12Main_subtype.SetsAndMemberships.UA, Test12Main_subtype.SetsAndMemberships.UX}, Int64) would resolve it
+WARNING: Detected access to binding `SetsAndMemberships.refused_def` in a world prior to its definition world.
+  Julia 1.12 has introduced more strict world age semantics for global bindings.
+  !!! This code may malfunction under Revise.
+  !!! This code will error in future versions of Julia.
+Hint: Add an appropriate `invokelatest` around the access to this binding.
+To make this warning an error, and hence obtain a stack trace, use `julia --depwarn=error`.
+Running parallel tests with:
+  getpid() = 543425
+  nworkers() = 1
+  nthreads(:interactive) = 1
+  nthreads(:default) = 4
+  Sys.CPU_THREADS = 1
+  Sys.total_memory() = 754.783 GiB
+  Sys.free_memory() = 669.757 GiB
+  Sys.uptime() = 2.07728748e6 (577.0 hours)
+
+Test              (Worker) | Time (s) | GC (s) | GC % | Alloc (MB) | RSS (MB)
+subtype                (1) |        started at 2026-11-28T18:06:31.075
+subtype                (1) |    14.98 |   0.16 |  1.0 |    1211.98 |   679.49
+core                   (1) |        started at 2026-11-28T18:06:46.316
+core                   (1) |    59.12 |   2.77 |  4.7 |   12603.20 |  2282.53
+worlds                 (1) |        started at 2026-11-28T18:07:45.802
+worlds                 (1) |     1.93 |   0.00 |  0.0 |      93.37 |  2282.53
+reflection             (1) |        started at 2026-11-28T18:07:47.731
+reflection             (1) |    13.54 |   0.11 |  0.8 |    1154.49 |  2282.53
+Compiler/inference     (1) |        started at 2026-11-28T18:08:01.267
+Compiler/inference     (1) |    77.11 |   1.45 |  1.9 |    4570.80 |  2282.53
+Compiler/invalidation  (1) |        started at 2026-11-28T18:09:18.378
+Compiler/invalidation  (1) |    22.31 |   0.08 |  0.4 |     575.47 |  2282.53
+Compiler/effects       (1) |        started at 2026-11-28T18:09:40.686
+Compiler/effects       (1) |     2.02 |   0.00 |  0.0 |     179.23 |  2282.53
+Compiler/verifytrim    (1) |        started at 2026-11-28T18:09:42.710
+Compiler/verifytrim    (1) |     2.42 |   0.03 |  1.1 |     231.46 |  2282.53
+facts                  (1) |        started at 2026-11-28T18:09:45.133
+facts                  (1) |     1.76 |   0.00 |  0.0 |      23.26 |  2282.53
+show                   (1) |        started at 2026-11-28T18:09:46.895
+show                   (1) |    25.97 |   0.29 |  1.1 |    2370.82 |  2282.53
+
+Test Summary: |    Pass  Broken    Total     Time
+  Overall     | 7828667      78  7828745  3m43.5s
+    SUCCESS
+exit 0
+== 1be9309da2 load 9.32 10.16 9.76 4/58854 553986 18:10:13
