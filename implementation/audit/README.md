@@ -232,5 +232,6 @@ under a `Vararg` in a method's signature (the walk's conservative path, C-88); i
 | 2026-11-23 | `w171c` 1d39e9e764, library mode | 551 | 4,062 (529); 96 crashes | stf 2,470, mrs 1,088, disp 156, hasm 146, app 134, which 68 | 20 | the lower-bound shapes' stores crash; the `field` shape's declaration refused (fixed in the tool) |
 | 2026-11-23 | `w171c` 20730dea1c | 557 | 0 (0) | — | 0 | library mode 0 of 185,352; image 0 of 1,409; closed 0 of 709; threads 131 to 319 wrong (`disp`, `app`) |
 | 2026-11-23 | `w171c` 0bbd759c13 (the head) | 557 | 0 (0) | — | 0 | 294 s; library mode 0 of 185,352 (371 s); image 0 of 1,409; closed 0 of 709; threads 0 wrong in 3 runs |
+| 2026-11-28 | `w171d` ba98f879c5 (merged into `next`) | 557 | 0 (0) | — | 0 | 299 s; library mode 0 of 185,352 (368 s); image 0 of 1,409; closed 0 of 709; threads 0 wrong in 3 runs; negative sites 53, 12 gated, 3 open (the opaque closure's site gated: C-170) |
 
 Logs: `../w171/logs/set-folds-<build>.log`; the patterns, their probes and fixes: `../w171/README.md`.

@@ -1,0 +1,332 @@
+# E-543 cost r4 | 2026-11-28T15:53:21+01:00 | load 3.26 4.07 4.09 | H ba98f879c5 (ba98f879c5*) | B 0bbd759c13 | TraitWorld 0f54043af4 | TDE 21a5aa57cf | product setting, strict mode off, one thread, idiomatic trait code (the ODE program's plain twin: plain code on the build)
+== warm-up lib H | rc 0 | load 3.26 4.07 4.09
+== warm-up lib B | rc 0 | load 3.26 4.07 4.09
+== warm-up ode H | rc 0 | load 3.50 4.04 4.08
+== warm-up ode B | rc 0 | load 3.46 4.02 4.07
+== warm-up ode-plain H | rc 0 | load 3.42 4.01 4.07
+== warm-up ode-plain B | rc 0 | load 3.39 3.99 4.06
+== warm-up calls H | rc 0 | load 3.30 3.94 4.04
+== warm-up calls B | rc 0 | load 3.23 3.89 4.03
+== warm-up pollu-box H | rc 0 | load 3.21 3.88 4.02
+== warm-up pollu-box B | rc 0 | load 3.20 3.86 4.02
+== warm-up pollu-compiled H | rc 0 | load 3.18 3.85 4.01
+== warm-up pollu-compiled B | rc 0 | load 3.16 3.84 4.00
+== run 1 lib H | rc 0 | load 3.16 3.84 4.00 -> 3.16 3.84 4.00
+R lib load_s 0.07318305969238281
+== run 1 lib B | rc 0 | load 3.16 3.84 4.00 -> 3.16 3.84 4.00
+R lib load_s 0.07286715507507324
+== run 1 ode H | rc 0 | load 3.16 3.84 4.00 -> 3.15 3.82 4.00
+START 1.795877705249696e9
+P	load	3398.89	compile 58.08	again 12.5	gc 95.25	alloc_mb 4459.94	gc_full 2	gc_n 145
+P	first run	352.04	compile 350.14	again 0.0	gc 8.53	alloc_mb 33.87	gc_full 0	gc_n 1
+P	second run	0.96	compile 0.0	again 0.0	gc 0.0	alloc_mb 0.5	gc_full 0	gc_n 0
+END 1.795877709189449e9
+== run 1 ode B | rc 0 | load 3.15 3.82 4.00 -> 3.14 3.81 3.99
+START 1.795877709401426e9
+P	load	3369.14	compile 58.21	again 12.62	gc 97.66	alloc_mb 4460.01	gc_full 2	gc_n 146
+P	first run	350.47	compile 348.67	again 0.0	gc 8.46	alloc_mb 33.89	gc_full 0	gc_n 1
+P	second run	0.96	compile 0.0	again 0.0	gc 0.0	alloc_mb 0.5	gc_full 0	gc_n 0
+END 1.795877713310464e9
+== run 1 ode-plain H | rc 0 | load 3.14 3.81 3.99 -> 3.14 3.81 3.99
+START 1.795877713518115e9
+P	load	181.17	compile 41.53	again 0.0	gc 0.0	alloc_mb 10.15	gc_full 0	gc_n 0
+P	first run	372.81	compile 369.6	again 0.0	gc 19.85	alloc_mb 48.23	gc_full 0	gc_n 1
+P	second run	0.75	compile 0.0	again 0.0	gc 0.0	alloc_mb 0.38	gc_full 0	gc_n 0
+END 1.795877714261168e9
+== run 1 ode-plain B | rc 0 | load 3.14 3.81 3.99 -> 3.14 3.81 3.99
+START 1.795877714466836e9
+P	load	185.8	compile 41.7	again 0.0	gc 0.0	alloc_mb 10.4	gc_full 0	gc_n 0
+P	first run	373.78	compile 370.37	again 0.0	gc 19.85	alloc_mb 48.18	gc_full 0	gc_n 1
+P	second run	0.74	compile 0.0	again 0.0	gc 0.0	alloc_mb 0.38	gc_full 0	gc_n 0
+END 1.795877715215729e9
+== run 1 calls H | rc 0 | load 3.14 3.81 3.99 -> 3.39 3.82 3.99
+| Row | Form | ns a call |
+|---|---|---|
+| 1 operation at a known type | trait | 0.79 |
+| 1 operation at a known type | plain | 0.79 |
+| 2 method at the trait, known type | trait | 0.79 |
+| 2 method at the trait, known type | plain | 0.79 |
+| 3 trait with a Dynamic default | trait, as it is (once) | 8.68 |
+| 3 trait with a Dynamic default | trait, compiled_for | 2.38 |
+| 3 trait with a Dynamic default | trait, a box held | 7.15 |
+| 3 trait with a Dynamic default | plain | 2.38 |
+| 4 element of a vector, two types | trait, Vector{Shape} | 2.87 |
+| 4 element of a vector, two types | plain, Vector{abstract} | 2.7 |
+| 4 element of a vector, two types | plain, Vector{Union} | 3.19 |
+| 4 element of a vector, two types | plain, Vector{Circle} (one type) | 2.28 |
+| 5 a field | trait, ::Dynamic{Shape} | 5.55 |
+| 5 a field | plain, ::abstract | 0.79 |
+| 6 a function argument | Callable, compiled_for(f) | 0.79 |
+| 6 a function argument | Callable, the default (boxed) | 25.6 |
+| 6 a function argument | Callable, a box held | 25.84 |
+| 6 a function argument | plain | 0.79 |
+== run 1 calls B | rc 0 | load 3.39 3.82 3.99 -> 3.30 3.78 3.98
+| Row | Form | ns a call |
+|---|---|---|
+| 1 operation at a known type | trait | 0.79 |
+| 1 operation at a known type | plain | 0.79 |
+| 2 method at the trait, known type | trait | 0.79 |
+| 2 method at the trait, known type | plain | 0.79 |
+| 3 trait with a Dynamic default | trait, as it is (once) | 8.62 |
+| 3 trait with a Dynamic default | trait, compiled_for | 2.38 |
+| 3 trait with a Dynamic default | trait, a box held | 7.15 |
+| 3 trait with a Dynamic default | plain | 2.38 |
+| 4 element of a vector, two types | trait, Vector{Shape} | 2.87 |
+| 4 element of a vector, two types | plain, Vector{abstract} | 2.7 |
+| 4 element of a vector, two types | plain, Vector{Union} | 3.19 |
+| 4 element of a vector, two types | plain, Vector{Circle} (one type) | 2.29 |
+| 5 a field | trait, ::Dynamic{Shape} | 5.56 |
+| 5 a field | plain, ::abstract | 0.79 |
+| 6 a function argument | Callable, compiled_for(f) | 0.79 |
+| 6 a function argument | Callable, the default (boxed) | 25.03 |
+| 6 a function argument | Callable, a box held | 25.03 |
+| 6 a function argument | plain | 0.79 |
+== run 1 pollu-box H | rc 0 | load 3.30 3.78 3.98 -> 3.36 3.78 3.98
+S port pollu cb0 box n=20 solve 1 0.655 ms 224816 bytes gc 0.0 ms
+S port pollu cb0 box n=20 solve 2 0.637 ms 222224 bytes gc 0.0 ms
+S port pollu cb0 box n=20 solve 3 0.583 ms 222224 bytes gc 0.0 ms
+S port pollu cb0 box n=20 solve 4 0.566 ms 222224 bytes gc 0.0 ms
+S port pollu cb0 box n=20 solve 5 0.574 ms 222224 bytes gc 0.0 ms
+S port pollu cb0 box n=20 solve 6 0.573 ms 222224 bytes gc 0.0 ms
+S port pollu cb0 box n=20 solve 7 0.565 ms 222224 bytes gc 0.0 ms
+R port pollu cb0 box n=20 | min 0.565 med 0.574 ms | alloc 0.212 MiB gc 0.0 ms per solve | naccept 59 nreject 0 nf 532 njac 59 nw 59 jaccalls 177 | pulses 0 | err 2.09e-9 | Success
+== run 1 pollu-box B | rc 0 | load 3.36 3.78 3.98 -> 3.89 3.89 4.01
+S port pollu cb0 box n=20 solve 1 0.644 ms 224816 bytes gc 0.0 ms
+S port pollu cb0 box n=20 solve 2 0.645 ms 222224 bytes gc 0.0 ms
+S port pollu cb0 box n=20 solve 3 0.593 ms 222224 bytes gc 0.0 ms
+S port pollu cb0 box n=20 solve 4 0.572 ms 222224 bytes gc 0.0 ms
+S port pollu cb0 box n=20 solve 5 0.567 ms 222224 bytes gc 0.0 ms
+S port pollu cb0 box n=20 solve 6 0.576 ms 222224 bytes gc 0.0 ms
+S port pollu cb0 box n=20 solve 7 0.572 ms 222224 bytes gc 0.0 ms
+R port pollu cb0 box n=20 | min 0.567 med 0.576 ms | alloc 0.212 MiB gc 0.0 ms per solve | naccept 59 nreject 0 nf 532 njac 59 nw 59 jaccalls 177 | pulses 0 | err 2.09e-9 | Success
+== run 1 pollu-compiled H | rc 0 | load 3.89 3.89 4.01 -> 3.98 3.91 4.02
+S port pollu cb0 compiled n=20 solve 1 0.624 ms 214512 bytes gc 0.0 ms
+S port pollu cb0 compiled n=20 solve 2 0.63 ms 211888 bytes gc 0.0 ms
+S port pollu cb0 compiled n=20 solve 3 0.556 ms 211888 bytes gc 0.0 ms
+S port pollu cb0 compiled n=20 solve 4 0.55 ms 211888 bytes gc 0.0 ms
+S port pollu cb0 compiled n=20 solve 5 0.544 ms 211888 bytes gc 0.0 ms
+S port pollu cb0 compiled n=20 solve 6 0.544 ms 211888 bytes gc 0.0 ms
+S port pollu cb0 compiled n=20 solve 7 0.548 ms 211888 bytes gc 0.0 ms
+R port pollu cb0 compiled n=20 | min 0.544 med 0.55 ms | alloc 0.202 MiB gc 0.0 ms per solve | naccept 59 nreject 0 nf 532 njac 59 nw 59 jaccalls 177 | pulses 0 | err 2.09e-9 | Success
+== run 1 pollu-compiled B | rc 0 | load 3.98 3.91 4.02 -> 4.06 3.93 4.02
+S port pollu cb0 compiled n=20 solve 1 0.665 ms 214480 bytes gc 0.0 ms
+S port pollu cb0 compiled n=20 solve 2 0.622 ms 211888 bytes gc 0.0 ms
+S port pollu cb0 compiled n=20 solve 3 0.571 ms 211888 bytes gc 0.0 ms
+S port pollu cb0 compiled n=20 solve 4 0.546 ms 211888 bytes gc 0.0 ms
+S port pollu cb0 compiled n=20 solve 5 0.546 ms 211888 bytes gc 0.0 ms
+S port pollu cb0 compiled n=20 solve 6 0.548 ms 211888 bytes gc 0.0 ms
+S port pollu cb0 compiled n=20 solve 7 0.543 ms 211888 bytes gc 0.0 ms
+R port pollu cb0 compiled n=20 | min 0.543 med 0.548 ms | alloc 0.202 MiB gc 0.0 ms per solve | naccept 59 nreject 0 nf 532 njac 59 nw 59 jaccalls 177 | pulses 0 | err 2.09e-9 | Success
+== run 2 lib H | rc 0 | load 4.06 3.93 4.02 -> 4.06 3.93 4.02
+R lib load_s 0.13579106330871582
+== run 2 lib B | rc 0 | load 4.06 3.93 4.02 -> 4.06 3.93 4.02
+R lib load_s 0.09317398071289062
+== run 2 ode H | rc 0 | load 4.06 3.93 4.02 -> 4.14 3.94 4.03
+START 1.795877770297535e9
+P	load	3620.65	compile 58.8	again 12.9	gc 116.87	alloc_mb 4459.82	gc_full 2	gc_n 145
+P	first run	363.11	compile 360.89	again 0.0	gc 8.75	alloc_mb 33.87	gc_full 0	gc_n 1
+P	second run	0.95	compile 0.0	again 0.0	gc 0.0	alloc_mb 0.5	gc_full 0	gc_n 0
+END 1.795877774494905e9
+== run 2 ode B | rc 0 | load 4.14 3.94 4.03 -> 4.13 3.94 4.03
+START 1.79587777490781e9
+P	load	3588.86	compile 59.29	again 13.38	gc 98.4	alloc_mb 4460.02	gc_full 2	gc_n 146
+P	first run	357.71	compile 355.57	again 0.0	gc 8.59	alloc_mb 33.89	gc_full 0	gc_n 1
+P	second run	0.96	compile 0.0	again 0.0	gc 0.0	alloc_mb 0.5	gc_full 0	gc_n 0
+END 1.795877779075238e9
+== run 2 ode-plain H | rc 0 | load 4.13 3.94 4.03 -> 4.60 4.04 4.06
+START 1.795877779484719e9
+P	load	367.01	compile 42.17	again 0.0	gc 0.0	alloc_mb 10.16	gc_full 0	gc_n 0
+P	first run	404.1	compile 400.43	again 0.0	gc 27.88	alloc_mb 48.24	gc_full 0	gc_n 1
+P	second run	0.79	compile 0.0	again 0.0	gc 0.0	alloc_mb 0.38	gc_full 0	gc_n 0
+END 1.795877780479652e9
+== run 2 ode-plain B | rc 0 | load 4.60 4.04 4.06 -> 4.60 4.04 4.06
+START 1.795877780773942e9
+P	load	342.72	compile 43.64	again 0.0	gc 0.0	alloc_mb 10.28	gc_full 0	gc_n 0
+P	first run	414.15	compile 409.73	again 0.0	gc 24.92	alloc_mb 48.17	gc_full 0	gc_n 1
+P	second run	0.87	compile 0.0	again 0.0	gc 0.0	alloc_mb 0.38	gc_full 0	gc_n 0
+END 1.795877781747082e9
+== run 2 calls H | rc 0 | load 4.60 4.04 4.06 -> 6.85 4.61 4.24
+| Row | Form | ns a call |
+|---|---|---|
+| 1 operation at a known type | trait | 0.79 |
+| 1 operation at a known type | plain | 0.79 |
+| 2 method at the trait, known type | trait | 0.79 |
+| 2 method at the trait, known type | plain | 0.79 |
+| 3 trait with a Dynamic default | trait, as it is (once) | 8.64 |
+| 3 trait with a Dynamic default | trait, compiled_for | 2.38 |
+| 3 trait with a Dynamic default | trait, a box held | 7.15 |
+| 3 trait with a Dynamic default | plain | 2.38 |
+| 4 element of a vector, two types | trait, Vector{Shape} | 2.87 |
+| 4 element of a vector, two types | plain, Vector{abstract} | 2.72 |
+| 4 element of a vector, two types | plain, Vector{Union} | 3.19 |
+| 4 element of a vector, two types | plain, Vector{Circle} (one type) | 2.29 |
+| 5 a field | trait, ::Dynamic{Shape} | 5.56 |
+| 5 a field | plain, ::abstract | 0.79 |
+| 6 a function argument | Callable, compiled_for(f) | 0.79 |
+| 6 a function argument | Callable, the default (boxed) | 24.03 |
+| 6 a function argument | Callable, a box held | 24.02 |
+| 6 a function argument | plain | 0.79 |
+== run 2 calls B | rc 0 | load 6.85 4.61 4.24 -> 6.00 4.53 4.22
+| Row | Form | ns a call |
+|---|---|---|
+| 1 operation at a known type | trait | 0.79 |
+| 1 operation at a known type | plain | 0.79 |
+| 2 method at the trait, known type | trait | 0.79 |
+| 2 method at the trait, known type | plain | 0.79 |
+| 3 trait with a Dynamic default | trait, as it is (once) | 8.58 |
+| 3 trait with a Dynamic default | trait, compiled_for | 2.38 |
+| 3 trait with a Dynamic default | trait, a box held | 7.15 |
+| 3 trait with a Dynamic default | plain | 2.38 |
+| 4 element of a vector, two types | trait, Vector{Shape} | 2.86 |
+| 4 element of a vector, two types | plain, Vector{abstract} | 2.7 |
+| 4 element of a vector, two types | plain, Vector{Union} | 3.19 |
+| 4 element of a vector, two types | plain, Vector{Circle} (one type) | 2.34 |
+| 5 a field | trait, ::Dynamic{Shape} | 5.57 |
+| 5 a field | plain, ::abstract | 0.79 |
+| 6 a function argument | Callable, compiled_for(f) | 0.79 |
+| 6 a function argument | Callable, the default (boxed) | 24.9 |
+| 6 a function argument | Callable, a box held | 24.89 |
+| 6 a function argument | plain | 0.79 |
+== run 2 pollu-box H | rc 0 | load 6.00 4.53 4.22 -> 5.75 4.50 4.22
+S port pollu cb0 box n=20 solve 1 0.644 ms 224816 bytes gc 0.0 ms
+S port pollu cb0 box n=20 solve 2 0.641 ms 222224 bytes gc 0.0 ms
+S port pollu cb0 box n=20 solve 3 0.598 ms 222224 bytes gc 0.0 ms
+S port pollu cb0 box n=20 solve 4 0.568 ms 222224 bytes gc 0.0 ms
+S port pollu cb0 box n=20 solve 5 0.571 ms 222224 bytes gc 0.0 ms
+S port pollu cb0 box n=20 solve 6 0.574 ms 222224 bytes gc 0.0 ms
+S port pollu cb0 box n=20 solve 7 0.567 ms 222224 bytes gc 0.0 ms
+R port pollu cb0 box n=20 | min 0.567 med 0.574 ms | alloc 0.212 MiB gc 0.0 ms per solve | naccept 59 nreject 0 nf 532 njac 59 nw 59 jaccalls 177 | pulses 0 | err 2.09e-9 | Success
+== run 2 pollu-box B | rc 0 | load 5.75 4.50 4.22 -> 5.53 4.48 4.21
+S port pollu cb0 box n=20 solve 1 0.621 ms 224816 bytes gc 0.0 ms
+S port pollu cb0 box n=20 solve 2 0.63 ms 222224 bytes gc 0.0 ms
+S port pollu cb0 box n=20 solve 3 0.589 ms 222224 bytes gc 0.0 ms
+S port pollu cb0 box n=20 solve 4 0.565 ms 222224 bytes gc 0.0 ms
+S port pollu cb0 box n=20 solve 5 0.568 ms 222224 bytes gc 0.0 ms
+S port pollu cb0 box n=20 solve 6 0.588 ms 222224 bytes gc 0.0 ms
+S port pollu cb0 box n=20 solve 7 0.562 ms 222224 bytes gc 0.0 ms
+R port pollu cb0 box n=20 | min 0.562 med 0.588 ms | alloc 0.212 MiB gc 0.0 ms per solve | naccept 59 nreject 0 nf 532 njac 59 nw 59 jaccalls 177 | pulses 0 | err 2.09e-9 | Success
+== run 2 pollu-compiled H | rc 0 | load 5.53 4.48 4.21 -> 5.33 4.45 4.20
+S port pollu cb0 compiled n=20 solve 1 0.614 ms 214480 bytes gc 0.0 ms
+S port pollu cb0 compiled n=20 solve 2 0.646 ms 211888 bytes gc 0.0 ms
+S port pollu cb0 compiled n=20 solve 3 0.556 ms 211888 bytes gc 0.0 ms
+S port pollu cb0 compiled n=20 solve 4 0.546 ms 211888 bytes gc 0.0 ms
+S port pollu cb0 compiled n=20 solve 5 0.539 ms 211888 bytes gc 0.0 ms
+S port pollu cb0 compiled n=20 solve 6 0.547 ms 211888 bytes gc 0.0 ms
+S port pollu cb0 compiled n=20 solve 7 0.549 ms 211888 bytes gc 0.0 ms
+R port pollu cb0 compiled n=20 | min 0.539 med 0.549 ms | alloc 0.202 MiB gc 0.0 ms per solve | naccept 59 nreject 0 nf 532 njac 59 nw 59 jaccalls 177 | pulses 0 | err 2.09e-9 | Success
+== run 2 pollu-compiled B | rc 0 | load 5.33 4.45 4.20 -> 5.14 4.43 4.20
+S port pollu cb0 compiled n=20 solve 1 0.618 ms 214480 bytes gc 0.0 ms
+S port pollu cb0 compiled n=20 solve 2 0.626 ms 211888 bytes gc 0.0 ms
+S port pollu cb0 compiled n=20 solve 3 0.564 ms 211888 bytes gc 0.0 ms
+S port pollu cb0 compiled n=20 solve 4 0.545 ms 211888 bytes gc 0.0 ms
+S port pollu cb0 compiled n=20 solve 5 0.538 ms 211888 bytes gc 0.0 ms
+S port pollu cb0 compiled n=20 solve 6 0.541 ms 211888 bytes gc 0.0 ms
+S port pollu cb0 compiled n=20 solve 7 0.553 ms 211888 bytes gc 0.0 ms
+R port pollu cb0 compiled n=20 | min 0.538 med 0.553 ms | alloc 0.202 MiB gc 0.0 ms per solve | naccept 59 nreject 0 nf 532 njac 59 nw 59 jaccalls 177 | pulses 0 | err 2.09e-9 | Success
+== run 3 lib H | rc 0 | load 5.14 4.43 4.20 -> 4.97 4.40 4.19
+R lib load_s 0.07638907432556152
+== run 3 lib B | rc 0 | load 4.97 4.40 4.19 -> 4.97 4.40 4.19
+R lib load_s 0.07356619834899902
+== run 3 ode H | rc 0 | load 4.97 4.40 4.19 -> 4.97 4.40 4.19
+START 1.795877836117267e9
+P	load	3392.61	compile 57.92	again 12.39	gc 99.63	alloc_mb 4459.95	gc_full 2	gc_n 145
+P	first run	350.7	compile 348.77	again 0.0	gc 8.69	alloc_mb 33.87	gc_full 0	gc_n 1
+P	second run	0.95	compile 0.0	again 0.0	gc 0.0	alloc_mb 0.5	gc_full 0	gc_n 0
+END 1.795877840049719e9
+== run 3 ode B | rc 0 | load 4.97 4.40 4.19 -> 4.81 4.38 4.18
+START 1.795877840257702e9
+P	load	3333.69	compile 58.23	again 12.58	gc 96.53	alloc_mb 4460.01	gc_full 2	gc_n 146
+P	first run	350.44	compile 348.55	again 0.0	gc 8.38	alloc_mb 33.89	gc_full 0	gc_n 1
+P	second run	1.06	compile 0.0	again 0.0	gc 0.0	alloc_mb 0.5	gc_full 0	gc_n 0
+END 1.79587784413176e9
+== run 3 ode-plain H | rc 0 | load 4.81 4.38 4.18 -> 4.81 4.38 4.18
+START 1.795877844334158e9
+P	load	198.17	compile 41.56	again 0.0	gc 0.0	alloc_mb 10.16	gc_full 0	gc_n 0
+P	first run	373.78	compile 370.38	again 0.0	gc 20.11	alloc_mb 48.23	gc_full 0	gc_n 1
+P	second run	0.75	compile 0.0	again 0.0	gc 0.0	alloc_mb 0.38	gc_full 0	gc_n 0
+END 1.795877845095593e9
+== run 3 ode-plain B | rc 0 | load 4.81 4.38 4.18 -> 4.67 4.36 4.18
+START 1.795877845303137e9
+P	load	187.88	compile 41.56	again 0.0	gc 0.0	alloc_mb 10.4	gc_full 0	gc_n 0
+P	first run	374.39	compile 370.91	again 0.0	gc 19.82	alloc_mb 48.18	gc_full 0	gc_n 1
+P	second run	0.77	compile 0.0	again 0.0	gc 0.0	alloc_mb 0.38	gc_full 0	gc_n 0
+END 1.795877846054992e9
+== run 3 calls H | rc 0 | load 4.67 4.36 4.18 -> 4.37 4.30 4.16
+| Row | Form | ns a call |
+|---|---|---|
+| 1 operation at a known type | trait | 0.79 |
+| 1 operation at a known type | plain | 0.79 |
+| 2 method at the trait, known type | trait | 0.79 |
+| 2 method at the trait, known type | plain | 0.79 |
+| 3 trait with a Dynamic default | trait, as it is (once) | 8.69 |
+| 3 trait with a Dynamic default | trait, compiled_for | 2.38 |
+| 3 trait with a Dynamic default | trait, a box held | 7.15 |
+| 3 trait with a Dynamic default | plain | 2.38 |
+| 4 element of a vector, two types | trait, Vector{Shape} | 2.87 |
+| 4 element of a vector, two types | plain, Vector{abstract} | 2.7 |
+| 4 element of a vector, two types | plain, Vector{Union} | 3.19 |
+| 4 element of a vector, two types | plain, Vector{Circle} (one type) | 2.28 |
+| 5 a field | trait, ::Dynamic{Shape} | 5.56 |
+| 5 a field | plain, ::abstract | 0.79 |
+| 6 a function argument | Callable, compiled_for(f) | 0.79 |
+| 6 a function argument | Callable, the default (boxed) | 24.16 |
+| 6 a function argument | Callable, a box held | 24.17 |
+| 6 a function argument | plain | 0.79 |
+== run 3 calls B | rc 0 | load 4.37 4.30 4.16 -> 4.22 4.27 4.15
+| Row | Form | ns a call |
+|---|---|---|
+| 1 operation at a known type | trait | 0.79 |
+| 1 operation at a known type | plain | 0.79 |
+| 2 method at the trait, known type | trait | 0.79 |
+| 2 method at the trait, known type | plain | 0.79 |
+| 3 trait with a Dynamic default | trait, as it is (once) | 8.78 |
+| 3 trait with a Dynamic default | trait, compiled_for | 2.38 |
+| 3 trait with a Dynamic default | trait, a box held | 7.15 |
+| 3 trait with a Dynamic default | plain | 2.38 |
+| 4 element of a vector, two types | trait, Vector{Shape} | 2.86 |
+| 4 element of a vector, two types | plain, Vector{abstract} | 2.7 |
+| 4 element of a vector, two types | plain, Vector{Union} | 3.19 |
+| 4 element of a vector, two types | plain, Vector{Circle} (one type) | 2.34 |
+| 5 a field | trait, ::Dynamic{Shape} | 5.56 |
+| 5 a field | plain, ::abstract | 0.79 |
+| 6 a function argument | Callable, compiled_for(f) | 0.79 |
+| 6 a function argument | Callable, the default (boxed) | 24.98 |
+| 6 a function argument | Callable, a box held | 24.99 |
+| 6 a function argument | plain | 0.79 |
+== run 3 pollu-box H | rc 0 | load 4.22 4.27 4.15 -> 4.12 4.25 4.15
+S port pollu cb0 box n=20 solve 1 0.638 ms 224816 bytes gc 0.0 ms
+S port pollu cb0 box n=20 solve 2 0.639 ms 222224 bytes gc 0.0 ms
+S port pollu cb0 box n=20 solve 3 0.582 ms 222224 bytes gc 0.0 ms
+S port pollu cb0 box n=20 solve 4 0.569 ms 222224 bytes gc 0.0 ms
+S port pollu cb0 box n=20 solve 5 0.568 ms 222224 bytes gc 0.0 ms
+S port pollu cb0 box n=20 solve 6 0.57 ms 222224 bytes gc 0.0 ms
+S port pollu cb0 box n=20 solve 7 0.566 ms 222224 bytes gc 0.0 ms
+R port pollu cb0 box n=20 | min 0.566 med 0.57 ms | alloc 0.212 MiB gc 0.0 ms per solve | naccept 59 nreject 0 nf 532 njac 59 nw 59 jaccalls 177 | pulses 0 | err 2.09e-9 | Success
+== run 3 pollu-box B | rc 0 | load 4.12 4.25 4.15 -> 4.11 4.25 4.15
+S port pollu cb0 box n=20 solve 1 0.617 ms 224816 bytes gc 0.0 ms
+S port pollu cb0 box n=20 solve 2 0.652 ms 222224 bytes gc 0.0 ms
+S port pollu cb0 box n=20 solve 3 0.589 ms 222224 bytes gc 0.0 ms
+S port pollu cb0 box n=20 solve 4 0.566 ms 222224 bytes gc 0.0 ms
+S port pollu cb0 box n=20 solve 5 0.57 ms 222224 bytes gc 0.0 ms
+S port pollu cb0 box n=20 solve 6 0.569 ms 222224 bytes gc 0.0 ms
+S port pollu cb0 box n=20 solve 7 0.563 ms 222224 bytes gc 0.0 ms
+R port pollu cb0 box n=20 | min 0.563 med 0.57 ms | alloc 0.212 MiB gc 0.0 ms per solve | naccept 59 nreject 0 nf 532 njac 59 nw 59 jaccalls 177 | pulses 0 | err 2.09e-9 | Success
+== run 3 pollu-compiled H | rc 0 | load 4.11 4.25 4.15 -> 4.02 4.23 4.14
+S port pollu cb0 compiled n=20 solve 1 0.865 ms 214480 bytes gc 0.0 ms
+S port pollu cb0 compiled n=20 solve 2 0.883 ms 211888 bytes gc 0.0 ms
+S port pollu cb0 compiled n=20 solve 3 0.807 ms 211888 bytes gc 0.0 ms
+S port pollu cb0 compiled n=20 solve 4 0.794 ms 211888 bytes gc 0.0 ms
+S port pollu cb0 compiled n=20 solve 5 0.792 ms 211888 bytes gc 0.0 ms
+S port pollu cb0 compiled n=20 solve 6 0.797 ms 211888 bytes gc 0.0 ms
+S port pollu cb0 compiled n=20 solve 7 0.79 ms 211888 bytes gc 0.0 ms
+R port pollu cb0 compiled n=20 | min 0.79 med 0.797 ms | alloc 0.202 MiB gc 0.0 ms per solve | naccept 59 nreject 0 nf 532 njac 59 nw 59 jaccalls 177 | pulses 0 | err 2.09e-9 | Success
+== run 3 pollu-compiled B | rc 0 | load 4.02 4.23 4.14 -> 3.94 4.21 4.13
+S port pollu cb0 compiled n=20 solve 1 0.623 ms 214480 bytes gc 0.0 ms
+S port pollu cb0 compiled n=20 solve 2 0.619 ms 211888 bytes gc 0.0 ms
+S port pollu cb0 compiled n=20 solve 3 0.563 ms 211888 bytes gc 0.0 ms
+S port pollu cb0 compiled n=20 solve 4 0.544 ms 211888 bytes gc 0.0 ms
+S port pollu cb0 compiled n=20 solve 5 0.549 ms 211888 bytes gc 0.0 ms
+S port pollu cb0 compiled n=20 solve 6 0.543 ms 211888 bytes gc 0.0 ms
+S port pollu cb0 compiled n=20 solve 7 0.542 ms 211888 bytes gc 0.0 ms
+R port pollu cb0 compiled n=20 | min 0.542 med 0.549 ms | alloc 0.202 MiB gc 0.0 ms per solve | naccept 59 nreject 0 nf 532 njac 59 nw 59 jaccalls 177 | pulses 0 | err 2.09e-9 | Success
+# done 2026-11-28T15:58:18+01:00 | load 3.94 4.21 4.13

@@ -1,0 +1,40 @@
+Running parallel tests with:
+  getpid() = 255559
+  nworkers() = 4
+  nthreads(:interactive) = 1
+  nthreads(:default) = 4
+  Sys.CPU_THREADS = 4
+  Sys.total_memory() = 754.783 GiB
+  Sys.free_memory() = 642.654 GiB
+  Sys.uptime() = 2.06880508e6 (574.7 hours)
+
+Test              (Worker) | Time (s) | GC (s) | GC % | Alloc (MB) | RSS (MB)
+worlds                 (4) |        started at 2026-11-28T15:45:09.973
+core                   (5) |        started at 2026-11-28T15:45:10.077
+ambiguous              (2) |        started at 2026-11-28T15:45:10.115
+subtype                (3) |        started at 2026-11-28T15:45:10.119
+ambiguous              (2) |     2.05 |   0.02 |  0.9 |     134.19 |   335.82
+worlds                 (4) |     2.20 |   0.02 |  0.7 |     122.76 |   316.04
+reflection             (2) |        started at 2026-11-28T15:45:12.510
+opaque_closure         (4) |        started at 2026-11-28T15:45:12.510
+opaque_closure         (4) |     3.53 |   0.06 |  1.8 |     257.79 |   355.16
+Compiler/inference     (4) |        started at 2026-11-28T15:45:16.043
+reflection             (2) |     5.21 |   0.06 |  1.2 |     522.32 |   344.41
+Compiler/inline        (2) |        started at 2026-11-28T15:45:17.719
+subtype                (3) |     9.91 |   0.18 |  1.9 |    1016.29 |   669.64
+Compiler/ssair         (3) |        started at 2026-11-28T15:45:20.144
+Compiler/ssair         (3) |     5.14 |   0.04 |  0.7 |     399.42 |   669.64
+Compiler/irpasses      (3) |        started at 2026-11-28T15:45:25.282
+Compiler/irpasses      (3) |     7.21 |   0.06 |  0.9 |     503.90 |   669.64
+Compiler/effects       (3) |        started at 2026-11-28T15:45:32.492
+Compiler/effects       (3) |     2.28 |   0.01 |  0.6 |     203.91 |   669.64
+Compiler/invalidation  (3) |        started at 2026-11-28T15:45:34.774
+Compiler/invalidation  (3) |    25.13 |   0.34 |  1.3 |    1442.47 |   723.10
+core                   (5) |    60.62 |   2.50 |  4.1 |   12648.51 |  2177.28
+Compiler/inference     (4) |    77.85 |   1.03 |  1.3 |    4589.34 |   671.29
+Compiler/inline        (2) |    88.62 |   0.41 |  0.5 |    1621.77 |   538.45
+
+Test Summary: |    Pass  Broken    Total     Time
+  Overall     | 7676040      85  7676125  1m39.6s
+    SUCCESS
+EXIT 0

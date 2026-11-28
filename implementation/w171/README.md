@@ -376,3 +376,43 @@ closure's body at the non-member, so the call ran with no test (`called` before 
    in a quiet hour; and, for the 25 ms before row 184, a timing of `wt/w158-julia` (row 181) beside P and vanilla.
 6. The record: E-545's outcome, C-168 to C-170 retired (with commits 1, 2, 5) once their gates pass, the inventory's rows
    204 to 208, GT-9's lines (rows 184 to 203: about 1 % of a plain load's samples, half of it removed by commits 3, 4).
+
+### Checks of `w171d` ba98f879c5 (the main session, 2026-11-28)
+
+The handover's steps 1 to 5, in the main session, on the build left in `wt/w171-julia` (load 2–7 of 128 cores).
+- **The new gates** (`logs/gates-n56-n58-ba98f879c5.log`): `n56`, `n57` (with `--project=TraitWorld`, as its header
+  says), `n58` pass on ba98f879c5 (`n56`: 153,826 checks, 0 wrong). On `next` 0bbd759c13 each fails as expected:
+  `n56` 13,493 wrong of 91,850; `n57` the replays list `tag` at `D` only; `n58` "Unreachable reached".
+- **The gates in force:** 94 passed, 0 failed; the stage gates 9 (`logs/gates-all-ba98f879c5.log`).
+- **TraitWorld's tests as a file:** 120 test sets, no failure (`logs/traitworld-tests-ba98f879c5.log`).
+- **Base's and the compiler's tests** (`subtype`, `worlds`, `core`, `ambiguous`, `reflection`, `opaque_closure`,
+  `Compiler/inference`, `inline`, `ssair`, `irpasses`, `effects`, `invalidation`): 7,676,040 pass, 85 broken,
+  SUCCESS (`logs/base-tests-ba98f879c5.log`).
+- **The set-folds report in five modes** (`../audit/logs/*-ba98f879c5.log`): the first 0 of 189,704 checks (557
+  cases); the library's 0 of 185,352; images 0 of 1,409; a closed build 0 of 709 answers; threads 0 wrong in three
+  runs of 1,000 rounds. **The negative-sites report:** 53 sites, 12 gated, 38 against a constant type, 3 open (the
+  opaque closure's site now gated; the two of a closed build and `ccall`'s pointer argument remain).
+- **Trait code's cells** (`cost/logs/cost-r4.log`; H ba98f879c5, B `next` 0bbd759c13, agent depot `w171d`, a warm-up
+  and 3 runs interleaved): the library's load 73–76 ms on both (one run 136 against 93); the ODE program's load
+  3,393–3,621 against 3,334–3,589 ms, its first run 351–363 against 350–358 ms, the plain twin equal; the calls through
+  a trait equal to 0.1 ns; POLLU boxed 0.565–0.567 against 0.562–0.567 ms. One run of POLLU compiled on H took 0.79 ms
+  (its minimum of 20 solves; the other two 0.539–0.544): a process slow throughout, not repeated.
+- **Plain code's cost by part** (`cost/logs/plain-r4.log`, `prof-r4-*`, `auditfns-r4-noN1.log`; V vanilla, H
+  `next` 0bbd759c13, N ba98f879c5; a warm-up and 5 runs, then 5 profiles each; load 3.5–5.3):
+  - **The load's wall time is not usable today:** 1,100–1,240 ms for every build where r1 measured 640–675 (the file
+    system was slow; one profile of N's load stalled for 94 s and is left out). The first work: V 4,433–4,460, H
+    4,458–4,652, N 4,449–4,491 ms; digests equal. No difference between H and N is resolved.
+  - **The profile repeats r1 to r3:** the audit's functions on a plain load, mean samples of about 8,400 per profile:
+    H about 96 (`lower_bounds_have_memberships` 49, `method_in_interferences` 24, `sig_has_open_set` 12, `has_key` 8
+    over V's, `jl_sig_lower_bounds` 4), N about 46 (`jl_method_sig_lower_bounds` 24, `jl_sig_lower_bounds` 8,
+    `sig_has_open_set` 8, `listed_interference_holds` 6). Commits 3 and 4 halve the rows' share of the load, 1.1 % to
+    0.5 %. The first work: about 30 samples of 48,000 on either.
+- **Not done:** a timing of `wt/w158-julia` beside P and vanilla for the 25 ms before row 184: the load's wall time
+  cannot resolve it on this file system today. The question stays in GT-9.
+
+**Merged into `next`** (fast-forward to ba98f879c5). The gates `n56` to `n58` move into `gates/`.
+
+**After the merge** (`next` ba98f879c5, built; the main session): the gates 97 (with `n56` to `n58`) and the stage
+gates 9 (`logs/gates-all-next-ba98f879c5.log`); the library's 120 test sets; the examples 33, 129 and 10; the ODE
+port's suite and NetworkDynamics' subset as before, with its known failures (`../w160/logs/w171d-merge-*`); the four
+trimmed programs 0 errors, each output equal to a session's, the PNGs equal (`../w158/logs/m-builds-w171d-merge.log`).

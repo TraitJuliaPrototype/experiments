@@ -1,0 +1,58 @@
+== wt/w171-julia n56_image_activation_order
+image_thread_race: 40 images, 153826 checks, 0 wrong, of them kept when asked again: 0; after the loads every caller answers :X: true
+image_thread_race: Julia ba98f879c5*, NH 200, 14.3 s
+n56_image_activation_order: OK
+exit 0
+== wt/w171-julia n57_pirate_kept_form
+    @ Base ./Base.jl:318
+ [10] exec_options(opts::Base.JLOptions)
+    @ Base ./client.jl:344
+ [11] _start()
+    @ Base ./client.jl:577
+in expression starting at /p/projects/coen/julia-trait-bound/experiments/implementation/w171/gates/n57_pirate_kept_form.jl:8
+exit 1
+== wt/w171-julia n58_opaque_closure_set
+n58_opaque_closure_set: OK
+exit 0
+== julia-next n56_image_activation_order
+   @ Base ./Base.jl:318
+ [3] exec_options(opts::Base.JLOptions)
+   @ Base ./client.jl:344
+ [4] _start()
+   @ Base ./client.jl:577
+in expression starting at /p/projects/coen/julia-trait-bound/experiments/implementation/w171/gates/n56_image_activation_order.jl:13
+exit 1
+== julia-next n57_pirate_kept_form
+    @ Base ./Base.jl:318
+ [10] exec_options(opts::Base.JLOptions)
+    @ Base ./client.jl:344
+ [11] _start()
+    @ Base ./client.jl:577
+in expression starting at /p/projects/coen/julia-trait-bound/experiments/implementation/w171/gates/n57_pirate_kept_form.jl:8
+exit 1
+== julia-next n58_opaque_closure_set
+   @ Base ./Base.jl:318
+ [3] exec_options(opts::Base.JLOptions)
+   @ Base ./client.jl:344
+ [4] _start()
+   @ Base ./client.jl:577
+in expression starting at /p/projects/coen/julia-trait-bound/experiments/implementation/w171/gates/n58_opaque_closure_set.jl:23
+exit 1
+== wt/w171-julia n57 (project TraitWorld)
+n57_pirate_kept_form: OK
+exit 0
+== julia-next n57 (project TraitWorld)
+ERROR: LoadError: AssertionError: the replays at the kept form: DataType[Tuple{typeof(Main.PT57.tag), Main.PY57.D}]
+Stacktrace:
+in expression starting at /p/projects/coen/julia-trait-bound/experiments/implementation/w171/gates/n57_pirate_kept_form.jl:40
+exit 1
+== julia-next n56_image_activation_order
+image_thread_race: 40 images, 91850 checks, 13493 wrong, of them kept when asked again: 0; after the loads every caller answers :X: true, e.g. (0x0000000000009bba, 1, :Any, :X), in 19 worlds
+image_thread_race: Julia 0bbd759c13*, NH 200, 15.7 s
+ERROR: LoadError: AssertionError: wrong answers while images load: image_thread_race: 40 images, 91850 checks, 13493 wrong, of them kept when asked again: 0; after the loads every caller answers :X: true, e.g. (0x0000000000009bba, 1, :Any, :X), in 19 worlds
+image_thread_race: Julia 0bbd759c13*, NH 200, 15.7 s
+== julia-next n58_opaque_closure_set
+ERROR: LoadError: AssertionError: the caller compiled before the membership: Unreachable reached at 0x7f537864e9bb
+
+in expression starting at none:8
+f at ./none:4
